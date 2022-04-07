@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-04 22:17+0100\n"
-"PO-Revision-Date: 2021-10-12 15:52+0300\n"
+"POT-Creation-Date: 2022-04-03 10:04+0100\n"
+"PO-Revision-Date: 2022-04-06 06:50+0300\n"
 "Last-Translator: Iliya Nikolaev <iliya.nikolaev@gmail.com>\n"
 "Language-Team: Bulgarian <iliya.nikolaev@gmail.com>\n"
 "Language: bg\n"
@@ -17,89 +17,104 @@ msgstr ""
 "X-Source-Language: C\n"
 "X-Generator: Poedit 3.0\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:481
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:500
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr ""
 "Предупреждение: Едно или няколко изображения бяха намалени, за да се поберат "
 "в страницата"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:208
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:261
 msgid "To WebSite"
 msgstr "Уеб сайт"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:60
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:212
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:265
 msgid "To File"
 msgstr "Към Файл"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:75
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:214
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:267
 msgid "To Folder"
 msgstr "Към папка"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:90
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:210
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:263
 msgid "To Node"
 msgstr "Към клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:122
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:126
 msgid "Anchor Name (optional)"
 msgstr "Име на котвата (по желание)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:242
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:657
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:678
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
 msgid "No Node is Selected"
 msgstr "Няма избран клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:257
 msgid "There are No Anchors in the Selected Node"
 msgstr "Избраният клон няма котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:264
 msgid "Choose Existing Anchor"
 msgstr "Изберете съществуваща котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:264
 msgid "Anchor Name"
 msgstr "Име на котвата"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:105
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:244
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Шаблонът '% s 'не е намерен"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:138
 msgid "Index"
 msgstr "Съдържание"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:392
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:416
 msgid "Print CherryTree version"
 msgstr "Изход от CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:393
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:417
 msgid "Node name to focus"
 msgstr "Име на клон на фокус"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:394
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:418
 msgid "Export to HTML at specified directory path"
 msgstr "Експорт в HTML в зададена папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:395
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:419
 msgid "Export to Text at specified directory path"
 msgstr "Експорт като текст в зададена папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:396
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:420
 msgid "Export to PDF at specified directory path"
 msgstr "Експорт в PDF в зададена папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:397
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:421
 msgid "Overwrite if export path already exists"
 msgstr "Презапис, ако пътят за експорт вече съществува"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:398
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:422
 msgid "Export to a single file (for HTML or TXT)"
 msgstr "Експорт в един файл (HTML или TXT)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:399
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:423
+msgid "Password to open document"
+msgstr "Парола за отваряне на документа"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:424
 msgid "Create a new window"
 msgstr "Създай нов прозорец"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:425
+msgid "Run in secondary session, independent from main session"
+msgstr "Пусни във втора сесия, независима от главната"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:97
@@ -109,12 +124,13 @@ msgid "CherryTree Document"
 msgstr "CherryTree документ"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:298
 msgid "Preferences File"
 msgstr "Файлови настроики"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:287
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:365
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Промените ще влязат в сила след рестартиране на CherryTree"
 
@@ -123,17 +139,16 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "Йерархичен бележник CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:420
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:452
 msgid "Show/Hide _CherryTree"
 msgstr "Покажи / Скрий _CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:421
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:453
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Покажи / Скрий CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:169
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:98
 msgid "_Exit CherryTree"
 msgstr "Изход от CherryTree"
 
@@ -156,7 +171,7 @@ msgstr "Вмъкване"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:44
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:70
-msgid "_Format"
+msgid "F_ormat"
 msgstr "Форматиране"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:45
@@ -164,8 +179,8 @@ msgid "_Tree"
 msgstr "Дърво"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:46
-msgid "_Tools"
-msgstr "Панел с инструменти"
+msgid "Too_ls"
+msgstr "Инструменти"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:47
 msgid "_Search"
@@ -176,7 +191,6 @@ msgid "_View"
 msgstr "Изглед"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:55
 msgid "_Bookmarks"
 msgstr "Отметки"
 
@@ -189,8 +203,12 @@ msgid "Node _Move"
 msgstr "Преместване на клон"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:54
-msgid "Nodes _Sort"
-msgstr "Сортиране"
+msgid "Nod_es Sort"
+msgstr "Сортиране на възлите"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:55
+msgid "B_ookmarks"
+msgstr "Отметки"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:56
 msgid "_Import"
@@ -210,7 +228,7 @@ msgid "_Recent Documents"
 msgstr "Скорошни документи"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:60
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:548
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:564
 msgid "Open a Recent CherryTree Document"
 msgstr "Отвори скорошен документ на CherryTree"
 
@@ -219,7 +237,7 @@ msgid "C_hange Case"
 msgstr "Промяна регистър на символите"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:62
-msgid "_List"
+msgid "L_ist"
 msgstr "Списък"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:63
@@ -227,8 +245,8 @@ msgid "_Justify"
 msgstr "Подравняване"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:64
-msgid "_Toggle Font Property"
-msgstr "Превключване на шрифт"
+msgid "Toggle _Font Property"
+msgstr "Превключване свойства на шрифт"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:65
 msgid "_Toggle Heading Property"
@@ -247,15 +265,15 @@ msgid "_Replace"
 msgstr "Заместване"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:69
-msgid "_Row"
-msgstr "Ред"
+msgid "Ro_w"
+msgstr "Редове"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:73
 msgid "File"
 msgstr "Файл"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:74
-msgid "New _Instance"
+msgid "_New Instance"
 msgstr "Нова инстанция"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:75
@@ -263,7 +281,7 @@ msgid "Start a New Instance of CherryTree"
 msgstr "Отвори нова инстанция на CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:402
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:424
 msgid "_Open File"
 msgstr "Отвори файл"
 
@@ -289,12 +307,12 @@ msgid "Save File and Vacuum"
 msgstr "Съхрани файла и компресирай"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:82
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:400
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:422
 msgid "Save _As"
 msgstr "Запис като"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:83
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:401
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:423
 msgid "Save File As"
 msgstr "Запис на файл като"
 
@@ -307,8 +325,8 @@ msgid "Set up the Page for Printing"
 msgstr "Настройка на страницата за печат"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:86
-msgid "_Print"
-msgstr "_Печат"
+msgid "P_rint"
+msgstr "Печат"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:87
 msgid "Print"
@@ -336,22 +354,27 @@ msgid "Export Preferences"
 msgstr "Експорт на настройки"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:94
-msgid "Tree _Info"
+msgid "Tree In_fo"
 msgstr "Информация за дървото"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:95
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:465
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:470
 msgid "Tree Summary Information"
 msgstr "Сумарна информация за дървото"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:96
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:576
 msgid "_Quit"
 msgstr "Изход"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:97
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:561
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:577
 msgid "Quit the Application"
 msgstr "Изход от програмата"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:98
+msgid "E_xit CherryTree"
+msgstr "Изход от CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:101
 msgid "Edit/Insert"
@@ -382,531 +405,561 @@ msgid "Insert an Image"
 msgstr "Вмъкване на изображение"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:108
+msgid "Insert Late_x"
+msgstr "Вмъкване на Late_x"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:109
+msgid "Insert LatexBox"
+msgstr "Вмъкване на Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:110
 msgid "Insert _Table"
 msgstr "Вмъкване на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:109
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Insert a Table"
 msgstr "Вмъкване на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:110
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:112
 msgid "Insert _CodeBox"
 msgstr "Вмъкване на блок с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:111
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:161
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:166
 msgid "Insert a CodeBox"
 msgstr "Вмъкване на кодов блок"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:112
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:114
 msgid "Insert _File"
 msgstr "Вмъкване на файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:115
 msgid "Insert File"
 msgstr "Вмъкване на файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:114
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:116
 msgid "Insert/Edit _Link"
 msgstr "Вмъкване / редактиране на връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:115
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:117
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Вмъкване / редактиране на връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:116
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:118
 msgid "Insert _Anchor"
 msgstr "Вмъкване на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:117
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:119
 msgid "Insert an Anchor"
 msgstr "Вмъкване на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:118
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:120
 msgid "Insert T_OC"
 msgstr "Вмъкване на заглавия на съдържание"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:119
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:121
 msgid "Insert Table of Contents"
 msgstr "Вмъкване на съдържание"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:120
-msgid "Insert Ti_mestamp"
-msgstr "Вмъкване на дата"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:122
+msgid "Insert Timestam_p"
+msgstr "Вмъкване на времеви печат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:121
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:123
 msgid "Insert Timestamp"
 msgstr "Вмъкване на дата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:122
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:124
 msgid "Insert _Special Character"
 msgstr "Вмъкване на символ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:125
 msgid "Insert a Special Character"
 msgstr "Вмъкване на специален знак"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:126
 msgid "Insert _Horizontal Rule"
 msgstr "Вмъкване на хоризонтална линия"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:125
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:127
 msgid "Insert Horizontal Rule"
 msgstr "Вмъкване на хоризонтална линия"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:126
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:128
 msgid "_Lower Case of Selection/Word"
 msgstr "малки букви на селекция/дума"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:127
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:129
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Избран текст с малки букви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:128
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:130
 msgid "_Upper Case of Selection/Word"
 msgstr "Главни букви на селекция/дума"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Горед регистър на избрания текст/дума"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:130
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:132
 msgid "_Toggle Case of Selection/Word"
 msgstr "Превключи регистър главни/малки на селекцията/думата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:131
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:133
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Превключване на регистъра на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:134
 msgid "Cu_t as Plain Text"
 msgstr "Изрязване като обикновен текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:133
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:135
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr "Изрязване като текст, игнорирайки форматирането"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:134
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:136
 msgid "_Copy as Plain Text"
 msgstr "Копирай като обикновен текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:135
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:137
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr "Копирай като текст, игнорирай форматирането"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:136
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:138
 msgid "_Paste as Plain Text"
 msgstr "Постави като обикновен текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:137
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:139
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Поставяне като текст, пренебрегвайки форматирането"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:138
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:458
-msgid "Cu_t Row"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:140
+msgid "C_ut Row"
 msgstr "Изрязване на ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:139
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:141
 msgid "Cut the Current Row/Selected Rows"
 msgstr "Изрязване на избраните ред/ ове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:140
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:460
-msgid "_Copy Row"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:142
+msgid "C_opy Row"
 msgstr "Копиране на ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:141
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:143
 msgid "Copy the Current Row/Selected Rows"
 msgstr "Копиране на избран/и ред/ове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:142
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:464
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:144
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:496
 msgid "De_lete Row"
 msgstr "Изтриване на реда"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:143
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:145
 msgid "Delete the Current Row/Selected Rows"
 msgstr "Изтриване на избран/ите ред/ове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:144
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:146
 msgid "_Duplicate Row"
 msgstr "Дублиране на ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:145
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:147
 msgid "Duplicate the Current Row/Selection"
 msgstr "Дублиране на текущ ред / селекция"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:146
-msgid "Move _Up Row"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:148
+msgid "_Move Up Row"
 msgstr "Премести реда нагоре"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:147
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:149
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "Преместване нагоре по избрания ред / редове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:148
-msgid "Move _Down Row"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:150
+msgid "Mo_ve Down Row"
 msgstr "Премести реда надолу"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:149
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:151
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "Преместване надолу по избрания ред / редове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:151
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:153
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:68
 msgid "Format"
 msgstr "Форматиране"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:152
-msgid "Format C_lone"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:154
+msgid "Format Clo_ne"
 msgstr "Клонирай форматирането"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:153
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:155
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Клонирайте типа текстов формат при курсора"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:154
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:156
 msgid "Format _Latest"
 msgstr "Последно форматиране"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:155
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:157
 msgid "Memory of Latest Text Format Type"
 msgstr "Памет на най-новия тип текстов формат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:156
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:158
 msgid "_Remove Formatting"
 msgstr "Премахни форматирането"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:157
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:159
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Премахване на форматирането от избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:158
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:160
 msgid "Text _Color Foreground"
 msgstr "Цвят на текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:161
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Промяна на цвета на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:160
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:162
 msgid "Text C_olor Background"
 msgstr "Цвят на фона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:161
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:163
 msgid "Change the Color of the Selected Text Background"
 msgstr "Прмяна на цвета на фона на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:162
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:164
 msgid "Toggle _Bold Property"
 msgstr "Удебелен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:163
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:165
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Удебели избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:164
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:166
 msgid "Toggle _Italic Property"
 msgstr "Наклонен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:165
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:167
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Приложи курсив към избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:166
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:168
 msgid "Toggle _Underline Property"
 msgstr "Подчертан"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:167
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:169
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Подчертаване на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:168
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:170
 msgid "Toggle Stri_kethrough Property"
 msgstr "Зачеркнат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:169
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:171
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Зачеркване на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:170
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:172
 msgid "Toggle h_1 Property"
 msgstr "Заглавие H1"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:171
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:173
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Заглавие H1 на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:172
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:174
 msgid "Toggle h_2 Property"
 msgstr "Заглавие H2"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:173
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:175
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Заглавие H2 на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:174
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:176
 msgid "Toggle h_3 Property"
 msgstr "Заглавие H3"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:175
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:177
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "Заглавие H3 на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:176
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:178
 msgid "Toggle h_4 Property"
 msgstr "Заглавие H4"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:177
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:179
 msgid "Toggle h4 Property of the Selected Text"
 msgstr "Заглавие H4 на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:178
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Toggle h_5 Property"
 msgstr "Заглавие H5"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:179
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:181
 msgid "Toggle h5 Property of the Selected Text"
 msgstr "Заглавие H5 на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:180
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Toggle h_6 Property"
 msgstr "Заглавие H6"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:181
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:183
 msgid "Toggle h6 Property of the Selected Text"
 msgstr "Заглавие H6 на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:182
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:184
 msgid "Toggle _Small Property"
 msgstr "Малък шрифт"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:183
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:185
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Прилагане на малък шрифт към селекцията"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:184
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:186
 msgid "Toggle Su_perscript Property"
 msgstr "Горен индекс"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:187
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "Горен индекс на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:186
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:188
 msgid "Toggle Su_bscript Property"
 msgstr "Долен индекс"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:187
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:189
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Долен индекс на избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:188
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:190
 msgid "Toggle _Monospace Property"
 msgstr "Шрифт Monospace"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:189
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:191
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "Приложи Monospace шрифт към избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:190
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:192
 msgid "Set/Unset _Bulleted List"
 msgstr "Списък с водещи символи"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:191
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:193
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr "Влючване / Изключване на списъка с водещи символи"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:192
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:194
 msgid "Set/Unset _Numbered List"
 msgstr "Номериран списък"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:193
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:195
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr "Влючване / Изключване на номерирания списък"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:194
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:196
 msgid "Set/Unset _To-Do List"
 msgstr "Списък To-Do"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:195
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:197
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr "Влючване / Изключване на списъка To-Do"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:196
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:198
 msgid "Justify _Left"
 msgstr "Ляво подравняване"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:197
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:199
 msgid "Justify Left the Current Paragraph"
 msgstr "Подравнете текущия абзац вляво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:198
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:200
 msgid "Justify _Center"
 msgstr "Подравни центрирано"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:199
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:201
 msgid "Justify Center the Current Paragraph"
 msgstr "Подравни центрирано текущото изречение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:200
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:202
 msgid "Justify _Right"
 msgstr "Дясно подравняване"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:201
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:203
 msgid "Justify Right the Current Paragraph"
 msgstr "Подравнете вдясно текущия параграф"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:202
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:204
 msgid "Justify _Fill"
 msgstr "Двустранно подравняване"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:203
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:205
 msgid "Justify Fill the Current Paragraph"
 msgstr "Подравнете текущия абзац към двата края"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:204
-msgid "Indent Paragraph"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:206
+msgid "_Indent Paragraph"
 msgstr "Добави отстъп"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:205
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:207
 msgid "Indent the Current Paragraph"
 msgstr "Махни отстъпа от текущия параграф"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:206
-msgid "Unindent Paragraph"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:208
+msgid "_Unindent Paragraph"
 msgstr "Махни отстъпа"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:207
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:209
 msgid "Unindent the Current Paragraph"
 msgstr "Махни отстъпа от текущия параграф"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:209
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:211
 msgid "Tools"
 msgstr "Панел с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:210
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:212
 msgid "Enable/Disable _Spell Check"
 msgstr "Включване / изключване на проверката на правописа"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:211
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:213
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Включване/Изключване проверка на правописа"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:212
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:214
 msgid "Stri_p Trailing Spaces"
 msgstr "Махни интервалите в края на редовете"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:213
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:215
 msgid "Strip Trailing Spaces"
 msgstr "Махни интервалите в края на редовете"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:214
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:216
+msgid "_Replace Tabs with Spaces"
+msgstr "Замени табулации с интервали"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:217
+msgid "Replace Tabs with Spaces"
+msgstr "Замени табулации с интервали"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:218
 msgid "_Command Palette"
 msgstr "Палитра от команди"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:215
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:219
 msgid "Command Palette"
 msgstr "Палитра от команди"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:216
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:220
 msgid "_Execute Code"
 msgstr "Изпълни код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:217
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:221
 msgid "Execute Code"
 msgstr "Изпълни код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:219
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:223
 msgid "Tree"
 msgstr "Дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:220
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:224
 msgid "Go _Back"
 msgstr "Назад"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:221
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:225
 msgid "Go to the Previous Visited Node"
 msgstr "Премини към предишен посетен клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:222
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:226
 msgid "Go _Forward"
 msgstr "Напред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:223
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:227
 msgid "Go to the Next Visited Node"
 msgstr "Премини към следващ посетен клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:224
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:228
 msgid "Add _Node"
 msgstr "Добави клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:225
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:229
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "Добави клон имащ същия родител на избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:226
-msgid "Add _SubNode"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:230
+msgid "Add _Subnode"
 msgstr "Добави дъщерен клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:227
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:231
 msgid "Add a Child Node to the Selected Node"
 msgstr "Добави дъщерен клон към избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:228
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:232
 msgid "_Duplicate Node"
 msgstr "Дублиране на клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:229
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:233
 msgid "Duplicate the Selected Node"
 msgstr "Дублиране на избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:230
-msgid "_Duplicate Node and Subnodes"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:234
+msgid "Duplicate Node _and Subnodes"
 msgstr "Дублирай клона, заедно с дъщерните клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:231
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:235
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr "Дублирай избрания клон, заедно с дъщерните клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:232
-msgid "Insert Today's Node"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Copy Node and S_ubnodes"
+msgstr "Дублирай клона, заедно с дъщерните клони"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:237
+msgid "Copy the Selected Node and the Subnodes"
+msgstr "Дублирай избрания клон, заедно с дъщерните клони"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:238
+msgid "_Paste Node and Subnodes"
+msgstr "Постави клона, заедно с дъщерните клони"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:239
+msgid "Paste the Copied Node and Subnodes"
+msgstr "Постави копирания клон с дъщерните клони"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:240
+msgid "Insert _Today's Node"
 msgstr "Вмъкване на разклонение с имена днешна дата(година, месец, дата и ден)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:233
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:241
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr "Вмъкване на клон с йерархия година / месец / ден"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:234
-msgid "Change Node _Properties"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:242
+msgid "C_hange Node Properties"
 msgstr "Промяна на свойствата на клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:243
 msgid "Edit the Properties of the Selected Node"
 msgstr "Редактиране на свойствата на избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:244
 msgid "Toggle _Read Only"
 msgstr "Само за четене"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:237
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr "Режим само за четене за избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:238
-msgid "Copy Link to Node"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:246
+msgid "Cop_y Link to Node"
 msgstr "Копирай връзка към клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:239
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:247
 msgid "Copy Link to the Selected Node to Clipboard"
 msgstr "Копирай връзка към избрания клон в клипборда"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:240
-msgid "_Inherit Syntax"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:248
+msgid "Children _Inherit Syntax"
 msgstr "Наследи синтаксис"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:241
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:249
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
@@ -914,885 +967,973 @@ msgstr ""
 "Тип на осветяване на синтаксиса на избрания клон като родителскотоосветяване "
 "на систаксиса"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:243
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:251
 msgid "_Handle Bookmarks"
 msgstr "Управление на отметки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:244
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:252
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:33
 msgid "Handle the Bookmarks List"
 msgstr "Управление на списъка с отметки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:245
-msgid "Add to _Bookmarks"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:253
+msgid "Add to Boo_kmarks"
 msgstr "Добави в отметки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:254
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Добави текущия клон към списъка с отметки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:255
 msgid "_Remove from Bookmarks"
 msgstr "Изтрий от отметките"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:248
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:256
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr "Премахване на текущия клон от отметките"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:249
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:257
 msgid "E_xpand All Nodes"
 msgstr "Разгъване на всички клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:250
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:258
 msgid "Expand All the Tree Nodes"
 msgstr "Разгъване на всички клони на дървото"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:251
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:259
 msgid "_Collapse All Nodes"
 msgstr "Свий всички клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:252
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:260
 msgid "Collapse All the Tree Nodes"
 msgstr "Свий всички клони на дървото"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:261
 msgid "Node _Up"
 msgstr "Преместване на клона нагоре"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:254
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:262
 msgid "Move the Selected Node Up"
 msgstr "Преместване на избрания клон нагоре"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:255
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:263
 msgid "Node _Down"
 msgstr "Преместване на клона надолу"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:256
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:264
 msgid "Move the Selected Node Down"
 msgstr "Преместване на избрания клон надолу"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:257
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:265
 msgid "Node _Left"
 msgstr "Преместване на клон наляво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:258
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:266
 msgid "Move the Selected Node Left"
 msgstr "Преместване на избрания клон наляво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:267
 msgid "Node _Right"
 msgstr "Преместване на клон надясно"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:268
 msgid "Move the Selected Node Right"
 msgstr "Преместване на избрания клон надясно"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:269
 msgid "Node Change _Parent"
 msgstr "Промяна на родителския клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:270
 msgid "Change the Selected Node's Parent"
 msgstr "Промяна на избрания родителски клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:271
 msgid "Sort Tree _Ascending"
 msgstr "Сортирай дървото по възходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:272
 msgid "Sort the Tree Ascending"
 msgstr "Сортирай дървото по възходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:273
 msgid "Sort Tree _Descending"
 msgstr "Сортирай дървото по низходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:266
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:274
 msgid "Sort the Tree Descending"
 msgstr "Сортирай дървото по низходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:267
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:275
 msgid "Sort Siblings A_scending"
 msgstr "Елементи в нарастващ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:268
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:276
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Сортирай елементи в нарастващ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:269
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:277
 msgid "Sort Siblings D_escending"
 msgstr "Елементи в намаляващ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:270
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:278
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Сортирай елементи в намаляващ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:271
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "De_lete Node"
 msgstr "Изтриване на клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:272
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
 msgid "Delete the Selected Node"
 msgstr "Изтриване на избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:274
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:282
 msgid "Find/Replace"
 msgstr "Търсене/Заместване"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:275
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:283
 msgid "_Find in Node Content"
 msgstr "Търсене в съдържанието на клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:276
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:284
 msgid "Find into the Selected Node Content"
 msgstr "Търсене в съдържанието на избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:277
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:285
 msgid "Find _in Multiple Nodes"
 msgstr "Претърсване на съдържанието на всички клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:278
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Find in Multiple Nodes"
 msgstr "Претърсване на съдържанието на всички клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:287
+msgid "Find in _Nodes Names and Tags"
+msgstr "Търсене в Имена на клони и Етикети"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:288
+msgid "Find in Nodes Names and Tags"
+msgstr "Търсене в Имена на клони и Етикети"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:289
 msgid "Find _Again"
 msgstr "Потърси отново"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:290
 msgid "Iterate the Last Find Operation"
 msgstr "Повторете последното търсене"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:281
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:291
 msgid "Find _Back"
 msgstr "Потърси в обратен ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:282
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:292
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Повторете последното търсене в обратната посока"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:283
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:293
 msgid "_Replace in Node Content"
 msgstr "Заместване в съдържанието на клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:284
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "Replace into the Selected Node Content"
 msgstr "Замяна в избраното съдържание на клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
 msgid "Replace in _Multiple Nodes"
 msgstr "Замяна във множество клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:287
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes"
 msgstr "Замяна във множество клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:288
-msgid "Replace _Again"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
+msgid "Replace A_gain"
 msgstr "Замести отново"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Iterate the Last Replace Operation"
 msgstr "Възстановяване на последната промяна"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:291
-msgid "Show _All Matches Dialog"
-msgstr "Покажи диалога всички съвпадения"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
+msgid "Show All Matches _Dialog"
+msgstr "Покажи диалогас всички съвпадения"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
 msgid "Show Search All Matches Dialog"
 msgstr "Покажи диалога всички съвпадения"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
+msgid "_Clear All Exclusions From Search"
+msgstr "Изчисти всички изключения от търсенето"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
+msgid "Clear All Tree Nodes Properties of Exclusions From Search"
+msgstr "Изчисти всички свойства на изключенията от търсенето"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
 msgid "View"
 msgstr "Изглед"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:307
 msgid "Show/Hide _Tree Explorer"
 msgstr "Покажи / Скрий дървото"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:308
 msgid "Toggle Show/Hide Tree"
 msgstr "Покажи / Скрий дървото"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:309
+msgid "Show/Hide _Menubar"
+msgstr "Покажи / Скрий меню бар"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:310
+msgid "Toggle Show/Hide Menubar"
+msgstr "Покажи / Скрий меню бар"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:311
 msgid "Show/Hide Tool_bar"
 msgstr "Покажи / Скрий лентата с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:312
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Покажи / Скрий лентата с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:313
 msgid "Show/Hide _Statusbar"
 msgstr "Покажи / Скрий статус бара"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:314
 msgid "Toggle Show/Hide Statusbar"
 msgstr "Покажи / Скрий статус бара"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:315
 msgid "Show/Hide _Lines Node Parent to Children"
 msgstr "Покажи / Скрий  родителските възели на децата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
-msgstr "Покажи / Скрий  линиите между родителските и детските възел "
+msgstr "Покажи / Скрий  редовете между родителските и детските възли"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "Show/Hide Node Name _Header"
 msgstr "Покажи / Скрий заглавки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:318
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Покажи / Скрий името на заглавката на клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:319
 msgid "Toggle _Focus Tree/Text"
 msgstr "Превключване на фокуса дърво / текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Превключи фокус между Дърво и Текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:321
 msgid "_Increase Toolbar Icons Size"
 msgstr "Увеличи големината на иконките в лентата с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:308
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:322
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Увеличи размера на иконите в панела с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:323
 msgid "_Decrease Toolbar Icons Size"
 msgstr "Намали размера на иконите на лентата с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:310
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Намаляване размера на иконите в лентата с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:311
-msgid "_Full Screen On/Off"
-msgstr "Пълноекранен режим"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
+msgid "Full Screen _On/Off"
+msgstr "Пълноекранен режим вкл./изкл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:326
 msgid "Toggle Full Screen On/Off"
-msgstr "Пълноекранен режим"
+msgstr "Пълноекранен режим вкл./изкл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:314
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
+msgid "Disable Menubar i_n Titlebar"
+msgstr "Деактивирай менюбар в лентата със заглавието"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
+msgid "Do Not Place the Menubar in the Titlebar"
+msgstr "Не слагай Менюбара в лентата със заглавието"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
+msgid "Enable Menubar i_n Titlebar"
+msgstr "Позволи менюбара в лентата със заглавието"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:333
+msgid "Place the Menubar in the Titlebar"
+msgstr "Постави менюбара в лентата със заглавието"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:336
 msgid "Import"
 msgstr "Импорт"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:315
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:337
 msgid "From _CherryTree File"
 msgstr "От CherryTree файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Импорт от CherryTree файл в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "From _Plain Text File"
 msgstr "От обикновен текстов файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:318
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:340
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Импортиране от текстов файл в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:319
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "From _Folder of Plain Text Files"
 msgstr "От папка с обикновени текстови файлове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "Импорт от папка с текстови файлове в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:322
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
 msgid "From _HTML File"
 msgstr "От HTML файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:323
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:345
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "Импорт от HTML файл  в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "From _Folder of HTML Files"
 msgstr "От папка с HTML файлове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:347
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "Импорт от папка с HTML файлове  в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:327
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:349
 msgid "From _Markdown File"
 msgstr "От Markdown File"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:350
 msgid "Add a node from a Markdown File to the Current Tree"
 msgstr "Добавете клон от Markdown файл  към текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:351
 msgid "From _Folder of Markdown Files"
 msgstr "От папка с Markdown файлове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:330
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:352
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr "Добавете клони от папка с Markdown файлове към текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:354
 msgid "From _Gnote Folder"
 msgstr "От Gnote папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:333
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:355
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Импорт от папка Gnote в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:334
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:356
 msgid "From _KeepNote Folder"
 msgstr "От KeepNote папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:335
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Импорт от папка KeepNote в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:337
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:359
 msgid "From _Leo File"
 msgstr "От Leo файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:360
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Импорт от файл Leo в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:361
 msgid "From _Mempad File"
 msgstr "От Mempad файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:340
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Импорт от файл Mempad в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
 msgid "From _NoteCase HTML File"
 msgstr "От NoteCase HTML файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:342
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:364
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
 msgstr "Импорт от NoteCase HTML файл в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:343
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "From _RedNotebook HTML"
 msgstr "От RedNotebook HTML файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:366
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
 msgstr "Импорт клони от RedNotebook HTML файл в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
 msgid "From T_omboy Folder"
 msgstr "От T_omboy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:347
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:369
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Импорт от папка Tomboy в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:348
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
 msgid "From T_reepad Lite File"
 msgstr "От T_reepad Lite файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:349
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Импорт от Treepad файл в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:350
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:372
 msgid "From _Zim Folder"
 msgstr "От Zim папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:351
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:373
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Импорт от папка Zim в текущото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:353
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "From File using _Pandoc"
 msgstr "От файл с помощта на Pandoc"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:354
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:376
 msgid "Add a node to the current tree using Pandoc"
 msgstr "Добави клон към текущото дърво чрез Pandoc"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:356
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:378
 msgid "Export"
 msgstr "Експортиране"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:379
 msgid "Export To _PDF"
 msgstr "Експортиране в _PDF"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:380
 msgid "Export To PDF"
 msgstr "Експортиране в PDF"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:359
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:381
 msgid "Export To _HTML"
 msgstr "Експортиране в HTML"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:360
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:382
 msgid "Export To HTML"
 msgstr "Експортиране в HTML"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:361
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:383
 msgid "Export to Plain _Text"
 msgstr "Експортиране в обикновен текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:384
 msgid "Export to Plain Text"
 msgstr "Експортиране в обикновен текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:385
 msgid "_Export To CherryTree Document"
 msgstr "Експорт в CherryTree документ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:364
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:386
 msgid "Export To CherryTree Document"
 msgstr "Експортиране в документ CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:366
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:388
 msgid "Help"
 msgstr "Помощ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:389
 msgid "_Check Newer Version"
 msgstr "Проверка за обновление"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:390
 msgid "Check for a Newer Version"
 msgstr "Проверка за обновление"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:369
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:391
 msgid "Online _Manual"
 msgstr "Онлайн помощ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:392
 msgid "Application's Online Manual"
 msgstr "Ръководство онлайн"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:393
 msgid "_About"
 msgstr "За програмата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:372
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:450
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:394
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:455
 msgid "About CherryTree"
 msgstr "За програмата CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:373
-msgid "Open Preferences _Directory"
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:395
+msgid "_Open Preferences Directory"
 msgstr "Отваряне на папката с настройки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:374
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:396
 msgid "Open the Directory with Preferences Files"
 msgstr "Отваряне на папка с файлове с настройки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:384
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:406
 msgid "C_ut Anchor"
 msgstr "Изряжи котвата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:385
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:407
 msgid "Cut the Selected Anchor"
 msgstr "Изрязване на избрана котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:386
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:408
 msgid "_Copy Anchor"
 msgstr "Копиране на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:387
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:409
 msgid "Copy the Selected Anchor"
 msgstr "Копиране на избрана котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:388
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:410
 msgid "_Delete Anchor"
 msgstr "Изтриване на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:389
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:411
 msgid "Delete the Selected Anchor"
 msgstr "Изтриване на избраната котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:390
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:412
 msgid "Edit _Anchor"
 msgstr "Редактиране на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:413
 msgid "Edit the Underlying Anchor"
 msgstr "Редактиране на основната котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:392
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:414
 msgid "Copy Anchor Link"
 msgstr "Копирай връзка към котвата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:393
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:415
 msgid "Copy Link to the Underlying Anchor to Clipboard"
 msgstr "Копирай връзка към основната котва в клипборда"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:394
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:416
 msgid "C_ut Embedded File"
 msgstr "Изрежи файла"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:395
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:417
 msgid "Cut the Selected Embedded File"
 msgstr "Изрязване на избрания файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:396
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:418
 msgid "_Copy Embedded File"
 msgstr "Копиране на файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:397
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:419
 msgid "Copy the Selected Embedded File"
 msgstr "Копиране на избрания файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:398
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:420
 msgid "_Delete Embedded File"
 msgstr "Изтриване на файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:399
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:421
 msgid "Delete the Selected Embedded File"
 msgstr "Изтриване на избрания файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:403
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:425
 msgid "Open Embedded File"
 msgstr "Отвори файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:404
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:426
 msgid "_Rename"
 msgstr "Преименуване"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:427
 msgid "Rename Embedded File"
 msgstr "Преименуване на вмъкнатия файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:406
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:428
+msgid "_Save LatexBox as PNG"
+msgstr "Съхрани блока с Latex в PNG формат"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:429
+msgid "Save the Selected LatexBox as a PNG file"
+msgstr "Съхрани избрания Latex блок като PNG формат"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:430
+msgid "_Edit LatexBox"
+msgstr "Редактиране на Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:431
+msgid "Edit the Selected LatexBox"
+msgstr "Редактиране на избрания Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:432
+msgid "C_ut LatexBox"
+msgstr "Изрежи Latex блока"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:433
+msgid "Cut the Selected LatexBox"
+msgstr "Изрязване на избрания Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:434
+msgid "_Copy LatexBox"
+msgstr "Копиране на Latex блока"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:435
+msgid "Copy the Selected LatexBox"
+msgstr "Копиране на избрания Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:436
+msgid "_Delete LatexBox"
+msgstr "Изтриване на Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:437
+msgid "Delete the Selected LatexBox"
+msgstr "Изтриване на избрания Latex блок"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:438
 msgid "_Save Image as PNG"
 msgstr "Съхрани изображението PNG в формат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:407
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:439
 msgid "Save the Selected Image as a PNG file"
 msgstr "Съхрани избраното изображение в PNG формат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:408
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:440
 msgid "_Edit Image"
 msgstr "Редактиране на изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:409
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:441
 msgid "Edit the Selected Image"
 msgstr "Редактиране на избраното изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:410
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:442
 msgid "C_ut Image"
 msgstr "Изрежи изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:411
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:443
 msgid "Cut the Selected Image"
 msgstr "Изрязване на избраното изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:444
 msgid "_Copy Image"
 msgstr "Копиране на изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:413
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:445
 msgid "Copy the Selected Image"
 msgstr "Копиране на избраното изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:414
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:446
 msgid "_Delete Image"
 msgstr "Изтриване на изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:415
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:447
 msgid "Delete the Selected Image"
 msgstr "Изтриване на избраното изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:416
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:424
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:448
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:456
 msgid "Edit _Link"
 msgstr "Редактиране на връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:417
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:449
 msgid "Edit the Link Associated to the Image"
 msgstr "Редактиране на връзката, свързана с изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:418
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:450
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:462
 msgid "D_ismiss Link"
 msgstr "Отхвърляне на връзката"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:419
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:451
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Отхвърляне на връзката, свързана с изображението"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:425
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:457
 msgid "Edit the Underlying Link"
 msgstr "Редактиране на основната връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:458
 msgid "C_ut Link"
 msgstr "Изрежи линк"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:459
 msgid "Cut the Selected Link"
 msgstr "Изрязване на избраната връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:460
 msgid "_Copy Link"
 msgstr "Копиране на връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:429
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:461
 msgid "Copy the Selected Link"
 msgstr "Копиране на избраната връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:431
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:463
 msgid "Dismiss the Selected Link"
 msgstr "Отхвърляне на маркираната връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:464
 msgid "_Delete Link"
 msgstr "Изтриване на връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:433
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:465
 msgid "Delete the Selected Link"
 msgstr "Премахване на избраната връзка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:436
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:468
 msgid "C_ut Table"
 msgstr "Изрежи таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:469
 msgid "Cut the Selected Table"
 msgstr "Изрязване на избраната таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:470
 msgid "_Copy Table"
 msgstr "_Копиране на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:471
 msgid "Copy the Selected Table"
 msgstr "Копиране на избраната таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:440
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:472
 msgid "_Delete Table"
 msgstr "Изтриване на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:473
 msgid "Delete the Selected Table"
 msgstr "Изтриване на избраната таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:442
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:474
 msgid "_Add Column"
 msgstr "Добави колона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:443
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:475
 msgid "Add a Table Column"
 msgstr "Добави таблична колона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:444
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:476
 msgid "De_lete Column"
 msgstr "Изтрий колона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:445
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:477
 msgid "Delete the Selected Table Column"
 msgstr "Изтриване на избраната колона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:446
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:478
 msgid "Move Column _Left"
 msgstr "Премести колоната вляво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:447
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:479
 msgid "Move the Selected Column Left"
 msgstr "Премести избраната колона вляво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:448
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:480
 msgid "Move Column _Right"
 msgstr "Премести колоната вдясно"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:449
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:481
 msgid "Move the Selected Column Right"
 msgstr "Премести избраната колона вдясно"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:451
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:483
 msgid "Increase Column Width"
 msgstr "Увеличи ширината на колоната"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:452
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:484
 msgid "Increase the Width of the Column"
 msgstr "Увеличи ширината на колоната"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:454
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:486
 msgid "Decrease Column Width"
 msgstr "Намали ширината на колоната"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:455
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:487
 msgid "Decrease the Width of the Column"
 msgstr "Намали ширината на колоната"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:456
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:488
 msgid "_Add Row"
 msgstr "Добави ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:457
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:489
 msgid "Add a Table Row"
 msgstr "Добави табличен ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:459
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:490
+msgid "Cu_t Row"
+msgstr "Изрязване на ред"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:491
 msgid "Cut a Table Row"
 msgstr "Изрязване на ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:461
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:492
+msgid "_Copy Row"
+msgstr "Копиране на ред"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:493
 msgid "Copy a Table Row"
 msgstr "Копиране на реда от таблицата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:462
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:494
 msgid "_Paste Row"
 msgstr "_Постави ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:463
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:495
 msgid "Paste a Table Row"
 msgstr "Вмъкване на ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:465
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:497
 msgid "Delete the Selected Table Row"
 msgstr "Изтриване на избрания ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:466
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:498
 msgid "Move Row _Up"
 msgstr "Преместване на реда нагоре"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:467
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:499
 msgid "Move the Selected Row Up"
 msgstr "Преместване на избрания ред нагоре"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:468
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:500
 msgid "Move Row _Down"
 msgstr "Преместване на реда надолу"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:469
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:501
 msgid "Move the Selected Row Down"
 msgstr "Преместване на избрания ред надолу"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:470
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:502
 msgid "Sort Rows De_scending"
 msgstr "Сортиране на редовете по низходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:471
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:503
 msgid "Sort all the Rows Descending"
 msgstr "Сортирай всички редове по низходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:472
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:504
 msgid "Sort Rows As_cending"
 msgstr "Сортиране на редовете по възходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:473
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:505
 msgid "Sort all the Rows Ascending"
 msgstr "Сортирай всички редове по възходящ ред"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:474
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:506
 msgid "_Edit Table Properties"
 msgstr "Редактиране на свойствата на таблицата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:475
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:507
 msgid "Edit the Table Properties"
 msgstr "Редактиране на свойствата на таблицата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:476
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:508
 msgid "_Table Export"
 msgstr "Експорт на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:477
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:509
 msgid "Export Table as CSV File"
 msgstr "Експортиране на таблица в CSV файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:480
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:512
 msgid "Change CodeBox _Properties"
 msgstr "Промяна на свойствата на блока с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:481
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:513
 msgid "Edit the Properties of the CodeBox"
 msgstr "Редактиране на свойствата на блока код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:482
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:514
 msgid "CodeBox _Load From Text File"
 msgstr "Зареди блок от код от текстов файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:483
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:515
 msgid "Load the CodeBox Content From a Text File"
 msgstr "Зареждане в кодов блок от текстов файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:484
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:516
 msgid "CodeBox _Save To Text File"
 msgstr "Запиши блока код като текстов файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:485
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:517
 msgid "Save the CodeBox Content To a Text File"
 msgstr "Съхрани съдержимото на блока код в текстов файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:486
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:518
 msgid "C_ut CodeBox"
 msgstr "Изрежи блока код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:487
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:519
 msgid "Cut the Selected CodeBox"
 msgstr "Изрязване на избрания блок от код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:488
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:520
 msgid "_Copy CodeBox"
 msgstr "Копиране на блок от код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:489
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:521
 msgid "Copy the Selected CodeBox"
 msgstr "Копиране на избран блок от код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:490
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:522
 msgid "_Delete CodeBox"
 msgstr "Изтриване блок от код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:523
 msgid "Delete the Selected CodeBox"
 msgstr "Изтриване на избрания блок от код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:492
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:524
 msgid "Delete CodeBox _Keep Content"
 msgstr "Изтриване на блока на кода при запазване на съдържанието"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:493
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:525
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "Изтриване на блока на кода при запазване на съдържанието"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:495
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:527
 msgid "Increase CodeBox Width"
 msgstr "Увеличи широчината на блока с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:496
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:528
 msgid "Increase the Width of the CodeBox"
 msgstr "Увеличи широчината на блока с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:498
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:530
 msgid "Decrease CodeBox Width"
 msgstr "Намаляване на ширината на блока код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:499
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:531
 msgid "Decrease the Width of the CodeBox"
 msgstr "Намаляване на ширината на блока на кода"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:501
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:533
 msgid "Increase CodeBox Height"
 msgstr "Увеличи височината на блока с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:502
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:534
 msgid "Increase the Height of the CodeBox"
 msgstr "Увеличи височината на блока с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:504
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:536
 msgid "Decrease CodeBox Height"
 msgstr "Намаляване на височината на блока код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:505
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:537
 msgid "Decrease the Height of the CodeBox"
 msgstr "Намаляване на височината на блока код"
 
@@ -1862,7 +2003,7 @@ msgid "Show the Full Path in the Node Name Header"
 msgstr "Покажи пълния път в заглавката на име на възел"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
-msgid "Dedicated Bookmarks Menu in Top Menu Bar"
+msgid "Dedicated Bookmarks Menu in Menubar"
 msgstr "Специално меню за отметки в горната лента с менюта"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
@@ -1876,19 +2017,19 @@ msgstr "Папка за дневника за отстртраняване на 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:126
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:107
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:110
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:77
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:300
 msgid "Miscellaneous"
 msgstr "Разни"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:252
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:260
 msgid "System Default"
 msgstr "Връщане на настройките на системата по подразбиране"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:141
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:271
 msgid "Language"
 msgstr "Език"
 
@@ -1900,7 +2041,7 @@ msgstr "Появи ли се системният панел?"
 msgid "Your system does not support the System Tray"
 msgstr "Вашата система не поддържа системен панел"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:271
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:279
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Промяната на езика ще се бъде налична след рестарт на CherryTree"
 
@@ -1978,7 +2119,7 @@ msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Въведените пароли не съвпадат"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:348
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:291
 msgid "Warning"
 msgstr "Предупреждение"
 
@@ -2044,154 +2185,183 @@ msgstr ""
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:425
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:42
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:33
+msgid "Arabic"
+msgstr "Арабски"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:34
 msgid "Armenian"
 msgstr "Арменски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:426
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:33
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:35
 msgid "Bulgarian"
 msgstr "Български"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:427
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:36
 msgid "Chinese Simplified"
 msgstr "Опростен китайски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:41
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:429
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:37
+msgid "Chinese Traditional"
+msgstr "Китайски традиционен"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:38
 msgid "Croatian"
 msgstr "Хърватски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:429
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:34
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:431
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:39
 msgid "Czech"
 msgstr "Чешки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:430
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:48
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:40
 msgid "Dutch"
 msgstr "Холандски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:431
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:39
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:433
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:42
 msgid "Finnish"
 msgstr "Финландски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:432
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:40
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:434
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:43
 msgid "French"
 msgstr "Френски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:433
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:35
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:435
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:44
 msgid "German"
 msgstr "Немски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:434
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:36
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:436
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:45
 msgid "Greek"
 msgstr "Гръцки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:435
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:43
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:46
+msgid "Hindi India"
+msgstr "Хинди"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:47
+msgid "Hungarian"
+msgstr "Унгарски"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:48
 msgid "Italian"
 msgstr "Италиански"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:436
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:44
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:440
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
 msgid "Japanese"
 msgstr "Японски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:437
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:45
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
 msgid "Kazakh"
 msgstr "Казашки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:438
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:46
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:442
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
 msgid "Korean"
 msgstr "Корейски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:439
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:47
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:443
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
 msgid "Lithuanian"
 msgstr "Литовски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:440
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:444
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:53
 msgid "Polish"
 msgstr "Полски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:445
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
+msgid "Portuguese"
+msgstr "Португалски"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
 msgid "Portuguese Brazil"
 msgstr "Бразилски португалски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:442
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:447
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
 msgid "Romanian"
 msgstr "Румънски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:443
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
 msgid "Russian"
 msgstr "Руски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:444
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:53
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:449
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
 msgid "Slovenian"
 msgstr "Словенски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:445
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:38
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:450
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:59
 msgid "Spanish"
 msgstr "Испански"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:451
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:60
 msgid "Swedish"
 msgstr "Шведски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:447
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:452
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:61
 msgid "Turkish"
 msgstr "Турски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:448
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:453
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:62
 msgid "Ukrainian"
 msgstr "Украински"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:477
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:482
 msgid "Number of Rich Text Nodes"
 msgstr "Брой клони с Rich текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:482
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:487
 msgid "Number of Plain Text Nodes"
 msgstr "Брой клони с обикновен текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:487
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:492
 msgid "Number of Code Nodes"
 msgstr "Брой клони с код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:492
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:497
 msgid "Number of Images"
 msgstr "Брой изображения"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:497
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:502
+msgid "Number of LatexBoxes"
+msgstr "Брой Latex блокове"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:507
 msgid "Number of Embedded Files"
 msgstr "Брой вмъкнати файлове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:502
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:512
 msgid "Number of Tables"
 msgstr "Брой таблици"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:507
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:517
 msgid "Number of CodeBoxes"
 msgstr "Брой кодови блокове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:512
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:522
 msgid "Number of Anchors"
 msgstr "Брой котви"
 
@@ -2218,23 +2388,23 @@ msgid "Selection Background"
 msgstr "Друг цвят на фона"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:66
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:71
 msgid "Tree Explorer"
 msgstr "Изследовател на дърво"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:664
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:685
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:62
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
 msgid "Rich Text"
 msgstr "Rich текст"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:667
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:180
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:246
 msgid "Plain Text"
 msgstr "Обикновен текст"
 
@@ -2281,7 +2451,12 @@ msgstr "Номера на редове на фон"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:266
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:65
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:66
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:126
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:135
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
 msgid "Reset to Default"
@@ -2333,7 +2508,7 @@ msgstr "В тази сесия няма операции за форматира
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:101
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:938
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1009
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
 msgid "No Text is Selected"
 msgstr "Не е избран текст"
@@ -2347,7 +2522,7 @@ msgid "The Cursor is Not into a Paragraph"
 msgstr "Курсорът не е в абзац"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:361
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:315
 msgid "Insert/Edit Link"
 msgstr "Вмъкване / редактиране на връзка"
 
@@ -2367,12 +2542,6 @@ msgstr "Замяна в текущия клон ..."
 msgid "Search in Current Node..."
 msgstr "Търсене в текущия клон ..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:244
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Шаблонът '% s 'не е намерен"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:108
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:248
 msgid "Matches"
@@ -2383,8 +2552,8 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "Нямаше търсения в тази сесия"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win_events.cc:598
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:543
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:560
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:573
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:590
 msgid "The new parent can't be one of his children!"
 msgstr "Новият клон родител не може да бъде дъщерен клон!"
 
@@ -2409,7 +2578,7 @@ msgid "Enable Automatic Indentation"
 msgstr "Активиране на автоматичен отстъп"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:302
 msgid "Show Line Numbers"
 msgstr "Покажи номера на редове"
 
@@ -2456,12 +2625,12 @@ msgstr "PDF файл"
 msgid "Plain Text Document"
 msgstr "Текстов документ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:130
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:143
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" не е CherryTree документ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:146
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:159
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -2470,73 +2639,81 @@ msgstr ""
 "Грешка при анализирането на CherryTree файл:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:221
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:234
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Временни файлове бяха създадени или отворени с външно приложение."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:222
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:235
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "Затворете външно приложение, преди да излезете от CherryTree."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:223
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:236
 msgid "Did you Quit the External Applications?"
 msgstr "Затворихте ли външното приложение?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:345
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:358
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Документът е презареден след обновяване с друга програма"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:530
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:546
 #, c-format
 msgid "The Document %s was Not Found"
 msgstr "Документ '%s' не е намерен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:560
-msgid "Hide"
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:576
+msgid "_Hide"
 msgstr "Скрий"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:560
-msgid "Quit"
-msgstr "Изход"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:561
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:577
 msgid "Hide the Window"
 msgstr "Скрий прозореца"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:661
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
 msgid "Node Type"
 msgstr "Тип клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:661
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:673
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:676
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:679
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:683
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:687
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:694
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:697
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:700
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:704
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:708
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:673
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:694
 msgid "Tags"
 msgstr "Тагове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:676
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:697
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:48
 msgid "Spell Check"
 msgstr "Проверка правопис"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:679
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:700
 msgid "Word Count"
 msgstr "Брой думи"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:683
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:704
 msgid "Date Created"
 msgstr "Дата на създаване"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:687
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:708
 msgid "Date Modified"
 msgstr "Дата на промяна"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:717
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available"
+msgstr ""
+"По време на тази сесия не е извършено копие на предишен клон или дървото "
+"източник вече не е налично"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:723
+msgid "The Source Tree Node is No Longer Available"
+msgstr "Дървото източник вече не е налично"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:45
 msgid "Checking for Newer Version..."
@@ -2667,7 +2844,7 @@ msgid "Line Content"
 msgstr "Съдържание на реда"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:305
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:336
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:391
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Връзката сочи до клон, който вече не съществува (Id = %s)"
@@ -2697,8 +2874,8 @@ msgid "Undo"
 msgstr "Отмяна"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:483
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:65
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Special Characters"
 msgstr "Специални символи"
 
@@ -2739,14 +2916,28 @@ msgstr "Автоматична корекция /замяна на поддър�
 msgid "Only at the Start of the Line"
 msgstr "Само в началото на реда"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:160
 #, c-format
 msgid "The database file %s is corrupt, see log for more details"
 msgstr ""
 "База данни файла %s е повреден, погледнете файла дневник за повече "
 "подробности"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:212
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:161
+msgid ""
+"Backup files are by default 3 in the same folder of the corrupted document, "
+"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
+"with one tilde: copy the file to another directory, remove the trailing "
+"tilde and open with cherrytree. If it still fails, try the one with two "
+"tildes and if it still fails try the one with three tildes"
+msgstr ""
+"Архивните файлове по подразбиране са 3 в същата папка на повредения "
+"документ, със същото име плюс тилди в края (~, ~~, ~~~). Опитайте първо "
+"архивирането с една тилда: копирайте файла в друга директория, премахнете "
+"задната тилда и отворете с Cherrytree. Ако все пак не успеете, опитайте този "
+"с две тилди и ако пак не успеете, опитайте този с три тилди"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:217
 #, c-format
 msgid ""
 "%s write failed - file is missing. Reattach usb driver or shared resource"
@@ -2754,7 +2945,7 @@ msgstr ""
 "записа на файл %s не бе успешен - файлът липсва. Поставете отново USB "
 "устройството или споделения ресурс"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:215
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:220
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
@@ -2827,11 +3018,11 @@ msgstr "Наскоро посетени клони в заглавката"
 msgid "Select Node Icon"
 msgstr "Изберете иконка за клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:95
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:97
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Размерът на иконите на лентите с инструменти е вече максимален"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:106
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:108
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Размерът на иконите на лентите с инструменти е вече минимален"
 
@@ -2855,7 +3046,7 @@ msgstr "Освети текущия ред"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:56
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:238
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:304
 msgid "Highlight Matching Brackets"
 msgstr "Осветявай съвпадащите скоби"
 
@@ -2880,50 +3071,54 @@ msgid "Limit of Undoable Steps Per Node"
 msgstr "Лимит за брой отмени за клон"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:87
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Автоматично свързване на CamelCase текст към клон със същото име"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "При тройно щракване с мишката избор на цяло изречение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:90
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:92
 msgid "Enable Markdown Auto Replacement (Experimental)"
 msgstr "Активиране на замяна на текст Markdown(експериментално)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:211
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:217
 msgid "Scale"
 msgstr "Мащаб"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:215
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:221
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
 msgid "Bold"
 msgstr "Удебелен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:216
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:222
 msgid "Italic"
 msgstr "Наклонен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:217
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:223
 msgid "Underline"
 msgstr "Подчертан"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:232
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:334
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:238
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:340
 msgid "Text Color Foreground"
 msgstr "Цвят на текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:235
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:346
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:241
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:352
 msgid "Text Color Background"
 msgstr "Цвят на фона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:251
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:257
 msgid "Small"
 msgstr "Малък"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:357
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:363
 msgid "Scalable Tags"
 msgstr "Мащабируеми етикети"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:358
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:364
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:106
 msgid "Monospace"
 msgstr "Цвят на фона на шрифт Monospace"
 
@@ -2934,8 +3129,8 @@ msgstr "Запис на диск..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:191
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:197
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:343
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:350
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:346
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:353
 #, c-format
 msgid "You Have No Write Access to %s"
 msgstr "Невъзможно записване във файл %s"
@@ -2945,59 +3140,59 @@ msgstr "Невъзможно записване във файл %s"
 msgid "Enter Password for %s"
 msgstr "Въведете парола за % s"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:93
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:100
 msgid "Image Format Not Recognized"
 msgstr "Непознат формат на изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:107
 msgid "Insert Table"
 msgstr "Вмъкване на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:117
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:719
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:774
 msgid "CSV File"
 msgstr "CSV файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:205
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:200
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "Максималният размер на файлове е %s Мб"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:207
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:202
 msgid "Do you want to Continue?"
 msgstr "Желаете ли да продължите?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:878
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:873
+msgid "Tabs Replaced"
+msgstr "Заменени табове"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:919
 msgid "Lines Stripped"
 msgstr "Изчистени линии"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:886
-msgid "Image Properties"
-msgstr "Свойства на изображението"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:62
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:63
 msgid "Change Selected"
 msgstr "Промяна на избраното"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
 #, c-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr "Тази клавишна комбинация '%s' вече се използва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
 #, c-format
 msgid "The current associated action is '%s'"
 msgstr "Текущо асоциирано действие е '% s '"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:126
 msgid "Do you want to steal the shortcut?"
 msgstr "Искате ли да откраднете тази клавишна комбинация?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:145
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:146
 msgid "Edit Keyboard Shortcut"
 msgstr "Редактиране на клавишни комбинации"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:153
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:154
 msgid "No Keyboard Shortcut"
 msgstr "Без клавишна комбинация"
 
@@ -3011,8 +3206,8 @@ msgstr "щракни тук"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:181
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:272
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
 msgid "Automatic Syntax Highlighting"
 msgstr "Автоматично осветяване на синтаксиса"
 
@@ -3084,76 +3279,76 @@ msgstr "Нов клон от нова страница"
 msgid "Single File"
 msgstr "Един файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:37
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:41
 msgid "English"
 msgstr "Английски"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:61
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:66
 msgid "Text and Code"
 msgstr "Текст и код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:64
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:69
 msgid "Plain Text and Code"
 msgstr "Обикновен текст и код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
 msgid "Theme"
 msgstr "Тема"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:68
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:135
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:73
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:161
 msgid "Fonts"
 msgstr "Шрифтове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:74
 msgid "Links"
 msgstr "Връзки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:75
 msgid "Toolbar"
 msgstr "Панел с инструменти"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:71
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:76
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:106
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:111
 msgid "Code Font"
 msgstr "Шрифт на кода"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:113
 msgid "Tree Font"
 msgstr "Шрифт на дървото"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:178
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:231
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Отваряне на уеб връзки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:180
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:233
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Отваряне на файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:182
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:235
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Отваряне на папка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:191
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:244
 msgid "Custom Actions"
 msgstr "Други действия"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:229
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:282
 msgid "Colors"
 msgstr "Цветове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:232
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:285
 msgid "Underline Links"
 msgstr "Подчертани връзки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:234
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:287
 msgid "Use Relative Paths for Files And Folders"
 msgstr "Използвай относителен път за файлове и папки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:237
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:290
 msgid "Anchor Size"
 msgstr "Размер на котвата"
 
@@ -3193,39 +3388,41 @@ msgid "Rename"
 msgstr "Преименуване"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:199
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:254
 msgid "PNG Image"
 msgstr "PNG изображение"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:211
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:266
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Запис в %s се провали"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:309
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:364
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:383
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Линкът за папка '%s' не е валиден"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:371
 #, c-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Линкът за файл '%s' не е валиден"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:357
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:412
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr "Не е намерена котва с име '% s '"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:417
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:472
 msgid "Edit CodeBox"
 msgstr "Редактиране на кодов блок"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:496
 msgid "No CodeBox is Selected"
 msgstr "Не е избран блок от код"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:449
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:504
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -3234,11 +3431,11 @@ msgstr ""
 "Трябва да асоциирате команда с '%s'.\n"
 "Това може да се направи в диалога Настройки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:461
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:516
 msgid "Do you want to Execute the Code?"
 msgstr "Искате ли да изпълните кода?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:478
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:533
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
@@ -3246,23 +3443,23 @@ msgstr ""
 "Инсталирайте пакета 'xterm' или конфигурирайте различен терминал в "
 "диалоговия прозорец Предпочитания"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:708
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:763
 msgid "Edit Table Properties"
 msgstr "Редактиране на свойствата на таблицата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:744
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:799
 msgid "Insert Anchor"
 msgstr "Вмъкване на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:744
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:799
 msgid "Edit Anchor"
 msgstr "Редактиране на котва"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:780
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:835
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Не може да се редактира файл в режим само за четене"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:793
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:848
 msgid "Embedded File Automatically Updated:"
 msgstr "Вграденият файл се актуализира автоматично:"
 
@@ -3282,19 +3479,19 @@ msgstr "Тази функция е достъпна само в режим на 
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr "Тази функция не е налична в режим на осветяване на синтаксиса"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:172
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:193
 msgid "New Child Node Properties"
 msgstr "Нови свойства на дъщерния клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:172
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:193
 msgid "New Node Properties"
 msgstr "Нови свойства на клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:320
 msgid "Node Properties"
 msgstr "Свойства на клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:328
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
@@ -3302,75 +3499,108 @@ msgstr ""
 "При напускане на този клон ще загубите форматирането за него,Желаете ли да "
 "продължите?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:403
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:433
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Сигурен ли сте че искате да <b>изртиете клон '%s'?</b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:435
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Клонът <b> има дъщерни клони и също ще бъде изтрит! </b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:528
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:558
 msgid "Select the New Parent"
 msgstr "Изберете родителски клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:534
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:555
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:564
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:585
 msgid "The new parent can't be the very node to move!"
 msgstr "Новият клон родител не може да бъде преместен!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:538
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:568
 msgid "The new chosen parent is still the old parent!"
 msgstr "Избраният нов родителски клон е старият!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:66
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:199
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:749
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "Променени са свойствата на %s клони "
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:39
+msgid "Latex Text"
+msgstr "Latex текст"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:53
+msgid "Image Size dpi"
+msgstr "Размер на изображение в dpi"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:60
+msgid "Tutorial"
+msgstr "Обучение"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:61
+msgid "Reference"
+msgstr "Справка"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:64
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Ръководство за уравнения и Latex"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:65
+msgid "LaTeX Math Symbols Reference"
+msgstr "Справка за математическите символи на LaTeX"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:101
+msgid "Image Properties"
+msgstr "Свойства на изображението"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:265
 msgid "Width"
 msgstr "Ширина"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:69
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:203
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:135
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:269
 msgid "Height"
 msgstr "Височина"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:194
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:260
 msgid "Type"
 msgstr "Тип"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:208
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:274
 msgid "pixels"
 msgstr "пиксели"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:231
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:297
 msgid "Size"
 msgstr "Размер"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:313
 msgid "Options"
 msgstr "Настройки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:354
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:420
 msgid "Rows"
 msgstr "Редове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:360
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
 msgid "Columns"
 msgstr "Колони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:366
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
 msgid "Default Width"
 msgstr "Ширина по подразбиране"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:372
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
 msgid "Table Size"
 msgstr "Размер на таблицата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:375
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:441
 msgid "Column Properties"
 msgstr "Свойства на колоната"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:396
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:462
 msgid "Import from CSV File"
 msgstr "Импорт от CSV файл"
 
@@ -3378,30 +3608,30 @@ msgstr "Импорт от CSV файл"
 msgid "Remove Color"
 msgstr "Премахни цвят"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:278
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:262
 msgid "Question"
 msgstr "Въпрос"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:277
 msgid "Info"
 msgstr "Информация"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:305
 msgid "Error"
 msgstr "Грешка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:330
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:314
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:316
 msgid "Select File"
 msgstr "Изберете файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:360
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:362
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:344
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:346
 msgid "Select Folder"
 msgstr "Изберете каталог"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:379
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:381
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:365
 msgid "Save File as"
 msgstr "Запис на файл като"
 
@@ -3430,8 +3660,26 @@ msgid "Are you sure to Reset to Default?"
 msgstr ""
 "Сигурен ли сте че искате да върнете в начално състояние по подразбиране?"
 
-#~ msgid "and Text"
-#~ msgstr "и текста"
+#~ msgid "_Format"
+#~ msgstr "Форматиране"
+
+#~ msgid "_Tools"
+#~ msgstr "Панел с инструменти"
+
+#~ msgid "_List"
+#~ msgstr "Списък"
+
+#~ msgid "_Row"
+#~ msgstr "Ред"
+
+#~ msgid "_Print"
+#~ msgstr "_Печат"
+
+#~ msgid "Insert Ti_mestamp"
+#~ msgstr "Вмъкване на дата"
+
+#~ msgid "Quit"
+#~ msgstr "Изход"
 
 #~ msgid "Monospace Background"
 #~ msgstr "Цвят на фона на шрифт Monospace"
@@ -3477,9 +3725,6 @@ msgstr ""
 
 #~ msgid "Find into the Selected Node and Subnodes Contents"
 #~ msgstr "Търсене на избран клон с дъщерни клони"
-
-#~ msgid "Find in _Nodes Names and Tags"
-#~ msgstr "Търсене в Имена на клони и Етикети"
 
 #~ msgid "Replace in _All Nodes Contents"
 #~ msgstr "Замяна във _Всички съдържания на клони"
