@@ -392,7 +392,13 @@ const inline static std::vector<const gchar*> NODE_CUSTOM_ICONS {
     "ct_ar",           // 130
     "ct_hu",           // 131
     "ct_heart_ukraine",// 132
-    "ct_microchip"     // 133
+    "ct_microchip",    // 133
+    "ct_ansible",      // 134
+    "ct_aws",          // 135
+    "ct_azure",        // 136
+    "ct_docker",       // 137
+    "ct_gcp",          // 138
+    "ct_kubernetes",   // 139
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -400,6 +406,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     /*coding start*/17, 21, 22, 23, 24, 38, 46, 47, 48, 49/*coding end*/,
     114, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 40, 41, 42, 43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 126, 113,
     /*os start*/115, 116, 117, 118, 119, 120, 121/*os end*/,
+    /*devops start*/134, 135, 136, 137, 138, 139/*devops end*/,
     /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131/*flags end*/
 };
 
