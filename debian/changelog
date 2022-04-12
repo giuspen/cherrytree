@@ -1,16 +1,12 @@
-cherrytree (0.99.46-2) focal; urgency=low
+cherrytree (0.99.47-2) focal; urgency=low
 
-  * fixed time created/modified filter on searches for node name and tags (#1858)
-  * changed default keyboard shortcuts using Ctrl+Period to Ctrl+Backslash for clash with latest linux desktops (#1942, #1956)
-  * fixed restore window position on Windows and dual screen (#1943, fix on gtk3 of Luca Bacci)
-  * fixed on Windows copy from codebox and pasting to rich text unwanted additional characters (#1934)
-  * export to txt on Windows set expected line endings [CR][NL] rather than [NL]
-  * added strip trailing spaces action to rich text right click menu (#1935)
-  * fixed issue restoring hpaned tree/text position with tree on the right (#1918)
-  * added command line option to pass the password to open an encrypted document (#1965)
-  * added language Arabic, work of Mohamed Milodi
-  * added language Hungarian, work of Stiener Norbert
-  * updated languages French, Russina, Kazakh
+  * added support for latex math equations (#400)
+  * added copy/paste of tree nodes and subnodes between multiple opened files (#1688)
+  * restored support for drag and drop of text selection; now rich text content is preserved (#1891)
+  * added syntax highlighting for HCL (Hashicop Configuration Language) from @guitarmanvt (#2005)
+  * fixed issue at reset toolbar in preferences dialog when menubar in titlebar
+  * added few node icons for DevOps tools & technology (#1964)
+  * added command line option (-S/--secondary_session) to run in isolation from a possibly already running main instance (#1965)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 19 Feb 2022 10:15:25 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 12 Apr 2022 20:33:42 +0100

@@ -1,4 +1,13 @@
 
+0.99.47 (April 12th, 2022)
+  * added support for latex math equations (#400)
+  * added copy/paste of tree nodes and subnodes between multiple opened files (#1688)
+  * restored support for drag and drop of text selection; now rich text content is preserved (#1891)
+  * added syntax highlighting for HCL (Hashicop Configuration Language) from @guitarmanvt (#2005)
+  * fixed issue at reset toolbar in preferences dialog when menubar in titlebar
+  * added few node icons for DevOps tools & technology (#1964)
+  * added command line option (-S/--secondary_session) to run in isolation from a possibly already running main instance (#1965)
+
 0.99.46 (February 18th, 2022)
   * fixed time created/modified filter on searches for node name and tags (#1858)
   * changed default keyboard shortcuts using Ctrl+Period to Ctrl+Backslash for clash with latest linux desktops (#1942, #1956)
