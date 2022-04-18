@@ -1,7 +1,7 @@
 {
     "app-id": "com.giuspen.cherrytree",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "40",
+    "runtime-version": "42",
     "sdk": "org.gnome.Sdk",
     "command": "cherrytree",
     "rename-desktop-file": "cherrytree.desktop",
@@ -9,9 +9,10 @@
     "finish-args": [
         "--share=ipc",
         "--share=network",
-        "--socket=fallback-x11",
+        "--socket=x11",
         "--socket=wayland",
         "--filesystem=host",
+        "--filesystem=xdg-config/gtk-3.0",
         "--filesystem=xdg-run/gvfs",
         "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.gtk.vfs.*"
@@ -38,8 +39,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.3.tar.xz",
-                    "sha256": "e81596625899aacf1d0bf27ccc2fcc7f373405ec48735ca1c7273c0fbcdc1ef5"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.4.tar.xz",
+                    "sha256": "e954c09b4309a7ef93e13b69260acdc5738c907477eb381b78bb1e414ee6dbd8"
                 }
             ],
             "cleanup": [
@@ -54,8 +55,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.10/libsigc++-2.10.7.tar.xz",
-                    "sha256": "d082a2ce72c750f66b1a415abe3e852df2eae1e8af53010f4ac2ea261a478832"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.10/libsigc++-2.10.8.tar.xz",
+                    "sha256": "235a40bec7346c7b82b6a8caae0456353dc06e71f14bc414bcc858af1838719a"
                 }
             ]
         },
@@ -84,8 +85,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.1.tar.xz",
-                    "sha256": "69bd6b5327716ca2f511ab580a969fd7bf0cd2c24ce15e1d0e530592d3ff209c"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.2.tar.xz",
+                    "sha256": "b2a4cd7b9ae987794cbb5a1becc10cecb65182b9bb841868625d6bbb123edb1d"
                 }
             ]
         },
@@ -95,8 +96,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.1.tar.xz",
-                    "sha256": "c885013fe61a4c5117fda395770d507563411c63e49f4a3aced4c9efe34d9975"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.2.tar.xz",
+                    "sha256": "57442ab4dc043877bfe3839915731ab2d693fc6634a71614422fb530c9eaa6f4"
                 }
             ]
         },
@@ -115,12 +116,12 @@
             ]
         },
         {
-            "name" : "gtkmm",
+            "name": "gtkmm",
             "buildsystem": "meson",
             "cleanup": [
                 "/lib/gtkmm-3.0"
             ],
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.5.tar.xz",
@@ -129,11 +130,11 @@
             ]
         },
         {
-            "name" : "gtksourceview",
+            "name": "gtksourceview",
             "config-opts" : [
                 "--disable-documentation"
             ],
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtksourceview/3.24/gtksourceview-3.24.11.tar.xz",
@@ -142,11 +143,11 @@
             ]
         },
         {
-            "name" : "gtksourceviewmm",
+            "name": "gtksourceviewmm",
             "config-opts" : [
                 "--disable-documentation"
             ],
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtksourceviewmm/3.21/gtksourceviewmm-3.21.3.tar.xz",
@@ -155,11 +156,11 @@
             ]
         },
         {
-            "name" : "libxml++",
+            "name": "libxml++",
             "config-opts" : [
                 "--disable-documentation"
             ],
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.1.tar.xz",
@@ -168,11 +169,11 @@
             ]
         },
         {
-            "name" : "gspell",
+            "name": "gspell",
             "cleanup": [
                 "/bin"
             ],
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gspell/1.9/gspell-1.9.1.tar.xz",
@@ -181,9 +182,9 @@
             ]
         },
         {
-            "name" : "uchardet",
+            "name": "uchardet",
             "buildsystem": "cmake",
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.7.tar.xz",
@@ -192,9 +193,9 @@
             ]
         },
         {
-            "name" : "fmt",
+            "name": "fmt",
             "buildsystem": "cmake",
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://github.com/fmtlib/fmt/releases/download/7.1.3/fmt-7.1.3.zip",
@@ -203,9 +204,9 @@
             ]
         },
         {
-            "name" : "spdlog",
+            "name": "spdlog",
             "buildsystem": "cmake",
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
                     "url" : "https://github.com/gabime/spdlog/archive/refs/tags/v1.8.5.tar.gz",
@@ -214,13 +215,27 @@
             ]
         },
         {
-            "name" : "cherrytree",
+            "name": "cherrytree",
             "buildsystem": "cmake",
-            "sources" : [
+            "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.40.tar.xz",
-                    "sha256" : "8460284d76d6a1fd555a13903abb10e0473757f6ce09a98c10220de9713bb3ed"
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.47.tar.xz",
+                    "sha256" : "1b551ee00f788d21ebda3123495a88da293467b8a53bb78fb4fae957c452d024"
+                }
+            ]
+        },
+        {
+            "name": "tinytex",
+            "buildsystem": "simple",
+            "build-commands": [
+                "tar xf TinyTeX-1-v2022.04.04.tar.xz -C /app/bin/"
+            ],
+            "sources": [
+                {
+                    "type" : "file",
+                    "url" : "https://www.giuspen.com/software/TinyTeX-1-v2022.04.04.tar.xz",
+                    "sha256" : "3025930f9c9e989c0cac59826f8ee126d677aec728d20537b9e53e13ace29020"
                 }
             ]
         }
