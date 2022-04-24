@@ -139,7 +139,7 @@ void CtActions::find_in_multiple_nodes()
         if (not entry_predefined_text.empty()) {
             _s_options.str_find = entry_predefined_text;
         }
-        title = _s_state.replace_active ? _("Replace in Multiple Nodes") : _("Find in Multiple Nodes");
+        title = _s_state.replace_active ? _("Replace in Multiple Nodes...") : _("Find in Multiple Nodes...");
         pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true/*multiple_nodes*/);
         if (not entry_predefined_text.empty()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);

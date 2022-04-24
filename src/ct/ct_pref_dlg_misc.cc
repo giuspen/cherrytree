@@ -276,7 +276,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
             const Glib::ustring selLangId = res->get_value(rItemStore->columns.key);
             button_country_language->set_label(f_getButtonLabel(selLangId));
             button_country_language->set_image(*_pCtMainWin->new_managed_image_from_stock(f_getStockId(selLangId), Gtk::ICON_SIZE_MENU));
-            need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
+            need_restart(RESTART_REASON::LANG);
             g_file_set_contents(fs::get_cherrytree_langcfg_filepath().c_str(),
                                 selLangId.c_str(), (gssize)selLangId.bytes(), nullptr);
         }
