@@ -360,7 +360,6 @@ TEST(MiscUtilsGroup, mime__type_contains)
 // some tests don't work on TRAVIS with WIN32
 #if !(defined(_TRAVIS) && defined(_WIN32))
     ASSERT_TRUE(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_txt.txt", "text/"));
-    ASSERT_TRUE(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "text/"));
     ASSERT_TRUE(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "html"));
 
 // test doesn't work on WIN32 and MacOS
