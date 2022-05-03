@@ -4,6 +4,7 @@ set -e
 ARG_VAL="$1"
 BUILD_DIR="build"
 MAKE_DEB=""
+MAKE_APPIMAGE=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
 [[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
@@ -20,6 +21,9 @@ else
   if [ "${ARG_VAL}" == "deb" ] || [ "${ARG_VAL}" == "Deb" ] || [ "${ARG_VAL}" == "DEB" ]
   then
     MAKE_DEB="Y"
+  elif [ "${ARG_VAL}" == "appimage" ] || [ "${ARG_VAL}" == "Appimage" ] || [ "${ARG_VAL}" == "APPIMAGE" ]
+  then
+    MAKE_APPIMAGE="Y"
   fi
 fi
 
@@ -60,4 +64,19 @@ then
   TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.deb"
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb ${TARGET_PACKAGE_NAME}
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb.sha256 ${TARGET_PACKAGE_NAME}.sha256
+elif [ -n "${MAKE_APPIMAGE}" ]
+then
+  # https://github.com/linuxdeploy/linuxdeploy-plugin-gtk
+  [ -f linuxdeploy-plugin-gtk.sh ] || wget -c "https://raw.githubusercontent.com/linuxdeploy/linuxdeploy-plugin-gtk/master/linuxdeploy-plugin-gtk.sh"
+  [ -f linuxdeploy-x86_64.AppImage ] || wget -c "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
+  chmod +x linuxdeploy-plugin-gtk.sh
+  chmod +x linuxdeploy-x86_64.AppImage
+  rm -rf AppDir
+  DESTDIR=AppDir ninja install
+  ./linuxdeploy-x86_64.AppImage \
+        --appdir AppDir \
+        --plugin gtk \
+        --output appimage \
+        --icon-file ../icons/cherrytree.svg \
+        --desktop-file ../data/cherrytree.desktop
 fi

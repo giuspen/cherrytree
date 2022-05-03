@@ -431,7 +431,7 @@ MA 02110-1301, USA.
  _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
  _("Dutch")+" (nl) Luuk Geurts"+CtConst::CHAR_NEWLINE+
  _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("French")+" (fr) Klaus Becker <colonius@free.fr>"+CtConst::CHAR_NEWLINE+
+ _("French")+" (fr) Francis Gernet <fgernet@concretx.com>"+CtConst::CHAR_NEWLINE+
  _("German")+" (de) Matthias Hoffmann <MHoffi@web.de>"+CtConst::CHAR_NEWLINE+
  _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
  _("Hindi India")+" (hi_IN) Paresh Mhatre <pareshmhatrework@gmail.com>"+CtConst::CHAR_NEWLINE+
