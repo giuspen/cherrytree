@@ -266,6 +266,8 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                                                              "F(x) &= \\int^a_b \\frac{1}{3}x^3\n"
                                                              "\\end{align*}\n"
                                                              "\\end{document}"};
+/*static*/bool CtImageLatex::_renderingBinariesLatexOk{true};
+/*static*/bool CtImageLatex::_renderingBinariesDviPngOk{true};
 
 CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
                            const Glib::ustring& latexText,
@@ -369,6 +371,12 @@ void CtImageLatex::update_tooltip()
     if (retVal != 0) {
         spdlog::error("system({}) returned {}", cmd, retVal);
 #endif
+        if (_renderingBinariesLatexOk) {
+            _renderingBinariesLatexOk = false;
+            if (_renderingBinariesDviPngOk and 0 != system("dvipng --version")) {
+                _renderingBinariesDviPngOk = false;
+            }
+        }
     }
     else {
         std::string tmp_filepath_noext = tmp_filepath_tex.string();
@@ -394,6 +402,9 @@ void CtImageLatex::update_tooltip()
         retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
+            if (_renderingBinariesDviPngOk) {
+                _renderingBinariesDviPngOk = false;
+            }
 #endif
         }
         else {
@@ -412,6 +423,32 @@ void CtImageLatex::update_tooltip()
     }
     // fallback
     return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+}
+
+/*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
+{
+    if (not _renderingBinariesLatexOk and not _renderingBinariesDviPngOk) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executables 'latex' and 'dvipng'") + Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
+               Glib::ustring{"\n  <tt>$sudo apt install texlive-latex-base</tt>\n  <tt>$sudo apt install dvipng</tt>\n"} +
+               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
+    }
+    if (not _renderingBinariesLatexOk) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executable 'latex'") + Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
+               Glib::ustring{"\n  <tt>$sudo apt install texlive-latex-base</tt>\n"} +
+               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
+    }
+    if (not _renderingBinariesDviPngOk) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executable 'dvipng'") + Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
+               Glib::ustring{"\n  <tt>$sudo apt install dvipng</tt>\n"} +
+               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
+    }
+    return "";
 }
 
 bool CtImageLatex::_on_button_press_event(GdkEventButton* event)

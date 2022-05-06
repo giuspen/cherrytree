@@ -67,6 +67,12 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
     button_latex_reference->set_always_show_image(true);
     vbox->pack_start(*button_latex_tutorial, false, false);
     vbox->pack_start(*button_latex_reference, false, false);
+    Glib::ustring error_msg = CtImageLatex::getRenderingErrorMessage();
+    if (not error_msg.empty()) {
+        auto p_label_error_msg = Gtk::manage(new Gtk::Label{error_msg});
+        p_label_error_msg->set_use_markup(true);
+        pContentArea->pack_start(*p_label_error_msg);
+    }
     pContentArea->pack_start(*hbox);
     spinbutton_latex_size->signal_value_changed().connect([pCtMainWin, spinbutton_latex_size](){
         pCtMainWin->get_ct_config()->latexSizeDpi = spinbutton_latex_size->get_value_as_int();
