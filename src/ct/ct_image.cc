@@ -266,6 +266,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                                                              "F(x) &= \\int^a_b \\frac{1}{3}x^3\n"
                                                              "\\end{align*}\n"
                                                              "\\end{document}"};
+/*static*/bool CtImageLatex::_renderingBinariesTested{false};
 /*static*/bool CtImageLatex::_renderingBinariesLatexOk{true};
 /*static*/bool CtImageLatex::_renderingBinariesDviPngOk{true};
 
@@ -341,6 +342,9 @@ void CtImageLatex::update_tooltip()
 #endif // !_FLATPAK_BUILD
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
 {
+    if (not _renderingBinariesTested) {
+        _renderingBinariesTested = true;
+    }
     const fs::path filename = std::to_string(uniqueId) +
                               CtConst::CHAR_MINUS + std::to_string(getpid()) +
                               CtConst::CHAR_MINUS + CtImageLatex::LatexSpecialFilename;
@@ -373,7 +377,7 @@ void CtImageLatex::update_tooltip()
 #endif
         if (_renderingBinariesLatexOk) {
             _renderingBinariesLatexOk = false;
-            if (_renderingBinariesDviPngOk and 0 != system("dvipng --version")) {
+            if (_renderingBinariesDviPngOk and 0 != system(CONSOLE_BIN_DVIPNG " --version")) {
                 _renderingBinariesDviPngOk = false;
             }
         }
@@ -385,27 +389,12 @@ void CtImageLatex::update_tooltip()
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
         cmd = fmt::sprintf(CONSOLE_BIN_DVIPNG " -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
                            pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
-#if 0 // defined(_WIN32)
-        utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
-        ZeroMemory(&si, sizeof(si));
-        si.cb = sizeof(si);
-        ZeroMemory(&pi, sizeof(pi));
-        success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
-        if (success) {
-            WaitForSingleObject(pi.hProcess, INFINITE);
-            CloseHandle(pi.hProcess);
-            CloseHandle(pi.hThread);
-        }
-        if (not success) {
-            spdlog::error("!! CreateProcessW({})", cmd);
-#else
         retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
             if (_renderingBinariesDviPngOk) {
                 _renderingBinariesDviPngOk = false;
             }
-#endif
         }
         else {
             Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
@@ -423,6 +412,16 @@ void CtImageLatex::update_tooltip()
     }
     // fallback
     return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+}
+
+/*static*/void CtImageLatex::ensureRenderingBinariesTested()
+{
+    if (_renderingBinariesTested) {
+        return;
+    }
+    _renderingBinariesTested = true;
+    _renderingBinariesLatexOk = 0 == system(CONSOLE_BIN_LATEX " --version");
+    _renderingBinariesDviPngOk = 0 == system(CONSOLE_BIN_DVIPNG " --version");
 }
 
 /*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()

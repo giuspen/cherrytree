@@ -129,6 +129,7 @@ public:
     static const std::string LatexSpecialFilename;
     static const Glib::ustring LatexTextDefault;
 
+    static void ensureRenderingBinariesTested();
     static Glib::ustring getRenderingErrorMessage();
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
@@ -148,6 +149,7 @@ private:
     bool _on_button_press_event(GdkEventButton* event);
 
 protected:
+    static bool   _renderingBinariesTested;
     static bool   _renderingBinariesLatexOk;
     static bool   _renderingBinariesDviPngOk;
     Glib::ustring _latexText;

@@ -72,6 +72,7 @@ void CtActions::latex_insert()
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
+    CtImageLatex::ensureRenderingBinariesTested();
     _latex_edit_dialog(CtImageLatex::LatexTextDefault, _curr_buffer()->get_insert()->get_iter(), nullptr/*pIterBound*/);
 }
 
