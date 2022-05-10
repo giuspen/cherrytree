@@ -334,11 +334,9 @@ void CtImageLatex::update_tooltip()
 #define CONSOLE_SILENCE_OUTPUT  " > /dev/null"
 #endif // !_WIN32
 #if defined(_FLATPAK_BUILD)
-#define CONSOLE_BIN_LATEX   "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./latex"
-#define CONSOLE_BIN_DVIPNG  "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./dvipng"
+#define CONSOLE_BIN_PREFIX   "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./"
 #else // !_FLATPAK_BUILD
-#define CONSOLE_BIN_LATEX   "latex"
-#define CONSOLE_BIN_DVIPNG  "dvipng"
+#define CONSOLE_BIN_PREFIX   ""
 #endif // !_FLATPAK_BUILD
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
 {
@@ -351,8 +349,8 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf(CONSOLE_BIN_LATEX " --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
-                                   tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+    std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
+                                   CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
 #if defined(_WIN32)
     glong utf16text_len = 0;
     g_autofree gunichar2* utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
@@ -377,7 +375,7 @@ void CtImageLatex::update_tooltip()
 #endif
         if (_renderingBinariesLatexOk) {
             _renderingBinariesLatexOk = false;
-            if (_renderingBinariesDviPngOk and 0 != system(CONSOLE_BIN_DVIPNG " --version")) {
+            if (_renderingBinariesDviPngOk and 0 != system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str())) {
                 _renderingBinariesDviPngOk = false;
             }
         }
@@ -387,8 +385,8 @@ void CtImageLatex::update_tooltip()
         tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
         const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
-        cmd = fmt::sprintf(CONSOLE_BIN_DVIPNG " -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
-                           pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+        cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
+                           CONSOLE_BIN_PREFIX, pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
         retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
@@ -420,8 +418,8 @@ void CtImageLatex::update_tooltip()
         return;
     }
     _renderingBinariesTested = true;
-    _renderingBinariesLatexOk = 0 == system(CONSOLE_BIN_LATEX " --version");
-    _renderingBinariesDviPngOk = 0 == system(CONSOLE_BIN_DVIPNG " --version");
+    _renderingBinariesLatexOk = 0 == system(fmt::sprintf("%slatex --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
+    _renderingBinariesDviPngOk = 0 == system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
 }
 
 /*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
