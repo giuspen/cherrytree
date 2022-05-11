@@ -85,7 +85,24 @@ bool alter_TEXMFROOT_env_var()
     spdlog::debug("running from sources");
     return false;
 }
-#endif // _WIN32
+#else // !_WIN32
+const char* get_latex_dvipng_console_bin_prefix()
+{
+    auto _get_latex_dvipng_console_bin_prefix = []()->const char*{
+        const fs::path tinytex_bin_x86_64_linux = _exePath.parent_path() / "x86_64-linux";
+        if (fs::is_directory(tinytex_bin_x86_64_linux)) {
+            const fs::path tinytex_latex = tinytex_bin_x86_64_linux / "latex";
+            const fs::path tinytex_dvipng = tinytex_bin_x86_64_linux / "dvipng";
+            if (fs::is_regular_file(tinytex_latex) and fs::is_regular_file(tinytex_dvipng)) {
+                return g_strdup_printf("cd %s && ./", tinytex_bin_x86_64_linux.c_str());
+            }
+        }
+        return g_strdup("");
+    };
+    static const char* latex_dvipng_console_bin_prefix = _get_latex_dvipng_console_bin_prefix();
+    return latex_dvipng_console_bin_prefix;
+}
+#endif // !_WIN32
 
 void register_exe_path_detect_if_portable(const char* exe_path)
 {

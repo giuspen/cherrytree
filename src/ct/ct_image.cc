@@ -330,14 +330,15 @@ void CtImageLatex::update_tooltip()
 
 #if defined(_WIN32)
 #define CONSOLE_SILENCE_OUTPUT  " > nul"
+#define CONSOLE_BIN_PREFIX      ""
 #else // !_WIN32
 #define CONSOLE_SILENCE_OUTPUT  " > /dev/null"
-#endif // !_WIN32
 #if defined(_FLATPAK_BUILD)
-#define CONSOLE_BIN_PREFIX   "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./"
+#define CONSOLE_BIN_PREFIX      "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./"
 #else // !_FLATPAK_BUILD
-#define CONSOLE_BIN_PREFIX   ""
+#define CONSOLE_BIN_PREFIX      fs::get_latex_dvipng_console_bin_prefix()
 #endif // !_FLATPAK_BUILD
+#endif // !_WIN32
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
 {
     if (not _renderingBinariesTested) {
