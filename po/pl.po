@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 14:28+0100\n"
-"PO-Revision-Date: 2022-04-25 19:42+0200\n"
+"PO-Revision-Date: 2022-05-15 15:50+0200\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -114,7 +114,7 @@ msgstr "Stwórz nowe okno"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:425
 msgid "Run in secondary session, independent from main session"
-msgstr ""
+msgstr "Uruchom w sesji dodatkowej, niezależnie od sesji głównej"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:97
@@ -709,11 +709,11 @@ msgstr "Przełącz H6 dla zaznaczonego tekstu"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:184
 msgid "Toggle _Small Property"
-msgstr "Przełącz indeks"
+msgstr "Przełącz pomniejszenie"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:185
 msgid "Toggle Small Property of the Selected Text"
-msgstr "Przełącz indeks dla zaznaczonego tekstu"
+msgstr "Przełącz pomniejszenie dla zaznaczonego tekstu"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:186
 msgid "Toggle Su_perscript Property"
@@ -937,7 +937,7 @@ msgstr "Zmień właściwości gałęzi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:243
 msgid "Edit the Properties of the Selected Node"
-msgstr "Zmień właściwości zaznaczonej gałęzi"
+msgstr "Edytuj właściwości zaznaczonej gałęzi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:244
 msgid "Toggle _Read Only"
@@ -956,9 +956,8 @@ msgid "Copy Link to the Selected Node to Clipboard"
 msgstr "Kopiuj link do zaznaczonej gałęzi do schowka"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:248
-#, fuzzy
 msgid "Children _Inherit Syntax"
-msgstr "Składnia dziedziczona"
+msgstr "Podgałęzi dziedzicżą składnię"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:249
 msgid ""
@@ -1158,7 +1157,6 @@ msgid "Iterate the Last Replace Operation"
 msgstr "Powtórz ostatnią zamianę"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
-#, fuzzy
 msgid "Show All Matches _Dialog"
 msgstr "Pokaż okno wszystkich pasujących"
 
@@ -1168,11 +1166,11 @@ msgstr "Pokaż okno Znajdź wszystkie pasujące"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "_Clear All Exclusions From Search"
-msgstr ""
+msgstr "Wyczyść wszystkie wykluczenia z Wyszukiwania"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
-msgstr ""
+msgstr "Wyczyść wszystkie właściwości gałęzi z wykluczeń wyszukiwania"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
 msgid "View"
@@ -1212,12 +1210,11 @@ msgstr "Przełącz wyświetlanie paska stanu"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:315
 msgid "Show/Hide _Lines Node Parent to Children"
-msgstr ""
+msgstr "Przełącz wyświetlanie linii pomiędzy  gałęziami i podgałęziami"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
-#, fuzzy
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
-msgstr "Przełącz wyświetlanie nagłówka nazwy gałęzi"
+msgstr "Przełącz wyświetlanie linii pomiędzy  gałęziami i podgałęziami"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "Show/Hide Node Name _Header"
@@ -1261,11 +1258,11 @@ msgstr "Przełącz pełny ekran"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "Disable Menubar i_n Titlebar"
-msgstr ""
+msgstr "Wyłącz Menu w pasku tytułowym"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "Do Not Place the Menubar in the Titlebar"
-msgstr ""
+msgstr "Nie umieszczaj menu w pasku tytułu"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
 msgid "Enable Menubar i_n Titlebar"
@@ -2026,9 +2023,8 @@ msgstr "Inne"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:131
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:260
-#, fuzzy
 msgid "System Default"
-msgstr "Przywróć domyślne"
+msgstr "Domyślne systemowe"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:141
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:271
@@ -2238,7 +2234,7 @@ msgstr "Grecki"
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:437
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:46
 msgid "Hindi India"
-msgstr ""
+msgstr "Hinduski"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:438
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:47
@@ -2695,15 +2691,16 @@ msgid "Date Modified"
 msgstr "Data modyfikacji"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:717
-#, fuzzy
 msgid ""
 "No Previous Node Copy Was Performed During This Session or the Source Tree "
 "is No Longer Available"
-msgstr "Nie wykonano żadnego formatowania w tej sesji"
+msgstr ""
+"Podczas tej sesji nie wykonano żadnej kopii poprzedniego węzła lub drzewo "
+"źródłowe nie jest już dostępne"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:723
 msgid "The Source Tree Node is No Longer Available"
-msgstr ""
+msgstr "Gałąź źródłowa nie jest już dostępna"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:45
 msgid "Checking for Newer Version..."
@@ -2803,9 +2800,8 @@ msgid "Node Name and Tags"
 msgstr "Nazwa gałęzi i tagi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:184
-#, fuzzy
 msgid "Only Selected Node and Subnodes"
-msgstr "Zaznaczoną gałąź i podgałęzie"
+msgstr "Tylko zaznaczona gałąź i podgałęzie"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:186
 msgid "Show Iterated Find/Replace Dialog"
@@ -2899,13 +2895,12 @@ msgstr "Włącz automatyczną zamianę symboli"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:110
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:212
-#, fuzzy
 msgid "Supported Symbols Auto Replacements"
-msgstr "Włącz automatyczną zamianę symboli"
+msgstr "Automatyczna zamiana symboli"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:222
 msgid "Only at the Start of the Line"
-msgstr ""
+msgstr "Tylko na początku linii"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:160
 #, c-format
@@ -2920,6 +2915,12 @@ msgid ""
 "tilde and open with cherrytree. If it still fails, try the one with two "
 "tildes and if it still fails try the one with three tildes"
 msgstr ""
+"Pliki kopii zapasowej są domyślnie 3 w tym samym folderze uszkodzonego "
+"dokumentu, o tej samej nazwie plus końcowe tyldy (~, ~~, ~~~). Spróbuj "
+"najpierw wykonać kopię zapasową z jedną tyldą: skopiuj plik do innego "
+"katalogu, usuń końcową tyldę i otwórz za pomocą cherrytree. Jeśli nadal się "
+"nie powiedzie, wypróbuj tę z dwiema tyldami, a jeśli nadal się nie "
+"powiedzie, wypróbuj tę z trzema tyldami"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:217
 #, c-format
@@ -3066,7 +3067,7 @@ msgstr "Włącz inteligentną zamianę Markdown"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:217
 msgid "Scale"
-msgstr ""
+msgstr "Skala"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:221
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
@@ -3093,11 +3094,11 @@ msgstr "Kolor tła"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:257
 msgid "Small"
-msgstr ""
+msgstr "Pomniejszony"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:363
 msgid "Scalable Tags"
-msgstr ""
+msgstr "Skalowalne tagi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:364
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:106
@@ -3501,9 +3502,9 @@ msgid "The new chosen parent is still the old parent!"
 msgstr "Wybrana gałąź jest poprzednią nadrzędną gałęzią!"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:749
-#, fuzzy, c-format
+#, c-format
 msgid "%s Nodes Properties Changed"
-msgstr "Właściwości gałęzi"
+msgstr "Właściwości gałęzi %s zmienione"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:39
 msgid "Latex Text"
@@ -3511,24 +3512,23 @@ msgstr "Tekst Latex"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:53
 msgid "Image Size dpi"
-msgstr ""
+msgstr "Wielkość obrazka dpi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:60
 msgid "Tutorial"
 msgstr "Tutorial"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:61
-#, fuzzy
 msgid "Reference"
-msgstr "Ustawienia"
+msgstr "Referencje"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:64
 msgid "LaTeX Math and Equations Tutorial"
-msgstr ""
+msgstr "Samouczek dotyczący matematyki i notacji LaTeX"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:65
 msgid "LaTeX Math Symbols Reference"
-msgstr ""
+msgstr "Objaśnienia symboli matematycznych LaTeX"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:101
 msgid "Image Properties"
