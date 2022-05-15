@@ -29,10 +29,11 @@ Depends:
  libgspell-1-1,
  libcurl4,
  libuchardet0,
- texlive-latex-base,
- dvipng,
  ${misc:Depends},
  ${shlibs:Depends}
+Recommends:
+ texlive-latex-base,
+ dvipng
 Description: hierarchical note taking application
  CherryTree is a hierarchical note taking application, featuring rich text,
  syntax highlighting, images handling, hyperlinks, import/export with support

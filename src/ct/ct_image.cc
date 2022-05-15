@@ -266,6 +266,9 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                                                              "F(x) &= \\int^a_b \\frac{1}{3}x^3\n"
                                                              "\\end{align*}\n"
                                                              "\\end{document}"};
+/*static*/bool CtImageLatex::_renderingBinariesTested{false};
+/*static*/bool CtImageLatex::_renderingBinariesLatexOk{true};
+/*static*/bool CtImageLatex::_renderingBinariesDviPngOk{true};
 
 CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
                            const Glib::ustring& latexText,
@@ -327,26 +330,28 @@ void CtImageLatex::update_tooltip()
 
 #if defined(_WIN32)
 #define CONSOLE_SILENCE_OUTPUT  " > nul"
+#define CONSOLE_BIN_PREFIX      ""
 #else // !_WIN32
 #define CONSOLE_SILENCE_OUTPUT  " > /dev/null"
-#endif // !_WIN32
 #if defined(_FLATPAK_BUILD)
-#define CONSOLE_BIN_LATEX   "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./latex"
-#define CONSOLE_BIN_DVIPNG  "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./dvipng"
+#define CONSOLE_BIN_PREFIX      "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./"
 #else // !_FLATPAK_BUILD
-#define CONSOLE_BIN_LATEX   "latex"
-#define CONSOLE_BIN_DVIPNG  "dvipng"
+#define CONSOLE_BIN_PREFIX      fs::get_latex_dvipng_console_bin_prefix()
 #endif // !_FLATPAK_BUILD
+#endif // !_WIN32
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
 {
+    if (not _renderingBinariesTested) {
+        _renderingBinariesTested = true;
+    }
     const fs::path filename = std::to_string(uniqueId) +
                               CtConst::CHAR_MINUS + std::to_string(getpid()) +
                               CtConst::CHAR_MINUS + CtImageLatex::LatexSpecialFilename;
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf(CONSOLE_BIN_LATEX " --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
-                                   tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+    std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
+                                   CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
 #if defined(_WIN32)
     glong utf16text_len = 0;
     g_autofree gunichar2* utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
@@ -369,32 +374,26 @@ void CtImageLatex::update_tooltip()
     if (retVal != 0) {
         spdlog::error("system({}) returned {}", cmd, retVal);
 #endif
+        if (_renderingBinariesLatexOk) {
+            _renderingBinariesLatexOk = false;
+            if (_renderingBinariesDviPngOk and 0 != system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str())) {
+                _renderingBinariesDviPngOk = false;
+            }
+        }
     }
     else {
         std::string tmp_filepath_noext = tmp_filepath_tex.string();
         tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
         const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
-        cmd = fmt::sprintf(CONSOLE_BIN_DVIPNG " -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
-                           pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
-#if 0 // defined(_WIN32)
-        utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
-        ZeroMemory(&si, sizeof(si));
-        si.cb = sizeof(si);
-        ZeroMemory(&pi, sizeof(pi));
-        success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
-        if (success) {
-            WaitForSingleObject(pi.hProcess, INFINITE);
-            CloseHandle(pi.hProcess);
-            CloseHandle(pi.hThread);
-        }
-        if (not success) {
-            spdlog::error("!! CreateProcessW({})", cmd);
-#else
+        cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
+                           CONSOLE_BIN_PREFIX, pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
         retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
-#endif
+            if (_renderingBinariesDviPngOk) {
+                _renderingBinariesDviPngOk = false;
+            }
         }
         else {
             Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
@@ -412,6 +411,42 @@ void CtImageLatex::update_tooltip()
     }
     // fallback
     return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+}
+
+/*static*/void CtImageLatex::ensureRenderingBinariesTested()
+{
+    if (_renderingBinariesTested) {
+        return;
+    }
+    _renderingBinariesTested = true;
+    _renderingBinariesLatexOk = 0 == system(fmt::sprintf("%slatex --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
+    _renderingBinariesDviPngOk = 0 == system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
+}
+
+/*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
+{
+    if (not _renderingBinariesLatexOk and not _renderingBinariesDviPngOk) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executables 'latex' and 'dvipng'") + Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
+               Glib::ustring{"\n  <tt>$sudo apt install texlive-latex-base</tt>\n  <tt>$sudo apt install dvipng</tt>\n"} +
+               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
+    }
+    if (not _renderingBinariesLatexOk) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executable 'latex'") + Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
+               Glib::ustring{"\n  <tt>$sudo apt install texlive-latex-base</tt>\n"} +
+               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
+    }
+    if (not _renderingBinariesDviPngOk) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executable 'dvipng'") + Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
+               Glib::ustring{"\n  <tt>$sudo apt install dvipng</tt>\n"} +
+               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
+    }
+    return "";
 }
 
 bool CtImageLatex::_on_button_press_event(GdkEventButton* event)

@@ -45,10 +45,14 @@ class path;
 std::string legacy_canonicalize_filename(const std::string& filename, const std::string& relative_to = "");
 
 void register_exe_path_detect_if_portable(const char* exe_path);
+
 bool alter_locale_env_var(const std::string& key, const std::string& val);
+
 #if defined(_WIN32)
 bool alter_TEXMFROOT_env_var();
-#endif // _WIN32
+#else // !_WIN32
+const char* get_latex_dvipng_console_bin_prefix();
+#endif // !_WIN32
 
 bool copy_file(const path& from, const path& to);
 

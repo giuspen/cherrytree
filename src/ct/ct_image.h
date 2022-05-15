@@ -129,6 +129,9 @@ public:
     static const std::string LatexSpecialFilename;
     static const Glib::ustring LatexTextDefault;
 
+    static void ensureRenderingBinariesTested();
+    static Glib::ustring getRenderingErrorMessage();
+
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageLatex; }
@@ -146,6 +149,9 @@ private:
     bool _on_button_press_event(GdkEventButton* event);
 
 protected:
+    static bool   _renderingBinariesTested;
+    static bool   _renderingBinariesLatexOk;
+    static bool   _renderingBinariesDviPngOk;
     Glib::ustring _latexText;
     const size_t  _uniqueId;
 };
