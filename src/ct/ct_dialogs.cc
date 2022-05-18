@@ -441,7 +441,7 @@ MA 02110-1301, USA.
  _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Korean")+" (ko) Sean Lee <icarusean@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Polish")+" (pl) Daniel Napora <napcok@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Portuguese")+" (pt) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
  _("Portuguese Brazil")+" (pt_BR) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
  _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
