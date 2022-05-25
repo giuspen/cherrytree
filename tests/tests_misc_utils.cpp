@@ -462,3 +462,9 @@ TEST(MiscUtilsGroup, get_is_camel_case)
         ASSERT_TRUE(CtTextIterUtil::get_is_camel_case(pTextBuffer->begin(), yesCamel2.size()));
     }
 }
+
+TEST(MiscUtilsGroup, gtk_pango_find_base_dir)
+{
+    ASSERT_EQ(PANGO_DIRECTION_LTR, CtStrUtil::gtk_pango_find_base_dir("Test 123", -1));
+    ASSERT_EQ(PANGO_DIRECTION_RTL, CtStrUtil::gtk_pango_find_base_dir("זה טקסט שנכתב בעברית, מימין לשמאל, עם סימני פיסוק! וגם; מספרים כמו", -1));
+}

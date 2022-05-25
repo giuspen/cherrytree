@@ -32,6 +32,8 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <curl/curl.h>
+#include <fribidi.h>
+
 #ifndef __APPLE__
 #include <uchardet/uchardet.h>
 #else
@@ -515,6 +517,45 @@ int CtTextIterUtil::get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_bu
     return words;
 }
 
+// copied from https://gitlab.gnome.org/GNOME/gtk.git  origin/gtk-3-24  gtkpango.c  _gtk_pango_unichar_direction
+PangoDirection CtStrUtil::gtk_pango_unichar_direction(gunichar ch)
+{
+  FriBidiCharType fribidi_ch_type;
+
+  G_STATIC_ASSERT (sizeof (FriBidiChar) == sizeof (gunichar));
+
+  fribidi_ch_type = fribidi_get_bidi_type (ch);
+
+  if (!FRIBIDI_IS_STRONG (fribidi_ch_type))
+    return PANGO_DIRECTION_NEUTRAL;
+  else if (FRIBIDI_IS_RTL (fribidi_ch_type))
+    return PANGO_DIRECTION_RTL;
+  else
+    return PANGO_DIRECTION_LTR;
+}
+// copied from https://gitlab.gnome.org/GNOME/gtk.git  origin/gtk-3-24  gtkpango.c  _gtk_pango_find_base_dir
+PangoDirection CtStrUtil::gtk_pango_find_base_dir(const gchar *text, gint length)
+{
+  PangoDirection dir = PANGO_DIRECTION_NEUTRAL;
+  const gchar *p;
+
+  g_return_val_if_fail (text != NULL || length == 0, PANGO_DIRECTION_NEUTRAL);
+
+  p = text;
+  while ((length < 0 || p < text + length) && *p)
+    {
+      gunichar wc = g_utf8_get_char (p);
+
+      dir = CtStrUtil::gtk_pango_unichar_direction (wc);
+
+      if (dir != PANGO_DIRECTION_NEUTRAL)
+        break;
+
+      p = g_utf8_next_char (p);
+    }
+
+  return dir;
+}
 
 bool CtStrUtil::is_str_true(const Glib::ustring& inStr)
 {

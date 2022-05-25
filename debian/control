@@ -14,6 +14,7 @@ Build-Depends:
  libgspell-1-dev,
  libcurl4-openssl-dev,
  libuchardet-dev,
+ libfribidi-dev,
  libfmt-dev,
  libspdlog-dev
 Standards-Version: 3.9.5
@@ -31,6 +32,7 @@ Depends:
  libgspell-1-2,
  libcurl4,
  libuchardet0,
+ libfribidi0,
  libspdlog1,
  ${misc:Depends},
  ${shlibs:Depends}

@@ -299,19 +299,19 @@ void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& t
 }
 
 // Returns the HTML given the text buffer and iter bounds
-Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter,
-                                                      Gtk::TextIter end_iter, const Glib::ustring& syntax_highlighting)
+Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                                      Gtk::TextIter start_iter,
+                                                      Gtk::TextIter end_iter,
+                                                      const Glib::ustring& syntax_highlighting)
 {
     Glib::ustring html_text = str::format(HTML_HEADER, "");
-    if (syntax_highlighting == CtConst::RICH_TEXT_ID)
-    {
+    if (syntax_highlighting == CtConst::RICH_TEXT_ID) {
         int images_count = 0;
         fs::path tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
 
         int start_offset = start_iter.get_offset();
         std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(start_iter.get_offset(), end_iter.get_offset());
-        for (CtAnchoredWidget* widget: widgets)
-        {
+        for (CtAnchoredWidget* widget : widgets) {
             int end_offset = widget->getOffset();
             html_text +=_html_process_slot(start_offset, end_offset, text_buffer);
             if (CtImage* image = dynamic_cast<CtImage*>(widget)) html_text += _get_image_html(image, tempFolder, images_count, nullptr);
@@ -321,8 +321,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         }
         html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
     }
-    else
-    {
+    else {
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
         html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset(), syntax_highlighting);
     }
@@ -495,8 +494,11 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
 }
 
 // Given a treestore iter returns the HTML rich text
-void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
-                                                  std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets)
+void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
+                                                  int sel_start,
+                                                  int sel_end,
+                                                  std::vector<Glib::ustring>& out_slots,
+                                                  std::vector<CtAnchoredWidget*>& out_widgets)
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
     auto widgets = node_iter.get_anchored_widgets(sel_start, sel_end);
@@ -504,8 +506,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter, int sel_
 
     out_slots.clear();
     int start_offset = sel_start == -1 ? 0 : sel_start;
-    for (auto widget: out_widgets)
-    {
+    for (auto widget : out_widgets) {
         int end_offset = widget->getOffset();
         out_slots.push_back(_html_process_slot(start_offset, end_offset, curr_buffer));
         start_offset = end_offset;
@@ -515,7 +516,6 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter, int sel_
     else
         out_slots.push_back(_html_process_slot(start_offset, sel_end, curr_buffer));
 }
-
 
 // Process a Single HTML Slot
 Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer)
@@ -639,16 +639,17 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
         html_attrs += Glib::ustring{tag_property.data()} + ":" + property_value + ";";
     }
     Glib::ustring tagged_text;
-    if (html_attrs.empty() || inner_text == "<br />") {
+    if (not hN_active.empty()) {
+        tagged_text = Glib::ustring{"<"} + hN_active + ">" + inner_text + Glib::ustring{"</"} + hN_active + ">";
+    }
+    else if (html_attrs.empty() or inner_text == "<br />") {
         tagged_text = inner_text;
     }
+    else if (html_attrs.find("x-small") != Glib::ustring::npos) {
+        tagged_text = "<small>" + inner_text + "</small>";
+    }
     else {
-        if (not hN_active.empty())
-            tagged_text = Glib::ustring{"<"} + hN_active + ">" + inner_text + Glib::ustring{"</"} + hN_active + ">";
-        else if (html_attrs.find("x-small") != Glib::ustring::npos)
-            tagged_text = "<small>" + inner_text + "</small>";
-        else
-            tagged_text = "<span style=\"" + html_attrs + "\">" + inner_text + "</span>";
+        tagged_text = "<span style=\"" + html_attrs + "\">" + inner_text + "</span>";
     }
     if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
     if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";

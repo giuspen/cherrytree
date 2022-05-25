@@ -50,9 +50,9 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_CONTACT})
 set(CPACK_STRIP_FILES TRUE)
 
 if(USE_SHARED_FMT_SPDLOG)
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0, libspdlog1")
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0, libfribidi0, libspdlog1")
 else()
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-1, libcurl4, libuchardet0")
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-1, libcurl4, libuchardet0, libfribidi0")
 endif()
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.com/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
@@ -122,6 +122,7 @@ pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
+pkg_check_modules(FRIBIDI fribidi REQUIRED)
 if(USE_SHARED_FMT_SPDLOG)
   message("Using fmt, spdlog from: SHARED LIB")
   pkg_check_modules(FMT fmt>=6.0 REQUIRED)
@@ -146,6 +147,7 @@ include_directories(
   SYSTEM ${SQLITE_INCLUDE_DIRS}
   SYSTEM ${CURL_INCLUDE_DIRS}
   SYSTEM ${UCHARDET_INCLUDE_DIRS}
+  SYSTEM ${FRIBIDI_INCLUDE_DIRS}
   . # config.h
 )
 if(USE_SHARED_FMT_SPDLOG)

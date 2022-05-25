@@ -91,6 +91,7 @@ target_link_libraries(cherrytree_shared
   ${SQLITE_LIBRARIES}
   ${CURL_LIBRARIES}
   ${UCHARDET_LIBRARIES}
+  ${FRIBIDI_LIBRARIES}
   pthread
   7za_static
 )

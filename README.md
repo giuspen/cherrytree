@@ -61,7 +61,7 @@ This works on any operating system that supports Docker.
 
 Install dependencies:
 ```sh
-sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfmt-dev libspdlog-dev texlive-latex-base dvipng
+sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libfmt-dev libspdlog-dev texlive-latex-base dvipng
 ```
 Note: On Debian10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead
 Get cherrytree source, compile and run:
@@ -173,7 +173,8 @@ brew install cherrytree
 
 If for any reason you prefer to build it yourself, install dependencies:
 ```sh
-brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet curl
+brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet fribidi curl
+brew link icu4c --force
 brew install --cask basictex
 sudo tlmgr update --self
 sudo tlmgr install dvipng
@@ -184,6 +185,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
+export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
 ./build.sh
 ./build/cherrytree
 ```
@@ -205,8 +207,8 @@ Install required packages to build cherrytree:
 pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
 # gtkmm3, gtksourceviewmm3, libxml++2.6, sqlite3
 pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
-# gspell, curl, uchardet, fmt, spdlog
-pacman -S --needed --noconfirm mingw-w64-x86_64-gspell mingw-w64-x86_64-curl mingw-w64-x86_64-uchardet mingw-w64-x86_64-fmt mingw-w64-x86_64-spdlog
+# gspell, curl, uchardet, fribidi, fmt, spdlog
+pacman -S --needed --noconfirm mingw-w64-x86_64-gspell mingw-w64-x86_64-curl mingw-w64-x86_64-uchardet mingw-w64-x86_64-fribidi mingw-w64-x86_64-fmt mingw-w64-x86_64-spdlog
 # latex, dvipng, gettext, git, nano, meld3
 pacman -S --needed --noconfirm mingw-w64-x86_64-texlive-core mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
 ```

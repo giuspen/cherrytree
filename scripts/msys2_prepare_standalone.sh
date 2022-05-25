@@ -63,6 +63,7 @@ pacman -S --noconfirm --root ${NEW_MSYS2_FOLDER} \
   mingw-w64-x86_64-gspell \
   mingw-w64-x86_64-curl \
   mingw-w64-x86_64-uchardet \
+  mingw-w64-x86_64-fribidi \
   mingw-w64-x86_64-fmt \
   mingw-w64-x86_64-spdlog
 _result=$?

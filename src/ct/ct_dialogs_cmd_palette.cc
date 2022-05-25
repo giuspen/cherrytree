@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_cmd_palette.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -63,7 +63,7 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
     for (auto& action: pCtMainWin->get_ct_menu().get_actions())
     {
         if (action.category.empty()) continue;
-        auto& iter = *list_store->append();
+        auto iter = *list_store->append();
         iter[columns.order] = ++order_cnt;
         iter[columns.id] = action.id;
         iter[columns.path] = action.category;
