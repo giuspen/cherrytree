@@ -3,7 +3,7 @@
 
 #define MyAppName "CherryTree"
 #define MyAppPublisher "Giuseppe Penone"
-#define MyAppURL "https://www.giuspen.com/cherrytree/"
+#define MyAppURL "https://www.giuspen.net/cherrytree/"
 #define MyAppExeName "cherrytree.exe"
 #define Username "giusp"
 #define MyAppVersion GetFileVersion('C:\msys64\home\giusp\git\cherrytree\build\cherrytree.exe')

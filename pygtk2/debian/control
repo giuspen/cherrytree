@@ -10,7 +10,7 @@ Build-Depends:
  python (>= 2.6.6-3~)
 X-Python-Version: >= 2.6
 Standards-Version: 3.9.5
-Homepage: https://www.giuspen.com/cherrytree/
+Homepage: https://www.giuspen.net/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
 Vcs-Browser: https://github.com/giuspen/cherrytree
 

@@ -54,7 +54,7 @@ if(USE_SHARED_FMT_SPDLOG)
 else()
   set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-1, libcurl4, libuchardet0, libfribidi0")
 endif()
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.com/cherrytree/")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.net/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
@@ -211,7 +211,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
             "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
             "${CMAKE_SOURCE_DIR}/data/cherrytree.keys"
             DESTINATION "${SHARE_INSTALL}/mime-info")
-    install(FILES "${CMAKE_SOURCE_DIR}/data/com.giuspen.cherrytree.metainfo.xml"
+    install(FILES "${CMAKE_SOURCE_DIR}/data/net.giuspen.cherrytree.metainfo.xml"
             DESTINATION "${SHARE_INSTALL}/metainfo")
   endif(NOT APPLE)
 

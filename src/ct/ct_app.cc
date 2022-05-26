@@ -30,7 +30,7 @@
 #include <iostream>
 
 CtApp::CtApp(const Glib::ustring application_id_postfix)
- : Gtk::Application{Glib::ustring{"com.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
+ : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
 {
     Gsv::init();
 

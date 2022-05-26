@@ -17,6 +17,6 @@
 
 8. for the command line manual, copy cherrytree.1.gz from linux folder to /usr/share/man/man1
 
-9. for the software center application descriptor copy com.giuspen.cherrytree.metainfo.xml from linux folder to /usr/share/metainfo
+9. for the software center application descriptor copy net.giuspen.cherrytree.metainfo.xml from linux folder to /usr/share/metainfo
 
 10. finally the command "update-desktop-database" must be entered into the terminal

@@ -18,7 +18,7 @@ Build-Depends:
  libfmt-dev,
  libspdlog-dev
 Standards-Version: 3.9.5
-Homepage: https://www.giuspen.com/cherrytree/
+Homepage: https://www.giuspen.net/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
 Vcs-Browser: https://github.com/giuspen/cherrytree
 

@@ -26,7 +26,7 @@
 
 void CtActions::online_help()
 {
-    fs::open_weblink("https://giuspen.com/cherrytreemanual/");
+    fs::open_weblink("https://giuspen.net/cherrytreemanual/");
 }
 
 void CtActions::dialog_about()
@@ -45,7 +45,7 @@ void CtActions::check_for_newer_version()
     statusbar.update_status(_("Checking for Newer Version..."));
     while (gtk_events_pending()) gtk_main_iteration();
 
-    std::string latest_version_from_server = str::trim(fs::download_file("https://www.giuspen.com/software/version_cherrytree"));
+    std::string latest_version_from_server = str::trim(fs::download_file("https://www.giuspen.net/software/version_cherrytree"));
     //g_print("v='%s'\n", latest_version_from_server.c_str());
     if (latest_version_from_server.empty() or latest_version_from_server.size() > 10) {
         statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later"));

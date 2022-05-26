@@ -943,7 +943,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 """))
-    dialog.set_website("http://www.giuspen.com/cherrytree/")
+    dialog.set_website("http://www.giuspen.net/cherrytree/")
     dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"])
     dialog.set_artists(["OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"])
     dialog.set_translator_credits(

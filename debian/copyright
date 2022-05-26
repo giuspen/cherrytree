@@ -1,9 +1,9 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: cherrytree
-Source: https://www.giuspen.com/cherrytree/
+Source: https://www.giuspen.net/cherrytree/
 
 Files: *
-Copyright: 2009-2020 Giuseppe Penone <giuspen@gmail.com>
+Copyright: 2009-2022 Giuseppe Penone <giuspen@gmail.com>
                      Evgenii Gurianov <https://github.com/txe>
 License: GPL-3.0+
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 Giuseppe Penone <giuspen@gmail.com> -->
 <component type="desktop-application">
- <id>com.giuspen.cherrytree</id>
+ <id>net.giuspen.cherrytree</id>
  <metadata_license>CC0-1.0</metadata_license>
  <project_license>GPL-3.0+</project_license>
  <name>CherryTree</name>
@@ -22,17 +22,17 @@
  </description>
  <screenshots>
   <screenshot type="default">
-   <image>https://www.giuspen.com/images/cherrytree-main_window_text.png</image>
+   <image>https://www.giuspen.net/images/cherrytree-main_window_text.png</image>
   </screenshot>
   <screenshot>
-   <image>https://www.giuspen.com/images/cherrytree-main_window_code.png</image>
+   <image>https://www.giuspen.net/images/cherrytree-main_window_code.png</image>
   </screenshot>
  </screenshots>
  <launchable type="desktop-id">cherrytree.desktop</launchable>
- <url type="homepage">https://www.giuspen.com/cherrytree</url>
+ <url type="homepage">https://www.giuspen.net/cherrytree</url>
  <update_contact>giuspen@gmail.com</update_contact>
  <content_rating type="oars-1.0" />
  <releases>
-<!-- <release version="0.99.2" date="2020-06-21" /> -->
+  <release version="0.39.4" date="2020-06-21" />
  </releases>
 </component>

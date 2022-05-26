@@ -4,7 +4,7 @@
 #define MyAppName "CherryTree"
 #define MyAppVersion "0.39.4"
 #define MyAppPublisher "Giuseppe Penone"
-#define MyAppURL "https://www.giuspen.com/cherrytree/"
+#define MyAppURL "https://www.giuspen.net/cherrytree/"
 #define MyAppExeName "cherrytree.exe"
 
 [Setup]

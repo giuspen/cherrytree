@@ -69,7 +69,7 @@ then
   # https://github.com/linuxdeploy/linuxdeploy-plugin-gtk
   [ -f linuxdeploy-plugin-gtk.sh ] || wget -c "https://raw.githubusercontent.com/linuxdeploy/linuxdeploy-plugin-gtk/master/linuxdeploy-plugin-gtk.sh"
   [ -f linuxdeploy-x86_64.AppImage ] || wget -c "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
-  [ -f TinyTeX-1-v2022.04.04.tar.xz ] || wget -c "https://www.giuspen.com/software/TinyTeX-1-v2022.04.04.tar.xz"
+  [ -f TinyTeX-1-v2022.04.04.tar.xz ] || wget -c "https://www.giuspen.net/software/TinyTeX-1-v2022.04.04.tar.xz"
   chmod +x linuxdeploy-plugin-gtk.sh
   chmod +x linuxdeploy-x86_64.AppImage
   rm -rf AppDir

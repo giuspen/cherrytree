@@ -45,7 +45,7 @@ import cons, core
 if __builtin__.DBUS_OK is True:
     class CherryTreeObject(dbus.service.Object):
 
-        @dbus.service.method("com.giuspen.CherryTreeInterface",
+        @dbus.service.method("net.giuspen.CherryTreeInterface",
                              in_signature='s', out_signature='s')
         def Send(self, in_message):
             if len(in_message) < 4 or in_message[:4] != "ct*=":
@@ -244,7 +244,7 @@ def main(args):
     elif __builtin__.DBUS_OK is True:
         try:
             # client
-            remote_object = session_bus.get_object("com.giuspen.CherryTreeService", "/CherryTreeObject")
+            remote_object = session_bus.get_object("net.giuspen.CherryTreeService", "/CherryTreeObject")
             if not args.node: ret_val = remote_object.Send("ct*=%s" % args.filepath)
             else: ret_val = remote_object.Send("ct*=%s\x03%s" % (args.filepath, args.node))
             if ret_val != "okz": raise
@@ -252,7 +252,7 @@ def main(args):
             #raise
             # server + core
             lang_str = initializations()
-            name = dbus.service.BusName("com.giuspen.CherryTreeService", session_bus)
+            name = dbus.service.BusName("net.giuspen.CherryTreeService", session_bus)
             object = CherryTreeObject(session_bus, '/CherryTreeObject')
             CherryTreeHandler(args, lang_str)
             gtk.main()

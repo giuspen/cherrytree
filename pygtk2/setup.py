@@ -160,7 +160,7 @@ if "py2exe" in sys.argv:
        version = cons.VERSION,
        author = "Giuseppe Penone",
        author_email = "giuspen@gmail.com",
-       url = "https://www.giuspen.com/cherrytree/",
+       url = "https://www.giuspen.net/cherrytree/",
        license = "GPL",
        windows = [{"script": "cherrytree",
                    "icon_resources": [(1, "../icons/cherrytree.ico")]
@@ -184,7 +184,7 @@ else:
        version = cons.VERSION,
        author = "Giuseppe Penone",
        author_email = "giuspen@gmail.com",
-       url = "https://www.giuspen.com/cherrytree/",
+       url = "https://www.giuspen.net/cherrytree/",
        license = "GPL",
        data_files = [
                       ("share/icons/hicolor/scalable/apps", ["../icons/cherrytree.svg"] ),
@@ -194,7 +194,7 @@ else:
                       ("share/mime/packages", ["linux/cherrytree.xml"]),
                       ("share/mime-info", ["linux/cherrytree.mime", "linux/cherrytree.keys"]),
                       ("share/application-registry", ["linux/cherrytree.applications"]),
-                      ("share/metainfo", ["linux/com.giuspen.cherrytree.metainfo.xml"]),
+                      ("share/metainfo", ["linux/net.giuspen.cherrytree.metainfo.xml"]),
                       ("share/man/man1", ["linux/cherrytree.1.gz"])
                    ],
        cmdclass={

@@ -1,6 +1,6 @@
 # CherryTree
 A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single XML or SQLite file.
-The project home page is [giuspen.com/cherrytree](https://www.giuspen.com/cherrytree/).
+The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherrytree/).
 
 ## Getting Started
 ### Prerequisites
@@ -18,7 +18,7 @@ Then, after cloning, run in the top folder `./cherrytree` or `python2 cherrytree
 NOTE: The dictionaries for the spellcheck have packages names like hunspell-it, hunspell-fr, ...
 
 ### Installation
-Look at [giuspen.com/cherrytree/#downl](https://www.giuspen.com/cherrytree/#downl) for available installers.
+Look at [giuspen.net/cherrytree/#downl](https://www.giuspen.net/cherrytree/#downl) for available installers.
 
 ### Development
 The development is currently happening on the **master** branch in the root folder being a C++/GTKmm porting.

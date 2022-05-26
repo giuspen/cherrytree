@@ -2664,7 +2664,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def on_help_menu_item_activated(self, menuitem, data=None):
         """Show the Online Manual"""
-        webbrowser.open("http://giuspen.com/cherrytreemanual/")
+        webbrowser.open("http://giuspen.net/cherrytreemanual/")
 
     def on_window_focus_out_event(self, widget, event, data=None):
         """When the main windows loses the focus (e.g. dialog)"""

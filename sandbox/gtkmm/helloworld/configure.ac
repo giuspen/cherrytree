@@ -1,6 +1,6 @@
 
 AC_INIT([Hello World], [0.1], [giuspen@gmail.com],
-        [helloworld], [http://www.giuspen.com])
+        [helloworld], [http://www.giuspen.net])
 AC_PREREQ([2.59])
 AM_INIT_AUTOMAKE([1.10 -Wall no-define])
 
