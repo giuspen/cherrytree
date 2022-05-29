@@ -43,6 +43,7 @@ void CtActions::toggle_show_hide_menubar()
 {
     _pCtConfig->menubarVisible = not _pCtConfig->menubarVisible;
     _pCtMainWin->show_hide_menubar(_pCtConfig->menubarVisible);
+    _pCtMainWin->window_title_update();
 }
 
 void CtActions::toggle_show_hide_toolbars()

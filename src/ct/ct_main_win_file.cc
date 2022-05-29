@@ -1,7 +1,7 @@
 /*
  * ct_main_win_file.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -44,6 +44,10 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;
+    if (not _pCtConfig->menubarVisible) {
+        CtMenuAction* pAction = _uCtMenu->find_action("toggle_show_menubar");
+        title += Glib::ustring{" - "} + _("Show Menubar:") + " " + (pAction ? pAction->get_shortcut(_pCtConfig) : std::string{"?"});
+    }
     if (_pHeaderBar) {
         auto pCustomTitle = dynamic_cast<Gtk::Label*>(_pHeaderBar->get_custom_title());
         if (not pCustomTitle) {
