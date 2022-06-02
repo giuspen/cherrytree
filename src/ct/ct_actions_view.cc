@@ -44,6 +44,11 @@ void CtActions::toggle_show_hide_menubar()
     _pCtConfig->menubarVisible = not _pCtConfig->menubarVisible;
     _pCtMainWin->show_hide_menubar(_pCtConfig->menubarVisible);
     _pCtMainWin->window_title_update();
+    if (not _pCtConfig->menubarVisible and std::string::npos == _pCtConfig->toolbarUiList.find("toggle_show_menubar")) {
+        spdlog::debug("toolbar + toggle_show_menubar");
+        _pCtConfig->toolbarUiList += ",toggle_show_menubar";
+        _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+    }
 }
 
 void CtActions::toggle_show_hide_toolbars()
