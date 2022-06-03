@@ -521,13 +521,14 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
 Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer)
 {
     Glib::ustring curr_html_text = "";
-    CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer,
-                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, CtCurrAttributesMap& curr_attributes) {
+    CtTextIterUtil::SerializeFunc f_html_serialise = [&](Gtk::TextIter& start_iter,
+                                                         Gtk::TextIter& curr_iter,
+                                                         CtCurrAttributesMap& curr_attributes)
+    {
         curr_html_text += _html_text_serialize(start_iter, curr_iter, curr_attributes);
-    });
+    };
+    CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer, f_html_serialise);
 
-    curr_html_text = str::replace(curr_html_text, "<br/><p ", "<p ");
-    curr_html_text = str::replace(curr_html_text, "</p><br/>", "</p>");
     for (auto header : {CtConst::TAG_PROP_VAL_H1, CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3,
                         CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6}) {
         curr_html_text = str::replace(curr_html_text, ("</" + Glib::ustring{header} + "><" + Glib::ustring{header} + " >").c_str(), "");
@@ -540,10 +541,6 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
                                                   Gtk::TextIter end_iter,
                                                   const CtCurrAttributesMap& curr_attributes)
 {
-    Glib::ustring inner_text = str::xml_escape(start_iter.get_text(end_iter));
-    if (inner_text.empty()) return inner_text;
-    inner_text = str::replace(inner_text, CtConst::CHAR_NEWLINE, "<br />");
-
     Glib::ustring html_attrs;
     bool superscript_active{false};
     bool subscript_active{false};
@@ -551,6 +548,7 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
     bool bold_active{false};
     bool italic_active{false};
     Glib::ustring hN_active;
+    Glib::ustring href;
     for (auto tag_property : CtConst::TAG_PROPERTIES) {
         if (curr_attributes.at(tag_property).empty()) {
             continue;
@@ -629,35 +627,45 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
         }
         else if (tag_property == CtConst::TAG_LINK) {
             // <a href="http://www.example.com/">link-text goes here</a>
-            Glib::ustring href = _get_href_from_link_prop_val(property_value);
-            if (href.empty()) {
-                continue;
-            }
-            Glib::ustring html_text = "<a href=\"" + href + "\">" + inner_text + "</a>";
-            return html_text;
+            href = _get_href_from_link_prop_val(property_value);
+            continue;
         }
         html_attrs += Glib::ustring{tag_property.data()} + ":" + property_value + ";";
     }
-    Glib::ustring tagged_text;
-    if (not hN_active.empty()) {
-        tagged_text = Glib::ustring{"<"} + hN_active + ">" + inner_text + Glib::ustring{"</"} + hN_active + ">";
-    }
-    else if (html_attrs.empty() or inner_text == "<br />") {
-        tagged_text = inner_text;
-    }
-    else if (html_attrs.find("x-small") != Glib::ustring::npos) {
-        tagged_text = "<small>" + inner_text + "</small>";
-    }
-    else {
-        tagged_text = "<span style=\"" + html_attrs + "\">" + inner_text + "</span>";
-    }
-    if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
-    if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
-    if (monospace_active) tagged_text = "<code>" + tagged_text + "</code>";
-    if (bold_active) tagged_text = "<strong>" + tagged_text + "</strong>";
-    if (italic_active) tagged_text = "<em>" + tagged_text + "</em>";
 
-    return tagged_text;
+    // split by \n to support RTL lines
+    Glib::ustring html_text;
+    std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
+    for (size_t i = 0; i < lines.size(); ++i) {
+        Glib::ustring tagged_text = str::xml_escape(lines[i]);
+
+        if (not hN_active.empty()) {
+            tagged_text = Glib::ustring{"<"} + hN_active + ">" + tagged_text + Glib::ustring{"</"} + hN_active + ">";
+        }
+        else if (not href.empty()) {
+            tagged_text = "<a href=\"" + href + "\">" + tagged_text + "</a>";
+        }
+        else if (not html_attrs.empty()) {
+            if (html_attrs.find("x-small") != Glib::ustring::npos) {
+                tagged_text = "<small>" + tagged_text + "</small>";
+            }
+            else {
+                tagged_text = "<span style=\"" + html_attrs + "\">" + tagged_text + "</span>";
+            }
+        }
+        if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
+        if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
+        if (monospace_active) tagged_text = "<code>" + tagged_text + "</code>";
+        if (bold_active) tagged_text = "<strong>" + tagged_text + "</strong>";
+        if (italic_active) tagged_text = "<em>" + tagged_text + "</em>";
+        html_text += tagged_text;
+
+        // add '\n' between lines
+        if (lines.size() > 1 and i < lines.size() - 1) {
+            html_text += "<br />";//CtConst::CHAR_NEWLINE;
+        }
+    }
+    return html_text;
 }
 
 std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_val)
