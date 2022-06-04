@@ -81,8 +81,7 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
 void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
 {
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
-    if (index != "" && options.index_in_page)
-    {
+    if (not index.empty() and options.index_in_page) {
         auto script = R"HTML(
             <script type='text/javascript'>
                 function in_frame () { try { return window.self !== window.top; } catch (e) { return true; } }
@@ -94,48 +93,49 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         html_text = str::replace(html_text, "<script></script>", script);
     }
     html_text += "<div class='page'>";
-    if (options.include_node_name)
+    if (options.include_node_name) {
         html_text += "<h1 class='title'>" + tree_iter.get_node_name() + "</h1><br/>";
-
+    }
     std::vector<Glib::ustring> html_slots;
     std::vector<CtAnchoredWidget*> widgets;
-    if (tree_iter.get_node_is_rich_text())
-    {
+    if (tree_iter.get_node_is_rich_text()) {
+        Glib::ustring node_html_text;
         _html_get_from_treestore_node(tree_iter, sel_start, sel_end, html_slots, widgets);
-        int images_count = 0;
-        for (size_t i = 0; i < html_slots.size(); ++i)
-        {
-            html_text += html_slots[i];
-            if (i < widgets.size())
-            {
-                try
-                {
+        int images_count{0};
+        for (size_t i = 0; i < html_slots.size(); ++i) {
+            node_html_text += html_slots[i];
+            if (i < widgets.size()) {
+                try {
                     if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
-                        html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
+                        node_html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
                     else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
-                        html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
+                        node_html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
                     else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
-                        html_text += _get_table_html(table);
+                        node_html_text += _get_table_html(table);
                     else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
-                        html_text += _get_codebox_html(codebox);
+                        node_html_text += _get_codebox_html(codebox);
                 }
-                catch (std::exception& ex)
-                {
+                catch (std::exception& ex) {
                     spdlog::debug("caught ex: {}", ex.what());
                 }
-                catch (...)
-                {
+                catch (...) {
                     spdlog::debug("unknown ex");
                 }
             }
         }
+        std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
+        const size_t lastIdx = node_lines.size() - 1;
+        for (size_t i = 0; i < node_lines.size(); ++i) {
+            if (i < lastIdx or not node_lines.at(i).empty()) html_text += "<p>" + node_lines.at(i) + "</p>";
+        }
     }
-    else
+    else {
         html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
-
-    if (index != "" && !options.index_in_page)
+    }
+    if (not index.empty() and not options.index_in_page) {
         html_text += Glib::ustring("<p align=\"center\">") + "<img src=\"" + Glib::build_filename("images", "home.svg") + "\" height=\"22\" width=\"22\">" +
                 CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">" + _("Index") + "</a></p>";
+    }
     html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
@@ -216,47 +216,48 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
         html_text += "<h1 class='title level-" + std::to_string(node_level) + "'>" + tree_iter.get_node_name() + "</h1><br/>";
         std::vector<Glib::ustring> html_slots;
         std::vector<CtAnchoredWidget*> widgets;
-        if (tree_iter.get_node_is_rich_text())
-        {
+        if (tree_iter.get_node_is_rich_text()) {
+            Glib::ustring node_html_text;
             _html_get_from_treestore_node(tree_iter, -1, -1, html_slots, widgets);
             int images_count = 0;
-            for (size_t i = 0; i < html_slots.size(); ++i)
-            {
-                html_text += html_slots[i];
-                if (i < widgets.size())
-                {
-                    try
-                    {
+            for (size_t i = 0; i < html_slots.size(); ++i) {
+                node_html_text += html_slots[i];
+                if (i < widgets.size()) {
+                    try {
                         if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
-                            html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
+                            node_html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
                         else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
-                            html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
+                            node_html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
                         else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
-                            html_text += _get_table_html(table);
+                            node_html_text += _get_table_html(table);
                         else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
-                            html_text += _get_codebox_html(codebox);
+                            node_html_text += _get_codebox_html(codebox);
                     }
-                    catch (std::exception& ex)
-                    {
+                    catch (std::exception& ex) {
                         spdlog::debug("caught ex: {}", ex.what());
                     }
-                    catch (...)
-                    {
+                    catch (...) {
                         spdlog::debug("unknown ex");
                     }
                 }
             }
+            std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
+            const size_t lastIdx = node_lines.size() - 1;
+            for (size_t i = 0; i < node_lines.size(); ++i) {
+                if (i < lastIdx or not node_lines.at(i).empty()) html_text += "<p>" + node_lines.at(i) + "</p>";
+            }
         }
-        else
+        else {
             html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
+        }
         html_text += "</div>"; // div class='page'
         rFileStream->write(html_text.c_str(), html_text.bytes());
         html_text.clear();
 
-        for (auto& child: tree_iter->children())
+        for (auto& child : tree_iter->children()) {
             traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), node_level + 1);
+        }
     };
-
 
     Glib::ustring html_header = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
     rFileStream->write(html_header.c_str(), html_header.bytes());
@@ -306,20 +307,26 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
 {
     Glib::ustring html_text = str::format(HTML_HEADER, "");
     if (syntax_highlighting == CtConst::RICH_TEXT_ID) {
-        int images_count = 0;
+        Glib::ustring node_html_text;
+        int images_count{0};
         fs::path tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
-
         int start_offset = start_iter.get_offset();
         std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(start_iter.get_offset(), end_iter.get_offset());
         for (CtAnchoredWidget* widget : widgets) {
             int end_offset = widget->getOffset();
-            html_text +=_html_process_slot(start_offset, end_offset, text_buffer);
-            if (CtImage* image = dynamic_cast<CtImage*>(widget)) html_text += _get_image_html(image, tempFolder, images_count, nullptr);
-            else if (CtTable* table = dynamic_cast<CtTable*>(widget)) html_text += _get_table_html(table);
-            else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) html_text += _get_codebox_html(codebox);
+            node_html_text +=_html_process_slot(start_offset, end_offset, text_buffer);
+            if (CtImage* image = dynamic_cast<CtImage*>(widget)) node_html_text += _get_image_html(image, tempFolder, images_count, nullptr);
+            else if (CtTable* table = dynamic_cast<CtTable*>(widget)) node_html_text += _get_table_html(table);
+            else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) node_html_text += _get_codebox_html(codebox);
             start_offset = end_offset;
         }
-        html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
+        node_html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
+
+        std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
+        const size_t lastIdx = node_lines.size() - 1;
+        for (size_t i = 0; i < node_lines.size(); ++i) {
+            if (i < lastIdx or not node_lines.at(i).empty()) html_text += "<p>" + node_lines.at(i) + "</p>";
+        }
     }
     else {
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
@@ -636,6 +643,7 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
     // split by \n to support RTL lines
     Glib::ustring html_text;
     std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
+    const size_t lastIdx = lines.size() - 1;
     for (size_t i = 0; i < lines.size(); ++i) {
         Glib::ustring tagged_text = str::xml_escape(lines[i]);
 
@@ -661,8 +669,8 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
         html_text += tagged_text;
 
         // add '\n' between lines
-        if (lines.size() > 1 and i < lines.size() - 1) {
-            html_text += "<br />";//CtConst::CHAR_NEWLINE;
+        if (i < lastIdx) {
+            html_text += CtConst::CHAR_NEWLINE;
         }
     }
     return html_text;
