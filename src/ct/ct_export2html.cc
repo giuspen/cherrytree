@@ -98,7 +98,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
     }
     std::vector<Glib::ustring> html_slots;
     std::vector<CtAnchoredWidget*> widgets;
-    if (tree_iter.get_node_is_rich_text()) {
+    if (tree_iter.get_node_is_text()) {
         Glib::ustring node_html_text;
         _html_get_from_treestore_node(tree_iter, sel_start, sel_end, html_slots, widgets);
         int images_count{0};
@@ -223,7 +223,7 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
         html_text += "<h1 class='title level-" + std::to_string(node_level) + "'>" + tree_iter.get_node_name() + "</h1><br/>";
         std::vector<Glib::ustring> html_slots;
         std::vector<CtAnchoredWidget*> widgets;
-        if (tree_iter.get_node_is_rich_text()) {
+        if (tree_iter.get_node_is_text()) {
             Glib::ustring node_html_text;
             _html_get_from_treestore_node(tree_iter, -1, -1, html_slots, widgets);
             int images_count = 0;
@@ -746,7 +746,8 @@ Glib::ustring CtExport2Html::_get_object_alignment_string(Glib::ustring alignmen
 // Get the HTML page filename given the tree iter
 Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
 {
-    Glib::ustring name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "--", true, true, ".html");
+    Glib::ustring name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "--"/*separator*/,
+        true/*for_filename*/, true/*root_to_leaf*/, true/*trail_node_id*/, ".html"/*trailer*/);
     return str::replace(name, "#", "~");
 }
 

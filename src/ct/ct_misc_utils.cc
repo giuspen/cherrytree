@@ -214,8 +214,9 @@ bool CtMiscUtil::node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model
 }
 
 //"""Get the Node Hierarchical Name"""
-std::string CtMiscUtil::get_node_hierarchical_name(CtTreeIter tree_iter, const char* separator/*="--"*/,
-                                                   bool for_filename/*=true*/, bool root_to_leaf/*=true*/, const char* trailer/*=""*/)
+std::string CtMiscUtil::get_node_hierarchical_name(const CtTreeIter tree_iter, const char* separator/*="--"*/,
+                                                   const bool for_filename/*=true*/, const bool root_to_leaf/*=true*/,
+                                                   const bool trail_node_id/*=false*/, const char* trailer/*=""*/)
 {
     std::string hierarchical_name = str::trim(tree_iter.get_node_name());
     CtTreeIter father_iter = tree_iter.parent();
@@ -227,8 +228,12 @@ std::string CtMiscUtil::get_node_hierarchical_name(CtTreeIter tree_iter, const c
             hierarchical_name = hierarchical_name + separator + father_name;
         father_iter = father_iter.parent();
     }
-    if (trailer)
+    if (trail_node_id) {
+        hierarchical_name += str::format("_{:d}", tree_iter.get_node_id());
+    }
+    if (trailer) {
         hierarchical_name += trailer;
+    }
     if (for_filename) {
         hierarchical_name = clean_from_chars_not_for_filename(hierarchical_name);
         if (hierarchical_name.size() > (size_t)CtConst::MAX_FILE_NAME_LEN)

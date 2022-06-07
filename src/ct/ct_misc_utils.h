@@ -49,8 +49,9 @@ void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocE
 bool node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
                                   std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap);
 
-std::string get_node_hierarchical_name(CtTreeIter tree_iter, const char* separator="--",
-                                       bool for_filename=true, bool root_to_leaf=true, const char* trailer="");
+std::string get_node_hierarchical_name(const CtTreeIter tree_iter, const char* separator="--",
+                                       const bool for_filename=true, const bool root_to_leaf=true,
+                                       const bool trail_node_id=false, const char* trailer="");
 
 std::string clean_from_chars_not_for_filename(std::string filename);
 

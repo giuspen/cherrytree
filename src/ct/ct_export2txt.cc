@@ -54,11 +54,12 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, f
     Glib::ustring tree_plain_text;
     std::function<void(CtTreeIter)> traverseFunc;
     traverseFunc = [this, &traverseFunc, &export_options, &tree_plain_text, &export_dir](CtTreeIter tree_iter) {
-        if (export_dir == "")
+        if (export_dir.empty()) {
             tree_plain_text += node_export_to_txt(tree_iter, "", export_options, -1, -1);
-        else
-        {
-            fs::path filepath = export_dir / (CtMiscUtil::get_node_hierarchical_name(tree_iter) + ".txt");
+        }
+        else {
+            fs::path filepath = export_dir / CtMiscUtil::get_node_hierarchical_name(tree_iter, "--"/*separator*/,
+                                                true/*for_filename*/, true/*root_to_leaf*/, true/*trail_node_id*/, ".txt"/*trailer*/);
             node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
         }
         for (auto& child: tree_iter->children())
