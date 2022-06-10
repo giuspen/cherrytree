@@ -39,16 +39,6 @@ struct CtPangoNewPage : public CtPangoObject
 struct CtPangoText : public CtPangoObject
 {
     CtPangoText(const Glib::ustring& text_,
-                const Glib::ustring& synt_highl_)
-     : text{text_}
-     , synt_highl{synt_highl_} {}
-    CtPangoText(const Glib::ustring& text_,
-                const Glib::ustring& synt_highl_,
-                const int indent_)
-     : text{text_}
-     , synt_highl{synt_highl_}
-     , indent{indent_} {}
-    CtPangoText(const Glib::ustring& text_,
                 const Glib::ustring& synt_highl_,
                 const int indent_,
                 const bool is_rtl_)
@@ -79,7 +69,7 @@ struct CtPangoDest : public CtPangoText
                 const Glib::ustring& synt_highl,
                 const int indent,
                 const Glib::ustring& dest_)
-     : CtPangoText{text, synt_highl, indent}
+     : CtPangoText{text, synt_highl, indent, false/*is_rtl*/}
      , dest{dest_} {}
     const Glib::ustring dest;
 };
@@ -235,12 +225,15 @@ struct CtPrintPages
          : y{y_} {}
 
         bool test_element_height(int el_height, int page_height) { return (y - height) + el_height <= page_height; }
-        void set_height(int el_height) { if (el_height > height) { y = y - height + el_height; height = el_height; }}
+        void set_height(int el_height) { if (el_height > height) { y = y - height + el_height; height = el_height; } }
+        bool is_rtl(bool curr_rtl) { if (not evaluated_rtl) { rtl = curr_rtl; evaluated_rtl = true; } return rtl; }
 
         std::vector<CtPageElementPtr> elements;
         int height{0}; // height of the line
         int y{0};      // bottom y of the line
-        int cur_x{0};
+        int cur_x{-1};
+        bool evaluated_rtl{false};
+        bool rtl{false};
     };
 
     struct CtPrintPage
@@ -253,8 +246,8 @@ public:
     CtPrintPage& get_page(int i) { return _pages[i]; }
     CtPrintPage& last_page()     { return _pages.back(); }
     CtPageLine&  last_line()     { return _pages.back().lines.back(); }
-    void         new_page()      { _pages.emplace_back(CtPrintPage());  }
-    void         new_line()      { last_page().lines.emplace_back(CtPageLine(last_line().y + 2)); }
+    void         new_page()      { _pages.emplace_back(CtPrintPage{});  }
+    void         new_line()      { last_page().lines.emplace_back(CtPageLine{last_line().y + 2}); }
     void         line_on_new_page() {
         CtPageLine line = last_line();
         new_page();
@@ -263,7 +256,7 @@ public:
     }
 
 private:
-    std::vector<CtPrintPage> _pages {CtPrintPage()};
+    std::vector<CtPrintPage> _pages{CtPrintPage{}};
 };
 
 // Print Operation Data
@@ -276,8 +269,6 @@ struct CtPrintData
 
     CtPrintPages                       pages;
     Glib::ustring                      warning;
-    bool                               rtl_check_done{false};
-    bool                               is_rtl_line{false};
 };
 
 class CtPrint

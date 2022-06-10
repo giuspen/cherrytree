@@ -279,7 +279,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
 
         // add '\n' between lines
         if (lines.size() > 1 && i < lines.size() - 1) {
-            out_slots.emplace_back(std::make_shared<CtPangoText>(CtConst::CHAR_NEWLINE, CtConst::RICH_TEXT_ID, indent));
+            out_slots.emplace_back(std::make_shared<CtPangoText>(CtConst::CHAR_NEWLINE, CtConst::RICH_TEXT_ID, indent, is_rtl));
         }
     }
 }
@@ -302,7 +302,7 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
     }
     else {
         spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
-        return std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent);
+        return std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, is_rtl);
     }
 
     Glib::ustring blue_text = "<span fgcolor='blue'><u>" + tagged_text + "</u></span>";
@@ -318,7 +318,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     else {
         Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
             tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
-        pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
+        pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, false/*is_rtl*/));
     }
 
     if (options.include_node_name) {
@@ -354,7 +354,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
     else {
         Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
             tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
-        node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
+        node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, false/*is_rtl*/));
     }
 
     if (options.include_node_name) {
@@ -367,7 +367,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
         if (options.new_node_page)
             tree_pango_slots.push_back(std::make_shared<CtPangoNewPage>());
         else
-            tree_pango_slots.push_back(std::make_shared<CtPangoText>(str::repeat(CtConst::CHAR_NEWLINE, 3), tree_iter.get_node_syntax_highlighting(), 0));
+            tree_pango_slots.push_back(std::make_shared<CtPangoText>(str::repeat(CtConst::CHAR_NEWLINE, 3), tree_iter.get_node_syntax_highlighting(), 0/*indent*/, false/*is_rtl*/));
         vec::vector_extend(tree_pango_slots, node_pango_slots);
     }
 
@@ -481,19 +481,24 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
         return _get_width_height_from_layout_line(layout_newline->get_line(0)).height;
     }();
 
-    bool any_image_resized = false;
+    bool any_image_resized{false};
     for (auto slot : print_data->slots) {
-        if (dynamic_cast<CtPangoNewPage*>(slot.get()))
+        if (dynamic_cast<CtPangoNewPage*>(slot.get())) {
             print_data->pages.new_page();
-        else if (auto pango_text = dynamic_cast<CtPangoText*>(slot.get()))
+        }
+        else if (auto pango_text = dynamic_cast<CtPangoText*>(slot.get())) {
             _process_pango_text(print_data, pango_text);
+        }
         else if (auto pango_widget = dynamic_cast<CtPangoWidget*>(slot.get())) {
-            if (auto image = dynamic_cast<const CtImage*>(pango_widget->widget))
+            if (auto image = dynamic_cast<const CtImage*>(pango_widget->widget)) {
                 _process_pango_image(print_data, image, pango_widget->indent, any_image_resized);
-            else if (auto codebox = dynamic_cast<const CtCodebox*>(pango_widget->widget))
+            }
+            else if (auto codebox = dynamic_cast<const CtCodebox*>(pango_widget->widget)) {
                 _process_pango_codebox(print_data, codebox, pango_widget->indent);
-            else if (auto table = dynamic_cast<const CtTable*>(pango_widget->widget))
+            }
+            else if (auto table = dynamic_cast<const CtTable*>(pango_widget->widget)) {
                 _process_pango_table(print_data, table, pango_widget->indent);
+            }
         }
     }
 
@@ -589,7 +594,8 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         tag_attr = pango_dest->dest;
     }
 
-    int paragraph_width = _page_width - text_slot->indent;
+    const bool line_is_rtl = pages.last_line().is_rtl(text_slot->is_rtl);
+    const int paragraph_width = _page_width - text_slot->indent;
 
     auto layout = context->create_pango_layout();
     layout->set_font_description(*font);
@@ -597,7 +603,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
     // don't apply paragraph indent because set_indent will work only for the first line
     // also avoid `\n` because new lines also got indent
-    if (text_slot->text != CtConst::CHAR_NEWLINE) {
+    if (not line_is_rtl and text_slot->text != CtConst::CHAR_NEWLINE and -1 != pages.last_line().cur_x) {
         layout->set_indent(int(pages.last_line().cur_x * Pango::SCALE));
     }
     layout->set_markup(text_slot->text);
@@ -610,31 +616,57 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         if (!pages.last_line().test_element_height(size.height, _page_height)) {
             pages.line_on_new_page();
         }
+
         // situation when a bit of space is left but pango cannot wrap the first word
         // make it on a new line
         if (text_slot->text != CtConst::CHAR_NEWLINE and
-            pages.last_line().cur_x > 0 and
-            (pages.last_line().cur_x + size.width) > paragraph_width)
+            -1 != pages.last_line().cur_x)
         {
-            pages.new_line();
-            _process_pango_text(print_data, text_slot);
-            return;
+            bool need_new_line{false};
+            if (line_is_rtl) {
+                if ((pages.last_line().cur_x - size.width) < 0) {
+                    need_new_line = true;
+                }
+            }
+            else {
+                if ((pages.last_line().cur_x + size.width) > paragraph_width) {
+                    need_new_line = true;
+                }
+            }
+            if (need_new_line) {
+                pages.new_line();
+                _process_pango_text(print_data, text_slot);
+                return;
+            }
         }
 
-        // move x before applying a new element
-        if (pages.last_line().cur_x == 0) {
-            pages.last_line().cur_x = text_slot->indent;
+        if (-1 == pages.last_line().cur_x) {
+            // initialise x for a new line
+            if (line_is_rtl) {
+                pages.last_line().cur_x = paragraph_width;
+            }
+            else {
+                pages.last_line().cur_x = text_slot->indent;
+            }
+        }
+        if (line_is_rtl) {
+            // decrease x before if RTL
+            pages.last_line().cur_x -= size.width;
         }
         pages.last_line().set_height(size.height);
-        if (tag_name.empty())
+        if (tag_name.empty()) {
             pages.last_line().elements.push_back(std::make_shared<CtPageText>(pages.last_line().cur_x, layout_line));
-        else
+        }
+        else {
             pages.last_line().elements.push_back(std::make_shared<CtPageTag>(pages.last_line().cur_x, layout_line, tag_name, tag_attr));
-
-        if (i < layout_count - 1) // the paragragh was wrapped, so it's  multiline
+        }
+        if (i < layout_count - 1) { // the paragragh was wrapped, so it's multiline
             pages.new_line();
-        else
+        }
+        else if (not line_is_rtl) {
+            // increase x after if not RTL
             pages.last_line().cur_x += size.width;
+        }
     }
 }
 
@@ -668,9 +700,9 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
     if (!pages.last_line().test_element_height(pixbuf_height + label_size.height, _page_height))
         pages.line_on_new_page();
 
-    if (pages.last_line().cur_x == 0)
+    if (-1 == pages.last_line().cur_x) {
         pages.last_line().cur_x = indent;
-
+    }
     // insert label line
     if (label_size.height != 0) {
         int prev_x = pages.last_line().cur_x;
@@ -702,9 +734,9 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
         auto codebox_layout = _codebox_get_layout(codebox, original_content, context);
         double codebox_height = _get_height_from_layout(codebox_layout);
         if (pages.last_line().test_element_height(codebox_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
-            if (pages.last_line().cur_x == 0)
+            if (-1 == pages.last_line().cur_x) {
                 pages.last_line().cur_x = indent;
-
+            }
             pages.last_line().set_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, codebox_layout));
             pages.last_line().cur_x += _get_width_from_layout(codebox_layout);
@@ -721,9 +753,9 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
             auto first_split_layout = _codebox_get_layout(codebox, first_split, context);
             double codebox_height = _get_height_from_layout(first_split_layout);
 
-            if (pages.last_line().cur_x == 0)
+            if (-1 == pages.last_line().cur_x) {
                 pages.last_line().cur_x = indent;
-
+            }
             pages.last_line().set_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, first_split_layout));
             pages.new_page();
@@ -747,8 +779,9 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
         _table_get_grid(table_layouts, table->get_col_widths(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
         if (pages.last_line().test_element_height(table_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
-            if (pages.last_line().cur_x == 0)
+            if (-1 == pages.last_line().cur_x) {
                 pages.last_line().cur_x = indent;
+            }
             pages.last_line().set_height(table_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_widths(), _page_dpi_scale));
             pages.last_line().cur_x += _table_get_width_height(cols_w);
@@ -764,8 +797,9 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
             auto split_layouts = _table_get_layouts(table, first_row, split_row, context);
             _table_get_grid(split_layouts, table->get_col_widths(), rows_h, cols_w);
             double table_height = _table_get_width_height(rows_h);
-            if (pages.last_line().cur_x == 0)
+            if (-1 == pages.last_line().cur_x) {
                 pages.last_line().cur_x = indent;
+            }
             pages.last_line().set_height(table_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_widths(), _page_dpi_scale));
             pages.new_page();
