@@ -276,6 +276,8 @@ struct CtPrintData
 
     CtPrintPages                       pages;
     Glib::ustring                      warning;
+    bool                               rtl_check_done{false};
+    bool                               is_rtl_line{false};
 };
 
 class CtPrint
