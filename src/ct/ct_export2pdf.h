@@ -27,40 +27,74 @@
 #include "ct_dialogs.h"
 #include <iterator>
 
-
 struct CtPangoObject
 {
     virtual ~CtPangoObject() = default;
 };
+
 struct CtPangoNewPage : public CtPangoObject
 {
 };
+
 struct CtPangoText : public CtPangoObject
 {
-    CtPangoText(const Glib::ustring& text, const Glib::ustring& synt_highl, int indent) : text(text), synt_highl(synt_highl), indent(indent) {}
-    Glib::ustring text;
-    Glib::ustring synt_highl;
-    int           indent;  // paragraph indent
+    CtPangoText(const Glib::ustring& text_,
+                const Glib::ustring& synt_highl_)
+     : text{text_}
+     , synt_highl{synt_highl_} {}
+    CtPangoText(const Glib::ustring& text_,
+                const Glib::ustring& synt_highl_,
+                const int indent_)
+     : text{text_}
+     , synt_highl{synt_highl_}
+     , indent{indent_} {}
+    CtPangoText(const Glib::ustring& text_,
+                const Glib::ustring& synt_highl_,
+                const int indent_,
+                const bool is_rtl_)
+     : text{text_}
+     , synt_highl{synt_highl_}
+     , indent{indent_}
+     , is_rtl{is_rtl_} {}
+    const Glib::ustring text;
+    const Glib::ustring synt_highl;
+    const int           indent{0};     // paragraph indent
+    const bool          is_rtl{false}; // right to left
 };
+
 struct CtPangoLink : public CtPangoText
 {
-    CtPangoLink(const Glib::ustring& text, int indent, const Glib::ustring& link) : CtPangoText(text, CtConst::RICH_TEXT_ID, indent), link(link) {}
-    Glib::ustring link;
+    CtPangoLink(const Glib::ustring& text,
+                const int indent,
+                const Glib::ustring& link_,
+                const bool is_rtl)
+     : CtPangoText{text, CtConst::RICH_TEXT_ID, indent, is_rtl}
+     , link{link_} {}
+    const Glib::ustring link;
 };
+
 struct CtPangoDest : public CtPangoText
 {
-    CtPangoDest(const Glib::ustring& text, const Glib::ustring& synt_highl, int indent, const Glib::ustring& dest) : CtPangoText(text, synt_highl, indent), dest(dest) {}
-    Glib::ustring dest;
+    CtPangoDest(const Glib::ustring& text,
+                const Glib::ustring& synt_highl,
+                const int indent,
+                const Glib::ustring& dest_)
+     : CtPangoText{text, synt_highl, indent}
+     , dest{dest_} {}
+    const Glib::ustring dest;
 };
+
 struct CtPangoWidget : public CtPangoObject
 {
-    CtPangoWidget(CtAnchoredWidget* widget, int indent) : widget(widget), indent(indent) {}
-    CtAnchoredWidget* widget;
-    int               indent;
+    CtPangoWidget(const CtAnchoredWidget* widget_,
+                  const int indent_)
+     : widget{widget_}
+     , indent{indent_} {}
+    const CtAnchoredWidget* widget;
+    const int         indent;
 };
+
 using CtPangoObjectPtr = std::shared_ptr<CtPangoObject>;
-
-
 
 class CtExport2Pango
 {
@@ -85,19 +119,18 @@ private:
                                                        Gtk::TextIter end_iter,
                                                        const CtCurrAttributesMap& curr_attributes,
                                                        std::vector<CtPangoObjectPtr>& out_slots);
-    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, int indent);
+    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const bool is_rtl);
 
 private:
     CtMainWin* const _pCtMainWin;
     const CtConfig* const _pCtConfig;
 };
 
-
-
 class CtExport2Pdf
 {
 public:
-    CtExport2Pdf(CtMainWin* pCtMainWin) : _pCtMainWin{pCtMainWin} {}
+    CtExport2Pdf(CtMainWin* pCtMainWin)
+     : _pCtMainWin{pCtMainWin} {}
 
     void node_export_print(const fs::path& pdf_filepath,
                            CtTreeIter tree_iter,
@@ -121,44 +154,68 @@ private:
     CtMainWin* const _pCtMainWin;
 };
 
-
-
 struct CtPageElement
 {
-    CtPageElement(int x) : x(x) {}
+    CtPageElement(const int x_)
+     : x{x_} {}
     virtual ~CtPageElement() = default;
     int x;
 };
+
 struct CtPageText : public CtPageElement
 {
-    CtPageText(int x, Glib::RefPtr<Pango::LayoutLine> layout_line) : CtPageElement(x), layout_line(layout_line) {}
+    CtPageText(const int x_,
+               Glib::RefPtr<Pango::LayoutLine> layout_line_)
+     : CtPageElement{x_}
+     , layout_line{layout_line_} {}
     Glib::RefPtr<Pango::LayoutLine> layout_line;
 };
+
 struct CtPageTag : public CtPageElement
 {
-    CtPageTag(int x, Glib::RefPtr<Pango::LayoutLine> layout_line, const std::string& tag_name, const std::string& tag_attr)
-        : CtPageElement(x), layout_line(layout_line), tag_name(tag_name), tag_attr(tag_attr) {}
+    CtPageTag(const int x_,
+              Glib::RefPtr<Pango::LayoutLine> layout_line_,
+              const std::string& tag_name_,
+              const std::string& tag_attr_)
+        : CtPageElement{x_}
+        , layout_line{layout_line_}
+        , tag_name{tag_name_}
+        , tag_attr(tag_attr_) {}
     Glib::RefPtr<Pango::LayoutLine> layout_line;
     std::string tag_name;
     std::string tag_attr;
 };
+
 struct CtPageImage : public CtPageElement
 {
-    CtPageImage(int x, CtImage* image, double scale) : CtPageElement(x), image(image), scale(scale) {}
-    CtImage* image;
-    double   scale;
+    CtPageImage(const int x_,
+                const CtImage* image_,
+                const double scale_)
+     : CtPageElement{x_}
+     , image{image_}
+     , scale{scale_} {}
+    const CtImage* image;
+    const double   scale;
 };
+
 struct CtPageCodebox : public CtPageElement
 {
-    CtPageCodebox(int x, Glib::RefPtr<Pango::Layout> layout) : CtPageElement(x), layout(layout) {}
+    CtPageCodebox(const int x_,
+                  Glib::RefPtr<Pango::Layout> layout_)
+     : CtPageElement{x_}
+     , layout{layout_} {}
     Glib::RefPtr<Pango::Layout> layout;
 };
+
 struct CtPageTable : public CtPageElement
 {
     using TableLayouts = std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>;
-    CtPageTable(const int x, const TableLayouts layouts, const CtTableColWidths& col_widths, const double page_dpi_scale)
-     : CtPageElement{x}
-     , layouts{layouts}
+    CtPageTable(const int x_,
+                const TableLayouts layouts_,
+                const CtTableColWidths& col_widths,
+                const double page_dpi_scale)
+     : CtPageElement{x_}
+     , layouts{layouts_}
     {
         for (auto col_width : col_widths) {
             colWidths.push_back(col_width*page_dpi_scale);
@@ -167,27 +224,28 @@ struct CtPageTable : public CtPageElement
     TableLayouts layouts;
     CtTableColWidths colWidths;
 };
-using CtPageElementPtr = std::shared_ptr<CtPageElement>;
 
+using CtPageElementPtr = std::shared_ptr<CtPageElement>;
 
 struct CtPrintPages
 {
     struct CtPageLine
     {
-        CtPageLine(int y) : y(y) {};
+        CtPageLine(const int y_)
+         : y{y_} {}
 
         bool test_element_height(int el_height, int page_height) { return (y - height) + el_height <= page_height; }
         void set_height(int el_height) { if (el_height > height) { y = y - height + el_height; height = el_height; }}
 
         std::vector<CtPageElementPtr> elements;
-        int height {0}; // height of the line
-        int y {0};      // bottom y of the line
-        int cur_x {0};
+        int height{0}; // height of the line
+        int y{0};      // bottom y of the line
+        int cur_x{0};
     };
 
     struct CtPrintPage
     {
-        std::vector<CtPageLine> lines {CtPageLine(0)};
+        std::vector<CtPageLine> lines{CtPageLine{0}};
     };
 
 public:
@@ -208,7 +266,6 @@ private:
     std::vector<CtPrintPage> _pages {CtPrintPage()};
 };
 
-
 // Print Operation Data
 struct CtPrintData
 {
@@ -221,12 +278,11 @@ struct CtPrintData
     Glib::ustring                      warning;
 };
 
-
 class CtPrint
 {
 public:
-    const int BOX_OFFSET = 4;
-    const int LINE_SPACE_OFFSET = 2;
+    const int BOX_OFFSET{4};
+    const int LINE_SPACE_OFFSET{2};
 
 public:
     CtPrint(CtMainWin* pCtMainWin);
@@ -241,21 +297,21 @@ private:
 
 private:
     void _process_pango_text(CtPrintData* print_data, CtPangoText* text_slot);
-    void _process_pango_image(CtPrintData* print_data, CtImage* image, int indent, bool& any_image_resized);
-    void _process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox, int indent);
-    void _process_pango_table(CtPrintData* print_data, CtTable* table, int indent);
+    void _process_pango_image(CtPrintData* print_data, const CtImage* image, const int indent, bool& any_image_resized);
+    void _process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const int indent);
+    void _process_pango_table(CtPrintData* print_data, const CtTable* table, const int indent);
 
-    Glib::RefPtr<Pango::Layout> _codebox_get_layout(CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context);
-    void                        _codebox_split_content(CtCodebox* codebox, Glib::ustring original_content, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context,
+    Glib::RefPtr<Pango::Layout> _codebox_get_layout(const CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context);
+    void                        _codebox_split_content(const CtCodebox* codebox, Glib::ustring original_content, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context,
                                                        Glib::ustring& first_split, Glib::ustring& second_split);
 
-    CtPageTable::TableLayouts   _table_get_layouts(CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context);
+    CtPageTable::TableLayouts   _table_get_layouts(const CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context);
     void                        _table_get_grid(const CtPageTable::TableLayouts& table_layouts,
                                                 const CtTableColWidths& col_widths,
                                                 std::vector<double>& rows_h,
                                                 std::vector<double>& cols_w);
     double                      _table_get_width_height(std::vector<double>& data);
-    int                         _table_split_content(CtTable* table,
+    int                         _table_split_content(const CtTable* table,
                                                      const int start_row,
                                                      const int check_height,
                                                      const Glib::RefPtr<Gtk::PrintContext>& context);
@@ -270,7 +326,6 @@ private:
     Cairo::Rectangle _get_width_height_from_layout_line(Glib::RefPtr<const Pango::LayoutLine> line);
     double           _get_height_from_layout(Glib::RefPtr<Pango::Layout> layout);
     double           _get_width_from_layout(Glib::RefPtr<Pango::Layout> layout);
-
 
 private:
     CtMainWin* const _pCtMainWin;

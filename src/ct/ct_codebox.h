@@ -1,7 +1,7 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -38,9 +38,9 @@ public:
     virtual ~CtTextCell() {}
 
     Glib::ustring get_text_content() const;
-    Glib::RefPtr<Gsv::Buffer> get_buffer() { return _rTextBuffer; }
+    Glib::RefPtr<Gsv::Buffer> get_buffer() const { return _rTextBuffer; }
     CtTextView& get_text_view() { return _ctTextview; }
-    const std::string& get_syntax_highlighting() { return _syntaxHighlighting; }
+    const std::string& get_syntax_highlighting() const { return _syntaxHighlighting; }
     void set_syntax_highlighting(const std::string& syntaxHighlighting, Gsv::LanguageManager* pGsvLanguageManager);
     void set_text_buffer_modified_false() { _rTextBuffer->set_modified(false); }
 
@@ -88,11 +88,11 @@ public:
     void set_show_line_numbers(const bool showLineNumbers);
     void apply_cursor_pos(const int cursorPos);
 
-    bool get_width_in_pixels() { return _widthInPixels; }
-    int  get_frame_width() { return _frameWidth; }
-    int  get_frame_height() { return _frameHeight; }
-    bool get_highlight_brackets() { return _highlightBrackets; }
-    bool get_show_line_numbers() { return _showLineNumbers; }
+    bool get_width_in_pixels() const { return _widthInPixels; }
+    int  get_frame_width() const { return _frameWidth; }
+    int  get_frame_height() const { return _frameHeight; }
+    bool get_highlight_brackets() const { return _highlightBrackets; }
+    bool get_show_line_numbers() const { return _showLineNumbers; }
 
 private:
     bool _on_key_press_event(GdkEventKey* event);

@@ -262,6 +262,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
     // split by \n to use Layout::set_indent properly
     std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
     for (size_t i = 0; i < lines.size(); ++i) {
+        const bool is_rtl = PANGO_DIRECTION_RTL == CtStrUtil::gtk_pango_find_base_dir(lines[i].c_str(), -1);
         Glib::ustring tagged_text = str::xml_escape(lines[i]);
         if (!pango_attrs.empty())
             tagged_text = "<span" + pango_attrs + ">" + tagged_text + "</span>";
@@ -270,9 +271,10 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
         if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
 
         if (!link_url.empty()) {
-            out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent));
-        } else {
-            out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent));
+            out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent, is_rtl));
+        }
+        else {
+            out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, is_rtl));
         }
 
         // add '\n' between lines
@@ -282,7 +284,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
     }
 }
 
-std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, int indent)
+std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const bool is_rtl)
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
     Glib::ustring uri;
@@ -304,7 +306,7 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
     }
 
     Glib::ustring blue_text = "<span fgcolor='blue'><u>" + tagged_text + "</u></span>";
-    return std::make_shared<CtPangoLink>(blue_text, indent, uri);
+    return std::make_shared<CtPangoLink>(blue_text, indent, uri, is_rtl);
 }
 
 void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
@@ -486,11 +488,11 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
         else if (auto pango_text = dynamic_cast<CtPangoText*>(slot.get()))
             _process_pango_text(print_data, pango_text);
         else if (auto pango_widget = dynamic_cast<CtPangoWidget*>(slot.get())) {
-            if (CtImage* image = dynamic_cast<CtImage*>(pango_widget->widget))
+            if (const CtImage* image = dynamic_cast<const CtImage*>(pango_widget->widget))
                 _process_pango_image(print_data, image, pango_widget->indent, any_image_resized);
-            else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(pango_widget->widget))
+            else if (const CtCodebox* codebox = dynamic_cast<const CtCodebox*>(pango_widget->widget))
                 _process_pango_codebox(print_data, codebox, pango_widget->indent);
-            else if (CtTable* table = dynamic_cast<CtTable*>(pango_widget->widget))
+            else if (const CtTable* table = dynamic_cast<const CtTable*>(pango_widget->widget))
                 _process_pango_table(print_data, table, pango_widget->indent);
         }
     }
@@ -539,7 +541,7 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
                 page_tag->layout_line->show_in_cairo_context(cairo_context);
                 cairo_tag_end(cairo_context->cobj(), page_tag->tag_name.c_str());
             }
-            else if (CtPageImage* page_image = dynamic_cast<CtPageImage*>(element.get())) {
+            else if (const CtPageImage* page_image = dynamic_cast<const CtPageImage*>(element.get())) {
                 auto scale = page_image->scale; // it also contains _page_dpi_scale
                 auto pixbuf = page_image->image->get_pixbuf();
                 double pixbuf_height = pixbuf->get_height() * scale;
@@ -549,13 +551,13 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
                 cairo_context->paint();
                 cairo_context->restore();
             }
-            else if (CtPageCodebox* page_codebox = dynamic_cast<CtPageCodebox*>(element.get())) {
+            else if (const CtPageCodebox* page_codebox = dynamic_cast<const CtPageCodebox*>(element.get())) {
                 double codebox_height = _get_height_from_layout(page_codebox->layout);
                 double codebox_width = _get_width_from_layout(page_codebox->layout);
                 _draw_codebox_box(cairo_context, page_codebox->x, line.y - codebox_height, codebox_width, codebox_height);
                 _draw_codebox_code(cairo_context, page_codebox->layout, page_codebox->x, line.y - codebox_height);
             }
-            else if (CtPageTable* page_table = dynamic_cast<CtPageTable*>(element.get())) {
+            else if (const CtPageTable* page_table = dynamic_cast<const CtPageTable*>(element.get())) {
                 std::vector<double> rows_h, cols_w;
                 _table_get_grid(page_table->layouts, page_table->colWidths, rows_h, cols_w);
                 double table_width = _table_get_width_height(cols_w);
@@ -633,7 +635,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     }
 }
 
-void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int indent, bool& any_image_resized)
+void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image, const int indent, bool& any_image_resized)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -655,7 +657,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int 
     Cairo::Rectangle label_size{0,0,0,0};
     auto label_layout = context->create_pango_layout();
     label_layout->set_font_description(_plain_font);
-    if (auto emb_file = dynamic_cast<CtImageEmbFile*>(image)) {
+    if (auto emb_file = dynamic_cast<const CtImageEmbFile*>(image)) {
         label_layout->set_markup("<b><small>"+str::xml_escape(emb_file->get_file_name().string())+"</small></b>");
         label_size = _get_width_height_from_layout_line(label_layout->get_line(0));
     }
@@ -685,7 +687,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int 
     pages.last_line().cur_x += std::max(pixbuf_width, label_size.width);
 }
 
-void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox, int indent)
+void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const int indent)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -729,7 +731,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
     }
 }
 
-void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int indent)
+void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table, const int indent)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -771,7 +773,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
     }
 }
 
-Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context)
+Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(const CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context)
 {
     Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
     layout->set_font_description(codebox->get_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _code_font : _plain_font);
@@ -786,7 +788,7 @@ Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(CtCodebox* codebox, Gli
 }
 
 // Split Long CodeBoxes
-void CtPrint::_codebox_split_content(CtCodebox* codebox,
+void CtPrint::_codebox_split_content(const CtCodebox* codebox,
                                      Glib::ustring original_content,
                                      const int check_height,
                                      const Glib::RefPtr<Gtk::PrintContext>& context,
@@ -835,7 +837,7 @@ void CtPrint::_codebox_split_content(CtCodebox* codebox,
     }
 }
 
-CtPageTable::TableLayouts CtPrint::_table_get_layouts(CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context)
+CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context)
 {
     CtPageTable::TableLayouts table_layouts;
     for (size_t row = 0; row < table->get_table_matrix().size(); ++row) {
@@ -889,7 +891,7 @@ double CtPrint::_table_get_width_height(std::vector<double>& data)
     return acc;
 }
 
-int CtPrint::_table_split_content(CtTable* table, const int start_row, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context)
+int CtPrint::_table_split_content(const CtTable* table, const int start_row, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context)
 {
     int last_row = start_row;
     for (; last_row < (int)table->get_table_matrix().size(); ++last_row) {

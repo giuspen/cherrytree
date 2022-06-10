@@ -52,7 +52,7 @@ public:
     void set_modified_false() override {}
 
     void save(const fs::path& file_name, const Glib::ustring& type);
-    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _rPixbuf; }
+    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() const { return _rPixbuf; }
 
 protected:
     Gtk::Image _image;
@@ -173,7 +173,7 @@ public:
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
-    const fs::path&      get_file_name() { return _fileName; }
+    const fs::path&      get_file_name() const { return _fileName; }
     void                 set_file_name(const fs::path& path) { _fileName = path; }
     const std::string&   get_raw_blob() { return _rawBlob; }
     void                 set_raw_blob(const std::string& buffer) { _rawBlob = buffer; }
