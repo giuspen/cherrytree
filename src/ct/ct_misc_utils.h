@@ -138,6 +138,8 @@ PangoDirection gtk_pango_unichar_direction(gunichar ch);
 // copied from https://gitlab.gnome.org/GNOME/gtk.git  origin/gtk-3-24  gtkpango.c  _gtk_pango_find_base_dir
 PangoDirection gtk_pango_find_base_dir(const gchar *text, gint length);
 
+int gtk_pango_find_start_of_dir(const gchar* text, const PangoDirection dir);
+
 std::vector<bool> get_rtl_for_lines(const Glib::ustring& text);
 
 bool is_str_true(const Glib::ustring& inStr);

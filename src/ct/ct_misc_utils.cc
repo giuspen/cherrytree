@@ -562,6 +562,19 @@ PangoDirection CtStrUtil::gtk_pango_find_base_dir(const gchar *text, gint length
   return dir;
 }
 
+int CtStrUtil::gtk_pango_find_start_of_dir(const gchar* text, const PangoDirection dir)
+{
+    const gchar* p{text};
+    while (*p) {
+        gunichar wc = g_utf8_get_char(p);
+        if (CtStrUtil::gtk_pango_unichar_direction(wc) == dir) {
+            return p - text;
+        }
+        p = g_utf8_next_char(p);
+    }
+    return -1;
+}
+
 std::vector<bool> CtStrUtil::get_rtl_for_lines(const Glib::ustring& text)
 {
     std::vector<bool> ret_vec;

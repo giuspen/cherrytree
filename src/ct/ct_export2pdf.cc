@@ -268,25 +268,44 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
     std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
     for (size_t i = 0; i < lines.size(); ++i) {
 
-        const bool is_alpha = re->match(lines[i], match);
-        const bool is_rtl = is_alpha ? (PANGO_DIRECTION_RTL == CtStrUtil::gtk_pango_find_base_dir(lines[i].c_str(), -1)) : false;
+        bool is_alpha = re->match(lines[i], match);
+        bool is_rtl = is_alpha ? (PANGO_DIRECTION_RTL == CtStrUtil::gtk_pango_find_base_dir(lines[i].c_str(), -1)) : false;
 
         if (not lines[i].empty()) {
-            Glib::ustring tagged_text = str::xml_escape(lines[i]);
-            if (!pango_attrs.empty())
-                tagged_text = "<span" + pango_attrs + ">" + tagged_text + "</span>";
 
-            if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
-            if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
+            size_t j{0};
+            const char* pStart = lines[i].c_str();
+            do {
+                const int delta_inversion = is_alpha ? CtStrUtil::gtk_pango_find_start_of_dir(pStart, is_rtl ? PANGO_DIRECTION_LTR : PANGO_DIRECTION_RTL) : -1;
 
-            if (!link_url.empty()) {
-                out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent, is_rtl, is_alpha));
-                //spdlog::debug("PANGO link={} indent={} rtl={} alpha={}", tagged_text, indent, is_rtl, is_alpha);
+                auto untagged_slot = -1 == delta_inversion ? lines[i].raw().substr(j) : lines[i].raw().substr(j, static_cast<size_t>(delta_inversion));
+                Glib::ustring tagged_text = str::xml_escape(untagged_slot);
+                if (not pango_attrs.empty())
+                    tagged_text = "<span" + pango_attrs + ">" + tagged_text + "</span>";
+
+                if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
+                if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
+
+                if (not link_url.empty()) {
+                    out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent, is_rtl, is_alpha));
+                    //spdlog::debug("PANGO link={} indent={} rtl={} alpha={}", tagged_text, indent, is_rtl, is_alpha);
+                }
+                else {
+                    out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, is_rtl, is_alpha));
+                    //spdlog::debug("PANGO txt={} indent={} rtl={} alpha={}", tagged_text, indent, is_rtl, is_alpha);
+                }
+
+                if (-1 == delta_inversion) {
+                    j = lines[i].size();
+                }
+                else {
+                    j += delta_inversion;
+                    is_rtl = not is_rtl;
+                    pStart = lines[i].c_str() + j;
+                    is_alpha = re->match(pStart, match);
+                }
             }
-            else {
-                out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, is_rtl, is_alpha));
-                //spdlog::debug("PANGO txt={} indent={} rtl={} alpha={}", tagged_text, indent, is_rtl, is_alpha);
-            }
+            while (j < lines[i].size());
         }
 
         // add '\n' between lines
@@ -663,7 +682,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         if (-1 == pages.last_line().cur_x) {
             // initialise x for a new line (or after change of RTL in line)
             if (text_slot->is_rtl) {
-                pages.last_line().cur_x = paragraph_width;
+                pages.last_line().cur_x = _page_width - text_slot->indent;
             }
             else {
                 pages.last_line().cur_x = text_slot->indent;
@@ -679,7 +698,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
                 }
             }
             else {
-                if ((pages.last_line().cur_x + size.width) > paragraph_width) {
+                if ((pages.last_line().cur_x + size.width) > (-1 == tmp_last_line.changed_rtl_in_line_prev_x ? paragraph_width : tmp_last_line.changed_rtl_in_line_prev_x)) {
                     need_new_line = true;
                 }
             }

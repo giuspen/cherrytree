@@ -468,3 +468,13 @@ TEST(MiscUtilsGroup, gtk_pango_find_base_dir)
     ASSERT_EQ(PANGO_DIRECTION_LTR, CtStrUtil::gtk_pango_find_base_dir("Test 123", -1));
     ASSERT_EQ(PANGO_DIRECTION_RTL, CtStrUtil::gtk_pango_find_base_dir("זה טקסט שנכתב בעברית, מימין לשמאל, עם סימני פיסוק! וגם; מספרים כמו", -1));
 }
+
+TEST(MiscUtilsGroup, gtk_pango_find_start_of_dir)
+{
+    ASSERT_EQ(0, CtStrUtil::gtk_pango_find_start_of_dir("Test 123", PANGO_DIRECTION_LTR));
+    ASSERT_EQ(-1, CtStrUtil::gtk_pango_find_start_of_dir("Test 123", PANGO_DIRECTION_RTL));
+    ASSERT_EQ(0, CtStrUtil::gtk_pango_find_start_of_dir("זה טקסט שנכתב בעברית, מימין לשמאל, עם סימני פיסוק! וגם; מספרים כמו", PANGO_DIRECTION_RTL));
+    ASSERT_EQ(-1, CtStrUtil::gtk_pango_find_start_of_dir("זה טקסט שנכתב בעברית, מימין לשמאל, עם סימני פיסוק! וגם; מספרים כמו", PANGO_DIRECTION_LTR));
+    ASSERT_EQ(8, CtStrUtil::gtk_pango_find_start_of_dir("Test 123" "עִבְרִית", PANGO_DIRECTION_RTL));
+    ASSERT_EQ(16, CtStrUtil::gtk_pango_find_start_of_dir("עִבְרִית" "Test 123", PANGO_DIRECTION_LTR));
+}
