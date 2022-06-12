@@ -41,15 +41,18 @@ struct CtPangoText : public CtPangoObject
     CtPangoText(const Glib::ustring& text_,
                 const Glib::ustring& synt_highl_,
                 const int indent_,
-                const bool is_rtl_)
+                const bool is_rtl_,
+                const bool is_alpha_)
      : text{text_}
      , synt_highl{synt_highl_}
      , indent{indent_}
-     , is_rtl{is_rtl_} {}
+     , is_rtl{is_rtl_}
+     , is_alpha{is_alpha_} {}
     const Glib::ustring text;
     const Glib::ustring synt_highl;
-    const int           indent{0};     // paragraph indent
-    const bool          is_rtl{false}; // right to left
+    const int           indent{0};       // paragraph indent
+    const bool          is_rtl{false};   // right to left
+    const bool          is_alpha{false}; // has alphabet chars
 };
 
 struct CtPangoLink : public CtPangoText
@@ -57,8 +60,9 @@ struct CtPangoLink : public CtPangoText
     CtPangoLink(const Glib::ustring& text,
                 const int indent,
                 const Glib::ustring& link_,
-                const bool is_rtl)
-     : CtPangoText{text, CtConst::RICH_TEXT_ID, indent, is_rtl}
+                const bool is_rtl,
+                const bool is_alpha)
+     : CtPangoText{text, CtConst::RICH_TEXT_ID, indent, is_rtl, is_alpha}
      , link{link_} {}
     const Glib::ustring link;
 };
@@ -69,7 +73,7 @@ struct CtPangoDest : public CtPangoText
                 const Glib::ustring& synt_highl,
                 const int indent,
                 const Glib::ustring& dest_)
-     : CtPangoText{text, synt_highl, indent, false/*is_rtl*/}
+     : CtPangoText{text, synt_highl, indent, false/*is_rtl*/, false/*is_alpha*/}
      , dest{dest_} {}
     const Glib::ustring dest;
 };
@@ -109,7 +113,7 @@ private:
                                                        Gtk::TextIter end_iter,
                                                        const CtCurrAttributesMap& curr_attributes,
                                                        std::vector<CtPangoObjectPtr>& out_slots);
-    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const bool is_rtl);
+    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const bool is_rtl, const bool is_alpha);
 
 private:
     CtMainWin* const _pCtMainWin;
@@ -224,16 +228,23 @@ struct CtPrintPages
         CtPageLine(const int y_)
          : y{y_} {}
 
-        bool test_element_height(int el_height, int page_height) { return (y - height) + el_height <= page_height; }
-        void set_height(int el_height) { if (el_height > height) { y = y - height + el_height; height = el_height; } }
-        bool is_rtl(bool curr_rtl) { if (not evaluated_rtl) { rtl = curr_rtl; evaluated_rtl = true; } return rtl; }
+        bool test_element_height(int el_height, int page_height) {
+            return (y - max_height) + el_height <= page_height;
+        }
+        void set_max_height(int el_height) {
+            if (el_height > max_height) {
+                y = y - max_height + el_height;
+                max_height = el_height;
+            }
+        }
 
         std::vector<CtPageElementPtr> elements;
-        int height{0}; // height of the line
+        int max_height{0}; // height of the line
         int y{0};      // bottom y of the line
         int cur_x{-1};
         bool evaluated_rtl{false};
         bool rtl{false};
+        int  changed_rtl_in_line_prev_x{-1};
     };
 
     struct CtPrintPage
@@ -242,7 +253,7 @@ struct CtPrintPages
     };
 
 public:
-    int          size()          { return (int)_pages.size(); }
+    int          size()          { return static_cast<int>(_pages.size()); }
     CtPrintPage& get_page(int i) { return _pages[i]; }
     CtPrintPage& last_page()     { return _pages.back(); }
     CtPageLine&  last_line()     { return _pages.back().lines.back(); }
@@ -252,7 +263,7 @@ public:
         CtPageLine line = last_line();
         new_page();
         last_line() = line;
-        last_line().y = last_line().height;
+        last_line().y = last_line().max_height;
     }
 
 private:
