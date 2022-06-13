@@ -261,22 +261,19 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
         }
     }
 
-    auto re = Glib::Regex::create(".*(?=\\D)(?=\\w).*"); // non decimal AND alphanumeric = alpha
-    Glib::MatchInfo match;
-
     // split by \n to use Layout::set_indent properly
     std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
     for (size_t i = 0; i < lines.size(); ++i) {
 
-        bool is_alpha = re->match(lines[i], match);
-        bool is_rtl = is_alpha ? (PANGO_DIRECTION_RTL == CtStrUtil::gtk_pango_find_base_dir(lines[i].c_str(), -1)) : false;
+        PangoDirection pango_dir = CtStrUtil::gtk_pango_find_base_dir(lines[i].c_str(), -1);
 
         if (not lines[i].empty()) {
 
             size_t j{0};
             const char* pStart = lines[i].c_str();
             do {
-                const int delta_inversion = is_alpha ? CtStrUtil::gtk_pango_find_start_of_dir(pStart, is_rtl ? PANGO_DIRECTION_LTR : PANGO_DIRECTION_RTL) : -1;
+                const int delta_inversion = PANGO_DIRECTION_NEUTRAL != pango_dir ?
+                    CtStrUtil::gtk_pango_find_start_of_dir(pStart, PANGO_DIRECTION_RTL == pango_dir ? PANGO_DIRECTION_LTR : PANGO_DIRECTION_RTL) : -1;
 
                 auto untagged_slot = -1 == delta_inversion ? lines[i].raw().substr(j) : lines[i].raw().substr(j, static_cast<size_t>(delta_inversion));
                 Glib::ustring tagged_text = str::xml_escape(untagged_slot);
@@ -287,12 +284,12 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                 if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
 
                 if (not link_url.empty()) {
-                    out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent, is_rtl, is_alpha));
-                    //spdlog::debug("PANGO link={} indent={} rtl={} alpha={}", tagged_text, indent, is_rtl, is_alpha);
+                    out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent, pango_dir));
+                    //spdlog::debug("PANGO link={} indent={} pango_dir={}", tagged_text, indent, pango_dir);
                 }
                 else {
-                    out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, is_rtl, is_alpha));
-                    //spdlog::debug("PANGO txt={} indent={} rtl={} alpha={}", tagged_text, indent, is_rtl, is_alpha);
+                    out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, pango_dir));
+                    //spdlog::debug("PANGO txt={} indent={} pango_dir={}", tagged_text, indent, pango_dir);
                 }
 
                 if (-1 == delta_inversion) {
@@ -300,9 +297,8 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                 }
                 else {
                     j += delta_inversion;
-                    is_rtl = not is_rtl;
+                    pango_dir = PANGO_DIRECTION_RTL == pango_dir ? PANGO_DIRECTION_LTR : PANGO_DIRECTION_RTL;
                     pStart = lines[i].c_str() + j;
-                    is_alpha = re->match(pStart, match);
                 }
             }
             while (j < lines[i].size());
@@ -310,13 +306,13 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
 
         // add '\n' between lines
         if (lines.size() > 1 && i < lines.size() - 1) {
-            out_slots.emplace_back(std::make_shared<CtPangoText>(CtConst::CHAR_NEWLINE, CtConst::RICH_TEXT_ID, indent, is_rtl, false/*is_alpha*/));
-            //spdlog::debug("PANGO nl indent={} is_rtl={}", indent, is_rtl);
+            out_slots.emplace_back(std::make_shared<CtPangoText>(CtConst::CHAR_NEWLINE, CtConst::RICH_TEXT_ID, indent, pango_dir));
+            //spdlog::debug("PANGO nl indent={} pango_dir={}", indent, pango_dir);
         }
     }
 }
 
-std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const bool is_rtl, const bool is_alpha)
+std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const PangoDirection pango_dir)
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
     Glib::ustring uri;
@@ -334,11 +330,11 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
     }
     else {
         spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
-        return std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, is_rtl, is_alpha);
+        return std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, pango_dir);
     }
 
     Glib::ustring blue_text = "<span fgcolor='blue'><u>" + tagged_text + "</u></span>";
-    return std::make_shared<CtPangoLink>(blue_text, indent, uri, is_rtl, is_alpha);
+    return std::make_shared<CtPangoLink>(blue_text, indent, uri, pango_dir);
 }
 
 void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
@@ -350,7 +346,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     else {
         Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
             tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
-        pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, false/*is_rtl*/, true/*is_alpha*/));
+        pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, PANGO_DIRECTION_LTR));
     }
 
     if (options.include_node_name) {
@@ -386,7 +382,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
     else {
         Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
             tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
-        node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, false/*is_rtl*/, true/*is_alpha*/));
+        node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, PANGO_DIRECTION_LTR));
     }
 
     if (options.include_node_name) {
@@ -399,7 +395,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
         if (options.new_node_page)
             tree_pango_slots.push_back(std::make_shared<CtPangoNewPage>());
         else
-            tree_pango_slots.push_back(std::make_shared<CtPangoText>(str::repeat(CtConst::CHAR_NEWLINE, 3), tree_iter.get_node_syntax_highlighting(), 0/*indent*/, false/*is_rtl*/, false/*is_alpha*/));
+            tree_pango_slots.push_back(std::make_shared<CtPangoText>(str::repeat(CtConst::CHAR_NEWLINE, 3), tree_iter.get_node_syntax_highlighting(), 0/*indent*/, PANGO_DIRECTION_NEUTRAL));
         vec::vector_extend(tree_pango_slots, node_pango_slots);
     }
 
@@ -627,13 +623,17 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     }
 
     CtPrintPages::CtPageLine& tmp_last_line = pages.last_line();
-    if (not tmp_last_line.evaluated_rtl) {
+    if (not tmp_last_line.evaluated_pango_dir) {
         if (CtConst::CHAR_NEWLINE != text_slot->text) {
-            tmp_last_line.evaluated_rtl = true;
-            tmp_last_line.rtl = text_slot->is_rtl;
+            tmp_last_line.evaluated_pango_dir = true;
+            tmp_last_line.pango_dir = text_slot->pango_dir;
         }
     }
-    else if (text_slot->is_rtl != tmp_last_line.rtl and text_slot->is_alpha and -1 != tmp_last_line.cur_x) {
+    else if (text_slot->pango_dir != tmp_last_line.pango_dir and
+             PANGO_DIRECTION_NEUTRAL != text_slot->pango_dir and
+             PANGO_DIRECTION_NEUTRAL != tmp_last_line.pango_dir and
+             -1 != tmp_last_line.cur_x)
+    {
         if (-1 == tmp_last_line.changed_rtl_in_line_prev_x) {
             tmp_last_line.changed_rtl_in_line_prev_x = tmp_last_line.cur_x;
             tmp_last_line.cur_x = -1;
@@ -648,7 +648,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
 
     int paragraph_width{0};
     if (-1 != tmp_last_line.changed_rtl_in_line_prev_x) {
-        if (text_slot->is_rtl) {
+        if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
             paragraph_width = _page_width - text_slot->indent - tmp_last_line.changed_rtl_in_line_prev_x;
         }
         else {
@@ -665,7 +665,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
     // don't apply paragraph indent because set_indent will work only for the first line
     // also avoid `\n` because new lines also got indent
-    if (not text_slot->is_rtl and CtConst::CHAR_NEWLINE != text_slot->text and -1 != pages.last_line().cur_x) {
+    if (PANGO_DIRECTION_RTL != text_slot->pango_dir and CtConst::CHAR_NEWLINE != text_slot->text and -1 != pages.last_line().cur_x) {
         layout->set_indent(int(pages.last_line().cur_x * Pango::SCALE));
     }
     layout->set_markup(text_slot->text);
@@ -681,7 +681,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
 
         if (-1 == pages.last_line().cur_x) {
             // initialise x for a new line (or after change of RTL in line)
-            if (text_slot->is_rtl) {
+            if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
                 pages.last_line().cur_x = _page_width - text_slot->indent;
             }
             else {
@@ -692,7 +692,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
             // situation when a bit of space is left but pango cannot wrap the first word
             // make it on a new line
             bool need_new_line{false};
-            if (text_slot->is_rtl) {
+            if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
                 if ((pages.last_line().cur_x - size.width) < (-1 == tmp_last_line.changed_rtl_in_line_prev_x ? 0 : tmp_last_line.changed_rtl_in_line_prev_x)) {
                     need_new_line = true;
                 }
@@ -709,7 +709,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
             }
         }
 
-        if (text_slot->is_rtl) {
+        if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
             // decrease x before if RTL
             pages.last_line().cur_x -= size.width;
         }
@@ -723,7 +723,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         if (i < (layout_count - 1)) { // the paragragh was wrapped, so it's multiline
             pages.new_line();
         }
-        else if (not text_slot->is_rtl) {
+        else if (PANGO_DIRECTION_RTL != text_slot->pango_dir) {
             // increase x after if not RTL
             pages.last_line().cur_x += size.width;
         }

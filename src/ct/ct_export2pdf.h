@@ -41,18 +41,15 @@ struct CtPangoText : public CtPangoObject
     CtPangoText(const Glib::ustring& text_,
                 const Glib::ustring& synt_highl_,
                 const int indent_,
-                const bool is_rtl_,
-                const bool is_alpha_)
+                const PangoDirection pango_dir_)
      : text{text_}
      , synt_highl{synt_highl_}
      , indent{indent_}
-     , is_rtl{is_rtl_}
-     , is_alpha{is_alpha_} {}
-    const Glib::ustring text;
-    const Glib::ustring synt_highl;
-    const int           indent{0};       // paragraph indent
-    const bool          is_rtl{false};   // right to left
-    const bool          is_alpha{false}; // has alphabet chars
+     , pango_dir{pango_dir_} {}
+    const Glib::ustring     text;
+    const Glib::ustring     synt_highl;
+    const int               indent{0};
+    const PangoDirection    pango_dir{PANGO_DIRECTION_NEUTRAL};
 };
 
 struct CtPangoLink : public CtPangoText
@@ -60,9 +57,8 @@ struct CtPangoLink : public CtPangoText
     CtPangoLink(const Glib::ustring& text,
                 const int indent,
                 const Glib::ustring& link_,
-                const bool is_rtl,
-                const bool is_alpha)
-     : CtPangoText{text, CtConst::RICH_TEXT_ID, indent, is_rtl, is_alpha}
+                const PangoDirection pango_dir)
+     : CtPangoText{text, CtConst::RICH_TEXT_ID, indent, pango_dir}
      , link{link_} {}
     const Glib::ustring link;
 };
@@ -73,7 +69,7 @@ struct CtPangoDest : public CtPangoText
                 const Glib::ustring& synt_highl,
                 const int indent,
                 const Glib::ustring& dest_)
-     : CtPangoText{text, synt_highl, indent, false/*is_rtl*/, false/*is_alpha*/}
+     : CtPangoText{text, synt_highl, indent, PANGO_DIRECTION_NEUTRAL}
      , dest{dest_} {}
     const Glib::ustring dest;
 };
@@ -113,7 +109,7 @@ private:
                                                        Gtk::TextIter end_iter,
                                                        const CtCurrAttributesMap& curr_attributes,
                                                        std::vector<CtPangoObjectPtr>& out_slots);
-    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const bool is_rtl, const bool is_alpha);
+    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const PangoDirection pango_dir);
 
 private:
     CtMainWin* const _pCtMainWin;
@@ -242,8 +238,8 @@ struct CtPrintPages
         int max_height{0}; // height of the line
         int y{0};      // bottom y of the line
         int cur_x{-1};
-        bool evaluated_rtl{false};
-        bool rtl{false};
+        bool evaluated_pango_dir{false};
+        PangoDirection pango_dir{PANGO_DIRECTION_NEUTRAL};
         int  changed_rtl_in_line_prev_x{-1};
     };
 
