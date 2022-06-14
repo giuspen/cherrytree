@@ -68,8 +68,9 @@ struct CtPangoDest : public CtPangoText
     CtPangoDest(const Glib::ustring& text,
                 const Glib::ustring& synt_highl,
                 const int indent,
-                const Glib::ustring& dest_)
-     : CtPangoText{text, synt_highl, indent, PANGO_DIRECTION_NEUTRAL}
+                const Glib::ustring& dest_,
+                const PangoDirection pango_dir)
+     : CtPangoText{text, synt_highl, indent, pango_dir}
      , dest{dest_} {}
     const Glib::ustring dest;
 };
@@ -77,11 +78,14 @@ struct CtPangoDest : public CtPangoText
 struct CtPangoWidget : public CtPangoObject
 {
     CtPangoWidget(const CtAnchoredWidget* widget_,
-                  const int indent_)
+                  const int indent_,
+                  const PangoDirection pango_dir_)
      : widget{widget_}
-     , indent{indent_} {}
-    const CtAnchoredWidget* widget;
-    const int         indent;
+     , indent{indent_}
+     , pango_dir{pango_dir_} {}
+    const CtAnchoredWidget* widget{nullptr};
+    const int               indent{0};
+    const PangoDirection    pango_dir{PANGO_DIRECTION_NEUTRAL};
 };
 
 using CtPangoObjectPtr = std::shared_ptr<CtPangoObject>;
@@ -297,9 +301,9 @@ private:
 
 private:
     void _process_pango_text(CtPrintData* print_data, CtPangoText* text_slot);
-    void _process_pango_image(CtPrintData* print_data, const CtImage* image, const int indent, bool& any_image_resized);
-    void _process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const int indent);
-    void _process_pango_table(CtPrintData* print_data, const CtTable* table, const int indent);
+    void _process_pango_image(CtPrintData* print_data, const CtImage* image, const CtPangoWidget* pango_widget, bool& any_image_resized);
+    void _process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const CtPangoWidget* pango_widget);
+    void _process_pango_table(CtPrintData* print_data, const CtTable* table, const CtPangoWidget* pango_widget);
 
     Glib::RefPtr<Pango::Layout> _codebox_get_layout(const CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context);
     void                        _codebox_split_content(const CtCodebox* codebox, Glib::ustring original_content, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context,

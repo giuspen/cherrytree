@@ -127,6 +127,8 @@ void generic_process_slot(int start_offset,
 
 const gchar* get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin);
 
+PangoDirection get_pango_direction(const Gtk::TextIter& textIter);
+
 int get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer);
 
 } // namespace CtTextIterUtil

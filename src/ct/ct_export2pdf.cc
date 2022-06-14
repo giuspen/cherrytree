@@ -44,26 +44,32 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
     std::list<CtAnchoredWidget*> out_widgets = node_iter.get_anchored_widgets(sel_start, sel_end);
     int start_text_offset = sel_start < 1 ? 0 : sel_start;
     for (CtAnchoredWidget* widget : out_widgets) {
-        int end_text_offset = widget->getOffset();
-        _pango_process_slot(start_text_offset, end_text_offset, curr_buffer, out_slots);
+        const int widgetOffset = widget->getOffset();
+        _pango_process_slot(start_text_offset, widgetOffset, curr_buffer, out_slots);
 
-        int widget_indent = 0;
+        int widget_indent{0};
         CtCurrAttributesMap emtpy_attributes, iter_attributes;
-        if (CtTextIterUtil::rich_text_attributes_update(curr_buffer->get_iter_at_offset(widget->getOffset()), emtpy_attributes, iter_attributes))
-        {
+        const Gtk::TextIter widgetTextIter = curr_buffer->get_iter_at_offset(widgetOffset);
+        if (CtTextIterUtil::rich_text_attributes_update(widgetTextIter, emtpy_attributes, iter_attributes)) {
             auto attr_iter = iter_attributes.find(CtConst::TAG_INDENT);
             if (attr_iter != iter_attributes.end()) {
                 widget_indent = not attr_iter->second.empty() ? CtConst::INDENT_MARGIN * std::stoi(attr_iter->second) : 0;
             }
         }
+        const PangoDirection pango_dir = CtTextIterUtil::get_pango_direction(widgetTextIter);
 
         if (auto anchor = dynamic_cast<CtImageAnchor*>(widget)) {
-            out_slots.emplace_back(std::make_shared<CtPangoDest>("<sup>⚓</sup>", CtConst::RICH_TEXT_ID, widget_indent, "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'"));
+            out_slots.emplace_back(std::make_shared<CtPangoDest>(
+                "<sup>⚓</sup>",
+                CtConst::RICH_TEXT_ID,
+                widget_indent,
+                "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'",
+                pango_dir));
         }
         else {
-            out_slots.emplace_back(std::make_shared<CtPangoWidget>(widget, widget_indent));
+            out_slots.emplace_back(std::make_shared<CtPangoWidget>(widget, widget_indent, pango_dir));
         }
-        start_text_offset = end_text_offset;
+        start_text_offset = widgetOffset;
     }
 
     int end_offset = sel_end < 0 ? curr_buffer->end().get_offset() : sel_end;
@@ -406,8 +412,16 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
 
 CtPangoObjectPtr CtExport2Pdf::_generate_pango_node_name(CtTreeIter tree_iter)
 {
-    Glib::ustring text = "<b><i><span size=\"xx-large\">" + str::xml_escape(tree_iter.get_node_name()) + "</span></i></b>" + CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE;
-    auto slot = std::make_shared<CtPangoDest>(text, tree_iter.get_node_syntax_highlighting(), 0, "name='" + generate_tag(tree_iter.get_node_id(), "") + "'");
+    const auto node_name = tree_iter.get_node_name();
+    Glib::ustring text = "<b><i><span size=\"xx-large\">" + str::xml_escape(node_name) + "</span></i></b>" +
+                         CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE;
+    const PangoDirection pango_dir = CtStrUtil::gtk_pango_find_base_dir(node_name.c_str(), -1);
+    auto slot = std::make_shared<CtPangoDest>(
+        text,
+        tree_iter.get_node_syntax_highlighting(),
+        0,
+        "name='" + generate_tag(tree_iter.get_node_id(), "") + "'",
+        pango_dir);
     return slot;
 }
 
@@ -519,13 +533,13 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
         }
         else if (auto pango_widget = dynamic_cast<CtPangoWidget*>(slot.get())) {
             if (auto image = dynamic_cast<const CtImage*>(pango_widget->widget)) {
-                _process_pango_image(print_data, image, pango_widget->indent, any_image_resized);
+                _process_pango_image(print_data, image, pango_widget, any_image_resized);
             }
             else if (auto codebox = dynamic_cast<const CtCodebox*>(pango_widget->widget)) {
-                _process_pango_codebox(print_data, codebox, pango_widget->indent);
+                _process_pango_codebox(print_data, codebox, pango_widget);
             }
             else if (auto table = dynamic_cast<const CtTable*>(pango_widget->widget)) {
-                _process_pango_table(print_data, table, pango_widget->indent);
+                _process_pango_table(print_data, table, pango_widget);
             }
         }
     }
@@ -730,7 +744,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     }
 }
 
-void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image, const int indent, bool& any_image_resized)
+void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image, const CtPangoWidget* pango_widget, bool& any_image_resized)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -761,7 +775,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
         pages.line_on_new_page();
 
     if (-1 == pages.last_line().cur_x) {
-        pages.last_line().cur_x = indent;
+        pages.last_line().cur_x = pango_widget->indent;
     }
     // insert label line
     if (label_size.height != 0) {
@@ -782,7 +796,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
     pages.last_line().cur_x += std::max(pixbuf_width, label_size.width);
 }
 
-void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const int indent)
+void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const CtPangoWidget* pango_widget)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -795,7 +809,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
         double codebox_height = _get_height_from_layout(codebox_layout);
         if (pages.last_line().test_element_height(codebox_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
             if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = indent;
+                pages.last_line().cur_x = pango_widget->indent;
             }
             pages.last_line().set_max_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, codebox_layout));
@@ -814,7 +828,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
             double codebox_height = _get_height_from_layout(first_split_layout);
 
             if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = indent;
+                pages.last_line().cur_x = pango_widget->indent;
             }
             pages.last_line().set_max_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, first_split_layout));
@@ -826,7 +840,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
     }
 }
 
-void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table, const int indent)
+void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table, const CtPangoWidget* pango_widget)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -840,7 +854,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
         double table_height = _table_get_width_height(rows_h);
         if (pages.last_line().test_element_height(table_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
             if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = indent;
+                pages.last_line().cur_x = pango_widget->indent;
             }
             pages.last_line().set_max_height(table_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_widths(), _page_dpi_scale));
@@ -858,7 +872,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
             _table_get_grid(split_layouts, table->get_col_widths(), rows_h, cols_w);
             double table_height = _table_get_width_height(rows_h);
             if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = indent;
+                pages.last_line().cur_x = pango_widget->indent;
             }
             pages.last_line().set_max_height(table_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_widths(), _page_dpi_scale));

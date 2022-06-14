@@ -502,6 +502,37 @@ const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIt
     return retVal;
 }
 
+PangoDirection CtTextIterUtil::get_pango_direction(const Gtk::TextIter& textIter)
+{
+    {
+        Gtk::TextIter backwards{textIter};
+        while (backwards.backward_char()) {
+            const gunichar wc = backwards.get_char();
+            if ('\n' == wc) {
+                break;
+            }
+            PangoDirection retDir = CtStrUtil::gtk_pango_unichar_direction(wc);
+            if (PANGO_DIRECTION_NEUTRAL != retDir) {
+                return retDir;
+            }
+        }
+    }
+    {
+        Gtk::TextIter forwards{textIter};
+        while (forwards.forward_char()) {
+            const gunichar wc = forwards.get_char();
+            if ('\n' == wc) {
+                break;
+            }
+            PangoDirection retDir = CtStrUtil::gtk_pango_unichar_direction(wc);
+            if (PANGO_DIRECTION_NEUTRAL != retDir) {
+                return retDir;
+            }
+        }
+    }
+    return PANGO_DIRECTION_NEUTRAL;
+}
+
 int CtTextIterUtil::get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer)
 {
     int words = 0;
