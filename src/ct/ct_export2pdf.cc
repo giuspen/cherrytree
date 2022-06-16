@@ -636,46 +636,30 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         tag_attr = pango_dest->dest;
     }
 
-    CtPrintPages::CtPageLine& tmp_last_line = pages.last_line();
-    if (not tmp_last_line.evaluated_pango_dir) {
-        if (CtConst::CHAR_NEWLINE != text_slot->text) {
-            tmp_last_line.evaluated_pango_dir = true;
-            tmp_last_line.pango_dir = text_slot->pango_dir;
-        }
+    if (not pages.last_line().evaluated_pango_dir) {
+        pages.last_line().evaluated_pango_dir = true;
+        pages.last_line().pango_dir = text_slot->pango_dir;
     }
-    else if (text_slot->pango_dir != tmp_last_line.pango_dir and
+    else if (text_slot->pango_dir != pages.last_line().pango_dir and
              PANGO_DIRECTION_NEUTRAL != text_slot->pango_dir and
-             PANGO_DIRECTION_NEUTRAL != tmp_last_line.pango_dir and
-             -1 != tmp_last_line.cur_x)
+             PANGO_DIRECTION_NEUTRAL != pages.last_line().pango_dir and
+             -1 != pages.last_line().cur_x)
     {
-        if (-1 == tmp_last_line.changed_rtl_in_line_prev_x) {
-            tmp_last_line.changed_rtl_in_line_prev_x = tmp_last_line.cur_x;
-            tmp_last_line.cur_x = -1;
+        if (-1 == pages.last_line().changed_rtl_in_line_prev_x) {
+            pages.last_line().changed_rtl_in_line_prev_x = pages.last_line().cur_x;
+            pages.last_line().cur_x = -1;
         }
         else {
-            spdlog::debug("second change of rtl in same line");
+            //spdlog::debug("second change of rtl in same line, slot_text={}, was {}", text_slot->text, pages.last_line().changed_rtl_in_line_prev_x);
             pages.new_line();
             _process_pango_text(print_data, text_slot);
             return;
         }
     }
 
-    int paragraph_width{0};
-    if (-1 != tmp_last_line.changed_rtl_in_line_prev_x) {
-        if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
-            paragraph_width = _page_width - text_slot->indent - tmp_last_line.changed_rtl_in_line_prev_x;
-        }
-        else {
-            paragraph_width = tmp_last_line.changed_rtl_in_line_prev_x - text_slot->indent;
-        }
-    }
-    else {
-        paragraph_width = _page_width - text_slot->indent;
-    }
-
     auto layout = context->create_pango_layout();
     layout->set_font_description(*font);
-    layout->set_width(int(paragraph_width * Pango::SCALE));
+    layout->set_width(int((_page_width - text_slot->indent) * Pango::SCALE));
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
     // don't apply paragraph indent because set_indent will work only for the first line
     // also avoid `\n` because new lines also got indent
@@ -707,12 +691,16 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
             // make it on a new line
             bool need_new_line{false};
             if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
-                if ((pages.last_line().cur_x - size.width) < (-1 == tmp_last_line.changed_rtl_in_line_prev_x ? 0 : tmp_last_line.changed_rtl_in_line_prev_x)) {
+                if ( (pages.last_line().cur_x - size.width) <
+                     (-1 == pages.last_line().changed_rtl_in_line_prev_x ? 0 : pages.last_line().changed_rtl_in_line_prev_x) )
+                {
                     need_new_line = true;
                 }
             }
             else {
-                if ((pages.last_line().cur_x + size.width) > (-1 == tmp_last_line.changed_rtl_in_line_prev_x ? paragraph_width : tmp_last_line.changed_rtl_in_line_prev_x)) {
+                if ( (pages.last_line().cur_x + size.width) >
+                     (-1 == pages.last_line().changed_rtl_in_line_prev_x ? _page_width : pages.last_line().changed_rtl_in_line_prev_x) )
+                {
                     need_new_line = true;
                 }
             }
