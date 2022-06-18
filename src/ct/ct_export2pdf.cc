@@ -778,7 +778,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
         const double scale_w = available_width / (pixbuf->get_width() * _page_dpi_scale);
         if (0 == i and scale_w < 1.0 and available_width < (_page_width - pango_widget->indent)) {
             pages.new_line();
-            continue; // restart loop from a new page
+            continue; // restart loop from a new line
         }
         double scale_h = (_page_height - _layout_newline_height - (CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT * _page_dpi_scale)) / (pixbuf->get_height() * _page_dpi_scale);
         double scale = std::min(scale_w, scale_h);
@@ -888,7 +888,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
         double codebox_width = (codebox->get_width_in_pixels() ? codebox->get_frame_width() : _text_window_width * codebox->get_frame_width()/100.0)*_page_dpi_scale;
         if (0 == i and codebox_width > available_width and available_width < (_page_width - pango_widget->indent)) {
             pages.new_line();
-            continue; // restart loop from a new page
+            continue; // restart loop from a new line
         }
         if (codebox_width > available_width) {
             codebox_width = available_width;
@@ -1009,19 +1009,74 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
     CtPrintPages& pages = print_data->pages;
 
     int first_row = 1;
-    while (true) {
+
+    for (int i = 0; i < 1000/*just a big number without meaning*/; ++i) {
+        // first loop we try and fit the codebox in line with existing text
+        // second loop we move to a new line for maximum width
+
+        if (not pages.last_line().evaluated_pango_dir) {
+            pages.last_line().evaluated_pango_dir = true;
+            pages.last_line().pango_dir = pango_widget->pango_dir;
+        }
+
+        if (-1 == pages.last_line().cur_x) {
+            // initialise x for a new line
+            if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+                pages.last_line().cur_x = _page_width - pango_widget->indent;
+            }
+            else {
+                pages.last_line().cur_x = pango_widget->indent;
+            }
+        }
+
+        int available_width{0};
+        if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+            if (-1 == pages.last_line().changed_rtl_in_line_prev_x) {
+                available_width = pages.last_line().cur_x;
+            }
+            else {
+                available_width = pages.last_line().cur_x - pages.last_line().changed_rtl_in_line_prev_x;
+            }
+        }
+        else {
+            if (-1 == pages.last_line().changed_rtl_in_line_prev_x) {
+                available_width = _page_width - pages.last_line().cur_x;
+            }
+            else {
+                available_width = pages.last_line().changed_rtl_in_line_prev_x - pages.last_line().cur_x;
+            }
+        }
+
+        if (0 == i) {
+            double table_width{0.0};
+            for (size_t col = 0; col < table->get_table_matrix()[0].size(); ++col) {
+                table_width += table->get_col_width(col) * _page_dpi_scale;
+            }
+            if (table_width > available_width and available_width < (_page_width - pango_widget->indent)) {
+                pages.new_line();
+                continue; // restart loop from a new line
+            }
+        }
+
         // use table is length is ok
         std::vector<double> rows_h, cols_w;
         auto table_layouts = _table_get_layouts(table, first_row, -1, context);
         _table_get_grid(table_layouts, table->get_col_widths(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
         if (pages.last_line().test_element_height(table_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
-            if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = pango_widget->indent;
+
+            if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+                // decrease x before if RTL
+                pages.last_line().cur_x -= _table_get_width_height(cols_w);
             }
+
             pages.last_line().set_max_height(table_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_widths(), _page_dpi_scale));
-            pages.last_line().cur_x += _table_get_width_height(cols_w);
+
+            if (PANGO_DIRECTION_RTL != pango_widget->pango_dir) {
+                // increase x after if not RTL
+                pages.last_line().cur_x += _table_get_width_height(cols_w);
+            }
             return;
         }
 
@@ -1034,11 +1089,16 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
             auto split_layouts = _table_get_layouts(table, first_row, split_row, context);
             _table_get_grid(split_layouts, table->get_col_widths(), rows_h, cols_w);
             double table_height = _table_get_width_height(rows_h);
-            if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = pango_widget->indent;
+
+            if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+                // decrease x before if RTL
+                pages.last_line().cur_x -= _table_get_width_height(cols_w);
             }
+
             pages.last_line().set_max_height(table_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_widths(), _page_dpi_scale));
+
+            // no need to increase x after if not RTL as we will move to a new page
             pages.new_page();
 
             // go to to check the second part

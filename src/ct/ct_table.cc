@@ -564,6 +564,14 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
         {
             _tableMatrix[nextRowIdx][nextColIdx]->get_text_view().grab_focus();
         }
+        else {
+            _pCtMainWin->get_ct_actions()->table_row_add();
+            if ( nextRowIdx < _tableMatrix.size() and
+                 nextColIdx < _tableMatrix.front().size() )
+            {
+                _tableMatrix[nextRowIdx][nextColIdx]->get_text_view().grab_focus();
+            }
+        }
         return true;
     }
     return false;
