@@ -305,9 +305,17 @@ private:
     void _process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const CtPangoWidget* pango_widget);
     void _process_pango_table(CtPrintData* print_data, const CtTable* table, const CtPangoWidget* pango_widget);
 
-    Glib::RefPtr<Pango::Layout> _codebox_get_layout(const CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context);
-    void                        _codebox_split_content(const CtCodebox* codebox, Glib::ustring original_content, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context,
-                                                       Glib::ustring& first_split, Glib::ustring& second_split);
+    Glib::RefPtr<Pango::Layout> _codebox_get_layout(const CtCodebox* codebox,
+                                                    Glib::ustring content,
+                                                    Glib::RefPtr<Gtk::PrintContext> context,
+                                                    const int codebox_width);
+    void                        _codebox_split_content(const CtCodebox* codebox,
+                                                       Glib::ustring original_content,
+                                                       const int check_height,
+                                                       const Glib::RefPtr<Gtk::PrintContext>& context,
+                                                       Glib::ustring& first_split,
+                                                       Glib::ustring& second_split,
+                                                       const int codebox_width);
 
     CtPageTable::TableLayouts   _table_get_layouts(const CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context);
     void                        _table_get_grid(const CtPageTable::TableLayouts& table_layouts,

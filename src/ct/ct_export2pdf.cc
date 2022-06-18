@@ -776,7 +776,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
         }
         // calculate image
         const double scale_w = available_width / (pixbuf->get_width() * _page_dpi_scale);
-        if (scale_w < 1.0 and 0 == i and available_width < (_page_width - pango_widget->indent)) {
+        if (0 == i and scale_w < 1.0 and available_width < (_page_width - pango_widget->indent)) {
             pages.new_line();
             continue; // restart loop from a new page
         }
@@ -785,7 +785,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
         if (scale > 1.0) scale = 1.0;
         if (scale < 1.0) any_image_resized = true;
 
-        scale *=  _page_dpi_scale; // need to compensate high dpi
+        scale *= _page_dpi_scale; // need to compensate high dpi
 
         double pixbuf_width = pixbuf->get_width() * scale;
         double pixbuf_height = pixbuf->get_height() * scale + (CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT * _page_dpi_scale);
@@ -847,39 +847,158 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, const CtCodebox* c
 
     Glib::ustring original_content = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
         codebox->get_buffer(), -1, -1, codebox->get_syntax_highlighting());
-    while (true) {
-        // use content if it's ok
-        auto codebox_layout = _codebox_get_layout(codebox, original_content, context);
-        double codebox_height = _get_height_from_layout(codebox_layout);
-        if (pages.last_line().test_element_height(codebox_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
-            if (-1 == pages.last_line().cur_x) {
+
+    for (int i = 0; i < 1000/*just a big number without meaning*/; ++i) {
+        // first loop we try and fit the codebox in line with existing text
+        // second loop we move to a new line for maximum width
+
+        if (not pages.last_line().evaluated_pango_dir) {
+            pages.last_line().evaluated_pango_dir = true;
+            pages.last_line().pango_dir = pango_widget->pango_dir;
+        }
+
+        if (-1 == pages.last_line().cur_x) {
+            // initialise x for a new line
+            if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+                pages.last_line().cur_x = _page_width - pango_widget->indent;
+            }
+            else {
                 pages.last_line().cur_x = pango_widget->indent;
             }
+        }
+
+        int available_width{0};
+        if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+            if (-1 == pages.last_line().changed_rtl_in_line_prev_x) {
+                available_width = pages.last_line().cur_x;
+            }
+            else {
+                available_width = pages.last_line().cur_x - pages.last_line().changed_rtl_in_line_prev_x;
+            }
+        }
+        else {
+            if (-1 == pages.last_line().changed_rtl_in_line_prev_x) {
+                available_width = _page_width - pages.last_line().cur_x;
+            }
+            else {
+                available_width = pages.last_line().changed_rtl_in_line_prev_x - pages.last_line().cur_x;
+            }
+        }
+
+        double codebox_width = (codebox->get_width_in_pixels() ? codebox->get_frame_width() : _text_window_width * codebox->get_frame_width()/100.0)*_page_dpi_scale;
+        if (0 == i and codebox_width > available_width and available_width < (_page_width - pango_widget->indent)) {
+            pages.new_line();
+            continue; // restart loop from a new page
+        }
+        if (codebox_width > available_width) {
+            codebox_width = available_width;
+        }
+
+        // use content if it's ok
+        auto codebox_layout = _codebox_get_layout(codebox, original_content, context, codebox_width);
+        double codebox_height = _get_height_from_layout(codebox_layout);
+        if (pages.last_line().test_element_height(codebox_height + (BOX_OFFSET * _page_dpi_scale), _page_height)) {
+
+            if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+                // decrease x before if RTL
+                pages.last_line().cur_x -= _get_width_from_layout(codebox_layout);
+            }
+
             pages.last_line().set_max_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, codebox_layout));
-            pages.last_line().cur_x += _get_width_from_layout(codebox_layout);
+
+            if (PANGO_DIRECTION_RTL != pango_widget->pango_dir) {
+                // increase x after if not RTL
+                pages.last_line().cur_x += _get_width_from_layout(codebox_layout);
+            }
             return;
         }
 
         // if content is too long, split it
         Glib::ustring first_split, second_split;
-        _codebox_split_content(codebox, original_content, _page_height - pages.last_line().y, context, first_split, second_split);
+        _codebox_split_content(codebox, original_content, _page_height - pages.last_line().y, context, first_split, second_split, codebox_width);
         if (first_split.empty()) {
             pages.new_page(); // need a new page
         }
         else {
-            auto first_split_layout = _codebox_get_layout(codebox, first_split, context);
+            auto first_split_layout = _codebox_get_layout(codebox, first_split, context, codebox_width);
             double codebox_height = _get_height_from_layout(first_split_layout);
 
-            if (-1 == pages.last_line().cur_x) {
-                pages.last_line().cur_x = pango_widget->indent;
+            if (PANGO_DIRECTION_RTL == pango_widget->pango_dir) {
+                // decrease x before if RTL
+                pages.last_line().cur_x -= _get_width_from_layout(codebox_layout);
             }
+
             pages.last_line().set_max_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, first_split_layout));
+
+            // no need to increase x after if not RTL as we will move to a new page
             pages.new_page();
 
             // go to to check the second part
             original_content = second_split;
+        }
+    }
+}
+
+Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(const CtCodebox* codebox,
+                                                         Glib::ustring content,
+                                                         Glib::RefPtr<Gtk::PrintContext> context,
+                                                         const int codebox_width)
+{
+    Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
+    layout->set_font_description(codebox->get_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _code_font : _plain_font);
+    layout->set_width(int(codebox_width * Pango::SCALE));
+    layout->set_wrap(Pango::WRAP_WORD_CHAR);
+    layout->set_markup(content);
+    return layout;
+}
+
+// Split Long CodeBoxes
+void CtPrint::_codebox_split_content(const CtCodebox* codebox,
+                                     Glib::ustring original_content,
+                                     const int check_height,
+                                     const Glib::RefPtr<Gtk::PrintContext>& context,
+                                     Glib::ustring& first_split,
+                                     Glib::ustring& second_split,
+                                     const int codebox_width)
+{
+    std::vector<Glib::ustring> original_splitted_pango = str::split(original_content, CtConst::CHAR_NEWLINE);
+    // fix for not-closed span, I suppose
+    for (size_t i = 0; i < original_splitted_pango.size(); ++i) {
+        auto& element = original_splitted_pango[i];
+        Glib::ustring::size_type last_close = element.rfind("</span");
+        Glib::ustring::size_type last_open = element.rfind("<span");
+        if (last_close < element.size() and last_open < element.size() and last_close < last_open) {
+            auto non_closed_span = element.substr(last_open);
+            Glib::ustring::size_type end_non_closed_span_idx = non_closed_span.find(">");
+            if (end_non_closed_span_idx < non_closed_span.size()) {
+                non_closed_span = non_closed_span.substr(0, end_non_closed_span_idx+1);
+                original_splitted_pango[i] += "</span>";
+                original_splitted_pango[i+1] = non_closed_span + original_splitted_pango[i+1];
+            }
+        }
+    }
+
+    std::vector<Glib::ustring> splitted_pango;
+    while (splitted_pango.size() < original_splitted_pango.size()) {
+        splitted_pango.push_back(original_splitted_pango[splitted_pango.size()]);
+        Glib::ustring new_content = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
+        auto codebox_layout = _codebox_get_layout(codebox, new_content, context, codebox_width);
+        double codebox_height = _get_height_from_layout(codebox_layout);
+        if (codebox_height + BOX_OFFSET > check_height) {
+            if (splitted_pango.size() == 1) {
+                // check_height is not enough, so we need a new page
+                first_split = "";
+                second_split = original_content;
+                return;
+            }
+
+            splitted_pango.erase(splitted_pango.end());
+            original_splitted_pango.erase(original_splitted_pango.begin(), original_splitted_pango.begin() + splitted_pango.size());
+            first_split = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
+            second_split = str::join(original_splitted_pango, CtConst::CHAR_NEWLINE);
+            return;
         }
     }
 }
@@ -924,70 +1043,6 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
 
             // go to to check the second part
             first_row = split_row + 1;
-        }
-    }
-}
-
-Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(const CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context)
-{
-    Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
-    layout->set_font_description(codebox->get_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _code_font : _plain_font);
-    double codebox_width = codebox->get_width_in_pixels() ? codebox->get_frame_width() : _text_window_width * codebox->get_frame_width()/100.;
-    codebox_width *= _page_dpi_scale;
-    if (codebox_width > _page_width)
-        codebox_width = _page_width;
-    layout->set_width(int(codebox_width * Pango::SCALE));
-    layout->set_wrap(Pango::WRAP_WORD_CHAR);
-    layout->set_markup(content);
-    return layout;
-}
-
-// Split Long CodeBoxes
-void CtPrint::_codebox_split_content(const CtCodebox* codebox,
-                                     Glib::ustring original_content,
-                                     const int check_height,
-                                     const Glib::RefPtr<Gtk::PrintContext>& context,
-                                     Glib::ustring& first_split,
-                                     Glib::ustring& second_split)
-{
-    std::vector<Glib::ustring> original_splitted_pango = str::split(original_content, CtConst::CHAR_NEWLINE);
-    // fix for not-closed span, I suppose
-    for (size_t i = 0; i < original_splitted_pango.size(); ++i) {
-        auto& element = original_splitted_pango[i];
-        Glib::ustring::size_type last_close = element.rfind("</span");
-        Glib::ustring::size_type last_open = element.rfind("<span");
-        if (last_close < element.size() and last_open < element.size() and last_close < last_open) {
-            auto non_closed_span = element.substr(last_open);
-            Glib::ustring::size_type end_non_closed_span_idx = non_closed_span.find(">");
-            if (end_non_closed_span_idx < non_closed_span.size()) {
-                non_closed_span = non_closed_span.substr(0, end_non_closed_span_idx+1);
-                original_splitted_pango[i] += "</span>";
-                original_splitted_pango[i+1] = non_closed_span + original_splitted_pango[i+1];
-            }
-        }
-    }
-
-    std::vector<Glib::ustring> splitted_pango;
-    while (splitted_pango.size() < original_splitted_pango.size()) {
-        splitted_pango.push_back(original_splitted_pango[splitted_pango.size()]);
-        Glib::ustring new_content = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
-        auto codebox_layout = _codebox_get_layout(codebox, new_content, context);
-        double codebox_height = _get_height_from_layout(codebox_layout);
-        if (codebox_height + BOX_OFFSET > check_height)
-        {
-            if (splitted_pango.size() == 1)
-            {
-                // check_height is not enough, so we need a new page
-                first_split = "";
-                second_split = original_content;
-                return;
-            }
-
-            splitted_pango.erase(splitted_pango.end());
-            original_splitted_pango.erase(original_splitted_pango.begin(), original_splitted_pango.begin() + splitted_pango.size());
-            first_split = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
-            second_split = str::join(original_splitted_pango, CtConst::CHAR_NEWLINE);
-            return;
         }
     }
 }
