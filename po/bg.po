@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 10:04+0100\n"
-"PO-Revision-Date: 2022-04-06 06:50+0300\n"
+"POT-Creation-Date: 2022-06-19 11:02+0100\n"
+"PO-Revision-Date: 2022-06-19 14:57+0300\n"
 "Last-Translator: Iliya Nikolaev <iliya.nikolaev@gmail.com>\n"
 "Language-Team: Bulgarian <iliya.nikolaev@gmail.com>\n"
 "Language: bg\n"
@@ -15,9 +15,9 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Language: bg_BG\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:500
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:549
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr ""
 "Предупреждение: Едно или няколко изображения бяха намалени, за да се поберат "
@@ -26,7 +26,7 @@ msgstr ""
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:49
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:261
 msgid "To WebSite"
-msgstr "Уеб сайт"
+msgstr "Към Уеб сайт"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:60
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:265
@@ -72,7 +72,7 @@ msgstr "Име на котвата"
 msgid "The pattern '%s' was not found"
 msgstr "Шаблонът '% s 'не е намерен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:144
 msgid "Index"
 msgstr "Съдържание"
 
@@ -129,7 +129,7 @@ msgid "Preferences File"
 msgstr "Файлови настроики"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:290
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:146
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:365
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Промените ще влязат в сила след рестартиране на CherryTree"
@@ -425,7 +425,7 @@ msgid "Insert _CodeBox"
 msgstr "Вмъкване на блок с код"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:166
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:167
 msgid "Insert a CodeBox"
 msgstr "Вмъкване на кодов блок"
 
@@ -1105,7 +1105,6 @@ msgid "Find _in Multiple Nodes"
 msgstr "Претърсване на съдържанието на всички клони"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Find in Multiple Nodes"
 msgstr "Претърсване на съдържанието на всички клони"
 
@@ -1146,7 +1145,6 @@ msgid "Replace in _Multiple Nodes"
 msgstr "Замяна във множество клони"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes"
 msgstr "Замяна във множество клони"
 
@@ -2041,10 +2039,6 @@ msgstr "Появи ли се системният панел?"
 msgid "Your system does not support the System Tray"
 msgstr "Вашата система не поддържа системен панел"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:279
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "Промяната на езика ще се бъде налична след рестарт на CherryTree"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:593
 msgid "Downloading"
@@ -2394,7 +2388,7 @@ msgstr "Изследовател на дърво"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:685
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
 msgid "Rich Text"
@@ -2402,9 +2396,9 @@ msgstr "Rich текст"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:252
 msgid "Plain Text"
 msgstr "Обикновен текст"
 
@@ -2508,7 +2502,7 @@ msgstr "В тази сесия няма операции за форматира
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:101
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1009
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1010
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
 msgid "No Text is Selected"
 msgstr "Не е избран текст"
@@ -2547,6 +2541,14 @@ msgstr "Търсене в текущия клон ..."
 msgid "Matches"
 msgstr "Съвпадения"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Replace in Multiple Nodes..."
+msgstr "Замяна във множество клони.."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Find in Multiple Nodes..."
+msgstr "Намиране в множество клони..."
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Нямаше търсения в тази сесия"
@@ -2578,7 +2580,7 @@ msgid "Enable Automatic Indentation"
 msgstr "Активиране на автоматичен отстъп"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:308
 msgid "Show Line Numbers"
 msgstr "Покажи номера на редове"
 
@@ -2625,12 +2627,16 @@ msgstr "PDF файл"
 msgid "Plain Text Document"
 msgstr "Текстов документ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:143
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:49
+msgid "Show Menubar:"
+msgstr "Покажи меню бар:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:147
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" не е CherryTree документ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:163
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -2639,19 +2645,19 @@ msgstr ""
 "Грешка при анализирането на CherryTree файл:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:234
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:238
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Временни файлове бяха създадени или отворени с външно приложение."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:239
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "Затворете външно приложение, преди да излезете от CherryTree."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:240
 msgid "Did you Quit the External Applications?"
 msgstr "Затворихте ли външното приложение?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:362
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Документът е презареден след обновяване с друга програма"
 
@@ -2669,7 +2675,7 @@ msgid "Hide the Window"
 msgstr "Скрий прозореца"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:106
 msgid "Node Type"
 msgstr "Тип клон"
 
@@ -2831,7 +2837,7 @@ msgid "Hide (Restore with '%s')"
 msgstr "Скрий (Възстанови с '%s')"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:74
 msgid "Node Name"
 msgstr "Име на клон"
 
@@ -2874,7 +2880,7 @@ msgid "Undo"
 msgstr "Отмяна"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:492
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Special Characters"
 msgstr "Специални символи"
@@ -3013,18 +3019,42 @@ msgstr "Разширяване на клон с щракване с мишкат
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Наскоро посетени клони в заглавката"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:160
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:218
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:167
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:219
 msgid "Select Node Icon"
 msgstr "Изберете иконка за клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:97
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:103
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Размерът на иконите на лентите с инструменти е вече максимален"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:114
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Размерът на иконите на лентите с инструменти е вече минимален"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:429
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Няма достъп до изпълними 'latex' и 'dvipng'"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:444
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Например, в Ubuntu инсталационните пакети са:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:446
+msgid "For example, on Mac OS the packages to install are:"
+msgstr "Например, в Mac OS  инсталационните пакети са:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:436
+msgid "Could not access the executable 'latex'"
+msgstr "Няма достъп до изпълним 'latex'"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:443
+msgid "Could not access the executable 'dvipng'"
+msgstr "Няма достъп до изпълним 'dvipng'"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
 msgid "Enable Spell Check"
@@ -3046,7 +3076,7 @@ msgstr "Освети текущия ред"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:56
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:310
 msgid "Highlight Matching Brackets"
 msgstr "Осветявай съвпадащите скоби"
 
@@ -3140,33 +3170,33 @@ msgstr "Невъзможно записване във файл %s"
 msgid "Enter Password for %s"
 msgstr "Въведете парола за % s"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:100
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:101
 msgid "Image Format Not Recognized"
 msgstr "Непознат формат на изображение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:107
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:108
 msgid "Insert Table"
 msgstr "Вмъкване на таблица"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:124
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:774
 msgid "CSV File"
 msgstr "CSV файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:200
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:201
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "Максималният размер на файлове е %s Мб"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:202
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:203
 msgid "Do you want to Continue?"
 msgstr "Желаете ли да продължите?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:873
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:874
 msgid "Tabs Replaced"
 msgstr "Заменени табове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:919
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:920
 msgid "Lines Stripped"
 msgstr "Изчистени линии"
 
@@ -3200,82 +3230,78 @@ msgstr "Без клавишна комбинация"
 msgid "Use Selected Color"
 msgstr "Използвайте избрания цвят"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
-msgid "click me"
-msgstr "щракни тук"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:247
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:81
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:162
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
 msgid "Automatic Syntax Highlighting"
 msgstr "Автоматично осветяване на синтаксиса"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:120
 msgid "Tags for Searching"
 msgstr "Тагове за търсене"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:125
 msgid "Exclude from Searches:"
 msgstr "Изключи от търсенето:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
 msgid "This Node"
 msgstr "Този клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:134
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:130
 msgid "The Subnodes"
 msgstr "Подклон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:136
 msgid "Read Only"
 msgstr "Само за четене"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Choose Existing Tag"
 msgstr "Изберете съществуващ таг"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Tag Name"
 msgstr "Име на тага"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:204
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:200
 msgid "Pick a Color"
 msgstr "Избор на цвят"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:379
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:380
 msgid "Involved Nodes"
 msgstr "Свързани клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:388
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
 msgid "Selected Text Only"
 msgstr "Само избрания текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
 msgid "Selected Node Only"
 msgstr "Само избрания клон"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
 msgid "Selected Node and Subnodes"
 msgstr "Избраният клон с дъщерните клони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:392
 msgid "All the Tree"
 msgstr "Цялото дърво"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:406
 msgid "Include Node Name"
 msgstr "Включи името на клона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:413
 msgid "Links Tree in Every Page"
 msgstr "Дърво с връзки на всяка страница"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:418
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:419
 msgid "New Node in New Page"
 msgstr "Нов клон от нова страница"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:423
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:424
 msgid "Single File"
 msgstr "Един файл"
 
@@ -3362,7 +3388,7 @@ msgstr "Коренът на дървото"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:49
 msgid "The Selected Node"
-msgstr "Избрания клон"
+msgstr "Избраният клон"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:157
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:168
@@ -3515,7 +3541,7 @@ msgstr "Изберете родителски клон"
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:564
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:585
 msgid "The new parent can't be the very node to move!"
-msgstr "Новият клон родител не може да бъде преместен!"
+msgstr "Новият клон родител не може да бъде самият клон за преместване!"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:568
 msgid "The new chosen parent is still the old parent!"
@@ -3524,7 +3550,7 @@ msgstr "Избраният нов родителски клон е стария�
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:749
 #, c-format
 msgid "%s Nodes Properties Changed"
-msgstr "Променени са свойствата на %s клони "
+msgstr "Променени са свойствата на %s клони"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:39
 msgid "Latex Text"
@@ -3550,57 +3576,57 @@ msgstr "Ръководство за уравнения и Latex"
 msgid "LaTeX Math Symbols Reference"
 msgstr "Справка за математическите символи на LaTeX"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:107
 msgid "Image Properties"
 msgstr "Свойства на изображението"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:132
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:271
 msgid "Width"
 msgstr "Ширина"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:135
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:141
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:275
 msgid "Height"
 msgstr "Височина"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:266
 msgid "Type"
 msgstr "Тип"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:274
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:280
 msgid "pixels"
 msgstr "пиксели"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:303
 msgid "Size"
 msgstr "Размер"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:319
 msgid "Options"
 msgstr "Настройки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:420
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
 msgid "Rows"
 msgstr "Редове"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
 msgid "Columns"
 msgstr "Колони"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
 msgid "Default Width"
 msgstr "Ширина по подразбиране"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:444
 msgid "Table Size"
 msgstr "Размер на таблицата"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:447
 msgid "Column Properties"
 msgstr "Свойства на колоната"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:462
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:468
 msgid "Import from CSV File"
 msgstr "Импорт от CSV файл"
 
@@ -3628,7 +3654,7 @@ msgstr "Изберете файл"
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:344
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:346
 msgid "Select Folder"
-msgstr "Изберете каталог"
+msgstr "Изберете папка"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:365
@@ -3659,6 +3685,12 @@ msgstr "Лео документ"
 msgid "Are you sure to Reset to Default?"
 msgstr ""
 "Сигурен ли сте че искате да върнете в начално състояние по подразбиране?"
+
+#~ msgid "The New Language will be Available Only After Restarting CherryTree"
+#~ msgstr "Промяната на езика ще се бъде налична след рестарт на CherryTree"
+
+#~ msgid "click me"
+#~ msgstr "щракни тук"
 
 #~ msgid "_Format"
 #~ msgstr "Форматиране"
