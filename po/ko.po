@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 10:04+0100\n"
-"PO-Revision-Date: 2022-04-05 02:05+0900\n"
+"POT-Creation-Date: 2022-06-19 11:02+0100\n"
+"PO-Revision-Date: 2022-06-23 00:59+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:500
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:549
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "경고 : 페이지에 맞게 하나 이상의 이미지가 축소되었습니다"
 
@@ -71,7 +71,7 @@ msgstr "앵커 이름"
 msgid "The pattern '%s' was not found"
 msgstr "'%s'를 찾을 수 없습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:144
 msgid "Index"
 msgstr "목차"
 
@@ -128,7 +128,7 @@ msgid "Preferences File"
 msgstr "설정 파일"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:290
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:146
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:365
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "변경 사항은 CherryTree를 재 실행한 후에 적용됩니다"
@@ -424,7 +424,7 @@ msgid "Insert _CodeBox"
 msgstr "코드상자 삽입(_C)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:166
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:167
 msgid "Insert a CodeBox"
 msgstr "코드상자 삽입"
 
@@ -1102,7 +1102,6 @@ msgid "Find _in Multiple Nodes"
 msgstr "모든 노트를 검색(_S)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Find in Multiple Nodes"
 msgstr "모든 노트를 검색(_S)"
 
@@ -1145,7 +1144,6 @@ msgid "Replace in _Multiple Nodes"
 msgstr "모든 노트를 치환"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes"
 msgstr "모든 노트를 치환"
 
@@ -2040,10 +2038,6 @@ msgstr "패널에 시스템 트레이가 표시되어 있습니까?"
 msgid "Your system does not support the System Tray"
 msgstr "시스템 트레이를 지원하지 않습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:279
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "새로운 언어는 CherryTree를 재 실행한 후 사용할 수 있습니다"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:593
 msgid "Downloading"
@@ -2382,7 +2376,7 @@ msgstr "Tree 탐색기"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:685
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
 msgid "Rich Text"
@@ -2390,9 +2384,9 @@ msgstr "형식이 있는 텍스트"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:252
 msgid "Plain Text"
 msgstr "텍스트"
 
@@ -2496,7 +2490,7 @@ msgstr "아직이 세션에서 실행 된 서식은 없습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:101
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1009
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1010
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
 msgid "No Text is Selected"
 msgstr "텍스트가 선택되어 있지 않습니다"
@@ -2535,6 +2529,14 @@ msgstr "이 노트를 검색 ..."
 msgid "Matches"
 msgstr "들 일치"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Replace in Multiple Nodes..."
+msgstr "모든 노트를 치환..."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Find in Multiple Nodes..."
+msgstr "모든 노트를 검색..."
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
 msgid "No Previous Search Was Performed During This Session"
 msgstr "아직이 세션에서는 검색이 실행되고 있지 않습니다"
@@ -2566,7 +2568,7 @@ msgid "Enable Automatic Indentation"
 msgstr "자동 들여 쓰기를 사용"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:308
 msgid "Show Line Numbers"
 msgstr "행 번호를 표시한다"
 
@@ -2613,12 +2615,16 @@ msgstr "PDF 파일"
 msgid "Plain Text Document"
 msgstr "텍스트 형식 (확장자 지정)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:143
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:49
+msgid "Show Menubar:"
+msgstr "메뉴바 표시:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:147
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" 는 CherryTree 문서가 없습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:163
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -2627,19 +2633,19 @@ msgstr ""
 "CherryTree 파일 구문 분석 오류:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:234
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:238
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "임시 파일이 생성되고 외부 응용 프로그램에서 열렸습니다."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:239
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "CherryTree를 종료하기 전에 외부 응용프로그램을 종료하십시오."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:240
 msgid "Did you Quit the External Applications?"
 msgstr "외부 응용프로그램을 종료했습니까?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:362
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "CT* 파일이 외부 업데이트된 후 문서를 다시 읽어 왔습니다"
 
@@ -2657,7 +2663,7 @@ msgid "Hide the Window"
 msgstr "창 숨기기"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:106
 msgid "Node Type"
 msgstr "노트 유형"
 
@@ -2697,11 +2703,11 @@ msgid ""
 "is No Longer Available"
 msgstr ""
 "이 세션에서 이전 노트의 복사가 수행되지 않았거나 소스 트리를 더 이상 사용할 "
-"수 없습니다."
+"수 없습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:723
 msgid "The Source Tree Node is No Longer Available"
-msgstr "소스 트리를 더 이상 사용할 수 없습니다."
+msgstr "소스 트리를 더 이상 사용할 수 없습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:45
 msgid "Checking for Newer Version..."
@@ -2817,7 +2823,7 @@ msgid "Hide (Restore with '%s')"
 msgstr "숨기기 ( '%s'에서 복원)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:74
 msgid "Node Name"
 msgstr "노트 이름"
 
@@ -2860,7 +2866,7 @@ msgid "Undo"
 msgstr "취소"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:492
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Special Characters"
 msgstr "특수 문자"
@@ -2995,18 +3001,42 @@ msgstr "마우스 클릭으로 노트 Tree를 확장"
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "최근 사용한 노트를 노트 이름 헤더에 표시"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:160
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:218
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:167
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:219
 msgid "Select Node Icon"
 msgstr "노트 아이콘 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:97
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:103
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "도구 모음 아이콘은 이미 최대 크기입니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:114
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "도구 모음 아이콘은 이미 최소 크기입니다"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:429
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "실행파일 latex 와 dvipng 에 액세스 할 수 없습니다"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:444
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "예를 들어 우분투에서 설치할 패키지는 다음과 같습니다:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:446
+msgid "For example, on Mac OS the packages to install are:"
+msgstr "예를 들어 Mac OS에서 설치할 패키지는 다음과 같습니다:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:436
+msgid "Could not access the executable 'latex'"
+msgstr "실행파일 latex 에 액세스 할 수 없습니다"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:443
+msgid "Could not access the executable 'dvipng'"
+msgstr "실행파일인 dvipng 에 액세스 할 수 없습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
 msgid "Enable Spell Check"
@@ -3028,7 +3058,7 @@ msgstr "현재 행을 강조"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:56
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:310
 msgid "Highlight Matching Brackets"
 msgstr "해당 괄호를 강조"
 
@@ -3122,33 +3152,33 @@ msgstr "%s 에 쓰기 권한이 없습니다"
 msgid "Enter Password for %s"
 msgstr "%s 의 암호를 입력하십시오"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:100
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:101
 msgid "Image Format Not Recognized"
 msgstr "알 수 없는 이미지 형식입니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:107
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:108
 msgid "Insert Table"
 msgstr "표 삽입"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:124
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:774
 msgid "CSV File"
 msgstr "CSV 파일"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:200
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:201
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "첨부 파일의 최대 용량은 %s MB입니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:202
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:203
 msgid "Do you want to Continue?"
 msgstr "실행 하시겠습니까?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:873
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:874
 msgid "Tabs Replaced"
 msgstr "탭을 변환했습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:919
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:920
 msgid "Lines Stripped"
 msgstr "행 삭제 작업을 수행"
 
@@ -3182,82 +3212,78 @@ msgstr "바로 가기 없음"
 msgid "Use Selected Color"
 msgstr "선택 색상을 사용"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
-msgid "click me"
-msgstr "클릭"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:247
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:81
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:162
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
 msgid "Automatic Syntax Highlighting"
 msgstr "자동 구문 강조"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:120
 msgid "Tags for Searching"
 msgstr "검색 용 태그 (공백으로 구분)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:125
 msgid "Exclude from Searches:"
 msgstr "검색에서 제외:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
 msgid "This Node"
 msgstr "노트"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:134
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:130
 msgid "The Subnodes"
 msgstr "하위 노트"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:136
 msgid "Read Only"
 msgstr "읽기 전용"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Choose Existing Tag"
 msgstr "기존의 태그를 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Tag Name"
 msgstr "태그 이름"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:204
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:200
 msgid "Pick a Color"
 msgstr "색상을 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:379
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:380
 msgid "Involved Nodes"
 msgstr "관련 노트"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:388
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
 msgid "Selected Text Only"
 msgstr "선택 텍스트"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
 msgid "Selected Node Only"
 msgstr "선택 노트만"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
 msgid "Selected Node and Subnodes"
 msgstr "선택 노트와 하위 노트"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:392
 msgid "All the Tree"
 msgstr "Tree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:406
 msgid "Include Node Name"
 msgstr "노트 이름을 포함"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:413
 msgid "Links Tree in Every Page"
 msgstr "각 페이지에 링크 Tree 삽입"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:418
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:419
 msgid "New Node in New Page"
 msgstr "노트마다 페이지 나누기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:423
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:424
 msgid "Single File"
 msgstr "단일 파일"
 
@@ -3529,57 +3555,57 @@ msgstr "LaTeX 수학 및 방정식 튜토리얼"
 msgid "LaTeX Math Symbols Reference"
 msgstr "LaTeX 수학 심볼 레퍼런스"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:107
 msgid "Image Properties"
 msgstr "이미지 속성"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:132
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:271
 msgid "Width"
 msgstr "폭"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:135
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:141
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:275
 msgid "Height"
 msgstr "높이"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:266
 msgid "Type"
 msgstr "종류"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:274
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:280
 msgid "pixels"
 msgstr "px"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:303
 msgid "Size"
 msgstr "크기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:319
 msgid "Options"
 msgstr "옵션"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:420
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
 msgid "Rows"
 msgstr "행"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
 msgid "Columns"
 msgstr "열"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
 msgid "Default Width"
 msgstr "기본 폭"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:444
 msgid "Table Size"
 msgstr "표 크기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:447
 msgid "Column Properties"
 msgstr "열 속성"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:462
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:468
 msgid "Import from CSV File"
 msgstr "CSV 파일에서 가져 오기"
 
@@ -3637,6 +3663,12 @@ msgstr "Leo 문서"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.h:63
 msgid "Are you sure to Reset to Default?"
 msgstr "기본값으로 초기화 하겠습니까?"
+
+#~ msgid "The New Language will be Available Only After Restarting CherryTree"
+#~ msgstr "새로운 언어는 CherryTree를 재 실행한 후 사용할 수 있습니다"
+
+#~ msgid "click me"
+#~ msgstr "클릭"
 
 #~ msgid "_Format"
 #~ msgstr "서식(_F)"

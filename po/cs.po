@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 10:04+0100\n"
-"PO-Revision-Date: 2022-04-03 13:09+0200\n"
+"POT-Creation-Date: 2022-06-19 11:02+0100\n"
+"PO-Revision-Date: 2022-06-22 20:03+0200\n"
 "Last-Translator: Pavel <Czech <translation-team-cs@lists.sourceforge.net>>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 20.12.3\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:500
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:549
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr ""
 "Varování: Kvůli vstupu na stránku byl zmenšen jeden nebo bylo zmenšeno více "
@@ -75,7 +75,7 @@ msgstr "Název kotvy"
 msgid "The pattern '%s' was not found"
 msgstr "Hledaný pojem '%s' nenalezen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:144
 msgid "Index"
 msgstr "Rejstřík"
 
@@ -132,7 +132,7 @@ msgid "Preferences File"
 msgstr "Soubor s nastavením"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:290
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:146
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:365
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Tato změna se projeví až po novém spuštění CherryTree"
@@ -428,7 +428,7 @@ msgid "Insert _CodeBox"
 msgstr "Vložit _pole s kódem"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:166
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:167
 msgid "Insert a CodeBox"
 msgstr "Vložit pole s kódem"
 
@@ -1113,7 +1113,6 @@ msgid "Find _in Multiple Nodes"
 msgstr "Hledat _ve všech uzlech"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Find in Multiple Nodes"
 msgstr "Hledat ve všech uzlech"
 
@@ -1154,7 +1153,6 @@ msgid "Replace in _Multiple Nodes"
 msgstr "Nahradit v_e všech uzlech"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes"
 msgstr "Nahradit ve všech uzlech"
 
@@ -2049,10 +2047,6 @@ msgstr "Objevila se oznamovací oblast v panelu?"
 msgid "Your system does not support the System Tray"
 msgstr "Váš systém nepodporuje oznamovací oblast"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:279
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:593
 msgid "Downloading"
@@ -2389,7 +2383,7 @@ msgstr "Stromový průzkumník"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:685
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
 msgid "Rich Text"
@@ -2397,9 +2391,9 @@ msgstr "Formátovaný text"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:252
 msgid "Plain Text"
 msgstr "Prostý text"
 
@@ -2503,7 +2497,7 @@ msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování t
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:101
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1009
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1010
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
 msgid "No Text is Selected"
 msgstr "Není vybrán žádný text"
@@ -2542,6 +2536,14 @@ msgstr "Hledat ve vybraném uzlu..."
 msgid "Matches"
 msgstr "Shody"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Replace in Multiple Nodes..."
+msgstr "Nahradit ve všech uzlech..."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Find in Multiple Nodes..."
+msgstr "Hledat ve všech uzlech..."
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné hledání"
@@ -2573,7 +2575,7 @@ msgid "Enable Automatic Indentation"
 msgstr "Povolit automatické odsazení"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:308
 msgid "Show Line Numbers"
 msgstr "Ukázat čísla řádků"
 
@@ -2620,12 +2622,16 @@ msgstr "Soubor PDF"
 msgid "Plain Text Document"
 msgstr "Dokument s prostým textem"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:143
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:49
+msgid "Show Menubar:"
+msgstr "Ukázat nabídkový řádek:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:147
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" není dokumentem CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:163
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -2634,19 +2640,19 @@ msgstr ""
 "Chyba při zpracování souboru CherryTree:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:234
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:238
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Dočasné soubory byly vytvořeny a otevřeny ve vnějších programech."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:239
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "Ukončit vnější programy před ukončením CherryTree."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:240
 msgid "Did you Quit the External Applications?"
 msgstr "Ukončil jste vnější programy?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:362
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*"
 
@@ -2664,7 +2670,7 @@ msgid "Hide the Window"
 msgstr "Skrýt okno"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:106
 msgid "Node Type"
 msgstr "Typ uzlu"
 
@@ -2703,9 +2709,8 @@ msgid ""
 "No Previous Node Copy Was Performed During This Session or the Source Tree "
 "is No Longer Available"
 msgstr ""
-"Během tohoto sezení nebylo ještě provedeno žádnéí kopírování předchozího uzlu"
-" nebo "
-"již není zdrojový strom dostupný"
+"Během tohoto sezení nebylo ještě provedeno žádnéí kopírování předchozího "
+"uzlu nebo již není zdrojový strom dostupný"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:723
 msgid "The Source Tree Node is No Longer Available"
@@ -2826,7 +2831,7 @@ msgid "Hide (Restore with '%s')"
 msgstr "Skrýt (Obnovit pomocí '%s')"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:74
 msgid "Node Name"
 msgstr "Název uzlu"
 
@@ -2869,7 +2874,7 @@ msgid "Undo"
 msgstr "Zpět"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:492
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
@@ -3006,18 +3011,43 @@ msgstr "Rozbalit uzel při klepnutí myší"
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Naposledy navštívené uzly na záhlaví názvu uzlu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:160
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:218
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:167
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:219
 msgid "Select Node Icon"
 msgstr "Vybrat ikonu uzlu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:97
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:103
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak velké, jak jen je to možné"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:114
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak malé, jak jen je to možné"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:429
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr ""
+"Nepodařilo se získat přístup ke spustitelným souborům 'latex' a 'dvipng'"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:444
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Například v systému Ubuntu je třeba nainstalovat tyto balíčky:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:446
+msgid "For example, on Mac OS the packages to install are:"
+msgstr "Například v systému Mac OS je třeba nainstalovat tyto balíčky:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:436
+msgid "Could not access the executable 'latex'"
+msgstr "Nepodařilo se získat přístup ke spustitelnému souboru 'latex'"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:443
+msgid "Could not access the executable 'dvipng'"
+msgstr "Nepodařilo se získat přístup ke spustitelnému souboru 'dvipng'"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
 msgid "Enable Spell Check"
@@ -3039,7 +3069,7 @@ msgstr "Zvýraznit nynější řádek"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:56
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:310
 msgid "Highlight Matching Brackets"
 msgstr "Zvýraznit odpovídající si závorky"
 
@@ -3133,33 +3163,33 @@ msgstr "Nemáte oprávnění pro zápis do %s"
 msgid "Enter Password for %s"
 msgstr "Zadejte heslo pro %s"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:100
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:101
 msgid "Image Format Not Recognized"
 msgstr "Obrázkový formát nerozpoznán"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:107
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:108
 msgid "Insert Table"
 msgstr "Vložit tabulku"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:123
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:124
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:774
 msgid "CSV File"
 msgstr "Soubor CSV"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:200
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:201
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "Největší velikost vložených souborů je %s MB"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:202
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:203
 msgid "Do you want to Continue?"
 msgstr "Chcete pokračovat?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:873
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:874
 msgid "Tabs Replaced"
 msgstr "Zarážky nahrazeny"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:919
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:920
 msgid "Lines Stripped"
 msgstr "Řádky odebrány"
 
@@ -3193,82 +3223,78 @@ msgstr "Žádná klávesová zkratka"
 msgid "Use Selected Color"
 msgstr "Použít vybranou barvu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
-msgid "click me"
-msgstr "Klepni mě"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:247
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:81
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:162
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatické zvýrazňování skladby"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:120
 msgid "Tags for Searching"
 msgstr "Značky pro hledání"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:125
 msgid "Exclude from Searches:"
 msgstr "Vyloučit z vyhledávání:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
 msgid "This Node"
 msgstr "Tento uzel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:134
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:130
 msgid "The Subnodes"
 msgstr "Podřízené uzly"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:136
 msgid "Read Only"
 msgstr "Pouze pro čtení"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Choose Existing Tag"
 msgstr "Vybrat stávající značku"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Tag Name"
 msgstr "Název značky"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:204
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:200
 msgid "Pick a Color"
 msgstr "Vybrat barvu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:379
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:380
 msgid "Involved Nodes"
 msgstr "Související uzly"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:388
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
 msgid "Selected Text Only"
 msgstr "Pouze vybraný text"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
 msgid "Selected Node Only"
 msgstr "Pouze vybraný uzel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
 msgid "Selected Node and Subnodes"
 msgstr "Vybraný uzel a podřízené uzly"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:392
 msgid "All the Tree"
 msgstr "Celý strom"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:406
 msgid "Include Node Name"
 msgstr "Zahrnout název uzlu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:413
 msgid "Links Tree in Every Page"
 msgstr "Strom s odkazy na každé straně"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:418
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:419
 msgid "New Node in New Page"
 msgstr "Nový uzel na nové straně"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:423
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:424
 msgid "Single File"
 msgstr "Jeden soubor"
 
@@ -3543,57 +3569,57 @@ msgstr "Výukový materiál k matematice a rovnicím v LaTeXu"
 msgid "LaTeX Math Symbols Reference"
 msgstr "Náhled na matematické symboly v LaTeXu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:107
 msgid "Image Properties"
 msgstr "Vlastnosti obrázku"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:132
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:271
 msgid "Width"
 msgstr "Šířka"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:135
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:141
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:275
 msgid "Height"
 msgstr "Výška"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:266
 msgid "Type"
 msgstr "Typ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:274
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:280
 msgid "pixels"
 msgstr "px (obrazové body)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:303
 msgid "Size"
 msgstr "Velikost"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:319
 msgid "Options"
 msgstr "Volby"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:420
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
 msgid "Rows"
 msgstr "Řádky "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
 msgid "Columns"
 msgstr "Sloupce"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
 msgid "Default Width"
 msgstr "Výchozí šířka"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:444
 msgid "Table Size"
 msgstr "Velikost tabulky"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:447
 msgid "Column Properties"
 msgstr "Vlastnosti sloupců"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:462
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:468
 msgid "Import from CSV File"
 msgstr "Zavést ze souboru CSV"
 
@@ -3651,6 +3677,12 @@ msgstr "Dokument Leo"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.h:63
 msgid "Are you sure to Reset to Default?"
 msgstr "Opravdu chcete vrátit na výchozí?"
+
+#~ msgid "The New Language will be Available Only After Restarting CherryTree"
+#~ msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
+
+#~ msgid "click me"
+#~ msgstr "Klepni mě"
 
 #~ msgid "_Format"
 #~ msgstr "_Formát"
