@@ -280,6 +280,8 @@ struct CtPrintData
 
     CtPrintPages                       pages;
     Glib::ustring                      warning;
+
+    std::list<Glib::ustring>           cairo_names;
 };
 
 class CtPrint
@@ -298,6 +300,7 @@ public:
 private:
     void _on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
     void _on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data);
+    bool _cairo_tag_can_apply(const Glib::ustring& tag_name, const Glib::ustring& tag_attr, const CtPrintData* print_data);
 
 private:
     void _process_pango_text(CtPrintData* print_data, CtPangoText* text_slot);

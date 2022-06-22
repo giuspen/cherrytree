@@ -63,7 +63,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
                 "<sup>⚓</sup>",
                 CtConst::RICH_TEXT_ID,
                 widget_indent,
-                "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'",
+                "name='" + str::xml_escape(generate_tag(node_iter.get_node_id(), anchor->get_anchor_name())) + "'",
                 pango_dir));
         }
         else {
@@ -420,7 +420,7 @@ CtPangoObjectPtr CtExport2Pdf::_generate_pango_node_name(CtTreeIter tree_iter)
         text,
         tree_iter.get_node_syntax_highlighting(),
         0,
-        "name='" + generate_tag(tree_iter.get_node_id(), "") + "'",
+        "name='" + str::xml_escape(generate_tag(tree_iter.get_node_id(), "")) + "'",
         pango_dir);
     return slot;
 }
@@ -551,6 +551,21 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     }
 }
 
+bool CtPrint::_cairo_tag_can_apply(const Glib::ustring& tag_name, const Glib::ustring& tag_attr, const CtPrintData* print_data)
+{
+    if (CAIRO_TAG_DEST == tag_name or not str::startswith(tag_attr, "dest=")) {
+        return true;
+    }
+    Glib::ustring tag_attr_dest = tag_attr.substr(5);
+    for (const Glib::ustring& curr_name : print_data->cairo_names) {
+        if (curr_name == tag_attr_dest) {
+            return true;
+        }
+    }
+    spdlog::debug("{} dropped", tag_attr);
+    return false;
+}
+
 void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data)
 {
     auto operation = print_data->operation;
@@ -583,10 +598,12 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
             else if (auto page_tag = dynamic_cast<CtPageTag*>(element.get())) {
                 cairo_context->set_source_rgb(0, 0, 0);
 
-                cairo_tag_begin(cairo_context->cobj(), page_tag->tag_name.c_str(), page_tag->tag_attr.c_str());
+                const bool can_cairo_tag = _cairo_tag_can_apply(page_tag->tag_name, page_tag->tag_attr, print_data);
+
+                if (can_cairo_tag) cairo_tag_begin(cairo_context->cobj(), page_tag->tag_name.c_str(), page_tag->tag_attr.c_str());
                 cairo_context->move_to(page_tag->x, line.y);
                 page_tag->layout_line->show_in_cairo_context(cairo_context);
-                cairo_tag_end(cairo_context->cobj(), page_tag->tag_name.c_str());
+                if (can_cairo_tag) cairo_tag_end(cairo_context->cobj(), page_tag->tag_name.c_str());
             }
             else if (auto page_image = dynamic_cast<const CtPageImage*>(element.get())) {
                 auto scale = page_image->scale; // it also contains _page_dpi_scale
@@ -634,6 +651,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     else if (auto pango_dest = dynamic_cast<CtPangoDest*>(text_slot)) {
         tag_name = CAIRO_TAG_DEST;
         tag_attr = pango_dest->dest;
+        print_data->cairo_names.push_back(tag_attr.substr(5)); // name='...'
     }
 
     if (not pages.last_line().evaluated_pango_dir) {
