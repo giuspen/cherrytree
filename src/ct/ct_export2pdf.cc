@@ -336,10 +336,18 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
         uri = "uri='" + str::xml_escape(link_entry.webs) + "'";
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
+#ifdef _WIN32
+        uri = (Glib::path_is_absolute(link_entry.file) ? "uri='file://":"uri='") + str::xml_escape(fs::path{link_entry.file}.string_unix()) + "'";
+#else // !_WIN32
         uri = (Glib::path_is_absolute(link_entry.file) ? "uri='file://":"uri='") + str::xml_escape(link_entry.file) + "'";
+#endif // !_WIN32
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
+#ifdef _WIN32
+        uri = (Glib::path_is_absolute(link_entry.fold) ? "uri='file://":"uri='") + str::xml_escape(fs::path{link_entry.fold}.string_unix()) + "'";
+#else // !_WIN32
         uri = (Glib::path_is_absolute(link_entry.fold) ? "uri='file://":"uri='") + str::xml_escape(link_entry.fold) + "'";
+#endif // !_WIN32
     }
     else {
         spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
