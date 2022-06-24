@@ -26,9 +26,16 @@
 #include <utility>
 
 namespace {
-    template<typename NodeIdType>
-    Glib::ustring generate_tag(NodeIdType node_id, const Glib::ustring& anchor) { return fmt::format("n.{}.{}", node_id, anchor); }
+
+Glib::ustring generate_tag(gint64 node_id, const Glib::ustring& anchor_name)
+{
+    if (anchor_name.empty()) {
+        return fmt::format("n.{}", node_id);
+    }
+    return fmt::format("n.{}.{}", node_id, std::hash<std::string>{}(anchor_name.raw()));
 }
+
+} // namespace (anonymous)
 
 CtExport2Pango::CtExport2Pango(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
@@ -63,7 +70,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
                 "<sup>⚓</sup>",
                 CtConst::RICH_TEXT_ID,
                 widget_indent,
-                "name='" + str::xml_escape(generate_tag(node_iter.get_node_id(), anchor->get_anchor_name())) + "'",
+                "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'",
                 pango_dir));
         }
         else {
@@ -323,7 +330,7 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
     Glib::ustring uri;
     if (link_entry.type == CtConst::LINK_TYPE_NODE) {
-        uri = "dest='" + str::xml_escape(generate_tag(link_entry.node_id, link_entry.anch)) + "'";
+        uri = "dest='" + generate_tag(link_entry.node_id, link_entry.anch) + "'";
     }
     else if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
         uri = "uri='" + str::xml_escape(link_entry.webs) + "'";
@@ -420,7 +427,7 @@ CtPangoObjectPtr CtExport2Pdf::_generate_pango_node_name(CtTreeIter tree_iter)
         text,
         tree_iter.get_node_syntax_highlighting(),
         0,
-        "name='" + str::xml_escape(generate_tag(tree_iter.get_node_id(), "")) + "'",
+        "name='" + generate_tag(tree_iter.get_node_id(), "") + "'",
         pango_dir);
     return slot;
 }
