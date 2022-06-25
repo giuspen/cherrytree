@@ -335,18 +335,20 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
     else if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
         uri = "uri='" + str::xml_escape(link_entry.webs) + "'";
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
+    else if (link_entry.type == CtConst::LINK_TYPE_FILE or
+             link_entry.type == CtConst::LINK_TYPE_FOLD)
+    {
+        std::string fileOrFold = link_entry.type == CtConst::LINK_TYPE_FILE ? link_entry.file.raw() : link_entry.fold.raw();
 #ifdef _WIN32
-        uri = (Glib::path_is_absolute(link_entry.file) ? "uri='file://":"uri='") + str::xml_escape(fs::path{link_entry.file}.string_unix()) + "'";
+        const std::string encoding = CtStrUtil::get_encoding(fileOrFold.c_str(), fileOrFold.size());
+        if (encoding == "ASCII") {
+            uri = (Glib::path_is_absolute(fileOrFold) ? "uri='file://":"uri='") + str::xml_escape(fs::path{fileOrFold}.string_unix()) + "'";
+        }
+        else {
+            uri = "uri='file://non_supported_encoding_" + encoding + "'";
+        }
 #else // !_WIN32
-        uri = (Glib::path_is_absolute(link_entry.file) ? "uri='file://":"uri='") + str::xml_escape(link_entry.file) + "'";
-#endif // !_WIN32
-    }
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
-#ifdef _WIN32
-        uri = (Glib::path_is_absolute(link_entry.fold) ? "uri='file://":"uri='") + str::xml_escape(fs::path{link_entry.fold}.string_unix()) + "'";
-#else // !_WIN32
-        uri = (Glib::path_is_absolute(link_entry.fold) ? "uri='file://":"uri='") + str::xml_escape(link_entry.fold) + "'";
+        uri = (Glib::path_is_absolute(fileOrFold) ? "uri='file://":"uri='") + str::xml_escape(fileOrFold) + "'";
 #endif // !_WIN32
     }
     else {
