@@ -357,9 +357,10 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         }
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FILE) { // link to file
-        fs::path filepath = CtExport2Html::link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), false/*forHtml*/);
+        fs::path filepath{link_entry.file};
+        if (filepath.is_relative()) filepath = fs::canonical(filepath, _pCtMainWin->get_ct_storage()->get_file_path().parent_path());
         if (from_wheel) {
-            filepath = fs::absolute(filepath).parent_path();
+            filepath = filepath.parent_path();
             if (not fs::is_directory(filepath)) {
                 CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
@@ -375,9 +376,10 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         }
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD) { // link to folder
-        fs::path folderpath = CtExport2Html::link_process_folderpath(link_entry.fold, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), false/*forHtml*/);
+        fs::path folderpath{link_entry.fold};
+        if (folderpath.is_relative()) folderpath = fs::canonical(folderpath, _pCtMainWin->get_ct_storage()->get_file_path().parent_path());
         if (from_wheel) {
-            folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
+            folderpath = Glib::path_get_dirname(folderpath.string());
         }
         if (not fs::is_directory(folderpath)) {
             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(folderpath.string())), *_pCtMainWin);
