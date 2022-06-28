@@ -1,4 +1,19 @@
 
+0.99.48 (June 28th, 2022)
+  * added support for right to left languages in export to html and pdf (#2044, #1668, #698)
+  * in order to support the right to left languages in export to html, the resulting html text lines are no longer LINE<br/> but <p>LINE</p>
+  * fixed in export to pdf the link to node+anchor with non ascii anchor name
+  * fixed export to pdf broken on windows with links to node/node+anchor and destination not in the pdf (#2045)
+  * on windows, export to pdf, fixed links to files/folders; links to non ascii paths are disabled because currently crashing the library
+  * improved detection of missing executables required for rendering LatexBoxes. These dependencies are no longer mandatory (#2033)
+  * added help to the user to show again a hidden menubar (#1927, #2054)
+  * pressing Tab on the very latest table cell now adds a new table line and moves to its first cell
+  * fixed issue with relative links to files and folders and documents moved between linux and windows
+  * in export to html and txt multiple files, now appending the node id to the file names to support multiple nodes with the same name
+  * added syntax highlight support for solidity (#2030)
+  * after issues with the domain giuspen.com, the domain changed to giuspen.net and giuspen.com will eventually go
+  * work has been done to support an appimage, so the first appimage will be available for download shortly (#2025)
+
 0.99.47 (April 12th, 2022)
   * added support for latex math equations (#400)
   * added copy/paste of tree nodes and subnodes between multiple opened files (#1688)
