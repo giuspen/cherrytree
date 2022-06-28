@@ -357,7 +357,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         }
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FILE) { // link to file
-        fs::path filepath{link_entry.file};
+        fs::path filepath = fs::path{link_entry.file}.string_native();
         if (filepath.is_relative()) filepath = fs::canonical(filepath, _pCtMainWin->get_ct_storage()->get_file_path().parent_path());
         if (from_wheel) {
             filepath = filepath.parent_path();
@@ -376,7 +376,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         }
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD) { // link to folder
-        fs::path folderpath{link_entry.fold};
+        fs::path folderpath = fs::path{link_entry.fold}.string_native();
         if (folderpath.is_relative()) folderpath = fs::canonical(folderpath, _pCtMainWin->get_ct_storage()->get_file_path().parent_path());
         if (from_wheel) {
             folderpath = Glib::path_get_dirname(folderpath.string());
