@@ -9,7 +9,7 @@
     "finish-args": [
         "--share=ipc",
         "--share=network",
-        "--socket=x11",
+        "--socket=fallback-x11",
         "--socket=wayland",
         "--filesystem=host",
         "--filesystem=xdg-config/gtk-3.0",
@@ -85,8 +85,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.2.tar.xz",
-                    "sha256": "b2a4cd7b9ae987794cbb5a1becc10cecb65182b9bb841868625d6bbb123edb1d"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.4.tar.xz",
+                    "sha256": "199ace5682d81b15a1d565480b4a950682f2db6402c8aa5dd7217d71edff81d5"
                 }
             ]
         },
@@ -124,8 +124,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.5.tar.xz",
-                    "sha256" : "856333de86689f6a81c123f2db15d85db9addc438bc3574c36f15736aeae22e6"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.6.tar.xz",
+                    "sha256" : "4b3e142e944e1633bba008900605c341a93cfd755a7fa2a00b05d041341f11d6"
                 }
             ]
         },
@@ -176,14 +176,14 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gspell/1.9/gspell-1.9.1.tar.xz",
-                    "sha256" : "dcbb769dfdde8e3c0a8ed3102ce7e661abbf7ddf85df08b29915e92cd723abdd"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gspell/1.11/gspell-1.11.1.tar.xz",
+                    "sha256" : "ef6aa4e3f711775158a7e241a5f809cf2426bc0e02c23a7d2b5c71fc3de00292"
                 }
             ]
         },
         {
             "name": "uchardet",
-            "buildsystem": "cmake",
+            "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type" : "archive",
@@ -194,7 +194,7 @@
         },
         {
             "name": "fmt",
-            "buildsystem": "cmake",
+            "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type" : "archive",
@@ -205,7 +205,7 @@
         },
         {
             "name": "spdlog",
-            "buildsystem": "cmake",
+            "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type" : "archive",
@@ -223,8 +223,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.47.2.tar.xz",
-                    "sha256" : "ca22f0ec6a02ed79a403d38e10c5c1630c493976111bc4e7532877e33f6981b7"
+                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.48.tar.xz",
+                    "sha256" : "4bba4f19d23560e8aa59f2ab1e76f128f7f02adaebb5813e826e1753ee5d81fa"
                 }
             ]
         },
