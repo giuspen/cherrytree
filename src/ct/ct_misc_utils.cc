@@ -1042,7 +1042,90 @@ Glib::ustring str::sanitize_bad_symbols(const Glib::ustring& xml_content)
 {
     // remove everything forbidden by XML 1.0 specifications
     Glib::RefPtr<Glib::Regex> re_pattern = Glib::Regex::create("[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]");
-    return re_pattern->replace(xml_content, 0, "", static_cast<Glib::RegexMatchFlags>(0));
+    return re_pattern->replace(xml_content, 0/*start_position*/, "", static_cast<Glib::RegexMatchFlags>(0u));
+}
+
+// https://docs.oracle.com/cd/E29584_01/webhelp/mdex_basicDev/src/rbdv_chars_mapping.html
+Glib::ustring str::diacritical_to_ascii(const Glib::ustring& in_text)
+{
+    const Glib::RegexMatchFlags re_flags{static_cast<Glib::RegexMatchFlags>(0u)};
+    static Glib::RefPtr<Glib::Regex> pRegExp_A = Glib::Regex::create("[ÀÁÂÃÄÅĀĂĄ]");
+    Glib::ustring tmp_str = pRegExp_A->replace(in_text, 0/*start_position*/, "A", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_a = Glib::Regex::create("[àáâãäåāăą]");
+    tmp_str = pRegExp_a->replace(tmp_str, 0/*start_position*/, "a", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_C = Glib::Regex::create("[ÇĆĈĊČ]");
+    tmp_str = pRegExp_C->replace(tmp_str, 0/*start_position*/, "C", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_c = Glib::Regex::create("[çćĉċč]");
+    tmp_str = pRegExp_c->replace(tmp_str, 0/*start_position*/, "c", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_D = Glib::Regex::create("[ĎĐ]");
+    tmp_str = pRegExp_D->replace(tmp_str, 0/*start_position*/, "D", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_d = Glib::Regex::create("[ďđ]");
+    tmp_str = pRegExp_d->replace(tmp_str, 0/*start_position*/, "d", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_E = Glib::Regex::create("[ÈÉÊËĒĔĖĘĚ]");
+    tmp_str = pRegExp_E->replace(tmp_str, 0/*start_position*/, "E", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_e = Glib::Regex::create("[èéêëēĕėęě]");
+    tmp_str = pRegExp_e->replace(tmp_str, 0/*start_position*/, "e", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_G = Glib::Regex::create("[ĜĞĠĢ]");
+    tmp_str = pRegExp_G->replace(tmp_str, 0/*start_position*/, "G", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_g = Glib::Regex::create("[ĝğġģ]");
+    tmp_str = pRegExp_g->replace(tmp_str, 0/*start_position*/, "g", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_H = Glib::Regex::create("[ĤĦ]");
+    tmp_str = pRegExp_H->replace(tmp_str, 0/*start_position*/, "H", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_h = Glib::Regex::create("[ĥħ]");
+    tmp_str = pRegExp_h->replace(tmp_str, 0/*start_position*/, "h", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_I = Glib::Regex::create("[ÌÍÎÏĨĪĬĮİ]");
+    tmp_str = pRegExp_I->replace(tmp_str, 0/*start_position*/, "I", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_i = Glib::Regex::create("[ìíîïĩīĭįı]");
+    tmp_str = pRegExp_i->replace(tmp_str, 0/*start_position*/, "i", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_J = Glib::Regex::create("[Ĵ]");
+    tmp_str = pRegExp_J->replace(tmp_str, 0/*start_position*/, "J", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_j = Glib::Regex::create("[ĵ]");
+    tmp_str = pRegExp_j->replace(tmp_str, 0/*start_position*/, "j", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_K = Glib::Regex::create("[Ķ]");
+    tmp_str = pRegExp_K->replace(tmp_str, 0/*start_position*/, "K", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_k = Glib::Regex::create("[ķ]");
+    tmp_str = pRegExp_k->replace(tmp_str, 0/*start_position*/, "k", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_L = Glib::Regex::create("[ĹĻĽĿŁ]");
+    tmp_str = pRegExp_L->replace(tmp_str, 0/*start_position*/, "L", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_l = Glib::Regex::create("[ĺļľŀł]");
+    tmp_str = pRegExp_l->replace(tmp_str, 0/*start_position*/, "l", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_N = Glib::Regex::create("[ÑŃŅŇ]");
+    tmp_str = pRegExp_N->replace(tmp_str, 0/*start_position*/, "N", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_n = Glib::Regex::create("[ñńņňŉ]");
+    tmp_str = pRegExp_n->replace(tmp_str, 0/*start_position*/, "n", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_O = Glib::Regex::create("[ÒÓÔÕÖØŌŎŐ]");
+    tmp_str = pRegExp_O->replace(tmp_str, 0/*start_position*/, "O", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_o = Glib::Regex::create("[òóôõöøōŏő]");
+    tmp_str = pRegExp_o->replace(tmp_str, 0/*start_position*/, "o", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_R = Glib::Regex::create("[ŔŖŘ]");
+    tmp_str = pRegExp_R->replace(tmp_str, 0/*start_position*/, "R", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_r = Glib::Regex::create("[ŕŗř]");
+    tmp_str = pRegExp_r->replace(tmp_str, 0/*start_position*/, "r", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_S = Glib::Regex::create("[ŚŜŞŠ]");
+    tmp_str = pRegExp_S->replace(tmp_str, 0/*start_position*/, "S", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_s = Glib::Regex::create("[śŝşš]");
+    tmp_str = pRegExp_s->replace(tmp_str, 0/*start_position*/, "s", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_T = Glib::Regex::create("[ŢŤŦ]");
+    tmp_str = pRegExp_T->replace(tmp_str, 0/*start_position*/, "T", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_t = Glib::Regex::create("[ţťŧ]");
+    tmp_str = pRegExp_t->replace(tmp_str, 0/*start_position*/, "t", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_U = Glib::Regex::create("[ÙÚÛÜŨŪŬŮŰŲ]");
+    tmp_str = pRegExp_U->replace(tmp_str, 0/*start_position*/, "U", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_u = Glib::Regex::create("[ùúûüũūŭůűų]");
+    tmp_str = pRegExp_u->replace(tmp_str, 0/*start_position*/, "u", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_W = Glib::Regex::create("[Ŵ]");
+    tmp_str = pRegExp_W->replace(tmp_str, 0/*start_position*/, "W", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_w = Glib::Regex::create("[ŵ]");
+    tmp_str = pRegExp_w->replace(tmp_str, 0/*start_position*/, "w", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_Y = Glib::Regex::create("[ÝŶŸ]");
+    tmp_str = pRegExp_Y->replace(tmp_str, 0/*start_position*/, "Y", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_y = Glib::Regex::create("[ýŷÿ]");
+    tmp_str = pRegExp_y->replace(tmp_str, 0/*start_position*/, "y", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_Z = Glib::Regex::create("[ŹŻŽ]");
+    tmp_str = pRegExp_Z->replace(tmp_str, 0/*start_position*/, "Z", re_flags);
+    static Glib::RefPtr<Glib::Regex> pRegExp_z = Glib::Regex::create("[źżž]");
+    tmp_str = pRegExp_z->replace(tmp_str, 0/*start_position*/, "z", re_flags);
+    return tmp_str;
 }
 
 Glib::ustring str::re_escape(const Glib::ustring& text)

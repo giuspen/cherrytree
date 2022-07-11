@@ -319,6 +319,20 @@ TEST(MiscUtilsGroup, str__repeat)
     ASSERT_STREQ("******", str::repeat("**", 3).c_str());
 }
 
+TEST(MiscUtilsGroup, str__diacritical_to_ascii)
+{
+    ASSERT_STREQ("GIA", str::diacritical_to_ascii("GIÀ").c_str());
+    ASSERT_STREQ("PERCHE", str::diacritical_to_ascii("PERCHÉ").c_str());
+    ASSERT_STREQ("LI", str::diacritical_to_ascii("LÌ").c_str());
+    ASSERT_STREQ("PUO", str::diacritical_to_ascii("PUÒ").c_str());
+    ASSERT_STREQ("PIU", str::diacritical_to_ascii("PIÙ").c_str());
+    ASSERT_STREQ("gia", str::diacritical_to_ascii("già").c_str());
+    ASSERT_STREQ("perche", str::diacritical_to_ascii("perché").c_str());
+    ASSERT_STREQ("li", str::diacritical_to_ascii("lì").c_str());
+    ASSERT_STREQ("puo", str::diacritical_to_ascii("può").c_str());
+    ASSERT_STREQ("piu", str::diacritical_to_ascii("più").c_str());
+}
+
 TEST(MiscUtilsGroup, vec_remove)
 {
     std::vector<int> empty_v;
