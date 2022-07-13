@@ -348,6 +348,7 @@ struct CtSearchOptions {
     std::string str_replace;
     bool        match_case{false};
     bool        reg_exp{false};
+    bool        accent_insensitive{false};
     bool        whole_word{false};
     bool        start_word{false};
     bool        direction_fw{true};

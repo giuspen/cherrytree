@@ -400,13 +400,19 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
     }
 
     Glib::ustring node_name = node_iter.get_node_name();
-    Glib::MatchInfo match;
-    if (not re_pattern->match(node_name, match)) {
+    if (_s_options.accent_insensitive) {
+        node_name = str::diacritical_to_ascii(node_name);
+    }
+    Glib::MatchInfo match_info;
+    if (not re_pattern->match(node_name, match_info)) {
         Glib::ustring text_tags = node_iter.get_node_tags();
-        re_pattern->match(text_tags, match);
+        if (_s_options.accent_insensitive) {
+            text_tags = str::diacritical_to_ascii(text_tags);
+        }
+        re_pattern->match(text_tags, match_info);
     }
 
-    if (match.matches()) {
+    if (match_info.matches()) {
         if (all_matches) {
             gint64 node_id = node_iter.get_node_id();
             Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
@@ -530,6 +536,9 @@ bool CtActions::_is_node_within_time_filter(const CtTreeIter& node_iter)
 
 Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
 {
+    if (_s_options.accent_insensitive) {
+        pattern = str::diacritical_to_ascii(pattern);
+    }
     if (not _s_options.reg_exp) { // NOT REGULAR EXPRESSION
         pattern = Glib::Regex::escape_string(pattern);     // backslashes all non alphanum chars => to not spoil re
         if (_s_options.whole_word)      // WHOLE WORD
@@ -560,24 +569,27 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     // Gtk::TextBuffer uses symbols positions
     // Glib::Regex uses byte positions
     Glib::ustring text = text_buffer->get_text();
+    if (_s_options.accent_insensitive) {
+        text = str::diacritical_to_ascii(text);
+    }
 
     int start_offset = start_iter.get_offset();
     // # start_offset -= self.get_num_objs_before_offset(text_buffer, start_offset)
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
-        Glib::MatchInfo match;
-        if (re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset)/*start_position*/, match)) {
-            if (match.matches()) {
-                match.fetch_pos(0, match_offsets.first, match_offsets.second);
+        Glib::MatchInfo match_info;
+        if (re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset)/*start_position*/, match_info)) {
+            if (match_info.matches()) {
+                match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
             }
         }
     }
     else {
-        Glib::MatchInfo match;
-        re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset)/*string_len*/, 0/*start_position*/, match);
-        while (match.matches()) {
-            match.fetch_pos(0, match_offsets.first, match_offsets.second);
-            match.next();
+        Glib::MatchInfo match_info;
+        re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset)/*string_len*/, 0/*start_position*/, match_info);
+        while (match_info.matches()) {
+            match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
+            match_info.next();
         }
     }
     if (match_offsets.first != -1) {
@@ -663,19 +675,38 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
 Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern, CtAnchoredWidget* obj)
 {
     if (CtImageEmbFile* image = dynamic_cast<CtImageEmbFile*>(obj)) {
-        if (pattern->match(image->get_file_name().string())) return image->get_file_name().string();
+        Glib::ustring text = image->get_file_name().string();
+        if (_s_options.accent_insensitive) {
+            text = str::diacritical_to_ascii(text);
+        }
+        if (pattern->match(text)) return text;
     }
     else if (CtImageAnchor* image = dynamic_cast<CtImageAnchor*>(obj)) {
-        if (pattern->match(image->get_anchor_name())) return image->get_anchor_name();
+        Glib::ustring text = image->get_anchor_name();
+        if (_s_options.accent_insensitive) {
+            text = str::diacritical_to_ascii(text);
+        }
+        if (pattern->match(text)) return text;
     }
     else if (CtTable* table = dynamic_cast<CtTable*>(obj)) {
-        for (auto& row: table->get_table_matrix())
-            for (auto& col: row)
-                if (pattern->match(col->get_text_content()))
+        for (auto& row : table->get_table_matrix()) {
+            for (auto& col : row) {
+                Glib::ustring text = col->get_text_content();
+                if (_s_options.accent_insensitive) {
+                    text = str::diacritical_to_ascii(text);
+                }
+                if (pattern->match(text)) {
                     return "<table>";
+                }
+            }
+        }
     }
     else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(obj)) {
-        if (pattern->match(codebox->get_text_content())) return "<codebox>";
+        Glib::ustring text = codebox->get_text_content();
+        if (_s_options.accent_insensitive) {
+            text = str::diacritical_to_ascii(text);
+        }
+        if (pattern->match(text)) return "<codebox>";
     }
     return "";
 }

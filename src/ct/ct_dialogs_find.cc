@@ -78,6 +78,8 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     match_case_checkbutton.set_active(s_options.match_case);
     Gtk::CheckButton reg_exp_checkbutton{_("Regular Expression")};
     reg_exp_checkbutton.set_active(s_options.reg_exp);
+    Gtk::CheckButton accent_insensitive_checkbutton{_("Accent Insensitive")};
+    accent_insensitive_checkbutton.set_active(s_options.accent_insensitive);
     Gtk::CheckButton whole_word_checkbutton{_("Whole Word")};
     whole_word_checkbutton.set_active(s_options.whole_word);
     Gtk::CheckButton start_word_checkbutton{_("Start Word")};
@@ -197,6 +199,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     three_hbox.pack_start(three_vbox);
     opt_vbox.pack_start(four_1_hbox);
     opt_vbox.pack_start(four_2_hbox);
+    opt_vbox.pack_start(accent_insensitive_checkbutton);
     opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     opt_vbox.pack_start(bw_fw_hbox);
     opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
@@ -244,6 +247,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
         s_options.str_replace = replace_entry->get_text();
     s_options.match_case = match_case_checkbutton.get_active();
     s_options.reg_exp = reg_exp_checkbutton.get_active();
+    s_options.accent_insensitive = accent_insensitive_checkbutton.get_active();
     s_options.whole_word = whole_word_checkbutton.get_active();
     s_options.start_word = start_word_checkbutton.get_active();
     s_options.direction_fw = fw_radiobutton.get_active();
