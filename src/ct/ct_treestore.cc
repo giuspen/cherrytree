@@ -509,6 +509,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     pTextView->set_spell_check(treeIter.get_node_is_text());
     pTextView->set_sensitive(true);
     pTextView->set_editable(not treeIter.get_node_read_only());
+    pTextView->cursor_and_tooltips_reset();
 
     for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();

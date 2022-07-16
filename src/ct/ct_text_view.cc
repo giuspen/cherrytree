@@ -598,7 +598,6 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 
     if (_pCtMainWin->hovering_link_iter_offset() != hovering_link_iter_offset) {
         _pCtMainWin->hovering_link_iter_offset() = hovering_link_iter_offset;
-        // print "link", dad.hovering_link_iter_offset
     }
     if (_pCtMainWin->hovering_link_iter_offset() >= 0) {
         get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2));
@@ -608,9 +607,15 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         set_tooltip_text(tooltip);
     }
     else {
-        get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
-        set_tooltip_text("");
+        cursor_and_tooltips_reset();
     }
+}
+
+void CtTextView::cursor_and_tooltips_reset()
+{
+    _pCtMainWin->hovering_link_iter_offset() = -1;
+    get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+    set_tooltip_text("");
 }
 
 // Increase or Decrease Text Font

@@ -52,6 +52,7 @@ public:
     void for_event_after_key_press(GdkEvent* event, const Glib::ustring& syntaxHighlighting);
 
     void cursor_and_tooltips_handler(int x, int y);
+    void cursor_and_tooltips_reset();
     void zoom_text(const bool is_increase, const std::string& syntaxHighlighting);
     void set_spell_check(bool allow_on);
     void synch_spell_check_change_from_gspell_right_click_menu();
