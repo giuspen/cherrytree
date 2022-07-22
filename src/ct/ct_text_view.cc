@@ -81,6 +81,10 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
                 break;
         }
     }, false);
+    signal_focus_out_event().connect([&](GdkEventFocus* /*gdk_event*/){
+        _columnEdit.column_mode_off();
+        return false; /*propagate event*/
+    }, false);
 }
 
 void CtTextView::setup_for_syntax(const std::string& syntax)

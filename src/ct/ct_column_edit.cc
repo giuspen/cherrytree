@@ -1,7 +1,7 @@
 /*
  * ct_column_edit.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -282,6 +282,10 @@ void CtColumnEdit::column_mode_off()
         _ctrlDown = false;
         _altDown = false;
         printf("colMode OFF\n");
+    }
+    else {
+        if (_ctrlDown) _ctrlDown = false;
+        if (_altDown) _altDown = false;
     }
 }
 
