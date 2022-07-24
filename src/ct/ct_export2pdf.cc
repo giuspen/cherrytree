@@ -533,7 +533,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     _page_width = context->get_width();
     _page_height = context->get_height() * 1.02; // tolerance at bottom of the page
     _layout_newline_height = [&](){
-        auto layout_newline = context->create_pango_layout();
+        Glib::RefPtr<Pango::Layout> layout_newline = context->create_pango_layout();
         layout_newline->set_font_description(_rich_font);
         layout_newline->set_width(int(_page_width * Pango::SCALE));
         layout_newline->set_markup(CtConst::CHAR_NEWLINE);
@@ -692,9 +692,10 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         }
     }
 
-    auto layout = context->create_pango_layout();
+    Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
     layout->set_font_description(*font);
     layout->set_width(int((_page_width - text_slot->indent) * Pango::SCALE));
+    layout->set_wrap(Pango::WRAP_WORD_CHAR);
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
     // don't apply paragraph indent because set_indent will work only for the first line
     // also avoid `\n` because new lines also got indent
@@ -827,7 +828,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, const CtImage* image
 
         // calculate label if it exists
         Cairo::Rectangle label_size{0,0,0,0};
-        auto label_layout = context->create_pango_layout();
+        Glib::RefPtr<Pango::Layout> label_layout = context->create_pango_layout();
         label_layout->set_font_description(_plain_font);
         if (auto emb_file = dynamic_cast<const CtImageEmbFile*>(image)) {
             label_layout->set_markup("<b><small>"+str::xml_escape(emb_file->get_file_name().string())+"</small></b>");
@@ -1153,7 +1154,7 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTable* table, cons
         for (size_t col = 0; col < table->get_table_matrix()[0].size(); ++col) {
             Glib::ustring text = str::xml_escape(table->get_table_matrix()[row][col]->get_text_content());
             if (row == 0) text = "<b>" + text + "</b>";
-            auto cell_layout = context->create_pango_layout();
+            Glib::RefPtr<Pango::Layout> cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);
             cell_layout->set_width(int((table->get_col_width(col) * _page_dpi_scale) * Pango::SCALE));
             cell_layout->set_wrap(Pango::WRAP_WORD_CHAR);
