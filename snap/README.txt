@@ -5,12 +5,18 @@
 
 
 
-- Build and run locally (https://snapcraft.io/docs/snapcraft-overview):
+- Build (https://snapcraft.io/docs/snapcraft-overview):
 
 sudo snap install snapcraft --classic
 
 sudo usermod -aG lxd giuspen
 newgrp lxd
 
+export SNAPCRAFT_BUILD_ENVIRONMENT_CPU=8
 snapcraft
 
+
+
+- Install
+
+sudo snap install cherrytree_0.99.48_amd64.snap --dangerous --devmode

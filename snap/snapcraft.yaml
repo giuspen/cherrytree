@@ -34,9 +34,13 @@ assumes: [ command-chain ]
 parts:
   cherrytree:
     plugin: cmake
-    source: .
+    source-type: git
+    source: https://github.com/giuspen/cherrytree.git
+    source-commit: 0.99.48
+    source-depth: 0
     cmake-parameters:
       - '-DCMAKE_INSTALL_PREFIX='
+      - '-DBUILD_TESTING='
     build-packages:
       - build-essential
       - cmake
