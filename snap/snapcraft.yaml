@@ -36,11 +36,12 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/giuspen/cherrytree.git
-    source-commit: 0.99.48
+    source-commit: c7e738dff3e7567cb6f711cc4b8b31ad290084ce
     source-depth: 0
     cmake-parameters:
       - '-DCMAKE_INSTALL_PREFIX='
       - '-DBUILD_TESTING='
+      - '-DSNAP_OPT_PRE_CMAKE_INSTALL_PREFIX=/snap/cherrytree/current'
     build-packages:
       - build-essential
       - cmake
