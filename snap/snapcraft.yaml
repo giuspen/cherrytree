@@ -73,6 +73,9 @@ parts:
       - -lib/cherrytree/*.a
       - -*canberra*so* # We don't have sound permissions anyway
       - -usr/lib/*/gtk-2.0
+    override-build: |
+      sed -i 's|^Icon=.*|Icon=${SNAP}/share/icons/hicolor/scalable/apps/cherrytree.svg|' ${SNAPCRAFT_PART_SRC}/data/cherrytree.desktop
+      snapcraftctl build
     parse-info: [ share/metainfo/net.giuspen.cherrytree.metainfo.xml ]
   desktop-helpers:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
