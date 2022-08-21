@@ -103,6 +103,22 @@ parts:
     prime:
       - -*canberra*so* # We don't have sound permissions anyway
       - -usr/lib/*/gtk-2.0
+    override-prime: |
+      snapcraftctl prime
+      glib-compile-schemas ${SNAPCRAFT_PRIME}/usr/share/glib-2.0/schemas/
+      LOCPATH=${SNAPCRAFT_PRIME}/usr/lib/locale locale-gen
+    after: [cherrytree] # Last so we compile all the schemas
+  gtk-locales:
+    plugin: nil
+    override-pull: |
+      set -eux
+      apt-get download "language-pack-*-base"
+    override-build: |
+      set -eux
+      for deb in *.deb; do dpkg-deb -x $deb .; done
+      find usr/share/locale-langpack -type f -not -name "gtk30*.mo" -and -not -name "glib*.mo" -and -not -name "gdk*.mo" -and -not -name "gspell*.mo" -delete
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share
+      cp -r usr/share/locale-langpack $SNAPCRAFT_PART_INSTALL/usr/share/
 
 apps:
   cherrytree:
