@@ -36,7 +36,7 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/giuspen/cherrytree.git
-    source-commit: c7e738dff3e7567cb6f711cc4b8b31ad290084ce
+    source-commit: c4ebb7b91942dd7fd51ef62908fbf0cf685039d4
     source-depth: 0
     cmake-parameters:
       - '-DCMAKE_INSTALL_PREFIX='
@@ -67,8 +67,6 @@ parts:
       - libuchardet0
       - libfribidi0
       - libspdlog1
-      - texlive-latex-base
-      - dvipng
     prime:
       - -lib/cherrytree/*.a
       - -*canberra*so* # We don't have sound permissions anyway
@@ -122,6 +120,14 @@ parts:
       find usr/share/locale-langpack -type f -not -name "gtk30*.mo" -and -not -name "glib*.mo" -and -not -name "gdk*.mo" -and -not -name "gspell*.mo" -delete
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share
       cp -r usr/share/locale-langpack $SNAPCRAFT_PART_INSTALL/usr/share/
+  tinytex:
+    source: https://www.giuspen.net/software/TinyTeX-1-v2022.04.04.tar.xz
+    source-checksum: sha256/3025930f9c9e989c0cac59826f8ee126d677aec728d20537b9e53e13ace29020
+    plugin: nil
+    override-build: |
+      set -eux
+      mkdir -p $SNAPCRAFT_PART_INSTALL/TinyTeX
+      cp -r * $SNAPCRAFT_PART_INSTALL/TinyTeX/
 
 apps:
   cherrytree:

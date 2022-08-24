@@ -335,7 +335,9 @@ void CtImageLatex::update_tooltip()
 #define CONSOLE_SILENCE_OUTPUT  " > /dev/null"
 #if defined(_FLATPAK_BUILD)
 #define CONSOLE_BIN_PREFIX      "cd /app/bin/.TinyTeX/bin/x86_64-linux && ./"
-#else // !_FLATPAK_BUILD
+#elif defined(_SNAP_BUILD)
+#define CONSOLE_BIN_PREFIX      "cd /snap/cherrytree/current/TinyTeX/bin/x86_64-linux && ./"
+#else // !_FLATPAK_BUILD && !_SNAP_BUILD
 #define CONSOLE_BIN_PREFIX      fs::get_latex_dvipng_console_bin_prefix()
 #endif // !_FLATPAK_BUILD
 #endif // !_WIN32
