@@ -17,9 +17,6 @@ slots:
     name: net.giuspen.cherrytree
 
 plugs:
-  dot-config-cherrytree:
-    interface: personal-files
-    write: [ $HOME/.config/cherrytree ]
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
@@ -140,7 +137,6 @@ apps:
       - wayland
       - x11
       - unity7
-      - dot-config-cherrytree
       - removable-media
       - network
     slots:

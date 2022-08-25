@@ -20,3 +20,10 @@ snapcraft
 - Install
 
 sudo snap install cherrytree_0.99.48_amd64.snap --dangerous --devmode
+
+
+
+- Upload
+
+snapcraft login
+snapcraft upload --release=stable cherrytree_0.99.48_amd64.snap
