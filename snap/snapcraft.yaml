@@ -131,6 +131,7 @@ apps:
     command: bin/cherrytree
     command-chain: [ bin/desktop-launch ]
     plugs:
+      - home
       - desktop
       - desktop-legacy
       - gsettings
