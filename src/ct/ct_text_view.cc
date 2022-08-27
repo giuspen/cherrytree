@@ -162,12 +162,10 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
     int next_level = level_increase ? curr_level+1 : curr_level-1;
     Gtk::TextIter iter_start = get_buffer()->get_iter_at_offset(curr_offset);
     CtListInfo prev_list_info = CtList{_pCtMainWin, get_buffer()}.get_prev_list_info_on_level(iter_start, next_level);
-    // print prev_list_info
     if (list_info.type != CtListType::Todo) {
         int bull_offset = curr_offset + 3*list_info.level;
         int bull_idx;
-        if (list_info.type == CtListType::Bullet)
-        {
+        if (list_info.type == CtListType::Bullet) {
             if (prev_list_info and prev_list_info.type == CtListType::Bullet) {
                 bull_idx = prev_list_info.num;
             }
@@ -175,6 +173,8 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
                 int idx_old = list_info.num;
                 int idx_offset = idx_old - curr_level % (int)_pCtConfig->charsListbul.size();
                 bull_idx = (next_level + idx_offset) % (int)_pCtConfig->charsListbul.size();
+                if (bull_idx < 0) bull_idx += _pCtConfig->charsListbul.size();
+                //spdlog::debug("idx_old={}, idx_offset={}, bull_idx={}", idx_old, idx_offset, bull_idx);
             }
             replace_text(_pCtConfig->charsListbul[(size_t)bull_idx], bull_offset, bull_offset+1);
         }
