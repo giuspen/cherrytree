@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_plain_text_n_code.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,13 +26,13 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 {
-    Gtk::VBox* vbox_syntax = Gtk::manage(new Gtk::VBox());
+    auto vbox_syntax = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    Gtk::CheckButton* checkbutton_pt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
+    auto checkbutton_pt_show_white_spaces = Gtk::manage(new Gtk::CheckButton{_("Show White Spaces")});
     checkbutton_pt_show_white_spaces->set_active(_pConfig->ptShowWhiteSpaces);
-    Gtk::CheckButton* checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
+    auto checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton{_("Highlight Current Line")});
     checkbutton_pt_highl_curr_line->set_active(_pConfig->ptHighlCurrLine);
-    Gtk::CheckButton* checkbutton_pt_highl_match_bra = Gtk::manage(new Gtk::CheckButton(_("Highlight Matching Brackets")));
+    auto checkbutton_pt_highl_match_bra = Gtk::manage(new Gtk::CheckButton{_("Highlight Matching Brackets")});
     checkbutton_pt_highl_match_bra->set_active(_pConfig->ptHighlMatchBra);
 
     vbox_syntax->pack_start(*checkbutton_pt_show_white_spaces, false, false);
@@ -41,9 +41,12 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     Gtk::Frame* frame_syntax = new_managed_frame_with_align(_("Text Editor"), vbox_syntax);
 
+    auto checkbutton_code_exec_confirm = Gtk::manage(new Gtk::CheckButton{_("Ask Confirmation Before Executing the Code")});
+    checkbutton_code_exec_confirm->set_active(_pConfig->codeExecConfirm);
+
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
     _fill_custom_exec_commands_model(liststore);
-    Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
+    auto treeview = Gtk::manage(new Gtk::TreeView{liststore});
     treeview->set_headers_visible(false);
     treeview->set_size_request(300, 200);
 
@@ -56,17 +59,17 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     const int col_num_ext = treeview->append_column_editable("", _commandModelColumns.ext) - 1;
     const int col_num_desc = treeview->append_column_editable("", _commandModelColumns.desc) - 1;
 
-    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+    auto scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
     scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow->add(*treeview);
 
-    Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
+    auto button_add = Gtk::manage(new Gtk::Button{});
     button_add->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
-    Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
+    auto button_remove = Gtk::manage(new Gtk::Button{});
     button_remove->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
     button_remove->set_tooltip_text(_("Remove Selected"));
-    Gtk::Button* button_reset_cmds = Gtk::manage(new Gtk::Button());
+    auto button_reset_cmds = Gtk::manage(new Gtk::Button{});
     button_reset_cmds->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
@@ -75,32 +78,32 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     vbox_buttons->pack_start(*button_reset_cmds, false, false);
 
-    Gtk::VBox* vbox_codexec = Gtk::manage(new Gtk::VBox());
-    Gtk::HBox* hbox_term_run = Gtk::manage(new Gtk::HBox());
-    Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
+    auto vbox_codexec = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto hbox_term_run = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    auto entry_term_run = Gtk::manage(new Gtk::Entry{});
     entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
-    Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
+    auto button_reset_term = Gtk::manage(new Gtk::Button{});
     button_reset_term->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
     hbox_term_run->pack_start(*entry_term_run, true, true);
     hbox_term_run->pack_start(*button_reset_term, false, false);
-    Gtk::HBox* hbox_cmd_per_type = Gtk::manage(new Gtk::HBox());
+    auto hbox_cmd_per_type = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
     hbox_cmd_per_type->pack_start(*scrolledwindow, true, true);
     hbox_cmd_per_type->pack_start(*vbox_buttons, false, false);
 
-    Gtk::Label* label = Gtk::manage(new Gtk::Label(Glib::ustring{"<b>"}+_("Command per Node/CodeBox Type")+"</b>"));
+    auto label = Gtk::manage(new Gtk::Label{Glib::ustring{"<b>"}+_("Command per Node/CodeBox Type")+"</b>"});
     label->set_use_markup(true);
+    vbox_codexec->pack_start(*checkbutton_code_exec_confirm, false, false);
     vbox_codexec->pack_start(*label, false, false);
     vbox_codexec->pack_start(*hbox_cmd_per_type, true, true);
-    Gtk::Label* label2 = Gtk::manage(new Gtk::Label(Glib::ustring{"<b>"}+_("Terminal Command")+"</b>"));
+    auto label2 = Gtk::manage(new Gtk::Label{Glib::ustring{"<b>"}+_("Terminal Command")+"</b>"});
     label2->set_use_markup(true);
     vbox_codexec->pack_start(*label2, false, false);
     vbox_codexec->pack_start(*hbox_term_run, false, false);
 
     Gtk::Frame* frame_codexec = new_managed_frame_with_align(_("Code Execution"), vbox_codexec);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_syntax, false, false);
@@ -121,6 +124,9 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     checkbutton_pt_highl_match_bra->signal_toggled().connect([this, checkbutton_pt_highl_match_bra](){
         _pConfig->ptHighlMatchBra = checkbutton_pt_highl_match_bra->get_active();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
+    });
+    checkbutton_code_exec_confirm->signal_toggled().connect([this, checkbutton_code_exec_confirm](){
+        _pConfig->codeExecConfirm = checkbutton_code_exec_confirm->get_active();
     });
     Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);
     pCellRendererText->signal_edited().connect([this, liststore](const Glib::ustring& path, const Glib::ustring& new_command){

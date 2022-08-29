@@ -265,6 +265,7 @@ void CtConfig::_populate_keyfile_from_data()
 #endif // MD_AUTO_REPLACEMENT
     _uKeyFile->set_integer(_currentGroup, "wrapping_indent", wrappingIndent);
     _uKeyFile->set_boolean(_currentGroup, "auto_indent", autoIndent);
+    _uKeyFile->set_boolean(_currentGroup, "codexec_confirm", codeExecConfirm);
     _uKeyFile->set_boolean(_currentGroup, "rt_show_white_spaces", rtShowWhiteSpaces);
     _uKeyFile->set_boolean(_currentGroup, "pt_show_white_spaces", ptShowWhiteSpaces);
     _uKeyFile->set_boolean(_currentGroup, "rt_highl_curr_line", rtHighlCurrLine);
@@ -547,6 +548,7 @@ void CtConfig::_populate_data_from_keyfile()
 #endif // MD_AUTO_REPLACEMENT
     _populate_int_from_keyfile("wrapping_indent", &wrappingIndent);
     _populate_bool_from_keyfile("auto_indent", &autoIndent);
+    _populate_bool_from_keyfile("codexec_confirm", &codeExecConfirm);
     _populate_bool_from_keyfile("rt_show_white_spaces", &rtShowWhiteSpaces);
     _populate_bool_from_keyfile("pt_show_white_spaces", &ptShowWhiteSpaces);
     _populate_bool_from_keyfile("rt_highl_curr_line", &rtHighlCurrLine);

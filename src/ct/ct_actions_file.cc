@@ -184,6 +184,7 @@ void CtActions::preferences_import()
     _pCtConfig->enableSymbolAutoreplace = ctConfigImported.enableSymbolAutoreplace;
     _pCtConfig->wrappingIndent = ctConfigImported.wrappingIndent;
     _pCtConfig->autoIndent = ctConfigImported.autoIndent;
+    _pCtConfig->codeExecConfirm = ctConfigImported.codeExecConfirm;
     _pCtConfig->rtShowWhiteSpaces = ctConfigImported.rtShowWhiteSpaces;
     _pCtConfig->ptShowWhiteSpaces = ctConfigImported.ptShowWhiteSpaces;
     _pCtConfig->rtHighlCurrLine = ctConfigImported.rtHighlCurrLine;

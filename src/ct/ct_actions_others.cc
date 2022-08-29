@@ -515,27 +515,24 @@ void CtActions::exec_code()
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
     Glib::ustring terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
 
-    if (!CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin)) {
+    if (_pCtConfig->codeExecConfirm and not CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin)) {
         return;
     }
-    g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
 
-    // if std::system is not enougth, then try g_spawn_async_with_pipes
-    int status = std::system(terminal_cmd.c_str());
-
-#ifdef _WIN32
-#define WEXITSTATUS(x) x
-#endif
-
-    // check exit code (0 - is good)
-    if (WEXITSTATUS(status) != 0) {
-        if (str::startswith(terminal_cmd, "xterm ")) {
-            status = std::system("xterm -version");
-            if (WEXITSTATUS(status) != 0) {
-                CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
-            }
+#ifndef _WIN32
+    static bool xterm_verified{false};
+    if (not xterm_verified and str::startswith(terminal_cmd, "xterm ")) {
+        const int status = std::system("xterm -version");
+        if (WEXITSTATUS(status) != 0) {
+            CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
+            return;
         }
+        xterm_verified = true;
     }
+#endif // !_WIN32
+
+    g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
+    (void)std::system(terminal_cmd.c_str());
 }
 
 // Load the CodeBox Content From a Text Fil

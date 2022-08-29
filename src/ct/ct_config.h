@@ -117,6 +117,7 @@ public:
 #endif // MD_AUTO_REPLACEMENT
     int                                         wrappingIndent{-14};
     bool                                        autoIndent{true};
+    bool                                        codeExecConfirm{true};
     bool                                        rtShowWhiteSpaces{false};
     bool                                        ptShowWhiteSpaces{true};
     bool                                        rtHighlCurrLine{true};
