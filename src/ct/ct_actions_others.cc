@@ -515,7 +515,7 @@ void CtActions::exec_code()
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
     Glib::ustring terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
 
-    if (_pCtConfig->codeExecConfirm and not CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin)) {
+    if (_pCtConfig->codeExecConfirm and not CtDialogs::exec_code_confirm_dialog(*_pCtMainWin)) {
         return;
     }
 

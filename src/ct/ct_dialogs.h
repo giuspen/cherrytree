@@ -277,6 +277,8 @@ bool node_prop_dialog(const Glib::ustring &title,
 
 CtYesNoCancel exit_save_dialog(Gtk::Window& parent);
 
+bool exec_code_confirm_dialog(CtMainWin& ct_main_win);
+
 // Application About Dialog
 void dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon);
 

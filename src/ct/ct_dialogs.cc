@@ -392,6 +392,58 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
     return CtYesNoCancel::Cancel;
 }
 
+bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win)
+{
+    Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
+                                     ct_main_win,
+                                     Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    dialog.add_button(Gtk::Stock::EXECUTE, Gtk::RESPONSE_YES);
+    dialog.set_default_response(Gtk::RESPONSE_YES);
+    dialog.set_default_size(350, 150);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    Gtk::Image image;
+    image.set_from_icon_name("ct_warning", Gtk::ICON_SIZE_DIALOG);
+    Gtk::Label label(Glib::ustring{"<b>"}+_("Do you want to Execute the Code?")+"</b>");
+    label.set_use_markup(true);
+    Gtk::HBox hbox;
+    hbox.pack_start(image);
+    hbox.pack_start(label);
+    hbox.set_spacing(5);
+    Gtk::CheckButton checkbutton_code_exec_confirm{_("Ask Confirmation Before Executing the Code")};
+    checkbutton_code_exec_confirm.set_active(ct_main_win.get_ct_config()->codeExecConfirm);
+    checkbutton_code_exec_confirm.set_can_focus(false);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(hbox);
+    pContentArea->pack_start(checkbutton_code_exec_confirm);
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        if (GDK_KEY_Escape == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
+    checkbutton_code_exec_confirm.signal_toggled().connect([&](){
+        ct_main_win.get_ct_config()->codeExecConfirm = checkbutton_code_exec_confirm.get_active();
+    });
+    pContentArea->show_all();
+    const int response = dialog.run();
+    dialog.hide();
+    if (Gtk::RESPONSE_YES == response) {
+        return true;
+    }
+    return false;
+}
+
 // Application About Dialog
 void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon)
 {
