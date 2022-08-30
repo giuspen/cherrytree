@@ -16,18 +16,6 @@ slots:
     bus: session
     name: net.giuspen.cherrytree
 
-plugs:
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-
-assumes: [ command-chain ]
-
 parts:
   cherrytree:
     plugin: cmake
@@ -42,110 +30,51 @@ parts:
     build-packages:
       - build-essential
       - cmake
-      - pkg-config
-      - libgtkmm-3.0-dev
-      - libgtksourceviewmm-3.0-dev
-      - libxml++2.6-dev
-      - libsqlite3-dev
-      - gettext
-      - libgspell-1-dev
       - libcurl4-openssl-dev
-      - libuchardet-dev
-      - libfribidi-dev
       - libfmt-dev
+      - libgtksourceviewmm-3.0-dev
+      - libgspell-1-dev
+      - libpangoft2-1.0-0
+      - libsqlite3-dev
       - libspdlog-dev
+      - libuchardet-dev
+      - libxml++2.6-dev
     stage-packages:
-      - libgtkmm-3.0-1v5
-      - libgtksourceviewmm-3.0-0v5
-      - libxml++2.6-2v5
-      - libsqlite3-0
-      - libgspell-1-2
       - libcurl4
-      - libuchardet0
       - libfribidi0
+      - libgtksourceviewmm-3.0-0v5
       - libspdlog1
+      - libuchardet0
+      - libxml++2.6-2v5
     prime:
       - -lib/cherrytree/*.a
       - -*canberra*so* # We don't have sound permissions anyway
       - -usr/lib/*/gtk-2.0
     override-build: |
-      sed -i 's|^Icon=.*|Icon=${SNAP}/share/icons/hicolor/scalable/apps/cherrytree.svg|' ${SNAPCRAFT_PART_SRC}/data/cherrytree.desktop
-      snapcraftctl build
+      sed -i 's|^Icon=.*|Icon=${SNAP}/share/icons/hicolor/scalable/apps/cherrytree.svg|' ${CRAFT_PART_SRC}/data/cherrytree.desktop
+      craftctl default
     parse-info: [ share/metainfo/net.giuspen.cherrytree.metainfo.xml ]
-  desktop-helpers:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: gtk
-    plugin: make
-    make-parameters: ["FLAVOR=gtk3"]
-    build-packages:
-      - libgtk-3-dev
-      - locales
-    stage-packages:
-      - libxkbcommon0  # XKB_CONFIG_ROOT
-      - fonts-ubuntu
-      - dmz-cursor-theme
-      - light-themes
-      - adwaita-icon-theme
-      - gnome-themes-standard
-      - shared-mime-info
-      - libgtk-3-0
-      - libgtk-3-bin
-      - libglib2.0-bin
-      - locales-all
-      - libc-bin
-      - xdg-user-dirs
-      - ibus-gtk3
-      - libibus-1.0-5
-      - fcitx-frontend-gtk3
-      - librsvg2-common # SVG pixbuf loader
-    prime:
-      - -*canberra*so* # We don't have sound permissions anyway
-      - -usr/lib/*/gtk-2.0
-    override-prime: |
-      snapcraftctl prime
-      glib-compile-schemas ${SNAPCRAFT_PRIME}/usr/share/glib-2.0/schemas/
-      LOCPATH=${SNAPCRAFT_PRIME}/usr/lib/locale locale-gen
-    after: [cherrytree] # Last so we compile all the schemas
-  gtk-locales:
-    plugin: nil
-    override-pull: |
-      set -eux
-      apt-get download "language-pack-*-base"
-    override-build: |
-      set -eux
-      for deb in *.deb; do dpkg-deb -x $deb .; done
-      find usr/share/locale-langpack -type f -not -name "gtk30*.mo" -and -not -name "glib*.mo" -and -not -name "gdk*.mo" -and -not -name "gspell*.mo" -delete
-      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share
-      cp -r usr/share/locale-langpack $SNAPCRAFT_PART_INSTALL/usr/share/
+    build-environment:
+      - LD_LIBRARY_PATH: $CRAFT_PART_INSTALL/usr/lib/$CRAFT_ARCH_TRIPLET/libpangoft2-1.0.so.0
+
   tinytex:
     source: https://www.giuspen.net/software/TinyTeX-1-v2022.04.04.tar.xz
     source-checksum: sha256/3025930f9c9e989c0cac59826f8ee126d677aec728d20537b9e53e13ace29020
     plugin: nil
     override-build: |
       set -eux
-      mkdir -p $SNAPCRAFT_PART_INSTALL/TinyTeX
-      cp -r * $SNAPCRAFT_PART_INSTALL/TinyTeX/
+      mkdir -p $CRAFT_PART_INSTALL/TinyTeX
+      cp -r * $CRAFT_PART_INSTALL/TinyTeX/
 
 apps:
   cherrytree:
     command: bin/cherrytree
-    command-chain: [ bin/desktop-launch ]
+    extensions: [ gnome ]
     plugs:
       - home
-      - desktop
-      - desktop-legacy
-      - gsettings
-      - wayland
-      - x11
-      - unity7
       - removable-media
       - network
     slots:
       - cherrytree-dbus
     desktop: share/applications/cherrytree.desktop
     common-id: net.giuspen.cherrytree
-
-hooks:
-  configure:
-    plugs:
-      - desktop
