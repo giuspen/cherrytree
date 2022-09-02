@@ -16,6 +16,9 @@ slots:
     bus: session
     name: net.giuspen.cherrytree
 
+environment:
+  GTK_USE_PORTAL: '0'
+
 parts:
   cherrytree:
     plugin: cmake
