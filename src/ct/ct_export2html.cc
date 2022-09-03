@@ -126,13 +126,16 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         auto rTextBuffer = tree_iter.get_node_text_buffer();
         Gtk::TextIter start_iter = rTextBuffer->get_iter_at_offset(sel_start == -1 ? 0 : sel_start);
         Gtk::TextIter end_iter = sel_end == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(sel_end);
-        const std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
         std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
-        const size_t lastIdx = node_lines.size() - 1;
-        for (size_t i = 0; i < node_lines.size(); ++i) {
-            if (i < lastIdx or not node_lines.at(i).empty()) {
-                if (rtl_for_lines.at(i)) html_text += "<p dir=\"rtl\">" + node_lines.at(i) + "</p>";
-                else html_text += "<p>" + node_lines.at(i) + "</p>";
+        if (node_lines.size() > 0) {
+            std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
+            while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
+            const size_t lastIdx = node_lines.size() - 1;
+            for (size_t i = 0; i <= lastIdx; ++i) {
+                if (i < lastIdx or not node_lines.at(i).empty()) {
+                    if (rtl_for_lines.at(i)) html_text += "<p dir=\"rtl\">" + node_lines.at(i) + "</p>";
+                    else html_text += "<p>" + node_lines.at(i) + "</p>";
+                }
             }
         }
     }
@@ -248,13 +251,16 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
                     }
                 }
             }
-            const std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(tree_iter.get_node_text_buffer()->get_text());
             std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
-            const size_t lastIdx = node_lines.size() - 1;
-            for (size_t i = 0; i < node_lines.size(); ++i) {
-                if (i < lastIdx or not node_lines.at(i).empty()) {
-                    if (rtl_for_lines.at(i)) html_text += "<p dir=\"rtl\">" + node_lines.at(i) + "</p>";
-                    else html_text += "<p>" + node_lines.at(i) + "</p>";
+            if (node_lines.size() > 0) {
+                std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(tree_iter.get_node_text_buffer()->get_text());
+                while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
+                const size_t lastIdx = node_lines.size() - 1;
+                for (size_t i = 0; i <= lastIdx; ++i) {
+                    if (i < lastIdx or not node_lines.at(i).empty()) {
+                        if (rtl_for_lines.at(i)) html_text += "<p dir=\"rtl\">" + node_lines.at(i) + "</p>";
+                        else html_text += "<p>" + node_lines.at(i) + "</p>";
+                    }
                 }
             }
         }
@@ -333,14 +339,16 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         }
         node_html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
 
-        std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
         std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
-        while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
-        const size_t lastIdx = node_lines.size() - 1;
-        for (size_t i = 0; i < node_lines.size(); ++i) {
-            if (i < lastIdx or not node_lines.at(i).empty()) {
-                if (rtl_for_lines.at(i)) html_text += "<p dir=\"rtl\">" + node_lines.at(i) + "</p>";
-                else html_text += "<p>" + node_lines.at(i) + "</p>";
+        if (node_lines.size() > 0) {
+            std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
+            while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
+            const size_t lastIdx = node_lines.size() - 1;
+            for (size_t i = 0; i <= lastIdx; ++i) {
+                if (i < lastIdx or not node_lines.at(i).empty()) {
+                    if (rtl_for_lines.at(i)) html_text += "<p dir=\"rtl\">" + node_lines.at(i) + "</p>";
+                    else html_text += "<p>" + node_lines.at(i) + "</p>";
+                }
             }
         }
     }
