@@ -44,7 +44,9 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
                     str += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
                     str += "<property name='icon-name'>" + pAction->image + "</property>";
                     str += "<property name='label'>" + pAction->name + "</property>";
-                    str += "<property name='tooltip-text'>" + pAction->desc + "</property>";
+                    const std::string kb_shortcut = pAction->get_shortcut(_pCtConfig);
+                    const std::string tooltip = kb_shortcut.empty() ? pAction->desc : (pAction->desc + " (" + str::xml_escape(kb_shortcut).c_str() + ")");
+                    str += "<property name='tooltip-text'>" + tooltip + "</property>";
                     str += "<property name='visible'>True</property>";
                     str += "<property name='use_underline'>True</property>";
                     str += "</object></child>";
