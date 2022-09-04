@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 10:04+0100\n"
-"PO-Revision-Date: 2022-04-08 11:17+0200\n"
+"POT-Creation-Date: 2022-09-03 12:29+0100\n"
+"PO-Revision-Date: 2022-09-04 10:48+0200\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:500
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:566
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr ""
 "Figyelmeztetés: Egy vagy több kép át lett méretezve, hogy elférjen a lapon."
@@ -72,7 +72,7 @@ msgstr "Horgony neve"
 msgid "The pattern '%s' was not found"
 msgstr "A(z) \"%s\" kifejezés nem található."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:147
 msgid "Index"
 msgstr "Index"
 
@@ -124,12 +124,12 @@ msgid "CherryTree Document"
 msgstr "CherryTree dokumentum"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:299
 msgid "Preferences File"
 msgstr "Beállítások fájl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:290
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:146
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:365
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Ez a változtatás a CherryTree újraindításakor lép érvénybe."
@@ -358,7 +358,7 @@ msgid "Tree In_fo"
 msgstr "Fa _tulajdonságai"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:95
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:470
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:522
 msgid "Tree Summary Information"
 msgstr "Jegyzetfájl tartalma"
 
@@ -425,7 +425,7 @@ msgid "Insert _CodeBox"
 msgstr "_CodeBox beszúrása"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:166
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:167
 msgid "Insert a CodeBox"
 msgstr "CodeBox beszúrása"
 
@@ -1103,7 +1103,6 @@ msgid "Find _in Multiple Nodes"
 msgstr "Keresés _csomópontokban"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Find in Multiple Nodes"
 msgstr "Keresés az összes (keresésből nem kizárt) csomópontban"
 
@@ -1145,7 +1144,6 @@ msgid "Replace in _Multiple Nodes"
 msgstr "Csere _csomópontokban"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes"
 msgstr "Csere az összes (keresésből nem kizárt) csomópontban"
 
@@ -1474,7 +1472,7 @@ msgid "_About"
 msgstr "_Névjegy"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:394
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:455
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:507
 msgid "About CherryTree"
 msgstr "CherryTree névjegye"
 
@@ -2040,10 +2038,6 @@ msgstr "Megjelent a tálcaikon?"
 msgid "Your system does not support the System Tray"
 msgstr "A rendszer nem támogatja a tálcaikonokat."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:279
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "Az új nyelv a CherryTree újraindításakor lép érvénybe."
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:593
 msgid "Downloading"
@@ -2118,6 +2112,7 @@ msgid "The Two Inserted Passwords Do Not Match"
 msgstr "A megadott jelszavak nem egyeznek!"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:348
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:397
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:291
 msgid "Warning"
 msgstr "Figyelmeztetés"
@@ -2130,7 +2125,16 @@ msgstr "A dokumentumban módosítás történt."
 msgid "Do you want to Save the Changes?"
 msgstr "Szeretnéd menteni a változtatásokat?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:404
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:407
+msgid "Do you want to Execute the Code?"
+msgstr "Szeretnéd futtatni a kódot?"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:413
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:44
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Kérjen megerősítést a kód végrehajtása előtt"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:456
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -2138,7 +2142,7 @@ msgstr ""
 "Egy hierarchikus jegyzetkészítő applikáció Rich Text támogatással és "
 "szintaxiskiemeléssel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:457
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2172,184 +2176,184 @@ msgstr ""
 "License egy példányát; ha mégsem kapta meg, akkor tekintse meg a\n"
 "<https://www.gnu.org/licenses/> oldalon.\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:425
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:477
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:33
 msgid "Arabic"
 msgstr "Arab"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:478
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:34
 msgid "Armenian"
 msgstr "Örmény"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:479
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:35
 msgid "Bulgarian"
 msgstr "Bolgár"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:480
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:36
 msgid "Chinese Simplified"
 msgstr "Kínai (egyszerűsített)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:429
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:481
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:37
 msgid "Chinese Traditional"
 msgstr "Kínai (hagyományos)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:482
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:38
 msgid "Croatian"
 msgstr "Horvát"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:431
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:483
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:39
 msgid "Czech"
 msgstr "Cseh"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:484
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:40
 msgid "Dutch"
 msgstr "Holland"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:433
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:485
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:42
 msgid "Finnish"
 msgstr "Finn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:434
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:486
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:43
 msgid "French"
 msgstr "Francia"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:435
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:487
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:44
 msgid "German"
 msgstr "Német"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:436
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:488
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:45
 msgid "Greek"
 msgstr "Görög"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:489
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:46
 msgid "Hindi India"
 msgstr "Hindi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:490
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:47
 msgid "Hungarian"
 msgstr "Magyar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:491
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:48
 msgid "Italian"
 msgstr "Olasz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:440
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:492
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
 msgid "Japanese"
 msgstr "Japán"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:493
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
 msgid "Kazakh"
 msgstr "Kazak"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:442
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:494
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
 msgid "Korean"
 msgstr "Kóreai"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:443
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:495
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
 msgid "Lithuanian"
 msgstr "Litván"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:444
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:496
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:53
 msgid "Polish"
 msgstr "Lengyel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:445
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:497
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
 msgid "Portuguese"
 msgstr "Portugál"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:498
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
 msgid "Portuguese Brazil"
 msgstr "Barzil portugál"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:447
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:499
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
 msgid "Romanian"
 msgstr "Román"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:500
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
 msgid "Russian"
 msgstr "Orosz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:449
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:501
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
 msgid "Slovenian"
 msgstr "Szlovén"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:450
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:502
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:59
 msgid "Spanish"
 msgstr "Spanyol"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:451
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:503
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:60
 msgid "Swedish"
 msgstr "Svéd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:452
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:504
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:61
 msgid "Turkish"
 msgstr "Török"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:453
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:505
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:62
 msgid "Ukrainian"
 msgstr "Ukrán"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:482
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:534
 msgid "Number of Rich Text Nodes"
 msgstr "Rich Text csomópontok száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:487
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:539
 msgid "Number of Plain Text Nodes"
 msgstr "Egyszerű szöveges csomópontok száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:492
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:544
 msgid "Number of Code Nodes"
 msgstr "Kód csomópontok száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:497
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:549
 msgid "Number of Images"
 msgstr "Képek száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:502
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:554
 msgid "Number of LatexBoxes"
 msgstr "LatexBox-ok száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:507
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:559
 msgid "Number of Embedded Files"
 msgstr "Beágyazott fájlok száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:512
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:564
 msgid "Number of Tables"
 msgstr "Táblák száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:517
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:569
 msgid "Number of CodeBoxes"
 msgstr "CodeBox-ok száma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:522
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:574
 msgid "Number of Anchors"
 msgstr "Horgonyok száma"
 
@@ -2382,7 +2386,7 @@ msgstr "Fa nézet"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:685
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
 msgid "Rich Text"
@@ -2390,9 +2394,9 @@ msgstr "Rich Text"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:252
 msgid "Plain Text"
 msgstr "Egyszerű szöveg"
 
@@ -2445,8 +2449,8 @@ msgstr "Sorszámozás háttere"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:129
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:132
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:135
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:74
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:87
 msgid "Reset to Default"
 msgstr "Alapértelmezés visszaállítása"
 
@@ -2471,12 +2475,12 @@ msgid "Icon Theme"
 msgstr "Ikonok témája"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:65
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:68
 msgid "Add"
 msgstr "Hozzáadás"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:51
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:68
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
 msgid "Remove Selected"
 msgstr "Kijelölt törlése"
 
@@ -2486,7 +2490,7 @@ msgid "Split Toolbar"
 msgstr "Eszköztársáv-elválasztó"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:157
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:253
 msgid "Select Element to Add"
 msgstr "Elem hozzáadása"
 
@@ -2496,7 +2500,7 @@ msgstr "Ebben a munkamenetben még nem történt szövegformázás"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:101
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1009
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1010
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
 msgid "No Text is Selected"
 msgstr "Nincs kijelölt szöveg."
@@ -2535,6 +2539,14 @@ msgstr "Keresés a csomópontban..."
 msgid "Matches"
 msgstr "találat"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Replace in Multiple Nodes..."
+msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
+msgid "Find in Multiple Nodes..."
+msgstr "Keresés az összes (keresésből nem kizárt) csomópontban..."
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Ebben a munkamenetben még nem történt keresés."
@@ -2566,7 +2578,7 @@ msgid "Enable Automatic Indentation"
 msgstr "Automatikus behúzás engedélyezése"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:308
 msgid "Show Line Numbers"
 msgstr "Sorszámok megjelenítése"
 
@@ -2613,12 +2625,16 @@ msgstr "PDF fájl"
 msgid "Plain Text Document"
 msgstr "Egyszerű szöveges dokumentum"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:143
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:49
+msgid "Show Menubar:"
+msgstr "_Menüsáv mutatása/elrejtése:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:147
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "A(z) \"%s\" nem egy CherryTree dokumentum."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:163
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -2627,21 +2643,21 @@ msgstr ""
 "Hiba a CherryTree fájl megnyitásakor:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:234
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:238
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr ""
 "Ideiglenes fájlok jöttek létre, melyeket külső alkalmazások használnak."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:239
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr ""
 "Be kell zárni a külső alkalmazásokat, mielőtt kilépnél a CherryTree-ből."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:240
 msgid "Did you Quit the External Applications?"
 msgstr "Bezártad a külső alkalmazásokat?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:362
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "A dokumentum újra lett töltve külső módosítás végett."
 
@@ -2659,7 +2675,7 @@ msgid "Hide the Window"
 msgstr "Ablak elrejtése"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:106
 msgid "Node Type"
 msgstr "Csomópont típusa"
 
@@ -2743,127 +2759,131 @@ msgid "Regular Expression"
 msgstr "Reguláris kifejezés"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:81
+msgid "Accent Insensitive"
+msgstr "Ékezetek figyelmen kívül hagyása"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:83
 msgid "Whole Word"
 msgstr "Egész szó"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:83
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:85
 msgid "Start Word"
 msgstr "Szó eleje"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:85
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:87
 msgid "Forward"
 msgstr "Előre"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:87
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:89
 msgid "Backward"
 msgstr "Hátra"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:90
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:92
 msgid "All, List Matches"
 msgstr "Összes, találatok kilistázása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:92
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:94
 msgid "First From Selection"
 msgstr "Első a kijelölésben"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:95
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:97
 msgid "First in All Range"
 msgstr "Első minden tartományban"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:106
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:159
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:161
 msgid "Node Created After"
 msgstr "Létrehozva ezután"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:113
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:164
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:115
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:166
 msgid "Node Created Before"
 msgstr "Létrehozva ezelőtt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:120
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:169
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:122
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:171
 msgid "Node Modified After"
 msgstr "Módosítva ezután"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:127
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:174
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:176
 msgid "Node Modified Before"
 msgstr "Módosítva ezelőtt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:145
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:147
 msgid "Time filter"
 msgstr "Szűrés idő szerint"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:177
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:179
 msgid "Node Content"
 msgstr "Csomópont tartalma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:179
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:181
 msgid "Node Name and Tags"
 msgstr "Csomópont neve és kulcsszavai"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:184
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:186
 msgid "Only Selected Node and Subnodes"
 msgstr "Csak a kijelölt csomópont és alcsomópontjai"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:186
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:188
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Iterált párbeszédpanel megjelenítése"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:212
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:215
 msgid "Search options"
 msgstr "Keresési beállítások"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:281
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
 #, c-format
 msgid "Hide (Restore with '%s')"
 msgstr "Elrejtés (Visszaállítás: \"%s\")"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:74
 msgid "Node Name"
 msgstr "Csomópont neve"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:286
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:290
 msgid "Line"
 msgstr "Sor"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:287
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:291
 msgid "Line Content"
 msgstr "Sor tartalma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:305
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:393
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "A hivatkozott csomópont már nem létezik (id = %s)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:362
 msgid "Iterate Latest Find/Replace"
 msgstr "Legutóbbi Keresés/Csere iterálása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:361
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:365
 msgid "Close"
 msgstr "Bezárás"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:362
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:366
 msgid "Find Previous"
 msgstr "Előző keresése"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:363
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:367
 msgid "Find Next"
 msgstr "Következő keresése"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:364
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:368
 msgid "Replace"
 msgstr "Csere"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:365
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:369
 msgid "Undo"
 msgstr "Visszavonás"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:492
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Special Characters"
 msgstr "Speciális karakterek"
@@ -2998,18 +3018,42 @@ msgstr "Csomópont kibontása kattintásra"
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Csomópont előzmények száma a navigációs sávban"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:160
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:218
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:167
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:219
 msgid "Select Node Icon"
 msgstr "Ikon választása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:97
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:103
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Az eszköztár ikonjai nem növelhetők tovább"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:114
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Az eszköztár ikonjai nem kicsinyíthetők tovább"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:431
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Nem sikerült elérni a 'latex' és 'dvipng' futtatható állományokat"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:446
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Például Ubuntu alatt a telepítendő csomagok a következők:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:434
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:448
+msgid "For example, on Mac OS the packages to install are:"
+msgstr "Például Mac OS alatt a telepítendő csomagok a következők:"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:438
+msgid "Could not access the executable 'latex'"
+msgstr "Nem sikerült elérni a 'latex' futtatható állományt"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:445
+msgid "Could not access the executable 'dvipng'"
+msgstr "Nem sikerült elérni a 'dvipng' futtatható állományt"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
 msgid "Enable Spell Check"
@@ -3031,7 +3075,7 @@ msgstr "Aktív sor kiemelése"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:56
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:310
 msgid "Highlight Matching Brackets"
 msgstr "Zárójelek párjának kiemelése"
 
@@ -3126,33 +3170,33 @@ msgstr "Nincs írási jogosultságod a következőhöz: \"%s\"."
 msgid "Enter Password for %s"
 msgstr "Jelszó megadása: %s"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:100
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:101
 msgid "Image Format Not Recognized"
 msgstr "A fájl nem ismerhető fel képként."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:107
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:108
 msgid "Insert Table"
 msgstr "Tábla beszúrása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:123
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:774
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:773
 msgid "CSV File"
 msgstr "CSV fájl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:200
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:201
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "A beállított maximális fájlméret %s MB."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:202
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:203
 msgid "Do you want to Continue?"
 msgstr "Biztosan folytatod?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:873
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:874
 msgid "Tabs Replaced"
 msgstr "tabulátor lecserélve."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:919
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:920
 msgid "Lines Stripped"
 msgstr "sor megtisztítva."
 
@@ -3186,82 +3230,78 @@ msgstr "Nincs billentyűparancs"
 msgid "Use Selected Color"
 msgstr "Kiválasztott szín"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
-msgid "click me"
-msgstr "kattints ide"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:247
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:81
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:162
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatikus szintaxiskiemelés"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:120
 msgid "Tags for Searching"
 msgstr "Keresési kulcsszavak"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:125
 msgid "Exclude from Searches:"
 msgstr "Kihagyás a keresésből:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:132
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
 msgid "This Node"
 msgstr "Csomópont"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:134
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:130
 msgid "The Subnodes"
 msgstr "Alcsomópontok"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:136
 msgid "Read Only"
 msgstr "Írásvédett"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Choose Existing Tag"
 msgstr "Létező kulcsszó választása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:185
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
 msgid "Tag Name"
 msgstr "Kulcsszó neve"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:204
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:200
 msgid "Pick a Color"
 msgstr "Válassz színt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:379
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:380
 msgid "Involved Nodes"
 msgstr "Tartalom kiválasztása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:388
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
 msgid "Selected Text Only"
 msgstr "Kijelölt szöveg"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
 msgid "Selected Node Only"
 msgstr "Kijelölt csomópont"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
 msgid "Selected Node and Subnodes"
 msgstr "Kijelölt csomópont és alcsomópontok"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:392
 msgid "All the Tree"
 msgstr "Minden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:406
 msgid "Include Node Name"
 msgstr "Csomópontok nevei"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:413
 msgid "Links Tree in Every Page"
 msgstr "Tartalomjegyzék minden oldalon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:418
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:419
 msgid "New Node in New Page"
 msgstr "Minden csomópont külön lapon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:423
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:424
 msgid "Single File"
 msgstr "Egy fájl"
 
@@ -3355,15 +3395,15 @@ msgstr "A kiválasztott csomópont"
 msgid "Pandoc executable could not be found, please ensure it is in your path"
 msgstr "A Pandoc futtatható állomány nem található a környezeti változókban."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:91
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:94
 msgid "Command per Node/CodeBox Type"
 msgstr "Parancsok CodeBox típusok szerint"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:95
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:99
 msgid "Terminal Command"
 msgstr "Terminál parancs"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:100
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:104
 msgid "Code Execution"
 msgstr "Kód futtatása"
 
@@ -3382,31 +3422,31 @@ msgstr "PNG kép"
 msgid "Write to %s Failed"
 msgstr "Sikertelen írás a következőre: \"%s\"."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:364
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:383
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:365
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:385
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "A hivatkozás \"%s\" nem létező mappára mutat."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:371
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:372
 #, c-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "A hivatkozás \"%s\" nem létező fájlra mutat."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:414
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr "Nem található horgony \"%s\" néven."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:472
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:474
 msgid "Edit CodeBox"
 msgstr "CodeBox szerkesztése"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:496
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:498
 msgid "No CodeBox is Selected"
 msgstr "Nincs kijelölt CodeBox."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:504
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:506
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -3415,11 +3455,7 @@ msgstr ""
 "Társítanod kell a parancsot a következőhöz: \"%s\".\n"
 "Ezt a beállításokban teheted meg."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:516
-msgid "Do you want to Execute the Code?"
-msgstr "Szeretnéd futtatni a kódot?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:533
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:527
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
@@ -3427,23 +3463,23 @@ msgstr ""
 "Telepítsd az \"xterm\" csomagot vagy állíts be másik terminál parancsot a "
 "beállításokban."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:763
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:762
 msgid "Edit Table Properties"
 msgstr "Tábla tulajdonságainak szerkesztése"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:799
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:798
 msgid "Insert Anchor"
 msgstr "Horgony beszúrása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:799
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:798
 msgid "Edit Anchor"
 msgstr "Horgony szerkesztése"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:835
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:834
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "A beágyazott fájl nem szerkeszthető írásvédett módban."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:848
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:847
 msgid "Embedded File Automatically Updated:"
 msgstr "Beágyazott fájl automatikusan frissítve:"
 
@@ -3534,57 +3570,57 @@ msgstr "LaTeX matematikai egyenletek útmutatója"
 msgid "LaTeX Math Symbols Reference"
 msgstr "LaTeX matematikai szimbólumok hivatkozása"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:107
 msgid "Image Properties"
 msgstr "Kép tulajdonságai"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:132
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:138
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:271
 msgid "Width"
 msgstr "Szélesség"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:135
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:141
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:275
 msgid "Height"
 msgstr "Magasság"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:266
 msgid "Type"
 msgstr "Típus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:274
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:280
 msgid "pixels"
 msgstr "pixel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:303
 msgid "Size"
 msgstr "Méret"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:319
 msgid "Options"
 msgstr "Opciók"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:420
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
 msgid "Rows"
 msgstr "Sorok"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
 msgid "Columns"
 msgstr "Oszlopok"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
 msgid "Default Width"
 msgstr "Alapértelmezett szélesség"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:444
 msgid "Table Size"
 msgstr "Tábla mérete"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:447
 msgid "Column Properties"
 msgstr "Oszlop tulajdonságai"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:462
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:468
 msgid "Import from CSV File"
 msgstr "Importálás CSV fájlból"
 
@@ -3642,3 +3678,9 @@ msgstr "Leo dokumentum"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.h:63
 msgid "Are you sure to Reset to Default?"
 msgstr "Biztosan visszaállítod az alapértelmezett beállításokat?"
+
+#~ msgid "The New Language will be Available Only After Restarting CherryTree"
+#~ msgstr "Az új nyelv a CherryTree újraindításakor lép érvénybe."
+
+#~ msgid "click me"
+#~ msgstr "kattints ide"
