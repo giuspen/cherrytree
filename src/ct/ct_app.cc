@@ -401,14 +401,22 @@ void CtApp::systray_show_hide_windows()
 
 void CtApp::close_all_windows(const bool fromKillCallback)
 {
+    static CtMainWin* pProcessingWin{nullptr};
+    if (pProcessingWin) {
+        spdlog::debug("{} pProcessingWin", __FUNCTION__);
+        pProcessingWin->present();
+        return;
+    }
     for (Gtk::Window* pWin : get_windows()) {
         if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin)) {
             win->force_exit() = true;
+            pProcessingWin = win;
             if (not _quit_or_hide_window(win, false/*fromDelete*/, fromKillCallback)) {
                 break;
             }
         }
     }
+    pProcessingWin = nullptr;
 }
 
 void CtApp::_add_main_option_entries()
