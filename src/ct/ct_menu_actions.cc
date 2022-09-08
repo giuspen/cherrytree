@@ -480,10 +480,10 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{table_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+"braceright",
         _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_increase_width", "ct_go-forward",
-        _("Increase Column Width"), KB_CONTROL+"backslash",
+        _("Increase Column Width"), KB_CONTROL+"parenleft",
         _("Increase the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_increase_width)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_decrease_width", "ct_go-back",
-        _("Decrease Column Width"), KB_CONTROL+KB_ALT+"backslash",
+        _("Decrease Column Width"), KB_CONTROL+KB_ALT+"parenleft",
         _("Decrease the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_decrease_width)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_add", "ct_add", _("_Add Row"), KB_CONTROL+"comma",
         _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
@@ -524,10 +524,10 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_delete_keeping_text", "ct_edit_delete", _("Delete CodeBox _Keep Content"), None,
         _("Delete the Selected CodeBox But Keep Its Content"), sigc::mem_fun(*pActions, &CtActions::codebox_delete_keeping_text)});
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_increase_width", "ct_go-forward",
-        _("Increase CodeBox Width"), KB_CONTROL+"backslash",
+        _("Increase CodeBox Width"), KB_CONTROL+"parenleft",
         _("Increase the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_width)});
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_decrease_width", "ct_go-back",
-        _("Decrease CodeBox Width"), KB_CONTROL+KB_ALT+"backslash",
+        _("Decrease CodeBox Width"), KB_CONTROL+KB_ALT+"parenleft",
         _("Decrease the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_width)});
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_increase_height", "ct_go-down",
         _("Increase CodeBox Height"), KB_CONTROL+"comma",

@@ -293,7 +293,7 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
         return false;
     if (event->state & Gdk::CONTROL_MASK) {
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
-        if (event->keyval == GDK_KEY_backslash) {
+        if (event->keyval == GDK_KEY_parenleft) {
             if (event->state & Gdk::MOD1_MASK)
                 _pCtMainWin->get_ct_actions()->codebox_decrease_width();
             else
