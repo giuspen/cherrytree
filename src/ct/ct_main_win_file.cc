@@ -133,7 +133,7 @@ bool CtMainWin::get_file_save_needed()
     return _fileSaveNeeded or (curr_tree_iter() and curr_tree_iter().get_node_text_buffer()->get_modified());
 }
 
-bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const Glib::ustring password)
+bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string& anchor_to_focus, const Glib::ustring password)
 {
     if (!fs::is_regular_file(filepath)) {
         CtDialogs::error_dialog("File does not exist", *this);
@@ -165,7 +165,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
 
         // trying to recover prevous document
         if (!prev_path.empty()) {
-            file_open(prev_path, ""); // it won't be in loop because storage is empty
+            file_open(prev_path, ""/*node*/, ""/*anchor*/); // it won't be in loop because storage is empty
         }
         return false;                 // show the given document is not loaded
     }
@@ -194,11 +194,18 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     }
 
     bool node_is_set = false;
-    if (node_to_focus != "") {
-        if (CtTreeIter node = get_tree_store().get_node_from_node_name(node_to_focus)) {
+    if (not node_to_focus.empty()) {
+        CtTreeIter node = get_tree_store().get_node_from_node_name(node_to_focus);
+        if (node) {
             _uCtTreeview->set_cursor_safe(node);
             _ctTextview.grab_focus();
             node_is_set = true;
+            if (not anchor_to_focus.empty()) {
+                _uCtActions->current_node_scroll_to_anchor(anchor_to_focus);
+            }
+        }
+        else {
+            CtDialogs::warning_dialog(str::format(_("No node named '%s' found"), str::xml_escape(node_to_focus)), *this);
         }
     }
 
@@ -314,7 +321,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustrin
     // instead of setting all inner states, it's easier just to re-open file
     new_storage.reset();               // we don't need it
     update_window_save_not_needed();   // remove asking to save when we close the old file
-    file_open(new_filepath, "", password);
+    file_open(new_filepath, ""/*node*/, ""/*anchor*/, password);
 }
 
 void CtMainWin::file_autosave_restart()
@@ -358,7 +365,7 @@ void CtMainWin::mod_time_sentinel_restart()
             if (currModTime > _uCtStorage->get_mod_time()) {
                 spdlog::debug("mod time was {} now {}", _uCtStorage->get_mod_time(), currModTime);
                 fs::path file_path = _uCtStorage->get_file_path();
-                if (file_open(file_path, "")) {
+                if (file_open(file_path, ""/*node*/, ""/*anchor*/)) {
                     _ctStatusBar.update_status(_("The Document was Reloaded After External Update to CT* File"));
                 }
             }

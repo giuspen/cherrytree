@@ -55,6 +55,7 @@ protected:
 
 protected:
     Glib::ustring _node_to_focus;
+    Glib::ustring _anchor_to_focus;
     std::string   _export_to_html_dir;
     std::string   _export_to_txt_dir;
     std::string   _export_to_pdf_dir;

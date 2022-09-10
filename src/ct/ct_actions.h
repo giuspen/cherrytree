@@ -424,6 +424,7 @@ public:
     void toggle_show_hide_main_window();
 
     void link_clicked(const Glib::ustring& tag_property_value, bool from_wheel);
+    void current_node_scroll_to_anchor(Glib::ustring anchor_name);
 
     void codebox_cut();
     void codebox_copy();

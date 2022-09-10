@@ -397,31 +397,37 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         _pCtMainWin->get_text_view().grab_focus();
         _pCtMainWin->get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         _pCtMainWin->get_text_view().set_tooltip_text("");
-        if (!link_entry.anch.empty()) {
-            Glib::ustring anchor_name = link_entry.anch;
-            CtImageAnchor* imageAnchor = nullptr;
-            for (auto& widget : tree_iter.get_anchored_widgets_fast()) {
-                if (auto anchor = dynamic_cast<CtImageAnchor*>(widget)) {
-                    if (anchor->get_anchor_name() == anchor_name) {
-                        imageAnchor = anchor;
-                    }
-                }
-            }
-            if (not imageAnchor) {
-                if (anchor_name.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
-                    anchor_name = anchor_name.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
-                }
-                CtDialogs::warning_dialog(str::format(_("No anchor named '%s' found"), str::xml_escape(anchor_name)), *_pCtMainWin);
-            }
-            else {
-                Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
-                _curr_buffer()->place_cursor(iter_anchor);
-                _pCtMainWin->get_text_view().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
-            }
+        if (not link_entry.anch.empty()) {
+            current_node_scroll_to_anchor(link_entry.anch);
         }
     }
     else {
         CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", str::xml_escape(tag_property_value)), *_pCtMainWin);
+    }
+}
+
+void CtActions::current_node_scroll_to_anchor(Glib::ustring anchor_name)
+{
+    if (not _is_there_selected_node_or_error()) return;
+
+    CtImageAnchor* imageAnchor = nullptr;
+    for (auto& widget : _pCtMainWin->curr_tree_iter().get_anchored_widgets_fast()) {
+        if (auto anchor = dynamic_cast<CtImageAnchor*>(widget)) {
+            if (anchor->get_anchor_name() == anchor_name) {
+                imageAnchor = anchor;
+            }
+        }
+    }
+    if (not imageAnchor) {
+        if (anchor_name.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
+            anchor_name = anchor_name.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
+        }
+        CtDialogs::warning_dialog(str::format(_("No anchor named '%s' found"), str::xml_escape(anchor_name)), *_pCtMainWin);
+    }
+    else {
+        Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
+        _curr_buffer()->place_cursor(iter_anchor);
+        _pCtMainWin->get_text_view().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
 }
 

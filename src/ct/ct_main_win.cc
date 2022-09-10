@@ -198,10 +198,11 @@ bool CtMainWin::start_on_systray_is_active() const
     return _pCtConfig->systrayOn and _pCtConfig->startOnSystray;
 }
 
-void CtMainWin::start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename)
+void CtMainWin::start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename, const std::string& anchorname)
 {
     _startOnSystray_delayedFilepath = filepath;
     _startOnSystray_delayedNodeName = nodename;
+    _startOnSystray_delayedAnchorName = anchorname;
 }
 
 bool CtMainWin::start_on_systray_delayed_file_open_kick()
@@ -209,9 +210,11 @@ bool CtMainWin::start_on_systray_delayed_file_open_kick()
     if (not _startOnSystray_delayedFilepath.empty()) {
         const std::string startOnSystray_delayedFilepath = _startOnSystray_delayedFilepath;
         const std::string startOnSystray_delayedNodeName = _startOnSystray_delayedNodeName;
+        const std::string startOnSystray_delayedAnchorName = _startOnSystray_delayedAnchorName;
         _startOnSystray_delayedFilepath.clear();
         _startOnSystray_delayedNodeName.clear();
-        if (file_open(startOnSystray_delayedFilepath, startOnSystray_delayedNodeName)) {
+        _startOnSystray_delayedAnchorName.clear();
+        if (file_open(startOnSystray_delayedFilepath, startOnSystray_delayedNodeName, startOnSystray_delayedAnchorName)) {
             return true;
         }
         spdlog::warn("%s Couldn't open file: %s", __FUNCTION__, _startOnSystray_delayedFilepath);
@@ -537,7 +540,7 @@ void CtMainWin::menu_set_items_recent_documents()
 {
     sigc::slot<void, const std::string&> recent_doc_open_action = [&](const std::string& filepath){
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR)) {
-            if (file_open(filepath, "")) {
+            if (file_open(filepath, ""/*node*/, ""/*anchor*/)) {
                 _pCtConfig->recentDocsFilepaths.move_or_push_front(fs_canonicalize_filename(filepath));
                 menu_set_items_recent_documents();
             }

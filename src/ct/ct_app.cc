@@ -135,12 +135,12 @@ void CtApp::on_activate()
             if (r_file->query_exists()) {
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
                 if (not pAppWindow->start_on_systray_is_active()) {
-                    if (not pAppWindow->file_open(canonicalPath, "", _password)) {
+                    if (not pAppWindow->file_open(canonicalPath, ""/*node*/, ""/*anchor*/, _password)) {
                         spdlog::warn("%s Couldn't open file: %s", __FUNCTION__, canonicalPath);
                     }
                 }
                 else {
-                    pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, "");
+                    pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, ""/*node*/, ""/*anchor*/);
                 }
             }
             else {
@@ -193,7 +193,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             spdlog::debug("file to export: {}", r_file->get_path());
             CtMainWin* pWin = _create_window(true/*no_gui*/);
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-            if (pWin->file_open(canonicalPath, "", _password)) {
+            if (pWin->file_open(canonicalPath, ""/*node*/, ""/*anchor*/, _password)) {
                 try {
                     if (not _export_to_txt_dir.empty()) {
                         pWin->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite, _export_single_file);
@@ -225,12 +225,12 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             pAppWindow = _create_window();
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
             if (not pAppWindow->start_on_systray_is_active()) {
-                if (not pAppWindow->file_open(canonicalPath, _node_to_focus, _password)) {
+                if (not pAppWindow->file_open(canonicalPath, _node_to_focus, _anchor_to_focus, _password)) {
                     spdlog::warn("%s Couldn't open file: {}", __FUNCTION__, canonicalPath);
                 }
             }
             else {
-                pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, _node_to_focus);
+                pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, _node_to_focus, _anchor_to_focus);
             }
             if (get_windows().size() == 1) {
                 // start of main instance
@@ -423,6 +423,7 @@ void CtApp::_add_main_option_entries()
 {
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "version",            'V', _("Print CherryTree version"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "anchor",             'a', _("Anchor name to scroll to in node"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_dir",  'p', _("Export to PDF at specified directory path"));
@@ -456,6 +457,7 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
     bool new_window{false};
 
     rOptions->lookup_value("node", _node_to_focus);
+    rOptions->lookup_value("anchor", _anchor_to_focus);
     rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
     rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
     rOptions->lookup_value("export_to_pdf_dir", _export_to_pdf_dir);

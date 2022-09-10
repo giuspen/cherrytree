@@ -78,7 +78,7 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // tree empty
     ASSERT_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
-    ASSERT_TRUE(pWin->file_open(doc_filepath_from, "", docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
+    ASSERT_TRUE(pWin->file_open(doc_filepath_from, ""/*file*/, ""/*anchor*/, docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
     // do not check/walk the tree before calling the save_as to test that
     // even without visiting each node we save it all
 
@@ -96,7 +96,7 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // tree empty
     ASSERT_FALSE(pWin2->get_tree_store().get_iter_first());
     // load file previously saved
-    ASSERT_TRUE(pWin2->file_open(tmp_filepath, "", docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
+    ASSERT_TRUE(pWin2->file_open(tmp_filepath, ""/*file*/, ""/*anchor*/, docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
     // check tree
     _assert_tree_data(pWin2);
 

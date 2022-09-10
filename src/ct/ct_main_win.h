@@ -99,7 +99,7 @@ public:
 
     void update_theme();
 
-    bool file_open(const fs::path& filepath, const std::string& node_to_focus, const Glib::ustring password = "");
+    bool file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string& anchor_to_focus, const Glib::ustring password = "");
     bool file_save_ask_user();
     void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const Glib::ustring& password);
@@ -202,7 +202,7 @@ public:
     void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
 
     bool start_on_systray_is_active() const;
-    void start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename);
+    void start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename, const std::string& anchorname);
     bool start_on_systray_delayed_file_open_kick();
     void set_systray_can_hide(const bool systrayCanHide) { _systrayCanHide = systrayCanHide; }
     bool get_systray_can_hide() const { return _systrayCanHide; }
@@ -303,6 +303,7 @@ private:
     std::unordered_map<gint64, int> _nodesVScrollPos;
     std::string         _startOnSystray_delayedFilepath;
     std::string         _startOnSystray_delayedNodeName;
+    std::string         _startOnSystray_delayedAnchorName;
     bool                _systrayCanHide{true};
 
 public:

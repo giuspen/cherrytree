@@ -104,7 +104,7 @@ void CtActions::file_open()
 
     if (filepath.empty()) return;
 
-    _pCtMainWin->file_open(filepath, "");
+    _pCtMainWin->file_open(filepath, ""/*node*/, ""/*anchor*/);
 }
 
 void CtActions::quit_or_hide_window()
