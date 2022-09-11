@@ -1,18 +1,17 @@
-cherrytree (0.99.48-2) focal; urgency=low
+cherrytree (0.99.49-2) focal; urgency=low
 
-  * added support for right to left languages in export to html and pdf (#2044, #1668, #698)
-  * in order to support the right to left languages in export to html, the resulting html text lines are no longer LINE<br/> but <p>LINE</p>
-  * fixed in export to pdf the link to node+anchor with non ascii anchor name
-  * fixed export to pdf broken on windows with links to node/node+anchor and destination not in the pdf (#2045)
-  * on windows, export to pdf, fixed links to files/folders; links to non ascii paths are disabled because currently crashing the library
-  * improved detection of missing executables required for rendering LatexBoxes. These dependencies are no longer mandatory (#2033)
-  * added help to the user to show again a hidden menubar (#1927, #2054)
-  * pressing Tab on the very latest table cell now adds a new table line and moves to its first cell
-  * fixed issue with relative links to files and folders and documents moved between linux and windows
-  * in export to html and txt multiple files, now appending the node id to the file names to support multiple nodes with the same name
-  * added syntax highlight support for solidity (#2030)
-  * after issues with the domain giuspen.com, the domain changed to giuspen.net and giuspen.com will eventually go
-  * work has been done to support an appimage, so the first appimage will be available for download shortly (#2025)
+  * added support for accent insensitive search - when enabled, for example, any of 'àáâãäåāăąạ' is equivalent to the ascii 'a' (#1981)
+  * fixed export to HTML crash - regression introduced with support for RTL languages (#2109)
+  * fixed crash on print/export to pdf of a sequence of characters without spaces longer that the page width, such as a very long URL (#2045)
+  * fixed bulleted list unindent (Shift+Tab) crash (#2103)
+  * fixed tooltip and cursor not reset after hovering link and then navigating to non rich text node
+  * added keyboard shortcuts to the toolbar button's tooltips (#2106)
+  * changed non configurable keyboard shortcuts for codebox width and table column width increase/decrease to use parenthesis open instead of backslash (#2113)
+  * fixed wrongly entering column edit mode when using keyboard shortcuts with <Ctrl><Alt> such as insert codebox (#2075)
+  * allow to disable the dialog asking for confirmation before executing the code in codeboxes and code nodes
+  * fixed crash on double exit from systray icon right click menu (#2114)
+  * added command line option '--anchor AnchorName' that in addition to existing '--node NodeName' allows to open a document focusing an anchor in a node
+  * added syntax highlighting support for GDScript
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Tue, 28 Jun 2022 22:39:40 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 11 Sep 2022 18:36:59 +0100
