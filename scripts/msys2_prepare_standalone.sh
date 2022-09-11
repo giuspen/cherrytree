@@ -248,7 +248,9 @@ for element_rel in dvipng.exe \
                    libdav1d.dll \
                    rav1e.dll \
                    libde265-0.dll \
-                   libx265.dll
+                   libx265.dll \
+                   libSvtAv1Enc.dll \
+                   libyuv.dll
 do
   cp -v ${OLD_MINGW64_FOLDER}/bin/${element_rel} ${NEW_MINGW64_FOLDER}/bin/
 done
