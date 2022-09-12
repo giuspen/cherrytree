@@ -24,7 +24,7 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/giuspen/cherrytree.git
-    source-commit: 6a066c4290d177be3a978f01e0511bbfd153d3c8
+    source-commit: 0.99.49
     source-depth: 0
     cmake-parameters:
       - '-DCMAKE_INSTALL_PREFIX='
