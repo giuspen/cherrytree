@@ -46,6 +46,10 @@ static fs::path _mingw64Dir;
 // replacement of Glib::canonicalize_filename for Glibmm < 2.64
 std::string legacy_canonicalize_filename(const std::string& filename, const std::string& relative_to/*= ""*/)
 {
+    // manage case where filename is an empty string -- just send it back unchanged
+    if (filename == "")
+      return "";
+
     std::string retFilepath;
     GFile* pGFile{nullptr};
     if (not Glib::path_is_absolute(filename) and not relative_to.empty()) {
