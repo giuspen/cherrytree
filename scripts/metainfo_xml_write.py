@@ -14,11 +14,11 @@ METAINFO_XML_FILEPATH = os.path.join(DATA_DIR, "net.giuspen.cherrytree.metainfo.
 DEBIAN_CHANGELOG_PATH = os.path.join(ROOT_DIR, "debian", "changelog")
 
 VERSION = "?"
-with open(DEBIAN_CHANGELOG_PATH, "r") as fd:
+with open(DEBIAN_CHANGELOG_PATH, "rb") as fd:
     for fileline in fd:
-        match = re.search(r"cherrytree +\(([0-9]+\.[0-9]+\.[0-9]+)[-+]", fileline)
+        match = re.search(b"cherrytree +\(([0-9]+\.[0-9]+\.[0-9]+)[-+]", fileline)
         if match is not None:
-            VERSION = match.group(1)
+            VERSION = str(match.group(1))
             #print(VERSION)
             break
 DATE = time.strftime(
