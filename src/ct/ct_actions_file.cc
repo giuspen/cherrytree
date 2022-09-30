@@ -139,6 +139,7 @@ void CtActions::preferences_import()
     _pCtConfig->statusbarVisible = ctConfigImported.statusbarVisible;
     _pCtConfig->treeLinesVisible = ctConfigImported.treeLinesVisible;
     _pCtConfig->hpanedPos = ctConfigImported.hpanedPos;
+    _pCtConfig->vpanedPos = ctConfigImported.vpanedPos;
     _pCtConfig->treeVisible = ctConfigImported.treeVisible;
     _pCtConfig->vteVisible = ctConfigImported.vteVisible;
     _pCtConfig->menubarVisible = ctConfigImported.menubarVisible;
@@ -229,6 +230,7 @@ void CtActions::preferences_import()
     _pCtConfig->ptFont = ctConfigImported.ptFont;
     _pCtConfig->treeFont = ctConfigImported.treeFont;
     _pCtConfig->codeFont = ctConfigImported.codeFont;
+    _pCtConfig->vteFont = ctConfigImported.vteFont;
     _pCtConfig->ttDefFg = ctConfigImported.ttDefFg;
     _pCtConfig->ttDefBg = ctConfigImported.ttDefBg;
     _pCtConfig->ttSelFg = ctConfigImported.ttSelFg;

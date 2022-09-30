@@ -205,6 +205,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "win_size_w", winRect[2]);
     _uKeyFile->set_integer(_currentGroup, "win_size_h", winRect[3]);
     _uKeyFile->set_integer(_currentGroup, "hpaned_pos", hpanedPos);
+    _uKeyFile->set_integer(_currentGroup, "vpaned_pos", vpanedPos);
     _uKeyFile->set_boolean(_currentGroup, "tree_visible", treeVisible);
     _uKeyFile->set_boolean(_currentGroup, "vte_visible", vteVisible);
     _uKeyFile->set_boolean(_currentGroup, "menubar_visible", menubarVisible);
@@ -319,6 +320,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "pt_font", ptFont);
     _uKeyFile->set_string(_currentGroup, "tree_font", treeFont);
     _uKeyFile->set_string(_currentGroup, "code_font", codeFont);
+    _uKeyFile->set_string(_currentGroup, "vte_font", vteFont);
 
     // [colors]
     _currentGroup = "colors";
@@ -442,6 +444,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("win_size_w", &winRect[2]);
     _populate_int_from_keyfile("win_size_h", &winRect[3]);
     _populate_int_from_keyfile("hpaned_pos", &hpanedPos);
+    _populate_int_from_keyfile("vpaned_pos", &vpanedPos);
     _populate_bool_from_keyfile("tree_visible", &treeVisible);
     _populate_bool_from_keyfile("vte_visible", &vteVisible);
     _populate_bool_from_keyfile("menubar_visible", &menubarVisible);
@@ -619,6 +622,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("pt_font", &ptFont);
     _populate_string_from_keyfile("tree_font", &treeFont);
     _populate_string_from_keyfile("code_font", &codeFont);
+    _populate_string_from_keyfile("vte_font", &vteFont);
 
     // [colors]
     _currentGroup = "colors";

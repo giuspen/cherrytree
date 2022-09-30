@@ -60,6 +60,7 @@ public:
     bool                                        winIsMaximised{false};
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};
+    int                                         vpanedPos{450};
     bool                                        treeVisible{true};
     bool                                        vteVisible{false};
     bool                                        menubarVisible{true};
@@ -177,6 +178,7 @@ public:
     Glib::ustring                               ptFont{CtConst::FONT_PT_DEFAULT};
     Glib::ustring                               treeFont{CtConst::FONT_TREE_DEFAULT};
     Glib::ustring                               codeFont{CtConst::FONT_CODE_DEFAULT};
+    Glib::ustring                               vteFont{CtConst::FONT_VTE_DEFAULT};
     Glib::ustring                               fallbackFontFamily{"Sans"};
 
     // [colors]

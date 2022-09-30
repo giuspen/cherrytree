@@ -75,6 +75,14 @@ void CtMainWin::show_hide_vte(bool visible)
     _scrolledwindowVte.property_visible() = visible;
 }
 
+void CtMainWin::update_vte_settings()
+{
+#if defined(HAVE_VTE)
+    vte_terminal_set_font(VTE_TERMINAL(_pVte->gobj()),
+                          Pango::FontDescription{_pCtConfig->vteFont}.gobj());
+#endif // HAVE_VTE
+}
+
 void CtMainWin::exec_in_vte(const std::string& shell_cmd)
 {
     show_hide_vte(true/*visible*/);

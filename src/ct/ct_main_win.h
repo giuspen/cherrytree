@@ -136,7 +136,6 @@ public:
     CtActions*                        get_ct_actions()  { return _uCtActions.get(); }
     CtTmp*                            get_ct_tmp()      { return _pCtTmp; }
     Gtk::IconTheme*                   get_icon_theme()  { return _pGtkIconTheme; }
-    Gtk::Widget*                      get_vte()         { return _pVte; }
     CtStateMachine&                   get_state_machine() { return _ctStateMachine; }
     Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
@@ -195,8 +194,12 @@ public:
     void show_hide_tree_lines(bool visible) { _uCtTreeview->set_enable_tree_lines(visible); }
     void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
-    void show_hide_vte(bool visible);
-    void exec_in_vte(const std::string& shell_cmd);
+
+    Gtk::Widget* get_vte()         { return _pVte; }
+    void         show_hide_vte(bool visible);
+    void         exec_in_vte(const std::string& shell_cmd);
+    void         update_vte_settings();
+
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }

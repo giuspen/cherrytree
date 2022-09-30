@@ -100,6 +100,9 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     Gtk::Image* image_ms = _pCtMainWin->new_managed_image_from_stock("ct_fmt-txt-monospace", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_pt = _pCtMainWin->new_managed_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_code = _pCtMainWin->new_managed_image_from_stock("ct_code", Gtk::ICON_SIZE_MENU);
+#if defined(HAVE_VTE)
+    Gtk::Image* image_vte = _pCtMainWin->new_managed_image_from_stock("ct_term", Gtk::ICON_SIZE_MENU);
+#endif // HAVE_VTE
     Gtk::Image* image_tree = _pCtMainWin->new_managed_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
     auto label_rt = Gtk::manage(new Gtk::Label{_("Rich Text")});
     label_rt->set_halign(Gtk::Align::ALIGN_END);
@@ -110,6 +113,10 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     label_pt->set_halign(Gtk::Align::ALIGN_END);
     auto label_code = Gtk::manage(new Gtk::Label{_("Code Font")});
     label_code->set_halign(Gtk::Align::ALIGN_END);
+#if defined(HAVE_VTE)
+    auto label_vte = Gtk::manage(new Gtk::Label{_("Terminal Font")});
+    label_vte->set_halign(Gtk::Align::ALIGN_END);
+#endif // HAVE_VTE
     auto label_tree = Gtk::manage(new Gtk::Label{_("Tree Font")});
     label_tree->set_halign(Gtk::Align::ALIGN_END);
     auto fontbutton_rt = Gtk::manage(new Gtk::FontButton{_pConfig->rtFont});
@@ -117,6 +124,9 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     fontbutton_ms->set_sensitive(_pConfig->msDedicatedFont);
     auto fontbutton_pt = Gtk::manage(new Gtk::FontButton{_pConfig->ptFont});
     auto fontbutton_code = Gtk::manage(new Gtk::FontButton{_pConfig->codeFont});
+#if defined(HAVE_VTE)
+    auto fontbutton_vte = Gtk::manage(new Gtk::FontButton{_pConfig->vteFont});
+#endif // HAVE_VTE
     auto fontbutton_tree = Gtk::manage(new Gtk::FontButton{_pConfig->treeFont});
     auto button_reset_rt = Gtk::manage(new Gtk::Button{});
     button_reset_rt->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
@@ -130,6 +140,11 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     auto button_reset_code = Gtk::manage(new Gtk::Button{});
     button_reset_code->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_code->set_tooltip_text(_("Reset to Default"));
+#if defined(HAVE_VTE)
+    auto button_reset_vte = Gtk::manage(new Gtk::Button{});
+    button_reset_vte->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_vte->set_tooltip_text(_("Reset to Default"));
+#endif // HAVE_VTE
     auto button_reset_ms = Gtk::manage(new Gtk::Button{});
     button_reset_ms->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_ms->set_tooltip_text(_("Reset to Default"));
@@ -143,21 +158,33 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     grid_fonts->attach(*image_pt,          0, 2, 1, 1);
     grid_fonts->attach(*image_code,        0, 3, 1, 1);
     grid_fonts->attach(*image_tree,        0, 4, 1, 1);
+#if defined(HAVE_VTE)
+    grid_fonts->attach(*image_vte,         0, 5, 1, 1);
+#endif // HAVE_VTE
     grid_fonts->attach(*label_rt,          1, 0, 1, 1);
     grid_fonts->attach(*checkbutton_ms,    1, 1, 1, 1);
     grid_fonts->attach(*label_pt,          1, 2, 1, 1);
     grid_fonts->attach(*label_code,        1, 3, 1, 1);
     grid_fonts->attach(*label_tree,        1, 4, 1, 1);
+#if defined(HAVE_VTE)
+    grid_fonts->attach(*label_vte,         1, 5, 1, 1);
+#endif // HAVE_VTE
     grid_fonts->attach(*fontbutton_rt,     2, 0, 1, 1);
     grid_fonts->attach(*fontbutton_ms,     2, 1, 1, 1);
     grid_fonts->attach(*fontbutton_pt,     2, 2, 1, 1);
     grid_fonts->attach(*fontbutton_code,   2, 3, 1, 1);
     grid_fonts->attach(*fontbutton_tree,   2, 4, 1, 1);
+#if defined(HAVE_VTE)
+    grid_fonts->attach(*fontbutton_vte,    2, 5, 1, 1);
+#endif // HAVE_VTE
     grid_fonts->attach(*button_reset_rt,   3, 0, 1, 1);
     grid_fonts->attach(*button_reset_ms,   3, 1, 1, 1);
     grid_fonts->attach(*button_reset_pt,   3, 2, 1, 1);
     grid_fonts->attach(*button_reset_code, 3, 3, 1, 1);
     grid_fonts->attach(*button_reset_tree, 3, 4, 1, 1);
+#if defined(HAVE_VTE)
+    grid_fonts->attach(*button_reset_vte,  3, 5, 1, 1);
+#endif // HAVE_VTE
     Gtk::Frame* frame_fonts = new_managed_frame_with_align(_("Fonts"), grid_fonts);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
@@ -197,6 +224,13 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     };
     fontbutton_code->signal_font_set().connect(f_on_font_code_set);
+#if defined(HAVE_VTE)
+    auto f_on_font_vte_set = [this, fontbutton_vte](){
+        _pConfig->vteFont = fontbutton_vte->get_font_name();
+        apply_for_each_window([](CtMainWin* win) { win->update_vte_settings(); });
+    };
+    fontbutton_vte->signal_font_set().connect(f_on_font_vte_set);
+#endif // HAVE_VTE
     auto f_on_font_tree_set = [this, fontbutton_tree](){
         _pConfig->treeFont = fontbutton_tree->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
@@ -218,6 +252,12 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
         fontbutton_code->set_font_name(CtConst::FONT_CODE_DEFAULT);
         f_on_font_code_set();
     });
+#if defined(HAVE_VTE)
+    button_reset_vte->signal_clicked().connect([fontbutton_vte, f_on_font_vte_set](){
+        fontbutton_vte->set_font_name(CtConst::FONT_VTE_DEFAULT);
+        f_on_font_vte_set();
+    });
+#endif // HAVE_VTE
     button_reset_ms->signal_clicked().connect([fontbutton_ms, f_on_font_ms_set](){
         fontbutton_ms->set_font_name(CtConst::FONT_MS_DEFAULT);
         f_on_font_ms_set();

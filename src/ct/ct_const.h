@@ -68,6 +68,7 @@ const inline static gchar* FONT_RT_DEFAULT          {"Sans 11"};
 const inline static gchar* FONT_PT_DEFAULT          {"Sans 11"};
 const inline static gchar* FONT_TREE_DEFAULT        {"Sans 10"};
 const inline static gchar* FONT_CODE_DEFAULT        {"Monospace 11"};
+const inline static gchar* FONT_VTE_DEFAULT         {"Monospace 10"};
 const inline static gchar* FONT_MS_DEFAULT          {"Monospace 11"};
 
 const inline static Glib::ustring SPECIAL_CHARS_DEFAULT {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
