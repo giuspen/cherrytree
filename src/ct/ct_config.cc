@@ -206,6 +206,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "win_size_h", winRect[3]);
     _uKeyFile->set_integer(_currentGroup, "hpaned_pos", hpanedPos);
     _uKeyFile->set_boolean(_currentGroup, "tree_visible", treeVisible);
+    _uKeyFile->set_boolean(_currentGroup, "vte_visible", vteVisible);
     _uKeyFile->set_boolean(_currentGroup, "menubar_visible", menubarVisible);
     _uKeyFile->set_string(_currentGroup, "pick_dir_import", pickDirImport);
     _uKeyFile->set_string(_currentGroup, "pick_dir_export", pickDirExport);
@@ -266,6 +267,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "wrapping_indent", wrappingIndent);
     _uKeyFile->set_boolean(_currentGroup, "auto_indent", autoIndent);
     _uKeyFile->set_boolean(_currentGroup, "codexec_confirm", codeExecConfirm);
+    _uKeyFile->set_boolean(_currentGroup, "codexec_vte", codeExecVte);
     _uKeyFile->set_boolean(_currentGroup, "rt_show_white_spaces", rtShowWhiteSpaces);
     _uKeyFile->set_boolean(_currentGroup, "pt_show_white_spaces", ptShowWhiteSpaces);
     _uKeyFile->set_boolean(_currentGroup, "rt_highl_curr_line", rtHighlCurrLine);
@@ -441,6 +443,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("win_size_h", &winRect[3]);
     _populate_int_from_keyfile("hpaned_pos", &hpanedPos);
     _populate_bool_from_keyfile("tree_visible", &treeVisible);
+    _populate_bool_from_keyfile("vte_visible", &vteVisible);
     _populate_bool_from_keyfile("menubar_visible", &menubarVisible);
     if (savedFromPyGtk) {
         CtRecentDocRestore recentDocRestore;
@@ -549,6 +552,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("wrapping_indent", &wrappingIndent);
     _populate_bool_from_keyfile("auto_indent", &autoIndent);
     _populate_bool_from_keyfile("codexec_confirm", &codeExecConfirm);
+    _populate_bool_from_keyfile("codexec_vte", &codeExecVte);
     _populate_bool_from_keyfile("rt_show_white_spaces", &rtShowWhiteSpaces);
     _populate_bool_from_keyfile("pt_show_white_spaces", &ptShowWhiteSpaces);
     _populate_bool_from_keyfile("rt_highl_curr_line", &rtHighlCurrLine);

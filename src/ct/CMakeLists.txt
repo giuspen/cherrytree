@@ -48,6 +48,7 @@ set(CT_SHARED_FILES
   ct_main_win_buffer.cc
   ct_main_win_events.cc
   ct_main_win_file.cc
+  ct_main_win_vte.cc
   ct_menu.cc
   ct_menu_actions.cc
   ct_menu_ui.cc
@@ -103,6 +104,11 @@ if(USE_SHARED_FMT_SPDLOG)
 else()
   target_link_libraries(cherrytree_shared
     spdlog::spdlog
+  )
+endif()
+if(USE_VTE)
+  target_link_libraries(cherrytree_shared
+    ${VTE_LIBRARIES}
   )
 endif()
 

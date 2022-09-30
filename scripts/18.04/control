@@ -15,6 +15,7 @@ Build-Depends:
  libcurl4-openssl-dev,
  libuchardet-dev,
  libfribidi-dev,
+ libvte-2.91-dev
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.net/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
@@ -31,6 +32,7 @@ Depends:
  libcurl4,
  libuchardet0,
  libfribidi0,
+ libvte-2.91-0,
  ${misc:Depends},
  ${shlibs:Depends}
 Recommends:

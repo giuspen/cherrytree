@@ -413,9 +413,17 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win)
     Gtk::CheckButton checkbutton_code_exec_confirm{_("Ask Confirmation Before Executing the Code")};
     checkbutton_code_exec_confirm.set_active(ct_main_win.get_ct_config()->codeExecConfirm);
     checkbutton_code_exec_confirm.set_can_focus(false);
+#if defined(HAVE_VTE)
+    Gtk::CheckButton checkbutton_code_exec_vte{_("Use Internal Virtual Terminal Emulator")};
+    checkbutton_code_exec_vte.set_active(ct_main_win.get_ct_config()->codeExecVte);
+    checkbutton_code_exec_vte.set_can_focus(false);
+#endif // HAVE_VTE
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(hbox);
     pContentArea->pack_start(checkbutton_code_exec_confirm);
+#if defined(HAVE_VTE)
+    pContentArea->pack_start(checkbutton_code_exec_vte);
+#endif // HAVE_VTE
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
             Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
@@ -435,6 +443,11 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win)
     checkbutton_code_exec_confirm.signal_toggled().connect([&](){
         ct_main_win.get_ct_config()->codeExecConfirm = checkbutton_code_exec_confirm.get_active();
     });
+#if defined(HAVE_VTE)
+    checkbutton_code_exec_vte.signal_toggled().connect([&](){
+        ct_main_win.get_ct_config()->codeExecVte = checkbutton_code_exec_vte.get_active();
+    });
+#endif // HAVE_VTE
     pContentArea->show_all();
     const int response = dialog.run();
     dialog.hide();

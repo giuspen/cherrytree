@@ -140,6 +140,7 @@ void CtActions::preferences_import()
     _pCtConfig->treeLinesVisible = ctConfigImported.treeLinesVisible;
     _pCtConfig->hpanedPos = ctConfigImported.hpanedPos;
     _pCtConfig->treeVisible = ctConfigImported.treeVisible;
+    _pCtConfig->vteVisible = ctConfigImported.vteVisible;
     _pCtConfig->menubarVisible = ctConfigImported.menubarVisible;
     _pCtConfig->linkType = ctConfigImported.linkType;
     _pCtConfig->menubarInTitlebar = ctConfigImported.menubarInTitlebar;
@@ -185,6 +186,7 @@ void CtActions::preferences_import()
     _pCtConfig->wrappingIndent = ctConfigImported.wrappingIndent;
     _pCtConfig->autoIndent = ctConfigImported.autoIndent;
     _pCtConfig->codeExecConfirm = ctConfigImported.codeExecConfirm;
+    _pCtConfig->codeExecVte = ctConfigImported.codeExecVte;
     _pCtConfig->rtShowWhiteSpaces = ctConfigImported.rtShowWhiteSpaces;
     _pCtConfig->ptShowWhiteSpaces = ctConfigImported.ptShowWhiteSpaces;
     _pCtConfig->rtHighlCurrLine = ctConfigImported.rtHighlCurrLine;

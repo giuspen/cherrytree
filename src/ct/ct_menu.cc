@@ -282,7 +282,7 @@ void CtMenu::_walk_menu_xml(Gtk::MenuShell* pMenuShell, xmlpp::Node* pNode)
         }
         else if (pNodeIter->get_name() == "menuitem") {
             CtMenuAction* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
-            _add_menu_item(pMenuShell, pAction);
+            if (pAction) _add_menu_item(pMenuShell, pAction);
         }
         else if (pNodeIter->get_name() == "separator") {
             _add_menu_separator(pMenuShell);

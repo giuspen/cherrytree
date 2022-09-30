@@ -290,6 +290,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='toggle_show_toolbar'/>
     <menuitem action='toggle_show_statusbar'/>
     <menuitem action='toggle_show_node_name_head'/>
+    <menuitem action='toggle_show_vte'/>
     <separator/>
     <menuitem action='menubar_in_titlebar'/>
     <separator/>

@@ -26,7 +26,19 @@
 #include <gtkmm/stock.h>
 #include "ct_dialogs.h"
 
-// Toggle Show/Hide the Tree
+void CtActions::toggle_show_hide_vte()
+{
+    _pCtConfig->vteVisible = not _pCtConfig->vteVisible;
+    _pCtMainWin->show_hide_vte(_pCtConfig->vteVisible);
+    if (_pCtConfig->vteVisible) {
+        Gtk::Widget* pVte = _pCtMainWin->get_vte();
+        if (pVte) pVte->grab_focus();
+    }
+    else {
+        _pCtMainWin->get_tree_view().grab_focus();
+    }
+}
+
 void CtActions::toggle_show_hide_tree()
 {
     _pCtConfig->treeVisible = not _pCtConfig->treeVisible;

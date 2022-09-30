@@ -61,6 +61,7 @@ public:
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};
     bool                                        treeVisible{true};
+    bool                                        vteVisible{false};
     bool                                        menubarVisible{true};
     CtRecentDocsFilepaths                       recentDocsFilepaths;
     std::string                                 pickDirImport;
@@ -118,6 +119,7 @@ public:
     int                                         wrappingIndent{-14};
     bool                                        autoIndent{true};
     bool                                        codeExecConfirm{true};
+    bool                                        codeExecVte{true};
     bool                                        rtShowWhiteSpaces{false};
     bool                                        ptShowWhiteSpaces{true};
     bool                                        rtHighlCurrLine{true};

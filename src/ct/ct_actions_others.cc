@@ -499,7 +499,8 @@ void CtActions::exec_code()
     if (proof.codebox) {
         code_type = proof.syntax_highl;
         code_val = proof.codebox->get_text_content();
-    } else {
+    }
+    else {
         if (_pCtMainWin->curr_tree_iter().get_node_is_rich_text()) {
             CtDialogs::warning_dialog(_("No CodeBox is Selected"), *_pCtMainWin);
             return;
@@ -519,26 +520,45 @@ void CtActions::exec_code()
     fs::path filepath_bin_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code.exe");
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp.string());
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
-    Glib::ustring terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
 
     if (_pCtConfig->codeExecConfirm and not CtDialogs::exec_code_confirm_dialog(*_pCtMainWin)) {
         return;
     }
 
-#ifndef _WIN32
-    static bool xterm_verified{false};
-    if (not xterm_verified and str::startswith(terminal_cmd, "xterm ")) {
-        const int status = std::system("xterm -version");
-        if (WEXITSTATUS(status) != 0) {
-            CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
-            return;
+#if !defined(HAVE_VTE)
+    if (_pCtConfig->codeExecVte) {
+        _pCtConfig->codeExecVte = false;
+    }
+#endif // !HAVE_VTE
+
+    Glib::ustring terminal_cmd;
+    if (not _pCtConfig->codeExecVte) {
+        terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
+    }
+
+#if !defined(_WIN32)
+    if (not _pCtConfig->codeExecVte) {
+        static bool xterm_verified{false};
+        if (not xterm_verified and str::startswith(terminal_cmd, "xterm ")) {
+            const int status = std::system("xterm -version");
+            if (WEXITSTATUS(status) != 0) {
+                CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
+                return;
+            }
+            xterm_verified = true;
         }
-        xterm_verified = true;
     }
 #endif // !_WIN32
 
     g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
-    (void)std::system(terminal_cmd.c_str());
+
+    if (_pCtConfig->codeExecVte) {
+        binary_cmd += "\n";
+        _pCtMainWin->exec_in_vte(binary_cmd);
+    }
+    else {
+        (void)std::system(terminal_cmd.c_str());
+    }
 }
 
 // Load the CodeBox Content From a Text Fil

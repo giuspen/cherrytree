@@ -43,7 +43,10 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     auto checkbutton_code_exec_confirm = Gtk::manage(new Gtk::CheckButton{_("Ask Confirmation Before Executing the Code")});
     checkbutton_code_exec_confirm->set_active(_pConfig->codeExecConfirm);
-
+#if defined(HAVE_VTE)
+    auto checkbutton_code_exec_vte = Gtk::manage(new Gtk::CheckButton{_("Use Internal Virtual Terminal Emulator")});
+    checkbutton_code_exec_vte->set_active(_pConfig->codeExecVte);
+#endif // HAVE_VTE
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
     _fill_custom_exec_commands_model(liststore);
     auto treeview = Gtk::manage(new Gtk::TreeView{liststore});
@@ -94,6 +97,9 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     auto label = Gtk::manage(new Gtk::Label{Glib::ustring{"<b>"}+_("Command per Node/CodeBox Type")+"</b>"});
     label->set_use_markup(true);
     vbox_codexec->pack_start(*checkbutton_code_exec_confirm, false, false);
+#if defined(HAVE_VTE)
+    vbox_codexec->pack_start(*checkbutton_code_exec_vte, false, false);
+#endif // HAVE_VTE
     vbox_codexec->pack_start(*label, false, false);
     vbox_codexec->pack_start(*hbox_cmd_per_type, true, true);
     auto label2 = Gtk::manage(new Gtk::Label{Glib::ustring{"<b>"}+_("Terminal Command")+"</b>"});
@@ -128,6 +134,11 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     checkbutton_code_exec_confirm->signal_toggled().connect([this, checkbutton_code_exec_confirm](){
         _pConfig->codeExecConfirm = checkbutton_code_exec_confirm->get_active();
     });
+#if defined(HAVE_VTE)
+    checkbutton_code_exec_vte->signal_toggled().connect([this, checkbutton_code_exec_vte](){
+        _pConfig->codeExecVte = checkbutton_code_exec_vte->get_active();
+    });
+#endif // HAVE_VTE
     Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);
     pCellRendererText->signal_edited().connect([this, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
         auto row = liststore->get_iter(path);

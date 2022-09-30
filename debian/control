@@ -15,6 +15,7 @@ Build-Depends:
  libcurl4-openssl-dev,
  libuchardet-dev,
  libfribidi-dev,
+ libvte-2.91-dev,
  libfmt-dev,
  libspdlog-dev
 Standards-Version: 3.9.5
@@ -33,6 +34,7 @@ Depends:
  libcurl4,
  libuchardet0,
  libfribidi0,
+ libvte-2.91-0,
  libspdlog1,
  ${misc:Depends},
  ${shlibs:Depends}

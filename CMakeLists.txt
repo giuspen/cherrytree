@@ -26,6 +26,11 @@ endif()
 
 option(USE_NLS "Add locales support" ON)
 option(USE_SHARED_FMT_SPDLOG "Use shared fmt and spdlog (not those bundled)" ON)
+if(WIN32)
+  option(USE_VTE "Add virtual terminal support" OFF)
+else()
+  option(USE_VTE "Add virtual terminal support" ON)
+endif()
 
 # used to install locale, packagers might overwrite this
 if(USE_NLS)
@@ -54,10 +59,14 @@ set(CPACK_CREATE_DESKTOP_LINKS ${CPACK_PACKAGE_CONTACT})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_CONTACT})
 set(CPACK_STRIP_FILES TRUE)
 
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libcurl4, libuchardet0, libfribidi0")
 if(USE_SHARED_FMT_SPDLOG)
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0, libfribidi0, libspdlog1")
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libgspell-1-2, libspdlog1")
 else()
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-1, libcurl4, libuchardet0, libfribidi0")
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libgspell-1-1")
+endif()
+if(USE_VTE)
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libvte-2.91-0")
 endif()
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.net/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
@@ -74,6 +83,9 @@ endif()
 add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
 if(USE_NLS)
   add_definitions(-DHAVE_NLS)
+endif()
+if(USE_VTE)
+  add_definitions(-DHAVE_VTE)
 endif()
 
 # temporarily disable these warnings: Only <gtksourceview/gtksource.h> can be included directly.
@@ -136,6 +148,9 @@ else()
   message("Using fmt, spdlog from: BUNDLED SRC")
   add_subdirectory(src/spdlog)
 endif()
+if(USE_VTE)
+  pkg_check_modules(VTE vte-2.91 REQUIRED)
+endif()
 
 add_subdirectory(src/7za)
 
@@ -163,6 +178,11 @@ if(USE_SHARED_FMT_SPDLOG)
 else()
   include_directories(
     src/spdlog/include
+  )
+endif()
+if(USE_VTE)
+  include_directories(
+    SYSTEM ${VTE_INCLUDE_DIRS}
   )
 endif()
 

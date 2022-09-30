@@ -306,6 +306,10 @@ void CtMenu::init_actions(CtActions* pActions)
     const char* view_cat = _("View");
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree Explorer"), "F9",
         _("Toggle Show/Hide Tree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree)});
+#if defined(HAVE_VTE)
+    _actions.push_back(CtMenuAction{view_cat, "toggle_show_vte", "ct_term", _("Show/Hide Te_rminal"), KB_CONTROL+"F9",
+        _("Toggle Show/Hide Terminal"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_vte)});
+#endif // HAVE_VTE
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_menubar", "ct_menubar", _("Show/Hide _Menubar"), "F12",
         _("Toggle Show/Hide Menubar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_menubar)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_toolbar", "ct_toolbar", _("Show/Hide Tool_bar"), None,

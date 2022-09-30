@@ -136,6 +136,7 @@ public:
     CtActions*                        get_ct_actions()  { return _uCtActions.get(); }
     CtTmp*                            get_ct_tmp()      { return _pCtTmp; }
     Gtk::IconTheme*                   get_icon_theme()  { return _pGtkIconTheme; }
+    Gtk::Widget*                      get_vte()         { return _pVte; }
     CtStateMachine&                   get_state_machine() { return _ctStateMachine; }
     Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
@@ -194,6 +195,8 @@ public:
     void show_hide_tree_lines(bool visible) { _uCtTreeview->set_enable_tree_lines(visible); }
     void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
+    void show_hide_vte(bool visible);
+    void exec_in_vte(const std::string& shell_cmd);
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
@@ -251,6 +254,7 @@ private:
     const bool                   _no_gui;
     CtConfig*                    _pCtConfig;
     CtTmp*                       _pCtTmp;
+    Gtk::Widget*                 _pVte{nullptr};
     Gtk::IconTheme*              _pGtkIconTheme;
     Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
@@ -266,6 +270,7 @@ private:
     Gtk::VBox                    _vboxMain;
     Gtk::VBox                    _vboxText;
     Gtk::HPaned                  _hPaned;
+    Gtk::VPaned                  _vPaned;
     Gtk::HeaderBar*              _pHeaderBar{nullptr};
     Gtk::MenuBar*                _pMenuBar{nullptr};
     Gtk::ScrolledWindow*         _pScrolledWindowMenuBar{nullptr};
@@ -277,6 +282,7 @@ private:
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
+    Gtk::ScrolledWindow          _scrolledwindowVte;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
     std::unique_ptr<CtTreeView>  _uCtTreeview;
     CtTextView                   _ctTextview;

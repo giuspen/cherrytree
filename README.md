@@ -61,7 +61,7 @@ This works on any operating system that supports Docker.
 
 Install dependencies:
 ```sh
-sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libfmt-dev libspdlog-dev texlive-latex-base dvipng
+sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev texlive-latex-base dvipng
 ```
 Note: On Debian10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead
 Get cherrytree source, compile and run:
@@ -74,7 +74,7 @@ git submodule update --init
 ```
 Install documentation:
 ```sh
-sudo apt install devhelp libgtkmm-3.0-doc libgtksourceviewmm-3.0-doc libglibmm-2.4-doc libpangomm-1.4-doc libxml++2.6-doc libgspell-1-doc
+sudo apt install devhelp libgtkmm-3.0-doc libgtksourceviewmm-3.0-doc libglibmm-2.4-doc libpangomm-1.4-doc libxml++2.6-doc libgspell-1-doc libvte-2.91-doc
 ```
 devhelp
 ```sh
@@ -173,7 +173,7 @@ brew install cherrytree
 
 If for any reason you prefer to build it yourself, install dependencies:
 ```sh
-brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet fribidi curl
+brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet fribidi curl vte3
 brew link icu4c --force
 brew install --cask basictex
 sudo tlmgr update --self
