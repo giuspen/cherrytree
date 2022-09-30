@@ -60,7 +60,6 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _scrolledwindowTree.get_style_context()->add_class("ct-tree-scroll-panel");
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.add(_ctTextview);
-    _scrolledwindowVte.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
     _vboxText.pack_start(_init_window_header(), false, false);
     _vboxText.pack_start(_scrolledwindowText);
     if (_pCtConfig->treeRightSide) {
@@ -73,7 +72,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     }
     _hPaned.property_wide_handle() = true;
     _vPaned.pack1(_hPaned, Gtk::EXPAND);
-    _vPaned.pack2(_scrolledwindowVte, Gtk::FILL);
+    _vPaned.pack2(_hBoxVte, Gtk::FILL);
     _vPaned.property_wide_handle() = true;
 
     _pMenuBar = _uCtMenu->build_menubar();

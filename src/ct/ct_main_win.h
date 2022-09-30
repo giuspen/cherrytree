@@ -272,6 +272,7 @@ private:
 
     Gtk::VBox                    _vboxMain;
     Gtk::VBox                    _vboxText;
+    Gtk::HBox                    _hBoxVte;
     Gtk::HPaned                  _hPaned;
     Gtk::VPaned                  _vPaned;
     Gtk::HeaderBar*              _pHeaderBar{nullptr};
@@ -285,7 +286,6 @@ private:
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
-    Gtk::ScrolledWindow          _scrolledwindowVte;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
     std::unique_ptr<CtTreeView>  _uCtTreeview;
     CtTextView                   _ctTextview;

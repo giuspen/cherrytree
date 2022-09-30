@@ -52,6 +52,7 @@ void CtMainWin::show_hide_vte(bool visible)
         GtkWidget* pTermWidget = vte_terminal_new();
         _pVte = Gtk::manage(Glib::wrap(pTermWidget));
         vte_terminal_set_scrollback_lines(VTE_TERMINAL(pTermWidget), -1/*infinite*/);
+        update_vte_settings();
 
         char* startterm[2] = {(char*)"/bin/sh", 0};
         vte_terminal_spawn_async(VTE_TERMINAL(pTermWidget),
@@ -68,11 +69,18 @@ void CtMainWin::show_hide_vte(bool visible)
                                  &_vteTerminalSpawnAsyncCallback,
                                  NULL/*user_data*/);
 
-        _scrolledwindowVte.add(*_pVte);
+        _hBoxVte.pack_start(*_pVte);
+        if (GTK_IS_SCROLLABLE(pTermWidget)) {
+            GtkWidget* pScrollbar = gtk_scrollbar_new(GTK_ORIENTATION_VERTICAL,
+                    gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(pTermWidget)));
+            Gtk::Widget* pGtkmmScrollbar = Gtk::manage(Glib::wrap(pScrollbar));
+            _hBoxVte.pack_start(*pGtkmmScrollbar, false, false);
+            pGtkmmScrollbar->show();
+        }
         _pVte->show();
     }
 #endif // HAVE_VTE
-    _scrolledwindowVte.property_visible() = visible;
+    _hBoxVte.property_visible() = visible;
 }
 
 void CtMainWin::update_vte_settings()
