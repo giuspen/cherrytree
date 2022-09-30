@@ -54,20 +54,24 @@ void CtMainWin::show_hide_vte(bool visible)
         vte_terminal_set_scrollback_lines(VTE_TERMINAL(pTermWidget), -1/*infinite*/);
         update_vte_settings();
 
-        char* startterm[2] = {(char*)"/bin/sh", 0};
-        vte_terminal_spawn_async(VTE_TERMINAL(pTermWidget),
-                                 VTE_PTY_DEFAULT,
-                                 NULL/*working_directory*/,
-                                 startterm/*argv*/,
-                                 NULL/*envv*/,
-                                 G_SPAWN_DEFAULT/*spawn_flags_*/,
-                                 NULL/*child_setup*/,
-                                 NULL/*child_setup_data*/,
-                                 NULL/*child_setup_data_destroy*/,
-                                 -1/*timeout*/,
-                                 NULL/*cancellable*/,
-                                 &_vteTerminalSpawnAsyncCallback,
-                                 NULL/*user_data*/);
+        {
+            g_autofree gchar* user_shell = vte_get_user_shell();
+            char* startterm[2] = {0, 0};
+            startterm[0] = user_shell ? user_shell : (char*)"/bin/sh";
+            vte_terminal_spawn_async(VTE_TERMINAL(pTermWidget),
+                                     VTE_PTY_DEFAULT,
+                                     NULL/*working_directory*/,
+                                     startterm/*argv*/,
+                                     NULL/*envv*/,
+                                     G_SPAWN_DEFAULT/*spawn_flags_*/,
+                                     NULL/*child_setup*/,
+                                     NULL/*child_setup_data*/,
+                                     NULL/*child_setup_data_destroy*/,
+                                     -1/*timeout*/,
+                                     NULL/*cancellable*/,
+                                     &_vteTerminalSpawnAsyncCallback,
+                                     NULL/*user_data*/);
+        }
 
         auto button_copy = Gtk::manage(new Gtk::Button{});
         button_copy->set_image(*new_managed_image_from_stock("ct_edit_copy", Gtk::ICON_SIZE_MENU));
