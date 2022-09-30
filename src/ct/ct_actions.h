@@ -392,6 +392,7 @@ private:
                              Gtk::TextIter insert_iter,
                              Gtk::TextIter* iter_bound);
     bool _on_embfiles_sentinel_timeout();
+    void _exec_code(const bool is_all);
 
 public:
     // others actions
@@ -432,7 +433,8 @@ public:
     void codebox_delete();
     void codebox_delete_keeping_text();
     void codebox_change_properties();
-    void exec_code();
+    void exec_code_all() { _exec_code(true/*is_all*/); }
+    void exec_code_line_or_selection() { _exec_code(false/*is_all*/); }
     void codebox_load_from_file();
     void codebox_save_to_file();
     void codebox_increase_width();

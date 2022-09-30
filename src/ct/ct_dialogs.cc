@@ -392,7 +392,9 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
     return CtYesNoCancel::Cancel;
 }
 
-bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win)
+bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
+                                         const std::string& syntax_highl,
+                                         const Glib::ustring& code_txt)
 {
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
                                      ct_main_win,
@@ -403,13 +405,22 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win)
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Image image;
-    image.set_from_icon_name("ct_warning", Gtk::ICON_SIZE_DIALOG);
-    Gtk::Label label(Glib::ustring{"<b>"}+_("Do you want to Execute the Code?")+"</b>");
+    image.set_from_icon_name(ct_main_win.get_code_icon_name(syntax_highl), Gtk::ICON_SIZE_DIALOG);
+    image.set_tooltip_text(syntax_highl);
+    Gtk::Label label{Glib::ustring{"<b>"}+_("Do you want to Execute the Code?")+"</b>"};
     label.set_use_markup(true);
+    Gtk::Label label_separator{" "};
     Gtk::HBox hbox;
     hbox.pack_start(image);
     hbox.pack_start(label);
     hbox.set_spacing(5);
+    Gtk::Label code_preview;
+    if (code_txt.size() < 200) {
+        code_preview.set_markup(Glib::ustring{"<tt>"} + code_txt + "</tt>");
+    }
+    else {
+        code_preview.set_markup(Glib::ustring{"<tt>"} + code_txt.substr(0, 200) + " ...</tt>");
+    }
     Gtk::CheckButton checkbutton_code_exec_confirm{_("Ask Confirmation Before Executing the Code")};
     checkbutton_code_exec_confirm.set_active(ct_main_win.get_ct_config()->codeExecConfirm);
     checkbutton_code_exec_confirm.set_can_focus(false);
@@ -420,6 +431,8 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win)
 #endif // HAVE_VTE
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(hbox);
+    pContentArea->pack_start(code_preview);
+    pContentArea->pack_start(label_separator);
     pContentArea->pack_start(checkbutton_code_exec_confirm);
 #if defined(HAVE_VTE)
     pContentArea->pack_start(checkbutton_code_exec_vte);

@@ -30,6 +30,7 @@
 #include <gtkmm/stock.h>
 #include <cstdlib>
 #include "ct_logging.h"
+#include "ct_list.h"
 #ifndef _WIN32
 #include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)
 #endif // !_WIN32
@@ -488,25 +489,36 @@ void CtActions::codebox_change_properties()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
-// Exec Code
-void CtActions::exec_code()
+void CtActions::_exec_code(const bool is_all)
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
 
     std::string code_type;
     Glib::ustring code_val;
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (proof.codebox) {
-        code_type = proof.syntax_highl;
-        code_val = proof.codebox->get_text_content();
+    auto text_buffer = proof.text_view->get_buffer();
+    if (CtConst::PLAIN_TEXT_ID == proof.syntax_highl ||
+        CtConst::RICH_TEXT_ID == proof.syntax_highl ||
+        CtConst::TABLE_CELL_TEXT_ID == proof.syntax_highl)
+    {
+        code_type = "sh";
     }
     else {
-        if (_pCtMainWin->curr_tree_iter().get_node_is_rich_text()) {
-            CtDialogs::warning_dialog(_("No CodeBox is Selected"), *_pCtMainWin);
-            return;
+        code_type = proof.syntax_highl;
+    }
+    if (is_all) {
+        code_val = text_buffer->begin().get_text(text_buffer->end());
+    }
+    else {
+        if (text_buffer->get_has_selection()) {
+            Gtk::TextIter iter_start, iter_end;
+            text_buffer->get_selection_bounds(iter_start, iter_end);
+            code_val = text_buffer->get_text(iter_start, iter_end);
         }
-        code_type = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
-        code_val = _curr_buffer()->begin().get_text(_curr_buffer()->end());
+        else {
+            CtTextRange range = CtList{_pCtMainWin, text_buffer}.get_paragraph_iters();
+            code_val = text_buffer->get_text(range.iter_start, range.iter_end);
+        }
     }
     std::string binary_cmd = CtPrefDlg::get_code_exec_type_cmd(_pCtMainWin, code_type);
     if (binary_cmd.empty()) {
@@ -521,7 +533,7 @@ void CtActions::exec_code()
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp.string());
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
 
-    if (_pCtConfig->codeExecConfirm and not CtDialogs::exec_code_confirm_dialog(*_pCtMainWin)) {
+    if (_pCtConfig->codeExecConfirm and not CtDialogs::exec_code_confirm_dialog(*_pCtMainWin, code_type, code_val)) {
         return;
     }
 

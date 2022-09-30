@@ -217,8 +217,10 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Replace Tabs with Spaces"), sigc::mem_fun(*pActions, &CtActions::replace_tabs_with_spaces)});
     _actions.push_back(CtMenuAction{tools_cat, "command_palette", "ct_execute", _("_Command Palette"), KB_CONTROL+KB_SHIFT+"P",
         _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
-    _actions.push_back(CtMenuAction{tools_cat, "exec_code", "ct_play", _("_Execute Code"), "F5",
-        _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
+    _actions.push_back(CtMenuAction{tools_cat, "exec_code_all", "ct_play", _("_Execute Code All"), "F5",
+        _("Execute All Code in CodeBox or Node"), sigc::mem_fun(*pActions, &CtActions::exec_code_all)});
+    _actions.push_back(CtMenuAction{tools_cat, "exec_code_los", "ct_play", _("E_xecute Code Line or Selection"), KB_CONTROL+"F5",
+        _("Execute Code from Current Line or Selected Text"), sigc::mem_fun(*pActions, &CtActions::exec_code_line_or_selection)});
 
     const char* tree_cat = _("Tree");
     _actions.push_back(CtMenuAction{tree_cat, "go_node_prev", "ct_go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT,

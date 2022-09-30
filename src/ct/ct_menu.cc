@@ -201,7 +201,8 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
             _add_menu_item(pMenu, find_action("codebox_increase_height"));
             _add_menu_item(pMenu, find_action("codebox_decrease_height"));
             _add_menu_separator(pMenu);
-            _add_menu_item(pMenu, find_action("exec_code"));
+            _add_menu_item(pMenu, find_action("exec_code_all"));
+            _add_menu_item(pMenu, find_action("exec_code_los"));
             _add_menu_item(pMenu, find_action("strip_trail_spaces"));
             _add_menu_item(pMenu, find_action("repl_tabs_spaces"));
             _add_menu_separator(pMenu);

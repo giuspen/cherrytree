@@ -217,7 +217,8 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='ToolsMenu'>
     <menuitem action='spellcheck_toggle'/>
     <separator/>
-    <menuitem action='exec_code'/>
+    <menuitem action='exec_code_los'/>
+    <menuitem action='exec_code_all'/>
     <menuitem action='strip_trail_spaces'/>
     <menuitem action='repl_tabs_spaces'/>
     <separator/>
@@ -394,6 +395,8 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
       <menuitem action='handle_todo_list'/>
     </menu>
   </menu>
+  <menuitem action='exec_code_los'/>
+  <menuitem action='exec_code_all'/>
   <menuitem action='strip_trail_spaces'/>
   <separator/>
   <menu action='FindSubMenu'>
@@ -420,7 +423,8 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menuitem action='cut_plain'/>
   <menuitem action='copy_plain'/>
   <separator/>
-  <menuitem action='exec_code'/>
+  <menuitem action='exec_code_los'/>
+  <menuitem action='exec_code_all'/>
   <menuitem action='strip_trail_spaces'/>
   <menuitem action='repl_tabs_spaces'/>
   <menu action='InsertSubMenu'>
