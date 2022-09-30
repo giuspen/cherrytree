@@ -69,15 +69,46 @@ void CtMainWin::show_hide_vte(bool visible)
                                  &_vteTerminalSpawnAsyncCallback,
                                  NULL/*user_data*/);
 
+        auto button_copy = Gtk::manage(new Gtk::Button{});
+        button_copy->set_image(*new_managed_image_from_stock("ct_edit_copy", Gtk::ICON_SIZE_MENU));
+        button_copy->set_tooltip_text(_("Copy Selection or All"));
+
+        auto button_paste = Gtk::manage(new Gtk::Button{});
+        button_paste->set_image(*new_managed_image_from_stock("ct_edit_paste", Gtk::ICON_SIZE_MENU));
+        button_paste->set_tooltip_text(_("Paste"));
+
+        auto button_clear = Gtk::manage(new Gtk::Button{});
+        button_clear->set_image(*new_managed_image_from_stock("ct_clear", Gtk::ICON_SIZE_MENU));
+        button_clear->set_tooltip_text(_("Clear All"));
+
+        button_copy->signal_clicked().connect([pTermWidget](){
+            if (not vte_terminal_get_has_selection(VTE_TERMINAL(pTermWidget))) {
+                vte_terminal_select_all(VTE_TERMINAL(pTermWidget));
+            }
+            vte_terminal_copy_clipboard_format(VTE_TERMINAL(pTermWidget), VTE_FORMAT_TEXT);
+        });
+        button_paste->signal_clicked().connect([pTermWidget](){
+            vte_terminal_paste_clipboard(VTE_TERMINAL(pTermWidget));
+        });
+        button_clear->signal_clicked().connect([pTermWidget](){
+            vte_terminal_reset(VTE_TERMINAL(pTermWidget), true/*clear_tabstops*/, true/*clear_history*/);
+            vte_terminal_feed_child(VTE_TERMINAL(pTermWidget), "\n", 1);
+        });
+
+        auto pButtonsBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 0/*spacing*/});
+        pButtonsBox->pack_start(*button_copy, false, false);
+        pButtonsBox->pack_start(*button_paste, false, false);
+        pButtonsBox->pack_start(*button_clear, false, false);
+
+        _hBoxVte.pack_start(*pButtonsBox, false, false);
         _hBoxVte.pack_start(*_pVte);
         if (GTK_IS_SCROLLABLE(pTermWidget)) {
             GtkWidget* pScrollbar = gtk_scrollbar_new(GTK_ORIENTATION_VERTICAL,
                     gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(pTermWidget)));
             Gtk::Widget* pGtkmmScrollbar = Gtk::manage(Glib::wrap(pScrollbar));
             _hBoxVte.pack_start(*pGtkmmScrollbar, false, false);
-            pGtkmmScrollbar->show();
         }
-        _pVte->show();
+        _hBoxVte.show_all();
     }
 #endif // HAVE_VTE
     _hBoxVte.property_visible() = visible;
