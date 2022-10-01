@@ -26,6 +26,9 @@
 #include <vte/vte.h>
 #endif // HAVE_VTE
 
+// The following macro is copied from Geany https://github.com/geany/geany/blob/master/src/vte.c
+static const gchar VTE_ADDITIONAL_WORDCHARS[] = "-,./?%&#:_";
+
 #if defined(HAVE_VTE)
 static void _vteTerminalSpawnAsyncCallback(VteTerminal*/*terminal*/,
                                            GPid pid,
@@ -49,7 +52,7 @@ static void _vteTerminalSpawnAsyncCallback(VteTerminal*/*terminal*/,
 
 void CtMainWin::show_hide_vte(bool visible)
 {
-    if (not _pVte) {
+    if (visible and not _pVte) {
         restart_vte();
     }
     _hBoxVte.property_visible() = visible;
@@ -148,6 +151,7 @@ void CtMainWin::update_vte_settings()
 #if defined(HAVE_VTE)
     vte_terminal_set_scrollback_lines(VTE_TERMINAL(_pVte->gobj()), -1/*infinite*/);
     vte_terminal_set_mouse_autohide(VTE_TERMINAL(_pVte->gobj()), true);
+    vte_terminal_set_word_char_exceptions(VTE_TERMINAL(_pVte->gobj()), VTE_ADDITIONAL_WORDCHARS);
     vte_terminal_set_font(VTE_TERMINAL(_pVte->gobj()),
                           Pango::FontDescription{_pCtConfig->vteFont}.gobj());
 #endif // HAVE_VTE
