@@ -425,7 +425,7 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
     checkbutton_code_exec_confirm.set_active(ct_main_win.get_ct_config()->codeExecConfirm);
     checkbutton_code_exec_confirm.set_can_focus(false);
 #if defined(HAVE_VTE)
-    Gtk::CheckButton checkbutton_code_exec_vte{_("Use Internal Virtual Terminal Emulator")};
+    Gtk::CheckButton checkbutton_code_exec_vte{_("Use Internal Terminal")};
     checkbutton_code_exec_vte.set_active(ct_main_win.get_ct_config()->codeExecVte);
     checkbutton_code_exec_vte.set_can_focus(false);
 #endif // HAVE_VTE

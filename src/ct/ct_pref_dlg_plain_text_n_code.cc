@@ -44,7 +44,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     auto checkbutton_code_exec_confirm = Gtk::manage(new Gtk::CheckButton{_("Ask Confirmation Before Executing the Code")});
     checkbutton_code_exec_confirm->set_active(_pConfig->codeExecConfirm);
 #if defined(HAVE_VTE)
-    auto checkbutton_code_exec_vte = Gtk::manage(new Gtk::CheckButton{_("Use Internal Virtual Terminal Emulator")});
+    auto checkbutton_code_exec_vte = Gtk::manage(new Gtk::CheckButton{_("Use Internal Terminal")});
     checkbutton_code_exec_vte->set_active(_pConfig->codeExecVte);
 #endif // HAVE_VTE
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
