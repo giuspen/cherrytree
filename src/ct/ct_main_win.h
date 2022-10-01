@@ -199,6 +199,7 @@ public:
     void         show_hide_vte(bool visible);
     void         exec_in_vte(const std::string& shell_cmd);
     void         update_vte_settings();
+    void         restart_vte();
 
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
 
@@ -258,6 +259,7 @@ private:
     CtConfig*                    _pCtConfig;
     CtTmp*                       _pCtTmp;
     Gtk::Widget*                 _pVte{nullptr};
+    GPid                         _vtePid{0};
     Gtk::IconTheme*              _pGtkIconTheme;
     Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
