@@ -147,6 +147,7 @@ void CtMainWin::update_vte_settings()
 {
 #if defined(HAVE_VTE)
     vte_terminal_set_scrollback_lines(VTE_TERMINAL(_pVte->gobj()), -1/*infinite*/);
+    vte_terminal_set_mouse_autohide(VTE_TERMINAL(_pVte->gobj()), true);
     vte_terminal_set_font(VTE_TERMINAL(_pVte->gobj()),
                           Pango::FontDescription{_pCtConfig->vteFont}.gobj());
 #endif // HAVE_VTE
