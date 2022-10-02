@@ -136,6 +136,7 @@ void CtMainWin::restart_vte()
     if (GTK_IS_SCROLLABLE(pTermWidget)) {
         GtkWidget* pScrollbar = gtk_scrollbar_new(GTK_ORIENTATION_VERTICAL,
                 gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(pTermWidget)));
+        gtk_widget_set_can_focus(pScrollbar, FALSE);
         Gtk::Widget* pGtkmmScrollbar = Gtk::manage(Glib::wrap(pScrollbar));
         _hBoxVte.pack_start(*pGtkmmScrollbar, false, false);
     }
