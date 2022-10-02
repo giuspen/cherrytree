@@ -213,8 +213,8 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     Gtk::Dialog dialog(_("Choose Storage Type"),
                        *args.pParentWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    Gtk::Button* pButtonOk = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_size(350, -1);
     dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 
@@ -304,8 +304,13 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     };
     auto on_key_press_edit_data_storage_type_dialog = [&](GdkEventKey* pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
-            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
-            pButton->clicked();
+            pButtonOk->grab_focus();
+            pButtonOk->clicked();
+            return true;
+        }
+        if (GDK_KEY_Escape == pEventKey->keyval) {
+            pButtonCancel->grab_focus();
+            pButtonCancel->clicked();
             return true;
         }
         return false;
@@ -343,14 +348,15 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     return retVal;
 }
 
-CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
+CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
 {
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
-                                     parent,
+                                     ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.add_button(Gtk::Stock::DELETE, Gtk::RESPONSE_NO);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-    dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_YES);
+    Gtk::Button* pButtonDiscard = dialog.add_button(Gtk::Stock::DISCARD, Gtk::RESPONSE_NO);
+    pButtonDiscard->set_image(*ct_main_win.new_managed_image_from_stock("ct_clear", Gtk::ICON_SIZE_BUTTON));
+    Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    Gtk::Button* pButtonSave = dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_YES);
     dialog.set_default_response(Gtk::RESPONSE_YES);
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -366,15 +372,13 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
     pContentArea->pack_start(hbox);
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
-            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
-            pButton->grab_focus();
-            pButton->clicked();
+            pButtonSave->grab_focus();
+            pButtonSave->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL));
-            pButton->grab_focus();
-            pButton->clicked();
+            pButtonCancel->grab_focus();
+            pButtonCancel->clicked();
             return true;
         }
         return false;
@@ -399,8 +403,8 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-    dialog.add_button(Gtk::Stock::EXECUTE, Gtk::RESPONSE_YES);
+    Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    Gtk::Button* pButtonExecute = dialog.add_button(Gtk::Stock::EXECUTE, Gtk::RESPONSE_YES);
     dialog.set_default_response(Gtk::RESPONSE_YES);
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -439,15 +443,13 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
 #endif // HAVE_VTE
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
-            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
-            pButton->grab_focus();
-            pButton->clicked();
+            pButtonExecute->grab_focus();
+            pButtonExecute->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL));
-            pButton->grab_focus();
-            pButton->clicked();
+            pButtonCancel->grab_focus();
+            pButtonCancel->clicked();
             return true;
         }
         return false;
@@ -528,7 +530,7 @@ MA 02110-1301, USA.
  _("Spanish")+" (es) UserFav <userfav.post@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
  _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>");
+ _("Ukrainian")+" (uk) Giuseppe Penone <giuspen@gmail.com>");
     dialog.set_logo(icon);
     dialog.set_title(_("About CherryTree"));
 

@@ -275,7 +275,7 @@ bool node_prop_dialog(const Glib::ustring &title,
                       CtNodeData& nodeData,
                       const std::set<Glib::ustring>& tags_set);
 
-CtYesNoCancel exit_save_dialog(Gtk::Window& parent);
+CtYesNoCancel exit_save_dialog(CtMainWin& ct_main_win);
 
 bool exec_code_confirm_dialog(CtMainWin& ct_main_win,
                               const std::string& syntax_highl,
