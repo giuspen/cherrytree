@@ -1,7 +1,7 @@
 /*
  * ct_column_edit.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -43,6 +43,8 @@ public:
     void text_inserted(const Gtk::TextIter& pos, const Glib::ustring& text);
     void text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end);
     void column_mode_off();
+    bool ctrl_down() { return _ctrlDown; }
+    bool alt_down() { return _altDown; }
     bool own_insert_delete_active() { return _myOwnInsertDelete; }
 
 private:

@@ -67,6 +67,12 @@ public:
     void text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
         _columnEdit.text_removed(range_start, range_end);
     }
+    bool ctrl_down() {
+        return _columnEdit.ctrl_down();
+    }
+    bool alt_down() {
+        return _columnEdit.alt_down();
+    }
     bool own_insert_delete_active() {
         return _columnEdit.own_insert_delete_active();
     }
