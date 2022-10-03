@@ -44,8 +44,26 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
                     str += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
                     str += "<property name='icon-name'>" + pAction->image + "</property>";
                     str += "<property name='label'>" + pAction->name + "</property>";
-                    const std::string kb_shortcut = pAction->get_shortcut(_pCtConfig);
-                    const std::string tooltip = kb_shortcut.empty() ? pAction->desc : (pAction->desc + " (" + str::xml_escape(kb_shortcut).c_str() + ")");
+                    std::string kb_shortcut = pAction->get_shortcut(_pCtConfig);
+                    std::string tooltip;
+                    if (kb_shortcut.empty()) {
+                        tooltip = pAction->desc;
+                    }
+                    else {
+                        if (kb_shortcut.find(CtMenu::KB_CONTROL) != std::string::npos) {
+                            kb_shortcut = str::replace(kb_shortcut, CtMenu::KB_CONTROL, "Ctrl+");
+                        }
+                        if (kb_shortcut.find(CtMenu::KB_SHIFT) != std::string::npos) {
+                            kb_shortcut = str::replace(kb_shortcut, CtMenu::KB_SHIFT, "Shift+");
+                        }
+                        if (kb_shortcut.find(CtMenu::KB_ALT) != std::string::npos) {
+                            kb_shortcut = str::replace(kb_shortcut, CtMenu::KB_ALT, "Alt+");
+                        }
+                        if (kb_shortcut.find(CtMenu::KB_META) != std::string::npos) {
+                            kb_shortcut = str::replace(kb_shortcut, CtMenu::KB_META, "Meta+");
+                        }
+                        tooltip = pAction->desc + " (" + str::xml_escape(kb_shortcut).c_str() + ")";
+                    }
                     str += "<property name='tooltip-text'>" + tooltip + "</property>";
                     str += "<property name='visible'>True</property>";
                     str += "<property name='use_underline'>True</property>";
