@@ -40,7 +40,7 @@ msgstr "Файл:  "
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:75
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:267
 msgid "To Folder"
-msgstr "Мұқаба:"
+msgstr "Қалта:"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:90
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:263
@@ -471,7 +471,7 @@ msgid "Insert LatexBox"
 msgstr ""
 "LaTeX\n"
 "\n"
-"LaTeX-математикалық теңдеулерді, формулаларды қолдау"
+"LaTeX - математикалық теңдеулерді, формулаларды қолдау"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:110
 msgid "Insert _Table"
@@ -1054,12 +1054,12 @@ msgstr ""
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:206
 msgid "_Indent Paragraph"
-msgstr "Шегiнiстi үлкейту "
+msgstr "Шегiнiстi үлкейту"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:207
 msgid "Indent the Current Paragraph"
 msgstr ""
-"Indent Paragraph\n"
+"Шегiнiстi үлкейту\n"
 "\n"
 "Бағананың өлкесiнен шегiнiс бiр үлкейтсiн \n"
 "немесе қатарынан жүретiн бiрнеше жолдар."
@@ -1213,7 +1213,7 @@ msgid "Copy the Selected Node and the Subnodes"
 msgstr ""
 "Қыздармен көшіру\n"
 "\n"
-"Көшiрiлiп алынсын және бұтақ бiрге еншiлес үстемелену"
+"Көшiрiлiп алынсын және бұтақ бiрге Қыздармен бірге қою"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:238
 msgid "_Paste Node and Subnodes"
@@ -1427,7 +1427,7 @@ msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr ""
 "Өсу бойымен тарал\n"
 "\n"
-"Өсуi бойымен таңдалған сұрыпталу тарал тарал"
+"Өсуi бойымен таңдалған сұрыпталу тарал"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:277
 msgid "Sort Siblings D_escending"
@@ -1438,7 +1438,7 @@ msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr ""
 "Кему бойымен тарал\n"
 "\n"
-"Кемуi бойымен таңдалған сұрыпталу тарал тарал"
+"Кемуi бойымен таңдалған сұрыпталу тарал"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "De_lete Node"
