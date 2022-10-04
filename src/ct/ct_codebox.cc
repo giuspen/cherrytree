@@ -293,6 +293,23 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
         return false;
     if (event->state & Gdk::CONTROL_MASK) {
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
+        if (not (event->state & Gdk::MOD1_MASK)) {
+            if (event->keyval == GDK_KEY_space) {
+                Gtk::TextIter text_iter = _pCtMainWin->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
+                text_iter.forward_char();
+                _pCtMainWin->get_text_view().get_buffer()->place_cursor(text_iter);
+                _pCtMainWin->get_text_view().grab_focus();
+                return true;
+            }
+            if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
+                _ctTextview.zoom_text(true, get_syntax_highlighting());
+                return true;
+            }
+            if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
+                _ctTextview.zoom_text(false, get_syntax_highlighting());
+                return true;
+            }
+        }
         if (event->keyval == GDK_KEY_parenleft) {
             if (event->state & Gdk::MOD1_MASK)
                 _pCtMainWin->get_ct_actions()->codebox_decrease_width();
@@ -300,26 +317,11 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                 _pCtMainWin->get_ct_actions()->codebox_increase_width();
             return true;
         }
-        else if (event->keyval == GDK_KEY_comma) {
+        if (event->keyval == GDK_KEY_comma) {
             if (event->state & Gdk::MOD1_MASK)
                 _pCtMainWin->get_ct_actions()->codebox_decrease_height();
             else
                 _pCtMainWin->get_ct_actions()->codebox_increase_height();
-            return true;
-        }
-        else if (event->keyval == GDK_KEY_space) {
-            Gtk::TextIter text_iter = _pCtMainWin->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
-            text_iter.forward_char();
-            _pCtMainWin->get_text_view().get_buffer()->place_cursor(text_iter);
-            _pCtMainWin->get_text_view().grab_focus();
-            return true;
-        }
-        if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
-            _ctTextview.zoom_text(true, get_syntax_highlighting());
-            return true;
-        }
-        else if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
-            _ctTextview.zoom_text(false, get_syntax_highlighting());
             return true;
         }
     }

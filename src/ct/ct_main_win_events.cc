@@ -415,19 +415,6 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
         }
     }
-    else if (event->key.state & Gdk::CONTROL_MASK and event->key.keyval == GDK_KEY_space) {
-        if (_try_move_focus_to_anchored_widget_if_on_it()) {
-            return true;
-        }
-        auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
-        CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
-        if (list_info and list_info.type == CtListType::Todo)
-            if (_uCtActions->_is_curr_node_not_read_only_or_error()) {
-                auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
-                CtList(this, curr_buffer).todo_list_rotate_status(iter_start_list);
-                return true;
-            }
-    }
     else if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval) {
         auto iter_insert = curr_buffer->get_insert()->get_iter();
         if (iter_insert)
@@ -488,13 +475,29 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
         }
     }
     else if (event->key.state & Gdk::CONTROL_MASK) {
-        if (event->key.keyval == GDK_KEY_plus || event->key.keyval == GDK_KEY_KP_Add || event->key.keyval == GDK_KEY_equal) {
-            _ctTextview.zoom_text(true, curr_tree_iter().get_node_syntax_highlighting());
-            return true;
-        }
-        else if (event->key.keyval == GDK_KEY_minus|| event->key.keyval == GDK_KEY_KP_Subtract) {
-            _ctTextview.zoom_text(false, curr_tree_iter().get_node_syntax_highlighting());
-            return true;
+        if (not (event->key.state & Gdk::MOD1_MASK)) {
+            if (event->key.keyval == GDK_KEY_space) {
+                if (_try_move_focus_to_anchored_widget_if_on_it()) {
+                    return true;
+                }
+                auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
+                CtListInfo list_info = CtList{this, curr_buffer}.get_paragraph_list_info(iter_insert);
+                if (list_info and list_info.type == CtListType::Todo) {
+                    if (_uCtActions->_is_curr_node_not_read_only_or_error()) {
+                        auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
+                        CtList{this, curr_buffer}.todo_list_rotate_status(iter_start_list);
+                        return true;
+                    }
+                }
+            }
+            if (event->key.keyval == GDK_KEY_plus || event->key.keyval == GDK_KEY_KP_Add || event->key.keyval == GDK_KEY_equal) {
+                _ctTextview.zoom_text(true, curr_tree_iter().get_node_syntax_highlighting());
+                return true;
+            }
+            else if (event->key.keyval == GDK_KEY_minus|| event->key.keyval == GDK_KEY_KP_Subtract) {
+                _ctTextview.zoom_text(false, curr_tree_iter().get_node_syntax_highlighting());
+                return true;
+            }
         }
     }
     return false;

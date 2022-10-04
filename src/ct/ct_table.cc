@@ -503,13 +503,31 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
         }
     }
     else if (event->state & Gdk::CONTROL_MASK) {
-        if (event->keyval == GDK_KEY_space) {
-            CtTextView& textView = _pCtMainWin->get_text_view();
-            Gtk::TextIter text_iter = textView.get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
-            text_iter.forward_char();
-            textView.get_buffer()->place_cursor(text_iter);
-            textView.grab_focus();
-            return true;
+        if (not (event->state & Gdk::MOD1_MASK)) {
+            if (event->keyval == GDK_KEY_space) {
+                CtTextView& textView = _pCtMainWin->get_text_view();
+                Gtk::TextIter text_iter = textView.get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
+                text_iter.forward_char();
+                textView.get_buffer()->place_cursor(text_iter);
+                textView.grab_focus();
+                return true;
+            }
+            if (event->keyval == GDK_KEY_bracketleft) {
+                _pCtMainWin->get_ct_actions()->table_row_up();
+                return true;
+            }
+            if (event->keyval == GDK_KEY_bracketright) {
+                _pCtMainWin->get_ct_actions()->table_row_down();
+                return true;
+            }
+            if (event->keyval == GDK_KEY_braceleft) {
+                _pCtMainWin->get_ct_actions()->table_column_left();
+                return true;
+            }
+            if (event->keyval == GDK_KEY_braceright) {
+                _pCtMainWin->get_ct_actions()->table_column_right();
+                return true;
+            }
         }
         if (event->keyval == GDK_KEY_parenleft) {
             if (event->state & Gdk::MOD1_MASK) {
@@ -527,22 +545,6 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
             else {
                 _pCtMainWin->get_ct_actions()->table_row_add();
             }
-            return true;
-        }
-        if (event->keyval == GDK_KEY_bracketleft) {
-            _pCtMainWin->get_ct_actions()->table_row_up();
-            return true;
-        }
-        if (event->keyval == GDK_KEY_bracketright) {
-            _pCtMainWin->get_ct_actions()->table_row_down();
-            return true;
-        }
-        if (event->keyval == GDK_KEY_braceleft) {
-            _pCtMainWin->get_ct_actions()->table_column_left();
-            return true;
-        }
-        if (event->keyval == GDK_KEY_braceright) {
-            _pCtMainWin->get_ct_actions()->table_column_right();
             return true;
         }
         if (event->keyval == GDK_KEY_backslash) {
