@@ -34,8 +34,10 @@
 #ifndef _WIN32
 #include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)
 #endif // !_WIN32
+#if defined(HAVE_VTE)
+#include <vte/vte.h>
+#endif // HAVE_VTE
 
-// Cut Link
 void CtActions::link_cut()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
@@ -44,7 +46,6 @@ void CtActions::link_cut()
     }
 }
 
-// Copy Link
 void CtActions::link_copy()
 {
     if (!_link_check_around_cursor().empty()) {
@@ -52,7 +53,6 @@ void CtActions::link_copy()
     }
 }
 
-//Dismiss Link
 void CtActions::link_dismiss()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
@@ -61,7 +61,6 @@ void CtActions::link_dismiss()
     }
 }
 
-// Delete Link
 void CtActions::link_delete()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
@@ -71,21 +70,18 @@ void CtActions::link_delete()
     }
 }
 
-// Cut Anchor
 void CtActions::anchor_cut()
 {
     object_set_selection(curr_anchor_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
-// Copy Anchor
 void CtActions::anchor_copy()
 {
     object_set_selection(curr_anchor_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
-// Delete Anchor
 void CtActions::anchor_delete()
 {
     object_set_selection(curr_anchor_anchor);
@@ -94,7 +90,6 @@ void CtActions::anchor_delete()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
-// Edit an Anchor
 void CtActions::anchor_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -109,21 +104,18 @@ void CtActions::anchor_link_to_clipboard()
     CtClipboard{_pCtMainWin}.anchor_link_to_clipboard(_pCtMainWin->curr_tree_iter(), curr_anchor_anchor->get_anchor_name());
 }
 
-// Cut Embedded File
 void CtActions::embfile_cut()
 {
     object_set_selection(curr_file_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
-// Copy Embedded File
 void CtActions::embfile_copy()
 {
     object_set_selection(curr_file_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
-// Delete Embedded File
 void CtActions::embfile_delete()
 {
     object_set_selection(curr_file_anchor);
@@ -132,7 +124,6 @@ void CtActions::embfile_delete()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
-// Embedded File Save Dialog
 void CtActions::embfile_save()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
@@ -146,7 +137,6 @@ void CtActions::embfile_save()
     g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
 }
 
-// Embedded File Open
 void CtActions::embfile_open()
 {
     const size_t open_id = curr_file_anchor->get_unique_id();
@@ -177,7 +167,6 @@ void CtActions::embfile_open()
     }
 }
 
-// Embedded File Rename
 void CtActions::embfile_rename()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -191,7 +180,6 @@ void CtActions::embfile_rename()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
-// Save to Disk the selected LatexBox Image
 void CtActions::latex_save()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
@@ -213,7 +201,6 @@ void CtActions::latex_save()
     }
 }
 
-// Edit the selected LatexBox
 void CtActions::latex_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -223,21 +210,18 @@ void CtActions::latex_edit()
     _latex_edit_dialog(curr_latex_anchor->get_latex_text(), iter_insert, &iter_bound);
 }
 
-// Cut LatexBox
 void CtActions::latex_cut()
 {
     object_set_selection(curr_latex_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
-// Copy LatexBox
 void CtActions::latex_copy()
 {
     object_set_selection(curr_latex_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
-// Delete LatexBox
 void CtActions::latex_delete()
 {
     object_set_selection(curr_latex_anchor);
@@ -246,7 +230,6 @@ void CtActions::latex_delete()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
-// Save to Disk the selected Image
 void CtActions::image_save()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
@@ -268,7 +251,6 @@ void CtActions::image_save()
     }
 }
 
-// Edit the selected Image
 void CtActions::image_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -278,21 +260,18 @@ void CtActions::image_edit()
     _image_edit_dialog(curr_image_anchor->get_pixbuf(), iter_insert, &iter_bound);
 }
 
-// Cut Image
 void CtActions::image_cut()
 {
     object_set_selection(curr_image_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
-// Copy Image
 void CtActions::image_copy()
 {
     object_set_selection(curr_image_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
-// Delete Image
 void CtActions::image_delete()
 {
     object_set_selection(curr_image_anchor);
@@ -301,7 +280,6 @@ void CtActions::image_delete()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
-// Edit the Link Associated to the Image
 void CtActions::image_link_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -324,7 +302,6 @@ void CtActions::image_link_edit()
     }
 }
 
-// Dismiss the Link Associated to the Image
 void CtActions::image_link_dismiss()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -338,7 +315,6 @@ void CtActions::toggle_show_hide_main_window()
     _pCtMainWin->signal_app_show_hide_main_win();
 }
 
-// Function Called at Every Link Click
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
@@ -432,21 +408,18 @@ void CtActions::current_node_scroll_to_anchor(Glib::ustring anchor_name)
     }
 }
 
-// Cut CodeBox
 void CtActions::codebox_cut()
 {
     object_set_selection(curr_codebox_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
-// Copy CodeBox
 void CtActions::codebox_copy()
 {
     object_set_selection(curr_codebox_anchor);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
-// Delete CodeBox
 void CtActions::codebox_delete()
 {
     object_set_selection(curr_codebox_anchor);
@@ -455,7 +428,6 @@ void CtActions::codebox_delete()
    _pCtMainWin->get_text_view().grab_focus();
 }
 
-// Delete CodeBox but keep the Text
 void CtActions::codebox_delete_keeping_text()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -467,7 +439,6 @@ void CtActions::codebox_delete_keeping_text()
     _curr_buffer()->insert_at_cursor(content);
 }
 
-// Change CodeBox Properties
 void CtActions::codebox_change_properties()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -573,7 +544,6 @@ void CtActions::_exec_code(const bool is_all)
     }
 }
 
-// Load the CodeBox Content From a Text Fil
 void CtActions::codebox_load_from_file()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -588,7 +558,6 @@ void CtActions::codebox_load_from_file()
     curr_codebox_anchor->get_buffer()->set_text(buffer);
 }
 
-// Save the CodeBox Content To a Text File
 void CtActions::codebox_save_to_file()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
@@ -830,7 +799,6 @@ void CtActions::table_export()
     }
 }
 
-// Anchor Edit Dialog
 void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
     Glib::ustring dialog_title = anchor == nullptr ? _("Insert Anchor") :  _("Edit Anchor");
@@ -848,7 +816,6 @@ void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_
     image_insert_anchor(insert_iter, ret_anchor_name, image_justification);
 }
 
-// Iteration of the Modification Time Sentinel
 bool CtActions::_on_embfiles_sentinel_timeout()
 {
     for (auto& item : _embfiles_opened) {
@@ -890,4 +857,36 @@ bool CtActions::_on_embfiles_sentinel_timeout()
         }
     }
     return true; // this way we keep the timer alive
+}
+
+void CtActions::terminal_copy()
+{
+#if defined(HAVE_VTE)
+    Gtk::Widget* pVte = _pCtMainWin->get_vte();
+    if (not pVte) {
+        return;
+    }
+    GtkWidget* pTermWidget = pVte->gobj();
+    if (not vte_terminal_get_has_selection(VTE_TERMINAL(pTermWidget))) {
+        vte_terminal_select_all(VTE_TERMINAL(pTermWidget));
+    }
+    vte_terminal_copy_clipboard_format(VTE_TERMINAL(pTermWidget), VTE_FORMAT_TEXT);
+#endif // HAVE_VTE
+}
+
+void CtActions::terminal_paste()
+{
+#if defined(HAVE_VTE)
+    Gtk::Widget* pVte = _pCtMainWin->get_vte();
+    if (not pVte) {
+        return;
+    }
+    GtkWidget* pTermWidget = pVte->gobj();
+    vte_terminal_paste_clipboard(VTE_TERMINAL(pTermWidget));
+#endif // HAVE_VTE
+}
+
+void CtActions::terminal_reset()
+{
+    _pCtMainWin->restart_vte();
 }

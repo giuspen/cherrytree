@@ -22,6 +22,7 @@
  */
 
 #include "ct_main_win.h"
+#include "ct_actions.h"
 #if defined(HAVE_VTE)
 #include <vte/vte.h>
 #endif // HAVE_VTE
@@ -113,18 +114,23 @@ void CtMainWin::restart_vte()
     button_reset->set_image(*new_managed_image_from_stock("ct_clear", Gtk::ICON_SIZE_MENU));
     button_reset->set_tooltip_text(_("Reset"));
 
-    button_copy->signal_clicked().connect([pTermWidget](){
-        if (not vte_terminal_get_has_selection(VTE_TERMINAL(pTermWidget))) {
-            vte_terminal_select_all(VTE_TERMINAL(pTermWidget));
-        }
-        vte_terminal_copy_clipboard_format(VTE_TERMINAL(pTermWidget), VTE_FORMAT_TEXT);
+    button_copy->signal_clicked().connect([this](){
+        get_ct_actions()->terminal_copy();
     });
-    button_paste->signal_clicked().connect([pTermWidget](){
-        vte_terminal_paste_clipboard(VTE_TERMINAL(pTermWidget));
+    button_paste->signal_clicked().connect([this](){
+        get_ct_actions()->terminal_paste();
     });
     button_reset->signal_clicked().connect([this](){
-        restart_vte();
+        get_ct_actions()->terminal_reset();
     });
+
+    _pVte->signal_button_press_event().connect([this](GdkEventButton* event){
+        if (3 == event->button) {
+            get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Terminal)->popup(event->button, event->time);
+            return true; // do not propagate the event
+        }
+        return false; // propagate the event
+    }, false);
 
     auto pButtonsBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 0/*spacing*/});
     pButtonsBox->pack_start(*button_copy, false, false);

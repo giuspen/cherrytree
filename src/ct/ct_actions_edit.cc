@@ -554,6 +554,13 @@ void CtActions::cut_as_plain_text()
 // Copy as Plain Text
 void CtActions::copy_as_plain_text()
 {
+#if defined(HAVE_VTE)
+    Gtk::Widget* pVte = _pCtMainWin->get_vte();
+    if (pVte and pVte->has_focus()) {
+        terminal_copy();
+        return;
+    }
+#endif // HAVE_VTE
     CtClipboard::force_plain_text();
     auto proof = _get_text_view_n_buffer_codebox_proof();
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
@@ -562,6 +569,13 @@ void CtActions::copy_as_plain_text()
 // Paste as Plain Text
 void CtActions::paste_as_plain_text()
 {
+#if defined(HAVE_VTE)
+    Gtk::Widget* pVte = _pCtMainWin->get_vte();
+    if (pVte and pVte->has_focus()) {
+        terminal_paste();
+        return;
+    }
+#endif // HAVE_VTE
     auto proof = _get_text_view_n_buffer_codebox_proof();
     CtClipboard::force_plain_text();
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "paste-clipboard");

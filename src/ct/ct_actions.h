@@ -523,4 +523,9 @@ public:
     void online_help();
     void folder_cfg_open();
     void dialog_about();
+
+public:
+    void terminal_copy();
+    void terminal_paste();
+    void terminal_reset();
 };

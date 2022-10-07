@@ -61,7 +61,7 @@ public:
     const std::string KB_ALT     = "<alt>";
     const std::string KB_META    = "<meta>";
 
-    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Latex, Anchor, EmbFile, PopupMenuNum };
+    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Latex, Anchor, EmbFile, Terminal, PopupMenuNum };
 
 public:
    static Gtk::MenuItem* create_menu_item(Gtk::Menu* pMenu, const char* name, const char* image, const char* desc);
@@ -118,6 +118,7 @@ private:
     const char*              _get_popup_menu_ui_str_latex();
     const char*              _get_popup_menu_ui_str_anchor();
     const char*              _get_popup_menu_ui_str_embfile();
+    const char*              _get_popup_menu_ui_str_terminal();
 
 private:
     CtConfig*                     _pCtConfig;

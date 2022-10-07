@@ -541,4 +541,12 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_decrease_height", "ct_go-up",
         _("Decrease CodeBox Height"), KB_CONTROL+KB_ALT+"comma",
         _("Decrease the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_height)});
+
+    const char* terminal_cat = "";
+    _actions.push_back(CtMenuAction{terminal_cat, "term_copy", "ct_edit_copy", _("Copy Selection or All"), KB_CONTROL+KB_SHIFT+"C",
+        _("Copy Selection or All"), sigc::mem_fun(*pActions, &CtActions::terminal_copy)});
+    _actions.push_back(CtMenuAction{terminal_cat, "term_paste", "ct_edit_paste", _("Paste"), KB_CONTROL+KB_SHIFT+"V",
+        _("Paste"), sigc::mem_fun(*pActions, &CtActions::terminal_paste)});
+    _actions.push_back(CtMenuAction{terminal_cat, "term_reset", "ct_clear", _("Reset"), None,
+        _("Reset"), sigc::mem_fun(*pActions, &CtActions::terminal_reset)});
 }

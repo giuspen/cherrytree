@@ -540,3 +540,14 @@ const char* CtMenu::_get_popup_menu_ui_str_embfile()
 </popup>
     )MARKUP";
 }
+
+const char* CtMenu::_get_popup_menu_ui_str_terminal()
+{
+    return R"MARKUP(
+<popup>
+  <menuitem action='term_copy'/>
+  <menuitem action='term_paste'/>
+  <menuitem action='term_reset'/>
+</popup>
+    )MARKUP";
+}
