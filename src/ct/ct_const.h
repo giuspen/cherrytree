@@ -250,7 +250,7 @@ const inline static gchar* LANG_DEFAULT{"default"};
 
 const inline static std::vector<const gchar*> AVAILABLE_LANGS {
     LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hu", "hy", "it",
-    "ja", "kk_KZ", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
+    "ja", "kk_KZ", "kk_LA", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
 const inline static int NODE_ICON_CODE_ID          {38};
