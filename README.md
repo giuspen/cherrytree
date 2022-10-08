@@ -61,7 +61,8 @@ This works on any operating system that supports Docker.
 
 Install dependencies:
 ```sh
-sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev texlive-latex-base dvipng
+sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev
+sudo apt install texlive-latex-base dvipng # optional for LatexBoxes support
 ```
 Note: On Debian10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead
 Get cherrytree source, compile and run:
@@ -121,7 +122,8 @@ git submodule update --init
 
 Install dependencies:
 ```sh
-sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool libxml2 gspell-devel cmake ninja-build libcurl-devel uchardet-devel fmt spdlog-devel
+sudo dnf install cmake ninja-build gcc-c++ gtkmm30-devel gtksourceviewmm3-devel gspell-devel libxml++-devel libcurl-devel uchardet-devel fmt-devel spdlog-devel vte291-devel
+sudo dnf install texlive-scheme-basic texlive-dvipng # optional for LatexBoxes support
 ```
 
 Get cherrytree source, compile and run:
@@ -131,6 +133,12 @@ cd cherrytree
 git submodule update --init
 ./build.sh
 ./build/cherrytree
+```
+
+## To create an rpm package
+```sh
+sudo dnf install rpm-build
+./build.sh rpm
 ```
 
 (OPTIONAL) Download Documentation

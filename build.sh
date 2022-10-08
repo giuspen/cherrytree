@@ -4,6 +4,7 @@ set -e
 ARG_VAL="$1"
 BUILD_DIR="build"
 MAKE_DEB=""
+MAKE_RPM=""
 MAKE_APPIMAGE=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
@@ -21,6 +22,9 @@ else
   if [ "${ARG_VAL}" == "deb" ] || [ "${ARG_VAL}" == "Deb" ] || [ "${ARG_VAL}" == "DEB" ]
   then
     MAKE_DEB="Y"
+  elif [ "${ARG_VAL}" == "rpm" ] || [ "${ARG_VAL}" == "Reb" ] || [ "${ARG_VAL}" == "RPM" ]
+  then
+    MAKE_RPM="Y"
   elif [ "${ARG_VAL}" == "appimage" ] || [ "${ARG_VAL}" == "Appimage" ] || [ "${ARG_VAL}" == "APPIMAGE" ]
   then
     MAKE_APPIMAGE="Y"
@@ -35,6 +39,10 @@ elif [ -f /etc/debian_version ]
 then
   DISTRIB_ID="Debian"
   DISTRIB_RELEASE="$(cat /etc/debian_version | awk -F. '{print $1}' | tr -d '\n')"
+elif [ -f /etc/fedora-release ]
+then
+  DISTRIB_ID="Fedora"
+  DISTRIB_RELEASE="$(cat /etc/fedora-release | awk '{print $3}' | tr -d '\n')"
 fi
 
 echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
@@ -64,6 +72,13 @@ then
   TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.deb"
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb ${TARGET_PACKAGE_NAME}
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb.sha256 ${TARGET_PACKAGE_NAME}.sha256
+elif [ -n "${MAKE_RPM}" ]
+then
+  cpack -G RPM
+  PACKAGE_VERSION="$(grep 'PACKAGE_VERSION ' ../config.h | awk -F\" '{print $2}')"
+  TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.rpm"
+  mv -v cherrytree-${PACKAGE_VERSION}-Linux.rpm ${TARGET_PACKAGE_NAME}
+  mv -v cherrytree-${PACKAGE_VERSION}-Linux.rpm.sha256 ${TARGET_PACKAGE_NAME}.sha256
 elif [ -n "${MAKE_APPIMAGE}" ]
 then
   # https://github.com/linuxdeploy/linuxdeploy-plugin-gtk
