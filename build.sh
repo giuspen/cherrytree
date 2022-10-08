@@ -22,7 +22,7 @@ else
   if [ "${ARG_VAL}" == "deb" ] || [ "${ARG_VAL}" == "Deb" ] || [ "${ARG_VAL}" == "DEB" ]
   then
     MAKE_DEB="Y"
-  elif [ "${ARG_VAL}" == "rpm" ] || [ "${ARG_VAL}" == "Reb" ] || [ "${ARG_VAL}" == "RPM" ]
+  elif [ "${ARG_VAL}" == "rpm" ] || [ "${ARG_VAL}" == "Rpm" ] || [ "${ARG_VAL}" == "RPM" ]
   then
     MAKE_RPM="Y"
   elif [ "${ARG_VAL}" == "appimage" ] || [ "${ARG_VAL}" == "Appimage" ] || [ "${ARG_VAL}" == "APPIMAGE" ]
