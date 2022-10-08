@@ -35,7 +35,7 @@ void CtActions::toggle_show_hide_vte()
         if (pVte) pVte->grab_focus();
     }
     else {
-        _pCtMainWin->get_tree_view().grab_focus();
+        _pCtMainWin->get_text_view().grab_focus();
     }
 }
 
