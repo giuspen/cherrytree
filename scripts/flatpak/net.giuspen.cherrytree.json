@@ -71,8 +71,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.cairographics.org/releases/cairomm-1.14.3.tar.xz",
-                    "sha256": "0d37e067c5c4ca7808b7ceddabfe1932c5bd2a750ad64fb321e1213536297e78"
+                    "url": "https://www.cairographics.org/releases/cairomm-1.14.4.tar.xz",
+                    "sha256": "4749d25a2b2ef67cc0c014caaf5c87fa46792fc4b3ede186fb0fc932d2055158"
                 }
             ]
         },
@@ -85,8 +85,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.4.tar.xz",
-                    "sha256": "199ace5682d81b15a1d565480b4a950682f2db6402c8aa5dd7217d71edff81d5"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.5.tar.xz",
+                    "sha256": "7b384662dd6ec3b86c0570331d32af05db2bd99a791602b767b4a0b2566ec149"
                 }
             ]
         },
@@ -96,8 +96,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.2.tar.xz",
-                    "sha256": "57442ab4dc043877bfe3839915731ab2d693fc6634a71614422fb530c9eaa6f4"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.3.tar.xz",
+                    "sha256": "410fe04d471a608f3f0273d3a17d840241d911ed0ff2c758a9859c66c6f24379"
                 }
             ]
         },
@@ -110,8 +110,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.2.tar.xz",
-                    "sha256": "a0bb49765ceccc293ab2c6735ba100431807d384ffa14c2ebd30e07993fd2fa4"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.3.tar.xz",
+                    "sha256": "7c2088b486a909be8da2b18304e56c5f90884d1343c8da7367ea5cd3258b9969"
                 }
             ]
         },
@@ -124,8 +124,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.6.tar.xz",
-                    "sha256" : "4b3e142e944e1633bba008900605c341a93cfd755a7fa2a00b05d041341f11d6"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.7.tar.xz",
+                    "sha256" : "1d7a35af9c5ceccacb244ee3c2deb9b245720d8510ac5c7e6f4b6f9947e6789c"
                 }
             ]
         },
@@ -163,8 +163,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.1.tar.xz",
-                    "sha256" : "9b59059abe5545d28ceb388a55e341095f197bd219c73e6623aeb6d801e00be8"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.2.tar.xz",
+                    "sha256" : "a433987f54cc1ecaa84af26af047a62df9e884574e0d686e5ddc6f70441c152b"
                 }
             ]
         },
@@ -176,8 +176,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gspell/1.11/gspell-1.11.1.tar.xz",
-                    "sha256" : "ef6aa4e3f711775158a7e241a5f809cf2426bc0e02c23a7d2b5c71fc3de00292"
+                    "url" : "https://mirror.accum.se/pub/GNOME/sources/gspell/1.12/gspell-1.12.0.tar.xz",
+                    "sha256" : "40d2850f1bb6e8775246fa1e39438b36caafbdbada1d28a19fa1ca07e1ff82ad"
                 }
             ]
         },
@@ -215,6 +215,17 @@
             ]
         },
         {
+            "name": "vte-2.91",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type" : "archive",
+                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.70.0/vte-0.70.0.tar.bz2",
+                    "sha256" : "4a3c8a00b8c0efd909a3960fd879ed7d4ca6ae504a06a6ff4bae7c80ff46b1ad"
+                }
+            ]
+        },
+        {
             "name": "cherrytree",
             "buildsystem": "cmake-ninja",
             "build-options": {
@@ -223,8 +234,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.48.tar.xz",
-                    "sha256" : "4bba4f19d23560e8aa59f2ab1e76f128f7f02adaebb5813e826e1753ee5d81fa"
+                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.49.test.tar.xz",
+                    "sha256" : "33f0165a8c014b9c95f677d41cc5cf0e06a05410e958fb28f3a58e522b1505d5"
                 }
             ]
         },
