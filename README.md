@@ -155,11 +155,11 @@ xdg-open /usr/share/doc/pangomm-1.4/reference/html/index.html
 xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 ```
 
-## Building Cherrytree on Opensuse
+## Building Cherrytree on OpenSuse
 
 Install dependencies:
 ```sh
-sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt spdlog-devel
+sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt-devel spdlog-devel vte-devel
 ```
 
 Get cherrytree source, compile and run:
@@ -169,6 +169,12 @@ cd cherrytree
 git submodule update --init
 ./build.sh
 ./build/cherrytree
+```
+
+## To create an rpm package
+```sh
+sudo zypper install rpm-build
+./build.sh rpm
 ```
 
 ## Building Cherrytree on MacOS

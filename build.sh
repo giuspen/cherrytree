@@ -43,6 +43,10 @@ elif [ -f /etc/fedora-release ]
 then
   DISTRIB_ID="Fedora"
   DISTRIB_RELEASE="$(cat /etc/fedora-release | awk '{print $3}' | tr -d '\n')"
+elif [ -f /etc/os-release ]
+then
+  DISTRIB_ID="$(grep ^ID= /etc/os-release | awk -F\" '{print $2}')"
+  DISTRIB_RELEASE="$(grep ^VERSION_ID= /etc/os-release | awk -F\" '{print $2}')"
 fi
 
 echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
