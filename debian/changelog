@@ -1,17 +1,10 @@
-cherrytree (0.99.49-2) focal; urgency=low
+cherrytree (0.99.50-2) focal; urgency=low
 
-  * added support for accent insensitive search - when enabled, for example, any of 'àáâãäåāăąạ' is equivalent to the ascii 'a' (#1981)
-  * fixed export to HTML crash - regression introduced with support for RTL languages (#2109)
-  * fixed crash on print/export to pdf of a sequence of characters without spaces longer that the page width, such as a very long URL (#2045)
-  * fixed bulleted list unindent (Shift+Tab) crash (#2103)
-  * fixed tooltip and cursor not reset after hovering link and then navigating to non rich text node
-  * added keyboard shortcuts to the toolbar button's tooltips (#2106)
-  * changed non configurable keyboard shortcuts for codebox width and table column width increase/decrease to use parenthesis open instead of backslash (#2113)
-  * fixed wrongly entering column edit mode when using keyboard shortcuts with <Ctrl><Alt> such as insert codebox (#2075)
-  * allow to disable the dialog asking for confirmation before executing the code in codeboxes and code nodes
-  * fixed crash on double exit from systray icon right click menu (#2114)
-  * added command line option '--anchor AnchorName' that in addition to existing '--node NodeName' allows to open a document focusing an anchor in a node
-  * added syntax highlighting support for GDScript
+  * added support for code execution in integrated terminal - available only in Linux and Mac OS, not in Windows (#1902, #1772, #547)
+  * implemented action to execute code from either the text selection or the current text line (#1772)
+  * improved code execution confirmation dialog displaying the code about to be executed and the syntax
+  * implemented stricter checks for hard coded keyboard shortcuts Requiring Ctrl but not Alt (#2124)
+  * changed syntax of displayed keyboard shortcuts in toolbar tooltips (#2128)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 11 Sep 2022 18:36:59 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 09 Oct 2022 22:50:35 +0100

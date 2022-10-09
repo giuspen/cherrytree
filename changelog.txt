@@ -1,4 +1,11 @@
 
+0.99.50 (October 9th, 2022)
+  * added support for code execution in integrated terminal - available only in Linux and Mac OS, not in Windows (#1902, #1772, #547)
+  * implemented action to execute code from either the text selection or the current text line (#1772)
+  * improved code execution confirmation dialog displaying the code about to be executed and the syntax
+  * implemented stricter checks for hard coded keyboard shortcuts Requiring Ctrl but not Alt (#2124)
+  * changed syntax of displayed keyboard shortcuts in toolbar tooltips (#2128)
+
 0.99.49 (September 11th, 2022)
   * added support for accent insensitive search - when enabled, for example, any of 'àáâãäåāăąạ' is equivalent to the ascii 'a' (#1981)
   * fixed export to HTML crash - regression introduced with support for RTL languages (#2109)
