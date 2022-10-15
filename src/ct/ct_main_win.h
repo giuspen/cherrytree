@@ -195,7 +195,8 @@ public:
     void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
 
-    Gtk::Widget* get_vte()         { return _pVte; }
+    Gtk::Widget* get_vte()        { return _pVte; }
+    bool         is_vte_visible() { return _hBoxVte.property_visible(); }
     void         show_hide_vte(bool visible);
     void         exec_in_vte(const std::string& shell_cmd);
     void         update_vte_settings();

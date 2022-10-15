@@ -28,7 +28,7 @@
 
 void CtActions::toggle_show_hide_vte()
 {
-    _pCtConfig->vteVisible = not _pCtConfig->vteVisible;
+    _pCtConfig->vteVisible = not _pCtMainWin->is_vte_visible();
     _pCtMainWin->show_hide_vte(_pCtConfig->vteVisible);
     if (_pCtConfig->vteVisible) {
         Gtk::Widget* pVte = _pCtMainWin->get_vte();
