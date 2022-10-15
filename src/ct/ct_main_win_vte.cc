@@ -168,7 +168,10 @@ void CtMainWin::exec_in_vte(const std::string& shell_cmd)
 {
     show_hide_vte(true/*visible*/);
 #if defined(HAVE_VTE)
-    vte_terminal_feed_child(VTE_TERMINAL(_pVte->gobj()), shell_cmd.c_str(), shell_cmd.size());
+    Glib::signal_idle().connect_once([this, shell_cmd](){
+        // when executing a command for the first time from hidden (not yet instantiated) it won't pass the command unless we give it some time
+        vte_terminal_feed_child(VTE_TERMINAL(_pVte->gobj()), shell_cmd.c_str(), shell_cmd.size());
+    });
 #else // !HAVE_VTE
     spdlog::warn("!! noVte {}", shell_cmd);
 #endif // !HAVE_VTE
