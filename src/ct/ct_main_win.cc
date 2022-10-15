@@ -177,16 +177,17 @@ CtMainWin::CtMainWin(bool                            no_gui,
         else {
             present();
         }
-        while (gtk_events_pending()) gtk_main_iteration();
-        _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() + process events pending (#1534, #1918)
-        _vPaned.property_position() = _pCtConfig->vpanedPos;
-        _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
-        signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
+        Glib::signal_idle().connect_once([this](){
+            _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() + process events pending (#1534, #1918, #2126)
+            _vPaned.property_position() = _pCtConfig->vpanedPos;
+            _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
+            signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
-        // show status icon if needed
-        if (_pCtConfig->systrayOn) {
-            get_status_icon()->set_visible(true);
-        }
+            // show status icon if needed
+            if (_pCtConfig->systrayOn) {
+                get_status_icon()->set_visible(true);
+            }
+        });
     }
 }
 
