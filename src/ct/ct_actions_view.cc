@@ -29,7 +29,7 @@
 void CtActions::toggle_show_hide_vte()
 {
     _pCtConfig->vteVisible = not _pCtMainWin->is_vte_visible();
-    _pCtMainWin->show_hide_vte(_pCtConfig->vteVisible);
+    (void)_pCtMainWin->show_hide_vte_cmd_passed_as_first_in_session(_pCtConfig->vteVisible, nullptr/*first_cmd_passed*/);
     if (_pCtConfig->vteVisible) {
         Gtk::Widget* pVte = _pCtMainWin->get_vte();
         if (pVte) pVte->grab_focus();

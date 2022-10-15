@@ -30,19 +30,41 @@
 // The following macro is copied from Geany https://github.com/geany/geany/blob/master/src/vte.c
 static const gchar VTE_ADDITIONAL_WORDCHARS[] = "-,./?%&#:_";
 
+struct CtVteSpawnAsyncData {
+    GPid* pPid;
+    char* pCmd;
+};
+
 #if defined(HAVE_VTE)
-static void _vteTerminalSpawnAsyncCallback(VteTerminal*/*terminal*/,
+static void _vteTerminalSpawnAsyncCallback(VteTerminal* pVteTerminal,
                                            GPid pid,
                                            GError* error,
                                            gpointer user_data)
 {
-    auto pVtePid = (GPid*)user_data;
-    *pVtePid = pid;
+    auto pSpawnAsyncData = (CtVteSpawnAsyncData*)user_data;
+    *(pSpawnAsyncData->pPid) = pid;
+    auto f_freemem = [pSpawnAsyncData](){
+        if (pSpawnAsyncData->pCmd) {
+            g_free(pSpawnAsyncData->pCmd);
+        }
+        delete pSpawnAsyncData;
+    };
     if (-1 != pid) {
-        spdlog::debug("+VTE");
+        if (pSpawnAsyncData->pCmd) {
+            spdlog::debug("+VTE cmd");
+            Glib::signal_idle().connect_once([pVteTerminal, pSpawnAsyncData, f_freemem](){
+                vte_terminal_feed_child(pVteTerminal, pSpawnAsyncData->pCmd, strlen(pSpawnAsyncData->pCmd));
+                f_freemem();
+            });
+        }
+        else {
+            spdlog::debug("+VTE");
+            f_freemem();
+        }
     }
     else {
         spdlog::error("!! VTE");
+        f_freemem();
     }
     if (NULL != error) {
         spdlog::error("{}", error->message);
@@ -51,15 +73,18 @@ static void _vteTerminalSpawnAsyncCallback(VteTerminal*/*terminal*/,
 }
 #endif // HAVE_VTE
 
-void CtMainWin::show_hide_vte(bool visible)
+bool CtMainWin::show_hide_vte_cmd_passed_as_first_in_session(bool visible, const char* first_cmd_passed)
 {
+    bool ret_val{false};
     if (visible and not _pVte) {
-        restart_vte();
+        restart_vte(first_cmd_passed);
+        ret_val = true;
     }
     _hBoxVte.property_visible() = visible;
+    return ret_val;
 }
 
-void CtMainWin::restart_vte()
+void CtMainWin::restart_vte(const char* first_cmd_passed)
 {
 #if defined(HAVE_VTE)
     if (_pVte) {
@@ -88,6 +113,9 @@ void CtMainWin::restart_vte()
     g_autofree gchar* user_shell = vte_get_user_shell();
     char* startterm[2] = {0, 0};
     startterm[0] = user_shell ? user_shell : (char*)"/bin/sh";
+    auto pSpawnAsyncData = new CtVteSpawnAsyncData; // will be deleted inside the async callback after being used
+    pSpawnAsyncData->pPid = &_vtePid;
+    pSpawnAsyncData->pCmd = g_strdup(first_cmd_passed); // must be freed!
     vte_terminal_spawn_async(VTE_TERMINAL(pTermWidget),
                              VTE_PTY_DEFAULT,
                              NULL/*working_directory*/,
@@ -100,7 +128,7 @@ void CtMainWin::restart_vte()
                              -1/*timeout*/,
                              NULL/*cancellable*/,
                              &_vteTerminalSpawnAsyncCallback,
-                             &_vtePid/*user_data*/);
+                             pSpawnAsyncData/*user_data*/);
 
     auto button_copy = Gtk::manage(new Gtk::Button{});
     button_copy->set_image(*new_managed_image_from_stock("ct_edit_copy", Gtk::ICON_SIZE_MENU));
@@ -166,13 +194,13 @@ void CtMainWin::update_vte_settings()
 
 void CtMainWin::exec_in_vte(const std::string& shell_cmd)
 {
-    show_hide_vte(true/*visible*/);
+    if (not show_hide_vte_cmd_passed_as_first_in_session(true/*visible*/, shell_cmd.c_str())) {
 #if defined(HAVE_VTE)
-    Glib::signal_idle().connect_once([this, shell_cmd](){
-        // when executing a command for the first time from hidden (not yet instantiated) it won't pass the command unless we give it some time
         vte_terminal_feed_child(VTE_TERMINAL(_pVte->gobj()), shell_cmd.c_str(), shell_cmd.size());
-    });
 #else // !HAVE_VTE
-    spdlog::warn("!! noVte {}", shell_cmd);
+        spdlog::warn("!! noVte {}", shell_cmd);
 #endif // !HAVE_VTE
+    }
+    else {
+    }
 }

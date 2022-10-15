@@ -197,10 +197,10 @@ public:
 
     Gtk::Widget* get_vte()        { return _pVte; }
     bool         is_vte_visible() { return _hBoxVte.property_visible(); }
-    void         show_hide_vte(bool visible);
+    bool         show_hide_vte_cmd_passed_as_first_in_session(bool visible, const char* first_cmd_passed); // return true if the command was passed as first in the session
     void         exec_in_vte(const std::string& shell_cmd);
     void         update_vte_settings();
-    void         restart_vte();
+    void         restart_vte(const char* first_cmd_passed);
 
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
 

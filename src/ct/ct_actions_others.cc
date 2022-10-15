@@ -888,5 +888,5 @@ void CtActions::terminal_paste()
 
 void CtActions::terminal_reset()
 {
-    _pCtMainWin->restart_vte();
+    _pCtMainWin->restart_vte(nullptr/*first_cmd_passed*/);
 }

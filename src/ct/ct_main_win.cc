@@ -294,7 +294,7 @@ void CtMainWin::config_apply()
     }
 
     show_hide_tree_view(_pCtConfig->treeVisible);
-    show_hide_vte(_pCtConfig->vteVisible);
+    (void)show_hide_vte_cmd_passed_as_first_in_session(_pCtConfig->vteVisible, nullptr/*first_cmd_passed*/);
     show_hide_menubar(_pCtConfig->menubarVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
     _ctWinHeader.lockIcon.hide();
