@@ -369,6 +369,7 @@ void CtMainWin::update_theme()
     css_str += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
     css_str += "toolbar { padding: 2px 2px 2px 2px; } ";
     css_str += "toolbar button { padding: 0px; } ";
+    css_str += "textview border { background-color: transparent; } "; // Loss of transparency with PNGs (#1402, #2132)
     //printf("css_str_len=%zu\n", css_str.size());
 
     if (_css_provider_theme) {
