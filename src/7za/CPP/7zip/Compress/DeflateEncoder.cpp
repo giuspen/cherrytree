@@ -219,9 +219,9 @@ HRESULT CCoder::BaseSetEncoderProperties2(const PROPID *propIDs, const PROPVARIA
 void CCoder::Free()
 {
   ::MidFree(m_OnePosMatchesMemory); m_OnePosMatchesMemory = 0;
-  ::MyFree(m_DistanceMemory); m_DistanceMemory = 0;
-  ::MyFree(m_Values); m_Values = 0;
-  ::MyFree(m_Tables); m_Tables = 0;
+  ::MyFree7Z(m_DistanceMemory); m_DistanceMemory = 0;
+  ::MyFree7Z(m_Values); m_Values = 0;
+  ::MyFree7Z(m_Tables); m_Tables = 0;
 }
 
 CCoder::~CCoder()

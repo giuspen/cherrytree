@@ -571,7 +571,7 @@ private:
 
   void FreeTempBuf()
   {
-    ::MyFree(TempBuf);
+    ::MyFree7Z(TempBuf);
     TempBuf = NULL;
   }
 

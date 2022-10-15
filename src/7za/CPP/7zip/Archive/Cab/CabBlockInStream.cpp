@@ -23,7 +23,7 @@ bool CCabBlockInStream::Create()
 
 CCabBlockInStream::~CCabBlockInStream()
 {
-  ::MyFree(_buf);
+  ::MyFree7Z(_buf);
 }
 
 static UInt32 CheckSum(const Byte *p, UInt32 size)

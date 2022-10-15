@@ -524,8 +524,8 @@ CXzUnpackerCPP::CXzUnpackerCPP(): InBuf(0), OutBuf(0)
 CXzUnpackerCPP::~CXzUnpackerCPP()
 {
   XzUnpacker_Free(&p);
-  MyFree(InBuf);
-  MyFree(OutBuf);
+  MyFree7Z(InBuf);
+  MyFree7Z(OutBuf);
 }
 
 HRESULT CDecoder::Decode(ISequentialInStream *seqInStream, ISequentialOutStream *outStream, ICompressProgressInfo *progress)
