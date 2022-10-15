@@ -100,6 +100,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options("-Wno-#warnings")
   add_compile_options(-Wthread-safety)
+  add_definitions(-D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR)
 endif()
 
 if(APPLE)
