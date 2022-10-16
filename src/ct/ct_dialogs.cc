@@ -542,6 +542,7 @@ MA 02110-1301, USA.
 
     dialog.set_transient_for(parent);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.property_destroy_with_parent() = true;
     dialog.set_modal(true);
     dialog.run();
 }

@@ -25,7 +25,7 @@
 #include "ct_main_win.h"
 
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
- : Gtk::Dialog{_("Preferences"), *parent, true}
+ : Gtk::Dialog{_("Preferences"), *parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT}
  , _pCtMainWin{parent}
  , _pCtMenu{&_pCtMainWin->get_ct_menu()}
  , _pConfig{_pCtMainWin->get_ct_config()}

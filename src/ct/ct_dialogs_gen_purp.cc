@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_gen_purp.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -30,6 +30,7 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
 {
     set_title(title);
     set_transient_for(*pParentWin);
+    property_destroy_with_parent() = true;
     set_modal();
 
     add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
@@ -261,6 +262,7 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                               true/*modal*/};
     dialog.set_title(_("Question"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.property_destroy_with_parent() = true;
     static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES))->grab_focus();
     return (Gtk::RESPONSE_YES == dialog.run());
 }
@@ -276,6 +278,7 @@ void CtDialogs::info_dialog(const Glib::ustring& message,
                               true/*modal*/};
     dialog.set_title(_("Info"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.property_destroy_with_parent() = true;
     dialog.run();
 }
 
@@ -290,6 +293,7 @@ void CtDialogs::warning_dialog(const Glib::ustring& message,
                               true/*modal*/};
     dialog.set_title(_("Warning"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.property_destroy_with_parent() = true;
     dialog.run();
 }
 
@@ -304,6 +308,7 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
                               true/*modal*/};
     dialog.set_title(_("Error"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.property_destroy_with_parent() = true;
     dialog.run();
 }
 
@@ -316,6 +321,7 @@ std::string CtDialogs::file_select_dialog(const FileSelectArgs& args)
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*args.pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
     chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
+    chooser->property_destroy_with_parent() = true;
 #endif
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(Glib::get_home_dir());
@@ -346,6 +352,7 @@ std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk:
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
     chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
+    chooser->property_destroy_with_parent() = true;
 #endif
     if (curr_folder.empty() || !Glib::file_test(curr_folder, Glib::FILE_TEST_IS_DIR)) {
         chooser->set_current_folder(g_get_home_dir());
@@ -365,6 +372,7 @@ std::string CtDialogs::file_save_as_dialog(const FileSelectArgs& args)
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*args.pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
     chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
+    chooser->property_destroy_with_parent() = true;
 #endif
     chooser->set_do_overwrite_confirmation(true);
     if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder)) {
