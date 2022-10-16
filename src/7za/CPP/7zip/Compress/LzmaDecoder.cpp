@@ -38,7 +38,7 @@ CDecoder::CDecoder(): _inBuf(0), _propsWereSet(false), _outSizeDefined(false),
 CDecoder::~CDecoder()
 {
   LzmaDec_Free(&_state, &g_Alloc);
-  MyFree(_inBuf);
+  MyFree7Z(_inBuf);
 }
 
 STDMETHODIMP CDecoder::SetInBufSize(UInt32 , UInt32 size) { _inBufSize = size; return S_OK; }
@@ -48,7 +48,7 @@ HRESULT CDecoder::CreateInputBuffer()
 {
   if (_inBuf == 0 || _inBufSize != _inBufSizeAllocated)
   {
-    MyFree(_inBuf);
+    MyFree7Z(_inBuf);
     _inBuf = (Byte *)MyAlloc(_inBufSize);
     if (_inBuf == 0)
       return E_OUTOFMEMORY;

@@ -9,7 +9,7 @@
 EXTERN_C_BEGIN
 
 void *MyAlloc(size_t size);
-void MyFree(void *address);
+void MyFree7Z(void *address);
 
 void SetLargePageSize();
 

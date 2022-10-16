@@ -22,9 +22,9 @@ static const unsigned kNumMaxBits = 16;
 
 void CDecoder::Free()
 {
-  MyFree(_parents); _parents = 0;
-  MyFree(_suffixes); _suffixes = 0;
-  MyFree(_stack); _stack = 0;
+  MyFree7Z(_parents); _parents = 0;
+  MyFree7Z(_suffixes); _suffixes = 0;
+  MyFree7Z(_stack); _stack = 0;
 }
 
 CDecoder::~CDecoder() { Free(); }

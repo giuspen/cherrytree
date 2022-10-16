@@ -78,7 +78,7 @@ void *MyAlloc(size_t size)
   #endif
 }
 
-void MyFree(void *address)
+void MyFree7Z(void *address)
 {
   #ifdef _SZ_ALLOC_DEBUG
   if (address != 0)
@@ -296,7 +296,7 @@ void BigFree(void *address)
 }
 
 static void *SzAlloc(void *p, size_t size) { UNUSED_VAR(p); return MyAlloc(size); }
-static void SzFree(void *p, void *address) { UNUSED_VAR(p); MyFree(address); }
+static void SzFree(void *p, void *address) { UNUSED_VAR(p); MyFree7Z(address); }
 ISzAlloc g_Alloc = { SzAlloc, SzFree };
 
 static void *SzBigAlloc(void *p, size_t size) { UNUSED_VAR(p); return BigAlloc(size); }

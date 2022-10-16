@@ -184,7 +184,7 @@ static const UInt64 kEmptyTag = (UInt64)(Int64)-1;
 
 void CCachedInStream::Free() throw()
 {
-  MyFree(_tags);
+  MyFree7Z(_tags);
   _tags = 0;
   MidFree(_data);
   _data = 0;
@@ -206,7 +206,7 @@ bool CCachedInStream::Alloc(unsigned blockSizeLog, unsigned numBlocksLog) throw(
   }
   if (_tags == 0 || numBlocksLog != _numBlocksLog)
   {
-    MyFree(_tags);
+    MyFree7Z(_tags);
     _tags = (UInt64 *)MyAlloc(sizeof(UInt64) << numBlocksLog);
     if (_tags == 0)
       return false;
