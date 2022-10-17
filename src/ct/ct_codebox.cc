@@ -207,7 +207,7 @@ void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustmen
     xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
-    p_codebox_node->set_attribute("frame_width", std::to_string(_frameWidth));
+    p_codebox_node->set_attribute("frame_width", std::to_string(get_frame_width()));
     p_codebox_node->set_attribute("frame_height", std::to_string(_frameHeight));
     p_codebox_node->set_attribute("width_in_pixels", std::to_string(_widthInPixels));
     p_codebox_node->set_attribute("syntax_highlighting", _syntaxHighlighting);
@@ -231,7 +231,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, codebox_txt.c_str(), codebox_txt.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 5, _syntaxHighlighting.c_str(), _syntaxHighlighting.size(), SQLITE_STATIC);
-        sqlite3_bind_int64(p_stmt, 6, _frameWidth);
+        sqlite3_bind_int64(p_stmt, 6, get_frame_width());
         sqlite3_bind_int64(p_stmt, 7, _frameHeight);
         sqlite3_bind_int64(p_stmt, 8, _widthInPixels);
         sqlite3_bind_int64(p_stmt, 9, _highlightBrackets);

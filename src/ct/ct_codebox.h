@@ -89,7 +89,12 @@ public:
     void apply_cursor_pos(const int cursorPos);
 
     bool get_width_in_pixels() const { return _widthInPixels; }
-    int  get_frame_width() const { return _frameWidth; }
+    int  get_frame_width() const {
+        if (_widthInPixels and _ctTextview.get_allocated_width() > _frameWidth) {
+            return _ctTextview.get_allocated_width();
+        }
+        return _frameWidth;
+    }
     int  get_frame_height() const { return _frameHeight; }
     bool get_highlight_brackets() const { return _highlightBrackets; }
     bool get_show_line_numbers() const { return _showLineNumbers; }
