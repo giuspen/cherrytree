@@ -178,7 +178,9 @@ void CtMainWin::restart_vte(const char* first_cmd_passed)
         spdlog::warn("!! GTK_IS_SCROLLABLE(pTermWidget)");
     }
     _hBoxVte.show_all();
-#endif // HAVE_VTE
+#else // !HAVE_VTE
+    spdlog::warn("!! noVte {}", first_cmd_passed);
+#endif // !HAVE_VTE
 }
 
 void CtMainWin::update_vte_settings()
