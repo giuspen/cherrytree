@@ -334,14 +334,14 @@ std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
 template<class STRLIST>
 std::string join(const STRLIST& cnt, const std::string& delim)
 {
+    std::string retStr;
     bool firstTime{true};
-    std::stringstream ss;
     for (auto& v : cnt) {
-        if (not firstTime) ss << delim;
+        if (not firstTime) retStr += delim;
         else firstTime = false;
-        ss << v;
+        retStr += v;
     }
-    return ss.str();
+    return retStr;
 }
 
 template<class Vector>
