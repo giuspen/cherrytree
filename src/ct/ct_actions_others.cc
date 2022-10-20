@@ -786,14 +786,10 @@ void CtActions::table_export()
     _pCtConfig->pickDirCsv = Glib::path_get_dirname(filename);
 
     try {
-        std::stringstream buffer;
-        curr_table_anchor->to_csv(buffer);
-        std::string result = buffer.str();
-
-        g_file_set_contents(filename.c_str(), result.c_str(), (gssize)result.size(), nullptr);
-
+        std::string result = curr_table_anchor->to_csv();
+        Glib::file_set_contents(filename, result);
     }
-    catch(std::exception& e) {
+    catch (std::exception& e) {
         spdlog::error("Exception caught while exporting table: {}", e.what());
         CtDialogs::error_dialog("Exception occured while exporting table, see log for details", *_pCtMainWin);
     }

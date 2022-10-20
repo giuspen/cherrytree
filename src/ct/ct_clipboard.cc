@@ -812,37 +812,37 @@ void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView
         enum class ParseState {OUT_BLOCK, IN_BLOCK};
         ParseState state = ParseState::OUT_BLOCK;
         std::string block_indent = "      ";
-        std::vector<std::string> block_lines;
-        std::istringstream iss(yaml_text);
-        for (std::string line; std::getline(iss, line);)
-        {
+        std::vector<Glib::ustring> block_lines;
+        std::vector<Glib::ustring> lines = str::split(yaml_text, CtConst::CHAR_NEWLINE);
+        for (const auto& curr_line : lines) {
             if (state == ParseState::OUT_BLOCK) {
-                std::string trim_line = str::trim(line);
-                if (trim_line == "source: |-")
+                Glib::ustring trim_line = str::trim(curr_line);
+                if (trim_line == "source: |-") {
                     state = ParseState::IN_BLOCK;
+                }
                 else if (str::startswith(trim_line, "syntax:"))             p_codebox_node->set_attribute("syntax_highlighting", get_value(trim_line));
                 else if (str::startswith(trim_line, "width:"))              p_codebox_node->set_attribute("frame_width", get_value(trim_line));
                 else if (str::startswith(trim_line, "height:"))             p_codebox_node->set_attribute("frame_height", get_value(trim_line));
                 else if (str::startswith(trim_line, "width_in_pixels:"))    p_codebox_node->set_attribute("width_in_pixels", get_value(trim_line));
                 else if (str::startswith(trim_line, "highlight_brackets:")) p_codebox_node->set_attribute("highlight_brackets", get_value(trim_line));
-            } else {
-                if (!str::startswith(line, block_indent))
+            }
+            else {
+                if (!str::startswith(curr_line, block_indent)) {
                     state = ParseState::OUT_BLOCK;
+                }
                 else {
-                    block_lines.push_back(line.substr(6)); // don't add \n at the end of the block
+                    block_lines.push_back(curr_line.substr(6)); // don't add \n at the end of the block
                 }
             }
         }
         p_codebox_node->add_child_text(str::join(block_lines, "\n"));
         _xml_to_codebox(xml_doc.write_to_string(), pTextView);
     }
-    catch (std::exception& e)
-    {
-        spdlog::error("_yaml_to_codebox is failed, exception: {}\n{}", e.what(), yaml_text);
+    catch (std::exception& e) {
+        spdlog::error("_yaml_to_codebox exception: {}\n{}", e.what(), yaml_text);
     }
-    catch (...)
-    {
-        spdlog::error("_yaml_to_codebox is failed, unknown exception\n{}", yaml_text);
+    catch (...) {
+        spdlog::error("_yaml_to_codebox unknown exception\n{}", yaml_text);
     }
 }
 

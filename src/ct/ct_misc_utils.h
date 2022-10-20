@@ -33,10 +33,14 @@ class CtConfig;
 class CtTreeIter;
 
 namespace CtCSV {
-    using CtStringTable = std::vector<std::vector<std::string>>;
-    CtStringTable table_from_csv(std::istream& input);
-    void table_to_csv(const CtStringTable& table, std::ostream& output);
-}
+
+using CtStringTable = std::vector<std::vector<std::string>>;
+
+CtStringTable table_from_csv(const std::string& filepath);
+
+std::string table_to_csv(const CtStringTable& table);
+
+} // namespace CtCSV
 
 namespace CtMiscUtil {
 

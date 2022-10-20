@@ -1,7 +1,7 @@
 /*
  * ct_table.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,8 +26,6 @@
 #include "ct_codebox.h"
 #include "ct_widgets.h"
 #include <optional>
-#include <ostream>
-#include <istream>
 
 class CtTable : public CtAnchoredWidget
 {
@@ -62,7 +60,7 @@ public:
      * The output CSV excel csv with double quotes around cells and newlines for each record
      * @param output
      */
-    void to_csv(std::ostream& output) const;
+    std::string to_csv() const;
     void set_modified_false() override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;

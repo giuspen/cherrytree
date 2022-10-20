@@ -28,7 +28,6 @@
 #include "ct_storage_xml.h"
 #include "ct_logging.h"
 #include "ct_misc_utils.h"
-#include <fstream>
 
 CtTable::CtTable(CtMainWin* pCtMainWin,
                  const CtTableMatrix& tableMatrix,
@@ -185,7 +184,8 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     return retVal;
 }
 
-void CtTable::to_csv(std::ostream& output) const {
+std::string CtTable::to_csv() const
+{
     CtCSV::CtStringTable tbl;
     for (const CtTableRow& ct_row : _tableMatrix) {
         std::vector<std::string> row;
@@ -195,7 +195,7 @@ void CtTable::to_csv(std::ostream& output) const {
         }
         tbl.emplace_back(row);
     }
-    CtCSV::table_to_csv(tbl, output);
+    return CtCSV::table_to_csv(tbl);
 }
 
 std::unique_ptr<CtTable> CtTable::from_csv(const std::string& filepath,
@@ -203,11 +203,7 @@ std::unique_ptr<CtTable> CtTable::from_csv(const std::string& filepath,
                                            const int offset,
                                            const Glib::ustring& justification)
 {
-    std::ifstream input(filepath);
-    if (not input.is_open()) {
-        return std::unique_ptr<CtTable>{nullptr};
-    }
-    CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(input);
+    CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(filepath);
 
     CtTableMatrix tbl_matrix;
     if (str_tbl.size() and str_tbl.front().size()) {
