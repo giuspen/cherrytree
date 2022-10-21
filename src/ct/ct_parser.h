@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -244,7 +244,7 @@ private:
     TableMatrix _current_table;
 
     const CtTextParser::token_schema* _last_encountered_token = nullptr;
-    std::ostringstream _free_text;
+    Glib::ustring _free_text;
 
     uint8_t _list_level = 0;
     std::shared_ptr<CtTextParser> _text_parser;

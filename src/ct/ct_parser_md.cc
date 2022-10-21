@@ -1,7 +1,7 @@
 /*
  * ct_parser_md.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -192,19 +192,17 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
 
 void CtMDParser::_place_free_text()
 {
-    std::string free_txt = _free_text.str();
-    if (!free_txt.empty()) {
-        auto iter = free_txt.crbegin();
-        for (;iter != free_txt.crend(); ++iter) {
+    if (!_free_text.empty()) {
+        auto iter = _free_text.rbegin();
+        for (; iter != _free_text.rend(); ++iter) {
             if (*iter == '\n') break;
         }
-        std::string last_line(iter.base(), free_txt.cend());
-        std::string other_txt(free_txt.cbegin(), iter.base());
+        Glib::ustring last_line{iter.base(), _free_text.end()};
+        Glib::ustring other_txt{_free_text.begin(), iter.base()};
         doc_builder().add_text(other_txt);
         doc_builder().add_text(last_line); // This may be needed for headers
 
-        std::ostringstream tmp_ss;
-        _free_text.swap(tmp_ss);
+        _free_text.clear();
     }
 }
 
@@ -242,7 +240,7 @@ void CtMDParser::feed(std::istream& stream)
                         doc_builder().add_newline();
                     }
                     if (_current_table.empty()) {
-                        _free_text.write(iter->second.c_str(), iter->second.size());
+                        _free_text += iter->second;
                     }
                 }
             }
