@@ -241,19 +241,17 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
 
 void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept
 {
-    std::string start_dir = custom_dir.empty() ? _pCtConfig->pickDirImport : custom_dir;
+    std::string start_dir = custom_dir.empty() or not fs::is_directory(custom_dir) ? _pCtConfig->pickDirImport : custom_dir;
     std::string import_dir = CtDialogs::folder_select_dialog(start_dir, _pCtMainWin);
     if (import_dir.empty()) return;
-    if (custom_dir.empty())
+    if (custom_dir.empty()) {
         _pCtConfig->pickDirImport = import_dir;
-
-    try
-    {
+    }
+    try {
         auto dir_node = CtImports::traverse_dir(import_dir, importer);
         _create_imported_nodes(dir_node.get());
     }
-    catch (std::exception& ex)
-    {
+    catch (std::exception& ex) {
         spdlog::error("import exception: {}", ex.what());
     }
 }

@@ -399,8 +399,6 @@ std::unique_ptr<CtImportedNode> CtZimImport::import_file(const fs::path& file)
 {
     if (file.extension() != ".txt") return nullptr;
 
-    _ensure_notebook_file_in_dir(file.parent_path());
-
     std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
 
     const std::string file_contents = Glib::file_get_contents(file.string());
@@ -415,21 +413,6 @@ std::unique_ptr<CtImportedNode> CtZimImport::import_file(const fs::path& file)
 }
 
 CtZimImport::~CtZimImport() = default;
-
-void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
-{
-    if (_has_notebook_file) return;
-    for (auto dir_item: fs::get_dir_entries(dir))
-        if (dir_item.filename() == "notebook.zim")
-        {
-            _has_notebook_file = true;
-            break;
-        }
-
-    if (!_has_notebook_file) {
-        throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", dir));
-    }
-}
 
 CtMDImport::~CtMDImport() = default;
 
