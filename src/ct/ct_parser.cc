@@ -485,7 +485,17 @@ void CtMempadParser::feed(const std::string& data)
      */
 
     // mempad uses null terminated strings in its format
-    std::vector<std::string> strings = str::split(data, "\0");
+    std::vector<std::string> strings;
+    size_t prev_pos{0};
+    do {
+        const auto found = data.find('\0', prev_pos);
+        if (std::string::npos == found) {
+            strings.push_back(data.substr(prev_pos));
+            break;
+        }
+        strings.push_back(data.substr(prev_pos, found - prev_pos));
+        prev_pos = found + 1;
+    } while (prev_pos < data.size());
 
     std::vector<page> new_pages = parse_mempad_strings(strings);
     _parsed_pages.insert(_parsed_pages.cend(), new_pages.begin(), new_pages.end());
