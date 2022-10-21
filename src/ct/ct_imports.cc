@@ -28,7 +28,6 @@
 #include "ct_export2html.h"
 #include "ct_logging.h"
 #include <libxml2/libxml/SAX.h>
-#include <fstream>
 
 namespace {
 
@@ -236,7 +235,6 @@ std::unique_ptr<CtImportedNode> CtImports::traverse_dir(const fs::path& dir, CtI
     join_subdir_subnote(dir_node);
     join_parent_dir_subnote(dir_node);
 
-
     return dir_node;
 }
 
@@ -265,7 +263,9 @@ CtTomboyImport::CtTomboyImport(CtConfig* config) : _config{config}
 std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file)
 {
     xmlpp::DomParser tomboy_doc;
-    try { tomboy_doc.parse_file(file.string());}
+    try {
+        tomboy_doc.parse_file(file.string());
+    }
     catch (std::exception& ex) {
         spdlog::error("CtTomboyImport: cannot parse xml file ({}): {}", ex.what(), file);
         return nullptr;
@@ -296,9 +296,8 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
         parent_name = "ORPHANS";
 
     // parse note's content
-    if (xmlpp::Node* text_el = note_el->get_first_child("text"))
-        if (xmlpp::Node* content_el = text_el->get_first_child("note-content"))
-        {
+    if (xmlpp::Node* text_el = note_el->get_first_child("text")) {
+        if (xmlpp::Node* content_el = text_el->get_first_child("note-content")) {
             auto parent_node = std::make_unique<CtImportedNode>(file, parent_name);
             auto node = std::make_unique<CtImportedNode>(file, node_name);
 
@@ -312,16 +311,15 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
             parent_node->children.emplace_back(std::move(node));
             return parent_node;
         }
+    }
     return nullptr;
 }
 
 void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<CtImportedNode>& node)
 {
-    for (auto dom_iter: iter->get_children())
-    {
+    for (auto dom_iter : iter->get_children()) {
         auto dom_iter_el = dynamic_cast<xmlpp::Element*>(dom_iter);
-        if (dom_iter->get_name() == "#text")
-        {
+        if (dom_iter->get_name() == "#text") {
             Glib::ustring text_data = dynamic_cast<xmlpp::TextNode*>(dom_iter)->get_content();
             if (_curr_attributes[CtConst::TAG_LINK] == "webs ")
                 _curr_attributes[CtConst::TAG_LINK] += text_data;
@@ -405,12 +403,10 @@ std::unique_ptr<CtImportedNode> CtZimImport::import_file(const fs::path& file)
 
     std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
 
-    std::ifstream stream;
-    stream.exceptions(std::ios::failbit);
-    stream.open(file.string());
+    const std::string file_contents = Glib::file_get_contents(file.string());
 
     _zim_parser->wipe_doc();
-    _zim_parser->feed(stream);
+    _zim_parser->feed(file_contents);
 
     node->xml_content = _zim_parser->doc().document();
     node->content_broken_links = _zim_parser->doc().broken_links();
@@ -465,10 +461,9 @@ std::unique_ptr<CtImportedNode> CtMDImport::import_file(const fs::path& file)
     if (file.extension() != ".md")
         return nullptr;
 
-    std::ifstream infile(file.string());
-    if (!infile) throw std::runtime_error(fmt::format("CtMDImport: cannot open file, what: {}, file: {}", strerror(errno), file));
+    const std::string file_contents = Glib::file_get_contents(file.string());
     _parser->wipe_doc();
-    _parser->feed(infile);
+    _parser->feed(file_contents);
 
     std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
     node->xml_content = _parser->doc().document();
@@ -519,8 +514,8 @@ ITER up_to_same_level(ITER start, ITER upper_bound, int level)
 }
 
 std::unique_ptr<CtImportedNode> mempad_pages_to_nodes(const CtMempadParser::page& page,
-                                                        const std::vector<CtMempadParser::page>& child_pages,
-                                                        const fs::path& path)
+                                                      const std::vector<CtMempadParser::page>& child_pages,
+                                                      const fs::path& path)
 {
     auto node = mempad_page_to_node(page, path);
     for (auto iter = child_pages.begin(); iter != child_pages.end(); ++iter) {
@@ -545,7 +540,6 @@ std::unique_ptr<CtImportedNode> mempad_tree_to_node(const std::vector<CtMempadPa
         .contents = ""
     };
     auto node = mempad_pages_to_nodes(dummy_page, pages, path);
-
     return node;
 }
 
@@ -553,37 +547,28 @@ std::unique_ptr<CtImportedNode> mempad_tree_to_node(const std::vector<CtMempadPa
 
 std::unique_ptr<CtImportedNode> CtMempadImporter::import_file(const fs::path& file)
 {
-    std::ifstream infile{file.string()};
-
+    const std::string file_contents = Glib::file_get_contents(file.string());
     CtMempadParser parser;
-
-    parser.feed(infile);
-
+    parser.feed(file_contents);
     std::vector<CtMempadParser::page> pages = parser.parsed_pages();
-
     auto node = mempad_tree_to_node(pages, file);
-
     return node;
 }
 
 std::unique_ptr<CtImportedNode> CtTreepadImporter::import_file(const fs::path& file)
 {
-    std::ifstream infile{file.string()};
-
+    const std::string file_contents = Glib::file_get_contents(file.string());
     CtTreepadParser parser;
-
-    parser.feed(infile);
-
+    parser.feed(file_contents);
     std::vector<CtMempadParser::page> pages = parser.parsed_pages();
-
     auto node = mempad_tree_to_node(pages, file);
-
     return node;
 }
 
 namespace {
 
-std::unique_ptr<CtImportedNode> to_ct_node(const CtLeoParser::leo_node& leo_node, const fs::path& path) {
+std::unique_ptr<CtImportedNode> to_ct_node(const CtLeoParser::leo_node& leo_node, const fs::path& path)
+{
     auto node = std::make_unique<CtImportedNode>(path, leo_node.name);
     node->xml_content = std::make_shared<xmlpp::Document>();
     create_root_plaintext_text_el(*node->xml_content, leo_node.content);
@@ -619,7 +604,7 @@ std::unique_ptr<CtImportedNode> node_to_ct_node(const CtRedNotebookParser::node&
 
 std::unique_ptr<CtImportedNode> generate_ct_node_hierarchy(std::string&& root_name, const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path)
 {
-    CtRedNotebookParser::node root { std::move(root_name) };
+    CtRedNotebookParser::node root{ std::move(root_name) };
     auto ct_root = node_to_ct_node(root, path);
 
     for (const auto& node : nodes) {
@@ -632,45 +617,29 @@ std::unique_ptr<CtImportedNode> generate_ct_node_hierarchy(std::string&& root_na
 
 std::unique_ptr<CtImportedNode> CtLeoImporter::import_file(const fs::path& path)
 {
-    std::ifstream in{path.string()};
-    if (!in) {
-        throw std::runtime_error(fmt::format("Failed to initalise input file, path: <{}>", path));
-    }
-
+    const std::string file_contents = Glib::file_get_contents(path.string());
     CtLeoParser parser;
-    parser.feed(in);
-
+    parser.feed(file_contents);
     return generate_leo_root_node(parser.nodes(), path);
 }
 
 std::unique_ptr<CtImportedNode> CtRedNotebookImporter::import_file(const fs::path& path)
 {
-    std::ifstream in{path.string()};
-    if (!in) {
-        throw std::runtime_error("Failed to initalise import file");
-    }
-
-    return _parse_input(in, path);
+    return _parse_input(path);
 }
 
-std::unique_ptr<CtImportedNode> CtRedNotebookImporter::_parse_input(std::ifstream& infile, const fs::path& path)
+std::unique_ptr<CtImportedNode> CtRedNotebookImporter::_parse_input(const fs::path& path)
 {
-    CtRedNotebookParser p{_ct_config};
-
-    p.feed(infile);
-    const auto& nodes = p.nodes();
-
-    return generate_ct_node_hierarchy("RedNotebook Root", nodes, path);
+    const std::string file_contents = Glib::file_get_contents(path.string());
+    CtRedNotebookParser parser{_ct_config};
+    parser.feed(file_contents);
+    return generate_ct_node_hierarchy("RedNotebook Root", parser.nodes(), path);
 }
 
 std::unique_ptr<CtImportedNode> CtNoteCaseHTMLImporter::import_file(const fs::path& path)
 {
-    std::ifstream in{path.string()};
-    if (!in) {
-        throw std::runtime_error("Failed to setup input file for reading");
-    }
-
+    const std::string file_contents = Glib::file_get_contents(path.string());
     CtNoteCaseHTMLParser parser{_ct_config};
-    parser.feed(in);
+    parser.feed(file_contents);
     return generate_ct_node_hierarchy("NoteCase Root", parser.nodes(), path);
 }

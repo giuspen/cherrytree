@@ -248,7 +248,7 @@ public:
     std::unique_ptr<CtImportedNode> import_file(const fs::path& path) override;
 
 private:
-    std::unique_ptr<CtImportedNode> _parse_input(std::ifstream& infile, const fs::path& path);
+    std::unique_ptr<CtImportedNode> _parse_input(const fs::path& path);
 
     CtConfig* _ct_config;
 };

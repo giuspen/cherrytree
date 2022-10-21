@@ -1,7 +1,7 @@
 /*
  * ct_parser.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -331,12 +331,10 @@ void CtMarkdownFilter::_markdown_insert()
             iter_begin.backward_chars(start_offset);
             iter_end.backward_chars(end_offset);
 
-            std::stringstream txt(raw_token);
-            _md_parser->feed(txt);
+            _md_parser->feed(raw_token);
 
             _buffer->place_cursor(iter_begin);
             _buffer->erase(iter_begin, iter_end);
-
 
             _clipboard->from_xml_string_to_buffer(_buffer, _md_parser->xml_doc_string());
 
@@ -443,34 +441,7 @@ bool CtMarkdownFilter::active() const noexcept
 
 namespace {
 
-using c_string = std::vector<char>;
-
-std::vector<c_string> split_by_null(std::istream& in)
-{
-    // getline will throw on eof otherwise
-    std::vector<c_string> file_strings;
-
-    in.seekg(0, std::ios::end);
-    std::vector<char> buff(in.tellg());
-    in.seekg(0, std::ios::beg);
-
-    in.read(buff.data(), buff.size());
-
-    auto iter = buff.begin();
-    auto last = iter;
-    for(;iter != buff.end(); ++iter) {
-        if (*iter == '\0') {
-            file_strings.emplace_back(last, iter + 1);
-            last = iter + 1;
-        }
-    }
-
-    in.seekg(0, std::ios::beg);
-
-    return file_strings;
-}
-
-std::vector<CtMempadParser::page> parse_mempad_strings(const std::vector<c_string>& mem_strs)
+std::vector<CtMempadParser::page> parse_mempad_strings(const std::vector<std::string>& mem_strs)
 {
     // Expected input is something like MeMpAd1.\0\0...\0...\0... etc
 
@@ -491,7 +462,6 @@ std::vector<CtMempadParser::page> parse_mempad_strings(const std::vector<c_strin
             .level = page_lvl,
             .name = std::move(title),
             .contents = std::move(contents)
-
         };
         parsed_strs.emplace_back(std::move(p));
 
@@ -503,7 +473,7 @@ std::vector<CtMempadParser::page> parse_mempad_strings(const std::vector<c_strin
 
 } // namespace (anonymous)
 
-void CtMempadParser::feed(std::istream& data)
+void CtMempadParser::feed(const std::string& data)
 {
     /**
      * The mempad data format is pretty simple:
@@ -515,17 +485,16 @@ void CtMempadParser::feed(std::istream& data)
      */
 
     // mempad uses null terminated strings in its format
-    std::vector<c_string> strings = split_by_null(data);
+    std::vector<std::string> strings = str::split(data, "\0");
 
     std::vector<page> new_pages = parse_mempad_strings(strings);
     _parsed_pages.insert(_parsed_pages.cend(), new_pages.begin(), new_pages.end());
 }
 
-void CtTreepadParser::feed(std::istream& data)
+void CtTreepadParser::feed(const std::string& data)
 {
-    std::string lineStr;
     Glib::RefPtr<Glib::Regex> rRegExpInteger = Glib::Regex::create("\\d+");
-    while (std::getline(data, lineStr)) {
+    for (auto& lineStr : str::split(data, CtConst::CHAR_NEWLINE)) {
         size_t currSize = lineStr.size();
         if (currSize > 0 and lineStr.at(currSize - 1) == '\r') {
             lineStr.erase(currSize - 1);
@@ -570,20 +539,17 @@ CtZimParser::CtZimParser(CtConfig* config)
  , _text_parser{std::make_shared<CtTextParser>(_token_schemas())}
 {}
 
-void CtZimParser::feed(std::istream& data)
+void CtZimParser::feed(const std::string& data)
 {
-    std::string line;
-
-    bool found_header = false;
-
+    bool found_header{false};
     try {
-        while (std::getline(data, line, '\n')) {
+        for (const auto& line : str::split(data, CtConst::CHAR_NEWLINE)) {
             if (not found_header) {
                 // Creation-Date: .* is the final line of the header
                 if (line.find("Creation-Date:") != std::string::npos) {
                     found_header = true;
                 }
-            } 
+            }
             else {
                 _parse_body_line(line);
             }
@@ -876,11 +842,10 @@ std::vector<CtLeoParser::leo_node> walk_leo_xml(const xmlpp::Node& root)
 
 } // namespace (anonymous)
 
-void CtLeoParser::feed(std::istream& in)
+void CtLeoParser::feed(const std::string& in)
 {
-
     xmlpp::DomParser p;
-    p.parse_stream(in);
+    p.parse_memory(in);
 
     xmlpp::Element* root = p.get_document()->get_root_node();
 

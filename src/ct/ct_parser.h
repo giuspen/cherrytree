@@ -32,7 +32,6 @@
 #include <libxml++/libxml++.h>
 #include <gtkmm.h>
 #include <unordered_set>
-#include <sstream>
 #include <unordered_map>
 #include <functional>
 #include <array>
@@ -55,7 +54,7 @@ public:
 class CtParserInterface
 {
 public:
-    virtual void feed(std::istream&) = 0;
+    virtual void feed(const std::string&) = 0;
     virtual ~CtParserInterface() = default;
 };
 
@@ -222,7 +221,7 @@ public:
     explicit CtMDParser(CtConfig* config);
     CtMDParser(CtConfig* config, std::shared_ptr<CtTextParser> parser) : CtDocBuildingParser{config} , _text_parser{std::move(parser)}{}
 
-    void feed(std::istream& stream) override;
+    void feed(const std::string& stream) override;
 
     virtual ~CtMDParser() = default;
 
@@ -231,7 +230,7 @@ public:
 private:
     void _place_free_text();
     void _add_scale_to_last(int level);
-    void _add_table_cell(std::string text);
+    void _add_table_cell(const std::string& text);
     /// Add the current table row to the table
     void _pop_table_row();
     /// Add the current table to the output xml
@@ -461,7 +460,7 @@ public:
         std::string contents;
     };
 
-    void feed(std::istream& data) override;
+    void feed(const std::string& data) override;
 
     const std::vector<page>& parsed_pages() const { return _parsed_pages; }
 
@@ -472,7 +471,7 @@ private:
 class CtTreepadParser : public CtParserInterface
 {
 public:
-    void feed(std::istream& data) override;
+    void feed(const std::string& data) override;
     const std::vector<CtMempadParser::page>& parsed_pages() const { return _parsed_pages; }
 
 private:
@@ -491,7 +490,7 @@ class CtZimParser : public CtDocBuildingParser
 public:
     explicit CtZimParser(CtConfig* config);
 
-    void feed(std::istream& in) override;
+    void feed(const std::string& in) override;
 
 private:
     std::vector<CtTextParser::token_schema> _token_schemas();
@@ -511,7 +510,7 @@ public:
         std::vector<leo_node> children;
     };
 
-    void feed(std::istream& in) override;
+    void feed(const std::string& in) override;
 
     const std::vector<leo_node>& nodes() const { return _leo_nodes; }
 
@@ -530,7 +529,7 @@ public:
     using node = ct_basic_node;
     explicit CtRedNotebookParser(CtConfig* config) : _ct_config{config} {}
 
-    void feed(std::istream& in) override;
+    void feed(const std::string& in) override;
 
     const std::vector<node>& nodes() const { return _nodes; }
 
@@ -553,7 +552,7 @@ public:
     using node = ct_basic_node;
     explicit CtNoteCaseHTMLParser(CtConfig* config) : _ct_config{config} {}
 
-    void feed(std::istream& input) override;
+    void feed(const std::string& input) override;
 
     const std::vector<node>& nodes() const { return _nodes; }
 

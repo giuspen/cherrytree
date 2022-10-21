@@ -56,8 +56,7 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
     };
     auto add_list = [this](const std::string& text) {
         doc_builder().add_list(_list_level, "");
-        std::istringstream ss(text);
-        feed(ss);
+        feed(text);
         doc_builder().add_newline();
         _list_level = 0;
     };
@@ -206,15 +205,10 @@ void CtMDParser::_place_free_text()
     }
 }
 
-void CtMDParser::feed(std::istream& stream)
+void CtMDParser::feed(const std::string& buffer)
 {
-    std::string line;
-    std::ostringstream in_stream;
-    in_stream << stream.rdbuf();
-
-    // Feed the line
     try {
-        auto tokens_raw = _text_parser->tokenize(in_stream.str());
+        auto tokens_raw = _text_parser->tokenize(buffer);
         auto tokens     = _text_parser->parse_tokens(tokens_raw);
 
         for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
@@ -231,9 +225,9 @@ void CtMDParser::feed(std::istream& stream)
                         continue;
                     }
                 }
-
                 iter->first->action(iter->second);
-            } else {
+            }
+            else {
                 if (!iter->second.empty()) {
                     if (!_current_table.empty() && iter->second == "\n") {
                         _pop_table();
@@ -248,12 +242,13 @@ void CtMDParser::feed(std::istream& stream)
         }
         if (!_current_table.empty()) _pop_table();
         _place_free_text();
-    } catch (std::exception& e) {
-        spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
+    }
+    catch (std::exception& e) {
+        spdlog::error("Exception while parsing '{}': {}", buffer, e.what());
     }
 }
 
-void CtMDParser::_add_table_cell(std::string text)
+void CtMDParser::_add_table_cell(const std::string& text)
 {
     if (!text.empty()) {
         // Parse it to see if a cell or end of row

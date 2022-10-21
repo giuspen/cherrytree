@@ -1,7 +1,7 @@
 /*
  * ct_parser_text.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -23,7 +23,6 @@
 
 #include "ct_parser.h"
 #include "ct_logging.h"
-#include <sstream>
 
 namespace {
 

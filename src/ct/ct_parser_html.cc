@@ -30,14 +30,14 @@
 #include <cassert>
 
 namespace {
-std::vector<std::string> split_rednotebook_html_nodes(const std::string& input) 
+std::vector<std::string> split_rednotebook_html_nodes(const std::string& input)
 {
     static const auto reg = Glib::Regex::create("<p>[\\S\\s]<span id=\"(?:[12]\\d{3}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))\"></span>[\\S\\s]</p>");
     std::vector<std::string> out = reg->split(input);
     return out;
 }
 
-std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input) 
+std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input)
 {
     static const auto reg = Glib::Regex::create("<h1>([\\S\\s]*?)<\\/h1>");
 
@@ -53,7 +53,7 @@ std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input
 
 
 
-std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, CtConfig* config) 
+std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, CtConfig* config)
 {
     CtHtml2Xml parser{config};
     parser.feed(contents);
@@ -178,7 +178,7 @@ void CtHtml2Xml::feed(const std::string& html)
     }
 
 
-    _rich_text_save_pending(); 
+    _rich_text_save_pending();
 }
 
 void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
@@ -237,7 +237,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         return;
     }
     _parsing_valid_tag = true;
-    
+
     if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
     if (_state == ParserState::WAIT_BODY)
     {
@@ -310,8 +310,8 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         }
         else if (tag == "br") _rich_text_serialize(CtConst::CHAR_NEWLINE);
         else if (tag == "ol")  { _list_type = 'o'; _list_num = 1; }
-        else if (tag == "ul")  { 
-            _list_type = 'u'; 
+        else if (tag == "ul")  {
+            _list_type = 'u';
             _list_num = 0;
             if (_list_level < static_cast<int>(_config->charsListbul.size()) - 1) _list_level++;
         }
@@ -759,15 +759,12 @@ void CtHtml2Xml::_rich_text_save_pending()
 }
 
 
-void CtRedNotebookParser::feed(std::istream& in) 
+void CtRedNotebookParser::feed(const std::string& in)
 {
-    std::ostringstream ss;
-    ss << in.rdbuf();
-    _feed_str(ss.str());
+    _feed_str(in);
 }
 
-
-void CtRedNotebookParser::_feed_str(const std::string& in) 
+void CtRedNotebookParser::_feed_str(const std::string& in)
 {
     auto pages = split_rednotebook_html_nodes(in);
     pages.erase(pages.cbegin(), pages.cbegin() + 1);
@@ -779,7 +776,7 @@ void CtRedNotebookParser::_feed_str(const std::string& in)
 }
 
 
-void CtRedNotebookParser::_add_node(std::string&& name, const std::string& contents) 
+void CtRedNotebookParser::_add_node(std::string&& name, const std::string& contents)
 {
     node new_node{
         std::move(name), html_to_xml_doc(contents, _ct_config)
@@ -788,27 +785,23 @@ void CtRedNotebookParser::_add_node(std::string&& name, const std::string& conte
     _nodes.emplace_back(std::move(new_node));
 }
 
-
-void CtNoteCaseHTMLParser::feed(std::istream& input) {
-    std::stringstream ss;
-    ss << input.rdbuf();
-    _feed_str(ss.str());
+void CtNoteCaseHTMLParser::feed(const std::string& input)
+{
+    _feed_str(input);
 }
-
 
 void CtNoteCaseHTMLParser::_feed_str(const std::string& str) {
     auto split_nodes = _split_notecase_html_nodes(str);
-    std::vector<node> new_nodes = _generate_notecase_nodes(std::make_move_iterator(split_nodes.begin()), 
+    std::vector<node> new_nodes = _generate_notecase_nodes(std::make_move_iterator(split_nodes.begin()),
                                                         std::make_move_iterator(split_nodes.end()), _ct_config);
     _nodes.insert(_nodes.cend(), std::make_move_iterator(new_nodes.cbegin()), std::make_move_iterator(new_nodes.cend()));
 }
 
-
-std::vector<CtNoteCaseHTMLParser::notecase_split_output> CtNoteCaseHTMLParser::_split_notecase_html_nodes(const std::string& input) 
-{   
+std::vector<CtNoteCaseHTMLParser::notecase_split_output> CtNoteCaseHTMLParser::_split_notecase_html_nodes(const std::string& input)
+{
     /*
      * Each "note" is seperated by a DT with font weight as bold and then a link tag with a 22 length string
-     * (I assume the string is some sort of hash since it is just a jumble of characters, I guess it is used 
+     * (I assume the string is some sort of hash since it is just a jumble of characters, I guess it is used
      * as anchor points for links). Links are not handled because they require a pro version.
      */
     static const auto reg = Glib::Regex::create("<DT style=\"font-weight: bold;\"><A name=\"[a-z|A-Z|0-9]{22}\"></A>([\\S\\s]*?)</DT>");
