@@ -479,8 +479,6 @@ public:
     void import_nodes_from_zim_directory() noexcept;
     void import_node_from_md_file() noexcept;
     void import_nodes_from_md_directory() noexcept;
-    void import_node_from_pandoc() noexcept;
-    void import_directory_from_pandoc() noexcept;
     void import_nodes_from_gnote_directory() noexcept;
     void import_nodes_from_tomboy_directory() noexcept;
     void import_nodes_from_keepnote_directory() noexcept;

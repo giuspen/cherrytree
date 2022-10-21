@@ -151,28 +151,6 @@ void CtActions::import_nodes_from_zim_directory() noexcept
     _import_from_dir(&importer, Glib::build_filename(Glib::get_home_dir(), "Notebooks", "Notes"));
 }
 
-void CtActions::import_node_from_pandoc() noexcept
-{
-    if (!CtPandoc::has_pandoc()) {
-        CtDialogs::warning_dialog(_("Pandoc executable could not be found, please ensure it is in your path"), *_pCtMainWin);
-        return;
-    }
-
-    CtPandocImport importer(_pCtConfig);
-    _import_from_file(&importer);
-}
-
-void CtActions::import_directory_from_pandoc() noexcept
-{
-    if (!CtPandoc::has_pandoc()) {
-        CtDialogs::warning_dialog(_("Pandoc executable could not be found, please ensure it is in your path"), *_pCtMainWin);
-        return;
-    }
-
-    CtPandocImport importer(_pCtConfig);
-    _import_from_dir(&importer, "");
-};
-
 void CtActions::import_nodes_from_gnote_directory() noexcept
 {
     CtTomboyImport importer(_pCtConfig);

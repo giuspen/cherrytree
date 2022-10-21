@@ -1,7 +1,7 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -472,24 +472,6 @@ std::unique_ptr<CtImportedNode> CtMDImport::import_file(const fs::path& file)
 
     std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
     node->xml_content = _parser->doc().document();
-
-    return node;
-}
-
-CtPandocImport::CtPandocImport(CtConfig* config): _config(config)
-{
-}
-
-std::unique_ptr<CtImportedNode> CtPandocImport::import_file(const fs::path& file)
-{
-    std::stringstream html_buff;
-    CtPandoc::to_html(file, html_buff);
-
-    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
-
-    CtHtml2Xml parser(_config);
-    parser.set_outter_xml_doc(node->xml_content.get());
-    parser.feed(html_buff.str());
 
     return node;
 }

@@ -1,7 +1,7 @@
 /*
  * ct_imports.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -200,19 +200,6 @@ public:
     std::string                       file_pattern_name() override { return _("Markdown Document"); }
 private:
     std::unique_ptr<CtMDParser> _parser;
-};
-
-class CtPandocImport : public CtImporterInterface
-{
-public:
-    CtPandocImport(CtConfig* config);
-
-public:
-    // virtuals of CtImporterInterface
-    std::unique_ptr<CtImportedNode> import_file(const fs::path& file) override;
-
-private:
-    CtConfig* _config;
 };
 
 class CtKeepnoteImport : public CtImporterInterface

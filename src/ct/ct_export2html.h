@@ -1,7 +1,7 @@
 /*
  * ct_export2html.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -89,29 +89,3 @@ private:
     fs::path _embed_dir;
     fs::path _res_dir;
 };
-
-
-
-/**
- * @brief Contains functions which provide an interface between a pandoc binary and cherrytree
- * @namespace CtPandoc
- */
-namespace CtPandoc {
-
-bool has_pandoc();
-
-constexpr bool supports_syntax(std::string_view syntax) {
-    constexpr const std::array<std::string_view, 2> supported_syntaxes = {"markdown", "latex"};
-    for (const auto& supported_syntax : supported_syntaxes) {
-        if (syntax == supported_syntax) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void to_html(std::istream& input, std::ostream& output, std::string from_format);
-
-void to_html(const fs::path& file, std::ostream& output);
-
-} // CtPandoc

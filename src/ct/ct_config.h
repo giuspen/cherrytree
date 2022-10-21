@@ -230,7 +230,6 @@ public:
     bool                                        customBackupDirOn{false};
     std::string                                 customBackupDir{""};
     int                                         limitUndoableSteps{10};
-    bool                                        usePandoc{true}; // Whether to use Pandoc for exporting
 
     // [keyboard]
     std::map<std::string, std::string>          customKbShortcuts;

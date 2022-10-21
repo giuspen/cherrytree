@@ -33,7 +33,6 @@ public:
     {
         _no_gui = true;
         _on_startup(); // so that _uCtTmp is ready straight away
-        _uCtCfg->usePandoc = false; // ensure html from gtksourceview syntax highlighting
     }
     CtTmp* getCtTmp() { return _uCtTmp.get(); }
     void register_args(const std::vector<std::string>* pVecArgs) { _pVecArgs = pVecArgs; }

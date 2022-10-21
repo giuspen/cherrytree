@@ -76,7 +76,6 @@ set(CT_SHARED_FILES
   ct_parser_md.cc
   ct_parser_html.cc
   ct_parser.cc
-  ct_process.cc
   ct_filesystem.cc
   ct_column_edit.cc
 )

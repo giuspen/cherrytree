@@ -27,7 +27,6 @@
 #include "ct_dialogs.h"
 #include "ct_storage_control.h"
 #include "ct_logging.h"
-#include "ct_process.h"
 #include "ct_filesystem.h"
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
@@ -461,19 +460,6 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
     Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
     Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
 
-    if (_pCtMainWin->get_ct_config()->usePandoc && CtPandoc::supports_syntax(syntax_highlighting)) {
-        if (CtPandoc::has_pandoc()) {
-            Glib::ustring      input_txt(curr_iter, end_iter);
-            std::istringstream ibuff(input_txt);
-            std::ostringstream html_out;
-            CtPandoc::to_html(ibuff, html_out, syntax_highlighting);
-            return html_out.str();
-        }
-        else {
-            spdlog::warn("Exported content is eligible for processing by Pandoc but Pandoc executable could not be found");
-        }
-    }
-
     _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
     code_buffer->ensure_highlight(curr_iter, end_iter);
 
@@ -758,56 +744,4 @@ Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
     Glib::ustring name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "--"/*separator*/,
         true/*for_filename*/, true/*root_to_leaf*/, true/*trail_node_id*/, ".html"/*trailer*/);
     return str::replace(name, "#", "~");
-}
-
-std::unique_ptr<CtProcess> pandoc_process() {
-    auto p = std::make_unique<CtProcess>("pandoc");
-    p->append_arg("-t");
-    p->append_arg("html");
-    return p;
-}
-
-namespace CtPandoc {
-
-// Checks if the specified file is in the PATH environment variable
-bool in_path(const std::string& file)
-{
-    g_autofree gchar* prog_name = g_find_program_in_path(file.c_str());
-    return prog_name != nullptr;
-}
-
-
-bool has_pandoc()
-{
-    return in_path("pandoc");
-}
-
-
-void to_html(std::istream& input, std::ostream& output, std::string from_format)
-{
-    auto process = pandoc_process();
-    process->append_arg("--from");
-    process->append_arg(std::move(from_format));
-    try {
-        process->input(&input);
-        process->run(output);
-    } catch(std::exception& e) {
-        spdlog::error("Exception in to_html: {}", e.what());
-        throw;
-    }
-}
-
-
-void to_html(const fs::path& file, std::ostream& output) {
-    auto process = pandoc_process();
-    process->append_arg(file.string());
-
-    try {
-        process->run(output);
-    } catch(std::exception& e) {
-        spdlog::error("Exception in to_html with filepath: {}; message: {}", file, e.what());
-        throw;
-    }
-}
-
 }

@@ -126,7 +126,6 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='import_tomboy'/>
       <menuitem action='import_treepad'/>
       <menuitem action='import_zim'/>
-      <menuitem action='import_pandoc_file'/>
     </menu>
     <menu action='ExportSubMenu'>
       <menuitem action='export_pdf'/>
