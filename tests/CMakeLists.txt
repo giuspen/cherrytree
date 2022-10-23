@@ -1,24 +1,38 @@
 
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
-add_subdirectory(
-  googletest
-)
+if(USE_SHARED_GTEST_GMOCK)
+  message("Using gtest, gmock from: SHARED LIB")
+  pkg_check_modules(GTEST gtest REQUIRED)
+  pkg_check_modules(GMOCK gmock REQUIRED)
+else()
+  message("Using gtest, gmock from: BUNDLED SRC")
+  add_subdirectory(
+    googletest
+  )
+endif()
 
 include_directories(
   ${CMAKE_SOURCE_DIR}/src/ct
 )
 
-mark_as_advanced(
-  BUILD_GMOCK BUILD_GTEST BUILD_SHARED_LIBS
-  gmock_build_tests gtest_build_samples gtest_build_tests
-  gtest_disable_pthreads gtest_force_shared_crt gtest_hide_internal_symbols
-)
+if(USE_SHARED_GTEST_GMOCK)
+  include_directories(
+    SYSTEM ${GTEST_INCLUDE_DIRS}
+    SYSTEM ${GMOCK_INCLUDE_DIRS}
+  )
+else()
+  mark_as_advanced(
+    BUILD_GMOCK BUILD_GTEST BUILD_SHARED_LIBS
+    gmock_build_tests gtest_build_samples gtest_build_tests
+    gtest_disable_pthreads gtest_force_shared_crt gtest_hide_internal_symbols
+  )
 
-set_target_properties(gtest PROPERTIES FOLDER extern)
-set_target_properties(gtest_main PROPERTIES FOLDER extern)
-set_target_properties(gmock PROPERTIES FOLDER extern)
-set_target_properties(gmock_main PROPERTIES FOLDER extern)
+  set_target_properties(gtest PROPERTIES FOLDER extern)
+  set_target_properties(gtest_main PROPERTIES FOLDER extern)
+  set_target_properties(gmock PROPERTIES FOLDER extern)
+  set_target_properties(gmock_main PROPERTIES FOLDER extern)
+endif()
 
 macro(package_add_test TESTNAME)
   # create an exectuable in which the tests will be stored
@@ -75,6 +89,21 @@ if(AUTO_RUN_TESTING)
       COMMAND ${CMAKE_BINARY_DIR}/run_tests_with_x_2
     )
   endif()
+endif()
+
+if(USE_SHARED_GTEST_GMOCK)
+  target_link_libraries(run_tests_no_x
+    ${GTEST_LIBRARIES}
+    ${GMOCKLIBRARIES}
+  )
+  target_link_libraries(run_tests_with_x_1
+    ${GTEST_LIBRARIES}
+    ${GMOCKLIBRARIES}
+  )
+  target_link_libraries(run_tests_with_x_2
+    ${GTEST_LIBRARIES}
+    ${GMOCKLIBRARIES}
+  )
 endif()
 
 set_target_properties(run_tests_no_x PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

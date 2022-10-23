@@ -26,6 +26,7 @@ endif()
 
 option(USE_NLS "Add locales support" ON)
 option(USE_SHARED_FMT_SPDLOG "Use shared fmt and spdlog (not those bundled)" ON)
+option(USE_SHARED_GTEST_GMOCK "Use shared gtest and gmock (not those bundled)" OFF)
 if(WIN32)
   option(USE_VTE "Add virtual terminal support" OFF)
 else()
