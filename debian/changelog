@@ -1,10 +1,15 @@
-cherrytree (0.99.50-2) focal; urgency=low
+cherrytree (0.99.51-2) focal; urgency=low
 
-  * added support for code execution in integrated terminal - available only in Linux and Mac OS, not in Windows (#1902, #1772, #547)
-  * implemented action to execute code from either the text selection or the current text line (#1772)
-  * improved code execution confirmation dialog displaying the code about to be executed and the syntax
-  * implemented stricter checks for hard coded keyboard shortcuts Requiring Ctrl but not Alt (#2124)
-  * changed syntax of displayed keyboard shortcuts in toolbar tooltips (#2128)
+  * fixed loss of transparency with PNGs in some GTK3 themes (#1402, #2132)
+  * fixed issue with separator between tree and text not restored when tree on right side and window maximised (#2126)
+  * fixed integrated terminal when executing a command for the first time from hidden (not yet instantiated) not passing the command
+  * fixed inconsistency between codebox width displayed and printed to pdf with auto expand enabled
+  * fixed few dialogs missing the property to be destroyed with the parent causing problem when quit from systray (#2133)
+  * fixed crash on windows when printing to pdf long codebox (multi page) including unicode characters
+  * dropped support for pandoc as implementation relies on std::stringstream which causes crashes on windows; elsewhere removed usage of std::stringstream
+  * fixed import from zim (#1870)
+  * fixed issue with integrated terminal show/hide command
+  * update language Turkish to 100% (still incomplete ar, el, fi, hi_IN, lt, nl, zh_CN)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 09 Oct 2022 22:50:35 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 23 Oct 2022 10:44:57 +0100
