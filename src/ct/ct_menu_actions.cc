@@ -513,7 +513,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Export Table as CSV File"), sigc::mem_fun(*pActions, &CtActions::table_export)});
 
     const char* codebox_cat = "";
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_change_properties", "ct_codebox_edit", _("Change CodeBox _Properties"), None,
+    _actions.push_back(CtMenuAction{codebox_cat, "codebox_change_properties", "ct_codebox_edit", _("Change CodeBox _Properties"), KB_CONTROL+"bracketleft",
         _("Edit the Properties of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_change_properties)});
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_load_from_file", "ct_from_txt", _("CodeBox _Load From Text File"), None,
         _("Load the CodeBox Content From a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_load_from_file)});

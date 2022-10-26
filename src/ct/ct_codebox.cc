@@ -301,6 +301,10 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                 _pCtMainWin->get_text_view().grab_focus();
                 return true;
             }
+            if (event->keyval == GDK_KEY_bracketleft) {
+                _pCtMainWin->get_ct_actions()->codebox_change_properties();
+                return true;
+            }
             if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
                 _ctTextview.zoom_text(true, get_syntax_highlighting());
                 return true;
