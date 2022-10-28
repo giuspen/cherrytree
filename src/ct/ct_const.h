@@ -489,7 +489,7 @@ const inline static Glib::ustring TARGET_WIN_HTML = "HTML Format";
 const inline static std::vector<Glib::ustring> TARGETS_HTML = {"text/html", TARGET_WIN_HTML};
 const inline static Glib::ustring TARGET_URI_LIST = "text/uri-list";
 const inline static Glib::ustring TARGET_GTK_TEXT_BUFFER_CONTENTS = "GTK_TEXT_BUFFER_CONTENTS";
-const inline static std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT"};
+const inline static std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT", "text/plain;charset=utf-8", "text/plain"};
 const inline static std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp"};
 const inline static Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
 
