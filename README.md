@@ -105,17 +105,9 @@ git submodule update --init
 
 ## Building Cherrytree on Gentoo
 
-Install dependencies:
+Build and Install cherrytree:
 ```sh
-sudo emerge --newuse gtkmm gtksourceviewmm glibmm pangomm gspell libxml2 sqlite curl uchardet libfmt spdlog
-```
-Get cherrytree source, compile and run:
-```sh
-git clone https://github.com/giuspen/cherrytree.git
-cd cherrytree/
-git submodule update --init
-./build.sh
-./build/cherrytree
+sudo emerge cherrytree
 ```
 
 ## Building Cherrytree on Fedora
