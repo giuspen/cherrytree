@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ARG_VAL="$1"
+ARG_VAL_LOWER="${1,,}"
 BUILD_DIR="build"
 MAKE_DEB=""
 MAKE_RPM=""
@@ -11,21 +11,26 @@ MAKE_APPIMAGE=""
 [[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
 [ -n "${IS_MSYS2_BUILD}" ] && DEFAULT_BUILD_TYPE="Release" || DEFAULT_BUILD_TYPE="Debug"
 
-if [ "${ARG_VAL}" == "debug" ] || [ "${ARG_VAL}" == "Debug" ] || [ "${ARG_VAL}" == "DEBUG" ]
+if [ "${ARG_VAL_LOWER}" == "debug" ]
 then
   CMAKE_BUILD_TYPE="Debug"
-elif [ "${ARG_VAL}" == "release" ] || [ "${ARG_VAL}" == "Release" ] || [ "${ARG_VAL}" == "RELEASE" ]
+elif [ "${ARG_VAL_LOWER}" == "release" ]
 then
   CMAKE_BUILD_TYPE="Release"
+elif [ "${ARG_VAL_LOWER}" == "gprof" ]
+then
+  CMAKE_BUILD_TYPE="Debug"
+  EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DCMAKE_C_FLAGS=-pg -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg"
+  echo "PROFILING ENABLED (gprof ./build/cherrytree gmon.out > analysis.txt)"
 else
   CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
-  if [ "${ARG_VAL}" == "deb" ] || [ "${ARG_VAL}" == "Deb" ] || [ "${ARG_VAL}" == "DEB" ]
+  if [ "${ARG_VAL_LOWER}" == "deb" ]
   then
     MAKE_DEB="Y"
-  elif [ "${ARG_VAL}" == "rpm" ] || [ "${ARG_VAL}" == "Rpm" ] || [ "${ARG_VAL}" == "RPM" ]
+  elif [ "${ARG_VAL_LOWER}" == "rpm" ]
   then
     MAKE_RPM="Y"
-  elif [ "${ARG_VAL}" == "appimage" ] || [ "${ARG_VAL}" == "Appimage" ] || [ "${ARG_VAL}" == "APPIMAGE" ]
+  elif [ "${ARG_VAL_LOWER}" == "appimage" ]
   then
     MAKE_APPIMAGE="Y"
   fi
@@ -56,7 +61,7 @@ then
   echo "Building on ${DISTRIB_ID} ${DISTRIB_RELEASE}"
   if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ] || [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Debian10" ]
   then
-    EXTRA_CMAKE_FLAGS="-DUSE_SHARED_FMT_SPDLOG=''"
+    EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DUSE_SHARED_FMT_SPDLOG=''"
   fi
 fi
 
