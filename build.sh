@@ -17,11 +17,6 @@ then
 elif [ "${ARG_VAL_LOWER}" == "release" ]
 then
   CMAKE_BUILD_TYPE="Release"
-elif [ "${ARG_VAL_LOWER}" == "gprof" ]
-then
-  CMAKE_BUILD_TYPE="Debug"
-  EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DCMAKE_C_FLAGS=-pg -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg"
-  echo "PROFILING ENABLED (gprof ./build/cherrytree gmon.out > analysis.txt)"
 else
   CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
   if [ "${ARG_VAL_LOWER}" == "deb" ]

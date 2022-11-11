@@ -12,5 +12,3 @@ build
 *.mo
 .vscode/settings.json
 .flatpak-builder
-analysis.txt
-gmon.out
