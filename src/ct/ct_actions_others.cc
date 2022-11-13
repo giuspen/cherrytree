@@ -501,7 +501,13 @@ void CtActions::_exec_code(const bool is_all)
 
     fs::path filepath_src_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code." + code_type_ext);
     fs::path filepath_bin_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code.exe");
-    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp.string());
+    const bool using_tmp_src{std::string::npos != binary_cmd.find(CtConst::CODE_EXEC_TMP_SRC)};
+    if (using_tmp_src) {
+        binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp.string());
+    }
+    else {
+        binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_CODE_TXT, code_val.raw());
+    }
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
 
     if (_pCtConfig->codeExecConfirm and not CtDialogs::exec_code_confirm_dialog(*_pCtMainWin, code_type, code_val)) {
@@ -533,7 +539,9 @@ void CtActions::_exec_code(const bool is_all)
     }
 #endif // !_WIN32
 
-    g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
+    if (using_tmp_src) {
+        g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
+    }
 
     if (_pCtConfig->codeExecVte) {
         binary_cmd += "\n";

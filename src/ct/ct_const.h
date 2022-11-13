@@ -443,6 +443,7 @@ const inline static std::array<std::pair<const gchar*, const gchar*>, 12> NODE_C
 
 const inline static gchar* CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
 const inline static gchar* CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
+const inline static gchar* CODE_EXEC_CODE_TXT {"<code_txt>"};
 const inline static gchar* CODE_EXEC_COMMAND  {"<command>"};
 
 const inline static std::array<std::pair<const std::string, const std::string>, 8> CODE_EXEC_TYPE_CMD_DEFAULT {
@@ -453,7 +454,7 @@ const inline static std::array<std::pair<const std::string, const std::string>, 
     std::make_pair("powershell", std::string("powershell -File ") + CODE_EXEC_TMP_SRC),
     std::make_pair("python",     std::string("python2 ") + CODE_EXEC_TMP_SRC),
     std::make_pair("python3",    std::string("python3 ") + CODE_EXEC_TMP_SRC),
-    std::make_pair("sh",         std::string("sh ") + CODE_EXEC_TMP_SRC)
+    std::make_pair("sh",         CODE_EXEC_CODE_TXT)
 };
 
 const inline static std::array<std::pair<const std::string, const std::string>, 8> CODE_EXEC_TYPE_EXT_DEFAULT {
