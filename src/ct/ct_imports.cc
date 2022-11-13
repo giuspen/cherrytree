@@ -267,12 +267,18 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
         tomboy_doc.parse_file(file.string());
     }
     catch (std::exception& ex) {
-        spdlog::error("CtTomboyImport: cannot parse xml file ({}): {}", ex.what(), file);
+        spdlog::error("{}: cannot parse xml file ({}): {}", __FUNCTION__, ex.what(), file.string());
         return nullptr;
     }
 
     // find note
-    xmlpp::Node* note_el = tomboy_doc.get_document()->get_root_node()->get_first_child("note");
+    xmlpp::Node* note_el = tomboy_doc.get_document()->get_root_node();
+    if (note_el->get_name() != "note") {
+        note_el->get_first_child("note");
+        if (not note_el) {
+            return nullptr;
+        }
+    }
 
     // find note name
     Glib::ustring node_name = "???";
@@ -286,30 +292,33 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
 
     // find note's parent
     Glib::ustring parent_name;
-    if (xmlpp::Node* tags_el = note_el->get_first_child("tags"))
+    if (xmlpp::Node* tags_el = note_el->get_first_child("tags")) {
         if (xmlpp::Node* tag_el = tags_el->get_first_child("tag")) {
             Glib::ustring tag_name = dynamic_cast<xmlpp::Element*>(tag_el)->get_child_text()->get_content();
             if (tag_name.size() > 16 && str::startswith(tag_name, "system:notebook:"))
                 parent_name = tag_name.substr(16);
         }
-    if (parent_name.empty())
-        parent_name = "ORPHANS";
+    }
 
     // parse note's content
     if (xmlpp::Node* text_el = note_el->get_first_child("text")) {
         if (xmlpp::Node* content_el = text_el->get_first_child("note-content")) {
-            auto parent_node = std::make_unique<CtImportedNode>(file, parent_name);
-            auto node = std::make_unique<CtImportedNode>(file, node_name);
+            
+            auto thisNode = std::make_unique<CtImportedNode>(file, node_name);
 
-            _current_node = node->xml_content->create_root_node("root")->add_child("slot");
+            _current_node = thisNode->xml_content->create_root_node("root")->add_child("slot");
             _curr_attributes.clear();
             _chars_counter = 0;
             _is_list_item = false;
             _is_link_to_node = false;
-            _iterate_tomboy_note(dynamic_cast<xmlpp::Element*>(content_el), node);
+            _iterate_tomboy_note(dynamic_cast<xmlpp::Element*>(content_el), thisNode);
 
-            parent_node->children.emplace_back(std::move(node));
-            return parent_node;
+            if (not parent_name.empty()) {
+                auto parent_node = std::make_unique<CtImportedNode>(file, parent_name);
+                parent_node->children.emplace_back(std::move(thisNode));
+                return parent_node;
+            }
+            return thisNode;
         }
     }
     return nullptr;
@@ -318,67 +327,80 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
 void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<CtImportedNode>& node)
 {
     for (auto dom_iter : iter->get_children()) {
-        auto dom_iter_el = dynamic_cast<xmlpp::Element*>(dom_iter);
-        if (dom_iter->get_name() == "#text") {
-            Glib::ustring text_data = dynamic_cast<xmlpp::TextNode*>(dom_iter)->get_content();
-            if (_curr_attributes[CtConst::TAG_LINK] == "webs ")
-                _curr_attributes[CtConst::TAG_LINK] += text_data;
-            else if (_is_list_item)
-                text_data = _config->charsListbul[0] + CtConst::CHAR_SPACE + text_data;
-
-            xmlpp::Element* el = _rich_text_serialize(text_data);
-             if (_is_link_to_node)
-                node->add_broken_link(text_data, el);
-
-            _chars_counter += text_data.size();
+        if (auto dom_iter_el = dynamic_cast<xmlpp::Element*>(dom_iter)) {
+            if (dom_iter->get_name() == "bold") {
+                _curr_attributes[CtConst::TAG_WEIGHT] = CtConst::TAG_PROP_VAL_HEAVY;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_WEIGHT] = "";
+            }
+            else if (dom_iter->get_name() == CtConst::TAG_PROP_VAL_ITALIC) {
+                _curr_attributes[CtConst::TAG_STYLE] = CtConst::TAG_PROP_VAL_ITALIC;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_STYLE] = "";
+            }
+            else if (dom_iter->get_name() == CtConst::TAG_STRIKETHROUGH) {
+                _curr_attributes[CtConst::TAG_STRIKETHROUGH] = CtConst::TAG_PROP_VAL_TRUE;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_STRIKETHROUGH] = "";
+            }
+            else if (dom_iter->get_name() == "highlight") {
+                _curr_attributes[CtConst::TAG_BACKGROUND] = CtConst::COLOR_48_YELLOW;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_BACKGROUND] = "";
+            }
+            else if (dom_iter->get_name() == CtConst::TAG_PROP_VAL_MONOSPACE) {
+                _curr_attributes[CtConst::TAG_FAMILY] = dom_iter->get_name();
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_FAMILY] = "";
+            }
+            else if (dom_iter->get_name() == "size:small") {
+                _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_SMALL;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_SCALE] = "";
+            }
+            else if (dom_iter->get_name() == "size:large") {
+                _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_H2;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_SCALE] = "";
+            }
+            else if (dom_iter->get_name() == "size:huge") {
+                _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_H1;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_SCALE] = "";
+            }
+            else if (dom_iter->get_name() == "link:url") {
+                _curr_attributes[CtConst::TAG_LINK] = "webs ";
+                _iterate_tomboy_note(dom_iter_el, node);
+                _curr_attributes[CtConst::TAG_LINK] = "";
+            }
+            else if (dom_iter->get_name() == "list-item") {
+                _is_list_item = true;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _is_list_item = false;
+            }
+            else if (dom_iter->get_name() == "link:internal") {
+                _is_link_to_node = true;
+                _iterate_tomboy_note(dom_iter_el, node);
+                _is_link_to_node = false;
+            }
+            else {
+                spdlog::debug(dom_iter->get_name());
+                _iterate_tomboy_note(dom_iter_el, node);
+            }
         }
-        else if (dom_iter->get_name() == "bold") {
-            _curr_attributes[CtConst::TAG_WEIGHT] = CtConst::TAG_PROP_VAL_HEAVY;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_WEIGHT] = "";
-        } else if (dom_iter->get_name() == CtConst::TAG_PROP_VAL_ITALIC) {
-            _curr_attributes[CtConst::TAG_STYLE] = CtConst::TAG_PROP_VAL_ITALIC;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_STYLE] = "";
-        } else if (dom_iter->get_name() == CtConst::TAG_STRIKETHROUGH) {
-            _curr_attributes[CtConst::TAG_STRIKETHROUGH] = CtConst::TAG_PROP_VAL_TRUE;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_STRIKETHROUGH] = "";
-        } else if (dom_iter->get_name() == "highlight") {
-            _curr_attributes[CtConst::TAG_BACKGROUND] = CtConst::COLOR_48_YELLOW;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_BACKGROUND] = "";
-        } else if (dom_iter->get_name() == CtConst::TAG_PROP_VAL_MONOSPACE) {
-            _curr_attributes[CtConst::TAG_FAMILY] = dom_iter->get_name();
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_FAMILY] = "";
-        } else if (dom_iter->get_name() == "size:small") {
-            _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_SMALL;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_SCALE] = "";
-        } else if (dom_iter->get_name() == "size:large") {
-            _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_H2;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_SCALE] = "";
-        } else if (dom_iter->get_name() == "size:huge") {
-            _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_H1;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_SCALE] = "";
-        } else if (dom_iter->get_name() == "link:url") {
-            _curr_attributes[CtConst::TAG_LINK] = "webs ";
-            _iterate_tomboy_note(dom_iter_el, node);
-            _curr_attributes[CtConst::TAG_LINK] = "";
-        } else if (dom_iter->get_name() == "list-item") {
-            _is_list_item = true;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _is_list_item = false;
-        } else if (dom_iter->get_name() == "link:internal") {
-            _is_link_to_node = true;
-            _iterate_tomboy_note(dom_iter_el, node);
-            _is_link_to_node = false;
-        } else {
-            spdlog::debug(dom_iter->get_name());
-            _iterate_tomboy_note(dom_iter_el, node);
+        else {
+            Glib::ustring text_data = dynamic_cast<xmlpp::TextNode*>(dom_iter)->get_content();
+            if (_curr_attributes[CtConst::TAG_LINK] == "webs ") {
+                _curr_attributes[CtConst::TAG_LINK] += text_data;
+            }
+            else if (_is_list_item) {
+                text_data = _config->charsListbul[0] + CtConst::CHAR_SPACE + text_data;
+            }
+            xmlpp::Element* el = _rich_text_serialize(text_data);
+            if (_is_link_to_node) {
+                node->add_broken_link(text_data, el);
+            }
+            _chars_counter += text_data.size();
         }
     }
 }

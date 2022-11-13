@@ -227,12 +227,14 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
     args.filter_mime = importer->file_mime_types();
     const std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
+    spdlog::debug("{} {}", __FUNCTION__, filepath);
     _pCtConfig->pickDirImport = Glib::path_get_dirname(filepath);
 
     try {
-        std::unique_ptr<CtImportedNode> node = importer->import_file(filepath);
-        if (!node) return;
-        _create_imported_nodes(node.get(), dummy_root);
+        std::unique_ptr<CtImportedNode> pNode = importer->import_file(filepath);
+        if (pNode) {
+            _create_imported_nodes(pNode.get(), dummy_root);
+        }
     }
     catch (std::exception& ex) {
         spdlog::error("import exception: {}", ex.what());
@@ -258,6 +260,10 @@ void CtActions::_import_from_dir(CtImporterInterface* importer, const std::strin
 
 void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const bool dummy_root)
 {
+    if (not imported_nodes) {
+        return;
+    }
+
     // to apply functions to nodes
     std::function<void(CtImportedNode*, std::function<void(CtImportedNode*)>)> foreach_nodes;
     foreach_nodes = [&](CtImportedNode* imported_node, std::function<void(CtImportedNode*)> fun_apply) {
