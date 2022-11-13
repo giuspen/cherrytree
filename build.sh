@@ -11,7 +11,7 @@ MAKE_APPIMAGE=""
 [[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
 [ -n "${IS_MSYS2_BUILD}" ] && DEFAULT_BUILD_TYPE="Release" || DEFAULT_BUILD_TYPE="Debug"
 
-if [ "${ARG_VAL_LOWER}" == "debug" ] || ["${ARG_VAL_LOWER}" == "dbg" ]
+if [ "${ARG_VAL_LOWER}" == "debug" ] || [ "${ARG_VAL_LOWER}" == "dbg" ]
 then
   CMAKE_BUILD_TYPE="Debug"
 elif [ "${ARG_VAL_LOWER}" == "release" ] || [ "${ARG_VAL_LOWER}" == "rel" ]
