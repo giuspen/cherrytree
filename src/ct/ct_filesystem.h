@@ -128,10 +128,22 @@ public:
     }
 
     path() = default;
-    path(std::string p) : _path(std::move(p)) {}
-    path(const char* cpath) : _path(cpath) {}
+    path(std::string p) : _path{std::move(p)} {
+#if !defined(_WIN32)
+        _replaceStartingTilde();
+#endif // !_WIN32
+    }
+    path(const char* cpath) : _path{cpath} {
+#if !defined(_WIN32)
+        _replaceStartingTilde();
+#endif // !_WIN32
+    }
     template<typename ITERATOR_T>
-    path(ITERATOR_T begin, ITERATOR_T end) : _path(begin, end) {}
+    path(ITERATOR_T begin, ITERATOR_T end) : _path{begin, end} {
+#if !defined(_WIN32)
+        _replaceStartingTilde();
+#endif // !_WIN32
+    }
     ~path() = default;
 
     void swap(path& other) noexcept {
@@ -139,7 +151,13 @@ public:
         swap(*this, other);
     }
 
-    path& operator=(std::string other) { _path = other; return *this; }
+    path& operator=(std::string other) {
+        _path = other;
+#if !defined(_WIN32)
+        _replaceStartingTilde();
+#endif // !_WIN32
+        return *this;
+    }
     path& operator=(const char* other) { return operator=(std::string(other)); }
 
     friend path operator/(const path& lhs, const path& rhs) {
@@ -180,6 +198,9 @@ public:
 
 private:
     std::string _path;
+#if !defined(_WIN32)
+    void _replaceStartingTilde();
+#endif // !_WIN32
 };
 
 } // namespace fs

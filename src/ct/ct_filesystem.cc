@@ -610,4 +610,13 @@ std::string path::string_unix() const
     return str::replace(_path, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
 }
 
+#if !defined(_WIN32)
+void path::_replaceStartingTilde()
+{
+    if (str::startswith(_path, "~/")) {
+        _path = Glib::get_home_dir() + _path.substr(1);
+    }
+}
+#endif // !_WIN32
+
 } // namespace fs
