@@ -328,4 +328,11 @@ public:
 
     sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window = sigc::signal<void, CtMainWin*>();
     sigc::signal<void, CtMainWin*> signal_app_quit_window = sigc::signal<void, CtMainWin*>();
+
+public:
+    Glib::Dispatcher dispatcherErrorMsg;
+    ThreadSafeDEQueue<std::string, 2> errorsDEQueue;
+
+private:
+    void _on_dispatcher_error_msg();
 };

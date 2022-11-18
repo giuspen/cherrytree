@@ -189,6 +189,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
             }
         });
     }
+
+    dispatcherErrorMsg.connect(sigc::mem_fun(*this, &CtMainWin::_on_dispatcher_error_msg));
 }
 
 CtMainWin::~CtMainWin()
@@ -196,6 +198,12 @@ CtMainWin::~CtMainWin()
     _autosave_timout_connection.disconnect();
     _mod_time_sentinel_timout_connection.disconnect();
     //std::cout << "~CtMainWin" << std::endl;
+}
+
+void CtMainWin::_on_dispatcher_error_msg()
+{
+    const std::string eroor_msg = errorsDEQueue.pop_front();
+    CtDialogs::error_dialog(eroor_msg, *this);
 }
 
 bool CtMainWin::start_on_systray_is_active() const

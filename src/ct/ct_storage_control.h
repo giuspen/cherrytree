@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -25,6 +25,7 @@
 
 #include "ct_types.h"
 #include <glibmm/miscutils.h>
+#include <thread>
 
 class CtMainWin;
 class CtStorageControl
@@ -42,6 +43,7 @@ public:
                                      const CtExporting exporting = CtExporting::NONE,
                                      const int start_offset = 0,
                                      const int end_offset = -1);
+    virtual ~CtStorageControl();
 
 public:
     bool save(bool need_vacuum, Glib::ustring& error);
@@ -52,7 +54,7 @@ private:
     static fs::path _extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password);
     static bool     _package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password);
 
-    void _put_in_backup(const fs::path& main_backup);
+    void _put_in_backup(const std::string& main_backup);
 
 public:
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
@@ -89,6 +91,13 @@ private:
     fs::path                         _extracted_file_path;
     std::unique_ptr<CtStorageEntity> _storage;
     CtStorageSyncPending             _syncPending;
+
+private:
+    std::unique_ptr<std::thread>     _pThreadBackup;
+    ThreadSafeDEQueue<std::string,9> _threadSafeDEQueue;
+    static void _staticBackupThread(CtStorageControl* pStorageCtrl) { pStorageCtrl->_backupThread(); }
+    void _backupThread();
+    bool _backupKeepGoing{true};
 };
 
 class CtImagePng;

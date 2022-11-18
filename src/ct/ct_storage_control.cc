@@ -171,28 +171,25 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
     // if it's not, copy file.ext! back;
 
     fs::path main_backup = _file_path;
-    main_backup += "!";
+    main_backup += std::to_string(g_get_monotonic_time());
     bool need_backup = _pCtMainWin->get_ct_config()->backupCopy and _pCtMainWin->get_ct_config()->backupNum > 0;
-    try
-    {
-        if (_file_path == "")
+    try {
+        if (_file_path.empty()) {
             throw std::runtime_error("storage is not initialized");
+        }
 
-        // sqlite could lost connection
+        // sqlite could lose connection
         _storage->test_connection();
 
-        if (need_backup)
-        {
+        if (need_backup) {
             // move is faster but the file is used by sqlite without encrypt
-            if (_file_path == _extracted_file_path && fs::get_doc_type(_file_path) == CtDocType::SQLite)
-            {
+            if (_file_path == _extracted_file_path && fs::get_doc_type(_file_path) == CtDocType::SQLite) {
                 _storage->close_connect();    // temporary, because of sqlite keepig the file
                 if (!fs::copy_file(_file_path, main_backup))
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 _storage->reopen_connect();
             }
-            else
-            {
+            else {
                 if (!fs::move_file(_file_path, main_backup))
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
             }
@@ -204,16 +201,18 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
             _storage->vacuum();
 
         // encrypt the file
-        if (_file_path != _extracted_file_path)
-        {
+        if (_file_path != _extracted_file_path) {
             _storage->close_connect(); // temporary, because of sqlite keeping the file
             if (!_package_file(_extracted_file_path, _file_path, _password))
                 throw std::runtime_error("couldn't encrypt the file");
             _storage->reopen_connect();
         }
-        if (need_backup)
-            _put_in_backup(main_backup);
-
+        if (need_backup) {
+            _threadSafeDEQueue.push_back(main_backup.string());
+            if (not _pThreadBackup) {
+                _pThreadBackup = std::make_unique<std::thread>(CtStorageControl::_staticBackupThread, this);
+            }
+        }
         _syncPending.fix_db_tables = false;
         _syncPending.bookmarks_to_write = false;
         _syncPending.nodes_to_rm_set.clear();
@@ -221,8 +220,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
 
         return true;
     }
-    catch (std::exception& e)
-    {
+    catch (std::exception& e) {
         // recover from backup
         try {
             _storage->close_connect();
@@ -300,22 +298,40 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     return true;
 }
 
-void CtStorageControl::_put_in_backup(const fs::path& main_backup)
+CtStorageControl::~CtStorageControl()
+{
+    if (_pThreadBackup) {
+        _backupKeepGoing = false;
+        _threadSafeDEQueue.push_back("");
+        _pThreadBackup->join();
+    }
+}
+
+void CtStorageControl::_backupThread()
+{
+    while (_backupKeepGoing) {
+        std::string main_backup = _threadSafeDEQueue.pop_front();
+        if (main_backup.empty()) {
+            break;
+        }
+        _put_in_backup(main_backup);
+    }
+}
+
+void CtStorageControl::_put_in_backup(const std::string& main_backup)
 {
     // backups with tildas can be either in the same directory where the db places or in a custom backup dir
     // main_backup is always with the main db
     auto get_custom_backup_file = [&]() -> std::string {
         // backup path in custom dir: /custom_dir/full_file_path/filename.ext~
         std::string hash_dir = _file_path.string();
-        for (auto str : {"\\", "/", ":", "?"})
+        for (auto str : {"\\", "/", ":", "?"}) {
             hash_dir = str::replace(hash_dir, str, "_");
+        }
         std::string new_backup_dir = Glib::build_filename(_pCtMainWin->get_ct_config()->customBackupDir, hash_dir);
         Glib::RefPtr<Gio::File> dir_file = Gio::File::create_for_path(new_backup_dir);
-        try
-        {
-            if (!dir_file->query_exists())
-            if (!dir_file->make_directory_with_parents())
-            {
+        try {
+            if (not dir_file->query_exists() and not dir_file->make_directory_with_parents()) {
                 spdlog::error("failed to create backup directory: {}", new_backup_dir);
                 return "";
             }
@@ -328,29 +344,32 @@ void CtStorageControl::_put_in_backup(const fs::path& main_backup)
     };
 
     std::string new_backup_file = _file_path.string() + CtConst::CHAR_TILDE;
-    if (_pCtMainWin->get_ct_config()->customBackupDirOn && !_pCtMainWin->get_ct_config()->customBackupDir.empty())
-    {
+    if (_pCtMainWin->get_ct_config()->customBackupDirOn and not _pCtMainWin->get_ct_config()->customBackupDir.empty()) {
         std::string custom_backup_file = get_custom_backup_file();
-        if (!custom_backup_file.empty()) new_backup_file = custom_backup_file;
+        if (not custom_backup_file.empty()) {
+            new_backup_file = custom_backup_file;
+        }
     }
 
     // shift backups with tilda
-    if (_pCtMainWin->get_ct_config()->backupNum >= 2)
-    {
+    if (_pCtMainWin->get_ct_config()->backupNum >= 2) {
         fs::path tilda_filepath = new_backup_file + std::string(_pCtMainWin->get_ct_config()->backupNum - 2, '~');
-        while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE))
-        {
+        while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE)) {
             if (fs::is_regular_file(tilda_filepath)) {
-                if (!fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE))
-                    throw std::runtime_error(
-                            str::format(_("You Have No Write Access to %s"), fs::path(new_backup_file).parent_path().string()));
+                if (not fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE)) {
+                    _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+                    _pCtMainWin->dispatcherErrorMsg.emit();
+                    return;
+                }
             }
             tilda_filepath = tilda_filepath.string().substr(0, tilda_filepath.string().size()-1);
         }
     }
 
-    if (!fs::move_file(main_backup, new_backup_file))
-        throw std::runtime_error(str::format(_("You Have No Write Access to %s"), fs::path(new_backup_file).parent_path().string()));
+    if (not fs::move_file(main_backup, new_backup_file)) {
+        _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+        _pCtMainWin->dispatcherErrorMsg.emit();
+    }
 }
 
 void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
