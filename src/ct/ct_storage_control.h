@@ -49,12 +49,10 @@ public:
     bool save(bool need_vacuum, Glib::ustring& error);
 
 private:
-    CtStorageControl() = default;
+    CtStorageControl(CtMainWin* pCtMainWin);
 
     static fs::path _extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password);
     static bool     _package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password);
-
-    void _put_in_backup(const std::string& main_backup);
 
 public:
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
@@ -84,7 +82,8 @@ public:
     void add_nodes_from_storage(const fs::path& path, Gtk::TreeIter parent_iter);
 
 private:
-    CtMainWin*                       _pCtMainWin{nullptr};
+    CtMainWin*                 const _pCtMainWin;
+    CtConfig*                  const _pCtConfig;
     fs::path                         _file_path;
     time_t                           _mod_time{0};
     Glib::ustring                    _password;
@@ -93,11 +92,19 @@ private:
     CtStorageSyncPending             _syncPending;
 
 private:
-    std::unique_ptr<std::thread>     _pThreadBackup;
-    ThreadSafeDEQueue<std::string,9> _threadSafeDEQueue;
-    static void _staticBackupThread(CtStorageControl* pStorageCtrl) { pStorageCtrl->_backupThread(); }
-    void _backupThread();
-    bool _backupKeepGoing{true};
+    struct CtBackupEncryptData {
+        bool needBackup;
+        bool needEncrypt;
+        std::string main_backup;
+        std::string file_path;
+        std::string password;
+        std::string extracted_copy;
+    };
+    std::unique_ptr<std::thread> _pThreadBackupEncrypt;
+    ThreadSafeDEQueue<std::shared_ptr<CtBackupEncryptData>,9> _backupEncryptDEQueue;
+    static void _staticBackupEncryptThread(CtStorageControl* pStorageCtrl) { pStorageCtrl->_backupEncryptThread(); }
+    void _backupEncryptThread();
+    bool _backupEncryptKeepGoing{true};
 };
 
 class CtImagePng;
