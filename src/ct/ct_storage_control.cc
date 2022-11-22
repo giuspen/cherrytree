@@ -70,19 +70,18 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         if (!storage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
 
         // it's ready
-        CtStorageControl* doc = new CtStorageControl(pCtMainWin);
+        CtStorageControl* doc = new CtStorageControl{pCtMainWin};
         doc->_file_path = file_path;
         doc->_mod_time = fs::getmtime(file_path);
         doc->_password = password;
         doc->_extracted_file_path = extracted_file_path;
         doc->_storage.swap(storage);
         return doc;
-
     }
     catch (std::exception& e) {
-        if (extracted_file_path != file_path && fs::is_regular_file(extracted_file_path))
+        if (extracted_file_path != file_path && fs::is_regular_file(extracted_file_path)) {
             g_remove(extracted_file_path.c_str());
-
+        }
         spdlog::error(e.what());
         error = e.what();
         return nullptr;
@@ -182,18 +181,21 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
                 if (not fs::copy_file(_file_path, main_backup)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 }
+                spdlog::debug("{} ++ {}", _file_path.string(), main_backup.string());
                 _storage->reopen_connect();
             }
             else {
                 if (not fs::move_file(_file_path, main_backup)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 }
+                spdlog::debug("{} -> {}", _file_path.string(), main_backup.string());
             }
         }
         // save changes
         if (not _storage->save_treestore(_extracted_file_path, _syncPending, error)) {
             throw std::runtime_error(error);
         }
+        spdlog::debug("saved {}", _extracted_file_path.string());
         if (need_vacuum) {
             _storage->vacuum();
         }
@@ -201,15 +203,16 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
             std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
             pBackupEncryptData->needBackup = need_backup;
             pBackupEncryptData->needEncrypt = need_encrypt;
+            pBackupEncryptData->file_path = _file_path.string();
             pBackupEncryptData->main_backup = main_backup.string();
             if (need_encrypt) {
                 pBackupEncryptData->extracted_copy = _extracted_file_path.string() + str_timestamp;
-                _storage->close_connect();    // temporary, because of sqlite keepig the file
+                _storage->close_connect(); // temporary, because of sqlite keepig the file
                 if (not fs::copy_file(_extracted_file_path, pBackupEncryptData->extracted_copy)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _extracted_file_path.parent_path().string()));
                 }
+                spdlog::debug("{} ++ {}", _extracted_file_path.string(), pBackupEncryptData->extracted_copy);
                 _storage->reopen_connect();
-                pBackupEncryptData->file_path = _file_path.string();
                 pBackupEncryptData->password = _password;
             }
             _backupEncryptDEQueue.push_back(pBackupEncryptData);
@@ -301,6 +304,16 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     return true;
 }
 
+/*static*/bool CtStorageControl::document_integrity_check_pass(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error)
+{
+    CtStorageControl* new_storage = CtStorageControl::load_from(pCtMainWin, file_path, error);
+    if (new_storage) {
+        delete new_storage;
+        return true;
+    }
+    return false;
+}
+
 CtStorageControl::CtStorageControl(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{pCtMainWin->get_ct_config()}
@@ -321,29 +334,40 @@ void CtStorageControl::_backupEncryptThread()
     while (_backupEncryptKeepGoing) {
         std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = _backupEncryptDEQueue.pop_front();
         if (not pBackupEncryptData) {
+            // a nullptr is passed on purpose in order to exit the loop at app quit
             break;
         }
 
         // encrypt the file
         if (pBackupEncryptData->needEncrypt) {
+            if (pBackupEncryptData->needBackup) {
+                // move the latest file version before the rotation
+                if (not fs::move_file(pBackupEncryptData->file_path, pBackupEncryptData->main_backup)) {
+                    _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{pBackupEncryptData->file_path}.parent_path().string()));
+                    _pCtMainWin->dispatcherErrorMsg.emit();
+                    continue;
+                }
+            }
             const bool retValEncrypt = _package_file(pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path, pBackupEncryptData->password);
             if (not fs::remove(pBackupEncryptData->extracted_copy)) {
                 spdlog::debug("Failed to remove {}", pBackupEncryptData->extracted_copy);
             }
             if (not retValEncrypt) {
+                // move back the latest file version
+                (void)fs::move_file(pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
                 _pCtMainWin->errorsDEQueue.push_back(_("Failed to encrypt the file"));
                 _pCtMainWin->dispatcherErrorMsg.emit();
-                return;
+                continue;
             }
         }
 
         if (not pBackupEncryptData->needBackup) {
-            return;
+            continue;
         }
 
-        // backups with tildas can be either in the same directory where the db places or in a custom backup dir
-        // main_backup is always with the main db
-        auto get_custom_backup_file = [&]() -> std::string {
+        // backups with tildas can either be in the same directory where the db is or in a custom backup dir
+        // main_backup is always in the same directory of the main db
+        auto get_custom_backup_file = [&]()->std::string {
             // backup path in custom dir: /custom_dir/full_file_path/filename.ext~
             std::string hash_dir = pBackupEncryptData->file_path;
             for (auto str : {"\\", "/", ":", "?"}) {
@@ -371,17 +395,19 @@ void CtStorageControl::_backupEncryptThread()
                 new_backup_file = custom_backup_file;
             }
         }
+        spdlog::debug("new_backup_file = {}", new_backup_file);
 
         // shift backups with tilda
         if (_pCtConfig->backupNum >= 2) {
-            fs::path tilda_filepath = new_backup_file + std::string(_pCtConfig->backupNum - 2, '~');
+            fs::path tilda_filepath = new_backup_file + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
             while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE)) {
                 if (fs::is_regular_file(tilda_filepath)) {
                     if (not fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE)) {
                         _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
                         _pCtMainWin->dispatcherErrorMsg.emit();
-                        return;
+                        break;
                     }
+                    spdlog::debug("{} -> {}", tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE);
                 }
                 tilda_filepath = tilda_filepath.string().substr(0, tilda_filepath.string().size()-1);
             }
@@ -391,17 +417,19 @@ void CtStorageControl::_backupEncryptThread()
             _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
             _pCtMainWin->dispatcherErrorMsg.emit();
         }
+        else {
+            spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, new_backup_file);
+        }
     }
+    spdlog::debug("out _backupEncryptThread");
 }
 
 void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
 {
-    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
-    {
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
         _syncPending.nodes_to_write_dict[node_id].prop = true;
     }
-    else
-    {
+    else {
         CtStorageNodeState node_state;
         node_state.upd = true;
         node_state.prop = true;
@@ -411,12 +439,10 @@ void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
 
 void CtStorageControl::pending_edit_db_node_buff(gint64 node_id)
 {
-    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
-    {
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
         _syncPending.nodes_to_write_dict[node_id].buff = true;
     }
-    else
-    {
+    else {
         CtStorageNodeState node_state;
         node_state.upd = true;
         node_state.buff = true;
@@ -426,12 +452,10 @@ void CtStorageControl::pending_edit_db_node_buff(gint64 node_id)
 
 void CtStorageControl::pending_edit_db_node_hier(gint64 node_id)
 {
-    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
-    {
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
         _syncPending.nodes_to_write_dict[node_id].hier = true;
     }
-    else
-    {
+    else {
         CtStorageNodeState node_state;
         node_state.upd = true;
         node_state.hier = true;
@@ -451,10 +475,8 @@ void CtStorageControl::pending_new_db_node(gint64 node_id)
 
 void CtStorageControl::pending_rm_db_nodes(const std::vector<gint64>& node_ids)
 {
-    for (const gint64 node_id : node_ids)
-    {
-        if (0 != _syncPending.nodes_to_write_dict.count(node_id))
-        {
+    for (const gint64 node_id : node_ids) {
+        if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
             // no need to write changes to a node that got to be removed
             _syncPending.nodes_to_write_dict.erase(node_id);
         }
@@ -497,8 +519,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
     auto& store = pCtMainWin->get_tree_store();
     if (pending == nullptr) // all nodes
     {
-        store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool
-        {
+        store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool{
             for (auto widget: store.to_ct_tree_iter(iter).get_anchored_widgets_fast())
                 if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
                     if (auto image = dynamic_cast<CtImagePng*>(widget))
@@ -506,13 +527,10 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
             return false; /* false for continue */
         });
     }
-    else
-    {
-        for (const auto& node_pair : pending->nodes_to_write_dict)
-        {
+    else {
+        for (const auto& node_pair : pending->nodes_to_write_dict) {
             CtTreeIter ct_tree_iter = store.get_node_from_node_id(node_pair.first);
-            if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text())
-            {
+            if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text()) {
                 for (auto widget: ct_tree_iter.get_anchored_widgets_fast())
                     if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
                         if (auto image = dynamic_cast<CtImagePng*>(widget))

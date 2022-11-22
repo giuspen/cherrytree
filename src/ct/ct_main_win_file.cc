@@ -157,17 +157,17 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     reset(); // cannot reset after load_from because load_from fill tree store
 
     Glib::ustring error;
-    auto new_storage = CtStorageControl::load_from(this, filepath, error, password);
-    if (!new_storage) {
+    CtStorageControl* new_storage = CtStorageControl::load_from(this, filepath, error, password);
+    if (not new_storage) {
         if (not error.empty()) {
             CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree File:\n\"%s\""), str::xml_escape(error)), *this);
         }
 
         // trying to recover prevous document
-        if (!prev_path.empty()) {
+        if (not prev_path.empty()) {
             file_open(prev_path, ""/*node*/, ""/*anchor*/); // it won't be in loop because storage is empty
         }
-        return false;                 // show the given document is not loaded
+        return false; // show the given document is not loaded
     }
 
     _uCtStorage.reset(new_storage);

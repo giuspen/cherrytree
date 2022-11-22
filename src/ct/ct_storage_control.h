@@ -43,6 +43,9 @@ public:
                                      const CtExporting exporting = CtExporting::NONE,
                                      const int start_offset = 0,
                                      const int end_offset = -1);
+    static bool document_integrity_check_pass(CtMainWin* pCtMainWin,
+                                              const fs::path& file_path,
+                                              Glib::ustring& error);
     virtual ~CtStorageControl();
 
 public:
