@@ -340,14 +340,6 @@ void CtStorageControl::_backupEncryptThread()
 
         // encrypt the file
         if (pBackupEncryptData->needEncrypt) {
-            if (pBackupEncryptData->needBackup) {
-                // move the latest file version before the rotation
-                if (not fs::move_file(pBackupEncryptData->file_path, pBackupEncryptData->main_backup)) {
-                    _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{pBackupEncryptData->file_path}.parent_path().string()));
-                    _pCtMainWin->dispatcherErrorMsg.emit();
-                    continue;
-                }
-            }
             const bool retValEncrypt = _package_file(pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path, pBackupEncryptData->password);
             if (not fs::remove(pBackupEncryptData->extracted_copy)) {
                 spdlog::debug("Failed to remove {}", pBackupEncryptData->extracted_copy);
@@ -355,10 +347,12 @@ void CtStorageControl::_backupEncryptThread()
             if (not retValEncrypt) {
                 // move back the latest file version
                 (void)fs::move_file(pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
+                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
                 _pCtMainWin->errorsDEQueue.push_back(_("Failed to encrypt the file"));
                 _pCtMainWin->dispatcherErrorMsg.emit();
                 continue;
             }
+            spdlog::debug("{} => {}", pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path);
         }
 
         if (not pBackupEncryptData->needBackup) {
