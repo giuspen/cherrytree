@@ -191,8 +191,8 @@ public:
     bool empty() const noexcept { return _path.empty(); }
     path filename() const { return Glib::path_get_basename(_path); }
     path parent_path() const { return Glib::path_get_dirname(_path); }
-    path extension() const;
-    path stem() const;
+    std::string extension() const;
+    std::string stem() const;
     std::string string_native() const;
     std::string string_unix() const;
 

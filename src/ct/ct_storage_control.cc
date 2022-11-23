@@ -52,7 +52,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
     std::unique_ptr<CtStorageEntity> storage;
     fs::path extracted_file_path = file_path;
     try {
-        if (!fs::is_regular_file(file_path)) throw std::runtime_error("no file");
+        if (not fs::is_regular_file(file_path)) throw std::runtime_error("no file");
 
         // unpack file if need
         if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
@@ -67,7 +67,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
 
         // load from file
-        if (!storage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
+        if (not storage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
 
         // it's ready
         CtStorageControl* doc = new CtStorageControl{pCtMainWin};
@@ -86,6 +86,13 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         error = e.what();
         return nullptr;
     }
+}
+
+/*static*/bool CtStorageControl::document_integrity_check_pass(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error)
+{
+    std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
+    storage->set_is_dry_run();
+    return storage->populate_treestore(file_path, error);
 }
 
 /*static*/CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin,
@@ -164,7 +171,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
 
     const std::string str_timestamp = std::to_string(g_get_monotonic_time());
     fs::path main_backup = _file_path;
-    main_backup += str_timestamp;
+    main_backup += (str_timestamp + _file_path.extension());
     const bool need_backup = _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
     const bool need_encrypt = _file_path != _extracted_file_path;
     try {
@@ -206,7 +213,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
             pBackupEncryptData->file_path = _file_path.string();
             pBackupEncryptData->main_backup = main_backup.string();
             if (need_encrypt) {
-                pBackupEncryptData->extracted_copy = _extracted_file_path.string() + str_timestamp;
+                pBackupEncryptData->extracted_copy = _extracted_file_path.string() + (str_timestamp + _extracted_file_path.extension());
                 _storage->close_connect(); // temporary, because of sqlite keepig the file
                 if (not fs::copy_file(_extracted_file_path, pBackupEncryptData->extracted_copy)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _extracted_file_path.parent_path().string()));
@@ -304,16 +311,6 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     return true;
 }
 
-/*static*/bool CtStorageControl::document_integrity_check_pass(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error)
-{
-    CtStorageControl* new_storage = CtStorageControl::load_from(pCtMainWin, file_path, error);
-    if (new_storage) {
-        delete new_storage;
-        return true;
-    }
-    return false;
-}
-
 CtStorageControl::CtStorageControl(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{pCtMainWin->get_ct_config()}
@@ -340,6 +337,14 @@ void CtStorageControl::_backupEncryptThread()
 
         // encrypt the file
         if (pBackupEncryptData->needEncrypt) {
+            Glib::ustring error;
+            if (not CtStorageControl::document_integrity_check_pass(_pCtMainWin, pBackupEncryptData->extracted_copy, error)) {
+                spdlog::error("{} {}", __FUNCTION__, error.raw());
+                _pCtMainWin->errorsDEQueue.push_back(_("Failed integrity check of the saved document. Try File-->Save As"));
+                _pCtMainWin->dispatcherErrorMsg.emit();
+                continue;
+            }
+            spdlog::debug("{} integrity check ok", pBackupEncryptData->extracted_copy);
             const bool retValEncrypt = _package_file(pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path, pBackupEncryptData->password);
             if (not fs::remove(pBackupEncryptData->extracted_copy)) {
                 spdlog::debug("Failed to remove {}", pBackupEncryptData->extracted_copy);
@@ -357,6 +362,17 @@ void CtStorageControl::_backupEncryptThread()
 
         if (not pBackupEncryptData->needBackup) {
             continue;
+        }
+
+        if (not pBackupEncryptData->needEncrypt) {
+            Glib::ustring error;
+            if (not CtStorageControl::document_integrity_check_pass(_pCtMainWin, pBackupEncryptData->main_backup, error)) {
+                spdlog::error("{} {}", __FUNCTION__, error.raw());
+                _pCtMainWin->errorsDEQueue.push_back(_("Failed integrity check of the saved document. Try File-->Save As"));
+                _pCtMainWin->dispatcherErrorMsg.emit();
+                continue;
+            }
+            spdlog::debug("{} integrity check ok", pBackupEncryptData->main_backup);
         }
 
         // backups with tildas can either be in the same directory where the db is or in a custom backup dir

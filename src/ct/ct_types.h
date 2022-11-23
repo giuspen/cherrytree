@@ -261,6 +261,11 @@ public:
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,
                                                               std::list<CtAnchoredWidget*>& widgets) const = 0;
+
+    void set_is_dry_run() { _isDryRun = true; }
+
+protected:
+    bool _isDryRun{false};
 };
 
 struct CtExportOptions

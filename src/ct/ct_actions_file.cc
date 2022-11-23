@@ -75,7 +75,7 @@ void CtActions::file_save_as()
     {
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
         fs::path suggested_basename = currDocFilepath.filename();
-        fileSelArgs.curr_file_name = suggested_basename.stem().string() + CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+        fileSelArgs.curr_file_name = suggested_basename.stem() + CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     }
     fileSelArgs.filter_name = _("CherryTree Document");
     std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);

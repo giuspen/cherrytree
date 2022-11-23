@@ -248,7 +248,7 @@ std::unique_ptr<CtImportedNode> CtHtmlImport::import_file(const fs::path& file)
         return nullptr;
     }
     std::string htmlStr = Glib::file_get_contents(file.string());
-    auto node = std::make_unique<CtImportedNode>(file, file.stem().string());
+    auto node = std::make_unique<CtImportedNode>(file, file.stem());
     CtHtml2Xml html2xml{_config};
     html2xml.set_local_dir(file.parent_path().string());
     html2xml.set_outter_xml_doc(node->xml_content.get());
@@ -421,7 +421,7 @@ std::unique_ptr<CtImportedNode> CtZimImport::import_file(const fs::path& file)
 {
     if (file.extension() != ".txt") return nullptr;
 
-    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
+    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem());
 
     const std::string file_contents = Glib::file_get_contents(file.string());
 
@@ -446,7 +446,7 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
     try {
         std::string converted = Glib::file_get_contents(file.string());
         CtStrUtil::convert_if_not_utf8(converted, true/*sanitise*/);
-        auto node = std::make_unique<CtImportedNode>(file, file.stem().string());
+        auto node = std::make_unique<CtImportedNode>(file, file.stem());
         node->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(converted);
         node->node_syntax = CtConst::PLAIN_TEXT_ID;
         return node;
@@ -470,7 +470,7 @@ std::unique_ptr<CtImportedNode> CtMDImport::import_file(const fs::path& file)
     _parser->wipe_doc();
     _parser->feed(file_contents);
 
-    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
+    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem());
     node->xml_content = _parser->doc().document();
 
     return node;
@@ -488,7 +488,7 @@ std::unique_ptr<CtImportedNode> CtKeepnoteImport::import_file(const fs::path& fi
     CtHtml2Xml parser{_config};
     parser.set_local_dir(file.parent_path().string());
     parser.feed(keepnoteStr);
-    auto node = std::make_unique<CtImportedNode>(file, file.parent_path().stem().string());
+    auto node = std::make_unique<CtImportedNode>(file, file.parent_path().stem());
     node->xml_content->create_root_node_by_import(parser.doc().get_root_node());
     //spdlog::debug(keepnoteStr);
     //spdlog::debug(node->xml_content->write_to_string());

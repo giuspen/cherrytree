@@ -51,45 +51,47 @@ void CtStorageXml::test_connection()
 
 bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& error)
 {
-    try
-    {
+    try {
         // open file
         auto parser = _get_parser(file_path);
 
         // read bookmarks
-        for (xmlpp::Node* xml_node :  parser->get_document()->get_root_node()->get_children("bookmarks"))
-        {
+        for (xmlpp::Node* xml_node :  parser->get_document()->get_root_node()->get_children("bookmarks")) {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(xml_node)->get_attribute_value("list");
-            for (gint64& nodeId : CtStrUtil::gstring_split_to_int64(bookmarks_csv.c_str(), ","))
-                _pCtMainWin->get_tree_store().bookmarks_add(nodeId);
+            for (auto nodeId : CtStrUtil::gstring_split_to_int64(bookmarks_csv.c_str(), ",")) {
+                if (not _isDryRun) {
+                    _pCtMainWin->get_tree_store().bookmarks_add(nodeId);
+                }
+            }
         }
 
         // read nodes
         std::list<CtTreeIter> nodes_with_duplicated_id;
         std::function<void(xmlpp::Element*, const gint64, Gtk::TreeIter)> nodes_from_xml;
         nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
-            bool has_duplicated_id = false;
+            bool has_duplicated_id{false};
             Gtk::TreeIter new_iter = _node_from_xml(xml_element, sequence, parent_iter, -1, &has_duplicated_id);
-            if (has_duplicated_id) {
+            if (has_duplicated_id and not _isDryRun) {
                 nodes_with_duplicated_id.push_back(_pCtMainWin->get_tree_store().to_ct_tree_iter(new_iter));
             }
             gint64 child_sequence = 0;
-            for (xmlpp::Node* xml_node : xml_element->get_children("node"))
+            for (xmlpp::Node* xml_node : xml_element->get_children("node")) {
                 nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++child_sequence, new_iter);
+            }
         };
         gint64 sequence = 0;
-        for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
+        for (xmlpp::Node* xml_node : parser->get_document()->get_root_node()->get_children("node")) {
             nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++sequence, Gtk::TreeIter());
+        }
 
         // fixes duplicated ids by setting new ids
-        for (auto& node: nodes_with_duplicated_id) {
+        for (auto& node : nodes_with_duplicated_id) {
             node.set_node_id(_pCtMainWin->get_tree_store().node_id_get());
         }
 
         return true;
     }
-    catch (std::exception& e)
-    {
+    catch (std::exception& e) {
         error = std::string("CtDocXmlStorage got exception: ") + e.what();
         return false;
     }
@@ -102,8 +104,7 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
                                   const int start_offset/*= 0*/,
                                   const int end_offset/*=-1*/)
 {
-    try
-    {
+    try {
         xmlpp::Document xml_doc;
         xml_doc.create_root_node(CtConst::APP_NAME);
 
@@ -121,8 +122,7 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
         if ( CtExporting::NONE == exporting or
              CtExporting::ALL_TREE == exporting ) {
             auto ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
-            while (ct_tree_iter)
-            {
+            while (ct_tree_iter) {
                 _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node(), &storage_cache, exporting, start_offset, end_offset);
                 ct_tree_iter++;
             }
@@ -137,8 +137,7 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
 
         return true;
     }
-    catch (std::exception& e)
-    {
+    catch (std::exception& e) {
         error = e.what();
         return false;
     }
@@ -186,13 +185,16 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& no
 
 Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id, bool* has_duplicated_id)
 {
-    if (has_duplicated_id) *has_duplicated_id = false;
-
+    if (has_duplicated_id) {
+        *has_duplicated_id = false;
+    }
     CtNodeData node_data;
-    if (new_id == -1)
+    if (new_id == -1) {
         node_data.nodeId = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("unique_id").c_str());
-    else
+    }
+    else {
         node_data.nodeId = new_id;
+    }
     node_data.name = xml_element->get_attribute_value("name");
     node_data.syntax = xml_element->get_attribute_value("prog_lang");
     node_data.tags = xml_element->get_attribute_value("tags");
@@ -205,17 +207,20 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 s
     node_data.tsCreation = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_creation").c_str());
     node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastsave").c_str());
     node_data.sequence = sequence;
-    if (new_id == -1)
-    {
+
+    if (_isDryRun) {
+        return Gtk::TreeIter{};
+    }
+
+    if (new_id == -1) {
         if (_delayed_text_buffers.count(node_data.nodeId) != 0) {
             spdlog::debug("node has duplicated id {}, will be fixed", node_data.nodeId);
             if (has_duplicated_id) *has_duplicated_id = true;
             // create buffer now because we cannot put a duplicate id in _delayed_text_buffers
             // the id will be fixed on top level code
-            node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+            node_data.rTextBuffer = CtStorageXmlHelper{_pCtMainWin}.create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
         }
-        else
-        {
+        else {
             // because of widgets which are slow to insert for now, delay creating buffers
             // save node data in a separate document
             auto node_buffer = std::make_shared<xmlpp::Document>();

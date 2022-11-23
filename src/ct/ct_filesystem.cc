@@ -575,18 +575,17 @@ path relative(const path& p, const path& base)
     return p;
 }
 
-path path::extension() const
+std::string path::extension() const
 {
     std::string name = filename().string();
     auto last_pos = name.find_last_of('.');
     if (last_pos == std::string::npos || last_pos == name.size() - 1 || last_pos == 0) {
-        return path("");
-    } else {
-        return path(name.begin() + last_pos, name.end());
+        return "";
     }
+    return name.substr(last_pos);
 }
 
-path path::stem() const
+std::string path::stem() const
 {
     if (empty()) return "";
     std::string name = filename().string();
