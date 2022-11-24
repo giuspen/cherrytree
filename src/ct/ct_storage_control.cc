@@ -30,6 +30,8 @@
 #include "ct_logging.h"
 #include <glib/gstdio.h>
 
+//#define DEBUG_BACKUP_ENCRYPT
+
 std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (file_type == CtDocType::SQLite) {
@@ -188,21 +190,27 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
                 if (not fs::copy_file(_file_path, main_backup)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 }
+#if defined(DEBUG_BACKUP_ENCRYPT)
                 spdlog::debug("{} ++ {}", _file_path.string(), main_backup.string());
+#endif // DEBUG_BACKUP_ENCRYPT
                 _storage->reopen_connect();
             }
             else {
                 if (not fs::move_file(_file_path, main_backup)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 }
+#if defined(DEBUG_BACKUP_ENCRYPT)
                 spdlog::debug("{} -> {}", _file_path.string(), main_backup.string());
+#endif // DEBUG_BACKUP_ENCRYPT
             }
         }
         // save changes
         if (not _storage->save_treestore(_extracted_file_path, _syncPending, error)) {
             throw std::runtime_error(error);
         }
+#if defined(DEBUG_BACKUP_ENCRYPT)
         spdlog::debug("saved {}", _extracted_file_path.string());
+#endif // DEBUG_BACKUP_ENCRYPT
         if (need_vacuum) {
             _storage->vacuum();
         }
@@ -218,14 +226,13 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
                 if (not fs::copy_file(_extracted_file_path, pBackupEncryptData->extracted_copy)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _extracted_file_path.parent_path().string()));
                 }
+#if defined(DEBUG_BACKUP_ENCRYPT)
                 spdlog::debug("{} ++ {}", _extracted_file_path.string(), pBackupEncryptData->extracted_copy);
+#endif // DEBUG_BACKUP_ENCRYPT
                 _storage->reopen_connect();
                 pBackupEncryptData->password = _password;
             }
             _backupEncryptDEQueue.push_back(pBackupEncryptData);
-            if (not _pThreadBackupEncrypt) {
-                _pThreadBackupEncrypt = std::make_unique<std::thread>(CtStorageControl::_staticBackupEncryptThread, this);
-            }
         }
         _syncPending.fix_db_tables = false;
         _syncPending.bookmarks_to_write = false;
@@ -315,6 +322,7 @@ CtStorageControl::CtStorageControl(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{pCtMainWin->get_ct_config()}
 {
+    _pThreadBackupEncrypt = std::make_unique<std::thread>(CtStorageControl::_staticBackupEncryptThread, this);
 }
 
 CtStorageControl::~CtStorageControl()
@@ -344,20 +352,26 @@ void CtStorageControl::_backupEncryptThread()
                 _pCtMainWin->dispatcherErrorMsg.emit();
                 continue;
             }
+#if defined(DEBUG_BACKUP_ENCRYPT)
             spdlog::debug("{} integrity check ok", pBackupEncryptData->extracted_copy);
+#endif // DEBUG_BACKUP_ENCRYPT
             const bool retValEncrypt = _package_file(pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path, pBackupEncryptData->password);
             if (not fs::remove(pBackupEncryptData->extracted_copy)) {
-                spdlog::debug("Failed to remove {}", pBackupEncryptData->extracted_copy);
+                spdlog::debug("!! rm {}", pBackupEncryptData->extracted_copy);
             }
             if (not retValEncrypt) {
                 // move back the latest file version
                 (void)fs::move_file(pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
+#if defined(DEBUG_BACKUP_ENCRYPT)
                 spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
+#endif // DEBUG_BACKUP_ENCRYPT
                 _pCtMainWin->errorsDEQueue.push_back(_("Failed to encrypt the file"));
                 _pCtMainWin->dispatcherErrorMsg.emit();
                 continue;
             }
+#if defined(DEBUG_BACKUP_ENCRYPT)
             spdlog::debug("{} => {}", pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path);
+#endif // DEBUG_BACKUP_ENCRYPT
         }
 
         if (not pBackupEncryptData->needBackup) {
@@ -372,7 +386,9 @@ void CtStorageControl::_backupEncryptThread()
                 _pCtMainWin->dispatcherErrorMsg.emit();
                 continue;
             }
+#if defined(DEBUG_BACKUP_ENCRYPT)
             spdlog::debug("{} integrity check ok", pBackupEncryptData->main_backup);
+#endif // DEBUG_BACKUP_ENCRYPT
         }
 
         // backups with tildas can either be in the same directory where the db is or in a custom backup dir
@@ -405,7 +421,9 @@ void CtStorageControl::_backupEncryptThread()
                 new_backup_file = custom_backup_file;
             }
         }
+#if defined(DEBUG_BACKUP_ENCRYPT)
         spdlog::debug("new_backup_file = {}", new_backup_file);
+#endif // DEBUG_BACKUP_ENCRYPT
 
         // shift backups with tilda
         if (_pCtConfig->backupNum >= 2) {
@@ -417,7 +435,9 @@ void CtStorageControl::_backupEncryptThread()
                         _pCtMainWin->dispatcherErrorMsg.emit();
                         break;
                     }
+#if defined(DEBUG_BACKUP_ENCRYPT)
                     spdlog::debug("{} -> {}", tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE);
+#endif // DEBUG_BACKUP_ENCRYPT
                 }
                 tilda_filepath = tilda_filepath.string().substr(0, tilda_filepath.string().size()-1);
             }
@@ -427,11 +447,15 @@ void CtStorageControl::_backupEncryptThread()
             _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
             _pCtMainWin->dispatcherErrorMsg.emit();
         }
+#if defined(DEBUG_BACKUP_ENCRYPT)
         else {
             spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, new_backup_file);
         }
+#endif // DEBUG_BACKUP_ENCRYPT
     }
+#if defined(DEBUG_BACKUP_ENCRYPT)
     spdlog::debug("out _backupEncryptThread");
+#endif // DEBUG_BACKUP_ENCRYPT
 }
 
 void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
