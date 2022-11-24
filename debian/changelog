@@ -1,15 +1,14 @@
-cherrytree (0.99.51-2) focal; urgency=low
+cherrytree (0.99.52-2) focal; urgency=low
 
-  * fixed loss of transparency with PNGs in some GTK3 themes (#1402, #2132)
-  * fixed issue with separator between tree and text not restored when tree on right side and window maximised (#2126)
-  * fixed integrated terminal when executing a command for the first time from hidden (not yet instantiated) not passing the command
-  * fixed inconsistency between codebox width displayed and printed to pdf with auto expand enabled
-  * fixed few dialogs missing the property to be destroyed with the parent causing problem when quit from systray (#2133)
-  * fixed crash on windows when printing to pdf long codebox (multi page) including unicode characters
-  * dropped support for pandoc as implementation relies on std::stringstream which causes crashes on windows; elsewhere removed usage of std::stringstream
-  * fixed import from zim (#1870)
-  * fixed issue with integrated terminal show/hide command
-  * update language Turkish to 100% (still incomplete ar, el, fi, hi_IN, lt, nl, zh_CN)
+  * moved encryption and backup to a separate thread to improve performance; implemented integrity verification of the document before encryption and backup rotation (#2148)
+  * code execution: added new tag to allow placing the code directly into the terminal rather than in a temporary file (#1772)
+  * assigned hard coded keyboard shortcut to change codebox properties 'Ctrl'+'[' (#2138)
+  * fix import from gnote/tomboy (#2152, #1991, #1686)
+  * linux support path links starting with ~/ (#2149)
+  * fix paste from gnome-characters in fedora (#2094)
+  * using github.com instead of giuspen.net to retrieve the latest version released as some users have issues to access giuspen.net (#2162)
+  * added support for typescript syntax highlighting (#2161)
+  * updated languages Chinese Simplified, Dutch to 100% (still incomplete ar, el, fi, hi_IN, lt)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 23 Oct 2022 10:44:57 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 24 Nov 2022 20:23:24 +0000

@@ -1,4 +1,15 @@
 
+0.99.52 (November 24th, 2022)
+  * moved encryption and backup to a separate thread to improve performance; implemented integrity verification of the document before encryption and backup rotation (#2148)
+  * code execution: added new tag to allow placing the code directly into the terminal rather than in a temporary file (#1772)
+  * assigned hard coded keyboard shortcut to change codebox properties 'Ctrl'+'[' (#2138)
+  * fix import from gnote/tomboy (#2152, #1991, #1686)
+  * linux support path links starting with ~/ (#2149)
+  * fix paste from gnome-characters in fedora (#2094)
+  * using github.com instead of giuspen.net to retrieve the latest version released as some users have issues to access giuspen.net (#2162)
+  * added support for typescript syntax highlighting (#2161)
+  * updated languages Chinese Simplified, Dutch
+
 0.99.51 (October 23rd, 2022)
   * fixed loss of transparency with PNGs in some GTK3 themes (#1402, #2132)
   * fixed issue with separator between tree and text not restored when tree on right side and window maximised (#2126)
