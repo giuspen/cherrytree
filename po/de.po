@@ -463,7 +463,7 @@ msgstr "Baumstruktur-Explorer"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
 msgid "Theme"
-msgstr "Thema"
+msgstr "Darstellung"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:73
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:188
@@ -882,11 +882,11 @@ msgstr "Farbschema-Editor"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:413
 msgid "Set Dark Theme Icons"
-msgstr "Icons für dunkles Thema setzen"
+msgstr "Icons für dunkles Darstellung setzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:414
 msgid "Set Light Theme Icons"
-msgstr "Icons für helles Thema setzen"
+msgstr "Icons für helles Darstellung setzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:415
 msgid "Set Default Icons"
@@ -894,7 +894,7 @@ msgstr "Standard-Icons setzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:445
 msgid "Icon Theme"
-msgstr "Icon-Thema"
+msgstr "Icon-Darstellung"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:147
 msgid "Index"
@@ -2535,7 +2535,7 @@ msgstr "Gesamten Code in Codebox oder Knoten ausführen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:222
 msgid "E_xecute Code Line or Selection"
-msgstr "Codezeile ode Selektion ausführen"
+msgstr "Codezeile oder Selektion ausführen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:223
 msgid "Execute Code from Current Line or Selected Text"
