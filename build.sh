@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ARG_VAL_LOWER="${1,,}"
+ARG_VAL_LOWER="$(echo ${1} | tr [:upper:] [:lower:])"
 BUILD_DIR="build"
 MAKE_DEB=""
 MAKE_RPM=""
