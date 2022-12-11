@@ -307,13 +307,31 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
 
 /*static*/bool CtStorageControl::_package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password)
 {
+    fs::path tmp_prev_archive;
+    if (fs::is_regular_file(file_to)) {
+        tmp_prev_archive = file_to;
+        tmp_prev_archive += (std::to_string(g_get_monotonic_time()) + file_to.extension());
+        if (not fs::move_file(file_to, tmp_prev_archive)) {
+            spdlog::debug("!! {} {} -> {}", __FUNCTION__, file_to.c_str(), tmp_prev_archive.c_str());
+        }
+    }
     if (0 != CtP7zaIface::p7za_archive(file_from.c_str(), file_to.c_str(), password.c_str())) {
         spdlog::debug("!! p7za_archive {} -> {}", file_from.c_str(), file_to.c_str());
+        if (not tmp_prev_archive.empty()) {
+            (void)fs::copy_file(tmp_prev_archive, file_to);
+            (void)fs::remove(tmp_prev_archive);
+        }
         return false;
     }
     if (not fs::is_regular_file(file_to)) {
         spdlog::debug("!! is_regular_file {}", file_to);
+        if (not tmp_prev_archive.empty()) {
+            (void)fs::move_file(tmp_prev_archive, file_to);
+        }
         return false;
+    }
+    if (not tmp_prev_archive.empty()) {
+        (void)fs::remove(tmp_prev_archive);
     }
     return true;
 }
