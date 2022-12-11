@@ -569,15 +569,13 @@ void CtStorageSqlite::_codebox_from_db(const gint64& nodeId ,std::list<CtAnchore
 void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const
 {
     Sqlite3StmtAuto stmt{_pDb, "SELECT * FROM grid WHERE node_id=? ORDER BY offset ASC"};
-    if (stmt.is_bad())
-    {
+    if (stmt.is_bad()) {
         spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
         return;
     }
     sqlite3_bind_int64(stmt, 1, nodeId);
 
-    while (SQLITE_ROW == sqlite3_step(stmt))
-    {
+    while (SQLITE_ROW == sqlite3_step(stmt)) {
         int charOffset = sqlite3_column_int64(stmt, 1);
         Glib::ustring justification = safe_sqlite3_column_text(stmt, 2);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
@@ -587,12 +585,10 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
 
         CtTableMatrix tableMatrix;
         CtTableColWidths tableColWidths;
-        if (CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(tableMatrix, textContent, tableColWidths))
-        {
-            anchoredWidgets.push_back(new CtTable(_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths));
+        if (CtStorageXmlHelper{_pCtMainWin}.populate_table_matrix(tableMatrix, textContent, tableColWidths)) {
+            anchoredWidgets.push_back(new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
         }
-        else
-        {
+        else {
             spdlog::error("!! table xml read: {}", textContent);
         }
     }

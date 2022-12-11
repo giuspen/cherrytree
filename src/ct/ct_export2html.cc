@@ -433,11 +433,11 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 {
     Glib::ustring table_html = "<table class=\"table\">";
     bool first = true;
-    for (const auto& row: table->get_table_matrix())
+    for (const auto& row : table->get_table_matrix())
     {
         table_html += "<tr>";
-        for (auto cell: row) {
-            Glib::ustring content = str::xml_escape(cell->get_text_content());
+        for (void* cell : row) {
+            Glib::ustring content = str::xml_escape(static_cast<CtTextCell*>(cell)->get_text_content());
             if (content.empty()) content = " "; // Otherwise the table will render with squashed cells
 
             if (first) {

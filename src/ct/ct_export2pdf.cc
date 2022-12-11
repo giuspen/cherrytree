@@ -1152,7 +1152,7 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTable* table, cons
 
         std::vector<Glib::RefPtr<Pango::Layout>> layouts;
         for (size_t col = 0; col < table->get_table_matrix()[0].size(); ++col) {
-            Glib::ustring text = str::xml_escape(table->get_table_matrix()[row][col]->get_text_content());
+            Glib::ustring text = str::xml_escape(static_cast<CtTextCell*>(table->get_table_matrix()[row][col])->get_text_content());
             if (row == 0) text = "<b>" + text + "</b>";
             Glib::RefPtr<Pango::Layout> cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);

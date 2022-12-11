@@ -85,8 +85,7 @@ Glib::ustring CtExport2Txt::selection_export_to_txt(CtTreeIter tree_iter, Glib::
     std::list<CtAnchoredWidget*> widgets = tree_iter.get_anchored_widgets(sel_start, sel_end);
 
     int start_offset = sel_start >= 0 ? sel_start : 0;
-    for (CtAnchoredWidget* widget: widgets)
-    {
+    for (CtAnchoredWidget* widget : widgets) {
         int end_offset = widget->getOffset();
         Glib::ustring text_slot = _plain_process_slot(start_offset, end_offset, text_buffer, false);
         plain_text += text_slot;
@@ -102,11 +101,11 @@ Glib::ustring CtExport2Txt::selection_export_to_txt(CtTreeIter tree_iter, Glib::
 Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
 {
     Glib::ustring table_plain = CtConst::CHAR_NEWLINE;
-    for (const auto& row: table_orig->get_table_matrix())
-    {
+    for (const auto& row : table_orig->get_table_matrix()) {
         table_plain += CtConst::CHAR_PIPE;
-        for (const auto& cell: row)
-            table_plain += CtConst::CHAR_SPACE + cell->get_text_content() + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
+        for (void* cell : row) {
+            table_plain += CtConst::CHAR_SPACE + static_cast<CtTextCell*>(cell)->get_text_content() + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
+        }
         table_plain += CtConst::CHAR_NEWLINE;
     }
     return table_plain;

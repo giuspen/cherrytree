@@ -163,24 +163,19 @@ CtAnchoredWidget* CtAnchoredWidgetState_Codebox::to_widget(CtMainWin* pCtMainWin
 }
 
 // Table
-CtAnchoredWidgetState_Table::CtAnchoredWidgetState_Table(CtTable* table)
+CtAnchoredWidgetState_TableCommon::CtAnchoredWidgetState_TableCommon(CtTableCommon* table)
  : CtAnchoredWidgetState{table->getOffset(), table->getJustification()}
  , colWidthDefault{table->get_col_width_default()}
  , colWidths{table->get_col_widths_raw()}
  , currRow{table->current_row()}
  , currCol{table->current_column()}
 {
-    for (auto& row : table->get_table_matrix()) {
-        rows.push_back(std::vector<Glib::ustring>());
-        for (auto& cell : row) {
-            rows.back().push_back(cell->get_text_content());
-        }
-    }
+    table->write_strings_matrix(rows);
 }
 
-bool CtAnchoredWidgetState_Table::equal(std::shared_ptr<CtAnchoredWidgetState> state)
+bool CtAnchoredWidgetState_TableCommon::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
-    CtAnchoredWidgetState_Table* other_state = dynamic_cast<CtAnchoredWidgetState_Table*>(state.get());
+    CtAnchoredWidgetState_TableCommon* other_state = dynamic_cast<CtAnchoredWidgetState_TableCommon*>(state.get());
     return other_state and
            charOffset == other_state->charOffset and
            justification == other_state->justification and
@@ -194,9 +189,8 @@ bool CtAnchoredWidgetState_Table::equal(std::shared_ptr<CtAnchoredWidgetState> s
 CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
 {
     CtTableMatrix tableMatrix;
-    for (const auto& row : rows)
-    {
-        tableMatrix.push_back(CtTableRow());
+    for (const auto& row : rows) {
+        tableMatrix.push_back(CtTableRow{});
         for (const auto& cell : row) {
             tableMatrix.back().push_back(new CtTextCell{pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
         }
@@ -209,6 +203,25 @@ CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
                        colWidths,
                        currRow,
                        currCol};
+}
+
+CtAnchoredWidget* CtAnchoredWidgetState_TableLight::to_widget(CtMainWin* pCtMainWin)
+{
+    CtTableMatrix tableMatrix;
+    for (const auto& row : rows) {
+        tableMatrix.push_back(CtTableRow{});
+        for (const auto& cell : row) {
+            tableMatrix.back().push_back(new Glib::ustring{cell});
+        }
+    }
+    return new CtTableLight{pCtMainWin,
+                            tableMatrix,
+                            colWidthDefault,
+                            charOffset,
+                            justification,
+                            colWidths,
+                            currRow,
+                            currCol};
 }
 
 CtStateMachine::CtStateMachine(CtMainWin *pCtMainWin)

@@ -27,7 +27,7 @@
 std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
 {
     // based on plotinus
-    struct CtPaletteColumns : public Gtk::TreeModel::ColumnRecord
+    struct CtPaletteColumns : public Gtk::TreeModelColumnRecord
     {
         Gtk::TreeModelColumn<int>           order;
         Gtk::TreeModelColumn<Glib::ustring> id;

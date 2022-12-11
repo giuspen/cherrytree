@@ -579,11 +579,10 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
         return;
     }
 
-    if (parentTable)
-    {
+    if (parentTable) {
         CtTableMatrix tableMatrix;
         CtTableColWidths tableColWidths;
-        CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(
+        CtStorageXmlHelper{_pCtMainWin}.populate_table_matrix(
             tableMatrix,
             static_cast<xmlpp::Element*>(parser.get_document()->get_root_node()->get_first_child("table")),
             tableColWidths);
@@ -591,27 +590,28 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
         int col_num = (int)parentTable->get_table_matrix()[0].size();
         int insert_after = parentTable->current_row() - 1;
         if (insert_after < 0) insert_after = 0;
-        for (int row = 1 /*skip header*/; row < (int)tableMatrix.size(); ++row)
-        {
+        for (int row = 1/*skip header*/; row < (int)tableMatrix.size(); ++row) {
             std::vector<Glib::ustring> new_row;
-            std::transform(tableMatrix[row].begin(), tableMatrix[row].end(), std::back_inserter(new_row), [](CtTextCell* cell) { return cell->get_text_content(); });
+            std::transform(tableMatrix[row].begin(), tableMatrix[row].end(), std::back_inserter(new_row), [](void* cell) {
+                return static_cast<CtTextCell*>(cell)->get_text_content();
+            });
             while ((int)new_row.size() > col_num) new_row.pop_back();
             while ((int)new_row.size() < col_num) new_row.push_back("");
             parentTable->row_add(insert_after + (row-1), &new_row);
         }
-        for (auto row: tableMatrix)
-            for (auto cell: row)
-                delete cell;
+        for (auto& row : tableMatrix) {
+            for (void* cell : row) {
+                delete static_cast<CtTextCell*>(cell);
+            }
+        }
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
     }
-    else
-    {
+    else {
         std::list<CtAnchoredWidget*> widgets;
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
         Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
         CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, parser.get_document()->get_root_node()->get_first_child("table"), widgets, &insert_iter, insert_iter.get_offset());
-        if (not widgets.empty())
-        {
+        if (not widgets.empty()) {
             _pCtMainWin->get_tree_store().addAnchoredWidgets(
                         _pCtMainWin->curr_tree_iter(),
                         widgets, &_pCtMainWin->get_text_view());

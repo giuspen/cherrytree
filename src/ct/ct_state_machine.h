@@ -118,20 +118,31 @@ public:
     bool widthInPixels, brackets, showNum;
 };
 
-class CtAnchoredWidgetState_Table : public CtAnchoredWidgetState
+struct CtAnchoredWidgetState_TableCommon : public CtAnchoredWidgetState
 {
-public:
-    CtAnchoredWidgetState_Table(CtTable* table);
+    CtAnchoredWidgetState_TableCommon(CtTableCommon* table);
 
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
-    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
-public:
     int colWidthDefault;
     CtTableColWidths colWidths;
     std::vector<std::vector<Glib::ustring>> rows;
     size_t currRow;
     size_t currCol;
+};
+struct CtAnchoredWidgetState_TableLight : public CtAnchoredWidgetState_TableCommon
+{
+    CtAnchoredWidgetState_TableLight(CtTableLight* table)
+     : CtAnchoredWidgetState_TableCommon{table}
+    {}
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
+};
+struct CtAnchoredWidgetState_Table : public CtAnchoredWidgetState_TableCommon
+{
+    CtAnchoredWidgetState_Table(CtTable* table)
+     : CtAnchoredWidgetState_TableCommon{table}
+    {}
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 };
 
 struct CtNodeState

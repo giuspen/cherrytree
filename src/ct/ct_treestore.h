@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -52,34 +52,31 @@ struct CtNodeData
     std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
-class CtTreeModelColumns final : public Gtk::TreeModel::ColumnRecord
+struct CtTreeModelColumns : public Gtk::TreeModelColumnRecord
 {
-public:
-    CtTreeModelColumns()
-    {
+    CtTreeModelColumns() {
         add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
         add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeIsReadOnly);
         add(colNodeIsExcludedFromSearch); add(colNodeChildrenAreExcludedFromSearch);
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
         add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
-    ~CtTreeModelColumns() final {}
-    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbuf;
-    Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
-    Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>  rColTextBuffer;
-    Gtk::TreeModelColumn<gint64>                     colNodeUniqueId;
-    Gtk::TreeModelColumn<std::string>                colSyntaxHighlighting;
-    Gtk::TreeModelColumn<gint64>                     colNodeSequence;
-    Gtk::TreeModelColumn<Glib::ustring>              colNodeTags;
-    Gtk::TreeModelColumn<bool>                       colNodeIsReadOnly;
-    Gtk::TreeModelColumn<bool>                       colNodeIsExcludedFromSearch;
-    Gtk::TreeModelColumn<bool>                       colNodeChildrenAreExcludedFromSearch;
-    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbufAux;
-    Gtk::TreeModelColumn<guint16>                    colCustomIconId;
-    Gtk::TreeModelColumn<int>                        colWeight;
-    Gtk::TreeModelColumn<std::string>                colForeground;
-    Gtk::TreeModelColumn<gint64>                     colTsCreation;
-    Gtk::TreeModelColumn<gint64>                     colTsLastSave;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>    rColPixbuf;
+    Gtk::TreeModelColumn<Glib::ustring>                colNodeName;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>    rColTextBuffer;
+    Gtk::TreeModelColumn<gint64>                       colNodeUniqueId;
+    Gtk::TreeModelColumn<std::string>                  colSyntaxHighlighting;
+    Gtk::TreeModelColumn<gint64>                       colNodeSequence;
+    Gtk::TreeModelColumn<Glib::ustring>                colNodeTags;
+    Gtk::TreeModelColumn<bool>                         colNodeIsReadOnly;
+    Gtk::TreeModelColumn<bool>                         colNodeIsExcludedFromSearch;
+    Gtk::TreeModelColumn<bool>                         colNodeChildrenAreExcludedFromSearch;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>    rColPixbufAux;
+    Gtk::TreeModelColumn<guint16>                      colCustomIconId;
+    Gtk::TreeModelColumn<int>                          colWeight;
+    Gtk::TreeModelColumn<std::string>                  colForeground;
+    Gtk::TreeModelColumn<gint64>                       colTsCreation;
+    Gtk::TreeModelColumn<gint64>                       colTsLastSave;
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 

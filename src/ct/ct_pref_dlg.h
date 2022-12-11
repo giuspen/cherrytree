@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -88,7 +88,7 @@ public:
     static Gtk::Frame* new_managed_frame_with_align(const Glib::ustring& frameLabel, Gtk::Widget* pFrameChild);
 
 private:
-    struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord
+    struct UniversalModelColumns : public Gtk::TreeModelColumnRecord
     {
        Gtk::TreeModelColumn<Glib::ustring>  icon;
        Gtk::TreeModelColumn<Glib::ustring>  key;

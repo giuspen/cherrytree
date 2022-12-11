@@ -37,7 +37,6 @@ public:
     CtDialogTextEntry(const Glib::ustring& title,
                       const bool forPassword,
                       Gtk::Window* pParentWin);
-    virtual ~CtDialogTextEntry() {}
     Glib::ustring get_entry_text() { return _entry.get_text(); }
 
 protected:
@@ -49,15 +48,13 @@ protected:
 template<class GtkStoreBase> class CtChooseDialogStore : public GtkStoreBase
 {
 public:
-    struct CtChooseDialogModelColumns : public Gtk::TreeModel::ColumnRecord
+    struct CtChooseDialogModelColumns : public Gtk::TreeModelColumnRecord 
     {
         Gtk::TreeModelColumn<std::string>   stock_id;
         Gtk::TreeModelColumn<Glib::ustring> key;
         Gtk::TreeModelColumn<Glib::ustring> desc;
         Gtk::TreeModelColumn<gint64>        node_id;
-
-        CtChooseDialogModelColumns()
-        {
+        CtChooseDialogModelColumns() {
             add(stock_id);
             add(key);
             add(desc);
@@ -91,7 +88,7 @@ typedef CtChooseDialogStore<Gtk::TreeStore> CtChooseDialogTreeStore;
 class CtMatchDialogStore : public Gtk::TreeStore
 {
 public:
-    struct CtMatchModelColumns : public Gtk::TreeModel::ColumnRecord
+    struct CtMatchModelColumns : public Gtk::TreeModelColumnRecord
     {
         Gtk::TreeModelColumn<gint64>         node_id;
         Gtk::TreeModelColumn<Glib::ustring>  node_name;
@@ -100,8 +97,7 @@ public:
         Gtk::TreeModelColumn<int>            end_offset;
         Gtk::TreeModelColumn<int>            line_num;
         Gtk::TreeModelColumn<Glib::ustring>  line_content;
-        CtMatchModelColumns()
-        {
+        CtMatchModelColumns() {
             add(node_id);
             add(node_name);
             add(node_hier_name);
@@ -110,7 +106,6 @@ public:
             add(line_num);
             add(line_content);
         }
-        virtual ~CtMatchModelColumns() {}
     } columns;
 
     std::array<int, 2> dlg_size;
@@ -120,8 +115,7 @@ public:
 public:
     virtual ~CtMatchDialogStore() {}
 
-    static Glib::RefPtr<CtMatchDialogStore> create()
-    {
+    static Glib::RefPtr<CtMatchDialogStore> create() {
         Glib::RefPtr<CtMatchDialogStore> rModel{new CtMatchDialogStore()};
         rModel->set_column_types(rModel->columns);
         return rModel;

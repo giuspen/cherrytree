@@ -1,7 +1,7 @@
 /*
  * ct_main_win_buffer.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -522,7 +522,7 @@ bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
             return true;
         }
         if (CtTable* pTable = dynamic_cast<CtTable*>(widgets.front())) {
-            pTable->get_table_matrix().at(pTable->current_row()).at(pTable->current_column())->get_text_view().grab_focus();
+            static_cast<CtTextCell*>(pTable->get_table_matrix().at(pTable->current_row()).at(pTable->current_column()))->get_text_view().grab_focus();
             return true;
         }
     }

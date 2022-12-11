@@ -27,11 +27,100 @@
 #include "ct_widgets.h"
 #include <optional>
 
-class CtTable : public CtAnchoredWidget
+class CtTableCommon : public CtAnchoredWidget
+{
+public:
+    CtTableCommon(CtMainWin* pCtMainWin,
+                  const int colWidthDefault,
+                  const int charOffset,
+                  const std::string& justification,
+                  const CtTableColWidths& colWidths,
+                  const size_t currRow,
+                  const size_t currCol);
+
+    void apply_width_height(const int /*parentTextWidth*/) override {}
+
+    const CtTableColWidths& get_col_widths_raw() const { return _colWidths; }
+    int get_col_width_default() const { return _colWidthDefault; }
+    int get_col_width(const std::optional<size_t> optColIdx = std::nullopt) const {
+        const size_t colIdx = optColIdx.value_or(_currentColumn);
+        return _colWidths.at(colIdx) != 0 ? _colWidths.at(colIdx) : _colWidthDefault;
+    }
+    CtTableColWidths get_col_widths() const {
+        CtTableColWidths colWidths;
+        for (size_t colIdx = 0; colIdx < _colWidths.size(); ++colIdx) {
+            colWidths.push_back(get_col_width(colIdx));
+        }
+        return colWidths;
+    }
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
+
+    virtual void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const = 0;
+    virtual size_t get_num_rows() const = 0;
+    virtual size_t get_num_columns() const = 0;
+    size_t current_row() const { return _currentRow < get_num_rows() ? _currentRow : 0; }
+    size_t current_column() const { return _currentColumn < get_num_columns() ? _currentColumn : 0; }
+
+protected:
+    virtual void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const = 0;
+
+    int              _colWidthDefault;
+    CtTableColWidths _colWidths;
+    size_t           _currentRow{0};
+    size_t           _currentColumn{0};
+};
+
+struct CtTableLightColumns : public Gtk::TreeModelColumnRecord
+{
+    CtTableLightColumns(const size_t numColumns) {
+        columnsText.resize(numColumns);
+        for (size_t i = 0u; i < numColumns; ++i) {
+            add(columnsText.at(i));
+        }
+        add(columnWeight);
+    }
+    std::vector<Gtk::TreeModelColumn<Glib::ustring>> columnsText;
+    Gtk::TreeModelColumn<int>                        columnWeight;
+};
+
+class CtTableLight : public CtTableCommon
+{
+public:
+    CtTableLight(CtMainWin* pCtMainWin,
+                 CtTableMatrix& tableMatrix,
+                 const int colWidthDefault,
+                 const int charOffset,
+                 const std::string& justification,
+                 const CtTableColWidths& colWidths,
+                 const size_t currRow = 0,
+                 const size_t currCol = 0);
+
+    const CtTableLightColumns& get_columns() const { return *_pColumns; }
+
+    void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
+    void set_modified_false() override {}
+    CtAnchWidgType get_type() override { return CtAnchWidgType::TableLight; }
+    std::shared_ptr<CtAnchoredWidgetState> get_state() override;
+
+    void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const override;
+    size_t get_num_rows() const override { return _pListStore->children().size(); }
+    size_t get_num_columns() const override { return _pColumns->columnsText.size(); }
+
+protected:
+    static void _free_matrix(CtTableMatrix& tableMatrix);
+    void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
+
+    std::unique_ptr<CtTableLightColumns> _pColumns;
+    Gtk::TreeView* _pManagedTreeView;
+    Glib::RefPtr<Gtk::ListStore> _pListStore;
+};
+
+class CtTable : public CtTableCommon
 {
 public:
     CtTable(CtMainWin* pCtMainWin,
-            const CtTableMatrix& tableMatrix,
+            CtTableMatrix& tableMatrix,
             const int colWidthDefault,
             const int charOffset,
             const std::string& justification,
@@ -51,10 +140,7 @@ public:
                                              const int offset,
                                              const Glib::ustring& justification);
 
-    void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting(const bool forceReApply) override;
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
-    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     /**
      * @brief Serialise to csv format
      * The output CSV excel csv with double quotes around cells and newlines for each record
@@ -66,23 +152,10 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
-    const CtTableColWidths& get_col_widths_raw() const { return _colWidths; }
-    int get_col_width_default() const { return _colWidthDefault; }
-    int get_col_width(const std::optional<size_t> optColIdx = std::nullopt) const {
-        const size_t colIdx = optColIdx.value_or(_currentColumn);
-        return _colWidths.at(colIdx) != 0 ? _colWidths.at(colIdx) : _colWidthDefault;
-    }
-    CtTableColWidths get_col_widths() const {
-        CtTableColWidths colWidths;
-        for (size_t colIdx = 0; colIdx < _colWidths.size(); ++colIdx) {
-            colWidths.push_back(get_col_width(colIdx));
-        }
-        return colWidths;
-    }
 
-public:
-    size_t current_row() { return _currentRow < _tableMatrix.size() ? _currentRow : 0; }
-    size_t current_column() { return _currentColumn < _tableMatrix.front().size() ? _currentColumn : 0; }
+    void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const override;
+    size_t get_num_rows() const override { return _tableMatrix.size(); }
+    size_t get_num_columns() const override { return _tableMatrix.front().size(); }
 
     void column_add(const size_t afterColIdx);
     void column_delete(const size_t colIdx);
@@ -105,7 +178,7 @@ private:
     void _apply_remove_header_style(const bool isApply, CtTextView& textView);
 
 protected:
-    void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
+    void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
 
 private:
     void _on_populate_popup_cell(Gtk::Menu* menu);
@@ -116,8 +189,4 @@ private:
 protected:
     CtTableMatrix    _tableMatrix;
     Gtk::Grid        _grid;
-    int              _colWidthDefault;
-    CtTableColWidths _colWidths;
-    size_t           _currentRow{0};
-    size_t           _currentColumn{0};
 };

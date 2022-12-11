@@ -95,7 +95,9 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
 #endif // MD_AUTO_REPLACEMENT
 
     std::string new_class;
-    if (CtConst::RICH_TEXT_ID == _syntaxHighlighting)       { new_class = "ct-view-rich-text"; }
+    const bool isRichTextOrTable{CtConst::RICH_TEXT_ID == _syntaxHighlighting or
+                                 CtConst::TABLE_CELL_TEXT_ID == _syntaxHighlighting};
+    if (isRichTextOrTable)                                  { new_class = "ct-view-rich-text"; }
     else if (CtConst::PLAIN_TEXT_ID == _syntaxHighlighting) { new_class = "ct-view-plain-text"; }
     else                                                    { new_class = "ct-view-code"; }
 
@@ -104,9 +106,7 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     if (new_class != "ct-view-code") get_style_context()->remove_class("ct-view-code");
     get_style_context()->add_class(new_class);
 
-    if ( CtConst::RICH_TEXT_ID == _syntaxHighlighting or
-         CtConst::TABLE_CELL_TEXT_ID == _syntaxHighlighting )
-    {
+    if (isRichTextOrTable) {
         set_highlight_current_line(_pCtConfig->rtHighlCurrLine);
         if (_pCtConfig->rtShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);

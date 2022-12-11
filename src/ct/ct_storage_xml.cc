@@ -399,11 +399,9 @@ bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
 
 void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix, xmlpp::Element* xml_element, CtTableColWidths& tableColWidths)
 {
-    for (xmlpp::Node* pNodeRow : xml_element->get_children("row"))
-    {
+    for (xmlpp::Node* pNodeRow : xml_element->get_children("row")) {
         tableMatrix.push_back(CtTableRow{});
-        for (xmlpp::Node* pNodeCell : pNodeRow->get_children("cell"))
-        {
+        for (xmlpp::Node* pNodeCell : pNodeRow->get_children("cell")) {
             xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
             const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
             tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID});
@@ -521,7 +519,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
     CtTableColWidths tableColWidths;
     populate_table_matrix(tableMatrix, xml_element, tableColWidths);
 
-    return new CtTable(_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths);
+    return new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
 }
 
 void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
@@ -548,8 +546,7 @@ void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
 
     // put header at the end
     bool is_header = true;
-    for (auto& row: rows)
-    {
+    for (auto& row : rows) {
         if (is_header) { is_header = false; }
         else row_to_xml(row);
     }

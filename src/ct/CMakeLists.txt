@@ -69,6 +69,7 @@ set(CT_SHARED_FILES
   ct_storage_sqlite.cc
   ct_storage_xml.cc
   ct_table.cc
+  ct_table_light.cc
   ct_treestore.cc
   ct_widgets.cc
   ct_text_view.cc
