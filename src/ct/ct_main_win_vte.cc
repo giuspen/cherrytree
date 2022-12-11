@@ -186,6 +186,9 @@ void CtMainWin::restart_vte(const char* first_cmd_passed)
 void CtMainWin::update_vte_settings()
 {
 #if defined(HAVE_VTE)
+    if (not _pVte) {
+        return;
+    }
     vte_terminal_set_scrollback_lines(VTE_TERMINAL(_pVte->gobj()), -1/*infinite*/);
     vte_terminal_set_mouse_autohide(VTE_TERMINAL(_pVte->gobj()), true);
     vte_terminal_set_word_char_exceptions(VTE_TERMINAL(_pVte->gobj()), VTE_ADDITIONAL_WORDCHARS);
