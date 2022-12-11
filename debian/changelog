@@ -1,14 +1,9 @@
-cherrytree (0.99.52-2) focal; urgency=low
+cherrytree (0.99.53-2) focal; urgency=low
 
-  * moved encryption and backup to a separate thread to improve performance; implemented integrity verification of the document before encryption and backup rotation (#2148)
-  * code execution: added new tag to allow placing the code directly into the terminal rather than in a temporary file (#1772)
-  * assigned hard coded keyboard shortcut to change codebox properties 'Ctrl'+'[' (#2138)
-  * fix import from gnote/tomboy (#2152, #1991, #1686)
-  * linux support path links starting with ~/ (#2149)
-  * fix paste from gnome-characters in fedora (#2094)
-  * using github.com instead of giuspen.net to retrieve the latest version released as some users have issues to access giuspen.net (#2162)
-  * added support for typescript syntax highlighting (#2161)
-  * updated languages Chinese Simplified, Dutch to 100% (still incomplete ar, el, fi, hi_IN, lt)
+  * fixed growing encrypted document size after each save when configured with no backups (#2178)
+  * fixed crash when changing terminal font in preferences dialog and terminal never shown in the session (#2177)
+  * few German translation fixes (#2173)
+  * still incomplete languages ar, el, fi, hi_IN, lt
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Thu, 24 Nov 2022 20:23:24 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 11 Dec 2022 19:18:15 +0000
