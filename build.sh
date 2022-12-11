@@ -60,7 +60,7 @@ then
   fi
 fi
 
-[[ "$OSTYPE" == "darwin"* ]] && export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
+[[ "$OSTYPE" == "darwin"* ]] && export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig" && EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
 
 cd ${BUILD_DIR}
 cmake .. -DCMAKE_C_COMPILER=gcc \
