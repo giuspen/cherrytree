@@ -521,8 +521,8 @@ bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
             pCodebox->get_text_view().grab_focus();
             return true;
         }
-        if (CtTable* pTable = dynamic_cast<CtTable*>(widgets.front())) {
-            static_cast<CtTextCell*>(pTable->get_table_matrix().at(pTable->current_row()).at(pTable->current_column()))->get_text_view().grab_focus();
+        if (auto pTable = dynamic_cast<CtTableCommon*>(widgets.front())) {
+            pTable->grab_focus();
             return true;
         }
     }

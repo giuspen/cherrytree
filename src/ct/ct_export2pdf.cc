@@ -1085,7 +1085,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
 
         if (0 == i) {
             double table_width{0.0};
-            for (size_t col = 0; col < table->get_table_matrix()[0].size(); ++col) {
+            for (size_t col = 0; col < table->get_num_columns(); ++col) {
                 table_width += table->get_col_width(col) * _page_dpi_scale;
             }
             if (table_width > available_width and available_width < (_page_width - pango_widget->indent)) {
@@ -1145,18 +1145,20 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
 
 CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context)
 {
+    std::vector<std::vector<Glib::ustring>> rows;
+    table->write_strings_matrix(rows);
     CtPageTable::TableLayouts table_layouts;
-    for (size_t row = 0; row < table->get_table_matrix().size(); ++row) {
-        if (first_row != -1 && row > 0 && (int)row < first_row) continue; // skip row out of range except header
-        if (last_row != -1 && (int)row > last_row) break;
+    for (size_t r = 0u; r < rows.size(); ++r) {
+        if (first_row != -1 && r > 0 && (int)r < first_row) continue; // skip row out of range except header
+        if (last_row != -1 && (int)r > last_row) break;
 
         std::vector<Glib::RefPtr<Pango::Layout>> layouts;
-        for (size_t col = 0; col < table->get_table_matrix()[0].size(); ++col) {
-            Glib::ustring text = str::xml_escape(static_cast<CtTextCell*>(table->get_table_matrix()[row][col])->get_text_content());
-            if (row == 0) text = "<b>" + text + "</b>";
+        for (size_t c = 0u; c < rows.at(r).size(); ++c) {
+            Glib::ustring text = str::xml_escape(rows.at(r).at(c));
+            if (r == 0) text = "<b>" + text + "</b>";
             Glib::RefPtr<Pango::Layout> cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);
-            cell_layout->set_width(int((table->get_col_width(col) * _page_dpi_scale) * Pango::SCALE));
+            cell_layout->set_width(int((table->get_col_width(c) * _page_dpi_scale) * Pango::SCALE));
             cell_layout->set_wrap(Pango::WRAP_WORD_CHAR);
             cell_layout->set_markup(text);
             layouts.push_back(cell_layout);
@@ -1174,17 +1176,17 @@ void CtPrint::_table_get_grid(const CtPageTable::TableLayouts& table_layouts,
 {
     rows_h = std::vector<double>(table_layouts.size(), 0);
     cols_w = std::vector<double>(table_layouts[0].size(), 0);
-    for (size_t row = 0; row < table_layouts.size(); ++row) {
-        for (size_t col = 0; col < table_layouts[0].size(); ++col) {
-            auto cell_layout = table_layouts[row][col];
+    for (size_t r = 0; r < table_layouts.size(); ++r) {
+        for (size_t c = 0; c < table_layouts[0].size(); ++c) {
+            auto cell_layout = table_layouts[r][c];
             double cell_height = 0;
             for (int layout_line_idx = 0; layout_line_idx < cell_layout->get_line_count(); ++layout_line_idx) {
                 auto line_size = _get_width_height_from_layout_line(cell_layout->get_line(layout_line_idx));
                 cell_height += line_size.height;
-                if (line_size.width > cols_w[col]) cols_w[col] = line_size.width;
+                if (line_size.width > cols_w[c]) cols_w[c] = line_size.width;
             }
-            if (col_widths.at(col) > cols_w[col]) cols_w[col] = col_widths.at(col);
-            if (cell_height > rows_h[row]) rows_h[row] = cell_height;
+            if (col_widths.at(c) > cols_w[c]) cols_w[c] = col_widths.at(c);
+            if (cell_height > rows_h[r]) rows_h[r] = cell_height;
         }
     }
 }
@@ -1200,7 +1202,7 @@ double CtPrint::_table_get_width_height(std::vector<double>& data)
 int CtPrint::_table_split_content(const CtTable* table, const int start_row, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context)
 {
     int last_row = start_row;
-    for (; last_row < (int)table->get_table_matrix().size(); ++last_row) {
+    for (; last_row < (int)table->get_num_rows(); ++last_row) {
         std::vector<double> rows_h, cols_w;
         auto table_layouts = _table_get_layouts(table, start_row, last_row, context);
         _table_get_grid(table_layouts, table->get_col_widths(), rows_h, cols_w);

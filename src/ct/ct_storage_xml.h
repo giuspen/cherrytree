@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -106,8 +106,14 @@ public:
 
     Glib::RefPtr<Gsv::Buffer> create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content);
 
-    bool populate_table_matrix(CtTableMatrix& tableMatrix, const char* xml_content, CtTableColWidths& tableColWidths);
-    void populate_table_matrix(CtTableMatrix& tableMatrix, xmlpp::Element* xml_element, CtTableColWidths& tableColWidths);
+    bool populate_table_matrix(CtTableMatrix& tableMatrix,
+                               const char* xml_content,
+                               CtTableColWidths& tableColWidths,
+                               bool& is_light);
+    void populate_table_matrix(CtTableMatrix& tableMatrix,
+                               xmlpp::Element* xml_element,
+                               CtTableColWidths& tableColWidths,
+                               bool& is_light);
 
     static void save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
                                               int start_offset, int end_offset, const gchar change_case);
@@ -126,10 +132,11 @@ namespace CtXmlHelper {
 
 void table_to_xml(xmlpp::Element* parent,
                   const std::vector<std::vector<Glib::ustring>>& rows,
-                  int char_offset,
-                  Glib::ustring justification,
-                  int defaultWidth,
-                  Glib::ustring colWidths);
+                  const int char_offset,
+                  const Glib::ustring justification,
+                  const int defaultWidth,
+                  const Glib::ustring colWidths,
+                  const bool is_light);
 
 bool safe_parse_memory(xmlpp::DomParser& parser, const Glib::ustring& xml_content);
 

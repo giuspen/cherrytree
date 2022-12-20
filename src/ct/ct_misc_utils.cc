@@ -164,33 +164,6 @@ void CtMiscUtil::filepath_extension_fix(const CtDocType ctDocType, const CtDocEn
     }
 }
 
-bool CtMiscUtil::node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
-                                              std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap)
-{
-    if (children.empty()) return false;
-    auto next_iter = [](Gtk::TreeIter iter) { return ++iter; };
-    auto sort_iteration = [&need_swap, &model, &next_iter](Gtk::TreeIter curr_sibling) -> bool {
-        bool swap_executed = false;
-        Gtk::TreeIter next_sibling = next_iter(curr_sibling);
-        while (next_sibling) {
-            if (need_swap(curr_sibling, next_sibling)) {
-                model->iter_swap(curr_sibling, next_sibling);
-                swap_executed = true;
-            } else {
-                curr_sibling = next_sibling;
-            }
-            next_sibling = next_iter(curr_sibling);
-        }
-        return swap_executed;
-    };
-
-    bool swap_executed = false;
-    while (sort_iteration(children.begin()))
-        swap_executed = true;
-    return swap_executed;
-}
-
-//"""Get the Node Hierarchical Name"""
 std::string CtMiscUtil::get_node_hierarchical_name(const CtTreeIter tree_iter, const char* separator/*="--"*/,
                                                    const bool for_filename/*=true*/, const bool root_to_leaf/*=true*/,
                                                    const bool trail_node_id/*=false*/, const char* trailer/*=""*/)

@@ -56,19 +56,45 @@ public:
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
 
+    // Build a table from csv; The input csv should be compatable with the excel csv format
+    static void populate_table_matrix_from_csv(const std::string& filepath,
+                                               CtMainWin* main_win,
+                                               const bool is_light,
+                                               CtTableMatrix& tbl_matrix);
+
+    // Serialise to csv format; The output CSV excel csv with double quotes around cells and newlines for each record
+    virtual std::string to_csv() const = 0;
+
     virtual void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const = 0;
     virtual size_t get_num_rows() const = 0;
     virtual size_t get_num_columns() const = 0;
     size_t current_row() const { return _currentRow < get_num_rows() ? _currentRow : 0; }
     size_t current_column() const { return _currentColumn < get_num_columns() ? _currentColumn : 0; }
+    bool row_sort_asc() { return _row_sort(true/*sortAsc*/); }
+    bool row_sort_desc() { return _row_sort(false/*sortAsc*/); }
+
+    virtual void column_add(const size_t afterColIdx) = 0;
+    virtual void column_delete(const size_t colIdx) = 0;
+    virtual void column_move_left(const size_t colIdx) = 0;
+    virtual void column_move_right(const size_t colIdx) = 0;
+    virtual void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr) = 0;
+    virtual void row_delete(const size_t rowIdx) = 0;
+    virtual void row_move_up(const size_t rowIdx) = 0;
+    virtual void row_move_down(const size_t rowIdx) = 0;
+
+    virtual void set_col_width_default(const int colWidthDefault) = 0;
+    virtual void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) = 0;
+
+    virtual void grab_focus() const = 0;
 
 protected:
     virtual void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const = 0;
+    virtual bool _row_sort(const bool sortAsc) = 0;
 
     int              _colWidthDefault;
     CtTableColWidths _colWidths;
-    size_t           _currentRow{0};
-    size_t           _currentColumn{0};
+    size_t           _currentRow{0u};
+    size_t           _currentColumn{0u};
 };
 
 struct CtTableLightColumns : public Gtk::TreeModelColumnRecord
@@ -99,6 +125,7 @@ public:
     const CtTableLightColumns& get_columns() const { return *_pColumns; }
 
     void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
+    std::string to_csv() const override;
     void set_modified_false() override {}
     CtAnchWidgType get_type() override { return CtAnchWidgType::TableLight; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
@@ -107,12 +134,29 @@ public:
     size_t get_num_rows() const override { return _pListStore->children().size(); }
     size_t get_num_columns() const override { return _pColumns->columnsText.size(); }
 
+    void column_add(const size_t afterColIdx) override;
+    void column_delete(const size_t colIdx) override;
+    void column_move_left(const size_t colIdx) override;
+    void column_move_right(const size_t colIdx) override;
+    void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr) override;
+    void row_delete(const size_t rowIdx) override;
+    void row_move_up(const size_t rowIdx) override;
+    void row_move_down(const size_t rowIdx) override;
+
+    void set_col_width_default(const int colWidthDefault) override;
+    void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) override;
+
+    void grab_focus() const override;
+
 protected:
+    void _reset(CtTableMatrix& tableMatrix);
     static void _free_matrix(CtTableMatrix& tableMatrix);
+
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
+    bool _row_sort(const bool sortAsc) override;
 
     std::unique_ptr<CtTableLightColumns> _pColumns;
-    Gtk::TreeView* _pManagedTreeView;
+    Gtk::TreeView* _pManagedTreeView{nullptr};
     Glib::RefPtr<Gtk::ListStore> _pListStore;
 };
 
@@ -129,58 +173,40 @@ public:
             const size_t currCol = 0);
     ~CtTable() override;
 
-    /**
-     * @brief Build a table from csv
-     * The input csv should be compatable with the excel csv format
-     * @param input
-     * @return CtTable
-     */
-    static std::unique_ptr<CtTable> from_csv(const std::string& filepath,
-                                             CtMainWin* main_win,
-                                             const int offset,
-                                             const Glib::ustring& justification);
-
     void apply_syntax_highlighting(const bool forceReApply) override;
-    /**
-     * @brief Serialise to csv format
-     * The output CSV excel csv with double quotes around cells and newlines for each record
-     * @param output
-     */
-    std::string to_csv() const;
+    std::string to_csv() const override;
     void set_modified_false() override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
-    const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
+    CtTextView& curr_cell_text_view() const;
 
     void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const override;
     size_t get_num_rows() const override { return _tableMatrix.size(); }
     size_t get_num_columns() const override { return _tableMatrix.front().size(); }
 
-    void column_add(const size_t afterColIdx);
-    void column_delete(const size_t colIdx);
-    void column_move_left(const size_t colIdx);
-    void column_move_right(const size_t colIdx);
-    void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr);
-    void row_delete(const size_t rowIdx);
-    void row_move_up(const size_t rowIdx);
-    void row_move_down(const size_t rowIdx);
-    bool row_sort_asc() { return _row_sort(true/*sortAsc*/); }
-    bool row_sort_desc() { return _row_sort(false/*sortAsc*/); }
+    void column_add(const size_t afterColIdx) override;
+    void column_delete(const size_t colIdx) override;
+    void column_move_left(const size_t colIdx) override;
+    void column_move_right(const size_t colIdx) override;
+    void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr) override;
+    void row_delete(const size_t rowIdx) override;
+    void row_move_up(const size_t rowIdx) override;
+    void row_move_down(const size_t rowIdx) override;
 
-    void set_col_width_default(const int colWidthDefault);
-    void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt);
+    void set_col_width_default(const int colWidthDefault) override;
+    void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) override;
 
-private:
-    void _apply_styles_to_cells(const bool forceReApply);
-    void _new_text_cell_attach(const size_t rowIdx, const size_t colIdx, CtTextCell* pTextCell);
-    bool _row_sort(const bool sortAsc);
-    void _apply_remove_header_style(const bool isApply, CtTextView& textView);
+    void grab_focus() const override;
 
 protected:
+    void _apply_styles_to_cells(const bool forceReApply);
+    void _new_text_cell_attach(const size_t rowIdx, const size_t colIdx, CtTextCell* pTextCell);
+    void _apply_remove_header_style(const bool isApply, CtTextView& textView);
+
+    bool _row_sort(const bool sortAsc) override;
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
 
-private:
     void _on_populate_popup_cell(Gtk::Menu* menu);
     bool _on_key_press_event_cell(GdkEventKey* event);
     bool _on_button_press_event_grid(GdkEventButton* event);

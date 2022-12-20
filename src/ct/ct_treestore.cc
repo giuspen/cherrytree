@@ -998,6 +998,7 @@ void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                     case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
                     case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
                     case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;
+                    case CtAnchWidgType::TableLight: ++summaryInfo.lighttables_num; break;
                 }
             }
             return false; /* false for continue */

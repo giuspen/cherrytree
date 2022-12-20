@@ -453,7 +453,7 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
     }
     if (CtTable* pTable = _table_in_use()) {
         return text_view_n_buffer_codebox_proof{
-            &static_cast<CtTextCell*>(pTable->get_table_matrix().at(pTable->current_row()).at(pTable->current_column()))->get_text_view(),
+            &pTable->curr_cell_text_view(),
             CtConst::PLAIN_TEXT_ID,
             nullptr,
             pTable};

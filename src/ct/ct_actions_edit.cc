@@ -127,7 +127,9 @@ void CtActions::table_insert()
         std::string filepath = CtDialogs::file_select_dialog(args);
         if (filepath.empty()) return;
         _pCtConfig->pickDirCsv = Glib::path_get_dirname(filepath);
-        pCtTable = CtTable::from_csv(filepath, _pCtMainWin, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
+        CtTableMatrix tbl_matrix;
+        CtTableCommon::populate_table_matrix_from_csv(filepath, _pCtMainWin, false/*is_light*/, tbl_matrix);
+        pCtTable = new CtTable{_pCtMainWin, tbl_matrix, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "", CtTableColWidths{}};
     }
 
     if (!pCtTable) {

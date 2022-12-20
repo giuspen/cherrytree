@@ -189,8 +189,10 @@ bool CtAnchoredWidgetState_TableCommon::equal(std::shared_ptr<CtAnchoredWidgetSt
 CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
 {
     CtTableMatrix tableMatrix;
+    tableMatrix.reserve(rows.size());
     for (const auto& row : rows) {
         tableMatrix.push_back(CtTableRow{});
+        tableMatrix.back().reserve(row.size());
         for (const auto& cell : row) {
             tableMatrix.back().push_back(new CtTextCell{pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
         }
@@ -208,8 +210,10 @@ CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
 CtAnchoredWidget* CtAnchoredWidgetState_TableLight::to_widget(CtMainWin* pCtMainWin)
 {
     CtTableMatrix tableMatrix;
+    tableMatrix.reserve(rows.size());
     for (const auto& row : rows) {
         tableMatrix.push_back(CtTableRow{});
+        tableMatrix.back().reserve(row.size());
         for (const auto& cell : row) {
             tableMatrix.back().push_back(new Glib::ustring{cell});
         }

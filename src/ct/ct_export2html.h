@@ -56,7 +56,7 @@ public:
     void          nodes_all_export_to_single_html(bool all_tree, const CtExportOptions& options);
     Glib::ustring selection_export_to_html(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter,
                                            Gtk::TextIter end_iter, const Glib::ustring& syntax_highlighting);
-    Glib::ustring table_export_to_html(CtTable* table);
+    Glib::ustring table_export_to_html(CtTableCommon* table);
     Glib::ustring codebox_export_to_html(CtCodebox* codebox);
     bool          prepare_html_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite, fs::path& export_path);
 
@@ -64,7 +64,7 @@ private:
     Glib::ustring _get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, fs::path embed_dir);
     Glib::ustring _get_image_html(CtImage* image, const fs::path& images_dir, int& images_count, CtTreeIter* tree_iter);
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
-    Glib::ustring _get_table_html(CtTable* table);
+    Glib::ustring _get_table_html(CtTableCommon* table);
 
     Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string &syntax_highlighting);
     void          _html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,

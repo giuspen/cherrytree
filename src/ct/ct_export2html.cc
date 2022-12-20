@@ -360,7 +360,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
 }
 
 // Returns the HTML given the table
-Glib::ustring CtExport2Html::table_export_to_html(CtTable* table)
+Glib::ustring CtExport2Html::table_export_to_html(CtTableCommon* table)
 {
     Glib::ustring html_text = str::format(HTML_HEADER, "");
     html_text += _get_table_html(table);
@@ -429,25 +429,28 @@ Glib::ustring CtExport2Html::_get_codebox_html(CtCodebox* codebox)
 }
 
 // Returns the HTML Table
-Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
+Glib::ustring CtExport2Html::_get_table_html(CtTableCommon* table)
 {
+    std::vector<std::vector<Glib::ustring>> rows;
+    table->write_strings_matrix(rows);
     Glib::ustring table_html = "<table class=\"table\">";
-    bool first = true;
-    for (const auto& row : table->get_table_matrix())
-    {
+    bool first{true};
+    for (const auto& row : rows) {
         table_html += "<tr>";
-        for (void* cell : row) {
-            Glib::ustring content = str::xml_escape(static_cast<CtTextCell*>(cell)->get_text_content());
-            if (content.empty()) content = " "; // Otherwise the table will render with squashed cells
-
+        for (const Glib::ustring& cell : row) {
+            Glib::ustring content = str::xml_escape(cell);
+            if (content.empty()) {
+                content = " "; // Otherwise the table will render with squashed cells
+            }
             if (first) {
                 table_html += "<th>" + content + "</th>";
             } else {
                 table_html += "<td>" + content + "</td>";
             }
         }
-
-        if (first) first = false;
+        if (first) {
+            first = false;
+        }
         table_html += "</tr>";
     }
     table_html += "</table>";

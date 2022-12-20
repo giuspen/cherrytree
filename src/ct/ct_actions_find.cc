@@ -689,13 +689,14 @@ Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> patt
         if (pattern->match(text)) return text;
     }
     else if (CtTable* table = dynamic_cast<CtTable*>(obj)) {
-        for (auto& row : table->get_table_matrix()) {
-            for (void* col : row) {
-                Glib::ustring text = static_cast<CtTextCell*>(col)->get_text_content();
+        std::vector<std::vector<Glib::ustring>> rows;
+        table->write_strings_matrix(rows);
+        for (auto& row : rows) {
+            for (Glib::ustring& col : row) {
                 if (_s_options.accent_insensitive) {
-                    text = str::diacritical_to_ascii(text);
+                    col = str::diacritical_to_ascii(col);
                 }
-                if (pattern->match(text)) {
+                if (pattern->match(col)) {
                     return "<table>";
                 }
             }

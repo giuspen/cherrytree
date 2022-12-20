@@ -285,6 +285,7 @@ struct CtSummaryInfo
     size_t latexes_num{0};
     size_t embfile_num{0};
     size_t tables_num{0};
+    size_t lighttables_num{0};
     size_t codeboxes_num{0};
     size_t anchors_num{0};
 };

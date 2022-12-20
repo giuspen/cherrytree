@@ -50,8 +50,35 @@ std::string get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDo
 
 void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath);
 
-bool node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
-                                  std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap);
+template<class TreeOrListStore>
+bool node_siblings_sort_iteration(Glib::RefPtr<TreeOrListStore> model,
+                                  const Gtk::TreeNodeChildren& children,
+                                  std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> f_need_swap)
+{
+    if (children.empty()) return false;
+    auto next_iter = [](Gtk::TreeIter iter) { return ++iter; };
+    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeIter curr_sibling) -> bool {
+        bool swap_executed = false;
+        Gtk::TreeIter next_sibling = next_iter(curr_sibling);
+        while (next_sibling) {
+            if (f_need_swap(curr_sibling, next_sibling)) {
+                model->iter_swap(curr_sibling, next_sibling);
+                swap_executed = true;
+            }
+            else {
+                curr_sibling = next_sibling;
+            }
+            next_sibling = next_iter(curr_sibling);
+        }
+        return swap_executed;
+    };
+
+    bool swap_executed{false};
+    while (sort_iteration(children.begin())) {
+        swap_executed = true;
+    }
+    return swap_executed;
+}
 
 std::string get_node_hierarchical_name(const CtTreeIter tree_iter, const char* separator="--",
                                        const bool for_filename=true, const bool root_to_leaf=true,

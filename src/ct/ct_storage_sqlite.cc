@@ -585,8 +585,18 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
 
         CtTableMatrix tableMatrix;
         CtTableColWidths tableColWidths;
-        if (CtStorageXmlHelper{_pCtMainWin}.populate_table_matrix(tableMatrix, textContent, tableColWidths)) {
-            anchoredWidgets.push_back(new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
+        bool is_light{false};
+        if (CtStorageXmlHelper{_pCtMainWin}.populate_table_matrix(tableMatrix,
+                                                                  textContent,
+                                                                  tableColWidths,
+                                                                  is_light))
+        {
+            if (is_light) {
+                anchoredWidgets.push_back(new CtTableLight{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
+            }
+            else {
+                anchoredWidgets.push_back(new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
+            }
         }
         else {
             spdlog::error("!! table xml read: {}", textContent);

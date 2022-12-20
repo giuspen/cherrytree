@@ -593,7 +593,7 @@ void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& 
     Gtk::Label label_ta_key;
     label_ta_key.set_markup(Glib::ustring{"<b>"} + _("Number of Tables") + "</b>");
     grid.attach(label_ta_key, 0, 6, 1, 1);
-    Gtk::Label label_ta_val{std::to_string(summaryInfo.tables_num)};
+    Gtk::Label label_ta_val{str::format("{} + {}", summaryInfo.tables_num, summaryInfo.lighttables_num)};
     grid.attach(label_ta_val, 1, 6, 1, 1);
     Gtk::Label label_cb_key;
     label_cb_key.set_markup(Glib::ustring{"<b>"} + _("Number of CodeBoxes") + "</b>");

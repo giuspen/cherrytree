@@ -100,11 +100,13 @@ Glib::ustring CtExport2Txt::selection_export_to_txt(CtTreeIter tree_iter, Glib::
 
 Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
 {
+    std::vector<std::vector<Glib::ustring>> rows;
+    table_orig->write_strings_matrix(rows);
     Glib::ustring table_plain = CtConst::CHAR_NEWLINE;
-    for (const auto& row : table_orig->get_table_matrix()) {
+    for (const auto& row : rows) {
         table_plain += CtConst::CHAR_PIPE;
-        for (void* cell : row) {
-            table_plain += CtConst::CHAR_SPACE + static_cast<CtTextCell*>(cell)->get_text_content() + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
+        for (const Glib::ustring& cell : row) {
+            table_plain += CtConst::CHAR_SPACE + cell + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
         }
         table_plain += CtConst::CHAR_NEWLINE;
     }

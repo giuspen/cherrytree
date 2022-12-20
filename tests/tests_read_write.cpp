@@ -493,41 +493,21 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     for (size_t i = 0; i < expected_column_widths.size(); ++i) {
                         ASSERT_EQ(expected_column_widths.at(i), actual_column_widths.at(i));
                     }
-                    const CtTableMatrix& tableMatrix = pTable->get_table_matrix();
+                    std::vector<std::vector<Glib::ustring>> rows;
+                    pTable->write_strings_matrix(rows);
                     // three rows
-                    ASSERT_EQ(3, tableMatrix.size());
+                    ASSERT_EQ(3, rows.size());
                     // two columns
-                    ASSERT_EQ(2, tableMatrix.at(0).size());
-                    {
-                        CtTextCell* pCell = static_cast<CtTextCell*>(tableMatrix.at(0).at(0));
-                        ASSERT_STREQ("h1", pCell->get_text_content().c_str());
-                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
-                    }
-                    {
-                        CtTextCell* pCell = static_cast<CtTextCell*>(tableMatrix.at(0).at(1));
-                        ASSERT_STREQ("h2", pCell->get_text_content().c_str());
-                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
-                    }
-                    {
-                        CtTextCell* pCell = static_cast<CtTextCell*>(tableMatrix.at(1).at(0));
-                        ASSERT_STREQ("йцукенгшщз", pCell->get_text_content().c_str());
-                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
-                    }
-                    {
-                        CtTextCell* pCell = static_cast<CtTextCell*>(tableMatrix.at(1).at(1));
-                        ASSERT_STREQ("2", pCell->get_text_content().c_str());
-                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
-                    }
-                    {
-                        CtTextCell* pCell = static_cast<CtTextCell*>(tableMatrix.at(2).at(0));
-                        ASSERT_STREQ("3", pCell->get_text_content().c_str());
-                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
-                    }
-                    {
-                        CtTextCell* pCell = static_cast<CtTextCell*>(tableMatrix.at(2).at(1));
-                        ASSERT_STREQ("4", pCell->get_text_content().c_str());
-                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
-                    }
+                    ASSERT_EQ(2, rows.at(0).size());
+                    ASSERT_STREQ("h1", rows.at(0).at(0).c_str());
+                    ASSERT_STREQ("h2", rows.at(0).at(1).c_str());
+                    ASSERT_STREQ("йцукенгшщз", rows.at(1).at(0).c_str());
+                    ASSERT_STREQ("2", rows.at(1).at(1).c_str());
+                    ASSERT_STREQ("3", rows.at(2).at(0).c_str());
+                    ASSERT_STREQ("4", rows.at(2).at(1).c_str());
+                } break;
+                case CtAnchWidgType::TableLight: {
+                    //TODO
                 } break;
                 case CtAnchWidgType::ImagePng: {
                     ASSERT_EQ(59, pAnchWidget->getOffset());

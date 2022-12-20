@@ -49,6 +49,11 @@ CtTableLight::CtTableLight(CtMainWin* pCtMainWin,
                            const size_t currCol)
  : CtTableCommon{pCtMainWin, colWidthDefault, charOffset, justification, colWidths, currRow, currCol}
 {
+    _reset(tableMatrix);
+}
+
+void CtTableLight::_reset(CtTableMatrix& tableMatrix)
+{
     const size_t numRows{tableMatrix.size()};
     size_t numColumns{0u};
     // enforce same number of columns per row
@@ -75,10 +80,15 @@ CtTableLight::CtTableLight(CtMainWin* pCtMainWin,
             row[_pColumns->columnsText.at(c)] = *static_cast<Glib::ustring*>(tableMatrix.at(r).at(c));
         }
     }
-    _free_matrix(tableMatrix);
+    CtTableLight::_free_matrix(tableMatrix);
 
+    if (_pManagedTreeView) {
+        _frame.remove();
+        delete _pManagedTreeView;
+    }
     _pManagedTreeView = Gtk::manage(new Gtk::TreeView{_pListStore});
     _pManagedTreeView->set_headers_visible(false);
+    _pManagedTreeView->set_grid_lines(Gtk::TreeViewGridLines::TREE_VIEW_GRID_LINES_BOTH);
     for (size_t c = 0u; c < numColumns; ++c) {
         const int width = get_col_width(c);
         _pManagedTreeView->append_column_editable(""/*header*/, _pColumns->columnsText.at(c));
@@ -144,4 +154,232 @@ void CtTableLight::_populate_xml_rows_cells(xmlpp::Element* p_table_node) const
 std::shared_ptr<CtAnchoredWidgetState> CtTableLight::get_state()
 {
     return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_TableLight{this});
+}
+
+void CtTableLight::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
+{
+    Gtk::TreeIter afterIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(afterRowIdx)});
+    Gtk::TreeIter newIter;
+    if (afterIter) {
+        newIter = _pListStore->insert_after(afterIter);
+    }
+    else {
+        newIter = _pListStore->append();
+    }
+    Gtk::TreeModel::Row newRow = *newIter;
+    newRow[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(false);
+    if (pNewRow) {
+        const size_t numColsTo = get_num_columns();
+        const size_t numColsFrom = pNewRow->size();
+        for (size_t c = 0u; c < numColsTo and c < numColsFrom; ++c) {
+            newRow[_pColumns->columnsText.at(c)] = pNewRow->at(c);
+        }
+    }
+}
+
+void CtTableLight::row_delete(const size_t rowIdx)
+{
+    if (1u == get_num_rows() or rowIdx >= get_num_rows()) {
+        return;
+    }
+    Gtk::TreeIter treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdx)});
+    if (treeIter) {
+        (void)_pListStore->erase(treeIter);
+    }
+    if (_currentRow == get_num_rows()) {
+        --_currentRow;
+    }
+    if (0u == rowIdx) {
+        // we deleted the header
+        Gtk::TreeIter treeIterHeader = _pListStore->get_iter(Gtk::TreePath{"0"});
+        if (treeIterHeader) {
+            (*treeIterHeader)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
+        }
+    }
+    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+}
+
+void CtTableLight::row_move_up(const size_t rowIdx)
+{
+    if (0u == rowIdx) {
+        return;
+    }
+    const size_t rowIdxUp = rowIdx - 1u;
+    Gtk::TreeIter treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdx)});
+    Gtk::TreeIter treeIterUp = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdxUp)});
+    if (treeIter and treeIterUp) {
+        if (0u == rowIdxUp) {
+            // we are swapping header
+            (*treeIter)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
+            (*treeIterUp)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(false);
+        }
+        _pListStore->iter_swap(treeIter, treeIterUp);
+    }
+    _currentRow = rowIdxUp;
+}
+
+void CtTableLight::row_move_down(const size_t rowIdx)
+{
+    if (rowIdx == get_num_rows()-1) {
+        return;
+    }
+    const size_t rowIdxDown = rowIdx + 1;
+    row_move_up(rowIdxDown);
+    _currentRow = rowIdxDown;
+    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+}
+
+bool CtTableLight::_row_sort(const bool sortAsc)
+{
+    auto f_tableCompare = [sortAsc, this](Gtk::TreeIter& l, Gtk::TreeIter& r)->bool{
+        const size_t minCols = get_num_columns();
+        for (size_t c = 0; c < minCols; ++c) {
+            const int cmpResult = CtStrUtil::natural_compare((*l)[_pColumns->columnsText.at(c)],
+                                                             (*r)[_pColumns->columnsText.at(c)]);
+            if (0 != cmpResult) {
+                return sortAsc ? cmpResult < 0 : cmpResult > 0;
+            }
+        }
+        return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
+    };
+    return CtMiscUtil::node_siblings_sort_iteration(_pListStore, _pListStore->children(), f_tableCompare);
+}
+
+void CtTableLight::column_add(const size_t afterColIdx)
+{
+    const size_t currNumCol = get_num_columns();
+    CtTableMatrix tableMatrix;
+    tableMatrix.reserve(get_num_rows());
+    const CtTableLightColumns& cols = get_columns();
+    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+        Gtk::TreeRow treeRow = *treeIter;
+        tableMatrix.push_back(CtTableRow{});
+        tableMatrix.back().reserve(currNumCol+1u);
+        for (size_t c = 0u; c < currNumCol; ++c) {
+            tableMatrix.back().push_back(new Glib::ustring{treeRow.get_value(cols.columnsText.at(c))});
+            if (afterColIdx == c) {
+                tableMatrix.back().push_back(new Glib::ustring{});
+            }
+        }
+        return false; /* to continue */
+    };
+    _pListStore->foreach_iter(f_action);
+    _colWidths.insert(_colWidths.begin()+afterColIdx+1, 0);
+    _reset(tableMatrix);
+}
+
+void CtTableLight::column_delete(const size_t colIdx)
+{
+    const size_t currNumCol = get_num_columns();
+    if (1u == currNumCol or colIdx >= currNumCol) {
+        return;
+    }
+    CtTableMatrix tableMatrix;
+    tableMatrix.reserve(get_num_rows());
+    const CtTableLightColumns& cols = get_columns();
+    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+        Gtk::TreeRow treeRow = *treeIter;
+        tableMatrix.push_back(CtTableRow{});
+        tableMatrix.back().reserve(currNumCol-1u);
+        for (size_t c = 0u; c < currNumCol; ++c) {
+            if (colIdx != c) {
+                tableMatrix.back().push_back(new Glib::ustring{treeRow.get_value(cols.columnsText.at(c))});
+            }
+        }
+        return false; /* to continue */
+    };
+    _pListStore->foreach_iter(f_action);
+    _colWidths.erase(_colWidths.begin()+colIdx);
+    _reset(tableMatrix);
+    if (_currentColumn == get_num_columns()) {
+        --_currentColumn;
+    }
+    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+}
+
+void CtTableLight::column_move_left(const size_t colIdx)
+{
+    if (0 == colIdx) {
+        return;
+    }
+    const size_t colIdxLeft{colIdx - 1u};
+    const CtTableLightColumns& cols = get_columns();
+    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+        Gtk::TreeRow treeRow = *treeIter;
+        const Glib::ustring tmpCell = treeRow[cols.columnsText.at(colIdx)];
+        treeRow[cols.columnsText.at(colIdx)] = treeRow.get_value(cols.columnsText.at(colIdxLeft));
+        treeRow[cols.columnsText.at(colIdxLeft)] = tmpCell;
+        return false; /* to continue */
+    };
+    _pListStore->foreach_iter(f_action);
+    _currentColumn = colIdxLeft;
+}
+
+void CtTableLight::column_move_right(const size_t colIdx)
+{
+    if (colIdx == get_num_columns()-1) {
+        return;
+    }
+    const size_t colIdxRight = colIdx + 1;
+    column_move_left(colIdxRight);
+    _currentColumn = colIdxRight;
+    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+}
+
+void CtTableLight::set_col_width_default(const int colWidthDefault)
+{
+    _colWidthDefault = colWidthDefault;
+    bool has_default_widths = vec::exists(_colWidths, 0);
+    if (has_default_widths) {
+        const size_t numColumns = get_num_columns();
+        for (size_t c = 0u; c < numColumns; ++c) {
+            if (0u == _colWidths.at(c)) {
+                Gtk::TreeViewColumn* pTVColumn = _pManagedTreeView->get_column(c);
+                if (pTVColumn) {
+                    auto pCellRendererText = static_cast<Gtk::CellRendererText*>(pTVColumn->get_first_cell());
+                    pCellRendererText->property_wrap_width() = colWidthDefault;
+                    pTVColumn->property_min_width() = colWidthDefault/2;
+                }
+            }
+        }
+    }
+}
+
+void CtTableLight::set_col_width(const int colWidth, std::optional<size_t> optColIdx/*= std::nullopt*/)
+{
+    const size_t c = optColIdx.value_or(_currentColumn);
+    _colWidths[c] = colWidth;
+    Gtk::TreeViewColumn* pTVColumn = _pManagedTreeView->get_column(c);
+    if (pTVColumn) {
+        auto pCellRendererText = static_cast<Gtk::CellRendererText*>(pTVColumn->get_first_cell());
+        pCellRendererText->property_wrap_width() = colWidth;
+        pTVColumn->property_min_width() = colWidth/2;
+    }
+}
+
+std::string CtTableLight::to_csv() const
+{
+    CtCSV::CtStringTable tbl;
+    tbl.reserve(get_num_rows());
+    const size_t numColumns = get_num_columns();
+    const CtTableLightColumns& cols = get_columns();
+    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+        Gtk::TreeRow treeRow = *treeIter;
+        std::vector<std::string> row;
+        row.reserve(numColumns);
+        for (size_t c = 0u; c < numColumns; ++c) {
+            row.emplace_back(treeRow.get_value(cols.columnsText.at(c)));
+        }
+        tbl.emplace_back(row);
+        return false; /* to continue */
+    };
+    _pListStore->foreach_iter(f_action);
+    return CtCSV::table_to_csv(tbl);
+}
+
+void CtTableLight::grab_focus() const
+{
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())},
+                                  *_pManagedTreeView->get_column(current_column()),
+                                  true/*start_editing*/);
 }

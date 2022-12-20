@@ -340,8 +340,11 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml
     return buffer;
 }
 
-void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Node* slot_node,
-                                                 std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset)
+void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
+                                                           xmlpp::Node* slot_node,
+                                                           std::list<CtAnchoredWidget*>& widgets,
+                                                           Gtk::TextIter* text_insert_pos,
+                                                           int force_offset)
 {
     xmlpp::Element* slot_element = static_cast<xmlpp::Element*>(slot_node);
     Glib::ustring slot_element_name = slot_element->get_name();
@@ -353,22 +356,25 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
     else if (slot_element_name == "table")       slot_type = SlotType::Table;
     else if (slot_element_name == "codebox")     slot_type = SlotType::Codebox;
 
-    if (slot_type == SlotType::RichText)
-    {
+    if (slot_type == SlotType::RichText) {
         _add_rich_text_from_xml(buffer, slot_element, text_insert_pos);
     }
-    else if (slot_type != SlotType::None)
-    {
+    else if (slot_type != SlotType::None) {
         const int char_offset = force_offset != -1 ? force_offset : std::stoi(slot_element->get_attribute_value("char_offset"));
         Glib::ustring justification = slot_element->get_attribute_value(CtConst::TAG_JUSTIFICATION);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
         CtAnchoredWidget* widget{nullptr};
-        if (slot_type == SlotType::Image)        widget = _create_image_from_xml(slot_element, char_offset, justification);
-        else if (slot_type == SlotType::Table)   widget = _create_table_from_xml(slot_element, char_offset, justification);
-        else if (slot_type == SlotType::Codebox) widget = _create_codebox_from_xml(slot_element, char_offset, justification);
-        if (widget)
-        {
+        if (slot_type == SlotType::Image) {
+            widget = _create_image_from_xml(slot_element, char_offset, justification);
+        }
+        else if (slot_type == SlotType::Table) {
+            widget = _create_table_from_xml(slot_element, char_offset, justification);
+        }
+        else if (slot_type == SlotType::Codebox) {
+            widget = _create_codebox_from_xml(slot_element, char_offset, justification);
+        }
+        if (widget) {
             widget->insertInTextBuffer(buffer);
             widgets.push_back(widget);
         }
@@ -387,29 +393,45 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Gli
 
 bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
                                                const char* xml_content,
-                                               CtTableColWidths& tableColWidths)
+                                               CtTableColWidths& tableColWidths,
+                                               bool& is_light)
 {
     xmlpp::DomParser parser;
     if (CtXmlHelper::safe_parse_memory(parser, xml_content)) {
-        populate_table_matrix(tableMatrix, parser.get_document()->get_root_node(), tableColWidths);
+        populate_table_matrix(tableMatrix,
+                              parser.get_document()->get_root_node(),
+                              tableColWidths,
+                              is_light);
         return true;
     }
     return false;
 }
 
-void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix, xmlpp::Element* xml_element, CtTableColWidths& tableColWidths)
+void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
+                                               xmlpp::Element* xml_element,
+                                               CtTableColWidths& tableColWidths,
+                                               bool& is_light)
 {
+    const Glib::ustring isLightStr = xml_element->get_attribute_value("is_light");
+    if (not isLightStr.empty()) {
+        is_light = CtStrUtil::is_str_true(isLightStr);
+    }
     for (xmlpp::Node* pNodeRow : xml_element->get_children("row")) {
         tableMatrix.push_back(CtTableRow{});
         for (xmlpp::Node* pNodeCell : pNodeRow->get_children("cell")) {
             xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
             const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-            tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID});
+            if (is_light) {
+                tableMatrix.back().push_back(new Glib::ustring{textContent});
+            }
+            else {
+                tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID});
+            }
         }
     }
     tableMatrix.insert(tableMatrix.begin(), tableMatrix.back());
     tableMatrix.pop_back();
-    auto colWidthsStr = xml_element->get_attribute_value("col_widths");
+    const Glib::ustring colWidthsStr = xml_element->get_attribute_value("col_widths");
     if (not colWidthsStr.empty()) {
         tableColWidths = CtStrUtil::gstring_split_to_int(colWidthsStr.c_str(), ",");
     }
@@ -488,7 +510,9 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
     return new CtImagePng{_pCtMainWin, rawBlob, link, charOffset, justification};
 }
 
-CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification)
+CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* xml_element,
+                                                               int charOffset,
+                                                               const Glib::ustring& justification)
 {
     xmlpp::TextNode* pTextNode = xml_element->get_child_text();
     const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
@@ -499,35 +523,41 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* x
     const bool highlightBrackets = CtStrUtil::is_str_true(xml_element->get_attribute_value("highlight_brackets"));
     const bool showLineNumbers = CtStrUtil::is_str_true(xml_element->get_attribute_value("show_line_numbers"));
 
-    return new CtCodebox(_pCtMainWin,
-                        textContent,
-                        syntaxHighlighting,
-                        frameWidth,
-                        frameHeight,
-                        charOffset,
-                        justification,
-                        widthInPixels,
-                        highlightBrackets,
-                        showLineNumbers);
+    return new CtCodebox{_pCtMainWin,
+                         textContent,
+                         syntaxHighlighting,
+                         frameWidth,
+                         frameHeight,
+                         charOffset,
+                         justification,
+                         widthInPixels,
+                         highlightBrackets,
+                         showLineNumbers};
 }
 
-CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification)
+CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml_element,
+                                                             int charOffset,
+                                                             const Glib::ustring& justification)
 {
     const int colWidthDefault = std::stoi(xml_element->get_attribute_value("col_max"));
 
     CtTableMatrix tableMatrix;
     CtTableColWidths tableColWidths;
-    populate_table_matrix(tableMatrix, xml_element, tableColWidths);
-
+    bool is_light{false};
+    populate_table_matrix(tableMatrix, xml_element, tableColWidths, is_light);
+    if (is_light) {
+        return new CtTableLight{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
+    }
     return new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
 }
 
 void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
                                const std::vector<std::vector<Glib::ustring>>& rows,
-                               int char_offset,
-                               Glib::ustring justification,
-                               int defaultWidth,
-                               Glib::ustring colWidths)
+                               const int char_offset,
+                               const Glib::ustring justification,
+                               const int defaultWidth,
+                               const Glib::ustring colWidths,
+                               const bool is_light)
 {
     xmlpp::Element* p_table_node = p_parent->add_child("table");
     p_table_node->set_attribute("char_offset", std::to_string(char_offset));
@@ -535,6 +565,9 @@ void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
     p_table_node->set_attribute("col_min", std::to_string(defaultWidth)); // todo get rid of column min
     p_table_node->set_attribute("col_max", std::to_string(defaultWidth));
     p_table_node->set_attribute("col_widths", colWidths);
+    if (is_light) {
+        p_table_node->set_attribute("is_light", "1");
+    }
 
     auto row_to_xml = [&](const std::vector<Glib::ustring>& tableRow) {
         xmlpp::Element* row_element = p_table_node->add_child("row");

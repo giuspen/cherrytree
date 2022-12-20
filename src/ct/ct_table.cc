@@ -44,11 +44,60 @@ CtTableCommon::CtTableCommon(CtMainWin* pCtMainWin,
 {
 }
 
+/*static*/void CtTableCommon::populate_table_matrix_from_csv(const std::string& filepath,
+                                                             CtMainWin* main_win,
+                                                             const bool is_light,
+                                                             CtTableMatrix& tbl_matrix)
+{
+    CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(filepath);
+    if (str_tbl.size() and str_tbl.front().size()) {
+        const size_t numColumns = str_tbl.front().size();
+        size_t currRow{0};
+        void* pCell{nullptr};
+        for (const auto& row : str_tbl) {
+            ++currRow;
+            CtTableRow tbl_row;
+            size_t currCol{0};
+            for (const auto& cell : row) {
+                ++currCol;
+                if (currCol > numColumns) {
+                    spdlog::warn("{} row {} col {} > {}", __FUNCTION__, currRow, currCol, numColumns);
+                    break;
+                }
+                if (is_light) {
+                    pCell = new Glib::ustring{cell};
+                }
+                else {
+                    pCell = new CtTextCell{main_win, cell, CtConst::TABLE_CELL_TEXT_ID};
+                }
+                tbl_row.emplace_back(pCell);
+            }
+            while (currCol < numColumns) {
+                ++currCol;
+                if (is_light) {
+                    pCell = new Glib::ustring{};
+                }
+                else {
+                    pCell = new CtTextCell{main_win, "", CtConst::TABLE_CELL_TEXT_ID};
+                }
+                tbl_row.emplace_back(pCell);
+            }
+            tbl_matrix.emplace_back(tbl_row);
+        }
+    }
+}
+
 void CtTableCommon::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
 {
     std::vector<std::vector<Glib::ustring>> rows;
     write_strings_matrix(rows);
-    CtXmlHelper::table_to_xml(p_node_parent, rows, _charOffset+offset_adjustment, _justification, _colWidthDefault, str::join_numbers(_colWidths, ","));
+    CtXmlHelper::table_to_xml(p_node_parent,
+                              rows,
+                              _charOffset+offset_adjustment,
+                              _justification,
+                              _colWidthDefault,
+                              str::join_numbers(_colWidths, ","),
+                              CtAnchWidgType::TableLight == get_type());
 }
 
 bool CtTableCommon::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
@@ -63,6 +112,9 @@ bool CtTableCommon::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
         xmlpp::Document xml_doc;
         xml_doc.create_root_node("table");
         xml_doc.get_root_node()->set_attribute("col_widths", str::join_numbers(_colWidths, ","));
+        if (CtAnchWidgType::TableLight == get_type()) {
+            xml_doc.get_root_node()->set_attribute("is_light", "1");
+        }
         _populate_xml_rows_cells(xml_doc.get_root_node());
         const std::string table_txt = xml_doc.write_to_string();
         sqlite3_bind_int64(p_stmt, 1, node_id);
@@ -93,7 +145,7 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 {
     // enforce same number of columns per row
     size_t numCols{0u};
-    const size_t numRows = _tableMatrix.size();
+    const size_t numRows = get_num_rows();
     for (size_t r = 0u; r < numRows; ++r) {
         if (_tableMatrix[r].size() > numCols) { numCols = _tableMatrix[r].size(); }
     }
@@ -135,7 +187,7 @@ CtTable::~CtTable()
 void CtTable::write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const
 {
     rows.reserve(get_num_rows());
-    for (const auto& row : get_table_matrix()) {
+    for (const auto& row : _tableMatrix) {
         rows.push_back(std::vector<Glib::ustring>{});
         rows.back().reserve(get_num_columns());
         for (void* cell : row) {
@@ -199,51 +251,17 @@ void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node) const
 std::string CtTable::to_csv() const
 {
     CtCSV::CtStringTable tbl;
+    tbl.reserve(get_num_rows());
+    const size_t numColumns = get_num_columns();
     for (const CtTableRow& ct_row : _tableMatrix) {
         std::vector<std::string> row;
-
+        row.reserve(numColumns);
         for (void* ct_cell : ct_row) {
             row.emplace_back(static_cast<CtTextCell*>(ct_cell)->get_text_content());
         }
         tbl.emplace_back(row);
     }
     return CtCSV::table_to_csv(tbl);
-}
-
-std::unique_ptr<CtTable> CtTable::from_csv(const std::string& filepath,
-                                           CtMainWin* main_win,
-                                           const int offset,
-                                           const Glib::ustring& justification)
-{
-    CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(filepath);
-
-    CtTableMatrix tbl_matrix;
-    if (str_tbl.size() and str_tbl.front().size()) {
-        const size_t numColumns = str_tbl.front().size();
-        size_t currRow{0};
-        for (const auto& row : str_tbl) {
-            ++currRow;
-            CtTableRow tbl_row;
-            size_t currCol{0};
-            for (const auto& cell : row) {
-                ++currCol;
-                if (currCol > numColumns) {
-                    spdlog::warn("from_csv row {} col {} > {}", currRow, currCol, numColumns);
-                    break;
-                }
-                auto* ct_cell = new CtTextCell{main_win, cell, CtConst::TABLE_CELL_TEXT_ID};
-                tbl_row.emplace_back(ct_cell);
-            }
-            while (currCol < numColumns) {
-                ++currCol;
-                auto* ct_cell = new CtTextCell{main_win, "", CtConst::TABLE_CELL_TEXT_ID};
-                tbl_row.emplace_back(ct_cell);
-            }
-            tbl_matrix.emplace_back(tbl_row);
-        }
-    }
-
-    return std::make_unique<CtTable>(main_win, tbl_matrix, 60, offset, justification, CtTableColWidths{});
 }
 
 std::shared_ptr<CtAnchoredWidgetState> CtTable::get_state()
@@ -265,7 +283,7 @@ void CtTable::column_add(const size_t afterColIdx)
     const size_t newColIdx = afterColIdx + 1;
     _grid.insert_column(newColIdx);
     _colWidths.insert(_colWidths.begin()+newColIdx, 0);
-    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+    for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
         auto pTextCell = new CtTextCell{_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID};
         _tableMatrix.at(rowIdx).insert(_tableMatrix.at(rowIdx).begin()+newColIdx, pTextCell);
         _new_text_cell_attach(rowIdx, newColIdx, pTextCell);
@@ -274,7 +292,7 @@ void CtTable::column_add(const size_t afterColIdx)
 
 void CtTable::column_delete(const size_t colIdx)
 {
-    if (1 == _tableMatrix.front().size() or colIdx >= _tableMatrix.front().size()) {
+    if (1 == get_num_columns() or colIdx >= get_num_columns()) {
         return;
     }
     _grid.remove_column(colIdx);
@@ -283,7 +301,7 @@ void CtTable::column_delete(const size_t colIdx)
         delete static_cast<CtTextCell*>(tableRow.at(colIdx));
         tableRow.erase(tableRow.begin()+colIdx);
     }
-    if (_currentColumn == _tableMatrix.front().size()) {
+    if (_currentColumn == get_num_columns()) {
         --_currentColumn;
     }
     static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
@@ -298,7 +316,7 @@ void CtTable::column_move_left(const size_t colIdx)
     std::swap(_colWidths[colIdxLeft], _colWidths[colIdx]);
     _grid.remove_column(colIdxLeft);
     _grid.insert_column(colIdx);
-    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+    for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
         std::swap(_tableMatrix[rowIdx][colIdxLeft], _tableMatrix[rowIdx][colIdx]);
         CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
         _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
@@ -308,7 +326,7 @@ void CtTable::column_move_left(const size_t colIdx)
 
 void CtTable::column_move_right(const size_t colIdx)
 {
-    if (colIdx == _tableMatrix.front().size()-1) {
+    if (colIdx == get_num_columns()-1) {
         return;
     }
     const size_t colIdxRight = colIdx + 1;
@@ -323,7 +341,7 @@ void CtTable::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>
     _tableMatrix.insert(_tableMatrix.begin()+newRowIdx, CtTableRow{});
     _grid.insert_row(newRowIdx);
     const Glib::ustring emptyCell;
-    for (size_t colIdx = 0; colIdx < _tableMatrix.front().size(); ++colIdx) {
+    for (size_t colIdx = 0; colIdx < get_num_columns(); ++colIdx) {
         const Glib::ustring* pStr = not pNewRow or pNewRow->size() <= colIdx ? &emptyCell : &pNewRow->at(colIdx);
         auto pTextCell = new CtTextCell{_pCtMainWin, *pStr, CtConst::TABLE_CELL_TEXT_ID};
         _tableMatrix.at(newRowIdx).push_back(pTextCell);
@@ -333,7 +351,7 @@ void CtTable::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>
 
 void CtTable::row_delete(const size_t rowIdx)
 {
-    if (1 == _tableMatrix.size() or rowIdx >= _tableMatrix.size()) {
+    if (1 == get_num_rows() or rowIdx >= get_num_rows()) {
         return;
     }
     _grid.remove_row(rowIdx);
@@ -341,7 +359,7 @@ void CtTable::row_delete(const size_t rowIdx)
         delete static_cast<CtTextCell*>(pTextCell);
     }
     _tableMatrix.erase(_tableMatrix.begin()+rowIdx);
-    if (_currentRow == _tableMatrix.size()) {
+    if (_currentRow == get_num_rows()) {
         --_currentRow;
     }
     static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
@@ -375,7 +393,7 @@ void CtTable::row_move_up(const size_t rowIdx)
     _grid.remove_row(rowIdxUp);
     _grid.insert_row(rowIdx);
     std::swap(_tableMatrix[rowIdxUp], _tableMatrix[rowIdx]);
-    for (size_t colIdx = 0; colIdx < _tableMatrix.front().size(); ++colIdx) {
+    for (size_t colIdx = 0; colIdx < get_num_columns(); ++colIdx) {
         CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
         _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
         if (0 == rowIdxUp) {
@@ -390,7 +408,7 @@ void CtTable::row_move_up(const size_t rowIdx)
 
 void CtTable::row_move_down(const size_t rowIdx)
 {
-    if (rowIdx == _tableMatrix.size()-1) {
+    if (rowIdx == get_num_rows()-1) {
         return;
     }
     const size_t rowIdxDown = rowIdx + 1;
@@ -416,7 +434,7 @@ bool CtTable::_row_sort(const bool sortAsc)
     std::sort(_tableMatrix.begin()+1, _tableMatrix.end(), f_tableCompare);
     auto pCurrState = std::static_pointer_cast<CtAnchoredWidgetState_Table>(get_state());
     std::list<size_t> changed;
-    for (size_t rowIdx = 1; rowIdx < _tableMatrix.size(); ++rowIdx) {
+    for (size_t rowIdx = 1; rowIdx < get_num_rows(); ++rowIdx) {
         if (pPrevState->rows.at(rowIdx) != pCurrState->rows.at(rowIdx)) {
             changed.push_back(rowIdx);
             _grid.remove_row(rowIdx);
@@ -440,11 +458,15 @@ void CtTable::set_col_width_default(const int colWidthDefault)
     _colWidthDefault = colWidthDefault;
     bool has_default_widths = vec::exists(_colWidths, 0);
     if (has_default_widths) {
-        for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
-            for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
-                CtTextCell* pTextCell = static_cast<CtTextCell*>(_tableMatrix[rowIdx][colIdx]);
-                CtTextView& textView = pTextCell->get_text_view();
-                textView.set_size_request(get_col_width(colIdx), -1);
+        const size_t numRows = get_num_rows();
+        const size_t numColumns = get_num_columns();
+        for (size_t r = 0u; r < numRows; ++r) {
+            for (size_t c = 0u; c < numColumns; ++c) {
+                if (0u == _colWidths.at(c)) {
+                    CtTextCell* pTextCell = static_cast<CtTextCell*>(_tableMatrix[r][c]);
+                    CtTextView& textView = pTextCell->get_text_view();
+                    textView.set_size_request(colWidthDefault, -1);
+                }
             }
         }
     }
@@ -452,13 +474,24 @@ void CtTable::set_col_width_default(const int colWidthDefault)
 
 void CtTable::set_col_width(const int colWidth, std::optional<size_t> optColIdx/*= std::nullopt*/)
 {
-    const size_t colIdx = optColIdx.value_or(_currentColumn);
-    _colWidths[colIdx] = colWidth;
-    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
-        CtTextCell* pTextCell = static_cast<CtTextCell*>(_tableMatrix[rowIdx][colIdx]);
+    const size_t c = optColIdx.value_or(_currentColumn);
+    _colWidths[c] = colWidth;
+    const size_t numRows = get_num_rows();
+    for (size_t r = 0u; r < numRows; ++r) {
+        CtTextCell* pTextCell = static_cast<CtTextCell*>(_tableMatrix[r][c]);
         CtTextView& textView = pTextCell->get_text_view();
-        textView.set_size_request(get_col_width(colIdx), -1);
+        textView.set_size_request(colWidth, -1);
     }
+}
+
+void CtTable::grab_focus() const
+{
+    static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view().grab_focus();
+}
+
+CtTextView& CtTable::curr_cell_text_view() const
+{
+    return static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view();
 }
 
 void CtTable::_on_populate_popup_cell(Gtk::Menu* menu)
@@ -469,14 +502,14 @@ void CtTable::_on_populate_popup_cell(Gtk::Menu* menu)
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     const bool first_row = 0 == rowIdx;
     const bool first_col = 0 == colIdx;
-    const bool last_row = _tableMatrix.size()-1 == rowIdx;
-    const bool last_col = _tableMatrix.size() and _tableMatrix.front().size()-1 == colIdx;
+    const bool last_row = get_num_rows()-1 == rowIdx;
+    const bool last_col = get_num_rows() and get_num_columns()-1 == colIdx;
     _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(menu, first_row, first_col, last_row, last_col);
 }
 
 void CtTable::_on_set_focus_child_grid(Gtk::Widget* pWidget)
 {
-    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+    for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
         for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
             if (pWidget == &static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view()) {
                 _currentRow = rowIdx;
@@ -505,10 +538,10 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
     int index{-1};
     if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab) {
         if (event->state & Gdk::SHIFT_MASK) {
-            index = rowIdx * _tableMatrix.front().size() + colIdx - 1;
+            index = rowIdx * get_num_columns() + colIdx - 1;
         }
         else {
-            index = rowIdx * _tableMatrix.front().size() + colIdx + 1;
+            index = rowIdx * get_num_columns() + colIdx + 1;
         }
     }
     else if (event->state & Gdk::CONTROL_MASK) {
@@ -559,28 +592,28 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
         if (event->keyval == GDK_KEY_backslash) {
             if (event->state & Gdk::MOD1_MASK) {
                 if (rowIdx > 0) {
-                    index = (rowIdx-1) * _tableMatrix.front().size() + colIdx;
+                    index = (rowIdx-1) * get_num_columns() + colIdx;
                 }
             }
             else {
-                if ((rowIdx+1) < _tableMatrix.size()) {
-                    index = (rowIdx+1) * _tableMatrix.front().size() + colIdx;
+                if ((rowIdx+1) < get_num_rows()) {
+                    index = (rowIdx+1) * get_num_columns() + colIdx;
                 }
             }
         }
     }
     if (index >= 0) {
-        const size_t nextRowIdx = index / _tableMatrix.front().size();
-        const size_t nextColIdx = index % _tableMatrix.front().size();
-        if ( nextRowIdx < _tableMatrix.size() and
-             nextColIdx < _tableMatrix.front().size() )
+        const size_t nextRowIdx = index / get_num_columns();
+        const size_t nextColIdx = index % get_num_columns();
+        if ( nextRowIdx < get_num_rows() and
+             nextColIdx < get_num_columns() )
         {
             static_cast<CtTextCell*>(_tableMatrix[nextRowIdx][nextColIdx])->get_text_view().grab_focus();
         }
         else {
             _pCtMainWin->get_ct_actions()->table_row_add();
-            if ( nextRowIdx < _tableMatrix.size() and
-                 nextColIdx < _tableMatrix.front().size() )
+            if ( nextRowIdx < get_num_rows() and
+                 nextColIdx < get_num_columns() )
             {
                 static_cast<CtTextCell*>(_tableMatrix[nextRowIdx][nextColIdx])->get_text_view().grab_focus();
             }

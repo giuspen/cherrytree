@@ -660,36 +660,35 @@ void CtHtml2Xml::_insert_table()
     if (_table.empty()) return;
 
     // add more cells for rowspan > 1
-    for (auto& row: _table)
+    for (auto& row : _table)
         for (auto iter = row.begin(); iter != row.end(); ++ iter)
             if (iter->rowspan > 1)
                 row.insert(std::next(iter), iter->rowspan - 1, {1, ""});
     // find bigger row size
     size_t row_len = 0;
-    for (auto& row: _table)
+    for (auto& row : _table)
         row_len  = std::max(row_len, row.size());
     // add more cell for rowspan = 0
-    for (auto& row: _table)
+    for (auto& row : _table)
         for (auto iter = row.begin(); iter != row.end(); ++ iter)
             if (iter->rowspan == 0 && row.size() < row_len)
                 row.insert(std::next(iter), row_len - row.size(), {1, ""});
     // add more cell just in case
-    for (auto& row: _table)
+    for (auto& row : _table)
         if (row.size() < row_len)
             row.insert(row.end(), row_len - row.size(), {1, ""});
 
-
-    std::vector<std::vector<Glib::ustring>> rows;
-    rows.reserve(_table.size());
-    for (const auto& row: _table)
-    {
-        rows.push_back(std::vector<Glib::ustring>{});
-        rows.back().reserve(row.size());
-        for (const auto& cell: row)
-            rows.back().push_back(str::trim(cell.text));
+    std::vector<std::vector<Glib::ustring>> table_matrix;
+    table_matrix.reserve(_table.size());
+    for (const auto& row : _table) {
+        table_matrix.push_back(std::vector<Glib::ustring>{});
+        table_matrix.back().reserve(row.size());
+        for (const auto& cell : row)
+            table_matrix.back().push_back(str::trim(cell.text));
     }
 
-    CtXmlHelper::table_to_xml(_slot_root, rows, _char_offset, CtConst::TAG_PROP_VAL_LEFT, _config->tableColWidthDefault, "");
+    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > 20;
+    CtXmlHelper::table_to_xml(_slot_root, table_matrix, _char_offset, CtConst::TAG_PROP_VAL_LEFT, _config->tableColWidthDefault, "", is_light);
 
     _char_offset += 1;
 }
