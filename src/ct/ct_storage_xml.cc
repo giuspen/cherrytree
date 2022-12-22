@@ -548,7 +548,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
     if (is_light) {
         return new CtTableLight{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
     }
-    return new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
+    return new CtTableHeavy{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
 }
 
 void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,

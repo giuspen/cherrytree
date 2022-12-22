@@ -451,7 +451,7 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
             pCodebox,
             nullptr};
     }
-    if (auto pTable = dynamic_cast<CtTable*>(_table_in_use())) {
+    if (auto pTable = dynamic_cast<CtTableHeavy*>(_table_in_use())) {
         return text_view_n_buffer_codebox_proof{
             &pTable->curr_cell_text_view(),
             CtConst::PLAIN_TEXT_ID,

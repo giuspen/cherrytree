@@ -45,7 +45,7 @@ enum class CtDocType { None, XML, SQLite };
 
 enum class CtDocEncrypt { None, True, False };
 
-enum class CtAnchWidgType { CodeBox, Table, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
+enum class CtAnchWidgType { CodeBox, TableHeavy, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
 
 enum class CtPixTabCBox { Pixbuf, Table, CodeBox };
 
@@ -97,7 +97,7 @@ struct CtRecentDocRestore
 using CtRecentDocsRestore = std::unordered_map<std::string, CtRecentDocRestore>;
 
 class CtTextCell;
-using CtTableRow = std::vector<void*>; // CtTextCell* (for CtTable) or Glib::ustring* (for CtTableLight)
+using CtTableRow = std::vector<void*>; // CtTextCell* (for CtTableHeavy) or Glib::ustring* (for CtTableLight)
 using CtTableMatrix = std::vector<CtTableRow>;
 using CtTableColWidths = std::vector<int>;
 
@@ -284,7 +284,7 @@ struct CtSummaryInfo
     size_t images_num{0};
     size_t latexes_num{0};
     size_t embfile_num{0};
-    size_t tables_num{0};
+    size_t heavytables_num{0};
     size_t lighttables_num{0};
     size_t codeboxes_num{0};
     size_t anchors_num{0};

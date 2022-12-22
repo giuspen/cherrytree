@@ -123,7 +123,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                     // let's look for tables
                     std::list<CtAnchoredWidget*> anchoredWidgets = node.get_anchored_widgets_fast();
                     for (auto pAnchoredWidget : anchoredWidgets) {
-                        if (CtAnchWidgType::Table == pAnchoredWidget->get_type()) {
+                        if (CtAnchWidgType::TableHeavy == pAnchoredWidget->get_type()) {
                             pAnchoredWidget->apply_syntax_highlighting(true/*forceReApply*/);
                         }
                     }

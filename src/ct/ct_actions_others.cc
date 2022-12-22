@@ -650,9 +650,9 @@ void CtActions::table_copy()
 void CtActions::table_delete()
 {
     object_set_selection(curr_table_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true/*interactive*/, _pCtMainWin->get_text_view().get_editable());
     curr_table_anchor = nullptr;
-   _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().grab_focus();
 }
 
 void CtActions::table_column_add()
@@ -715,7 +715,7 @@ void CtActions::table_row_cut()
 
 void CtActions::table_row_copy()
 {
-    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_Table>(curr_table_anchor->get_state());
+    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_TableHeavy>(curr_table_anchor->get_state());
     // remove rows after current
     while (table_state->rows.size() > curr_table_anchor->current_row() + 1)
         table_state->rows.pop_back();
@@ -783,9 +783,19 @@ void CtActions::table_edit_properties()
     }
     curr_table_anchor->set_col_width_default(_pCtConfig->tableColWidthDefault);
     if (was_light != is_light) {
-        // TODO
+        std::shared_ptr<CtAnchoredWidgetState_TableCommon> pStateCommon = curr_table_anchor->get_state_common();
+        table_delete();
+        auto pCtTable = is_light ? static_cast<CtTableCommon*>(pStateCommon->to_widget_light(_pCtMainWin)) :
+            static_cast<CtTableCommon*>(pStateCommon->to_widget_heavy(_pCtMainWin));
+        Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
+        pCtTable->insertInTextBuffer(gsv_buffer);
+        _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
+            {pCtTable}, &_pCtMainWin->get_text_view());
+        curr_table_anchor = pCtTable;
     }
-    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+    else {
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+    }
 }
 
 void CtActions::table_export()

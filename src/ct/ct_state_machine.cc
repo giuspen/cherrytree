@@ -163,7 +163,7 @@ CtAnchoredWidget* CtAnchoredWidgetState_Codebox::to_widget(CtMainWin* pCtMainWin
 }
 
 // Table
-CtAnchoredWidgetState_TableCommon::CtAnchoredWidgetState_TableCommon(CtTableCommon* table)
+CtAnchoredWidgetState_TableCommon::CtAnchoredWidgetState_TableCommon(const CtTableCommon* table)
  : CtAnchoredWidgetState{table->getOffset(), table->getJustification()}
  , colWidthDefault{table->get_col_width_default()}
  , colWidths{table->get_col_widths_raw()}
@@ -186,28 +186,7 @@ bool CtAnchoredWidgetState_TableCommon::equal(std::shared_ptr<CtAnchoredWidgetSt
            rows == other_state->rows;
 }
 
-CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
-{
-    CtTableMatrix tableMatrix;
-    tableMatrix.reserve(rows.size());
-    for (const auto& row : rows) {
-        tableMatrix.push_back(CtTableRow{});
-        tableMatrix.back().reserve(row.size());
-        for (const auto& cell : row) {
-            tableMatrix.back().push_back(new CtTextCell{pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
-        }
-    }
-    return new CtTable{pCtMainWin,
-                       tableMatrix,
-                       colWidthDefault,
-                       charOffset,
-                       justification,
-                       colWidths,
-                       currRow,
-                       currCol};
-}
-
-CtAnchoredWidget* CtAnchoredWidgetState_TableLight::to_widget(CtMainWin* pCtMainWin)
+CtTableLight* CtAnchoredWidgetState_TableCommon::to_widget_light(CtMainWin* pCtMainWin) const
 {
     CtTableMatrix tableMatrix;
     tableMatrix.reserve(rows.size());
@@ -219,6 +198,27 @@ CtAnchoredWidget* CtAnchoredWidgetState_TableLight::to_widget(CtMainWin* pCtMain
         }
     }
     return new CtTableLight{pCtMainWin,
+                            tableMatrix,
+                            colWidthDefault,
+                            charOffset,
+                            justification,
+                            colWidths,
+                            currRow,
+                            currCol};
+}
+
+CtTableHeavy* CtAnchoredWidgetState_TableCommon::to_widget_heavy(CtMainWin* pCtMainWin) const
+{
+    CtTableMatrix tableMatrix;
+    tableMatrix.reserve(rows.size());
+    for (const auto& row : rows) {
+        tableMatrix.push_back(CtTableRow{});
+        tableMatrix.back().reserve(row.size());
+        for (const auto& cell : row) {
+            tableMatrix.back().push_back(new CtTextCell{pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
+        }
+    }
+    return new CtTableHeavy{pCtMainWin,
                             tableMatrix,
                             colWidthDefault,
                             charOffset,

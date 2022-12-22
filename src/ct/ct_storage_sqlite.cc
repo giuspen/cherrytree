@@ -595,7 +595,7 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
                 anchoredWidgets.push_back(new CtTableLight{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
             }
             else {
-                anchoredWidgets.push_back(new CtTable{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
+                anchoredWidgets.push_back(new CtTableHeavy{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths});
             }
         }
         else {
@@ -704,7 +704,8 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
             switch (pAnchoredWidget->get_type())
             {
                 case CtAnchWidgType::CodeBox: has_codebox = true; break;
-                case CtAnchWidgType::Table: has_table = true; break;
+                case CtAnchWidgType::TableLight:
+                case CtAnchWidgType::TableHeavy: has_table = true; break;
                 default: has_image = true;
             }
         }

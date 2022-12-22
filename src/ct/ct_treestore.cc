@@ -997,7 +997,7 @@ void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                     case CtAnchWidgType::ImageLatex: ++summaryInfo.latexes_num; break;
                     case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
                     case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
-                    case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;
+                    case CtAnchWidgType::TableHeavy: ++summaryInfo.heavytables_num; break;
                     case CtAnchWidgType::TableLight: ++summaryInfo.lighttables_num; break;
                 }
             }

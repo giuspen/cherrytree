@@ -27,6 +27,7 @@
 #include "ct_widgets.h"
 #include <optional>
 
+class CtAnchoredWidgetState_TableCommon;
 class CtTableCommon : public CtAnchoredWidget
 {
 public:
@@ -37,6 +38,8 @@ public:
                   const CtTableColWidths& colWidths,
                   const size_t currRow,
                   const size_t currCol);
+
+    std::shared_ptr<CtAnchoredWidgetState_TableCommon> get_state_common() const;
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
 
@@ -161,10 +164,10 @@ protected:
     Glib::RefPtr<Gtk::ListStore> _pListStore;
 };
 
-class CtTable : public CtTableCommon
+class CtTableHeavy : public CtTableCommon
 {
 public:
-    CtTable(CtMainWin* pCtMainWin,
+    CtTableHeavy(CtMainWin* pCtMainWin,
             CtTableMatrix& tableMatrix,
             const int colWidthDefault,
             const int charOffset,
@@ -172,12 +175,12 @@ public:
             const CtTableColWidths& colWidths,
             const size_t currRow = 0,
             const size_t currCol = 0);
-    ~CtTable() override;
+    ~CtTableHeavy() override;
 
     void apply_syntax_highlighting(const bool forceReApply) override;
     std::string to_csv() const override;
     void set_modified_false() override;
-    CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
+    CtAnchWidgType get_type() override { return CtAnchWidgType::TableHeavy; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     CtTextView& curr_cell_text_view() const;

@@ -284,7 +284,7 @@ private:
         CtTextView*  text_view;
         std::string  syntax_highl;
         CtCodebox*   codebox;
-        CtTable*     table;
+        CtTableHeavy*     table;
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();

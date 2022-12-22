@@ -120,9 +120,13 @@ public:
 
 struct CtAnchoredWidgetState_TableCommon : public CtAnchoredWidgetState
 {
-    CtAnchoredWidgetState_TableCommon(CtTableCommon* table);
+    CtAnchoredWidgetState_TableCommon(const CtTableCommon* table);
 
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+
+    CtAnchoredWidget* to_widget(CtMainWin* /*pCtMainWin*/) override { return nullptr; }
+    CtTableLight* to_widget_light(CtMainWin* pCtMainWin) const;
+    CtTableHeavy* to_widget_heavy(CtMainWin* pCtMainWin) const;
 
     int colWidthDefault;
     CtTableColWidths colWidths;
@@ -132,17 +136,21 @@ struct CtAnchoredWidgetState_TableCommon : public CtAnchoredWidgetState
 };
 struct CtAnchoredWidgetState_TableLight : public CtAnchoredWidgetState_TableCommon
 {
-    CtAnchoredWidgetState_TableLight(CtTableLight* table)
+    CtAnchoredWidgetState_TableLight(const CtTableLight* table)
      : CtAnchoredWidgetState_TableCommon{table}
     {}
-    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override {
+        return to_widget_light(pCtMainWin);
+    }
 };
-struct CtAnchoredWidgetState_Table : public CtAnchoredWidgetState_TableCommon
+struct CtAnchoredWidgetState_TableHeavy : public CtAnchoredWidgetState_TableCommon
 {
-    CtAnchoredWidgetState_Table(CtTable* table)
+    CtAnchoredWidgetState_TableHeavy(const CtTableHeavy* table)
      : CtAnchoredWidgetState_TableCommon{table}
     {}
-    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override {
+        return to_widget_heavy(pCtMainWin);
+    }
 };
 
 struct CtNodeState

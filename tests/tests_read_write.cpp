@@ -150,7 +150,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     ASSERT_EQ(5, summaryInfo.nodes_code_num);
     ASSERT_EQ(1, summaryInfo.images_num);
     ASSERT_EQ(1, summaryInfo.embfile_num);
-    ASSERT_EQ(1, summaryInfo.tables_num);
+    ASSERT_EQ(1, summaryInfo.heavytables_num);
     ASSERT_EQ(1, summaryInfo.codeboxes_num);
     ASSERT_EQ(1, summaryInfo.anchors_num);
     ASSERT_EQ(1, summaryInfo.latexes_num);
@@ -481,10 +481,10 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     ASSERT_TRUE(pCodebox->get_highlight_brackets());
                     ASSERT_FALSE(pCodebox->get_show_line_numbers());
                 } break;
-                case CtAnchWidgType::Table: {
+                case CtAnchWidgType::TableHeavy: {
                     ASSERT_EQ(49, pAnchWidget->getOffset());
                     ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
-                    auto pTable = dynamic_cast<CtTable*>(pAnchWidget);
+                    auto pTable = dynamic_cast<CtTableHeavy*>(pAnchWidget);
                     ASSERT_TRUE(pTable);
                     ASSERT_EQ(60, pTable->get_col_width_default());
                     const CtTableColWidths expected_column_widths{105, 75};

@@ -467,7 +467,7 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     grid.attach(label_col_width,       0, 3, 1, 1);
     grid.attach(spinbutton_col_width,  1, 3, 1, 1);
 
-    auto checkbutton_is_light = Gtk::CheckButton(_("Lightweight (Much faster for large tables)"));
+    auto checkbutton_is_light = Gtk::CheckButton(_("Lightweight (much faster for large tables)"));
     checkbutton_is_light.set_active(is_light);
     auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
 
@@ -481,6 +481,14 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     checkbutton_table_ins_from_file.signal_toggled().connect([&](){
         grid.set_sensitive(not checkbutton_table_ins_from_file.get_active());
     });
+
+    if (is_insert) {
+        auto f_reeval_is_light = [&](){
+            checkbutton_is_light.set_active(spinbutton_rows.get_value_as_int()*spinbutton_columns.get_value_as_int() > CtConst::ADVISED_TABLE_LIGHT_HEAVY);
+        };
+        spinbutton_rows.signal_value_changed().connect([f_reeval_is_light](){ f_reeval_is_light(); });
+        spinbutton_columns.signal_value_changed().connect([f_reeval_is_light](){ f_reeval_is_light(); });
+    }
 
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {

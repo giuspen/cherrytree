@@ -105,7 +105,7 @@ void CtActions::table_insert()
 {
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    bool is_light{_pCtConfig->tableColumns*_pCtConfig->tableRows > 25};
+    bool is_light{_pCtConfig->tableColumns*_pCtConfig->tableRows > CtConst::ADVISED_TABLE_LIGHT_HEAVY};
     CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(
         _pCtMainWin,
         _("Insert Table"),
@@ -149,7 +149,7 @@ void CtActions::table_insert()
         pCtTable = new CtTableLight{_pCtMainWin, tbl_matrix, col_width, charOffset, "", CtTableColWidths{}};
     }
     else {
-        pCtTable = new CtTable{_pCtMainWin, tbl_matrix, col_width, charOffset, "", CtTableColWidths{}};
+        pCtTable = new CtTableHeavy{_pCtMainWin, tbl_matrix, col_width, charOffset, "", CtTableColWidths{}};
     }
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtTable->insertInTextBuffer(gsv_buffer);

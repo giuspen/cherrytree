@@ -258,6 +258,7 @@ const inline static int NODE_ICON_BULLET_ID        {25};
 const inline static int NODE_ICON_NO_ICON_ID       {26};
 const inline static int NODE_ICON_SIZE             {16};
 const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
+const inline static int ADVISED_TABLE_LIGHT_HEAVY  {25};
 
 const inline static std::vector<const gchar*> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
