@@ -103,12 +103,16 @@ void CtActions::image_insert()
 
 void CtActions::table_insert()
 {
-    if (!_node_sel_and_rich_text()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(_pCtMainWin, _("Insert Table"), true/*is_insert*/);
+    if (not _node_sel_and_rich_text()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    bool is_light{_pCtConfig->tableColumns*_pCtConfig->tableRows > 25};
+    CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(
+        _pCtMainWin,
+        _("Insert Table"),
+        true/*is_insert*/,
+        is_light);
     if (res == CtDialogs::TableHandleResp::Cancel) return;
 
-    const int col_width = _pCtConfig->tableColWidthDefault;
     std::list<std::vector<std::string>> rows;
     if (res == CtDialogs::TableHandleResp::Ok) {
         std::vector<std::string> empty_row(_pCtConfig->tableColumns, "");
@@ -116,36 +120,36 @@ void CtActions::table_insert()
             rows.push_back(empty_row);
         }
     }
-    CtTable* pCtTable{nullptr};
+    CtTableMatrix tbl_matrix;
+    const auto charOffset = _curr_buffer()->get_insert()->get_iter().get_offset();
+    int col_width = _pCtConfig->tableColWidthDefault;
     if (res == CtDialogs::TableHandleResp::OkFromFile) {
         CtDialogs::FileSelectArgs args{_pCtMainWin};
         args.curr_folder = _pCtConfig->pickDirCsv;
-        args.curr_file_name = "";
+        args.curr_file_name.clear();
         args.filter_name = _("CSV File");
         args.filter_pattern = {"*.csv"};
 
         std::string filepath = CtDialogs::file_select_dialog(args);
         if (filepath.empty()) return;
         _pCtConfig->pickDirCsv = Glib::path_get_dirname(filepath);
-        CtTableMatrix tbl_matrix;
-        CtTableCommon::populate_table_matrix_from_csv(filepath, _pCtMainWin, false/*is_light*/, tbl_matrix);
-        pCtTable = new CtTable{_pCtMainWin, tbl_matrix, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "", CtTableColWidths{}};
+        CtTableCommon::populate_table_matrix_from_csv(filepath, _pCtMainWin, is_light, tbl_matrix);
+        col_width = 60;
     }
-
-    if (!pCtTable) {
-        CtTableMatrix tableMatrix;
+    else {
         for (auto& row : rows) {
-            tableMatrix.push_back(CtTableRow{});
+            tbl_matrix.push_back(CtTableRow{});
             for (auto& cell : row) {
-                tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
+                tbl_matrix.back().push_back(new CtTextCell{_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
             }
         }
-        pCtTable = new CtTable{_pCtMainWin,
-                               tableMatrix,
-                               col_width,
-                               _curr_buffer()->get_insert()->get_iter().get_offset(),
-                               "",
-                               CtTableColWidths{}};
+    }
+    CtTableCommon* pCtTable{nullptr};
+    if (is_light) {
+        pCtTable = new CtTableLight{_pCtMainWin, tbl_matrix, col_width, charOffset, "", CtTableColWidths{}};
+    }
+    else {
+        pCtTable = new CtTable{_pCtMainWin, tbl_matrix, col_width, charOffset, "", CtTableColWidths{}};
     }
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtTable->insertInTextBuffer(gsv_buffer);

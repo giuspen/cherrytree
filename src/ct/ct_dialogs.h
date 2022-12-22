@@ -283,6 +283,9 @@ std::string dialog_palette(CtMainWin* pCtMainWin);
 void summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& summaryInfo);
 
 enum class TableHandleResp { Cancel, Ok, OkFromFile };
-TableHandleResp table_handle_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title, const bool is_insert);
+TableHandleResp table_handle_dialog(CtMainWin* pCtMainWin,
+                                    const Glib::ustring& title,
+                                    const bool is_insert,
+                                    bool& is_light);
 
 } // namespace CtDialogs

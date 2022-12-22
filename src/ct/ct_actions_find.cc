@@ -688,7 +688,7 @@ Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> patt
         }
         if (pattern->match(text)) return text;
     }
-    else if (CtTable* table = dynamic_cast<CtTable*>(obj)) {
+    else if (auto table = dynamic_cast<CtTableCommon*>(obj)) {
         std::vector<std::vector<Glib::ustring>> rows;
         table->write_strings_matrix(rows);
         for (auto& row : rows) {

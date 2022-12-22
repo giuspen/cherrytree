@@ -411,7 +411,8 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
 
 CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
                                                           const Glib::ustring& title,
-                                                          const bool is_insert)
+                                                          const bool is_insert,
+                                                          bool& is_light)
 {
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
@@ -423,23 +424,24 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(300, -1);
 
+    auto pCtConfig = pCtMainWin->get_ct_config();
     auto label_rows = Gtk::Label{_("Rows")};
     label_rows.set_halign(Gtk::Align::ALIGN_START);
     label_rows.set_margin_left(10);
-    auto adj_rows = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableRows, 1, 10000, 1);
+    auto adj_rows = Gtk::Adjustment::create(pCtConfig->tableRows, 1, 10000, 1);
     auto spinbutton_rows = Gtk::SpinButton{adj_rows};
-    spinbutton_rows.set_value(pCtMainWin->get_ct_config()->tableRows);
+    spinbutton_rows.set_value(pCtConfig->tableRows);
     auto label_columns = Gtk::Label{_("Columns")};
     label_columns.set_halign(Gtk::Align::ALIGN_START);
-    auto adj_columns = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableColumns, 1, 10000, 1);
+    auto adj_columns = Gtk::Adjustment::create(pCtConfig->tableColumns, 1, 10000, 1);
     auto spinbutton_columns = Gtk::SpinButton{adj_columns};
-    spinbutton_columns.set_value(pCtMainWin->get_ct_config()->tableColumns);
+    spinbutton_columns.set_value(pCtConfig->tableColumns);
 
     auto label_col_width = Gtk::Label{_("Default Width")};
     label_col_width.set_halign(Gtk::Align::ALIGN_START);
-    auto adj_col_width = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableColWidthDefault, 1, 10000, 1);
+    auto adj_col_width = Gtk::Adjustment::create(pCtConfig->tableColWidthDefault, 1, 10000, 1);
     auto spinbutton_col_width = Gtk::SpinButton{adj_col_width};
-    spinbutton_col_width.set_value(pCtMainWin->get_ct_config()->tableColWidthDefault);
+    spinbutton_col_width.set_value(pCtConfig->tableColWidthDefault);
 
     auto label_size = Gtk::Label{std::string("<b>")+_("Table Size")+"</b>"};
     label_size.set_use_markup();
@@ -465,16 +467,19 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     grid.attach(label_col_width,       0, 3, 1, 1);
     grid.attach(spinbutton_col_width,  1, 3, 1, 1);
 
+    auto checkbutton_is_light = Gtk::CheckButton(_("Lightweight (Much faster for large tables)"));
+    checkbutton_is_light.set_active(is_light);
     auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
 
     auto content_area = dialog.get_content_area();
     content_area->set_spacing(5);
     content_area->pack_start(grid);
+    content_area->pack_start(checkbutton_is_light);
     if (is_insert) content_area->pack_start(checkbutton_table_ins_from_file);
     content_area->show_all();
 
     checkbutton_table_ins_from_file.signal_toggled().connect([&](){
-        grid.set_sensitive(!checkbutton_table_ins_from_file.get_active());
+        grid.set_sensitive(not checkbutton_table_ins_from_file.get_active());
     });
 
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
@@ -496,9 +501,10 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
 
     const auto resp = dialog.run();
     if (Gtk::RESPONSE_ACCEPT == resp) {
-        pCtMainWin->get_ct_config()->tableRows = spinbutton_rows.get_value_as_int();
-        pCtMainWin->get_ct_config()->tableColumns = spinbutton_columns.get_value_as_int();
-        pCtMainWin->get_ct_config()->tableColWidthDefault = spinbutton_col_width.get_value_as_int();
+        is_light = checkbutton_is_light.get_active();
+        pCtConfig->tableRows = spinbutton_rows.get_value_as_int();
+        pCtConfig->tableColumns = spinbutton_columns.get_value_as_int();
+        pCtConfig->tableColWidthDefault = spinbutton_col_width.get_value_as_int();
         if (checkbutton_table_ins_from_file.get_active()) {
             return TableHandleResp::OkFromFile;
         }

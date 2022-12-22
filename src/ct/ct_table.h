@@ -42,6 +42,7 @@ public:
 
     const CtTableColWidths& get_col_widths_raw() const { return _colWidths; }
     int get_col_width_default() const { return _colWidthDefault; }
+    bool get_is_light() const;
     int get_col_width(const std::optional<size_t> optColIdx = std::nullopt) const {
         const size_t colIdx = optColIdx.value_or(_currentColumn);
         return _colWidths.at(colIdx) != 0 ? _colWidths.at(colIdx) : _colWidthDefault;

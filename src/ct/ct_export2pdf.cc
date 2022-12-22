@@ -555,7 +555,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
             else if (auto codebox = dynamic_cast<const CtCodebox*>(pango_widget->widget)) {
                 _process_pango_codebox(print_data, codebox, pango_widget);
             }
-            else if (auto table = dynamic_cast<const CtTable*>(pango_widget->widget)) {
+            else if (auto table = dynamic_cast<const CtTableCommon*>(pango_widget->widget)) {
                 _process_pango_table(print_data, table, pango_widget);
             }
         }
@@ -1039,7 +1039,9 @@ void CtPrint::_codebox_split_content(const CtCodebox* codebox,
     }
 }
 
-void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table, const CtPangoWidget* pango_widget)
+void CtPrint::_process_pango_table(CtPrintData *print_data,
+                                   const CtTableCommon* table,
+                                   const CtPangoWidget* pango_widget)
 {
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
@@ -1143,7 +1145,10 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, const CtTable* table
     }
 }
 
-CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context)
+CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTableCommon* table,
+                                                      const int first_row,
+                                                      const int last_row,
+                                                      const Glib::RefPtr<Gtk::PrintContext>& context)
 {
     std::vector<std::vector<Glib::ustring>> rows;
     table->write_strings_matrix(rows);
@@ -1199,7 +1204,10 @@ double CtPrint::_table_get_width_height(std::vector<double>& data)
     return acc;
 }
 
-int CtPrint::_table_split_content(const CtTable* table, const int start_row, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context)
+int CtPrint::_table_split_content(const CtTableCommon* table,
+                                  const int start_row,
+                                  const int check_height,
+                                  const Glib::RefPtr<Gtk::PrintContext>& context)
 {
     int last_row = start_row;
     for (; last_row < (int)table->get_num_rows(); ++last_row) {
@@ -1207,8 +1215,7 @@ int CtPrint::_table_split_content(const CtTable* table, const int start_row, con
         auto table_layouts = _table_get_layouts(table, start_row, last_row, context);
         _table_get_grid(table_layouts, table->get_col_widths(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
-        if (table_height > check_height)
-        {
+        if (table_height > check_height) {
             if (start_row == last_row) // not enouth place for 1 row + a header, add a new page
                 return -1;
             return last_row -1;

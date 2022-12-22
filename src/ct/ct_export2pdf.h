@@ -306,7 +306,7 @@ private:
     void _process_pango_text(CtPrintData* print_data, CtPangoText* text_slot);
     void _process_pango_image(CtPrintData* print_data, const CtImage* image, const CtPangoWidget* pango_widget, bool& any_image_resized);
     void _process_pango_codebox(CtPrintData* print_data, const CtCodebox* codebox, const CtPangoWidget* pango_widget);
-    void _process_pango_table(CtPrintData* print_data, const CtTable* table, const CtPangoWidget* pango_widget);
+    void _process_pango_table(CtPrintData* print_data, const CtTableCommon* table, const CtPangoWidget* pango_widget);
 
     Glib::RefPtr<Pango::Layout> _codebox_get_layout(const CtCodebox* codebox,
                                                     Glib::ustring content,
@@ -320,13 +320,16 @@ private:
                                                        Glib::ustring& second_split,
                                                        const int codebox_width);
 
-    CtPageTable::TableLayouts   _table_get_layouts(const CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context);
+    CtPageTable::TableLayouts   _table_get_layouts(const CtTableCommon* table,
+                                                   const int first_row,
+                                                   const int last_row,
+                                                   const Glib::RefPtr<Gtk::PrintContext>& context);
     void                        _table_get_grid(const CtPageTable::TableLayouts& table_layouts,
                                                 const CtTableColWidths& col_widths,
                                                 std::vector<double>& rows_h,
                                                 std::vector<double>& cols_w);
     double                      _table_get_width_height(std::vector<double>& data);
-    int                         _table_split_content(const CtTable* table,
+    int                         _table_split_content(const CtTableCommon* table,
                                                      const int start_row,
                                                      const int check_height,
                                                      const Glib::RefPtr<Gtk::PrintContext>& context);

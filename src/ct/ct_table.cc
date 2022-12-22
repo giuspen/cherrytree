@@ -44,6 +44,11 @@ CtTableCommon::CtTableCommon(CtMainWin* pCtMainWin,
 {
 }
 
+bool CtTableCommon::get_is_light() const
+{
+    return dynamic_cast<const CtTableLight*>(this);
+}
+
 /*static*/void CtTableCommon::populate_table_matrix_from_csv(const std::string& filepath,
                                                              CtMainWin* main_win,
                                                              const bool is_light,

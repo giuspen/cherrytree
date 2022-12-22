@@ -89,16 +89,16 @@ Glib::ustring CtExport2Txt::selection_export_to_txt(CtTreeIter tree_iter, Glib::
         int end_offset = widget->getOffset();
         Glib::ustring text_slot = _plain_process_slot(start_offset, end_offset, text_buffer, false);
         plain_text += text_slot;
-        if (CtTable* ctTable = dynamic_cast<CtTable*>(widget)) plain_text += get_table_plain(ctTable);
-        else if (CtCodebox* ctCodebox = dynamic_cast<CtCodebox*>(widget)) plain_text += get_codebox_plain(ctCodebox);
-        else if (CtImageLatex* ctLatex = dynamic_cast<CtImageLatex*>(widget)) plain_text += get_latex_plain(ctLatex);
+        if (auto ctTable = dynamic_cast<CtTableCommon*>(widget)) plain_text += get_table_plain(ctTable);
+        else if (auto ctCodebox = dynamic_cast<CtCodebox*>(widget)) plain_text += get_codebox_plain(ctCodebox);
+        else if (auto ctLatex = dynamic_cast<CtImageLatex*>(widget)) plain_text += get_latex_plain(ctLatex);
         start_offset = end_offset;
     }
     plain_text += _plain_process_slot(start_offset, sel_end, text_buffer, check_link_target && widgets.empty());
     return plain_text;
 }
 
-Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
+Glib::ustring CtExport2Txt::get_table_plain(CtTableCommon* table_orig)
 {
     std::vector<std::vector<Glib::ustring>> rows;
     table_orig->write_strings_matrix(rows);

@@ -105,13 +105,13 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
             node_html_text += html_slots[i];
             if (i < widgets.size()) {
                 try {
-                    if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
+                    if (auto embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
                         node_html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
-                    else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
+                    else if (auto image = dynamic_cast<CtImage*>(widgets[i]))
                         node_html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
-                    else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
+                    else if (auto table = dynamic_cast<CtTableCommon*>(widgets[i]))
                         node_html_text += _get_table_html(table);
-                    else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
+                    else if (auto codebox = dynamic_cast<CtCodebox*>(widgets[i]))
                         node_html_text += _get_codebox_html(codebox);
                 }
                 catch (std::exception& ex) {
@@ -233,13 +233,13 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
                 node_html_text += html_slots[i];
                 if (i < widgets.size()) {
                     try {
-                        if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
+                        if (auto embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
                             node_html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
-                        else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
+                        else if (auto image = dynamic_cast<CtImage*>(widgets[i]))
                             node_html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
-                        else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
+                        else if (auto table = dynamic_cast<CtTableCommon*>(widgets[i]))
                             node_html_text += _get_table_html(table);
-                        else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
+                        else if (auto codebox = dynamic_cast<CtCodebox*>(widgets[i]))
                             node_html_text += _get_codebox_html(codebox);
                     }
                     catch (std::exception& ex) {
@@ -332,8 +332,8 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
             int end_offset = widget->getOffset();
             node_html_text +=_html_process_slot(start_offset, end_offset, text_buffer);
             if (CtImage* image = dynamic_cast<CtImage*>(widget)) node_html_text += _get_image_html(image, tempFolder, images_count, nullptr);
-            else if (CtTable* table = dynamic_cast<CtTable*>(widget)) node_html_text += _get_table_html(table);
-            else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) node_html_text += _get_codebox_html(codebox);
+            else if (auto table = dynamic_cast<CtTableCommon*>(widget)) node_html_text += _get_table_html(table);
+            else if (auto codebox = dynamic_cast<CtCodebox*>(widget)) node_html_text += _get_codebox_html(codebox);
             start_offset = end_offset;
         }
         node_html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);

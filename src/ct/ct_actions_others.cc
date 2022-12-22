@@ -40,7 +40,7 @@
 
 void CtActions::link_cut()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     if (!_link_check_around_cursor().empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
     }
@@ -55,7 +55,7 @@ void CtActions::link_copy()
 
 void CtActions::link_dismiss()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     if (!_link_check_around_cursor().empty()) {
         remove_text_formatting();
     }
@@ -63,7 +63,7 @@ void CtActions::link_dismiss()
 
 void CtActions::link_delete()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     if (!_link_check_around_cursor().empty()) {
         _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
         _pCtMainWin->get_text_view().grab_focus();
@@ -657,28 +657,28 @@ void CtActions::table_delete()
 
 void CtActions::table_column_add()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->column_add(curr_table_anchor->current_column());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_column_delete()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->column_delete(curr_table_anchor->current_column());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_column_left()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->column_move_left(curr_table_anchor->current_column());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_column_right()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->column_move_right(curr_table_anchor->current_column());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
@@ -701,14 +701,14 @@ void CtActions::table_column_decrease_width()
 
 void CtActions::table_row_add()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->row_add(curr_table_anchor->current_row());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_row_cut()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     table_row_copy();
     table_row_delete();
 }
@@ -722,41 +722,41 @@ void CtActions::table_row_copy()
     // remove rows between current and header
     while (table_state->rows.size() > 2)
         table_state->rows.erase(table_state->rows.begin() + 1);
-    auto new_table = dynamic_cast<CtTable*>(table_state->to_widget(_pCtMainWin));
+    auto new_table = dynamic_cast<CtTableCommon*>(table_state->to_widget(_pCtMainWin));
     CtClipboard{_pCtMainWin}.table_row_to_clipboard(new_table);
     delete new_table;
 }
 
 void CtActions::table_row_paste()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     CtClipboard{_pCtMainWin}.table_row_paste(curr_table_anchor);
 }
 
 void CtActions::table_row_delete()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->row_delete(curr_table_anchor->current_row());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_row_up()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->row_move_up(curr_table_anchor->current_row());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_row_down()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->row_move_down(curr_table_anchor->current_row());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_rows_sort_descending()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     if (curr_table_anchor->row_sort_desc()) {
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
@@ -764,7 +764,7 @@ void CtActions::table_rows_sort_descending()
 
 void CtActions::table_rows_sort_ascending()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     if (curr_table_anchor->row_sort_asc()) {
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
@@ -772,11 +772,19 @@ void CtActions::table_rows_sort_ascending()
 
 void CtActions::table_edit_properties()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _pCtConfig->tableColWidthDefault = curr_table_anchor->get_col_width_default();
-    if (CtDialogs::TableHandleResp::Cancel == CtDialogs::table_handle_dialog(_pCtMainWin, _("Edit Table Properties"), false/*is_insert*/))
+    const bool was_light = curr_table_anchor->get_is_light();
+    bool is_light{was_light};
+    if (CtDialogs::TableHandleResp::Cancel == CtDialogs::table_handle_dialog(
+        _pCtMainWin, _("Edit Table Properties"), false/*is_insert*/, is_light))
+    {
         return;
+    }
     curr_table_anchor->set_col_width_default(_pCtConfig->tableColWidthDefault);
+    if (was_light != is_light) {
+        // TODO
+    }
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 

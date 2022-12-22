@@ -444,14 +444,14 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
 
 CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_codebox_proof()
 {
-    if (CtCodebox* pCodebox = _codebox_in_use()) {
+    if (auto pCodebox = _codebox_in_use()) {
         return text_view_n_buffer_codebox_proof{
             &pCodebox->get_text_view(),
             pCodebox->get_syntax_highlighting(),
             pCodebox,
             nullptr};
     }
-    if (CtTable* pTable = _table_in_use()) {
+    if (auto pTable = dynamic_cast<CtTable*>(_table_in_use())) {
         return text_view_n_buffer_codebox_proof{
             &pTable->curr_cell_text_view(),
             CtConst::PLAIN_TEXT_ID,
@@ -478,14 +478,14 @@ CtCodebox* CtActions::_codebox_in_use()
     return nullptr;
 }
 
-CtTable* CtActions::_table_in_use()
+CtTableCommon* CtActions::_table_in_use()
 {
     if (not curr_table_anchor) return nullptr;
     if (not _curr_buffer()) return nullptr;
     Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
     auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
     if (widgets.empty()) return nullptr;
-    if (auto pCtTable = dynamic_cast<CtTable*>(widgets.front())) {
+    if (auto pCtTable = dynamic_cast<CtTableCommon*>(widgets.front())) {
         return pCtTable;
     }
     return nullptr;

@@ -320,17 +320,19 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
 }
 
 // Write the Selected Content to the Clipboard
-void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* /*sourceview*/, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox)
+void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                          Gtk::TextView* /*sourceview*/,
+                                          Gtk::TextIter iter_sel_start,
+                                          Gtk::TextIter iter_sel_end,
+                                          int num_chars,
+                                          CtCodebox* pCodebox)
 {
     Glib::ustring node_syntax_high = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
     CtImage* pixbuf_target = nullptr;
-    if (not pCodebox and node_syntax_high == CtConst::RICH_TEXT_ID and num_chars == 1)
-    {
+    if (not pCodebox and node_syntax_high == CtConst::RICH_TEXT_ID and num_chars == 1) {
         std::list<CtAnchoredWidget*> widget_vector = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_end.get_offset());
-        if (widget_vector.size() > 0)
-        {
-            if (CtImage* image = dynamic_cast<CtImage*>(widget_vector.front()))
-            {
+        if (widget_vector.size() > 0) {
+            if (auto image = dynamic_cast<CtImage*>(widget_vector.front())) {
                 pixbuf_target = image;
 #ifdef _WIN32
                 // image target doesn't work on Win32 with other targets, so have to set it directly
@@ -341,8 +343,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 }
 #endif
             }
-            else if (CtTable* table = dynamic_cast<CtTable*>(widget_vector.front()))
-            {
+            else if (auto table = dynamic_cast<CtTableCommon*>(widget_vector.front())) {
                 CtClipboardData* clip_data = new CtClipboardData();
                 table->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr);
                 clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(table);
@@ -351,8 +352,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
-            else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget_vector.front()))
-            {
+            else if (auto codebox = dynamic_cast<CtCodebox*>(widget_vector.front())) {
                 CtClipboardData* clip_data = new CtClipboardData();
                 codebox->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr);
                 clip_data->html_text = CtExport2Html(_pCtMainWin).codebox_export_to_html(codebox);

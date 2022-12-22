@@ -49,7 +49,7 @@ public:
 
 public:
     CtCodebox*      curr_codebox_anchor{nullptr};
-    CtTable*        curr_table_anchor{nullptr};
+    CtTableCommon*  curr_table_anchor{nullptr};
     CtImageAnchor*  curr_anchor_anchor{nullptr};
     CtImageLatex*   curr_latex_anchor{nullptr};
     CtImagePng*     curr_image_anchor{nullptr};
@@ -288,7 +288,7 @@ private:
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
-    CtTable* _table_in_use();
+    CtTableCommon* _table_in_use();
     void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer,
                                         int cursorOffset);
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link,

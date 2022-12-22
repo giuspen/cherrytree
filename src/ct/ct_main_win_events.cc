@@ -466,7 +466,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (widgets.empty()) {
                 return false;
             }
-            if (dynamic_cast<CtTable*>(widgets.front())) {
+            if (dynamic_cast<CtTableCommon*>(widgets.front())) {
                 curr_buffer->place_cursor(iter_sel_end);
                 _ctTextview.grab_focus();
                 return true;
