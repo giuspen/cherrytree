@@ -414,7 +414,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             _NL
             _NL
             "table:" _NL
-            _NL
+            " " _NL
             _NL
             "image:" _NL
             _NL
@@ -462,7 +462,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         }
         // assert anchored widgets
         std::list<CtAnchoredWidget*> anchoredWidgets = ctTreeIter.get_anchored_widgets();
-        ASSERT_EQ(6, anchoredWidgets.size());
+        ASSERT_EQ(7, anchoredWidgets.size());
         for (CtAnchoredWidget* pAnchWidget : anchoredWidgets) {
             switch (pAnchWidget->get_type()) {
                 case CtAnchWidgType::CodeBox: {
@@ -476,7 +476,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                         pCodebox->get_text_content().c_str());
                     ASSERT_STREQ("python", pCodebox->get_syntax_highlighting().c_str());
                     ASSERT_TRUE(pCodebox->get_width_in_pixels());
-                    ASSERT_EQ(280,  pCodebox->get_frame_width());
+                    ASSERT_EQ(297,  pCodebox->get_frame_width());
                     ASSERT_EQ(50,  pCodebox->get_frame_height());
                     ASSERT_TRUE(pCodebox->get_highlight_brackets());
                     ASSERT_FALSE(pCodebox->get_show_line_numbers());
@@ -507,10 +507,32 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     ASSERT_STREQ("4", rows.at(2).at(1).c_str());
                 } break;
                 case CtAnchWidgType::TableLight: {
-                    //TODO
+                    ASSERT_EQ(51, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pTable = dynamic_cast<CtTableLight*>(pAnchWidget);
+                    ASSERT_TRUE(pTable);
+                    ASSERT_EQ(60, pTable->get_col_width_default());
+                    const CtTableColWidths expected_column_widths{105, 75};
+                    const CtTableColWidths actual_column_widths = pTable->get_col_widths();
+                    ASSERT_EQ(expected_column_widths.size(), actual_column_widths.size());
+                    for (size_t i = 0; i < expected_column_widths.size(); ++i) {
+                        ASSERT_EQ(expected_column_widths.at(i), actual_column_widths.at(i));
+                    }
+                    std::vector<std::vector<Glib::ustring>> rows;
+                    pTable->write_strings_matrix(rows);
+                    // three rows
+                    ASSERT_EQ(3, rows.size());
+                    // two columns
+                    ASSERT_EQ(2, rows.at(0).size());
+                    ASSERT_STREQ("h1", rows.at(0).at(0).c_str());
+                    ASSERT_STREQ("h2", rows.at(0).at(1).c_str());
+                    ASSERT_STREQ("йцукенгшщз", rows.at(1).at(0).c_str());
+                    ASSERT_STREQ("2", rows.at(1).at(1).c_str());
+                    ASSERT_STREQ("3", rows.at(2).at(0).c_str());
+                    ASSERT_STREQ("4", rows.at(2).at(1).c_str());
                 } break;
                 case CtAnchWidgType::ImagePng: {
-                    ASSERT_EQ(59, pAnchWidget->getOffset());
+                    ASSERT_EQ(61, pAnchWidget->getOffset());
                     ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pImagePng = dynamic_cast<CtImagePng*>(pAnchWidget);
                     ASSERT_TRUE(pImagePng);
@@ -527,7 +549,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     ASSERT_STREQ("йцукенгшщз", pImageAnchor->get_anchor_name().c_str());
                 } break;
                 case CtAnchWidgType::ImageEmbFile: {
-                    ASSERT_EQ(77, pAnchWidget->getOffset());
+                    ASSERT_EQ(79, pAnchWidget->getOffset());
                     ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pImageEmbFile = dynamic_cast<CtImageEmbFile*>(pAnchWidget);
                     ASSERT_TRUE(pImageEmbFile);
@@ -538,7 +560,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     ASSERT_EQ(1565442560, pImageEmbFile->get_time());
                 } break;
                 case CtAnchWidgType::ImageLatex: {
-                    ASSERT_EQ(96, pAnchWidget->getOffset());
+                    ASSERT_EQ(98, pAnchWidget->getOffset());
                     ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pImageLatex = dynamic_cast<CtImageLatex*>(pAnchWidget);
                     ASSERT_TRUE(pImageLatex);

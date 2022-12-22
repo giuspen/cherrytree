@@ -131,10 +131,11 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
 INSTANTIATE_TEST_CASE_P(
         ExportsTests,
         ExportsMultipleParametersTests,
-        ::testing::Values(std::make_tuple(UT::testCtbDocPath, "--export_to_txt_dir"),
-                          std::make_tuple(UT::testCtdDocPath, "--export_to_txt_dir"),
-                          std::make_tuple(UT::testCtbDocPath, "--export_to_pdf_dir"),
-                          std::make_tuple(UT::testCtdDocPath, "--export_to_pdf_dir"),
-                          std::make_tuple(UT::testCtbDocPath, "--export_to_html_dir"),
-                          std::make_tuple(UT::testCtdDocPath, "--export_to_html_dir"))
+        ::testing::Values(
+            std::make_tuple(UT::testCtbDocPath, "--export_to_txt_dir"),
+            std::make_tuple(UT::testCtdDocPath, "--export_to_txt_dir"),
+            std::make_tuple(UT::testCtbDocPath, "--export_to_pdf_dir"),
+            std::make_tuple(UT::testCtdDocPath, "--export_to_pdf_dir"),
+            std::make_tuple(UT::testCtbDocPath, "--export_to_html_dir"),
+            std::make_tuple(UT::testCtdDocPath, "--export_to_html_dir"))
 );

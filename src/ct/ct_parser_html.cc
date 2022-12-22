@@ -687,7 +687,7 @@ void CtHtml2Xml::_insert_table()
             table_matrix.back().push_back(str::trim(cell.text));
     }
 
-    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > 20;
+    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > CtConst::ADVISED_TABLE_LIGHT_HEAVY;
     CtXmlHelper::table_to_xml(_slot_root, table_matrix, _char_offset, CtConst::TAG_PROP_VAL_LEFT, _config->tableColWidthDefault, "", is_light);
 
     _char_offset += 1;
