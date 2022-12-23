@@ -176,12 +176,12 @@ CtTableHeavy::CtTableHeavy(CtMainWin* pCtMainWin,
 
     _grid.set_column_spacing(1);
     _grid.set_row_spacing(1);
-    _grid.signal_button_press_event().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_button_press_event_grid), false);
-    _grid.signal_set_focus_child().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_set_focus_child_grid));
+    _grid.signal_button_press_event().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_grid_button_press_event), false);
+    _grid.signal_set_focus_child().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_grid_set_focus_child));
 
     _frame.get_style_context()->add_class("ct-table");
     _frame.add(_grid);
-    _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_size_allocate_frame));
+    _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_frame_size_allocate));
     show_all();
 }
 
@@ -215,8 +215,8 @@ void CtTableHeavy::_new_text_cell_attach(const size_t rowIdx, const size_t colId
     if (is_header) {
         _apply_remove_header_style(true/*isApply*/, textView);
     }
-    textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_populate_popup_cell));
-    textView.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_key_press_event_cell), false);
+    textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_text_view_populate_popup));
+    textView.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_text_view_key_press_event), false);
 
     _grid.attach(pTextCell->get_text_view(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
 
@@ -504,7 +504,7 @@ CtTextView& CtTableHeavy::curr_cell_text_view() const
     return static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view();
 }
 
-void CtTableHeavy::_on_populate_popup_cell(Gtk::Menu* menu)
+void CtTableHeavy::_on_text_view_populate_popup(Gtk::Menu* menu)
 {
     if (not _pCtMainWin->user_active()) return;
     const size_t rowIdx = current_row();
@@ -517,7 +517,7 @@ void CtTableHeavy::_on_populate_popup_cell(Gtk::Menu* menu)
     _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(menu, first_row, first_col, last_row, last_col);
 }
 
-void CtTableHeavy::_on_set_focus_child_grid(Gtk::Widget* pWidget)
+void CtTableHeavy::_on_grid_set_focus_child(Gtk::Widget* pWidget)
 {
     for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
         for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
@@ -530,7 +530,7 @@ void CtTableHeavy::_on_set_focus_child_grid(Gtk::Widget* pWidget)
     }
 }
 
-bool CtTableHeavy::_on_button_press_event_grid(GdkEventButton* event)
+bool CtTableHeavy::_on_grid_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     if ( event->button != 3/*right button*/ and event->type != GDK_3BUTTON_PRESS) {
@@ -539,7 +539,7 @@ bool CtTableHeavy::_on_button_press_event_grid(GdkEventButton* event)
     return false;
 }
 
-bool CtTableHeavy::_on_key_press_event_cell(GdkEventKey* event)
+bool CtTableHeavy::_on_text_view_key_press_event(GdkEventKey* event)
 {
     if (not _pCtMainWin->user_active()) return false;
     const size_t rowIdx = current_row();

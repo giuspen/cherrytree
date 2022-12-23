@@ -149,7 +149,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
 
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
-    _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtCodebox::_on_size_allocate_frame));
+    _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtCodebox::_on_frame_size_allocate));
     show_all();
 
     set_width_in_pixels(widthInPixels);

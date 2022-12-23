@@ -79,7 +79,7 @@ public:
     bool operator>(const CtAnchoredWidget &other) { return getOffset() > other.getOffset(); }
 
 protected:
-    void _on_size_allocate_frame(Gtk::Allocation& allocation);
+    void _on_frame_size_allocate(Gtk::Allocation& allocation);
 
 protected:
     CtMainWin* _pCtMainWin;

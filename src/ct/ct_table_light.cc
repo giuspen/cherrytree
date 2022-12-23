@@ -100,12 +100,75 @@ void CtTableLight::_reset(CtTableMatrix& tableMatrix)
             pCellRendererText->property_wrap_mode() = Pango::WrapMode::WRAP_WORD_CHAR;
             pTVColumn->property_sizing() = Gtk::TREE_VIEW_COLUMN_AUTOSIZE;
             pTVColumn->property_min_width() = width/2;
+            pCellRendererText->signal_edited().connect(sigc::bind<size_t>(sigc::mem_fun(*this, &CtTableLight::_on_cell_renderer_text_edited), c));
+            pCellRendererText->signal_editing_started().connect(sigc::bind<size_t>(sigc::mem_fun(*this, &CtTableLight::_on_cell_renderer_editing_started), c));
         }
     }
+    _pManagedTreeView->signal_button_release_event().connect(sigc::mem_fun(*this, &CtTableLight::_on_treeview_button_release_event));
+    _pManagedTreeView->signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableLight::_on_treeview_key_press_event), false);
+    _pManagedTreeView->signal_popup_menu().connect(sigc::mem_fun(*this, &CtTableLight::_on_treeview_popup_menu));
     _pManagedTreeView->get_style_context()->add_class("ct-table-light");
 
     _frame.add(*_pManagedTreeView);
     show_all();
+}
+
+void CtTableLight::_on_cell_renderer_text_edited(const Glib::ustring& path, const Glib::ustring& new_text, const size_t column)
+{
+    Gtk::TreeIter treeIter{_pListStore->get_iter(path)};
+    if (treeIter) {
+        Gtk::TreeRow treeRow{*treeIter};
+        if (treeRow[_pColumns->columnsText.at(column)] != new_text) {
+            treeRow[_pColumns->columnsText.at(column)] = new_text;
+            _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+        }
+    }
+}
+
+void CtTableLight::_on_cell_renderer_editing_started(Gtk::CellEditable* editable, const Glib::ustring& path, const size_t column)
+{
+    auto pEntry = dynamic_cast<Gtk::Entry*>(editable);
+    if (pEntry) {
+        pEntry->signal_populate_popup().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_populate_popup), column));
+        pEntry->signal_key_press_event().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_key_press_event), column));
+        pEntry->signal_focus_out_event().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_focus_out_event), pEntry, path, column));
+    }
+}
+
+bool CtTableLight::_on_treeview_key_press_event(GdkEventKey* event)
+{
+    return false;
+}
+
+bool CtTableLight::_on_entry_key_press_event(GdkEventKey* event, const size_t column)
+{
+    return false;
+}
+
+bool CtTableLight::_on_treeview_button_release_event(GdkEventButton* event)
+{
+    if (event->button == 3) {
+        //_uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
+        return true;
+    }
+    return false;
+}
+
+bool CtTableLight::_on_treeview_popup_menu()
+{
+    //_uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
+    return true;
+}
+
+void CtTableLight::_on_entry_populate_popup(Gtk::Menu* menu, const size_t column)
+{
+    
+}
+
+bool CtTableLight::_on_entry_focus_out_event(GdkEventFocus*/*gdk_event*/, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column)
+{
+    _on_cell_renderer_text_edited(path, pEntry->get_text(), column);
+    return false;
 }
 
 void CtTableLight::write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const

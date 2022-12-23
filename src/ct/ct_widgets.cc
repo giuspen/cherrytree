@@ -101,7 +101,7 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
     }
 }
 
-void CtAnchoredWidget::_on_size_allocate_frame(Gtk::Allocation& allocation)
+void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
 {
     if (allocation == _lastAllocation) {
         return;
