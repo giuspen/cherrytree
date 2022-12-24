@@ -91,6 +91,10 @@ public:
 
     virtual void grab_focus() const = 0;
 
+    bool on_table_button_press_event(GdkEventButton* event);
+    void on_cell_populate_popup(Gtk::Menu* menu);
+    bool on_cell_key_press_event(GdkEventKey* event);
+
 protected:
     virtual void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const = 0;
     virtual bool _row_sort(const bool sortAsc) = 0;
@@ -159,14 +163,9 @@ protected:
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
     bool _row_sort(const bool sortAsc) override;
 
-    void _on_entry_populate_popup(Gtk::Menu* menu, const size_t column);
-    bool _on_entry_key_press_event(GdkEventKey* event, const size_t column);
     bool _on_entry_focus_out_event(GdkEventFocus* gdk_event, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column);
     void _on_cell_renderer_text_edited(const Glib::ustring& path, const Glib::ustring& new_text, const size_t column);
     void _on_cell_renderer_editing_started(Gtk::CellEditable* editable, const Glib::ustring& path, const size_t column);
-    bool _on_treeview_button_release_event(GdkEventButton* event);
-    bool _on_treeview_key_press_event(GdkEventKey* event);
-    bool _on_treeview_popup_menu();
 
     std::unique_ptr<CtTableLightColumns> _pColumns;
     Gtk::TreeView* _pManagedTreeView{nullptr};
@@ -220,9 +219,6 @@ protected:
     bool _row_sort(const bool sortAsc) override;
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
 
-    void _on_text_view_populate_popup(Gtk::Menu* menu);
-    bool _on_text_view_key_press_event(GdkEventKey* event);
-    bool _on_grid_button_press_event(GdkEventButton* event);
     void _on_grid_set_focus_child(Gtk::Widget* pWidget);
 
 protected:
