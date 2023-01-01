@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -151,7 +151,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
             int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
             return (cmp > 0);
         };
-        CtMiscUtil::node_siblings_sort_iteration(rModel, rModel->children(), need_swap);
+        CtMiscUtil::node_siblings_sort(rModel, rModel->children(), need_swap);
     });
     button_sort_desc.signal_clicked().connect([&rModel]()
     {
@@ -160,7 +160,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
             int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
             return (cmp < 0);
         };
-        CtMiscUtil::node_siblings_sort_iteration(rModel, rModel->children(), need_swap);
+        CtMiscUtil::node_siblings_sort(rModel, rModel->children(), need_swap);
     });
 
     if (dialog.run() != Gtk::RESPONSE_ACCEPT)

@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -51,9 +51,9 @@ std::string get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDo
 void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath);
 
 template<class TreeOrListStore>
-bool node_siblings_sort_iteration(Glib::RefPtr<TreeOrListStore> model,
-                                  const Gtk::TreeNodeChildren& children,
-                                  std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> f_need_swap)
+bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
+                        const Gtk::TreeNodeChildren& children,
+                        std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> f_need_swap)
 {
     if (children.empty()) return false;
     auto next_iter = [](Gtk::TreeIter iter) { return ++iter; };

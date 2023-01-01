@@ -1,7 +1,7 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -34,7 +34,10 @@ static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 static void on_menu_activate(void* /*pObject*/, CtMenuAction* pAction)
 {
     if (pAction) {
-        pAction->run_action();
+        // this allows the menu to close before the action is executed
+        Glib::signal_idle().connect_once([pAction](){
+            pAction->run_action();
+        });
     }
 }
 

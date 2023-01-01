@@ -1,7 +1,7 @@
 /*
  * ct_table.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -52,6 +52,17 @@ bool CtTableCommon::get_is_light() const
 std::shared_ptr<CtAnchoredWidgetState_TableCommon> CtTableCommon::get_state_common() const
 {
     return std::shared_ptr<CtAnchoredWidgetState_TableCommon>(new CtAnchoredWidgetState_TableCommon(this));
+}
+
+void CtTableCommon::row_move_down(const size_t rowIdx)
+{
+    if (rowIdx == get_num_rows()-1) {
+        return;
+    }
+    const size_t rowIdxDown = rowIdx + 1;
+    row_move_up(rowIdxDown);
+    _currentRow = rowIdxDown;
+    grab_focus();
 }
 
 bool CtTableCommon::on_table_button_press_event(GdkEventButton* event)
@@ -434,7 +445,7 @@ void CtTableHeavy::column_delete(const size_t colIdx)
     if (_currentColumn == get_num_columns()) {
         --_currentColumn;
     }
-    static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+    grab_focus();
 }
 
 void CtTableHeavy::column_move_left(const size_t colIdx)
@@ -462,7 +473,7 @@ void CtTableHeavy::column_move_right(const size_t colIdx)
     const size_t colIdxRight = colIdx + 1;
     column_move_left(colIdxRight);
     _currentColumn = colIdxRight;
-    static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+    grab_focus();
 }
 
 void CtTableHeavy::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
@@ -492,7 +503,7 @@ void CtTableHeavy::row_delete(const size_t rowIdx)
     if (_currentRow == get_num_rows()) {
         --_currentRow;
     }
-    static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+    grab_focus();
 }
 
 void CtTableHeavy::_apply_remove_header_style(const bool isApply, CtTextView& textView)
@@ -534,17 +545,6 @@ void CtTableHeavy::row_move_up(const size_t rowIdx)
         }
     }
     _currentRow = rowIdxUp;
-}
-
-void CtTableHeavy::row_move_down(const size_t rowIdx)
-{
-    if (rowIdx == get_num_rows()-1) {
-        return;
-    }
-    const size_t rowIdxDown = rowIdx + 1;
-    row_move_up(rowIdxDown);
-    _currentRow = rowIdxDown;
-    static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
 }
 
 bool CtTableHeavy::_row_sort(const bool sortAsc)

@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -304,7 +304,7 @@ bool CtActions::_need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIte
 bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending)
 {
     auto need_swap = [this,&ascending](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, ascending); };
-    bool swap_excecuted = CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->get_tree_store().get_store(), children, need_swap);
+    bool swap_excecuted = CtMiscUtil::node_siblings_sort(_pCtMainWin->get_tree_store().get_store(), children, need_swap);
     for (auto& child: children)
         if (_tree_sort_level_and_sublevels(child.children(), ascending))
             swap_excecuted = true;
@@ -647,7 +647,7 @@ void CtActions::node_siblings_sort_ascending()
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
     auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, true); };
-    if (CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->get_tree_store().get_store(), children, need_swap)) {
+    if (CtMiscUtil::node_siblings_sort(_pCtMainWin->get_tree_store().get_store(), children, need_swap)) {
         _pCtMainWin->get_tree_store().nodes_sequences_fix(father_iter, true);
         _pCtMainWin->update_window_save_needed();
     }
@@ -660,7 +660,7 @@ void CtActions::node_siblings_sort_descending()
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
     auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, false); };
-    if (CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->get_tree_store().get_store(), children, need_swap)) {
+    if (CtMiscUtil::node_siblings_sort(_pCtMainWin->get_tree_store().get_store(), children, need_swap)) {
         _pCtMainWin->get_tree_store().nodes_sequences_fix(father_iter, true);
         _pCtMainWin->update_window_save_needed();
     }

@@ -1,7 +1,7 @@
 /*
  * ct_table.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -76,6 +76,7 @@ public:
     size_t current_column() const { return _currentColumn < get_num_columns() ? _currentColumn : 0; }
     bool row_sort_asc() { return _row_sort(true/*sortAsc*/); }
     bool row_sort_desc() { return _row_sort(false/*sortAsc*/); }
+    void row_move_down(const size_t rowIdx);
 
     virtual void column_add(const size_t afterColIdx) = 0;
     virtual void column_delete(const size_t colIdx) = 0;
@@ -84,7 +85,6 @@ public:
     virtual void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr) = 0;
     virtual void row_delete(const size_t rowIdx) = 0;
     virtual void row_move_up(const size_t rowIdx) = 0;
-    virtual void row_move_down(const size_t rowIdx) = 0;
 
     virtual void set_col_width_default(const int colWidthDefault) = 0;
     virtual void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) = 0;
@@ -149,7 +149,6 @@ public:
     void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr) override;
     void row_delete(const size_t rowIdx) override;
     void row_move_up(const size_t rowIdx) override;
-    void row_move_down(const size_t rowIdx) override;
 
     void set_col_width_default(const int colWidthDefault) override;
     void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) override;
@@ -204,7 +203,6 @@ public:
     void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr) override;
     void row_delete(const size_t rowIdx) override;
     void row_move_up(const size_t rowIdx) override;
-    void row_move_down(const size_t rowIdx) override;
 
     void set_col_width_default(const int colWidthDefault) override;
     void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) override;

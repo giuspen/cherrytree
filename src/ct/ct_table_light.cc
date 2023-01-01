@@ -1,7 +1,7 @@
 /*
  * ct_table_light.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -230,7 +230,7 @@ void CtTableLight::row_delete(const size_t rowIdx)
             (*treeIterHeader)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
         }
     }
-    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+    grab_focus();
 }
 
 void CtTableLight::row_move_up(const size_t rowIdx)
@@ -252,17 +252,6 @@ void CtTableLight::row_move_up(const size_t rowIdx)
     _currentRow = rowIdxUp;
 }
 
-void CtTableLight::row_move_down(const size_t rowIdx)
-{
-    if (rowIdx == get_num_rows()-1) {
-        return;
-    }
-    const size_t rowIdxDown = rowIdx + 1;
-    row_move_up(rowIdxDown);
-    _currentRow = rowIdxDown;
-    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
-}
-
 bool CtTableLight::_row_sort(const bool sortAsc)
 {
     auto f_tableCompare = [sortAsc, this](Gtk::TreeIter& l, Gtk::TreeIter& r)->bool{
@@ -276,7 +265,17 @@ bool CtTableLight::_row_sort(const bool sortAsc)
         }
         return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
     };
-    return CtMiscUtil::node_siblings_sort_iteration(_pListStore, _pListStore->children(), f_tableCompare);
+    const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore, _pListStore->children(), f_tableCompare);
+    if (retVal) {
+        // there may be a header swap so we need to re-apply it
+        const size_t numRows = get_num_rows();
+        for (size_t r = 0u; r < numRows; ++r) {
+            Gtk::TreeIter treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(r)});
+            Gtk::TreeModel::Row row = *treeIter;
+            row[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(0u == r);
+        }
+    }
+    return retVal;
 }
 
 void CtTableLight::column_add(const size_t afterColIdx)
@@ -328,7 +327,7 @@ void CtTableLight::column_delete(const size_t colIdx)
     if (_currentColumn == get_num_columns()) {
         --_currentColumn;
     }
-    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+    grab_focus();
 }
 
 void CtTableLight::column_move_left(const size_t colIdx)
@@ -357,7 +356,7 @@ void CtTableLight::column_move_right(const size_t colIdx)
     const size_t colIdxRight = colIdx + 1;
     column_move_left(colIdxRight);
     _currentColumn = colIdxRight;
-    //static_cast<CtTextCell*>(_tableMatrix.at(_currentRow).at(_currentColumn))->get_text_view().grab_focus();
+    grab_focus();
 }
 
 void CtTableLight::set_col_width_default(const int colWidthDefault)
@@ -413,7 +412,10 @@ std::string CtTableLight::to_csv() const
 
 void CtTableLight::grab_focus() const
 {
-    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())},
-                                  *_pManagedTreeView->get_column(current_column()),
+    const size_t currRow = current_row();
+    const size_t currCol = current_column();
+    //spdlog::debug("focus ({},{})", currRow, currCol);
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
+                                  *_pManagedTreeView->get_column(currCol),
                                   true/*start_editing*/);
 }
