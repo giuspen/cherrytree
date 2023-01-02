@@ -1,7 +1,7 @@
 /*
  * ct_main_win_file.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -49,6 +49,7 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
         title += Glib::ustring{" - "} + _("Show Menubar:") + " " + (pAction ? pAction->get_shortcut(_pCtConfig) : std::string{"?"});
     }
     if (_pHeaderBar) {
+        _pHeaderBar->set_title(title); // so it is shown on the taskbar button
         auto pCustomTitle = dynamic_cast<Gtk::Label*>(_pHeaderBar->get_custom_title());
         if (not pCustomTitle) {
             pCustomTitle = Gtk::manage(new Gtk::Label{});
