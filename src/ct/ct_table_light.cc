@@ -89,6 +89,7 @@ void CtTableLight::_reset(CtTableMatrix& tableMatrix)
     _pManagedTreeView = Gtk::manage(new Gtk::TreeView{_pListStore});
     _pManagedTreeView->set_headers_visible(false);
     _pManagedTreeView->set_grid_lines(Gtk::TreeViewGridLines::TREE_VIEW_GRID_LINES_BOTH);
+    _pManagedTreeView->get_selection()->set_mode(Gtk::SelectionMode::SELECTION_NONE);
     for (size_t c = 0u; c < numColumns; ++c) {
         const int width = get_col_width(c);
         _pManagedTreeView->append_column_editable(""/*header*/, _pColumns->columnsText.at(c));
@@ -105,6 +106,7 @@ void CtTableLight::_reset(CtTableMatrix& tableMatrix)
         }
     }
     _pManagedTreeView->signal_button_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_table_button_press_event), false);
+    _pManagedTreeView->signal_event_after().connect(sigc::mem_fun(*this, &CtTableLight::_on_treeview_event_after));
 
     _pManagedTreeView->get_style_context()->add_class("ct-table-light");
 
@@ -431,4 +433,36 @@ void CtTableLight::grab_focus() const
     _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
                                   *_pManagedTreeView->get_column(currCol),
                                   true/*start_editing*/);
+}
+
+void CtTableLight::_on_treeview_event_after(GdkEvent* event)
+{
+    if (event->type == GDK_BUTTON_PRESS and event->button.button == 1) {
+        Gtk::TreePath path_at_click;
+        int cell_x, cell_y;
+        Gtk::TreeViewColumn* pCol_at_click;
+        const int event_x = (int)event->button.x;
+        const int event_y = (int)event->button.y;
+        if (_pManagedTreeView->get_path_at_pos(event_x, event_y, path_at_click, pCol_at_click, cell_x, cell_y)) {
+            //spdlog::debug("click x={} y={}", event_x, event_y);
+            const size_t numColumns = get_num_columns();
+            size_t selCol{0u};
+            for (int c = numColumns - 1; c >= 0; --c) {
+                Gtk::TreeViewColumn* pColumn = _pManagedTreeView->get_column(c);
+                Gdk::Rectangle rect;
+                _pManagedTreeView->get_cell_area(path_at_click, *pColumn, rect);
+                //spdlog::debug("cell {} x: {}", c, rect.get_x());
+                if (event_x >= rect.get_x()) {
+                    selCol = c;
+                    //spdlog::debug("focus ({},{}) x={} y={}", path_at_click.to_string().raw(), selCol, event_x, event_y);
+                    break;
+                }
+            }
+            _pCtMainWin->get_text_view().grab_focus();
+            while (gtk_events_pending()) gtk_main_iteration();
+            _pManagedTreeView->set_cursor(path_at_click,
+                                          *_pManagedTreeView->get_column(selCol),
+                                          true/*start_editing*/);
+        }
+    }
 }

@@ -162,6 +162,7 @@ protected:
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
     bool _row_sort(const bool sortAsc) override;
 
+    void _on_treeview_event_after(GdkEvent* event);
     bool _on_entry_focus_out_event(GdkEventFocus* gdk_event, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column);
     void _on_cell_renderer_text_edited(const Glib::ustring& path, const Glib::ustring& new_text, const size_t column);
     void _on_cell_renderer_editing_started(Gtk::CellEditable* editable, const Glib::ustring& path, const size_t column);
