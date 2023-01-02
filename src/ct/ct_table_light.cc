@@ -216,16 +216,25 @@ void CtTableLight::row_delete(const size_t rowIdx)
     if (1u == get_num_rows() or rowIdx >= get_num_rows()) {
         return;
     }
-    Gtk::TreeIter treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdx)});
-    if (treeIter) {
-        (void)_pListStore->erase(treeIter);
+    Gtk::TreePath treePath{std::to_string(rowIdx)};
+    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
+    if (not treeIter) {
+        return;
     }
+    //const CtTableLightColumns& cols = get_columns();
+    //spdlog::debug("rm row {} [{},{},{},{}]", treePath.to_string().raw(),
+    //    treeIter->get_value(cols.columnsText.at(0)),
+    //    treeIter->get_value(cols.columnsText.at(1)),
+    //    treeIter->get_value(cols.columnsText.at(2)),
+    //    treeIter->get_value(cols.columnsText.at(3)));
+    _pManagedTreeView->set_cursor(treePath); // ensure we are out of editing of the cell
+    (void)_pListStore->erase(treeIter);
     if (_currentRow == get_num_rows()) {
         --_currentRow;
     }
     if (0u == rowIdx) {
         // we deleted the header
-        Gtk::TreeIter treeIterHeader = _pListStore->get_iter(Gtk::TreePath{"0"});
+        Gtk::TreeIter treeIterHeader = _pListStore->get_iter(treePath);
         if (treeIterHeader) {
             (*treeIterHeader)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
         }
@@ -239,16 +248,19 @@ void CtTableLight::row_move_up(const size_t rowIdx)
         return;
     }
     const size_t rowIdxUp = rowIdx - 1u;
-    Gtk::TreeIter treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdx)});
+    Gtk::TreePath treePath{std::to_string(rowIdx)};
+    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
     Gtk::TreeIter treeIterUp = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdxUp)});
-    if (treeIter and treeIterUp) {
-        if (0u == rowIdxUp) {
-            // we are swapping header
-            (*treeIter)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
-            (*treeIterUp)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(false);
-        }
-        _pListStore->iter_swap(treeIter, treeIterUp);
+    if (not treeIter or not treeIterUp) {
+        return;
     }
+    if (0u == rowIdxUp) {
+        // we are swapping header
+        (*treeIter)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
+        (*treeIterUp)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(false);
+    }
+    _pManagedTreeView->set_cursor(treePath); // ensure we are out of editing of the cell
+    _pListStore->iter_swap(treeIter, treeIterUp);
     _currentRow = rowIdxUp;
 }
 
@@ -265,6 +277,7 @@ bool CtTableLight::_row_sort(const bool sortAsc)
         }
         return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
     };
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
     const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore, _pListStore->children(), f_tableCompare);
     if (retVal) {
         // there may be a header swap so we need to re-apply it
