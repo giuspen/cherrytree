@@ -60,7 +60,7 @@ void CtTableCommon::row_move_down(const size_t rowIdx)
         return;
     }
     const size_t rowIdxDown = rowIdx + 1;
-    row_move_up(rowIdxDown);
+    row_move_up(rowIdxDown, true/*from_move_down*/);
     _currentRow = rowIdxDown;
     grab_focus();
 }
@@ -448,7 +448,7 @@ void CtTableHeavy::column_delete(const size_t colIdx)
     grab_focus();
 }
 
-void CtTableHeavy::column_move_left(const size_t colIdx)
+void CtTableHeavy::column_move_left(const size_t colIdx, const bool/*from_move_right*/)
 {
     if (0 == colIdx) {
         return;
@@ -471,7 +471,7 @@ void CtTableHeavy::column_move_right(const size_t colIdx)
         return;
     }
     const size_t colIdxRight = colIdx + 1;
-    column_move_left(colIdxRight);
+    column_move_left(colIdxRight, true/*from_move_right*/);
     _currentColumn = colIdxRight;
     grab_focus();
 }
@@ -525,7 +525,7 @@ void CtTableHeavy::_apply_remove_header_style(const bool isApply, CtTextView& te
     }
 }
 
-void CtTableHeavy::row_move_up(const size_t rowIdx)
+void CtTableHeavy::row_move_up(const size_t rowIdx, const bool/*from_move_down*/)
 {
     if (0 == rowIdx) {
         return;

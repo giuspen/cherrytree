@@ -241,10 +241,12 @@ void CtTableLight::row_delete(const size_t rowIdx)
             (*treeIterHeader)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
         }
     }
+    _pCtMainWin->get_text_view().grab_focus();
+    while (gtk_events_pending()) gtk_main_iteration();
     grab_focus();
 }
 
-void CtTableLight::row_move_up(const size_t rowIdx)
+void CtTableLight::row_move_up(const size_t rowIdx, const bool from_move_down)
 {
     if (0u == rowIdx) {
         return;
@@ -264,6 +266,11 @@ void CtTableLight::row_move_up(const size_t rowIdx)
     _pManagedTreeView->set_cursor(treePath); // ensure we are out of editing of the cell
     _pListStore->iter_swap(treeIter, treeIterUp);
     _currentRow = rowIdxUp;
+    if (not from_move_down) {
+        _pCtMainWin->get_text_view().grab_focus();
+        while (gtk_events_pending()) gtk_main_iteration();
+        grab_focus();
+    }
 }
 
 bool CtTableLight::_row_sort(const bool sortAsc)
@@ -311,6 +318,7 @@ void CtTableLight::column_add(const size_t afterColIdx)
         }
         return false; /* to continue */
     };
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
     _pListStore->foreach_iter(f_action);
     _colWidths.insert(_colWidths.begin()+afterColIdx+1, 0);
     _reset(tableMatrix);
@@ -336,6 +344,7 @@ void CtTableLight::column_delete(const size_t colIdx)
         }
         return false; /* to continue */
     };
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
     _pListStore->foreach_iter(f_action);
     _colWidths.erase(_colWidths.begin()+colIdx);
     _reset(tableMatrix);
@@ -345,7 +354,7 @@ void CtTableLight::column_delete(const size_t colIdx)
     grab_focus();
 }
 
-void CtTableLight::column_move_left(const size_t colIdx)
+void CtTableLight::column_move_left(const size_t colIdx, const bool from_move_right)
 {
     if (0 == colIdx) {
         return;
@@ -359,8 +368,14 @@ void CtTableLight::column_move_left(const size_t colIdx)
         treeRow[cols.columnsText.at(colIdxLeft)] = tmpCell;
         return false; /* to continue */
     };
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
     _pListStore->foreach_iter(f_action);
     _currentColumn = colIdxLeft;
+    if (not from_move_right) {
+        _pCtMainWin->get_text_view().grab_focus();
+        while (gtk_events_pending()) gtk_main_iteration();
+        grab_focus();
+    }
 }
 
 void CtTableLight::column_move_right(const size_t colIdx)
@@ -369,8 +384,10 @@ void CtTableLight::column_move_right(const size_t colIdx)
         return;
     }
     const size_t colIdxRight = colIdx + 1;
-    column_move_left(colIdxRight);
+    column_move_left(colIdxRight, true/*from_move_right*/);
     _currentColumn = colIdxRight;
+    _pCtMainWin->get_text_view().grab_focus();
+    while (gtk_events_pending()) gtk_main_iteration();
     grab_focus();
 }
 

@@ -1,7 +1,7 @@
 /*
  * ct_actions_others.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -672,7 +672,7 @@ void CtActions::table_column_delete()
 void CtActions::table_column_left()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    curr_table_anchor->column_move_left(curr_table_anchor->current_column());
+    curr_table_anchor->column_move_left(curr_table_anchor->current_column(), false/*from_move_right*/);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
@@ -743,7 +743,7 @@ void CtActions::table_row_delete()
 void CtActions::table_row_up()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    curr_table_anchor->row_move_up(curr_table_anchor->current_row());
+    curr_table_anchor->row_move_up(curr_table_anchor->current_row(), false/*from_move_down*/);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
