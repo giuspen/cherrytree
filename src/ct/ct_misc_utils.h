@@ -53,13 +53,22 @@ void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocE
 template<class TreeOrListStore>
 bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
                         const Gtk::TreeNodeChildren& children,
-                        std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> f_need_swap)
+                        std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> f_need_swap,
+                        const size_t start_offset = 0u)
 {
-    if (children.empty()) return false;
+    if (children.size() <= start_offset) {
+        return false;
+    }
     auto next_iter = [](Gtk::TreeIter iter) { return ++iter; };
-    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeIter curr_sibling) -> bool {
-        bool swap_executed = false;
-        Gtk::TreeIter next_sibling = next_iter(curr_sibling);
+    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeIter curr_sibling, size_t offset)->bool{
+        bool swap_executed{false};
+        while (offset-- > 0) {
+            ++curr_sibling;
+            if (not curr_sibling) {
+                return false;
+            }
+        }
+        Gtk::TreeIter next_sibling{next_iter(curr_sibling)};
         while (next_sibling) {
             if (f_need_swap(curr_sibling, next_sibling)) {
                 model->iter_swap(curr_sibling, next_sibling);
@@ -72,10 +81,11 @@ bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
         }
         return swap_executed;
     };
-
     bool swap_executed{false};
-    while (sort_iteration(children.begin())) {
-        swap_executed = true;
+    while (sort_iteration(children.begin(), start_offset)) {
+        if (not swap_executed) {
+            swap_executed = true;
+        }
     }
     return swap_executed;
 }

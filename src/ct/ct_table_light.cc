@@ -281,22 +281,13 @@ bool CtTableLight::_row_sort(const bool sortAsc)
             const int cmpResult = CtStrUtil::natural_compare((*l)[_pColumns->columnsText.at(c)],
                                                              (*r)[_pColumns->columnsText.at(c)]);
             if (0 != cmpResult) {
-                return sortAsc ? cmpResult < 0 : cmpResult > 0;
+                return sortAsc ? cmpResult > 0 : cmpResult < 0;
             }
         }
         return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
     };
     _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
-    const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore, _pListStore->children(), f_tableCompare);
-    if (retVal) {
-        // there may be a header swap so we need to re-apply it
-        const size_t numRows = get_num_rows();
-        for (size_t r = 0u; r < numRows; ++r) {
-            Gtk::TreeIter treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(r)});
-            Gtk::TreeModel::Row row = *treeIter;
-            row[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(0u == r);
-        }
-    }
+    const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore, _pListStore->children(), f_tableCompare, 1u/*start_offset*/);
     return retVal;
 }
 
