@@ -715,7 +715,7 @@ void CtActions::table_row_cut()
 
 void CtActions::table_row_copy()
 {
-    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_TableHeavy>(curr_table_anchor->get_state());
+    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_TableCommon>(curr_table_anchor->get_state());
     // remove rows after current
     while (table_state->rows.size() > curr_table_anchor->current_row() + 1)
         table_state->rows.pop_back();
@@ -730,7 +730,9 @@ void CtActions::table_row_copy()
 void CtActions::table_row_paste()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->exit_cell_edit();
     CtClipboard{_pCtMainWin}.table_row_paste(curr_table_anchor);
+    curr_table_anchor->grab_focus();
 }
 
 void CtActions::table_row_delete()

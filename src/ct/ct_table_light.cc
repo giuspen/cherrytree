@@ -230,7 +230,7 @@ void CtTableLight::row_delete(const size_t rowIdx)
     //    treeIter->get_value(cols.columnsText.at(1)),
     //    treeIter->get_value(cols.columnsText.at(2)),
     //    treeIter->get_value(cols.columnsText.at(3)));
-    _pManagedTreeView->set_cursor(treePath); // ensure we are out of editing of the cell
+    exit_cell_edit();
     (void)_pListStore->erase(treeIter);
     if (_currentRow == get_num_rows()) {
         --_currentRow;
@@ -262,7 +262,7 @@ void CtTableLight::row_move_up(const size_t rowIdx, const bool from_move_down)
         (*treeIter)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
         (*treeIterUp)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(false);
     }
-    _pManagedTreeView->set_cursor(treePath); // ensure we are out of editing of the cell
+    exit_cell_edit();
     _pListStore->iter_swap(treeIter, treeIterUp);
     _currentRow = rowIdxUp;
     if (not from_move_down) {
@@ -283,7 +283,7 @@ bool CtTableLight::_row_sort(const bool sortAsc)
         }
         return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
     };
-    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
+    exit_cell_edit();
     const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore, _pListStore->children(), f_tableCompare, 1u/*start_offset*/);
     return retVal;
 }
@@ -306,7 +306,7 @@ void CtTableLight::column_add(const size_t afterColIdx)
         }
         return false; /* to continue */
     };
-    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
+    exit_cell_edit();
     _pListStore->foreach_iter(f_action);
     _colWidths.insert(_colWidths.begin()+afterColIdx+1, 0);
     _reset(tableMatrix);
@@ -332,7 +332,7 @@ void CtTableLight::column_delete(const size_t colIdx)
         }
         return false; /* to continue */
     };
-    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
+    exit_cell_edit();
     _pListStore->foreach_iter(f_action);
     _colWidths.erase(_colWidths.begin()+colIdx);
     _reset(tableMatrix);
@@ -356,7 +356,7 @@ void CtTableLight::column_move_left(const size_t colIdx, const bool from_move_ri
         treeRow[cols.columnsText.at(colIdxLeft)] = tmpCell;
         return false; /* to continue */
     };
-    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())}); // ensure we are out of editing of the cell
+    exit_cell_edit();
     _pListStore->foreach_iter(f_action);
     _currentColumn = colIdxLeft;
     if (not from_move_right) {
@@ -436,6 +436,11 @@ void CtTableLight::grab_focus() const
     _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
                                   *_pManagedTreeView->get_column(currCol),
                                   true/*start_editing*/);
+}
+
+void CtTableLight::exit_cell_edit() const
+{
+    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())});
 }
 
 void CtTableLight::_on_treeview_event_after(GdkEvent* event)

@@ -90,6 +90,7 @@ public:
     virtual void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) = 0;
 
     virtual void grab_focus() const = 0;
+    virtual void exit_cell_edit() const = 0;
 
     bool on_table_button_press_event(GdkEventButton* event);
     void on_cell_populate_popup(Gtk::Menu* menu);
@@ -154,6 +155,7 @@ public:
     void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) override;
 
     void grab_focus() const override;
+    void exit_cell_edit() const override;
 
 protected:
     void _reset(CtTableMatrix& tableMatrix);
@@ -209,6 +211,7 @@ public:
     void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt) override;
 
     void grab_focus() const override;
+    void exit_cell_edit() const override {}
 
 protected:
     void _apply_styles_to_cells(const bool forceReApply);
