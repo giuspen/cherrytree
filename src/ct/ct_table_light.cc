@@ -431,11 +431,13 @@ void CtTableLight::grab_focus() const
     const size_t currRow = current_row();
     const size_t currCol = current_column();
     //spdlog::debug("focus ({},{})", currRow, currCol);
-    _pCtMainWin->get_text_view().grab_focus();
-    while (gtk_events_pending()) gtk_main_iteration();
-    _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
-                                  *_pManagedTreeView->get_column(currCol),
-                                  true/*start_editing*/);
+    for (int i = 0; i < 2; ++i) {
+        _pCtMainWin->get_text_view().grab_focus();
+        while (gtk_events_pending()) gtk_main_iteration();
+        _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
+                                      *_pManagedTreeView->get_column(currCol),
+                                      0 != i/*start_editing*/);
+    }
 }
 
 void CtTableLight::exit_cell_edit() const
@@ -466,13 +468,9 @@ void CtTableLight::_on_treeview_event_after(GdkEvent* event)
                     break;
                 }
             }
-            for (int i = 0; i < 2; ++i) {
-                _pCtMainWin->get_text_view().grab_focus();
-                while (gtk_events_pending()) gtk_main_iteration();
-                _pManagedTreeView->set_cursor(path_at_click,
-                                              *_pManagedTreeView->get_column(selCol),
-                                              0 != i/*start_editing*/);
-            }
+            _currentRow = std::stoi(path_at_click.to_string().raw());
+            _currentColumn = selCol;
+            grab_focus();
         }
     }
 }
