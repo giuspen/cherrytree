@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_find.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -262,6 +262,11 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     s_options.node_name_n_tags = node_name_n_tags_checkbutton.get_active();
     s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton.get_active();
     s_options.iterative_dialog = iter_dialog_checkbutton.get_active();
+    // special cases (#2190)
+    if (s_options.reg_exp and s_options.str_find == ".*" ) {
+        s_options.node_content = false;
+        s_options.node_name_n_tags = true;
+    }
     return s_options.str_find;
 }
 
