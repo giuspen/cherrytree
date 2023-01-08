@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -105,7 +105,7 @@ void CtActions::find_in_selected_node()
         CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(pattern)), *_pCtMainWin);
     }
     else if (all_matches) {
-        _s_state.match_dialog_title = std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+        _s_state.match_dialog_title = "'" + _s_options.str_find + "'  -  " + std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
         CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
     }
     else if (_s_options.iterative_dialog) {
@@ -245,7 +245,7 @@ void CtActions::find_in_multiple_nodes()
     }
     else {
         if (all_matches) {
-            _s_state.match_dialog_title = std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+            _s_state.match_dialog_title = "'" + _s_options.str_find + "'  -  " + std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
             CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
         }
         else {
@@ -417,7 +417,11 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
             gint64 node_id = node_iter.get_node_id();
             Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
             Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
-            _s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
+            const Glib::ustring text_tags = node_iter.get_node_tags();
+            _s_state.match_store->add_row(node_id,
+                                          text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
+                                          str::xml_escape(node_hier_name),
+                                          0, 0, 1, line_content);
         }
         if (_s_state.replace_active and not node_iter.get_node_read_only()) {
             std::string replacer_text = _s_options.str_replace;
@@ -627,13 +631,14 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     Gtk::TreeIter iterAllMatchesRow;
     if (all_matches) {
         const gint64 node_id = tree_iter.get_node_id();
-        const std::string node_name = tree_iter.get_node_name();
+        const Glib::ustring node_name = tree_iter.get_node_name();
         const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, " << ", false, false);
         const std::string line_content = obj_match_offsets.first != -1 ? obj_content : _get_line_content(text_buffer, iter_insert);
         int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
         if (not _s_state.newline_trick) { line_num += 1; }
+        const Glib::ustring text_tags = tree_iter.get_node_tags();
         iterAllMatchesRow = _s_state.match_store->add_row(node_id,
-                                                          node_name,
+                                                          text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
                                                           str::xml_escape(node_hier_name),
                                                           _s_state.latest_match_offsets.first,
                                                           _s_state.latest_match_offsets.second,
