@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-01 23:04+0100\n"
-"PO-Revision-Date: 2022-10-03 18:28+0200\n"
+"PO-Revision-Date: 2023-01-08 10:53+0200\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:31
 msgid "Tab Width"
@@ -142,7 +142,7 @@ msgstr "Zusammengehörige Klammern markieren"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:44
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:424
 msgid "Ask Confirmation Before Executing the Code"
-msgstr "Bestätigung einholen vor Code-Ausführung"
+msgstr "Vor Code-Ausführung um Bestätigung bitten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:47
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
@@ -244,7 +244,7 @@ msgstr "Alle Knoten zuklappen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
 msgid "Nodes in Bookmarks Always Visible"
-msgstr "Mit Lesezeichen versehene Knoten immer sichtbar"
+msgstr "Knoten in Lesezeichen immer sichtbar"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
 msgid "Nodes Status at Startup"
@@ -318,7 +318,7 @@ msgstr "Tschechisch"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:40
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:510
 msgid "Dutch"
-msgstr "Holländisch"
+msgstr "Niederländisch"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:41
 msgid "English"
@@ -595,7 +595,7 @@ msgstr "LaTeX Text"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:53
 msgid "Image Size dpi"
-msgstr "Bild Auflösung Dpi"
+msgstr "Bildauflösung dpi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:60
 msgid "Tutorial"
@@ -710,7 +710,7 @@ msgstr "Anzahl der Rückgängig-Schritte pro Knoten"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:87
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr ""
-"CamelCaseText automatisch in Verknüpfungen zu gleichnamigen Knoten umwandeln"
+"CamelCase-Text automatisch in Verknüpfungen zu gleichnamigen Knoten umwandeln"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
 msgid "At Triple Click Select the Whole Paragraph"
@@ -882,11 +882,11 @@ msgstr "Farbschema-Editor"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:413
 msgid "Set Dark Theme Icons"
-msgstr "Icons für dunkles Darstellung setzen"
+msgstr "Icons für dunkle Darstellung setzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:414
 msgid "Set Light Theme Icons"
-msgstr "Icons für helles Darstellung setzen"
+msgstr "Icons für helle Darstellung setzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:415
 msgid "Set Default Icons"
@@ -1652,12 +1652,12 @@ msgid ""
 "No Previous Node Copy Was Performed During This Session or the Source Tree "
 "is No Longer Available"
 msgstr ""
-"In dieser Sitzung wurde noch keine Knoten-Kopie durchgeführt, oder der Quell-"
-"Baum ist nicht länger verfügbar"
+"In dieser Sitzung wurde noch keine Knotenkopie durchgeführt oder der "
+"Quellbaum ist nicht länger verfügbar."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:731
 msgid "The Source Tree Node is No Longer Available"
-msgstr "Der Knoten ist in der Quelle nicht mehr verfügbar"
+msgstr "Der Knoten ist in der Quelle nicht mehr verfügbar."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:146
 msgid "Remove from list"
@@ -1851,7 +1851,7 @@ msgid ""
 "tilde and open with cherrytree. If it still fails, try the one with two "
 "tildes and if it still fails try the one with three tildes"
 msgstr ""
-"Per Vorgabe gibt es 3 Sicherungsdateien im selben Ordner wie die korrupte "
+"Standardmäßig gibt es 3 Sicherungsdateien im selben Ordner wie die korrupte "
 "Datei, mit angehängten Tilden im Namen (~. ~~, ~~~). Zuerst die jüngste "
 "Datei (eine ~) in einen anderen Ordner kopieren und versuchen, diese zu "
 "öffnen. Wenn dies auch scheitert, die älteren probieren (erst ~~, dann ~~~)."
@@ -1986,7 +1986,7 @@ msgstr "Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:74
 msgid "_New Instance"
-msgstr "_Neue Instanz"
+msgstr "_Neue Instanz..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:75
 msgid "Start a New Instance of CherryTree"
@@ -2033,7 +2033,7 @@ msgstr "Druckseite einrichten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:86
 msgid "P_rint"
-msgstr "_Drucken"
+msgstr "_Drucken..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:87
 msgid "Print"
@@ -2531,7 +2531,7 @@ msgstr "Gesamten Code ausführen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:221
 msgid "Execute All Code in CodeBox or Node"
-msgstr "Gesamten Code in Codebox oder Knoten ausführen"
+msgstr "Gesamten Code in CodeBox oder Knoten ausführen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:222
 msgid "E_xecute Code Line or Selection"
@@ -2571,7 +2571,7 @@ msgstr "Gleichrangigen Knoten hinzufügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:232
 msgid "Add _Subnode"
-msgstr "_Unterknoten hinzufügen"
+msgstr "_Unterknoten hinzufügen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:233
 msgid "Add a Child Node to the Selected Node"
@@ -2837,7 +2837,7 @@ msgstr "Die letzte Ersetzung wiederholen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show All Matches _Dialog"
-msgstr "_Dialog für mehrfaches Suchen/Ersetzen anzeigen"
+msgstr "_Dialog für mehrfaches Suchen/Ersetzen anzeigen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
 msgid "Show Search All Matches Dialog"
