@@ -25,16 +25,16 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 
-std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
+std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                      const std::string& title,
                                      CtSearchOptions& s_options,
                                      bool replace_on,
                                      bool multiple_nodes)
 {
     Gtk::Dialog dialog{title,
-                       *pParentWin,
+                       *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.set_transient_for(*pParentWin);
+    dialog.set_transient_for(*pCtMainWin);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
@@ -65,6 +65,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
         replace_frame->add(*replace_entry);
     }
     Gtk::Box opt_vbox{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/};
+    Gtk::Box reg_exp_hbox{Gtk::ORIENTATION_HORIZONTAL, 1/*spacing*/};
     Gtk::Box four_1_hbox{Gtk::ORIENTATION_HORIZONTAL};
     four_1_hbox.set_homogeneous(true);
     Gtk::Box four_2_hbox{Gtk::ORIENTATION_HORIZONTAL};
@@ -78,6 +79,11 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     match_case_checkbutton.set_active(s_options.match_case);
     Gtk::CheckButton reg_exp_checkbutton{_("Regular Expression")};
     reg_exp_checkbutton.set_active(s_options.reg_exp);
+    Gtk::Button reg_exp_help_button;
+    reg_exp_help_button.set_image(*pCtMainWin->new_managed_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
+    reg_exp_help_button.set_tooltip_text(_("Online Manual"));
+    reg_exp_hbox.pack_start(reg_exp_checkbutton);
+    reg_exp_hbox.pack_start(reg_exp_help_button);
     Gtk::CheckButton accent_insensitive_checkbutton{_("Accent Insensitive")};
     accent_insensitive_checkbutton.set_active(s_options.accent_insensitive);
     Gtk::CheckButton whole_word_checkbutton{_("Whole Word")};
@@ -188,7 +194,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     Gtk::CheckButton iter_dialog_checkbutton{_("Show Iterated Find/Replace Dialog")};
     iter_dialog_checkbutton.set_active(s_options.iterative_dialog);
     four_1_hbox.pack_start(match_case_checkbutton);
-    four_1_hbox.pack_start(reg_exp_checkbutton);
+    four_1_hbox.pack_start(reg_exp_hbox);
     four_2_hbox.pack_start(whole_word_checkbutton);
     four_2_hbox.pack_start(start_word_checkbutton);
     bw_fw_hbox.pack_start(fw_radiobutton);
@@ -223,6 +229,10 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     content_area->pack_start(opt_frame);
     content_area->show_all();
     search_entry.grab_focus();
+
+    reg_exp_help_button.signal_clicked().connect([](){
+        fs::open_weblink("https://developer-old.gnome.org/glib/stable/glib-regex-syntax.html");
+    });
 
     auto press_enter = [&dialog, &button_ok](GdkEventKey* pEventKey){
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {

@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -201,7 +201,7 @@ void match_dialog(const Glib::ustring& title,
 void iterated_find_dialog(CtMainWin* pCtMainWin,
                           CtSearchState& s_state);
 
-std::string dialog_search(Gtk::Window* pParentWin,
+std::string dialog_search(CtMainWin* pCtMainWin,
                           const std::string& title,
                           CtSearchOptions& s_options,
                           bool replace_on,
