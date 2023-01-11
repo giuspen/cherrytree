@@ -124,23 +124,25 @@ void CtTableLight::_on_cell_renderer_text_edited(const Glib::ustring& path, cons
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
         }
     }
+    _pEditingCellEntry = nullptr;
 }
 
 void CtTableLight::_on_cell_renderer_editing_started(Gtk::CellEditable* editable, const Glib::ustring& path, const size_t column)
 {
-    auto pEntry = dynamic_cast<Gtk::Entry*>(editable);
-    if (pEntry) {
+    _pEditingCellEntry = dynamic_cast<Gtk::Entry*>(editable);
+    if (_pEditingCellEntry) {
         _currentRow = std::stoi(path.raw());
         _currentColumn = column;
-        pEntry->signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
-        pEntry->signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_key_press_event));
-        pEntry->signal_focus_out_event().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_focus_out_event), pEntry, path, column));
+        _pEditingCellEntry->signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
+        _pEditingCellEntry->signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_key_press_event));
+        _pEditingCellEntry->signal_focus_out_event().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_focus_out_event), _pEditingCellEntry, path, column));
     }
 }
 
 bool CtTableLight::_on_entry_focus_out_event(GdkEventFocus*/*gdk_event*/, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column)
 {
     _on_cell_renderer_text_edited(path, pEntry->get_text(), column);
+    _pEditingCellEntry = nullptr;
     return false;
 }
 
@@ -268,6 +270,17 @@ void CtTableLight::row_move_up(const size_t rowIdx, const bool from_move_down)
     if (not from_move_down) {
         grab_focus();
     }
+}
+
+bool CtTableLight::_on_cell_key_press_alt_or_ctrl_enter()
+{
+    if (not _pEditingCellEntry) {
+        return true; /* stop signal */
+    }
+    int position = _pEditingCellEntry->get_position();
+    _pEditingCellEntry->insert_text(CtConst::CHAR_NEWLINE, -1, position);
+    _pEditingCellEntry->set_position(position+1);
+    return true; /* stop signal */
 }
 
 bool CtTableLight::_row_sort(const bool sortAsc)

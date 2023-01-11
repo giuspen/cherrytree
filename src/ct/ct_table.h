@@ -99,6 +99,7 @@ public:
 protected:
     virtual void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const = 0;
     virtual bool _row_sort(const bool sortAsc) = 0;
+    virtual bool _on_cell_key_press_alt_or_ctrl_enter() { return false; /* propagate signal */ }
 
     int              _colWidthDefault;
     CtTableColWidths _colWidths;
@@ -163,6 +164,7 @@ protected:
 
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const override;
     bool _row_sort(const bool sortAsc) override;
+    bool _on_cell_key_press_alt_or_ctrl_enter() override;
 
     void _on_treeview_event_after(GdkEvent* event);
     bool _on_entry_focus_out_event(GdkEventFocus* gdk_event, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column);
@@ -172,6 +174,7 @@ protected:
     std::unique_ptr<CtTableLightColumns> _pColumns;
     Gtk::TreeView* _pManagedTreeView{nullptr};
     Glib::RefPtr<Gtk::ListStore> _pListStore;
+    Gtk::Entry* _pEditingCellEntry{nullptr};
 };
 
 class CtTableHeavy : public CtTableCommon

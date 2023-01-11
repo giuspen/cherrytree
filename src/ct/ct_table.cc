@@ -159,6 +159,14 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
                 }
             }
         }
+        if (GDK_KEY_Return == event->keyval or GDK_KEY_KP_Enter == event->keyval) {
+            return _on_cell_key_press_alt_or_ctrl_enter();
+        }
+    }
+    else if (event->state & Gdk::MOD1_MASK) {
+        if (GDK_KEY_Return == event->keyval or GDK_KEY_KP_Enter == event->keyval) {
+            return _on_cell_key_press_alt_or_ctrl_enter();
+        }
     }
     if (index >= 0) {
         const size_t nextRowIdx = index / get_num_columns();
