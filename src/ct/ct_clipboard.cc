@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -195,7 +195,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
 
 void CtClipboard::table_row_to_clipboard(CtTableCommon* pTable)
 {
-    CtClipboardData* clip_data = new CtClipboardData{};
+    CtClipboardData* clip_data = new CtClipboardData;
     pTable->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr);
     clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(pTable);
 
@@ -217,7 +217,7 @@ void CtClipboard::table_row_paste(CtTableCommon* pTable)
 
 void CtClipboard::node_link_to_clipboard(CtTreeIter node)
 {
-    CtClipboardData* clip_data = new CtClipboardData();
+    CtClipboardData* clip_data = new CtClipboardData;
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {}">{}</rich_text></slot></root>)XML";
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(node.get_node_name()));
     clip_data->plain_text = "node: " + node.get_node_name();
@@ -227,7 +227,7 @@ void CtClipboard::node_link_to_clipboard(CtTreeIter node)
 
 void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring& anchor_name)
 {
-    CtClipboardData* clip_data = new CtClipboardData();
+    CtClipboardData* clip_data = new CtClipboardData;
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {} {}">{}</rich_text></slot></root>)XML";
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
     clip_data->plain_text = "anchor: " + anchor_name;
@@ -344,7 +344,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
 #endif
             }
             else if (auto table = dynamic_cast<CtTableCommon*>(widget_vector.front())) {
-                CtClipboardData* clip_data = new CtClipboardData();
+                CtClipboardData* clip_data = new CtClipboardData;
                 table->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr);
                 clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(table);
                 clip_data->plain_text = CtExport2Txt{_pCtMainWin}.get_table_plain(table);
@@ -353,7 +353,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 return;
             }
             else if (auto codebox = dynamic_cast<CtCodebox*>(widget_vector.front())) {
-                CtClipboardData* clip_data = new CtClipboardData();
+                CtClipboardData* clip_data = new CtClipboardData;
                 codebox->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr);
                 clip_data->html_text = CtExport2Html(_pCtMainWin).codebox_export_to_html(codebox);
                 if (num_chars == 1) // just copy one codebox
@@ -367,7 +367,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
         }
     }
 
-    CtClipboardData* clip_data = new CtClipboardData();
+    CtClipboardData* clip_data = new CtClipboardData;
     clip_data->html_text = CtExport2Html(_pCtMainWin).selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, !pCodebox ? node_syntax_high : CtConst::PLAIN_TEXT_ID);
     if (not pCodebox and node_syntax_high == CtConst::RICH_TEXT_ID)
     {
