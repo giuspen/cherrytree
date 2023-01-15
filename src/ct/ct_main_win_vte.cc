@@ -110,9 +110,9 @@ void CtMainWin::restart_vte(const char* first_cmd_passed)
     _pVte = Gtk::manage(Glib::wrap(pTermWidget));
     update_vte_settings();
 
-    g_autofree gchar* user_shell = vte_get_user_shell();
+    //g_autofree gchar* user_shell = vte_get_user_shell(); (#2199) issue when using zsh as default shell
     char* startterm[2] = {0, 0};
-    startterm[0] = user_shell ? user_shell : (char*)"/bin/sh";
+    startterm[0] = (char*)"/bin/sh";
     auto pSpawnAsyncData = new CtVteSpawnAsyncData; // will be deleted inside the async callback after being used
     pSpawnAsyncData->pPid = &_vtePid;
     pSpawnAsyncData->pCmd = g_strdup(first_cmd_passed); // must be freed!
