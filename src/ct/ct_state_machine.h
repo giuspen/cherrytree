@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -118,8 +118,9 @@ public:
     bool widthInPixels, brackets, showNum;
 };
 
-struct CtAnchoredWidgetState_TableCommon : public CtAnchoredWidgetState
+class CtAnchoredWidgetState_TableCommon : public CtAnchoredWidgetState
 {
+public:
     CtAnchoredWidgetState_TableCommon(const CtTableCommon* table);
 
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
@@ -134,8 +135,9 @@ struct CtAnchoredWidgetState_TableCommon : public CtAnchoredWidgetState
     size_t currRow;
     size_t currCol;
 };
-struct CtAnchoredWidgetState_TableLight : public CtAnchoredWidgetState_TableCommon
+class CtAnchoredWidgetState_TableLight : public CtAnchoredWidgetState_TableCommon
 {
+public:
     CtAnchoredWidgetState_TableLight(const CtTableLight* table)
      : CtAnchoredWidgetState_TableCommon{table}
     {}
@@ -143,8 +145,9 @@ struct CtAnchoredWidgetState_TableLight : public CtAnchoredWidgetState_TableComm
         return to_widget_light(pCtMainWin);
     }
 };
-struct CtAnchoredWidgetState_TableHeavy : public CtAnchoredWidgetState_TableCommon
+class CtAnchoredWidgetState_TableHeavy : public CtAnchoredWidgetState_TableCommon
 {
+public:
     CtAnchoredWidgetState_TableHeavy(const CtTableHeavy* table)
      : CtAnchoredWidgetState_TableCommon{table}
     {}
