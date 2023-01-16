@@ -1,7 +1,7 @@
 /*
  * ct_const.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -60,7 +60,8 @@ const inline static gchar* RICH_TEXT_ID             {"custom-colors"};
 const inline static gchar* TABLE_CELL_TEXT_ID       {"table-cell-text"};
 const inline static gchar* PLAIN_TEXT_ID            {"plain-text"};
 const inline static gchar* STYLE_APPLIED_ID         {"<style-applied>"};
-const inline static gchar* SYN_HIGHL_BASH           {"sh"};
+const inline static gchar* SYN_HIGHL_SHELL          {"sh"};
+const inline static gchar* VTE_SHELL_BASH           {"/bin/bash"};
 const inline static gchar* STYLE_SCHEME_LIGHT       {"classic"};
 const inline static gchar* STYLE_SCHEME_DARK        {"cobalt"};
 const inline static gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};

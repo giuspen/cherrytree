@@ -1,7 +1,7 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -188,6 +188,7 @@ void CtActions::preferences_import()
     _pCtConfig->autoIndent = ctConfigImported.autoIndent;
     _pCtConfig->codeExecConfirm = ctConfigImported.codeExecConfirm;
     _pCtConfig->codeExecVte = ctConfigImported.codeExecVte;
+    _pCtConfig->vteShell = ctConfigImported.vteShell;
     _pCtConfig->rtShowWhiteSpaces = ctConfigImported.rtShowWhiteSpaces;
     _pCtConfig->ptShowWhiteSpaces = ctConfigImported.ptShowWhiteSpaces;
     _pCtConfig->rtHighlCurrLine = ctConfigImported.rtHighlCurrLine;

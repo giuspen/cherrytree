@@ -1,7 +1,7 @@
 /*
  * ct_config.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -92,7 +92,7 @@ public:
 
     // [editor]
     std::string                                 syntaxHighlighting{CtConst::RICH_TEXT_ID};
-    std::string                                 autoSynHighl{CtConst::SYN_HIGHL_BASH};
+    std::string                                 autoSynHighl{CtConst::SYN_HIGHL_SHELL};
     std::string                                 rtStyleScheme{"user-1"};
     std::string                                 ptStyleScheme{"user-1"};
     std::string                                 taStyleScheme{"user-2"};
@@ -121,6 +121,7 @@ public:
     bool                                        autoIndent{true};
     bool                                        codeExecConfirm{true};
     bool                                        codeExecVte{true};
+    std::string                                 vteShell{CtConst::VTE_SHELL_BASH};
     bool                                        rtShowWhiteSpaces{false};
     bool                                        ptShowWhiteSpaces{true};
     bool                                        rtHighlCurrLine{true};

@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_plain_text_n_code.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -46,6 +46,14 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 #if defined(HAVE_VTE)
     auto checkbutton_code_exec_vte = Gtk::manage(new Gtk::CheckButton{_("Use Internal Terminal")});
     checkbutton_code_exec_vte->set_active(_pConfig->codeExecVte);
+    auto hbox_vte_shell = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_vte_shell = Gtk::manage(new Gtk::Label{_("Internal Terminal Shell")});
+    auto entry_vte_shell = Gtk::manage(new Gtk::Entry{});
+    entry_vte_shell->set_text(_pConfig->vteShell);
+    entry_vte_shell->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
+    hbox_vte_shell->pack_start(*label_vte_shell, false, false);
+    hbox_vte_shell->pack_start(*entry_vte_shell, false, false);
+    hbox_vte_shell->set_sensitive(_pConfig->codeExecVte);
 #endif // HAVE_VTE
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
     _fill_custom_exec_commands_model(liststore);
@@ -99,6 +107,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     vbox_codexec->pack_start(*checkbutton_code_exec_confirm, false, false);
 #if defined(HAVE_VTE)
     vbox_codexec->pack_start(*checkbutton_code_exec_vte, false, false);
+    vbox_codexec->pack_start(*hbox_vte_shell, false, false);
 #endif // HAVE_VTE
     vbox_codexec->pack_start(*label, false, false);
     vbox_codexec->pack_start(*hbox_cmd_per_type, true, true);
@@ -135,8 +144,22 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         _pConfig->codeExecConfirm = checkbutton_code_exec_confirm->get_active();
     });
 #if defined(HAVE_VTE)
-    checkbutton_code_exec_vte->signal_toggled().connect([this, checkbutton_code_exec_vte](){
+    checkbutton_code_exec_vte->signal_toggled().connect([this, checkbutton_code_exec_vte, hbox_vte_shell](){
         _pConfig->codeExecVte = checkbutton_code_exec_vte->get_active();
+        hbox_vte_shell->set_sensitive(_pConfig->codeExecVte);
+    });
+    entry_vte_shell->signal_changed().connect([this, entry_vte_shell](){
+        fs::path shell_path{entry_vte_shell->get_text()};
+        if (fs::exists(fs::canonical(shell_path))) {
+            _pConfig->vteShell = entry_vte_shell->get_text();
+            entry_vte_shell->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
+        }
+        else {
+            entry_vte_shell->set_icon_from_icon_name("ct_urgent", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
+        }
+    });
+    entry_vte_shell->signal_icon_release().connect([entry_vte_shell](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
+        entry_vte_shell->set_text(CtConst::VTE_SHELL_BASH);
     });
 #endif // HAVE_VTE
     Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);

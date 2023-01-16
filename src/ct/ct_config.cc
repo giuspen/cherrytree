@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -278,6 +278,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "space_around_lines", spaceAroundLines);
     _uKeyFile->set_integer(_currentGroup, "relative_wrapped_space", relativeWrappedSpace);
     _uKeyFile->set_string(_currentGroup, "h_rule", hRule);
+    _uKeyFile->set_string(_currentGroup, "vte_shell", vteShell);
     _uKeyFile->set_string(_currentGroup, "special_chars", specialChars.item());
     _uKeyFile->set_string(_currentGroup, "last_special_char", lastSpecialChar);
     _uKeyFile->set_string(_currentGroup, "selword_chars", selwordChars.item());
@@ -565,6 +566,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("space_around_lines", &spaceAroundLines);
     _populate_int_from_keyfile("relative_wrapped_space", &relativeWrappedSpace);
     _populate_string_from_keyfile("h_rule", &hRule);
+    _populate_string_from_keyfile("vte_shell", &vteShell);
     _populate_string_from_keyfile("special_chars", &specialChars);
     _populate_string_from_keyfile("last_special_char", &lastSpecialChar);
     _populate_string_from_keyfile("selword_chars", &selwordChars);
