@@ -159,7 +159,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         }
     });
     entry_vte_shell->signal_icon_release().connect([entry_vte_shell](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
-        entry_vte_shell->set_text(CtConst::VTE_SHELL_BASH);
+        entry_vte_shell->set_text(CtConst::VTE_SHELL_DEFAULT);
     });
 #endif // HAVE_VTE
     Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);

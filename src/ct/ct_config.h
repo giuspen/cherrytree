@@ -121,7 +121,7 @@ public:
     bool                                        autoIndent{true};
     bool                                        codeExecConfirm{true};
     bool                                        codeExecVte{true};
-    std::string                                 vteShell{CtConst::VTE_SHELL_BASH};
+    std::string                                 vteShell{CtConst::VTE_SHELL_DEFAULT};
     bool                                        rtShowWhiteSpaces{false};
     bool                                        ptShowWhiteSpaces{true};
     bool                                        rtHighlCurrLine{true};
