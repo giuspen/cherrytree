@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_rich_text.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,14 +26,13 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 {
-    Gtk::VBox* vbox_spell_check = Gtk::manage(new Gtk::VBox());
-    Gtk::CheckButton* checkbutton_spell_check = Gtk::manage(new Gtk::CheckButton(_("Enable Spell Check")));
+    auto vbox_spell_check = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto checkbutton_spell_check = Gtk::manage(new Gtk::CheckButton{_("Enable Spell Check")});
     checkbutton_spell_check->set_active(_pConfig->enableSpellCheck);
     checkbutton_spell_check->set_sensitive(gspell_language_get_available());
-    Gtk::HBox* hbox_spell_check_lang = Gtk::manage(new Gtk::HBox());
-    hbox_spell_check_lang->set_spacing(4);
-    Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));
-    Gtk::ComboBoxText* combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBoxText());
+    auto hbox_spell_check_lang = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_spell_check_lang = Gtk::manage(new Gtk::Label{_("Spell Check Language")});
+    auto combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBoxText{});
     for (const GList* l = gspell_language_get_available(); l != NULL; l = l->next) {
         auto pGspellLang = reinterpret_cast<const GspellLanguage*>(l->data);
         combobox_spell_check_lang->append(gspell_language_get_code(pGspellLang), gspell_language_get_name(pGspellLang));
@@ -47,57 +46,59 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_spell_check->pack_start(*hbox_spell_check_lang, false, false);
     Gtk::Frame* frame_spell_check = new_managed_frame_with_align(_("Spell Check"), vbox_spell_check);
 
-    Gtk::HBox* hbox_misc_text = Gtk::manage(new Gtk::HBox());
-    hbox_misc_text->set_spacing(4);
-    Gtk::CheckButton* checkbutton_rt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
+    auto hbox_misc_text = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto checkbutton_rt_show_white_spaces = Gtk::manage(new Gtk::CheckButton{_("Show White Spaces")});
     checkbutton_rt_show_white_spaces->set_active(_pConfig->rtShowWhiteSpaces);
-    Gtk::CheckButton* checkbutton_rt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
+    auto checkbutton_rt_highl_curr_line = Gtk::manage(new Gtk::CheckButton{_("Highlight Current Line")});
     checkbutton_rt_highl_curr_line->set_active(_pConfig->rtHighlCurrLine);
-    Gtk::CheckButton* checkbutton_rt_highl_match_bra = Gtk::manage(new Gtk::CheckButton(_("Highlight Matching Brackets")));
+    auto checkbutton_rt_highl_match_bra = Gtk::manage(new Gtk::CheckButton{_("Highlight Matching Brackets")});
     checkbutton_rt_highl_match_bra->set_active(_pConfig->rtHighlMatchBra);
-    Gtk::CheckButton* checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton(_("Expand CodeBoxes Automatically")));
+    auto checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton{_("Expand CodeBoxes Automatically")});
     checkbutton_codebox_auto_resize->set_active(_pConfig->codeboxAutoResize);
 
-    Gtk::HBox* hbox_embfile_icon_size = Gtk::manage(new Gtk::HBox());
-    hbox_embfile_icon_size->set_spacing(4);
-    Gtk::Label* label_embfile_icon_size = Gtk::manage(new Gtk::Label(_("Embedded File Icon Size")));
+    auto hbox_table_cells_to_light = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_table_cells_to_light = Gtk::manage(new Gtk::Label{_("Threshold Number of Table Cells for Lightweight Variant")});
+    Glib::RefPtr<Gtk::Adjustment> adj_table_cells_to_light = Gtk::Adjustment::create(_pConfig->tableCellsGoLight, 1, 100000, 1);
+    auto spinbutton_table_cells_to_light = Gtk::manage(new Gtk::SpinButton{adj_table_cells_to_light});
+    hbox_table_cells_to_light->pack_start(*label_table_cells_to_light, false, false);
+    hbox_table_cells_to_light->pack_start(*spinbutton_table_cells_to_light, false, false);
+
+    auto hbox_embfile_icon_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_embfile_icon_size = Gtk::manage(new Gtk::Label{_("Embedded File Icon Size")});
     Glib::RefPtr<Gtk::Adjustment> adj_embfile_icon_size = Gtk::Adjustment::create(_pConfig->embfileIconSize, 1, 1000, 1);
-    Gtk::SpinButton* spinbutton_embfile_icon_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_icon_size));
-    spinbutton_embfile_icon_size->set_value(_pConfig->embfileIconSize);
+    auto spinbutton_embfile_icon_size = Gtk::manage(new Gtk::SpinButton{adj_embfile_icon_size});
     hbox_embfile_icon_size->pack_start(*label_embfile_icon_size, false, false);
     hbox_embfile_icon_size->pack_start(*spinbutton_embfile_icon_size, false, false);
 
-    Gtk::HBox* hbox_embfile_max_size = Gtk::manage(new Gtk::HBox());
-    hbox_embfile_max_size->set_spacing(4);
-    Gtk::Label* label_embfile_max_size = Gtk::manage(new Gtk::Label(_("Embedded File Size Limit")));
-    Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(_pConfig->embfileIconSize, 1, 1000, 1);
-    Gtk::SpinButton* spinbutton_embfile_max_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_max_size));
-    spinbutton_embfile_max_size->set_value(_pConfig->embfileMaxSize);
+    auto hbox_embfile_max_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_embfile_max_size = Gtk::manage(new Gtk::Label{_("Embedded File Size Limit")});
+    Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(_pConfig->embfileMaxSize, 1, 1000, 1);
+    auto spinbutton_embfile_max_size = Gtk::manage(new Gtk::SpinButton{adj_embfile_max_size});
     hbox_embfile_max_size->pack_start(*label_embfile_max_size, false, false);
     hbox_embfile_max_size->pack_start(*spinbutton_embfile_max_size, false, false);
 
-    Gtk::CheckButton* checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton(_("Show File Name on Top of Embedded File Icon")));
+    auto checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton{_("Show File Name on Top of Embedded File Icon")});
     checkbutton_embfile_show_filename->set_active(_pConfig->embfileShowFileName);
-    Gtk::Label* label_limit_undoable_steps = Gtk::manage(new Gtk::Label(_("Limit of Undoable Steps Per Node")));
+    auto label_limit_undoable_steps = Gtk::manage(new Gtk::Label{_("Limit of Undoable Steps Per Node")});
     Glib::RefPtr<Gtk::Adjustment> adj_limit_undoable_steps = Gtk::Adjustment::create(_pConfig->limitUndoableSteps, 1, 10000, 1);
-    Gtk::SpinButton* spinbutton_limit_undoable_steps = Gtk::manage(new Gtk::SpinButton(adj_limit_undoable_steps));
-    spinbutton_limit_undoable_steps->set_value(_pConfig->limitUndoableSteps);
+    auto spinbutton_limit_undoable_steps = Gtk::manage(new Gtk::SpinButton{adj_limit_undoable_steps});
     hbox_misc_text->pack_start(*label_limit_undoable_steps, false, false);
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
-    Gtk::CheckButton* checkbutton_camelcase_autolink = Gtk::manage(new Gtk::CheckButton{_("Auto Link CamelCase Text to Node With Same Name")});
+    auto checkbutton_camelcase_autolink = Gtk::manage(new Gtk::CheckButton{_("Auto Link CamelCase Text to Node With Same Name")});
     checkbutton_camelcase_autolink->set_active(_pConfig->camelCaseAutoLink);
-    Gtk::CheckButton* checkbutton_triple_click_sel_paragraph = Gtk::manage(new Gtk::CheckButton(_("At Triple Click Select the Whole Paragraph")));
+    auto checkbutton_triple_click_sel_paragraph = Gtk::manage(new Gtk::CheckButton{_("At Triple Click Select the Whole Paragraph")});
     checkbutton_triple_click_sel_paragraph->set_active(_pConfig->tripleClickParagraph);
 #ifdef MD_AUTO_REPLACEMENT
-    Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown Auto Replacement (Experimental)")));
+    auto checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton{_("Enable Markdown Auto Replacement (Experimental)")});
     checkbutton_md_formatting->set_active(_pConfig->enableMdFormatting);
 #endif // MD_AUTO_REPLACEMENT
 
-    Gtk::VBox* vbox_misc_text = Gtk::manage(new Gtk::VBox());
+    auto vbox_misc_text = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
+    vbox_misc_text->pack_start(*hbox_table_cells_to_light, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
@@ -152,6 +153,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_codebox_auto_resize->signal_toggled().connect([this, checkbutton_codebox_auto_resize](){
         _pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
+    });
+    spinbutton_table_cells_to_light->signal_value_changed().connect([this, spinbutton_table_cells_to_light](){
+        _pConfig->tableCellsGoLight = spinbutton_table_cells_to_light->get_value_as_int();
     });
     spinbutton_embfile_icon_size->signal_value_changed().connect([this, spinbutton_embfile_icon_size](){
         _pConfig->embfileIconSize = spinbutton_embfile_icon_size->get_value_as_int();

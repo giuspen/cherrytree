@@ -218,7 +218,7 @@ void CtDocumentBuilder::add_tag_data(std::string_view tag, std::string data)
 
 void CtDocumentBuilder::add_table(const std::vector<std::vector<Glib::ustring>>& table_matrix)
 {
-    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > _pCtConfig->tableCellsGoLight;
+    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > static_cast<unsigned>(_pCtConfig->tableCellsGoLight);
     CtXmlHelper::table_to_xml(_current_element->get_parent(), table_matrix, _currOffset, CtConst::TAG_PROP_VAL_LEFT, _pCtConfig->tableColWidthDefault, "", is_light);
     close_current_tag();
     ++_currOffset;
