@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -380,7 +380,7 @@ private:
     void        _rich_text_save_pending();
 
 private:
-    CtConfig*             _config{nullptr};
+    CtConfig* const       _pCtConfig;
     CtStatusBar*          _status_bar{nullptr};
     std::string           _local_dir;
 

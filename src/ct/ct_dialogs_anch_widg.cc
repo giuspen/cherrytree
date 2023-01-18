@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_anch_widg.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -484,7 +484,7 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
 
     if (is_insert) {
         auto f_reeval_is_light = [&](){
-            checkbutton_is_light.set_active(spinbutton_rows.get_value_as_int()*spinbutton_columns.get_value_as_int() > CtConst::ADVISED_TABLE_LIGHT_HEAVY);
+            checkbutton_is_light.set_active(spinbutton_rows.get_value_as_int()*spinbutton_columns.get_value_as_int() > pCtConfig->tableCellsGoLight);
         };
         spinbutton_rows.signal_value_changed().connect([f_reeval_is_light](){ f_reeval_is_light(); });
         spinbutton_columns.signal_value_changed().connect([f_reeval_is_light](){ f_reeval_is_light(); });

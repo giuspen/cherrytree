@@ -1,7 +1,7 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -140,7 +140,7 @@ const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{
     CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6,
     "span", "font"};
 
-CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _config(config)
+CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _pCtConfig{config}
 {
 }
 
@@ -313,17 +313,17 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "ul")  {
             _list_type = 'u';
             _list_num = 0;
-            if (_list_level < static_cast<int>(_config->charsListbul.size()) - 1) _list_level++;
+            if (_list_level < static_cast<int>(_pCtConfig->charsListbul.size()) - 1) _list_level++;
         }
         else if (tag == "li") {
             if (_list_type == 'u') {
                 if (_list_level < 0) {
                     // A <ul> _should_ have appeared before this
                     // but ok, use just some default list
-                    _rich_text_serialize(_config->charsListbul[0] + CtConst::CHAR_SPACE);
+                    _rich_text_serialize(_pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE);
                 }
                 else {
-                    _rich_text_serialize(_config->charsListbul[_list_level] + CtConst::CHAR_SPACE);
+                    _rich_text_serialize(_pCtConfig->charsListbul[_list_level] + CtConst::CHAR_SPACE);
                 }
             }
             else {
@@ -377,7 +377,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "ol" && _html_td_tag_open) { _list_type = 'o'; _list_num = 1; }
         else if (tag == "ul" && _html_td_tag_open) { _list_type = 'u'; _list_num = 0; }
         else if (tag == "li" && _html_td_tag_open) {
-            if (_list_type == 'u') _table.back().back().text += _config->charsListbul[0] + CtConst::CHAR_SPACE;
+            if (_list_type == 'u') _table.back().back().text += _pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE;
             else {
                 _table.back().back().text += std::to_string(_list_num) + ". ";
                 _list_num += 1;
@@ -687,8 +687,8 @@ void CtHtml2Xml::_insert_table()
             table_matrix.back().push_back(str::trim(cell.text));
     }
 
-    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > CtConst::ADVISED_TABLE_LIGHT_HEAVY;
-    CtXmlHelper::table_to_xml(_slot_root, table_matrix, _char_offset, CtConst::TAG_PROP_VAL_LEFT, _config->tableColWidthDefault, "", is_light);
+    const bool is_light = table_matrix.size() > 0 and table_matrix.size() * table_matrix.front().size() > static_cast<unsigned>(_pCtConfig->tableCellsGoLight);
+    CtXmlHelper::table_to_xml(_slot_root, table_matrix, _char_offset, CtConst::TAG_PROP_VAL_LEFT, _pCtConfig->tableColWidthDefault, "", is_light);
 
     _char_offset += 1;
 }

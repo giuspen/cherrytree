@@ -173,6 +173,7 @@ public:
     int                                         tableRows{3};
     int                                         tableColumns{3};
     int                                         tableColWidthDefault{60};
+    int                                         tableCellsGoLight{CtConst::ADVISED_TABLE_LIGHT_HEAVY};
 
     // [fonts]
     Glib::ustring                               rtFont{CtConst::FONT_RT_DEFAULT};

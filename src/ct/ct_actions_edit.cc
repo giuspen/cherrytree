@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -105,7 +105,7 @@ void CtActions::table_insert()
 {
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    bool is_light{_pCtConfig->tableColumns*_pCtConfig->tableRows > CtConst::ADVISED_TABLE_LIGHT_HEAVY};
+    bool is_light{_pCtConfig->tableColumns*_pCtConfig->tableRows > _pCtConfig->tableCellsGoLight};
     CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(
         _pCtMainWin,
         _("Insert Table"),
