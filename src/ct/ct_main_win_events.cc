@@ -1,7 +1,7 @@
 /*
  * ct_main_win_events.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -86,7 +86,7 @@ bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 {
     if (event->state & GDK_CONTROL_MASK) {
         if (event->keyval == GDK_KEY_Tab) {
-            _uCtActions->toggle_tree_text();
+            _uCtActions->toggle_focus_tree_text();
             return true;
         }
     }
@@ -255,7 +255,7 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
             return true;
         }
         else if (event->keyval == GDK_KEY_Tab) {
-            _uCtActions->toggle_tree_text();
+            _uCtActions->toggle_focus_tree_text();
             return true;
         }
         else if (event->keyval == GDK_KEY_Delete) {

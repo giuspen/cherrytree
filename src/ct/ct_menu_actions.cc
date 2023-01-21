@@ -313,6 +313,8 @@ void CtMenu::init_actions(CtActions* pActions)
 #if defined(HAVE_VTE)
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_vte", "ct_term", _("Show/Hide Te_rminal"), KB_CONTROL+"F9",
         _("Toggle Show/Hide Terminal"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_vte)});
+    _actions.push_back(CtMenuAction{view_cat, "toggle_focus_vte_text", "ct_go-jump", _("Toggle Focus Terminal/Te_xt"), KB_CONTROL+KB_SHIFT+"T",
+        _("Toggle Focus Between Terminal and Text"), sigc::mem_fun(*pActions, &CtActions::toggle_focus_vte_text)});
 #endif // HAVE_VTE
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_menubar", "ct_menubar", _("Show/Hide _Menubar"), "F12",
         _("Toggle Show/Hide Menubar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_menubar)});
@@ -325,7 +327,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_node_name_head", "ct_node_name_header", _("Show/Hide Node Name _Header"), None,
         _("Toggle Show/Hide Node Name Header"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_node_name_header)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_focus_tree_text", "ct_go-jump", _("Toggle _Focus Tree/Text"), KB_CONTROL+"Tab",
-        _("Toggle Focus Between Tree and Text"), sigc::mem_fun(*pActions, &CtActions::toggle_tree_text)});
+        _("Toggle Focus Between Tree and Text"), sigc::mem_fun(*pActions, &CtActions::toggle_focus_tree_text)});
     _actions.push_back(CtMenuAction{view_cat, "toolbar_icons_size_p", "ct_add", _("_Increase Toolbar Icons Size"), None,
         _("Increase the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_increase)});
     _actions.push_back(CtMenuAction{view_cat, "toolbar_icons_size_m", "ct_remove", _("_Decrease Toolbar Icons Size"), None,
