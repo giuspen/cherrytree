@@ -345,7 +345,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
         // not first_fromsel or first_fromsel with first_node already parsed
         optFirstNode = false;
     }
-    if (optFirstNode.has_value() and not node_iter.get_node_is_excluded_from_search()) {
+    if (optFirstNode.has_value() and (not node_iter.get_node_is_excluded_from_search() or _s_options.override_exclusions)) {
         if (_s_options.node_content) {
             if (_parse_node_content_iter(node_iter,
                                          node_iter.get_node_text_buffer(),
@@ -366,7 +366,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
     }
 
     CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
-    if (not node_iter.get_node_children_are_excluded_from_search()) {
+    if (not node_iter.get_node_children_are_excluded_from_search() or _s_options.override_exclusions) {
         // check for children
         if (not node_iter->children().empty()) {
             Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();

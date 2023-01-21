@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -355,6 +355,7 @@ struct CtSearchOptions {
     bool        match_case{false};
     bool        reg_exp{false};
     bool        accent_insensitive{false};
+    bool        override_exclusions{false};
     bool        whole_word{false};
     bool        start_word{false};
     bool        direction_fw{true};
