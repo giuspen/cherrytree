@@ -311,13 +311,13 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='toggle_show_vte'/>
     <separator/>
     <menuitem action='menubar_in_titlebar'/>
+    <menuitem action='toggle_fullscreen'/>
+    <menuitem action='toggle_always_on_top'/>
     <separator/>
     <menuitem action='toggle_focus_tree_text'/>
     <separator/>
     <menuitem action='toolbar_icons_size_p'/>
     <menuitem action='toolbar_icons_size_m'/>
-    <separator/>
-    <menuitem action='toggle_fullscreen'/>
   </menu>
 
   <menu action='BookmarksMenu'>

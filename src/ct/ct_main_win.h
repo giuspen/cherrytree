@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -214,6 +214,7 @@ public:
     bool start_on_systray_delayed_file_open_kick();
     void set_systray_can_hide(const bool systrayCanHide) { _systrayCanHide = systrayCanHide; }
     bool get_systray_can_hide() const { return _systrayCanHide; }
+    void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; set_keep_above(_alwaysOnTop); }
 
 private:
     bool _on_window_key_press_event(GdkEventKey* event);
@@ -317,6 +318,7 @@ private:
     std::string         _startOnSystray_delayedNodeName;
     std::string         _startOnSystray_delayedAnchorName;
     bool                _systrayCanHide{true};
+    bool                _alwaysOnTop{false};
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

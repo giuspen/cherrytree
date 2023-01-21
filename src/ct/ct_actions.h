@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -267,7 +267,8 @@ public:
     void nodes_collapse_all();
     void toolbar_icons_size_increase();
     void toolbar_icons_size_decrease();
-    void fullscreen_toggle();
+    void toggle_fullscreen();
+    void toggle_always_on_top();
     void disable_menubar_in_titlebar() { _menubar_in_titlebar_set(false); }
     void enable_menubar_in_titlebar() { _menubar_in_titlebar_set(true); }
 
