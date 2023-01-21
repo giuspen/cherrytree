@@ -38,7 +38,7 @@ bool CtActions::_is_there_selected_node_or_error()
 
 bool CtActions::_is_tree_not_empty_or_error()
 {
-    if (!_pCtMainWin->get_tree_store().get_iter_first()) {
+    if (not _pCtMainWin->get_tree_store().get_iter_first()) {
         CtDialogs::error_dialog(_("The Tree is Empty!"), *_pCtMainWin);
         return false;
     }
@@ -58,9 +58,9 @@ bool CtActions::_is_curr_node_not_read_only_or_error()
 bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok /*=false*/)
 {
     if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID
-        || (plain_text_ok && _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::PLAIN_TEXT_ID))
+        or (plain_text_ok and _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::PLAIN_TEXT_ID))
         return true;
-    if (!plain_text_ok)
+    if (not plain_text_ok)
         CtDialogs::warning_dialog(_("This Feature is Available Only in Rich Text Nodes"), *_pCtMainWin);
     else
         CtDialogs::warning_dialog(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), *_pCtMainWin);
@@ -70,9 +70,8 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
 // Returns True if ok (there's a selection) or False and prompts error dialog
 bool CtActions::_is_there_text_selection_or_error()
 {
-    if (!_is_there_selected_node_or_error()) return false;
-    if (!_curr_buffer()->get_has_selection())
-    {
+    if (not _is_there_selected_node_or_error()) return false;
+    if (not _curr_buffer()->get_has_selection()) {
         CtDialogs::error_dialog(_("No Text is Selected"), *_pCtMainWin);
         return false;
     }
@@ -85,22 +84,23 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
-    if (dynamic_cast<CtImage*>(widget))
+    if (dynamic_cast<CtImage*>(widget)) {
         _pCtMainWin->get_text_view().grab_focus();
+    }
     _curr_buffer()->select_range(iter_object, iter_bound);
 }
 
 // Returns True if there's not a node selected or is not rich text
 bool CtActions::_node_sel_and_rich_text()
 {
-    if (!_is_there_selected_node_or_error()) return false;
-    if (!_is_curr_node_not_syntax_highlighting_or_error()) return false;
+    if (not _is_there_selected_node_or_error()) return false;
+    if (not _is_curr_node_not_syntax_highlighting_or_error()) return false;
     return true;
 }
 
 void CtActions::node_subnodes_copy()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     _pCtMainWin->signal_app_tree_node_copy();
 }
 
@@ -202,7 +202,7 @@ void CtActions::_node_add(const bool is_duplicate,
 
 Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_as_child, std::shared_ptr<CtNodeState> node_state)
 {
-    if (!nodeData.rTextBuffer) {
+    if (not nodeData.rTextBuffer) {
         nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
     }
     nodeData.tsCreation = std::time(nullptr);
@@ -313,7 +313,7 @@ bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& chil
 
 void CtActions::node_edit()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     CtNodeData nodeData;
     _pCtMainWin->get_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
     CtNodeData newData = nodeData;
@@ -325,7 +325,7 @@ void CtActions::node_edit()
     // leaving rich text
     if (nodeData.syntax != newData.syntax)
         if (nodeData.syntax == CtConst::RICH_TEXT_ID)
-            if (!CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
+            if (not CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
                 return;
 
     // update node info, because we might need to delete widgets later
@@ -370,7 +370,7 @@ void CtActions::node_inherit_syntax()
         {
             CtTreeIter iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(child);
             std::string node_syntax = iter.get_node_syntax_highlighting();
-            if (!iter.get_node_read_only() && node_syntax != new_syntax)
+            if (not iter.get_node_read_only() && node_syntax != new_syntax)
             {
                 // if from/to RICH , change buffer
                 if (node_syntax == CtConst::RICH_TEXT_ID || new_syntax == CtConst::RICH_TEXT_ID)
@@ -404,8 +404,8 @@ void CtActions::node_inherit_syntax()
 // Delete the Selected Node
 void CtActions::node_delete()
 {
-    if (!_is_there_selected_node_or_error()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
     std::function<void(Gtk::TreeIter, int, std::list<gint64>&, std::list<std::string>&)> collect_children;
     collect_children = [this, &collect_children](Gtk::TreeIter iter,
@@ -431,17 +431,17 @@ void CtActions::node_delete()
     std::list<std::string> lstNodesWarn;
     collect_children(_pCtMainWin->curr_tree_iter(), 0, lstNodesIds, lstNodesWarn);
     Glib::ustring warning_label = str::format(_("Are you sure to <b>Delete the node '%s'?</b>"), str::xml_escape(_pCtMainWin->curr_tree_iter().get_node_name()));
-    if (!_pCtMainWin->curr_tree_iter()->children().empty()) {
+    if (not _pCtMainWin->curr_tree_iter()->children().empty()) {
         warning_label += str::repeat(CtConst::CHAR_NEWLINE, 2) + _("The node <b>has Children, they will be Deleted too!</b>");
         warning_label += str::xml_escape(str::join(lstNodesWarn, ""));
     }
-    if (!CtDialogs::question_dialog(warning_label, *_pCtMainWin)) {
+    if (not CtDialogs::question_dialog(warning_label, *_pCtMainWin)) {
         return;
     }
     // next selected node will be previous sibling or next sibling or parent or None
     Gtk::TreeIter new_iter = --_pCtMainWin->curr_tree_iter();
-    if (!new_iter) new_iter = ++_pCtMainWin->curr_tree_iter();
-    if (!new_iter) new_iter = _pCtMainWin->curr_tree_iter().parent();
+    if (not new_iter) new_iter = ++_pCtMainWin->curr_tree_iter();
+    if (not new_iter) new_iter = _pCtMainWin->curr_tree_iter().parent();
 
     _pCtMainWin->resetPrevTreeIter();
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::ndel);
@@ -475,8 +475,8 @@ void CtActions::node_delete()
 
 void CtActions::node_toggle_read_only()
 {
-    if (!_is_there_selected_node_or_error()) return;
-    bool node_is_ro = !_pCtMainWin->curr_tree_iter().get_node_read_only();
+    if (not _is_there_selected_node_or_error()) return;
+    bool node_is_ro = not _pCtMainWin->curr_tree_iter().get_node_read_only();
     _pCtMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
     _pCtMainWin->get_text_view().set_editable(!node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
@@ -486,7 +486,7 @@ void CtActions::node_toggle_read_only()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
-void CtActions::node_date()
+void CtActions::_node_date(const bool from_sel_not_root)
 {
     const time_t time = std::time(nullptr);
     const Glib::ustring year = str::time_format("%Y", time);
@@ -494,7 +494,12 @@ void CtActions::node_date()
     const Glib::ustring day = str::time_format("%d %a", time);
 
     _pCtMainWin->get_state_machine().set_go_bk_fw_click(true); // so nodes won't be in the list of visited
-    Gtk::TreeIter treeIterYear = node_child_exist_or_create(Gtk::TreeIter{}, year, false/*focusIfExisting*/);
+    Gtk::TreeIter nodeParent;
+    if (from_sel_not_root) {
+        if (not _is_there_selected_node_or_error()) return;
+        nodeParent = _pCtMainWin->curr_tree_iter();
+    }
+    Gtk::TreeIter treeIterYear = node_child_exist_or_create(nodeParent, year, false/*focusIfExisting*/);
     Gtk::TreeIter treeIterMonth = node_child_exist_or_create(treeIterYear, month, false/*focusIfExisting*/);
     _pCtMainWin->get_state_machine().set_go_bk_fw_click(false);
     (void)node_child_exist_or_create(treeIterMonth, day, true/*focusIfExisting*/);
@@ -502,9 +507,9 @@ void CtActions::node_date()
 
 void CtActions::node_up()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     auto prev_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(--_pCtMainWin->curr_tree_iter());
-    if (!prev_iter) return;
+    if (not prev_iter) return;
     _pCtMainWin->get_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), prev_iter);
     auto cur_seq_num = _pCtMainWin->curr_tree_iter().get_node_sequence();
     auto prev_seq_num = prev_iter.get_node_sequence();
@@ -518,9 +523,9 @@ void CtActions::node_up()
 
 void CtActions::node_down()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     auto next_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(++_pCtMainWin->curr_tree_iter());
-    if (!next_iter) return;
+    if (not next_iter) return;
     _pCtMainWin->get_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), next_iter);
     auto cur_seq_num = _pCtMainWin->curr_tree_iter().get_node_sequence();
     auto next_seq_num = next_iter.get_node_sequence();
@@ -534,29 +539,29 @@ void CtActions::node_down()
 
 void CtActions::node_right()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
-    if (!prev_iter) return;
+    if (not prev_iter) return;
     node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_left()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
-    if (!father_iter) return;
+    if (not father_iter) return;
     node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_change_father()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     CtTreeIter old_father_iter = _pCtMainWin->curr_tree_iter().parent();
     CtTreeIter father_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(_pCtMainWin,
                                    _pCtMainWin->get_tree_view(), _("Select the New Parent"), &_pCtMainWin->get_tree_store(), _pCtMainWin->curr_tree_iter()));
-    if (!father_iter) return;
+    if (not father_iter) return;
     gint64 curr_node_id = _pCtMainWin->curr_tree_iter().get_node_id();
     gint64 old_father_node_id = old_father_iter.get_node_id();
     gint64 new_father_node_id = father_iter.get_node_id();
@@ -581,12 +586,12 @@ void CtActions::node_change_father()
 bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path, bool only_test_dest)
 {
     if (src_path == dest_path) {
-        if (!only_test_dest)
+        if (not only_test_dest)
             CtDialogs::error_dialog(_("The new parent can't be the very node to move!"), *_pCtMainWin);
         return false;
     }
     if (dest_path.is_descendant(src_path)) {
-        if (!only_test_dest)
+        if (not only_test_dest)
             CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *_pCtMainWin);
         return false;
     }
@@ -643,7 +648,7 @@ void CtActions::tree_sort_descending()
 //"""Sorts all the Siblings of the Selected Node Ascending"""
 void CtActions::node_siblings_sort_ascending()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
     auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, true); };
@@ -656,7 +661,7 @@ void CtActions::node_siblings_sort_ascending()
 //"""Sorts all the Siblings of the Selected Node Descending"""
 void CtActions::node_siblings_sort_descending()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
     auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, false); };
@@ -700,7 +705,7 @@ void CtActions::node_go_forward()
 
 void CtActions::bookmark_curr_node()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
     if (_pCtMainWin->get_tree_store().bookmarks_add(node_id)) {
@@ -714,7 +719,7 @@ void CtActions::bookmark_curr_node()
 
 void CtActions::bookmark_curr_node_remove()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
     if (_pCtMainWin->get_tree_store().bookmarks_remove(node_id)) {
@@ -751,6 +756,6 @@ void CtActions::tree_clear_property_exclude_from_search()
 
 void CtActions::node_link_to_clipboard()
 {
-    if (!_is_there_selected_node_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
     CtClipboard(_pCtMainWin).node_link_to_clipboard(_pCtMainWin->curr_tree_iter());
 }

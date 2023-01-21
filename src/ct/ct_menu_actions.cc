@@ -1,7 +1,7 @@
 /*
  * ct_menu_actions.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -239,8 +239,10 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Copy the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_copy)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_paste_node_subnodes", "ct_edit_paste", _("_Paste Node and Subnodes"), None,
         _("Paste the Copied Node and Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_paste)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert _Today's Node"), "F8",
-        _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_root", "ct_calendar", _("Insert _Today's Node Under Tree Root"), "F8",
+        _("Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"), sigc::mem_fun(*pActions, &CtActions::node_date_from_root)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_sel", "ct_calendar", _("Insert Toda_y's Node Under Selected Node"), KB_CONTROL+"F8",
+        _("Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_date_from_sel)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("C_hange Node Properties"), "F2",
         _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R",

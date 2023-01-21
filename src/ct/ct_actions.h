@@ -140,6 +140,7 @@ private:
                          bool ascendings);
     bool _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children,
                                         bool ascending);
+    void _node_date(const bool from_sel_not_root);
 
 public:
     // tree actions
@@ -152,7 +153,7 @@ public:
         _node_add(true/*is_duplicate*/, false/*add_as_child*/, &treeIter, _pCtMainWin);
     }
     void node_child_add()          {
-        if (!_is_there_selected_node_or_error()) return;
+        if (not _is_there_selected_node_or_error()) return;
         _node_add(false/*is_duplicate*/, true/*add_as_child*/);
     }
     void node_subnodes_duplicate();
@@ -164,7 +165,8 @@ public:
     void node_inherit_syntax();
     void node_delete();
     void node_toggle_read_only();
-    void node_date();
+    void node_date_from_root() { _node_date(false/*from_sel_not_root*/); }
+    void node_date_from_sel() { _node_date(true/*from_sel_not_root*/); }
     void node_up();
     void node_down();
     void node_right();
