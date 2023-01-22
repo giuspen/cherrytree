@@ -57,7 +57,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_codebox_auto_resize->set_active(_pConfig->codeboxAutoResize);
 
     auto hbox_table_cells_to_light = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_table_cells_to_light = Gtk::manage(new Gtk::Label{_("Threshold Number of Table Cells for Lightweight Variant")});
+    auto label_table_cells_to_light = Gtk::manage(new Gtk::Label{_("Threshold Number of Table Cells for Lightweight Interface")});
     Glib::RefPtr<Gtk::Adjustment> adj_table_cells_to_light = Gtk::Adjustment::create(_pConfig->tableCellsGoLight, 1, 100000, 1);
     auto spinbutton_table_cells_to_light = Gtk::manage(new Gtk::SpinButton{adj_table_cells_to_light});
     hbox_table_cells_to_light->pack_start(*label_table_cells_to_light, false, false);

@@ -467,7 +467,7 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     grid.attach(label_col_width,       0, 3, 1, 1);
     grid.attach(spinbutton_col_width,  1, 3, 1, 1);
 
-    auto checkbutton_is_light = Gtk::CheckButton(_("Lightweight (much faster for large tables)"));
+    auto checkbutton_is_light = Gtk::CheckButton(_("Lightweight Interface (much faster for large tables)"));
     checkbutton_is_light.set_active(is_light);
     auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
 
