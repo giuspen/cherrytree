@@ -140,7 +140,11 @@ void CtActions::table_insert()
         for (auto& row : rows) {
             tbl_matrix.push_back(CtTableRow{});
             for (auto& cell : row) {
-                tbl_matrix.back().push_back(new CtTextCell{_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
+                if (is_light) {
+                    tbl_matrix.back().push_back(new Glib::ustring{});
+                } else {
+                    tbl_matrix.back().push_back(new CtTextCell{_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});    
+                }
             }
         }
     }
