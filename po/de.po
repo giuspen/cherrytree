@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-22 11:07+0000\n"
-"PO-Revision-Date: 2023-01-23 13:34+0100\n"
+"PO-Revision-Date: 2023-01-28 20:34+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -152,7 +152,7 @@ msgstr "Internes Terminal benutzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:50
 msgid "Internal Terminal Shell"
-msgstr "Interne Terminal Shell"
+msgstr "Interne Terminal-Shell"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:79
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
@@ -219,8 +219,8 @@ msgstr "Passwort für %s eingeben"
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:403
 msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
-"Integritätsprüfung von gesichertem Dokument fehlgeschlagen. Versuche Datei--"
-">Speichern unter"
+"Integritätsprüfung des gesicherten Dokuments fehlgeschlagen. Versuchen Sie "
+"es mit Datei --> Speichern unter"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:386
 msgid "Failed to encrypt the file"
@@ -689,7 +689,7 @@ msgstr "Spalteneigenschaften"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:470
 msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Leichtgwichtige Schnittstelle (schneller für große Tabellen)"
+msgstr "Kompakte Schnittstelle (viel schneller für große Tabellen)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:472
 msgid "Import from CSV File"
@@ -714,7 +714,7 @@ msgstr "CodeBoxen automatisch erweitern"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:60
 msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Grenzwert für Anzahl Tabellenzellen für leichtgewichtige Schnittstelle"
+msgstr "Grenzwert für die Anzahl der Tabellenzellen für kompakte Schnittstelle"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:67
 msgid "Embedded File Icon Size"
@@ -2655,16 +2655,17 @@ msgstr "Knoten mit heuti_gem Datum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:243
 msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Knoten mit der Hierarchie Jahr/Monat/Tag unter Wurzelknoten einfügen"
+msgstr ""
+"Knoten mit der Hierarchie Jahr/Monat/Tag am Anfang der Baumstruktur einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:244
 msgid "Insert Toda_y's Node Under Selected Node"
-msgstr "Knoten mit heuti_gem Datum unterhalb selektiertem Knoten einfügen"
+msgstr "Knoten mit heuti_gem Datum unter dem markierten Knoten einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
 msgstr ""
-"Knoten mit der Hierarchie Jahr/Monat/Tag unterhalb selektiertem Knoten "
+"Knoten mit der Hierarchie Jahr/Monat/Tag unter dem markierten Knoten "
 "einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:246
@@ -2923,7 +2924,7 @@ msgstr "Terminalanzeige umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
 msgid "Toggle Focus Terminal/Te_xt"
-msgstr "_Fokus zwischen Terminal  und Text umschalten"
+msgstr "_Fokus zwischen Terminal und Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "Toggle Focus Between Terminal and Text"
@@ -3003,11 +3004,11 @@ msgstr "Vollbild ein/aus umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:337
 msgid "_Always On Top On/Off"
-msgstr "_Immer im Vordergrund An/Aus"
+msgstr "_Immer im Vordergrund ein/aus"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "Always On Top On/Off"
-msgstr "Immer im Vordergrund An/Aus"
+msgstr "Immer im Vordergrund ein/aus"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:340
 msgid "Disable Menubar i_n Titlebar"
