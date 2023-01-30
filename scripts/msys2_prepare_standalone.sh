@@ -255,6 +255,6 @@ do
   cp -v ${OLD_MINGW64_FOLDER}/bin/${element_rel} ${NEW_MINGW64_FOLDER}/bin/
 done
 cp -v ${OLD_MINGW64_FOLDER}/var/lib/texmf/fonts/map/dvips/updmap/ps2pk.map ${NEW_MINGW64_FOLDER}/bin/
-# fix issue with mingw64/ssl not installed properly in --root ${NEW_MSYS2_FOLDER}
-rm -rf ${NEW_MINGW64_FOLDER}/ssl
-cp -rv ${OLD_MINGW64_FOLDER}/ssl ${NEW_MINGW64_FOLDER}/
+# fix issue with mingw64/etc/ssl not installed properly in --root ${NEW_MSYS2_FOLDER}
+rm -rf ${NEW_MINGW64_FOLDER}/etc/ssl
+cp -rv ${OLD_MINGW64_FOLDER}/etc/ssl ${NEW_MINGW64_FOLDER}/etc/
