@@ -1,15 +1,10 @@
-# Italian translations for cherrytree package.
-# Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Giuseppe Penone <giuspen@gmail.com>, 2010, 2021.
-# Vincenzo Reale <smart2128@baslug.org>, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
+# Vincenzo Reale <smart2128vr@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-22 11:07+0000\n"
-"PO-Revision-Date: 2023-01-22 12:52+0100\n"
+"PO-Revision-Date: 2023-01-31 16:46+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -220,8 +215,8 @@ msgstr "Inserisci la password per %s"
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:403
 msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
-"Controllo di integrità del documento salvato non riuscito. Prova File-->Salva"
-" come"
+"Controllo di integrità del documento salvato non riuscito. Prova File--"
+">Salva come"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:386
 msgid "Failed to encrypt the file"
@@ -2570,7 +2565,7 @@ msgstr "Esegui tutto il codice in casella di codice o nodo"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:222
 msgid "E_xecute Code Line or Selection"
-msgstr "E_esegui riga di codice o selezione"
+msgstr "E_segui riga di codice o selezione"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:223
 msgid "Execute Code from Current Line or Selected Text"
@@ -2816,7 +2811,7 @@ msgstr "Elimina il nodo selezionato"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
 msgid "Find/Replace"
-msgstr "Trova/Sostitusci"
+msgstr "Trova/Sostituisci"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:287
 msgid "_Find in Node Content"
@@ -3792,292 +3787,3 @@ msgstr "Documento di Leo"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.h:63
 msgid "Are you sure to Reset to Default?"
 msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
-
-#~ msgid ""
-#~ "Pandoc executable could not be found, please ensure it is in your path"
-#~ msgstr ""
-#~ "L'eseguibile Pandoc non è stato trovato, assicurati che sia nel tuo path"
-
-#~ msgid "From File using _Pandoc"
-#~ msgstr "Da file utilizzando _Pandoc"
-
-#~ msgid "Add a node to the current tree using Pandoc"
-#~ msgstr "Aggiungi un nodo all'albero corrente utilizzando Pandoc"
-
-#~ msgid "Execute Code"
-#~ msgstr "Esegui codice"
-
-#~ msgid "No CodeBox is Selected"
-#~ msgstr "Nessun blocco di codice è selezionato"
-
-#~ msgid "The New Language will be Available Only After Restarting CherryTree"
-#~ msgstr "La nuova lingua sarà disponibile solo dopo il riavvio di CherryTree"
-
-#~ msgid "click me"
-#~ msgstr "fai clic qui"
-
-#~ msgid "_Format"
-#~ msgstr "_Formato"
-
-#~ msgid "_Tools"
-#~ msgstr "_Strumenti"
-
-#~ msgid "_List"
-#~ msgstr "_Lista"
-
-#~ msgid "_Row"
-#~ msgstr "_Riga"
-
-#~ msgid "_Print"
-#~ msgstr "Stam_pa"
-
-#~ msgid "Insert Ti_mestamp"
-#~ msgstr "Inserisci _marca temporale"
-
-#~ msgid "Quit"
-#~ msgstr "Esci"
-
-#~ msgid "Replace in Selected Node and Subnodes"
-#~ msgstr "Sostituisci nel nodo selezionato e nei suoi sottonodi"
-
-#~ msgid "Search in Selected Node and Subnodes"
-#~ msgstr "Cerca nel nodo selezionato e nei suoi sottonodi"
-
-#~ msgid "Search in All Nodes"
-#~ msgstr "Cerca in tutti i nodi"
-
-#~ msgid "Replace in Node Names..."
-#~ msgstr "Sostituisci nei nomi dei nodi..."
-
-#~ msgid "Search For a Node Name..."
-#~ msgstr "Cerca un nome di nodo..."
-
-#~ msgid "Monospace Text Color Background"
-#~ msgstr "Colore dello sfondo del testo a spaziatura fissa"
-
-#~ msgid "Find in _All Nodes Contents"
-#~ msgstr "Trova nel contenuto di _tutti i nodi"
-
-#~ msgid "Find into All the Tree Nodes Contents"
-#~ msgstr "Trova nel contenuto di tutti i nodi dell'albero"
-
-#~ msgid "Find in _Selected Node and Subnodes Contents"
-#~ msgstr "Trova nel contenuto del nodo _selezionato e nei sottonodi"
-
-#~ msgid "Find into the Selected Node and Subnodes Contents"
-#~ msgstr "Trova nel contenuto del nodo selezionato e nei sottonodi"
-
-#~ msgid "Replace in _All Nodes Contents"
-#~ msgstr "Sostituisci nel contenuto di _tutti i nodi"
-
-#~ msgid "Replace into All the Tree Nodes Contents"
-#~ msgstr "Sostituisci nel contenuto di tutti i nodi dell'albero"
-
-#~ msgid "Replace in _Selected Node and Subnodes Contents"
-#~ msgstr "Sostituisci nel contenuto del nodo _selezionato e nei sottonodi"
-
-#~ msgid "Replace into the Selected Node and Subnodes Contents"
-#~ msgstr "Sostituisci nel contenuto del nodo selezionato e nei suoi sottonodi"
-
-#~ msgid "Replace in Nodes _Names"
-#~ msgstr "Sostituisci nei _nomi dei nodi"
-
-#~ msgid "Replace in Nodes Names"
-#~ msgstr "Sostituisci nei nomi dei nodi"
-
-#~ msgid "_Execute CodeBox Code"
-#~ msgstr "_Esegui blocco di codice"
-
-#~ msgid "For_matting"
-#~ msgstr "F_ormattazione"
-
-#~ msgid "Nodes _Import"
-#~ msgstr "_Importa nodi"
-
-#~ msgid "Nodes E_xport"
-#~ msgstr "E_sporta nodi"
-
-#~ msgid "E_xport"
-#~ msgstr "E_sporta"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#~ msgid "Monospace Background"
-#~ msgstr "Sfondo a spaziatura fissa"
-
-#~ msgid "Export to PDF at specified file path"
-#~ msgstr "Esporta in PDF nel percorso file specificato"
-
-#~ msgid "Export to Multiple Plain _Text Files"
-#~ msgstr "Esporta in più file di _testo semplice"
-
-#~ msgid "Export to Multiple Plain Text Files"
-#~ msgstr "Esporta in più file di testo semplice"
-
-#~ msgid "Export to _Single Plain Text File"
-#~ msgstr "Esporta in _singolo file di testo semplice"
-
-#~ msgid "Unknown"
-#~ msgstr "Sconosciuto"
-
-#~ msgid "(no suggestions)"
-#~ msgstr "(nessun suggerimento)"
-
-#~ msgid "Add \"{}\" to Dictionary"
-#~ msgstr "Aggiungi \"{}\" al dizionario"
-
-#~ msgid "Ignore All"
-#~ msgstr "Ignora tutto"
-
-#~ msgid "Languages"
-#~ msgstr "Lingue"
-
-#~ msgid "Suggestions"
-#~ msgstr "Suggerimenti"
-
-#~ msgid "NoteCase Document"
-#~ msgstr "Documento di NoteCase"
-
-#~ msgid "EPIM HTML Document"
-#~ msgstr "Documento HTML di EPIM"
-
-#~ msgid "KeyNote Document"
-#~ msgstr "Documento di KeyNote"
-
-#~ msgid "Knowit Document"
-#~ msgstr "Documento di Knowit"
-
-#~ msgid ""
-#~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-#~ "Installed Properly"
-#~ msgstr ""
-#~ "Binario eseguibile '7za' non trovato, Controlla che il pacchetto 'p7zip-"
-#~ "full' sia installato correttamente"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Password errata"
-
-#~ msgid "Type To Search..."
-#~ msgstr "Digita per cercare..."
-
-#~ msgid "Command Name"
-#~ msgstr "Nome comando"
-
-#~ msgid "Not Any H1, H2 or H3 Formatting Found"
-#~ msgstr "Nessuna formattazione H1, H2 o H3 trovata"
-
-#~ msgid "Min Width"
-#~ msgstr "Larghezza minima"
-
-#~ msgid "Max Width"
-#~ msgstr "Larghezza massima"
-
-#~ msgid "Click to Edit the Column Settings"
-#~ msgstr "Fai clic per modificare le impostazioni di colonna"
-
-#~ msgid "Table Column Action"
-#~ msgstr "Azione su colonna di tabella"
-
-#~ msgid "From _Basket Folder"
-#~ msgstr "Da cartella di _Basket"
-
-#~ msgid "Add Nodes of a Basket Folder to the Current Tree"
-#~ msgstr "Aggiungi i nodi di una cartella di Basket all'albero corrente"
-
-#~ msgid "From _EssentialPIM HTML File"
-#~ msgstr "Da file HTML di _EssentialPIM"
-
-#~ msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
-#~ msgstr "Aggiungi i nodi da un file HTML di EssentialPIM all'albero corrente"
-
-#~ msgid "From K_eyNote File"
-#~ msgstr "Da file  di K_eyNote"
-
-#~ msgid "Add Nodes of a KeyNote File to the Current Tree"
-#~ msgstr "Aggiungi i nodi di un file di KeyNote all'albero corrente"
-
-#~ msgid "From K_nowit File"
-#~ msgstr "Da file di K_nowit"
-
-#~ msgid "Add Nodes of a Knowit File to the Current Tree"
-#~ msgstr "Aggiungi i nodi di un file Knowit all'albero corrente"
-
-#~ msgid "From _TuxCards File"
-#~ msgstr "Da file di _TuxCards"
-
-#~ msgid "Add Nodes of a TuxCards File to the Current Tree"
-#~ msgstr "Aggiungi i nodi di un file di TuxCards all'albero corrente"
-
-#~ msgid "Insert _NewLine"
-#~ msgstr "Inserisci interruzione di riga"
-
-#~ msgid "Insert NewLine Char"
-#~ msgstr "Inserisci carattere di interruzione di riga"
-
-#~ msgid "Use AppIndicator for Docking"
-#~ msgstr "Usa AppIndicator per l'ancoraggio"
-
-#~ msgid "Cancel"
-#~ msgstr "Annulla"
-
-#~ msgid "Yes"
-#~ msgstr "Sì"
-
-#~ msgid "No"
-#~ msgstr "No"
-
-#~ msgid "The Characters  %s  are Not Allowed"
-#~ msgstr "I caratteri  %s  non sono consentiti"
-
-#~ msgid "Text Font"
-#~ msgstr "Carattere testo"
-
-#~ msgid "Toggle Node _Expanded/Collapsed"
-#~ msgstr "Scambia tra stato _Espanso/Compresso"
-
-#~ msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-#~ msgstr "Scambia tra stato Espanso/Compresso del nodo selezionato"
-
-#~ msgid "Find into the Selected Node"
-#~ msgstr "Trova nel nodo selezionato"
-
-#~ msgid "Find into all the Tree Nodes"
-#~ msgstr "Trova in tutti i nodi dell'albero"
-
-#~ msgid "_Replace in Node"
-#~ msgstr "_Sostituisci nel nodo"
-
-#~ msgid "Replace into the Selected Node"
-#~ msgstr "Sostituisci nel nodo selezionato"
-
-#~ msgid "Replace in Node_s"
-#~ msgstr "Sostituisci nei nod_i"
-
-#~ msgid "Replace into all the Tree Nodes"
-#~ msgstr "Sostituisci in tutti i nodi dell'albero"
-
-#~ msgid "Code Nodes"
-#~ msgstr "Nodi di codice"
-
-#~ msgid "Use Cherries as Nodes Icons"
-#~ msgstr "Usa ciliegie come icone dei nodi"
-
-#~ msgid "Do Not Display Nodes Icons"
-#~ msgstr "Non mostrare le icone dei nodi"
-
-#~ msgid "All Nodes"
-#~ msgstr "Tutti i nodi"
-
-#~ msgid "_Bookmark This Node"
-#~ msgstr "_Aggiungi nodo ai segnalibri"
-
-#~ msgid ""
-#~ "Copyright © 2009-2014\n"
-#~ "Giuseppe Penone <giuspen@gmail.com>"
-#~ msgstr ""
-#~ "Copyright © 2009-2014\n"
-#~ "Giuseppe Penone <giuspen@gmail.com>"
-
-#~ msgid "Sort with Drag and Drop, Delete with the Delete Key"
-#~ msgstr "Ordina con il trascinamento e rilascio, Elimina con il tasto Canc"
