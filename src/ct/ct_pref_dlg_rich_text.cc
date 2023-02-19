@@ -71,7 +71,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_embfile_icon_size->pack_start(*spinbutton_embfile_icon_size, false, false);
 
     auto hbox_embfile_max_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_embfile_max_size = Gtk::manage(new Gtk::Label{_("Embedded File Size Limit")});
+    auto label_embfile_max_size = Gtk::manage(new Gtk::Label{_("Embedded File Size Limit (MB)")});
     Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(_pConfig->embfileMaxSize, 1, 1000, 1);
     auto spinbutton_embfile_max_size = Gtk::manage(new Gtk::SpinButton{adj_embfile_max_size});
     hbox_embfile_max_size->pack_start(*label_embfile_max_size, false, false);

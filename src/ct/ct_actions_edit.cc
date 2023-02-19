@@ -208,7 +208,7 @@ void CtActions::embfile_insert_path(const std::string& filepath)
 
     if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
         bool is_sqlite = fs::get_doc_type(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
-        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtConfig->embfileMaxSize);
+        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
         if (is_sqlite) {
             if (!CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
                 return;
@@ -1031,7 +1031,7 @@ void CtActions::_text_selection_change_case(gchar change_type)
     if (not text_buffer->get_has_selection() and
         not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
     {
-        CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("No Text is Selected."), *_pCtMainWin);
         return;
     }
 

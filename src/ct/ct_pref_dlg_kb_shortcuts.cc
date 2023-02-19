@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_kb_shortcuts.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -121,7 +121,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
             for (const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
-                    std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use"), str::xml_escape(CtStrUtil::get_accelerator_label(shortcut))) + "</b>\n\n";
+                    std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use."), str::xml_escape(CtStrUtil::get_accelerator_label(shortcut))) + "</b>\n\n";
                     message += str::format(_("The current associated action is '%s'"), str::xml_escape(str::replace(action.name, "_", ""))) + "\n\n";
                     message += "<b>" + std::string(_("Do you want to steal the shortcut?")) + "</b>";
                     if (!CtDialogs::question_dialog(message, *this))

@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_tree.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -122,7 +122,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     tags_frame.set_shadow_type(Gtk::SHADOW_NONE);
     tags_frame.add(tags_hbox);
 
-    Gtk::Label excl_label{_("Exclude from Searches:")};
+    Gtk::Label excl_label{_("Exclude from Searches")};
     Gtk::Box excl_hbox{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
     excl_hbox.set_margin_left(5);
     Gtk::CheckButton excl_me_checkbutton{_("This Node")};

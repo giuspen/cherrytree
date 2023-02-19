@@ -1,7 +1,7 @@
 /*
  * ct_actions_help.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -49,14 +49,14 @@ void CtActions::check_for_newer_version()
     std::size_t openp = latest_debian_changelog_from_server.find("(");
     std::size_t closep = latest_debian_changelog_from_server.find(")");
     if (std::string::npos == openp or std::string::npos == closep or closep < openp) {
-        statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later"));
+        statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later."));
         return;
     }
     std::string latest_version_from_server = latest_debian_changelog_from_server.substr(openp + 1, closep - openp - 1);
     auto re = Glib::Regex::create("(\\d+)\\.(\\d+)\\.(\\d+)-\\d+");
     Glib::MatchInfo match;
     if (not re->match(latest_version_from_server, match)) {
-        statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later"));
+        statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later."));
         return;
     }
     std::vector<gint64> splitted_latest_v = {atoi(match.fetch(1).c_str()), atoi(match.fetch(2).c_str()), atoi(match.fetch(3).c_str())};
@@ -74,10 +74,10 @@ void CtActions::check_for_newer_version()
         }
         else {
             if (weighted_latest_v == weighted_local_v) {
-                statusbar.update_status(Glib::ustring{_("You Are Using the Latest Version Available")} + trail_latest_from_srv);
+                statusbar.update_status(Glib::ustring{_("You Are Using the Latest Version Available.")} + trail_latest_from_srv);
             }
             else {
-                statusbar.update_status(_("You Are Using a Development Version"));
+                statusbar.update_status(_("You Are Using a Development Version."));
                 spdlog::debug("latest from server {}.{}.{}", splitted_latest_v[0], splitted_latest_v[1], splitted_latest_v[2]);
             }
         }

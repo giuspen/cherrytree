@@ -206,7 +206,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
             }
         }
         else {
-            CtDialogs::warning_dialog(str::format(_("No node named '%s' found"), str::xml_escape(node_to_focus)), *this);
+            CtDialogs::warning_dialog(str::format(_("No node named '%s' found."), str::xml_escape(node_to_focus)), *this);
         }
     }
 
@@ -367,7 +367,7 @@ void CtMainWin::mod_time_sentinel_restart()
                 spdlog::debug("mod time was {} now {}", _uCtStorage->get_mod_time(), currModTime);
                 fs::path file_path = _uCtStorage->get_file_path();
                 if (file_open(file_path, ""/*node*/, ""/*anchor*/)) {
-                    _ctStatusBar.update_status(_("The Document was Reloaded After External Update to CT* File"));
+                    _ctStatusBar.update_status(_("The Document was Reloaded After External Update to CT* File."));
                 }
             }
         }

@@ -56,7 +56,7 @@ void CtActions::find_in_selected_node()
         if (entry_predefined_text.length()) {
             _s_options.str_find = entry_predefined_text;
         }
-        std::string title = _s_state.replace_active ? _("Replace in Current Node...") : _("Search in Current Node...");
+        std::string title = _s_state.replace_active ? _("Replace in Current Node") : _("Search in Current Node");
         pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, false/*multiple_nodes*/);
         if (entry_predefined_text.length()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
@@ -278,7 +278,7 @@ void CtActions::find_again_iter(const bool fromIterativeDialog)
             find_in_multiple_nodes();
         } break;
         default:
-            CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
+            CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session."), *_pCtMainWin);
     }
     _s_state.from_find_iterated = false;
     _s_options.iterative_dialog = restore_iterative_dialog;

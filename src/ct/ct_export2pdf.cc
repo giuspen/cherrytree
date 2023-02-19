@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -563,7 +563,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
 
     print_data->operation->set_n_pages(print_data->pages.size());
     if (any_image_resized) {
-        print_data->warning = Glib::ustring(_("Warning: One or More Images Were Reduced to Enter the Page")) + " ("
+        print_data->warning = Glib::ustring(_("Warning: One or More Images Were Reduced to Enter the Page!")) + " ("
                                        + std::to_string(static_cast<int>(_page_width))+ "x" + std::to_string(static_cast<int>(_page_height)) + ")";
     }
 }

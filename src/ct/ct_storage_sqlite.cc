@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -157,8 +157,8 @@ bool CtStorageSqlite::_check_database_integrity()
     }
     spdlog::error(log_msg);
 
-    const auto error_msg = _("The database file %s is corrupt, see log for more details") + std::string{"\n\n"} +
-        _("Backup files are by default 3 in the same folder of the corrupted document, with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one tilde: copy the file to another directory, remove the trailing tilde and open with cherrytree. If it still fails, try the one with two tildes and if it still fails try the one with three tildes");
+    const auto error_msg = _("The database file %s is corrupt, see log for more details.") + std::string{"\n\n"} +
+        _("Backup files are by default 3 in the same folder of the corrupted document, with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one tilde: copy the file to another directory, remove the trailing tilde and open with cherrytree. If it still fails, try the one with two tildes and if it still fails try the one with three tildes.");
     spdlog::error(error_msg);
 
     CtDialogs::error_dialog(str::format(error_msg, str::xml_escape(_file_path.string())), *_pCtMainWin);
@@ -214,7 +214,7 @@ void CtStorageSqlite::test_connection()
     }
     catch(std::exception& e) {
         spdlog::debug("{} {}", __FUNCTION__, e.what());
-        throw std::runtime_error(str::format(_("%s write failed - file is missing. Reattach usb driver or shared resource"), _file_path));
+        throw std::runtime_error(str::format(_("%s write failed - file is missing. Reattach USB driver or shared resource!"), _file_path));
     }
     if (!test_readwrite())
         throw std::runtime_error(str::format(_("%s write failed - is file blocked by a sync program?"), _file_path));

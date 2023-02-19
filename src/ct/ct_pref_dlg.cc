@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -403,7 +403,7 @@ void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr
 {
     if (!(_restartReasons & (int)reason)) {
         _restartReasons |= (int)reason;
-        CtDialogs::info_dialog(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"), *this);
+        CtDialogs::info_dialog(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree."), *this);
     }
 }
 

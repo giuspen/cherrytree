@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -431,21 +431,21 @@ void CtImageLatex::update_tooltip()
         return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executables 'latex' and 'dvipng'") + Glib::ustring{"</span></b>\n"} +
                Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
                Glib::ustring{"\n  <tt>$sudo apt install texlive-latex-base</tt>\n  <tt>$sudo apt install dvipng</tt>\n"} +
-               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"* "} + _("For example, on macOS the packages to install are:") +
                Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
     }
     if (not _renderingBinariesLatexOk) {
         return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executable 'latex'") + Glib::ustring{"</span></b>\n"} +
                Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
                Glib::ustring{"\n  <tt>$sudo apt install texlive-latex-base</tt>\n"} +
-               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"* "} + _("For example, on macOS the packages to install are:") +
                Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
     }
     if (not _renderingBinariesDviPngOk) {
         return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executable 'dvipng'") + Glib::ustring{"</span></b>\n"} +
                Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +
                Glib::ustring{"\n  <tt>$sudo apt install dvipng</tt>\n"} +
-               Glib::ustring{"* "} + _("For example, on Mac OS the packages to install are:") +
+               Glib::ustring{"* "} + _("For example, on macOS the packages to install are:") +
                Glib::ustring{"\n  <tt>$brew install --cask basictex</tt>\n  <tt>$sudo tlmgr update --self</tt>\n  <tt>$sudo tlmgr install dvipng</tt>\n"};
     }
     return "";

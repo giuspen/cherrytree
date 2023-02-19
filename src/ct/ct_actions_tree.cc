@@ -48,7 +48,7 @@ bool CtActions::_is_tree_not_empty_or_error()
 bool CtActions::_is_curr_node_not_read_only_or_error()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) {
-        CtDialogs::error_dialog(_("The Selected Node is Read Only"), *_pCtMainWin);
+        CtDialogs::error_dialog(_("The Selected Node is Read Only."), *_pCtMainWin);
         return false;
     }
     return true;
@@ -61,9 +61,9 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
         or (plain_text_ok and _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::PLAIN_TEXT_ID))
         return true;
     if (not plain_text_ok)
-        CtDialogs::warning_dialog(_("This Feature is Available Only in Rich Text Nodes"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("This Feature is Available Only in Rich Text Nodes."), *_pCtMainWin);
     else
-        CtDialogs::warning_dialog(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes."), *_pCtMainWin);
     return false;
 }
 
@@ -72,7 +72,7 @@ bool CtActions::_is_there_text_selection_or_error()
 {
     if (not _is_there_selected_node_or_error()) return false;
     if (not _curr_buffer()->get_has_selection()) {
-        CtDialogs::error_dialog(_("No Text is Selected"), *_pCtMainWin);
+        CtDialogs::error_dialog(_("No Text is Selected."), *_pCtMainWin);
         return false;
     }
     return true;

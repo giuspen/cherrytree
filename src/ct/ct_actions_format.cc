@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -79,7 +79,7 @@ void CtActions::apply_tags_latest()
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
     if (_pCtConfig->latestTagProp.empty())
-        CtDialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session."), *_pCtMainWin);
     else {
         remove_text_formatting();
         std::vector<std::string> tagProperties = str::split(_pCtConfig->latestTagProp, ",");
@@ -98,7 +98,7 @@ void CtActions::remove_text_formatting()
     if (not _is_curr_node_not_read_only_or_error()) return;
     auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
     if (not curr_buffer->get_has_selection() and !_pCtMainWin->apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
-        CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("No Text is Selected."), *_pCtMainWin);
         return;
     }
     Gtk::TextIter iter_sel_start, iter_sel_end;
@@ -310,7 +310,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                 if (tag_property != CtConst::TAG_LINK) {
                     restore_cursor_offset = text_buffer->get_insert()->get_iter().get_offset();
                     if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
-                        CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
+                        CtDialogs::warning_dialog(_("No Text is Selected."), *_pCtMainWin);
                         return;
                     }
                 }
@@ -339,7 +339,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             iter_sel_end = it_sel_end;
         }
         else {
-            CtDialogs::warning_dialog(_("The Cursor is Not into a Paragraph"), *_pCtMainWin);
+            CtDialogs::warning_dialog(_("The Cursor is Not into a Paragraph."), *_pCtMainWin);
             return;
         }
     }

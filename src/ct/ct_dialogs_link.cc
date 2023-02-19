@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_link.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -254,7 +254,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             }
         }
         if (anchors_list.empty()) {
-            info_dialog(_("There are No Anchors in the Selected Node"), dialog);
+            info_dialog(_("There are No Anchors in the Selected Node."), dialog);
         }
         else {
             Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();

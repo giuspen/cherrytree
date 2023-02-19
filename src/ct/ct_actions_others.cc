@@ -339,14 +339,14 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         if (from_wheel) {
             filepath = filepath.parent_path();
             if (not fs::is_directory(filepath)) {
-                CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
+                CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid."), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
             }
             fs::open_folderpath(filepath, _pCtConfig);
         }
         else {
             if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR)) {
-                CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
+                CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid."), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
             }
             fs::open_filepath(filepath, true, _pCtConfig);
@@ -493,7 +493,7 @@ void CtActions::_exec_code(const bool is_all)
     }
     std::string binary_cmd = CtPrefDlg::get_code_exec_type_cmd(_pCtMainWin, code_type);
     if (binary_cmd.empty()) {
-        CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog"), str::xml_escape(code_type)), *_pCtMainWin);
+        CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog."), str::xml_escape(code_type)), *_pCtMainWin);
         return;
     }
     std::string code_type_ext = CtPrefDlg::get_code_exec_ext(_pCtMainWin, code_type);
@@ -531,7 +531,7 @@ void CtActions::_exec_code(const bool is_all)
         if (not xterm_verified and str::startswith(terminal_cmd, "xterm ")) {
             const int status = std::system("xterm -version");
             if (WEXITSTATUS(status) != 0) {
-                CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
+                CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog."), *_pCtMainWin);
                 return;
             }
             xterm_verified = true;
@@ -860,7 +860,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                 continue;
             }
             if (tree_iter.get_node_read_only()) {
-                CtDialogs::warning_dialog(_("Cannot Edit Embedded File in Read Only Node"), *_pCtMainWin);
+                CtDialogs::warning_dialog(_("Cannot Edit Embedded File in Read Only Node."), *_pCtMainWin);
                 continue;
             }
             _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);

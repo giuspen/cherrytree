@@ -335,12 +335,12 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
             args.password = entry_passw_1.get_text();
             if (args.password.empty())
             {
-                error_dialog(_("The Password Fields Must be Filled"), *args.pParentWin);
+                error_dialog(_("The Password Fields Must be Filled."), *args.pParentWin);
                 retVal = false;
             }
             else if (args.password != entry_passw_2.get_text())
             {
-                error_dialog(_("The Two Inserted Passwords Do Not Match"), *args.pParentWin);
+                error_dialog(_("The Two Inserted Passwords Do Not Match."), *args.pParentWin);
                 retVal = false;
             }
         }

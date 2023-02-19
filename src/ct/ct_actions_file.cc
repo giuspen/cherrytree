@@ -293,7 +293,7 @@ void CtActions::preferences_import()
         _pCtConfig->customCodexecExt[currPair.first] = currPair.second;
     }
 
-    CtDialogs::info_dialog(_("This Change will have Effect Only After Restarting CherryTree"), *_pCtMainWin);
+    CtDialogs::info_dialog(_("This Change will have Effect Only After Restarting CherryTree."), *_pCtMainWin);
 }
 
 void CtActions::preferences_export()
