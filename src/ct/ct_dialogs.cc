@@ -210,9 +210,9 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 // Choose the CherryTree data storage type (xml or db) and protection
 bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
 {
-    Gtk::Dialog dialog(_("Choose Storage Type"),
-                       *args.pParentWin,
-                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog{_("Choose Storage Type"),
+                       *args.pCtMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     Gtk::Button* pButtonOk = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_size(350, -1);
@@ -254,27 +254,21 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     passw_frame.set_shadow_type(Gtk::SHADOW_NONE);
     passw_frame.add(vbox_passw);
 
-    if (args.ctDocEncrypt == CtDocEncrypt::False)
-    {
+    if (args.ctDocEncrypt == CtDocEncrypt::False) {
         passw_frame.set_sensitive(false);
-        if (args.ctDocType == CtDocType::SQLite)
-        {
+        if (args.ctDocType == CtDocType::SQLite) {
             radiobutton_sqlite_not_protected.set_active(true);
         }
-        else if (args.ctDocType == CtDocType::XML)
-        {
+        else if (args.ctDocType == CtDocType::XML) {
             radiobutton_xml_not_protected.set_active(true);
         }
     }
-    else if (args.ctDocEncrypt == CtDocEncrypt::True)
-    {
+    else if (args.ctDocEncrypt == CtDocEncrypt::True) {
         passw_frame.set_sensitive(true);
-        if (args.ctDocType == CtDocType::SQLite)
-        {
+        if (args.ctDocType == CtDocType::SQLite) {
             radiobutton_sqlite_pass_protected.set_active(true);
         }
-        else
-        {
+        else {
             radiobutton_xml_pass_protected.set_active(true);
         }
     }
@@ -283,22 +277,45 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
         passw_frame.set_sensitive(false);
     }
 
+    auto pCtMainWin = args.pCtMainWin;
+    auto pCtConfig = pCtMainWin->get_ct_config();
+    auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
+    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(pCtConfig->autosaveVal, 1, 1000, 1);
+    auto spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
+    auto label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
+    checkbutton_autosave->set_active(pCtConfig->autosaveOn);
+    spinbutton_autosave->set_value(pCtConfig->autosaveVal);
+    spinbutton_autosave->set_sensitive(pCtConfig->autosaveOn);
+    hbox_autosave->pack_start(*checkbutton_autosave, false, false);
+    hbox_autosave->pack_start(*spinbutton_autosave, false, false);
+    hbox_autosave->pack_start(*label_autosave, false, false);
+
+    checkbutton_autosave->signal_toggled().connect([pCtConfig, pCtMainWin, checkbutton_autosave, spinbutton_autosave](){
+        pCtConfig->autosaveOn = checkbutton_autosave->get_active();
+        pCtMainWin->file_autosave_restart();
+        spinbutton_autosave->set_sensitive(pCtConfig->autosaveOn);
+    });
+    spinbutton_autosave->signal_value_changed().connect([pCtConfig, pCtMainWin, spinbutton_autosave](){
+        pCtConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
+        pCtMainWin->file_autosave_restart();
+    });
+
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
     pContentArea->pack_start(type_frame);
     pContentArea->pack_start(passw_frame);
+    pContentArea->pack_start(*hbox_autosave);
     pContentArea->show_all();
 
-    auto on_radiobutton_savetype_toggled = [&]()
-    {
+    auto on_radiobutton_savetype_toggled = [&](){
         if ( radiobutton_sqlite_pass_protected.get_active() ||
              radiobutton_xml_pass_protected.get_active() )
         {
             passw_frame.set_sensitive(true);
             entry_passw_1.grab_focus();
         }
-        else
-        {
+        else {
             passw_frame.set_sensitive(false);
         }
     };
@@ -324,8 +341,7 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     dialog.hide();
 
     bool retVal{Gtk::RESPONSE_ACCEPT == response};
-    if (retVal)
-    {
+    if (retVal) {
         args.ctDocType = (radiobutton_xml_not_protected.get_active() || radiobutton_xml_pass_protected.get_active() ?
                          CtDocType::XML : CtDocType::SQLite);
         args.ctDocEncrypt = (radiobutton_sqlite_pass_protected.get_active() || radiobutton_xml_pass_protected.get_active() ?
@@ -333,14 +349,12 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
         if (CtDocEncrypt::True == args.ctDocEncrypt)
         {
             args.password = entry_passw_1.get_text();
-            if (args.password.empty())
-            {
-                error_dialog(_("The Password Fields Must be Filled."), *args.pParentWin);
+            if (args.password.empty()) {
+                error_dialog(_("The Password Fields Must be Filled."), *args.pCtMainWin);
                 retVal = false;
             }
-            else if (args.password != entry_passw_2.get_text())
-            {
-                error_dialog(_("The Two Inserted Passwords Do Not Match."), *args.pParentWin);
+            else if (args.password != entry_passw_2.get_text()) {
+                error_dialog(_("The Two Inserted Passwords Do Not Match."), *args.pCtMainWin);
                 retVal = false;
             }
         }

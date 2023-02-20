@@ -341,10 +341,11 @@ void CtMainWin::file_autosave_restart()
     spdlog::debug("autosave is started");
     _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {
         if (get_file_save_needed()) {
-            spdlog::debug("autosave: time to save file");
-            file_save(false);
-        } else {
-            spdlog::debug("autosave: no needs to save file");
+            spdlog::debug("autosave needed");
+            _uCtActions->file_save();
+        }
+        else {
+            spdlog::debug("autosave no need");
         }
         return true;
     }, _pCtConfig->autosaveVal * 60);

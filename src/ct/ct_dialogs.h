@@ -253,12 +253,12 @@ bool codeboxhandle_dialog(CtMainWin* pCtMainWin,
 
 struct storage_select_args
 {
-    Gtk::Window*  pParentWin{nullptr};
+    CtMainWin*    pCtMainWin;
     CtDocType     ctDocType{CtDocType::None};
     CtDocEncrypt  ctDocEncrypt{CtDocEncrypt::None};
     Glib::ustring password;
 
-    storage_select_args(Gtk::Window* win) : pParentWin(win) {}
+    storage_select_args(CtMainWin* win) : pCtMainWin{win} {}
 };
 
 // Choose the CherryTree data storage type (xml or db) and protection
