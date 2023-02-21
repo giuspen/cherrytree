@@ -822,7 +822,9 @@ Glib::ustring CtFontUtil::get_font_str(const Glib::ustring& fontFamily, const in
 
 Glib::ustring CtFontUtil::get_font_str(const Pango::FontDescription& fontDesc)
 {
-    return fontDesc.get_family() + " " + std::to_string(get_font_size(fontDesc));
+    Glib::ustring font_family = fontDesc.get_family();
+    auto font_family_splitted = str::split(font_family, ",");
+    return font_family_splitted.back() + " " + std::to_string(get_font_size(fontDesc));
 }
 
 
