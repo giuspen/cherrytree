@@ -592,8 +592,13 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
     cairo_context->set_source_rgb(0.5, 0.5, 0.5);
     cairo_context->set_font_size(12);
     Glib::ustring page_num_str = std::to_string(page_nr+1) + "/" + std::to_string(operation->property_n_pages());
-    cairo_context->move_to(_page_width/2., _page_height+17);
-    cairo_context->show_text(page_num_str);
+    Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
+    layout->set_font_description(_rich_font);
+    layout->set_markup(page_num_str);
+    auto layout_line = layout->get_line(0);
+    auto size = _get_width_height_from_layout_line(layout_line);
+    cairo_context->move_to(_page_width/2. - size.width/2, _page_height+17);
+    layout_line->show_in_cairo_context(cairo_context);
 
     //cairo_context->set_source_rgba(0.3, 0, 0, 0.3);
     //cairo_context->rectangle(0, 0, _page_width, _page_height);
