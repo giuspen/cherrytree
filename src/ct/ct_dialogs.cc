@@ -305,7 +305,9 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     pContentArea->set_spacing(5);
     pContentArea->pack_start(type_frame);
     pContentArea->pack_start(passw_frame);
-    pContentArea->pack_start(*hbox_autosave);
+    if (args.showAutosaveOptions) {
+        pContentArea->pack_start(*hbox_autosave);
+    }
     pContentArea->show_all();
 
     auto on_radiobutton_savetype_toggled = [&](){

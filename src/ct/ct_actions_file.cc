@@ -55,24 +55,21 @@ void CtActions::file_vacuum()
 // Save the file providing a new name
 void CtActions::file_save_as()
 {
-    if (not _is_tree_not_empty_or_error())
-    {
+    if (not _is_tree_not_empty_or_error()) {
         return;
     }
-    CtDialogs::storage_select_args storageSelArgs(_pCtMainWin);
+    CtDialogs::storage_select_args storageSelArgs{_pCtMainWin};
+    storageSelArgs.showAutosaveOptions = true;
     fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
-    if (not currDocFilepath.empty())
-    {
+    if (not currDocFilepath.empty()) {
         storageSelArgs.ctDocType = fs::get_doc_type(currDocFilepath);
         storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt(currDocFilepath);
     }
-    if (not CtDialogs::choose_data_storage_dialog(storageSelArgs))
-    {
+    if (not CtDialogs::choose_data_storage_dialog(storageSelArgs)) {
         return;
     }
     CtDialogs::FileSelectArgs fileSelArgs{_pCtMainWin};
-    if (not currDocFilepath.empty())
-    {
+    if (not currDocFilepath.empty()) {
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
         fs::path suggested_basename = currDocFilepath.filename();
         fileSelArgs.curr_file_name = suggested_basename.stem() + CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
@@ -81,8 +78,7 @@ void CtActions::file_save_as()
     std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
     std::string filepath = CtDialogs::file_save_as_dialog(fileSelArgs);
-    if (filepath.empty())
-    {
+    if (filepath.empty()) {
         return;
     }
 

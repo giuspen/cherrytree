@@ -257,6 +257,7 @@ struct storage_select_args
     CtDocType     ctDocType{CtDocType::None};
     CtDocEncrypt  ctDocEncrypt{CtDocEncrypt::None};
     Glib::ustring password;
+    bool          showAutosaveOptions{false};
 
     storage_select_args(CtMainWin* win) : pCtMainWin{win} {}
 };
