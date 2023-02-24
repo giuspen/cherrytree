@@ -694,7 +694,8 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
 
     Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
     layout->set_font_description(*font);
-    layout->set_width(int((_page_width - text_slot->indent) * Pango::SCALE));
+    const int max_layout_line_width = _page_width - text_slot->indent;
+    layout->set_width(max_layout_line_width * Pango::SCALE);
     layout->set_wrap(Pango::WRAP_WORD_CHAR);
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
     // don't apply paragraph indent because set_indent will work only for the first line
@@ -708,6 +709,9 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     for (int i = 0; i < layout_count; ++i) {
         auto layout_line = layout->get_line(i);
         auto size = _get_width_height_from_layout_line(layout_line);
+        if (size.width > max_layout_line_width) {
+            size.width = max_layout_line_width;
+        }
 
         if (not pages.last_line().test_element_height(size.height, _page_height)) {
             pages.line_on_new_page();
@@ -716,7 +720,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         if (-1 == pages.last_line().cur_x) {
             // initialise x for a new line (or after change of RTL in line)
             if (PANGO_DIRECTION_RTL == text_slot->pango_dir) {
-                pages.last_line().cur_x = _page_width - text_slot->indent;
+                pages.last_line().cur_x = max_layout_line_width;
             }
             else {
                 pages.last_line().cur_x = text_slot->indent;
