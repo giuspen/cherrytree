@@ -590,7 +590,6 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
 
     // draw page number
     cairo_context->set_source_rgb(0.5, 0.5, 0.5);
-    cairo_context->set_font_size(12);
     Glib::ustring page_num_str = std::to_string(page_nr+1) + "/" + std::to_string(operation->property_n_pages());
     Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
     layout->set_font_description(_rich_font);
