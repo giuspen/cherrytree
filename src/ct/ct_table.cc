@@ -112,40 +112,6 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
                 textView.grab_focus();
                 return true;
             }
-            if (event->keyval == GDK_KEY_bracketleft) {
-                _pCtMainWin->get_ct_actions()->table_row_up();
-                return true;
-            }
-            if (event->keyval == GDK_KEY_bracketright) {
-                _pCtMainWin->get_ct_actions()->table_row_down();
-                return true;
-            }
-            if (event->keyval == GDK_KEY_braceleft) {
-                _pCtMainWin->get_ct_actions()->table_column_left();
-                return true;
-            }
-            if (event->keyval == GDK_KEY_braceright) {
-                _pCtMainWin->get_ct_actions()->table_column_right();
-                return true;
-            }
-        }
-        if (event->keyval == GDK_KEY_parenleft) {
-            if (event->state & Gdk::MOD1_MASK) {
-                _pCtMainWin->get_ct_actions()->table_column_decrease_width();
-            }
-            else {
-                _pCtMainWin->get_ct_actions()->table_column_increase_width();
-            }
-            return true;
-        }
-        if (event->keyval == GDK_KEY_comma) {
-            if (event->state & Gdk::MOD1_MASK) {
-                _pCtMainWin->get_ct_actions()->table_row_delete();
-            }
-            else {
-                _pCtMainWin->get_ct_actions()->table_row_add();
-            }
-            return true;
         }
         if (event->keyval == GDK_KEY_backslash) {
             if (event->state & Gdk::MOD1_MASK) {
