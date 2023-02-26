@@ -9,6 +9,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
       build-essential \
       cmake \
       gettext \
+      ninja-build \
       libcpputest-dev \
       libcurl4-openssl-dev \
       libgspell-1-dev \
@@ -19,4 +20,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
       libfmt-dev \
       libspdlog-dev \
       libxml++2.6-dev \
-      libxml2-utils
+      libxml2-utils \
+      libuchardet-dev \
+      libfribidi-dev \
+      libvte-2.91-dev
