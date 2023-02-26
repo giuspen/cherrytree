@@ -189,8 +189,21 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='table_row_down'/>
       <menuitem action='table_rows_sort_descending'/>
       <menuitem action='table_rows_sort_ascending'/>
-      <menuitem action='table_edit_properties'/>
       <menuitem action='table_export'/>
+      <menuitem action='table_edit_properties'/>
+    </menu>
+    <menu action='CodeBoxSubMenu'>
+      <menuitem action='codebox_cut'/>
+      <menuitem action='codebox_copy'/>
+      <menuitem action='codebox_delete'/>
+      <menuitem action='codebox_delete_keeping_text'/>
+      <menuitem action='codebox_increase_width'/>
+      <menuitem action='codebox_decrease_width'/>
+      <menuitem action='codebox_increase_height'/>
+      <menuitem action='codebox_decrease_height'/>
+      <menuitem action='codebox_load_from_file'/>
+      <menuitem action='codebox_save_to_file'/>
+      <menuitem action='codebox_change_properties'/>
     </menu>
   </menu>
 

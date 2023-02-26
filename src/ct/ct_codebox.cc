@@ -1,7 +1,7 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -301,10 +301,6 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                 _pCtMainWin->get_text_view().grab_focus();
                 return true;
             }
-            if (event->keyval == GDK_KEY_bracketleft) {
-                _pCtMainWin->get_ct_actions()->codebox_change_properties();
-                return true;
-            }
             if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
                 _ctTextview.zoom_text(true, get_syntax_highlighting());
                 return true;
@@ -313,20 +309,6 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                 _ctTextview.zoom_text(false, get_syntax_highlighting());
                 return true;
             }
-        }
-        if (event->keyval == GDK_KEY_parenleft) {
-            if (event->state & Gdk::MOD1_MASK)
-                _pCtMainWin->get_ct_actions()->codebox_decrease_width();
-            else
-                _pCtMainWin->get_ct_actions()->codebox_increase_width();
-            return true;
-        }
-        if (event->keyval == GDK_KEY_comma) {
-            if (event->state & Gdk::MOD1_MASK)
-                _pCtMainWin->get_ct_actions()->codebox_decrease_height();
-            else
-                _pCtMainWin->get_ct_actions()->codebox_increase_height();
-            return true;
         }
     }
     //std::cout << "keyval " << event->keyval << std::endl;

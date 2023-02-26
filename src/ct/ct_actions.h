@@ -92,7 +92,7 @@ public: // todo: fix naming
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
     bool          _is_there_text_selection_or_error();
-    bool          _is_there_table_selection_or_error();
+    bool          _is_there_anch_widg_selection_or_error(const char anch_widg_id);
 
 public:
     void object_set_selection(CtAnchoredWidget* widget);

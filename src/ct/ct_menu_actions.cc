@@ -68,6 +68,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("Ro_w"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TableSubMenu", "ct_table_edit", _("_Table"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "CodeBoxSubMenu", "ct_codebox_edit", _("_CodeBox"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("F_ormat"), None, None, sigc::signal<void>()});
 
     // main actions
@@ -169,7 +170,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Increase Column Width"), KB_CONTROL+"parenleft",
         _("Increase the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_increase_width)});
     _actions.push_back(CtMenuAction{editor_cat, "table_column_decrease_width", "ct_go-back",
-        _("Decrease Column Width"), KB_CONTROL+KB_ALT+"parenleft",
+        _("Decrease Column Width"), KB_CONTROL+"parenright",
         _("Decrease the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_decrease_width)});
     _actions.push_back(CtMenuAction{editor_cat, "table_row_add", "ct_add", _("_Add Row"), KB_CONTROL+"comma",
         _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
@@ -193,6 +194,33 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Edit the Table Properties"), sigc::mem_fun(*pActions, &CtActions::table_edit_properties)});
     _actions.push_back(CtMenuAction{editor_cat, "table_export", "ct_table_save", _("_Table Export..."), None,
         _("Export Table as CSV File"), sigc::mem_fun(*pActions, &CtActions::table_export)});
+
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_change_properties", "ct_codebox_edit", _("Change CodeBox _Properties..."), KB_CONTROL+"backslash",
+        _("Edit the Properties of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_change_properties)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_load_from_file", "ct_from_txt", _("CodeBox _Load From Text File..."), None,
+        _("Load the CodeBox Content From a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_load_from_file)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_save_to_file", "ct_to_txt", _("CodeBox _Save To Text File..."), None,
+        _("Save the CodeBox Content To a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_save_to_file)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_cut", "ct_edit_cut", _("C_ut CodeBox"), None,
+        _("Cut the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_cut)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_copy", "ct_edit_copy", _("_Copy CodeBox"), None,
+        _("Copy the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_delete", "ct_edit_delete", _("_Delete CodeBox"), None,
+        _("Delete the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_delete)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_delete_keeping_text", "ct_edit_delete", _("Delete CodeBox _Keep Content"), None,
+        _("Delete the Selected CodeBox But Keep Its Content"), sigc::mem_fun(*pActions, &CtActions::codebox_delete_keeping_text)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_increase_width", "ct_go-forward",
+        _("Increase CodeBox Width"),KB_CONTROL+KB_ALT+"parenright",
+        _("Increase the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_width)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_decrease_width", "ct_go-back",
+        _("Decrease CodeBox Width"), KB_CONTROL+KB_ALT+"parenleft",
+        _("Decrease the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_width)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_increase_height", "ct_go-down",
+        _("Increase CodeBox Height"), KB_CONTROL+KB_ALT+"bracketright",
+        _("Increase the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_height)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_decrease_height", "ct_go-up",
+        _("Decrease CodeBox Height"), KB_CONTROL+KB_ALT+"bracketleft",
+        _("Decrease the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_height)});
 
     const char* fmt_cat = _("Format");
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format Clo_ne"), None,
@@ -517,34 +545,6 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Dismiss the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_dismiss)});
     _actions.push_back(CtMenuAction{link_cat, "link_delete", "ct_edit_delete", _("_Delete Link"), None,
         _("Delete the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_delete)});
-
-    const char* codebox_cat = "";
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_change_properties", "ct_codebox_edit", _("Change CodeBox _Properties..."), KB_CONTROL+"bracketleft",
-        _("Edit the Properties of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_change_properties)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_load_from_file", "ct_from_txt", _("CodeBox _Load From Text File..."), None,
-        _("Load the CodeBox Content From a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_load_from_file)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_save_to_file", "ct_to_txt", _("CodeBox _Save To Text File..."), None,
-        _("Save the CodeBox Content To a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_save_to_file)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_cut", "ct_edit_cut", _("C_ut CodeBox"), None,
-        _("Cut the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_cut)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_copy", "ct_edit_copy", _("_Copy CodeBox"), None,
-        _("Copy the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_delete", "ct_edit_delete", _("_Delete CodeBox"), None,
-        _("Delete the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_delete)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_delete_keeping_text", "ct_edit_delete", _("Delete CodeBox _Keep Content"), None,
-        _("Delete the Selected CodeBox But Keep Its Content"), sigc::mem_fun(*pActions, &CtActions::codebox_delete_keeping_text)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_increase_width", "ct_go-forward",
-        _("Increase CodeBox Width"), KB_CONTROL+"parenleft",
-        _("Increase the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_width)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_decrease_width", "ct_go-back",
-        _("Decrease CodeBox Width"), KB_CONTROL+KB_ALT+"parenleft",
-        _("Decrease the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_width)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_increase_height", "ct_go-down",
-        _("Increase CodeBox Height"), KB_CONTROL+"comma",
-        _("Increase the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_height)});
-    _actions.push_back(CtMenuAction{codebox_cat, "codebox_decrease_height", "ct_go-up",
-        _("Decrease CodeBox Height"), KB_CONTROL+KB_ALT+"comma",
-        _("Decrease the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_height)});
 
     const char* terminal_cat = "";
     _actions.push_back(CtMenuAction{terminal_cat, "term_copy", "ct_edit_copy", _("Copy Selection or All"), KB_CONTROL+KB_SHIFT+"C",

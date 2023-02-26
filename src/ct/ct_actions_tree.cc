@@ -78,7 +78,7 @@ bool CtActions::_is_there_text_selection_or_error()
     return true;
 }
 
-bool CtActions::_is_there_table_selection_or_error()
+bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 {
     if (not _is_there_selected_node_or_error()) return false;
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return false;
@@ -98,14 +98,24 @@ bool CtActions::_is_there_table_selection_or_error()
     if (not already_failed) {
         auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_insert.get_offset(), iter_insert.get_offset());
         if (not widgets.empty()) {
-            auto pTableCommon = dynamic_cast<CtTableCommon*>(widgets.front());
-            if (pTableCommon) {
-                curr_table_anchor = pTableCommon;
-                return true;
+            if ('t' == anch_widg_id) {
+                auto pTableCommon = dynamic_cast<CtTableCommon*>(widgets.front());
+                if (pTableCommon) {
+                    curr_table_anchor = pTableCommon;
+                    return true;
+                }
+            }
+            else if ('c' == anch_widg_id) {
+                auto pCodeBox = dynamic_cast<CtCodebox*>(widgets.front());
+                if (pCodeBox) {
+                    curr_codebox_anchor = pCodeBox;
+                    return true;
+                }
             }
         }
     }
-    CtDialogs::error_dialog(_("No Table is Selected."), *_pCtMainWin);
+    if ('t' == anch_widg_id) CtDialogs::error_dialog(_("No Table is Selected."), *_pCtMainWin);
+    else if ('c' == anch_widg_id) CtDialogs::error_dialog(_("No CodeBox is Selected."), *_pCtMainWin);
     return false;
 }
 
