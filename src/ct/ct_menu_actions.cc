@@ -67,6 +67,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("Ro_w"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "TableSubMenu", "ct_table_edit", _("_Table"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("F_ormat"), None, None, sigc::signal<void>()});
 
     // main actions
@@ -149,6 +150,49 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Move Up the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_up)});
     _actions.push_back(CtMenuAction{editor_cat, "mv_down_row", "ct_go-down", _("Mo_ve Down Row"), KB_ALT+CtConst::STR_KEY_DOWN,
         _("Move Down the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_down)});
+
+    _actions.push_back(CtMenuAction{editor_cat, "table_cut", "ct_edit_cut", _("C_ut Table"), None,
+        _("Cut the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_cut)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_copy", "ct_edit_copy", _("_Copy Table"), None,
+        _("Copy the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_copy)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_delete", "ct_edit_delete", _("_Delete Table"), None,
+        _("Delete the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_delete)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_add", "ct_add", _("_Add Column"), None,
+        _("Add a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_add)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_delete", "ct_edit_delete", _("De_lete Column"), None,
+        _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), KB_CONTROL+"braceleft",
+        _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+"braceright",
+        _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_increase_width", "ct_go-forward",
+        _("Increase Column Width"), KB_CONTROL+"parenleft",
+        _("Increase the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_increase_width)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_decrease_width", "ct_go-back",
+        _("Decrease Column Width"), KB_CONTROL+KB_ALT+"parenleft",
+        _("Decrease the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_decrease_width)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_add", "ct_add", _("_Add Row"), KB_CONTROL+"comma",
+        _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_cut", "ct_edit_cut", _("Cu_t Row"), None,
+        _("Cut a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_cut)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_copy", "ct_edit_copy", _("_Copy Row"), None,
+        _("Copy a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_copy)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_paste", "ct_edit_paste", _("_Paste Row"), None,
+        _("Paste a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_paste)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_delete", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma",
+        _("Delete the Selected Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_delete)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+"bracketleft",
+        _("Move the Selected Row Up"), sigc::mem_fun(*pActions, &CtActions::table_row_up)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"bracketright",
+        _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_rows_sort_descending", "ct_sort-desc", _("Sort Rows De_scending"), None,
+        _("Sort all the Rows Descending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_descending)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_rows_sort_ascending", "ct_sort-asc", _("Sort Rows As_cending"), None,
+        _("Sort all the Rows Ascending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_ascending)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_edit_properties", "ct_table_edit", _("_Edit Table Properties..."), None,
+        _("Edit the Table Properties"), sigc::mem_fun(*pActions, &CtActions::table_edit_properties)});
+    _actions.push_back(CtMenuAction{editor_cat, "table_export", "ct_table_save", _("_Table Export..."), None,
+        _("Export Table as CSV File"), sigc::mem_fun(*pActions, &CtActions::table_export)});
 
     const char* fmt_cat = _("Format");
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format Clo_ne"), None,
@@ -473,50 +517,6 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Dismiss the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_dismiss)});
     _actions.push_back(CtMenuAction{link_cat, "link_delete", "ct_edit_delete", _("_Delete Link"), None,
         _("Delete the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_delete)});
-
-    const char* table_cat = "";
-    _actions.push_back(CtMenuAction{table_cat, "table_cut", "ct_edit_cut", _("C_ut Table"), None,
-        _("Cut the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_cut)});
-    _actions.push_back(CtMenuAction{table_cat, "table_copy", "ct_edit_copy", _("_Copy Table"), None,
-        _("Copy the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_copy)});
-    _actions.push_back(CtMenuAction{table_cat, "table_delete", "ct_edit_delete", _("_Delete Table"), None,
-        _("Delete the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_add", "ct_add", _("_Add Column"), None,
-        _("Add a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_add)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_delete", "ct_edit_delete", _("De_lete Column"), None,
-        _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), KB_CONTROL+"braceleft",
-        _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+"braceright",
-        _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_increase_width", "ct_go-forward",
-        _("Increase Column Width"), KB_CONTROL+"parenleft",
-        _("Increase the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_increase_width)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_decrease_width", "ct_go-back",
-        _("Decrease Column Width"), KB_CONTROL+KB_ALT+"parenleft",
-        _("Decrease the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_decrease_width)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_add", "ct_add", _("_Add Row"), KB_CONTROL+"comma",
-        _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_cut", "ct_edit_cut", _("Cu_t Row"), None,
-        _("Cut a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_cut)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_copy", "ct_edit_copy", _("_Copy Row"), None,
-        _("Copy a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_copy)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_paste", "ct_edit_paste", _("_Paste Row"), None,
-        _("Paste a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_paste)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_delete", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma",
-        _("Delete the Selected Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+"bracketleft",
-        _("Move the Selected Row Up"), sigc::mem_fun(*pActions, &CtActions::table_row_up)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"bracketright",
-        _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
-    _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_descending", "ct_sort-desc", _("Sort Rows De_scending"), None,
-        _("Sort all the Rows Descending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_descending)});
-    _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_ascending", "ct_sort-asc", _("Sort Rows As_cending"), None,
-        _("Sort all the Rows Ascending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_ascending)});
-    _actions.push_back(CtMenuAction{table_cat, "table_edit_properties", "ct_table_edit", _("_Edit Table Properties..."), None,
-        _("Edit the Table Properties"), sigc::mem_fun(*pActions, &CtActions::table_edit_properties)});
-    _actions.push_back(CtMenuAction{table_cat, "table_export", "ct_table_save", _("_Table Export..."), None,
-        _("Export Table as CSV File"), sigc::mem_fun(*pActions, &CtActions::table_export)});
 
     const char* codebox_cat = "";
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_change_properties", "ct_codebox_edit", _("Change CodeBox _Properties..."), KB_CONTROL+"bracketleft",

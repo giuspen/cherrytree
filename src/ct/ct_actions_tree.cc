@@ -78,6 +78,37 @@ bool CtActions::_is_there_text_selection_or_error()
     return true;
 }
 
+bool CtActions::_is_there_table_selection_or_error()
+{
+    if (not _is_there_selected_node_or_error()) return false;
+    if (not _is_curr_node_not_syntax_highlighting_or_error()) return false;
+    bool already_failed{false};
+    Gtk::TextIter iter_insert;
+    if (_curr_buffer()->get_has_selection()) {
+        Gtk::TextIter iter_sel_end;
+        _pCtMainWin->get_text_view().get_buffer()->get_selection_bounds(iter_insert, iter_sel_end);
+        const int num_chars = iter_sel_end.get_offset() - iter_insert.get_offset();
+        if (num_chars != 1) {
+            already_failed = true;
+        }
+    }
+    else {
+        iter_insert = _pCtMainWin->get_text_view().get_buffer()->get_insert()->get_iter();
+    }
+    if (not already_failed) {
+        auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_insert.get_offset(), iter_insert.get_offset());
+        if (not widgets.empty()) {
+            auto pTableCommon = dynamic_cast<CtTableCommon*>(widgets.front());
+            if (pTableCommon) {
+                curr_table_anchor = pTableCommon;
+                return true;
+            }
+        }
+    }
+    CtDialogs::error_dialog(_("No Table is Selected."), *_pCtMainWin);
+    return false;
+}
+
 // Put Selection Upon the achrored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {

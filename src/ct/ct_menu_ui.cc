@@ -161,12 +161,37 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='copy_plain'/>
     <menuitem action='paste_plain'/>
     <separator/>
-    <menuitem action='cut_row'/>
-    <menuitem action='copy_row'/>
-    <menuitem action='dup_row'/>
-    <menuitem action='mv_up_row'/>
-    <menuitem action='mv_down_row'/>
-    <menuitem action='del_row'/>
+    <menu action='RowSubMenu'>
+      <menuitem action='cut_row'/>
+      <menuitem action='copy_row'/>
+      <menuitem action='dup_row'/>
+      <menuitem action='mv_up_row'/>
+      <menuitem action='mv_down_row'/>
+      <menuitem action='del_row'/>
+    </menu>
+    <separator/>
+    <menu action='TableSubMenu'>
+      <menuitem action='table_cut'/>
+      <menuitem action='table_copy'/>
+      <menuitem action='table_delete'/>
+      <menuitem action='table_column_add'/>
+      <menuitem action='table_column_delete'/>
+      <menuitem action='table_column_left'/>
+      <menuitem action='table_column_right'/>
+      <menuitem action='table_column_increase_width'/>
+      <menuitem action='table_column_decrease_width'/>
+      <menuitem action='table_row_add'/>
+      <menuitem action='table_row_cut'/>
+      <menuitem action='table_row_copy'/>
+      <menuitem action='table_row_paste'/>
+      <menuitem action='table_row_delete'/>
+      <menuitem action='table_row_up'/>
+      <menuitem action='table_row_down'/>
+      <menuitem action='table_rows_sort_descending'/>
+      <menuitem action='table_rows_sort_ascending'/>
+      <menuitem action='table_edit_properties'/>
+      <menuitem action='table_export'/>
+    </menu>
   </menu>
 
   <menu action='InsertMenu'>
