@@ -13,5 +13,5 @@ args = parser.parse_args()
 
 shell_cmd = ("msginit",
              "--input=" + os.path.join(SCRIPT_DIR, APP_NAME+".pot"),
-             "--locale="+args.language_code)
+             "--locale=" + args.language_code + ".UTF-8")
 subprocess.call(shell_cmd)

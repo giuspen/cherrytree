@@ -12,8 +12,9 @@ H_FILES = glob.glob(os.path.join(SRC_CT_DIR, "*.h"))
 
 shell_cmd = ["xgettext",
              "--language=C++",
-             "--from-code=utf-8",
+             "--from-code=UTF-8",
              "--keyword=_",
+             "--no-location",
              "--output=" + os.path.join(SCRIPT_DIR, APP_NAME+".pot")
              ] + CC_FILES + H_FILES
 subprocess.call(shell_cmd)
