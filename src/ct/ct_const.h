@@ -406,11 +406,12 @@ const inline static std::vector<const gchar*> NODE_CUSTOM_ICONS {
     "ct_docker",       // 137
     "ct_gcp",          // 138
     "ct_kubernetes",   // 139
+    "ct_csharp",       // 140
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     132, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 133,
-    /*coding start*/17, 21, 22, 23, 24, 38, 46, 47, 48, 49/*coding end*/,
+    /*coding start*/17, 21, 22, 23, 24, 38, 46, 47, 48, 49, 140/*coding end*/,
     114, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 40, 41, 42, 43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 126, 113,
     /*os start*/115, 116, 117, 118, 119, 120, 121/*os end*/,
     /*devops start*/134, 135, 136, 137, 138, 139/*devops end*/,
@@ -432,7 +433,7 @@ const inline static std::array<const gchar*, 11> NODE_CHERRY_ICONS {
     CHERRY_GRAY         // 10
 };
 
-const inline static std::array<std::pair<const gchar*, const gchar*>, 12> NODE_CODE_ICONS {
+const inline static std::vector<std::pair<const gchar*, const gchar*>> NODE_CODE_ICONS {
     std::make_pair("python", "ct_python"),
     std::make_pair("python3", "ct_python"),
     std::make_pair("perl", "ct_perl"),
@@ -444,6 +445,7 @@ const inline static std::array<std::pair<const gchar*, const gchar*>, 12> NODE_C
     std::make_pair("xml", "ct_xml"),
     std::make_pair("c", "ct_c"),
     std::make_pair("cpp", "ct_cpp"),
+    std::make_pair("c-sharp", "ct_csharp"),
     std::make_pair("ruby", "ct_ruby")
 };
 
@@ -452,7 +454,7 @@ const inline static gchar* CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
 const inline static gchar* CODE_EXEC_CODE_TXT {"<code_txt>"};
 const inline static gchar* CODE_EXEC_COMMAND  {"<command>"};
 
-const inline static std::array<std::pair<const std::string, const std::string>, 8> CODE_EXEC_TYPE_CMD_DEFAULT {
+const inline static std::vector<std::pair<const std::string, const std::string>> CODE_EXEC_TYPE_CMD_DEFAULT {
     std::make_pair("c",          std::string("gcc -o ") + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
     std::make_pair("cpp",        std::string("g++ -o ") + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
     std::make_pair("dosbatch",   std::string("call ") + CODE_EXEC_TMP_SRC),
@@ -460,10 +462,11 @@ const inline static std::array<std::pair<const std::string, const std::string>, 
     std::make_pair("powershell", std::string("powershell -File ") + CODE_EXEC_TMP_SRC),
     std::make_pair("python",     std::string("python2 ") + CODE_EXEC_TMP_SRC),
     std::make_pair("python3",    std::string("python3 ") + CODE_EXEC_TMP_SRC),
-    std::make_pair("sh",         CODE_EXEC_CODE_TXT)
+    std::make_pair("sh",         CODE_EXEC_CODE_TXT),
+    std::make_pair("c-sharp",    std::string("csc /out:") + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN)
 };
 
-const inline static std::array<std::pair<const std::string, const std::string>, 8> CODE_EXEC_TYPE_EXT_DEFAULT {
+const inline static std::vector<std::pair<const std::string, const std::string>> CODE_EXEC_TYPE_EXT_DEFAULT {
     std::make_pair("c",          "c"),
     std::make_pair("cpp",        "cpp"),
     std::make_pair("dosbatch",   "bat"),
@@ -471,7 +474,8 @@ const inline static std::array<std::pair<const std::string, const std::string>, 
     std::make_pair("powershell", "ps1"),
     std::make_pair("python",     "py"),
     std::make_pair("python3",    "py"),
-    std::make_pair("sh",         "sh")
+    std::make_pair("sh",         "sh"),
+    std::make_pair("c-sharp",    "cs")
 };
 
 const inline static std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
