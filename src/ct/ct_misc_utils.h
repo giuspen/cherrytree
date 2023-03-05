@@ -160,11 +160,14 @@ bool rich_text_attributes_update(const Gtk::TextIter& text_iter, const CtCurrAtt
 
 using SerializeFunc = std::function<void(Gtk::TextIter& start_iter,
                                          Gtk::TextIter& end_iter,
-                                         CtCurrAttributesMap& curr_attributes)>;
-void generic_process_slot(int start_offset,
-                          int end_offset,
+                                         CtCurrAttributesMap& curr_attributes,
+                                         CtListInfo* pCurrListInfo)>;
+void generic_process_slot(const CtConfig* const pCtConfig,
+                          const int start_offset,
+                          const int end_offset,
                           const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
-                          SerializeFunc serialize_func);
+                          SerializeFunc serialize_func,
+                          const bool list_info = false);
 
 const gchar* get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin);
 

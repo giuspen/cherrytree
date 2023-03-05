@@ -1,7 +1,9 @@
 /*
  * ct_list.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2023
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,31 +27,26 @@
 #include <glibmm/refptr.h>
 #include "ct_types.h"
 
-struct CtTextRange
-{
-    Gtk::TextIter iter_start;
-    Gtk::TextIter iter_end;
-    int leading_chars_num = 0;
-};
-
-class CtMainWin;
+class CtConfig;
 
 class CtList
 {
 public:
-    CtList(CtMainWin* pCtMainWin,
+    CtList(const CtConfig* const pCtConfig,
            Glib::RefPtr<Gtk::TextBuffer> curr_buffer)
-     : _pCtMainWin(pCtMainWin),
-       _curr_buffer(curr_buffer) {}
+     : _pCtConfig{pCtConfig}
+     , _curr_buffer{curr_buffer}
+    {}
+
+    static int  get_leading_chars_num(CtListType type, int list_info_num);
 
     void        list_handler(CtListType target_list_num_id);
     CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    int         get_leading_chars_num(CtListType type, int list_info_num);
-    CtListInfo  list_get_number_n_level(Gtk::TextIter iter_first_paragraph);
+    CtListInfo  list_get_number_n_level(const Gtk::TextIter iter_first_paragraph);
     int         get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtListInfo list_info);
     CtListInfo  get_prev_list_info_on_level(Gtk::TextIter iter_start, int level);
     CtListInfo  get_next_list_info_on_level(Gtk::TextIter iter_start, int level);
-    CtListInfo  get_paragraph_list_info(Gtk::TextIter iter_start_orig);
+    CtListInfo  get_paragraph_list_info(const Gtk::TextIter iter_start_orig, const int count_nl = 0);
     CtTextRange get_paragraph_iters(Gtk::TextIter* force_iter = nullptr);
     bool        is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter);
     void        todo_list_rotate_status(Gtk::TextIter todo_char_iter);
@@ -58,6 +55,6 @@ public:
     void        todo_lists_old_to_new_conversion();
 
 private:
-    CtMainWin* _pCtMainWin;
+    const CtConfig* const _pCtConfig;
     Glib::RefPtr<Gtk::TextBuffer> _curr_buffer;
 };

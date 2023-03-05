@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -403,7 +403,8 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     }
 
     auto new_state = std::shared_ptr<CtNodeState>(new CtNodeState());
-    CtStorageXmlHelper(_pCtMainWin).save_buffer_no_widgets_to_xml(new_state->buffer_xml.get_root_node(), tree_iter.get_node_text_buffer(), 0, -1, 'n');
+    CtStorageXmlHelper(_pCtMainWin).save_buffer_no_widgets_to_xml(new_state->buffer_xml.get_root_node(),
+                                                                  tree_iter.get_node_text_buffer(), 0, -1, 'n');
     new_state->buffer_xml_string = new_state->buffer_xml.write_to_string();
     for (auto widget : tree_iter.get_anchored_widgets()) {
         new_state->widgetStates.push_back(widget->get_state());

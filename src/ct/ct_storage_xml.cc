@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -437,15 +437,17 @@ void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
     }
 }
 
-/*static*/ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent,
-                                                                  Glib::RefPtr<Gtk::TextBuffer> rBuffer,
-                                                                  int start_offset,
-                                                                  int end_offset,
-                                                                  const gchar change_case)
+void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent,
+                                                       Glib::RefPtr<Gtk::TextBuffer> rBuffer,
+                                                       int start_offset,
+                                                       int end_offset,
+                                                       const gchar change_case)
 {
     CtTextIterUtil::SerializeFunc rich_txt_serialize = [&](Gtk::TextIter& start_iter,
                                                            Gtk::TextIter& end_iter,
-                                                           CtCurrAttributesMap& curr_attributes) {
+                                                           CtCurrAttributesMap& curr_attributes,
+                                                           CtListInfo*/*pCurrListInfo*/)
+    {
         xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
         for (const auto& map_iter : curr_attributes)
         {
@@ -462,7 +464,7 @@ void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
         p_rich_text_node->add_child_text(slot_text);
     };
 
-    CtTextIterUtil::generic_process_slot(start_offset, end_offset, rBuffer, rich_txt_serialize);
+    CtTextIterUtil::generic_process_slot(_pCtMainWin->get_ct_config(), start_offset, end_offset, rBuffer, rich_txt_serialize);
 }
 
 void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos)

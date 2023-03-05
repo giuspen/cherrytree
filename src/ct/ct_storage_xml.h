@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -114,9 +114,11 @@ public:
                                xmlpp::Element* xml_element,
                                CtTableColWidths& tableColWidths,
                                bool& is_light);
-
-    static void save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
-                                              int start_offset, int end_offset, const gchar change_case);
+    void save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent,
+                                       Glib::RefPtr<Gtk::TextBuffer> buffer,
+                                       int start_offset,
+                                       int end_offset,
+                                       const gchar change_case);
 
 private:
     void              _add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);

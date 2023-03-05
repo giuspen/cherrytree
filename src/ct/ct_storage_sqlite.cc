@@ -740,7 +740,8 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
         {
             xmlpp::Document xml_doc;
             xml_doc.create_root_node("node");
-            CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xml_doc.get_root_node(), ct_tree_iter->get_node_text_buffer(), start_offset, end_offset, 'n');
+            CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(xml_doc.get_root_node(),
+                ct_tree_iter->get_node_text_buffer(), start_offset, end_offset, 'n');
             node_txt = xml_doc.write_to_string();
         }
         else

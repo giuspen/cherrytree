@@ -408,7 +408,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     if (event->key.state & Gdk::SHIFT_MASK) {
         if (event->key.keyval == GDK_KEY_ISO_Left_Tab and !curr_buffer->get_has_selection()) {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
-            CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
+            CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
             if (list_info and list_info.level) {
                 _ctTextview.list_change_level(iter_insert, list_info, false);
                 return true;
@@ -449,7 +449,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     else if (event->key.keyval == GDK_KEY_Tab) {
         if (not curr_buffer->get_has_selection()) {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
-            CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
+            CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
             if (list_info) {
                 _ctTextview.list_change_level(iter_insert, list_info, true);
                 return true;
@@ -481,11 +481,11 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                     return true;
                 }
                 auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
-                CtListInfo list_info = CtList{this, curr_buffer}.get_paragraph_list_info(iter_insert);
+                CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
                 if (list_info and list_info.type == CtListType::Todo) {
                     if (_uCtActions->_is_curr_node_not_read_only_or_error()) {
                         auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
-                        CtList{this, curr_buffer}.todo_list_rotate_status(iter_start_list);
+                        CtList{_pCtConfig, curr_buffer}.todo_list_rotate_status(iter_start_list);
                         return true;
                     }
                 }

@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,6 +28,7 @@
 #include <cstring>
 #include "ct_const.h"
 #include "ct_logging.h"
+#include "ct_list.h"
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
@@ -397,15 +398,17 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
     return anyDelta;
 }
 
-void CtTextIterUtil::generic_process_slot(int start_offset,
-                                          int end_offset,
+void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
+                                          const int start_offset,
+                                          const int end_offset,
                                           const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
-                                          SerializeFunc serialize_func)
+                                          SerializeFunc serialize_func,
+                                          const bool list_info/*= false*/)
 {
     CtCurrAttributesMap curr_attributes;
     CtCurrAttributesMap delta_attributes;
     for (const auto& tag_property : CtConst::TAG_PROPERTIES) {
-        curr_attributes[tag_property] = "";
+        curr_attributes[tag_property].clear();
     }
     Gtk::TextIter curr_start_iter = rTextBuffer->get_iter_at_offset(start_offset);
     Gtk::TextIter curr_end_iter = curr_start_iter;
@@ -416,24 +419,48 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
             curr_attributes[currDelta.first] = currDelta.second;
         }
     }
-    while (curr_end_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
-    {
+
+    CtListInfo curr_list_info, prev_list_info;
+    bool list_info_changed{false};
+    bool last_was_newline{false};
+    if (not curr_end_iter.backward_char()) {
+        last_was_newline = true;
+    }
+    else {
+        last_was_newline = '\n' == curr_end_iter.get_char();
+        curr_end_iter.forward_char();
+    }
+
+    while (curr_end_iter.forward_char()) {
         if (curr_end_iter.compare(real_end_iter) >= 0) {
             break;
         }
-        if (CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes)) {
-            serialize_func(curr_start_iter, curr_end_iter, curr_attributes);
+
+        if (list_info and last_was_newline) {
+            curr_list_info = CtList{pCtConfig, rTextBuffer}.get_paragraph_list_info(curr_end_iter);
+            if (curr_list_info != prev_list_info) {
+                list_info_changed = true;
+                prev_list_info = curr_list_info;
+            }
+        }
+
+        last_was_newline = '\n' == curr_end_iter.get_char();
+
+        if (CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes) or
+            (list_info and last_was_newline and list_info_changed))
+        {
+            serialize_func(curr_start_iter, curr_end_iter, curr_attributes, &curr_list_info);
 
             for (auto& currDelta : delta_attributes) {
                 curr_attributes[currDelta.first] = currDelta.second;
             }
             curr_start_iter = curr_end_iter;
+            if (list_info_changed) list_info_changed = false;
         }
     }
 
-    if (curr_start_iter.compare(real_end_iter) < 0)
-    {
-        serialize_func(curr_start_iter, real_end_iter, curr_attributes);
+    if (curr_start_iter.compare(real_end_iter) < 0) {
+        serialize_func(curr_start_iter, real_end_iter, curr_attributes, &curr_list_info);
     }
 }
 

@@ -170,10 +170,13 @@ void CtExport2Pango::_pango_process_slot(int start_offset,
 {
     CtTextIterUtil::SerializeFunc f_pango_serialize = [&](Gtk::TextIter& start_iter,
                                                           Gtk::TextIter& end_iter,
-                                                          CtCurrAttributesMap& curr_attributes) {
+                                                          CtCurrAttributesMap& curr_attributes,
+                                                          CtListInfo*/*pCurrListInfo*/)
+    {
         _pango_text_serialize(start_iter, end_iter, curr_attributes, out_slots);
     };
-    CtTextIterUtil::generic_process_slot(start_offset,
+    CtTextIterUtil::generic_process_slot(_pCtConfig,
+                                         start_offset,
                                          end_offset,
                                          curr_buffer,
                                          f_pango_serialize);

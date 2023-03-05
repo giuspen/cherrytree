@@ -492,7 +492,7 @@ void CtActions::_exec_code(const bool is_all)
             code_val = text_buffer->get_text(iter_start, iter_end);
         }
         else {
-            CtTextRange range = CtList{_pCtMainWin, text_buffer}.get_paragraph_iters();
+            CtTextRange range = CtList{_pCtConfig, text_buffer}.get_paragraph_iters();
             code_val = text_buffer->get_text(range.iter_start, range.iter_end);
         }
     }

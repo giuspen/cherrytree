@@ -154,7 +154,7 @@ void CtActions::apply_tag_strikethrough()
 void CtActions::apply_tag_indent()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
 
     //Each time we increase indent, we'll add this much margin to the text
@@ -166,7 +166,7 @@ void CtActions::apply_tag_indent()
 void CtActions::reduce_tag_indent()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
 
     int newMargin = _find_previous_indent_margin() -1;
@@ -183,7 +183,7 @@ void CtActions::reduce_tag_indent()
 //If not, return the default "zero margin" (i.e. the margin shown in the UI when there's no indentation)
 int CtActions::_find_previous_indent_margin()
 {
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = range.iter_start.get_tags();
     for (auto& curr_tag : curr_tags) {
         Glib::ustring curr_tag_name = curr_tag->property_name();
@@ -197,7 +197,7 @@ int CtActions::_find_previous_indent_margin()
 void CtActions::_apply_tag_hN(const char* tagPropScaleVal)
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
     apply_tag(CtConst::TAG_SCALE, tagPropScaleVal, range.iter_start, range.iter_end);
 }
@@ -236,7 +236,7 @@ void CtActions::list_bulleted_handler()
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (not proof.text_view->get_buffer()) return;
-    CtList{_pCtMainWin, proof.text_view->get_buffer()}.list_handler(CtListType::Bullet);
+    CtList{_pCtConfig, proof.text_view->get_buffer()}.list_handler(CtListType::Bullet);
 }
 
 // Handler of the Numbered List
@@ -245,7 +245,7 @@ void CtActions::list_numbered_handler()
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (not proof.text_view->get_buffer()) return;
-    CtList{_pCtMainWin, proof.text_view->get_buffer()}.list_handler(CtListType::Number);
+    CtList{_pCtConfig, proof.text_view->get_buffer()}.list_handler(CtListType::Number);
 }
 
 // Handler of the ToDo List
@@ -254,14 +254,14 @@ void CtActions::list_todo_handler()
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (not proof.text_view->get_buffer()) return;
-    CtList{_pCtMainWin, proof.text_view->get_buffer()}.list_handler(CtListType::Todo);
+    CtList{_pCtConfig, proof.text_view->get_buffer()}.list_handler(CtListType::Todo);
 }
 
 // The Justify Left Button was Pressed
 void CtActions::apply_tag_justify_left()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
     apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT, range.iter_start, range.iter_end);
 }
@@ -270,7 +270,7 @@ void CtActions::apply_tag_justify_left()
 void CtActions::apply_tag_justify_center()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
     apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER, range.iter_start, range.iter_end);
 }
@@ -279,7 +279,7 @@ void CtActions::apply_tag_justify_center()
 void CtActions::apply_tag_justify_right()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
     apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT, range.iter_start, range.iter_end);
 }
@@ -288,7 +288,7 @@ void CtActions::apply_tag_justify_right()
 void CtActions::apply_tag_justify_fill()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
     apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL, range.iter_start, range.iter_end);
 }

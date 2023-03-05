@@ -1,7 +1,7 @@
 /*
  * ct_export2html.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -70,6 +70,10 @@ private:
     void          _html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
                                        std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets);
     Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
+    int _html_process_list_info_change(Glib::ustring& html,
+                                       std::list<CtListType>& nested_list_types,
+                                       CtListInfo* pListInfoFrom,
+                                       const CtListInfo* pListInfoTo);
     Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const CtCurrAttributesMap& curr_attributes);
     std::string _get_href_from_link_prop_val(Glib::ustring link_prop_val);
     Glib::ustring _get_object_alignment_string(Glib::ustring alignment);

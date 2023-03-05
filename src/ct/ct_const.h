@@ -503,5 +503,11 @@ const inline static Glib::ustring TARGET_GTK_TEXT_BUFFER_CONTENTS = "GTK_TEXT_BU
 const inline static std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT", "text/plain;charset=utf-8", "text/plain"};
 const inline static std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp"};
 const inline static Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
+const inline static Glib::ustring TAG_UL_START = "<ul>";
+const inline static Glib::ustring TAG_UL_END = "</ul>";
+const inline static Glib::ustring TAG_OL_START = "<ol>";
+const inline static Glib::ustring TAG_OL_END = "</ol>";
+const inline static Glib::ustring TAG_LI_START = "<li>";
+const inline static Glib::ustring TAG_LI_END = "</li>";
 
 }; // struct CtConst

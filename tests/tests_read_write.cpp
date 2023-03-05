@@ -1,7 +1,7 @@
 /*
  * tests_read_write.cpp
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -48,7 +48,7 @@ private:
     void _run_test(const fs::path doc_filepath_from, const fs::path doc_filepath_to);
     void _assert_tree_data(CtMainWin* pWin);
     void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
-    void _process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
+    void _process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
 
     const std::vector<std::string>& _vec_args;
 };
@@ -105,11 +105,12 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     remove_window(*pWin2);
 }
 
-void TestCtApp::_process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
+void TestCtApp::_process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
 {
     CtTextIterUtil::SerializeFunc test_slot = [&expectedTags](Gtk::TextIter& start_iter,
                                                               Gtk::TextIter& end_iter,
-                                                              CtCurrAttributesMap& curr_attributes)
+                                                              CtCurrAttributesMap& curr_attributes,
+                                                              CtListInfo*/*pCurrListInfo*/)
     {
         const Glib::ustring slot_text = start_iter.get_text(end_iter);
         for (auto& expTag : expectedTags) {
@@ -129,7 +130,7 @@ void TestCtApp::_process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, 
             }
         }
     };
-    CtTextIterUtil::generic_process_slot(0, -1, rTextBuffer, test_slot);
+    CtTextIterUtil::generic_process_slot(pWin->get_ct_config(), 0, -1, rTextBuffer, test_slot);
 }
 
 void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText)
@@ -138,8 +139,6 @@ void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& e
     ASSERT_TRUE(static_cast<bool>(rTextBuffer));
     ASSERT_STREQ(expectedText.c_str(), rTextBuffer->get_text().c_str());
 }
-
-#define _NL "\n"
 
 void TestCtApp::_assert_tree_data(CtMainWin* pWin)
 {
@@ -266,7 +265,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                 .text_slot="mono",
                 .attr_map=CtCurrAttributesMap{{CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE}}},
         };
-        _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
+        _process_rich_text_buffer(pWin, expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
             ASSERT_TRUE(expTag.found);
         }
@@ -456,7 +455,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                 .text_slot="link to file /etc/fstab",
                 .attr_map=CtCurrAttributesMap{{CtConst::TAG_LINK, "file L2V0Yy9mc3RhYg=="}}},
         };
-        _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
+        _process_rich_text_buffer(pWin, expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
             ASSERT_TRUE(expTag.found);
         }

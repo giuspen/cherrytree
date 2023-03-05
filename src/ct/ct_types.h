@@ -77,13 +77,28 @@ struct CtLinkEntry
 
 struct CtListInfo
 {
-    CtListType type = CtListType::None;
-    int        num = -1;   // todo: fix that for bullet and number it has different meanings
-    int        level = -1; // can be filled for NONE to use with shift+return
-    int        aux = -1;
-    int        startoffs = -1;
+    CtListType type{CtListType::None};
+    int        num_seq{-1};
+    int        level{-1};
+    int        aux{-1};
+    int        startoffs{-1};
+    int        count_nl{-1};
+    friend inline bool operator==(const CtListInfo& lhs, const CtListInfo& rhs) {
+        return lhs.type == rhs.type and
+               lhs.num_seq == rhs.num_seq and
+               lhs.level == rhs.level and
+               lhs.startoffs == rhs.startoffs and
+               lhs.count_nl == rhs.count_nl;
+    }
+    friend inline bool operator!=(const CtListInfo& lhs, const CtListInfo& rhs) { return !(lhs == rhs); }
+    operator bool() const { return type != CtListType::None; }
+};
 
-    operator bool() { return type != CtListType::None; }
+struct CtTextRange
+{
+    Gtk::TextIter iter_start;
+    Gtk::TextIter iter_end;
+    int leading_chars_num{0};
 };
 
 struct CtRecentDocRestore

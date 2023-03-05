@@ -263,7 +263,7 @@ void CtClipboard::_rich_text_process_slot(xmlpp::Element* root, int start_offset
                                           CtAnchoredWidget* obj_element, gchar change_case /*="n"*/)
 {
     xmlpp::Element* dom_iter = root->add_child("slot");
-    CtStorageXmlHelper::save_buffer_no_widgets_to_xml(dom_iter, text_buffer, start_offset, end_offset, change_case);
+    CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(dom_iter, text_buffer, start_offset, end_offset, change_case);
 
     if (obj_element != nullptr)
     {

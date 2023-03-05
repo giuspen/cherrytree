@@ -598,7 +598,7 @@ void CtActions::text_row_cut()
     if (not proof.text_view->get_buffer()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtTextRange range = CtList{_pCtMainWin, proof.text_view->get_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
     if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_view->get_buffer()->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
@@ -610,7 +610,7 @@ void CtActions::text_row_copy()
     auto proof = _get_text_view_n_buffer_codebox_proof();
     if (not proof.text_view->get_buffer()) return;
 
-    CtTextRange range = CtList{_pCtMainWin, proof.text_view->get_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
     if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_view->get_buffer()->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
@@ -623,7 +623,7 @@ void CtActions::text_row_delete()
     if (not proof.text_view->get_buffer()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtTextRange range = CtList{_pCtMainWin, proof.text_view->get_buffer()}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
     if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_view->get_buffer()->erase(range.iter_start, range.iter_end);
     _pCtMainWin->get_state_machine().update_state();
@@ -665,7 +665,7 @@ void CtActions::text_row_selection_duplicate()
     }
     else {
         int cursor_offset = text_buffer->get_iter_at_mark(text_buffer->get_insert()).get_offset();
-        CtTextRange range = CtList{_pCtMainWin, proof.text_view->get_buffer()}.get_paragraph_iters();
+        CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
         if (range.iter_start.get_offset() == range.iter_end.get_offset()) {
             Gtk::TextIter iter_start = text_buffer->get_iter_at_mark(text_buffer->get_insert());
             text_buffer->insert(iter_start, CtConst::CHAR_NEWLINE);
@@ -701,7 +701,7 @@ void CtActions::text_row_up()
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     auto text_buffer = proof.text_view->get_buffer();
-    CtTextRange range = CtList{_pCtMainWin, text_buffer}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, text_buffer}.get_paragraph_iters();
     range.iter_end.forward_char();
     bool missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_start;
@@ -784,7 +784,7 @@ void CtActions::text_row_down()
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     auto text_buffer = proof.text_view->get_buffer();
-    CtTextRange range = CtList{_pCtMainWin, text_buffer}.get_paragraph_iters();
+    CtTextRange range = CtList{_pCtConfig, text_buffer}.get_paragraph_iters();
     if (not range.iter_end.forward_char()) return;
     int missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_end;

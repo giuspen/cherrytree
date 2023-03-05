@@ -1,7 +1,7 @@
 /*
  * ct_list.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,16 +26,6 @@
 #include "ct_const.h"
 #include <gtkmm/textbuffer.h>
 
-/*
-std::string CtList::get_list_type(int list_num_id)
-{
-    if (list_num_id > 0)  return "Numbered";
-    if (list_num_id < 0)  return "Bulleted";
-    else                  return "Todo";
-}
-*/
-
-// Unified Handler of Lists
 void CtList::list_handler(CtListType target_list_num_id)
 {
     struct LevelCount {
@@ -45,7 +35,7 @@ void CtList::list_handler(CtListType target_list_num_id)
 
     CtTextRange range;
     int end_offset;
-    int new_par_offset = -1;
+    int new_par_offset{-1};
     std::list<LevelCount> leading_num_count;
 
     if (_curr_buffer->get_has_selection()) {
@@ -65,8 +55,8 @@ void CtList::list_handler(CtListType target_list_num_id)
             if (leading_num_count.empty()) {
                 // this is the first iteration
                 range.iter_start = _curr_buffer->get_insert()->get_iter();
-                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsTodo[0] + CtConst::CHAR_SPACE);
-                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE);
+                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, _pCtConfig->charsTodo[0] + CtConst::CHAR_SPACE);
+                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, _pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE);
                 else                                                          _curr_buffer->insert(range.iter_start, "1. ");
             }
             break;
@@ -85,13 +75,13 @@ void CtList::list_handler(CtListType target_list_num_id)
                 if (target_list_num_id == CtListType::Todo) {
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
-                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsTodo[0] + CtConst::CHAR_SPACE);
+                    _curr_buffer->insert(range.iter_start, _pCtConfig->charsTodo[0] + CtConst::CHAR_SPACE);
                 }
                 else if (target_list_num_id == CtListType::Bullet) {
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
-                    int bull_idx = (!list_info) ? 0 : (list_info.level % (int)_pCtMainWin->get_ct_config()->charsListbul.size());
-                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul[bull_idx] + CtConst::CHAR_SPACE);
+                    int bull_idx = (!list_info) ? 0 : (list_info.level % (int)_pCtConfig->charsListbul.size());
+                    _curr_buffer->insert(range.iter_start, _pCtConfig->charsListbul[bull_idx] + CtConst::CHAR_SPACE);
                 }
                 else {
                     int index;
@@ -137,7 +127,6 @@ void CtList::list_handler(CtListType target_list_num_id)
     }
 }
 
-// Clean List Start Characters
 CtTextRange CtList::list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end)
 {
     int start_offset = iter_start.get_offset();
@@ -145,7 +134,7 @@ CtTextRange CtList::list_check_n_remove_old_list_type_leading(Gtk::TextIter iter
     int leading_chars_num = 0;
     CtListInfo list_info = get_paragraph_list_info(iter_start);
     if (list_info) {
-        leading_chars_num = get_leading_chars_num(list_info.type, list_info.num);
+        leading_chars_num = get_leading_chars_num(list_info.type, list_info.num_seq);
         start_offset += 3 * list_info.level;
         iter_start = _curr_buffer->get_iter_at_offset(start_offset);
         iter_end = iter_start;
@@ -158,65 +147,62 @@ CtTextRange CtList::list_check_n_remove_old_list_type_leading(Gtk::TextIter iter
     return CtTextRange{iter_start, iter_end, leading_chars_num};
 }
 
-// Get Number of Leading Chars from the List Num
-int CtList::get_leading_chars_num(CtListType type, int list_info_num)
+/*static*/int CtList::get_leading_chars_num(CtListType type, int list_info_num)
 {
-    if (type == CtListType::Number)
-        return (int)std::to_string(list_info_num).size() + 2; // '1. '
+    if (CtListType::Number == type)
+        return static_cast<int>(std::to_string(list_info_num).size()) + 2; // '1. '
     return 2;
 }
 
-// Number < 0 if bulleted list, > 0 if numbered list, 0 if TODO list, None if not a list
-CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
+CtListInfo CtList::list_get_number_n_level(const Gtk::TextIter iter_first_paragraph)
 {
-    Gtk::TextIter iter_start = iter_first_paragraph;
-    int level = 0;
+    Gtk::TextIter iter_start{iter_first_paragraph};
+    int level{0};
     while (iter_start) {
         auto ch = iter_start.get_char();
-        auto& bulls_list = _pCtMainWin->get_ct_config()->charsListbul.item();
+        const auto& bulls_list = _pCtConfig->charsListbul.item();
         if (str::indexOf(bulls_list, ch) != -1) {
             if (iter_start.forward_char() and iter_start.get_char() == ' ') {
-                int num = str::indexOf(bulls_list, ch);
-                return CtListInfo{CtListType::Bullet, num, level, -1, -1};
+                const int aux = str::indexOf(bulls_list, ch);
+                return CtListInfo{CtListType::Bullet, -1, level, aux, -1};
             }
             break;
         }
-        if (str::indexOf(_pCtMainWin->get_ct_config()->charsTodo.item(), ch) != -1) {
-            if (iter_start.forward_char() and iter_start.get_char() == ' ')
-                return CtListInfo{CtListType::Todo, 0, level, -1, -1};
+        if (str::indexOf(_pCtConfig->charsTodo.item(), ch) != -1) {
+            if (iter_start.forward_char() and iter_start.get_char() == ' ') {
+                return CtListInfo{CtListType::Todo, -1, level, -1, -1};
+            }
             break;
         }
         if (ch == ' ') {
             if (CtTextIterUtil::startswith(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]).c_str())) {
                 iter_start.forward_chars(3);
-                level += 1;
+                ++level;
             }
             else {
                 break;
             }
         }
         else {
-            bool match = ch >= '1' and ch <= '9';
-            if (!match) {
+            if (not (ch >= '1' and ch <= '9')) {
                 break;
             }
             Glib::ustring number_str(1, ch);
-            while (iter_start.forward_char() and iter_start.get_char() >= '0' and iter_start.get_char() <= '9')
+            while (iter_start.forward_char() and iter_start.get_char() >= '0' and iter_start.get_char() <= '9') {
                 number_str += iter_start.get_char();
+            }
             ch = iter_start.get_char();
             if (str::indexOf(CtConst::CHARS_LISTNUM, ch) != -1 and iter_start.forward_char() and iter_start.get_char() == ' ') {
-                int num = std::stoi(number_str);
-                auto aux = str::indexOf(CtConst::CHARS_LISTNUM, ch);
-                return CtListInfo{CtListType::Number, num, level, aux, -1};
+                const int num_seq = std::stoi(number_str);
+                const auto aux = str::indexOf(CtConst::CHARS_LISTNUM, ch);
+                return CtListInfo{CtListType::Number, num_seq, level, aux, -1};
             }
             break;
         }
     }
-
     return CtListInfo{CtListType::None, -1, level, -1, -1};
 }
 
-// Get the list end offset
 int CtList::get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtListInfo list_info)
 {
     Gtk::TextIter iter_start = curr_iter;
@@ -241,7 +227,6 @@ int CtList::get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtLis
     return iter_start.get_offset()-1;
 }
 
-// Given a level check for previous list number on the level or None
 CtListInfo CtList::get_prev_list_info_on_level(Gtk::TextIter iter_start, int level)
 {
     CtListInfo ret_val;
@@ -261,7 +246,6 @@ CtListInfo CtList::get_prev_list_info_on_level(Gtk::TextIter iter_start, int lev
     return ret_val;
 }
 
-// Given a level check for next list number on the level or None
 CtListInfo CtList::get_next_list_info_on_level(Gtk::TextIter iter_start, int level)
 {
     CtListInfo ret_val;
@@ -278,49 +262,57 @@ CtListInfo CtList::get_next_list_info_on_level(Gtk::TextIter iter_start, int lev
     return ret_val;
 }
 
-// Returns a dictionary indicating List Element Number, List Level and List Element Start Offset
-CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
+CtListInfo CtList::get_paragraph_list_info(const Gtk::TextIter iter_start_orig, const int count_nl/*= 0*/)
 {
-    bool buffer_start = false;
-    Gtk::TextIter iter_start = iter_start_orig;
+    bool buffer_start{false};
+    Gtk::TextIter iter_start{iter_start_orig};
     // let's search for the paragraph start
-    if (iter_start.get_char() == '\n')
-        if (!iter_start.backward_char())
+    if (iter_start.get_char() == '\n') {
+        if (not iter_start.backward_char()) {
             buffer_start = true; // if we are exactly on the paragraph end
-    if (!buffer_start) {
-        while (true)
-            if (iter_start.get_char() == '\n')
+        }
+    }
+    if (not buffer_start) {
+        while (true) {
+            if (iter_start.get_char() == '\n') {
                 break; // we got the previous paragraph start
-            else if (!iter_start.backward_char()) {
+            }
+            else if (not iter_start.backward_char()) {
                 buffer_start = true;
                 break; // we reached the buffer start
             }
+        }
     }
-    if (!buffer_start)
+    if (not buffer_start) {
         iter_start.forward_char();
+    }
     // get the number of the paragraph starting with iter_start
-    CtListInfo number_n_level = list_get_number_n_level(iter_start);
+    const CtListInfo number_n_level = list_get_number_n_level(iter_start);
     int curr_level = number_n_level.level;
-    if (number_n_level)
-        return CtListInfo{number_n_level.type, number_n_level.num, curr_level, number_n_level.aux, iter_start.get_offset()};
-    // print number_n_level
-    if (!buffer_start and curr_level > 0) {
+    if (number_n_level) {
+        return CtListInfo{number_n_level.type,
+                          number_n_level.num_seq,
+                          curr_level,
+                          number_n_level.aux,
+                          iter_start.get_offset(),
+                          count_nl};
+    }
+    if (not buffer_start and curr_level > 0) {
         // may be a list paragraph but after a shift+return
         iter_start.backward_char();
-        CtListInfo list_info = get_paragraph_list_info(iter_start);
-        // print list_info
-        if (list_info)
+        const CtListInfo list_info = get_paragraph_list_info(iter_start, count_nl+1);
+        if (list_info) {
             if ((list_info and list_info.level == (curr_level-1)) or
-                (!list_info and list_info.level == curr_level) /* it's used for shift+return */)
+                (not list_info and list_info.level == curr_level) /* it's used for shift+return */)
             {
                 return list_info;
             }
+        }
     }
     return CtListInfo{}; // this paragraph is not a list
 }
 
-// Generates and Returns two iters indicating the paragraph bounds
-CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
+CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter/*= nullptr*/)
 {
     Gtk::TextIter iter_start, iter_end;
     if (!force_iter and _curr_buffer->get_has_selection()) {
@@ -360,7 +352,7 @@ CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
 // Check if ☐ or ☑ or ☒
 bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 {
-    if (_pCtMainWin->get_ct_config()->charsTodo.contains(Glib::ustring(1, square_bracket_open_iter.get_char()))) {
+    if (_pCtConfig->charsTodo.contains(Glib::ustring(1, square_bracket_open_iter.get_char()))) {
         CtListInfo list_info = get_paragraph_list_info(square_bracket_open_iter);
         if (list_info.type == CtListType::Todo)
             return true;
@@ -373,7 +365,7 @@ void CtList::todo_list_rotate_status(Gtk::TextIter todo_char_iter)
 {
     int iter_offset = todo_char_iter.get_offset();
     const gunichar todo_char_val = todo_char_iter.get_char();
-    auto pConfig = _pCtMainWin->get_ct_config();
+    auto pConfig = _pCtConfig;
     if (todo_char_val == pConfig->charsTodo.item()[0]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
         _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), pConfig->charsTodo[1]);
@@ -388,7 +380,6 @@ void CtList::todo_list_rotate_status(Gtk::TextIter todo_char_iter)
     }
 }
 
-// Forwards char iter to line end
 bool CtList::char_iter_forward_to_newline(Gtk::TextIter& char_iter)
 {
     if (!char_iter.forward_char()) return false;
@@ -398,7 +389,6 @@ bool CtList::char_iter_forward_to_newline(Gtk::TextIter& char_iter)
     return true;
 }
 
-// Backwards char iter to line start
 bool CtList::char_iter_backward_to_newline(Gtk::TextIter& char_iter)
 {
     if (!char_iter.backward_char()) return false;
@@ -407,7 +397,6 @@ bool CtList::char_iter_backward_to_newline(Gtk::TextIter& char_iter)
     return true;
 }
 
-// Conversion of todo lists from old to new type for a node
 void CtList::todo_lists_old_to_new_conversion()
 {
     Gtk::TextIter curr_iter = _curr_buffer->begin();
@@ -441,7 +430,7 @@ void CtList::todo_lists_old_to_new_conversion()
                     first_iter.backward_chars(3);
                     int iter_offset = first_iter.get_offset();
                     _curr_buffer->erase(first_iter, curr_iter);
-                    auto todo_char = middle_char == ' ' ? _pCtMainWin->get_ct_config()->charsTodo[0] : _pCtMainWin->get_ct_config()->charsTodo[1];
+                    auto todo_char = middle_char == ' ' ? _pCtConfig->charsTodo[0] : _pCtConfig->charsTodo[1];
                     _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), todo_char);
                     Gtk::TextIter curr_iter = _curr_buffer->get_iter_at_offset(iter_offset);
                     if (middle_char != ' ') {

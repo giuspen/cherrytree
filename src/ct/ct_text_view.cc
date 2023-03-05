@@ -1,7 +1,7 @@
 /*
  * ct_text_view.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -157,20 +157,20 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
     _pCtMainWin->user_active() = false;
 
     int curr_offset = list_info.startoffs;
-    int end_offset = CtList{_pCtMainWin, get_buffer()}.get_multiline_list_element_end_offset(iter_insert, list_info);
+    int end_offset = CtList{_pCtConfig, get_buffer()}.get_multiline_list_element_end_offset(iter_insert, list_info);
     int curr_level = list_info.level;
     int next_level = level_increase ? curr_level+1 : curr_level-1;
     Gtk::TextIter iter_start = get_buffer()->get_iter_at_offset(curr_offset);
-    CtListInfo prev_list_info = CtList{_pCtMainWin, get_buffer()}.get_prev_list_info_on_level(iter_start, next_level);
+    CtListInfo prev_list_info = CtList{_pCtConfig, get_buffer()}.get_prev_list_info_on_level(iter_start, next_level);
     if (list_info.type != CtListType::Todo) {
         int bull_offset = curr_offset + 3*list_info.level;
         int bull_idx;
         if (list_info.type == CtListType::Bullet) {
             if (prev_list_info and prev_list_info.type == CtListType::Bullet) {
-                bull_idx = prev_list_info.num;
+                bull_idx = prev_list_info.aux;
             }
             else {
-                int idx_old = list_info.num;
+                int idx_old = list_info.aux;
                 int idx_offset = idx_old - curr_level % (int)_pCtConfig->charsListbul.size();
                 bull_idx = (next_level + idx_offset) % (int)_pCtConfig->charsListbul.size();
                 if (bull_idx < 0) bull_idx += _pCtConfig->charsListbul.size();
@@ -181,7 +181,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
         else if (list_info.type == CtListType::Number) {
             int this_num, index;
             if (prev_list_info and prev_list_info.type == CtListType::Number) {
-                this_num = prev_list_info.num + 1;
+                this_num = prev_list_info.num_seq + 1;
                 index = prev_list_info.aux;
             }
             else {
@@ -191,7 +191,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
                 index = (next_level + idx_offset) % CtConst::CHARS_LISTNUM.size();
             }
             Glib::ustring text_to = std::to_string(this_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE;
-            replace_text(text_to, bull_offset, bull_offset + CtList{_pCtMainWin, get_buffer()}.get_leading_chars_num(list_info.type, list_info.num));
+            replace_text(text_to, bull_offset, bull_offset + CtList{_pCtConfig, get_buffer()}.get_leading_chars_num(list_info.type, list_info.num_seq));
         }
     }
     iter_start = get_buffer()->get_iter_at_offset(curr_offset);
@@ -207,7 +207,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
             end_offset -= 3;
             iter_start = get_buffer()->get_iter_at_offset(curr_offset+1);
         }
-        if (not CtList{_pCtMainWin, get_buffer()}.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char()) {
+        if (not CtList{_pCtConfig, get_buffer()}.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char()) {
             break;
         }
         curr_offset = iter_start.get_offset();
@@ -292,9 +292,9 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
                     return;
                 }
             }
-            if (CtList{_pCtMainWin, text_buffer}.is_list_todo_beginning(text_iter)) {
+            if (CtList{_pCtConfig, text_buffer}.is_list_todo_beginning(text_iter)) {
                 if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error()) {
-                    CtList{_pCtMainWin, text_buffer}.todo_list_rotate_status(text_iter);
+                    CtList{_pCtConfig, text_buffer}.todo_list_rotate_status(text_iter);
                     _todoRotateTime = event->button.time; // to prevent triple click
                 }
             }
@@ -363,7 +363,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
             Gtk::TextIter iter_start = iter_insert;
             iter_start.backward_char();
-            CtListInfo list_info = CtList{_pCtMainWin, text_buffer}.get_paragraph_list_info(iter_start);
+            CtListInfo list_info = CtList{_pCtConfig, text_buffer}.get_paragraph_list_info(iter_start);
             if (list_info) {
                 text_buffer->insert(iter_insert, Glib::ustring(3*(1+(size_t)list_info.level), CtConst::CHAR_SPACE[0]));
             }
@@ -390,7 +390,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             if (iter_start.get_char() != '\n') return;
             if (iter_start.backward_char() and iter_start.get_char() == '\n')
                 return; // former was an empty row
-            CtListInfo list_info = CtList{_pCtMainWin, text_buffer}.get_paragraph_list_info(iter_start);
+            CtListInfo list_info = CtList{_pCtConfig, text_buffer}.get_paragraph_list_info(iter_start);
             if (not list_info) {
                 if (_pCtConfig->autoIndent) {
                     iter_start = iter_insert;
@@ -401,7 +401,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
             // possible enter on empty list element
             int insert_offset = iter_insert.get_offset();
-            int chars_to_startoffs = 1 + CtList{_pCtMainWin, text_buffer}.get_leading_chars_num(list_info.type, list_info.num) + 3*list_info.level;
+            int chars_to_startoffs = 1 + CtList{_pCtConfig, text_buffer}.get_leading_chars_num(list_info.type, list_info.num_seq) + 3*list_info.level;
             if ((insert_offset - list_info.startoffs) == chars_to_startoffs) {
                 if (iter_insert.ends_line()) {
                     // enter on empty list element
@@ -420,37 +420,37 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 // the list element was not empty, this list element should get a new list prefix
                 iter_start = iter_insert;
                 (void)iter_start.backward_chars(2);
-                list_info = CtList{_pCtMainWin, text_buffer}.get_paragraph_list_info(iter_start);
+                list_info = CtList{_pCtConfig, text_buffer}.get_paragraph_list_info(iter_start);
             }
             // list new element
             int curr_level = list_info.level;
             Glib::ustring pre_spaces = curr_level ? Glib::ustring((size_t)(3*curr_level), CtConst::CHAR_SPACE[0]) : "";
             if (list_info.type == CtListType::Bullet) {
-                text_buffer->insert(iter_insert, pre_spaces+_pCtConfig->charsListbul[(size_t)list_info.num]+CtConst::CHAR_SPACE);
+                text_buffer->insert(iter_insert, pre_spaces+_pCtConfig->charsListbul[(size_t)list_info.aux]+CtConst::CHAR_SPACE);
             }
             else if (list_info.type == CtListType::Todo) {
                 text_buffer->insert(iter_insert, pre_spaces+_pCtConfig->charsTodo[0]+CtConst::CHAR_SPACE);
             }
             else {
-                int new_num = list_info.num + 1;
+                int new_num = list_info.num_seq + 1;
                 int index = list_info.aux;
                 text_buffer->insert(iter_insert, pre_spaces + std::to_string(new_num) + CtConst::CHARS_LISTNUM[(size_t)index] + CtConst::CHAR_SPACE);
                 new_num += 1;
                 iter_start = text_buffer->get_iter_at_offset(insert_offset);
-                CtList{_pCtMainWin, text_buffer}.char_iter_forward_to_newline(iter_start);
-                list_info = CtList{_pCtMainWin, text_buffer}.get_next_list_info_on_level(iter_start, curr_level);
+                CtList{_pCtConfig, text_buffer}.char_iter_forward_to_newline(iter_start);
+                list_info = CtList{_pCtConfig, text_buffer}.get_next_list_info_on_level(iter_start, curr_level);
                 // print list_info
                 while (list_info and list_info.type == CtListType::Number) {
                     iter_start = text_buffer->get_iter_at_offset(list_info.startoffs);
-                    int end_offset = CtList{_pCtMainWin, text_buffer}.get_multiline_list_element_end_offset(iter_start, list_info);
+                    int end_offset = CtList{_pCtConfig, text_buffer}.get_multiline_list_element_end_offset(iter_start, list_info);
                     Gtk::TextIter iter_end = text_buffer->get_iter_at_offset(end_offset);
-                    CtTextRange range = CtList{_pCtMainWin, text_buffer}.list_check_n_remove_old_list_type_leading(iter_start, iter_end);
+                    CtTextRange range = CtList{_pCtConfig, text_buffer}.list_check_n_remove_old_list_type_leading(iter_start, iter_end);
                     end_offset -= range.leading_chars_num;
                     text_buffer->insert(range.iter_start, std::to_string(new_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE);
-                    end_offset += CtList{_pCtMainWin, text_buffer}.get_leading_chars_num(list_info.type, new_num);
+                    end_offset += CtList{_pCtConfig, text_buffer}.get_leading_chars_num(list_info.type, new_num);
                     iter_start = text_buffer->get_iter_at_offset(end_offset);
                     new_num += 1;
-                    list_info = CtList{_pCtMainWin, text_buffer}.get_next_list_info_on_level(iter_start, curr_level);
+                    list_info = CtList{_pCtConfig, text_buffer}.get_next_list_info_on_level(iter_start, curr_level);
                 }
             }
         }
@@ -566,7 +566,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
          (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
     {
-        if (CtList{_pCtMainWin, get_buffer()}.is_list_todo_beginning(text_iter)) {
+        if (CtList{_pCtConfig, get_buffer()}.is_list_todo_beginning(text_iter)) {
             get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
             set_tooltip_text("");
             return;

@@ -1,7 +1,7 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,6 +28,7 @@
 #include "ct_storage_control.h"
 #include "ct_logging.h"
 #include "ct_filesystem.h"
+#include "ct_list.h"
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
@@ -537,22 +538,187 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
         out_slots.push_back(_html_process_slot(start_offset, sel_end, curr_buffer));
 }
 
+int CtExport2Html::_html_process_list_info_change(Glib::ustring& curr_html_text,
+                                                  std::list<CtListType>& nested_list_types,
+                                                  CtListInfo* pListInfoFrom,
+                                                  const CtListInfo* pListInfoTo)
+{
+    int ret_forward_start{0};
+    if (*pListInfoFrom == *pListInfoTo) {
+        return ret_forward_start;
+    }
+    //spdlog::debug("list_info t={} s={} l={} c={} n={}", static_cast<int>(pListInfoTo->type),
+    //    pListInfoTo->startoffs, pListInfoTo->level, pListInfoTo->count_nl, pListInfoTo->num_seq);
+    auto f_increase_level_ol = [&](){
+        curr_html_text += (CtConst::TAG_OL_START + CtConst::TAG_LI_START);
+        nested_list_types.push_back(pListInfoTo->type);
+        ret_forward_start = 3*pListInfoTo->level + CtList::get_leading_chars_num(pListInfoTo->type, pListInfoTo->num_seq);
+    };
+    auto f_increase_level_ul = [&](){
+        curr_html_text += (CtConst::TAG_UL_START + CtConst::TAG_LI_START);
+        nested_list_types.push_back(pListInfoTo->type);
+        if (CtListType::Bullet == pListInfoTo->type) {
+            // we don't want to remove the TODO status character, only if bullet
+            ret_forward_start = 3*pListInfoTo->level + CtList::get_leading_chars_num(pListInfoTo->type, pListInfoTo->num_seq);
+        }
+    };
+    auto f_new_li = [&](){
+        curr_html_text += (CtConst::TAG_LI_END + CtConst::TAG_LI_START);
+        ret_forward_start = 3*pListInfoTo->level + CtList::get_leading_chars_num(pListInfoTo->type, pListInfoTo->num_seq);
+    };
+    auto f_same_li_new_line = [&](){
+        ret_forward_start = 3*pListInfoTo->level;
+    };
+    auto f_decrease_level_to_current = [&](){
+        int delta_levels = pListInfoFrom->level - pListInfoTo->level;
+        while (delta_levels-- > 0 and nested_list_types.size() > 0) {
+            const CtListType leaf_type = nested_list_types.back();
+            nested_list_types.pop_back();
+            curr_html_text += (CtConst::TAG_LI_END +
+                (CtListType::Number == leaf_type ? CtConst::TAG_OL_END : CtConst::TAG_UL_END));
+        }
+    };
+    if (/*FROM*/CtListType::None == pListInfoFrom->type) {
+        if (/*TO*/CtListType::None == pListInfoTo->type) {
+            spdlog::debug("?? unexp None to None");
+        }
+        else if (/*TO*/CtListType::Number == pListInfoTo->type) {
+            f_increase_level_ol();
+        }
+        else {
+            // TO CtListType::Bullet, CtListType::Todo
+            f_increase_level_ul();
+        }
+    }
+    else if (/*FROM*/CtListType::Number == pListInfoFrom->type) {
+        if (/*TO*/CtListType::None == pListInfoTo->type) {
+            f_decrease_level_to_current();
+        }
+        else if (/*TO*/CtListType::Number == pListInfoTo->type) {
+            if (pListInfoTo->level == pListInfoFrom->level) {
+                if (pListInfoTo->startoffs == pListInfoFrom->startoffs and
+                    pListInfoTo->count_nl > pListInfoFrom->count_nl)
+                {
+                    // continuation of the list item on a new line
+                    f_same_li_new_line();
+                }
+                else {
+                    // a new list item
+                    f_new_li();
+                }
+            }
+            else if (pListInfoTo->level > pListInfoFrom->level) {
+                for (int i = 0; i < (pListInfoTo->level - pListInfoFrom->level); ++i) {
+                    f_increase_level_ol();
+                }
+            }
+            else {
+                f_decrease_level_to_current();
+                f_new_li();
+            }
+        }
+        else {
+            // TO != TYPE CtListType::Bullet, CtListType::Todo
+            if (pListInfoTo->level == pListInfoFrom->level) {
+                spdlog::debug("?? unexp same level != type");
+                f_new_li();
+            }
+            else if (pListInfoTo->level > pListInfoFrom->level) {
+                for (int i = 0; i < (pListInfoTo->level - pListInfoFrom->level); ++i) {
+                    f_increase_level_ul();
+                }
+            }
+            else {
+                f_decrease_level_to_current();
+                f_new_li();
+            }
+        }
+    }
+    else {
+        // FROM CtListType::Bullet, CtListType::Todo
+        if (/*TO*/CtListType::None == pListInfoTo->type) {
+            f_decrease_level_to_current();
+        }
+        else if (/*TO != type*/CtListType::Number == pListInfoTo->type) {
+            if (pListInfoTo->level == pListInfoFrom->level) {
+                spdlog::debug("?? unexp same level != type");
+                f_new_li();
+            }
+            else if (pListInfoTo->level > pListInfoFrom->level) {
+                for (int i = 0; i < (pListInfoTo->level - pListInfoFrom->level); ++i) {
+                    f_increase_level_ol();
+                }
+            }
+            else {
+                f_decrease_level_to_current();
+                f_new_li();
+            }
+        }
+        else {
+            // TO CtListType::Bullet, CtListType::Todo
+            if (pListInfoTo->level == pListInfoFrom->level) {
+                if (pListInfoTo->startoffs == pListInfoFrom->startoffs and
+                    pListInfoTo->count_nl > pListInfoFrom->count_nl)
+                {
+                    // continuation of the list item on a new line
+                    f_same_li_new_line();
+                }
+                else {
+                    // a new list item
+                    f_new_li();
+                }
+            }
+            else if (pListInfoTo->level > pListInfoFrom->level) {
+                for (int i = 0; i < (pListInfoTo->level - pListInfoFrom->level); ++i) {
+                    f_increase_level_ul();
+                }
+            }
+            else {
+                f_decrease_level_to_current();
+                f_new_li();
+            }
+        }
+    }
+    *pListInfoFrom = *pListInfoTo;
+    return ret_forward_start;
+}
+
 // Process a Single HTML Slot
 Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer)
 {
-    Glib::ustring curr_html_text = "";
+    Glib::ustring curr_html_text;
+    CtListInfo curr_list_info;
+    std::list<CtListType> nested_list_types;
     CtTextIterUtil::SerializeFunc f_html_serialise = [&](Gtk::TextIter& start_iter,
                                                          Gtk::TextIter& curr_iter,
-                                                         CtCurrAttributesMap& curr_attributes)
+                                                         CtCurrAttributesMap& curr_attributes,
+                                                         CtListInfo* pCurrListInfo)
     {
-        curr_html_text += _html_text_serialize(start_iter, curr_iter, curr_attributes);
+        Glib::ustring list_html_tags;
+        const int forward_start = _html_process_list_info_change(list_html_tags, nested_list_types, &curr_list_info, pCurrListInfo);
+        //spdlog::debug("fw={} +'{}'", forward_start, list_html_tags.raw());
+        if (list_html_tags.size() > 0) curr_html_text += list_html_tags;
+        if (forward_start > 0) {
+            while ('\n' == start_iter.get_char()) {
+                if (not start_iter.forward_char()) break;
+            }
+            start_iter.forward_chars(forward_start);
+        }
+        const Glib::ustring html_slot = _html_text_serialize(start_iter, curr_iter, curr_attributes);
+        //spdlog::debug("slot({})='{}'", html_slot.size(), html_slot.raw());
+        curr_html_text += html_slot;
     };
-    CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer, f_html_serialise);
+    CtTextIterUtil::generic_process_slot(_pCtMainWin->get_ct_config(),
+                                         start_offset, end_offset, curr_buffer, f_html_serialise, true/*list_info*/);
 
     for (auto header : {CtConst::TAG_PROP_VAL_H1, CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3,
-                        CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6}) {
+                        CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6})
+    {
         curr_html_text = str::replace(curr_html_text, ("</" + Glib::ustring{header} + "><" + Glib::ustring{header} + " >").c_str(), "");
     }
+    CtListInfo list_info_none;
+    (void)_html_process_list_info_change(curr_html_text, nested_list_types, &curr_list_info, &list_info_none);
+
     return curr_html_text;
 }
 

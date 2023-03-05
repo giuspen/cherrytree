@@ -1,7 +1,7 @@
 /*
  * tests_common.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -31,6 +31,8 @@
 #include <list>
 #include <glib/gstdio.h>
 #include <glibmm/miscutils.h>
+
+#define _NL "\n"
 
 namespace UT {
 
