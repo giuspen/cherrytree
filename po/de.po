@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-28 20:29+0000\n"
-"PO-Revision-Date: 2023-03-04 12:25+0100\n"
+"PO-Revision-Date: 2023-03-05 14:00+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -198,13 +198,13 @@ msgstr "Anker bearbeiten"
 msgid "Cannot Edit Embedded File in Read Only Node."
 msgstr ""
 "Eingebettete Dateien können in schreibgeschützten Knoten nicht editiert "
-"werden"
+"werden."
 
 msgid "Embedded File Automatically Updated:"
 msgstr "Eingebettete Datei wurde automatisch aktualisiert:"
 
 msgid "No Node is Selected"
-msgstr "Kein Knoten ausgewählt"
+msgstr "Es ist kein Knoten ausgewählt."
 
 msgid "The Tree is Empty!"
 msgstr "Die Baumstruktur ist leer!"
@@ -224,7 +224,7 @@ msgid "No Table is Selected."
 msgstr "Es ist keine Tabelle ausgewählt."
 
 msgid "No CodeBox is Selected."
-msgstr "Keine CodeBox ausgewählt."
+msgstr "Es ist keine CodeBox ausgewählt."
 
 msgid "New Child Node Properties"
 msgstr "Eigenschaften des neuen Unterknotens"
@@ -259,7 +259,7 @@ msgid "The new chosen parent is still the old parent!"
 msgstr "Der neue übergeordnete Knoten ist unverändert!"
 
 msgid "The new parent can't be one of his children!"
-msgstr "Der übergeordnete Knoten kann nicht gleichzeitig untergeordnet sein."
+msgstr "Der übergeordnete Knoten kann nicht gleichzeitig untergeordnet sein!"
 
 #, c-format
 msgid "%s Nodes Properties Changed"
@@ -550,7 +550,7 @@ msgid "Number of Anchors"
 msgstr "Anzahl der Anker"
 
 msgid "Latex Text"
-msgstr "LaTeX Text"
+msgstr "LaTeX-Text"
 
 msgid "Image Size dpi"
 msgstr "Bildauflösung dpi"
@@ -762,7 +762,7 @@ msgid "Anchor Name (optional)"
 msgstr "Ankername (optional)"
 
 msgid "There are No Anchors in the Selected Node."
-msgstr "Keine Anker im ausgewählten Knoten vorhanden"
+msgstr "Keine Anker im ausgewählten Knoten vorhanden."
 
 msgid "Choose Existing Anchor"
 msgstr "Vorhandenen Anker wählen"
@@ -901,7 +901,7 @@ msgid ""
 "is No Longer Available."
 msgstr ""
 "In dieser Sitzung wurde noch keine Knotenkopie durchgeführt oder der "
-"Quellbaum ist nicht länger verfügbar."
+"Quellbaum ist nicht mehr verfügbar."
 
 msgid "The Source Tree Node is No Longer Available."
 msgstr "Der Knoten ist in der Quelle nicht mehr verfügbar."
@@ -923,7 +923,7 @@ msgstr ""
 
 #, c-format
 msgid "No node named '%s' found."
-msgstr "Kein Knoten namens '%s' gefunden"
+msgstr "Kein Knoten namens '%s' gefunden."
 
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr ""
@@ -939,11 +939,11 @@ msgstr "Haben Sie die externen Anwendungen geschlossen?"
 # ### msgid "The Document was Updated After Non-CherryTree Update to CT* File"
 msgid "The Document was Reloaded After External Update to CT* File."
 msgstr ""
-"Das Dokment wurde nach einer externen Aktualisierungt der CT*-Datei neu "
+"Das Dokument wurde nach einer externen Aktualisierung der CT*-Datei neu "
 "geladen."
 
 msgid "Copy Selection or All"
-msgstr "Kopiert Selektion oder Alles"
+msgstr "Auswahl oder alles kopieren"
 
 msgid "Paste"
 msgstr "Einfügen"
@@ -1129,7 +1129,7 @@ msgid "Insert an Image"
 msgstr "Bild einfügen"
 
 msgid "Insert Late_x..."
-msgstr "LaTeX einfügen"
+msgstr "LaTeX-Box einfügen..."
 
 msgid "Insert LatexBox"
 msgstr "LaTeX-Box einfügen"
@@ -1646,10 +1646,10 @@ msgid "Execute All Code in CodeBox or Node"
 msgstr "Gesamten Code in CodeBox oder Knoten ausführen"
 
 msgid "E_xecute Code Line or Selection"
-msgstr "Codezeile oder Selektion ausführen"
+msgstr "Codezeile oder Auswahl ausführen"
 
 msgid "Execute Code from Current Line or Selected Text"
-msgstr "Code aus aktueller oder selektierter Zeile ausführen"
+msgstr "Code aus aktueller oder markierten Zeilen ausführen"
 
 msgid "Tree"
 msgstr "Baumstruktur"
@@ -1782,19 +1782,19 @@ msgid "Move the Selected Node Down"
 msgstr "Ausgewählten Knoten nach unten verschieben"
 
 msgid "Node _Left"
-msgstr "Knoten nach _links schieben"
+msgstr "Knoten nach _links verschieben"
 
 msgid "Move the Selected Node Left"
 msgstr "Ausgewählten Knoten nach links verschieben (hochstufen)"
 
 msgid "Node _Right"
-msgstr "Knoten nach _rechts schieben"
+msgstr "Knoten nach _rechts verschieben"
 
 msgid "Move the Selected Node Right"
-msgstr "Ausgewählten Knoten nach rechts schieben (herabstufen)"
+msgstr "Ausgewählten Knoten nach rechts verschieben (herabstufen)"
 
 msgid "Node Change _Parent..."
-msgstr "_Übergeordneten Knoten ändern"
+msgstr "_Übergeordneten Knoten ändern..."
 
 msgid "Change the Selected Node's Parent"
 msgstr "Übergeordneten Knoten ändern"
@@ -2194,13 +2194,13 @@ msgid "Rename Embedded File"
 msgstr "Eingebettete Datei umbenennen"
 
 msgid "_Save LatexBox as PNG..."
-msgstr "LaTeX-Box als _PNG speichern"
+msgstr "LaTeX-Box als _PNG speichern..."
 
 msgid "Save the Selected LatexBox as a PNG file"
 msgstr "Ausgewählte LaTeX-Box als _PNG speichern"
 
 msgid "_Edit LatexBox..."
-msgstr "LaTeX-Box bearbeiten"
+msgstr "LaTeX-Box bearbeiten..."
 
 msgid "Edit the Selected LatexBox"
 msgstr "Ausgewählte LaTeX-Box bearbeiten"
@@ -2224,13 +2224,13 @@ msgid "Delete the Selected LatexBox"
 msgstr "Ausgewählte LaTeX-Box löschen"
 
 msgid "_Save Image as PNG..."
-msgstr "Bild als _PNG speichern"
+msgstr "Bild als _PNG speichern..."
 
 msgid "Save the Selected Image as a PNG file"
 msgstr "Ausgewähltes Bild als PNG speichern"
 
 msgid "_Edit Image..."
-msgstr "_Bild bearbeiten"
+msgstr "_Bild bearbeiten..."
 
 msgid "Edit the Selected Image"
 msgstr "Ausgewähltes Bild bearbeiten"
@@ -2719,7 +2719,7 @@ msgstr "Verschlüsselung der Datei fehlgeschlagen"
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
-msgstr "Die Datenbank-Datei %s ist korrupt, siehe Log für Details"
+msgstr "Die Datenbankdatei %s ist korrupt, siehe Log für Details."
 
 msgid ""
 "Backup files are by default 3 in the same folder of the corrupted document, "
@@ -2737,7 +2737,7 @@ msgstr ""
 msgid ""
 "%s write failed - file is missing. Reattach USB driver or shared resource!"
 msgstr ""
-"%s Schreibfehler - Datei fehlt. USB-Medium oder Ressource erneut einbinden"
+"%s Schreibfehler - Datei fehlt. USB-Medium oder Ressource erneut einbinden!"
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
