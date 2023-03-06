@@ -567,7 +567,7 @@ int CtExport2Html::_html_process_list_info_change(Glib::ustring& curr_html_text,
         ret_forward_start = 3*pListInfoTo->level + CtList::get_leading_chars_num(pListInfoTo->type, pListInfoTo->num_seq);
     };
     auto f_same_li_new_line = [&](){
-        ret_forward_start = 3*pListInfoTo->level;
+        ret_forward_start = 3*(pListInfoTo->level + 1) - 1;
     };
     auto f_decrease_level_to_current = [&](){
         int delta_levels = pListInfoFrom->level - pListInfoTo->level;
