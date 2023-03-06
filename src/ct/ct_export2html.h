@@ -51,6 +51,12 @@ private:
 public:
     CtExport2Html(CtMainWin* pCtMainWin);
 
+    static Glib::ustring html_process_slot(const CtConfig* const pCtConfig,
+                                           CtMainWin* const pCtMainWin, // the unit tests may pass nullptr here!
+                                           int start_offset,
+                                           int end_offset,
+                                           Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
+
     void          node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end);
     void          nodes_all_export_to_multiple_html(bool all_tree, const CtExportOptions& options);
     void          nodes_all_export_to_single_html(bool all_tree, const CtExportOptions& options);
@@ -66,28 +72,37 @@ private:
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
     Glib::ustring _get_table_html(CtTableCommon* table);
 
-    Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string &syntax_highlighting);
-    void          _html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
-                                       std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets);
-    Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
-    int _html_process_list_info_change(Glib::ustring& html,
-                                       std::list<CtListType>& nested_list_types,
-                                       CtListInfo* pListInfoFrom,
-                                       const CtListInfo* pListInfoTo);
-    Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const CtCurrAttributesMap& curr_attributes);
-    std::string _get_href_from_link_prop_val(Glib::ustring link_prop_val);
+    Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer,
+                                             int sel_start,
+                                             int sel_end,
+                                             const std::string &syntax_highlighting);
+    void _html_get_from_treestore_node(CtTreeIter node_iter,
+                                       int sel_start,
+                                       int sel_end,
+                                       std::vector<Glib::ustring>& out_slots,
+                                       std::vector<CtAnchoredWidget*>& out_widgets);
+    static int _html_process_list_info_change(Glib::ustring& html,
+                                              std::list<CtListType>& nested_list_types,
+                                              CtListInfo* pListInfoFrom,
+                                              const CtListInfo* pListInfoTo);
+    static Glib::ustring _html_text_serialize(CtMainWin* const pCtMainWin, // the unit tests may pass nullptr here!
+                                              Gtk::TextIter start_iter,
+                                              Gtk::TextIter end_iter,
+                                              const CtCurrAttributesMap& curr_attributes);
+    static std::string _get_href_from_link_prop_val(CtMainWin* const pCtMainWin, Glib::ustring link_prop_val);
     Glib::ustring _get_object_alignment_string(Glib::ustring alignment);
 
-    void          _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page);
+    void _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page);
 
-    Glib::ustring _get_html_filename(CtTreeIter tree_iter);
+    static Glib::ustring _get_html_filename(CtTreeIter tree_iter);
 
 public:
     static std::string link_process_filepath(const std::string& filepath_raw, const std::string& relative_to, const bool forHtml);
     static std::string link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to, const bool forHtml);
 
 private:
-    CtMainWin*    _pCtMainWin;
+    CtMainWin* const _pCtMainWin;
+    const CtConfig* const _pCtConfig;
     fs::path _export_dir;
     fs::path _images_dir;
     fs::path _embed_dir;

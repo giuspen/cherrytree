@@ -25,6 +25,7 @@
 #include "ct_list.h"
 #include "ct_config.h"
 #include "tests_common.h"
+#include "ct_export2html.h"
 
 static const CtConfig ct_config;
 
@@ -196,4 +197,10 @@ TEST(ListsGroup, CtListInfo)
     ASSERT_EQ(1, curr_list_info.num_seq);
     ASSERT_EQ(377, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
+
+    Glib::ustring out_html = CtExport2Html::html_process_slot(&ct_config,
+                                                              nullptr/*pCtMainWin*/,
+                                                              0, bufferContent.size()-1,
+                                                              pBuffer);
+    ASSERT_STREQ("<ul><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ul><li>terzo elemento indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2 pi\xC3\xB9 3<ul><li>ancora un livello su pi\xC3\xB9 righe</li><li>stesso livello<ul><li>ancora uno avanti</li></ul></li></ul></li></ul></li></ul>\n<ol><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ol><li>terzo indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2<ol><li>ancora un livello<ol><li>ancora uno avant</li></ol></li></ol></li></ol></li></ol>", out_html.c_str());
 }
