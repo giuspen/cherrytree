@@ -1,18 +1,14 @@
-cherrytree (0.99.54-2) focal; urgency=low
+cherrytree (0.99.55-2) focal; urgency=low
 
-  * implemented lightweight variant of tables. large tables visibly slow should use this interface. the change of interface is via table properties (#2140)
-  * the number of table cells to use as threshold for defaulting to table light mode is configurable in the preferences dialog (default 25)
-  * fixed searching for regexp everything (.*) freeze (#2190)
-  * dialog search with regexp, added help button to display reference web page
-  * fixed crash when attempting to print on Windows OS (#2066, libcairo-2.dll, msys2/MINGW-packages/issues/15316)
-  * dialog all matches improved to show also the node tags and the pattern searched
-  * fixed issue with integrated terminal when using zsh as default shell on Mac OS (#2199)
-  * integrated terminal shell now configurable in preferences dialog
-  * added menu item action to toggle focus between text and integrated terminal with default shortcut Ctrl+Shift+T (#1772)
-  * implemented option to keep cherrytree always on top, under top menu 'view' (#2145)
-  * added menu item action to insert today's node under the selected node rather than under the tree root (#40)
-  * added search dialog option to override search exclusions (#2174)
-  * incomplete languages: ar, bg, el, fi, fr, hi_IN, hr, hu, kk_KZ, kk_LA, ko, lt, ru, zh_CN
+  * table actions: keyboard shortcuts now configurable in preferences dialog and available in toolbar configurability (#2124, #2195, #2219)
+  * codebox actions: keyboard shortcuts now configurable in preferences dialog and available in toolbar configurability
+  * implemented conversion of multi level lists to real html unordered and ordered lists (#1765)
+  * fixed autosave in case the document was never saved before, to prompt the user for a storage type/path (#2225)
+  * fixed export to pdf crash (#2227)
+  * fixed issue with font family name getting multiplied while zooming (#1895)
+  * added support for executing c-sharp code (#2234)
+  * windows version only - fixed issue with font sub-pixel rendering present since 0.99.52 (issue fixed from msys2, #2226, #2171)
+  * incomplete languages: ar, bg, el, es, fi, fr, hi_IN, kk_KZ, kk_LA, ko, lt, pl, pt, pt_BR, ru, tr, zh_CN
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 30 Jan 2023 19:19:53 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 07 Mar 2023 19:32:59 +0000
