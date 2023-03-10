@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -105,7 +105,6 @@ private:
     };
     std::unique_ptr<std::thread> _pThreadBackupEncrypt;
     ThreadSafeDEQueue<std::shared_ptr<CtBackupEncryptData>,9> _backupEncryptDEQueue;
-    static void _staticBackupEncryptThread(CtStorageControl* pStorageCtrl) { pStorageCtrl->_backupEncryptThread(); }
     void _backupEncryptThread();
     bool _backupEncryptKeepGoing{true};
 };

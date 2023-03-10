@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -340,7 +340,7 @@ CtStorageControl::CtStorageControl(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{pCtMainWin->get_ct_config()}
 {
-    _pThreadBackupEncrypt = std::make_unique<std::thread>(CtStorageControl::_staticBackupEncryptThread, this);
+    _pThreadBackupEncrypt = std::make_unique<std::thread>(std::bind(&CtStorageControl::_backupEncryptThread, this));
 }
 
 CtStorageControl::~CtStorageControl()
