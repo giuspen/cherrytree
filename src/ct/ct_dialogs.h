@@ -251,19 +251,16 @@ Glib::ustring latex_handle_dialog(CtMainWin* pCtMainWin,
 bool codeboxhandle_dialog(CtMainWin* pCtMainWin,
                           const Glib::ustring& title);
 
-struct storage_select_args
+struct CtStorageSelectArgs
 {
-    CtMainWin*    pCtMainWin;
     CtDocType     ctDocType{CtDocType::None};
     CtDocEncrypt  ctDocEncrypt{CtDocEncrypt::None};
     Glib::ustring password;
     bool          showAutosaveOptions{false};
-
-    storage_select_args(CtMainWin* win) : pCtMainWin{win} {}
 };
 
-// Choose the CherryTree data storage type (xml or db) and protection
-bool choose_data_storage_dialog(storage_select_args& args);
+// Choose the CherryTree data storage type and protection
+bool choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelectArgs& args);
 
 bool node_prop_dialog(const Glib::ustring &title,
                       CtMainWin* pCtMainWin,

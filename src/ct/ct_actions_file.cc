@@ -58,14 +58,14 @@ void CtActions::file_save_as()
     if (not _is_tree_not_empty_or_error()) {
         return;
     }
-    CtDialogs::storage_select_args storageSelArgs{_pCtMainWin};
+    CtDialogs::CtStorageSelectArgs storageSelArgs{};
     storageSelArgs.showAutosaveOptions = true;
     fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     if (not currDocFilepath.empty()) {
         storageSelArgs.ctDocType = fs::get_doc_type(currDocFilepath);
         storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt(currDocFilepath);
     }
-    if (not CtDialogs::choose_data_storage_dialog(storageSelArgs)) {
+    if (not CtDialogs::choose_data_storage_dialog(_pCtMainWin, storageSelArgs)) {
         return;
     }
     CtDialogs::FileSelectArgs fileSelArgs{_pCtMainWin};

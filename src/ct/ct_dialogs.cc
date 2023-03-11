@@ -208,10 +208,10 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 }
 
 // Choose the CherryTree data storage type (xml or db) and protection
-bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
+bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelectArgs& args)
 {
     Gtk::Dialog dialog{_("Choose Storage Type"),
-                       *args.pCtMainWin,
+                       *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     Gtk::Button* pButtonOk = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
@@ -277,7 +277,6 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
         passw_frame.set_sensitive(false);
     }
 
-    auto pCtMainWin = args.pCtMainWin;
     auto pCtConfig = pCtMainWin->get_ct_config();
     auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
@@ -352,11 +351,11 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
         {
             args.password = entry_passw_1.get_text();
             if (args.password.empty()) {
-                error_dialog(_("The Password Fields Must be Filled."), *args.pCtMainWin);
+                error_dialog(_("The Password Fields Must be Filled."), *pCtMainWin);
                 retVal = false;
             }
             else if (args.password != entry_passw_2.get_text()) {
-                error_dialog(_("The Two Inserted Passwords Do Not Match."), *args.pCtMainWin);
+                error_dialog(_("The Two Inserted Passwords Do Not Match."), *pCtMainWin);
                 retVal = false;
             }
         }

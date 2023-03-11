@@ -83,12 +83,12 @@ void CtActions::export_to_ctd()
         end_offset = iter_sel_end.get_offset();
     }
     const fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
-    CtDialogs::storage_select_args storageSelArgs(_pCtMainWin);
+    CtDialogs::CtStorageSelectArgs storageSelArgs{};
     if (not currDocFilepath.empty()) {
         storageSelArgs.ctDocType = fs::get_doc_type(currDocFilepath);
         storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt(currDocFilepath);
     }
-    if (not CtDialogs::choose_data_storage_dialog(storageSelArgs)) {
+    if (not CtDialogs::choose_data_storage_dialog(_pCtMainWin, storageSelArgs)) {
         return;
     }
     const std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
