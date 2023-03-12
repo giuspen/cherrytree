@@ -242,7 +242,7 @@ std::string CtMainWin::get_code_icon_name(std::string code_type)
             return iconPair.second;
         }
     }
-    return CtConst::NODE_CUSTOM_ICONS.at(CtConst::NODE_ICON_CODE_ID);
+    return CtStockIcon::at(CtConst::NODE_ICON_CODE_ID);
 }
 
 Gtk::Image* CtMainWin::new_managed_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)

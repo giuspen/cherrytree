@@ -34,6 +34,7 @@
 #include <type_traits>
 #include <glibmm/ustring.h>
 #include <gtksourceviewmm/buffer.h>
+#include "ct_const.h"
 
 namespace fs {
 class path;
@@ -281,6 +282,17 @@ public:
 
 protected:
     bool _isDryRun{false};
+};
+
+struct CtStockIcon
+{
+    static const gchar* at(const size_t i) {
+        if (i < CtConst::_NODE_CUSTOM_ICONS.size()) {
+            return CtConst::_NODE_CUSTOM_ICONS.at(i);
+        }
+        return CtConst::_NODE_CUSTOM_ICONS.at(CtConst::NODE_ICON_NO_ICON_ID);
+    }
+    static size_t size() { return CtConst::_NODE_CUSTOM_ICONS.size(); }
 };
 
 struct CtExportOptions

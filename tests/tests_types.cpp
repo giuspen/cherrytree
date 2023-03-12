@@ -1,7 +1,7 @@
 /*
  * tests_types.cpp
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -167,4 +167,16 @@ TEST(TestTypesGroup, ctScalableTag)
         ASSERT_FALSE(scalableTag.italic);
         ASSERT_FALSE(scalableTag.underline);
     }
+}
+
+TEST(TestTypesGroup, CtStockIcon)
+{
+    // non existing ID does not crash but returns 'no icon' icon
+    ASSERT_STREQ(CtStockIcon::at(10000u), "ct_node_no_icon");
+    ASSERT_STREQ(CtStockIcon::at(10001u), "ct_node_no_icon");
+
+    // valid ID
+    ASSERT_STREQ(CtStockIcon::at(14u), "ct_home");
+
+    ASSERT_EQ(CtStockIcon::size(), CtConst::_NODE_CUSTOM_ICONS.size());
 }

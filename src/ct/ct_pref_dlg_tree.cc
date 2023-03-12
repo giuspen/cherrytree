@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_tree.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -37,7 +37,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     checkbutton_aux_icon_hide->set_active(_pConfig->auxIconHide);
 
     auto c_icon_button = Gtk::manage(new Gtk::Button{});
-    c_icon_button->set_image(*_pCtMainWin->new_managed_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at(_pConfig->defaultIconText), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button->set_image(*_pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(_pConfig->defaultIconText), Gtk::ICON_SIZE_BUTTON));
     auto c_icon_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
     c_icon_hbox->pack_start(*radiobutton_node_icon_custom, false, false);
     c_icon_hbox->pack_start(*c_icon_button, false, false);
@@ -157,7 +157,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
         int pathCurrIdx{0};
         int pathSelectIdx{0};
         for (const auto i : CtConst::NODE_CUSTOM_ICONS_ORDERED) {
-            itemStore->add_row(CtConst::NODE_CUSTOM_ICONS[i], std::to_string(i), "");
+            itemStore->add_row(CtStockIcon::at(i), std::to_string(i), "");
             if (i == _pConfig->defaultIconText) {
                 pathSelectIdx = pathCurrIdx;
             }

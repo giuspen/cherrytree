@@ -56,10 +56,10 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
 
     Gtk::CheckButton c_icon_checkbutton{_("Use Selected Icon")};
-    c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtConst::NODE_CUSTOM_ICONS.size());
+    c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtStockIcon::size());
     Gtk::Button c_icon_button;
     int customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : CtConst::NODE_CUSTOM_ICONS_ORDERED.at(0);
-    c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at(customIconId), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(customIconId), Gtk::ICON_SIZE_BUTTON));
     c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
 
     grid_icons->attach(fg_checkbutton, 0, 1, 1, 1);
@@ -209,7 +209,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         int pathCurrIdx{0};
         int pathSelectIdx{0};
         for (const auto i : CtConst::NODE_CUSTOM_ICONS_ORDERED) {
-            itemStore->add_row(CtConst::NODE_CUSTOM_ICONS[i], std::to_string(i), "");
+            itemStore->add_row(CtStockIcon::at(i), std::to_string(i), "");
             if (static_cast<int>(nodeData.customIconId) == i) {
                 pathSelectIdx = pathCurrIdx;
             }

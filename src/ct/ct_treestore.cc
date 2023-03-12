@@ -1,7 +1,7 @@
 /*
  * ct_treestore.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -564,11 +564,11 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::
     Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
     if (0 != customIconId) {
         // customIconId
-        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtConst::NODE_CUSTOM_ICONS.at((int)customIconId), CtConst::NODE_ICON_SIZE);
+        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtStockIcon::at(customIconId), CtConst::NODE_ICON_SIZE);
     }
     else if (CtConst::NODE_ICON_TYPE_NONE == _pCtMainWin->get_ct_config()->nodesIcons) {
         // NODE_ICON_TYPE_NONE
-        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtConst::NODE_CUSTOM_ICONS.at(CtConst::NODE_ICON_NO_ICON_ID), CtConst::NODE_ICON_SIZE);
+        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtStockIcon::at(CtConst::NODE_ICON_NO_ICON_ID), CtConst::NODE_ICON_SIZE);
     }
     else if (CtStrUtil::contains(std::array<const gchar*, 2>{CtConst::RICH_TEXT_ID, CtConst::PLAIN_TEXT_ID}, syntax.c_str())) {
         // text node
@@ -580,7 +580,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::
         }
         else {
             // NODE_ICON_TYPE_CUSTOM
-            rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtConst::NODE_CUSTOM_ICONS.at(_pCtMainWin->get_ct_config()->defaultIconText), CtConst::NODE_ICON_SIZE);
+            rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtStockIcon::at(_pCtMainWin->get_ct_config()->defaultIconText), CtConst::NODE_ICON_SIZE);
         }
     }
     else {
