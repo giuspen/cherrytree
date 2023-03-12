@@ -454,19 +454,19 @@ const inline static std::array<const gchar*, 11> NODE_CHERRY_ICONS {
 };
 
 const inline static std::vector<std::pair<const gchar*, const gchar*>> NODE_CODE_ICONS {
-    std::make_pair("python", "ct_python"),
-    std::make_pair("python3", "ct_python"),
-    std::make_pair("perl", "ct_perl"),
-    std::make_pair("sh", "ct_term"),
-    std::make_pair("dosbatch", "ct_term-red"),
-    std::make_pair("powershell", "ct_term-red"),
-    std::make_pair("java", "ct_java"),
-    std::make_pair("html", "ct_html"),
-    std::make_pair("xml", "ct_xml"),
-    std::make_pair("c", "ct_c"),
-    std::make_pair("cpp", "ct_cpp"),
-    std::make_pair("c-sharp", "ct_csharp"),
-    std::make_pair("ruby", "ct_ruby")
+    std::make_pair("python",        "ct_python"),
+    std::make_pair("python3",       "ct_python"),
+    std::make_pair("perl",          "ct_perl"),
+    std::make_pair("sh",            "ct_term"),
+    std::make_pair("dosbatch",      "ct_term-red"),
+    std::make_pair("powershell",    "ct_term-red"),
+    std::make_pair("java",          "ct_java"),
+    std::make_pair("html",          "ct_html"),
+    std::make_pair("xml",           "ct_xml"),
+    std::make_pair("c",             "ct_c"),
+    std::make_pair("cpp",           "ct_cpp"),
+    std::make_pair("c-sharp",       "ct_csharp"),
+    std::make_pair("ruby",          "ct_ruby"),
 };
 
 const inline static gchar* CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
@@ -475,15 +475,16 @@ const inline static gchar* CODE_EXEC_CODE_TXT {"<code_txt>"};
 const inline static gchar* CODE_EXEC_COMMAND  {"<command>"};
 
 const inline static std::vector<std::pair<const std::string, const std::string>> CODE_EXEC_TYPE_CMD_DEFAULT {
-    std::make_pair("c",          std::string("gcc -o ") + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
-    std::make_pair("cpp",        std::string("g++ -o ") + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
-    std::make_pair("dosbatch",   std::string("call ") + CODE_EXEC_TMP_SRC),
-    std::make_pair("perl",       std::string("perl ") + CODE_EXEC_TMP_SRC),
-    std::make_pair("powershell", std::string("powershell -File ") + CODE_EXEC_TMP_SRC),
-    std::make_pair("python",     std::string("python2 ") + CODE_EXEC_TMP_SRC),
-    std::make_pair("python3",    std::string("python3 ") + CODE_EXEC_TMP_SRC),
+    std::make_pair("c",          std::string{"gcc -o "} + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
+    std::make_pair("cpp",        std::string{"g++ -o "} + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
+    std::make_pair("dosbatch",   std::string{"call "} + CODE_EXEC_TMP_SRC),
+    std::make_pair("perl",       std::string{"perl "} + CODE_EXEC_TMP_SRC),
+    std::make_pair("powershell", std::string{"powershell -File "} + CODE_EXEC_TMP_SRC),
+    std::make_pair("python",     std::string{"python2 "} + CODE_EXEC_TMP_SRC),
+    std::make_pair("python3",    std::string{"python3 "} + CODE_EXEC_TMP_SRC),
     std::make_pair("sh",         CODE_EXEC_CODE_TXT),
-    std::make_pair("c-sharp",    std::string("csc /out:") + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN)
+    std::make_pair("c-sharp",    std::string{"csc /out:"} + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
+    std::make_pair("java",       std::string{"java "} + CODE_EXEC_TMP_SRC),
 };
 
 const inline static std::vector<std::pair<const std::string, const std::string>> CODE_EXEC_TYPE_EXT_DEFAULT {
@@ -495,7 +496,8 @@ const inline static std::vector<std::pair<const std::string, const std::string>>
     std::make_pair("python",     "py"),
     std::make_pair("python3",    "py"),
     std::make_pair("sh",         "sh"),
-    std::make_pair("c-sharp",    "cs")
+    std::make_pair("c-sharp",    "cs"),
+    std::make_pair("java",       "java"),
 };
 
 const inline static std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
