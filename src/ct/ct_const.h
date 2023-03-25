@@ -423,18 +423,54 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_W-snow",            // 153
     "ct_W-storm",           // 154
     "ct_W-sunny",           // 155
+    "ct_apple",             // 156
+    "ct_bike",              // 157
+    "ct_bluetooth",         // 158
+    "ct_building",          // 159
+    "ct_bus",               // 160
+    "ct_car",               // 161
+    "ct_cellphone",         // 162
+    "ct_cloud",             // 163
+    "ct_computer",          // 164
+    "ct_display",           // 165
+    "ct_drive-harddisk",    // 166
+    "ct_drive-usb",         // 167
+    "ct_female",            // 168
+    "ct_food",              // 169
+    "ct_hamburger",         // 170
+    "ct_lifebuoy",          // 171
+    "ct_linuxmint",         // 172
+    "ct_male",              // 173
+    "ct_pizza",             // 174
+    "ct_telephone",         // 175
+    "ct_wifi",              // 176
+    "ct_antenna",           // 177
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
-    132, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16/*mail*/, 18/*notes*/, 142/*chat*/, 19, 20, 133,
-    /*coding start*/17, 21, 22, 23, 24, 38, 46, 47, 48, 49, 140/*coding end*/,
-    114, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 40, 41, 42, 43, 45,
-    50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60/*file*/, 141/*7zip*/, 44/*folder*/, 143/*db*/, 146/*keys*/,
-    61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 95, 96/*briefcase*/, 98/*chart*/, 144/*dictionary*/, 145/*invest*/,
-    97/*camera*/, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 126, 113,
-    /*os start*/115, 116, 117, 118, 119, 120, 121/*os end*/,
+    132, /*circle start*/1, 2, 3, 4/*circle end*/,
+    5/*add*/, 6/*remove*/, 7/*done*/, 8/*cancel*/, 9/*delete*/, 10/*warning*/, 43/*urgent*/, 113/*no access*/, 11/*star*/, 12/*info*/,
+    13/*help*/, 171/*lifebuoy*/, 14/*home*/, 15/*index*/, 16/*mail*/, 18/*notes*/, 142/*chat*/, 19/*timestamp*/, 20/*calendar*/,
+    39/*find*/, 40/*locked*/, 41/*unlocked*/, 45/*leaf*/,
+    50/*pin*/, 51/*anchor*/, 52/*edit*/, 53/*save*/, 54/*execute*/, 55/*preferences*/, 56/*clear*/, 57/*stop*/, 58/*close*/, 59/*quit app*/,
+    60/*file*/, 141/*7zip*/, 44/*folder*/, 143/*db*/, 146/*keys*/,
+    61/*print*/, 62/*attachment*/, 63/*link*/, 64/*linkweb*/, 65/*network*/,
+    66/*back*/, 67/*down*/, 68/*forward*/, 69/*up*/, 70/*jump to*/, 71/*zoom out*/, 72/*zoom in*/,
+    95/*sports*/, 96/*briefcase*/, 159/*building*/, 98/*chart*/, 145/*invest*/, 104/*money*/,
+    97/*camera*/, 99/*clapperboard*/, 100/*maths*/, 101/*games*/, 144/*dictionary*/,
+    157/*bike*/, 161/*car*/, 160/*bus*/,
+    169/*food*/, 170/*hamburger*/, 174/*pizza*/,
+    162/*cellphone*/, 175/*telephone*/,
+    102/*globe*/, 103/*server*/, 163/*cloud*/, 176/*wifi*/, 177/*antenna*/, 158/*bluetooth*/,
+    105/*painting*/, 106/*puzzle*/, 107/*shopping*/, 108/*heart*/,
+    168/*female*/, 173/*male*/, 42/*people*/, 109/*smile*/, 110/*smile cool*/, 111/*smile surpr*/, 112/*skull*/, 126/*ghost*/,
+    /*os start*/115, 116, 117, 118, 172, 119, 120, 121, 156/*os end*/,
+    133/*microchip*/, 164/*computer*/, 165/*display*/, 166/*drive hd*/, 167/*drive usb*/,
+    /*coding start*/17, 21, 22, 23, 24, 38, 46, 47, 48, 49, 140, 114/*coding end*/,
     /*devops start*/134, 135, 136, 137, 138, 139/*devops end*/,
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
+    /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
+    25/*bullet*/, 26/*noicon*/,
     /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131/*flags end*/
 };
 

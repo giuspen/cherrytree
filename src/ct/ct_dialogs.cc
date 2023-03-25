@@ -515,7 +515,7 @@ MA 02110-1301, USA.
 )STR"));
     dialog.set_website("https://www.giuspen.net/cherrytree/");
     dialog.set_authors({"Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"});
-    dialog.set_artists({"Ugo Yak <https://www.instagram.com/ugoyak.art/>", "OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
+    dialog.set_artists({"Ugo Yak <https://www.instagram.com/ugoyak.art/>", "SVG Repo <https://www.svgrepo.com/>", "OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
     dialog.set_translator_credits(Glib::ustring{} +
  _("Arabic")+" (ar) Mohamed Milodi <milodi500@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
