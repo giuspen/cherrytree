@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-28 20:29+0000\n"
-"PO-Revision-Date: 2023-03-05 14:00+0100\n"
+"PO-Revision-Date: 2023-04-03 18:00+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -187,7 +187,7 @@ msgstr ""
 "Terminal in den Einstellungen."
 
 msgid "Edit Table Properties"
-msgstr "Tabelleneigenschaften bearbeiten..."
+msgstr "Tabelleneigenschaften bearbeiten"
 
 msgid "Insert Anchor"
 msgstr "Anker einfügen"
@@ -863,7 +863,7 @@ msgid "Could not access the executable 'dvipng'"
 msgstr "Kein Zugriff auf das Programm 'dvipng'"
 
 msgid "Downloading"
-msgstr "Herunterladen..."
+msgstr "Herunterladen"
 
 #, c-format
 msgid "The Document %s was Not Found"
@@ -1277,7 +1277,7 @@ msgid "Delete the Selected Table"
 msgstr "Ausgewählte Tabelle löschen"
 
 msgid "_Add Column"
-msgstr "Spalte einfügen"
+msgstr "Spalte hinzufügen"
 
 msgid "Add a Table Column"
 msgstr "Tabellenspalte hinzufügen"
@@ -1313,7 +1313,7 @@ msgid "Decrease the Width of the Column"
 msgstr "Die Breite der Spalte verkleinern"
 
 msgid "_Add Row"
-msgstr "_Zeile einfügen"
+msgstr "_Zeile hinzufügen"
 
 msgid "Add a Table Row"
 msgstr "Tabellenzeile hinzufügen"
@@ -1379,7 +1379,7 @@ msgid "Change CodeBox _Properties..."
 msgstr "CodeBox-Eigenschaften _ändern..."
 
 msgid "Edit the Properties of the CodeBox"
-msgstr "Die Eigenschaften der CodeBox bearbeiten"
+msgstr "Eigenschaften der CodeBox bearbeiten"
 
 msgid "CodeBox _Load From Text File..."
 msgstr "CodeBox aus Textdatei erstellen..."
@@ -1992,98 +1992,98 @@ msgid "From _CherryTree File"
 msgstr "Aus _CherryTree-Datei"
 
 msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "Knoten aus einer CherryTree-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer CherryTree-Datei im aktuellen Baum hinzufügen"
 
 msgid "From _Plain Text File"
 msgstr "Aus Te_xtdatei"
 
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Knoten aus einer Textdatei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer Textdatei im aktuellen Baum hinzufügen"
 
 msgid "From _Folder of Plain Text Files"
 msgstr "Aus _Ordner mit Textdateien"
 
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Knoten aus einem Ordner mit Textdateien im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Ordner mit Textdateien im aktuellen Baum hinzufügen"
 
 msgid "From _HTML File"
 msgstr "Aus _HTML-Datei"
 
 msgid "Add Node from an HTML File to the Current Tree"
-msgstr "Knoten aus einer HTML-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer HTML-Datei im aktuellen Baum hinzufügen"
 
 msgid "From _Folder of HTML Files"
 msgstr "Aus Or_dner mit HTML-Dateien"
 
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr "Knoten aus einem Ordner mit HTML-Dateien im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Ordner mit HTML-Dateien im aktuellen Baum hinzufügen"
 
 msgid "From _Markdown File"
 msgstr "Aus Markdo_wn-Datei"
 
 msgid "Add a node from a Markdown File to the Current Tree"
-msgstr "Knoten aus einer Markdown-Datei zum aktuellen Baum einfügen"
+msgstr "Knoten aus einer Markdown-Datei zum aktuellen Baum hinzufügen"
 
 msgid "From _Folder of Markdown Files"
 msgstr "Aus Ordn_er mit Markdown-Dateien"
 
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr ""
-"Knoten aus einem Ordner mit Markdown-Dateien im aktuellen Baum einfügen"
+"Knoten aus einem Ordner mit Markdown-Dateien im aktuellen Baum hinzufügen"
 
 msgid "From _Gnote Folder"
 msgstr "Aus _Gnote-Ordner"
 
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Knoten aus einem Gnote-Ordner im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Gnote-Ordner im aktuellen Baum hinzufügen"
 
 msgid "From _KeepNote Folder"
 msgstr "Aus _KeepNote-Ordner"
 
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "Knoten aus einem KeepNote-Ordner im aktuellen Baum einfügen"
+msgstr "Knoten aus einem KeepNote-Ordner im aktuellen Baum hinzufügen"
 
 msgid "From _Leo File"
 msgstr "Aus _Leo-Datei"
 
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Knoten aus einer Leo-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer Leo-Datei im aktuellen Baum hinzufügen"
 
 msgid "From _Mempad File"
 msgstr "Aus _Mempad-Datei"
 
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Knoten aus einer Mempad-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer Mempad-Datei im aktuellen Baum hinzufügen"
 
 msgid "From _NoteCase HTML File"
 msgstr "Aus _NoteCase-HTML-Datei"
 
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr "Knoten aus einer NoteCase-HTML-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer NoteCase-HTML-Datei im aktuellen Baum hinzufügen"
 
 msgid "From _RedNotebook HTML File"
 msgstr "Aus _RedNotebook-HTML-Datei"
 
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
-msgstr "Knoten aus einer RedNotebook-HTML-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer RedNotebook-HTML-Datei im aktuellen Baum hinzufügen"
 
 msgid "From T_omboy Folder"
 msgstr "Aus Tombo_y-Ordner"
 
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Knoten aus einem Tomboy-Ordner im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Tomboy-Ordner im aktuellen Baum hinzufügen"
 
 msgid "From T_reepad Lite File"
 msgstr "Aus _Treepad-Lite-Datei"
 
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Knoten aus einer Treepad-Lite-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer Treepad-Lite-Datei im aktuellen Baum hinzufügen"
 
 msgid "From _Zim Folder"
 msgstr "Aus _Zim-Ordner"
 
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Knoten aus einem Zim-Ordner im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Zim-Ordner im aktuellen Baum hinzufügen"
 
 msgid "Export"
 msgstr "Export"
