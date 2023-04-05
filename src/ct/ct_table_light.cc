@@ -285,7 +285,7 @@ bool CtTableLight::_on_cell_key_press_alt_or_ctrl_enter()
 
 bool CtTableLight::_row_sort(const bool sortAsc)
 {
-    auto f_tableCompare = [sortAsc, this](Gtk::TreeIter& l, Gtk::TreeIter& r)->bool{
+    auto f_need_swap = [sortAsc, this](Gtk::TreeIter& l, Gtk::TreeIter& r)->bool{
         const size_t minCols = get_num_columns();
         for (size_t c = 0; c < minCols; ++c) {
             const int cmpResult = CtStrUtil::natural_compare((*l)[_pColumns->columnsText.at(c)],
@@ -294,10 +294,13 @@ bool CtTableLight::_row_sort(const bool sortAsc)
                 return sortAsc ? cmpResult > 0 : cmpResult < 0;
             }
         }
-        return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
+        return false; // no swap needed as equal
     };
     exit_cell_edit();
-    const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore, _pListStore->children(), f_tableCompare, 1u/*start_offset*/);
+    const bool retVal = CtMiscUtil::node_siblings_sort(_pListStore,
+                                                       _pListStore->children(),
+                                                       f_need_swap,
+                                                       1u/*start_offset*/);
     return retVal;
 }
 
