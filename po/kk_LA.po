@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 23:04+0100\n"
+"POT-Creation-Date: 2023-02-28 20:29+0000\n"
 "PO-Revision-Date: 2022-10-03 19:38+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
 "Language-Team: Qazaq (latyn)<camilot55@yandex.ru>\n"
@@ -16,923 +16,22 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: kz_Latyn\n"
 "X-Source-Language: C\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:31
-msgid "Tab Width"
-msgstr "Tabýlásıanyń eni"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:37
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Tabýlásıa orynyna bos oryndar"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:39
-msgid "Use Line Wrapping"
-msgstr "Jol aýystyrylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:43
-msgid "Line Wrapping Indentation"
-msgstr "Joldardy sheginis"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:50
-msgid "Enable Automatic Indentation"
-msgstr "Avtomatty sheginis"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:308
-msgid "Show Line Numbers"
-msgstr "Joldardy nómirleý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:54
-msgid "Scroll Beyond Last Line"
-msgstr "Aınaldyrý joldyń syrtyna"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:58
-msgid "Vertical Space Around Lines"
-msgstr "Jolaralyq ınterval"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:68
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Joldardy tik sheginis"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:42
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:123
-msgid "Text Editor"
-msgstr "Mátindik redaktor"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:95
-msgid "Timestamp Format"
-msgstr "Kúniniń pishimi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:101
-msgid "Online Manual"
-msgstr "Ǵalamtorda málimet"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:107
-msgid "Horizontal Rule"
-msgstr "Gorızontal syzyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:120
-msgid "Chars to Select at Double Click"
-msgstr "Mátindi eki ret túrtý arqyly bólekteńiz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:77
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:340
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:110
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:126
-msgid "Miscellaneous"
-msgstr "Ár túrli"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:225
-msgid "Remove Color"
-msgstr "Tazalaný"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:262
-msgid "Question"
-msgstr "Suraq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:277
-msgid "Info"
-msgstr "Aqparat"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:291
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:348
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:399
-msgid "Warning"
-msgstr "Eskertý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:305
-msgid "Error"
-msgstr "Qate"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:314
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:316
-msgid "Select File"
-msgstr "Ashylý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:344
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:346
-msgid "Select Folder"
-msgstr "Tańdaý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:365
-msgid "Save File as"
-msgstr "Basqasha saqtaý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:31
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:52
-msgid "Show White Spaces"
-msgstr "Bos oryndy beıneleý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:33
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:54
-msgid "Highlight Current Line"
-msgstr "Belsendi jol jaryq túsirý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:310
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:56
-msgid "Highlight Matching Brackets"
-msgstr "Jańa saýǵan jaqshalar jaryq túsirý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:44
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:424
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Kodty oryndamas buryn rastaýdy surańyz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:47
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
-msgid "Use Internal Terminal"
-msgstr "Kiristirilgen termınaldy paıdalanyńyz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
-msgid "Add"
-msgstr "Jıi paıdalanylatyn pármender qosylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:74
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:51
-msgid "Remove Selected"
-msgstr "Jıi paıdalanylatyn pármender alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:77
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:90
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:133
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:136
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:139
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:142
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:146
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:150
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:66
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:266
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
-msgid "Reset to Default"
-msgstr "Úndemeý boıynshaǵa maǵyna"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:97
-msgid "Command per Node/CodeBox Type"
-msgstr "Kompılátordyń/ınterpretatorynyń pármeni"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:105
-msgid "Terminal Command"
-msgstr "Termınaldyń pármeni"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:110
-msgid "Code Execution"
-msgstr "Kodtyń oryndaýy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:264
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:157
-msgid "Select Element to Add"
-msgstr "Jıi paıdalanylatyn pármender"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:165
-msgid "Writing to Disk..."
-msgstr "Dıskke jazba..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:191
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:197
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:346
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:353
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Faılǵa <b>\"%s\"</b> jazba qol jetpes"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:255
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Úshin paról %s engizińiz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:31
-msgid "Use Different Cherries per Level"
-msgstr "Ár deńgeı úshin ár túrlisi shıeler"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:32
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:58
-msgid "Use Selected Icon"
-msgstr "Belgishe taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:34
-msgid "No Icon"
-msgstr "Belgishesiz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:36
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Belgishe oń jaqtan jasyryn taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:49
-msgid "Default Text Nodes Icons"
-msgstr "Belgisheler"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:57
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Butaqtardy kúı este saqtaý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:58
-msgid "Expand all Nodes"
-msgstr "Shashyp tastaý taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:60
-msgid "Collapse all Nodes"
-msgstr "Burylý taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Betbelgilerdegi jasyrynbaý taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
-msgid "Nodes Status at Startup"
-msgstr "Kúı"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:78
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Tasymaldaýdyń eni atymen taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:86
-msgid "Display Tree on the Right Side"
-msgstr "Aǵashtyń sholýshysy oń jaqtan"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:88
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Tyshqannyń aıǵaıymen mátinge fokýsti oryn aýystyrý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:90
-msgid "Expand Node at Mouse Click"
-msgstr "Tyshqannyń aıǵaıymen butaqty shashyp tastaý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:93
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Sońǵy poseshennyeler taqyrypta taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:219
-msgid "Select Node Icon"
-msgstr "Belgisheniń aýysymy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:28
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:89
-msgid "Preferences"
-msgstr "Baǵdarlama parametrleri"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:33
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:503
-msgid "Arabic"
-msgstr "Arab tili"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:34
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:504
-msgid "Armenian"
-msgstr "Armán"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:505
-msgid "Bulgarian"
-msgstr "Bolgarlyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:36
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:506
-msgid "Chinese Simplified"
-msgstr "Qytaı jeńildetilgeni"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:37
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:507
-msgid "Chinese Traditional"
-msgstr "Qytaı (dástúrli)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:38
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:508
-msgid "Croatian"
-msgstr "Horvat"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:39
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:509
-msgid "Czech"
-msgstr "Cheh"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:40
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:510
-msgid "Dutch"
-msgstr "Golandıalyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:41
-msgid "English"
-msgstr "Aǵylshyn"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:42
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:511
-msgid "Finnish"
-msgstr "Fın"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:43
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:512
-msgid "French"
-msgstr "Fransýz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:44
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:513
-msgid "German"
-msgstr "Nemis"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:45
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:514
-msgid "Greek"
-msgstr "Grek"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:46
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:515
-msgid "Hindi India"
-msgstr "Hındı (Úndistan)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:47
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:516
-msgid "Hungarian"
-msgstr "Vengr"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:48
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:517
-msgid "Italian"
-msgstr "Italıalyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:518
-msgid "Japanese"
-msgstr "Japon"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:519
-msgid "Kazakh"
-msgstr "Qazaq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:520
-msgid "Korean"
-msgstr "Káris"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:521
-msgid "Lithuanian"
-msgstr "Lıtvalyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:53
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:522
-msgid "Polish"
-msgstr "Polák"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:523
-msgid "Portuguese"
-msgstr "Portýgal"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:524
-msgid "Portuguese Brazil"
-msgstr "Portýgal (Brazılıa)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:525
-msgid "Romanian"
-msgstr "Rýmyn"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:526
-msgid "Russian"
-msgstr "Orys"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:527
-msgid "Slovenian"
-msgstr "Slovenıa"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:59
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:528
-msgid "Spanish"
-msgstr "Ispan"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:60
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:529
-msgid "Swedish"
-msgstr "Shved"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:61
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:530
-msgid "Turkish"
-msgstr "Túrik"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:62
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:531
-msgid "Ukrainian"
-msgstr "Ýkraına"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:66
-msgid "Text and Code"
-msgstr "Mátin jáne kod"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:107
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:693
-msgid "Rich Text"
-msgstr "Formattalǵan mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:68
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:153
-msgid "Format"
-msgstr "Pishim"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:69
-msgid "Plain Text and Code"
-msgstr "Kádimgi mátin jáne kod"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:492
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-msgid "Special Characters"
-msgstr "Nyshandar"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:71
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:58
-msgid "Tree Explorer"
-msgstr "Aǵashtyń sholýshysy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
-msgid "Theme"
-msgstr "Taqyryp"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:73
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:188
-msgid "Fonts"
-msgstr "Qaripter"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:74
-msgid "Links"
-msgstr "Silteme"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:75
-msgid "Toolbar"
-msgstr "Qural-saımandar paneli"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:76
-msgid "Keyboard Shortcuts"
-msgstr "Ystyq perneler"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:364
-msgid "Monospace"
-msgstr "Birkelki mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:112
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:252
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:80
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:696
-msgid "Plain Text"
-msgstr "Kádimgi mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:114
-msgid "Code Font"
-msgstr "Kodtyń mátini"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:117
-msgid "Terminal Font"
-msgstr "Termınal mátini"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:120
-msgid "Tree Font"
-msgstr "Aǵashtyń mátini"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:271
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Veb-betke siltemeniń ashýynda"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:273
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Faılǵa siltemeniń ashýynda"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:275
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Muqabaǵa siltemeniń ashýynda"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:284
-msgid "Custom Actions"
-msgstr "Is-áreket"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:301
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:49
-msgid "To WebSite"
-msgstr "Saıt:   "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:303
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:90
-msgid "To Node"
-msgstr "Tarmaq:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:305
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:60
-msgid "To File"
-msgstr "Faıl:  "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:307
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:75
-msgid "To Folder"
-msgstr "Qalta:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:322
-msgid "Colors"
-msgstr "Túsken"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:325
-msgid "Underline Links"
-msgstr "Silteme astyn syzý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:327
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Faıldarǵa salystyrmaly joldardy paıdalansyn jáne muqabalarǵa"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:330
-msgid "Anchor Size"
-msgstr "Zákirdiń belgishesin ólshem"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:405
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:158
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:295
-msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "Cherrytree qaıta iske qosylǵannan keıin ózgerister kúshine enedi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:38
-msgid "Who is the Parent?"
-msgstr "Qosylý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:48
-msgid "The Tree Root"
-msgstr "Aǵash"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:49
-msgid "The Selected Node"
-msgstr "Butaq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:101
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:80
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:97
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:108
-msgid "CherryTree Document"
-msgstr "CherryTree qujat"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:157
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:168
-msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr ""
-"Pandoc oryndalatyn faıl tabylǵan emes.\n"
-"\n"
-"Onyń bar bolýy tekserilińizshi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:39
-msgid "Latex Text"
-msgstr "LaTeX mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:53
-msgid "Image Size dpi"
-msgstr "Dpi sýret ólshemi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:60
-msgid "Tutorial"
-msgstr "Basshylyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:61
-msgid "Reference"
-msgstr "Anyqtama"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:64
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX matematıkalyq teńdeýler boıynsha oqýlyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:65
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX matematıkalyq sımvoldarynyń anyqtamalyǵy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:107
-msgid "Image Properties"
-msgstr "Beıneniń qasıeti"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:138
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:271
-msgid "Width"
-msgstr "En"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:141
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:275
-msgid "Height"
-msgstr "Bıiktik"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:253
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:81
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:162
-msgid "Automatic Syntax Highlighting"
-msgstr "Sıntaksıstiń kómeski jaryǵy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:266
-msgid "Type"
-msgstr "Túr"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:280
-msgid "pixels"
-msgstr "pıkselder"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:303
-msgid "Size"
-msgstr "Ólshem"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:319
-msgid "Options"
-msgstr "Teńshelim"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:426
-msgid "Rows"
-msgstr "Joldar sany:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:432
-msgid "Columns"
-msgstr "San baǵana:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:438
-msgid "Default Width"
-msgstr "Maǵyna:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:444
-msgid "Table Size"
-msgstr "Kesteniń ólshemi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:447
-msgid "Column Properties"
-msgstr "Baǵananyń eni "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:468
-msgid "Import from CSV File"
-msgstr "Faıl CSV derekterin ımporttaý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
-msgid "Enable Spell Check"
-msgstr "Orfografıany tekserý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:35
-msgid "Spell Check Language"
-msgstr "Sózdik:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:48
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:705
-msgid "Spell Check"
-msgstr "Emle"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:58
-msgid "Expand CodeBoxes Automatically"
-msgstr "Ishindegi CodeBox boıymen ózdiginen tańdaý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:63
-msgid "Embedded File Icon Size"
-msgstr "Qystyrtylatyn faıldy belgisheniń ólshemi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:72
-msgid "Embedded File Size Limit"
-msgstr "Qystyrtylatyn faıl maksımal ólshem (Мб)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:79
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Belgisheniń ústinde faıl aty"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:81
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Toqtatýdyń operasıalaryn eń joǵary san"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:87
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Camelcase мәтінін филиалға байланыстыру"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Úsh eseli basýmen paragrafty ereksheleý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:92
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Markdown avtoalmastyrý qosý (Eksperımentaldi)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:217
-msgid "Scale"
-msgstr "Ólshem"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:221
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
-msgid "Bold"
-msgstr "Jartylaı semiz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:222
-msgid "Italic"
-msgstr "Kýrsıv"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:223
-msgid "Underline"
-msgstr "Syzyp kórsetilgeni"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:238
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:340
-msgid "Text Color Foreground"
-msgstr "Mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:241
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:352
-msgid "Text Color Background"
-msgstr "Fon"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:257
-msgid "Small"
-msgstr "Usaq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:363
-msgid "Scalable Tags"
-msgstr "Masshtab jasalatyn tegter"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:159
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree qoıyn kitapsha"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:458
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTree ashylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:459
-msgid "Toggle Show/Hide CherryTree"
-msgstr ""
-"CherryTree ashylý\n"
-"\n"
-"CherryTree aktıvtendirý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:169
-msgid "_Exit CherryTree"
-msgstr "Shyǵý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:169
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:99
-msgid "Exit from CherryTree"
-msgstr ""
-"Shyǵý\n"
-"\n"
-"CherryTree shyǵý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:63
-msgid "Change Selected"
-msgstr "Perneler kombınasıasyn ózgertý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
-" \n"
-"'%s' paıdalanyp qoıdylar perneler kombınasıasy!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Osy tirkesim <b>' %s '</b> is-áreketti oryndaıdy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:126
-msgid "Do you want to steal the shortcut?"
-msgstr "Perneler kombınasıasyn qaıta anyqtaıdy ma?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:146
-msgid "Edit Keyboard Shortcut"
-msgstr "Jańa tirkesim..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:154
-msgid "No Keyboard Shortcut"
-msgstr "Berilgen emes"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:124
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:147
-msgid "Split Toolbar"
-msgstr "Bólgish"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:129
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:77
-msgid "Open a CherryTree Document"
-msgstr ""
-"Ashylý...\n"
-"\n"
-"CherryTree bar qujat ashylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:33
-msgid "Light Background, Dark Text"
-msgstr "Ashyq fondaǵy qarańǵy mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:34
-msgid "Dark Background, Light Text"
-msgstr "Qarańǵy fondaǵy ashyq má"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:36
-msgid "Custom Background"
-msgstr "Fon"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:40
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:42
-msgid "Text"
-msgstr "Mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:41
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:254
-msgid "Selection Background"
-msgstr "Erekshelengen mátinniń fony"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:173
-msgid "Table"
-msgstr "Keste"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:180
-msgid "Code"
-msgstr "Kod"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:198
-msgid "Style Schemes"
-msgstr "Mátindik redaktor"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:248
-msgid "Text Foreground"
-msgstr "Mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:250
-msgid "Text Background"
-msgstr "Fon"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:252
-msgid "Selection Foreground"
-msgstr "Erekshelengen mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:256
-msgid "Cursor"
-msgstr "Júgirgi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:258
-msgid "Current Line Background"
-msgstr "Belsendi joldy fon"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:260
-msgid "Line Numbers Foreground"
-msgstr "Joldardy nómirleý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:262
-msgid "Line Numbers Background"
-msgstr "Joldardy nómirleýdiń fony"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:409
-msgid "Style Scheme Editor"
-msgstr "Kúıge keltiriletin taqyryp"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:413
-msgid "Set Dark Theme Icons"
-msgstr "Qara belgisheler"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:414
-msgid "Set Light Theme Icons"
-msgstr "Jaryq belgisheleri"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:415
-msgid "Set Default Icons"
-msgstr "Ádetti belgisheler"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:445
-msgid "Icon Theme"
-msgstr "Taqyryby"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:147
-msgid "Index"
-msgstr "Ustaý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:101
 msgid "Image Format Not Recognized"
 msgstr "Beıne pishim tanymal emes"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:108
 msgid "Insert Table"
 msgstr "Keste ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:124
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:811
 msgid "CSV File"
 msgstr "CSV faıl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:113
 msgid "Insert a CodeBox"
 msgstr ""
 "CodeBox\n"
@@ -942,340 +41,137 @@ msgstr ""
 "fýnksıalar men prosedýralardy jáne jaı ǵana ártúrli\n"
 "kodtardy saqtaýǵa arnalǵan konteıner."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:201
 #, c-format
-msgid "The Maximum Size for Embedded Files is %s MB"
+msgid "The Maximum Size for Embedded Files is %s MB."
 msgstr ""
 "Faıl maksımal ólshemdi %s Mb asady\n"
 " "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:203
 msgid "Do you want to Continue?"
 msgstr "Jalǵastyrady ma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:874
+msgid "Special Characters"
+msgstr "Nyshandar"
+
 msgid "Tabs Replaced"
 msgstr " tabýlásıalar aýystyrylǵan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:920
 msgid "Lines Stripped"
 msgstr " jol tazalanǵan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:1010
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:101
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
-msgid "No Text is Selected"
+msgid "No Text is Selected."
 msgstr "Mátin erekshelengen emes"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:431
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "'Latex' jáne 'dvipng'oryndalatyn faıldaryna qol jetkizý múmkin bolmady"
+msgid "CherryTree Document"
+msgstr "CherryTree qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:432
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:439
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:446
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Mysaly, Ubuntu-da ornatýǵa arnalǵan paketter:"
+msgid "PDF File"
+msgstr "PDF qujat "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:434
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:441
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:448
-msgid "For example, on Mac OS the packages to install are:"
-msgstr "Mysaly, Mac OS júıesinde ornatýǵa arnalǵan paketter:"
+msgid "Plain Text Document"
+msgstr "Mátindi qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:438
-msgid "Could not access the executable 'latex'"
-msgstr "'Latex' oryndalatyn faılyna kirý múmkin bolmady"
+msgid "Preferences File"
+msgstr "Teńshelimderdi faıl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_image.cc:445
-msgid "Could not access the executable 'dvipng'"
-msgstr "'dvipng' oryndalatyn faılyna kirý múmkin bolmady"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Cherrytree qaıta iske qosylǵannan keıin ózgerister kúshine enedi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:59
-msgid "Chars for Bulleted List"
-msgstr "Tańbalanǵan tizim"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:68
-msgid "Chars for Todo List"
-msgstr "To-Do tizim"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:77
-msgid "Chars for Table Of Content"
-msgstr "Mazmun"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:86
-msgid "Chars for Smart Double Quotes"
-msgstr "Qosarlanǵan tyrnaqshalardyń avtoalmastyrýy úshin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:95
-msgid "Chars for Smart Single Quotes"
-msgstr "Tyrnaqshalardyń avtoalmastyrýy úshin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:103
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Tyrnaqshalardyń avtoalmastyrýy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:106
-msgid "Enable Symbol Auto Replacement"
-msgstr "Nyshandardy avtoalmastyrý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:110
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:212
-msgid "Supported Symbols Auto Replacements"
-msgstr "Qostalatyn nyshandar"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:222
-msgid "Only at the Start of the Line"
-msgstr "Jol basynda ǵana"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:49
-msgid "Show Menubar:"
-msgstr "Mázir jolaǵyn kórsetý:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:147
-#, c-format
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s \" CherryTree qujatty bolyp kórinbeıdi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:163
-#, c-format
-msgid ""
-"Error Parsing the CherryTree File:\n"
-"\"%s\""
-msgstr ""
-"Faıl CherryTree ashýyn qate:\n"
-"\"%s\""
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:208
-#, c-format
-msgid "No node named '%s' found"
-msgstr ""
-"CherryTree qujatty izdeýdi aıaqtady.\n"
-"\n"
-"Qajetti tarmaq <b> '%s ' < / b> tabylmady!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:245
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Jaratylǵan basqa qoldanba ashylǵan ýaqytsha faıldary qaı."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:246
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "CherryTree shyǵatyn esikti aldynda syrtqy qoldanbany jabyńyz."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:247
-msgid "Did you Quit the External Applications?"
-msgstr "Siz syrtqy qoldanba bitirdińiz be?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:369
-msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "Qujat basqa baǵdarlama jańartqannan keıin qaıta júkteldi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:45
-msgid "Checking for Newer Version..."
-msgstr "Jańa boljamnyń qol jetimdiligin tekseris..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:51
-msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr "Serverge jaýap bermeıdi. Sońyraq kórińiz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:63
-msgid "A Newer Version Is Available!"
-msgstr "Jańa boljam qol jetetin!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:68
-msgid "You Are Using the Latest Version Available"
-msgstr "Jańarý tabylǵan emes! Siz sońǵy nobaıdy paıdalanyńyz CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:71
-msgid "You Are Using a Development Version"
-msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:52
-msgid "Use Selected Color"
-msgstr "Taqyryp"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:74
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:289
-msgid "Node Name"
-msgstr "Esim"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:106
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:690
-msgid "Node Type"
-msgstr "Túr"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:120
-msgid "Tags for Searching"
-msgstr "Izdestirý úshin tegter"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:125
-msgid "Exclude from Searches:"
-msgstr "Izdeýden shyǵarý: "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
-msgid "This Node"
-msgstr "butaq "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:130
-msgid "The Subnodes"
-msgstr "enshiles"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:136
-msgid "Read Only"
-msgstr "Oqý ǵana"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
-msgid "Choose Existing Tag"
-msgstr "Tegter"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:181
-msgid "Tag Name"
-msgstr "Teg"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:200
-msgid "Pick a Color"
-msgstr "Tústi tańdańyz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:380
-msgid "Involved Nodes"
-msgstr "Tańdaý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:389
-msgid "Selected Text Only"
-msgstr "Mátin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
-msgid "Selected Node Only"
-msgstr "Butaq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:391
-msgid "Selected Node and Subnodes"
-msgstr "Butaq enshiles"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:392
-msgid "All the Tree"
-msgstr "Aǵash"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:406
-msgid "Include Node Name"
-msgstr "Esim bas taral"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:413
-msgid "Links Tree in Every Page"
-msgstr "Ár bette siltemelerdi aǵash"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:419
-msgid "New Node in New Page"
-msgstr "Jańa betten jańa butaǵy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:424
-msgid "Single File"
-msgstr "Bir faıl"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:59
-msgid "Replace in Current Node..."
+msgid "Replace in Current Node"
 msgstr "Almastyryl taral..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:59
-msgid "Search in Current Node..."
+msgid "Search in Current Node"
 msgstr "Tabyl taral..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:244
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:317
 #, c-format
 msgid "The pattern '%s' was not found"
 msgstr ""
-"CherryTree qujatty izdeýdi aıaqtady.\n"
+"Qujatta izdeý aıaqtaldy.\n"
 "\n"
 "Qajetti element <b>' %s '</b > tabylmady!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:108
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:248
 msgid "Matches"
 msgstr " sáıkestikter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes..."
 msgstr "Fılıaldarǵa aýystyryńyz..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Find in Multiple Nodes..."
 msgstr "Fılıaldardan tabyńyz..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
-msgid "No Previous Search Was Performed During This Session"
+msgid "No Previous Search Was Performed During This Session."
 msgstr "Áli de siz izdestirý júrgizildińiz nemese mátinniń aýystyrýyn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:126
-msgid "Anchor Name (optional)"
-msgstr " Siltemege zákir qosylý (opsıaly)"
+msgid "Tags"
+msgstr "Tegter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:246
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:686
-msgid "No Node is Selected"
-msgstr "Tarmaq tańdalmaǵan"
+msgid ": "
+msgstr ": "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:257
-msgid "There are No Anchors in the Selected Node"
-msgstr "Bul tarmaqta ıakor joq"
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Áli de siz mátinniń qalyptaýy júrgizildińiz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:264
-msgid "Choose Existing Anchor"
-msgstr "Zákirdi tańdańyz"
+msgid "Link Name"
+msgstr "Silteme ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:264
-msgid "Anchor Name"
-msgstr "Zákirdiń aty"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Júgirgi azatjoldyń syrtyna"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:80
-#: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:593
-msgid "Downloading"
-msgstr "Júkteý"
+msgid "Insert/Edit Link"
+msgstr "Siltemeniń qasıeti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:115
-msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Qural-saımandar paneliniń belgishelerin ólshem maksımaldy"
+msgid "Pick a Foreground Color"
+msgstr "Tústi tańdańyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:126
-msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Qural-saımandar paneliniń belgishelerin ólshem mınımaldy"
+msgid "Pick a Background Color"
+msgstr "Tústi tańdańyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:186
+msgid "Checking for Newer Version..."
+msgstr "Jańa boljamnyń qol jetimdiligin tekseris..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Serverge jaýap bermeıdi. Sońyraq kórińiz"
+
+msgid "A Newer Version Is Available!"
+msgstr "Jańa boljam qol jetetin!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Jańarý tabylǵan emes! Siz sońǵy nobaıdy paıdalanyńyz CherryTree"
+
+msgid "You Are Using a Development Version."
+msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz"
+
+msgid "Who is the Parent?"
+msgstr "Qosylý..."
+
+msgid "The Tree Root"
+msgstr "Aǵash"
+
+msgid "The Selected Node"
+msgstr "Butaq"
+
 msgid "Rename"
 msgstr "Qaıta atalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:200
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:255
 msgid "PNG Image"
 msgstr "PNG beıne"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:212
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:267
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Jazba %s sátti bolmady"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:316
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:361
-msgid "Insert/Edit Link"
-msgstr "Siltemeniń qasıeti"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "%s muqabaǵa durys emes silteme"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:366
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:386
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "%s faılǵa durys emes silteme "
+
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "%s muqabaǵa durys emes silteme"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:373
-#, c-format
-msgid "The File Link '%s' is Not Valid"
-msgstr "%s faılǵa durys emes silteme "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:394
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:309
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr ""
@@ -1284,71 +180,50 @@ msgstr ""
 "Endi taral bolmaıdy (Id = %s).\n"
 "Ol joıylǵan nemese ózgertilgen shyǵar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:426
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr ""
-"CherryTree qujatty izdeýdi aıaqtady.\n"
+"Qujatta izdeý aıaqtaldy.\n"
 "\n"
 "Siz izdegen zákir <b> '%s ' < / b> tabylmady!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:481
 msgid "Edit CodeBox"
 msgstr "CodeBox qasıet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:525
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog"
+"Do so in the Preferences Dialog."
 msgstr ""
 "Siz tilmen pármenge baılanysýyńyz kerek <b>' %s '</b>.\n"
 "\n"
 "Bul qoldanba teńshelimderindegi jasaýǵa bolady"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:557
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog"
+"Preferences Dialog."
 msgstr ""
 "Xterm deste ornatylyńyz nemese qoldanba teńshelimderindegi basqa termınal "
 "teńsheńiz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:800
 msgid "Edit Table Properties"
 msgstr "Kesteniń qasıeti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:836
 msgid "Insert Anchor"
 msgstr "Zákir ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:836
 msgid "Edit Anchor"
 msgstr "Zákirdiń qasıeti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:872
-msgid "Cannot Edit Embedded File in Read Only Node"
+msgid "Cannot Edit Embedded File in Read Only Node."
 msgstr "<b>\"Oqý ǵana!\"</b> faıldy múmkin emes redaksıalaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:885
 msgid "Embedded File Automatically Updated:"
 msgstr "Faıl avtomatty túrde jańartylǵan:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:303
-msgid "Preferences File"
-msgstr "Teńshelimderdi faıl"
+msgid "No Node is Selected"
+msgstr "Tarmaq tańdalmaǵan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:352
-msgid "PDF File"
-msgstr "PDF qujat "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:373
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.h:181
-msgid "Plain Text Document"
-msgstr "Mátindi qujat"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:42
 msgid "The Tree is Empty!"
 msgstr ""
 "<b> Bos aǵash! </b>\n"
@@ -1357,34 +232,33 @@ msgstr ""
 "Bastapqyda jumys jańa butaq qosylyńyz:\n"
 "<b>Basty mázir\\Aǵash\\Jańa butaq </b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:51
-msgid "The Selected Node is Read Only"
+msgid "The Selected Node is Read Only."
 msgstr ""
 "Mynaý butaq qol jetetin <b>\"Oqý ǵana!\"</b>.\n"
 "\n"
 "Redaksıalaý úshin qasıetti ózgert taral."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:64
-msgid "This Feature is Available Only in Rich Text Nodes"
+msgid "This Feature is Available Only in Rich Text Nodes."
 msgstr "Formattalǵan mátin úshin túsinikti tek qana mynaý fýnksıa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:66
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
 msgstr "Mynaý fýnksıa sıntaksıstiń kómeski jaryǵy úshin jetispedi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:193
+msgid "No Table is Selected."
+msgstr "Mátin erekshelengen emes"
+
+msgid "No CodeBox is Selected."
+msgstr "Tarmaq tańdalmaǵan"
+
 msgid "New Child Node Properties"
 msgstr "Qasıet jańa enshiles taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:193
 msgid "New Node Properties"
 msgstr "Qasıet jańa taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:320
 msgid "Node Properties"
 msgstr "Qasıet taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:328
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
@@ -1393,372 +267,100 @@ msgstr ""
 "aýysymynyń janynda mátinniń qalyptaýy tolyǵymen joǵalt bul úshin taral.\n"
 "Jalǵastyrady ma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:433
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr ""
 " \n"
 "Siz <b>' %s '</b> butaq ras alystap ketkińiz keledi me?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:435
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "<b> Da kelesi enshiles sylyn taral!</b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:558
 msgid "Select the New Parent"
 msgstr "Atany tańdańyz..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:564
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:585
 msgid "The new parent can't be the very node to move!"
 msgstr "Jańa ata-ana butaǵy múmkin emes oryn almasady! "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:568
 msgid "The new chosen parent is still the old parent!"
 msgstr "Atamen bolyp kórinip qoıdylardy tańdalǵan jańa ata-ana butaǵy!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:573
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:590
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_events.cc:599
 msgid "The new parent can't be one of his children!"
 msgstr "Jańa ata-ana butaǵy enshiles múmkin emes bolady!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:749
 #, c-format
 msgid "%s Nodes Properties Changed"
 msgstr "%s qasıetteri tazartyldy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:424
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Qural-saımandar ólshem maksımaldy"
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Qural-saımandar ólshem mınımaldy"
+
 msgid "Print CherryTree version"
 msgstr "Mór úshin nobaı"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:425
 msgid "Node name to focus"
 msgstr "Esim fokýs úshin taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:426
 msgid "Anchor name to scroll to in node"
 msgstr "Tarmaqqa jyljý úshin ıakor ataýy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:427
 msgid "Export to HTML at specified directory path"
 msgstr "HTML bar dırektorıaǵa eksport"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:428
 msgid "Export to Text at specified directory path"
 msgstr "TXT bar dırektorıaǵa eksport"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:429
 msgid "Export to PDF at specified directory path"
 msgstr "PDF bar dırektorıaǵa eksport"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:430
 msgid "Overwrite if export path already exists"
 msgstr "Eger bolyp qoıdylardy faıl bolsa qaıta jazyp alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:431
 msgid "Export to a single file (for HTML or TXT)"
 msgstr "(HTML úshin nemese TXT) bir faılǵa eksport"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:432
 msgid "Password to open document"
 msgstr "Qujattyń paroli"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:433
 msgid "Create a new window"
 msgstr "Jańa tereze qurý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:434
 msgid "Run in secondary session, independent from main session"
 msgstr "Ekinshi sesıany bastaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:52
-msgid "Search for"
-msgstr "Tabylý:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:62
-msgid "Replace with"
-msgstr "Almastyrylý:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:77
-msgid "Match Case"
-msgstr "Regıstrdi eskerilý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:79
-msgid "Regular Expression"
-msgstr "Júıeli aıtylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:81
-msgid "Accent Insensitive"
-msgstr "Joıýǵa sezimtaldyq"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:83
-msgid "Whole Word"
-msgstr "Sóz ǵana tutastaı"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:85
-msgid "Start Word"
-msgstr "Sózdiń basy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:87
-msgid "Forward"
-msgstr "Alǵa"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:89
-msgid "Backward"
-msgstr "Keıin"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:92
-msgid "All, List Matches"
-msgstr "Týra kelý bári"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:94
-msgid "First From Selection"
-msgstr "Birinshi týra kelý erekshelengen"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:97
-msgid "First in All Range"
-msgstr "Barlyq qujat boıymen birinshi týra kelý "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:108
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:161
-msgid "Node Created After"
-msgstr "Keıin jaratylǵan"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:115
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:166
-msgid "Node Created Before"
-msgstr "Deıin jaratylǵan"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:122
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:171
-msgid "Node Modified After"
-msgstr "Keıin ózgertilgen"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:129
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:176
-msgid "Node Modified Before"
-msgstr "Deıin ózgertilgen"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:147
-msgid "Time filter"
-msgstr "Kúni boıymen taral..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:179
-msgid "Node Content"
-msgstr "Túıin mazmuny"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:181
-msgid "Node Name and Tags"
-msgstr "Butaq atymen jáne tegter"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:186
-msgid "Only Selected Node and Subnodes"
-msgstr "Butaǵy enshiles"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:188
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "\"Týra kelý ....\" dıalogktik terezeniń kórsetý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:215
-msgid "Search options"
-msgstr "Izdestirýdiń parametrleri"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Oraý/Qalpyna kelý ('%s')"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:290
-msgid "Line"
-msgstr "Jol"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:291
-msgid "Line Content"
-msgstr "Ishindegi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:362
-msgid "Iterate Latest Find/Replace"
-msgstr "Qaıtalaný Tabylý/Almastyrylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:365
-msgid "Close"
-msgstr "Jabý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:366
-msgid "Find Previous"
-msgstr "Aldyńǵy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:367
-msgid "Find Next"
-msgstr "Kelesi"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:368
-msgid "Replace"
-msgstr "Almastyrý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:369
-msgid "Undo"
-msgstr "Boldyrmaý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_vte.cc:106
-msgid "Copy Selection or All"
-msgstr "Bólektelgen nemese barlyǵyn kóshirý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_vte.cc:110
-msgid "Paste"
-msgstr "Kiristirý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_vte.cc:114
-msgid "Reset"
-msgstr "Qalpyna keltirý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:82
-msgid "No Previous Text Format Was Performed During This Session"
-msgstr "Áli de siz mátinniń qalyptaýy júrgizildińiz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:321
-msgid "Link Name"
-msgstr "Silteme ústemelený"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:342
-msgid "The Cursor is Not into a Paragraph"
-msgstr "Júgirgi azatjoldyń syrtyna"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:370
-msgid "Pick a Foreground Color"
-msgstr "Tústi tańdańyz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:370
-msgid "Pick a Background Color"
-msgstr "Tústi tańdańyz"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:554
-#, c-format
-msgid "The Document %s was Not Found"
-msgstr ""
-"CherryTree qujatty izdeýdi aıaqtady.\n"
-"\n"
-"Qujat <b>' %s '</b > tabylmady!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:572
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:60
-msgid "Open a Recent CherryTree Document"
-msgstr ""
-"Áńgime...\n"
-"\n"
-"Mynda shaqyryńyz, úshin qandaı bolǵan \n"
-"isiniń buryn ashylǵan qujattaryna qaraý.\n"
-"Da CherryTree jaqynda ashylǵan qujattar\n"
-"áńgimeden alystap ketýge bolady"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:584
-msgid "_Hide"
-msgstr "Oraý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:584
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:96
-msgid "_Quit"
-msgstr "Shyǵý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:585
-msgid "Hide the Window"
-msgstr ""
-"Oraý...\n"
-"\n"
-"CherryTree málimdemelerdiń tóńirekteridegin oraý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:585
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:97
-msgid "Quit the Application"
-msgstr ""
-"Shyǵý\n"
-"\n"
-"CherryTree shyǵý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:690
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:702
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:705
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:708
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:712
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:716
-msgid ": "
-msgstr ": "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:702
-msgid "Tags"
-msgstr "Tegter"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:708
-msgid "Word Count"
-msgstr "Sózder"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:712
-msgid "Date Created"
-msgstr "Jaratylǵan"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:716
-msgid "Date Modified"
-msgstr "Ózgertilgen"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:725
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available"
-msgstr "Siz butaqty kóshirmedińiz nemese aǵash Qol jetimdi emes"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:731
-msgid "The Source Tree Node is No Longer Available"
-msgstr "Aǵash butaǵy qol jetimdi emes"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:146
-msgid "Remove from list"
-msgstr "Áńgimeden alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:33
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:254
 msgid "Handle the Bookmarks List"
 msgstr "Betbelgiler"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:61
 msgid "Move the Selected Bookmark Up"
 msgstr "Ústine oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:64
 msgid "Move the Selected Bookmark Down"
 msgstr "Tómen oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:67
 msgid "Remove the Selected Bookmark"
 msgstr "Betbelgi alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:70
 msgid "Sort the Bookmarks Descending"
 msgstr "Kemý boıymen suryptalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:73
 msgid "Sort the Bookmarks Ascending"
 msgstr "Ósý boıymen suryptalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:213
 msgid "Choose Storage Type"
 msgstr "Faıldyń túri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:223
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:226
 msgid "Not Protected"
 msgstr "shıfrlaýsyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:225
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:227
 msgid "Password Protected"
 msgstr "shıfrlaýmen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:235
 msgid "Storage Type"
 msgstr "Túr:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:244
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -1773,31 +375,39 @@ msgstr ""
 "Júıeniń kúıreýi ýaqytynda nemese shıfrlanbalǵan qujat qoldanba ýaqytsha "
 "muqabada múmkin qalý."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:252
 msgid "Enter the New Password Twice"
 msgstr "Engizińiz jáne tekseris úshin paról rastalyńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:333
-msgid "The Password Fields Must be Filled"
+msgid "Autosave Every"
+msgstr "Avtosaqtaý ár"
+
+msgid "Minutes"
+msgstr "mınýttar"
+
+msgid "The Password Fields Must be Filled."
 msgstr "Siz paról bermedińiz "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:338
-msgid "The Two Inserted Passwords Do Not Match"
+msgid "The Two Inserted Passwords Do Not Match."
 msgstr "Paróldardy úılespeıdi "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:359
+msgid "Warning"
+msgstr "Eskertý"
+
 msgid "The Current Document was Updated."
 msgstr "CherryTree qujatty ózgertilgen boldy."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:359
 msgid "Do you want to Save the Changes?"
 msgstr "Qujatta ózgeristi saqtalady ma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:410
 msgid "Do you want to Execute the Code?"
 msgstr "Kodty oryndaıdy ma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:482
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Kodty oryndamas buryn rastaýdy surańyz"
+
+msgid "Use Internal Terminal"
+msgstr "Kiristirilgen termınaldy paıdalanyńyz"
+
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -1805,7 +415,6 @@ msgstr ""
 "Mátinniń qalyptaýynyń múmkindigimen qoıyn kitapsha ıerarhıalyq aǵashqa uqsas "
 "qurylym jáne sıntaksıstiń kómeski jaryǵymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:483
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -1840,241 +449,659 @@ msgstr ""
 "GNU kóshirme bolyp shyǵýyńyz kerek. Eger dál osylaı emes bul bolsa, \n"
 "boıymen qorǵa Erkin jazyńyz, 675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:533
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:400
+msgid "Arabic"
+msgstr "Arab tili"
+
+msgid "Armenian"
+msgstr "Armán"
+
+msgid "Bulgarian"
+msgstr "Bolgarlyq"
+
+msgid "Chinese Simplified"
+msgstr "Qytaı jeńildetilgeni"
+
+msgid "Chinese Traditional"
+msgstr "Qytaı (dástúrli)"
+
+msgid "Croatian"
+msgstr "Horvat"
+
+msgid "Czech"
+msgstr "Cheh"
+
+msgid "Dutch"
+msgstr "Golandıalyq"
+
+msgid "Finnish"
+msgstr "Fın"
+
+msgid "French"
+msgstr "Fransýz"
+
+msgid "German"
+msgstr "Nemis"
+
+msgid "Greek"
+msgstr "Grek"
+
+msgid "Hindi India"
+msgstr "Hındı (Úndistan)"
+
+msgid "Hungarian"
+msgstr "Vengr"
+
+msgid "Italian"
+msgstr "Italıalyq"
+
+msgid "Japanese"
+msgstr "Japon"
+
+msgid "Kazakh"
+msgstr "Qazaq"
+
+msgid "Kazakh (Latin)"
+msgstr "Qazaq (latyn)"
+
+msgid "Korean"
+msgstr "Káris"
+
+msgid "Lithuanian"
+msgstr "Lıtvalyq"
+
+msgid "Polish"
+msgstr "Polák"
+
+msgid "Portuguese"
+msgstr "Portýgal"
+
+msgid "Portuguese Brazil"
+msgstr "Portýgal (Brazılıa)"
+
+msgid "Romanian"
+msgstr "Rýmyn"
+
+msgid "Russian"
+msgstr "Orys"
+
+msgid "Slovenian"
+msgstr "Slovenıa"
+
+msgid "Spanish"
+msgstr "Ispan"
+
+msgid "Swedish"
+msgstr "Shved"
+
+msgid "Turkish"
+msgstr "Túrik"
+
+msgid "Ukrainian"
+msgstr "Ýkraına"
+
 msgid "About CherryTree"
 msgstr "Málimetter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:548
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:95
 msgid "Tree Summary Information"
 msgstr "Aǵash týraly aqparat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:560
 msgid "Number of Rich Text Nodes"
 msgstr "Formattalǵan mátinmen butaqtaryn san"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:565
 msgid "Number of Plain Text Nodes"
 msgstr "Mátinniń obychymmen butaqtaryn san"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:570
 msgid "Number of Code Nodes"
 msgstr "Kodpen butaqtaryn san"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:575
 msgid "Number of Images"
 msgstr "Beıneler"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:580
 msgid "Number of LatexBoxes"
 msgstr "LaTeX-ov"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:585
 msgid "Number of Embedded Files"
 msgstr "Faıldyq"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:590
 msgid "Number of Tables"
 msgstr "Kesteler"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:595
 msgid "Number of CodeBoxes"
 msgstr "CodeBox-ov"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:600
 msgid "Number of Anchors"
 msgstr "Zákirler"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:160
+msgid "Latex Text"
+msgstr "LaTeX mátin"
+
+msgid "Image Size dpi"
+msgstr "Dpi sýret ólshemi"
+
+msgid "Tutorial"
+msgstr "Basshylyq"
+
+msgid "Reference"
+msgstr "Anyqtama"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX matematıkalyq teńdeýler boıynsha oqýlyq"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX matematıkalyq sımvoldarynyń anyqtamalyǵy"
+
+msgid "Image Properties"
+msgstr "Beıneniń qasıeti"
+
+msgid "Width"
+msgstr "En"
+
+msgid "Height"
+msgstr "Bıiktik"
+
+msgid "Plain Text"
+msgstr "Kádimgi mátin"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Sıntaksıstiń kómeski jaryǵy"
+
+msgid "Type"
+msgstr "Túr"
+
+msgid "pixels"
+msgstr "pıkselder"
+
+msgid "Size"
+msgstr "Ólshem"
+
+msgid "Show Line Numbers"
+msgstr "Joldardy nómirleý"
+
+msgid "Highlight Matching Brackets"
+msgstr "Jańa saýǵan jaqshalar jaryq túsirý"
+
+msgid "Options"
+msgstr "Teńshelim"
+
+msgid "Rows"
+msgstr "Joldar sany:"
+
+msgid "Columns"
+msgstr "San baǵana:"
+
+msgid "Default Width"
+msgstr "Maǵyna:"
+
+msgid "Table Size"
+msgstr "Kesteniń ólshemi"
+
+msgid "Column Properties"
+msgstr "Baǵananyń eni "
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Jeńil ınterfeıs (úlken kesteler úshin jyldamyraq)"
+
+msgid "Import from CSV File"
+msgstr "Faıl CSV derekterin ımporttaý"
+
+msgid "Search for"
+msgstr "Tabylý:"
+
+msgid "Replace with"
+msgstr "Almastyrylý:"
+
+msgid "Match Case"
+msgstr "Regıstrdi eskerilý"
+
+msgid "Regular Expression"
+msgstr "Júıeli aıtylý"
+
+msgid "Online Manual"
+msgstr "Ǵalamtorda málimet"
+
+msgid "Accent Insensitive"
+msgstr "Joıýǵa sezimtaldyq"
+
+msgid "Override Exclusions"
+msgstr "Erekshelikterdi joıý"
+
+msgid "Whole Word"
+msgstr "Sóz ǵana tutastaı"
+
+msgid "Start Word"
+msgstr "Sózdiń basy"
+
+msgid "Forward"
+msgstr "Alǵa"
+
+msgid "Backward"
+msgstr "Keıin"
+
+msgid "All, List Matches"
+msgstr "Týra kelý bári"
+
+msgid "First From Selection"
+msgstr "Birinshi týra kelý erekshelengen"
+
+msgid "First in All Range"
+msgstr "Barlyq qujat boıymen birinshi týra kelý "
+
+msgid "Node Created After"
+msgstr "Keıin jaratylǵan"
+
+msgid "Node Created Before"
+msgstr "Deıin jaratylǵan"
+
+msgid "Node Modified After"
+msgstr "Keıin ózgertilgen"
+
+msgid "Node Modified Before"
+msgstr "Deıin ózgertilgen"
+
+msgid "Time filter"
+msgstr "Kúni boıymen taral..."
+
+msgid "Node Content"
+msgstr "Túıin mazmuny"
+
+msgid "Node Name and Tags"
+msgstr "Butaq atymen jáne tegter"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Butaǵy enshiles"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "\"Týra kelý ....\" dıalogktik terezeniń kórsetý"
+
+msgid "Search options"
+msgstr "Izdestirýdiń parametrleri"
+
 #, c-format
-msgid "The database file %s is corrupt, see log for more details"
-msgstr ""
-"Faıl: <b>\"%s\"</b> - zaqymdanǵan.\n"
-"\n"
-"Tolyq aqparat úshin saıǵa qarańyz."
+msgid "Hide (Restore with '%s')"
+msgstr "Oraý/Qalpyna kelý ('%s')"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:161
-msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes"
-msgstr ""
-"Saqtyq kóshirme faıldary (ádepki boıynsha 3 dana) bir qaltada búlingen "
-"qujat,\n"
-"sol ataýmen, biraq tıldtermen (~, ~~, ~~~) sońynda.\n"
-"Zaqymdalǵan faıldy qalpyna keltirý úshin saqtyq kóshirme faılyn alý kerek\n"
-"bir Tılda jáne basqa katalogqa ony kóshirý, Tılda joıý jáne ashý "
-"CherryTree.\n"
-"Eger faıldy qalpyna keltirý múmkin bolmasa, saqtyq kóshirmelerdi qoldanyńyz\n"
-"eki-úsh tılde. Biraq eger siz basqalarmen sátsizdikke ushyrasańyz\n"
-"saqtyq kóshirme, sodan keıin sizge eshteńe kómektespeıdi!!!"
+msgid "Node Name"
+msgstr "Esim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:217
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach usb driver or shared resource"
-msgstr ""
-"Faıl: <b>\"%s\"</b> - bolmaıdy.\n"
-"\n"
-"USB qurylǵy qosýǵa qaıta kórińiz."
+msgid "Line"
+msgstr "Jol"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:220
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"Faıl: <b>\"%s\"</b> - tek qana oqý úshinniń qol jetetini.\n"
-"\n"
-"Onynyń basqa esimimen saqtalyp kórińiz."
+msgid "Line Content"
+msgstr "Ishindegi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:566
-msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgid "Iterate Latest Find/Replace"
+msgstr "Qaıtalaný Tabylý/Almastyrylý"
+
+msgid "Close"
+msgstr "Jabý"
+
+msgid "Find Previous"
+msgstr "Aldyńǵy"
+
+msgid "Find Next"
+msgstr "Kelesi"
+
+msgid "Replace"
+msgstr "Almastyrý"
+
+msgid "Undo"
+msgstr "Boldyrmaý"
+
+msgid "Remove Color"
+msgstr "Tazalaný"
+
+msgid "Question"
+msgstr "Suraq"
+
+msgid "Info"
+msgstr "Aqparat"
+
+msgid "Error"
+msgstr "Qate"
+
+msgid "Select File"
+msgstr "Ashylý..."
+
+msgid "Select Folder"
+msgstr "Tańdaý..."
+
+msgid "Save File as"
+msgstr "Basqasha saqtaý..."
+
+msgid "To WebSite"
+msgstr "Saıt:   "
+
+msgid "To File"
+msgstr "Faıl:  "
+
+msgid "To Folder"
+msgstr "Qalta:"
+
+msgid "To Node"
+msgstr "Tarmaq:"
+
+msgid "Anchor Name (optional)"
+msgstr " Siltemege zákir qosylý (opsıaly)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Bul tarmaqta ıakor joq"
+
+msgid "Choose Existing Anchor"
+msgstr "Zákirdi tańdańyz"
+
+msgid "Anchor Name"
+msgstr "Zákirdiń aty"
+
+msgid "Bold"
+msgstr "Jartylaı semiz"
+
+msgid "Use Selected Color"
+msgstr "Taqyryp"
+
+msgid "Use Selected Icon"
+msgstr "Belgishe taral"
+
+msgid "Rich Text"
+msgstr "Formattalǵan mátin"
+
+msgid "Node Type"
+msgstr "Túr"
+
+msgid "Tags for Searching"
+msgstr "Izdestirý úshin tegter"
+
+msgid "Exclude from Searches"
+msgstr "Izdeýden shyǵarý: "
+
+msgid "This Node"
+msgstr "butaq "
+
+msgid "The Subnodes"
+msgstr "enshiles"
+
+msgid "Read Only"
+msgstr "Oqý ǵana"
+
+msgid "Choose Existing Tag"
+msgstr "Tegter"
+
+msgid "Tag Name"
+msgstr "Teg"
+
+msgid "Pick a Color"
+msgstr "Tústi tańdańyz"
+
+msgid "Select Node Icon"
+msgstr "Belgisheniń aýysymy"
+
+msgid "Involved Nodes"
+msgstr "Tańdaý..."
+
+msgid "Selected Text Only"
+msgstr "Mátin"
+
+msgid "Selected Node Only"
+msgstr "Butaq"
+
+msgid "Selected Node and Subnodes"
+msgstr "Butaq enshiles"
+
+msgid "All the Tree"
+msgstr "Aǵash"
+
+msgid "Include Node Name"
+msgstr "Esim bas taral"
+
+msgid "Links Tree in Every Page"
+msgstr "Ár bette siltemelerdi aǵash"
+
+msgid "New Node in New Page"
+msgstr "Jańa betten jańa butaǵy"
+
+msgid "Single File"
+msgstr "Bir faıl"
+
+msgid "Index"
+msgstr "Ustaý"
+
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Eskertý: bir nemese birneshe keskin azaıtyldy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:41
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "'Latex' jáne 'dvipng'oryndalatyn faıldaryna qol jetkizý múmkin bolmady"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Mysaly, Ubuntu-da ornatýǵa arnalǵan paketter:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Mysaly, Mac OS júıesinde ornatýǵa arnalǵan paketter:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "'Latex' oryndalatyn faılyna kirý múmkin bolmady"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "'dvipng' oryndalatyn faılyna kirý múmkin bolmady"
+
+msgid "Downloading"
+msgstr "Júkteý"
+
+#, c-format
+msgid "The Document %s was Not Found"
+msgstr ""
+"Qujatty izdeý aıaqtaldy.\n"
+"\n"
+"Qujat <b>' %s '</b > tabylmady!"
+
+msgid "Open a Recent CherryTree Document"
+msgstr ""
+"Áńgime...\n"
+"\n"
+"Mynda shaqyryńyz, úshin qandaı bolǵan \n"
+"isiniń buryn ashylǵan qujattaryna qaraý.\n"
+"Da CherryTree jaqynda ashylǵan qujattar\n"
+"áńgimeden alystap ketýge bolady"
+
+msgid "_Hide"
+msgstr "Oraý..."
+
+msgid "_Quit"
+msgstr "Shyǵý"
+
+msgid "Hide the Window"
+msgstr ""
+"Oraý...\n"
+"\n"
+"CherryTree málimdemelerdiń tóńirekteridegin oraý"
+
+msgid "Quit the Application"
+msgstr ""
+"Shyǵý\n"
+"\n"
+"CherryTree shyǵý"
+
+msgid "Spell Check"
+msgstr "Emle"
+
+msgid "Word Count"
+msgstr "Sózder"
+
+msgid "Date Created"
+msgstr "Jaratylǵan"
+
+msgid "Date Modified"
+msgstr "Ózgertilgen"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "Siz butaqty kóshirmedińiz nemese aǵash Qol jetimdi emes"
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Aǵash butaǵy qol jetimdi emes"
+
+msgid "Show Menubar:"
+msgstr "Mázir jolaǵyn kórsetý:"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s \" CherryTree qujatty bolyp kórinbeıdi"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree File:\n"
+"\"%s\""
+msgstr ""
+"Faıl CherryTree ashýyn qate:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr ""
+"Qujatta izdeý aıaqtaldy.\n"
+"\n"
+"Qajetti tarmaq <b> '%s ' < / b> tabylmady!"
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Jaratylǵan basqa qoldanba ashylǵan ýaqytsha faıldary qaı."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "CherryTree shyǵatyn esikti aldynda syrtqy qoldanbany jabyńyz."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Siz syrtqy qoldanba bitirdińiz be?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Qujat basqa baǵdarlama jańartqannan keıin qaıta júkteldi"
+
+msgid "Copy Selection or All"
+msgstr "Bólektelgen nemese barlyǵyn kóshirý"
+
+msgid "Paste"
+msgstr "Kiristirý"
+
+msgid "Reset"
+msgstr "Qalpyna keltirý"
+
+msgid "Remove from list"
+msgstr "Áńgimeden alystap ketý"
+
 msgid "_File"
 msgstr "Faıl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:42
 msgid "_Edit"
 msgstr "Túzetý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:43
 msgid "_Insert"
 msgstr "Qystyrma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:44
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:70
 msgid "F_ormat"
 msgstr "Pishim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:45
 msgid "_Tree"
 msgstr "Aǵash"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:46
 msgid "Too_ls"
 msgstr "Quraldar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:47
 msgid "_Search"
 msgstr "Izdestirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:48
 msgid "_View"
 msgstr "Túr"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:49
 msgid "_Bookmarks"
 msgstr "Betbelgiler"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:50
 msgid "_Help"
 msgstr "Málimet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:53
 msgid "Node _Move"
 msgstr "Oryn almasý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:54
 msgid "Nod_es Sort"
 msgstr "Suryptalý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:55
 msgid "B_ookmarks"
 msgstr "Betbelgiler"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:56
 msgid "_Import"
 msgstr "Import..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:57
 msgid "_Export"
 msgstr "Eksport..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:88
 msgid "_Preferences"
 msgstr "Teńshelim..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:59
 msgid "_Recent Documents"
 msgstr "Áńgime... "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:61
 msgid "C_hange Case"
 msgstr "Regıstrdi ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:62
 msgid "L_ist"
 msgstr "Tizim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:63
 msgid "_Justify"
 msgstr "Tegistelý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:64
 msgid "Toggle _Font Property"
 msgstr "Qaripti ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:65
 msgid "_Toggle Heading Property"
 msgstr "Ólshemdi ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:66
 msgid "I_nsert"
 msgstr "Ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:67
 msgid "_Find"
 msgstr "Tabylý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:68
 msgid "_Replace"
 msgstr "Almastyrylý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:69
 msgid "Ro_w"
 msgstr "Jol"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:73
+msgid "_Table"
+msgstr "Keste"
+
+msgid "_CodeBox"
+msgstr "CodeBox qıý"
+
 msgid "File"
 msgstr "Faıl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:74
-msgid "_New Instance"
+msgid "_New Instance..."
 msgstr "Qurý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:75
 msgid "Start a New Instance of CherryTree"
 msgstr ""
 "Qurý...\n"
 "\n"
 "CherryTree jańa dana qurý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:430
-msgid "_Open File"
+msgid "_Open File..."
 msgstr "Ashylý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:78
+msgid "Open a CherryTree Document"
+msgstr ""
+"Ashylý...\n"
+"\n"
+"CherryTree bar qujat ashylý"
+
 msgid "_Save"
 msgstr "Saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:79
 msgid "Save File"
 msgstr ""
 "Saqtalý\n"
 "\n"
 "CherryTree aǵatyn qujatty saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:80
 msgid "Save and _Vacuum"
 msgstr "Qysý jáne saqtaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:81
 msgid "Save File and Vacuum"
 msgstr ""
 "Qysý jáne saqtaý\n"
@@ -2082,13 +1109,9 @@ msgstr ""
 "CherryTree qujatyn mınımaldy ólshemge \n"
 "deıin qysyńyz jáne saqtańyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:82
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:428
-msgid "Save _As"
+msgid "Save _As..."
 msgstr "Basqasha saqtaý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:83
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:429
 msgid "Save File As"
 msgstr ""
 "Basqasha saqtaý...\n"
@@ -2098,11 +1121,9 @@ msgstr ""
 "\n"
 "Qondyrylǵan faıldy saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:84
-msgid "Pa_ge Setup"
+msgid "Pa_ge Setup..."
 msgstr "Bettiń parametrleri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:85
 msgid "Set up the Page for Printing"
 msgstr ""
 "Bettiń parametrleri\n"
@@ -2110,72 +1131,66 @@ msgstr ""
 "Mór úshin bettiń parametrleri teńsheý:\n"
 "baǵdar, dala, ólshem jáne qaǵazdy berý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:86
-msgid "P_rint"
+msgid "P_rint..."
 msgstr "Mór"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:87
 msgid "Print"
 msgstr ""
 "Mór\n"
 "\n"
 "Qujattyń móriniń parametrleri teńsheý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:90
-msgid "_Import Preferences"
+msgid "Preferences"
+msgstr "Baǵdarlama parametrleri"
+
+msgid "_Import Preferences..."
 msgstr "Teńshelim qalpyna kelý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:91
 msgid "Import Preferences"
 msgstr "Rezeretik kóshirmeden teńshelim Sheggýtgee qalpyna kelý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:92
-msgid "_Export Preferences"
+msgid "_Export Preferences..."
 msgstr "Teńshelimdi saqtalý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:93
 msgid "Export Preferences"
 msgstr "Sheggýtgee teńshelimderi rezeretik kóshirmeni saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:94
 msgid "Tree In_fo"
 msgstr "Aqparat..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:98
 msgid "E_xit CherryTree"
 msgstr "Shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:101
+msgid "Exit from CherryTree"
+msgstr ""
+"Shyǵý\n"
+"\n"
+"CherryTree shyǵý"
+
 msgid "Edit/Insert"
 msgstr "Túzetý/Qystyrma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:102
 msgid "_Undo"
 msgstr "Boldyrmaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:103
 msgid "Undo Last Operation"
 msgstr ""
 "Boldyrmaý\n"
 "\n"
 "Sońǵy operasıa boldyrmaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:104
 msgid "_Redo"
 msgstr "Qaıtarý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:105
 msgid "Redo Previously Discarded Operation"
 msgstr ""
 "Qaıtarý\n"
 "\n"
 "Bolmaı qalǵan operasıany qaıtarý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:106
-msgid "Insert I_mage"
+msgid "Insert I_mage..."
 msgstr "Beıne"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:107
 msgid "Insert an Image"
 msgstr ""
 "Beıne\n"
@@ -2183,48 +1198,39 @@ msgstr ""
 "Úshin qujatqa beıne ústemelený \n"
 "belgili uǵymdy kórkemdeý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:108
-msgid "Insert Late_x"
+msgid "Insert Late_x..."
 msgstr "LaTeX"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:109
 msgid "Insert LatexBox"
 msgstr ""
 "LaTeX\n"
 "\n"
 "LaTeX - matematıkalyq teńdeýlerdi, formýlalardy qoldaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:110
-msgid "Insert _Table"
+msgid "Insert _Table..."
 msgstr "Kestesi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Insert a Table"
 msgstr ""
 "Kestesi\n"
 "\n"
 "Qujatqa keste ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:112
-msgid "Insert _CodeBox"
+msgid "Insert _CodeBox..."
 msgstr "CodeBox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:114
-msgid "Insert _File"
+msgid "Insert _File..."
 msgstr "Faıl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:115
 msgid "Insert File"
 msgstr ""
 "Faıl\n"
 "\n"
 "Qujatqa faıl ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:116
-msgid "Insert/Edit _Link"
+msgid "Insert/Edit _Link..."
 msgstr "Silteme"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:117
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr ""
 "Silteme\n"
@@ -2234,11 +1240,9 @@ msgstr ""
 "Veb-bet, butaq, zákirge silteme qurý, árili-berili \n"
 "siltemeniń qystyrmasy muqaba, faıl jolymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:118
-msgid "Insert _Anchor"
+msgid "Insert _Anchor..."
 msgstr "Zákir"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:119
 msgid "Insert an Anchor"
 msgstr ""
 "Zákir\n"
@@ -2252,11 +1256,9 @@ msgstr ""
 "Eger ishindegi basqa jerge oryn aýystyrsa zákirge silteme \n"
 "avtomatty túrde jańartylady"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:120
-msgid "Insert T_OC"
+msgid "Insert T_OC..."
 msgstr "Mazmun"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:121
 msgid "Insert Table of Contents"
 msgstr ""
 "Mazmun\n"
@@ -2268,11 +1270,9 @@ msgstr ""
 "izdestirýdi oryndaıdy jáne mazmun\n"
 "onyń ishinen jasalady."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:122
 msgid "Insert Timestam_p"
 msgstr "Ýaqyt jáne kúni"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:123
 msgid "Insert Timestamp"
 msgstr ""
 "Ýaqyt jáne kúni\n"
@@ -2282,11 +1282,9 @@ msgstr ""
 "Pishim keshik jáne kúni ózgertýge bolady\n"
 "qoldanba teńshelimderindegi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:124
-msgid "Insert _Special Character"
+msgid "Insert _Special Character..."
 msgstr "Nyshan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:125
 msgid "Insert a Special Character"
 msgstr ""
 "Nyshan\n"
@@ -2297,11 +1295,9 @@ msgstr ""
 "quqyq, taýar tańbasy, azatjoldy nyshan jáne taǵy basqalar.\n"
 "Baǵdarlama parametrlerinde tańbalardy qosýǵa nemese ózgertýge bolady"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:126
 msgid "Insert _Horizontal Rule"
 msgstr "Syzyq"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:127
 msgid "Insert Horizontal Rule"
 msgstr ""
 "Syzyq\n"
@@ -2311,44 +1307,36 @@ msgstr ""
 "Kóldeneń bólý syzyǵy bolady\n"
 "baǵdarlama parametrlerinde teńsheý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:128
 msgid "_Lower Case of Selection/Word"
 msgstr "kishi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:129
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr ""
 "kishi\n"
 "\n"
 "Árip bári túrlendirý erekshelengen mátin kishisi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:130
 msgid "_Upper Case of Selection/Word"
 msgstr "Tirkeý qaǵazy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr ""
 "Tirkeý qaǵazy\n"
 "\n"
 "Árip bári túrlendirý erekshelengen mátin Tirkeý qaǵazysy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:132
 msgid "_Toggle Case of Selection/Word"
 msgstr "ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:133
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr ""
 "ózgertý\n"
 "\n"
 "Áribi bári erekshelengen túrlendirý mátin kishi nemese Tirkeý qaǵazysy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:134
 msgid "Cu_t as Plain Text"
 msgstr "Mátin qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:135
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Mátin qıý\n"
@@ -2356,11 +1344,9 @@ msgstr ""
 "Erekshelengen mátin úzindi qıý \n"
 "almasý býferine qalyptaýsyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:136
 msgid "_Copy as Plain Text"
 msgstr "Mátindi kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:137
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Mátindi kóshirip alý\n"
@@ -2368,56 +1354,45 @@ msgstr ""
 "Erekshelengen mátin úzindini kóshirip\n"
 "alý almasý býferine qalyptaýsyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:138
 msgid "_Paste as Plain Text"
 msgstr "Mátin ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:139
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Mátin ústemelený\n"
 "\n"
 "Almasý býferinen mátin qalyptaýsyz ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:140
 msgid "C_ut Row"
 msgstr "Jol qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:141
 msgid "Cut the Current Row/Selected Rows"
 msgstr ""
 "Jol qıý\n"
 "\n"
 "Almasý býferine mátindik jol qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:142
 msgid "C_opy Row"
 msgstr "Joldy kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:143
 msgid "Copy the Current Row/Selected Rows"
 msgstr ""
 "Joldy kóshirip alý\n"
 "\n"
 "Almasý býferine mátindik joldy kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:144
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:502
 msgid "De_lete Row"
 msgstr "Jol alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:145
 msgid "Delete the Current Row/Selected Rows"
 msgstr ""
 "Jol alystap ketý\n"
 "\n"
 "Qujattan mátindik jol alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:146
 msgid "_Duplicate Row"
 msgstr "Joldy qaıtalaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:147
 msgid "Duplicate the Current Row/Selection"
 msgstr ""
 "Joldy qaıtalaý\n"
@@ -2425,44 +1400,318 @@ msgstr ""
 "Kóshirilip alynsyn jáne mátindik jolyn ústemelensin \n"
 "nemese erekshelengen qujattyń kelesi jolyna mátin úzindi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:148
 msgid "_Move Up Row"
 msgstr "Jol ústine"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:149
 msgid "Move Up the Current Row/Selected Rows"
 msgstr ""
 "Jol ústine\n"
 "\n"
 "Bir deńgeıge mátindik jol ústine oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:150
 msgid "Mo_ve Down Row"
 msgstr "Jol tómen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:151
 msgid "Move Down the Current Row/Selected Rows"
 msgstr ""
 "Jol tómen\n"
 "\n"
 "Bir deńgeıge mátindik jol tómen oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:154
+msgid "C_ut Table"
+msgstr "Keste qıý"
+
+msgid "Cut the Selected Table"
+msgstr ""
+"Keste qıý\n"
+"\n"
+"Almasý býferine keste qıý"
+
+msgid "_Copy Table"
+msgstr "Kesteni kóshirip alý"
+
+msgid "Copy the Selected Table"
+msgstr ""
+"Kesteni kóshirip alý\n"
+"\n"
+"Almasý býferine kesteni kóshirip alý"
+
+msgid "_Delete Table"
+msgstr "Keste alystap ketý"
+
+msgid "Delete the Selected Table"
+msgstr ""
+"Keste alystap ketý\n"
+"\n"
+"Qujattan keste alystap ketý"
+
+msgid "_Add Column"
+msgstr "Baǵana qosylý"
+
+msgid "Add a Table Column"
+msgstr ""
+"Baǵana qosylý\n"
+"\n"
+"Kestelerde baǵana qosylý"
+
+msgid "De_lete Column"
+msgstr "Baǵana alystap ketý"
+
+msgid "Delete the Selected Table Column"
+msgstr ""
+"Baǵana alystap ketý\n"
+"\n"
+"Kesteden baǵana alystap ketý"
+
+msgid "Move Column _Left"
+msgstr "Baǵana solǵa"
+
+msgid "Move the Selected Column Left"
+msgstr ""
+"Baǵana solǵa\n"
+"\n"
+"Kesteniń baǵanasy solǵa oryn almasý"
+
+msgid "Move Column _Right"
+msgstr "Baǵana ońǵa"
+
+msgid "Move the Selected Column Right"
+msgstr ""
+"Baǵana ońǵa\n"
+"\n"
+"Kesteniń baǵanasy ońǵa oryn almasý"
+
+msgid "Increase Column Width"
+msgstr "Endi úlkeıtý"
+
+msgid "Increase the Width of the Column"
+msgstr ""
+"Endi úlkeıtý\n"
+"\n"
+"Kesteniń baǵanasyn endi úlkeıtý"
+
+msgid "Decrease Column Width"
+msgstr "Endi azaıý"
+
+msgid "Decrease the Width of the Column"
+msgstr ""
+"Endi azaıý\n"
+"\n"
+"Kesteniń baǵanasyn endi azaıý"
+
+msgid "_Add Row"
+msgstr "Jol qosylý"
+
+msgid "Add a Table Row"
+msgstr ""
+"Jol qosylý\n"
+"\n"
+"Kestege jol qosylý"
+
+msgid "Cu_t Row"
+msgstr "Jol qıý"
+
+msgid "Cut a Table Row"
+msgstr ""
+"Jol qıý\n"
+"\n"
+"Almasý býferine kesteniń jolyn qıý"
+
+msgid "_Copy Row"
+msgstr "Joldy kóshirip alý"
+
+msgid "Copy a Table Row"
+msgstr ""
+"Joldy kóshirip alý\n"
+"\n"
+"Almasý býferine kesteniń jolyn kóshirip alý"
+
+msgid "_Paste Row"
+msgstr "Jol ústemelený"
+
+msgid "Paste a Table Row"
+msgstr ""
+"Jol ústemelený\n"
+"\n"
+"Almasý býferinen kestesine jol ústemelený"
+
+msgid "Delete the Selected Table Row"
+msgstr ""
+"Jol alystap ketý \n"
+"\n"
+"Kesteden jol alystap ketý"
+
+msgid "Move Row _Up"
+msgstr "Jol ústine"
+
+msgid "Move the Selected Row Up"
+msgstr ""
+"Jol ústine\n"
+"\n"
+"Kesteniń jolyn ústine oryn almasý"
+
+msgid "Move Row _Down"
+msgstr "Jol tómen"
+
+msgid "Move the Selected Row Down"
+msgstr ""
+"Jol tómen\n"
+"\n"
+"Kesteniń jolyn tómen oryn almasý"
+
+msgid "Sort Rows De_scending"
+msgstr "Kemý boıymen suryptalý"
+
+msgid "Sort all the Rows Descending"
+msgstr ""
+"Kemý boıymen suryptalý\n"
+"\n"
+"Kemý boıymen kesteniń joly bári suryptalý"
+
+msgid "Sort Rows As_cending"
+msgstr "Ósý boıymen suryptalý"
+
+msgid "Sort all the Rows Ascending"
+msgstr ""
+"Ósý boıymen suryptalý\n"
+"\n"
+"Ósý boıymen kesteniń joly bári suryptalý"
+
+msgid "_Edit Table Properties..."
+msgstr "Kesteniń qasıeti..."
+
+msgid "Edit the Table Properties"
+msgstr ""
+"Kesteniń qasıeti...\n"
+"\n"
+"Kesteniń qasıetin ózgertý"
+
+msgid "_Table Export..."
+msgstr "Kesteniń eksporty"
+
+msgid "Export Table as CSV File"
+msgstr ""
+"Kesteniń eksporty\n"
+"\n"
+"CSV faılǵa kesteniń derekteri eksporttalý"
+
+msgid "Change CodeBox _Properties..."
+msgstr "CodeBox qasıet..."
+
+msgid "Edit the Properties of the CodeBox"
+msgstr ""
+"CodeBox qasıet...\n"
+"\n"
+"Qasıet CodeBox ózgertý"
+
+msgid "CodeBox _Load From Text File..."
+msgstr "CodeBox júktelý..."
+
+msgid "Load the CodeBox Content From a Text File"
+msgstr ""
+"CodeBox júktelý...\n"
+"\n"
+"CodeBox mátindik faıldan baǵdarlama kodty júktelý"
+
+msgid "CodeBox _Save To Text File..."
+msgstr "Saqtalý CodeBox..."
+
+msgid "Save the CodeBox Content To a Text File"
+msgstr ""
+"Saqtalý CodeBox...\n"
+"\n"
+"Ishindegi CodeBox mátindik faılǵa saqtalý"
+
+msgid "C_ut CodeBox"
+msgstr "CodeBox qıý"
+
+msgid "Cut the Selected CodeBox"
+msgstr ""
+"CodeBox қию\n"
+"\n"
+"CodeBox almasý býferine qıý"
+
+msgid "_Copy CodeBox"
+msgstr "CodeBox kóshirip alý"
+
+msgid "Copy the Selected CodeBox"
+msgstr ""
+"CodeBox kóshirip alý\n"
+"\n"
+"CodeBox almasý býferine kóshirip alý"
+
+msgid "_Delete CodeBox"
+msgstr "CodeBox alystap ketý"
+
+msgid "Delete the Selected CodeBox"
+msgstr ""
+"CodeBox alystap ketý\n"
+"\n"
+"CodeBox qujattan alystap ketý"
+
+msgid "Delete CodeBox _Keep Content"
+msgstr "CodeBox alystap ketý..."
+
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr ""
+"CodeBox alystap ketý..\n"
+"\n"
+"Saqtaýy bar CodeBox ishindegi alystap ketý.\n"
+"\n"
+"CodeBox júksaýyt ǵana alystaıdy, al CodeBox \n"
+"ustalatyn mátin qujatqa qystyrylady"
+
+msgid "Increase CodeBox Width"
+msgstr "Endi úlkeıtý"
+
+msgid "Increase the Width of the CodeBox"
+msgstr ""
+"Endi úlkeıtý\n"
+"\n"
+"CodeBox endi úlkeıtý"
+
+msgid "Decrease CodeBox Width"
+msgstr "Endi azaıý"
+
+msgid "Decrease the Width of the CodeBox"
+msgstr ""
+"Endi azaıý\n"
+"\n"
+"CodeBox еndi azaıý"
+
+msgid "Increase CodeBox Height"
+msgstr "Bıiktikti úlkeıtý"
+
+msgid "Increase the Height of the CodeBox"
+msgstr ""
+"Bıiktikti úlkeıtý\n"
+"\n"
+"CodeBox bıiktikti úlkeıtý"
+
+msgid "Decrease CodeBox Height"
+msgstr "Bıiktikti azaıý"
+
+msgid "Decrease the Height of the CodeBox"
+msgstr ""
+"Bıiktikti azaıý\n"
+"\n"
+"CodeBox bıiktikti azaıý"
+
+msgid "Format"
+msgstr "Pishim"
+
 msgid "Format Clo_ne"
 msgstr "Pishimdi klondaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:155
 msgid "Clone the Text Format Type at Cursor"
 msgstr ""
 "Pishimdi klondaý\n"
 "\n"
 "Júgirgini janynda mátinniń qalyptaýyn klondaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:156
 msgid "Format _Latest"
 msgstr "Úlgi boıymen pishim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:157
 msgid "Memory of Latest Text Format Type"
 msgstr ""
 "Úlgi boıymen pishim\n"
@@ -2470,33 +1719,27 @@ msgstr ""
 "Sońǵy mátinniń qalyptaýy jadta qalý jáne \n"
 "onynyń basqa mátin úzindilerine qoldaný"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:158
 msgid "_Remove Formatting"
 msgstr "Pishimdi tazalaný"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:159
 msgid "Remove the Formatting from the Selected Text"
 msgstr ""
 "Pishimdi tazalaný\n"
 "\n"
 "Erekshelengen mátinnen qalyptaýy alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:160
 msgid "Text _Color Foreground"
 msgstr "Mátin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:161
 msgid "Change the Color of the Selected Text Foreground"
 msgstr ""
 "Mátin\n"
 "\n"
 "Mátinniń túsin ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:162
 msgid "Text C_olor Background"
 msgstr "Fon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:163
 msgid "Change the Color of the Selected Text Background"
 msgstr ""
 "Fon\n"
@@ -2506,55 +1749,45 @@ msgstr ""
 "Mátinge qalaıdaı kórinedi sıaqty \n"
 "ony tańbalaýyshty ereksheledi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:164
 msgid "Toggle _Bold Property"
 msgstr "Jartylaı semiz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:165
 msgid "Toggle Bold Property of the Selected Text"
 msgstr ""
 "Jartylaı semiz\n"
 "\n"
 "Jartylaı semiz pishin qoldaný erekshelengen mátinge"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:166
 msgid "Toggle _Italic Property"
 msgstr "Kýrsıv"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:167
 msgid "Toggle Italic Property of the Selected Text"
 msgstr ""
 "Kýrsıv\n"
 "\n"
 "Kýrsıv pishini qoldaný erekshelengen mátinge"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:168
 msgid "Toggle _Underline Property"
 msgstr "Syzyp kórsetilgeni"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:169
 msgid "Toggle Underline Property of the Selected Text"
 msgstr ""
 "Syzyp kórsetilgeni\n"
 "\n"
 "Erekshelengen mátin astyn syzý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:170
 msgid "Toggle Stri_kethrough Property"
 msgstr "Syzylyp tastalǵany"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:171
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr ""
 "Syzylyp tastalǵany\n"
 "\n"
 "Arqyly ótetin jeli qosylý erekshelengen mátinniń ortasyn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:172
 msgid "Toggle h_1 Property"
 msgstr "Stıl 1"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:173
 msgid "Toggle h1 Property of the Selected Text"
 msgstr ""
 "Stıl 1\n"
@@ -2562,11 +1795,9 @@ msgstr ""
 "Stıldyń azatjolyna qoldaný \n"
 "mátinniń pishini \"Stıl 1\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:174
 msgid "Toggle h_2 Property"
 msgstr "Stıl 2"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:175
 msgid "Toggle h2 Property of the Selected Text"
 msgstr ""
 "Stıl 2\n"
@@ -2574,11 +1805,9 @@ msgstr ""
 "Stıldyń azatjolyna qoldaný \n"
 "mátinniń pishini \"Stıl 2\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:176
 msgid "Toggle h_3 Property"
 msgstr "Stıl 3"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:177
 msgid "Toggle h3 Property of the Selected Text"
 msgstr ""
 "Stıl 3\n"
@@ -2586,11 +1815,9 @@ msgstr ""
 "Stıldyń azatjolyna qoldaný \n"
 "mátinniń pishini \"Stıl 3\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:178
 msgid "Toggle h_4 Property"
 msgstr "Stıl 4"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:179
 msgid "Toggle h4 Property of the Selected Text"
 msgstr ""
 "Stıl 4\n"
@@ -2598,11 +1825,9 @@ msgstr ""
 "Stıldyń azatjolyna qoldaný \n"
 "mátinniń pishini \"Stıl 4\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Toggle h_5 Property"
 msgstr "Stıl 5"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:181
 msgid "Toggle h5 Property of the Selected Text"
 msgstr ""
 "Stıl 5\n"
@@ -2610,11 +1835,9 @@ msgstr ""
 "Stıldyń azatjolyna qoldaný \n"
 "mátinniń pishini \"Stıl 5\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Toggle h_6 Property"
 msgstr "Stıl 6"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:183
 msgid "Toggle h6 Property of the Selected Text"
 msgstr ""
 "Stıl 6\n"
@@ -2622,11 +1845,9 @@ msgstr ""
 "Stıldyń azatjolyna qoldaný \n"
 "mátinniń pishini \"Stıl 6\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:184
 msgid "Toggle _Small Property"
 msgstr "Ólshemdi azaıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:185
 msgid "Toggle Small Property of the Selected Text"
 msgstr ""
 "Ólshemdi azaıý\n"
@@ -2634,11 +1855,9 @@ msgstr ""
 "Qarip ólshemin azaıý testiń \n"
 "erekshelengen fragmenti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:186
 msgid "Toggle Su_perscript Property"
 msgstr "Jol úsi belgi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:187
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr ""
 "Jol úsi belgi\n"
@@ -2646,66 +1865,54 @@ msgstr ""
 "Testiń joǵary tirek jelisiniń \n"
 "kishkentaı belgileri qurý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:188
 msgid "Toggle Su_bscript Property"
 msgstr "Jolma-jol belgi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:189
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr ""
 "Jolma-jol belgi\n"
 "\n"
 "Testiń tirek jelisi tómen kishkentaı belgiler qurý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:190
 msgid "Toggle _Monospace Property"
 msgstr "Monoshrıft"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:191
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr ""
 "Monoshrıft\n"
 "\n"
 "Belgi bári birdeı ender bar bolǵan Monoshrıft qoldaný"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:192
 msgid "Set/Unset _Bulleted List"
 msgstr "Tańbalanǵan tizim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:193
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
 "Tańbalanǵan tizim\n"
 "\n"
 "Tańbalanǵan tizimdi basy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:194
 msgid "Set/Unset _Numbered List"
 msgstr "Nómirlengen tizim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:195
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
 "Nómirlengen tizim\n"
 "\n"
 "Nómirlengen tizimdi basy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:196
 msgid "Set/Unset _To-Do List"
 msgstr "To-Do tizim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:197
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
 "To-Do tizim\n"
 "\n"
 "To-Do tizimdi basy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:198
 msgid "Justify _Left"
 msgstr "Sol ólke boıymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:199
 msgid "Justify Left the Current Paragraph"
 msgstr ""
 "Sol ólke boıymen\n"
@@ -2714,11 +1921,9 @@ msgstr ""
 "Mynaý tegisteýdiń túrin ádette paıdalanady negizgi \n"
 "mátin úshin jáne qujattyń oqýy jeńildenedi."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:200
 msgid "Justify _Center"
 msgstr "Ortalyq boıymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:201
 msgid "Justify Center the Current Paragraph"
 msgstr ""
 "Ortalyq boıymen\n"
@@ -2729,11 +1934,9 @@ msgstr ""
 "Ol dáıeksózder úshin jıi paıdalanady \n"
 "jáne taqyryptar."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:202
 msgid "Justify _Right"
 msgstr "Boıynsha oń jaq shetinde"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:203
 msgid "Justify Right the Current Paragraph"
 msgstr ""
 "Boıynsha oń jaq shetinde\n"
@@ -2742,11 +1945,9 @@ msgstr ""
 "Mynaý tegisteýdiń túri ishindegi mátinniń\n"
 "shaǵyn fragmentteri úshin ádette paıdalanady."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:204
 msgid "Justify _Fill"
 msgstr "Enin boılaı"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:205
 msgid "Justify Fill the Current Paragraph"
 msgstr ""
 "Enin boılaı\n"
@@ -2757,11 +1958,9 @@ msgstr ""
 "Tegistelgen enin boılaı mátin qujattyń \n"
 "ólkesi túzý isteıdi jáne anyq."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:206
 msgid "_Indent Paragraph"
 msgstr "Sheginisti úlkeıtý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:207
 msgid "Indent the Current Paragraph"
 msgstr ""
 "Sheginisti úlkeıtý\n"
@@ -2769,11 +1968,9 @@ msgstr ""
 "Baǵananyń ólkesinen sheginis bir úlkeıtsin \n"
 "nemese qatarynan júretin birneshe joldar."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:208
 msgid "_Unindent Paragraph"
 msgstr "Sheginisti azaıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:209
 msgid "Unindent the Current Paragraph"
 msgstr ""
 "Sheginisti azaıý\n"
@@ -2781,45 +1978,36 @@ msgstr ""
 "Baǵananyń ólkesinen sheginis bir azaısyn \n"
 "nemese qatarynan júretin birneshe joldar."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:211
 msgid "Tools"
 msgstr "Quraldar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:212
 msgid "Enable/Disable _Spell Check"
 msgstr "Emle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:213
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Orfografıany tekserýdi qosyp, óshirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:214
 msgid "Stri_p Trailing Spaces"
 msgstr "Bos oryn alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:215
 msgid "Strip Trailing Spaces"
 msgstr ""
 "Bos oryn alystap ketý\n"
 "\n"
 "Artyq bos oryndar joldardyń sońynda alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:216
 msgid "_Replace Tabs with Spaces"
 msgstr "Tabýlásıany aýystyrý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:217
 msgid "Replace Tabs with Spaces"
 msgstr ""
 "Tabýlásıany aýystyrý\n"
 "\n"
 "Tabýlásıany bos oryndarmen aýystyrý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:218
-msgid "_Command Palette"
+msgid "_Command Palette..."
 msgstr "Pármen..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:219
 msgid "Command Palette"
 msgstr ""
 "Pármen...\n"
@@ -2827,11 +2015,9 @@ msgstr ""
 "Oryndaý súısinemin \n"
 "\"Faıl\\Teńshelim...\\Ystyq perneler\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:220
 msgid "_Execute Code All"
 msgstr "Oryndaý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:221
 msgid "Execute All Code in CodeBox or Node"
 msgstr ""
 "Oryndaý...\n"
@@ -2839,115 +2025,94 @@ msgstr ""
 "Codebox nemese fılıaldan barlyq kodty oryndańyz\n"
 "aýdarmashynyń nemese kompılátordyń kómegimen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:222
 msgid "E_xecute Code Line or Selection"
 msgstr "Oryndaý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:223
 msgid "Execute Code from Current Line or Selected Text"
 msgstr ""
 "Oryndaý...\n"
 "\n"
 "Aǵymdaǵy joldan nemese tańdalǵan mátinnen kodty oryndańyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:225
 msgid "Tree"
 msgstr "Aǵash"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:226
 msgid "Go _Back"
 msgstr "Keıin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:227
 msgid "Go to the Previous Visited Node"
 msgstr ""
 "Keıin\n"
 "\n"
 "Aldyńǵyǵa ót taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:228
 msgid "Go _Forward"
 msgstr "Alǵa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:229
 msgid "Go to the Next Visited Node"
 msgstr ""
 "Alǵa\n"
 "\n"
 "Kelesige ót taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:230
-msgid "Add _Node"
+msgid "Add _Node..."
 msgstr "Jańa butaq"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:231
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr ""
 "Jańa butaq\n"
 "\n"
 "Jańa ata-ana butaǵyn qosylý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:232
-msgid "Add _Subnode"
+msgid "Add _Subnode..."
 msgstr "Jańa enshiles butaq"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:233
 msgid "Add a Child Node to the Selected Node"
 msgstr ""
 "Jańa enshiles butaq\n"
 "\n"
 "Ata-anaǵa jańa enshiles butaq qosyl taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:234
 msgid "_Duplicate Node"
 msgstr "Butaqty qaıtalaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:235
 msgid "Duplicate the Selected Node"
 msgstr ""
 "Butaqty qaıtalaý\n"
 "\n"
 "Kóshirilip alynsyn jáne butaq enshilessiz ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:236
 msgid "Duplicate Node _and Subnodes"
 msgstr "Enshiles qaıtalaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:237
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr ""
 "Enshiles qaıtalaý\n"
 "\n"
 "Kóshirilip alynsyn jáne butaq birge enshiles ústemelený"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:238
 msgid "Copy Node and S_ubnodes"
 msgstr "Qyzdarmen kóshirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:239
 msgid "Copy the Selected Node and the Subnodes"
 msgstr ""
 "Qyzdarmen kóshirý\n"
 "\n"
 "Kóshirilip alynsyn jáne butaq birge Qyzdarmen birge qoıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:240
 msgid "_Paste Node and Subnodes"
 msgstr "Qyzdarmen kiristirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:241
 msgid "Paste the Copied Node and Subnodes"
 msgstr ""
 "Qyzdarmen kiristirý\n"
 "\n"
 "Kóshirilgen tarmaqty Qyzdarmen birge qoıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:242
-msgid "Insert _Today's Node"
+msgid "Insert _Today's Node Under Tree Root"
 msgstr "Butaq ústemelený..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:243
-msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
 msgstr ""
 "Butaq ústemelený...\n"
 "\n"
@@ -2956,44 +2121,48 @@ msgstr ""
 "Eger búgingi kúnimen butaqta bolsa, onda butaq, \n"
 "qosylmaǵanynda emes, belsendi bolǵanynda"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:244
-msgid "C_hange Node Properties"
+msgid "Insert Toda_y's Node Under Selected Node"
+msgstr "Butaq ústemelený..."
+
+msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
+msgstr ""
+"Butaq ústemelený...\n"
+"\n"
+"Ierarhıamen butaq ústemelený Jyl/ Aı/ Kún.\n"
+"\n"
+"Eger búgingi kúnimen butaqta bolsa, onda butaq, \n"
+"qosylmaǵanynda emes, belsendi bolǵanynda"
+
+msgid "C_hange Node Properties..."
 msgstr "Qasıet taral..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "Edit the Properties of the Selected Node"
 msgstr ""
 "Qasıet taralл...\n"
 "\n"
 "Qasıetti ózgert taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:246
 msgid "Toggle _Read Only"
 msgstr "Oqý ǵana"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:247
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr ""
 "Oqý ǵana\n"
 "\n"
 "Qalyptaýdan qujattyń mátini qorǵansyn jáne redaksıalaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:248
 msgid "Cop_y Link to Node"
 msgstr "Siltemeni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:249
 msgid "Copy Link to the Selected Node to Clipboard"
 msgstr ""
 "Siltemeni kóshirip alý\n"
 "\n"
 "Almasý býferine butaqqa siltemeni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:250
 msgid "Children _Inherit Syntax"
 msgstr "Sıntaksıs mura etý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:251
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
@@ -3003,103 +2172,84 @@ msgstr ""
 "Ata-ana butaǵy bar sıntaksıstiń kómeski \n"
 "jaryǵyn túrdi sınhronızasıalaný"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:253
-msgid "_Handle Bookmarks"
+msgid "_Handle Bookmarks..."
 msgstr "Betbelgilermen basqarý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:255
 msgid "Add to Boo_kmarks"
 msgstr "Betbelgide qosylý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:256
 msgid "Add the Current Node to the Bookmarks List"
 msgstr ""
 "Betbelgide qosylý\n"
 "\n"
 "Betbelgilerdi tizbege butaq qosylý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:257
 msgid "_Remove from Bookmarks"
 msgstr "Betbelgilerden alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:258
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr ""
 "Betbelgilerden alystap ketý\n"
 "\n"
 "Betbelgilerdi tizbeden butaq alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:259
 msgid "E_xpand All Nodes"
 msgstr "Jazylý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:260
 msgid "Expand All the Tree Nodes"
 msgstr ""
 "Jazylý...\n"
 "\n"
 "Bári jazyl taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:261
 msgid "_Collapse All Nodes"
 msgstr "Oraý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:262
 msgid "Collapse All the Tree Nodes"
 msgstr ""
 "Oraý...\n"
 "\n"
 "Bári ora taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:263
 msgid "Node _Up"
 msgstr "Butaq ústine"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:264
 msgid "Move the Selected Node Up"
 msgstr ""
 "Butaq ústine\n"
 "\n"
 "Bir deńgeıge butaq ústine oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:265
 msgid "Node _Down"
 msgstr "Butaq tómen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:266
 msgid "Move the Selected Node Down"
 msgstr ""
 "Butaq tómen\n"
 "\n"
 "Bir deńgeıge butaq tómen oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:267
 msgid "Node _Left"
 msgstr "Butaq solǵa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:268
 msgid "Move the Selected Node Left"
 msgstr ""
 "Butaq solǵa\n"
 "\n"
 "Bir deńgeıge butaq solǵa oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:269
 msgid "Node _Right"
 msgstr "Butaq ońǵa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:270
 msgid "Move the Selected Node Right"
 msgstr ""
 "Butaq ońǵa\n"
 "\n"
 "Bir deńgeıge butaq ońǵa oryn almasý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:271
-msgid "Node Change _Parent"
+msgid "Node Change _Parent..."
 msgstr "Ata aýysý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:272
 msgid "Change the Selected Node's Parent"
 msgstr ""
 "Ata aýysý\n"
@@ -3107,70 +2257,57 @@ msgstr ""
 "Ata-ana butaǵyn aýysý.\n"
 "Butaq jańa ata-anaǵa oryn aýystyr taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:273
 msgid "Sort Tree _Ascending"
 msgstr "Ósý boıymen aǵash"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:274
 msgid "Sort the Tree Ascending"
 msgstr ""
 "Ósý boıymen aǵash\n"
 "\n"
 "Ósý boıymen aǵash suryptalý taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:275
 msgid "Sort Tree _Descending"
 msgstr "Kemý boıymen aǵash"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:276
 msgid "Sort the Tree Descending"
 msgstr ""
 "Kemý boıymen aǵash\n"
 "\n"
 "Kemý boıymen aǵash suryptalý taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:277
 msgid "Sort Siblings A_scending"
 msgstr "Ósý boıymen taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:278
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr ""
 "Ósý boıymen taral\n"
 "\n"
 "Ósýi boıymen tańdalǵan suryptalý taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "Sort Siblings D_escending"
 msgstr "Kemý boıymen taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr ""
 "Kemý boıymen taral\n"
 "\n"
 "Kemýi boıymen tańdalǵan suryptalý taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:281
 msgid "De_lete Node"
 msgstr "Butaq alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:282
 msgid "Delete the Selected Node"
 msgstr ""
 "Butaq alystap ketý\n"
 "\n"
 "Aǵashtan butaq alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:284
 msgid "Find/Replace"
 msgstr "Tabylý/Almastyrylý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:285
-msgid "_Find in Node Content"
+msgid "_Find in Node Content..."
 msgstr "Butaq tabyńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
 msgid "Find into the Selected Node Content"
 msgstr ""
 "Butaq tabyńyz\n"
@@ -3178,11 +2315,9 @@ msgstr ""
 "Mátinniń izdestirýi nemese \n"
 "ustaýda basqa ishindegi taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:287
-msgid "Find _in Multiple Nodes"
-msgstr "Butaqtarda tabyńyz"
+msgid "Find _in Multiple Nodes..."
+msgstr "Fılıaldardan tabyńyz..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:288
 msgid "Find in Multiple Nodes"
 msgstr ""
 "Butaqtarda tabyńyz\n"
@@ -3190,11 +2325,9 @@ msgstr ""
 "Tarmaq mazmunyndaǵy mátindi\n"
 "nemese basqa mazmundy izdeý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:289
-msgid "Find in _Nodes Names and Tags"
+msgid "Find in _Nodes Names and Tags..."
 msgstr "Butaq atymen jáne tegter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:290
 msgid "Find in Nodes Names and Tags"
 msgstr ""
 "Butaq atymen jáne tegter\n"
@@ -3202,11 +2335,9 @@ msgstr ""
 "Mátinniń izdestirýi nemese butaq \n"
 "basqa ishindegi atymen jáne tegter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:291
 msgid "Find _Again"
 msgstr "Kelesi izdelý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:292
 msgid "Iterate the Last Find Operation"
 msgstr ""
 "Kelesi izdelý...\n"
@@ -3214,11 +2345,9 @@ msgstr ""
 "Mátinniń izdestire bersin nemese \n"
 "tótelede basqa ishindegi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:293
 msgid "Find _Back"
 msgstr "Aldyńǵy izdelý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr ""
 "Aldyńǵy izdelý...\n"
@@ -3226,33 +2355,27 @@ msgstr ""
 "Mátinniń izdestire bersin nemese \n"
 "keri qaıtarýda basqa ishindegi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
-msgid "_Replace in Node Content"
+msgid "_Replace in Node Content..."
 msgstr "Butaq aýystyryńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
 msgid "Replace into the Selected Node Content"
 msgstr ""
 "Butaq aýystyryńyz\n"
 "\n"
 "Mátin almastyrylsyn nemese basqa ishindegi taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
-msgid "Replace in _Multiple Nodes"
-msgstr "Butaqtarda aýystyryńyz"
+msgid "Replace in _Multiple Nodes..."
+msgstr "Fılıaldarǵa aýystyryńyz..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Replace in Multiple Nodes"
 msgstr ""
 "Butaqtarda aýystyryńyz\n"
 "\n"
 "Barlyq tarmaqtardaǵy mátindi nemese basqa mazmundy aýystyryńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:300
 msgid "Replace A_gain"
 msgstr "Aýystyrý qaıtalaný..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
 msgid "Iterate the Last Replace Operation"
 msgstr ""
 "Aýystyrý qaıtalaný...\n"
@@ -3260,11 +2383,9 @@ msgstr ""
 "Mátinniń aýystyrýyn jalǵastyrsyn \n"
 "nemese basqa ishindegi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
-msgid "Show All Matches _Dialog"
+msgid "Show All Matches _Dialog..."
 msgstr "Týra kelý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
 msgid "Show Search All Matches Dialog"
 msgstr ""
 "Týra kelý...\n"
@@ -3273,26 +2394,21 @@ msgstr ""
 "tabylǵan izdestirýde kórsetsin nemese \n"
 "aýystyrýdyń janynda ishindegi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:305
 msgid "_Clear All Exclusions From Search"
 msgstr "Barlyq izdeý erekshelikterin óshirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
 msgstr ""
 "Barlyq izdeý erekshelikterin óshirý\n"
 "\n"
 "Aǵash butaqtarynyń barlyq qasıetterin izdeý erekshelikterinen tazartyńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:308
 msgid "View"
 msgstr "Túr"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:309
 msgid "Show/Hide _Tree Explorer"
 msgstr "Aǵashtyń sholýshysy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:310
 msgid "Toggle Show/Hide Tree"
 msgstr ""
 "Aǵashtyń sholýshysy\n"
@@ -3302,33 +2418,37 @@ msgstr ""
 "sholýshysy, jáne onyń butaqtary boıymen \n"
 "tez oryn aýystyrý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:312
 msgid "Show/Hide Te_rminal"
 msgstr "Терминал"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:313
 msgid "Toggle Show/Hide Terminal"
 msgstr ""
 "Терминал\n"
 "\n"
 "Termınaldy kórsetý/jasyrý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:315
+msgid "Toggle Focus Terminal/Te_xt"
+msgstr "Fokýs aýdarý..."
+
+msgid "Toggle Focus Between Terminal and Text"
+msgstr ""
+"Fokýs aýdarý...\n"
+"\n"
+"Aǵashtyń sholýshysynyń aralyǵynda \n"
+"fokýs aýdarsyn jáne Mátindik redaktormen"
+
 msgid "Show/Hide _Menubar"
 msgstr "Basty mázir"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
 msgid "Toggle Show/Hide Menubar"
 msgstr ""
 "Basty mázir\n"
 "\n"
 "Basty mázir Kórsetý/Jasyrý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "Show/Hide Tool_bar"
 msgstr "Qural-saımandar paneli"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:318
 msgid "Toggle Show/Hide Toolbar"
 msgstr ""
 "Qural-saımandar paneli\n"
@@ -3343,22 +2463,18 @@ msgstr ""
 "\n"
 "Siz panelin ońaı baptaı alasyz quraldar, qoldanba parametrlerinde"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:319
 msgid "Show/Hide _Statusbar"
 msgstr "Kúı jolaǵy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
 msgid "Toggle Show/Hide Statusbar"
 msgstr ""
 "Kúı jolaǵy\n"
 "\n"
 "Kúı jolaǵyn Kórsetý/Jasyrý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:321
 msgid "Show/Hide _Lines Node Parent to Children"
 msgstr "Syzyqtar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:322
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
 msgstr ""
 "Syzyqtar\n"
@@ -3366,22 +2482,18 @@ msgstr ""
 "Kórsetý/Jasyrý baılanys jelisi baratyn\n"
 "ata-analar atynan butaqtary enshiles"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:323
 msgid "Show/Hide Node Name _Header"
 msgstr "Taqyryp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Toggle Show/Hide Node Name Header"
 msgstr ""
 "Taqyryp\n"
 "\n"
 "Kórsetý/Jasyryný taqyryp mátindik redaktorda taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
 msgid "Toggle _Focus Tree/Text"
 msgstr "Fokýs aýdarý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:326
 msgid "Toggle Focus Between Tree and Text"
 msgstr ""
 "Fokýs aýdarý...\n"
@@ -3389,261 +2501,213 @@ msgstr ""
 "Aǵashtyń sholýshysynyń aralyǵynda \n"
 "fokýs aýdarsyn jáne Mátindik redaktormen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:327
 msgid "_Increase Toolbar Icons Size"
 msgstr "Belgisheni úlkeıtý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "Increase the Size of the Toolbar Icons"
 msgstr ""
 "Belgisheni úlkeıtý...\n"
 "\n"
 "Qural-saımandar paneliniń belgishelerin ólshemdi úlkeıtý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "_Decrease Toolbar Icons Size"
 msgstr "Belgisheni azaıý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:330
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr ""
 "Belgisheni azaıý...\n"
 "\n"
 "Qural - ólshemdi azaıý belgishelerin paneliniń saımandar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:331
 msgid "Full Screen _On/Off"
 msgstr "Ekran tart"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
 msgid "Toggle Full Screen On/Off"
 msgstr ""
 "Ekran tart\n"
 "\n"
 "Tolyq ekrandy qaraý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:334
+msgid "_Always On Top On/Off"
+msgstr "Árqashan joǵarydan"
+
+msgid "Always On Top On/Off"
+msgstr ""
+"Árqashan joǵarydan\n"
+"\n"
+"CherryTree terezesin basqalardyń ústine bekitińiz"
+
 msgid "Disable Menubar i_n Titlebar"
 msgstr "Basty mázir..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:335
 msgid "Do Not Place the Menubar in the Titlebar"
 msgstr ""
 "Basty mázir...\n"
 "\n"
 "Negizgi mázir jolaǵyn tereze taqyrybynyń astyna jyljytyńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "Enable Menubar i_n Titlebar"
 msgstr "Basty mázir..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Place the Menubar in the Titlebar"
 msgstr ""
 "Basty mázir...\n"
 "\n"
 "Negizgi mázir jolaǵyn tereze taqyrybyna jyljytyńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "Import"
 msgstr "Import"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:343
 msgid "From _CherryTree File"
 msgstr "Faıl CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr ""
 "Faıl CherryTree derekterin ımport\n"
 "\n"
 "Faıl CherryTree syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:345
 msgid "From _Plain Text File"
 msgstr "Mátindik faıldan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr ""
 "Mátindik faıldan derekterin ımport\n"
 "\n"
 "Mátindik faıldan syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:347
 msgid "From _Folder of Plain Text Files"
 msgstr "Mátindik faıldarmen muqabadan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:348
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
 "Mátindik faıldarmen muqabadan derekterin ımport\n"
 "\n"
 "Muqabadan syrtqy derekteri mátindik faıldarmen bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:350
 msgid "From _HTML File"
 msgstr "Faıl HTML"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:351
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr ""
 "Faıl HTML derekterin ımport\n"
 "\n"
 "Faıl HTML syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:352
 msgid "From _Folder of HTML Files"
 msgstr "HTML faıldarmen muqabadan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:353
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr ""
 "HTML faıldarmen muqabadan derekterin ımport\n"
 "\n"
 "HTML muqabadan syrtqy derekteri faıldarmen bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:355
 msgid "From _Markdown File"
 msgstr "Faıl Markdown"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:356
 msgid "Add a node from a Markdown File to the Current Tree"
 msgstr ""
 "Faıl Markdown derekterin ımport\n"
 "\n"
 "Faıl Markdown syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
 msgid "From _Folder of Markdown Files"
 msgstr "Markdown faıldarmen muqabadan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:358
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr ""
 "Markdown faıldarmen muqabadan derekterin ımport\n"
 "\n"
 "Markdown muqabadan syrtqy derekteri faıldarmen bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:360
 msgid "From _Gnote Folder"
 msgstr "Gnote"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:361
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr ""
 "Gnote derekterin ımport\n"
 "\n"
 "Muqaba Gnote syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
 msgid "From _KeepNote Folder"
 msgstr "KeepNote"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr ""
 "KeepNote derekterin ımport\n"
 "\n"
 "Muqaba KeepNote syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "From _Leo File"
 msgstr "Leo"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:366
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr ""
 "Leo derekterin ımport\n"
 "\n"
 "Faıl Leo syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "From _Mempad File"
 msgstr "Faıl Mempad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr ""
 "Mempad derekterin ımport\n"
 "\n"
 "Faıl Mempad syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:369
 msgid "From _NoteCase HTML File"
 msgstr "NoteCase HTML faıldan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
 msgstr ""
 "NoteCase HTML faıldan derekterin ımport\n"
 "\n"
 "NoteCase HTML faıldan syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
-msgid "From _RedNotebook HTML"
+msgid "From _RedNotebook HTML File"
 msgstr "RedNotebook HTML"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:372
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
 msgstr ""
 "RedNotebook HTML derekterin ımport\n"
 "\n"
 "Faıl RedNotebook HTML syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:374
 msgid "From T_omboy Folder"
 msgstr "Tomboy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr ""
 "Tomboy derekterin ımport\n"
 "\n"
 "Muqaba Tomboy syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:376
 msgid "From T_reepad Lite File"
 msgstr "Treepad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:377
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr ""
 "Treepad derekterin ımport\n"
 "\n"
 "Файл Treepad syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:378
 msgid "From _Zim Folder"
 msgstr "Zim"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:379
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr ""
 "Zim derekterin ımport\n"
 "\n"
 "Мұқаба Zim syrtqy derekterin bolyp shyǵý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:381
-msgid "From File using _Pandoc"
-msgstr "Faıldan Pandoc paıdalana"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:382
-msgid "Add a node to the current tree using Pandoc"
-msgstr ""
-"Faıldan derekterin ımport Pandoc paıdalana\n"
-"\n"
-"Faıldan syrtqy derekteri Pandoc qoldanyp bolyp shyǵý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:384
 msgid "Export"
 msgstr "Eksport"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:385
 msgid "Export To _PDF"
 msgstr "PDF túrlendirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:386
 msgid "Export To PDF"
 msgstr ""
 "PDF túrlendirý\n"
@@ -3651,11 +2715,9 @@ msgstr ""
 "PDF faılǵa túrlendirý: tańdalǵan mátin úzindi, \n"
 "butaq, butaǵy enshiles nemese aǵash bári tolyǵymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:387
 msgid "Export To _HTML"
 msgstr "HTML túrlendirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:388
 msgid "Export To HTML"
 msgstr ""
 "HTML túrlendirý\n"
@@ -3663,11 +2725,9 @@ msgstr ""
 "HTML faılǵa túrlendirý: tańdalǵan mátin úzindi, \n"
 "butaq, butaǵy enshiles nemese aǵash bári tolyǵymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:389
 msgid "Export to Plain _Text"
 msgstr "Mátindik faılǵa túrlendirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:390
 msgid "Export to Plain Text"
 msgstr ""
 "Mátindik faılǵa túrlendirý\n"
@@ -3675,11 +2735,9 @@ msgstr ""
 "TXT faılǵa túrlendirý: tańdalǵan mátin úzindi, \n"
 "butaq, butaǵy enshiles nemese aǵash bári tolyǵymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:391
 msgid "_Export To CherryTree Document"
 msgstr "CherryTree qujatqa túrlendirý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:392
 msgid "Export To CherryTree Document"
 msgstr ""
 "CherryTree qujatqa túrlendirý\n"
@@ -3687,74 +2745,60 @@ msgstr ""
 "CherryTree faılǵa túrlendirý: tańdalǵan mátin úzindi, \n"
 "butaq, butaǵy enshiles nemese aǵash bári tolyǵymen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:394
 msgid "Help"
 msgstr "Málimet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:395
 msgid "_Check Newer Version"
 msgstr "Jańarý tekserilý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:396
 msgid "Check for a Newer Version"
 msgstr ""
 "Jańarý tekserilý...\n"
 "\n"
 "CherryTree jańarýlaryn bar bolý tekserilý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:397
 msgid "Online _Manual"
 msgstr "Ǵalamtorda málimet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:398
 msgid "Application's Online Manual"
 msgstr ""
 "Ǵalamtorda málimet\n"
 "\n"
 "CherryTree boıymen málimettiń onlaınynyń kórsetý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:399
 msgid "_About"
 msgstr "Baǵdarlama týraly..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:401
 msgid "_Open Preferences Directory"
 msgstr "Teńshelim ashylý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:402
 msgid "Open the Directory with Preferences Files"
 msgstr ""
 "Teńshelim ashylý...\n"
 "\n"
 "Parametrler qaltasyn ashyńyz"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:412
 msgid "C_ut Anchor"
 msgstr "Zákir qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:413
 msgid "Cut the Selected Anchor"
 msgstr ""
 "Zákir qıý\n"
 "\n"
 "Almasý býferine zákir qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:414
 msgid "_Copy Anchor"
 msgstr "Zákirdi kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:415
 msgid "Copy the Selected Anchor"
 msgstr ""
 "Zákirdi kóshirip alý\n"
 "\n"
 "Almasý býferine zákirdi kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:416
 msgid "_Delete Anchor"
 msgstr "Zákir alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:417
 msgid "Delete the Selected Anchor"
 msgstr ""
 "Zákir alystap ketý\n"
@@ -3764,717 +2808,706 @@ msgstr ""
 "Qujat silteme zákirdiń alyp tastaýynda oǵan, \n"
 "ony kerek alystap ketýge qalady nemese ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:418
-msgid "Edit _Anchor"
+msgid "Edit _Anchor..."
 msgstr "Zákirdiń qasıeti..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:419
 msgid "Edit the Underlying Anchor"
 msgstr ""
 "Zákirdiń qasıeti...\n"
 "\n"
 "Zákirdiń qasıetin ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:420
 msgid "Copy Anchor Link"
 msgstr "Siltemeni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:421
 msgid "Copy Link to the Underlying Anchor to Clipboard"
 msgstr ""
 "Siltemeni kóshirip alý\n"
 "\n"
 "Almasý býferine zákirge siltemeni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:422
 msgid "C_ut Embedded File"
 msgstr "Faıl qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:423
 msgid "Cut the Selected Embedded File"
 msgstr ""
 "Faıl qıý\n"
 "\n"
 "Almasý býferine faıl qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:424
 msgid "_Copy Embedded File"
 msgstr "Faıldy kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:425
 msgid "Copy the Selected Embedded File"
 msgstr ""
 "Faıldy kóshirip alý\n"
 "\n"
 "Almasý býferine Faıldy kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:426
 msgid "_Delete Embedded File"
 msgstr "Faıl alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:427
 msgid "Delete the Selected Embedded File"
 msgstr ""
 "Faıl alystap ketý\n"
 "\n"
 "Qujattan faıl alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:431
 msgid "Open Embedded File"
 msgstr ""
 "Faıl ashylý...\n"
 "\n"
 "Qondyrylǵan faıl ashylý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:432
 msgid "_Rename"
 msgstr "Qaıta atalý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:433
 msgid "Rename Embedded File"
 msgstr ""
 "Qaıta atalý...\n"
 "\n"
 "Qondyrylǵan faıl qaıta atalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:434
-msgid "_Save LatexBox as PNG"
+msgid "_Save LatexBox as PNG..."
 msgstr "LaTeX saqtalý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:435
 msgid "Save the Selected LatexBox as a PNG file"
 msgstr ""
 "LaTeX saqtalý...\n"
 "\n"
 "PNG pishimde LaTeX saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:436
-msgid "_Edit LatexBox"
+msgid "_Edit LatexBox..."
 msgstr "LaTeX qasıet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:437
 msgid "Edit the Selected LatexBox"
 msgstr ""
 "LaTeX qasıeti...\n"
 "\n"
 "LaTeX qasıetin ózgertý: en, bıiktik jáne burylys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:438
 msgid "C_ut LatexBox"
 msgstr "LaTeX qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:439
 msgid "Cut the Selected LatexBox"
 msgstr ""
 "LaTeX qıý\n"
 "\n"
 "LaTeX almasý býferine qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:440
 msgid "_Copy LatexBox"
 msgstr "LaTeX kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:441
 msgid "Copy the Selected LatexBox"
 msgstr ""
 "LaTeX kóshirip alý\n"
 "\n"
 "LaTeX almasý býferine kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:442
 msgid "_Delete LatexBox"
 msgstr "LaTeX alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:443
 msgid "Delete the Selected LatexBox"
 msgstr ""
 "LaTeX alystap ketý\n"
 "\n"
 "LaTeX qujattan alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:444
-msgid "_Save Image as PNG"
+msgid "_Save Image as PNG..."
 msgstr "Beıneni saqtalý..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:445
 msgid "Save the Selected Image as a PNG file"
 msgstr ""
 "Beıneni saqtalý...\n"
 "\n"
 "PNG pishimde beıneni saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:446
-msgid "_Edit Image"
+msgid "_Edit Image..."
 msgstr "Beıneniń qasıeti..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:447
 msgid "Edit the Selected Image"
 msgstr ""
 "Beıneniń qasıeti...\n"
 "\n"
 "Beıneniń qasıetin ózgertý: en, bıiktik jáne burylys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:448
 msgid "C_ut Image"
 msgstr "Beıne qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:449
 msgid "Cut the Selected Image"
 msgstr ""
 "Beıne qıý\n"
 "\n"
 "Almasý býferine beıne qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:450
 msgid "_Copy Image"
 msgstr "Beıneni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:451
 msgid "Copy the Selected Image"
 msgstr ""
 "Beıneni kóshirip alý\n"
 "\n"
 "Almasý býferine beıneni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:452
 msgid "_Delete Image"
 msgstr "Beıne alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:453
 msgid "Delete the Selected Image"
 msgstr ""
 "Beıne alystap ketý\n"
 "\n"
 "Qujattan beıne alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:454
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:462
-msgid "Edit _Link"
+msgid "Edit _Link..."
 msgstr "Siltemeniń qasıeti... "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:455
 msgid "Edit the Link Associated to the Image"
 msgstr ""
 "Siltemeniń qasıeti... \n"
 "\n"
 "Siltemesin qasıeti beınege qatysty ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:456
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:468
 msgid "D_ismiss Link"
 msgstr "Siltemeni tazalaný"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:457
 msgid "Dismiss the Link Associated to the Image"
 msgstr ""
 "Siltemeni tazalaný\n"
 "\n"
 "Siltemesin beınege qatysty tazalaný"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:463
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTree ashylý"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr ""
+"CherryTree ashylý\n"
+"\n"
+"CherryTree aktıvtendirý"
+
 msgid "Edit the Underlying Link"
 msgstr ""
 "Siltemeniń qasıeti...\n"
 "\n"
 "Siltemeniń qasıetin ózgertý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:464
 msgid "C_ut Link"
 msgstr "Silteme qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:465
 msgid "Cut the Selected Link"
 msgstr ""
 "Silteme qıý\n"
 "\n"
 "Almasý býferine silteme qıý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:466
 msgid "_Copy Link"
 msgstr "Siltemeni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:467
 msgid "Copy the Selected Link"
 msgstr ""
 "Siltemeni kóshirip alý\n"
 "\n"
 "Almasý býferine siltemeni kóshirip alý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:469
 msgid "Dismiss the Selected Link"
 msgstr ""
 "Siltemeni tazalaný\n"
 "\n"
 "Qujattan silteme ǵana alystaıdy, biraq mátin emes"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:470
 msgid "_Delete Link"
 msgstr "Silteme alystap ketý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:471
 msgid "Delete the Selected Link"
 msgstr ""
 "Silteme alystap ketý\n"
 "\n"
 "Siltemeni alystaıdy jáne qujattan mátin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:474
-msgid "C_ut Table"
-msgstr "Keste qıý"
+msgid "English"
+msgstr "Aǵylshyn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:475
-msgid "Cut the Selected Table"
+msgid "Text and Code"
+msgstr "Mátin jáne kod"
+
+msgid "Plain Text and Code"
+msgstr "Kádimgi mátin jáne kod"
+
+msgid "Tree Explorer"
+msgstr "Aǵashtyń sholýshysy"
+
+msgid "Theme"
+msgstr "Taqyryp"
+
+msgid "Fonts"
+msgstr "Qaripter"
+
+msgid "Links"
+msgstr "Silteme"
+
+msgid "Toolbar"
+msgstr "Qural-saımandar paneli"
+
+msgid "Keyboard Shortcuts"
+msgstr "Ystyq perneler"
+
+msgid "Miscellaneous"
+msgstr "Ár túrli"
+
+msgid "Monospace"
+msgstr "Birkelki mátin"
+
+msgid "Code Font"
+msgstr "Kodtyń mátini"
+
+msgid "Terminal Font"
+msgstr "Termınal mátini"
+
+msgid "Tree Font"
+msgstr "Aǵashtyń mátini"
+
+msgid "Reset to Default"
+msgstr "Úndemeý boıynshaǵa maǵyna"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Veb-betke siltemeniń ashýynda"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Faılǵa siltemeniń ashýynda"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Muqabaǵa siltemeniń ashýynda"
+
+msgid "Custom Actions"
+msgstr "Is-áreket"
+
+msgid "Colors"
+msgstr "Túsken"
+
+msgid "Underline Links"
+msgstr "Silteme astyn syzý"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Faıldarǵa salystyrmaly joldardy paıdalansyn jáne muqabalarǵa"
+
+msgid "Anchor Size"
+msgstr "Zákirdiń belgishesin ólshem"
+
+msgid "Change Selected"
+msgstr "Perneler kombınasıasyn ózgertý"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
 msgstr ""
-"Keste qıý\n"
-"\n"
-"Almasý býferine keste qıý"
+" \n"
+"'%s' paıdalanyp qoıdylar perneler kombınasıasy!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:476
-msgid "_Copy Table"
-msgstr "Kesteni kóshirip alý"
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Osy tirkesim <b>' %s '</b> is-áreketti oryndaıdy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:477
-msgid "Copy the Selected Table"
-msgstr ""
-"Kesteni kóshirip alý\n"
-"\n"
-"Almasý býferine kesteni kóshirip alý"
+msgid "Do you want to steal the shortcut?"
+msgstr "Perneler kombınasıasyn qaıta anyqtaıdy ma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:478
-msgid "_Delete Table"
-msgstr "Keste alystap ketý"
+msgid "Edit Keyboard Shortcut"
+msgstr "Jańa tirkesim..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:479
-msgid "Delete the Selected Table"
-msgstr ""
-"Keste alystap ketý\n"
-"\n"
-"Qujattan keste alystap ketý"
+msgid "No Keyboard Shortcut"
+msgstr "Berilgen emes"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:480
-msgid "_Add Column"
-msgstr "Baǵana qosylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:481
-msgid "Add a Table Column"
-msgstr ""
-"Baǵana qosylý\n"
-"\n"
-"Kestelerde baǵana qosylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:482
-msgid "De_lete Column"
-msgstr "Baǵana alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:483
-msgid "Delete the Selected Table Column"
-msgstr ""
-"Baǵana alystap ketý\n"
-"\n"
-"Kesteden baǵana alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:484
-msgid "Move Column _Left"
-msgstr "Baǵana solǵa"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:485
-msgid "Move the Selected Column Left"
-msgstr ""
-"Baǵana solǵa\n"
-"\n"
-"Kesteniń baǵanasy solǵa oryn almasý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:486
-msgid "Move Column _Right"
-msgstr "Baǵana ońǵa"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:487
-msgid "Move the Selected Column Right"
-msgstr ""
-"Baǵana ońǵa\n"
-"\n"
-"Kesteniń baǵanasy ońǵa oryn almasý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:489
-msgid "Increase Column Width"
-msgstr "Endi úlkeıtý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:490
-msgid "Increase the Width of the Column"
-msgstr ""
-"Endi úlkeıtý\n"
-"\n"
-"Kesteniń baǵanasyn endi úlkeıtý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:492
-msgid "Decrease Column Width"
-msgstr "Endi azaıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:493
-msgid "Decrease the Width of the Column"
-msgstr ""
-"Endi azaıý\n"
-"\n"
-"Kesteniń baǵanasyn endi azaıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:494
-msgid "_Add Row"
-msgstr "Jol qosylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:495
-msgid "Add a Table Row"
-msgstr ""
-"Jol qosylý\n"
-"\n"
-"Kestege jol qosylý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:496
-msgid "Cu_t Row"
-msgstr "Jol qıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:497
-msgid "Cut a Table Row"
-msgstr ""
-"Jol qıý\n"
-"\n"
-"Almasý býferine kesteniń jolyn qıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:498
-msgid "_Copy Row"
-msgstr "Joldy kóshirip alý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:499
-msgid "Copy a Table Row"
-msgstr ""
-"Joldy kóshirip alý\n"
-"\n"
-"Almasý býferine kesteniń jolyn kóshirip alý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:500
-msgid "_Paste Row"
-msgstr "Jol ústemelený"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:501
-msgid "Paste a Table Row"
-msgstr ""
-"Jol ústemelený\n"
-"\n"
-"Almasý býferinen kestesine jol ústemelený"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:503
-msgid "Delete the Selected Table Row"
-msgstr ""
-"Jol alystap ketý \n"
-"\n"
-"Kesteden jol alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:504
-msgid "Move Row _Up"
-msgstr "Jol ústine"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:505
-msgid "Move the Selected Row Up"
-msgstr ""
-"Jol ústine\n"
-"\n"
-"Kesteniń jolyn ústine oryn almasý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:506
-msgid "Move Row _Down"
-msgstr "Jol tómen"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:507
-msgid "Move the Selected Row Down"
-msgstr ""
-"Jol tómen\n"
-"\n"
-"Kesteniń jolyn tómen oryn almasý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:508
-msgid "Sort Rows De_scending"
-msgstr "Kemý boıymen suryptalý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:509
-msgid "Sort all the Rows Descending"
-msgstr ""
-"Kemý boıymen suryptalý\n"
-"\n"
-"Kemý boıymen kesteniń joly bári suryptalý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:510
-msgid "Sort Rows As_cending"
-msgstr "Ósý boıymen suryptalý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:511
-msgid "Sort all the Rows Ascending"
-msgstr ""
-"Ósý boıymen suryptalý\n"
-"\n"
-"Ósý boıymen kesteniń joly bári suryptalý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:512
-msgid "_Edit Table Properties"
-msgstr "Kesteniń qasıeti..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:513
-msgid "Edit the Table Properties"
-msgstr ""
-"Kesteniń qasıeti...\n"
-"\n"
-"Kesteniń qasıetin ózgertý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:514
-msgid "_Table Export"
-msgstr "Kesteniń eksporty"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:515
-msgid "Export Table as CSV File"
-msgstr ""
-"Kesteniń eksporty\n"
-"\n"
-"CSV faılǵa kesteniń derekteri eksporttalý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:518
-msgid "Change CodeBox _Properties"
-msgstr "CodeBox qasıet..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:519
-msgid "Edit the Properties of the CodeBox"
-msgstr ""
-"CodeBox qasıet...\n"
-"\n"
-"Qasıet CodeBox ózgertý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:520
-msgid "CodeBox _Load From Text File"
-msgstr "CodeBox júktelý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:521
-msgid "Load the CodeBox Content From a Text File"
-msgstr ""
-"CodeBox júktelý...\n"
-"\n"
-"CodeBox mátindik faıldan baǵdarlama kodty júktelý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:522
-msgid "CodeBox _Save To Text File"
-msgstr "Saqtalý CodeBox..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:523
-msgid "Save the CodeBox Content To a Text File"
-msgstr ""
-"Saqtalý CodeBox...\n"
-"\n"
-"Ishindegi CodeBox mátindik faılǵa saqtalý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:524
-msgid "C_ut CodeBox"
-msgstr "CodeBox qıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:525
-msgid "Cut the Selected CodeBox"
-msgstr ""
-"CodeBox қию\n"
-"\n"
-"CodeBox almasý býferine qıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:526
-msgid "_Copy CodeBox"
-msgstr "CodeBox kóshirip alý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:527
-msgid "Copy the Selected CodeBox"
-msgstr ""
-"CodeBox kóshirip alý\n"
-"\n"
-"CodeBox almasý býferine kóshirip alý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:528
-msgid "_Delete CodeBox"
-msgstr "CodeBox alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:529
-msgid "Delete the Selected CodeBox"
-msgstr ""
-"CodeBox alystap ketý\n"
-"\n"
-"CodeBox qujattan alystap ketý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:530
-msgid "Delete CodeBox _Keep Content"
-msgstr "CodeBox alystap ketý..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:531
-msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr ""
-"CodeBox alystap ketý..\n"
-"\n"
-"Saqtaýy bar CodeBox ishindegi alystap ketý.\n"
-"\n"
-"CodeBox júksaýyt ǵana alystaıdy, al CodeBox \n"
-"ustalatyn mátin qujatqa qystyrylady"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:533
-msgid "Increase CodeBox Width"
-msgstr "Endi úlkeıtý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:534
-msgid "Increase the Width of the CodeBox"
-msgstr ""
-"Endi úlkeıtý\n"
-"\n"
-"CodeBox endi úlkeıtý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:536
-msgid "Decrease CodeBox Width"
-msgstr "Endi azaıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:537
-msgid "Decrease the Width of the CodeBox"
-msgstr ""
-"Endi azaıý\n"
-"\n"
-"CodeBox еndi azaıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:539
-msgid "Increase CodeBox Height"
-msgstr "Bıiktikti úlkeıtý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:540
-msgid "Increase the Height of the CodeBox"
-msgstr ""
-"Bıiktikti úlkeıtý\n"
-"\n"
-"CodeBox bıiktikti úlkeıtý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:542
-msgid "Decrease CodeBox Height"
-msgstr "Bıiktikti azaıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:543
-msgid "Decrease the Height of the CodeBox"
-msgstr ""
-"Bıiktikti azaıý\n"
-"\n"
-"CodeBox bıiktikti azaıý"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:30
 msgid "Enable System Tray Docking"
 msgstr "CherryTree málimdemelerdiń tóńirekteridegin belgisheni beıneleý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:31
 msgid "Start Minimized in the System Tray"
 msgstr "CherryTree málimdemelerdiń tóńirekteridegi starttan keıin burylý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:35
 msgid "System Tray"
 msgstr "Esepter jaqtaýy"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:43
-msgid "Autosave Every"
-msgstr "Avtosaqtaý ár"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:46
-msgid "Minutes"
-msgstr "mınýttar"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:50
 msgid "Autosave on Quit"
 msgstr "Jabýda saqtalý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:51
 msgid "Create a Backup Copy Before Saving"
 msgstr "Rezeretik kóshirme qurý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:53
 msgid "Number of Backups to Keep"
 msgstr "Rezeretik kóshirmelerdiń sany"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:59
 msgid "Custom Backup Directory"
 msgstr "Rezeretik kóshirmeler úshin muqaba"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:83
 msgid "Saving"
 msgstr "Saqtaý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
 msgid "Automatically Check for Newer Version"
 msgstr "Jańarýlardy bar bolý tekserý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:87
 msgid "Enable Word Count in Statusbar"
 msgstr "Sózderdi qalyp-jaǵdaı jolynda san"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:88
 msgid "Reload Document From Last Session"
 msgstr "Sońǵy ashylǵan qujatty júkteý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
 msgid "Reload After External Update to CT* File"
 msgstr "Qujat ózgeristen keıin qaıta júktelý"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
 msgid "Show the Document Directory in the Window Title"
 msgstr "Basty terezeni taqyrypta faılǵa jol"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
 msgid "Show the Full Path in the Node Name Header"
 msgstr "Taqyrypta jol taral"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
 msgid "Dedicated Bookmarks Menu in Menubar"
 msgstr "Betbelgilerdi basty mázirde tizbe"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
 msgid "Enable Debug Log"
 msgstr "Saıdy paıdalansyn-faıl"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:94
 msgid "Debug Log Directory"
 msgstr "Tańdaý... "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:260
 msgid "System Default"
 msgstr "Úndemeý boıynshaǵa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:141
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:271
 msgid "Language"
 msgstr "Tel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:158
 msgid "Has the System Tray appeared on the panel?"
 msgstr "CherryTree belgishe málimdemelerdiń tóńiregidegi paıda boldy ma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:164
 msgid "Your system does not support the System Tray"
 msgstr ""
 " \n"
 "Sizdiń júıeńiz málimdemelerdi oblys qostalmaıdy!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.h:79
+msgid "Show White Spaces"
+msgstr "Bos oryndy beıneleý"
+
+msgid "Highlight Current Line"
+msgstr "Belsendi jol jaryq túsirý"
+
+msgid "Text Editor"
+msgstr "Mátindik redaktor"
+
+msgid "Internal Terminal Shell"
+msgstr "Kiristirilgen termınaldy paıdalanyńyz"
+
+msgid "Add"
+msgstr "Jıi paıdalanylatyn pármender qosylý"
+
+msgid "Remove Selected"
+msgstr "Jıi paıdalanylatyn pármender alystap ketý"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Kompılátordyń/ınterpretatorynyń pármeni"
+
+msgid "Terminal Command"
+msgstr "Termınaldyń pármeni"
+
+msgid "Code Execution"
+msgstr "Kodtyń oryndaýy"
+
+msgid "Select Element to Add"
+msgstr "Jıi paıdalanylatyn pármender"
+
+msgid "Enable Spell Check"
+msgstr "Orfografıany tekserý"
+
+msgid "Spell Check Language"
+msgstr "Sózdik:"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Ishindegi CodeBox boıymen ózdiginen tańdaý"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Jeńil ınterfeıs úshin keste uıashyqtarynyń sany"
+
+msgid "Embedded File Icon Size"
+msgstr "Qystyrtylatyn faıldy belgisheniń ólshemi"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Qystyrtylatyn faıl maksımal ólshem (Мб)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Belgisheniń ústinde faıl aty"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Toqtatýdyń operasıalaryn eń joǵary san"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Camelcase мәтінін филиалға байланыстыру"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Úsh eseli basýmen paragrafty ereksheleý"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Markdown avtoalmastyrý qosý (Eksperımentaldi)"
+
+msgid "Scale"
+msgstr "Ólshem"
+
+msgid "Italic"
+msgstr "Kýrsıv"
+
+msgid "Underline"
+msgstr "Syzyp kórsetilgeni"
+
+msgid "Text Color Foreground"
+msgstr "Mátin"
+
+msgid "Text Color Background"
+msgstr "Fon"
+
+msgid "Small"
+msgstr "Usaq"
+
+msgid "Scalable Tags"
+msgstr "Masshtab jasalatyn tegter"
+
+msgid "Chars for Bulleted List"
+msgstr "Tańbalanǵan tizim"
+
+msgid "Chars for Todo List"
+msgstr "To-Do tizim"
+
+msgid "Chars for Table Of Content"
+msgstr "Mazmun"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Qosarlanǵan tyrnaqshalardyń avtoalmastyrýy úshin"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Tyrnaqshalardyń avtoalmastyrýy úshin"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Tyrnaqshalardyń avtoalmastyrýy"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Nyshandardy avtoalmastyrý"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Qostalatyn nyshandar"
+
+msgid "Only at the Start of the Line"
+msgstr "Jol basynda ǵana"
+
+msgid "Tab Width"
+msgstr "Tabýlásıanyń eni"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Tabýlásıa orynyna bos oryndar"
+
+msgid "Use Line Wrapping"
+msgstr "Jol aýystyrylý"
+
+msgid "Line Wrapping Indentation"
+msgstr "Joldardy sheginis"
+
+msgid "Enable Automatic Indentation"
+msgstr "Avtomatty sheginis"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Aınaldyrý joldyń syrtyna"
+
+msgid "Vertical Space Around Lines"
+msgstr "Jolaralyq ınterval"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Joldardy tik sheginis"
+
+msgid "Timestamp Format"
+msgstr "Kúniniń pishimi"
+
+msgid "Horizontal Rule"
+msgstr "Gorızontal syzyq"
+
+msgid "Chars to Select at Double Click"
+msgstr "Mátindi eki ret túrtý arqyly bólekteńiz"
+
+msgid "Light Background, Dark Text"
+msgstr "Ashyq fondaǵy qarańǵy mátin"
+
+msgid "Dark Background, Light Text"
+msgstr "Qarańǵy fondaǵy ashyq má"
+
+msgid "Custom Background"
+msgstr "Fon"
+
+msgid "Text"
+msgstr "Mátin"
+
+msgid "Selection Background"
+msgstr "Erekshelengen mátinniń fony"
+
+msgid "Table"
+msgstr "Keste"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Style Schemes"
+msgstr "Mátindik redaktor"
+
+msgid "Text Foreground"
+msgstr "Mátin"
+
+msgid "Text Background"
+msgstr "Fon"
+
+msgid "Selection Foreground"
+msgstr "Erekshelengen mátin"
+
+msgid "Cursor"
+msgstr "Júgirgi"
+
+msgid "Current Line Background"
+msgstr "Belsendi joldy fon"
+
+msgid "Line Numbers Foreground"
+msgstr "Joldardy nómirleý"
+
+msgid "Line Numbers Background"
+msgstr "Joldardy nómirleýdiń fony"
+
+msgid "Style Scheme Editor"
+msgstr "Kúıge keltiriletin taqyryp"
+
+msgid "Set Dark Theme Icons"
+msgstr "Qara belgisheler"
+
+msgid "Set Light Theme Icons"
+msgstr "Jaryq belgisheleri"
+
+msgid "Set Default Icons"
+msgstr "Ádetti belgisheler"
+
+msgid "Icon Theme"
+msgstr "Taqyryby"
+
+msgid "Split Toolbar"
+msgstr "Bólgish"
+
+msgid "Use Different Cherries per Level"
+msgstr "Ár deńgeı úshin ár túrlisi shıeler"
+
+msgid "No Icon"
+msgstr "Belgishesiz"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Belgishe oń jaqtan jasyryn taral"
+
+msgid "Default Text Nodes Icons"
+msgstr "Belgisheler"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Butaqtardy kúı este saqtaý"
+
+msgid "Expand all Nodes"
+msgstr "Shashyp tastaý taral"
+
+msgid "Collapse all Nodes"
+msgstr "Burylý taral"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Betbelgilerdegi jasyrynbaý taral"
+
+msgid "Nodes Status at Startup"
+msgstr "Kúı"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Tasymaldaýdyń eni atymen taral"
+
+msgid "Display Tree on the Right Side"
+msgstr "Aǵashtyń sholýshysy oń jaqtan"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Tyshqannyń aıǵaıymen mátinge fokýsti oryn aýystyrý"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Tyshqannyń aıǵaıymen butaqty shashyp tastaý"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Sońǵy poseshennyeler taqyrypta taral"
+
+msgid "Writing to Disk..."
+msgstr "Dıskke jazba..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Faılǵa <b>\"%s\"</b> jazba qol jetpes"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Úshin paról %s engizińiz"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Qujat búlingen.\n"
+"\n"
+"Ony basqa atpen saqtaýǵa tyrysyńyz (Faıl-->Basqasha saqtaý...)."
+
+msgid "Failed to encrypt the file"
+msgstr "Faıldy shıfrlaý múmkin bolmady"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"Faıl: <b>\"%s\"</b> - zaqymdanǵan.\n"
+"\n"
+"Tolyq aqparat úshin saıǵa qarańyz."
+
+msgid ""
+"Backup files are by default 3 in the same folder of the corrupted document, "
+"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
+"with one tilde: copy the file to another directory, remove the trailing "
+"tilde and open with cherrytree. If it still fails, try the one with two "
+"tildes and if it still fails try the one with three tildes."
+msgstr ""
+"Saqtyq kóshirme faıldary (ádepki boıynsha 3 dana) bir qaltada búlingen "
+"qujat,\n"
+"sol ataýmen, biraq tıldtermen (~, ~~, ~~~) sońynda.\n"
+"Zaqymdalǵan faıldy qalpyna keltirý úshin saqtyq kóshirme faılyn alý kerek\n"
+"bir Tılda jáne basqa katalogqa ony kóshirý, Tılda joıý jáne ashý "
+"CherryTree.\n"
+"Eger faıldy qalpyna keltirý múmkin bolmasa, saqtyq kóshirmelerdi qoldanyńyz\n"
+"eki-úsh tılde. Biraq eger siz basqalarmen sátsizdikke ushyrasańyz\n"
+"saqtyq kóshirme, sodan keıin sizge eshteńe kómektespeıdi!!!"
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB driver or shared resource!"
+msgstr ""
+"Faıl: <b>\"%s\"</b> - bolmaıdy.\n"
+"\n"
+"USB qurylǵy qosýǵa qaıta kórińiz."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"Faıl: <b>\"%s\"</b> - tek qana oqý úshinniń qol jetetini.\n"
+"\n"
+"Onynyń basqa esimimen saqtalyp kórińiz."
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree qoıyn kitapsha"
+
+msgid "_Exit CherryTree"
+msgstr "Shyǵý"
+
 msgid "HTML Document"
 msgstr "HTML qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.h:200
 msgid "Markdown Document"
 msgstr "Markdown qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.h:234
 msgid "Mempad Document"
 msgstr "Mempad qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.h:243
 msgid "Treepad Document"
 msgstr "Treepad qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.h:253
 msgid "Leo Document"
 msgstr "Leo qujat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.h:63
 msgid "Are you sure to Reset to Default?"
 msgstr "Úndemeý boıynshaǵa maǵyna qalpyna keledi me?"
