@@ -1,7 +1,7 @@
 /*
  * tests_misc_utils.cpp
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -173,7 +173,6 @@ TEST(MiscUtilsGroup, getFontMisc)
     ASSERT_STREQ("Noto Sans", CtFontUtil::get_font_family("Noto Sans 9").c_str());
     ASSERT_EQ(9, CtFontUtil::get_font_size("Noto Sans 9"));
     ASSERT_STREQ("Noto Sans 9", CtFontUtil::get_font_str("Noto Sans", 9).c_str());
-    ASSERT_STREQ("Noto Sans 9", CtFontUtil::get_font_str(Pango::FontDescription("Noto Sans 9")).c_str());
 }
 
 TEST(MiscUtilsGroup, set_rgb24str_from_rgb24int)

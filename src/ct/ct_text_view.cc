@@ -626,33 +626,31 @@ void CtTextView::cursor_and_tooltips_reset()
 void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHighlighting)
 {
     Glib::RefPtr<Gtk::StyleContext> context = get_style_context();
-    Pango::FontDescription fontDesc = context->get_font(context->get_state());
+    const Pango::FontDescription fontDesc = context->get_font(context->get_state());
     int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
-    fontDesc.set_size(size * Pango::SCALE);
 
     if (syntaxHighlighting == CtConst::RICH_TEXT_ID or syntaxHighlighting == CtConst::TABLE_CELL_TEXT_ID) {
-        _pCtConfig->rtFont = CtFontUtil::get_font_str(fontDesc);
+        _pCtConfig->rtFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->rtFont), size);
         spdlog::debug("rtFont {}", _pCtConfig->rtFont);
         // also fix monospace font size
         if (_pCtConfig->msDedicatedFont and not _pCtConfig->monospaceFont.empty()) {
-            Pango::FontDescription monoFontDesc(_pCtConfig->monospaceFont);
+            const Pango::FontDescription monoFontDesc(_pCtConfig->monospaceFont);
             int monoSize = monoFontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
             if (monoSize < 6) monoSize = 6;
-            monoFontDesc.set_size(monoSize * Pango::SCALE);
 
-            _pCtConfig->monospaceFont = CtFontUtil::get_font_str(monoFontDesc);
+            _pCtConfig->monospaceFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->monospaceFont), size);
             if (auto tag = get_buffer()->get_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
                 tag->property_font() = _pCtConfig->monospaceFont;
             }
         }
     }
     else if (syntaxHighlighting == CtConst::PLAIN_TEXT_ID) {
-        _pCtConfig->ptFont = CtFontUtil::get_font_str(fontDesc);
+        _pCtConfig->ptFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->ptFont), size);
         spdlog::debug("ptFont {}", _pCtConfig->ptFont);
     }
     else {
-        _pCtConfig->codeFont = CtFontUtil::get_font_str(fontDesc);
+        _pCtConfig->codeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->codeFont), size);
         spdlog::debug("codeFont {}", _pCtConfig->codeFont);
     }
     _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });

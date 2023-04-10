@@ -259,13 +259,9 @@ namespace CtFontUtil {
 
 Glib::ustring get_font_family(const Glib::ustring& fontStr);
 
-int get_font_size(const Pango::FontDescription& fontDesc);
-
 int get_font_size(const Glib::ustring& fontStr);
 
 Glib::ustring get_font_str(const Glib::ustring& fontFamily, const int fontSize);
-
-Glib::ustring get_font_str(const Pango::FontDescription& fontDesc);
 
 } // namespace CtFontUtil
 

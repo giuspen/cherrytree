@@ -829,31 +829,35 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
 {
+    try {
+        std::vector<Glib::ustring> fontStr_splitted = str::split(fontStr, CtConst::CHAR_SPACE);
+        fontStr_splitted.pop_back();
+        Glib::ustring retVal = str::join(fontStr_splitted, CtConst::CHAR_SPACE);
+        return retVal;
+    }
+    catch (...) {
+        spdlog::warn("{} {}", __FUNCTION__, fontStr.raw());
+    }
     return Pango::FontDescription(fontStr).get_family();
-}
-
-int CtFontUtil::get_font_size(const Pango::FontDescription& fontDesc)
-{
-    return fontDesc.get_size()/Pango::SCALE;
 }
 
 int CtFontUtil::get_font_size(const Glib::ustring& fontStr)
 {
-    return get_font_size(Pango::FontDescription(fontStr));
+    try {
+        const std::vector<Glib::ustring> fontStr_splitted = str::split(fontStr, CtConst::CHAR_SPACE);
+        const int retVal = std::stoi(fontStr_splitted.back());
+        return retVal;
+    }
+    catch (...) {
+        spdlog::warn("{} {}", __FUNCTION__, fontStr.raw());
+    }
+    return Pango::FontDescription(fontStr).get_size()/Pango::SCALE;
 }
 
 Glib::ustring CtFontUtil::get_font_str(const Glib::ustring& fontFamily, const int fontSize)
 {
-    return fontFamily + " " + std::to_string(fontSize);
+    return fontFamily + CtConst::CHAR_SPACE + std::to_string(fontSize);
 }
-
-Glib::ustring CtFontUtil::get_font_str(const Pango::FontDescription& fontDesc)
-{
-    Glib::ustring font_family = fontDesc.get_family();
-    auto font_family_splitted = str::split(font_family, ",");
-    return font_family_splitted.back() + " " + std::to_string(get_font_size(fontDesc));
-}
-
 
 void CtRgbUtil::set_rgb24str_from_rgb24int(guint32 rgb24Int, char* rgb24StrOut)
 {

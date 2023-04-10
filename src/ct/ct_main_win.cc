@@ -650,11 +650,10 @@ void CtMainWin::config_switch_tree_side()
 void CtMainWin::_zoom_tree(bool is_increase)
 {
     Glib::RefPtr<Gtk::StyleContext> context = _uCtTreeview->get_style_context();
-    Pango::FontDescription fontDesc = context->get_font(context->get_state());
+    const Pango::FontDescription fontDesc = context->get_font(context->get_state());
     int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
-    fontDesc.set_size(size * Pango::SCALE);
-    _pCtConfig->treeFont = CtFontUtil::get_font_str(fontDesc);
+    _pCtConfig->treeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->treeFont), size);
     signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
 }
 
