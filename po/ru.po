@@ -2,29 +2,30 @@
 # Russian translations for PACKAGE package.
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# mail <giuspen@gmail.com>, 2010.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# mail <giuspen@gmail.com>, 2010.
+# Sergey Kazorin <translation-team@basealt.ru>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-28 20:29+0000\n"
-"PO-Revision-Date: 2023-04-04 21:48+0500\n"
-"Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
+"POT-Creation-Date: 2022-10-01 23:04+0100\n"
+"PO-Revision-Date: 2023-04-11 14:08+0300\n"
+"Last-Translator: Sergey Kazorin <translation-team@basealt.ru>\n"
 "Language-Team: Russian <camilot55@yandex.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 msgid "Image Format Not Recognized"
-msgstr "Не известный формат изображения"
+msgstr "Неизвестный формат изображения"
 
 msgid "Insert Table"
 msgstr "Вставить таблицу"
@@ -34,122 +35,116 @@ msgstr "Файл CSV"
 
 msgid "Insert a CodeBox"
 msgstr ""
-"CodeBox\n"
+"Блок кода\n"
 "\n"
-"Вставить CodeBox\n"
-"CodeBox - это контейнер для хранения различных функции и процедур,\n"
+"Вставить блок кода\n"
+"Блок кода — это контейнер для хранения различных функций и процедур,\n"
 "которыми программист часто пользуется, да и просто различного кода."
 
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr ""
-"Максимальный размер файла превышает %s Мб\n"
-" "
+msgstr "Максимальный размер для вложенных файлов — %s Mбайт."
 
 msgid "Do you want to Continue?"
 msgstr "Продолжить?"
 
 msgid "Special Characters"
-msgstr "Символы"
+msgstr "Специальные символы"
 
 msgid "Tabs Replaced"
-msgstr " табуляций заменено"
+msgstr "таб. заменено"
 
 msgid "Lines Stripped"
-msgstr " строк очищено"
+msgstr "стр. очищено"
 
 msgid "No Text is Selected."
-msgstr "Текст не выделен"
+msgstr "Текст не выделен."
 
 msgid "CherryTree Document"
 msgstr "Документ CherryTree"
 
 msgid "PDF File"
-msgstr "Документ PDF"
+msgstr "Файл PDF"
 
 msgid "Plain Text Document"
 msgstr "Текстовый документ"
 
 msgid "Preferences File"
-msgstr "Файл настроек"
+msgstr "Файл параметров"
 
 msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr ""
-"Изменения вступят в силу,\n"
-"после перезапука CherryTree"
+msgstr "Это изменение вступит в силу только после перезапуска CherryTree."
 
 msgid "Replace in Current Node"
-msgstr "Заменить в ветви..."
+msgstr "Замена в текущем узле"
 
 msgid "Search in Current Node"
-msgstr "Найти в ветви..."
+msgstr "Поиск в текущем узле"
 
 #, c-format
 msgid "The pattern '%s' was not found"
-msgstr ""
-"Поиск в документе завершён.\n"
-"\n"
-"Искомый элемент <b>' %s '</b> не найден!"
+msgstr "Совпадения с шаблоном поиска «%s» не обнаружены"
 
 msgid "Matches"
-msgstr " совпадений"
+msgstr "совпаден."
 
 msgid "Replace in Multiple Nodes..."
-msgstr "Заменить в ветвях..."
+msgstr "Заменить в нескольких узлах…"
 
 msgid "Find in Multiple Nodes..."
-msgstr "Найти в ветвях..."
+msgstr "Найти в нескольких узлах…"
 
 msgid "No Previous Search Was Performed During This Session."
-msgstr "Вы ещё не проводили поиск или замену текста"
+msgstr "В этом сеансе поиск ещё не проводился."
 
 msgid "Tags"
-msgstr "Тэги"
+msgstr "Теги"
 
 msgid ": "
 msgstr ": "
 
 msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Вы ещё не проводили форматирование текста"
+msgstr "В этом сеансе форматирование текста ещё не производилось."
 
 msgid "Link Name"
-msgstr "Вставить ссылку"
+msgstr "Наименование ссылки"
 
 msgid "The Cursor is Not into a Paragraph."
-msgstr "Курсор за пределами абзаца"
+msgstr "Курсор находится за пределами абзаца."
 
 msgid "Insert/Edit Link"
-msgstr "Свойства ссылки"
+msgstr "Вставить/Изменить ссылку"
 
 msgid "Pick a Foreground Color"
-msgstr "Выберите цвет"
+msgstr "Выберите цвет текста"
 
 msgid "Pick a Background Color"
-msgstr "Выберите цвет"
+msgstr "Выберите цвет фона"
 
 msgid "Checking for Newer Version..."
-msgstr "Проверка доступности новой версии..."
+msgstr "Проверка наличия новой версии…"
 
 msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Сервер не отвечает. Попробуйте позже"
+msgstr ""
+"Не удалось получить информацию о последней версии — повторите попытку позже."
 
 msgid "A Newer Version Is Available!"
-msgstr "Доступна новая версия!"
+msgstr "Доступна более новая версия!"
 
 msgid "You Are Using the Latest Version Available."
-msgstr "Обновления не найдены! Вы используете последнюю версию CherryTree"
+msgstr "Используется последняя доступная версия."
 
 msgid "You Are Using a Development Version."
-msgstr "Вы используете версию для разработчика"
+msgstr "Используется версия для разработки."
 
 msgid "Who is the Parent?"
-msgstr "Добавить в..."
+msgstr "Определение родителя"
 
 msgid "The Tree Root"
-msgstr "Дерево"
+msgstr "Корень дерева"
 
 msgid "The Selected Node"
-msgstr "Ветвь"
+msgstr "Выбранный узел"
 
 msgid "Rename"
 msgstr "Переименовать"
@@ -159,53 +154,45 @@ msgstr "Изображение PNG"
 
 #, c-format
 msgid "Write to %s Failed"
-msgstr "Запись в %s не удалась"
+msgstr "Ошибка записи в %s"
 
 #, c-format
 msgid "The Folder Link '%s' is Not Valid."
-msgstr "Некорректная ссылка на папку '%s'"
+msgstr "Недопустимая ссылка на папку «%s»."
 
 #, c-format
 msgid "The File Link '%s' is Not Valid."
-msgstr "Некорректная ссылка на файл '%s'"
+msgstr "Недопустимая ссылка на файл «%s»."
 
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
-msgstr "Некорректная ссылка на папку '%s'"
+msgstr "Недопустимая ссылка на папку «%s»"
 
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr ""
-"Некорректная ссылка на ветвь.\n"
-"\n"
-"Такой ветви не существует (Id = %s).\n"
-"Вероятно она была удалена или переименована"
+msgstr "Ссылка указывает на несуществующий узел (Id = %s)"
 
 #, c-format
 msgid "No anchor named '%s' found"
-msgstr ""
-"Поиск в документе завершён.\n"
-"\n"
-"Искомый якорь <b>' %s '</b> не найден!"
+msgstr "Якорь с именем «%s» не найден"
 
 msgid "Edit CodeBox"
-msgstr "Свойства CodeBox"
+msgstr "Редактировать блок кода"
 
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
 "Do so in the Preferences Dialog."
 msgstr ""
-"Вы должны связать команду с языком <b>' %s '</b>.\n"
-"\n"
-"Это можно сделать в настройках программы"
+"Команда должна иметь сопоставление с «%s».\n"
+"Это необходимо сделать в диалоговом окне «Параметры»."
 
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog."
 msgstr ""
-"Установите пакет 'xterm' или настройте\n"
-"другой терминал в настройках программы"
+"Установите пакет «xterm» или задайте другой терминал в "
+"диалоговом окне «Параметры»."
 
 msgid "Edit Table Properties"
 msgstr "Свойства таблицы"
@@ -217,141 +204,139 @@ msgid "Edit Anchor"
 msgstr "Свойства якоря"
 
 msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "<b>\"Только чтение!\"</b> Невозможно отредактировать файл"
+msgstr "Не удалось удалить вложенный файл в узле, доступном только для чтения."
 
 msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматически обновлён:"
+msgstr "Автоматическое обновление вложенного файла:"
 
 msgid "No Node is Selected"
-msgstr "Ветвь не выбрана"
+msgstr "Узел не выбран"
 
 msgid "The Tree is Empty!"
 msgstr ""
 "<b> Пустое дерево! </b>\n"
 "\n"
 "Создайте Ваше первое дерево!\n"
-"Для начала работы добавьте новую ветвь:\n"
-"<b>Главное меню\\Дерево\\Новая ветвь </b>"
+"Для начала работы добавьте новый узел:\n"
+"<b>Главное меню\\Дерево\\Новый узел </b>"
 
 msgid "The Selected Node is Read Only."
-msgstr ""
-"Эта ветвь доступна <b>\"только для чтения\"</b>.\n"
-"\n"
-"Для редактирования измените свойства ветви."
+msgstr "Выбранный узел доступен только для чтения."
 
 msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Эта функция доступна только для форматированного текста"
+msgstr "Это свойство доступно только в узлах с форматированным текстом."
 
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Эта функция не доступна для подсветки синтаксиса"
+msgstr ""
+"Это свойство недоступно в узлах с автоматической подсветкой синтаксиса."
 
 msgid "No Table is Selected."
-msgstr "Текст не выделен"
+msgstr "Таблица не выбрана."
 
 msgid "No CodeBox is Selected."
-msgstr "Ветвь не выбрана"
+msgstr "Блок кода не выбран."
 
 msgid "New Child Node Properties"
-msgstr "Свойства новой дочерней ветви"
+msgstr "Свойства нового дочернего узла"
 
 msgid "New Node Properties"
-msgstr "Свойства новой ветви"
+msgstr "Свойства нового узла"
 
 msgid "Node Properties"
-msgstr "Свойства ветви"
+msgstr "Свойства узла"
 
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr ""
-"При смене <b> \"Форматированный текст\" </b> на <b> \"Обычный текст\" </b>,\n"
-"вы полностью потеряете форматирование текста для данной ветви.\n"
+"При изменении типа узла с «Форматированного текста» на «Обычный текст»,\n"
+"вы полностью потеряете форматирование текста для данного узла.\n"
 "Продолжить?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr ""
-" \n"
-"Вы действительно хотите удалить ветвь <b>' %s '</b>?"
+msgstr "Удалить узел <b>«%s»</b>?"
 
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> Также будут удалены следующие дочерние ветви!</b>"
+msgstr ""
+"У данного узла <b>имеются дочерние узлы, которые также будут удалены!</b>"
 
 msgid "Select the New Parent"
-msgstr "Выберите родителя..."
+msgstr "Выберите нового родителя"
 
 msgid "The new parent can't be the very node to move!"
-msgstr "Родительскую ветвь невозможно переместить!"
+msgstr "Новый родительский узел переместить нельзя!"
 
 msgid "The new chosen parent is still the old parent!"
-msgstr "Выбранная родительская ветвь уже является родителем!"
+msgstr ""
+"Вновь выбранный родительский узел совпадает с прежним родительским узлом!"
 
 msgid "The new parent can't be one of his children!"
-msgstr "Родительская ветвь не может стать дочерней!"
+msgstr "Новый родительский узел не может быть своим же дочерним узлом!"
 
 #, c-format
 msgid "%s Nodes Properties Changed"
-msgstr "%s свойств очищено"
+msgstr "Изменено свойств узла: %s"
 
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Размер значков уже максимальный"
+msgstr "Значки панели инструментов уже имеют максимальный размер."
 
 msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Размер значков уже минимальный"
+msgstr "Значки панели инструментов уже имеют минимальный размер."
 
 msgid "Print CherryTree version"
-msgstr "Версия для печати"
+msgstr "Вывод версии программы CherryTree"
 
 msgid "Node name to focus"
-msgstr "Имя ветви для фокуса"
+msgstr "Имя узла для установки на него фокуса"
 
 msgid "Anchor name to scroll to in node"
-msgstr "Имя якоря для прокрутки к ветви"
+msgstr "Имя якоря для прокрутки к узлу"
 
 msgid "Export to HTML at specified directory path"
-msgstr "Экспорт в HTML в существующую директорию"
+msgstr "Экспорт в указанный каталог в формате HTML"
 
 msgid "Export to Text at specified directory path"
-msgstr "Экспорт в TXT в существующую директорию"
+msgstr "Экспорт в указанный каталог в текстовом формате"
 
 msgid "Export to PDF at specified directory path"
-msgstr "Экспорт в PDF в существующую директорию"
+msgstr "Экспорт в указанный каталог в формате PDF"
 
 msgid "Overwrite if export path already exists"
 msgstr "Перезаписать, если файл уже существует"
 
 msgid "Export to a single file (for HTML or TXT)"
-msgstr "Экспорт в один файл (для HTML или TXT)"
+msgstr "Экспорт в виде одного файла (для HTML или TXT)"
 
 msgid "Password to open document"
-msgstr "Пароль от документа"
+msgstr "Пароль для открытия документа"
 
 msgid "Create a new window"
 msgstr "Создать новое окно"
 
 msgid "Run in secondary session, independent from main session"
-msgstr "Запустить второй сеанс"
+msgstr "Запустить вторичный сеанс независимо от основного"
 
 msgid "Handle the Bookmarks List"
-msgstr "Закладки"
+msgstr "Список закладок"
 
 msgid "Move the Selected Bookmark Up"
-msgstr "Переместить вверх"
+msgstr "Переместить выбранную закладку вверх"
 
 msgid "Move the Selected Bookmark Down"
-msgstr "Переместить вниз"
+msgstr "Переместить выбранную закладку вниз"
 
 msgid "Remove the Selected Bookmark"
-msgstr "Удалить закладку"
+msgstr "Удалить выбранную закладку"
 
 msgid "Sort the Bookmarks Descending"
-msgstr "Сортировать по убыванию"
+msgstr "Сортировать закладки по убыванию"
 
 msgid "Sort the Bookmarks Ascending"
-msgstr "Сортировать по возрастанию"
+msgstr "Сортировать закладки по возрастанию"
 
 msgid "Choose Storage Type"
-msgstr "Тип файла"
+msgstr "Выбор типа хранения"
 
 msgid "Not Protected"
 msgstr "без шифрования"
@@ -360,7 +345,7 @@ msgid "Password Protected"
 msgstr "с шифрованием"
 
 msgid "Storage Type"
-msgstr "Тип:"
+msgstr "Тип хранения:"
 
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
@@ -371,34 +356,34 @@ msgid ""
 msgstr ""
 "CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия "
 "или редактирования документа CherryTree извлекает его из зашифрованного "
-"архива во временную папку и работает с ним как с обычным архивом. После "
-"закрытия файла незашифрованная копия документа удаляется из временной папки. "
-"Во время краха системы или программы незашифрованный документ может остаться "
-"во временной папке."
+"архива во временную папку и работает с незашифрованной копией. При закрытии"
+"незашифрованная копия документа удаляется из временного каталога. Во время "
+"сбоя системы или программы незашифрованный документ остаётся во временной "
+"папке."
 
 msgid "Enter the New Password Twice"
-msgstr "Введите и подтвердите пароль для проверки"
+msgstr "Введите новый пароль дважды"
 
 msgid "Autosave Every"
 msgstr "Автосохранение каждые"
 
 msgid "Minutes"
-msgstr "минут"
+msgstr "мин."
 
 msgid "The Password Fields Must be Filled."
-msgstr "Вы не задали пароль"
+msgstr "Необходимо заполнить поля ввода пароля."
 
 msgid "The Two Inserted Passwords Do Not Match."
-msgstr "Пароли не совпадают"
+msgstr "Введённые пароли не совпадают."
 
 msgid "Warning"
 msgstr "Предупреждение"
 
 msgid "The Current Document was Updated."
-msgstr "Документ CherryTree был изменён."
+msgstr "Текущий документ был изменён."
 
 msgid "Do you want to Save the Changes?"
-msgstr "Сохранить изменения в документе?"
+msgstr "Сохранить изменения?"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Выполнить код?"
@@ -407,14 +392,14 @@ msgid "Ask Confirmation Before Executing the Code"
 msgstr "Запрашивать подтверждение перед выполнением кода"
 
 msgid "Use Internal Terminal"
-msgstr "Использовать встроеный терминал"
+msgstr "Использовать встроенный терминал"
 
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
-"Записная книжка с иерархической древовидной структурой с возможностью "
-"форматирования текста и подсветкой синтаксиса"
+"Записная книжка с иерархической древовидной структурой, обладающая"
+"функциями форматирования текста и подсветки синтаксиса"
 
 msgid ""
 "\n"
@@ -435,23 +420,21 @@ msgid ""
 msgstr ""
 "\n"
 "Эта программа является свободным программным обеспечением;\n"
-"вы можете распространять и/или изменять его согласно условиям\n"
-"Стандартной Общественной Лицензии GNU,\n"
-"опубликованной Фондом свободного программного обеспечения,\n"
-"либо Лицензии версии 3, либо (на ваше усмотрение) \n"
+"может распространяться и/или изменяться на условиях лицензии GNU\n"
+"General Public License, опубликованной Фондом свободного программного\n"
+"обеспечения; либо версии 3 этой лицензии, либо (по вашему выбору)\n"
 "любой более поздней версии.\n"
-" \n"
-"Программа распространяется в надежде, что она будет полезной,\n"
-"но БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; \n"
-"даже без косвенных гарантийных обязательств, связанных\n"
-"с ПОТРЕБИТЕЛЬСКИМИ СВОЙСТВАМИ и ПРИГОДНОСТЬЮ\n"
-"ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите\n"
-"Стандартную Общественную Лицензию GNU.\n"
 "\n"
-"Вы должны были получить копию Стандартной Общественной\n"
-"Лицензии GNU вместе с этой программой. Если это не так,\n"
-"напишите в Фонд Свободного ПО, \n"
-"675 Mass Ave, Cambridge, MA 02139, USA.\n"
+"Данная программа распространяется в надежде, что она может быть полезна,\n"
+"но БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙ, в том числе подразумеваемых\n"
+"гарантий ПОТРЕБИТЕЛЬСКИХ СВОЙСТВ и ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННОЙ\n"
+"ЦЕЛИ. Для получения дополнительных сведений обратитесь к лицензии GNU\n"
+"General Public License.\n"
+"\n"
+"Вы должны были получить копию лицензии GNU General Public License\n"
+"вместе с этой программой. Если вы её не получили, известите об этом Фонд\n"
+"свободного программного обеспечения по адресу Free Software Foundation,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
 
 msgid "Arabic"
 msgstr "Арабский"
@@ -544,43 +527,43 @@ msgid "Ukrainian"
 msgstr "Украинский"
 
 msgid "About CherryTree"
-msgstr "Сведения"
+msgstr "О программе CherryTree"
 
 msgid "Tree Summary Information"
-msgstr "Информация о дереве"
+msgstr "Сводная информация о дереве"
 
 msgid "Number of Rich Text Nodes"
-msgstr "Ветвей с форматированным текстом"
+msgstr "Количество узлов с форматированным текстом"
 
 msgid "Number of Plain Text Nodes"
-msgstr "Ветвей с обычым текстом"
+msgstr "Количество узлов с обычным текстом"
 
 msgid "Number of Code Nodes"
-msgstr "Ветвей с кодом"
+msgstr "Количество узлов с кодом"
 
 msgid "Number of Images"
-msgstr "Изображений"
+msgstr "Количество изображений"
 
 msgid "Number of LatexBoxes"
-msgstr "LaTeX-ов"
+msgstr "Количество блоков LaTeX"
 
 msgid "Number of Embedded Files"
-msgstr "Файлов"
+msgstr "Количество вложенных файлов"
 
 msgid "Number of Tables"
-msgstr "Таблиц"
+msgstr "Количество таблиц"
 
 msgid "Number of CodeBoxes"
-msgstr "CodeBox-ов"
+msgstr "Количество блоков кода"
 
 msgid "Number of Anchors"
-msgstr "Якорей"
+msgstr "Количество якорей"
 
 msgid "Latex Text"
-msgstr "LaTeX текст"
+msgstr "Текст LaTeX"
 
 msgid "Image Size dpi"
-msgstr "Размер изображения dpi"
+msgstr "Размер изображения в dpi"
 
 msgid "Tutorial"
 msgstr "Руководство"
@@ -589,10 +572,10 @@ msgid "Reference"
 msgstr "Справка"
 
 msgid "LaTeX Math and Equations Tutorial"
-msgstr "Учебник по математическим уравнениям LaTeX"
+msgstr "Руководство по оформлению математических уравнений в LaTeX"
 
 msgid "LaTeX Math Symbols Reference"
-msgstr "Справочник по математическим символам LaTeX"
+msgstr "Справочник по математическим символам в LaTeX"
 
 msgid "Image Properties"
 msgstr "Свойства изображения"
@@ -601,49 +584,50 @@ msgid "Width"
 msgstr "Ширина"
 
 msgid "Height"
-msgstr "Высота  "
+msgstr "Высота"
 
 msgid "Plain Text"
 msgstr "Обычный текст"
 
 msgid "Automatic Syntax Highlighting"
-msgstr "Подсветка синтаксиса"
+msgstr "Автоматическая подсветка синтаксиса"
 
 msgid "Type"
 msgstr "Тип"
 
 msgid "pixels"
-msgstr "пикселей"
+msgstr "пкс"
 
 msgid "Size"
 msgstr "Размер"
 
 msgid "Show Line Numbers"
-msgstr "Нумерация строк"
+msgstr "Показывать нумерацию строк"
 
 msgid "Highlight Matching Brackets"
 msgstr "Подсвечивать парные скобки"
 
 msgid "Options"
-msgstr "Настройки"
+msgstr "Параметры"
 
 msgid "Rows"
-msgstr "Число строк:"
+msgstr "Число рядов"
 
 msgid "Columns"
-msgstr "Число столбцов:"
+msgstr "Число столбцов"
 
 msgid "Default Width"
-msgstr "Значение:"
+msgstr "Ширина по умолчанию"
 
 msgid "Table Size"
 msgstr "Размер таблицы"
 
 msgid "Column Properties"
-msgstr "Ширина столбца"
+msgstr "Свойства столбца"
 
 msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Облегчённый интерфейс (для больших таблиц)"
+msgstr ""
+"Облегчённый интерфейс (работает значительно быстрее с большими таблицами)"
 
 msgid "Import from CSV File"
 msgstr "Импортировать данные из файла CSV"
@@ -661,13 +645,13 @@ msgid "Regular Expression"
 msgstr "Регулярное выражение"
 
 msgid "Online Manual"
-msgstr "Справка в интернете"
+msgstr "Интернет-справка"
 
 msgid "Accent Insensitive"
 msgstr "Нечувствительность к ударению"
 
 msgid "Override Exclusions"
-msgstr "Отменить исключения"
+msgstr "Не учитывать исключения"
 
 msgid "Whole Word"
 msgstr "Только слово целиком"
@@ -691,50 +675,50 @@ msgid "First in All Range"
 msgstr "Первое совпадение по всему документу"
 
 msgid "Node Created After"
-msgstr "Создана после"
+msgstr "Создан после"
 
 msgid "Node Created Before"
-msgstr "Создана до"
+msgstr "Создан до"
 
 msgid "Node Modified After"
-msgstr "Изменена после"
+msgstr "Изменён после"
 
 msgid "Node Modified Before"
-msgstr "Изменена до"
+msgstr "Изменён до"
 
 msgid "Time filter"
-msgstr "По дате ветви..."
+msgstr "По временным параметрам узла"
 
 msgid "Node Content"
-msgstr "В ветви"
+msgstr "В содержимом узла"
 
 msgid "Node Name and Tags"
-msgstr "В именах ветвей и тэгах"
+msgstr "В именах узлов и тегах"
 
 msgid "Only Selected Node and Subnodes"
-msgstr "В выбранной ветви с дочерними"
+msgstr "Только в выбранном узле с потомками"
 
 msgid "Show Iterated Find/Replace Dialog"
-msgstr "Показать диалоговое окно \"Совпадения...\" "
+msgstr "Показывать диалоговое окно повторения поиска/замены"
 
 msgid "Search options"
 msgstr "Параметры поиска"
 
 #, c-format
 msgid "Hide (Restore with '%s')"
-msgstr "Свернуть/Восстановить ('%s')"
+msgstr "Скрыть (Восстановить с помощью «%s»)"
 
 msgid "Node Name"
-msgstr "Имя"
+msgstr "Имя узла"
 
 msgid "Line"
 msgstr "Строка"
 
 msgid "Line Content"
-msgstr "Содержимое"
+msgstr "Содержимое строки"
 
 msgid "Iterate Latest Find/Replace"
-msgstr "Повторить Найти/Заменить"
+msgstr "Повторение последнего поиска/замены"
 
 msgid "Close"
 msgstr "Закрыть"
@@ -752,7 +736,7 @@ msgid "Undo"
 msgstr "Отменить"
 
 msgid "Remove Color"
-msgstr "Очистить"
+msgstr "Удалить цвет"
 
 msgid "Question"
 msgstr "Вопрос"
@@ -764,31 +748,31 @@ msgid "Error"
 msgstr "Ошибка"
 
 msgid "Select File"
-msgstr "Открыть..."
+msgstr "Выбор файла"
 
 msgid "Select Folder"
-msgstr "Выбрать..."
+msgstr "Выбор папки"
 
 msgid "Save File as"
-msgstr "Сохранить как..."
+msgstr "Сохранение файла"
 
 msgid "To WebSite"
-msgstr "Сайт:   "
+msgstr "Ссылка на Веб-сайт"
 
 msgid "To File"
-msgstr "Файл:  "
+msgstr "Ссылка на файл"
 
 msgid "To Folder"
-msgstr "Папка:"
+msgstr "Ссылка на папку"
 
 msgid "To Node"
-msgstr "Ветвь:"
+msgstr "Ссылка на узел"
 
 msgid "Anchor Name (optional)"
-msgstr " Добавить якорь к ссылке (не обязательно)"
+msgstr "Добавить якорь к ссылке (необязательно)"
 
 msgid "There are No Anchors in the Selected Node."
-msgstr "В данной ветви нет якорей"
+msgstr "Выбранный узел не содержит якорей."
 
 msgid "Choose Existing Anchor"
 msgstr "Выберите якорь"
@@ -797,70 +781,70 @@ msgid "Anchor Name"
 msgstr "Имя якоря"
 
 msgid "Bold"
-msgstr "Полужирный"
+msgstr "Полужирный шрифт"
 
 msgid "Use Selected Color"
-msgstr "Заголовок"
+msgstr "Использовать цвет"
 
 msgid "Use Selected Icon"
-msgstr "Значок ветви"
+msgstr "Использовать значок"
 
 msgid "Rich Text"
 msgstr "Форматированный текст"
 
 msgid "Node Type"
-msgstr "Тип"
+msgstr "Тип узла"
 
 msgid "Tags for Searching"
-msgstr "Тэги для поиска"
+msgstr "Теги для поиска"
 
 msgid "Exclude from Searches"
-msgstr "Исключить из поиска: "
+msgstr "Исключить из поиска:"
 
 msgid "This Node"
-msgstr "ветвь"
+msgstr "этот узел"
 
 msgid "The Subnodes"
-msgstr "дочернюю ветвь"
+msgstr "дочерние узлы"
 
 msgid "Read Only"
-msgstr "Только чтение"
+msgstr "Только для чтения"
 
 msgid "Choose Existing Tag"
-msgstr "Тэги"
+msgstr "Выберите существующий тег"
 
 msgid "Tag Name"
-msgstr "Тэг"
+msgstr "Имя тега"
 
 msgid "Pick a Color"
-msgstr "Выберите цвет"
+msgstr "Выбор цвета"
 
 msgid "Select Node Icon"
-msgstr "Смена значка"
+msgstr "Выбор значка узла"
 
 msgid "Involved Nodes"
-msgstr "Выбрать..."
+msgstr "Выбор узлов"
 
 msgid "Selected Text Only"
-msgstr "Текст"
+msgstr "Только выделенный текст"
 
 msgid "Selected Node Only"
-msgstr "Ветвь"
+msgstr "Только выбранный узел"
 
 msgid "Selected Node and Subnodes"
-msgstr "Ветвь с дочерними"
+msgstr "Выбранный узел с дочерними узлами"
 
 msgid "All the Tree"
-msgstr "Дерево"
+msgstr "Дерево целиком"
 
 msgid "Include Node Name"
-msgstr "Печатать имя ветви"
+msgstr "Добавлять имя узла"
 
 msgid "Links Tree in Every Page"
-msgstr "Дерево ссылок на каждой страницe"
+msgstr "Дерево ссылок на каждой странице"
 
 msgid "New Node in New Page"
-msgstr "Новую ветвь с новой страницы"
+msgstr "Новый узел с новой страницы"
 
 msgid "Single File"
 msgstr "Один файл"
@@ -869,113 +853,99 @@ msgid "Index"
 msgstr "Содержание"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Предупреждение: одно или несколько изображений были уменьшены"
+msgstr ""
+"Предупреждение: Одно или несколько изображений было уменьшено, "
+"чтобы уместить их на одной странице!"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Не удалось получить доступ к исполняемым файлам 'latex' и 'dvipng'"
+msgstr "Не удалось получить доступ к исполняемым файлам «latex» и «dvipng»"
 
 msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Например, в Ubuntu пакетами для установки являются:"
+msgstr "Например, в Ubuntu устанавливаются следующие пакеты:"
 
 msgid "For example, on macOS the packages to install are:"
-msgstr "Например, в Mac OS пакетами для установки являются:"
+msgstr "Например, в macOS устанавливаются следующие пакеты:"
 
 msgid "Could not access the executable 'latex'"
-msgstr "Не удалось получить доступ к исполняемому файлу 'latex'"
+msgstr "Не удалось получить доступ к исполняемому файлу «latex»"
 
 msgid "Could not access the executable 'dvipng'"
-msgstr "Не удалось получить доступ к исполняемому файлу 'dvipng'"
+msgstr "Не удалось получить доступ к исполняемому файлу «dvipng»"
 
 msgid "Downloading"
 msgstr "Загрузка"
 
 #, c-format
 msgid "The Document %s was Not Found"
-msgstr ""
-"Поиск документа завершён.\n"
-"\n"
-"Документ <b>' %s '</b> не найден!"
+msgstr "Документ «%s» не найден"
 
 msgid "Open a Recent CherryTree Document"
-msgstr ""
-"История...\n"
-"\n"
-"Кликните здесь, чтобы посмотреть\n"
-"какие документы были открыты ранее.\n"
-"Также можно удалить из истории недавно\n"
-"открытые документы CherryTree"
+msgstr "Открыть последние документы CherryTree"
 
 msgid "_Hide"
-msgstr "Свернуть..."
+msgstr "_Свернуть"
 
 msgid "_Quit"
-msgstr "Выход"
+msgstr "_Выход"
 
 msgid "Hide the Window"
-msgstr ""
-"Свернуть...\n"
-"\n"
-"Свернуть CherryTree в область уведомлений"
+msgstr "Скрыть окно в системный лоток"
 
 msgid "Quit the Application"
-msgstr ""
-"Выход\n"
-"\n"
-"Выйти из CherryTree"
+msgstr "Выход из приложения"
 
 msgid "Spell Check"
 msgstr "Орфография"
 
 msgid "Word Count"
-msgstr "Слов"
+msgstr "Число слов"
 
 msgid "Date Created"
-msgstr "Создан"
+msgstr "Дата создания"
 
 msgid "Date Modified"
-msgstr "Изменён"
+msgstr "Дата изменения"
 
 msgid ""
 "No Previous Node Copy Was Performed During This Session or the Source Tree "
 "is No Longer Available."
-msgstr "Вы не выполняли копирование ветви или дерево недоступно"
+msgstr ""
+"Последнее копирование узла было выполнено не во время этого сеанса "
+"или исходное дерево более недоступно."
 
 msgid "The Source Tree Node is No Longer Available."
-msgstr "Ветвь дерева не доступна"
+msgstr "Исходное дерево более недоступно."
 
 msgid "Show Menubar:"
-msgstr "Показать Панель меню:"
+msgstr "Показать панель меню:"
 
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" не является документом CherryTree"
+msgstr "«%s» не является документом CherryTree"
 
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
 "\"%s\""
 msgstr ""
-"Ошибка открытия файла CherryTree:\n"
-"\"%s\""
+"Ошибка обработки файла CherryTree:\n"
+"«%s»"
 
 #, c-format
 msgid "No node named '%s' found."
-msgstr ""
-"Поиск в документе завершён.\n"
-"\n"
-"Искомая ветвь <b>' %s '</b> не найдена!"
+msgstr "Узел с именем «%s» не найден."
 
 msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Созданы временные файлы, которые открыты в другом приложении."
+msgstr "Временные файлы были созданы и открыты во внешних приложениях."
 
 msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Закройте внешнее приложение перед выходом из CherryTree."
+msgstr "Закройте внешние приложения перед выходом из CherryTree."
 
 msgid "Did you Quit the External Applications?"
-msgstr "Вы завершили внешнее приложение?"
+msgstr "Внешние приложения были закрыты?"
 
 msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Документ был повторно загружен после обновления другой программой"
+msgstr "Документ был перезагружен после внешнего обновления до файла CT*."
 
 msgid "Copy Selection or All"
 msgstr "Копировать выделенное или всё"
@@ -987,1008 +957,676 @@ msgid "Reset"
 msgstr "Сбросить"
 
 msgid "Remove from list"
-msgstr "Удалить из истории"
+msgstr "Удалить из списка"
 
 msgid "_File"
-msgstr "Файл"
+msgstr "_Файл"
 
 msgid "_Edit"
-msgstr "Правка"
+msgstr "_Правка"
 
 msgid "_Insert"
-msgstr "Вставка"
+msgstr "_Вставка"
 
 msgid "F_ormat"
-msgstr "Формат"
+msgstr "Ф_ормат"
 
 msgid "_Tree"
-msgstr "Дерево"
+msgstr "Де_рево"
 
 msgid "Too_ls"
-msgstr "Инструменты"
+msgstr "_Инструменты"
 
 msgid "_Search"
-msgstr "Поиск"
+msgstr "Пои_ск"
 
 msgid "_View"
-msgstr "Вид"
+msgstr "Ви_д"
 
 msgid "_Bookmarks"
-msgstr "Закладки"
+msgstr "_Закладки"
 
 msgid "_Help"
-msgstr "Справка"
+msgstr "Справ_ка"
 
 msgid "Node _Move"
-msgstr "Переместить..."
+msgstr "Пере_местить узел"
 
 msgid "Nod_es Sort"
-msgstr "Сортировать..."
+msgstr "Сортировать _узлы"
 
 msgid "B_ookmarks"
-msgstr "Закладки"
+msgstr "_Закладки"
 
 msgid "_Import"
-msgstr "Импорт..."
+msgstr "_Импорт"
 
 msgid "_Export"
-msgstr "Экспорт..."
+msgstr "_Экспорт"
 
 msgid "_Preferences"
-msgstr "Настройки..."
+msgstr "Параме_тры"
 
 msgid "_Recent Documents"
-msgstr "История..."
+msgstr "Пос_ледние документы"
 
 msgid "C_hange Case"
-msgstr "Изменить регистр"
+msgstr "Из_менить регистр"
 
 msgid "L_ist"
-msgstr "Список"
+msgstr "Спис_ок"
 
 msgid "_Justify"
-msgstr "Выровнять"
+msgstr "_Выровнять"
 
 msgid "Toggle _Font Property"
-msgstr "Изменить шрифт"
+msgstr "Изменить свойства _шрифта"
 
 msgid "_Toggle Heading Property"
-msgstr "Изменить размер"
+msgstr "_Изменить свойства заголовка"
 
 msgid "I_nsert"
-msgstr "Вставить"
+msgstr "Встави_ть"
 
 msgid "_Find"
-msgstr "Найти..."
+msgstr "Най_ти"
 
 msgid "_Replace"
-msgstr "Заменить..."
+msgstr "За_менить"
 
 msgid "Ro_w"
-msgstr "Строка"
+msgstr "Р_яд"
 
 msgid "_Table"
-msgstr "Таблица"
+msgstr "Табли_ца"
 
 msgid "_CodeBox"
-msgstr "Вырезать CodeBox"
+msgstr "_Блок кода"
 
 msgid "File"
 msgstr "Файл"
 
 msgid "_New Instance..."
-msgstr "Создать..."
+msgstr "_Новый экземпляр…"
 
 msgid "Start a New Instance of CherryTree"
-msgstr ""
-"Создать...\n"
-"\n"
-"Создать новый экземпляр CherryTree"
+msgstr "Запустить новый экземпляр CherryTree"
 
 msgid "_Open File..."
-msgstr "Открыть..."
+msgstr "_Открыть файл…"
 
 msgid "Open a CherryTree Document"
-msgstr ""
-"Открыть...\n"
-"\n"
-"Открыть существующий документ CherryTree"
+msgstr "Открыть документ CherryTree"
 
 msgid "_Save"
-msgstr "Сохранить"
+msgstr "_Сохранить"
 
 msgid "Save File"
-msgstr ""
-"Сохранить\n"
-"\n"
-"Сохранить текущий документ CherryTree"
+msgstr "Сохранить файл"
 
 msgid "Save and _Vacuum"
-msgstr "Сжать и Сохранить"
+msgstr "Сохранить и с_жать"
 
 msgid "Save File and Vacuum"
-msgstr ""
-"Сжать и сохранить\n"
-"\n"
-"Сжать документ CherryTree до \n"
-"минимального размера и сохранить "
+msgstr "Сохранить и с_жать файл"
 
 msgid "Save _As..."
-msgstr "Сохранить как..."
+msgstr "Сохранить _как…"
 
 msgid "Save File As"
-msgstr ""
-"Сохранить как...\n"
-"\n"
-"Сохранить текущий документ под другим\n"
-"именем или с другим расширением.\n"
-"\n"
-"Сохранить вставленный файл"
+msgstr "Сохранить файл как"
 
 msgid "Pa_ge Setup..."
-msgstr "Параметры страницы"
+msgstr "Пара_метры страницы…"
 
 msgid "Set up the Page for Printing"
-msgstr ""
-"Параметры страницы\n"
-"\n"
-"Настроить параметры страницы для печати: \n"
-"ориентация, поля, размер и подача бумаги"
+msgstr "Настройка параметров страницы для печати"
 
 msgid "P_rint..."
-msgstr "Печать"
+msgstr "Пе_чать…"
 
 msgid "Print"
-msgstr ""
-"Печать\n"
-"\n"
-"Настроить параметры печати документа"
+msgstr "Печать"
 
 msgid "Preferences"
-msgstr "Настройки программы"
+msgstr "Параметры"
 
 msgid "_Import Preferences..."
-msgstr "Восстановить настройки..."
+msgstr "_Импорт параметров…"
 
 msgid "Import Preferences"
-msgstr "Восстановить настройки СherryТree из резервной копии"
+msgstr "Импорт параметров"
 
 msgid "_Export Preferences..."
-msgstr "Сохранить настройки..."
+msgstr "_Экспорт параметров…"
 
 msgid "Export Preferences"
-msgstr "Сохранить резервную копию настроек СherryТree"
+msgstr "Экспорт параметров"
 
 msgid "Tree In_fo"
-msgstr "Информация..."
+msgstr "Информация о де_реве"
 
 msgid "E_xit CherryTree"
-msgstr "Выход"
+msgstr "Вы_ход"
 
 msgid "Exit from CherryTree"
-msgstr ""
-"Выход\n"
-"\n"
-"Выйти из CherryTree"
+msgstr "Выйти из CherryTree"
 
 msgid "Edit/Insert"
 msgstr "Правка/Вставка"
 
 msgid "_Undo"
-msgstr "Отменить"
+msgstr "_Отменить"
 
 msgid "Undo Last Operation"
-msgstr ""
-"Отменить\n"
-"\n"
-"Отменить последнюю операцию"
+msgstr "Отменить последнее действие"
 
 msgid "_Redo"
-msgstr "Вернуть"
+msgstr "_Вернуть"
 
 msgid "Redo Previously Discarded Operation"
-msgstr ""
-"Вернуть\n"
-"\n"
-"Вернуть отменённую операцию"
+msgstr "Вернуть отменённое ранее действие"
 
 msgid "Insert I_mage..."
-msgstr "Изображение"
+msgstr "Вставить _изображение…"
 
 msgid "Insert an Image"
-msgstr ""
-"Изображение\n"
-"\n"
-"Вставить изображение в документ для\n"
-"иллюстрации определённого понятия"
+msgstr "Вставить изображение"
 
 msgid "Insert Late_x..."
-msgstr "LaTeX"
+msgstr "Вставить Late_x…"
 
 msgid "Insert LatexBox"
-msgstr ""
-"LaTeX\n"
-"\n"
-"LaTeX - поддержка математических уравнений, формул"
+msgstr "Вставить блок Latex"
 
 msgid "Insert _Table..."
-msgstr "Таблицу"
+msgstr "Вставить _таблицу…"
 
 msgid "Insert a Table"
-msgstr ""
-"Таблицу\n"
-"\n"
-"Вставить таблицу в документ"
+msgstr "Вставить таблицу"
 
 msgid "Insert _CodeBox..."
-msgstr "CodeBox"
+msgstr "Вставить _блок кода…"
 
 msgid "Insert _File..."
-msgstr "Файл"
+msgstr "Вставить _файл…"
 
 msgid "Insert File"
-msgstr ""
-"Файл\n"
-"\n"
-"Вставить файл в документ"
+msgstr "Вставить файл"
 
 msgid "Insert/Edit _Link..."
-msgstr "Ссылку"
+msgstr "Вставка/Правка _ссылки…"
 
 msgid "Insert a Link/Edit the Underlying Link"
-msgstr ""
-"Ссылку\n"
-"\n"
-"Вставить ссылку в документ.\n"
-"\n"
-"Создать ссылку на веб-страницу, ветвь, якорь, \n"
-"папку, файл путём вставки перекрёстной ссылки"
+msgstr "Вставить ссылку/Изменить имеющуюся ссылку"
 
 msgid "Insert _Anchor..."
-msgstr "Якорь"
+msgstr "Вставить _якорь…"
 
 msgid "Insert an Anchor"
 msgstr ""
-"Якорь\n"
-"\n"
 "Вставить якорь в документ.\n"
 "\n"
-"Якорь - это закладка на элементы, такие как заголовки, рисунки, ветви, \n"
-"файлы и таблицы, CodeBox-ы, фрагменты текста. Чтобы сослаться на якорь \n"
+"Якорь — это закладка на элементы, такие как заголовки, рисунки, узлы, \n"
+"файлы и таблицы, блоки кода, фрагменты текста. Чтобы сослаться на якорь \n"
 "необходимо вставить в нужном месте ссылку или использовать \n"
-"перекрёстную ссылку, такую как 'см. таблицу 7' или 'Вернуться к... '. \n"
+"перекрёстную ссылку, такую как «см. таблицу 7» или «Вернуться к…» \n"
 "Ссылка на якорь обновляется автоматически, если содержимое\n"
-"перемещается в другое место"
+"перемещается в другое место."
 
 msgid "Insert T_OC..."
-msgstr "Оглавление"
+msgstr "Вставить о_главление…"
 
 msgid "Insert Table of Contents"
-msgstr ""
-"Оглавление\n"
-"\n"
-"Вставить оглавление в документ.\n"
-"\n"
-"Оглавление создаётся из заголовков.\n"
-"CherryTree выполнит поиск заголовков\n"
-"и составит из них оглавление."
+msgstr "Вставить оглавление"
 
 msgid "Insert Timestam_p"
-msgstr "Время и дата"
+msgstr "Вставить врем_я и дату"
 
 msgid "Insert Timestamp"
-msgstr ""
-"Время и дата\n"
-"\n"
-"Вставить время и дату в документ.\n"
-"\n"
-"Формат времени и даты можно изменить\n"
-"в настройках программы"
+msgstr "Вставить время и дату"
 
 msgid "Insert _Special Character..."
-msgstr "Символ"
+msgstr "Вставить _специальный символ…"
 
 msgid "Insert a Special Character"
-msgstr ""
-"Символ\n"
-"\n"
-"Вставить символ в документ.\n"
-"\n"
-"Вставить символ, отсутствующий на клавиатуре, например\n"
-"символ авторского права, товарного знака, абзаца и т.д.\n"
-"Добавить или изменить символы можно в настройках программы"
+msgstr "Вставить специальный символ"
 
 msgid "Insert _Horizontal Rule"
-msgstr "Линию"
+msgstr "Вставить _горизонтальную линию"
 
 msgid "Insert Horizontal Rule"
-msgstr ""
-"Линию\n"
-"\n"
-"Вставить горизонтальную разделительную линию в документ.\n"
-"\n"
-"Горизонтальную разделительную линию можно\n"
-"настроить в настройках программы"
+msgstr "Вставить горизонтальную линию"
 
 msgid "_Lower Case of Selection/Word"
-msgstr "строчные"
+msgstr "_Выделение/слово в нижний регистр"
 
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr ""
-"строчные \n"
-"\n"
-"Преобразовать все буквы \n"
-"выделенного текста в строчные "
+msgstr "Преобразование выделенного текста/слова под курсором в нижний регистр"
 
 msgid "_Upper Case of Selection/Word"
-msgstr "ПРОПИСНЫЕ"
+msgstr "_Выделение/слово в верхний регистр"
 
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr ""
-"ПРОПИСНЫЕ \n"
-"\n"
-"Преобразовать все буквы \n"
-"выделенного текста в ПРОПИСНЫЕ "
+msgstr "Преобразование выделенного текста/слова под курсором в верхний регистр"
 
 msgid "_Toggle Case of Selection/Word"
-msgstr "иЗМЕНИТЬ"
+msgstr "_Смена регистра выделения/слова"
 
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
-"иЗМЕНИТЬ \n"
-"\n"
-"Преобразовать все буквы выделенного \n"
-"текста в строчные или ПРОПИСНЫЕ"
+msgstr "_Смена регистра выделенного текста/слова под курсором"
 
 msgid "Cu_t as Plain Text"
-msgstr "Вырезать текст"
+msgstr "Вы_резать как обычный текст"
 
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
-"Вырезать текст\n"
-"\n"
-"Вырезать выделенный фрагмент текста\n"
-"без форматирования в буфер обмена"
+msgstr "Вырезать в виде обычного текста без форматирования"
 
 msgid "_Copy as Plain Text"
-msgstr "Копировать текст"
+msgstr "_Копировать как обычный текст"
 
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
-"Копировать текст\n"
-"\n"
-"Копировать выделенный фрагмент текста\n"
-"без форматирования в буфер обмена"
+msgstr "Копировать в виде обычного текста без форматирования"
 
 msgid "_Paste as Plain Text"
-msgstr "Вставить текст"
+msgstr "_Вставить как обычный текст"
 
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
-"Вставить текст\n"
-"\n"
-"Вставить текст без форматирования из буфера обмена"
+msgstr "Вставить в виде обычного текста без форматирования"
 
 msgid "C_ut Row"
-msgstr "Вырезать строку"
+msgstr "Вы_резать ряд"
 
 msgid "Cut the Current Row/Selected Rows"
-msgstr ""
-"Вырезать строку\n"
-"\n"
-"Вырезать текстовую строку в буфер обмена"
+msgstr "Вырезать текущий ряд/выделенные ряды"
 
 msgid "C_opy Row"
-msgstr "Копировать строку"
+msgstr "Ко_пировать ряд"
 
 msgid "Copy the Current Row/Selected Rows"
-msgstr ""
-"Копировать строку\n"
-"\n"
-"Копировать текстовую строку в буфер обмена"
+msgstr "Копировать текущий ряд/выделенные ряды"
 
 msgid "De_lete Row"
-msgstr "Удалить строку"
+msgstr "Уд_алить ряд"
 
 msgid "Delete the Current Row/Selected Rows"
-msgstr ""
-"Удалить строку\n"
-"\n"
-"Удалить текстовую строку из документа"
+msgstr "Удалить текущий ряд/выделенные ряды"
 
 msgid "_Duplicate Row"
-msgstr "Дублировать строку"
+msgstr "_Дублировать ряд"
 
 msgid "Duplicate the Current Row/Selection"
-msgstr ""
-"Дублировать строку\n"
-"\n"
-"Скопировать и вставить текстовую строку или выделенный\n"
-"фрагмент текста в следующую строку документа"
+msgstr "Дублировать текущий ряд/выделенные ряды"
 
 msgid "_Move Up Row"
-msgstr "Строку вверх"
+msgstr "_Переместить ряд вверх"
 
 msgid "Move Up the Current Row/Selected Rows"
-msgstr ""
-"Строку вверх\n"
-"\n"
-"Переместить текстовую строку вверх на один уровень"
+msgstr "Переместить текущий ряд/выделенные ряды вверх"
 
 msgid "Mo_ve Down Row"
-msgstr "Строку вниз"
+msgstr "Пере_местить ряд вниз"
 
 msgid "Move Down the Current Row/Selected Rows"
-msgstr ""
-"Строку вниз\n"
-"\n"
-"Переместить текстовую строку вниз на один уровень"
+msgstr "Переместить текущий ряд/выделенные ряды вниз"
 
 msgid "C_ut Table"
-msgstr "Вырезать таблицу"
+msgstr "Выр_езать таблицу"
 
 msgid "Cut the Selected Table"
-msgstr ""
-"Вырезать таблицу\n"
-"\n"
-"Вырезать таблицу в буфер обмена"
+msgstr "Вырезать выбранную таблицу"
 
 msgid "_Copy Table"
-msgstr "Копировать таблицу"
+msgstr "_Копировать таблицу"
 
 msgid "Copy the Selected Table"
-msgstr ""
-"Копировать таблицу\n"
-"\n"
-"Копировать таблицу в буфер обмена"
+msgstr "Копировать выбранную таблицу"
 
 msgid "_Delete Table"
-msgstr "Удалить таблицу"
+msgstr "_Удалить таблицу"
 
 msgid "Delete the Selected Table"
-msgstr ""
-"Удалить таблицу\n"
-"\n"
-"Удалить таблицу из документа"
+msgstr "Удалить выбранную таблицу"
 
 msgid "_Add Column"
-msgstr "Добавить столбец"
+msgstr "_Добавить столбец"
 
 msgid "Add a Table Column"
-msgstr ""
-"Добавить столбец\n"
-"\n"
-"Добавить столбец в таблицу"
+msgstr "Добавить столбец в таблицу"
 
 msgid "De_lete Column"
-msgstr "Удалить столбец"
+msgstr "Уда_лить столбец"
 
 msgid "Delete the Selected Table Column"
-msgstr ""
-"Удалить столбец\n"
-"\n"
-"Удалить столбец из таблицы"
+msgstr "Удалить выбранный столбец из таблицы"
 
 msgid "Move Column _Left"
-msgstr "Столбец влево"
+msgstr "Переместить столбец _влево"
 
 msgid "Move the Selected Column Left"
-msgstr ""
-"Столбец влево\n"
-"\n"
-"Переместить столбец таблицы влево"
+msgstr "Переместить выделенный столбец влево"
 
 msgid "Move Column _Right"
-msgstr "Столбец вправо"
+msgstr "Переместить столбе_ц вправо"
 
 msgid "Move the Selected Column Right"
-msgstr ""
-"Столбец вправо\n"
-"\n"
-"Переместить столбец таблицы вправо"
+msgstr "Переместить выбранный столбец вправо"
 
 msgid "Increase Column Width"
-msgstr "Увеличить ширину"
+msgstr "Увеличить ширину столбца"
 
 msgid "Increase the Width of the Column"
-msgstr ""
-"Увеличить ширину\n"
-"\n"
-"Увеличить ширину столбца таблицы"
+msgstr "Увеличить ширину столбца таблицы"
 
 msgid "Decrease Column Width"
-msgstr "Уменьшить ширину"
+msgstr "Уменьшить ширину столбца"
 
 msgid "Decrease the Width of the Column"
-msgstr ""
-"Уменьшить ширину\n"
-"\n"
-"Уменьшить ширину столбца таблицы"
+msgstr "Уменьшить ширину столбца таблицы"
 
 msgid "_Add Row"
-msgstr "Добавить строку"
+msgstr "До_бавить ряд"
 
 msgid "Add a Table Row"
-msgstr ""
-"Добавить строку\n"
-"\n"
-"Добавить строку в таблицу"
+msgstr "Добавить ряд в таблицу"
 
 msgid "Cu_t Row"
-msgstr "Вырезать строку"
+msgstr "Вы_резать ряд"
 
 msgid "Cut a Table Row"
-msgstr ""
-"Вырезать строку\n"
-"\n"
-"Вырезать строку таблицы в буфер обмена"
+msgstr "Вырезать ряд таблицы"
 
 msgid "_Copy Row"
-msgstr "Копировать строку"
+msgstr "Ко_пировать ряд"
 
 msgid "Copy a Table Row"
-msgstr ""
-"Копировать строку\n"
-"\n"
-"Копировать строку таблицы в буфер обмена"
+msgstr "Копировать ряд таблицы"
 
 msgid "_Paste Row"
-msgstr "Вставить строку"
+msgstr "_Вставить ряд"
 
 msgid "Paste a Table Row"
-msgstr ""
-"Вставить строку\n"
-"\n"
-"Вставить строку в таблицу из буфера обмена"
+msgstr "Вставить ряд в таблицу"
 
 msgid "Delete the Selected Table Row"
-msgstr ""
-"Удалить строку\n"
-"\n"
-"Удалить строку из таблицы"
+msgstr "Удалить выбранный ряд из таблицы"
 
 msgid "Move Row _Up"
-msgstr "Строку вверх"
+msgstr "Переместить ряд _вверх"
 
 msgid "Move the Selected Row Up"
-msgstr ""
-"Строку вверх\n"
-"\n"
-"Переместить строку таблицы вверх"
+msgstr "Переместить выбранный ряд вверх"
 
 msgid "Move Row _Down"
-msgstr "Строку вниз"
+msgstr "Переместить р_яд вниз"
 
 msgid "Move the Selected Row Down"
-msgstr ""
-"Строку вниз\n"
-"\n"
-"Переместить строку таблицы вниз"
+msgstr "Переместить выбранный ряд вниз"
 
 msgid "Sort Rows De_scending"
-msgstr "Сортировать по убыванию"
+msgstr "Сортировать ряды по _убыванию"
 
 msgid "Sort all the Rows Descending"
-msgstr ""
-"Сортировать по убыванию\n"
-"\n"
-"Сортировать все строки таблицы по убыванию"
+msgstr "Сортировать все ряды по убыванию"
 
 msgid "Sort Rows As_cending"
-msgstr "Сортировать по возрастанию"
+msgstr "Сортировать ряды по во_зрастанию"
 
 msgid "Sort all the Rows Ascending"
-msgstr ""
-"Сортировать по возрастанию\n"
-"\n"
-"Сортировать все строки таблицы по возрастанию"
+msgstr "Сортировать все ряды по возрастанию"
 
 msgid "_Edit Table Properties..."
-msgstr "Свойства таблицы..."
+msgstr "_Изменить свойства таблицы…"
 
 msgid "Edit the Table Properties"
-msgstr ""
-"Свойства таблицы...\n"
-"\n"
-"Изменить свойства таблицы"
+msgstr "Изменить свойства таблицы"
 
 msgid "_Table Export..."
-msgstr "Экспорт таблицы"
+msgstr "_Экспорт таблицы…"
 
 msgid "Export Table as CSV File"
-msgstr ""
-"Экспорт таблицы\n"
-"\n"
-"Экспортировать данные таблицы в файл CSV"
+msgstr "Экспортировать таблицу в файл CSV"
 
 msgid "Change CodeBox _Properties..."
-msgstr "Свойства CodeBox..."
+msgstr "Изменить свойства _блока кода…"
 
 msgid "Edit the Properties of the CodeBox"
-msgstr ""
-"Свойства CodeBox...\n"
-"\n"
-"Изменить свойства CodeBox"
+msgstr "Изменить свойства блока кода"
 
 msgid "CodeBox _Load From Text File..."
-msgstr "Загрузить в CodeBox..."
+msgstr "Загруз_ить блок кода из текстового файла…"
 
 msgid "Load the CodeBox Content From a Text File"
-msgstr ""
-"Загрузить в CodeBox...\n"
-"\n"
-"Загрузить програмный код в CodeBox\n"
-"из текстового файла"
+msgstr "Загрузить содержимое в блок кода из текстового файла"
 
 msgid "CodeBox _Save To Text File..."
-msgstr "Сохранить из CodeBox..."
+msgstr "Сохранить блок _кода в текстовый файл…"
 
 msgid "Save the CodeBox Content To a Text File"
 msgstr ""
-"Сохранить из CodeBox...\n"
-"\n"
-"Сохранить содержимое CodeBox\n"
+"Сохранить содержимое блока кода\n"
 "в текстовый файл"
 
 msgid "C_ut CodeBox"
-msgstr "Вырезать CodeBox"
+msgstr "Вы_резать блок кода"
 
 msgid "Cut the Selected CodeBox"
-msgstr ""
-"Вырезать CodeBox\n"
-"\n"
-"Вырезать CodeBox в буфер обмена"
+msgstr "Вырезать выбранный блок кода"
 
 msgid "_Copy CodeBox"
-msgstr "Копировать CodeBox"
+msgstr "Копи_ровать блок кода"
 
 msgid "Copy the Selected CodeBox"
-msgstr ""
-"Копировать CodeBox\n"
-"\n"
-"Копировать CodeBox в буфер обмена"
+msgstr "Копировать выбранный блок кода"
 
 msgid "_Delete CodeBox"
-msgstr "Удалить CodeBox"
+msgstr "_Удалить блок кода"
 
 msgid "Delete the Selected CodeBox"
-msgstr ""
-"Удалить CodeBox\n"
-"\n"
-"Удалить CodeBox из документа"
+msgstr "Удалить выбранный блок кода"
 
 msgid "Delete CodeBox _Keep Content"
-msgstr "Удалить CodeBox с..."
+msgstr "Удалить блок кода с _сохранением содержимого"
 
 msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr ""
-"Удалить CodeBox с...\n"
-"\n"
-"Удалить CodeBox с сохранением содержимого.\n"
-"\n"
-"Удаляется только контейнер CodeBox, а текст \n"
-"содержащийся в CodeBox вставляется в документ"
+msgstr "Удалить CodeBox с сохранением содержимого"
 
 msgid "Increase CodeBox Width"
-msgstr "Увеличить ширину"
+msgstr "Увеличить ширину блока кода"
 
 msgid "Increase the Width of the CodeBox"
-msgstr ""
-"Увеличить ширину\n"
-"\n"
-"Увеличить ширину CodeBox"
+msgstr "Увеличить ширину блока кода"
 
 msgid "Decrease CodeBox Width"
-msgstr "Уменьшить ширину"
+msgstr "Уменьшить ширину блока кода"
 
 msgid "Decrease the Width of the CodeBox"
-msgstr ""
-"Уменьшить ширину\n"
-"\n"
-"Уменьшить ширину CodeBox"
+msgstr "Уменьшить ширину блока кода"
 
 msgid "Increase CodeBox Height"
-msgstr "Увеличить высоту"
+msgstr "Увеличить высоту блока кода"
 
 msgid "Increase the Height of the CodeBox"
-msgstr ""
-"Увеличить высоту\n"
-"\n"
-"Увеличить высоту CodeBox"
+msgstr "Увеличить высоту блока кода"
 
 msgid "Decrease CodeBox Height"
-msgstr "Уменьшить высоту"
+msgstr "Уменьшить высоту блока кода"
 
 msgid "Decrease the Height of the CodeBox"
-msgstr ""
-"Уменьшить высоту\n"
-"\n"
-"Уменьшить высоту CodeBox"
+msgstr "Уменьшить высоту блока кода"
 
 msgid "Format"
 msgstr "Формат"
 
 msgid "Format Clo_ne"
-msgstr "Клонировать формат"
+msgstr "Клонировать _формат"
 
 msgid "Clone the Text Format Type at Cursor"
-msgstr ""
-"Клонировать формат\n"
-"\n"
-"Клонировать форматирование текста около курсора"
+msgstr "Клонировать тип форматирования текста под курсором"
 
 msgid "Format _Latest"
-msgstr "Формат по образцу"
+msgstr "Последний _формат"
 
 msgid "Memory of Latest Text Format Type"
-msgstr ""
-"Формат по образцу\n"
-"\n"
-"Запомнить последнее форматирование текста\n"
-"и применить его к другим фрагментам текста"
+msgstr "Запомнить последнее форматирование текста"
 
 msgid "_Remove Formatting"
-msgstr "Очистить формат"
+msgstr "_Удалить форматирование"
 
 msgid "Remove the Formatting from the Selected Text"
-msgstr ""
-"Очистить формат \n"
-"\n"
-"Удалить форматирование из выделенного текста"
+msgstr "Удалить форматирование из выбранного текста"
 
 msgid "Text _Color Foreground"
-msgstr "Текст"
+msgstr "_Цвет текста"
 
 msgid "Change the Color of the Selected Text Foreground"
-msgstr ""
-"Текст\n"
-"\n"
-"Изменить цвет текста"
+msgstr "Изменить цвет выбранного текста"
 
 msgid "Text C_olor Background"
-msgstr "Фон"
+msgstr "Цвет _фона текста"
 
 msgid "Change the Color of the Selected Text Background"
-msgstr ""
-"Фон \n"
-"\n"
-"Изменить цвет фона.\n"
-"\n"
-"Текст будет выглядеть так, как \n"
-"будто его выделили маркером"
+msgstr "Изменить цвет фона выделенного текста"
 
 msgid "Toggle _Bold Property"
-msgstr "Полужирный"
+msgstr "_Полужирный текст"
 
 msgid "Toggle Bold Property of the Selected Text"
-msgstr ""
-"Полужирный \n"
-"\n"
-"Применить полужирное начертание \n"
-"к выделенному тексту"
+msgstr "Переключить свойство насыщенности шрифта выбранного текста"
 
 msgid "Toggle _Italic Property"
-msgstr "Курсив"
+msgstr "_Наклонный текст"
 
 msgid "Toggle Italic Property of the Selected Text"
-msgstr ""
-"Курсив \n"
-"\n"
-"Применить курсивное начертание \n"
-"к выделенному тексту"
+msgstr "Переключить свойство наклонности шрифта выбранного текста"
 
 msgid "Toggle _Underline Property"
-msgstr "Подчёркнутый"
+msgstr "_Подчёркнутый текст"
 
 msgid "Toggle Underline Property of the Selected Text"
-msgstr ""
-"Подчёркнутый \n"
-"\n"
-"Подчёркивать выделенный текст"
+msgstr "Переключить свойство подчёркивания шрифта выбранного текста"
 
 msgid "Toggle Stri_kethrough Property"
-msgstr "Зачёркнутый"
+msgstr "_Перечёркнутый текст"
 
 msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr ""
-"Зачёркнутый \n"
-"\n"
-"Добавить линию, проходящую через \n"
-"середину выделенного текста"
+msgstr "Переключить свойство перечёркивания шрифта выбранного текста"
 
 msgid "Toggle h_1 Property"
-msgstr "Стиль 1"
+msgstr "Размер _h1"
 
 msgid "Toggle h1 Property of the Selected Text"
-msgstr ""
-"Стиль 1\n"
-"\n"
-"Применить к абзацу стиль\n"
-"начертания текста \"Стиль 1\" "
+msgstr "Переключить размер h1 для выбранного текста"
 
 msgid "Toggle h_2 Property"
-msgstr "Стиль 2"
+msgstr "Размер h_2"
 
 msgid "Toggle h2 Property of the Selected Text"
-msgstr ""
-"Стиль 2\n"
-"\n"
-"Применить к абзацу стиль\n"
-"начертания текста \"Стиль 2\" "
+msgstr "Переключить размер h2 для выбранного текста"
 
 msgid "Toggle h_3 Property"
-msgstr "Стиль 3"
+msgstr "Размер h_3"
 
 msgid "Toggle h3 Property of the Selected Text"
-msgstr ""
-"Стиль 3\n"
-"\n"
-"Применить к абзацу стиль\n"
-"начертания текста \"Стиль 3\" "
+msgstr "Переключить размер h3 для выбранного текста"
 
 msgid "Toggle h_4 Property"
-msgstr "Стиль 4"
+msgstr "Размер h_4"
 
 msgid "Toggle h4 Property of the Selected Text"
-msgstr ""
-"Стиль 4\n"
-"\n"
-"Применить к абзацу стиль\n"
-"начертания текста \"Стиль 4\" "
+msgstr "Переключить размер h4 для выбранного текста"
 
 msgid "Toggle h_5 Property"
-msgstr "Стиль 5"
+msgstr "Размер h_5"
 
 msgid "Toggle h5 Property of the Selected Text"
-msgstr ""
-"Стиль 5\n"
-"\n"
-"Применить к абзацу стиль\n"
-"начертания текста \"Стиль 5\" "
+msgstr "Переключить размер h5 для выбранного текста"
 
 msgid "Toggle h_6 Property"
-msgstr "Стиль 6"
+msgstr "Размер h_6"
 
 msgid "Toggle h6 Property of the Selected Text"
-msgstr ""
-"Стиль 6\n"
-"\n"
-"Применить к абзацу стиль\n"
-"начертания текста \"Стиль 6\" "
+msgstr "Переключить размер h6 для выбранного текста"
 
 msgid "Toggle _Small Property"
-msgstr "Уменьшить размер"
+msgstr "Мал_ый размер"
 
 msgid "Toggle Small Property of the Selected Text"
-msgstr ""
-"Уменьшить размер\n"
-"\n"
-"Уменьшить размер шрифта \n"
-"выделенного фрагмента теста"
+msgstr "Переключить малый размер шрифта для выбранного текста"
 
 msgid "Toggle Su_perscript Property"
-msgstr "Надстрочный знак"
+msgstr "Верхний ин_декс"
 
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr ""
-"Надстрочный знак\n"
-"\n"
-"Создать маленькие знаки \n"
-"выше опорной линии теста"
+msgstr "Переключить верхний индекс шрифта для выбранного текста"
 
 msgid "Toggle Su_bscript Property"
-msgstr "Подстрочный знак"
+msgstr "Ни_жний индекс"
 
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr ""
-"Подстрочный знак\n"
-"\n"
-"Создать маленькие знаки \n"
-"ниже опорной линии теста"
+msgstr "Переключить нижний индекс шрифта для выбранного текста"
 
 msgid "Toggle _Monospace Property"
-msgstr "Моношрифт"
+msgstr "Моно_шрифт"
 
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr ""
-"Моношрифт\n"
-"\n"
-"Применить моношрифт, в котором\n"
-"все знаки имеют одинаковую ширину"
+msgstr "Переключить моноширный шрифт для выбранного текста"
 
 msgid "Set/Unset _Bulleted List"
-msgstr "Маркированный список"
+msgstr "Маркированный с_писок"
 
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
-"Маркированный список\n"
-"\n"
-"Начало маркированного списка"
+"Переключить маркированный список для текущего параграфа/выделенного текста"
 
 msgid "Set/Unset _Numbered List"
-msgstr "Нумерованный список"
+msgstr "Нуме_рованный список"
 
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
-"Нумерованный список\n"
-"\n"
-"Начало нумерованного списка"
+"Переключить нумерованный список для текущего параграфа/выделенного текста"
 
 msgid "Set/Unset _To-Do List"
-msgstr "To-Do список"
+msgstr "Список зада_ч"
 
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr ""
-"To-Do список\n"
-"\n"
-"Начало To-Do списка"
+msgstr "Переключить список задач для текущего параграфа/выделенного текста"
 
 msgid "Justify _Left"
-msgstr "По левому краю"
+msgstr "По ле_вому краю"
 
 msgid "Justify Left the Current Paragraph"
-msgstr ""
-"По левому краю\n"
-"\n"
-"Выравнивание текста по левому краю\n"
-"Этот тип выравнивания обычно используется\n"
-"для основного текста и облегчает чтение документа."
+msgstr "Выровнять текущий параграф по левому краю"
 
 msgid "Justify _Center"
-msgstr "По центру"
+msgstr "По _центру"
 
 msgid "Justify Center the Current Paragraph"
-msgstr ""
-"По центру\n"
-"\n"
-"Выравнивание текста по центру\n"
-"С помощью этого типа выравнивания вы можете\n"
-"придать документу официальный вид. Он часто \n"
-"используется для цитат и заголовков."
+msgstr "Выровнять текущий параграф по центру"
 
 msgid "Justify _Right"
-msgstr "По правому краю"
+msgstr "По _правому краю"
 
 msgid "Justify Right the Current Paragraph"
-msgstr ""
-"По правому краю\n"
-"\n"
-"Выравнивание текста по правому краю\n"
-"Этот тип выравнивания обычно используется\n"
-"для небольших фрагментов текста."
+msgstr "Выровнять текущий параграф по правому краю"
 
 msgid "Justify _Fill"
-msgstr "По ширине"
+msgstr "По _ширине"
 
 msgid "Justify Fill the Current Paragraph"
-msgstr ""
-"По ширине\n"
-"\n"
-"Выравнивание текста по ширине\n"
-"Равномерное распределение текста между\n"
-"левым и правым краям поля.\n"
-"Выровненный по ширине текст делает края\n"
-"документа ровными и чёткими."
+msgstr "Выровнять текущий параграф по ширине"
 
 msgid "_Indent Paragraph"
-msgstr "Увеличить отступ"
+msgstr "_Добавить отступ"
 
 msgid "Indent the Current Paragraph"
-msgstr ""
-"Увеличить отступ\n"
-"\n"
-"Увеличить отступ от края колонки одной\n"
-"или нескольких строк, идущих подряд."
+msgstr "Добавить отступ для текущего абзаца"
 
 msgid "_Unindent Paragraph"
-msgstr "Уменьшить отступ"
+msgstr "_Отменить отступ абзац"
 
 msgid "Unindent the Current Paragraph"
-msgstr ""
-"Уменьшить отступ\n"
-"\n"
-"Уменьшить отступ от края колонки одной\n"
-"или нескольких строк, идущих подряд."
+msgstr "Отменить отступ для текущего абзаца"
 
 msgid "Tools"
 msgstr "Инструменты"
@@ -1997,181 +1635,118 @@ msgid "Enable/Disable _Spell Check"
 msgstr "Орфография"
 
 msgid "Toggle Enable/Disable Spell Check"
-msgstr "Включить/Выключить проверку орфографии"
+msgstr "Включить/выключить проверку орфографии"
 
 msgid "Stri_p Trailing Spaces"
-msgstr "Удалить пробелы"
+msgstr "Уда_лить конечные пробелы"
 
 msgid "Strip Trailing Spaces"
-msgstr ""
-"Удалить пробелы\n"
-"\n"
-"Удалить лишние пробелы в конце строк"
+msgstr "Удалить пробелы в конце строк"
 
 msgid "_Replace Tabs with Spaces"
-msgstr "Заменить табуляцию"
+msgstr "_Заменить табуляцию пробелами"
 
 msgid "Replace Tabs with Spaces"
-msgstr ""
-"Заменить табуляцию\n"
-"\n"
-"Заменить табуляцию пробелами"
+msgstr "Заменить табуляцию пробелами"
 
 msgid "_Command Palette..."
-msgstr "Команды..."
+msgstr "_Палитра команд…"
 
 msgid "Command Palette"
-msgstr ""
-"Команды...\n"
-"\n"
-"Выполнить любую из команд представленную\n"
-"в \"Файл\\Настройки...\\Горячие клавиши\" "
+msgstr "Палитра команд"
 
 msgid "_Execute Code All"
-msgstr "Выполнить..."
+msgstr "_Выполнить весь код"
 
 msgid "Execute All Code in CodeBox or Node"
-msgstr ""
-"Выполнить...\n"
-"\n"
-"Выполнить весь код из CodeBox или ветви\n"
-"с помощью интерпретатора или компилятора"
+msgstr "Выполнить весь код из блока кода или узла"
 
 msgid "E_xecute Code Line or Selection"
-msgstr "Выполнить..."
+msgstr "Вы_полнить строку кода или выделенный текст"
 
 msgid "Execute Code from Current Line or Selected Text"
-msgstr ""
-"Выполнить...\n"
-"\n"
-"Выполнить код из текущей строки или выделенного текста"
+msgstr "Выполнить код из текущей строки или выделенного текста"
 
 msgid "Tree"
 msgstr "Дерево"
 
 msgid "Go _Back"
-msgstr "Назад"
+msgstr "Н_азад"
 
 msgid "Go to the Previous Visited Node"
-msgstr ""
-"Назад\n"
-"\n"
-"Перейти к предыдущей ветви"
+msgstr "Перейти к ранее посещённому узлу"
 
 msgid "Go _Forward"
 msgstr "Вперёд"
 
 msgid "Go to the Next Visited Node"
-msgstr ""
-"Вперёд\n"
-"\n"
-"Перейти к следующей ветви"
+msgstr "Перейти к следующему посещённому узлу"
 
 msgid "Add _Node..."
-msgstr "Новая ветвь"
+msgstr "Добавить _узел…"
 
 msgid "Add a Node having the same Parent of the Selected Node"
-msgstr ""
-"Новая ветвь\n"
-"\n"
-"Добавить новою родительскую ветвь"
+msgstr "Добавить потомка в родительский узел выбранного узла"
 
 msgid "Add _Subnode..."
-msgstr "Новая дочерняя ветвь"
+msgstr "Добавить _дочерний узел…"
 
 msgid "Add a Child Node to the Selected Node"
-msgstr ""
-"Новая дочерняя ветвь\n"
-"\n"
-"Добавить новую дочернюю ветвь \n"
-"к родительской ветви"
+msgstr "Добавить потомка в выбранный узел"
 
 msgid "_Duplicate Node"
-msgstr "Дублировать ветвь"
+msgstr "Д_ублировать узел"
 
 msgid "Duplicate the Selected Node"
-msgstr ""
-"Дублировать ветвь\n"
-"\n"
-"Скопировать и вставить ветвь без дочерних"
+msgstr "Дублировать выбранный узел"
 
 msgid "Duplicate Node _and Subnodes"
-msgstr "Дублировать с дочерними"
+msgstr "Дублировать узел _с потомками"
 
 msgid "Duplicate the Selected Node and the Subnodes"
-msgstr ""
-"Дублировать с дочерними\n"
-"\n"
-"Скопировать и вставить ветвь вместе с дочерними"
+msgstr "Дублировать выбранный узел с дочерними узлами"
 
 msgid "Copy Node and S_ubnodes"
-msgstr "Копировать с дочерними"
+msgstr "Копировать узел с потомками"
 
 msgid "Copy the Selected Node and the Subnodes"
-msgstr ""
-"Копировать с дочерними\n"
-"\n"
-"Скопировать ветвь вместе с дочерними"
+msgstr "Копировать выбранный узел с дочерними узлами"
 
 msgid "_Paste Node and Subnodes"
-msgstr "Вставить с дочерними"
+msgstr "_Вставить узел с потомками"
 
 msgid "Paste the Copied Node and Subnodes"
-msgstr ""
-"Вставить с дочерними\n"
-"\n"
-"Вставить скопированную ветвь вместе с дочерними"
+msgstr "Вставить скопированный узел с дочерними узлами"
 
 msgid "Insert _Today's Node Under Tree Root"
-msgstr "Вставить ветвь..."
+msgstr "Добавить узел дн_я в корень дерева"
 
 msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr ""
-"Вставить ветвь...\n"
-"\n"
-"Вставить ветвь с иерархией Год/Месяц/День.\n"
-"\n"
-"Если ветвь с сегодняшней датой существует, то \n"
-"ветвь не добавляется, а становится активной"
+msgstr "Добавить узел с иерархией год/месяц/день в корневой узел дерева"
 
 msgid "Insert Toda_y's Node Under Selected Node"
-msgstr "Вставить ветвь..."
+msgstr "Добавить узел дн_я в выбранный узел"
 
 msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr ""
-"Вставить ветвь...\n"
-"\n"
-"Вставить ветвь с иерархией Год/Месяц/День.\n"
-"\n"
-"Если ветвь с сегодняшней датой существует, то \n"
-"ветвь не добавляется, а становится активной"
+msgstr "Добавить узел с иерархией год/месяц/день в выбранный узел"
 
 msgid "C_hange Node Properties..."
-msgstr "Свойства ветви..."
+msgstr "_Изменить свойства узла…"
 
 msgid "Edit the Properties of the Selected Node"
-msgstr ""
-"Свойства ветви...\n"
-"\n"
-"Изменить свойства ветви"
+msgstr "Изменить свойства выбранного узла"
 
 msgid "Toggle _Read Only"
-msgstr "Только чтение"
+msgstr "Только _чтение"
 
 msgid "Toggle the Read Only Property of the Selected Node"
-msgstr ""
-"Только чтение\n"
-"\n"
-"Защитить текст документа от форматирования и редактирования"
+msgstr "Переключить свойство только для чтения у выбранного узла"
 
 msgid "Cop_y Link to Node"
-msgstr "Копировать ссылку"
+msgstr "Копирова_ть ссылку на узел"
 
 msgid "Copy Link to the Selected Node to Clipboard"
-msgstr ""
-"Копировать ссылку\n"
-"\n"
-"Копировать ссылку на ветвь в буфер обмена"
+msgstr "Копировать ссылку на узел в буфер обмена"
 
 msgid "Children _Inherit Syntax"
 msgstr "Наследовать синтаксис"
@@ -2179,871 +1754,569 @@ msgstr "Наследовать синтаксис"
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
-msgstr ""
-"Наследовать синтаксис\n"
-"\n"
-"Синхронизировать тип подсветки синтаксиса с родительской ветвью"
+msgstr "Синхронизировать тип подсветки синтаксиса с родительским узлом"
 
 msgid "_Handle Bookmarks..."
-msgstr "Управление закладками"
+msgstr "_Диспечтер закладок…"
 
 msgid "Add to Boo_kmarks"
-msgstr "Добавить в закладки"
+msgstr "Добавить в з_акладки"
 
 msgid "Add the Current Node to the Bookmarks List"
-msgstr ""
-"Добавить в закладки\n"
-"\n"
-"Добавить ветвь в перечень закладок"
+msgstr "Добавить текущий узел в список закладок"
 
 msgid "_Remove from Bookmarks"
-msgstr "Удалить из закладок"
+msgstr "_Удалить из закладок"
 
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr ""
-"Удалить из закладок\n"
-"\n"
-"Удалить ветвь из перечня закладок"
+msgstr "Удалить текущий узел из списка закладок"
 
 msgid "E_xpand All Nodes"
-msgstr "Развернуть..."
+msgstr "Ра_звернуть все узлы"
 
 msgid "Expand All the Tree Nodes"
-msgstr ""
-"Развернуть...\n"
-"\n"
-"Развернуть все ветви"
+msgstr "Развернуть все узлы дерева"
 
 msgid "_Collapse All Nodes"
-msgstr "Свернуть..."
+msgstr "_Свернуть все узлы"
 
 msgid "Collapse All the Tree Nodes"
-msgstr ""
-"Свернуть...\n"
-"\n"
-"Свернуть все ветви"
+msgstr "Свернуть все узлы дерева"
 
 msgid "Node _Up"
-msgstr "Ветвь вверх"
+msgstr "Узел _вверх"
 
 msgid "Move the Selected Node Up"
-msgstr ""
-"Ветвь вверх\n"
-"\n"
-"Переместить ветвь вверх на один уровень"
+msgstr "Переместить выбранный узел вверх"
 
 msgid "Node _Down"
-msgstr "Ветвь вниз"
+msgstr "Узел _вниз"
 
 msgid "Move the Selected Node Down"
-msgstr ""
-"Ветвь вниз\n"
-"\n"
-"Переместить ветвь вниз на один уровень"
+msgstr "Переместить выбранный узел вниз"
 
 msgid "Node _Left"
-msgstr "Ветвь влево"
+msgstr "Узел _влево"
 
 msgid "Move the Selected Node Left"
-msgstr ""
-"Ветвь влево\n"
-"\n"
-"Переместить ветвь влево на один уровень"
+msgstr "Переместить выбранный узел влево"
 
 msgid "Node _Right"
-msgstr "Ветвь вправо"
+msgstr "Ветвь в_право"
 
 msgid "Move the Selected Node Right"
-msgstr ""
-"Ветвь вправо\n"
-"\n"
-"Переместить ветвь вправо на один уровень"
+msgstr "Переместить выбранный ветвь вправо"
 
 msgid "Node Change _Parent..."
-msgstr "Сменить родителя"
+msgstr "Сменить родителя…"
 
 msgid "Change the Selected Node's Parent"
-msgstr ""
-"Сменить родителя\n"
-"\n"
-"Сменить родительскую ветвь.\n"
-"Ветвь перемещается к новой\n"
-"родительской ветви"
+msgstr "Сменить родителя выбранного узла"
 
 msgid "Sort Tree _Ascending"
-msgstr "Дерево по возрастанию"
+msgstr "Сортировать дерево по в_озрастанию"
 
 msgid "Sort the Tree Ascending"
-msgstr ""
-"Дерево по возрастанию\n"
-"\n"
-"Сортировать ветви\n"
-"дерева по возрастанию"
+msgstr "Сортировать дерево по возрастанию"
 
 msgid "Sort Tree _Descending"
-msgstr "Дерево по убыванию"
+msgstr "Сортировать дерево по у_быванию"
 
 msgid "Sort the Tree Descending"
-msgstr ""
-"Дерево по убыванию\n"
-"\n"
-"Сортировать ветви \n"
-"дерева по убыванию"
+msgstr "Сортировать дерево по убыванию"
 
 msgid "Sort Siblings A_scending"
-msgstr "Ветви по возрастанию"
+msgstr "Сортировать потомков по во_зрастанию"
 
 msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr ""
-"Ветви по возрастанию\n"
-"\n"
-"Сортировать ветви по возрастанию в выбранной ветви"
+msgstr "Сортировать потомков выбранного узла по возрастанию"
 
 msgid "Sort Siblings D_escending"
-msgstr "Ветви по убыванию"
+msgstr "Сортировать потомков по уб_ыванию"
 
 msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr ""
-"Ветви по убыванию\n"
-"\n"
-"Сортировать ветви по убыванию в выбранной ветви"
+msgstr "Сортировать потомков выбранного узла по убыванию"
 
 msgid "De_lete Node"
-msgstr "Удалить ветвь"
+msgstr "Уда_лить узел"
 
 msgid "Delete the Selected Node"
-msgstr ""
-"Удалить ветвь\n"
-"\n"
-"Удалить ветвь из дерева"
+msgstr "Удалить выбранную ветвь"
 
 msgid "Find/Replace"
 msgstr "Найти/Заменить"
 
 msgid "_Find in Node Content..."
-msgstr "Найти в ветви"
+msgstr "_Поиск по содержимому узла…"
 
 msgid "Find into the Selected Node Content"
-msgstr ""
-"Найти в ветви\n"
-"\n"
-"Поиск текста или другого содержимого\n"
-"в содержании ветви"
+msgstr "Поиск по содержимому выбранного узла"
 
 msgid "Find _in Multiple Nodes..."
-msgstr "Найти в ветвях..."
+msgstr "Поиск _по нескольким узлам…"
 
 msgid "Find in Multiple Nodes"
-msgstr ""
-"Найти в ветвях\n"
-"\n"
-"Поиск текста или другого\n"
-"содержимого в содержании ветвей"
+msgstr "Поиск по нескольким узлам"
 
 msgid "Find in _Nodes Names and Tags..."
-msgstr "Найти в именах ветвей и тэгах"
+msgstr "Поиск по _именам узлов и тегам…"
 
 msgid "Find in Nodes Names and Tags"
-msgstr ""
-"Найти в именах ветвей и тэгах\n"
-"\n"
-"Поиск текста или другого содержимого\n"
-"в именах ветвей и тэгах"
+msgstr "Поиск по именам узлов и тегам"
 
 msgid "Find _Again"
-msgstr "Искать следующее..."
+msgstr "Следую_щее"
 
 msgid "Iterate the Last Find Operation"
-msgstr ""
-"Искать следующее...\n"
-"\n"
-"Продолжить поиск текста или другого\n"
-"содержимого в прямом направлении"
+msgstr "Искать следующее совпадение последнего поиска"
 
 msgid "Find _Back"
-msgstr "Искать предыдущее..."
+msgstr "Предыд_ущее"
 
 msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr ""
-"Искать предыдущее...\n"
-"\n"
-"Продолжить поиск текста или другого\n"
-"содержимого в обратном направлении"
+msgstr "Искать предыдущее совпадение последнего поиска"
 
 msgid "_Replace in Node Content..."
-msgstr "Заменить в ветви"
+msgstr "_Замена в содержимом узла..."
 
 msgid "Replace into the Selected Node Content"
-msgstr ""
-"Заменить в ветви\n"
-"\n"
-"Заменить текст или другое содержимое в ветви"
+msgstr "Замена в содержимом выбранного узла"
 
 msgid "Replace in _Multiple Nodes..."
-msgstr "Заменить в ветвях..."
+msgstr "Замена в _нескольких узлах…"
 
 msgid "Replace in Multiple Nodes"
-msgstr ""
-"Заменить в ветвях\n"
-"\n"
-"Заменить текст или другое содержимое во всех ветвях"
+msgstr "Замена в нескольких узлах"
 
 msgid "Replace A_gain"
-msgstr "Повторить замену..."
+msgstr "Повторить за_мену"
 
 msgid "Iterate the Last Replace Operation"
-msgstr ""
-"Повторить замену...\n"
-"\n"
-"Продолжить замену текста или другого содержимого"
+msgstr "Заменить предыдущее совпадение последнего поиска"
 
 msgid "Show All Matches _Dialog..."
-msgstr "Совпадения..."
+msgstr "Показать окно отобра_жения всех совпадений"
 
 msgid "Show Search All Matches Dialog"
-msgstr ""
-"Совпадения...\n"
-"\n"
-"Показать окно с совпадениями найденные\n"
-"при поиске или при замене текста"
+msgstr "Показать диалоговое окно с отображением всех совпадений поиска"
 
 msgid "_Clear All Exclusions From Search"
-msgstr "Очистить все исключения поиска"
+msgstr "_Удалить все исключения из поиска"
 
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
-msgstr ""
-"Очистить все исключения поиска\n"
-"\n"
-"Очистить все свойства ветвей дерева от исключений поиска"
+msgstr "Очистить свойства всех ветвей дерева от исключений из поиска"
 
 msgid "View"
 msgstr "Вид"
 
 msgid "Show/Hide _Tree Explorer"
-msgstr "Обозреватель дерева"
+msgstr "Обо_зреватель дерева"
 
 msgid "Toggle Show/Hide Tree"
-msgstr ""
-"Обозреватель дерева\n"
-"\n"
-"Показать/Скрыть обозреватель дерева, который\n"
-"позволяет просматривать древовидное представление\n"
-"документа и быстро перемещаться по его ветвям"
+msgstr "Показать/Скрыть обозреватель дерева"
 
 msgid "Show/Hide Te_rminal"
-msgstr "Терминал"
+msgstr "Тер_минал"
 
 msgid "Toggle Show/Hide Terminal"
-msgstr ""
-"Терминал\n"
-"\n"
-"Показать/Скрыть терминал"
+msgstr "Показать/скрыть терминал"
 
 msgid "Toggle Focus Terminal/Te_xt"
-msgstr "Переключить фокус..."
+msgstr "Фокус на терминал/те_кст"
 
 msgid "Toggle Focus Between Terminal and Text"
-msgstr ""
-"Переключить фокус...\n"
-"\n"
-"Переключить фокус между Обозревателем дерева и Текстовым редактором"
+msgstr "Переключение фокуса между терминалом и текстом"
 
 msgid "Show/Hide _Menubar"
-msgstr "Главное меню"
+msgstr "Главное _меню"
 
 msgid "Toggle Show/Hide Menubar"
-msgstr ""
-"Главное меню\n"
-"\n"
-"Показать/Скрыть главное меню"
+msgstr "Показать/скрыть главное меню"
 
 msgid "Show/Hide Tool_bar"
-msgstr "Панель инструментов"
+msgstr "Панель инс_трументов"
 
 msgid "Toggle Show/Hide Toolbar"
-msgstr ""
-"Панель инструментов\n"
-"\n"
-"Показать/Скрыть панель инструментов.\n"
-"\n"
-"Панель инструментов позволяет оперативно\n"
-"вызывать команды меню, вставлять объекты\n"
-"форматировать текст, редактировать дерево.\n"
-"Если вы ненадолго задержите указатель мыши\n"
-"над любой кнопкой, появится подсказка с описанием.\n"
-"\n"
-"Вы можете легко настроить панель \n"
-"инструментов, в настройках программы"
+msgstr "Показать/скрыть панель инструментов"
 
 msgid "Show/Hide _Statusbar"
-msgstr "Строка состояния"
+msgstr "Строка _состояния"
 
 msgid "Toggle Show/Hide Statusbar"
-msgstr ""
-"Строка состояния\n"
-"\n"
-"Показать/Скрыть строку состояния"
+msgstr "Показать/скрыть строку состояния"
 
 msgid "Show/Hide _Lines Node Parent to Children"
-msgstr "Линии"
+msgstr "Линии с_вязи родителей с потомками"
 
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
-msgstr ""
-"Линии\n"
-"\n"
-"Показать/Скрыть линии связи, которые\n"
-"идут от родительской ветви к дочерним"
+msgstr "Показать/скрыть линии связи родителей с потомками"
 
 msgid "Show/Hide Node Name _Header"
-msgstr "Заголовок"
+msgstr "Заголовок _узла"
 
 msgid "Toggle Show/Hide Node Name Header"
-msgstr ""
-"Заголовок\n"
-"\n"
-"Показать/Скрыть заголовок ветви в текстовом редакторе"
+msgstr "Показать/скрыть заголовок узла"
 
 msgid "Toggle _Focus Tree/Text"
-msgstr "Переключить фокус..."
+msgstr "Фокус _на дерево/текст"
 
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
-"Переключить фокус...\n"
-"\n"
-"Переключить фокус между Обозревателем дерева и Текстовым редактором"
+msgstr "Переключение фокуса между деревом и текстом"
 
 msgid "_Increase Toolbar Icons Size"
-msgstr "Увеличить значки..."
+msgstr "У_величить значки"
 
 msgid "Increase the Size of the Toolbar Icons"
-msgstr ""
-"Увеличить значки...\n"
-"\n"
-"Увеличить размер значков панели инструментов"
+msgstr "Увеличить размер значков на панели инструментов"
 
 msgid "_Decrease Toolbar Icons Size"
-msgstr "Уменьшить значки..."
+msgstr "_Уменьшить значки"
 
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr ""
-"Уменьшить значки...\n"
-"\n"
-"Уменьшить размер значков панели инструментов"
+msgstr "Уменьшить размер значков на панели инструментов"
 
 msgid "Full Screen _On/Off"
-msgstr "На весь экран"
+msgstr "На _весь экран"
 
 msgid "Toggle Full Screen On/Off"
-msgstr ""
-"На весь экран\n"
-"\n"
-"Полноэкранный просмотр"
+msgstr "Включение/выключение полноэкранного режима"
 
 msgid "_Always On Top On/Off"
-msgstr "Всегда сверху"
+msgstr "Поверх _других окон"
 
 msgid "Always On Top On/Off"
-msgstr ""
-"Всегда сверху\n"
-"\n"
-"Закрепить окно CherryTree поверх других"
+msgstr "Включение/выключение режима отображения поверх других окон"
 
 msgid "Disable Menubar i_n Titlebar"
-msgstr "Главное меню..."
+msgstr "Главное меню под _заголовком окна"
 
 msgid "Do Not Place the Menubar in the Titlebar"
-msgstr ""
-"Главное меню...\n"
-"\n"
-"Переместить строку гланого меню под заголовок окна"
+msgstr "Поместить строку главного меню под заголовком окна"
 
 msgid "Enable Menubar i_n Titlebar"
-msgstr "Гланое меню..."
+msgstr "Главное меню в заголовке окна"
 
 msgid "Place the Menubar in the Titlebar"
-msgstr ""
-"Главное меню...\n"
-"\n"
-"Переместить строку главного меню в заголовок окна"
+msgstr "Поместить главное меню в заголовке окна"
 
 msgid "Import"
 msgstr "Импорт"
 
 msgid "From _CherryTree File"
-msgstr "Из файла CherryTree"
+msgstr "Из _файла CherryTree"
 
 msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr ""
-"Импорт данных из файла CherryTree\n"
-"\n"
-"Получить внешние данные из файла CherryTree"
+msgstr "Добавить узлы из файла CherryTree в текущее дерево"
 
 msgid "From _Plain Text File"
-msgstr "Из текстового файла"
+msgstr "Из тек_стового файла"
 
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr ""
-"Импорт данных из текстового файла\n"
-"\n"
-"Получить внешние данные из текстового файла"
+msgstr "Добавить узлы из текстового файла в текущее дерево"
 
 msgid "From _Folder of Plain Text Files"
-msgstr "Из папки с текстовыми файлами"
+msgstr "Из пап_ки с текстовыми файлами"
 
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr ""
-"Импорт данных из папки с текстовыми файлами\n"
-"\n"
-"Получить внешние данные из папки с текстовыми файлами"
+msgstr "Добавить узлы из папки с текстовыми файлами в текущее дерево"
 
 msgid "From _HTML File"
-msgstr "Из файла HTML"
+msgstr "Из фай_ла HTML"
 
 msgid "Add Node from an HTML File to the Current Tree"
-msgstr ""
-"Импорт данных из файла HTML\n"
-"\n"
-"Получить внешние данные из файла HTML"
+msgstr "Добавить узлы из файла HTML в текущее дерево"
 
 msgid "From _Folder of HTML Files"
-msgstr "Из папки с файлами HTML"
+msgstr "Из пап_ки с файлами HTML"
 
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr ""
-"Импорт данных из папки с файлами HTML\n"
-"\n"
-"Получить внешние данные из папки с файлами HTML"
+msgstr "Добавить узлы из папки с файлами HTML в текущее дерево"
 
 msgid "From _Markdown File"
-msgstr "Из файла Markdown"
+msgstr "И_з файла Markdown"
 
 msgid "Add a node from a Markdown File to the Current Tree"
-msgstr ""
-"Импорт данных из файла Markdown\n"
-"\n"
-"Получить внешние данные из файла Markdown"
+msgstr "Добавить узлы из файла Markdown в текущее дерево"
 
 msgid "From _Folder of Markdown Files"
-msgstr "Из папки с файлами Markdown"
+msgstr "Из папк_и с файлами Markdown"
 
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
-msgstr ""
-"Импорт данных из папки с файлами Markdown\n"
-"\n"
-"Получить внешние данные из папки с файлами Markdown"
+msgstr "Добавить узлы из папки с файлами Markdown в текущее дерево"
 
 msgid "From _Gnote Folder"
-msgstr "Из Gnote"
+msgstr "Из папки Gnote"
 
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr ""
-"Импорт данных из Gnote\n"
-"\n"
-"Получить внешние данные из папки Gnote"
+msgstr "Добавить узлы из папки Gnote в текущее дерево"
 
 msgid "From _KeepNote Folder"
-msgstr "Из KeepNote"
+msgstr "_Из папки KeepNote"
 
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr ""
-"Импорт данных из KeepNote\n"
-"\n"
-"Получить внешние данные из папки KeepNote"
+msgstr "Добавить узлы из папки KeepNote в текущее дерево"
 
 msgid "From _Leo File"
-msgstr "Из Leo"
+msgstr "Из фа_йла Leo"
 
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr ""
-"Импорт данных из Leo\n"
-"\n"
-"Получить внешние данные из файла Leo"
+msgstr "Добавить узлы из файла Leo в текущее дерево"
 
 msgid "From _Mempad File"
-msgstr "Из файла Mempad"
+msgstr "Из файл_а Mempad"
 
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr ""
-"Импорт данных из Mempad\n"
-"\n"
-"Получить внешние данные из файла Mempad"
+msgstr "Добавить узлы из файла Mempad в текущее дерево"
 
 msgid "From _NoteCase HTML File"
-msgstr "Из NoteCase HTML файла"
+msgstr "Из HTML-файла NoteCase"
 
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr ""
-"Импорт данных из NoteCase HTML файла\n"
-"\n"
-"Получить внешние данные из NoteCase HTML файла"
+msgstr "Добавить узлы из HTML-файла NoteCase в текущее дерево"
 
 msgid "From _RedNotebook HTML File"
-msgstr "Из RedNotebook HTML"
+msgstr "Из HTML-файла _RedNotebook"
 
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
-msgstr ""
-"Импорт данных из RedNotebook HTML\n"
-"\n"
-"Получить внешние данные из файла RedNotebook HTML"
+msgstr "Добавить узлы из HTML-файла _RedNotebook в текущее дерево"
 
 msgid "From T_omboy Folder"
-msgstr "Из Tomboy"
+msgstr "Из папки Tomboy"
 
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr ""
-"Импорт данных из Tomboy\n"
-"\n"
-"Получить внешние данные из папки Tomboy"
+msgstr "Добавить узлы из папки Tomboy в текущее дерево"
 
 msgid "From T_reepad Lite File"
-msgstr "Из Treepad"
+msgstr "Из файла Treepad Lite"
 
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr ""
-"Импорт данных из Treepad\n"
-"\n"
-"Получить внешние данные из файла Treepad"
+msgstr "Добавить узлы из файла Treepad в текущее дерево"
 
 msgid "From _Zim Folder"
-msgstr "Из Zim"
+msgstr "Из папки Zim"
 
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr ""
-"Импорт данных из Zim\n"
-"\n"
-"Получить внешние данные из папки Zim"
+msgstr "Добавить узлы из папки Zim в текущее дерево"
 
 msgid "Export"
 msgstr "Экспорт"
 
 msgid "Export To _PDF"
-msgstr "Преобразовать в PDF"
+msgstr "_Экспорт в PDF"
 
 msgid "Export To PDF"
-msgstr ""
-"Преобразовать в PDF\n"
-"\n"
-"Преобразовать в PDF файл:\n"
-"выбранный фрагмента текста,\n"
-"ветвь, ветвь с дочерними\n"
-"или полностью всё дерево"
+msgstr "Э_кспорт в PDF"
 
 msgid "Export To _HTML"
-msgstr "Преобразовать в HTML"
+msgstr "Эк_спорт в HTML"
 
 msgid "Export To HTML"
-msgstr ""
-"Преобразовать в HTML\n"
-"\n"
-"Преобразовать в HTML файл:\n"
-"выбранный фрагмента текста,\n"
-"ветвь, ветвь с дочерними\n"
-"или полностью всё дерево"
+msgstr "Экс_порт в HTML"
 
 msgid "Export to Plain _Text"
-msgstr "Преобразовать в текстовый файл"
+msgstr "Эксп_орт в текстовый файл"
 
 msgid "Export to Plain Text"
-msgstr ""
-"Преобразовать в текстовый файл\n"
-"\n"
-"Преобразовать в txt файл:\n"
-"выбранный фрагмента текста,\n"
-"ветвь, ветвь с дочерними\n"
-"или полностью всё дерево"
+msgstr "Экспо_рт в текстовый файл"
 
 msgid "_Export To CherryTree Document"
-msgstr "Преобразовать в документ CherryTree"
+msgstr "Экспор_т в документ CherryTree"
 
 msgid "Export To CherryTree Document"
-msgstr ""
-"Преобразовать в документ CherryTree\n"
-"\n"
-"Преобразовать в CherryTree файл:\n"
-"выбранный фрагмента текста,\n"
-"ветвь, ветвь с дочерними\n"
-"или полностью всё дерево"
+msgstr "Экспорт в документ CherryTree"
 
 msgid "Help"
 msgstr "Справка"
 
 msgid "_Check Newer Version"
-msgstr "Проверить обновления..."
+msgstr "Проверить наличие новой версии"
 
 msgid "Check for a Newer Version"
-msgstr ""
-"Проверить обновления...\n"
-"\n"
-"Проверить наличие обновлений CherryTree"
+msgstr "Проверить наличие новой версии программы"
 
 msgid "Online _Manual"
-msgstr "Справка в интернете"
+msgstr "Онлайн-руководство"
 
 msgid "Application's Online Manual"
-msgstr ""
-"Справка в интернете\n"
-"\n"
-"Показать онлайн справку по CherryTree"
+msgstr "Онлайн-руководство приложения"
 
 msgid "_About"
-msgstr "О программе..."
+msgstr "_О программе"
 
 msgid "_Open Preferences Directory"
-msgstr "Открыть настройки..."
+msgstr "О_ткрыть каталог параметров"
 
 msgid "Open the Directory with Preferences Files"
-msgstr ""
-"Открыть настройки...\n"
-"\n"
-"Открыть папку с настройками"
+msgstr "Открыть каталог с файлами параметров"
 
 msgid "C_ut Anchor"
-msgstr "Вырезать якорь"
+msgstr "Выре_зать якорь"
 
 msgid "Cut the Selected Anchor"
-msgstr ""
-"Вырезать якорь\n"
-"\n"
-"Вырезать якорь в буфер обмена"
+msgstr "Вырезать выбранный якорь"
 
 msgid "_Copy Anchor"
-msgstr "Копировать якорь"
+msgstr "_Копировать якорь"
 
 msgid "Copy the Selected Anchor"
-msgstr ""
-"Копировать якорь\n"
-"\n"
-"Копировать якорь в буфер обмена"
+msgstr "Копировать выбранный якорь"
 
 msgid "_Delete Anchor"
-msgstr "Удалить якорь"
+msgstr "_Удалить якорь"
 
 msgid "Delete the Selected Anchor"
 msgstr ""
-"Удалить якорь\n"
-"\n"
-"Удалить якорь из документа\n"
+"Удалить выбранный якорь из документа\n"
 "\n"
 "При удалении якоря из документа ссылка на него \n"
 "остаётся, её необходимо удалить или изменить"
 
 msgid "Edit _Anchor..."
-msgstr "Свойства якоря..."
+msgstr "Изменить _якорь…"
 
 msgid "Edit the Underlying Anchor"
-msgstr ""
-"Свойства якоря...\n"
-"\n"
-"Изменить свойства якоря"
+msgstr "Изменить якорь под курсором"
 
 msgid "Copy Anchor Link"
-msgstr "Копировать ссылку"
+msgstr "Копировать ссылку на якорь"
 
 msgid "Copy Link to the Underlying Anchor to Clipboard"
-msgstr ""
-"Копировать ссылку\n"
-"\n"
-"Копировать ссылку на якорь в буфер обмена"
+msgstr "Копировать ссылку на якорь под курсором в буфер обмена"
 
 msgid "C_ut Embedded File"
-msgstr "Вырезать файл"
+msgstr "Вы_резать вложенный файл"
 
 msgid "Cut the Selected Embedded File"
-msgstr ""
-"Вырезать файл\n"
-"\n"
-"Вырезать файл в буфер обмена"
+msgstr "Выр_езать выбранный вложенный файл"
 
 msgid "_Copy Embedded File"
-msgstr "Копировать файл"
+msgstr "_Копировать вложенный файл"
 
 msgid "Copy the Selected Embedded File"
-msgstr ""
-"Копировать файл\n"
-"\n"
-"Копировать файл в буфер обмена"
+msgstr "Копировать выбранный вложенный файл"
 
 msgid "_Delete Embedded File"
-msgstr "Удалить файл"
+msgstr "_Удалить вложенный файл"
 
 msgid "Delete the Selected Embedded File"
-msgstr ""
-"Удалить файл\n"
-"\n"
-"Удалить файл из документа"
+msgstr "Удалить выбранный вложенный файл"
 
 msgid "Open Embedded File"
-msgstr ""
-"Открыть файл...\n"
-"\n"
-"Открыть вставленный файл"
+msgstr "Открыть вложенный файл"
 
 msgid "_Rename"
-msgstr "Переименовать..."
+msgstr "_Переименовать"
 
 msgid "Rename Embedded File"
-msgstr ""
-"Переименовать\n"
-"\n"
-"Переименовать вставленный файл"
+msgstr "Переименовать вложенный файл"
 
 msgid "_Save LatexBox as PNG..."
-msgstr "Сохранить LaTeX..."
+msgstr "_Сохранить блок LaTeX в виде PNG…"
 
 msgid "Save the Selected LatexBox as a PNG file"
-msgstr ""
-"Сохранить LaTeX\n"
-"\n"
-"Сохранить LaTeX в формате PNG"
+msgstr "Сохранить выбранный блок LaTeX в виде файла PNG"
 
 msgid "_Edit LatexBox..."
-msgstr "Свойства LaTeX"
+msgstr "_Изменить блок LaTeX…"
 
 msgid "Edit the Selected LatexBox"
-msgstr ""
-"Свойства LaTeX...\n"
-"\n"
-"Изменить свойства LaTeX:\n"
-"ширину, высоту и поворот"
+msgstr "Изменить выбранный блок LaTeX"
 
 msgid "C_ut LatexBox"
-msgstr "Вырезать LaTeX"
+msgstr "Выреза_ть блок LaTeX"
 
 msgid "Cut the Selected LatexBox"
-msgstr ""
-"Вырезать LaTeX\n"
-"\n"
-"Вырезать LaTeX в буфер обмена"
+msgstr "Вырезать выбранный блок LaTeX"
 
 msgid "_Copy LatexBox"
-msgstr "Копировать LaTeX"
+msgstr "_Копировать блок LaTeX"
 
 msgid "Copy the Selected LatexBox"
-msgstr ""
-"Копировать LaTeX\n"
-"\n"
-"Копировать LaTeX в буфер обмена"
+msgstr "Копировать выбранный блок LaTeX"
 
 msgid "_Delete LatexBox"
-msgstr "Удалить LaTeX"
+msgstr "_Удалить блок LaTeX"
 
 msgid "Delete the Selected LatexBox"
-msgstr ""
-"Удалить LaTeX\n"
-"\n"
-"Удалить LaTeX из документа"
+msgstr "Удалить выбранный блок LaTeX"
 
 msgid "_Save Image as PNG..."
-msgstr "Сохранить изображение..."
+msgstr "_Сохранить изображение в PNG…"
 
 msgid "Save the Selected Image as a PNG file"
-msgstr ""
-"Сохранить изображение\n"
-"\n"
-"Сохранить изображение в формате PNG"
+msgstr "Сохранить выбранное изображение в виде файла PNG"
 
 msgid "_Edit Image..."
-msgstr "Свойства изображения..."
+msgstr "_Изменить изображение…"
 
 msgid "Edit the Selected Image"
-msgstr ""
-"Свойства изображения...\n"
-"\n"
-"Изменить свойства изображения:\n"
-"ширину, высоту и поворот"
+msgstr "Редактировать выбранное изображение"
 
 msgid "C_ut Image"
-msgstr "Вырезать изображение"
+msgstr "Вы_резать изображение"
 
 msgid "Cut the Selected Image"
-msgstr ""
-"Вырезать изображение\n"
-"\n"
-"Вырезать изображение в буфер обмена"
+msgstr "Вырезать выбранное изображение"
 
 msgid "_Copy Image"
-msgstr "Копировать изображение"
+msgstr "_Копировать изображение"
 
 msgid "Copy the Selected Image"
-msgstr ""
-"Копировать изображение\n"
-"\n"
-"Копировать изображение в буфер обмена"
+msgstr "Копировать выбранное изображение"
 
 msgid "_Delete Image"
-msgstr "Удалить изображение"
+msgstr "_Удалить изображение"
 
 msgid "Delete the Selected Image"
-msgstr ""
-"Удалить изображение\n"
-"\n"
-"Удалить изображение из документа"
+msgstr "Удалить выбранное изображение"
 
 msgid "Edit _Link..."
-msgstr "Свойства ссылки..."
+msgstr "Изменить _ссылку…"
 
 msgid "Edit the Link Associated to the Image"
-msgstr ""
-"Свойства ссылки...\n"
-"\n"
-"Изменить свойства ссылки связанной с изображением"
+msgstr "Редактировать ссылку, связанную с изображением"
 
 msgid "D_ismiss Link"
-msgstr "Очистить ссылку"
+msgstr "С_тереть ссылку"
 
 msgid "Dismiss the Link Associated to the Image"
-msgstr ""
-"Очистить ссылку\n"
-"\n"
-"Очистить ссылку связанную с изображением"
+msgstr "Стереть ссылку, связанную с изображением"
 
 msgid "Show/Hide _CherryTree"
-msgstr "Открыть CherryTree"
+msgstr "По_казать/скрыть CherryTree"
 
 msgid "Toggle Show/Hide CherryTree"
-msgstr ""
-"Открыть CherryTree\n"
-"\n"
-"Активизировать CherryTree"
+msgstr "Показать/скрыть CherryTree"
 
 msgid "Edit the Underlying Link"
-msgstr ""
-"Свойства ссылки...\n"
-"\n"
-"Изменить свойства ссылки"
+msgstr "Изменить ссылку под курсором"
 
 msgid "C_ut Link"
-msgstr "Вырезать ссылку"
+msgstr "В_ырезать ссылку"
 
 msgid "Cut the Selected Link"
-msgstr ""
-"Вырезать ссылку\n"
-"\n"
-"Вырезать ссылку в буфер обмена"
+msgstr "Вырезать выбранную ссылку"
 
 msgid "_Copy Link"
-msgstr "Копировать ссылку"
+msgstr "_Копировать ссылку"
 
 msgid "Copy the Selected Link"
-msgstr ""
-"Копировать ссылку\n"
-"\n"
-"Копировать ссылку в буфер обмена"
+msgstr "Копировать выбранную ссылку"
 
 msgid "Dismiss the Selected Link"
 msgstr ""
-"Очистить ссылку\n"
+"Стереть выбранную ссылку\n"
 "\n"
-"Удаляется только ссылка из документа, но не текст"
+"Удаляется только ссылка, но не текст"
 
 msgid "_Delete Link"
-msgstr "Удалить ссылку"
+msgstr "У_далить ссылку"
 
 msgid "Delete the Selected Link"
 msgstr ""
-"Удалить ссылку\n"
+"Удалить выбранную ссылку\n"
 "\n"
-"Удаляется ссылка и текст из документа"
+"Удаляется ссылка вместе с текстом"
 
 msgid "English"
 msgstr "Английский"
@@ -3061,7 +2334,7 @@ msgid "Theme"
 msgstr "Тема"
 
 msgid "Fonts"
-msgstr "Шрифты темы"
+msgstr "Шрифты"
 
 msgid "Links"
 msgstr "Ссылки"
@@ -3070,7 +2343,7 @@ msgid "Toolbar"
 msgstr "Панель инструментов"
 
 msgid "Keyboard Shortcuts"
-msgstr "Горячие клавиши"
+msgstr "Комбинации клавиш"
 
 msgid "Miscellaneous"
 msgstr "Разное"
@@ -3088,19 +2361,19 @@ msgid "Tree Font"
 msgstr "Текст дерева"
 
 msgid "Reset to Default"
-msgstr "Значения по умолчанию"
+msgstr "Значение по умолчанию"
 
 msgid "Enable Custom Web Link Clicked Action"
-msgstr "При открытии ссылки на веб-страницу"
+msgstr "Команда для открытия ссылки на веб-страницу"
 
 msgid "Enable Custom File Link Clicked Action"
-msgstr "При открытии ссылки на файл"
+msgstr "Команда для открытия ссылки на файл"
 
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr "При открытии ссылки на папку"
+msgstr "Команда для открытия ссылки на папку"
 
 msgid "Custom Actions"
-msgstr "Действие"
+msgstr "Настраиваемые команды"
 
 msgid "Colors"
 msgstr "Цвета"
@@ -3115,112 +2388,108 @@ msgid "Anchor Size"
 msgstr "Размер значка якоря"
 
 msgid "Change Selected"
-msgstr "Изменить комбинацию клавиш"
+msgstr "Изменить выбранную комбинацию клавиш"
 
 #, c-format
 msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr ""
-" \n"
-"Комбинация клавиш ' %s ' уже используется!"
+msgstr "Комбинация клавиш «%s» уже используется."
 
 #, c-format
 msgid "The current associated action is '%s'"
-msgstr "Данная комбинация выполняет действие <b>' %s '</b>"
+msgstr "Данная комбинация выполняет действие «%s»"
 
 msgid "Do you want to steal the shortcut?"
 msgstr "Переопределить комбинацию клавиш?"
 
 msgid "Edit Keyboard Shortcut"
-msgstr "Новая комбинация..."
+msgstr "Изменение комбинации клавиш"
 
 msgid "No Keyboard Shortcut"
 msgstr "Не задана"
 
 msgid "Enable System Tray Docking"
-msgstr "Отображать значок CherryTree в области уведомлений"
+msgstr "Отображать значок программы в системном лотке"
 
 msgid "Start Minimized in the System Tray"
-msgstr "Сворачивать CherryTree в область уведомлений после старта"
+msgstr "Сворачивать программу в системный лоток после запуска"
 
 msgid "System Tray"
-msgstr "Панель задач"
+msgstr "Системный лоток"
 
 msgid "Autosave on Quit"
-msgstr "Сохранить при закрытии"
+msgstr "Автосохранение при завершении работы"
 
 msgid "Create a Backup Copy Before Saving"
-msgstr "Создать резервную копию"
+msgstr "Создавать резервную копию перед сохранением"
 
 msgid "Number of Backups to Keep"
-msgstr "Количество резервных копий"
+msgstr "Количество сохраняемых резервных копий"
 
 msgid "Custom Backup Directory"
-msgstr "Папка для резервных копий"
+msgstr "Настраиваемый каталог для резервных копий"
 
 msgid "Saving"
 msgstr "Сохранение"
 
 msgid "Automatically Check for Newer Version"
-msgstr "Проверять наличие обновлений"
+msgstr "Автоматически проверять наличие новой версии"
 
 msgid "Enable Word Count in Statusbar"
-msgstr "Количество слов в строке состояния"
+msgstr "Отображать количество слов в строке состояния"
 
 msgid "Reload Document From Last Session"
-msgstr "Загружать последний открытый документ"
+msgstr "Загружать документ из последнего сеанса"
 
 msgid "Reload After External Update to CT* File"
-msgstr "Повторно загрузить документ после изменения"
+msgstr "Повторная загрузка файла после внешнего обновления до файла CT*"
 
 msgid "Show the Document Directory in the Window Title"
-msgstr "Путь к файлу в заголовке главного окна"
+msgstr "Показывать путь к документу в заголовке главного окна"
 
 msgid "Show the Full Path in the Node Name Header"
-msgstr "Путь в заголовке ветви"
+msgstr "Показывать путь в заголовке узла"
 
 msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Показать закладки в главном меню"
+msgstr "Включить в главное меню раздел «Закладки»"
 
 msgid "Enable Debug Log"
-msgstr "Использовать лог-файл"
+msgstr "Использовать журнал отладки"
 
 msgid "Debug Log Directory"
-msgstr "Выбрать..."
+msgstr "Каталог журнала отладки"
 
 msgid "System Default"
-msgstr "По умолчанию"
+msgstr "Язык системы по умолчанию"
 
 msgid "Language"
 msgstr "Язык"
 
 msgid "Has the System Tray appeared on the panel?"
-msgstr "Значок CherryTree появился в области уведомлений?"
+msgstr "Появился ли системный лоток на панели?"
 
 msgid "Your system does not support the System Tray"
-msgstr ""
-" \n"
-"Ваша система не поддерживает область уведомлений!"
+msgstr "Ваша система не поддерживает системный лоток"
 
 msgid "Show White Spaces"
 msgstr "Отображать пробелы"
 
 msgid "Highlight Current Line"
-msgstr "Подсвечивать активную строку"
+msgstr "Подсвечивать текущую строку"
 
 msgid "Text Editor"
 msgstr "Текстовый редактор"
 
 msgid "Internal Terminal Shell"
-msgstr "Использовать встроеный терминал"
+msgstr "Внутренняя командная оболочка"
 
 msgid "Add"
-msgstr "Добавить часто используемые команды"
+msgstr "Добавить"
 
 msgid "Remove Selected"
-msgstr "Удалить часто используемые команды"
+msgstr "Удалить выделенные"
 
 msgid "Command per Node/CodeBox Type"
-msgstr "Команда интерпретатора/компилятора"
+msgstr "Команда обработчика для типа узла/блока кода"
 
 msgid "Terminal Command"
 msgstr "Команда терминала"
@@ -3229,43 +2498,43 @@ msgid "Code Execution"
 msgstr "Выполнение кода"
 
 msgid "Select Element to Add"
-msgstr "Часто используемые команды"
+msgstr "Выберите добавляемый элемент"
 
 msgid "Enable Spell Check"
-msgstr "Проверка орфографии"
+msgstr "Включать проверку орфографии"
 
 msgid "Spell Check Language"
-msgstr "Словарь:"
+msgstr "Язык проверки орфографии"
 
 msgid "Expand CodeBoxes Automatically"
-msgstr "Автоподбор по содержимому CodeBox"
+msgstr "Автоподбор по содержимому блока кода"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Число ячеек таблицы для облегчённого интерфейса"
+msgstr "Пороговое количество ячеек таблицы для лёгкого интерфейса"
 
 msgid "Embedded File Icon Size"
-msgstr "Размер значка вставляемого файла                          "
+msgstr "Размер значка вложенного файла"
 
 msgid "Embedded File Size Limit (MB)"
-msgstr "Максимальный размер вставляемого файла (Мб)"
+msgstr "Ограничение размера вложенного файла (Мбайт)"
 
 msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Имя файла над значком"
+msgstr "Показывать имя файла над значком вложенного файла"
 
 msgid "Limit of Undoable Steps Per Node"
-msgstr "Максимальное количество операций отмены      "
+msgstr "Ограничение количества операций отмены на узел"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Автопривязка текста CamelCase к ветви"
+msgstr "Автопривязка текста в горбатом регистре к узлу с тем же именем"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Выделять абзац тройным нажатием мыши"
 
 msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Включить автозамену Markdown (Экспериментально)"
+msgstr "Включить автозамену Markdown (экспериментальная функция)"
 
 msgid "Scale"
-msgstr "Размер"
+msgstr "Масштаб"
 
 msgid "Italic"
 msgstr "Курсив"
@@ -3274,40 +2543,40 @@ msgid "Underline"
 msgstr "Подчёркнутый"
 
 msgid "Text Color Foreground"
-msgstr "Текст"
+msgstr "Цвет текста"
 
 msgid "Text Color Background"
-msgstr "Фон "
+msgstr "Цвет фона"
 
 msgid "Small"
-msgstr "Мелкий"
+msgstr "Малый"
 
 msgid "Scalable Tags"
 msgstr "Масштабируемые теги"
 
 msgid "Chars for Bulleted List"
-msgstr "Маркированный список"
+msgstr "Для маркированного списка"
 
 msgid "Chars for Todo List"
-msgstr "To-Do список                    "
+msgstr "Для списка задач"
 
 msgid "Chars for Table Of Content"
-msgstr "Оглавление                       "
+msgstr "Для оглавления"
 
 msgid "Chars for Smart Double Quotes"
-msgstr "Для автозамены двойных кавычек"
+msgstr "Для двойных парных кавычек"
 
 msgid "Chars for Smart Single Quotes"
-msgstr "Для автозамены кавычек                 "
+msgstr "Для одинарных парных кавычек"
 
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Автозамена кавычек"
+msgstr "Включить автозамену парных кавычек"
 
 msgid "Enable Symbol Auto Replacement"
-msgstr "Автозамена символов"
+msgstr "Включить автозамену символов"
 
 msgid "Supported Symbols Auto Replacements"
-msgstr "Поддерживаемые символы"
+msgstr "Поддерживаемые символы для автозамены"
 
 msgid "Only at the Start of the Line"
 msgstr "Только в начале строки"
@@ -3316,34 +2585,34 @@ msgid "Tab Width"
 msgstr "Ширина табуляции"
 
 msgid "Insert Spaces Instead of Tabs"
-msgstr "Пробелы вместо табуляции"
+msgstr "Вставлять пробелы вместо табуляции"
 
 msgid "Use Line Wrapping"
 msgstr "Переносить строки"
 
 msgid "Line Wrapping Indentation"
-msgstr "Отступ строк"
+msgstr "Отступ строк при переносе"
 
 msgid "Enable Automatic Indentation"
 msgstr "Автоматический отступ"
 
 msgid "Scroll Beyond Last Line"
-msgstr "Прокрутка за пределы строки"
+msgstr "Прокрутка за пределы последней строки"
 
 msgid "Vertical Space Around Lines"
 msgstr "Межстрочный интервал"
 
 msgid "Vertical Space in Wrapped Lines"
-msgstr "Вертикальный отступ строк"
+msgstr "Вертикальный отступ строк при переносе"
 
 msgid "Timestamp Format"
-msgstr "Формат даты"
+msgstr "Формат даты и времени"
 
 msgid "Horizontal Rule"
 msgstr "Горизонтальная линия"
 
 msgid "Chars to Select at Double Click"
-msgstr "Выделять текст двойным нажатием мыши до"
+msgstr "Символы, выделяемые при двойном нажатии кнопки мыши"
 
 msgid "Light Background, Dark Text"
 msgstr "Тёмный текст на светлом фоне"
@@ -3352,7 +2621,7 @@ msgid "Dark Background, Light Text"
 msgstr "Светлый текст на тёмном фоне"
 
 msgid "Custom Background"
-msgstr "Фон"
+msgstr "Настраиваемый фон"
 
 msgid "Text"
 msgstr "Текст"
@@ -3367,95 +2636,95 @@ msgid "Code"
 msgstr "Код"
 
 msgid "Style Schemes"
-msgstr "Текстовый редактор"
+msgstr "Стилевые схемы"
 
 msgid "Text Foreground"
-msgstr "Текст"
+msgstr "Цвет текста"
 
 msgid "Text Background"
-msgstr "Фон"
+msgstr "Цвет фона"
 
 msgid "Selection Foreground"
-msgstr "Выделенный текст"
+msgstr "Цвет выделенного текста"
 
 msgid "Cursor"
 msgstr "Курсор"
 
 msgid "Current Line Background"
-msgstr "Фон активной строки"
+msgstr "Цвет фона текущей строки"
 
 msgid "Line Numbers Foreground"
-msgstr "Нумерация строк"
+msgstr "Цвет нумерации строк"
 
 msgid "Line Numbers Background"
-msgstr "Фон нумерации строк"
+msgstr "Цвет фона нумерации строк"
 
 msgid "Style Scheme Editor"
-msgstr "Настраиваемая тема"
+msgstr "Редактор стилевой схемы"
 
 msgid "Set Dark Theme Icons"
-msgstr "Тёмные значки"
+msgstr "Установить значки из тёмной темы"
 
 msgid "Set Light Theme Icons"
-msgstr "Светлые значки"
+msgstr "Установить значки из светлой темы"
 
 msgid "Set Default Icons"
-msgstr "Значки по умолчанию"
+msgstr "Установить значки по умолчанию"
 
 msgid "Icon Theme"
-msgstr "Тема"
+msgstr "Тема значков"
 
 msgid "Split Toolbar"
 msgstr "Разделитель"
 
 msgid "Use Different Cherries per Level"
-msgstr "Разные вишенки для каждого уровня"
+msgstr "Использовать разные вишенки для каждого уровня"
 
 msgid "No Icon"
 msgstr "Без значка"
 
 msgid "Hide Right Side Auxiliary Icon"
-msgstr "Скрыть значок справа от ветви"
+msgstr "Скрывать вспомогательный значок справа"
 
 msgid "Default Text Nodes Icons"
-msgstr "Значки"
+msgstr "Значки текстовых узлов по умолчанию"
 
 msgid "Restore Expanded/Collapsed Status"
-msgstr "Запоминать состояние ветвей"
+msgstr "Восстанавливать свёрнутое/развёрнутое состояние узлов"
 
 msgid "Expand all Nodes"
-msgstr "Разворачивать ветви"
+msgstr "Разворачивать все узлы"
 
 msgid "Collapse all Nodes"
-msgstr "Сворачивать ветви"
+msgstr "Сворачивать все узлы"
 
 msgid "Nodes in Bookmarks Always Visible"
-msgstr "Не скрывать ветви в закладках"
+msgstr "Не скрывать узлы в закладках"
 
 msgid "Nodes Status at Startup"
-msgstr "Состояние"
+msgstr "Состояние узлов при запуске"
 
 msgid "Tree Nodes Names Wrapping Width"
-msgstr "Ширина переноса в имени ветви"
+msgstr "Ширина переноса имени узлов дерева"
 
 msgid "Display Tree on the Right Side"
-msgstr "Обозреватель дерева справа"
+msgstr "Показывать обозреватель дерева справа"
 
 msgid "Move Focus to Text at Mouse Click"
-msgstr "Перемещать фокус на текст кликом мышки"
+msgstr "Перемещать фокус на текст по щелчку кнопки мыши"
 
 msgid "Expand Node at Mouse Click"
-msgstr "Разворачивать ветвь кликом мышки"
+msgstr "Разворачивать узел по щелчку кнопки мыши"
 
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "Последние посещённые ветви в заголовке"
+msgstr "Последние посещённые узлы в заголовке имени узла"
 
 msgid "Writing to Disk..."
-msgstr "Запись на диск..."
+msgstr "Запись на диск…"
 
 #, c-format
 msgid "You Have No Write Access to %s"
-msgstr "Запись в файл <b>\"%s\"</b> недоступна"
+msgstr "Отсутствуют права записи в файл «%s»"
 
 #, c-format
 msgid "Enter Password for %s"
@@ -3463,9 +2732,8 @@ msgstr "Введите пароль для %s"
 
 msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
-"Документ повреждён.\n"
-"\n"
-"Попробуйте сохранить его под другим именем (Файл-->Сохранить как...)"
+"Сбой проверки целостности сохранённого документа. Попробуйте "
+"выполнить операцию с помощью меню «Файл-->Сохранить как»"
 
 msgid "Failed to encrypt the file"
 msgstr "Не удалось зашифровать файл"
@@ -3473,9 +2741,8 @@ msgstr "Не удалось зашифровать файл"
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
 msgstr ""
-"Файл: <b>\"%s\"</b> - повреждён.\n"
-"\n"
-"Для подробной информации смотрите лог-файл."
+"Файл базы данных %s повреждён. Дополнительная "
+"информация доступна в журнале."
 
 msgid ""
 "Backup files are by default 3 in the same folder of the corrupted document, "
@@ -3484,34 +2751,31 @@ msgid ""
 "tilde and open with cherrytree. If it still fails, try the one with two "
 "tildes and if it still fails try the one with three tildes."
 msgstr ""
-"Файлы резервных копий (по умолчанию 3 шт) находятся в одной папке с "
-"повреждённым документом, с тем же именем но с тильдами (~, ~~, ~~~) на "
-"конце. Чтобы восстановить повреждённый файл, необходимо взять файл резервной "
-"копии с одной тильдой и скопироватьего в другой каталог, удалить тильду и "
-"открыть в CherryTree. Если не удалось восстановить файл, используйте "
-"резервные копии с двумя или тремя тильдами. Но если Вы потерпели неудачуи с "
-"остальными резервными копиями, тогда Вам уже ничего не поможет!!!"
+"По умолчанию, в папке с повреждённым файлом хранится ещё"
+"три резервных копии с тем же именем, но с тильдами на конце "
+"(~, ~~, ~~~). Сначала попробуйте использовать резервную копию "
+"с одной тильдой: скопируйте файл в другой каталог, удалите тильду "
+"и попробуйте открыть его с помощью CherryTree. Если это не помогло, "
+"то попробуйте использовать файл с двумя тильдами, а если и в этом"
+"случае происходит ошибка, то попробуйте открыть файл с тремя "
+"тильдами."
 
 #, c-format
 msgid ""
 "%s write failed - file is missing. Reattach USB driver or shared resource!"
 msgstr ""
-"Файл: <b>\"%s\"</b> - отсутствует.\n"
-"\n"
-"Попробуйте повторно подключить устройство USB."
+"Сбой записи %s — файл отсутствует. Повторно подсоедините USB-диск или общий"
+" ресурс!"
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"Файл: <b>\"%s\"</b> - доступен только для чтения.\n"
-"\n"
-"Попробуйте сохранить его под другим именем."
+msgstr "Сбой записи %s — возможна блокировка файла программой синхронизации."
 
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "Записная книжка CherryTree"
+msgstr "Записная книжка CherryTree с иерархической структурой"
 
 msgid "_Exit CherryTree"
-msgstr "Выход"
+msgstr "_Выход"
 
 msgid "HTML Document"
 msgstr "Документ HTML"
