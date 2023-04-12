@@ -6,6 +6,7 @@ BUILD_DIR="build"
 MAKE_DEB=""
 MAKE_RPM=""
 MAKE_APPIMAGE=""
+NO_TESTS=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
 [[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
@@ -19,7 +20,10 @@ then
   CMAKE_BUILD_TYPE="Release"
 else
   CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
-  if [ "${ARG_VAL_LOWER}" == "deb" ]
+  if [ "${ARG_VAL_LOWER}" == "notests" ]
+  then
+    NO_TESTS="Y"
+  elif [ "${ARG_VAL_LOWER}" == "deb" ]
   then
     MAKE_DEB="Y"
   elif [ "${ARG_VAL_LOWER}" == "rpm" ]
@@ -60,7 +64,9 @@ then
   fi
 fi
 
-[[ "$OSTYPE" == "darwin"* ]] && export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig" && EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
+[[ "$OSTYPE" == "darwin"* ]] && export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig" && NO_TESTS="Y"
+
+[ -n "${NO_TESTS}" ] && EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
 
 cd ${BUILD_DIR}
 cmake .. -DCMAKE_C_COMPILER=gcc \
