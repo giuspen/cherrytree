@@ -84,6 +84,7 @@ public:
     std::string                                 nodesIcons{CtConst::NODE_ICON_TYPE_CHERRY};
     bool                                        auxIconHide{false};
     int                                         defaultIconText{CtConst::NODE_ICON_BULLET_ID};
+    int                                         lastIconSel{CtConst::NODE_ICON_SEL_DEFAULT};
     bool                                        treeRightSide{false};
     bool                                        cherryWrapEnabled{false};
     int                                         cherryWrapWidth{130};

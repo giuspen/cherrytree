@@ -29,6 +29,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                  CtNodeData& nodeData,
                                  const std::set<Glib::ustring>& tags_set)
 {
+    CtConfig* pCtConfig = pCtMainWin->get_ct_config();
     Gtk::Dialog dialog = Gtk::Dialog{title,
                                      *pCtMainWin,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -51,14 +52,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
 
     Gtk::CheckButton fg_checkbutton{_("Use Selected Color")};
     fg_checkbutton.set_active(not nodeData.foregroundRgb24.empty());
-    Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtMainWin->get_ct_config()->currColors.at('n').empty() ? pCtMainWin->get_ct_config()->currColors.at('n').c_str() : "red");
+    Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtConfig->currColors.at('n').empty() ? pCtConfig->currColors.at('n').c_str() : "red");
     Gtk::ColorButton fg_colorbutton{Gdk::RGBA{real_fg}};
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
 
     Gtk::CheckButton c_icon_checkbutton{_("Use Selected Icon")};
     c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtStockIcon::size());
     Gtk::Button c_icon_button;
-    int customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : CtConst::NODE_CUSTOM_ICONS_ORDERED.at(0);
+    int customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : pCtConfig->lastIconSel;
     c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(customIconId), Gtk::ICON_SIZE_BUTTON));
     c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
 
@@ -82,7 +83,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     Gtk::Button button_prog_lang;
     std::string syntax_hl_id = nodeData.syntax;
     if (nodeData.syntax == CtConst::RICH_TEXT_ID || nodeData.syntax == CtConst::PLAIN_TEXT_ID) {
-        syntax_hl_id = pCtMainWin->get_ct_config()->autoSynHighl;
+        syntax_hl_id = pCtConfig->autoSynHighl;
     }
     std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
     button_prog_lang.set_label(syntax_hl_id);
@@ -264,17 +265,22 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     }
     else {
         nodeData.syntax = button_prog_lang.get_label();
-        pCtMainWin->get_ct_config()->autoSynHighl = nodeData.syntax;
+        pCtConfig->autoSynHighl = nodeData.syntax;
     }
     nodeData.tags = tags_entry.get_text();
     nodeData.isReadOnly = ro_checkbutton.get_active();
     nodeData.excludeMeFromSearch = excl_me_checkbutton.get_active();
     nodeData.excludeChildrenFromSearch = excl_ch_checkbutton.get_active();
-    nodeData.customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : 0;
+    if (c_icon_checkbutton.get_active()) {
+        pCtConfig->lastIconSel = nodeData.customIconId;
+    }
+    else {
+        nodeData.customIconId = 0;
+    }
     nodeData.isBold = is_bold_checkbutton.get_active();
     if (fg_checkbutton.get_active()) {
         nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton.get_color().to_string());
-        pCtMainWin->get_ct_config()->currColors['n'] = nodeData.foregroundRgb24;
+        pCtConfig->currColors['n'] = nodeData.foregroundRgb24;
     }
     else {
         nodeData.foregroundRgb24.clear();

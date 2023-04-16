@@ -152,6 +152,7 @@ void CtActions::preferences_import()
     _pCtConfig->nodesIcons = ctConfigImported.nodesIcons;
     _pCtConfig->auxIconHide = ctConfigImported.auxIconHide;
     _pCtConfig->defaultIconText = ctConfigImported.defaultIconText;
+    _pCtConfig->lastIconSel = ctConfigImported.lastIconSel;
     _pCtConfig->treeRightSide = ctConfigImported.treeRightSide;
     _pCtConfig->cherryWrapEnabled = ctConfigImported.cherryWrapEnabled;
     _pCtConfig->cherryWrapWidth = ctConfigImported.cherryWrapWidth;
@@ -223,6 +224,7 @@ void CtActions::preferences_import()
     _pCtConfig->tableRows = ctConfigImported.tableRows;
     _pCtConfig->tableColumns = ctConfigImported.tableColumns;
     _pCtConfig->tableColWidthDefault = ctConfigImported.tableColWidthDefault;
+    _pCtConfig->tableCellsGoLight = ctConfigImported.tableCellsGoLight;
     _pCtConfig->rtFont = ctConfigImported.rtFont;
     _pCtConfig->ptFont = ctConfigImported.ptFont;
     _pCtConfig->treeFont = ctConfigImported.treeFont;

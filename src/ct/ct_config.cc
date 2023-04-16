@@ -231,6 +231,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "nodes_icons", nodesIcons);
     _uKeyFile->set_boolean(_currentGroup, "aux_icon_hide", auxIconHide);
     _uKeyFile->set_integer(_currentGroup, "default_icon_text", defaultIconText);
+    _uKeyFile->set_integer(_currentGroup, "last_icon_sel", lastIconSel);
     _uKeyFile->set_boolean(_currentGroup, "tree_right_side", treeRightSide);
     _uKeyFile->set_boolean(_currentGroup, "cherry_wrap_ena", cherryWrapEnabled);
     _uKeyFile->set_integer(_currentGroup, "cherry_wrap_width", cherryWrapWidth);
@@ -518,6 +519,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("nodes_icons", &nodesIcons);
     _populate_bool_from_keyfile("aux_icon_hide", &auxIconHide);
     _populate_int_from_keyfile("default_icon_text", &defaultIconText);
+    _populate_int_from_keyfile("last_icon_sel", &lastIconSel);
     _populate_bool_from_keyfile("tree_right_side", &treeRightSide);
     _populate_bool_from_keyfile("cherry_wrap_ena", &cherryWrapEnabled);
     _populate_int_from_keyfile("cherry_wrap_width", &cherryWrapWidth);
