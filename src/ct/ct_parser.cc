@@ -502,6 +502,27 @@ void CtMempadParser::feed(const std::string& data)
     _parsed_pages.insert(_parsed_pages.cend(), new_pages.begin(), new_pages.end());
 }
 
+void CtIndentedListParser::feed(const std::string& data)
+{
+    std::vector<std::string> list_rows = str::split(str::replace(data, CtConst::CHAR_CR, ""), CtConst::CHAR_NEWLINE);
+    for (const auto& row : list_rows) {
+        int page_lvl{1};
+        std::string title{row};
+        while (title.size() and (title.front() == ' ' or title.front() == '\t')) {
+            ++page_lvl;
+            title = title.substr(1);
+        }
+        if (title.size()) {
+            spdlog::debug("level={} name={}", page_lvl, title);
+            _parsed_pages.emplace_back(CtMempadParser::page{
+                .level = page_lvl,
+                .name = title,
+                .contents = std::string{}
+            });
+        }
+    }
+}
+
 void CtTreepadParser::feed(const std::string& data)
 {
     Glib::RefPtr<Glib::Regex> rRegExpInteger = Glib::Regex::create("\\d+");

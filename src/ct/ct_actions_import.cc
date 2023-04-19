@@ -1,7 +1,7 @@
 /*
  * ct_actions_import.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -117,7 +117,7 @@ void CtActions::import_nodes_from_ct_file() noexcept
         _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath, parent_iter.value());
 
     } catch(std::exception& e) {
-        spdlog::error("Exception caught while importing node from CT file: {}", e.what());
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
 
@@ -168,7 +168,7 @@ void CtActions::import_nodes_from_keepnote_directory() noexcept {
         CtKeepnoteImport importer(_pCtConfig);
         _import_from_dir(&importer, "");
     } catch(const std::exception& e) {
-        spdlog::error("Exception caught while importing from keepnote: {}", e.what());
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
 
@@ -178,7 +178,7 @@ void CtActions::import_nodes_from_treepad_file() noexcept
         CtTreepadImporter importer;
         _import_from_file(&importer, true/*dummy_root*/);
     } catch(const std::exception& e) {
-        spdlog::error("Exception caught while importing from Treepad: {}", e.what());
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
 
@@ -188,7 +188,17 @@ void CtActions::import_nodes_from_mempad_file() noexcept
         CtMempadImporter importer;
         _import_from_file(&importer, true/*dummy_root*/);
     } catch(const std::exception& e) {
-        spdlog::error("Exception caught while importing from Mempad: {}", e.what());
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
+    }
+}
+
+void CtActions::import_nodes_from_indented_list_file() noexcept
+{
+    try {
+        CtIndentedListImporter importer;
+        _import_from_file(&importer, true/*dummy_root*/);
+    } catch(const std::exception& e) {
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
 
@@ -198,7 +208,7 @@ void CtActions::import_nodes_from_leo_file() noexcept
         CtLeoImporter importer;
         _import_from_file(&importer);
     } catch(const std::exception& e) {
-        spdlog::error("Exception caught while importing from Leo: {}", e.what());
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
 
@@ -208,7 +218,7 @@ void CtActions::import_nodes_from_rednotebook_html() noexcept
         CtRedNotebookImporter importer{_pCtConfig};
         _import_from_file(&importer);
     } catch(const std::exception& e) {
-        spdlog::error("Exception caught while importing from Leo: {}", e.what());
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
 

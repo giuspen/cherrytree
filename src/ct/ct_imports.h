@@ -1,7 +1,7 @@
 /*
  * ct_imports.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -35,8 +35,10 @@
 #include <memory>
 
 namespace {
+
 using TableMatrx = std::queue<std::queue<std::string>>;
-}
+
+} // namespace (anonymous)
 
 struct CtImportedNode
 {
@@ -73,7 +75,7 @@ public:
 };
 
 /// Implementation of file patterns for HTML importers
-class CtHtmlImporterInterface: public CtImporterInterface
+class CtHtmlImporterInterface : public CtImporterInterface
 {
 public:
     std::string                 file_pattern_name() override { return _("HTML Document"); }
@@ -157,7 +159,6 @@ class CtZimImport : public CtImporterInterface
 public:
     explicit CtZimImport(CtConfig* config);
 
-public:
     // virtuals of CtImporterInterface
     std::unique_ptr<CtImportedNode> import_file(const fs::path& file) override;
 
@@ -172,7 +173,6 @@ class CtPlainTextImport : public CtImporterInterface
 public:
     CtPlainTextImport(CtConfig*) {}
 
-public:
     // virtuals of CtImporterInterface
     std::unique_ptr<CtImportedNode> import_file(const fs::path& file) override;
     std::string                     file_pattern_name() override { return _("Plain Text Document"); }
@@ -188,13 +188,13 @@ class CtMDImport : public CtImporterInterface
 {
 public:
     CtMDImport(CtConfig* config);
-
     ~CtMDImport();
-public:
+
     // virtuals of CtImporterInterface
     std::unique_ptr<CtImportedNode> import_file(const fs::path& file) override;
     std::vector<Glib::ustring>        file_patterns() override { return {"*.md"}; };
     std::string                       file_pattern_name() override { return _("Markdown Document"); }
+
 private:
     std::unique_ptr<CtMDParser> _parser;
 };
@@ -216,6 +216,18 @@ public:
 
     std::vector<Glib::ustring> file_patterns() override { return {"*.lst"}; };
     std::string file_pattern_name() override { return _("Mempad Document"); }
+};
+
+class CtIndentedListImporter : public CtImporterInterface
+{
+public:
+    std::unique_ptr<CtImportedNode> import_file(const fs::path& file) override;
+    std::string                     file_pattern_name() override { return _("Plain Text Document"); }
+#ifdef _WIN32
+    std::vector<Glib::ustring>      file_patterns() override { return {"*.txt"}; }
+#else
+    std::vector<Glib::ustring>      file_mime_types() override { return {"text/*"}; }
+#endif
 };
 
 class CtTreepadImporter : public CtImporterInterface

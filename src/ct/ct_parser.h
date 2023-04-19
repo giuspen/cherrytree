@@ -468,6 +468,16 @@ private:
     std::vector<page> _parsed_pages;
 };
 
+class CtIndentedListParser : public CtParserInterface
+{
+public:
+    void feed(const std::string& data) override;
+    const std::vector<CtMempadParser::page>& parsed_pages() const { return _parsed_pages; }
+
+private:
+    std::vector<CtMempadParser::page> _parsed_pages;
+};
+
 class CtTreepadParser : public CtParserInterface
 {
 public:

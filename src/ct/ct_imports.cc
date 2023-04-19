@@ -1,7 +1,7 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -537,7 +537,8 @@ std::unique_ptr<CtImportedNode> mempad_pages_to_nodes(const CtMempadParser::page
     return node;
 }
 
-std::unique_ptr<CtImportedNode> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages, const fs::path& path)
+std::unique_ptr<CtImportedNode> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages,
+                                                    const fs::path& path)
 {
     CtMempadParser::page dummy_page{
         .level = 0,
@@ -554,6 +555,16 @@ std::unique_ptr<CtImportedNode> CtMempadImporter::import_file(const fs::path& fi
 {
     const std::string file_contents = Glib::file_get_contents(file.string());
     CtMempadParser parser;
+    parser.feed(file_contents);
+    std::vector<CtMempadParser::page> pages = parser.parsed_pages();
+    auto node = mempad_tree_to_node(pages, file);
+    return node;
+}
+
+std::unique_ptr<CtImportedNode> CtIndentedListImporter::import_file(const fs::path& file)
+{
+    const std::string file_contents = Glib::file_get_contents(file.string());
+    CtIndentedListParser parser;
     parser.feed(file_contents);
     std::vector<CtMempadParser::page> pages = parser.parsed_pages();
     auto node = mempad_tree_to_node(pages, file);

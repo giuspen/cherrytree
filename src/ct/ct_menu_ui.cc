@@ -111,6 +111,7 @@ const char* CtMenu::_get_ui_str_menu()
     <separator/>
     <menu action='ImportSubMenu'>
       <menuitem action='import_cherrytree'/>
+      <menuitem action='import_indented_list'/>
       <menuitem action='import_txt_file'/>
       <menuitem action='import_txt_folder'/>
       <menuitem action='import_html_file'/>

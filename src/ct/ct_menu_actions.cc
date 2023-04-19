@@ -420,6 +420,9 @@ void CtMenu::init_actions(CtActions* pActions)
     const char* import_cat = _("Import");
     _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None,
         _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_indented_list", "ct_from_txt", _("From _Indented List File"), None,
+        _("Add Nodes from an Indented List File to the Current Tree"),
+        sigc::mem_fun(*pActions, &CtActions::import_nodes_from_indented_list_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_txt_file", "ct_from_txt", _("From _Plain Text File"), None,
         _("Add Node from a Plain Text File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_plaintext_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_txt_folder", "ct_from_txt", _("From _Folder of Plain Text Files"), None,
