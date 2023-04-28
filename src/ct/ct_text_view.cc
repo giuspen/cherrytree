@@ -279,6 +279,17 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
         Gdk::Rectangle iter_rect;
         get_iter_location(text_iter, iter_rect);
+        if (1 == event->button.button) {
+            const auto pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
+            if (pGutterLineNumbers) {
+                const auto pGutterLNWindow = pGutterLineNumbers->get_window();
+                if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
+                    // line number click
+                    _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, text_iter);
+                    return;
+                }
+            }
+        }
         //spdlog::debug("x={} recx={} recw={}", x, iter_rect.get_x(), iter_rect.get_width());
         if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
              (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
