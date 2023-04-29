@@ -505,6 +505,7 @@ void CtMempadParser::feed(const std::string& data)
 void CtIndentedListParser::feed(const std::string& data)
 {
     std::vector<std::string> list_rows = str::split(str::replace(data, CtConst::CHAR_CR, ""), CtConst::CHAR_NEWLINE);
+    int max_lvl{0};
     for (const auto& row : list_rows) {
         int page_lvl{1};
         std::string title{row};
@@ -513,7 +514,17 @@ void CtIndentedListParser::feed(const std::string& data)
             title = title.substr(1);
         }
         if (title.size()) {
-            spdlog::debug("level={} name={}", page_lvl, title);
+            //spdlog::debug("level={} name={}", page_lvl, title);
+            while ((page_lvl - max_lvl) > 1) {
+                _parsed_pages.emplace_back(CtMempadParser::page{
+                    .level = ++max_lvl,
+                    .name = std::string{},
+                    .contents = std::string{}
+                });
+            }
+            if (page_lvl > max_lvl) {
+                max_lvl = page_lvl;
+            }
             _parsed_pages.emplace_back(CtMempadParser::page{
                 .level = page_lvl,
                 .name = title,
