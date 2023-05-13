@@ -170,7 +170,7 @@ void CtConfig::_populate_current_group_from_map(const std::map<std::string, std:
 
 void CtConfig::_unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror)
 {
-    spdlog::error("!! {} error code {} ", key, kferror.code());
+    spdlog::error("!! {} error code {} ", key, fmt::underlying(kferror.code()));
 }
 
 void CtConfig::_populate_keyfile_from_data()
