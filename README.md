@@ -114,7 +114,7 @@ sudo emerge cherrytree
 
 Install dependencies:
 ```sh
-sudo dnf install cmake ninja-build gcc-c++ gtkmm30-devel gtksourceviewmm3-devel gspell-devel libxml++-devel libcurl-devel uchardet-devel fmt-devel spdlog-devel vte291-devel
+sudo dnf install cmake ninja-build gcc-c++ gtkmm30-devel gtksourceviewmm3-devel gspell-devel libxml++-devel libcurl-devel uchardet-devel fmt-devel spdlog-devel vte291-devel sqlite-devel
 sudo dnf install texlive-scheme-basic texlive-dvipng # optional for LatexBoxes support
 ```
 
