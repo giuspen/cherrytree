@@ -136,7 +136,7 @@ void CtApp::on_activate()
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
                 if (not pAppWindow->start_on_systray_is_active()) {
                     if (not pAppWindow->file_open(canonicalPath, ""/*node*/, ""/*anchor*/, _password)) {
-                        spdlog::warn("%s Couldn't open file: %s", __FUNCTION__, canonicalPath);
+                        spdlog::warn("{} Couldn't open file: {}", __FUNCTION__, canonicalPath);
                     }
                 }
                 else {
@@ -144,8 +144,9 @@ void CtApp::on_activate()
                 }
             }
             else {
-                spdlog::info("%s Last doc not found: {}", __FUNCTION__, CtApp::_uCtCfg->recentDocsFilepaths.front());
-                CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
+                const fs::path last_doc_path{CtApp::_uCtCfg->recentDocsFilepaths.front()};
+                spdlog::info("{} Last doc not found: {}", __FUNCTION__, last_doc_path);
+                CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(last_doc_path);
                 pAppWindow->menu_set_items_recent_documents();
             }
         }
@@ -226,7 +227,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
             if (not pAppWindow->start_on_systray_is_active()) {
                 if (not pAppWindow->file_open(canonicalPath, _node_to_focus, _anchor_to_focus, _password)) {
-                    spdlog::warn("%s Couldn't open file: {}", __FUNCTION__, canonicalPath);
+                    spdlog::warn("{} Couldn't open file: {}", __FUNCTION__, canonicalPath);
                 }
             }
             else {
