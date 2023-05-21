@@ -512,7 +512,6 @@ CtDocType get_doc_type_from_file_ext(const fs::path& filename)
 CtDocEncrypt get_doc_encrypt_from_file_ext(const fs::path& filename)
 {
     const std::string file_ext = filename.extension();
-    CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
     if (CtConst::CTDOC_XML_NOENC == file_ext or
         CtConst::CTDOC_SQLITE_NOENC == file_ext)
     {
@@ -523,7 +522,7 @@ CtDocEncrypt get_doc_encrypt_from_file_ext(const fs::path& filename)
     {
         return CtDocEncrypt::True;
     }
-    return retDocEncrypt;
+    return CtDocEncrypt::None;
 }
 
 path canonical(const path& p, const bool resolveSymlink)

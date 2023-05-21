@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <node name="sh" unique_id="6" prog_lang="sh" tags="" readonly="0" nosearch_me="1" nosearch_ch="1" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795066" ts_lastsave="0">
+    <rich_text>echo "ciao!"</rich_text>
+  </node>
+</cherrytree>

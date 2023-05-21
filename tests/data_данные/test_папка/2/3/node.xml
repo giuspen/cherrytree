@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <node name="c" unique_id="3" prog_lang="c" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564988027" ts_lastsave="0">
+    <rich_text>int main(int argc, char *argv[])
+{
+    return 0;
+}
+</rich_text>
+  </node>
+</cherrytree>

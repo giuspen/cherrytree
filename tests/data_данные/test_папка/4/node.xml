@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <node name="d" unique_id="4" prog_lang="custom-colors" tags="ciao" readonly="1" nosearch_me="0" nosearch_ch="0" custom_icon_id="45" is_bold="1" foreground="#ff0000" ts_creation="1565002032" ts_lastsave="0">
+    <rich_text>second rich
+</rich_text>
+  </node>
+</cherrytree>

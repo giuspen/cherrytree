@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1617718637">
+    <rich_text justification="fill">ciao rich</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#ffff00000000">fore</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text background="#e6e6e6e6fafa">back</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text justification="center" weight="heavy">bold</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text style="italic">italic</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text justification="right" underline="single">under</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text strikethrough="true">strike</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h1">h1</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h2">h2</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h3">h3</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h4">h4</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h5">h5</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h6">h6</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="small">small</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text indent="1">a</rich_text>
+    <rich_text indent="1" scale="sup">super</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text indent="2">a</rich_text>
+    <rich_text indent="2" scale="sub">sub</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text family="monospace">mono</rich_text>
+    <rich_text>
+</rich_text>
+  </node>
+</cherrytree>

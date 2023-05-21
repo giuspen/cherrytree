@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <node name="e" unique_id="5" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1565008774" ts_lastsave="1671740240">
+    <rich_text>anchored widgets:
+
+codebox:
+</rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text>
+
+anchor:
+</rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text>
+
+table:
+</rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text> </rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text>
+
+image:
+</rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text>
+
+embedded file:
+</rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text>
+
+latex equation:
+</rich_text>
+    <rich_text justification="left"></rich_text>
+    <rich_text>
+
+</rich_text>
+    <rich_text link="webs http://www.ansa.it">link to web ansa.it</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text link="node 4">link to node ‘d’</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text link="node 5 йцукенгшщз">link to node ‘e’ + anchor</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text link="fold L2V0Yw==">link to folder /etc</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text link="file L2V0Yy9mc3RhYg==">link to file /etc/fstab</rich_text>
+    <rich_text>
+</rich_text>
+    <codebox char_offset="28" justification="left" frame_width="297" frame_height="50" width_in_pixels="1" syntax_highlighting="python" highlight_brackets="1" show_line_numbers="0">def test_function:
+    print "hi there йцукенгшщз"</codebox>
+    <encoded_png char_offset="39" justification="left" anchor="йцукенгшщз"/>
+    <table char_offset="49" justification="left" col_min="60" col_max="60" col_widths="105,75">
+      <row>
+        <cell>йцукенгшщз</cell>
+        <cell>2</cell>
+      </row>
+      <row>
+        <cell>3</cell>
+        <cell>4</cell>
+      </row>
+      <row>
+        <cell>h1</cell>
+        <cell>h2</cell>
+      </row>
+    </table>
+    <table char_offset="51" justification="left" col_min="60" col_max="60" col_widths="105,75" is_light="1">
+      <row>
+        <cell>йцукенгшщз</cell>
+        <cell>2</cell>
+      </row>
+      <row>
+        <cell>3</cell>
+        <cell>4</cell>
+      </row>
+      <row>
+        <cell>h1</cell>
+        <cell>h2</cell>
+      </row>
+    </table>
+    <encoded_png char_offset="61" justification="left" link="webs http://www.ansa.it" sha256sum="5fca3acaf280d30c46d74bf1a281324ceda43272ddad16942010a1cbfcda3107"/>
+    <encoded_png char_offset="79" justification="left" filename="йцукенгшщз.txt" time="1565442560" sha256sum="e3e7946d63c8627b1d0633cd03b18493166ddd2c0fa1b8b17bc7c590abaa8bcb"/>
+    <encoded_png char_offset="98" justification="left" filename="__ct_special.tex">\documentclass{article}
+\pagestyle{empty}
+\begin{document}
+$a^2+b^2=c^2$
+\end{document}</encoded_png>
+  </node>
+</cherrytree>

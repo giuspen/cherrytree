@@ -78,15 +78,16 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // tree empty
     ASSERT_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
-    ASSERT_TRUE(pWin->file_open(doc_filepath_from, ""/*file*/, ""/*anchor*/, docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
+    ASSERT_TRUE(pWin->file_open(doc_filepath_from, ""/*node_to_focus*/, ""/*anchor_to_focus*/, docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
     // do not check/walk the tree before calling the save_as to test that
     // even without visiting each node we save it all
 
     // save to temporary filepath
     fs::path tmp_dirpath = pWin->get_ct_tmp()->getHiddenDirPath("UT");
     fs::path tmp_filepath = tmp_dirpath / doc_filepath_to.filename();
+    CtDocType doc_type = CtDocEncrypt::None == docEncrypt_to ? CtDocType::MultiFile : fs::get_doc_type_from_file_ext(tmp_filepath);
     pWin->file_save_as(tmp_filepath.string(),
-                       fs::get_doc_type_from_file_ext(tmp_filepath),
+                       doc_type,
                        docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis);
 
     // close this window/tree
@@ -595,20 +596,28 @@ INSTANTIATE_TEST_CASE_P(
         ReadWriteTests,
         ReadWriteMultipleParametersTests,
         ::testing::Values(
-                std::make_tuple(UT::testCtbDocPath, UT::testCtbDocPath),
                 std::make_tuple(UT::testCtbDocPath, UT::testCtdDocPath),
                 std::make_tuple(UT::testCtbDocPath, UT::testCtxDocPath),
                 std::make_tuple(UT::testCtbDocPath, UT::testCtzDocPath),
+                std::make_tuple(UT::testCtbDocPath, UT::testMultiFilePath),
+                //
                 std::make_tuple(UT::testCtdDocPath, UT::testCtbDocPath),
-                std::make_tuple(UT::testCtdDocPath, UT::testCtdDocPath),
                 std::make_tuple(UT::testCtdDocPath, UT::testCtxDocPath),
                 std::make_tuple(UT::testCtdDocPath, UT::testCtzDocPath),
+                std::make_tuple(UT::testCtdDocPath, UT::testMultiFilePath),
+                //
+                std::make_tuple(UT::testMultiFilePath, UT::testCtbDocPath),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtdDocPath),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtxDocPath),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtzDocPath),
+                //
                 std::make_tuple(UT::testCtxDocPath, UT::testCtbDocPath),
                 std::make_tuple(UT::testCtxDocPath, UT::testCtdDocPath),
-                std::make_tuple(UT::testCtxDocPath, UT::testCtxDocPath),
                 std::make_tuple(UT::testCtxDocPath, UT::testCtzDocPath),
+                std::make_tuple(UT::testCtxDocPath, UT::testMultiFilePath),
+                //
                 std::make_tuple(UT::testCtzDocPath, UT::testCtbDocPath),
                 std::make_tuple(UT::testCtzDocPath, UT::testCtdDocPath),
                 std::make_tuple(UT::testCtzDocPath, UT::testCtxDocPath),
-                std::make_tuple(UT::testCtzDocPath, UT::testCtzDocPath))
+                std::make_tuple(UT::testCtzDocPath, UT::testMultiFilePath))
 );
