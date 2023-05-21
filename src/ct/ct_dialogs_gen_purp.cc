@@ -394,7 +394,8 @@ std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFile
 
 std::string CtDialogs::folder_save_as_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
 {
-#if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
+//#if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
+#if 0 // native create folder doesn't seem to work
     auto chooser = Gtk::FileChooserNative::create(_("Save To Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
 #else
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save To Folder"), Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
