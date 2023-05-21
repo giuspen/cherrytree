@@ -31,9 +31,11 @@
 #include <libxml++/libxml++.h>
 
 namespace xmlpp {
-    class Element;
-    class Node;
-}
+
+class Element;
+class Node;
+
+} // namespace xmlpp
 
 class CtAnchoredWidget;
 class CtMainWin;
@@ -43,66 +45,77 @@ class CtStorageCache;
 class CtStorageXml : public CtStorageEntity
 {
 public:
-    CtStorageXml(CtMainWin* pCtMainWin);
-    ~CtStorageXml() = default;
+    CtStorageXml(CtMainWin* pCtMainWin)
+     : _pCtMainWin{pCtMainWin}
+    {}
 
-    void close_connect() override;
-    void reopen_connect() override;
-    void test_connection() override;
+    void close_connect() override {}
+    void reopen_connect() override {}
+    void test_connection() override {}
+    void vacuum() override {}
+
+    static std::unique_ptr<xmlpp::DomParser> get_parser(const fs::path& file_path);
 
     bool populate_treestore(const fs::path& file_path, Glib::ustring& error) override;
     bool save_treestore(const fs::path& file_path,
                         const CtStorageSyncPending& syncPending,
                         Glib::ustring& error,
-                        const CtExporting exporting = CtExporting::NONE,
+                        const CtExporting exporting,
                         const int start_offset = 0,
                         const int end_offset = -1) override;
-    void vacuum() override;
     void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
 
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
-    Gtk::TreeIter _node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id, bool* has_duplicated_id);
     void _nodes_to_xml(CtTreeIter* ct_tree_iter,
                        xmlpp::Element* p_node_parent,
                        CtStorageCache* storage_cache,
-                       const CtExporting exporting = CtExporting::NONE,
+                       const CtExporting exporting,
                        const int start_offset = 0,
                        const int end_offset =-1);
-    std::unique_ptr<xmlpp::DomParser> _get_parser(const fs::path& file_path);
 
 private:
-    CtMainWin* _pCtMainWin{nullptr};
-    mutable std::map<gint64, std::shared_ptr<xmlpp::Document>> _delayed_text_buffers;
+    CtMainWin* const _pCtMainWin;
+    mutable CtDelayedTextBufferMap _delayed_text_buffers;
 };
-
 
 class CtStorageXmlHelper
 {
 public:
-    CtStorageXmlHelper(CtMainWin* pCtMainWin);
+    CtStorageXmlHelper(CtMainWin* pCtMainWin)
+     : _pCtMainWin{pCtMainWin}
+    {}
 
-    xmlpp::Element* node_to_xml(CtTreeIter* ct_tree_iter,
+    xmlpp::Element* node_to_xml(const CtTreeIter* ct_tree_iter,
                                 xmlpp::Element* p_node_parent,
-                                bool with_widgets,
+                                const std::string& multifile_dir,
                                 CtStorageCache* storage_cache,
                                 const int start_offset = 0,
                                 const int end_offset = -1);
+    Gtk::TreeIter node_from_xml(const xmlpp::Element* xml_element,
+                                const gint64 sequence,
+                                const Gtk::TreeIter parent_iter,
+                                const gint64 new_id,
+                                bool* pHasDuplicatedId,
+                                CtDelayedTextBufferMap& delayed_text_buffers,
+                                const bool isDryRun,
+                                const std::string& multifile_dir);
 
-    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(
-        xmlpp::Element* parent_xml_element,
-        const Glib::ustring& syntax,
-        std::list<CtAnchoredWidget*>& widgets,
-        Gtk::TextIter* text_insert_pos,
-        int force_offset);
+    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
+                                                                 const Glib::ustring& syntax,
+                                                                 std::list<CtAnchoredWidget*>& widgets,
+                                                                 Gtk::TextIter* text_insert_pos,
+                                                                 const int force_offset,
+                                                                 const std::string& multifile_dir);
 
     void get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
                                            xmlpp::Node* slot_node,
                                            std::list<CtAnchoredWidget*>& widgets,
                                            Gtk::TextIter* text_insert_pos,
-                                           int force_offset);
+                                           const int force_offset,
+                                           const std::string& multifile_dir);
 
     Glib::RefPtr<Gsv::Buffer> create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content);
 
@@ -122,12 +135,12 @@ public:
 
 private:
     void              _add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);
-    CtAnchoredWidget* _create_image_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
+    CtAnchoredWidget* _create_image_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification, const std::string& multifile_dir);
     CtAnchoredWidget* _create_codebox_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
     CtAnchoredWidget* _create_table_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
 
 private:
-    CtMainWin* _pCtMainWin;
+    CtMainWin* const _pCtMainWin;
 };
 
 namespace CtXmlHelper {

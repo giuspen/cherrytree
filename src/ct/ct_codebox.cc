@@ -201,7 +201,7 @@ void CtCodebox::apply_syntax_highlighting(const bool forceReApply)
     _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
 }
 
-void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
+void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
     // todo: fix code duplicates in void CtHtml2Xml::_insert_codebox()
     xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");

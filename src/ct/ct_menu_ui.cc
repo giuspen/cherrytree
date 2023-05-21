@@ -37,8 +37,7 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
             else {
                 const bool isOpenRecent{element == CtConst::CHAR_STAR};
                 CtMenuAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(element);
-                if (pAction)
-                {
+                if (pAction) {
                     if (isOpenRecent) str += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
                     else str += "<child><object class='GtkToolButton'>";
                     str += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
@@ -105,12 +104,14 @@ const char* CtMenu::_get_ui_str_menu()
 <menubar name='MenuBar'>
   <menu action='FileMenu'>
     <menuitem action='ct_new_inst'/>
+    <menuitem action='ct_open_folder'/>
     <menuitem action='ct_open_file'/>
     <menu action='RecentDocsSubMenu'>
     </menu>
     <separator/>
     <menu action='ImportSubMenu'>
-      <menuitem action='import_cherrytree'/>
+      <menuitem action='import_ct_folder'/>
+      <menuitem action='import_ct_file'/>
       <menuitem action='import_indented_list'/>
       <menuitem action='import_txt_file'/>
       <menuitem action='import_txt_folder'/>
@@ -132,7 +133,7 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='export_pdf'/>
       <menuitem action='export_html'/>
       <menuitem action='export_txt'/>
-      <menuitem action='export_ctd'/>
+      <menuitem action='export_ct'/>
     </menu>
     <separator/>
     <menuitem action='ct_vacuum'/>

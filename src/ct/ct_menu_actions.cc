@@ -76,7 +76,9 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "ct_new_inst", "ct_new-instance", _("_New Instance..."), None,
         _("Start a New Instance of CherryTree"), sigc::mem_fun(*pActions, &CtActions::file_new)});
     _actions.push_back(CtMenuAction{file_cat, "ct_open_file", "ct_open", _("_Open File..."), KB_CONTROL+"O",
-        _("Open a CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::file_open)});
+        _("Open a CherryTree File"), sigc::mem_fun(*pActions, &CtActions::file_open)});
+    _actions.push_back(CtMenuAction{file_cat, "ct_open_folder", "ct_open", _("Open Fo_lder..."), KB_CONTROL+KB_SHIFT+"O",
+        _("Open a CherryTree Folder"), sigc::mem_fun(*pActions, &CtActions::folder_open)});
     _actions.push_back(CtMenuAction{file_cat, "ct_save", "ct_save", _("_Save"), KB_CONTROL+"S",
         _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtMenuAction{file_cat, "ct_vacuum", "ct_clear", _("Save and _Vacuum"), None,
@@ -418,8 +420,10 @@ void CtMenu::init_actions(CtActions* pActions)
     }
 
     const char* import_cat = _("Import");
-    _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None,
+    _actions.push_back(CtMenuAction{import_cat, "import_ct_file", "ct_from_cherrytree", _("From _CherryTree File"), None,
         _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_ct_folder", "ct_from_cherrytree", _("From _CherryTree Folder"), None,
+        _("Add Nodes of a CherryTree Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_folder)});
     _actions.push_back(CtMenuAction{import_cat, "import_indented_list", "ct_from_txt", _("From _Indented List File"), None,
         _("Add Nodes from an Indented List File to the Current Tree"),
         sigc::mem_fun(*pActions, &CtActions::import_nodes_from_indented_list_file)});
@@ -467,8 +471,8 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Export To HTML"), sigc::mem_fun(*pActions, &CtActions::export_to_html)});
     _actions.push_back(CtMenuAction{export_cat, "export_txt", "ct_to_txt", _("Export to Plain _Text"), None,
         _("Export to Plain Text"), sigc::mem_fun(*pActions, &CtActions::export_to_txt)});
-    _actions.push_back(CtMenuAction{export_cat, "export_ctd", "ct_to_cherrytree", _("_Export To CherryTree Document"), None,
-        _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
+    _actions.push_back(CtMenuAction{export_cat, "export_ct", "ct_to_cherrytree", _("_Export To CherryTree"), None,
+        _("Export To CherryTree File or Folder"), sigc::mem_fun(*pActions, &CtActions::export_to_ct)});
 
     const char* help_cat = _("Help");
     _actions.push_back(CtMenuAction{help_cat, "ct_check_newer", "ct_network", _("_Check Newer Version"), None,

@@ -93,20 +93,12 @@ void CtActions::import_node_from_html_directory() noexcept
     _import_from_dir(&importer, "");
 }
 
-void CtActions::import_nodes_from_ct_file() noexcept
+void CtActions::import_nodes_from_ct_folder() noexcept
 {
     try {
-        CtDialogs::FileSelectArgs args{_pCtMainWin};
-        args.curr_folder = _pCtConfig->pickDirImport;
-        args.filter_name = _("CherryTree Document");
-        args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
-        args.filter_pattern.push_back("*.ctx");
-        args.filter_pattern.push_back("*.ctd");
-        args.filter_pattern.push_back("*.ctz");
-
-        auto fpath = CtDialogs::file_select_dialog(args);
-        if (fpath.empty()) return; // No file selected
-        _pCtConfig->pickDirImport = Glib::path_get_dirname(fpath);
+        const std::string folder_path = CtDialogs::folder_select_dialog(_pCtMainWin, _pCtConfig->pickDirImport);
+        if (folder_path.empty()) return; // No folder selected
+        _pCtConfig->pickDirImport = Glib::path_get_dirname(folder_path);
 
         std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
         if (not parent_iter.has_value()) {
@@ -114,9 +106,37 @@ void CtActions::import_nodes_from_ct_file() noexcept
         }
 
         // Add the nodes through the storage type
-        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath, parent_iter.value());
+        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(folder_path, parent_iter.value(), true/*is_folder*/);
+    }
+    catch(std::exception& e) {
+        spdlog::error("{}: {}", __FUNCTION__, e.what());
+    }
+}
 
-    } catch(std::exception& e) {
+void CtActions::import_nodes_from_ct_file() noexcept
+{
+    try {
+        CtDialogs::CtFileSelectArgs args{};
+        args.curr_folder = _pCtConfig->pickDirImport;
+        args.filter_name = _("CherryTree File");
+        args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
+        args.filter_pattern.push_back("*.ctx");
+        args.filter_pattern.push_back("*.ctd");
+        args.filter_pattern.push_back("*.ctz");
+
+        const std::string file_path = CtDialogs::file_select_dialog(_pCtMainWin, args);
+        if (file_path.empty()) return; // No file selected
+        _pCtConfig->pickDirImport = Glib::path_get_dirname(file_path);
+
+        std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
+        if (not parent_iter.has_value()) {
+            return;
+        }
+
+        // Add the nodes through the storage type
+        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(file_path, parent_iter.value(), false/*is_folder*/);
+    }
+    catch(std::exception& e) {
         spdlog::error("{}: {}", __FUNCTION__, e.what());
     }
 }
@@ -230,12 +250,12 @@ void CtActions::import_nodes_from_notecase_html() noexcept
 
 void CtActions::_import_from_file(CtImporterInterface* importer, const bool dummy_root) noexcept
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirImport;
     args.filter_name = importer->file_pattern_name();
     args.filter_pattern = importer->file_patterns();
     args.filter_mime = importer->file_mime_types();
-    const std::string filepath = CtDialogs::file_select_dialog(args);
+    const std::string filepath = CtDialogs::file_select_dialog(_pCtMainWin, args);
     if (filepath.empty()) return;
     spdlog::debug("{} {}", __FUNCTION__, filepath);
     _pCtConfig->pickDirImport = Glib::path_get_dirname(filepath);
@@ -254,7 +274,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
 void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept
 {
     std::string start_dir = custom_dir.empty() or not fs::is_directory(custom_dir) ? _pCtConfig->pickDirImport : custom_dir;
-    std::string import_dir = CtDialogs::folder_select_dialog(start_dir, _pCtMainWin);
+    std::string import_dir = CtDialogs::folder_select_dialog(_pCtMainWin, start_dir);
     if (import_dir.empty()) return;
     if (custom_dir.empty()) {
         _pCtConfig->pickDirImport = import_dir;
@@ -306,19 +326,18 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
         node_data.tsCreation = std::time(nullptr);
         node_data.tsLastSave = node_data.tsCreation;
         node_data.sequence = -1;
-        if (imported_node->has_content())
-        {
-            Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer();
-            buffer->begin_not_undoable_action();
-            for (xmlpp::Node* xml_slot : imported_node->xml_content->get_root_node()->get_children("slot"))
-                for (xmlpp::Node* child: xml_slot->get_children())
-                {
-                    Gtk::TextIter insert_iter = buffer->get_insert()->get_iter();
-                    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(buffer, child, node_data.anchoredWidgets, &insert_iter, -1);
+        if (imported_node->has_content()) {
+            Glib::RefPtr<Gsv::Buffer> pBuffer = _pCtMainWin->get_new_text_buffer();
+            pBuffer->begin_not_undoable_action();
+            for (xmlpp::Node* xml_slot : imported_node->xml_content->get_root_node()->get_children("slot")) {
+                for (xmlpp::Node* child: xml_slot->get_children()) {
+                    Gtk::TextIter insert_iter = pBuffer->get_insert()->get_iter();
+                    CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(pBuffer, child, node_data.anchoredWidgets, &insert_iter, -1, "");
                 }
-            buffer->end_not_undoable_action();
-            buffer->set_modified(false);
-            node_data.rTextBuffer = buffer;
+            }
+            pBuffer->end_not_undoable_action();
+            pBuffer->set_modified(false);
+            node_data.rTextBuffer = pBuffer;
         }
         else
             node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();

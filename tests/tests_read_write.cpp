@@ -71,8 +71,8 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
 
 void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_filepath_to)
 {
-    const CtDocEncrypt docEncrypt_from = fs::get_doc_encrypt(doc_filepath_from);
-    const CtDocEncrypt docEncrypt_to = fs::get_doc_encrypt(doc_filepath_to);
+    const CtDocEncrypt docEncrypt_from = fs::get_doc_encrypt_from_file_ext(doc_filepath_from);
+    const CtDocEncrypt docEncrypt_to = fs::get_doc_encrypt_from_file_ext(doc_filepath_to);
 
     CtMainWin* pWin = _create_window(true/*start_hidden*/);
     // tree empty
@@ -85,7 +85,9 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // save to temporary filepath
     fs::path tmp_dirpath = pWin->get_ct_tmp()->getHiddenDirPath("UT");
     fs::path tmp_filepath = tmp_dirpath / doc_filepath_to.filename();
-    pWin->file_save_as(tmp_filepath.string(), docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis);
+    pWin->file_save_as(tmp_filepath.string(),
+                       fs::get_doc_type_from_file_ext(tmp_filepath),
+                       docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis);
 
     // close this window/tree
     pWin->force_exit() = true;

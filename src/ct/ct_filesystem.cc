@@ -1,7 +1,7 @@
 /*
   ct_filesystem.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -149,6 +149,11 @@ bool remove(const fs::path& path2rm)
     return true;
 }
 
+bool exists(const path& filepath)
+{
+    return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
+}
+
 bool is_regular_file(const path& file)
 {
     return Glib::file_test(file.string(), Glib::FILE_TEST_IS_REGULAR);
@@ -226,11 +231,6 @@ std::list<fs::path> get_dir_entries(const path& dir)
     for (auto& entry : entries)
         entry = dir / entry;
     return entries;
-}
-
-bool exists(const path& filepath)
-{
-    return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
 }
 
 void open_weblink(const std::string& link)
@@ -344,11 +344,13 @@ std::uintmax_t remove_all(const path& dir)
 {
     std::uintmax_t count = 0;
     for (const auto& file : get_dir_entries(dir)) {
-        ++count;
         if (is_directory(file)) {
             count += remove_all(file);
         }
-        remove(file);
+        else {
+            ++count;
+            remove(file);
+        }
     }
     remove(dir);
     ++count;
@@ -491,34 +493,35 @@ std::string download_file(const std::string& filepath)
     return buffer;
 }
 
-CtDocType get_doc_type(const fs::path& filename)
+CtDocType get_doc_type_from_file_ext(const fs::path& filename)
 {
-    CtDocType retDocType{CtDocType::None};
-    if ((filename.extension() == CtConst::CTDOC_XML_NOENC) or
-         (filename.extension() == CtConst::CTDOC_XML_ENC))
+    const std::string file_ext = filename.extension();
+    if (CtConst::CTDOC_XML_NOENC == file_ext or
+        CtConst::CTDOC_XML_ENC == file_ext)
     {
-        retDocType = CtDocType::XML;
+        return CtDocType::XML;
     }
-    else if ((filename.extension() == CtConst::CTDOC_SQLITE_NOENC) or
-             (filename.extension() == CtConst::CTDOC_SQLITE_ENC))
+    if (CtConst::CTDOC_SQLITE_NOENC == file_ext or
+        CtConst::CTDOC_SQLITE_ENC == file_ext)
     {
-        retDocType = CtDocType::SQLite;
+        return CtDocType::SQLite;
     }
-    return retDocType;
+    return CtDocType::None;
 }
 
-CtDocEncrypt get_doc_encrypt(const fs::path& filename)
+CtDocEncrypt get_doc_encrypt_from_file_ext(const fs::path& filename)
 {
+    const std::string file_ext = filename.extension();
     CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
-    if ( (filename.extension() == CtConst::CTDOC_XML_NOENC) or
-         (filename.extension() == CtConst::CTDOC_SQLITE_NOENC))
+    if (CtConst::CTDOC_XML_NOENC == file_ext or
+        CtConst::CTDOC_SQLITE_NOENC == file_ext)
     {
-        retDocEncrypt = CtDocEncrypt::False;
+        return CtDocEncrypt::False;
     }
-    else if ( (filename.extension() == CtConst::CTDOC_XML_ENC) or
-              (filename.extension() == CtConst::CTDOC_SQLITE_ENC))
+    if (CtConst::CTDOC_XML_ENC == file_ext or
+        CtConst::CTDOC_SQLITE_ENC == file_ext)
     {
-        retDocEncrypt = CtDocEncrypt::True;
+        return CtDocEncrypt::True;
     }
     return retDocEncrypt;
 }

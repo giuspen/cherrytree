@@ -1,7 +1,7 @@
 /*
  * ct_main_win_buffer.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -442,7 +442,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     tree_iter.remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* text_node: state->buffer_xml.get_root_node()->get_children()) {
-        CtStorageXmlHelper(this).get_text_buffer_one_slot_from_xml(gsv_buffer, text_node, widgets, nullptr, -1);
+        CtStorageXmlHelper{this}.get_text_buffer_one_slot_from_xml(gsv_buffer, text_node, widgets, nullptr, -1, "");
     }
 
     // xml storage doesn't have widgets, so load them seperatrly

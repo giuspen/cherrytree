@@ -136,19 +136,22 @@ bool CtMainWin::get_file_save_needed()
 
 bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string& anchor_to_focus, const Glib::ustring password)
 {
-    if (!fs::is_regular_file(filepath)) {
-        CtDialogs::error_dialog("File does not exist", *this);
+    if (not fs::exists(filepath)) {
+        g_autofree gchar* title = g_strdup_printf(_("The Path %s does Not Exist"), str::xml_escape(filepath.string()).c_str());
+        CtDialogs::error_dialog(Glib::ustring{title}, *this);
         return false;
     }
-    if (fs::get_doc_type(filepath) == CtDocType::None) {
-        // can't open file but can insert content into a new node
+    const CtDocType doc_type = fs::is_directory(filepath) ? CtDocType::MultiFile : fs::get_doc_type_from_file_ext(filepath);
+    if (CtDocType::None == doc_type) {
+        // not a cherrytree file but can try and insert plain text content into a new node
         if (file_insert_plain_text(filepath)) {
             return true;
         }
-        CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), str::xml_escape(filepath.string())), *this);
+        CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree File"), str::xml_escape(filepath.string())), *this);
         return false;
     }
-    if (!file_save_ask_user()) {
+    // check if there is a previous open file with unsaved changes
+    if (not file_save_ask_user()) {
         return false;
     }
 
@@ -158,10 +161,10 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     reset(); // cannot reset after load_from because load_from fill tree store
 
     Glib::ustring error;
-    CtStorageControl* new_storage = CtStorageControl::load_from(this, filepath, error, password);
+    CtStorageControl* new_storage = CtStorageControl::load_from(this, filepath, doc_type, error, password);
     if (not new_storage) {
         if (not error.empty()) {
-            CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree File:\n\"%s\""), str::xml_escape(error)), *this);
+            CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree Path:\n\"%s\""), str::xml_escape(error)), *this);
         }
 
         // trying to recover prevous document
@@ -175,8 +178,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
 
     window_title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
-    bool can_vacuum = fs::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
-    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(CtDocType::SQLite == doc_type);
 
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath.string())};
     switch (_pCtConfig->restoreExpColl) {
@@ -293,11 +295,19 @@ void CtMainWin::file_save(bool need_vacuum)
     }
 }
 
-void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustring& password)
+void CtMainWin::file_save_as(const std::string& new_filepath,
+                             const CtDocType doc_type,
+                             const Glib::ustring& password)
 {
     Glib::ustring error;
-    std::unique_ptr<CtStorageControl> new_storage(CtStorageControl::save_as(this, new_filepath, password, error));
-    if (!new_storage) {
+    std::unique_ptr<CtStorageControl> new_storage{
+        CtStorageControl::save_as(this,
+                                  new_filepath,
+                                  doc_type,
+                                  password,
+                                  error,
+                                  CtExporting::NONESAVEAS)};
+    if (not new_storage) {
         CtDialogs::error_dialog(str::xml_escape(error), *this);
         return;
     }

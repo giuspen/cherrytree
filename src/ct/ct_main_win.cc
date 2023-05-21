@@ -555,14 +555,14 @@ void CtMainWin::menu_set_bookmark_menu_items()
 void CtMainWin::menu_set_items_recent_documents()
 {
     sigc::slot<void, const std::string&> recent_doc_open_action = [&](const std::string& filepath){
-        if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR)) {
+        if (Glib::file_test(filepath, Glib::FILE_TEST_EXISTS)) {
             if (file_open(filepath, ""/*node*/, ""/*anchor*/)) {
                 _pCtConfig->recentDocsFilepaths.move_or_push_front(fs_canonicalize_filename(filepath));
                 menu_set_items_recent_documents();
             }
         }
         else {
-            g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), str::xml_escape(filepath).c_str());
+            g_autofree gchar* title = g_strdup_printf(_("The Path %s does Not Exist"), str::xml_escape(filepath).c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
             _pCtConfig->recentDocsFilepaths.move_or_push_back(fs_canonicalize_filename(filepath));
             menu_set_items_recent_documents();

@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -123,9 +123,9 @@ public:
     bool                      get_node_buffer_already_loaded() const;
 
     void                         remove_all_embedded_widgets();
-    std::list<CtAnchoredWidget*> get_anchored_widgets_fast(const char doSort = 'n');
-    std::list<CtAnchoredWidget*> get_anchored_widgets(int start_offset = -1, int end_offset = -1);
-    CtAnchoredWidget*            get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor);
+    std::list<CtAnchoredWidget*> get_anchored_widgets_fast(const char doSort = 'n') const;
+    std::list<CtAnchoredWidget*> get_anchored_widgets(int start_offset = -1, int end_offset = -1) const;
+    CtAnchoredWidget*            get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor) const;
 
     void pending_edit_db_node_prop();
     void pending_edit_db_node_buff();

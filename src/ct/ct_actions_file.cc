@@ -62,45 +62,59 @@ void CtActions::file_save_as()
     storageSelArgs.showAutosaveOptions = true;
     fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     if (not currDocFilepath.empty()) {
-        storageSelArgs.ctDocType = fs::get_doc_type(currDocFilepath);
-        storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt(currDocFilepath);
+        storageSelArgs.ctDocType = fs::get_doc_type_from_file_ext(currDocFilepath);
+        storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt_from_file_ext(currDocFilepath);
     }
     if (not CtDialogs::choose_data_storage_dialog(_pCtMainWin, storageSelArgs)) {
         return;
     }
-    CtDialogs::FileSelectArgs fileSelArgs{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs fileSelArgs{};
     if (not currDocFilepath.empty()) {
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
         fs::path suggested_basename = currDocFilepath.filename();
         fileSelArgs.curr_file_name = suggested_basename.stem() + CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     }
-    fileSelArgs.filter_name = _("CherryTree Document");
-    std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
-    fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
-    std::string filepath = CtDialogs::file_save_as_dialog(fileSelArgs);
+    std::string filepath;
+    if (CtDocType::MultiFile == storageSelArgs.ctDocType) {
+        filepath = CtDialogs::folder_save_as_dialog(_pCtMainWin, fileSelArgs);
+    }
+    else {
+        fileSelArgs.filter_name = _("CherryTree File");
+        std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+        fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
+        filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
+    }
     if (filepath.empty()) {
         return;
     }
-
     CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, filepath);
-    _pCtMainWin->file_save_as(filepath, storageSelArgs.password);
+    _pCtMainWin->file_save_as(filepath, storageSelArgs.ctDocType, storageSelArgs.password);
+}
+
+void CtActions::folder_open()
+{
+    const std::string folder_path = CtDialogs::folder_select_dialog(_pCtMainWin, _pCtMainWin->get_ct_storage()->get_file_dir().string());
+
+    if (folder_path.empty()) return;
+
+    _pCtMainWin->file_open(folder_path, ""/*node*/, ""/*anchor*/);
 }
 
 void CtActions::file_open()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtMainWin->get_ct_storage()->get_file_dir();
-    args.filter_name = _("CherryTree Document");
+    args.filter_name = _("CherryTree File");
     args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
     args.filter_pattern.push_back("*.ctx");
     args.filter_pattern.push_back("*.ctd");
     args.filter_pattern.push_back("*.ctz");
 
-    std::string filepath = CtDialogs::file_select_dialog(args);
+    const std::string file_path = CtDialogs::file_select_dialog(_pCtMainWin, args);
 
-    if (filepath.empty()) return;
+    if (file_path.empty()) return;
 
-    _pCtMainWin->file_open(filepath, ""/*node*/, ""/*anchor*/);
+    _pCtMainWin->file_open(file_path, ""/*node*/, ""/*anchor*/);
 }
 
 void CtActions::quit_or_hide_window()
@@ -123,10 +137,10 @@ void CtActions::dialog_preferences()
 
 void CtActions::preferences_import()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.filter_name = _("Preferences File");
     args.filter_pattern.push_back("*.cfg");
-    const std::string filepath = CtDialogs::file_select_dialog(args);
+    const std::string filepath = CtDialogs::file_select_dialog(_pCtMainWin, args);
     if (filepath.empty()) return;
     CtConfig ctConfigImported{filepath};
     if (not ctConfigImported.getInitLoadFromFileOk()) return;
@@ -296,12 +310,12 @@ void CtActions::preferences_import()
 
 void CtActions::preferences_export()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     const time_t time = std::time(nullptr);
     args.curr_file_name = std::string{"config_"} + str::time_format("%Y.%m.%d_%H.%M.%S", time) + ".cfg";
     args.filter_name = _("Preferences File");
     args.filter_pattern.push_back("*.cfg");
-    const std::string filepath = CtDialogs::file_save_as_dialog(args);
+    const std::string filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     _pCtMainWin->config_update_data_from_curr_status();
     _pCtConfig->write_to_file(filepath);
 }

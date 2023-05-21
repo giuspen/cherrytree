@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -74,7 +74,7 @@ public:
                const std::string& justification);
     ~CtImagePng() override {}
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImagePng; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
@@ -100,7 +100,7 @@ public:
                   const std::string& justification);
     ~CtImageAnchor() override {}
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageAnchor; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
@@ -132,7 +132,7 @@ public:
     static void ensureRenderingBinariesTested();
     static Glib::ustring getRenderingErrorMessage();
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageLatex; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
@@ -168,7 +168,7 @@ public:
                    const size_t uniqueId);
     ~CtImageEmbFile() override {}
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;

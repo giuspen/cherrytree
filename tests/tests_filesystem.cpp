@@ -1,7 +1,7 @@
 /*
  * tests_filesystem.cpp
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -83,21 +83,21 @@ TEST(FileSystemGroup, is_directory)
     ASSERT_FALSE(fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path() / "test_consts.h"));
 }
 
-TEST(FileSystemGroup, get_doc_type)
+TEST(FileSystemGroup, get_doc_type_from_file_ext)
 {
-    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type(UT::testCtbDocPath));
-    ASSERT_TRUE(CtDocType::XML == fs::get_doc_type(UT::testCtdDocPath));
-    ASSERT_TRUE(CtDocType::None == fs::get_doc_type(UT::unitTestsDataDir + "/md_testfile.md"));
-    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type(UT::unitTestsDataDir + "/mimetype_ctb.ctb"));
-    ASSERT_TRUE(CtDocType::XML == fs::get_doc_type(UT::unitTestsDataDir + "/7zr.ctz"));
-    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type("test.ctx")); // Doesnt actually exist
+    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type_from_file_ext(UT::testCtbDocPath));
+    ASSERT_TRUE(CtDocType::XML == fs::get_doc_type_from_file_ext(UT::testCtdDocPath));
+    ASSERT_TRUE(CtDocType::None == fs::get_doc_type_from_file_ext(UT::unitTestsDataDir + "/md_testfile.md"));
+    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type_from_file_ext(UT::unitTestsDataDir + "/mimetype_ctb.ctb"));
+    ASSERT_TRUE(CtDocType::XML == fs::get_doc_type_from_file_ext(UT::unitTestsDataDir + "/7zr.ctz"));
+    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type_from_file_ext("test.ctx")); // Doesnt actually exist
 }
 
-TEST(FileSystemGroup, get_doc_encrypt)
+TEST(FileSystemGroup, get_doc_encrypt_from_file_ext)
 {
-    ASSERT_TRUE(fs::get_doc_encrypt(UT::testCtbDocPath) == CtDocEncrypt::False);
-    ASSERT_TRUE(fs::get_doc_encrypt(UT::testCtzDocPath) == CtDocEncrypt::True);
-    ASSERT_TRUE(fs::get_doc_encrypt(UT::unitTestsDataDir + "/mimetype_txt.txt") == CtDocEncrypt::None);
+    ASSERT_TRUE(fs::get_doc_encrypt_from_file_ext(UT::testCtbDocPath) == CtDocEncrypt::False);
+    ASSERT_TRUE(fs::get_doc_encrypt_from_file_ext(UT::testCtzDocPath) == CtDocEncrypt::True);
+    ASSERT_TRUE(fs::get_doc_encrypt_from_file_ext(UT::unitTestsDataDir + "/mimetype_txt.txt") == CtDocEncrypt::None);
 }
 
 TEST(FileSystemGroup, path_is_absolute)
@@ -154,19 +154,44 @@ TEST(FileSystemGroup, remove)
 
     // empty dir remove
     fs::path test_dir_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_dir"};
-    ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
+    ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path.c_str(), 0755));
     ASSERT_TRUE(fs::exists(test_dir_path));
     ASSERT_TRUE(fs::remove(test_dir_path));
     ASSERT_FALSE(fs::exists(test_dir_path));
     ASSERT_FALSE(fs::remove(test_dir_path));
 
     // non empty dir remove
-    ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
+    ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path.c_str(), 0755));
     fs::path test_file_in_dir = test_dir_path / fs::path{"test_file.txt"};
     Glib::file_set_contents(test_file_in_dir.string(), "blabla");
     ASSERT_TRUE(fs::exists(test_file_in_dir));
     ASSERT_EQ(2, fs::remove_all(test_dir_path));
     ASSERT_FALSE(fs::exists(test_dir_path));
+}
+
+TEST(FileSystemGroup, move)
+{
+    fs::path test_file_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_mv.txt"};
+    fs::path test_dir_path1 = fs::path{UT::unitTestsDataDir} / fs::path{"test_mv_dir1"};
+    fs::path test_dir_path2 = fs::path{UT::unitTestsDataDir} / fs::path{"test_mv_dir2"};
+    if (fs::exists(test_dir_path1)) fs::remove_all(test_dir_path1);
+    if (fs::exists(test_dir_path2)) fs::remove_all(test_dir_path2);
+
+    Glib::file_set_contents(test_file_path.string(), "blabla");
+    ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path1.c_str(), 0755));
+    ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path2.c_str(), 0755));
+
+    ASSERT_TRUE(fs::move_file(test_file_path, test_dir_path1 / fs::path{"test_mv.txt"}));
+    ASSERT_TRUE(fs::is_regular_file(test_dir_path1 / fs::path{"test_mv.txt"}));
+    ASSERT_FALSE(fs::exists(test_file_path));
+
+    ASSERT_TRUE(fs::move_file(test_dir_path1, test_dir_path2 / test_dir_path1.filename()));
+    ASSERT_TRUE(fs::is_directory(test_dir_path2 / test_dir_path1.filename()));
+    ASSERT_TRUE(fs::is_regular_file(test_dir_path2 / test_dir_path1.filename() / fs::path{"test_mv.txt"}));
+    ASSERT_FALSE(fs::is_directory(test_dir_path1));
+    ASSERT_EQ(1, fs::get_dir_entries(test_dir_path2).size());
+    ASSERT_EQ(1, fs::get_dir_entries(test_dir_path2 / test_dir_path1.filename()).size());
+    ASSERT_EQ(3, fs::remove_all(test_dir_path2));
 }
 
 TEST(FileSystemGroup, relative)

@@ -218,9 +218,9 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             dialog.response(Gtk::RESPONSE_ACCEPT);
     });
     button_browse_file.signal_clicked().connect([&](){
-        CtDialogs::FileSelectArgs args{&dialog};
+        CtDialogs::CtFileSelectArgs args{};
         args.curr_folder=ctMainWin.get_ct_config()->pickDirFile;
-        std::string filepath = file_select_dialog(args);
+        std::string filepath = file_select_dialog(&dialog, args);
         if (filepath.empty()) {
             return;
         }
@@ -231,7 +231,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         entry_file.set_text(filepath);
     });
     button_browse_folder.signal_clicked().connect([&](){
-        std::string filepath = CtDialogs::folder_select_dialog(ctMainWin.get_ct_config()->pickDirFile, &dialog);
+        std::string filepath = CtDialogs::folder_select_dialog(&dialog, ctMainWin.get_ct_config()->pickDirFile);
         if (filepath.empty()) {
             return;
         }

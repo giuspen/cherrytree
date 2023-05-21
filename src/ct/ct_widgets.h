@@ -1,7 +1,7 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -62,7 +62,7 @@ public:
 
     virtual void apply_width_height(const int parentTextWidth) = 0;
     virtual void apply_syntax_highlighting(const bool forceReApply) = 0;
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) = 0;
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) = 0;
     virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) = 0;
     virtual void set_modified_false() = 0;
     virtual CtAnchWidgType get_type() = 0;

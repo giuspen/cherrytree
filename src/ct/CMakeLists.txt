@@ -68,6 +68,7 @@ set(CT_SHARED_FILES
   ct_storage_control.cc
   ct_storage_sqlite.cc
   ct_storage_xml.cc
+  ct_storage_multifile.cc
   ct_table.cc
   ct_table_light.cc
   ct_treestore.cc

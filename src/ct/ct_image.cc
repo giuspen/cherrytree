@@ -27,6 +27,7 @@
 #include "ct_storage_sqlite.h"
 #include "ct_logging.h"
 #include "ct_storage_control.h"
+#include "ct_storage_multifile.h"
 
 CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& rawBlob,
@@ -110,16 +111,30 @@ const std::string CtImagePng::get_raw_blob()
     return rawBlob;
 }
 
-void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* storage_cache)
+void CtImagePng::to_xml(xmlpp::Element* p_node_parent,
+                        const int offset_adjustment,
+                        CtStorageCache* storage_cache,
+                        const std::string& multifile_dir)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("link", _link);
-    std::string encodedBlob;
-    if (!storage_cache || !storage_cache->get_cached_image(this, encodedBlob))
-         encodedBlob = Glib::Base64::encode(get_raw_blob());
-    p_image_node->add_child_text(encodedBlob);
+    if (multifile_dir.empty()) {
+        std::string encodedBlob;
+        if (not storage_cache or not storage_cache->get_cached_image(this, encodedBlob)) {
+            encodedBlob = Glib::Base64::encode(get_raw_blob());
+        }
+        p_image_node->add_child_text(encodedBlob);
+    }
+    else {
+        std::string rawBlob;
+        if (not storage_cache or not storage_cache->get_cached_image(this, rawBlob)) {
+            rawBlob = get_raw_blob();
+        }
+        const std::string sha256sum = CtStorageMultiFile::save_blob(rawBlob, multifile_dir, ".png");
+        p_image_node->set_attribute("sha256sum", sha256sum);
+    }
 }
 
 bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* storage_cache)
@@ -132,8 +147,9 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     }
     else {
         std::string rawBlob;
-        if (!storage_cache || !storage_cache->get_cached_image(this, rawBlob))
-           rawBlob = get_raw_blob();
+        if (not storage_cache or not storage_cache->get_cached_image(this, rawBlob)) {
+            rawBlob = get_raw_blob();
+        }
         const std::string link = _link;
 
         sqlite3_bind_int64(p_stmt, 1, node_id);
@@ -198,7 +214,7 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
     update_tooltip();
 }
 
-void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
+void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
@@ -283,7 +299,7 @@ CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
     update_tooltip();
 }
 
-void CtImageLatex::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
+void CtImageLatex::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
@@ -487,15 +503,24 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
     update_label_widget();
 }
 
-void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
+void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
+                            const int offset_adjustment,
+                            CtStorageCache*,
+                            const std::string& multifile_dir)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("filename", _fileName.string());
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
-    const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
-    p_image_node->add_child_text(encodedBlob);
+    if (multifile_dir.empty()) {
+        const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
+        p_image_node->add_child_text(encodedBlob);
+    }
+    else {
+        const std::string sha256sum = CtStorageMultiFile::save_blob(_rawBlob, multifile_dir, _fileName.extension());
+        p_image_node->set_attribute("sha256sum", sha256sum);
+    }
 }
 
 bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)

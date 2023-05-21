@@ -41,7 +41,7 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
 {
     if (dir_place.empty())
     {
-        dir_place = CtDialogs::folder_select_dialog(_pCtConfig->pickDirExport, _pCtMainWin);
+        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin, _pCtConfig->pickDirExport);
         if (dir_place.empty())
             return false;
     }

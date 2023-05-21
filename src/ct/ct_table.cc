@@ -202,7 +202,7 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
     }
 }
 
-void CtTableCommon::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
+void CtTableCommon::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
     std::vector<std::vector<Glib::ustring>> rows;
     write_strings_matrix(rows);

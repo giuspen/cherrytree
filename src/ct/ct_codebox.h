@@ -1,7 +1,7 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -76,7 +76,7 @@ public:
 
     void apply_width_height(const int parentTextWidth) override;
     void apply_syntax_highlighting(const bool forceReApply) override;
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     void set_modified_false() override { set_text_buffer_modified_false(); }
     CtAnchWidgType get_type() override { return CtAnchWidgType::CodeBox; }

@@ -34,10 +34,11 @@ struct CtConst {
 const inline static gchar* CT_VERSION  {PACKAGE_VERSION};
 const inline static gchar* APP_NAME    {PACKAGE_NAME};
 
-const inline static gchar* CTDOC_XML_NOENC          {".ctd"};
-const inline static gchar* CTDOC_XML_ENC            {".ctz"};
-const inline static gchar* CTDOC_SQLITE_NOENC       {".ctb"};
-const inline static gchar* CTDOC_SQLITE_ENC         {".ctx"};
+const inline static std::string CTDOC_XML_NOENC     {".ctd"};
+const inline static std::string CTDOC_XML_ENC       {".ctz"};
+const inline static std::string CTDOC_SQLITE_NOENC  {".ctb"};
+const inline static std::string CTDOC_SQLITE_ENC    {".ctx"};
+
 const inline static gchar* LINK_TYPE_WEBS           {"webs"};
 const inline static gchar* LINK_TYPE_FILE           {"file"};
 const inline static gchar* LINK_TYPE_FOLD           {"fold"};
@@ -243,7 +244,7 @@ const inline static std::array<const gchar*, 4> TAG_ALIGNMENTS {
 const inline static gchar* TOOLBAR_SPLIT {"toolbar_split"};
 const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "tree_add_node,tree_add_subnode,separator,go_node_prev,go_node_next,"
-    "separator,*,ct_save,export_pdf,separator,"
+    "separator,ct_open_folder,*,ct_save,export_pdf,separator,"
     "find_in_allnodes,separator,handle_bull_list,handle_num_list,handle_todo_list,fmt_indent,fmt_unindent,"
     "separator,handle_image,handle_table,handle_codebox,handle_latex,handle_embfile,"
     "handle_link,handle_anchor,separator,fmt_clone,fmt_latest,fmt_rm,fmt_color_fg,"

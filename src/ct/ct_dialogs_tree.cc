@@ -440,7 +440,7 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
     if (last_new_node_page != nullptr) *last_new_node_page = checkbutton_new_node_page.get_active();
     if (last_single_file != nullptr) *last_single_file = checkbutton_single_file.get_active();
 
-    if (response != Gtk::RESPONSE_ACCEPT) return CtExporting::NONE;
+    if (response != Gtk::RESPONSE_ACCEPT) return CtExporting::NONESAVE;
     if (radiobutton_selnode.get_active()) return CtExporting::CURRENT_NODE;
     if (radiobutton_selnodeandsub.get_active()) return CtExporting::CURRENT_NODE_AND_SUBNODES;
     if (radiobutton_alltree.get_active()) return CtExporting::ALL_TREE;

@@ -126,11 +126,11 @@ void CtActions::embfile_delete()
 
 void CtActions::embfile_save()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirFile;
     args.curr_file_name = curr_file_anchor->get_file_name();
 
-    std::string filepath = CtDialogs::file_save_as_dialog(args);
+    std::string filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (filepath.empty()) return;
 
     _pCtConfig->pickDirFile = Glib::path_get_dirname(filepath);
@@ -182,13 +182,13 @@ void CtActions::embfile_rename()
 
 void CtActions::latex_save()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirImg;
     args.curr_file_name = "";
     args.filter_name = _("PNG Image");
     args.filter_pattern = {"*.png"};
 
-    std::string filename = CtDialogs::file_save_as_dialog(args);
+    std::string filename = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (filename.empty()) return;
 
     _pCtConfig->pickDirImg = Glib::path_get_dirname(filename);
@@ -232,13 +232,13 @@ void CtActions::latex_delete()
 
 void CtActions::image_save()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirImg;
     args.curr_file_name = "";
     args.filter_name = _("PNG Image");
     args.filter_pattern = {"*.png"};
 
-    std::string filename = CtDialogs::file_save_as_dialog(args);
+    std::string filename = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (filename.empty()) return;
 
     _pCtConfig->pickDirImg = Glib::path_get_dirname(filename);
@@ -561,10 +561,10 @@ void CtActions::codebox_load_from_file()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirCbox;
 
-    std::string filepath = CtDialogs::file_select_dialog(args);
+    std::string filepath = CtDialogs::file_select_dialog(_pCtMainWin, args);
     if (filepath.empty()) return;
     _pCtConfig->pickDirCbox = Glib::path_get_dirname(filepath);
 
@@ -575,10 +575,10 @@ void CtActions::codebox_load_from_file()
 void CtActions::codebox_save_to_file()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder=_pCtConfig->pickDirCbox;
 
-    std::string filepath = CtDialogs::file_save_as_dialog(args);
+    std::string filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (filepath.empty()) return;
     _pCtConfig->pickDirCbox = Glib::path_get_dirname(filepath);
 
@@ -833,13 +833,13 @@ void CtActions::table_edit_properties()
 void CtActions::table_export()
 {
     if (not _is_there_anch_widg_selection_or_error('t')) return;
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirCsv;
     args.curr_file_name = "";
     args.filter_name = _("CSV File");
     args.filter_pattern = {"*.csv"};
 
-    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    Glib::ustring filename = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (filename.empty()) return;
     if (!str::endswith(filename, ".csv")) filename += ".csv";
     _pCtConfig->pickDirCsv = Glib::path_get_dirname(filename);

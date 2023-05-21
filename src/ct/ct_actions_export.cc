@@ -1,7 +1,7 @@
 ﻿/*
  * ct_actions_export.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -55,7 +55,7 @@ void CtActions::export_to_txt()
     _export_to_txt("", false);
 }
 
-void CtActions::export_to_ctd()
+void CtActions::export_to_ct()
 {
     if (not _is_there_selected_node_or_error()) {
         return;
@@ -68,7 +68,7 @@ void CtActions::export_to_ctd()
         nullptr/*last_index_in_page*/,
         nullptr/*last_single_file*/
     );
-    if (CtExporting::NONE == export_type) {
+    if (CtExporting::NONESAVE == export_type) {
         return;
     }
     int start_offset{0};
@@ -85,8 +85,8 @@ void CtActions::export_to_ctd()
     const fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     CtDialogs::CtStorageSelectArgs storageSelArgs{};
     if (not currDocFilepath.empty()) {
-        storageSelArgs.ctDocType = fs::get_doc_type(currDocFilepath);
-        storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt(currDocFilepath);
+        storageSelArgs.ctDocType = fs::get_doc_type_from_file_ext(currDocFilepath);
+        storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt_from_file_ext(currDocFilepath);
     }
     if (not CtDialogs::choose_data_storage_dialog(_pCtMainWin, storageSelArgs)) {
         return;
@@ -100,27 +100,34 @@ void CtActions::export_to_ctd()
     else {
         proposed_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter()) + fileExtension;
     }
-    CtDialogs::FileSelectArgs fileSelArgs{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs fileSelArgs{};
     fileSelArgs.curr_file_name = proposed_name;
     if (not currDocFilepath.empty()) {
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
     }
-    fileSelArgs.filter_name = _("CherryTree Document");
-    
-    fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
-    std::string new_filepath = CtDialogs::file_save_as_dialog(fileSelArgs);
+    std::string new_filepath;
+    if (CtDocType::MultiFile == storageSelArgs.ctDocType) {
+        new_filepath = CtDialogs::folder_save_as_dialog(_pCtMainWin, fileSelArgs);
+    }
+    else {
+        fileSelArgs.filter_name = _("CherryTree File");
+        fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
+        new_filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
+    }
     if (new_filepath.empty()) {
         return;
     }
     CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, new_filepath);
     Glib::ustring error;
-    std::unique_ptr<CtStorageControl> new_storage(CtStorageControl::save_as(_pCtMainWin,
-                                                                            new_filepath,
-                                                                            storageSelArgs.password,
-                                                                            error,
-                                                                            export_type,
-                                                                            start_offset,
-                                                                            end_offset));
+    std::unique_ptr<CtStorageControl> new_storage{
+        CtStorageControl::save_as(_pCtMainWin,
+                                  new_filepath,
+                                  storageSelArgs.ctDocType,
+                                  storageSelArgs.password,
+                                  error,
+                                  export_type,
+                                  start_offset,
+                                  end_offset)};
     if (not new_storage) {
         CtDialogs::error_dialog(str::xml_escape(error), *_pCtMainWin);
     }
@@ -162,7 +169,7 @@ void CtActions::_export_print(bool save_to_pdf, const fs::path& auto_path, bool 
         export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
                                                                       &_export_options.new_node_page, nullptr, nullptr);
     }
-    if (export_type == CtExporting::NONE) return;
+    if (export_type == CtExporting::NONESAVE) return;
 
     fs::path pdf_filepath;
     if (export_type == CtExporting::CURRENT_NODE)
@@ -231,7 +238,7 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
         export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
                                                                       nullptr, &_export_options.index_in_page, &_export_options.single_file);
     }
-    if (export_type == CtExporting::NONE) return;
+    if (export_type == CtExporting::NONESAVE) return;
 
     CtExport2Html export2html(_pCtMainWin);
     fs::path ret_html_path;
@@ -292,7 +299,7 @@ void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
         if (!_is_there_selected_node_or_error()) return;
         export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name, nullptr, nullptr, &_export_options.single_file);
     }
-    if (export_type == CtExporting::NONE) return;
+    if (export_type == CtExporting::NONESAVE) return;
 
     if (export_type == CtExporting::CURRENT_NODE)
     {
@@ -346,13 +353,13 @@ void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
 
 fs::path CtActions::_get_pdf_filepath(const fs::path& proposed_name)
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirExport;
     args.curr_file_name = proposed_name.string() + ".pdf";
     args.filter_name = _("PDF File");
     args.filter_pattern = {"*.pdf"};
 
-    fs::path filename = CtDialogs::file_save_as_dialog(args);
+    fs::path filename = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (!filename.empty())
     {
         if (filename.extension() != ".pdf") filename += ".pdf";
@@ -367,13 +374,13 @@ fs::path CtActions::_get_txt_filepath(const fs::path& dir_place, const fs::path&
     fs::path filename;
     if (dir_place.empty())
     {
-        CtDialogs::FileSelectArgs args{_pCtMainWin};
+        CtDialogs::CtFileSelectArgs args{};
         args.curr_folder = _pCtConfig->pickDirExport;
         args.curr_file_name = proposed_name.string() + ".txt";
         args.filter_name = _("Plain Text Document");
         args.filter_pattern = {"*.txt"};
 
-        filename = CtDialogs::file_save_as_dialog(args);
+        filename = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     }
     else
     {
@@ -394,7 +401,7 @@ fs::path CtActions::_get_txt_folder(fs::path dir_place, fs::path new_folder, boo
 {
     if (dir_place.empty())
     {
-        dir_place = CtDialogs::folder_select_dialog(_pCtConfig->pickDirExport, _pCtMainWin);
+        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin, _pCtConfig->pickDirExport);
         if (dir_place.empty())
             return "";
     }

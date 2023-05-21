@@ -25,6 +25,7 @@
 #include "ct_storage_control.h"
 #include "ct_storage_xml.h"
 #include "ct_storage_sqlite.h"
+#include "ct_storage_multifile.h"
 #include "ct_p7za_iface.h"
 #include "ct_main_win.h"
 #include "ct_logging.h"
@@ -32,12 +33,18 @@
 
 //#define DEBUG_BACKUP_ENCRYPT
 
-std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
+/*static*/std::unique_ptr<CtStorageEntity> CtStorageControl::_get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
-    if (file_type == CtDocType::SQLite) {
+    if (CtDocType::SQLite == file_type) {
         return std::make_unique<CtStorageSqlite>(pCtMainWin);
     }
-    return std::make_unique<CtStorageXml>(pCtMainWin);
+    if (CtDocType::XML == file_type) {
+        return std::make_unique<CtStorageXml>(pCtMainWin);
+    }
+    if (CtDocType::MultiFile == file_type) {
+        return std::make_unique<CtStorageMultiFile>(pCtMainWin);
+    }
+    return nullptr;
 }
 
 /*static*/CtStorageControl* CtStorageControl::create_dummy_storage(CtMainWin* pCtMainWin)
@@ -48,28 +55,35 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 
 /*static*/CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin,
                                                         const fs::path& file_path,
+                                                        const CtDocType doc_type,
                                                         Glib::ustring& error,
                                                         Glib::ustring password)
 {
-    std::unique_ptr<CtStorageEntity> storage;
-    fs::path extracted_file_path = file_path;
-    try {
-        if (not fs::is_regular_file(file_path)) throw std::runtime_error("no file");
+    fs::path extracted_file_path{file_path};
 
-        // unpack file if need
-        if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
-            extracted_file_path = _extract_file(pCtMainWin, file_path, password);
-            if (extracted_file_path.empty()) {
-                // user canceled operation
-                return nullptr;
+    try {
+        if (CtDocType::MultiFile == doc_type) {
+            if (not fs::is_directory(file_path)) throw std::runtime_error("no dir");
+        }
+        else {
+            if (not fs::is_regular_file(file_path)) throw std::runtime_error("no file");
+
+            // unpack file if need
+            if (fs::get_doc_encrypt_from_file_ext(file_path) == CtDocEncrypt::True) {
+                extracted_file_path = _extract_file(pCtMainWin, file_path, password);
+                if (extracted_file_path.empty()) {
+                    // user canceled operation
+                    return nullptr;
+                }
             }
         }
 
         // choose storage type
-        storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
+        std::unique_ptr<CtStorageEntity> pStorage = CtStorageControl::_get_entity_by_type(pCtMainWin, doc_type);
+        if (not pStorage) throw std::runtime_error("no storage");
 
         // load from file
-        if (not storage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
+        if (not pStorage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
 
         // it's ready
         CtStorageControl* doc = new CtStorageControl{pCtMainWin};
@@ -77,11 +91,11 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         doc->_mod_time = fs::getmtime(file_path);
         doc->_password = password;
         doc->_extracted_file_path = extracted_file_path;
-        doc->_storage.swap(storage);
+        doc->_storage.swap(pStorage);
         return doc;
     }
     catch (std::exception& e) {
-        if (extracted_file_path != file_path && fs::is_regular_file(extracted_file_path)) {
+        if (extracted_file_path != file_path and fs::is_regular_file(extracted_file_path)) {
             g_remove(extracted_file_path.c_str());
         }
         spdlog::error(e.what());
@@ -92,16 +106,19 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 
 /*static*/bool CtStorageControl::document_integrity_check_pass(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error)
 {
-    std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
+    std::unique_ptr<CtStorageEntity> storage = CtStorageControl::_get_entity_by_type(pCtMainWin, fs::get_doc_type_from_file_ext(file_path));
+    if (not storage) throw std::runtime_error("no storage");
+
     storage->set_is_dry_run();
     return storage->populate_treestore(file_path, error);
 }
 
 /*static*/CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin,
                                                       const fs::path& file_path,
+                                                      const CtDocType doc_type,
                                                       const Glib::ustring& password,
                                                       Glib::ustring& error,
-                                                      const CtExporting exporting/*= CtExporting::NONE*/,
+                                                      const CtExporting exporting,
                                                       const int start_offset/*= 0*/,
                                                       const int end_offset/*= -1*/)
 {
@@ -109,31 +126,38 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
     pCtMainWin->get_status_bar().push(_("Writing to Disk..."));
     while (gtk_events_pending()) gtk_main_iteration();
 
-    std::unique_ptr<CtStorageEntity> storage;
     fs::path extracted_file_path = file_path;
+
+    auto f_cleanup = [&](){
+        if (CtDocType::MultiFile == doc_type) {
+            if (fs::is_directory(file_path)) fs::remove_all(file_path);
+        }
+        else {
+            if (fs::is_regular_file(file_path)) fs::remove(file_path);
+            if (fs::is_regular_file(extracted_file_path)) fs::remove(extracted_file_path);
+        }
+    };
+
     try {
-        if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
+        if (fs::get_doc_encrypt_from_file_ext(file_path) == CtDocEncrypt::True) {
             extracted_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
         }
-        if (fs::is_regular_file(file_path)) {
-            fs::remove(file_path);
-        }
-        if (fs::is_regular_file(extracted_file_path)) {
-            fs::remove(extracted_file_path);
-        }
+        f_cleanup();
 
-        storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
+        std::unique_ptr<CtStorageEntity> storage = CtStorageControl::_get_entity_by_type(pCtMainWin, doc_type);
+        if (not storage) throw std::runtime_error("no storage");
+
         // will save all data because it's the first time
         CtStorageSyncPending fakePending;
         if (not storage->save_treestore(extracted_file_path, fakePending, error, exporting, start_offset, end_offset)) {
             throw std::runtime_error(error);
         }
         // encrypt the file
-        if (file_path != extracted_file_path)
-        {
+        if (file_path != extracted_file_path) {
             storage->close_connect(); // temporary, because of sqlite keeping the file
-            if (!_package_file(extracted_file_path, file_path, password))
+            if (not _package_file(extracted_file_path, file_path, password)) {
                 throw std::runtime_error("couldn't encrypt the file");
+            }
             storage->reopen_connect();
         }
 
@@ -147,13 +171,32 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         return doc;
     }
     catch (std::exception& e) {
-        if (fs::is_regular_file(file_path)) fs::remove(file_path);
-        if (fs::is_regular_file(extracted_file_path)) fs::remove(extracted_file_path);
+        f_cleanup();
 
         spdlog::error(e.what());
         error = e.what();
         return nullptr;
     }
+}
+
+/*static*/std::list<std::pair<CtTreeIter, CtStorageNodeState>> CtStorageControl::get_sorted_by_level_nodes_to_write(
+    CtTreeStore* pCtTreeStore,
+    const std::unordered_map<gint64, CtStorageNodeState>& nodes_to_write_dict)
+{
+    std::list<std::pair<CtTreeIter, CtStorageNodeState>> ret_list;
+    for (const auto& curr_pair : nodes_to_write_dict) {
+        CtTreeIter ctTreeIter = pCtTreeStore->get_node_from_node_id(curr_pair.first);
+        if (ctTreeIter) {
+            ret_list.push_back(std::make_pair(ctTreeIter, curr_pair.second));
+        }
+    }
+    auto pStore = pCtTreeStore->get_store();
+    auto f_customCompare = [pStore](const std::pair<CtTreeIter, CtStorageNodeState>& a, const std::pair<CtTreeIter, CtStorageNodeState>& b)->bool{
+        // sort root to leaves
+        return pStore->iter_depth(a.first) < pStore->iter_depth(b.first);
+    };
+    ret_list.sort(f_customCompare);
+    return ret_list;
 }
 
 bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
@@ -174,18 +217,20 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
     const std::string str_timestamp = std::to_string(g_get_monotonic_time());
     fs::path main_backup = _file_path;
     main_backup += (str_timestamp + _file_path.extension());
-    const bool need_backup = _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
+    const CtDocType doc_type = fs::is_directory(_file_path) ? CtDocType::MultiFile : fs::get_doc_type_from_file_ext(_file_path);
+    // !!! CtDocType::MultiFile does not support backups yet !!!
+    const bool need_backup = CtDocType::MultiFile != doc_type and _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
     const bool need_encrypt = _file_path != _extracted_file_path;
     try {
         if (_file_path.empty()) {
-            throw std::runtime_error("storage is not initialized");
+            throw std::runtime_error("storage not initialized");
         }
 
         // sqlite could lose connection
         _storage->test_connection();
 
         if (need_backup) {
-            if (fs::get_doc_type(_file_path) == CtDocType::SQLite and not need_encrypt) {
+            if (CtDocType::SQLite == doc_type and not need_encrypt) {
                 _storage->close_connect();    // temporary, because of sqlite keepig the file
                 if (not fs::copy_file(_file_path, main_backup)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
@@ -205,7 +250,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
             }
         }
         // save changes
-        if (not _storage->save_treestore(_extracted_file_path, _syncPending, error)) {
+        if (not _storage->save_treestore(_extracted_file_path, _syncPending, error, CtExporting::NONESAVE)) {
             throw std::runtime_error(error);
         }
 #if defined(DEBUG_BACKUP_ENCRYPT)
@@ -260,9 +305,9 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
                                                                     const std::string& syntax,
                                                                     std::list<CtAnchoredWidget*>& widgets) const
 {
-    if (!_storage) {
+    if (not _storage) {
         spdlog::error("!! storage is not initialized");
-        return Glib::RefPtr<Gsv::Buffer>();
+        return Glib::RefPtr<Gsv::Buffer>{};
     }
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);
 }
@@ -291,7 +336,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
             }
             const std::list<fs::path> filesInTmpDir = fs::get_dir_entries(temp_file_path.parent_path());
             if (filesInTmpDir.size() == 1 and
-                fs::get_doc_type(filesInTmpDir.front()) == fs::get_doc_type(temp_file_path) and
+                fs::get_doc_type_from_file_ext(filesInTmpDir.front()) == fs::get_doc_type_from_file_ext(temp_file_path) and
                 fs::move_file(filesInTmpDir.front(), temp_file_path))
             {
                 spdlog::debug("encrypt doc renamed {} -> {}", filesInTmpDir.front().filename(), temp_file_path.filename());
@@ -483,7 +528,7 @@ void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
     }
     else {
         CtStorageNodeState node_state;
-        node_state.upd = true;
+        node_state.is_update_of_existing = true;
         node_state.prop = true;
         _syncPending.nodes_to_write_dict[node_id] = node_state;
     }
@@ -496,7 +541,7 @@ void CtStorageControl::pending_edit_db_node_buff(gint64 node_id)
     }
     else {
         CtStorageNodeState node_state;
-        node_state.upd = true;
+        node_state.is_update_of_existing = true;
         node_state.buff = true;
         _syncPending.nodes_to_write_dict[node_id] = node_state;
     }
@@ -509,7 +554,7 @@ void CtStorageControl::pending_edit_db_node_hier(gint64 node_id)
     }
     else {
         CtStorageNodeState node_state;
-        node_state.upd = true;
+        node_state.is_update_of_existing = true;
         node_state.hier = true;
         _syncPending.nodes_to_write_dict[node_id] = node_state;
     }
@@ -518,7 +563,7 @@ void CtStorageControl::pending_edit_db_node_hier(gint64 node_id)
 void CtStorageControl::pending_new_db_node(gint64 node_id)
 {
     CtStorageNodeState node_state;
-    node_state.upd = false;
+    node_state.is_update_of_existing = false;
     node_state.prop = true;
     node_state.buff = true;
     node_state.hier = true;
@@ -541,36 +586,53 @@ void CtStorageControl::pending_edit_db_bookmarks()
     _syncPending.bookmarks_to_write = true;
 }
 
-void CtStorageControl::add_nodes_from_storage(const fs::path& path, Gtk::TreeIter parent_iter)
+void CtStorageControl::add_nodes_from_storage(const fs::path& file_path,
+                                              Gtk::TreeIter parent_iter,
+                                              const bool is_folder)
 {
-    if (!fs::is_regular_file(path)) {
-        throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
+    if (is_folder) {
+        if (not fs::is_directory(file_path)) {
+            throw std::runtime_error(fmt::format("{} not a dir", file_path));
+        }
+    }
+    else {
+        if (not fs::is_regular_file(file_path)) {
+            throw std::runtime_error(fmt::format("{} not a file", file_path));
+        }
     }
 
     Glib::ustring password;
-    fs::path extracted_file_path = path;
-    if (fs::get_doc_encrypt(path) == CtDocEncrypt::True) {
-        extracted_file_path = _extract_file(_pCtMainWin, path, password);
+    fs::path extracted_file_path = file_path;
+    if (not is_folder and CtDocEncrypt::True == fs::get_doc_encrypt_from_file_ext(file_path)) {
+        extracted_file_path = _extract_file(_pCtMainWin, file_path, password);
         if (extracted_file_path.empty()) {
             // user canceled operation
             return;
         }
     }
 
-    std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(_pCtMainWin, fs::get_doc_type(extracted_file_path));
-    storage->import_nodes(extracted_file_path, parent_iter);
+    std::unique_ptr<CtStorageEntity> pStorage;
+    if (is_folder) {
+        pStorage = CtStorageControl::_get_entity_by_type(_pCtMainWin, CtDocType::MultiFile);
+    }
+    else {
+        pStorage = CtStorageControl::_get_entity_by_type(_pCtMainWin, fs::get_doc_type_from_file_ext(extracted_file_path));
+    }
+
+    if (not pStorage) throw std::runtime_error("no storage");
+
+    pStorage->import_nodes(extracted_file_path, parent_iter);
 
     _pCtMainWin->get_tree_store().nodes_sequences_fix(parent_iter, false);
     _pCtMainWin->update_window_save_needed();
 }
 
-void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPending* pending, bool xml)
+void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPending* pending, bool for_xml)
 {
     std::vector<CtImagePng*> image_list;
-
     auto& store = pCtMainWin->get_tree_store();
-    if (pending == nullptr) // all nodes
-    {
+    if (not pending) {
+        // all nodes
         store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool{
             for (auto widget: store.to_ct_tree_iter(iter).get_anchored_widgets_fast())
                 if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
@@ -590,11 +652,10 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
             }
         }
     }
-
-    parallel_fetch_pixbufers(image_list, xml);
+    _parallel_fetch_pixbufers(image_list, for_xml);
 }
 
-void CtStorageCache::parallel_fetch_pixbufers(const std::vector<CtImagePng*>& image_widgets, bool xml)
+void CtStorageCache::_parallel_fetch_pixbufers(const std::vector<CtImagePng*>& image_widgets, bool for_xml)
 {
     _cached_images.clear();
 
@@ -608,15 +669,16 @@ void CtStorageCache::parallel_fetch_pixbufers(const std::vector<CtImagePng*>& im
     CtMiscUtil::parallel_for(0, image_pair.size(), [&](size_t index) {
         auto& pair = image_pair[index];
         pair.second = pair.first->get_raw_blob();
-        if (xml) pair.second = Glib::Base64::encode(pair.second);
+        if (for_xml) pair.second = Glib::Base64::encode(pair.second);
     });
 
-    for (auto& pair: image_pair)
+    for (auto& pair : image_pair) {
         _cached_images.emplace(pair);
+    }
 
     //auto end = std::chrono::steady_clock::now();
     //std::chrono::duration<double> elapsed_seconds = end-start;
-    //spdlog::debug("parallel_fetch_pixbufers amount: , {} sec.", elapsed_seconds.count());
+    //spdlog::debug("{} amount: , {} sec.", __FUNCTION__, elapsed_seconds.count());
 }
 
 bool CtStorageCache::get_cached_image(CtImagePng* image, std::string& cached_image)

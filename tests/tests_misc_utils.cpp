@@ -355,6 +355,36 @@ TEST(MiscUtilsGroup, vec_extend)
     ASSERT_THAT(testVec, testing::ElementsAre(0x12, 0x34, 0x56, 0x78, 0x9a));
 }
 
+TEST(MiscUtilsGroup, filepath_extension_fix)
+{
+    {
+        std::string filepath{"a/test.ctd"};
+        CtMiscUtil::filepath_extension_fix(CtDocType::XML, CtDocEncrypt::False, filepath);
+        ASSERT_STREQ("a/test.ctd", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::XML, CtDocEncrypt::True, filepath);
+        ASSERT_STREQ("a/test.ctz", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::SQLite, CtDocEncrypt::False, filepath);
+        ASSERT_STREQ("a/test.ctb", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::SQLite, CtDocEncrypt::True, filepath);
+        ASSERT_STREQ("a/test.ctx", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::None, CtDocEncrypt::False, filepath);
+        ASSERT_STREQ("a/test", filepath.c_str());
+    }
+    {
+        std::string filepath{"b\\test.ctx"};
+        CtMiscUtil::filepath_extension_fix(CtDocType::XML, CtDocEncrypt::False, filepath);
+        ASSERT_STREQ("b\\test.ctd", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::XML, CtDocEncrypt::True, filepath);
+        ASSERT_STREQ("b\\test.ctz", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::SQLite, CtDocEncrypt::False, filepath);
+        ASSERT_STREQ("b\\test.ctb", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::SQLite, CtDocEncrypt::True, filepath);
+        ASSERT_STREQ("b\\test.ctx", filepath.c_str());
+        CtMiscUtil::filepath_extension_fix(CtDocType::None, CtDocEncrypt::False, filepath);
+        ASSERT_STREQ("b\\test", filepath.c_str());
+    }
+}
+
 TEST(MiscUtilsGroup, get__uri_type)
 {
     ASSERT_TRUE(CtMiscUtil::get_uri_type("https://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);

@@ -42,7 +42,7 @@ class path;
 
 enum class CtYesNoCancel { Yes, No, Cancel };
 
-enum class CtDocType { None, XML, SQLite };
+enum class CtDocType { None, XML, SQLite, MultiFile };
 
 enum class CtDocEncrypt { None, True, False };
 
@@ -54,7 +54,7 @@ enum class CtSaveNeededUpdType { None, nbuf, npro, ndel, book };
 
 enum class CtXmlNodeType { None, RichText, EncodedPng, Table, CodeBox };
 
-enum class CtExporting { NONE, SELECTED_TEXT, CURRENT_NODE, CURRENT_NODE_AND_SUBNODES, ALL_TREE };
+enum class CtExporting { NONESAVE, NONESAVEAS, SELECTED_TEXT, CURRENT_NODE, CURRENT_NODE_AND_SUBNODES, ALL_TREE };
 
 enum class CtListType { None, Todo, Bullet, Number };
 
@@ -63,7 +63,10 @@ enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 class CtCodebox;
 class CtMainWin;
 using CtPairCodeboxMainWin = std::pair<CtCodebox*, CtMainWin*>;
-
+namespace xmlpp {
+class Document;
+}
+using CtDelayedTextBufferMap = std::unordered_map<gint64, std::shared_ptr<xmlpp::Document>>;
 using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
 
 struct CtLinkEntry
@@ -237,7 +240,7 @@ private:
 
 struct CtStorageNodeState
 {
-    bool upd{false};
+    bool is_update_of_existing{false};
     bool prop{false};
     bool buff{false};
     bool hier{false};
@@ -268,7 +271,7 @@ public:
     virtual bool save_treestore(const fs::path& file_path,
                                 const CtStorageSyncPending& syncPending,
                                 Glib::ustring& error,
-                                const CtExporting exporting = CtExporting::NONE,
+                                const CtExporting exporting,
                                 const int start_offset = 0,
                                 const int end_offset = -1) = 0;
     virtual void vacuum() = 0;

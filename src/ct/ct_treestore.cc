@@ -241,7 +241,7 @@ void CtTreeIter::remove_all_embedded_widgets()
     }
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char doSort)
+std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char doSort) const
 {
     if (*this) {
         get_node_text_buffer(); // to load buffer\widgets if not loaded
@@ -288,7 +288,7 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char do
     return std::list<CtAnchoredWidget*>{};
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(int start_offset/*= -1*/, int end_offset/*= -1*/)
+std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(int start_offset/*= -1*/, int end_offset/*= -1*/) const
 {
     get_node_text_buffer(); // to load buffer\widgets if not loaded
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
@@ -314,7 +314,7 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(int start_offset/*
     return retAnchoredWidgetsList;
 }
 
-CtAnchoredWidget* CtTreeIter::get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor)
+CtAnchoredWidget* CtTreeIter::get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor) const
 {
     if (*this) {
         for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets)) {

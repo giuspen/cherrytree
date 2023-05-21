@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_gen_purp.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -144,7 +144,7 @@ Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
     pContentArea->show_all();
     entry.grab_focus();
     entry.signal_activate().connect([&](){
-        if (!entry.get_text().empty()) {
+        if (not entry.get_text().empty()) {
             dialog.response(Gtk::RESPONSE_ACCEPT);
         }
     });
@@ -312,13 +312,12 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
     dialog.run();
 }
 
-// Returns the retrieved filepath or None
-std::string CtDialogs::file_select_dialog(const FileSelectArgs& args)
+std::string CtDialogs::file_select_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
 {
 #if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
-    auto chooser = Gtk::FileChooserNative::create(_("Select File"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
+    auto chooser = Gtk::FileChooserNative::create(_("Select File"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
 #else
-    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*args.pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
+    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
     chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
     chooser->property_destroy_with_parent() = true;
@@ -343,8 +342,7 @@ std::string CtDialogs::file_select_dialog(const FileSelectArgs& args)
     return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
 }
 
-// Returns the retrieved folderpath or None
-std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk::Window* pParentWin)
+std::string CtDialogs::folder_select_dialog(Gtk::Window* pParentWin, const std::string& curr_folder)
 {
 #if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
     auto chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -354,7 +352,7 @@ std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk:
     chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
     chooser->property_destroy_with_parent() = true;
 #endif
-    if (curr_folder.empty() || !Glib::file_test(curr_folder, Glib::FILE_TEST_IS_DIR)) {
+    if (curr_folder.empty() or not Glib::file_test(curr_folder, Glib::FILE_TEST_IS_DIR)) {
         chooser->set_current_folder(g_get_home_dir());
     }
     else {
@@ -363,34 +361,56 @@ std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk:
     return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
 }
 
-// Returns the retrieved filepath or None
-std::string CtDialogs::file_save_as_dialog(const FileSelectArgs& args)
+std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
 {
 #if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
-    auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
+    auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
 #else
-    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*args.pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
+    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
     chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
     chooser->property_destroy_with_parent() = true;
 #endif
     chooser->set_do_overwrite_confirmation(true);
-    if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder)) {
+    if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(g_get_home_dir());
     }
     else {
         chooser->set_current_folder(args.curr_folder.string());
     }
-    if (!args.curr_file_name.empty()) {
+    if (not args.curr_file_name.empty()) {
         chooser->set_current_name(args.curr_file_name.string());
     }
-    if (!args.filter_pattern.empty()) {
+    if (not args.filter_pattern.empty()) {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
         rFileFilter->set_name(args.filter_name);
         for (const Glib::ustring& element : args.filter_pattern) {
             rFileFilter->add_pattern(element);
         }
         chooser->add_filter(rFileFilter);
+    }
+    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+}
+
+std::string CtDialogs::folder_save_as_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
+{
+#if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
+    auto chooser = Gtk::FileChooserNative::create(_("Save To Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
+#else
+    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save To Folder"), Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
+    chooser->property_destroy_with_parent() = true;
+#endif
+    chooser->set_do_overwrite_confirmation(true);
+    if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
+        chooser->set_current_folder(g_get_home_dir());
+    }
+    else {
+        chooser->set_current_folder(args.curr_folder.string());
+    }
+    if (not args.curr_file_name.empty()) {
+        chooser->set_current_name(args.curr_file_name.string());
     }
     return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
 }

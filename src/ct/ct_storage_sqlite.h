@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -39,7 +39,9 @@ class CtStorageCache;
 class CtStorageSqlite : public CtStorageEntity
 {
 public:
-    CtStorageSqlite(CtMainWin* pCtMainWin);
+    CtStorageSqlite(CtMainWin* pCtMainWin)
+     : _pCtMainWin{pCtMainWin}
+    {}
     ~CtStorageSqlite();
 
     void close_connect() override;
@@ -50,7 +52,7 @@ public:
     bool save_treestore(const fs::path& file_path,
                         const CtStorageSyncPending& syncPending,
                         Glib::ustring& error,
-                        const CtExporting exporting = CtExporting::NONE,
+                        const CtExporting exporting,
                         const int start_offset = 0,
                         const int end_offset = -1) override;
     void vacuum() override;
@@ -86,7 +88,7 @@ private:
 
     void                _create_all_tables_in_db();
     void                _write_bookmarks_to_db(const std::list<gint64>& bookmarks);
-    void                _write_node_to_db(CtTreeIter* ct_tree_iter,
+    void                _write_node_to_db(const CtTreeIter* ct_tree_iter,
                                           const gint64 sequence,
                                           const gint64 node_father_id,
                                           const CtStorageNodeState& write_dict,

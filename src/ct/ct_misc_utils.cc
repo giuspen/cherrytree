@@ -131,25 +131,19 @@ std::string CtMiscUtil::get_ct_language()
 std::string CtMiscUtil::get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
 {
     std::string ret_val;
-    if (CtDocType::XML == ctDocType)
-    {
-        if (CtDocEncrypt::False == ctDocEncrypt)
-        {
+    if (CtDocType::XML == ctDocType) {
+        if (CtDocEncrypt::False == ctDocEncrypt) {
             ret_val = CtConst::CTDOC_XML_NOENC;
         }
-        else if (CtDocEncrypt::True == ctDocEncrypt)
-        {
+        else if (CtDocEncrypt::True == ctDocEncrypt) {
             ret_val = CtConst::CTDOC_XML_ENC;
         }
     }
-    else if (CtDocType::SQLite == ctDocType)
-    {
-        if (CtDocEncrypt::False == ctDocEncrypt)
-        {
+    else if (CtDocType::SQLite == ctDocType) {
+        if (CtDocEncrypt::False == ctDocEncrypt) {
             ret_val = CtConst::CTDOC_SQLITE_NOENC;
         }
-        else if (CtDocEncrypt::True == ctDocEncrypt)
-        {
+        else if (CtDocEncrypt::True == ctDocEncrypt) {
             ret_val = CtConst::CTDOC_SQLITE_ENC;
         }
     }
@@ -159,9 +153,17 @@ std::string CtMiscUtil::get_doc_extension(const CtDocType ctDocType, const CtDoc
 void CtMiscUtil::filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath)
 {
     const std::string docExt{get_doc_extension(ctDocType, ctDocEncrypt)};
-    if (false == Glib::str_has_suffix(filepath, docExt))
-    {
-        filepath += docExt;
+    if (docExt.empty() or not Glib::str_has_suffix(filepath, docExt)) {
+        if (Glib::str_has_suffix(filepath, CtConst::CTDOC_XML_NOENC) or
+            Glib::str_has_suffix(filepath, CtConst::CTDOC_XML_ENC) or
+            Glib::str_has_suffix(filepath, CtConst::CTDOC_SQLITE_NOENC) or
+            Glib::str_has_suffix(filepath, CtConst::CTDOC_SQLITE_ENC))
+        {
+            filepath = filepath.substr(0, filepath.length()-4);
+        }
+        if (not docExt.empty()) {
+            filepath += docExt;
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -58,6 +58,8 @@ bool copy_file(const path& from, const path& to);
 
 bool move_file(const path& from, const path& to);
 
+bool exists(const path& filepath);
+
 bool is_regular_file(const path& file);
 
 bool is_directory(const path& p);
@@ -69,8 +71,6 @@ path canonical(const path& p, const bool resolveSymlink = true);
 path canonical(const path& p, const path& base);
 
 path relative(const path& p, const path& base);
-
-bool exists(const path& filepath);
 
 time_t getmtime(const path& p);
 
@@ -84,8 +84,8 @@ void open_folderpath(const path& folderpath, CtConfig* config);
 
 path prepare_export_folder(const path& dir_place, path new_folder, bool overwrite_existing);
 
-CtDocType get_doc_type(const path& fileName);
-CtDocEncrypt get_doc_encrypt(const path& fileName);
+CtDocType get_doc_type_from_file_ext(const path& fileName);
+CtDocEncrypt get_doc_encrypt_from_file_ext(const path& fileName);
 
 /**
 * @brief Remove a directory and all its children

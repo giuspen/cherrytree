@@ -81,10 +81,10 @@ void CtActions::image_insert()
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirImg;
 
-    std::string filename = CtDialogs::file_select_dialog(args);
+    std::string filename = CtDialogs::file_select_dialog(_pCtMainWin, args);
     if (filename.empty()) return;
     _pCtConfig->pickDirImg = Glib::path_get_dirname(filename);
 
@@ -124,13 +124,13 @@ void CtActions::table_insert()
     const auto charOffset = _curr_buffer()->get_insert()->get_iter().get_offset();
     int col_width = _pCtConfig->tableColWidthDefault;
     if (res == CtDialogs::TableHandleResp::OkFromFile) {
-        CtDialogs::FileSelectArgs args{_pCtMainWin};
+        CtDialogs::CtFileSelectArgs args{};
         args.curr_folder = _pCtConfig->pickDirCsv;
         args.curr_file_name.clear();
         args.filter_name = _("CSV File");
         args.filter_pattern = {"*.csv"};
 
-        std::string filepath = CtDialogs::file_select_dialog(args);
+        std::string filepath = CtDialogs::file_select_dialog(_pCtMainWin, args);
         if (filepath.empty()) return;
         _pCtConfig->pickDirCsv = Glib::path_get_dirname(filepath);
         CtTableCommon::populate_table_matrix_from_csv(filepath, _pCtMainWin, is_light, tbl_matrix);
@@ -207,7 +207,7 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     if (!_is_curr_node_not_read_only_or_error()) return;
 
     if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
-        bool is_sqlite = fs::get_doc_type(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
+        bool is_sqlite = fs::get_doc_type_from_file_ext(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
         auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
         if (is_sqlite) {
             if (!CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
@@ -238,10 +238,10 @@ void CtActions::embfile_insert_path(const std::string& filepath)
 
 void CtActions::embfile_insert()
 {
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirFile;
 
-    std::string filepath = CtDialogs::file_select_dialog(args);
+    std::string filepath = CtDialogs::file_select_dialog(_pCtMainWin, args);
     if (filepath.empty()) return;
 
     _pCtConfig->pickDirFile = Glib::path_get_dirname(filepath);
@@ -434,7 +434,7 @@ void CtActions::toc_insert()
 
     auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr, nullptr);
 
-    if (toc_type == CtExporting::NONE) return;
+    if (CtExporting::NONESAVE == toc_type) return;
 
     std::list<TocEntry> entries;
     CtTreeIter curr_node = _pCtMainWin->curr_tree_iter();
