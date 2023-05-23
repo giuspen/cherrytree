@@ -29,7 +29,7 @@
 
 static const CtConfig ct_config;
 
-const Glib::ustring bufferContent{
+const Glib::ustring bufferContent_1{
     "- primo elemento" _NL              // 0
     "- secondo elemento" _NL            // 17
     "   su più righe" _NL               // 36
@@ -53,11 +53,46 @@ const Glib::ustring bufferContent{
     "      1- ancora un livello" _NL    // 350
     "         1> ancora uno avanti"};   // 377
 
-TEST(ListsGroup, CtListInfo)
+const Glib::ustring bufferContent_2{
+    "ciao" _NL                          // 0
+    _NL                                 // 5
+    "- primo elemento" _NL              // 6
+    "- secondo elemento" _NL};          // 23
+
+TEST(ListsGroup, CtListInfo_2)
 {
     Glib::init();
     auto pBuffer = Gsv::Buffer::create();
-    pBuffer->set_text(bufferContent);
+    pBuffer->set_text(bufferContent_2);
+    CtList ct_list{&ct_config, pBuffer};
+
+    CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
+    ASSERT_EQ(CtListType::None, curr_list_info.type);
+
+    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(6));
+    ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
+    ASSERT_EQ(0, curr_list_info.level);
+    ASSERT_EQ(6, curr_list_info.startoffs);
+    ASSERT_EQ(0, curr_list_info.count_nl);
+
+    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(23));
+    ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
+    ASSERT_EQ(0, curr_list_info.level);
+    ASSERT_EQ(23, curr_list_info.startoffs);
+    ASSERT_EQ(0, curr_list_info.count_nl);
+
+    Glib::ustring out_html = CtExport2Html::html_process_slot(&ct_config,
+                                                              nullptr/*pCtMainWin*/,
+                                                              0, bufferContent_2.size()-1,
+                                                              pBuffer);
+    ASSERT_STREQ("ciao\n<ul><li>primo elemento</li><li>secondo elemento</li></ul>", out_html.c_str());
+}
+
+TEST(ListsGroup, CtListInfo_1)
+{
+    Glib::init();
+    auto pBuffer = Gsv::Buffer::create();
+    pBuffer->set_text(bufferContent_1);
     CtList ct_list{&ct_config, pBuffer};
 
     CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
@@ -200,7 +235,7 @@ TEST(ListsGroup, CtListInfo)
 
     Glib::ustring out_html = CtExport2Html::html_process_slot(&ct_config,
                                                               nullptr/*pCtMainWin*/,
-                                                              0, bufferContent.size()-1,
+                                                              0, bufferContent_1.size()-1,
                                                               pBuffer);
     ASSERT_STREQ("<ul><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ul><li>terzo elemento indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2 pi\xC3\xB9 3<ul><li>ancora un livello su pi\xC3\xB9 righe</li><li>stesso livello<ul><li>ancora uno avanti</li></ul></li></ul></li></ul></li></ul>\n<ol><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ol><li>terzo indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2<ol><li>ancora un livello<ol><li>ancora uno avant</li></ol></li></ol></li></ol></li></ol>", out_html.c_str());
 }
