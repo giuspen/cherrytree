@@ -135,9 +135,14 @@ public:
     static int  get_pango_weight_from_is_bold(bool isBold);
     static bool get_is_bold_from_pango_weight(int pangoWeight);
 
+    static bool get_hit_exclusion_from_search() { return _hitExclusionFromSearch; }
+    static void clear_hit_exclusion_from_search() { _hitExclusionFromSearch = false; }
+
 private:
     const CtTreeModelColumns* _pColumns{nullptr};
     CtMainWin*                _pCtMainWin{nullptr};
+
+    static bool _hitExclusionFromSearch;
 };
 
 class CtTextView;

@@ -29,6 +29,8 @@
 #include "ct_actions.h"
 #include "ct_logging.h"
 
+/*static*/bool CtTreeIter::_hitExclusionFromSearch{false};
+
 CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, CtMainWin* pCtMainWin)
  : Gtk::TreeIter(iter),
    _pColumns(pColumns),
@@ -95,7 +97,11 @@ bool CtTreeIter::get_node_is_bold() const
 
 bool CtTreeIter::get_node_is_excluded_from_search() const
 {
-    return (*this) and (*this)->get_value(_pColumns->colNodeIsExcludedFromSearch);
+    const bool exclude = (*this) and (*this)->get_value(_pColumns->colNodeIsExcludedFromSearch);
+    if (exclude and not _hitExclusionFromSearch) {
+        _hitExclusionFromSearch = true;
+    }
+    return exclude;
 }
 
 void CtTreeIter::set_node_is_excluded_from_search(const bool val)
@@ -105,7 +111,11 @@ void CtTreeIter::set_node_is_excluded_from_search(const bool val)
 
 bool CtTreeIter::get_node_children_are_excluded_from_search() const
 {
-    return (*this) and (*this)->get_value(_pColumns->colNodeChildrenAreExcludedFromSearch);
+    const bool exclude = (*this) and (*this)->get_value(_pColumns->colNodeChildrenAreExcludedFromSearch);
+    if (exclude and not _hitExclusionFromSearch) {
+        _hitExclusionFromSearch = true;
+    }
+    return exclude;
 }
 
 void CtTreeIter::set_node_children_are_excluded_from_search(const bool val)
