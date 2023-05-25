@@ -123,6 +123,7 @@ static int _count_nodes(const Gtk::TreeNodeChildren& children)
 void CtActions::find_in_multiple_nodes()
 {
     if (not _is_there_selected_node_or_error()) return;
+
     CtTextView& ctTextView = _pCtMainWin->get_text_view();
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
     CtStatusBar& ctStatusBar = _pCtMainWin->get_status_bar();
@@ -182,6 +183,7 @@ void CtActions::find_in_multiple_nodes()
         _s_state.match_store->clear();
         _s_state.match_store->saved_path.clear();
     }
+    CtTreeIter::clear_hit_exclusion_from_search();
 
     std::string tree_expanded_collapsed_string = ctTreeStore.treeview_get_tree_expanded_collapsed_string(ctTreeView);
     // searching start
@@ -241,7 +243,11 @@ void CtActions::find_in_multiple_nodes()
         ctTextView.scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (not _s_state.matches_num) {
-        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(pattern)), *_pCtMainWin);
+        Glib::ustring info_str = str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern));
+        if (CtTreeIter::get_hit_exclusion_from_search()) {
+            info_str += Glib::ustring{"\n\n"} + _("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search");
+        }
+        CtDialogs::info_dialog(info_str, *_pCtMainWin);
     }
     else {
         if (all_matches) {
