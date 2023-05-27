@@ -135,10 +135,9 @@ Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
     image.set_from_icon_name(img_stock, Gtk::ICON_SIZE_BUTTON);
     Gtk::Entry entry;
     entry.set_text(entry_content);
-    Gtk::HBox hbox;
+    Gtk::Box hbox{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     hbox.pack_start(image, false, false);
     hbox.pack_start(entry);
-    hbox.set_spacing(5);
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(hbox);
     pContentArea->show_all();

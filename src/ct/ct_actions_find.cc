@@ -41,7 +41,6 @@ void CtActions::_find_init()
     _s_options.ts_mod_before = {curr_time, false};
 }
 
-//"""Search for a pattern in the selected Node"""
 void CtActions::find_in_selected_node()
 {
     if (not _is_there_selected_node_or_error()) return;
@@ -77,8 +76,8 @@ void CtActions::find_in_selected_node()
         forward = not forward;
         _s_state.from_find_back = false;
     }
-    bool first_fromsel = _s_options.all_firstsel_firstall == 1;
-    bool all_matches = _s_options.all_firstsel_firstall == 0;
+    const bool first_fromsel = 1 == _s_options.all_firstsel_firstall;
+    const bool all_matches = 0 == _s_options.all_firstsel_firstall;
     _s_state.matches_num = 0;
 
     // searching start
@@ -90,6 +89,8 @@ void CtActions::find_in_selected_node()
         _s_state.match_store->saved_path.clear();
         _s_state.all_matches_first_in_node = true;
     }
+    CtTreeIter::clear_hit_exclusion_from_search();
+
     while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(),
                                     curr_buffer,
                                     re_pattern,
@@ -98,11 +99,13 @@ void CtActions::find_in_selected_node()
                                     all_matches,
                                     true/*first_node*/))
     {
-        _s_state.matches_num += 1;
+        ++_s_state.matches_num;
         if (not all_matches) break;
     }
     if (0 == _s_state.matches_num) {
-        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(pattern)), *_pCtMainWin);
+        CtDialogs::no_matches_dialog(_pCtMainWin,
+                                     "'" + _s_options.str_find + "'  -  0 " + _("Matches"),
+                                     str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern)));
     }
     else if (all_matches) {
         _s_state.match_dialog_title = "'" + _s_options.str_find + "'  -  " + std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
@@ -168,8 +171,8 @@ void CtActions::find_in_multiple_nodes()
         forward = not forward;
         _s_state.from_find_back = false;
     }
-    bool first_fromsel = _s_options.all_firstsel_firstall == 1;
-    bool all_matches = _s_options.all_firstsel_firstall == 0;
+    const bool first_fromsel = 1 == _s_options.all_firstsel_firstall;
+    const bool all_matches = 0 == _s_options.all_firstsel_firstall;
     if (first_fromsel or _s_options.only_sel_n_subnodes) {
         _s_state.first_useful_node = false; // no one node content was parsed yet
         node_iter = _pCtMainWin->curr_tree_iter();
@@ -204,11 +207,11 @@ void CtActions::find_in_multiple_nodes()
         _s_state.all_matches_first_in_node = true;
         CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(node_iter);
         while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
-            _s_state.matches_num += 1;
+            ++_s_state.matches_num;
             if (not all_matches or ctStatusBar.is_progress_stop()) break;
         }
-        _s_state.processed_nodes += 1;
-        if (_s_state.matches_num == 1 and not all_matches) break;
+        ++_s_state.processed_nodes;
+        if (1 == _s_state.matches_num and not all_matches) break;
         if (_s_options.only_sel_n_subnodes and not _s_state.from_find_iterated) break;
         Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) { ++node_iter; }
@@ -243,11 +246,9 @@ void CtActions::find_in_multiple_nodes()
         ctTextView.scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (not _s_state.matches_num) {
-        Glib::ustring info_str = str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern));
-        if (CtTreeIter::get_hit_exclusion_from_search()) {
-            info_str += Glib::ustring{"\n\n"} + _("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search");
-        }
-        CtDialogs::info_dialog(info_str, *_pCtMainWin);
+        CtDialogs::no_matches_dialog(_pCtMainWin,
+                                     "'" + _s_options.str_find + "'  -  0 " + _("Matches"),
+                                     str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern)));
     }
     else {
         if (all_matches) {

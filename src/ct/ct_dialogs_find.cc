@@ -287,12 +287,44 @@ std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     return s_options.str_find;
 }
 
+void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
+                                  const Glib::ustring& title,
+                                  const Glib::ustring& message)
+{
+    Gtk::Dialog dialog{title,
+                       *pCtMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(300, -1);
+    Gtk::Label message_label{message};
+    message_label.set_use_markup(true);
+    message_label.set_padding(3/*xpad*/, 5/*ypad*/);
+    Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 5/*spacing*/};
+    vbox.pack_start(message_label);
+    if (CtTreeIter::get_hit_exclusion_from_search()) {
+        auto pHBoxExclusions = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/});
+        Gtk::Image* pImageExclusions = pCtMainWin->new_managed_image_from_stock("ct_ghost", Gtk::ICON_SIZE_BUTTON);
+        pImageExclusions->set_padding(3/*xpad*/, 0/*ypad*/);
+        pHBoxExclusions->pack_start(*pImageExclusions, false, false);
+        auto pLabelExclusions = Gtk::manage(new Gtk::Label{_("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search")});
+        pLabelExclusions->set_xalign(0.0);
+        pHBoxExclusions->pack_start(*pLabelExclusions);
+        vbox.pack_start(*pHBoxExclusions, false, false);
+    }
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(vbox);
+    pContentArea->show_all();
+    dialog.run();
+}
+
 void CtDialogs::match_dialog(const Glib::ustring& title,
                              CtMainWin* pCtMainWin,
                              Glib::RefPtr<CtMatchDialogStore>& rModel)
 {
     // cannot use static because dialog can be used in the several windows
-    Gtk::Dialog* pMatchesDialog = new Gtk::Dialog{title, *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    auto pMatchesDialog = new Gtk::Dialog{title, *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     pMatchesDialog->set_transient_for(*pCtMainWin);
     if (rModel->dlg_size[0] > 0) {
         pMatchesDialog->set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
@@ -307,16 +339,29 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
 
-    Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
+    auto pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
     pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
     pTreeview->append_column("", rModel->columns.node_hier_name);
     pTreeview->get_column(3)->property_visible() = false;
     pTreeview->set_tooltip_column(3);
-    Gtk::ScrolledWindow* pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow{});
+    auto pScrolledBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
+    pScrolledBox->pack_start(*pTreeview);
+    if (CtTreeIter::get_hit_exclusion_from_search()) {
+        auto pHBoxExclusions = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/});
+        Gtk::Image* pImageExclusions = pCtMainWin->new_managed_image_from_stock("ct_ghost", Gtk::ICON_SIZE_BUTTON);
+        pImageExclusions->set_padding(3/*xpad*/, 0/*ypad*/);
+        pHBoxExclusions->pack_start(*pImageExclusions, false, false);
+        auto pLabelExclusions = Gtk::manage(new Gtk::Label{_("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search")});
+        pLabelExclusions->set_xalign(0.0);
+        pHBoxExclusions->pack_start(*pLabelExclusions);
+        pScrolledBox->pack_start(*pHBoxExclusions, false, false);
+    }
+    auto pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow{});
     pScrolledwindowAllmatches->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    pScrolledwindowAllmatches->add(*pTreeview);
+    pScrolledwindowAllmatches->add(*pScrolledBox);
+
     Gtk::Box* pContentArea = pMatchesDialog->get_content_area();
     pContentArea->pack_start(*pScrolledwindowAllmatches);
 

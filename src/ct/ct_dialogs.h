@@ -193,6 +193,10 @@ std::time_t date_select_dialog(Gtk::Window& parent,
                                const Glib::ustring& title,
                                const std::time_t& curr_time);
 
+void no_matches_dialog(CtMainWin* pCtMainWin,
+                       const Glib::ustring& title,
+                       const Glib::ustring& message);
+
 // the All Matches Dialog
 void match_dialog(const Glib::ustring& title,
                   CtMainWin* ctMainWin,
