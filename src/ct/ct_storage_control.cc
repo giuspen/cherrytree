@@ -31,7 +31,7 @@
 #include "ct_logging.h"
 #include <glib/gstdio.h>
 
-#define DEBUG_BACKUP_ENCRYPT
+//#define DEBUG_BACKUP_ENCRYPT
 
 /*static*/std::unique_ptr<CtStorageEntity> CtStorageControl::_get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
