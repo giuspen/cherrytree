@@ -56,6 +56,8 @@ public:
 
     virtual ~CtStorageControl();
 
+    ThreadSafeDEQueue<std::shared_ptr<CtBackupEncryptData>,1000> backupEncryptDEQueue;
+
     bool save(bool need_vacuum, Glib::ustring& error);
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
@@ -99,16 +101,7 @@ private:
     std::unique_ptr<CtStorageEntity> _storage;
     CtStorageSyncPending             _syncPending;
 
-    struct CtBackupEncryptData {
-        bool needBackup;
-        bool needEncrypt;
-        std::string main_backup;
-        std::string file_path;
-        std::string password;
-        std::string extracted_copy;
-    };
     std::unique_ptr<std::thread> _pThreadBackupEncrypt;
-    ThreadSafeDEQueue<std::shared_ptr<CtBackupEncryptData>,9> _backupEncryptDEQueue;
     void _backupEncryptThread();
     bool _backupEncryptKeepGoing{true};
 };
@@ -123,5 +116,5 @@ public:
 private:
     void _parallel_fetch_pixbufers(const std::vector<CtImagePng*>& image_widgets, bool for_xml);
 
-    std::map<CtImagePng*, std::string> _cached_images;
+    std::unordered_map<CtImagePng*, std::string> _cached_images;
 };

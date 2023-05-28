@@ -798,7 +798,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
             if (not str::startswith(link_url, "htt") and !str::startswith(link_url, "ftp")) link_url = "http://" + link_url;
-            Glib::ustring property_value = std::string(CtConst::LINK_TYPE_WEBS) + CtConst::CHAR_SPACE + link_url;
+            Glib::ustring property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
             _pCtMainWin->get_ct_actions()->apply_tag(CtConst::TAG_LINK, property_value);
             tag_applied = true;
         }

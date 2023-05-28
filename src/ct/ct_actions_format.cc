@@ -516,7 +516,7 @@ Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
             {
                 link_url = "http://" + link_url;
             }
-            property_value = std::string(CtConst::LINK_TYPE_WEBS) + CtConst::CHAR_SPACE + link_url;
+            property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
         }
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FILE or link_entry.type == CtConst::LINK_TYPE_FOLD) {
@@ -530,7 +530,7 @@ Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
         gint64 node_id = link_entry.node_id;
         if (node_id != -1) {
             auto link_anchor = link_entry.anch;
-            property_value = std::string(CtConst::LINK_TYPE_NODE) + CtConst::CHAR_SPACE + std::to_string(node_id);
+            property_value = CtConst::LINK_TYPE_NODE + CtConst::CHAR_SPACE + std::to_string(node_id);
             if (not link_anchor.empty()) property_value += CtConst::CHAR_SPACE + link_anchor;
         }
     }

@@ -278,7 +278,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
     }
 
     // split by \n to use Layout::set_indent properly
-    std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
+    std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), "\n");
     for (size_t i = 0; i < lines.size(); ++i) {
 
         PangoDirection pango_dir = CtStrUtil::gtk_pango_find_base_dir(lines[i].c_str(), -1);
@@ -1010,7 +1010,7 @@ void CtPrint::_codebox_split_content(const CtCodebox* codebox,
                                      Glib::ustring& second_split,
                                      const int codebox_width)
 {
-    std::vector<Glib::ustring> original_splitted_pango = str::split(original_content, CtConst::CHAR_NEWLINE);
+    std::vector<Glib::ustring> original_splitted_pango = str::split(original_content, "\n");
     // fix for not-closed span, I suppose
     for (size_t i = 0; i < original_splitted_pango.size(); ++i) {
         auto& element = original_splitted_pango[i];

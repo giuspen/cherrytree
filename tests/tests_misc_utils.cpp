@@ -470,13 +470,13 @@ TEST(MiscUtilsGroup, parallel_for)
 
 TEST(MiscUtilsGroup, get_link_entry)
 {
-    ASSERT_STREQ(CtConst::LINK_TYPE_WEBS, CtMiscUtil::get_link_entry("webs https://example.com").type.c_str());
+    ASSERT_STREQ(CtConst::LINK_TYPE_WEBS.c_str(), CtMiscUtil::get_link_entry("webs https://example.com").type.c_str());
     ASSERT_STREQ("https://example.com", CtMiscUtil::get_link_entry("webs https://example.com").webs.c_str());
-    ASSERT_STREQ(CtConst::LINK_TYPE_FILE, CtMiscUtil::get_link_entry("file L2hvbWUvZm9vL2Jhcgo=").type.c_str());
+    ASSERT_STREQ(CtConst::LINK_TYPE_FILE.c_str(), CtMiscUtil::get_link_entry("file L2hvbWUvZm9vL2Jhcgo=").type.c_str());
     ASSERT_STREQ("/home/foo/bar\n", CtMiscUtil::get_link_entry("file L2hvbWUvZm9vL2Jhcgo=").file.c_str());
-    ASSERT_STREQ(CtConst::LINK_TYPE_FOLD, CtMiscUtil::get_link_entry("fold L2hvbWUvZm9vL2Jhcgo=").type.c_str());
+    ASSERT_STREQ(CtConst::LINK_TYPE_FOLD.c_str(), CtMiscUtil::get_link_entry("fold L2hvbWUvZm9vL2Jhcgo=").type.c_str());
     ASSERT_STREQ("/home/foo/bar\n", CtMiscUtil::get_link_entry("fold L2hvbWUvZm9vL2Jhcgo=").fold.c_str());
-    ASSERT_STREQ(CtConst::LINK_TYPE_NODE, CtMiscUtil::get_link_entry("node 2 hi hi").type.c_str());
+    ASSERT_STREQ(CtConst::LINK_TYPE_NODE.c_str(), CtMiscUtil::get_link_entry("node 2 hi hi").type.c_str());
     ASSERT_TRUE(CtMiscUtil::get_link_entry("node 2 hi hi").node_id == 2);
     ASSERT_STREQ("hi hi", CtMiscUtil::get_link_entry("node 2 hi hi").anch.c_str());
 

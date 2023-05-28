@@ -598,7 +598,7 @@ int CtStrUtil::gtk_pango_find_start_of_dir(const gchar* text, const PangoDirecti
 std::vector<bool> CtStrUtil::get_rtl_for_lines(const Glib::ustring& text)
 {
     std::vector<bool> ret_vec;
-    std::vector<Glib::ustring> lines = str::split(text, CtConst::CHAR_NEWLINE);
+    std::vector<Glib::ustring> lines = str::split(text, "\n");
     for (const auto& curr_line : lines) {
         ret_vec.push_back(PANGO_DIRECTION_RTL == CtStrUtil::gtk_pango_find_base_dir(curr_line.c_str(), -1));
     }
@@ -842,7 +842,7 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
 {
     try {
-        std::vector<Glib::ustring> fontStr_splitted = str::split(fontStr, CtConst::CHAR_SPACE);
+        std::vector<Glib::ustring> fontStr_splitted = str::split(fontStr, " ");
         fontStr_splitted.pop_back();
         Glib::ustring retVal = str::join(fontStr_splitted, CtConst::CHAR_SPACE);
         return retVal;
@@ -856,7 +856,7 @@ Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
 int CtFontUtil::get_font_size(const Glib::ustring& fontStr)
 {
     try {
-        const std::vector<Glib::ustring> fontStr_splitted = str::split(fontStr, CtConst::CHAR_SPACE);
+        const std::vector<Glib::ustring> fontStr_splitted = str::split(fontStr, " ");
         const int retVal = std::stoi(fontStr_splitted.back());
         return retVal;
     }

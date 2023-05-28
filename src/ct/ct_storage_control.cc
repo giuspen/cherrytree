@@ -31,7 +31,7 @@
 #include "ct_logging.h"
 #include <glib/gstdio.h>
 
-//#define DEBUG_BACKUP_ENCRYPT
+#define DEBUG_BACKUP_ENCRYPT
 
 /*static*/std::unique_ptr<CtStorageEntity> CtStorageControl::_get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
@@ -218,8 +218,8 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
     fs::path main_backup = _file_path;
     main_backup += (str_timestamp + _file_path.extension());
     const CtDocType doc_type = fs::is_directory(_file_path) ? CtDocType::MultiFile : fs::get_doc_type_from_file_ext(_file_path);
-    // !!! CtDocType::MultiFile does not support backups yet !!!
-    const bool need_backup = CtDocType::MultiFile != doc_type and _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
+    // CtDocType::MultiFile backups are elsewhere, at node (folder) level rather than whole tree level (file)
+    const bool need_main_backup = CtDocType::MultiFile != doc_type and _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
     const bool need_encrypt = _file_path != _extracted_file_path;
     try {
         if (_file_path.empty()) {
@@ -229,9 +229,9 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         // sqlite could lose connection
         _storage->test_connection();
 
-        if (need_backup) {
+        if (need_main_backup) {
             if (CtDocType::SQLite == doc_type and not need_encrypt) {
-                _storage->close_connect();    // temporary, because of sqlite keepig the file
+                _storage->close_connect(); // temporary, because of sqlite keepig the file
                 if (not fs::copy_file(_file_path, main_backup)) {
                     throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 }
@@ -259,9 +259,9 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         if (need_vacuum) {
             _storage->vacuum();
         }
-        if (need_backup or need_encrypt) {
+        if (need_main_backup or need_encrypt) {
             std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
-            pBackupEncryptData->needBackup = need_backup;
+            pBackupEncryptData->backupType = need_main_backup ? CtBackupType::SingleFile : CtBackupType::None;
             pBackupEncryptData->needEncrypt = need_encrypt;
             pBackupEncryptData->file_path = _file_path.string();
             pBackupEncryptData->main_backup = main_backup.string();
@@ -277,7 +277,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
                 _storage->reopen_connect();
                 pBackupEncryptData->password = _password;
             }
-            _backupEncryptDEQueue.push_back(pBackupEncryptData);
+            backupEncryptDEQueue.push_back(pBackupEncryptData);
         }
         _syncPending.fix_db_tables = false;
         _syncPending.bookmarks_to_write = false;
@@ -290,7 +290,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         // recover from backup
         try {
             _storage->close_connect();
-            if (need_backup && fs::is_regular_file(main_backup)) fs::move_file(main_backup, _file_path);
+            if (need_main_backup and fs::is_regular_file(main_backup)) fs::move_file(main_backup, _file_path);
             _storage->reopen_connect();
         }
         catch (std::exception& e2) { spdlog::error(e2.what()); }
@@ -392,7 +392,7 @@ CtStorageControl::~CtStorageControl()
 {
     if (_pThreadBackupEncrypt) {
         _backupEncryptKeepGoing = false;
-        _backupEncryptDEQueue.push_back(nullptr);
+        backupEncryptDEQueue.push_back(nullptr);
         _pThreadBackupEncrypt->join();
     }
 }
@@ -400,7 +400,7 @@ CtStorageControl::~CtStorageControl()
 void CtStorageControl::_backupEncryptThread()
 {
     while (_backupEncryptKeepGoing) {
-        std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = _backupEncryptDEQueue.pop_front();
+        std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = backupEncryptDEQueue.pop_front();
         if (not pBackupEncryptData) {
             // a nullptr is passed on purpose in order to exit the loop at app quit
             break;
@@ -437,11 +437,11 @@ void CtStorageControl::_backupEncryptThread()
 #endif // DEBUG_BACKUP_ENCRYPT
         }
 
-        if (not pBackupEncryptData->needBackup) {
+        if (CtBackupType::None == pBackupEncryptData->backupType) {
             continue;
         }
 
-        if (not pBackupEncryptData->needEncrypt) {
+        if (CtBackupType::SingleFile == pBackupEncryptData->backupType and not pBackupEncryptData->needEncrypt) {
             Glib::ustring error;
             if (not CtStorageControl::document_integrity_check_pass(_pCtMainWin, pBackupEncryptData->main_backup, error)) {
                 spdlog::error("{} {}", __FUNCTION__, error.raw());
@@ -488,34 +488,86 @@ void CtStorageControl::_backupEncryptThread()
         spdlog::debug("new_backup_file = {}", new_backup_file);
 #endif // DEBUG_BACKUP_ENCRYPT
 
-        // shift backups with tilda
-        if (_pCtConfig->backupNum >= 2) {
-            fs::path tilda_filepath = new_backup_file + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
-            while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE)) {
-                if (fs::is_regular_file(tilda_filepath)) {
-                    if (not fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE)) {
-                        _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
-                        _pCtMainWin->dispatcherErrorMsg.emit();
-                        break;
-                    }
+        if (CtBackupType::SingleFile == pBackupEncryptData->backupType) {
+            // shift backups with tilda
+            if (_pCtConfig->backupNum >= 2) {
+                fs::path tilda_filepath = new_backup_file + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
+                while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE)) {
+                    if (fs::is_regular_file(tilda_filepath)) {
+                        if (not fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE)) {
+                            _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+                            _pCtMainWin->dispatcherErrorMsg.emit();
+                            break;
+                        }
 #if defined(DEBUG_BACKUP_ENCRYPT)
-                    spdlog::debug("{} -> {}", tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE);
+                        spdlog::debug("{} -> {}", tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE);
 #endif // DEBUG_BACKUP_ENCRYPT
+                    }
+                    tilda_filepath = tilda_filepath.string().substr(0, tilda_filepath.string().size()-1);
                 }
-                tilda_filepath = tilda_filepath.string().substr(0, tilda_filepath.string().size()-1);
+            }
+
+            if (not fs::move_file(pBackupEncryptData->main_backup, new_backup_file)) {
+                _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+                _pCtMainWin->dispatcherErrorMsg.emit();
+            }
+#if defined(DEBUG_BACKUP_ENCRYPT)
+            else {
+                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, new_backup_file);
+            }
+#endif // DEBUG_BACKUP_ENCRYPT
+        }
+        else if (CtBackupType::MultiFile == pBackupEncryptData->backupType) {
+            const bool need_multi_backup = _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
+            if (not need_multi_backup) {
+                (void)fs::remove_all(pBackupEncryptData->main_backup);
+#if defined(DEBUG_BACKUP_ENCRYPT)
+                spdlog::debug("rm {}", pBackupEncryptData->main_backup);
+#endif // DEBUG_BACKUP_ENCRYPT
+            }
+            else {
+                const fs::path new_backup_dir{new_backup_file};
+                const std::string node_dirname = str::endswith(pBackupEncryptData->main_backup, CtStorageMultiFile::BEFORE_SAVE) ?
+                    Glib::path_get_basename(Glib::path_get_dirname(pBackupEncryptData->main_backup)) : Glib::path_get_basename(pBackupEncryptData->main_backup);
+                // shift backups with tilda
+                if (_pCtConfig->backupNum >= 2) {
+                    fs::path tilda_dirpath = new_backup_file + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
+                    while (str::endswith(tilda_dirpath.string(), CtConst::CHAR_TILDE)) {
+                        const fs::path tilda_node_dir_from = tilda_dirpath / node_dirname;
+                        if (fs::is_directory(tilda_node_dir_from)) {
+                            const fs::path tilda_dirpath_to{tilda_dirpath.string() + CtConst::CHAR_TILDE};
+                            const fs::path tilda_node_dir_to = tilda_dirpath_to / node_dirname;
+                            if ( (not fs::is_directory(tilda_dirpath_to) and
+                                  g_mkdir_with_parents(tilda_dirpath_to.c_str(), 0755) < 0) or
+                                  not fs::move_file(tilda_node_dir_from, tilda_node_dir_to) )
+                            {
+                                _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), new_backup_dir.parent_path().string()));
+                                _pCtMainWin->dispatcherErrorMsg.emit();
+                                break;
+                            }
+#if defined(DEBUG_BACKUP_ENCRYPT)
+                            spdlog::debug("{} -> {}", tilda_node_dir_from, tilda_node_dir_to);
+#endif // DEBUG_BACKUP_ENCRYPT
+                        }
+                        tilda_dirpath = tilda_dirpath.string().substr(0, tilda_dirpath.string().size()-1);
+                    }
+                }
+                const fs::path tilda_node_dir_to = new_backup_dir / node_dirname;
+                if ( (not fs::is_directory(new_backup_dir) and
+                      g_mkdir_with_parents(new_backup_dir.c_str(), 0755) < 0) or
+                      not fs::move_file(pBackupEncryptData->main_backup, tilda_node_dir_to) )
+                {
+                    _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+                    _pCtMainWin->dispatcherErrorMsg.emit();
+                }
+#if defined(DEBUG_BACKUP_ENCRYPT)
+                else {
+                    spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, tilda_node_dir_to);
+                }
+#endif // DEBUG_BACKUP_ENCRYPT
             }
         }
-
-        if (not fs::move_file(pBackupEncryptData->main_backup, new_backup_file)) {
-            _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
-            _pCtMainWin->dispatcherErrorMsg.emit();
-        }
-#if defined(DEBUG_BACKUP_ENCRYPT)
-        else {
-            spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, new_backup_file);
-        }
-#endif // DEBUG_BACKUP_ENCRYPT
-    }
+    } // while (_backupEncryptKeepGoing)
 #if defined(DEBUG_BACKUP_ENCRYPT)
     spdlog::debug("out _backupEncryptThread");
 #endif // DEBUG_BACKUP_ENCRYPT

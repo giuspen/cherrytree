@@ -231,8 +231,12 @@ void CtStorageMultiFile::_remove_disk_node_with_children(const gint64 node_id)
 {
     fs::path node_dirpath;
     if (_found_node_dirpath(std::to_string(node_id), _dir_path, node_dirpath) and not node_dirpath.empty()) {
-        (void)fs::remove_all(node_dirpath);
-        spdlog::debug("rm {}", node_dirpath.string());
+        std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
+        pBackupEncryptData->backupType = CtBackupType::MultiFile;
+        pBackupEncryptData->needEncrypt = false;
+        pBackupEncryptData->file_path = _dir_path.string();
+        pBackupEncryptData->main_backup = node_dirpath.string();
+        _pCtMainWin->get_ct_storage()->backupEncryptDEQueue.push_back(pBackupEncryptData);
     }
 }
 
@@ -297,10 +301,11 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
     if (node_state.buff or node_state.prop) {
         fs::path dir_before_save;
         if (CtExporting::NONESAVE == exporting) {
-            // create folder of previous widgets (if not changed, won't re-save but move over)
+            // create folder of previous node.xml and widgets
+            // (if binaries not changed, won't re-save but move over)
             dir_before_save = dir_path / BEFORE_SAVE;
             if (fs::is_directory(dir_before_save)) {
-                fs::remove_all(dir_before_save);
+                (void)fs::remove_all(dir_before_save);
             }
             if (g_mkdir(dir_before_save.c_str(), 0755) < 0) {
                 error = Glib::ustring{"!! mkdir "} + dir_before_save.string();
@@ -333,8 +338,12 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
             xml_doc_node.write_to_file_formatted(Glib::build_filename(dir_path.string(), NODE_XML));
         }
         if (CtExporting::NONESAVE == exporting) {
-            // clear folder of previous widgets
-            (void)fs::remove_all(dir_before_save);
+            std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
+            pBackupEncryptData->backupType = CtBackupType::MultiFile;
+            pBackupEncryptData->needEncrypt = false;
+            pBackupEncryptData->file_path = _dir_path.string();
+            pBackupEncryptData->main_backup = dir_before_save.string();
+            _pCtMainWin->get_ct_storage()->backupEncryptDEQueue.push_back(pBackupEncryptData);
         }
     }
     // subnodes?

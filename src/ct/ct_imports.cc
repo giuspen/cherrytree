@@ -123,7 +123,7 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
     xmlpp::Element* image_element = parent->add_child("encoded_png");
     image_element->set_attribute("char_offset", std::to_string(char_offset));
     image_element->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
-    image_element->set_attribute("link", std::string(CtConst::LINK_TYPE_WEBS) + " " + path);
+    image_element->set_attribute("link", CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + path);
     image_element->add_child_text(encodedBlob);
 
     if (status_bar) status_bar->update_status("");

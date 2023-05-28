@@ -127,7 +127,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         auto rTextBuffer = tree_iter.get_node_text_buffer();
         Gtk::TextIter start_iter = rTextBuffer->get_iter_at_offset(sel_start == -1 ? 0 : sel_start);
         Gtk::TextIter end_iter = sel_end == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(sel_end);
-        std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
+        std::vector<Glib::ustring> node_lines = str::split(node_html_text, "\n");
         if (node_lines.size() > 0) {
             std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
             while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
@@ -252,7 +252,7 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
                     }
                 }
             }
-            std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
+            std::vector<Glib::ustring> node_lines = str::split(node_html_text, "\n");
             if (node_lines.size() > 0) {
                 std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(tree_iter.get_node_text_buffer()->get_text());
                 while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
@@ -340,7 +340,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         }
         node_html_text += html_process_slot(_pCtConfig, _pCtMainWin, start_offset, end_iter.get_offset(), text_buffer);
 
-        std::vector<Glib::ustring> node_lines = str::split(node_html_text, CtConst::CHAR_NEWLINE);
+        std::vector<Glib::ustring> node_lines = str::split(node_html_text, "\n");
         if (node_lines.size() > 0) {
             std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
             while (rtl_for_lines.size() < node_lines.size()) { rtl_for_lines.push_back(false); }
@@ -830,7 +830,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
 
     // split by \n to support RTL lines
     Glib::ustring html_text;
-    std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), CtConst::CHAR_NEWLINE);
+    std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), "\n");
     const size_t lastIdx = lines.size() - 1;
     for (size_t i = 0; i < lines.size(); ++i) {
         Glib::ustring tagged_text = str::xml_escape(lines[i]);

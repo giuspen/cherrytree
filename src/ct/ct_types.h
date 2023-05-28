@@ -254,6 +254,17 @@ struct CtStorageSyncPending
     std::set<gint64>                               nodes_to_rm_set;
 };
 
+enum class CtBackupType { None, SingleFile, MultiFile };
+struct CtBackupEncryptData
+{
+    CtBackupType backupType;
+    bool needEncrypt;
+    std::string main_backup;
+    std::string file_path;
+    std::string password;
+    std::string extracted_copy;
+};
+
 struct CtNodeData;
 class CtAnchoredWidget;
 namespace Gtk { class TreeIter; }

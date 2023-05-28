@@ -842,7 +842,7 @@ gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gi
 
 void CtTreeStore::add_used_tags(const Glib::ustring& tags)
 {
-    std::vector<Glib::ustring> tagVec = str::split(tags, CtConst::CHAR_SPACE);
+    std::vector<Glib::ustring> tagVec = str::split(tags, " ");
     for (auto& tag : tagVec) {
         tag = str::trim(tag);
         if (not tag.empty()) {

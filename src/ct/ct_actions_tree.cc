@@ -457,7 +457,7 @@ void CtActions::node_delete()
         listIds.push_back(ctTreeIter.get_node_id());
         if (listWarns.size() > 15) {
             if (listWarns.size() == 16) {
-                listWarns.push_back(std::string(CtConst::CHAR_NEWLINE) + "...");
+                listWarns.push_back(CtConst::CHAR_NEWLINE + "...");
             }
         }
         else {

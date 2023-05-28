@@ -836,7 +836,7 @@ void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView
         ParseState state = ParseState::OUT_BLOCK;
         std::string block_indent = "      ";
         std::vector<Glib::ustring> block_lines;
-        std::vector<Glib::ustring> lines = str::split(yaml_text, CtConst::CHAR_NEWLINE);
+        std::vector<Glib::ustring> lines = str::split(yaml_text, "\n");
         for (const auto& curr_line : lines) {
             if (state == ParseState::OUT_BLOCK) {
                 Glib::ustring trim_line = str::trim(curr_line);

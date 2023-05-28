@@ -504,7 +504,7 @@ void CtMempadParser::feed(const std::string& data)
 
 void CtIndentedListParser::feed(const std::string& data)
 {
-    std::vector<std::string> list_rows = str::split(str::replace(data, CtConst::CHAR_CR, ""), CtConst::CHAR_NEWLINE);
+    std::vector<std::string> list_rows = str::split(str::replace(data, CtConst::CHAR_CR, ""), "\n");
     int max_lvl{0};
     for (const auto& row : list_rows) {
         int page_lvl{1};
@@ -537,7 +537,7 @@ void CtIndentedListParser::feed(const std::string& data)
 void CtTreepadParser::feed(const std::string& data)
 {
     Glib::RefPtr<Glib::Regex> rRegExpInteger = Glib::Regex::create("\\d+");
-    for (auto& lineStr : str::split(data, CtConst::CHAR_NEWLINE)) {
+    for (auto& lineStr : str::split(data, "\n")) {
         size_t currSize = lineStr.size();
         if (currSize > 0 and lineStr.at(currSize - 1) == '\r') {
             lineStr.erase(currSize - 1);
@@ -586,7 +586,7 @@ void CtZimParser::feed(const std::string& data)
 {
     bool found_header{false};
     try {
-        for (const auto& line : str::split(data, CtConst::CHAR_NEWLINE)) {
+        for (const auto& line : str::split(data, "\n")) {
             if (not found_header) {
                 // Creation-Date: .* is the final line of the header
                 if (line.find("Creation-Date:") != std::string::npos) {

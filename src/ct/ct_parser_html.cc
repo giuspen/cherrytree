@@ -585,7 +585,7 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
         xmlpp::Element* p_image_node = _slot_root->add_child("encoded_png");
         p_image_node->set_attribute("char_offset", std::to_string(_char_offset));
         p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
-        p_image_node->set_attribute("link", std::string(CtConst::LINK_TYPE_WEBS) + " " + img_path);
+        p_image_node->set_attribute("link", CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + img_path);
         p_image_node->add_child_text(encodedBlob);
     };
 
