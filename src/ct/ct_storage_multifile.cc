@@ -150,6 +150,7 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
             }
             if (not syncPending.nodes_to_rm_set.empty()) {
                 // remove nodes and their sub nodes
+                _already_queued_for_removal.clear();
                 for (const gint64 node_id : syncPending.nodes_to_rm_set) {
                     _remove_disk_node_with_children(node_id);
                 }
@@ -229,14 +230,31 @@ fs::path CtStorageMultiFile::_get_node_dirpath(const CtTreeIter& ct_tree_iter) c
 
 void CtStorageMultiFile::_remove_disk_node_with_children(const gint64 node_id)
 {
-    fs::path node_dirpath;
-    if (_found_node_dirpath(std::to_string(node_id), _dir_path, node_dirpath) and not node_dirpath.empty()) {
+    // the nodes must be passed to the BackupEncrypt thread from the leaves towards the root
+    // so all can rotate in the backups
+    std::function<void(const fs::path& curr_node_dirpath)> f_iterative_queue_nodes_for_removal;
+    f_iterative_queue_nodes_for_removal = [&](const fs::path& curr_node_dirpath){
+        const gint64 curr_node_id = CtStrUtil::gint64_from_gstring(curr_node_dirpath.filename().c_str());
+        if (_already_queued_for_removal.find(curr_node_id) != _already_queued_for_removal.end()) {
+            // already processed
+            return;
+        }
+        // first process the subnodes
+        for (const fs::path& node_dirpath : CtStorageMultiFile::get_child_nodes_dirs(curr_node_dirpath)) {
+            f_iterative_queue_nodes_for_removal(node_dirpath);
+        }
+        // eventually process myself
         std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
         pBackupEncryptData->backupType = CtBackupType::MultiFile;
         pBackupEncryptData->needEncrypt = false;
         pBackupEncryptData->file_path = _dir_path.string();
-        pBackupEncryptData->main_backup = node_dirpath.string();
+        pBackupEncryptData->main_backup = curr_node_dirpath.string();
         _pCtMainWin->get_ct_storage()->backupEncryptDEQueue.push_back(pBackupEncryptData);
+        _already_queued_for_removal.insert(curr_node_id);
+    };
+    fs::path node_dirpath;
+    if (_found_node_dirpath(std::to_string(node_id), _dir_path, node_dirpath) and not node_dirpath.empty()) {
+        f_iterative_queue_nodes_for_removal(node_dirpath);
     }
 }
 

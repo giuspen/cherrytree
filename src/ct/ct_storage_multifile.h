@@ -78,6 +78,7 @@ private:
     CtMainWin* const _pCtMainWin;
     fs::path         _dir_path;
     mutable CtDelayedTextBufferMap _delayed_text_buffers;
+    std::unordered_set<gint64> _already_queued_for_removal;
 
     fs::path _get_node_dirpath(const CtTreeIter& ct_tree_iter) const;
     bool _found_node_dirpath(const fs::path& node_id, const fs::path parent_path, fs::path& hierarchical_path) const;
