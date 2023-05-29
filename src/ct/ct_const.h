@@ -185,6 +185,7 @@ const inline static std::string CHAR_NEWPAGE        {"\x0c"};
 const inline static std::string CHAR_CR             {"\r"};
 const inline static std::string CHAR_TAB            {"\t"};
 const inline static std::array<gunichar, 4> CHARS_LISTNUM {'.', ')', '-', '>'};
+const inline static std::string CHAR_DOT            {"."};
 const inline static std::string CHAR_TILDE          {"~"};
 const inline static std::string CHAR_MINUS          {"-"};
 const inline static std::string CHAR_DQUOTE         {"\""};

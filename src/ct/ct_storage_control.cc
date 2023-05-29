@@ -456,7 +456,7 @@ void CtStorageControl::_backupEncryptThread()
 
         // backups with tildas can either be in the same directory where the db is or in a custom backup dir
         // main_backup is always in the same directory of the main db
-        auto get_custom_backup_file = [&]()->std::string {
+        auto get_custom_backup_file_or_dir = [&]()->std::string {
             // backup path in custom dir: /custom_dir/full_file_path/filename.ext~
             std::string hash_dir = pBackupEncryptData->file_path;
             for (auto str : {"\\", "/", ":", "?"}) {
@@ -469,7 +469,7 @@ void CtStorageControl::_backupEncryptThread()
                     spdlog::error("failed to create backup directory: {}", new_backup_dir);
                     return "";
                 }
-                return Glib::build_filename(new_backup_dir, Glib::path_get_basename(pBackupEncryptData->file_path)) + CtConst::CHAR_TILDE;
+                return Glib::build_filename(new_backup_dir, CtConst::CHAR_DOT + Glib::path_get_basename(pBackupEncryptData->file_path)) + CtConst::CHAR_TILDE;
             }
             catch (Glib::Error& ex) {
                 spdlog::error("failed to create backup directory: {}, \n{}", new_backup_dir, ex.what());
@@ -477,25 +477,29 @@ void CtStorageControl::_backupEncryptThread()
             }
         };
 
-        std::string new_backup_file = pBackupEncryptData->file_path + CtConst::CHAR_TILDE;
+        std::string new_backup_file_or_dir;
         if (_pCtConfig->customBackupDirOn and not _pCtConfig->customBackupDir.empty()) {
-            std::string custom_backup_file = get_custom_backup_file();
-            if (not custom_backup_file.empty()) {
-                new_backup_file = custom_backup_file;
+            const std::string custom_backup_file_or_dir = get_custom_backup_file_or_dir();
+            if (not custom_backup_file_or_dir.empty()) {
+                new_backup_file_or_dir = custom_backup_file_or_dir;
             }
         }
+        if (new_backup_file_or_dir.empty()) {
+            new_backup_file_or_dir = Glib::build_filename(Glib::path_get_dirname(pBackupEncryptData->file_path),
+                CtConst::CHAR_DOT + Glib::path_get_basename(pBackupEncryptData->file_path) + CtConst::CHAR_TILDE);
+        }
 #if defined(DEBUG_BACKUP_ENCRYPT)
-        spdlog::debug("new_backup_file = {}", new_backup_file);
+        spdlog::debug("new_backup_file_or_dir = {}", new_backup_file_or_dir);
 #endif // DEBUG_BACKUP_ENCRYPT
 
         if (CtBackupType::SingleFile == pBackupEncryptData->backupType) {
             // shift backups with tilda
             if (_pCtConfig->backupNum >= 2) {
-                fs::path tilda_filepath = new_backup_file + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
+                fs::path tilda_filepath = new_backup_file_or_dir + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
                 while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE)) {
                     if (fs::is_regular_file(tilda_filepath)) {
                         if (not fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE)) {
-                            _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+                            _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file_or_dir}.parent_path().string()));
                             _pCtMainWin->dispatcherErrorMsg.emit();
                             break;
                         }
@@ -507,13 +511,13 @@ void CtStorageControl::_backupEncryptThread()
                 }
             }
 
-            if (not fs::move_file(pBackupEncryptData->main_backup, new_backup_file)) {
-                _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+            if (not fs::move_file(pBackupEncryptData->main_backup, new_backup_file_or_dir)) {
+                _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file_or_dir}.parent_path().string()));
                 _pCtMainWin->dispatcherErrorMsg.emit();
             }
 #if defined(DEBUG_BACKUP_ENCRYPT)
             else {
-                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, new_backup_file);
+                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, new_backup_file_or_dir);
             }
 #endif // DEBUG_BACKUP_ENCRYPT
         }
@@ -526,17 +530,20 @@ void CtStorageControl::_backupEncryptThread()
 #endif // DEBUG_BACKUP_ENCRYPT
             }
             else {
-                const fs::path new_backup_dir{new_backup_file};
+                const fs::path new_backup_dir{new_backup_file_or_dir};
                 const std::string node_dirname = str::endswith(pBackupEncryptData->main_backup, CtStorageMultiFile::BEFORE_SAVE) ?
                     Glib::path_get_basename(Glib::path_get_dirname(pBackupEncryptData->main_backup)) : Glib::path_get_basename(pBackupEncryptData->main_backup);
                 // shift backups with tilda
                 if (_pCtConfig->backupNum >= 2) {
-                    fs::path tilda_dirpath = new_backup_file + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
+                    fs::path tilda_dirpath = new_backup_file_or_dir + str::repeat(CtConst::CHAR_TILDE, _pCtConfig->backupNum - 2).raw();
                     while (str::endswith(tilda_dirpath.string(), CtConst::CHAR_TILDE)) {
                         const fs::path tilda_node_dir_from = tilda_dirpath / node_dirname;
                         if (fs::is_directory(tilda_node_dir_from)) {
                             const fs::path tilda_dirpath_to{tilda_dirpath.string() + CtConst::CHAR_TILDE};
                             const fs::path tilda_node_dir_to = tilda_dirpath_to / node_dirname;
+                            if (fs::is_directory(tilda_node_dir_to)) {
+                                (void)fs::remove_all(tilda_node_dir_to);
+                            }
                             if ( (not fs::is_directory(tilda_dirpath_to) and
                                   g_mkdir_with_parents(tilda_dirpath_to.c_str(), 0755) < 0) or
                                   not fs::move_file(tilda_node_dir_from, tilda_node_dir_to) )
@@ -553,11 +560,14 @@ void CtStorageControl::_backupEncryptThread()
                     }
                 }
                 const fs::path tilda_node_dir_to = new_backup_dir / node_dirname;
+                if (fs::is_directory(tilda_node_dir_to)) {
+                    (void)fs::remove_all(tilda_node_dir_to);
+                }
                 if ( (not fs::is_directory(new_backup_dir) and
                       g_mkdir_with_parents(new_backup_dir.c_str(), 0755) < 0) or
                       not fs::move_file(pBackupEncryptData->main_backup, tilda_node_dir_to) )
                 {
-                    _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file}.parent_path().string()));
+                    _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{new_backup_file_or_dir}.parent_path().string()));
                     _pCtMainWin->dispatcherErrorMsg.emit();
                 }
 #if defined(DEBUG_BACKUP_ENCRYPT)
