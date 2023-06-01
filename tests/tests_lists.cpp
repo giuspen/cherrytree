@@ -56,14 +56,23 @@ const Glib::ustring bufferContent_1{
 const Glib::ustring bufferContent_2{
     "ciao" _NL                          // 0
     _NL                                 // 5
-    "- primo elemento" _NL              // 6
-    "- secondo elemento" _NL};          // 23
+    "- primo elemento con tag" _NL      // 6
+    "- secondo elemento" _NL};          // 31
 
 TEST(ListsGroup, CtListInfo_2)
 {
     Glib::init();
-    auto pBuffer = Gsv::Buffer::create();
+    auto rTextTagTable = Gtk::TextTagTable::create();
+    auto pBuffer = Gsv::Buffer::create(rTextTagTable);
     pBuffer->set_text(bufferContent_2);
+    const std::string tagName{CtConst::TAG_WEIGHT + CtConst::CHAR_USCORE + CtConst::TAG_PROP_VAL_HEAVY};
+    auto rTextTag = Gtk::TextTag::create(tagName);
+    rTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
+    rTextTagTable->add(rTextTag);
+    pBuffer->apply_tag_by_name(tagName,
+                               pBuffer->get_iter_at_offset(23),
+                               pBuffer->get_iter_at_offset(26));
+
     CtList ct_list{&ct_config, pBuffer};
 
     CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
@@ -75,17 +84,17 @@ TEST(ListsGroup, CtListInfo_2)
     ASSERT_EQ(6, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(23));
+    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(31));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
-    ASSERT_EQ(23, curr_list_info.startoffs);
+    ASSERT_EQ(31, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
     Glib::ustring out_html = CtExport2Html::html_process_slot(&ct_config,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_2.size()-1,
                                                               pBuffer);
-    ASSERT_STREQ("ciao\n<ul><li>primo elemento</li><li>secondo elemento</li></ul>", out_html.c_str());
+    ASSERT_STREQ("ciao\n<ul><li>primo elemento <strong>con</strong> tag</li><li>secondo elemento</li></ul>", out_html.c_str());
 }
 
 TEST(ListsGroup, CtListInfo_1)

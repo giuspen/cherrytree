@@ -546,12 +546,10 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
                                                             CtListInfo* pListInfoFrom,
                                                             const CtListInfo* pListInfoTo)
 {
-    int ret_forward_start{0};
     if (*pListInfoFrom == *pListInfoTo) {
-        return ret_forward_start;
+        return 0;
     }
-    //spdlog::debug("list_info t={} s={} l={} c={} n={}", static_cast<int>(pListInfoTo->type),
-    //    pListInfoTo->startoffs, pListInfoTo->level, pListInfoTo->count_nl, pListInfoTo->num_seq);
+    int ret_forward_start{0};
     auto f_increase_level_ol = [&](){
         curr_html_text += (CtConst::TAG_OL_START + CtConst::TAG_LI_START);
         nested_list_types.push_back(pListInfoTo->type);
@@ -701,6 +699,8 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
                                                          CtCurrAttributesMap& curr_attributes,
                                                          CtListInfo* pCurrListInfo)
     {
+        //spdlog::debug("'{}' t={} s={} l={} c={} n={}", start_iter.get_text(curr_iter), static_cast<int>(pCurrListInfo->type),
+        //    pCurrListInfo->startoffs, pCurrListInfo->level, pCurrListInfo->count_nl, pCurrListInfo->num_seq);
         Glib::ustring list_html_tags;
         const int forward_start = _html_process_list_info_change(list_html_tags, nested_list_types, &curr_list_info, pCurrListInfo);
         //spdlog::debug("fw={} +'{}'", forward_start, list_html_tags.raw());

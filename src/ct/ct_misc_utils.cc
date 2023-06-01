@@ -404,7 +404,7 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
                                           const int start_offset,
                                           const int end_offset,
                                           const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
-                                          SerializeFunc serialize_func,
+                                          SerializeFunc f_serialize_func,
                                           const bool list_info/*= false*/)
 {
     CtCurrAttributesMap curr_attributes;
@@ -422,8 +422,7 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
         }
     }
 
-    CtListInfo curr_list_info, prev_list_info;
-    bool list_info_changed{false};
+    CtListInfo curr_list_info;
     bool last_was_newline{false};
     if (not curr_end_iter.backward_char()) {
         last_was_newline = true;
@@ -433,7 +432,6 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
         curr_end_iter.forward_char();
     }
 
-    bool first_list_info_change{true};
     while (curr_end_iter.forward_char()) {
         if (curr_end_iter.compare(real_end_iter) >= 0) {
             break;
@@ -441,38 +439,21 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
 
         if (list_info and last_was_newline) {
             curr_list_info = CtList{pCtConfig, rTextBuffer}.get_paragraph_list_info(curr_end_iter);
-            if (curr_list_info != prev_list_info) {
-                list_info_changed = true;
-                if (first_list_info_change) {
-                    first_list_info_change = false;
-                    if ((curr_end_iter.get_offset() - curr_start_iter.get_offset()) > 1) {
-                        // this means that we are not starting with a list item, there is non-list preceding
-                        curr_end_iter.backward_char();
-                        (void)CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes);
-                        serialize_func(curr_start_iter, curr_end_iter, curr_attributes, &prev_list_info);
-                        for (auto& currDelta : delta_attributes) curr_attributes[currDelta.first] = currDelta.second;
-                        curr_start_iter = curr_end_iter;
-                        curr_end_iter.forward_char();
-                    }
-                }
-                prev_list_info = curr_list_info;
-            }
         }
 
         last_was_newline = '\n' == curr_end_iter.get_char();
 
         if (CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes) or
-            (list_info and last_was_newline and list_info_changed))
+            (list_info and last_was_newline))
         {
-            serialize_func(curr_start_iter, curr_end_iter, curr_attributes, &curr_list_info);
+            f_serialize_func(curr_start_iter, curr_end_iter, curr_attributes, &curr_list_info);
             for (auto& currDelta : delta_attributes) curr_attributes[currDelta.first] = currDelta.second;
             curr_start_iter = curr_end_iter;
-            if (list_info_changed) list_info_changed = false;
         }
     }
 
     if (curr_start_iter.compare(real_end_iter) < 0) {
-        serialize_func(curr_start_iter, real_end_iter, curr_attributes, &curr_list_info);
+        f_serialize_func(curr_start_iter, real_end_iter, curr_attributes, &curr_list_info);
     }
 }
 
