@@ -61,7 +61,6 @@ const Glib::ustring bufferContent_2{
 
 TEST(ListsGroup, CtListInfo_2)
 {
-    Glib::init();
     auto rTextTagTable = Gtk::TextTagTable::create();
     auto pBuffer = Gsv::Buffer::create(rTextTagTable);
     pBuffer->set_text(bufferContent_2);
@@ -99,7 +98,6 @@ TEST(ListsGroup, CtListInfo_2)
 
 TEST(ListsGroup, CtListInfo_1)
 {
-    Glib::init();
     auto pBuffer = Gsv::Buffer::create();
     pBuffer->set_text(bufferContent_1);
     CtList ct_list{&ct_config, pBuffer};
