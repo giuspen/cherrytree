@@ -1,7 +1,7 @@
 {
     "app-id": "net.giuspen.cherrytree",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "42",
+    "runtime-version": "44",
     "sdk": "org.gnome.Sdk",
     "command": "cherrytree",
     "rename-desktop-file": "cherrytree.desktop",
@@ -39,8 +39,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.4.tar.xz",
-                    "sha256": "e954c09b4309a7ef93e13b69260acdc5738c907477eb381b78bb1e414ee6dbd8"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.5.tar.xz",
+                    "sha256": "705c6d29f4116a29bde4e36cfc1b046c92b6ef8c6dae4eaec85018747e6da5aa"
                 }
             ],
             "cleanup": [
@@ -55,8 +55,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.10/libsigc++-2.10.8.tar.xz",
-                    "sha256": "235a40bec7346c7b82b6a8caae0456353dc06e71f14bc414bcc858af1838719a"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.12/libsigc++-2.12.0.tar.xz",
+                    "sha256": "1c466d2e64b34f9b118976eb21b138c37ed124d0f61497df2a90ce6c3d9fa3b5"
                 }
             ]
         },
@@ -85,8 +85,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.5.tar.xz",
-                    "sha256": "7b384662dd6ec3b86c0570331d32af05db2bd99a791602b767b4a0b2566ec149"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.6.tar.xz",
+                    "sha256": "5358742598181e5351d7bf8da072bf93e6dd5f178d27640d4e462bc8f14e152f"
                 }
             ]
         },
@@ -176,8 +176,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://mirror.accum.se/pub/GNOME/sources/gspell/1.12/gspell-1.12.0.tar.xz",
-                    "sha256" : "40d2850f1bb6e8775246fa1e39438b36caafbdbada1d28a19fa1ca07e1ff82ad"
+                    "url" : "https://mirror.accum.se/pub/GNOME/sources/gspell/1.12/gspell-1.12.1.tar.xz",
+                    "sha256" : "8ec44f32052e896fcdd4926eb814a326e39a5047e251eec7b9056fbd9444b0f1"
                 }
             ]
         },
@@ -187,8 +187,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.7.tar.xz",
-                    "sha256" : "3fc79408ae1d84b406922fa9319ce005631c95ca0f34b205fad867e8b30e45b1"
+                    "url" : "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.8.tar.xz",
+                    "sha256" : "e97a60cfc00a1c147a674b097bb1422abd9fa78a2d9ce3f3fdcc2e78a34ac5f0"
                 }
             ]
         },
@@ -220,8 +220,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.70.0/vte-0.70.0.tar.bz2",
-                    "sha256" : "4a3c8a00b8c0efd909a3960fd879ed7d4ca6ae504a06a6ff4bae7c80ff46b1ad"
+                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.72.2/vte-0.72.2.tar.bz2",
+                    "sha256" : "5c8f789aaf76154de9d58205fda3b90790092d93791a5229c8b67c50d3f01068"
                 }
             ]
         },
@@ -234,8 +234,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.49.test.tar.xz",
-                    "sha256" : "33f0165a8c014b9c95f677d41cc5cf0e06a05410e958fb28f3a58e522b1505d5"
+                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.55.tar.xz",
+                    "sha256" : "7daa4358463eb41c133d9b4b742df18f68f47fa5bf398fc2e0801fc4c8381e84"
                 }
             ]
         },
