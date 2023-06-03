@@ -553,7 +553,8 @@ void CtActions::_exec_code(const bool is_all)
         _pCtMainWin->exec_in_vte(binary_cmd);
     }
     else {
-        (void)std::system(terminal_cmd.c_str());
+        const int retVal = std::system(terminal_cmd.c_str());
+        if (retVal != 0) spdlog::error("system({}) returned {}", terminal_cmd, retVal);
     }
 }
 

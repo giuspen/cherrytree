@@ -382,11 +382,13 @@ fs::path get_cherrytree_localedir()
         // we're running from the build sources
         return fs_canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
     }
-#ifdef _WIN32
+#if defined(_WIN32)
     // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
     //      cherrytree_0.99.9_win64_portable\mingw64\share\locale
     const fs::path mingw64Dir = _exePath.parent_path().parent_path();
     return mingw64Dir / "share" / "locale";
+#elif defined(_FLATPAK_BUILD)
+   return CHERRYTREE_DATADIR "/locale";
 #else
     return CHERRYTREE_LOCALEDIR;
 #endif // _WIN32
