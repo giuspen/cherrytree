@@ -29,3 +29,5 @@ flatpak-builder --force-clean --arch=x86_64 --repo=repo build-dir net.giuspen.ch
 flatpak build-bundle --arch=x86_64 repo cherrytree-0.99.55.x86_64.flatpak net.giuspen.cherrytree
 
 flatpak install cherrytree-0.99.55.x86_64.flatpak
+
+flatpak run net.giuspen.cherrytree
