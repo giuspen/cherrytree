@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-28 20:29+0000\n"
-"PO-Revision-Date: 2023-03-02 05:49+0800\n"
+"POT-Creation-Date: 2023-05-28 16:00+0100\n"
+"PO-Revision-Date: 2023-06-03 21:23+0800\n"
 "Last-Translator: Emer Chen <ldsemerchen@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
@@ -12,246 +12,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-msgid "Image Format Not Recognized"
-msgstr "圖片格式未能識別"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "警告：一張或多張圖片被壓縮並插入到當前頁面!"
 
-msgid "Insert Table"
-msgstr "插入表格"
+msgid "To WebSite"
+msgstr "連接到網址"
 
-msgid "CSV File"
-msgstr "CSV 檔案"
+msgid "To File"
+msgstr "連接到檔案"
 
-msgid "Insert a CodeBox"
-msgstr "插入一個代碼框"
+msgid "To Folder"
+msgstr "到目錄"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "嵌入檔案的最大尺寸是 %s MB."
+msgid "To Node"
+msgstr "連接到節點"
 
-msgid "Do you want to Continue?"
-msgstr "你想繼續嗎？"
+msgid "Anchor Name (optional)"
+msgstr "錨點名稱(可選)"
 
-msgid "Special Characters"
-msgstr "特殊字元"
+msgid "No Node is Selected"
+msgstr "沒有節點被選中"
 
-msgid "Tabs Replaced"
-msgstr "TAB已替換"
+msgid "There are No Anchors in the Selected Node."
+msgstr "在已選中的節點中沒有錨點."
 
-msgid "Lines Stripped"
-msgstr "已刪除行尾空格的行"
+msgid "Choose Existing Anchor"
+msgstr "選擇現有的錨點"
 
-msgid "No Text is Selected."
-msgstr "沒有文字被選擇."
-
-msgid "CherryTree Document"
-msgstr "CherryTree檔案"
-
-msgid "PDF File"
-msgstr "PDF檔案"
-
-msgid "Plain Text Document"
-msgstr "純文字檔案"
-
-msgid "Preferences File"
-msgstr "配置檔案"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "改變僅在CherryTree下次啟動時生效."
-
-msgid "Replace in Current Node"
-msgstr "在當前節點中替換"
-
-msgid "Search in Current Node"
-msgstr "在當前節點中搜尋"
+msgid "Anchor Name"
+msgstr "錨點名稱"
 
 #, c-format
 msgid "The pattern '%s' was not found"
 msgstr "符合模式 '%s' 未找到"
 
-msgid "Matches"
-msgstr "已符合"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "在多個節點中替換..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "在所有節點內容中搜尋..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "當前通信期沒有歷史搜尋."
-
-msgid "Tags"
-msgstr "標籤"
-
-msgid ": "
-msgstr ": "
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "當前通信期沒有格式化操作歷史."
-
-msgid "Link Name"
-msgstr "連結名稱"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "游標未進入一個段落."
-
-msgid "Insert/Edit Link"
-msgstr "插入/編輯連結"
-
-msgid "Pick a Foreground Color"
-msgstr "選擇前景色"
-
-msgid "Pick a Background Color"
-msgstr "選擇背景顏色"
-
-msgid "Checking for Newer Version..."
-msgstr "檢查新的版本..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "獲取最新版本訊息失敗，稍候再試."
-
-msgid "A Newer Version Is Available!"
-msgstr "有新版本可用！"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "您使用的是最新版本."
-
-msgid "You Are Using a Development Version."
-msgstr "您正在使用開發版本."
-
-msgid "Who is the Parent?"
-msgstr "哪個是父節點？"
-
-msgid "The Tree Root"
-msgstr "樹根"
-
-msgid "The Selected Node"
-msgstr "已選擇的節點"
-
-msgid "Rename"
-msgstr "重命名"
-
-msgid "PNG Image"
-msgstr "PNG圖片"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "寫入到 %s 失敗"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "目錄連結'%s'無效."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "檔案連結'%s'無效."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "目錄連結'%s'無效"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "連結所指向的節點不存在 (Id = %s)"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "未找到錨點 '%s'"
-
-msgid "Edit CodeBox"
-msgstr "編輯代碼框"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"你必須將一個命令與'%s'關聯起來。\n"
-"在 \"首選項 \"對話框中這樣做."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr "安裝套件『xterm』或在首選項對話框中配置不同的終端機."
-
-msgid "Edit Table Properties"
-msgstr "編輯表格屬性"
-
-msgid "Insert Anchor"
-msgstr "插入錨點"
-
-msgid "Edit Anchor"
-msgstr "編輯錨點"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "不能編輯唯讀節點的嵌入檔案."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "嵌入檔案已自動更新："
-
-msgid "No Node is Selected"
-msgstr "沒有節點被選中"
-
-msgid "The Tree is Empty!"
-msgstr "樹型為空！"
-
-msgid "The Selected Node is Read Only."
-msgstr "已選擇節點為唯讀."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "此功能僅在豐富文字節點中有效."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "此功能在代碼自動醒目提示的節點中無效."
-
-msgid "No Table is Selected."
-msgstr "沒有文字被選擇."
-
-msgid "No CodeBox is Selected."
-msgstr "未選中任何代碼框."
-
-msgid "New Child Node Properties"
-msgstr "新的子節點屬性"
-
-msgid "New Node Properties"
-msgstr "新的節點屬性"
-
-msgid "Node Properties"
-msgstr "節點屬性"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr "脫離豐富文字將遺失此節點的所有格式，繼續嗎？"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "確實要<b>刪除節點「%s」嗎</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "此節點<b>有子節點，它們也將被刪除</b>"
-
-msgid "Select the New Parent"
-msgstr "選擇新的父節點"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "新的父節點不能隨意移動！"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "新選擇的父節點和原先一樣！"
-
-msgid "The new parent can't be one of his children!"
-msgstr "父節點不能是其自身的子節點！"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s節點屬性已變更"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "工具欄圖示已經最大."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "工具欄圖示已經最小."
+msgid "Index"
+msgstr "索引"
 
 msgid "Print CherryTree version"
 msgstr "列印CherryTree版本"
@@ -286,634 +82,29 @@ msgstr "創建一個新視窗"
 msgid "Run in secondary session, independent from main session"
 msgstr "在第二個通信期執行，獨立於主通信期"
 
-msgid "Handle the Bookmarks List"
-msgstr "處理書籤列表"
+msgid "CherryTree File"
+msgstr "CherryTree檔案"
 
-msgid "Move the Selected Bookmark Up"
-msgstr "將所選書籤上移"
+msgid "Preferences File"
+msgstr "配置檔案"
 
-msgid "Move the Selected Bookmark Down"
-msgstr "將所選書籤下移"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "改變僅在CherryTree下次啟動時生效."
 
-msgid "Remove the Selected Bookmark"
-msgstr "刪除選定的書籤"
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree層級筆記記錄"
 
-msgid "Sort the Bookmarks Descending"
-msgstr "對書籤進行降冪排序"
+msgid "Show/Hide _CherryTree"
+msgstr "顯示/隱藏CherryTree(_C)"
 
-msgid "Sort the Bookmarks Ascending"
-msgstr "書籤升冪排序"
+msgid "Toggle Show/Hide CherryTree"
+msgstr "切換CherryTree的顯示"
 
-msgid "Choose Storage Type"
-msgstr "選擇儲存類型"
+msgid "_Exit CherryTree"
+msgstr "退出CherryTree(_E)"
 
-msgid "Not Protected"
-msgstr "不保護"
-
-msgid "Password Protected"
-msgstr "密碼保護"
-
-msgid "Storage Type"
-msgstr "儲存類型"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CT將檔案儲存在加密的7zip存檔中。在查看或編輯檔案時，CT會將加密的存檔提取到臨"
-"時目錄中，然後處理未加密的副本。關閉時，未加密的副本將從臨時目錄中刪除。請注"
-"意，在應用程式或系統崩潰的情況下，未加密的檔案將保留在臨時目錄中。"
-
-msgid "Enter the New Password Twice"
-msgstr "輸入兩次新密碼"
-
-msgid "Autosave Every"
-msgstr "自動儲存每隔"
-
-msgid "Minutes"
-msgstr "分鐘"
-
-msgid "The Password Fields Must be Filled."
-msgstr "密碼必填."
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "兩次輸入密碼不符合."
-
-msgid "Warning"
-msgstr "警告"
-
-msgid "The Current Document was Updated."
-msgstr "當前檔案已自動更新。"
-
-msgid "Do you want to Save the Changes?"
-msgstr "要儲存檔案的修改嗎？"
-
-msgid "Do you want to Execute the Code?"
-msgstr "你想執行代碼嗎？"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "執行代碼前請確認"
-
-msgid "Use Internal Terminal"
-msgstr "使用內部終端機"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr "一個層級式筆記記錄程式，具有豐富文字和語法醒目提示的功能"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"本程式是自由軟體；你可以根據GNU通用公共許可證的條款重新發布它和/或修改它。\n"
-"它是根據GNU通用公共許可證的條款發布的。\n"
-"自由軟體基金會；許可證的第三版，或(由你選擇)任何後來的版本。\n"
-"\n"
-"分發這個程式是希望它能起到作用，\n"
-"但沒有任何保證；甚至沒有隱含的保證\n"
-"適銷性或符合某一特定目的。請參閱\n"
-"GNU通用公共許可證，了解更多詳細訊息.\n"
-"\n"
-"您應該已經收到了GNU通用公共許可證的副本\n"
-"與此程式一起使用；如果不是，請寫信給自由軟體\n"
-"基金會公司，地址：波士頓富蘭克林大街51號，5樓，波士頓,\n"
-"麻省理工學院02110-1301年，美國。\n"
-
-msgid "Arabic"
-msgstr "阿拉伯語"
-
-msgid "Armenian"
-msgstr "亞美尼亞語"
-
-msgid "Bulgarian"
-msgstr "保加利亞語"
-
-msgid "Chinese Simplified"
-msgstr "簡體中文"
-
-msgid "Chinese Traditional"
-msgstr "繁體中文"
-
-msgid "Croatian"
-msgstr "克羅埃西亞語"
-
-msgid "Czech"
-msgstr "捷克語"
-
-msgid "Dutch"
-msgstr "荷蘭語"
-
-msgid "Finnish"
-msgstr "芬蘭語"
-
-msgid "French"
-msgstr "法語"
-
-msgid "German"
-msgstr "德語"
-
-msgid "Greek"
-msgstr "希臘語"
-
-msgid "Hindi India"
-msgstr "印地語"
-
-msgid "Hungarian"
-msgstr "匈牙利語"
-
-msgid "Italian"
-msgstr "義大利語"
-
-msgid "Japanese"
-msgstr "日語"
-
-msgid "Kazakh"
-msgstr "哈薩克語"
-
-msgid "Kazakh (Latin)"
-msgstr "哈薩克語(拉丁)"
-
-msgid "Korean"
-msgstr "韓語"
-
-msgid "Lithuanian"
-msgstr "立陶宛語"
-
-msgid "Polish"
-msgstr "波蘭語"
-
-msgid "Portuguese"
-msgstr "葡萄牙語"
-
-msgid "Portuguese Brazil"
-msgstr "巴西葡萄牙語"
-
-msgid "Romanian"
-msgstr "羅馬尼亞語"
-
-msgid "Russian"
-msgstr "俄語"
-
-msgid "Slovenian"
-msgstr "斯洛文尼亞語"
-
-msgid "Spanish"
-msgstr "西班牙語"
-
-msgid "Swedish"
-msgstr "瑞典語"
-
-msgid "Turkish"
-msgstr "土耳其語"
-
-msgid "Ukrainian"
-msgstr "烏克蘭語"
-
-msgid "About CherryTree"
-msgstr "關於CherryTree"
-
-msgid "Tree Summary Information"
-msgstr "樹摘要訊息"
-
-msgid "Number of Rich Text Nodes"
-msgstr "豐富文字節點個數"
-
-msgid "Number of Plain Text Nodes"
-msgstr "純文字節點個數"
-
-msgid "Number of Code Nodes"
-msgstr "代碼節點個數"
-
-msgid "Number of Images"
-msgstr "圖片個數"
-
-msgid "Number of LatexBoxes"
-msgstr "LaTeXBox個數"
-
-msgid "Number of Embedded Files"
-msgstr "嵌入檔案個數"
-
-msgid "Number of Tables"
-msgstr "表格個數"
-
-msgid "Number of CodeBoxes"
-msgstr "代碼框個數"
-
-msgid "Number of Anchors"
-msgstr "錨點個數"
-
-msgid "Latex Text"
-msgstr "LaTeX文字"
-
-msgid "Image Size dpi"
-msgstr "影像大小(dpi)"
-
-msgid "Tutorial"
-msgstr "教學"
-
-msgid "Reference"
-msgstr "參考"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX數學和方程式教學"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX數學符號參考"
-
-msgid "Image Properties"
-msgstr "圖片屬性"
-
-msgid "Width"
-msgstr "寬"
-
-msgid "Height"
-msgstr "高"
-
-msgid "Plain Text"
-msgstr "純文字"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "自動語法醒目提示"
-
-msgid "Type"
-msgstr "類型"
-
-msgid "pixels"
-msgstr "像素"
-
-msgid "Size"
-msgstr "尺寸"
-
-msgid "Show Line Numbers"
-msgstr "顯示行號"
-
-msgid "Highlight Matching Brackets"
-msgstr "醒目提示括號符合"
-
-msgid "Options"
-msgstr "選項"
-
-msgid "Rows"
-msgstr "列"
-
-msgid "Columns"
-msgstr "欄"
-
-msgid "Default Width"
-msgstr "預設寬度"
-
-msgid "Table Size"
-msgstr "表格尺寸"
-
-msgid "Column Properties"
-msgstr "欄屬性"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "輕量級界面(大型表格快很多)"
-
-msgid "Import from CSV File"
-msgstr "從CSV檔案匯入"
-
-msgid "Search for"
-msgstr "查找"
-
-msgid "Replace with"
-msgstr "替換為"
-
-msgid "Match Case"
-msgstr "符合大小寫"
-
-msgid "Regular Expression"
-msgstr "正規表示式"
-
-msgid "Online Manual"
-msgstr "線上手冊"
-
-msgid "Accent Insensitive"
-msgstr "口音不敏感"
-
-msgid "Override Exclusions"
-msgstr "覆蓋排除"
-
-msgid "Whole Word"
-msgstr "完整單詞"
-
-msgid "Start Word"
-msgstr "單詞開始部分"
-
-msgid "Forward"
-msgstr "向前"
-
-msgid "Backward"
-msgstr "向後"
-
-msgid "All, List Matches"
-msgstr "所有，並列出符合"
-
-msgid "First From Selection"
-msgstr "在所選中搜尋"
-
-msgid "First in All Range"
-msgstr "在當前頁搜尋"
-
-msgid "Node Created After"
-msgstr "在此之後創建的節點"
-
-msgid "Node Created Before"
-msgstr "在此之前創建的節點"
-
-msgid "Node Modified After"
-msgstr "在此之後修改的節點"
-
-msgid "Node Modified Before"
-msgstr "在此之前修改過的節點"
-
-msgid "Time filter"
-msgstr "時間篩選器"
-
-msgid "Node Content"
-msgstr "節點內容"
-
-msgid "Node Name and Tags"
-msgstr "節點名稱和標籤"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "已選擇的節點和子節點"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "顯示循環搜尋/替換對話框"
-
-msgid "Search options"
-msgstr "搜尋選項"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "隱藏 (用 『%s』 恢復)"
-
-msgid "Node Name"
-msgstr "節點名稱"
-
-msgid "Line"
-msgstr "行"
-
-msgid "Line Content"
-msgstr "首行內容"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "重複上次搜尋/替換"
-
-msgid "Close"
-msgstr "關閉"
-
-msgid "Find Previous"
-msgstr "查找上一個"
-
-msgid "Find Next"
-msgstr "查找下一個"
-
-msgid "Replace"
-msgstr "替換"
-
-msgid "Undo"
-msgstr "撤銷"
-
-msgid "Remove Color"
-msgstr "刪除顏色"
-
-msgid "Question"
-msgstr "詢問"
-
-msgid "Info"
-msgstr "訊息"
-
-msgid "Error"
-msgstr "錯誤"
-
-msgid "Select File"
-msgstr "選擇檔案"
-
-msgid "Select Folder"
-msgstr "選擇目錄"
-
-msgid "Save File as"
-msgstr "檔案另存為"
-
-msgid "To WebSite"
-msgstr "連接到網址"
-
-msgid "To File"
-msgstr "連接到檔案"
-
-msgid "To Folder"
-msgstr "連接到目錄"
-
-msgid "To Node"
-msgstr "連接到節點"
-
-msgid "Anchor Name (optional)"
-msgstr "錨點名稱(可選)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "在已選中的節點中沒有錨點."
-
-msgid "Choose Existing Anchor"
-msgstr "選擇現有的錨點"
-
-msgid "Anchor Name"
-msgstr "錨點名稱"
-
-msgid "Bold"
-msgstr "粗體"
-
-msgid "Use Selected Color"
-msgstr "使用所選顏色"
-
-msgid "Use Selected Icon"
-msgstr "使用所選圖示"
-
-msgid "Rich Text"
-msgstr "豐富文字"
-
-msgid "Node Type"
-msgstr "節點類型"
-
-msgid "Tags for Searching"
-msgstr "搜尋標籤"
-
-msgid "Exclude from Searches"
-msgstr "從搜尋中排除"
-
-msgid "This Node"
-msgstr "這個節點"
-
-msgid "The Subnodes"
-msgstr "子節點"
-
-msgid "Read Only"
-msgstr "唯讀"
-
-msgid "Choose Existing Tag"
-msgstr "選擇現有的標籤"
-
-msgid "Tag Name"
-msgstr "標籤名稱"
-
-msgid "Pick a Color"
-msgstr "選擇顏色"
-
-msgid "Select Node Icon"
-msgstr "選擇節點圖示"
-
-msgid "Involved Nodes"
-msgstr "涉及到的節點"
-
-msgid "Selected Text Only"
-msgstr "已選擇的文字"
-
-msgid "Selected Node Only"
-msgstr "已選擇的節點"
-
-msgid "Selected Node and Subnodes"
-msgstr "已選擇的節點和子節點"
-
-msgid "All the Tree"
-msgstr "所有的樹"
-
-msgid "Include Node Name"
-msgstr "包含節點名稱"
-
-msgid "Links Tree in Every Page"
-msgstr "在所有頁面中連結樹"
-
-msgid "New Node in New Page"
-msgstr "在新頁面建立新節點"
-
-msgid "Single File"
-msgstr "單獨的檔案"
-
-msgid "Index"
-msgstr "索引"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "警告：一張或多張圖片被壓縮並插入到當前頁面!"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "無法存取可執行的'latex'及'dvipng'"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "舉例，在Ubuntu中安裝套件使用："
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "舉例，在Mac OS中安裝套件使用："
-
-msgid "Could not access the executable 'latex'"
-msgstr "無法存取可執行的'latex'"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "無法存取可執行的'dvipng'"
-
-msgid "Downloading"
-msgstr "正在下載"
-
-#, c-format
-msgid "The Document %s was Not Found"
-msgstr "檔案 %s 未找到"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "最近打開的CherryTree檔案"
-
-msgid "_Hide"
-msgstr "隱藏(_H)"
-
-msgid "_Quit"
-msgstr "退出(_Q)"
-
-msgid "Hide the Window"
-msgstr "隱藏視窗"
-
-msgid "Quit the Application"
-msgstr "退出程式"
-
-msgid "Spell Check"
-msgstr "拼寫檢查"
-
-msgid "Word Count"
-msgstr "字數"
-
-msgid "Date Created"
-msgstr "創建日期"
-
-msgid "Date Modified"
-msgstr "修改日期"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr "此通信期未執行先前的節點複製或來源樹不再可用."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "來源樹不再可用."
-
-msgid "Show Menubar:"
-msgstr "顯示/隱藏工具欄："
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" 不是一個CherryTree檔案"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree File:\n"
-"\"%s\""
-msgstr ""
-"解析CherryTree檔案時出錯：\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "未找到節點 '%s'."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "臨時檔案已被創建並被外部程式打開。"
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "退出CherryTree前先退出外部程式。"
-
-msgid "Did you Quit the External Applications?"
-msgstr "要退出外部程式嗎？"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "因CT*檔案在外部被修改，檔案已重載."
-
-msgid "Copy Selection or All"
-msgstr "複製已選或全部"
-
-msgid "Paste"
-msgstr "貼上(_P)"
-
-msgid "Reset"
-msgstr "重置"
-
-msgid "Remove from list"
-msgstr "從列表中刪除"
+msgid "Exit from CherryTree"
+msgstr "從CherryTree中退出"
 
 msgid "_File"
 msgstr "檔案(_F)"
@@ -966,6 +157,9 @@ msgstr "設置(_P)"
 msgid "_Recent Documents"
 msgstr "最近檔案(_R)"
 
+msgid "Open a Recent CherryTree Document"
+msgstr "最近打開的CherryTree檔案"
+
 msgid "C_hange Case"
 msgstr "改變大小寫(_H)"
 
@@ -1011,8 +205,14 @@ msgstr "開始一個新的CherryTree實例"
 msgid "_Open File..."
 msgstr "打開檔案(_O)..."
 
-msgid "Open a CherryTree Document"
+msgid "Open a CherryTree File"
 msgstr "打開一個CherryTree檔案"
+
+msgid "Open Fo_lder..."
+msgstr "打開目錄(_O)..."
+
+msgid "Open a CherryTree Folder"
+msgstr "打開一個CherryTree目錄"
 
 msgid "_Save"
 msgstr "儲存(_S)"
@@ -1062,11 +262,17 @@ msgstr "匯出配置"
 msgid "Tree In_fo"
 msgstr "樹訊息(_F)"
 
+msgid "Tree Summary Information"
+msgstr "樹摘要訊息"
+
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+msgid "Quit the Application"
+msgstr "退出程式"
+
 msgid "E_xit CherryTree"
 msgstr "退出CherryTree(_X)"
-
-msgid "Exit from CherryTree"
-msgstr "從CherryTree中退出"
 
 msgid "Edit/Insert"
 msgstr "編輯/插入"
@@ -1103,6 +309,9 @@ msgstr "插入一個表格"
 
 msgid "Insert _CodeBox..."
 msgstr "插入代碼框(_C)..."
+
+msgid "Insert a CodeBox"
+msgstr "插入一個代碼框"
 
 msgid "Insert _File..."
 msgstr "插入檔案(_F)..."
@@ -1703,6 +912,9 @@ msgstr "改變當前所選節點的子節點語法醒目提示與其父節點相
 msgid "_Handle Bookmarks..."
 msgstr "處理書籤(_H)..."
 
+msgid "Handle the Bookmarks List"
+msgstr "處理書籤列表"
+
 msgid "Add to Boo_kmarks"
 msgstr "新增到書籤(_K)"
 
@@ -1938,7 +1150,7 @@ msgid "Do Not Place the Menubar in the Titlebar"
 msgstr "不要將選單欄放在標題欄中"
 
 msgid "Enable Menubar i_n Titlebar"
-msgstr "啟用_選單欄在標題欄(_N)"
+msgstr "啟用選單欄在標題欄(_N)"
 
 msgid "Place the Menubar in the Titlebar"
 msgstr "將選單欄放在標題欄中"
@@ -1951,6 +1163,18 @@ msgstr "來自CherryTree檔案(_C)"
 
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "將CherryTree檔案新增節點到當前樹"
+
+msgid "From _CherryTree Folder"
+msgstr "來自CherryTree目錄(_C)"
+
+msgid "Add Nodes of a CherryTree Folder to the Current Tree"
+msgstr "將CherryTree目錄新增節點到當前樹"
+
+msgid "From _Indented List File"
+msgstr "來自縮排列表檔案(_I)"
+
+msgid "Add Nodes from an Indented List File to the Current Tree"
+msgstr "從縮排列表檔案新增節點到當前樹"
 
 msgid "From _Plain Text File"
 msgstr "來自純文字檔案(_P)"
@@ -2063,11 +1287,11 @@ msgstr "匯出為純文字(_T)"
 msgid "Export to Plain Text"
 msgstr "匯出為純文字"
 
-msgid "_Export To CherryTree Document"
-msgstr "匯出到CherryTree檔案(_E)"
+msgid "_Export To CherryTree"
+msgstr "匯出到CherryTree(_E)"
 
-msgid "Export To CherryTree Document"
-msgstr "匯出到CherryTree檔案"
+msgid "Export To CherryTree File or Folder"
+msgstr "匯出到CherryTree檔案或目錄"
 
 msgid "Help"
 msgstr "幫助"
@@ -2086,6 +1310,9 @@ msgstr "程式的線上手冊"
 
 msgid "_About"
 msgstr "關於(_A)"
+
+msgid "About CherryTree"
+msgstr "關於CherryTree"
 
 msgid "_Open Preferences Directory"
 msgstr "打開偏好目錄(_O)"
@@ -2222,12 +1449,6 @@ msgstr "取消連結(_I)"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "忽略圖片所關聯的連結"
 
-msgid "Show/Hide _CherryTree"
-msgstr "顯示/隱藏CherryTree(_C)"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "切換CherryTree的顯示"
-
 msgid "Edit the Underlying Link"
 msgstr "編輯相關連結"
 
@@ -2252,94 +1473,14 @@ msgstr "刪除連結(_D)"
 msgid "Delete the Selected Link"
 msgstr "刪除已選擇連結"
 
-msgid "English"
-msgstr "英語"
+msgid "Copy Selection or All"
+msgstr "複製已選或全部"
 
-msgid "Text and Code"
-msgstr "純文字和代碼"
+msgid "Paste"
+msgstr "貼上(_P)"
 
-msgid "Plain Text and Code"
-msgstr "純文字和代碼"
-
-msgid "Tree Explorer"
-msgstr "樹型資源管理器"
-
-msgid "Theme"
-msgstr "主題"
-
-msgid "Fonts"
-msgstr "字體"
-
-msgid "Links"
-msgstr "連結"
-
-msgid "Toolbar"
-msgstr "工具欄"
-
-msgid "Keyboard Shortcuts"
-msgstr "快捷鍵"
-
-msgid "Miscellaneous"
-msgstr "雜項"
-
-msgid "Monospace"
-msgstr "等寬字體"
-
-msgid "Code Font"
-msgstr "代碼字體"
-
-msgid "Terminal Font"
-msgstr "終端機字型"
-
-msgid "Tree Font"
-msgstr "樹型字體"
-
-msgid "Reset to Default"
-msgstr "還原至預設"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "啟用並定義網頁連結點擊動作"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "啟用並定義檔案連結點擊動作"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "啟用並定義目錄連結點擊動作"
-
-msgid "Custom Actions"
-msgstr "自訂動作"
-
-msgid "Colors"
-msgstr "顏色"
-
-msgid "Underline Links"
-msgstr "連結底線"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "對檔案和目錄使用相對路徑"
-
-msgid "Anchor Size"
-msgstr "錨點大小"
-
-msgid "Change Selected"
-msgstr "改變當前所選"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "快捷鍵『%s』已被占用."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "當前關聯動作是『%s』"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "要覆蓋這個快捷鍵嗎？"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "編輯快捷鍵"
-
-msgid "No Keyboard Shortcut"
-msgstr "沒有快捷鍵"
+msgid "Reset"
+msgstr "重置"
 
 msgid "Enable System Tray Docking"
 msgstr "啟用系統托盤"
@@ -2349,6 +1490,12 @@ msgstr "程式啟動後最小化到系統托盤"
 
 msgid "System Tray"
 msgstr "系統托盤"
+
+msgid "Autosave Every"
+msgstr "自動儲存每隔"
+
+msgid "Minutes"
+msgstr "分鐘"
 
 msgid "Autosave on Quit"
 msgstr "退出前自動儲存"
@@ -2392,6 +1539,9 @@ msgstr "開啟除錯日誌"
 msgid "Debug Log Directory"
 msgstr "除錯日誌目錄"
 
+msgid "Miscellaneous"
+msgstr "雜項"
+
 msgid "System Default"
 msgstr "系統預設值"
 
@@ -2404,149 +1554,224 @@ msgstr "系統托盤是否已出現在面板上？"
 msgid "Your system does not support the System Tray"
 msgstr "你的系統不支持系統托盤"
 
-msgid "Show White Spaces"
-msgstr "顯示空白字元"
+msgid "Downloading"
+msgstr "正在下載"
 
-msgid "Highlight Current Line"
-msgstr "醒目提示當前行"
+msgid "Remove from list"
+msgstr "從列表中刪除"
 
-msgid "Text Editor"
-msgstr "文字編輯器"
+msgid "Move the Selected Bookmark Up"
+msgstr "將所選書籤上移"
 
-msgid "Internal Terminal Shell"
-msgstr "使用內部終端機Shell"
+msgid "Move the Selected Bookmark Down"
+msgstr "將所選書籤下移"
 
-msgid "Add"
-msgstr "新增"
+msgid "Remove the Selected Bookmark"
+msgstr "刪除選定的書籤"
 
-msgid "Remove Selected"
-msgstr "移除所選"
+msgid "Sort the Bookmarks Descending"
+msgstr "對書籤進行降冪排序"
 
-msgid "Command per Node/CodeBox Type"
-msgstr "用於節點/代碼框類型的命令"
+msgid "Sort the Bookmarks Ascending"
+msgstr "書籤升冪排序"
 
-msgid "Terminal Command"
-msgstr "終端命令"
+msgid "Choose Storage Type"
+msgstr "選擇儲存類型"
 
-msgid "Code Execution"
-msgstr "代碼執行"
+msgid "Storage Type"
+msgstr "儲存類型"
 
-msgid "Select Element to Add"
-msgstr "選擇元素新增"
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT將檔案儲存在加密的7zip存檔中。在查看或編輯檔案時，CT會將加密的存檔提取到臨"
+"時目錄中，然後處理未加密的副本。關閉時，未加密的副本將從臨時目錄中刪除。請注"
+"意，在應用程式或系統崩潰的情況下，未加密的檔案將保留在臨時目錄中。"
 
-msgid "Enable Spell Check"
-msgstr "啟用拼寫檢查"
+msgid "Enter the New Password Twice"
+msgstr "輸入兩次新密碼"
 
-msgid "Spell Check Language"
-msgstr "語言拼寫檢查"
+msgid "The Password Fields Must be Filled."
+msgstr "密碼必填."
 
-msgid "Expand CodeBoxes Automatically"
-msgstr "自動擴展代碼框"
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "兩次輸入密碼不符合."
 
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "輕量級界面的表格單元格數量閾值"
+msgid "Warning"
+msgstr "警告"
 
-msgid "Embedded File Icon Size"
-msgstr "嵌入檔案的圖示大小"
+msgid "The Current Document was Updated."
+msgstr "當前檔案已自動更新。"
 
-msgid "Embedded File Size Limit (MB)"
-msgstr "嵌入式檔案大小限制(MB)"
+msgid "Do you want to Save the Changes?"
+msgstr "要儲存檔案的修改嗎？"
 
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "在嵌入式檔案圖示的頂部顯示檔案名"
+msgid "Do you want to Execute the Code?"
+msgstr "你想執行代碼嗎？"
 
-msgid "Limit of Undoable Steps Per Node"
-msgstr "每個節點撤銷步數限制"
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "執行代碼前請確認"
 
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "自動將 CamelCase 文字連接到具有相同名稱的節點"
+msgid "Use Internal Terminal"
+msgstr "使用內部終端機"
 
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "三次點擊選擇整個段落"
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr "一個層級式筆記記錄程式，具有豐富文字和語法醒目提示的功能"
 
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "啟用Markdown自動替換（實驗性）"
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"本程式是自由軟體；你可以根據GNU通用公共許可證的條款重新發布它和/或修改它。\n"
+"它是根據GNU通用公共許可證的條款發布的。\n"
+"自由軟體基金會；許可證的第三版，或(由你選擇)任何後來的版本。\n"
+"\n"
+"分發這個程式是希望它能起到作用，\n"
+"但沒有任何保證；甚至沒有隱含的保證\n"
+"適銷性或符合某一特定目的。請參閱\n"
+"GNU通用公共許可證，了解更多詳細訊息.\n"
+"\n"
+"您應該已經收到了GNU通用公共許可證的副本\n"
+"與此程式一起使用；如果不是，請寫信給自由軟體\n"
+"基金會公司，地址：波士頓富蘭克林大街51號，5樓，波士頓,\n"
+"麻省理工學院02110-1301年，美國。\n"
 
-msgid "Scale"
-msgstr "規模"
+msgid "Arabic"
+msgstr "阿拉伯語"
 
-msgid "Italic"
-msgstr "斜體"
+msgid "Armenian"
+msgstr "亞美尼亞語"
 
-msgid "Underline"
-msgstr "底線"
+msgid "Bulgarian"
+msgstr "保加利亞語"
 
-msgid "Text Color Foreground"
-msgstr "文字顏色前景"
+msgid "Chinese Simplified"
+msgstr "簡體中文"
 
-msgid "Text Color Background"
-msgstr "文字顏色背景"
+msgid "Chinese Traditional"
+msgstr "繁體中文"
 
-msgid "Small"
-msgstr "小型的"
+msgid "Croatian"
+msgstr "克羅埃西亞語"
 
-msgid "Scalable Tags"
-msgstr "可伸縮標籤"
+msgid "Czech"
+msgstr "捷克語"
 
-msgid "Chars for Bulleted List"
-msgstr "列舉式列表的字元"
+msgid "Dutch"
+msgstr "荷蘭語"
 
-msgid "Chars for Todo List"
-msgstr "待辦事項列表的字元"
+msgid "Finnish"
+msgstr "芬蘭語"
 
-msgid "Chars for Table Of Content"
-msgstr "字元表的內容"
+msgid "French"
+msgstr "法語"
 
-msgid "Chars for Smart Double Quotes"
-msgstr "智能雙引號的字元"
+msgid "German"
+msgstr "德語"
 
-msgid "Chars for Smart Single Quotes"
-msgstr "智能單引號的字元"
+msgid "Greek"
+msgstr "希臘語"
 
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "啟動智能引號替換"
+msgid "Hindi India"
+msgstr "印地語"
 
-msgid "Enable Symbol Auto Replacement"
-msgstr "啟用符號自動替換"
+msgid "Hungarian"
+msgstr "匈牙利語"
 
-msgid "Supported Symbols Auto Replacements"
-msgstr "啟用符號自動替換"
+msgid "Italian"
+msgstr "義大利語"
 
-msgid "Only at the Start of the Line"
-msgstr "僅在行首"
+msgid "Japanese"
+msgstr "日語"
 
-msgid "Tab Width"
-msgstr "TAB寬度"
+msgid "Kazakh"
+msgstr "哈薩克語"
 
-msgid "Insert Spaces Instead of Tabs"
-msgstr "用空格代替Tab"
+msgid "Kazakh (Latin)"
+msgstr "哈薩克語(拉丁)"
 
-msgid "Use Line Wrapping"
-msgstr "啟用換行顯示"
+msgid "Korean"
+msgstr "韓語"
 
-msgid "Line Wrapping Indentation"
-msgstr "換行縮排"
+msgid "Lithuanian"
+msgstr "立陶宛語"
 
-msgid "Enable Automatic Indentation"
-msgstr "啟用自動縮排"
+msgid "Polish"
+msgstr "波蘭語"
 
-msgid "Scroll Beyond Last Line"
-msgstr "滾動到最後一行之後"
+msgid "Portuguese"
+msgstr "葡萄牙語"
 
-msgid "Vertical Space Around Lines"
-msgstr "行之間的距離"
+msgid "Portuguese Brazil"
+msgstr "巴西葡萄牙語"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "換行之間的間距"
+msgid "Romanian"
+msgstr "羅馬尼亞語"
 
-msgid "Timestamp Format"
-msgstr "時間戳格式"
+msgid "Russian"
+msgstr "俄語"
 
-msgid "Horizontal Rule"
-msgstr "定義分割線"
+msgid "Slovenian"
+msgstr "斯洛文尼亞語"
 
-msgid "Chars to Select at Double Click"
-msgstr "雙擊選中圖表"
+msgid "Spanish"
+msgstr "西班牙語"
+
+msgid "Swedish"
+msgstr "瑞典語"
+
+msgid "Turkish"
+msgstr "土耳其語"
+
+msgid "Ukrainian"
+msgstr "烏克蘭語"
+
+msgid "Number of Rich Text Nodes"
+msgstr "豐富文字節點個數"
+
+msgid "Number of Plain Text Nodes"
+msgstr "純文字節點個數"
+
+msgid "Number of Code Nodes"
+msgstr "代碼節點個數"
+
+msgid "Number of Images"
+msgstr "圖片個數"
+
+msgid "Number of LatexBoxes"
+msgstr "LaTeXBox個數"
+
+msgid "Number of Embedded Files"
+msgstr "嵌入檔案個數"
+
+msgid "Number of Tables"
+msgstr "表格個數"
+
+msgid "Number of CodeBoxes"
+msgstr "代碼框個數"
+
+msgid "Number of Anchors"
+msgstr "錨點個數"
 
 msgid "Light Background, Dark Text"
 msgstr "淺色背景，深色文字"
@@ -2562,6 +1787,15 @@ msgstr "文字"
 
 msgid "Selection Background"
 msgstr "選擇背景"
+
+msgid "Tree Explorer"
+msgstr "樹型資源管理器"
+
+msgid "Rich Text"
+msgstr "豐富文字"
+
+msgid "Plain Text"
+msgstr "純文字"
 
 msgid "Table"
 msgstr "表格"
@@ -2593,6 +1827,9 @@ msgstr "行號前景"
 msgid "Line Numbers Background"
 msgstr "行號背景"
 
+msgid "Reset to Default"
+msgstr "還原至預設"
+
 msgid "Style Scheme Editor"
 msgstr "樣式方案編輯器"
 
@@ -2608,11 +1845,379 @@ msgstr "設定預設圖示"
 msgid "Icon Theme"
 msgstr "圖示主題"
 
+msgid "Add"
+msgstr "新增"
+
+msgid "Remove Selected"
+msgstr "移除所選"
+
 msgid "Split Toolbar"
 msgstr "分割工具欄"
 
+msgid "Select Element to Add"
+msgstr "選擇元素新增"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "當前通信期沒有格式化操作歷史."
+
+msgid "No Text is Selected."
+msgstr "沒有文字被選擇."
+
+msgid "Link Name"
+msgstr "連結名稱"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "游標未進入一個段落."
+
+msgid "Insert/Edit Link"
+msgstr "插入/編輯連結"
+
+msgid "Pick a Foreground Color"
+msgstr "選擇前景色"
+
+msgid "Pick a Background Color"
+msgstr "選擇背景顏色"
+
+msgid "Replace in Current Node"
+msgstr "在當前節點中替換"
+
+msgid "Search in Current Node"
+msgstr "在當前節點中搜尋"
+
+msgid "Matches"
+msgstr "已符合"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>符合模式 '%s' 未找到<b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "在多個節點中替換..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "在所有節點內容中搜尋..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "當前通信期沒有歷史搜尋."
+
+msgid "Tags"
+msgstr "標籤"
+
+msgid ": "
+msgstr ": "
+
+msgid "The new parent can't be one of his children!"
+msgstr "父節點不能是其自身的子節點！"
+
+msgid "Tab Width"
+msgstr "TAB寬度"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "用空格代替Tab"
+
+msgid "Use Line Wrapping"
+msgstr "啟用換行顯示"
+
+msgid "Line Wrapping Indentation"
+msgstr "換行縮排"
+
+msgid "Enable Automatic Indentation"
+msgstr "啟用自動縮排"
+
+msgid "Show Line Numbers"
+msgstr "顯示行號"
+
+msgid "Scroll Beyond Last Line"
+msgstr "滾動到最後一行之後"
+
+msgid "Vertical Space Around Lines"
+msgstr "行之間的距離"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "換行之間的間距"
+
+msgid "Text Editor"
+msgstr "文字編輯器"
+
+msgid "Timestamp Format"
+msgstr "時間戳格式"
+
+msgid "Online Manual"
+msgstr "線上手冊"
+
+msgid "Horizontal Rule"
+msgstr "定義分割線"
+
+msgid "Chars to Select at Double Click"
+msgstr "雙擊選中圖表"
+
+msgid "PDF File"
+msgstr "PDF檔案"
+
+msgid "Plain Text Document"
+msgstr "純文字檔案"
+
+msgid "Show Menubar:"
+msgstr "顯示/隱藏工具欄："
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "路徑%s不存在"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" 不是一個CherryTree檔案"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"解析CherryTree路徑時出錯：\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "未找到節點 '%s'."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "臨時檔案已被創建並被外部程式打開。"
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "退出CherryTree前先退出外部程式。"
+
+msgid "Did you Quit the External Applications?"
+msgstr "要退出外部程式嗎？"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "因CT*檔案在外部被修改，檔案已重載."
+
+msgid "_Hide"
+msgstr "隱藏(_H)"
+
+msgid "Hide the Window"
+msgstr "隱藏視窗"
+
+msgid "Node Type"
+msgstr "節點類型"
+
+msgid "Spell Check"
+msgstr "拼寫檢查"
+
+msgid "Word Count"
+msgstr "字數"
+
+msgid "Date Created"
+msgstr "創建日期"
+
+msgid "Date Modified"
+msgstr "修改日期"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "此通信期未執行先前的節點複製或來源樹不再可用."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "來源樹不再可用."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"'%s' 目錄已經存在 '%s'.\n"
+"<b>你想要移除它？</b>"
+
+msgid "Checking for Newer Version..."
+msgstr "檢查新的版本..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "獲取最新版本訊息失敗，稍候再試."
+
+msgid "A Newer Version Is Available!"
+msgstr "有新版本可用！"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "您使用的是最新版本."
+
+msgid "You Are Using a Development Version."
+msgstr "您正在使用開發版本."
+
+msgid "Search for"
+msgstr "查找"
+
+msgid "Replace with"
+msgstr "替換為"
+
+msgid "Match Case"
+msgstr "符合大小寫"
+
+msgid "Regular Expression"
+msgstr "正規表示式"
+
+msgid "Accent Insensitive"
+msgstr "口音不敏感"
+
+msgid "Override Exclusions"
+msgstr "覆蓋排除"
+
+msgid "Whole Word"
+msgstr "完整單詞"
+
+msgid "Start Word"
+msgstr "單詞開始部分"
+
+msgid "Forward"
+msgstr "向前"
+
+msgid "Backward"
+msgstr "向後"
+
+msgid "All, List Matches"
+msgstr "所有，並列出符合"
+
+msgid "First From Selection"
+msgstr "在所選中搜尋"
+
+msgid "First in All Range"
+msgstr "在當前頁搜尋"
+
+msgid "Node Created After"
+msgstr "在此之後創建的節點"
+
+msgid "Node Created Before"
+msgstr "在此之前創建的節點"
+
+msgid "Node Modified After"
+msgstr "在此之後修改的節點"
+
+msgid "Node Modified Before"
+msgstr "在此之前修改過的節點"
+
+msgid "Time filter"
+msgstr "時間篩選器"
+
+msgid "Node Content"
+msgstr "節點內容"
+
+msgid "Node Name and Tags"
+msgstr "節點名稱和標籤"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "已選擇的節點和子節點"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "顯示循環搜尋/替換對話框"
+
+msgid "Search options"
+msgstr "搜尋選項"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"由於在節點屬性中設置了排除項，至少跳過了一個節點。\n"
+"為了清除所有排除項，請使用選單：\n"
+"搜索 -> 從搜尋中清除所有排除項"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "隱藏 (用 『%s』 恢復)"
+
+msgid "Node Name"
+msgstr "節點名稱"
+
+msgid "Line"
+msgstr "行"
+
+msgid "Line Content"
+msgstr "首行內容"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "連結所指向的節點不存在 (Id = %s)"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "重複上次搜尋/替換"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Find Previous"
+msgstr "查找上一個"
+
+msgid "Find Next"
+msgstr "查找下一個"
+
+msgid "Replace"
+msgstr "替換"
+
+msgid "Undo"
+msgstr "撤銷"
+
+msgid "Special Characters"
+msgstr "特殊字元"
+
+msgid "Chars for Bulleted List"
+msgstr "列舉式列表的字元"
+
+msgid "Chars for Todo List"
+msgstr "待辦事項列表的字元"
+
+msgid "Chars for Table Of Content"
+msgstr "字元表的內容"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "智能雙引號的字元"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "智能單引號的字元"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "啟動智能引號替換"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "啟用符號自動替換"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "啟用符號自動替換"
+
+msgid "Only at the Start of the Line"
+msgstr "僅在行首"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr "資料庫檔案%s已損壞，詳細情況請看日誌."
+
+msgid ""
+"Backup files are by default 3 in the same folder of the corrupted document, "
+"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
+"with one tilde: copy the file to another directory, remove the trailing "
+"tilde and open with cherrytree. If it still fails, try the one with two "
+"tildes and if it still fails try the one with three tildes."
+msgstr ""
+"預設情況下，備份文件位於損壞文件的同一目錄中的 3 個，具有相同的名稱加上尾隨波"
+"浪號（~、~~、~~~）。 首先嘗試使用一個波浪號進行備份：將文件複製到另一個目錄，"
+"刪除尾部波浪號並使用CherryTree打開。 如果仍然失敗，請嘗試帶有兩個波浪號的那"
+"個，如果仍然失敗，請嘗試帶有三個波浪號的那個."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource!"
+msgstr "%s 寫入失敗 - 檔案遺失。重新連接USB設備或共享資源!"
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "%s 寫入失敗 - 檔案被同步程式阻止了嗎？"
+
 msgid "Use Different Cherries per Level"
 msgstr "每層級使用不同的櫻桃圖示"
+
+msgid "Use Selected Icon"
+msgstr "使用所選圖示"
 
 msgid "No Icon"
 msgstr "無圖示"
@@ -2653,6 +2258,99 @@ msgstr "點擊滑鼠展開節點"
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "節點標題頭上次訪問的節點"
 
+msgid "Select Node Icon"
+msgstr "選擇節點圖示"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "工具欄圖示已經最大."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "工具欄圖示已經最小."
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "無法存取可執行的'latex'及'dvipng'"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "舉例，在Ubuntu中安裝套件使用："
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "舉例，在Mac OS中安裝套件使用："
+
+msgid "Could not access the executable 'latex'"
+msgstr "無法存取可執行的'latex'"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "無法存取可執行的'dvipng'"
+
+msgid "Enable Spell Check"
+msgstr "啟用拼寫檢查"
+
+msgid "Spell Check Language"
+msgstr "語言拼寫檢查"
+
+msgid "Show White Spaces"
+msgstr "顯示空白字元"
+
+msgid "Highlight Current Line"
+msgstr "醒目提示當前行"
+
+msgid "Highlight Matching Brackets"
+msgstr "醒目提示括號符合"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "自動擴展代碼框"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "輕量級界面的表格單元格數量閾值"
+
+msgid "Embedded File Icon Size"
+msgstr "嵌入檔案的圖示大小"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "嵌入式檔案大小限制(MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "在嵌入式檔案圖示的頂部顯示檔案名"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "每個節點撤銷步數限制"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "自動將 CamelCase 文字連接到具有相同名稱的節點"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "三次點擊選擇整個段落"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "啟用Markdown自動替換（實驗性）"
+
+msgid "Scale"
+msgstr "規模"
+
+msgid "Bold"
+msgstr "粗體"
+
+msgid "Italic"
+msgstr "斜體"
+
+msgid "Underline"
+msgstr "底線"
+
+msgid "Text Color Foreground"
+msgstr "文字顏色前景"
+
+msgid "Text Color Background"
+msgstr "文字顏色背景"
+
+msgid "Small"
+msgstr "小型的"
+
+msgid "Scalable Tags"
+msgstr "可伸縮標籤"
+
+msgid "Monospace"
+msgstr "等寬字體"
+
 msgid "Writing to Disk..."
 msgstr "正在寫入到磁碟..."
 
@@ -2670,36 +2368,375 @@ msgstr "儲存文件完整性檢查失敗，試著「檔案」-->「另存為」
 msgid "Failed to encrypt the file"
 msgstr "加密檔案失敗"
 
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr "資料庫檔案%s已損壞，詳細情況請看日誌."
+msgid "Image Format Not Recognized"
+msgstr "圖片格式未能識別"
 
+msgid "Insert Table"
+msgstr "插入表格"
+
+msgid "CSV File"
+msgstr "CSV 檔案"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "嵌入檔案的最大尺寸是 %s MB."
+
+msgid "Do you want to Continue?"
+msgstr "你想繼續嗎？"
+
+msgid "Tabs Replaced"
+msgstr "TAB已替換"
+
+msgid "Lines Stripped"
+msgstr "已刪除行尾空格的行"
+
+msgid "Change Selected"
+msgstr "改變當前所選"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "快捷鍵『%s』已被占用."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "當前關聯動作是『%s』"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "要覆蓋這個快捷鍵嗎？"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "編輯快捷鍵"
+
+msgid "No Keyboard Shortcut"
+msgstr "沒有快捷鍵"
+
+msgid "Use Selected Color"
+msgstr "使用所選顏色"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "自動語法醒目提示"
+
+msgid "Tags for Searching"
+msgstr "搜尋標籤"
+
+msgid "Exclude from Searches"
+msgstr "從搜尋中排除"
+
+msgid "This Node"
+msgstr "這個節點"
+
+msgid "The Subnodes"
+msgstr "子節點"
+
+msgid "Read Only"
+msgstr "唯讀"
+
+msgid "Choose Existing Tag"
+msgstr "選擇現有的標籤"
+
+msgid "Tag Name"
+msgstr "標籤名稱"
+
+msgid "Pick a Color"
+msgstr "選擇顏色"
+
+msgid "Involved Nodes"
+msgstr "涉及到的節點"
+
+msgid "Selected Text Only"
+msgstr "已選擇的文字"
+
+msgid "Selected Node Only"
+msgstr "已選擇的節點"
+
+msgid "Selected Node and Subnodes"
+msgstr "已選擇的節點和子節點"
+
+msgid "All the Tree"
+msgstr "所有的樹"
+
+msgid "Include Node Name"
+msgstr "包含節點名稱"
+
+msgid "Links Tree in Every Page"
+msgstr "在所有頁面中連結樹"
+
+msgid "New Node in New Page"
+msgstr "在新頁面建立新節點"
+
+msgid "Single File"
+msgstr "單獨的檔案"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Text and Code"
+msgstr "純文字和代碼"
+
+msgid "Plain Text and Code"
+msgstr "純文字和代碼"
+
+msgid "Theme"
+msgstr "主題"
+
+msgid "Fonts"
+msgstr "字體"
+
+msgid "Links"
+msgstr "連結"
+
+msgid "Toolbar"
+msgstr "工具欄"
+
+msgid "Keyboard Shortcuts"
+msgstr "快捷鍵"
+
+msgid "Code Font"
+msgstr "代碼字體"
+
+msgid "Terminal Font"
+msgstr "終端機字型"
+
+msgid "Tree Font"
+msgstr "樹型字體"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "啟用並定義網頁連結點擊動作"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "啟用並定義檔案連結點擊動作"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "啟用並定義目錄連結點擊動作"
+
+msgid "Custom Actions"
+msgstr "自訂動作"
+
+msgid "Colors"
+msgstr "顏色"
+
+msgid "Underline Links"
+msgstr "連結底線"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "對檔案和目錄使用相對路徑"
+
+msgid "Anchor Size"
+msgstr "錨點大小"
+
+msgid "Who is the Parent?"
+msgstr "哪個是父節點？"
+
+msgid "The Tree Root"
+msgstr "樹根"
+
+msgid "The Selected Node"
+msgstr "已選擇的節點"
+
+msgid "Internal Terminal Shell"
+msgstr "使用內部終端機Shell"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "用於節點/代碼框類型的命令"
+
+msgid "Terminal Command"
+msgstr "終端命令"
+
+msgid "Code Execution"
+msgstr "代碼執行"
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "PNG Image"
+msgstr "PNG圖片"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "寫入到 %s 失敗"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "目錄連結'%s'無效."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "檔案連結'%s'無效."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "目錄連結'%s'無效"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "未找到錨點 '%s'"
+
+msgid "Edit CodeBox"
+msgstr "編輯代碼框"
+
+#, c-format
 msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes."
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
 msgstr ""
-"預設情況下，備份文件位於損壞文件的同一目錄中的 3 個，具有相同的名稱加上尾隨波"
-"浪號（~、~~、~~~）。 首先嘗試使用一個波浪號進行備份：將文件複製到另一個目錄，"
-"刪除尾部波浪號並使用CherryTree打開。 如果仍然失敗，請嘗試帶有兩個波浪號的那"
-"個，如果仍然失敗，請嘗試帶有三個波浪號的那個."
+"你必須將一個命令與'%s'關聯起來。\n"
+"在 \"首選項 \"對話框中這樣做."
 
-#, c-format
 msgid ""
-"%s write failed - file is missing. Reattach USB driver or shared resource!"
-msgstr "%s 寫入失敗 - 檔案遺失。重新連接usb驅動或共享資源!"
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr "安裝套件『xterm』或在首選項對話框中配置不同的終端機."
+
+msgid "Edit Table Properties"
+msgstr "編輯表格屬性"
+
+msgid "Insert Anchor"
+msgstr "插入錨點"
+
+msgid "Edit Anchor"
+msgstr "編輯錨點"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "不能編輯唯讀節點的嵌入檔案."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "嵌入檔案已自動更新："
+
+msgid "The Tree is Empty!"
+msgstr "樹型為空！"
+
+msgid "The Selected Node is Read Only."
+msgstr "已選擇節點為唯讀."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "此功能僅在豐富文字節點中有效."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "此功能在代碼自動醒目提示的節點中無效."
+
+msgid "No Table is Selected."
+msgstr "沒有文字被選擇."
+
+msgid "No CodeBox is Selected."
+msgstr "未選中任何代碼框."
+
+msgid "New Child Node Properties"
+msgstr "新的子節點屬性"
+
+msgid "New Node Properties"
+msgstr "新的節點屬性"
+
+msgid "Node Properties"
+msgstr "節點屬性"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr "脫離豐富文字將遺失此節點的所有格式，繼續嗎？"
 
 #, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "%s 寫入失敗 - 檔案被同步程式阻止了嗎？"
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "確實要<b>刪除節點「%s」嗎</b>"
 
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree層級筆記記錄"
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "此節點<b>有子節點，它們也將被刪除</b>"
 
-msgid "_Exit CherryTree"
-msgstr "退出CherryTree(_E)"
+msgid "Select the New Parent"
+msgstr "選擇新的父節點"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "新的父節點不能隨意移動！"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "新選擇的父節點和原先一樣！"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s節點屬性已變更"
+
+msgid "Latex Text"
+msgstr "LaTeX文字"
+
+msgid "Image Size dpi"
+msgstr "影像大小(dpi)"
+
+msgid "Tutorial"
+msgstr "教學"
+
+msgid "Reference"
+msgstr "參考"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX數學和方程式教學"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX數學符號參考"
+
+msgid "Image Properties"
+msgstr "圖片屬性"
+
+msgid "Width"
+msgstr "寬"
+
+msgid "Height"
+msgstr "高"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "pixels"
+msgstr "像素"
+
+msgid "Size"
+msgstr "尺寸"
+
+msgid "Options"
+msgstr "選項"
+
+msgid "Rows"
+msgstr "列"
+
+msgid "Columns"
+msgstr "欄"
+
+msgid "Default Width"
+msgstr "預設寬度"
+
+msgid "Table Size"
+msgstr "表格尺寸"
+
+msgid "Column Properties"
+msgstr "欄屬性"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "輕量級界面(大型表格快很多)"
+
+msgid "Import from CSV File"
+msgstr "從CSV檔案匯入"
+
+msgid "Remove Color"
+msgstr "刪除顏色"
+
+msgid "Question"
+msgstr "詢問"
+
+msgid "Info"
+msgstr "訊息"
+
+msgid "Error"
+msgstr "錯誤"
+
+msgid "Select File"
+msgstr "選擇檔案"
+
+msgid "Select Folder"
+msgstr "選擇目錄"
+
+msgid "Save File as"
+msgstr "檔案另存為"
+
+msgid "Save To Folder"
+msgstr "儲存到目錄"
 
 msgid "HTML Document"
 msgstr "HTML 檔案"
@@ -2718,6 +2755,19 @@ msgstr "Leo檔案"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "您確定要重設為預設值嗎？"
+
+#~ msgid "CherryTree Document"
+#~ msgstr "CherryTree檔案"
+
+#~ msgid "Not Protected"
+#~ msgstr "不保護"
+
+#~ msgid "Password Protected"
+#~ msgstr "密碼保護"
+
+#, c-format
+#~ msgid "The Document %s was Not Found"
+#~ msgstr "檔案 %s 未找到"
 
 #~ msgid "Find _in Multiple Nodes"
 #~ msgstr "在所有節點內容中搜尋"
