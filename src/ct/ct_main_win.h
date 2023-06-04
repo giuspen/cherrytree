@@ -67,7 +67,7 @@ struct CtWinHeader
     Gtk::Image       bookmarkIcon;
     Gtk::Image       ghostIcon;
     Gtk::EventBox    eventBox;
-    std::map<Gtk::Button*, gint64> button_to_node_id;
+    std::unordered_map<Gtk::Button*, gint64> button_to_node_id;
 };
 
 class CtConfig;
@@ -101,7 +101,7 @@ public:
 
     bool file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string& anchor_to_focus, const Glib::ustring password = "");
     bool file_save_ask_user();
-    void file_save(bool need_vacuum);
+    bool file_save(const bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const CtDocType doc_type, const Glib::ustring& password);
     void file_autosave_restart();
     void mod_time_sentinel_restart();

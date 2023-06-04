@@ -23,6 +23,7 @@
 
 #include "ct_app.h"
 #include "ct_misc_utils.h"
+#include "ct_storage_control.h"
 #include "tests_common.h"
 
 class TestCtApp : public CtApp
@@ -46,7 +47,7 @@ private:
     void on_activate() final;
 
     void _run_test(const fs::path doc_filepath_from, const fs::path doc_filepath_to);
-    void _assert_tree_data(CtMainWin* pWin);
+    void _assert_tree_data(CtMainWin* pWin, const bool after_mods);
     void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
     void _process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
 
@@ -101,11 +102,40 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // load file previously saved
     ASSERT_TRUE(pWin2->file_open(tmp_filepath, ""/*file*/, ""/*anchor*/, docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
     // check tree
-    _assert_tree_data(pWin2);
+    _assert_tree_data(pWin2, false/*after_mods*/);
+
+    {
+        // edit node "e"
+        CtTreeIter ctTreeIter = pWin2->get_tree_store().get_node_from_node_name("e");
+        auto pTextBuffer = ctTreeIter.get_node_text_buffer();
+        pTextBuffer->insert(pTextBuffer->end(), "after_mods");
+        pWin2->update_window_save_needed(CtSaveNeededUpdType::nbuf, false/*new_machine_state*/, &ctTreeIter);
+        const auto node_id = ctTreeIter.get_node_id();
+        const CtStorageSyncPending* pCtStorageSyncPending = pWin2->get_ct_storage()->get_storage_sync_pending();
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).buff);
+    }
+    // check tree
+    _assert_tree_data(pWin2, true/*after_mods*/);
+
+    // save
+    ASSERT_TRUE(pWin2->file_save(false/*need_vacuum*/));
 
     // close this window/tree
     pWin2->force_exit() = true;
     remove_window(*pWin2);
+
+    // new empty window/tree
+    CtMainWin* pWin3 = _create_window(true/*start_hidden*/);
+    // tree empty
+    ASSERT_FALSE(pWin3->get_tree_store().get_iter_first());
+    // load file previously saved
+    ASSERT_TRUE(pWin3->file_open(tmp_filepath, ""/*file*/, ""/*anchor*/, docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
+    // check tree
+    _assert_tree_data(pWin3, true/*after_mods*/);
+
+    // close this window/tree
+    pWin3->force_exit() = true;
+    remove_window(*pWin3);
 }
 
 void TestCtApp::_process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
@@ -143,7 +173,7 @@ void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& e
     ASSERT_STREQ(expectedText.c_str(), rTextBuffer->get_text().c_str());
 }
 
-void TestCtApp::_assert_tree_data(CtMainWin* pWin)
+void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
 {
     CtSummaryInfo summaryInfo{};
     pWin->get_tree_store().populate_summary_info(summaryInfo);
@@ -406,7 +436,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
         ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         // assert text
-        const Glib::ustring expectedText{
+        Glib::ustring expectedText{
             "anchored widgets:" _NL
             _NL
             "codebox:" _NL
@@ -433,6 +463,9 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "link to folder /etc" _NL
             "link to file /etc/fstab" _NL
         };
+        if (after_mods) {
+            expectedText += "after_mods";
+        }
         _assert_node_text(ctTreeIter, expectedText);
         // assert rich text tags
         std::list<ExpectedTag> expectedTags = {

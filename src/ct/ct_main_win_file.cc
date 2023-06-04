@@ -275,24 +275,25 @@ bool CtMainWin::file_save_ask_user()
     return true;
 }
 
-void CtMainWin::file_save(bool need_vacuum)
+bool CtMainWin::file_save(const bool need_vacuum)
 {
-    if (_uCtStorage->get_file_path().empty())
-        return;
-    if (!get_file_save_needed())
-        if (!need_vacuum)
-            return;
-    if (!get_tree_store().get_iter_first())
-        return;
-
+    if (_uCtStorage->get_file_path().empty()) {
+        return false;
+    }
+    if (not get_file_save_needed() and not need_vacuum) {
+        return false;
+    }
+    if (not get_tree_store().get_iter_first()) {
+        return false;
+    }
     Glib::ustring error;
     if (_uCtStorage->save(need_vacuum, error)) {
         update_window_save_not_needed();
         _ctStateMachine.update_state();
+        return true;
     }
-    else {
-        CtDialogs::error_dialog(str::xml_escape(error), *this);
-    }
+    CtDialogs::error_dialog(str::xml_escape(error), *this);
+    return false;
 }
 
 void CtMainWin::file_save_as(const std::string& new_filepath,

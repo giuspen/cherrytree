@@ -68,7 +68,7 @@ public:
     fs::path get_file_name() { return _file_path.empty() ? "" : _file_path.filename(); }
     fs::path get_file_dir()  { return _file_path.empty() ? "" : _file_path.parent_path(); }
 
-    std::set<gint64> get_nodes_pending_rm() { return _syncPending.nodes_to_rm_set; }
+    const CtStorageSyncPending* get_storage_sync_pending() { return &_syncPending; }
 
     void pending_edit_db_node_prop(gint64 node_id);
     void pending_edit_db_node_buff(gint64 node_id);

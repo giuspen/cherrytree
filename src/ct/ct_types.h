@@ -251,7 +251,7 @@ struct CtStorageSyncPending
     bool                                           fix_db_tables{true};
     bool                                           bookmarks_to_write{false};
     std::unordered_map<gint64, CtStorageNodeState> nodes_to_write_dict;
-    std::set<gint64>                               nodes_to_rm_set;
+    std::unordered_set<gint64>                     nodes_to_rm_set;
 };
 
 enum class CtBackupType { None, SingleFile, MultiFile };

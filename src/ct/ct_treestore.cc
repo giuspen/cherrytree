@@ -807,7 +807,7 @@ gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gi
     for (const auto& curr_pair : remapping_ids) {
         allocated_for_remapping_ids.insert(curr_pair.second);
     }
-    std::set<gint64> nodes_pending_rm = _pCtMainWin->get_ct_storage()->get_nodes_pending_rm();
+    const CtStorageSyncPending* pCtStorageSyncPending = _pCtMainWin->get_ct_storage()->get_storage_sync_pending();
 
     // (@txe) this function works differently from python code
     // it's easer to find max than check every id is not used through all tree
@@ -825,7 +825,7 @@ gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gi
             max_node_id = curr_id;
         }
     }
-    for (const gint64 curr_id : nodes_pending_rm) {
+    for (const gint64 curr_id : pCtStorageSyncPending->nodes_to_rm_set) {
         if (curr_id > max_node_id) {
             max_node_id = curr_id;
         }
