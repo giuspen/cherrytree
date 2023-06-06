@@ -29,9 +29,11 @@
 class TestCtApp : public CtApp
 {
 public:
-    TestCtApp(const std::vector<std::string>& vec_args)
-     : CtApp{"_test_read_write"},
-       _vec_args{vec_args}
+    TestCtApp(const std::vector<std::string>& vec_args,
+              const bool test_save)
+     : CtApp{"_test_read_write"}
+     , _vec_args{vec_args}
+     , _test_save{test_save}
     {
         _no_gui = true;
     }
@@ -52,6 +54,7 @@ private:
     void _process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
 
     const std::vector<std::string>& _vec_args;
+    const bool _test_save;
 };
 
 void TestCtApp::on_activate()
@@ -104,15 +107,29 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // check tree
     _assert_tree_data(pWin2, false/*after_mods*/);
 
+    const CtStorageSyncPending* pCtStorageSyncPending = pWin2->get_ct_storage()->get_storage_sync_pending();
     {
-        // edit node "e"
+        // edit node "e", buff
         CtTreeIter ctTreeIter = pWin2->get_tree_store().get_node_from_node_name("e");
         auto pTextBuffer = ctTreeIter.get_node_text_buffer();
         pTextBuffer->insert(pTextBuffer->end(), "after_mods");
         pWin2->update_window_save_needed(CtSaveNeededUpdType::nbuf, false/*new_machine_state*/, &ctTreeIter);
         const auto node_id = ctTreeIter.get_node_id();
-        const CtStorageSyncPending* pCtStorageSyncPending = pWin2->get_ct_storage()->get_storage_sync_pending();
         ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).buff);
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).is_update_of_existing);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).prop);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).hier);
+    }
+    {
+        // edit node "d", prop
+        CtTreeIter ctTreeIter = pWin2->get_tree_store().get_node_from_node_name("d");
+        ctTreeIter.set_node_read_only(false);
+        pWin2->update_window_save_needed(CtSaveNeededUpdType::npro, false/*new_machine_state*/, &ctTreeIter);
+        const auto node_id = ctTreeIter.get_node_id();
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).prop);
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).is_update_of_existing);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).buff);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).hier);
     }
     // check tree
     _assert_tree_data(pWin2, true/*after_mods*/);
@@ -406,7 +423,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
         ASSERT_TRUE(node_d_id > 0);
         ASSERT_STREQ("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_TRUE(ctTreeIter.get_node_is_bold());
-        ASSERT_TRUE(ctTreeIter.get_node_read_only());
+        if (after_mods) ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        else ASSERT_TRUE(ctTreeIter.get_node_read_only());
         ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
         ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(45, ctTreeIter.get_node_custom_icon_id());
@@ -610,7 +628,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
     }
 }
 
-class ReadWriteMultipleParametersTests : public ::testing::TestWithParam<std::tuple<std::string, std::string>>
+class ReadWriteMultipleParametersTests : public ::testing::TestWithParam<std::tuple<std::string, std::string, bool>>
 {
 };
 
@@ -618,9 +636,10 @@ TEST_P(ReadWriteMultipleParametersTests, ChecksReadWrite)
 {
     const std::string in_doc_path = std::get<0>(GetParam());
     const std::string out_doc_path = std::get<1>(GetParam());
+    const bool test_save = std::get<2>(GetParam());
     const std::vector<std::string> vec_args{"cherrytree", in_doc_path, "-t", out_doc_path};
     gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
-    TestCtApp testCtApp{vec_args};
+    TestCtApp testCtApp{vec_args, test_save};
     testCtApp.run(vec_args.size(), pp_args);
     g_strfreev(pp_args);
 }
@@ -629,28 +648,28 @@ INSTANTIATE_TEST_CASE_P(
         ReadWriteTests,
         ReadWriteMultipleParametersTests,
         ::testing::Values(
-                std::make_tuple(UT::testCtbDocPath, UT::testCtdDocPath),
-                std::make_tuple(UT::testCtbDocPath, UT::testCtxDocPath),
-                std::make_tuple(UT::testCtbDocPath, UT::testCtzDocPath),
-                std::make_tuple(UT::testCtbDocPath, UT::testMultiFilePath),
+                std::make_tuple(UT::testCtbDocPath, UT::testCtdDocPath, true/*test_save*/),
+                std::make_tuple(UT::testCtbDocPath, UT::testCtxDocPath, true/*test_save*/),
+                std::make_tuple(UT::testCtbDocPath, UT::testCtzDocPath, true/*test_save*/),
+                std::make_tuple(UT::testCtbDocPath, UT::testMultiFilePath, true/*test_save*/),
                 //
-                std::make_tuple(UT::testCtdDocPath, UT::testCtbDocPath),
-                std::make_tuple(UT::testCtdDocPath, UT::testCtxDocPath),
-                std::make_tuple(UT::testCtdDocPath, UT::testCtzDocPath),
-                std::make_tuple(UT::testCtdDocPath, UT::testMultiFilePath),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtbDocPath, true/*test_save*/),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtxDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtzDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtdDocPath, UT::testMultiFilePath, false/*test_save*/),
                 //
-                std::make_tuple(UT::testMultiFilePath, UT::testCtbDocPath),
-                std::make_tuple(UT::testMultiFilePath, UT::testCtdDocPath),
-                std::make_tuple(UT::testMultiFilePath, UT::testCtxDocPath),
-                std::make_tuple(UT::testMultiFilePath, UT::testCtzDocPath),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtbDocPath, false/*test_save*/),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtdDocPath, false/*test_save*/),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtxDocPath, false/*test_save*/),
+                std::make_tuple(UT::testMultiFilePath, UT::testCtzDocPath, false/*test_save*/),
                 //
-                std::make_tuple(UT::testCtxDocPath, UT::testCtbDocPath),
-                std::make_tuple(UT::testCtxDocPath, UT::testCtdDocPath),
-                std::make_tuple(UT::testCtxDocPath, UT::testCtzDocPath),
-                std::make_tuple(UT::testCtxDocPath, UT::testMultiFilePath),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtbDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtdDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtzDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtxDocPath, UT::testMultiFilePath, false/*test_save*/),
                 //
-                std::make_tuple(UT::testCtzDocPath, UT::testCtbDocPath),
-                std::make_tuple(UT::testCtzDocPath, UT::testCtdDocPath),
-                std::make_tuple(UT::testCtzDocPath, UT::testCtxDocPath),
-                std::make_tuple(UT::testCtzDocPath, UT::testMultiFilePath))
+                std::make_tuple(UT::testCtzDocPath, UT::testCtbDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtzDocPath, UT::testCtdDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtzDocPath, UT::testCtxDocPath, false/*test_save*/),
+                std::make_tuple(UT::testCtzDocPath, UT::testMultiFilePath, false/*test_save*/))
 );
