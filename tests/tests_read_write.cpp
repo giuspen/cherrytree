@@ -131,6 +131,22 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
         ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).buff);
         ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).hier);
     }
+    {
+        // move node "py" under "e"
+        CtTreeIter ctTreeIter = pWin2->get_tree_store().get_node_from_node_name("py");
+        CtTreeIter ctTreeIterNewParent = pWin2->get_tree_store().get_node_from_node_name("e");
+        Gtk::TreeIter new_node_iter = pWin2->get_tree_store().get_store()->append(ctTreeIterNewParent->children());
+        CtNodeData node_data;
+        pWin2->get_tree_store().get_node_data(ctTreeIter, node_data);
+        pWin2->get_tree_store().update_node_data(new_node_iter, node_data);
+        pWin2->get_tree_store().get_store()->erase(ctTreeIter);
+        CtTreeIter newCtTreeIter = pWin2->get_tree_store().to_ct_tree_iter(new_node_iter);
+        newCtTreeIter.pending_edit_db_node_hier();
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data.nodeId).hier);
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data.nodeId).is_update_of_existing);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data.nodeId).prop);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data.nodeId).buff);
+    }
     // check tree
     _assert_tree_data(pWin2, true/*after_mods*/);
 
@@ -400,7 +416,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("py");
         ASSERT_TRUE(ctTreeIter);
-        ASSERT_STREQ("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        if (after_mods) ASSERT_STREQ("3:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        else ASSERT_STREQ("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
         ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
