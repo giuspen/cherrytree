@@ -147,6 +147,14 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
         ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data.nodeId).prop);
         ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data.nodeId).buff);
     }
+    {
+        // remove node "html"
+        CtTreeIter ctTreeIter = pWin2->get_tree_store().get_node_from_node_name("html");
+        const auto node_id = ctTreeIter.get_node_id();
+        pWin2->update_window_save_needed(CtSaveNeededUpdType::ndel, false/*new_machine_state*/, &ctTreeIter);
+        pWin2->get_tree_store().get_store()->erase(ctTreeIter);
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_rm_set.count(node_id) > 0u);
+    }
     // check tree
     _assert_tree_data(pWin2, true/*after_mods*/);
 
@@ -212,7 +220,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
     pWin->get_tree_store().populate_summary_info(summaryInfo);
     ASSERT_EQ(3, summaryInfo.nodes_rich_text_num);
     ASSERT_EQ(1, summaryInfo.nodes_plain_text_num);
-    ASSERT_EQ(5, summaryInfo.nodes_code_num);
+    if (after_mods) ASSERT_EQ(4, summaryInfo.nodes_code_num);
+    else ASSERT_EQ(5, summaryInfo.nodes_code_num);
     ASSERT_EQ(1, summaryInfo.images_num);
     ASSERT_EQ(1, summaryInfo.embfile_num);
     ASSERT_EQ(1, summaryInfo.heavytables_num);
@@ -377,28 +386,34 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("html");
-        ASSERT_TRUE(ctTreeIter);
-        ASSERT_STREQ("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
-        ASSERT_FALSE(ctTreeIter.get_node_read_only());
-        ASSERT_TRUE(ctTreeIter.get_node_is_excluded_from_search());
-        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
-        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
-        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
-        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
-        ASSERT_STREQ("html", ctTreeIter.get_node_syntax_highlighting().c_str());
-        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
-        const Glib::ustring expectedText{
-            "<head>" _NL
-            "<title>NO</title>" _NL
-            "</head>"
-        };
-        _assert_node_text(ctTreeIter, expectedText);
+        if (after_mods) {
+            ASSERT_FALSE(ctTreeIter);
+        }
+        else {
+            ASSERT_TRUE(ctTreeIter);
+            ASSERT_STREQ("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+            ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+            ASSERT_FALSE(ctTreeIter.get_node_read_only());
+            ASSERT_TRUE(ctTreeIter.get_node_is_excluded_from_search());
+            ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
+            ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+            ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+            ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+            ASSERT_STREQ("html", ctTreeIter.get_node_syntax_highlighting().c_str());
+            ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+            const Glib::ustring expectedText{
+                "<head>" _NL
+                "<title>NO</title>" _NL
+                "</head>"
+            };
+            _assert_node_text(ctTreeIter, expectedText);
+        }
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("xml");
         ASSERT_TRUE(ctTreeIter);
-        ASSERT_STREQ("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        if (after_mods) ASSERT_STREQ("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        else ASSERT_STREQ("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
         ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
