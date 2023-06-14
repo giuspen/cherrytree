@@ -204,7 +204,7 @@ void CtColumnEdit::paste(const std::string& column_txt)
         }
         //spdlog::debug("{}", col_row);
         iterInsert = rTextBuffer->get_iter_at_line_offset(insert_y, insert_x);
-        if (not iterInsert) {
+        if (not iterInsert or iterInsert.get_line_offset() != insert_x or iterInsert.get_line() != insert_y) {
             Gtk::TextIter iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, 0);
             if (not iterLineCurrX or iterLineCurrX.get_line() != insert_y) {
                 rTextBuffer->insert(rTextBuffer->end(), CtConst::CHAR_NEWLINE);
