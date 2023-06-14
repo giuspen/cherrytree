@@ -44,7 +44,7 @@ msgstr ""
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB."
 msgstr ""
-"Faıl maksımal ólshemdi %s Mb asady\n"
+"Faıl maksımal ólshemdi %s MB asady\n"
 " "
 
 msgid "Do you want to Continue?"
@@ -139,7 +139,7 @@ msgid "You Are Using the Latest Version Available."
 msgstr "Jańarý tabylǵan emes! Siz sońǵy nobaıdy paıdalanyńyz CherryTree"
 
 msgid "You Are Using a Development Version."
-msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz"
+msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz."
 
 msgid "Who is the Parent?"
 msgstr "Qosylý..."
@@ -216,7 +216,7 @@ msgid "Edit Anchor"
 msgstr "Zákirdiń qasıeti"
 
 msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "<b>\"Oqý ǵana!\"</b> faıldy múmkin emes redaksıalaý"
+msgstr "<b>\"Oqý ǵana!\"</b> faıldy múmkin emes redaksıalaý."
 
 msgid "Embedded File Automatically Updated:"
 msgstr "Faıl avtomatty túrde jańartylǵan:"
@@ -248,7 +248,7 @@ msgid "No Table is Selected."
 msgstr "Mátin erekshelengen emes"
 
 msgid "No CodeBox is Selected."
-msgstr "Tarmaq tańdalmaǵan"
+msgstr "CodeBox tarmaq tańdalmaǵan"
 
 msgid "New Child Node Properties"
 msgstr "Qasıet jańa enshiles taral"
@@ -1902,13 +1902,13 @@ msgstr ""
 "Nómirlengen tizimdi basy"
 
 msgid "Set/Unset _To-Do List"
-msgstr "To-Do tizim"
+msgstr "Tapsyrmalar tizimi"
 
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
-"To-Do tizim\n"
+"Tapsyrmalar tizimi\n"
 "\n"
-"To-Do tizimdi basy"
+"Tapsyrmalar tizimdi basy"
 
 msgid "Justify _Left"
 msgstr "Sol ólke boıymen"
@@ -3226,7 +3226,7 @@ msgid "Embedded File Icon Size"
 msgstr "Qystyrtylatyn faıldy belgisheniń ólshemi"
 
 msgid "Embedded File Size Limit (MB)"
-msgstr "Qystyrtylatyn faıl maksımal ólshem (Мб)"
+msgstr "Qystyrtylatyn faıl maksımal ólshem (МB)"
 
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "Belgisheniń ústinde faıl aty"
@@ -3268,7 +3268,7 @@ msgid "Chars for Bulleted List"
 msgstr "Tańbalanǵan tizim"
 
 msgid "Chars for Todo List"
-msgstr "To-Do tizim"
+msgstr "Tapsyrmalar tizimi"
 
 msgid "Chars for Table Of Content"
 msgstr "Mazmun"
