@@ -1,7 +1,7 @@
 /*
  * ct_text_view.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -58,23 +58,35 @@ public:
     void synch_spell_check_change_from_gspell_right_click_menu();
 
     void set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer);
-    void selection_update() {
+    CtColEditState column_edit_get_state() const {
+        return _columnEdit.get_state();
+    }
+    Glib::ustring column_edit_copy() const {
+        return _columnEdit.copy();
+    }
+    Glib::ustring column_edit_cut() {
+        return _columnEdit.cut();
+    }
+    void column_edit_paste(const std::string& column_txt) {
+        _columnEdit.paste(column_txt);
+    }
+    void column_edit_selection_update() {
         _columnEdit.selection_update();
     }
-    void text_inserted(const Gtk::TextIter& pos, const Glib::ustring& text) {
+    void column_edit_text_inserted(const Gtk::TextIter& pos, const Glib::ustring& text) {
         _columnEdit.text_inserted(pos, text);
     }
-    void text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
+    void column_edit_text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
         _columnEdit.text_removed(range_start, range_end);
     }
-    bool ctrl_down() {
-        return _columnEdit.ctrl_down();
+    bool column_edit_get_ctrl_down() {
+        return _columnEdit.get_ctrl_down();
     }
-    bool alt_down() {
-        return _columnEdit.alt_down();
+    bool column_edit_get_alt_down() {
+        return _columnEdit.get_alt_down();
     }
-    bool own_insert_delete_active() {
-        return _columnEdit.own_insert_delete_active();
+    bool column_edit_get_own_insert_delete_active() {
+        return _columnEdit.get_own_insert_delete_active();
     }
     guint64 get_todo_rotate_time() { return _todoRotateTime; }
     std::string get_syntax_highlighting() { return _syntaxHighlighting; }

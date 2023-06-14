@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -36,6 +36,7 @@ struct CtClipboardData
     Glib::ustring plain_text;
     Glib::ustring rich_text;
     Glib::RefPtr<Gdk::Pixbuf> pix_buf;
+    bool from_column_edit{false};
 };
 
 class CtClipboard
@@ -94,9 +95,9 @@ private:
 
 private:
     static bool _static_force_plain_text;
-    CtMainWin*  _pCtMainWin;
+    static bool _static_from_column_edit;
+    CtMainWin* const _pCtMainWin;
 };
-
 
 // This class adds support for Windows "HTML Format" clipboard content type
 // Code is based on example code from http://code.activestate.com/recipes/474121/

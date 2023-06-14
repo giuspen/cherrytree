@@ -1,7 +1,7 @@
 /*
  * ct_column_edit.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -22,6 +22,9 @@
  */
 
 #include "ct_column_edit.h"
+#include "ct_misc_utils.h"
+#include "ct_filesystem.h"
+#include "ct_const.h"
 
 CtColumnEdit::CtColumnEdit(Gtk::TextView& textView)
  : _textView{textView}
@@ -102,7 +105,7 @@ void CtColumnEdit::_predit_to_edit()
     bool unexpected{false};
     if (CtColEditState::PrEdit == _state) {
         _state = CtColEditState::Edit;
-        printf("colMode EDIT\n");
+        spdlog::debug("colMode EDIT");
         bool firstLine{true};
         size_t currEndIdx{0};
         for (Glib::RefPtr<Gtk::TextMark>& markStart : _marksStart) {
@@ -158,6 +161,79 @@ void CtColumnEdit::_predit_to_edit()
     }
 }
 
+Glib::ustring CtColumnEdit::copy() const
+{
+    Glib::ustring ret_txt;
+    const size_t num_rows = _marksStart.size();
+    if (_marksEnd.size() == num_rows) {
+        for (size_t r = 0u; r < num_rows; ++r) {
+            auto pMarkStart = _marksStart.at(r);
+            auto pMarkEnd = _marksEnd.at(r);
+            if (pMarkStart and pMarkEnd) {
+                Gtk::TextIter iterStart = pMarkStart->get_iter();
+                Gtk::TextIter iterEnd = pMarkEnd->get_iter();
+                if (iterStart and iterEnd) {
+                    if (r > 0u) {
+                        ret_txt += CtConst::CHAR_NEWLINE;
+                    }
+                    ret_txt += iterStart.get_text(iterEnd);
+                }
+            }
+        }
+    }
+    return ret_txt;
+}
+
+Glib::ustring CtColumnEdit::cut()
+{
+    Glib::ustring ret_txt = copy();
+    _predit_to_edit();
+    return ret_txt;
+}
+
+void CtColumnEdit::paste(const std::string& column_txt)
+{
+    const std::vector<std::string> vec_col_rows = str::split(column_txt, "\n");
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+    Gtk::TextIter iterInsert = rTextBuffer->get_insert()->get_iter();
+    const int insert_x{iterInsert.get_line_offset()};
+    int insert_y{iterInsert.get_line()};
+    for (const std::string& col_row : vec_col_rows) {
+        if (col_row.empty()) {
+            break;
+        }
+        //spdlog::debug("{}", col_row);
+        iterInsert = rTextBuffer->get_iter_at_line_offset(insert_y, insert_x);
+        if (not iterInsert) {
+            Gtk::TextIter iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, 0);
+            if (not iterLineCurrX or iterLineCurrX.get_line() != insert_y) {
+                rTextBuffer->insert(rTextBuffer->end(), CtConst::CHAR_NEWLINE);
+                iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, 0);
+                if (not iterLineCurrX or iterLineCurrX.get_line() != insert_y) {
+                    spdlog::error("!! iter ({},0)", insert_y);
+                    return;
+                }
+            }
+            int curr_x{0};
+            while (curr_x < insert_x) {
+                ++curr_x;
+                iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, curr_x);
+                if (not iterLineCurrX or iterLineCurrX.get_line_offset() != curr_x) {
+                    rTextBuffer->insert(rTextBuffer->get_iter_at_line_offset(insert_y, 0), CtConst::CHAR_SPACE);
+                    iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, curr_x);
+                    if (not iterLineCurrX or iterLineCurrX.get_line_offset() != curr_x) {
+                        spdlog::error("!! iter ({},{})", insert_y, curr_x);
+                        return;
+                    }
+                }
+            }
+            iterInsert = iterLineCurrX;
+        }
+        rTextBuffer->insert(iterInsert, col_row);
+        ++insert_y;
+    }
+}
+
 void CtColumnEdit::_edit_insert_delete(const bool isInsert)
 {
     bool unexpected{false};
@@ -168,7 +244,7 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
             if (rMarkStart) {
                 Gtk::TextIter iterStart = rMarkStart->get_iter();
                 if (iterStart) {
-                    _mutexLastInOut.lock();
+                    std::lock_guard<std::mutex> lock(_mutexLastInOut);
                     if (firstLine) {
                         firstLine = false;
                         Gdk::Point cursorPlace = _get_cursor_place();
@@ -180,10 +256,10 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                                  cursorPlace != expCursor )
                             {
                                 unexpected = true;
-                                printf("ins point %u,%u vs %u,%u\n",
+                                spdlog::debug("!! ins point {},{} vs {},{}",
                                     _lastInsertedPoint.get_x(), _lastInsertedPoint.get_y(),
                                     iterStartPoint.get_x(), iterStartPoint.get_y());
-                                printf("cursor %u,%u vs %u,%u\n",
+                                spdlog::debug("!! cursor {},{} vs {},{}",
                                     cursorPlace.get_x(), cursorPlace.get_y(),
                                     expCursor.get_x(), expCursor.get_y());
                             }
@@ -199,10 +275,10 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                                  cursorPlace != iterStartPoint )
                             {
                                 unexpected = true;
-                                printf("del point %u,%u vs %u,%u\n",
+                                spdlog::debug("!! del point {},{} vs {},{}",
                                     _lastRemovedPoint.get_x(), _lastRemovedPoint.get_y(),
                                     iterStartPoint.get_x(), iterStartPoint.get_y());
-                                printf("cursor %u,%u vs %u,%u\n",
+                                spdlog::debug("!! cursor {},{} vs {},{}",
                                     cursorPlace.get_x(), cursorPlace.get_y(),
                                     iterStartPoint.get_x(), iterStartPoint.get_y());
                             }
@@ -252,7 +328,6 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                             }
                         }
                     }
-                    _mutexLastInOut.unlock();
                 }
                 else {
                     unexpected = true;
@@ -281,7 +356,7 @@ void CtColumnEdit::column_mode_off()
         _clear_marks();
         _ctrlDown = false;
         _altDown = false;
-        printf("colMode OFF\n");
+        spdlog::debug("colMode OFF");
     }
     else {
         if (_ctrlDown) _ctrlDown = false;
@@ -294,10 +369,11 @@ void CtColumnEdit::text_inserted(const Gtk::TextIter& pos, const Glib::ustring& 
     if (CtColEditState::Off == _state or _myOwnInsertDelete) {
         return;
     }
-    _mutexLastInOut.lock();
-    _lastInsertedText = text;
-    _lastInsertedPoint = _get_point(pos);
-    _mutexLastInOut.unlock();
+    {
+        std::lock_guard<std::mutex> lock(_mutexLastInOut);
+        _lastInsertedText = text;
+        _lastInsertedPoint = _get_point(pos);
+    }
     Glib::signal_idle().connect_once([&](){
         if (CtColEditState::PrEdit == _state) {
             _predit_to_edit();
@@ -320,46 +396,47 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
         column_mode_off();
         return;
     }
-    _mutexLastInOut.lock();
-    _lastRemovedText = range_start.get_text(range_end);
-    _lastRemovedPoint = _get_point(range_start);
-    _lastRemovedDeltaOffset = _lastRemovedText.size();
-    if (range_end.get_line_offset() == firstStartMarkIter.get_line_offset()) {
-        //printf("positive, backspace\n");
-    }
-    else if (range_start.get_line_offset() == firstStartMarkIter.get_line_offset()) {
-        //printf("negative, delete front\n");
-        _lastRemovedDeltaOffset *= -1;
-    }
-    else if (CtColEditState::PrEdit == _state and _marksEnd.size() > 0 and _marksEnd.front()) {
-        Gtk::TextIter firstEndMarkIter = _marksEnd.front()->get_iter();
-        if (not firstEndMarkIter) {
-            column_mode_off();
-            return;
+    {
+        std::lock_guard<std::mutex> lock(_mutexLastInOut);
+        _lastRemovedText = range_start.get_text(range_end);
+        _lastRemovedPoint = _get_point(range_start);
+        _lastRemovedDeltaOffset = _lastRemovedText.size();
+        if (range_end.get_line_offset() == firstStartMarkIter.get_line_offset()) {
+            //spdlog::debug("positive, backspace");
         }
-        if (range_end.get_line_offset() == firstEndMarkIter.get_line_offset()) {
-            //printf("positive, backspace\n");
-        }
-        else if (range_start.get_line_offset() == firstEndMarkIter.get_line_offset()) {
-            //printf("negative, delete front\n");
+        else if (range_start.get_line_offset() == firstStartMarkIter.get_line_offset()) {
+            //spdlog::debug("negative, delete front");
             _lastRemovedDeltaOffset *= -1;
         }
+        else if (CtColEditState::PrEdit == _state and _marksEnd.size() > 0 and _marksEnd.front()) {
+            Gtk::TextIter firstEndMarkIter = _marksEnd.front()->get_iter();
+            if (not firstEndMarkIter) {
+                column_mode_off();
+                return;
+            }
+            if (range_end.get_line_offset() == firstEndMarkIter.get_line_offset()) {
+                //spdlog::debug("positive, backspace");
+            }
+            else if (range_start.get_line_offset() == firstEndMarkIter.get_line_offset()) {
+                //spdlog::debug("negative, delete front");
+                _lastRemovedDeltaOffset *= -1;
+            }
+            else {
+                spdlog::debug("!! unexp");
+                column_mode_off();
+                return;
+            }
+        }
         else {
-            printf("unexp\n");
+            spdlog::debug("!! unexp");
             column_mode_off();
             return;
         }
     }
-    else {
-        printf("unexp\n");
-        column_mode_off();
-        return;
-    }
-    _mutexLastInOut.unlock();
     Glib::signal_idle().connect_once([&](){
         if (CtColEditState::PrEdit == _state) {
             _predit_to_edit();
-            _mutexLastInOut.lock();
+            std::lock_guard<std::mutex> lock(_mutexLastInOut);
             if (_lastRemovedDeltaOffset < 0) {
                 Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
                 _myOwnInsertDelete = true;
@@ -369,7 +446,6 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
                     column_mode_off();
                 }
             }
-            _mutexLastInOut.unlock();
         }
         else {
             _edit_insert_delete(false/*isInsert*/);
@@ -384,7 +460,7 @@ void CtColumnEdit::button_1_released()
     }
     bool unexpected{false};
     _state = CtColEditState::PrEdit;
-    printf("colMode PRE\n");
+    spdlog::debug("colMode PRE");
     if ( _marksStart.size() > 0 and
          _marksEnd.size() > 0 and
          _marksStart.front() and
@@ -398,7 +474,7 @@ void CtColumnEdit::button_1_released()
         {
             if (iterLeftCol.get_line_offset() == iterRightCol.get_line_offset()) {
                 _state = CtColEditState::Edit;
-                printf("colMode EDIT\n");
+                spdlog::debug("colMode EDIT");
                 _clear_marks(false/*alsoStart*/);
             }
         }
@@ -432,15 +508,16 @@ void CtColumnEdit::selection_update()
     {
         if (CtColEditState::Off == _state and _ctrlDown and _altDown) {
             _state = CtColEditState::Selection;
-            printf("colMode SEL\n");
+            spdlog::debug("colMode SEL");
         }
         if (CtColEditState::Selection == _state) {
             _pointStart = _get_point(startIter);
             _pointEnd = _get_point(endIter);
             _clear_marks();
             if (_pointStart != _pointEnd) {
+                // in first iteration populate _marksStart
                 std::vector<Glib::RefPtr<Gtk::TextMark>>* pMarksVec = &_marksStart;
-                for (int x : std::vector<int>{_pointStart.get_x(), _pointEnd.get_x()}) {
+                for (const int x : {_pointStart.get_x(), _pointEnd.get_x()}) {
                     for (int y = _pointStart.get_y(); y <= _pointEnd.get_y(); ++y) {
                         Gtk::TextIter currIter = rTextBuffer->get_iter_at_line_offset(y, x);
                         if ( currIter and
@@ -452,6 +529,7 @@ void CtColumnEdit::selection_update()
                             pMarksVec->push_back(rMark);
                         }
                     }
+                    // in second iteration populate _marksEnd
                     pMarksVec = &_marksEnd;
                 }
             }

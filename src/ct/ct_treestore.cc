@@ -740,8 +740,8 @@ void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> 
 
 void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int /*bytes*/)
 {
-    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().own_insert_delete_active()) {
-        _pCtMainWin->get_text_view().text_inserted(pos, text);
+    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().column_edit_get_own_insert_delete_active()) {
+        _pCtMainWin->get_text_view().column_edit_text_inserted(pos, text);
         CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
         if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
             _pCtMainWin->get_state_machine().text_variation(currTreeIter.get_node_id(), text);
@@ -751,8 +751,8 @@ void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, co
 
 void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end)
 {
-    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().own_insert_delete_active()) {
-       _pCtMainWin->get_text_view().text_removed(range_start, range_end);
+    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().column_edit_get_own_insert_delete_active()) {
+       _pCtMainWin->get_text_view().column_edit_text_removed(range_start, range_end);
         CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
         if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
             _pCtMainWin->get_state_machine().text_variation(currTreeIter.get_node_id(), range_start.get_text(range_end));
@@ -768,7 +768,7 @@ void CtTreeStore::_on_textbuffer_mark_set(const Gtk::TextIter& /*iter*/, const G
             if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
                 _pCtMainWin->get_state_machine().update_curr_state_cursor_pos(currTreeIter.get_node_id());
             }
-            _pCtMainWin->get_text_view().selection_update();
+            _pCtMainWin->get_text_view().column_edit_selection_update();
         }
     }
 }
