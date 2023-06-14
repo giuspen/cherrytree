@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-28 20:29+0000\n"
+"POT-Creation-Date: 2023-05-28 16:00+0100\n"
 "PO-Revision-Date: 2023-04-04 21:48+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Russian <camilot55@yandex.ru>\n"
@@ -23,756 +23,8 @@ msgstr ""
 "X-Source-Language: C\n"
 "X-Generator: Poedit 3.2.2\n"
 
-msgid "Image Format Not Recognized"
-msgstr "Не известный формат изображения"
-
-msgid "Insert Table"
-msgstr "Вставить таблицу"
-
-msgid "CSV File"
-msgstr "Файл CSV"
-
-msgid "Insert a CodeBox"
-msgstr ""
-"CodeBox\n"
-"\n"
-"Вставить CodeBox\n"
-"CodeBox - это контейнер для хранения различных функции и процедур,\n"
-"которыми программист часто пользуется, да и просто различного кода."
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr ""
-"Максимальный размер файла превышает %s Мбайт\n"
-" "
-
-msgid "Do you want to Continue?"
-msgstr "Продолжить?"
-
-msgid "Special Characters"
-msgstr "Символы"
-
-msgid "Tabs Replaced"
-msgstr " табуляций заменено"
-
-msgid "Lines Stripped"
-msgstr " строк очищено"
-
-msgid "No Text is Selected."
-msgstr "Текст не выделен"
-
-msgid "CherryTree Document"
-msgstr "Документ CherryTree"
-
-msgid "PDF File"
-msgstr "Документ PDF"
-
-msgid "Plain Text Document"
-msgstr "Текстовый документ"
-
-msgid "Preferences File"
-msgstr "Файл настроек"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr ""
-"Изменения вступят в силу,\n"
-"после перезапука CherryTree"
-
-msgid "Replace in Current Node"
-msgstr "Заменить в ветви..."
-
-msgid "Search in Current Node"
-msgstr "Найти в ветви..."
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr ""
-"Поиск в документе завершён.\n"
-"\n"
-"Искомый элемент <b>' %s '</b> не найден!"
-
-msgid "Matches"
-msgstr " совпадений"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Заменить в ветвях..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Найти в ветвях..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Вы ещё не проводили поиск или замену текста"
-
-msgid "Tags"
-msgstr "Теги"
-
-msgid ": "
-msgstr ": "
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Вы ещё не проводили форматирование текста"
-
-msgid "Link Name"
-msgstr "Вставить ссылку"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Курсор за пределами абзаца"
-
-msgid "Insert/Edit Link"
-msgstr "Свойства ссылки"
-
-msgid "Pick a Foreground Color"
-msgstr "Выберите цвет"
-
-msgid "Pick a Background Color"
-msgstr "Выберите цвет"
-
-msgid "Checking for Newer Version..."
-msgstr "Проверка доступности новой версии..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Сервер не отвечает. Попробуйте позже"
-
-msgid "A Newer Version Is Available!"
-msgstr "Доступна новая версия!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Обновления не найдены! Вы используете последнюю версию CherryTree"
-
-msgid "You Are Using a Development Version."
-msgstr "Вы используете версию для разработки."
-
-msgid "Who is the Parent?"
-msgstr "Добавить в..."
-
-msgid "The Tree Root"
-msgstr "Дерево"
-
-msgid "The Selected Node"
-msgstr "Ветвь"
-
-msgid "Rename"
-msgstr "Переименовать"
-
-msgid "PNG Image"
-msgstr "Изображение PNG"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Ошибка записи в %s"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "едопустимая ссылка на папку '%s'"
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Недопустимая ссылка на файл '%s'"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Недопустимая ссылка на папку '%s'"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr ""
-"Недопустимая ссылка на ветвь.\n"
-"\n"
-"Такой ветви не существует (Id = %s).\n"
-"Вероятно она была удалена или переименована"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr ""
-"Поиск в документе завершён.\n"
-"\n"
-"Искомый якорь <b>' %s '</b> не найден!"
-
-msgid "Edit CodeBox"
-msgstr "Свойства CodeBox"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Команда должна иметь сопоставление с <b>' %s '</b>.\n"
-"\n"
-"Это можно сделать в диалоговом окне 'Настройки программы'."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Установите пакет 'xterm' или задайте\n"
-"другой терминал в диалоговом окне 'Настройки программы'."
-
-msgid "Edit Table Properties"
-msgstr "Свойства таблицы"
-
-msgid "Insert Anchor"
-msgstr "Вставить якорь"
-
-msgid "Edit Anchor"
-msgstr "Свойства якоря"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "<b>\"Только чтение!\"</b> Невозможно отредактировать вложенный файл"
-
-msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматически обновлён:"
-
-msgid "No Node is Selected"
-msgstr "Ветвь не выбрана"
-
-msgid "The Tree is Empty!"
-msgstr ""
-"<b> Пустое дерево! </b>\n"
-"\n"
-"Создайте Ваше первое дерево!\n"
-"Для начала работы добавьте новую ветвь:\n"
-"<b>Главное меню\\Дерево\\Новая ветвь </b>"
-
-msgid "The Selected Node is Read Only."
-msgstr ""
-"Эта ветвь доступна <b>\"только для чтения\"</b>.\n"
-"\n"
-"Для редактирования измените свойства ветви."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Это свойство доступно только в ветвях с форматированным текстом."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr ""
-"Это свойство недоступно в ветвях с автоматической подсветкой синтаксиса."
-
-msgid "No Table is Selected."
-msgstr "Таблица не выбрана."
-
-msgid "No CodeBox is Selected."
-msgstr "CodeBox не выбран."
-
-msgid "New Child Node Properties"
-msgstr "Свойства новой дочерней ветви"
-
-msgid "New Node Properties"
-msgstr "Свойства новой ветви"
-
-msgid "Node Properties"
-msgstr "Свойства ветви"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"При смене <b> \"Форматированный текст\" </b> на <b> \"Обычный текст\" </b>,\n"
-"вы полностью потеряете форматирование текста для данной ветви.\n"
-"Продолжить?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr ""
-" \n"
-"Вы действительно хотите удалить ветвь <b>' %s '</b>?"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> Также будут удалены следующие дочерние ветви!</b>"
-
-msgid "Select the New Parent"
-msgstr "Выберите родителя..."
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Родительскую ветвь невозможно переместить!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Выбранная родительская ветвь уже является родителем!"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Родительская ветвь не может стать дочерней!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s свойств очищено"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Размер значков уже максимальный"
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Размер значков уже минимальный"
-
-msgid "Print CherryTree version"
-msgstr "Версия для печати"
-
-msgid "Node name to focus"
-msgstr "Имя ветви для фокуса"
-
-msgid "Anchor name to scroll to in node"
-msgstr "Имя якоря для прокрутки к ветви"
-
-msgid "Export to HTML at specified directory path"
-msgstr "Экспорт в HTML в указанную директорию"
-
-msgid "Export to Text at specified directory path"
-msgstr "Экспорт в TXT в указанную директорию"
-
-msgid "Export to PDF at specified directory path"
-msgstr "Экспорт в PDF в указанную директорию"
-
-msgid "Overwrite if export path already exists"
-msgstr "Перезаписать, если файл уже существует"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Экспорт в один файл (для HTML или TXT)"
-
-msgid "Password to open document"
-msgstr "Пароль от документа"
-
-msgid "Create a new window"
-msgstr "Создать новое окно"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Запустить второй независимый сеанс"
-
-msgid "Handle the Bookmarks List"
-msgstr "Закладки"
-
-msgid "Move the Selected Bookmark Up"
-msgstr "Переместить вверх"
-
-msgid "Move the Selected Bookmark Down"
-msgstr "Переместить вниз"
-
-msgid "Remove the Selected Bookmark"
-msgstr "Удалить закладку"
-
-msgid "Sort the Bookmarks Descending"
-msgstr "Сортировать по убыванию"
-
-msgid "Sort the Bookmarks Ascending"
-msgstr "Сортировать по возрастанию"
-
-msgid "Choose Storage Type"
-msgstr "Тип файла"
-
-msgid "Not Protected"
-msgstr "без шифрования"
-
-msgid "Password Protected"
-msgstr "с шифрованием"
-
-msgid "Storage Type"
-msgstr "Тип:"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия "
-"или редактирования документа CherryTree извлекает его из зашифрованного "
-"архива во временную папку и работает с ним как с обычным архивом. После "
-"закрытия файла незашифрованная копия документа удаляется из временной папки. "
-"Во время сбоя системы или программы незашифрованный документ может остаться "
-"во временной папке."
-
-msgid "Enter the New Password Twice"
-msgstr "Введите и подтвердите пароль для проверки"
-
-msgid "Autosave Every"
-msgstr "Автосохранение каждые"
-
-msgid "Minutes"
-msgstr "минут"
-
-msgid "The Password Fields Must be Filled."
-msgstr "Вы не задали пароль"
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "Пароли не совпадают"
-
-msgid "Warning"
-msgstr "Предупреждение"
-
-msgid "The Current Document was Updated."
-msgstr "Текущий документ CherryTree был изменён."
-
-msgid "Do you want to Save the Changes?"
-msgstr "Сохранить изменения?"
-
-msgid "Do you want to Execute the Code?"
-msgstr "Выполнить код?"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Запрашивать подтверждение перед выполнением кода"
-
-msgid "Use Internal Terminal"
-msgstr "Использовать встроенный терминал"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Записная книжка с иерархической древовидной структурой, обладающая"
-"функциями форматирования текста и подсветки синтаксиса"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"Эта программа является свободным программным обеспечением;\n"
-"вы можете распространять и/или изменять его согласно условиям\n"
-"Стандартной Общественной Лицензии GNU,\n"
-"опубликованной Фондом свободного программного обеспечения,\n"
-"либо Лицензии версии 3, либо (на ваше усмотрение) \n"
-"любой более поздней версии.\n"
-" \n"
-"Программа распространяется в надежде, что она будет полезной,\n"
-"но БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; \n"
-"даже без косвенных гарантийных обязательств, связанных\n"
-"с ПОТРЕБИТЕЛЬСКИМИ СВОЙСТВАМИ и ПРИГОДНОСТЬЮ\n"
-"ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите\n"
-"Стандартную Общественную Лицензию GNU.\n"
-"\n"
-"Вы должны были получить копию Стандартной Общественной\n"
-"Лицензии GNU вместе с этой программой. Если это не так,\n"
-"напишите в Фонд Свободного ПО, \n"
-"675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Арабский"
-
-msgid "Armenian"
-msgstr "Армянский"
-
-msgid "Bulgarian"
-msgstr "Болгарский"
-
-msgid "Chinese Simplified"
-msgstr "Китайский (упрощённый)"
-
-msgid "Chinese Traditional"
-msgstr "Китайский (традиционный)"
-
-msgid "Croatian"
-msgstr "Хорватский"
-
-msgid "Czech"
-msgstr "Чешский"
-
-msgid "Dutch"
-msgstr "Голландский"
-
-msgid "Finnish"
-msgstr "Финский"
-
-msgid "French"
-msgstr "Французский"
-
-msgid "German"
-msgstr "Немецкий"
-
-msgid "Greek"
-msgstr "Греческий"
-
-msgid "Hindi India"
-msgstr "Хинди (Индия)"
-
-msgid "Hungarian"
-msgstr "Венгерский"
-
-msgid "Italian"
-msgstr "Итальянский"
-
-msgid "Japanese"
-msgstr "Японский"
-
-msgid "Kazakh"
-msgstr "Казахский"
-
-msgid "Kazakh (Latin)"
-msgstr "Казахский (латиница)"
-
-msgid "Korean"
-msgstr "Корейский"
-
-msgid "Lithuanian"
-msgstr "Литовский"
-
-msgid "Polish"
-msgstr "Польский"
-
-msgid "Portuguese"
-msgstr "Португальский"
-
-msgid "Portuguese Brazil"
-msgstr "Португальский (Бразилия)"
-
-msgid "Romanian"
-msgstr "Румынский"
-
-msgid "Russian"
-msgstr "Русский"
-
-msgid "Slovenian"
-msgstr "Словенский"
-
-msgid "Spanish"
-msgstr "Испанский"
-
-msgid "Swedish"
-msgstr "Шведский"
-
-msgid "Turkish"
-msgstr "Турецкий"
-
-msgid "Ukrainian"
-msgstr "Украинский"
-
-msgid "About CherryTree"
-msgstr "Сведения"
-
-msgid "Tree Summary Information"
-msgstr "Информация о дереве"
-
-msgid "Number of Rich Text Nodes"
-msgstr "Ветвей с форматированным текстом"
-
-msgid "Number of Plain Text Nodes"
-msgstr "Ветвей с обычым текстом"
-
-msgid "Number of Code Nodes"
-msgstr "Ветвей с кодом"
-
-msgid "Number of Images"
-msgstr "Изображений"
-
-msgid "Number of LatexBoxes"
-msgstr "LaTeX-ов"
-
-msgid "Number of Embedded Files"
-msgstr "Файлов"
-
-msgid "Number of Tables"
-msgstr "Таблиц"
-
-msgid "Number of CodeBoxes"
-msgstr "CodeBox-ов"
-
-msgid "Number of Anchors"
-msgstr "Якорей"
-
-msgid "Latex Text"
-msgstr "LaTeX текст"
-
-msgid "Image Size dpi"
-msgstr "Размер изображения dpi"
-
-msgid "Tutorial"
-msgstr "Руководство"
-
-msgid "Reference"
-msgstr "Справка"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "Руководство по оформлению математических уравнений в LaTeX"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "Справочник по математическим символам в LaTeX"
-
-msgid "Image Properties"
-msgstr "Свойства изображения"
-
-msgid "Width"
-msgstr "Ширина"
-
-msgid "Height"
-msgstr "Высота  "
-
-msgid "Plain Text"
-msgstr "Обычный текст"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Подсветка синтаксиса"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "pixels"
-msgstr "пикселей"
-
-msgid "Size"
-msgstr "Размер"
-
-msgid "Show Line Numbers"
-msgstr "Нумерация строк"
-
-msgid "Highlight Matching Brackets"
-msgstr "Подсвечивать парные скобки"
-
-msgid "Options"
-msgstr "Настройки"
-
-msgid "Rows"
-msgstr "Число строк:"
-
-msgid "Columns"
-msgstr "Число столбцов:"
-
-msgid "Default Width"
-msgstr "Значение:"
-
-msgid "Table Size"
-msgstr "Размер таблицы"
-
-msgid "Column Properties"
-msgstr "Ширина столбца"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr ""
-"Облегчённый интерфейс (работает значительно быстрее с большими таблицами)"
-
-msgid "Import from CSV File"
-msgstr "Импортировать данные из файла CSV"
-
-msgid "Search for"
-msgstr "Найти:"
-
-msgid "Replace with"
-msgstr "Заменить на:"
-
-msgid "Match Case"
-msgstr "Учитывать регистр"
-
-msgid "Regular Expression"
-msgstr "Регулярное выражение"
-
-msgid "Online Manual"
-msgstr "Справка в интернете"
-
-msgid "Accent Insensitive"
-msgstr "Нечувствительность к ударению"
-
-msgid "Override Exclusions"
-msgstr "Не учитывать исключения"
-
-msgid "Whole Word"
-msgstr "Только слово целиком"
-
-msgid "Start Word"
-msgstr "Начало слова"
-
-msgid "Forward"
-msgstr "Вперёд"
-
-msgid "Backward"
-msgstr "Назад"
-
-msgid "All, List Matches"
-msgstr "Все совпадения"
-
-msgid "First From Selection"
-msgstr "Первое совпадение от выделенного"
-
-msgid "First in All Range"
-msgstr "Первое совпадение по всему документу"
-
-msgid "Node Created After"
-msgstr "Создана после"
-
-msgid "Node Created Before"
-msgstr "Создана до"
-
-msgid "Node Modified After"
-msgstr "Изменена после"
-
-msgid "Node Modified Before"
-msgstr "Изменена до"
-
-msgid "Time filter"
-msgstr "По дате ветви..."
-
-msgid "Node Content"
-msgstr "В ветви"
-
-msgid "Node Name and Tags"
-msgstr "В именах ветвей и тегах"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "В выбранной ветви с дочерними"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Показать диалоговое окно \"Совпадения...\" "
-
-msgid "Search options"
-msgstr "Параметры поиска"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Свернуть/Восстановить ('%s')"
-
-msgid "Node Name"
-msgstr "Имя"
-
-msgid "Line"
-msgstr "Строка"
-
-msgid "Line Content"
-msgstr "Содержимое"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Повторить Найти/Заменить"
-
-msgid "Close"
-msgstr "Закрыть"
-
-msgid "Find Previous"
-msgstr "Предыдущий"
-
-msgid "Find Next"
-msgstr "Следующий"
-
-msgid "Replace"
-msgstr "Заменить"
-
-msgid "Undo"
-msgstr "Отменить"
-
-msgid "Remove Color"
-msgstr "Очистить"
-
-msgid "Question"
-msgstr "Вопрос"
-
-msgid "Info"
-msgstr "Информация"
-
-msgid "Error"
-msgstr "Ошибка"
-
-msgid "Select File"
-msgstr "Открыть..."
-
-msgid "Select Folder"
-msgstr "Выбрать..."
-
-msgid "Save File as"
-msgstr "Сохранить как..."
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Предупреждение: одно или несколько изображений были уменьшены"
 
 msgid "To WebSite"
 msgstr "Сайт:   "
@@ -789,6 +41,9 @@ msgstr "Ветвь:"
 msgid "Anchor Name (optional)"
 msgstr " Добавить якорь к ссылке (не обязательно)"
 
+msgid "No Node is Selected"
+msgstr "Ветвь не выбрана"
+
 msgid "There are No Anchors in the Selected Node."
 msgstr "В данной ветви нет якорей"
 
@@ -798,202 +53,80 @@ msgstr "Выберите якорь"
 msgid "Anchor Name"
 msgstr "Имя якоря"
 
-msgid "Bold"
-msgstr "Полужирный"
-
-msgid "Use Selected Color"
-msgstr "Заголовок"
-
-msgid "Use Selected Icon"
-msgstr "Значок ветви"
-
-msgid "Rich Text"
-msgstr "Форматированный текст"
-
-msgid "Node Type"
-msgstr "Тип"
-
-msgid "Tags for Searching"
-msgstr "Теги для поиска"
-
-msgid "Exclude from Searches"
-msgstr "Исключить из поиска: "
-
-msgid "This Node"
-msgstr "ветвь"
-
-msgid "The Subnodes"
-msgstr "дочернюю ветвь"
-
-msgid "Read Only"
-msgstr "Только чтение"
-
-msgid "Choose Existing Tag"
-msgstr "Теги"
-
-msgid "Tag Name"
-msgstr "Тег"
-
-msgid "Pick a Color"
-msgstr "Выберите цвет"
-
-msgid "Select Node Icon"
-msgstr "Смена значка"
-
-msgid "Involved Nodes"
-msgstr "Выбрать..."
-
-msgid "Selected Text Only"
-msgstr "Текст"
-
-msgid "Selected Node Only"
-msgstr "Ветвь"
-
-msgid "Selected Node and Subnodes"
-msgstr "Ветвь с дочерними"
-
-msgid "All the Tree"
-msgstr "Дерево"
-
-msgid "Include Node Name"
-msgstr "Печатать имя ветви"
-
-msgid "Links Tree in Every Page"
-msgstr "Дерево ссылок на каждой страницe"
-
-msgid "New Node in New Page"
-msgstr "Новую ветвь с новой страницы"
-
-msgid "Single File"
-msgstr "Один файл"
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr ""
+"Поиск в документе завершён.\n"
+"\n"
+"Искомый элемент <b>' %s '</b> не найден!"
 
 msgid "Index"
 msgstr "Содержание"
 
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgid "Print CherryTree version"
+msgstr "Версия для печати"
+
+msgid "Node name to focus"
+msgstr "Имя ветви для фокуса"
+
+msgid "Anchor name to scroll to in node"
+msgstr "Имя якоря для прокрутки к ветви"
+
+msgid "Export to HTML at specified directory path"
+msgstr "Экспорт в HTML в существующую директорию"
+
+msgid "Export to Text at specified directory path"
+msgstr "Экспорт в TXT в существующую директорию"
+
+msgid "Export to PDF at specified directory path"
+msgstr "Экспорт в PDF в существующую директорию"
+
+msgid "Overwrite if export path already exists"
+msgstr "Перезаписать, если файл уже существует"
+
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Экспорт в один файл (для HTML или TXT)"
+
+msgid "Password to open document"
+msgstr "Пароль от документа"
+
+msgid "Create a new window"
+msgstr "Создать новое окно"
+
+msgid "Run in secondary session, independent from main session"
+msgstr "Запустить второй сеанс"
+
+msgid "CherryTree File"
+msgstr "Файл CherryTree"
+
+msgid "Preferences File"
+msgstr "Файл настроек"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
 msgstr ""
-"Предупреждение: Одно или несколько изображений было уменьшено, "
-"чтобы уместить их на одной странице!"
+"Изменения вступят в силу,\n"
+"после перезапука CherryTree."
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Не удалось получить доступ к исполняемым файлам 'latex' и 'dvipng'"
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Записная книжка CherryTree"
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Например, в Ubuntu пакетами для установки являются:"
+msgid "Show/Hide _CherryTree"
+msgstr "Открыть CherryTree"
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Например, в Mac OS пакетами для установки являются:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "Не удалось получить доступ к исполняемому файлу 'latex'"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "Не удалось получить доступ к исполняемому файлу 'dvipng'"
-
-msgid "Downloading"
-msgstr "Загрузка"
-
-#, c-format
-msgid "The Document %s was Not Found"
+msgid "Toggle Show/Hide CherryTree"
 msgstr ""
-"Поиск документа завершён.\n"
+"Открыть CherryTree\n"
 "\n"
-"Документ <b>' %s '</b> не найден!"
+"Активизировать CherryTree"
 
-msgid "Open a Recent CherryTree Document"
-msgstr ""
-"История...\n"
-"\n"
-"Кликните здесь, чтобы посмотреть\n"
-"какие документы были открыты ранее.\n"
-"Также можно удалить из истории недавно\n"
-"открытые документы CherryTree"
-
-msgid "_Hide"
-msgstr "Свернуть..."
-
-msgid "_Quit"
+msgid "_Exit CherryTree"
 msgstr "Выход"
 
-msgid "Hide the Window"
-msgstr ""
-"Свернуть...\n"
-"\n"
-"Свернуть CherryTree в область уведомлений"
-
-msgid "Quit the Application"
+msgid "Exit from CherryTree"
 msgstr ""
 "Выход\n"
 "\n"
 "Выйти из CherryTree"
-
-msgid "Spell Check"
-msgstr "Орфография"
-
-msgid "Word Count"
-msgstr "Слов"
-
-msgid "Date Created"
-msgstr "Создан"
-
-msgid "Date Modified"
-msgstr "Изменён"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Последнее копирование ветви было выполнено не во время этого сеанса "
-"или исходное дерево более недоступно."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Исходное дерево более недоступно."
-
-msgid "Show Menubar:"
-msgstr "Показать Панель меню:"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" не является документом CherryTree"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree File:\n"
-"\"%s\""
-msgstr ""
-"Ошибка открытия файла CherryTree:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr ""
-"Поиск в документе завершён.\n"
-"\n"
-"Искомая ветвь <b>' %s '</b> не найдена!"
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Созданы временные файлы, которые открыты в другом приложении."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Закройте внешнее приложение перед выходом из CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Вы закрыли внешнее приложение?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Документ был перезагружен после внешнего обновления до файла CT*."
-
-msgid "Copy Selection or All"
-msgstr "Копировать выделенное или всё"
-
-msgid "Paste"
-msgstr "Вставить"
-
-msgid "Reset"
-msgstr "Сбросить"
-
-msgid "Remove from list"
-msgstr "Удалить из истории"
 
 msgid "_File"
 msgstr "Файл"
@@ -1046,6 +179,15 @@ msgstr "Настройки..."
 msgid "_Recent Documents"
 msgstr "История..."
 
+msgid "Open a Recent CherryTree Document"
+msgstr ""
+"История...\n"
+"\n"
+"Кликните здесь, чтобы посмотреть\n"
+"какие документы были открыты ранее.\n"
+"Также можно удалить из истории недавно\n"
+"открытые документы CherryTree"
+
 msgid "C_hange Case"
 msgstr "Изменить регистр"
 
@@ -1094,11 +236,20 @@ msgstr ""
 msgid "_Open File..."
 msgstr "Открыть..."
 
-msgid "Open a CherryTree Document"
+msgid "Open a CherryTree File"
 msgstr ""
 "Открыть...\n"
 "\n"
-"Открыть существующий документ CherryTree"
+"Открыть существующий файл CherryTree"
+
+msgid "Open Fo_lder..."
+msgstr "Открыть..."
+
+msgid "Open a CherryTree Folder"
+msgstr ""
+"Открыть...\n"
+"\n"
+"Открыть существующюю папку CherryTree"
 
 msgid "_Save"
 msgstr "Сохранить"
@@ -1168,14 +319,20 @@ msgstr "Сохранить резервную копию настроек Сherr
 msgid "Tree In_fo"
 msgstr "Информация..."
 
-msgid "E_xit CherryTree"
+msgid "Tree Summary Information"
+msgstr "Информация о дереве"
+
+msgid "_Quit"
 msgstr "Выход"
 
-msgid "Exit from CherryTree"
+msgid "Quit the Application"
 msgstr ""
 "Выход\n"
 "\n"
 "Выйти из CherryTree"
+
+msgid "E_xit CherryTree"
+msgstr "Выход"
 
 msgid "Edit/Insert"
 msgstr "Правка/Вставка"
@@ -1228,6 +385,14 @@ msgstr ""
 
 msgid "Insert _CodeBox..."
 msgstr "CodeBox"
+
+msgid "Insert a CodeBox"
+msgstr ""
+"CodeBox\n"
+"\n"
+"Вставить CodeBox\n"
+"CodeBox - это контейнер для хранения различных функции и процедур,\n"
+"которыми программист часто пользуется, да и просто различного кода."
 
 msgid "Insert _File..."
 msgstr "Файл"
@@ -1921,11 +1086,11 @@ msgstr ""
 "Начало нумерованного списка"
 
 msgid "Set/Unset _To-Do List"
-msgstr "Cписок задач"
+msgstr "Список задач"
 
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
-"Cписок задач\n"
+"Список задач\n"
 "\n"
 "Начало списка задач"
 
@@ -2193,6 +1358,9 @@ msgstr ""
 msgid "_Handle Bookmarks..."
 msgstr "Управление закладками"
 
+msgid "Handle the Bookmarks List"
+msgstr "Закладки"
+
 msgid "Add to Boo_kmarks"
 msgstr "Добавить в закладки"
 
@@ -2347,14 +1515,14 @@ msgstr ""
 "содержимого в содержании ветвей"
 
 msgid "Find in _Nodes Names and Tags..."
-msgstr "Найти в именах ветвей и тэгах"
+msgstr "Найти в именах ветвей и тегах"
 
 msgid "Find in Nodes Names and Tags"
 msgstr ""
-"Найти в именах ветвей и тэгах\n"
+"Найти в именах ветвей и тегах\n"
 "\n"
 "Поиск текста или другого содержимого\n"
-"в именах ветвей и тэгах"
+"в именах ветвей и тегах"
 
 msgid "Find _Again"
 msgstr "Искать следующее..."
@@ -2414,13 +1582,13 @@ msgstr ""
 "при поиске или при замене текста"
 
 msgid "_Clear All Exclusions From Search"
-msgstr "Очистить все исключения поиска"
+msgstr "Удалить все исключения из поиска"
 
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
 msgstr ""
-"Очистить все исключения поиска\n"
+"Удалить все исключения из поиска\n"
 "\n"
-"Очистить все свойства ветвей дерева от исключений поиска"
+"Удалить все исключения из свойств ветвей дерева"
 
 msgid "View"
 msgstr "Вид"
@@ -2583,6 +1751,24 @@ msgstr ""
 "Импорт данных из файла CherryTree\n"
 "\n"
 "Получить внешние данные из файла CherryTree"
+
+msgid "From _CherryTree Folder"
+msgstr "Из папки CherryTree"
+
+msgid "Add Nodes of a CherryTree Folder to the Current Tree"
+msgstr ""
+"Импорт данных из папки CherryTree\n"
+"\n"
+"Получить внешние данные из папки CherryTree"
+
+msgid "From _Indented List File"
+msgstr "Из списка файлов"
+
+msgid "Add Nodes from an Indented List File to the Current Tree"
+msgstr ""
+"Импорт данных из списка файлов\n"
+"\n"
+"Получить внешние данные из списка файлов"
 
 msgid "From _Plain Text File"
 msgstr "Из текстового файла"
@@ -2758,14 +1944,14 @@ msgstr ""
 "ветвь, ветвь с дочерними\n"
 "или полностью всё дерево"
 
-msgid "_Export To CherryTree Document"
+msgid "_Export To CherryTree"
 msgstr "Преобразовать в документ CherryTree"
 
-msgid "Export To CherryTree Document"
+msgid "Export To CherryTree File or Folder"
 msgstr ""
 "Преобразовать в документ CherryTree\n"
 "\n"
-"Преобразовать в CherryTree файл:\n"
+"Преобразовать в CherryTree файл или папку:\n"
 "выбранный фрагмента текста,\n"
 "ветвь, ветвь с дочерними\n"
 "или полностью всё дерево"
@@ -2793,6 +1979,9 @@ msgstr ""
 
 msgid "_About"
 msgstr "О программе..."
+
+msgid "About CherryTree"
+msgstr "Сведения"
 
 msgid "_Open Preferences Directory"
 msgstr "Открыть настройки..."
@@ -2903,7 +2092,7 @@ msgstr ""
 "Сохранить выбранный блок LaTeX в формате PNG"
 
 msgid "_Edit LatexBox..."
-msgstr "Свойства LaTeX"
+msgstr "Свойства LaTeX..."
 
 msgid "Edit the Selected LatexBox"
 msgstr ""
@@ -3003,15 +2192,6 @@ msgstr ""
 "\n"
 "Очистить ссылку связанную с изображением"
 
-msgid "Show/Hide _CherryTree"
-msgstr "Открыть CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr ""
-"Открыть CherryTree\n"
-"\n"
-"Активизировать CherryTree"
-
 msgid "Edit the Underlying Link"
 msgstr ""
 "Свойства ссылки...\n"
@@ -3051,96 +2231,14 @@ msgstr ""
 "\n"
 "Удаляется ссылка и текст из документа"
 
-msgid "English"
-msgstr "Английский"
+msgid "Copy Selection or All"
+msgstr "Копировать выделенное или всё"
 
-msgid "Text and Code"
-msgstr "Текст и код"
+msgid "Paste"
+msgstr "Вставить"
 
-msgid "Plain Text and Code"
-msgstr "Обычный текст и код"
-
-msgid "Tree Explorer"
-msgstr "Обозреватель дерева"
-
-msgid "Theme"
-msgstr "Тема"
-
-msgid "Fonts"
-msgstr "Шрифты темы"
-
-msgid "Links"
-msgstr "Ссылки"
-
-msgid "Toolbar"
-msgstr "Панель инструментов"
-
-msgid "Keyboard Shortcuts"
-msgstr "Горячие клавиши"
-
-msgid "Miscellaneous"
-msgstr "Разное"
-
-msgid "Monospace"
-msgstr "Моноширинный текст"
-
-msgid "Code Font"
-msgstr "Текст кода"
-
-msgid "Terminal Font"
-msgstr "Текст терминала"
-
-msgid "Tree Font"
-msgstr "Текст дерева"
-
-msgid "Reset to Default"
-msgstr "Значение по умолчанию"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "При открытии ссылки на веб-страницу"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "При открытии ссылки на файл"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "При открытии ссылки на папку"
-
-msgid "Custom Actions"
-msgstr "Действие"
-
-msgid "Colors"
-msgstr "Цвета"
-
-msgid "Underline Links"
-msgstr "Подчёркивать ссылки"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Использовать относительные пути к файлам и папкам"
-
-msgid "Anchor Size"
-msgstr "Размер значка якоря"
-
-msgid "Change Selected"
-msgstr "Изменить комбинацию клавиш"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr ""
-" \n"
-"Комбинация клавиш ' %s ' уже используется!"
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Данная комбинация выполняет действие <b>' %s '</b>"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Переопределить комбинацию клавиш?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Новая комбинация..."
-
-msgid "No Keyboard Shortcut"
-msgstr "Не задана"
+msgid "Reset"
+msgstr "Сбросить"
 
 msgid "Enable System Tray Docking"
 msgstr "Отображать значок CherryTree в области уведомлений"
@@ -3150,6 +2248,12 @@ msgstr "Сворачивать CherryTree в область уведомлени
 
 msgid "System Tray"
 msgstr "Панель задач"
+
+msgid "Autosave Every"
+msgstr "Автосохранение каждые"
+
+msgid "Minutes"
+msgstr "минут"
 
 msgid "Autosave on Quit"
 msgstr "Сохранить при закрытии"
@@ -3193,6 +2297,9 @@ msgstr "Использовать лог-файл"
 msgid "Debug Log Directory"
 msgstr "Выбрать..."
 
+msgid "Miscellaneous"
+msgstr "Разное"
+
 msgid "System Default"
 msgstr "По умолчанию"
 
@@ -3207,149 +2314,234 @@ msgstr ""
 " \n"
 "Ваша система не поддерживает область уведомлений!"
 
-msgid "Show White Spaces"
-msgstr "Отображать пробелы"
+msgid "Downloading"
+msgstr "Загрузка"
 
-msgid "Highlight Current Line"
-msgstr "Подсвечивать активную строку"
+msgid "Remove from list"
+msgstr "Удалить из истории"
 
-msgid "Text Editor"
-msgstr "Текстовый редактор"
+msgid "Move the Selected Bookmark Up"
+msgstr "Переместить вверх"
 
-msgid "Internal Terminal Shell"
+msgid "Move the Selected Bookmark Down"
+msgstr "Переместить вниз"
+
+msgid "Remove the Selected Bookmark"
+msgstr "Удалить закладку"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "Сортировать по убыванию"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "Сортировать по возрастанию"
+
+msgid "Choose Storage Type"
+msgstr "Тип файла"
+
+msgid "Storage Type"
+msgstr "Тип:"
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия "
+"или редактирования документа CherryTree извлекает его из зашифрованного "
+"архива во временную папку и работает с ним как с обычным архивом. После "
+"закрытия файла незашифрованная копия документа удаляется из временной папки. "
+"Во время краха системы или программы незашифрованный документ может остаться "
+"во временной папке."
+
+msgid "Enter the New Password Twice"
+msgstr "Введите и подтвердите пароль для проверки"
+
+msgid "The Password Fields Must be Filled."
+msgstr "Вы не задали пароль"
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "Пароли не совпадают"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "The Current Document was Updated."
+msgstr "Документ CherryTree был изменён."
+
+msgid "Do you want to Save the Changes?"
+msgstr "Сохранить изменения в документе?"
+
+msgid "Do you want to Execute the Code?"
+msgstr "Выполнить код?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Запрашивать подтверждение перед выполнением кода"
+
+msgid "Use Internal Terminal"
 msgstr "Использовать встроеный терминал"
 
-msgid "Add"
-msgstr "Добавить часто используемые команды"
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Записная книжка с иерархической древовидной структурой с возможностью "
+"форматирования текста и подсветкой синтаксиса"
 
-msgid "Remove Selected"
-msgstr "Удалить часто используемые команды"
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Эта программа является свободным программным обеспечением;\n"
+"вы можете распространять и/или изменять его согласно условиям\n"
+"Стандартной Общественной Лицензии GNU,\n"
+"опубликованной Фондом свободного программного обеспечения,\n"
+"либо Лицензии версии 3, либо (на ваше усмотрение) \n"
+"любой более поздней версии.\n"
+" \n"
+"Программа распространяется в надежде, что она будет полезной,\n"
+"но БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; \n"
+"даже без косвенных гарантийных обязательств, связанных\n"
+"с ПОТРЕБИТЕЛЬСКИМИ СВОЙСТВАМИ и ПРИГОДНОСТЬЮ\n"
+"ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите\n"
+"Стандартную Общественную Лицензию GNU.\n"
+"\n"
+"Вы должны были получить копию Стандартной Общественной\n"
+"Лицензии GNU вместе с этой программой. Если это не так,\n"
+"напишите в Фонд Свободного ПО, \n"
+"675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
-msgid "Command per Node/CodeBox Type"
-msgstr "Команда интерпретатора/компилятора"
+msgid "Arabic"
+msgstr "Арабский"
 
-msgid "Terminal Command"
-msgstr "Команда терминала"
+msgid "Armenian"
+msgstr "Армянский"
 
-msgid "Code Execution"
-msgstr "Выполнение кода"
+msgid "Bulgarian"
+msgstr "Болгарский"
 
-msgid "Select Element to Add"
-msgstr "Часто используемые команды"
+msgid "Chinese Simplified"
+msgstr "Китайский (упрощённый)"
 
-msgid "Enable Spell Check"
-msgstr "Проверка орфографии"
+msgid "Chinese Traditional"
+msgstr "Китайский (традиционный)"
 
-msgid "Spell Check Language"
-msgstr "Словарь:"
+msgid "Croatian"
+msgstr "Хорватский"
 
-msgid "Expand CodeBoxes Automatically"
-msgstr "Автоподбор по содержимому CodeBox"
+msgid "Czech"
+msgstr "Чешский"
 
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Число ячеек таблицы для облегчённого интерфейса"
+msgid "Dutch"
+msgstr "Голландский"
 
-msgid "Embedded File Icon Size"
-msgstr "Размер значка вставляемого файла                          "
+msgid "Finnish"
+msgstr "Финский"
 
-msgid "Embedded File Size Limit (MB)"
-msgstr "Максимальный размер вставляемого файла (Мбайт)"
+msgid "French"
+msgstr "Французский"
 
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Имя файла над значком"
+msgid "German"
+msgstr "Немецкий"
 
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Максимальное количество операций отмены      "
+msgid "Greek"
+msgstr "Греческий"
 
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Автопривязка текста CamelCase к ветви"
+msgid "Hindi India"
+msgstr "Хинди (Индия)"
 
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Выделять абзац тройным нажатием мыши"
+msgid "Hungarian"
+msgstr "Венгерский"
 
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Включить автозамену Markdown (Экспериментально)"
+msgid "Italian"
+msgstr "Итальянский"
 
-msgid "Scale"
-msgstr "Размер"
+msgid "Japanese"
+msgstr "Японский"
 
-msgid "Italic"
-msgstr "Курсив"
+msgid "Kazakh"
+msgstr "Казахский"
 
-msgid "Underline"
-msgstr "Подчёркнутый"
+msgid "Kazakh (Latin)"
+msgstr "Казахский (латиница)"
 
-msgid "Text Color Foreground"
-msgstr "Текст"
+msgid "Korean"
+msgstr "Корейский"
 
-msgid "Text Color Background"
-msgstr "Фон "
+msgid "Lithuanian"
+msgstr "Литовский"
 
-msgid "Small"
-msgstr "Мелкий"
+msgid "Polish"
+msgstr "Польский"
 
-msgid "Scalable Tags"
-msgstr "Масштабируемые теги"
+msgid "Portuguese"
+msgstr "Португальский"
 
-msgid "Chars for Bulleted List"
-msgstr "Маркированный список"
+msgid "Portuguese Brazil"
+msgstr "Португальский (Бразилия)"
 
-msgid "Chars for Todo List"
-msgstr "Список задач                    "
+msgid "Romanian"
+msgstr "Румынский"
 
-msgid "Chars for Table Of Content"
-msgstr "Оглавление                       "
+msgid "Russian"
+msgstr "Русский"
 
-msgid "Chars for Smart Double Quotes"
-msgstr "Для автозамены двойных кавычек"
+msgid "Slovenian"
+msgstr "Словенский"
 
-msgid "Chars for Smart Single Quotes"
-msgstr "Для автозамены кавычек                 "
+msgid "Spanish"
+msgstr "Испанский"
 
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Автозамена кавычек"
+msgid "Swedish"
+msgstr "Шведский"
 
-msgid "Enable Symbol Auto Replacement"
-msgstr "Автозамена символов"
+msgid "Turkish"
+msgstr "Турецкий"
 
-msgid "Supported Symbols Auto Replacements"
-msgstr "Поддерживаемые символы"
+msgid "Ukrainian"
+msgstr "Украинский"
 
-msgid "Only at the Start of the Line"
-msgstr "Только в начале строки"
+msgid "Number of Rich Text Nodes"
+msgstr "Ветвей с форматированным текстом"
 
-msgid "Tab Width"
-msgstr "Ширина табуляции"
+msgid "Number of Plain Text Nodes"
+msgstr "Ветвей с обычым текстом"
 
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Пробелы вместо табуляции"
+msgid "Number of Code Nodes"
+msgstr "Ветвей с кодом"
 
-msgid "Use Line Wrapping"
-msgstr "Переносить строки"
+msgid "Number of Images"
+msgstr "Изображений"
 
-msgid "Line Wrapping Indentation"
-msgstr "Отступ строк при переносе"
+msgid "Number of LatexBoxes"
+msgstr "LaTeX-ов"
 
-msgid "Enable Automatic Indentation"
-msgstr "Автоматический отступ"
+msgid "Number of Embedded Files"
+msgstr "Файлов"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Прокрутка за пределы последней строки"
+msgid "Number of Tables"
+msgstr "Таблиц"
 
-msgid "Vertical Space Around Lines"
-msgstr "Межстрочный интервал"
+msgid "Number of CodeBoxes"
+msgstr "CodeBox-ов"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Вертикальный отступ строк"
-
-msgid "Timestamp Format"
-msgstr "Формат даты"
-
-msgid "Horizontal Rule"
-msgstr "Горизонтальная линия"
-
-msgid "Chars to Select at Double Click"
-msgstr "Выделять текст двойным нажатием мыши до"
+msgid "Number of Anchors"
+msgstr "Якорей"
 
 msgid "Light Background, Dark Text"
 msgstr "Тёмный текст на светлом фоне"
@@ -3365,6 +2557,15 @@ msgstr "Текст"
 
 msgid "Selection Background"
 msgstr "Фон выделенного текста"
+
+msgid "Tree Explorer"
+msgstr "Обозреватель дерева"
+
+msgid "Rich Text"
+msgstr "Форматированный текст"
+
+msgid "Plain Text"
+msgstr "Обычный текст"
 
 msgid "Table"
 msgstr "Таблица"
@@ -3396,6 +2597,9 @@ msgstr "Нумерация строк"
 msgid "Line Numbers Background"
 msgstr "Фон нумерации строк"
 
+msgid "Reset to Default"
+msgstr "Значение по умолчанию"
+
 msgid "Style Scheme Editor"
 msgstr "Настраиваемая тема"
 
@@ -3411,11 +2615,406 @@ msgstr "Значки по умолчанию"
 msgid "Icon Theme"
 msgstr "Тема"
 
+msgid "Add"
+msgstr "Добавить часто используемые команды"
+
+msgid "Remove Selected"
+msgstr "Удалить часто используемые команды"
+
 msgid "Split Toolbar"
 msgstr "Разделитель"
 
+msgid "Select Element to Add"
+msgstr "Часто используемые команды"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Вы ещё не проводили форматирование текста."
+
+msgid "No Text is Selected."
+msgstr "Текст не выделен."
+
+msgid "Link Name"
+msgstr "Вставить ссылку"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Курсор за пределами абзаца."
+
+msgid "Insert/Edit Link"
+msgstr "Свойства ссылки"
+
+msgid "Pick a Foreground Color"
+msgstr "Выберите цвет"
+
+msgid "Pick a Background Color"
+msgstr "Выберите цвет"
+
+msgid "Replace in Current Node"
+msgstr "Заменить в ветви..."
+
+msgid "Search in Current Node"
+msgstr "Найти в ветви..."
+
+msgid "Matches"
+msgstr " совпадений"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr ""
+"Поиск в документе завершён.\n"
+"\n"
+"Искомый элемент <b>' %s '</b> не найден"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Заменить в ветвях..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Найти в ветвях..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Вы ещё не проводили поиск или замену текста."
+
+msgid "Tags"
+msgstr "Теги"
+
+msgid ": "
+msgstr ": "
+
+msgid "The new parent can't be one of his children!"
+msgstr "Родительская ветвь не может стать дочерней!"
+
+msgid "Tab Width"
+msgstr "Ширина табуляции"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Пробелы вместо табуляции"
+
+msgid "Use Line Wrapping"
+msgstr "Переносить строки"
+
+msgid "Line Wrapping Indentation"
+msgstr "Отступ строк при переносе"
+
+msgid "Enable Automatic Indentation"
+msgstr "Автоматический отступ"
+
+msgid "Show Line Numbers"
+msgstr "Нумерация строк"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Прокрутка за пределы строки"
+
+msgid "Vertical Space Around Lines"
+msgstr "Межстрочный интервал"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Вертикальный отступ строк"
+
+msgid "Text Editor"
+msgstr "Текстовый редактор"
+
+msgid "Timestamp Format"
+msgstr "Формат даты"
+
+msgid "Online Manual"
+msgstr "Справка в интернете"
+
+msgid "Horizontal Rule"
+msgstr "Горизонтальная линия"
+
+msgid "Chars to Select at Double Click"
+msgstr "Выделять текст двойным нажатием мыши до"
+
+msgid "PDF File"
+msgstr "Документ PDF"
+
+msgid "Plain Text Document"
+msgstr "Текстовый документ"
+
+msgid "Show Menubar:"
+msgstr "Показать Панель меню:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Путь <b>' %s '</b> не существует"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" не является документом CherryTree"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Ошибка открытия файла CherryTree:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr ""
+"Поиск в документе завершён.\n"
+"\n"
+"Искомая ветвь <b>' %s '</b> не найдена!"
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Созданы временные файлы, которые открыты в другом приложении."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Закройте внешнее приложение перед выходом из CherryTree."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Вы закрыли внешнее приложение?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Документ был перезагружен после внешнего обновления до файла CT*."
+
+msgid "_Hide"
+msgstr "Свернуть..."
+
+msgid "Hide the Window"
+msgstr ""
+"Свернуть...\n"
+"\n"
+"Свернуть CherryTree в область уведомлений"
+
+msgid "Node Type"
+msgstr "Тип"
+
+msgid "Spell Check"
+msgstr "Орфография"
+
+msgid "Word Count"
+msgstr "Слов"
+
+msgid "Date Created"
+msgstr "Создан"
+
+msgid "Date Modified"
+msgstr "Изменён"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Последнее копирование ветви было выполнено не во время этого сеанса "
+"или исходное дерево более недоступно."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Исходное дерево более недоступно."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Папка '%s' уже существует в '%s'.\n"
+"<b>Удалить?</b>"
+
+msgid "Checking for Newer Version..."
+msgstr "Проверка доступности новой версии..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Сервер не отвечает. Попробуйте позже."
+
+msgid "A Newer Version Is Available!"
+msgstr "Доступна новая версия!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Обновления не найдены! Вы используете последнюю версию CherryTree"
+
+msgid "You Are Using a Development Version."
+msgstr "Вы используете версию для разработчика"
+
+msgid "Search for"
+msgstr "Найти:"
+
+msgid "Replace with"
+msgstr "Заменить на:"
+
+msgid "Match Case"
+msgstr "Учитывать регистр"
+
+msgid "Regular Expression"
+msgstr "Регулярное выражение"
+
+msgid "Accent Insensitive"
+msgstr "Нечувствительность к ударению"
+
+msgid "Override Exclusions"
+msgstr "Отменить исключения"
+
+msgid "Whole Word"
+msgstr "Только слово целиком"
+
+msgid "Start Word"
+msgstr "Начало слова"
+
+msgid "Forward"
+msgstr "Вперёд"
+
+msgid "Backward"
+msgstr "Назад"
+
+msgid "All, List Matches"
+msgstr "Все совпадения"
+
+msgid "First From Selection"
+msgstr "Первое совпадение от выделенного"
+
+msgid "First in All Range"
+msgstr "Первое совпадение по всему документу"
+
+msgid "Node Created After"
+msgstr "Создана после"
+
+msgid "Node Created Before"
+msgstr "Создана до"
+
+msgid "Node Modified After"
+msgstr "Изменена после"
+
+msgid "Node Modified Before"
+msgstr "Изменена до"
+
+msgid "Time filter"
+msgstr "По дате ветви..."
+
+msgid "Node Content"
+msgstr "В ветви"
+
+msgid "Node Name and Tags"
+msgstr "В именах ветвей и тегах"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "В выбранной ветви с дочерними"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Показать диалоговое окно \"Совпадения...\" "
+
+msgid "Search options"
+msgstr "Параметры поиска"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"По крайней мере одна ветвь была пропущена из-за установленных в её свойствач исключений.\n"
+"Чтобы снять все исключения, воспользуйтесь меню:\n"
+"Поиск -> Удалить все исключения из поиска"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Свернуть/Восстановить ('%s')"
+
+msgid "Node Name"
+msgstr "Имя"
+
+msgid "Line"
+msgstr "Строка"
+
+msgid "Line Content"
+msgstr "Содержимое"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr ""
+"Недопустимая ссылка на ветвь.\n"
+"\n"
+"Такой ветви не существует (Id = %s).\n"
+"Вероятно она была удалена или переименована"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Повторить Найти/Заменить"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Find Previous"
+msgstr "Предыдущий"
+
+msgid "Find Next"
+msgstr "Следующий"
+
+msgid "Replace"
+msgstr "Заменить"
+
+msgid "Undo"
+msgstr "Отменить"
+
+msgid "Special Characters"
+msgstr "Символы"
+
+msgid "Chars for Bulleted List"
+msgstr "Маркированный список"
+
+msgid "Chars for Todo List"
+msgstr "Список задач                    "
+
+msgid "Chars for Table Of Content"
+msgstr "Оглавление                       "
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Для автозамены двойных кавычек"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Для автозамены кавычек                 "
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Автозамена кавычек"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Автозамена символов"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Поддерживаемые символы"
+
+msgid "Only at the Start of the Line"
+msgstr "Только в начале строки"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"Файл: <b>\"%s\"</b> - повреждён.\n"
+"\n"
+"Для подробной информации смотрите лог-файл."
+
+msgid ""
+"Backup files are by default 3 in the same folder of the corrupted document, "
+"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
+"with one tilde: copy the file to another directory, remove the trailing "
+"tilde and open with cherrytree. If it still fails, try the one with two "
+"tildes and if it still fails try the one with three tildes."
+msgstr ""
+"Файлы резервных копий (по умолчанию 3 шт) находятся в одной папке с "
+"повреждённым документом, с тем же именем но с тильдами (~, ~~, ~~~) на "
+"конце. Чтобы восстановить повреждённый файл, необходимо взять файл резервной "
+"копии с одной тильдой и скопироватьего в другой каталог, удалить тильду и "
+"открыть в CherryTree. Если не удалось восстановить файл, используйте "
+"резервные копии с двумя или тремя тильдами. Но если Вы потерпели неудачуи с "
+"остальными резервными копиями, тогда Вам уже ничего не поможет!!!"
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource!"
+msgstr ""
+"Файл: <b>\"%s\"</b> - отсутствует.\n"
+"\n"
+"Попробуйте повторно подключить устройство USB."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"Файл: <b>\"%s\"</b> - доступен только для чтения.\n"
+"\n"
+"Попробуйте сохранить его под другим именем."
+
 msgid "Use Different Cherries per Level"
 msgstr "Разные вишенки для каждого уровня"
+
+msgid "Use Selected Icon"
+msgstr "Значок ветви"
 
 msgid "No Icon"
 msgstr "Без значка"
@@ -3456,6 +3055,99 @@ msgstr "Разворачивать ветвь кликом мышки"
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Последние посещённые ветви в заголовке"
 
+msgid "Select Node Icon"
+msgstr "Смена значка"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Размер значков уже максимальный"
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Размер значков уже минимальный"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Не удалось получить доступ к исполняемым файлам 'latex' и 'dvipng'"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Например, в Ubuntu пакетами для установки являются:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Например, в Mac OS пакетами для установки являются:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Не удалось получить доступ к исполняемому файлу 'latex'"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Не удалось получить доступ к исполняемому файлу 'dvipng'"
+
+msgid "Enable Spell Check"
+msgstr "Проверка орфографии"
+
+msgid "Spell Check Language"
+msgstr "Словарь:"
+
+msgid "Show White Spaces"
+msgstr "Отображать пробелы"
+
+msgid "Highlight Current Line"
+msgstr "Подсвечивать активную строку"
+
+msgid "Highlight Matching Brackets"
+msgstr "Подсвечивать парные скобки"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Автоподбор по содержимому CodeBox"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Число ячеек таблицы для облегчённого интерфейса"
+
+msgid "Embedded File Icon Size"
+msgstr "Размер значка вставляемого файла                          "
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Максимальный размер вставляемого файла (Мбайт)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Имя файла над значком"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Максимальное количество операций отмены      "
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Автопривязка текста CamelCase к ветви"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Выделять абзац тройным нажатием мыши"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Включить автозамену Markdown (Экспериментально)"
+
+msgid "Scale"
+msgstr "Размер"
+
+msgid "Bold"
+msgstr "Полужирный"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Underline"
+msgstr "Подчёркнутый"
+
+msgid "Text Color Foreground"
+msgstr "Текст"
+
+msgid "Text Color Background"
+msgstr "Фон "
+
+msgid "Small"
+msgstr "Мелкий"
+
+msgid "Scalable Tags"
+msgstr "Масштабируемые теги"
+
+msgid "Monospace"
+msgstr "Моноширинный текст"
+
 msgid "Writing to Disk..."
 msgstr "Запись на диск..."
 
@@ -3476,48 +3168,398 @@ msgstr ""
 msgid "Failed to encrypt the file"
 msgstr "Не удалось зашифровать файл"
 
+msgid "Image Format Not Recognized"
+msgstr "Не известный формат изображения"
+
+msgid "Insert Table"
+msgstr "Вставить таблицу"
+
+msgid "CSV File"
+msgstr "Файл CSV"
+
 #, c-format
-msgid "The database file %s is corrupt, see log for more details."
+msgid "The Maximum Size for Embedded Files is %s MB."
 msgstr ""
-"Файл: <b>\"%s\"</b> - повреждён.\n"
+"Максимальный размер файла превышает %s Мбайт\n"
+" "
+
+msgid "Do you want to Continue?"
+msgstr "Продолжить?"
+
+msgid "Tabs Replaced"
+msgstr " табуляций заменено"
+
+msgid "Lines Stripped"
+msgstr " строк очищено"
+
+msgid "Change Selected"
+msgstr "Изменить комбинацию клавиш"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr ""
+" \n"
+"Комбинация клавиш ' %s ' уже используется!"
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Данная комбинация выполняет действие <b>' %s '</b>"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Переопределить комбинацию клавиш?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Новая комбинация..."
+
+msgid "No Keyboard Shortcut"
+msgstr "Не задана"
+
+msgid "Use Selected Color"
+msgstr "Заголовок"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Подсветка синтаксиса"
+
+msgid "Tags for Searching"
+msgstr "Теги для поиска"
+
+msgid "Exclude from Searches"
+msgstr "Исключить из поиска: "
+
+msgid "This Node"
+msgstr "ветвь"
+
+msgid "The Subnodes"
+msgstr "дочернюю ветвь"
+
+msgid "Read Only"
+msgstr "Только чтение"
+
+msgid "Choose Existing Tag"
+msgstr "Теги"
+
+msgid "Tag Name"
+msgstr "Тег"
+
+msgid "Pick a Color"
+msgstr "Выберите цвет"
+
+msgid "Involved Nodes"
+msgstr "Выбрать..."
+
+msgid "Selected Text Only"
+msgstr "Текст"
+
+msgid "Selected Node Only"
+msgstr "Ветвь"
+
+msgid "Selected Node and Subnodes"
+msgstr "Ветвь с дочерними"
+
+msgid "All the Tree"
+msgstr "Дерево"
+
+msgid "Include Node Name"
+msgstr "Печатать имя ветви"
+
+msgid "Links Tree in Every Page"
+msgstr "Дерево ссылок на каждой страницe"
+
+msgid "New Node in New Page"
+msgstr "Новую ветвь с новой страницы"
+
+msgid "Single File"
+msgstr "Один файл"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Text and Code"
+msgstr "Текст и код"
+
+msgid "Plain Text and Code"
+msgstr "Обычный текст и код"
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Fonts"
+msgstr "Шрифты темы"
+
+msgid "Links"
+msgstr "Ссылки"
+
+msgid "Toolbar"
+msgstr "Панель инструментов"
+
+msgid "Keyboard Shortcuts"
+msgstr "Горячие клавиши"
+
+msgid "Code Font"
+msgstr "Текст кода"
+
+msgid "Terminal Font"
+msgstr "Текст терминала"
+
+msgid "Tree Font"
+msgstr "Текст дерева"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "При открытии ссылки на веб-страницу"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "При открытии ссылки на файл"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "При открытии ссылки на папку"
+
+msgid "Custom Actions"
+msgstr "Действие"
+
+msgid "Colors"
+msgstr "Цвета"
+
+msgid "Underline Links"
+msgstr "Подчёркивать ссылки"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Использовать относительные пути к файлам и папкам"
+
+msgid "Anchor Size"
+msgstr "Размер значка якоря"
+
+msgid "Who is the Parent?"
+msgstr "Добавить в..."
+
+msgid "The Tree Root"
+msgstr "Дерево"
+
+msgid "The Selected Node"
+msgstr "Ветвь"
+
+msgid "Internal Terminal Shell"
+msgstr "Использовать встроеный терминал"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Команда интерпретатора/компилятора"
+
+msgid "Terminal Command"
+msgstr "Команда терминала"
+
+msgid "Code Execution"
+msgstr "Выполнение кода"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "PNG Image"
+msgstr "Изображение PNG"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Запись в %s не удалась"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Недопустимая ссылка на папку '%s'"
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Недопустимая ссылка на файл '%s'"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Недопустимая ссылка на папку '%s'"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr ""
+"Поиск в документе завершён.\n"
 "\n"
-"Для подробной информации смотрите лог-файл."
+"Искомый якорь <b>' %s '</b> не найден!"
+
+msgid "Edit CodeBox"
+msgstr "Свойства CodeBox"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Команда должна иметь сопоставление с <b>' %s '</b>.\n"
+"\n"
+"Это можно сделать в диалоговом окне 'Настройки программы'."
 
 msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes."
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
 msgstr ""
-"Файлы резервных копий (по умолчанию 3 шт) находятся в одной папке с "
-"повреждённым документом, с тем же именем но с тильдами (~, ~~, ~~~) на "
-"конце. Чтобы восстановить повреждённый файл, необходимо взять файл резервной "
-"копии с одной тильдой и скопироватьего в другой каталог, удалить тильду и "
-"открыть в CherryTree. Если не удалось восстановить файл, используйте "
-"резервные копии с двумя или тремя тильдами. Но если Вы потерпели неудачуи с "
-"остальными резервными копиями, тогда Вам уже ничего не поможет!!!"
+"Установите пакет 'xterm' или задайте\n"
+"другой терминал в диалоговом окне 'Настройки программы'."
 
-#, c-format
+msgid "Edit Table Properties"
+msgstr "Свойства таблицы"
+
+msgid "Insert Anchor"
+msgstr "Вставить якорь"
+
+msgid "Edit Anchor"
+msgstr "Свойства якоря"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "<b>\"Только чтение!\"</b> Невозможно отредактировать файл"
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Файл автоматически обновлён:"
+
+msgid "The Tree is Empty!"
+msgstr ""
+"<b> Пустое дерево! </b>\n"
+"\n"
+"Создайте Ваше первое дерево!\n"
+"Для начала работы добавьте новую ветвь:\n"
+"<b>Главное меню\\Дерево\\Новая ветвь </b>"
+
+msgid "The Selected Node is Read Only."
+msgstr ""
+"Эта ветвь доступна <b>\"только для чтения\"</b>.\n"
+"\n"
+"Для редактирования измените свойства ветви."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Эта функция доступна только для форматированного текста"
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Эта функция не доступна для подсветки синтаксиса"
+
+msgid "No Table is Selected."
+msgstr "Текст не выделен"
+
+msgid "No CodeBox is Selected."
+msgstr "Ветвь не выбрана"
+
+msgid "New Child Node Properties"
+msgstr "Свойства новой дочерней ветви"
+
+msgid "New Node Properties"
+msgstr "Свойства новой ветви"
+
+msgid "Node Properties"
+msgstr "Свойства ветви"
+
 msgid ""
-"%s write failed - file is missing. Reattach USB driver or shared resource!"
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
 msgstr ""
-"Файл: <b>\"%s\"</b> - отсутствует.\n"
-"\n"
-"Попробуйте повторно подключить устройство USB."
+"При смене <b> \"Форматированный текст\" </b> на <b> \"Обычный текст\" </b>,\n"
+"вы полностью потеряете форматирование текста для данной ветви.\n"
+"Продолжить?"
 
 #, c-format
-msgid "%s write failed - is file blocked by a sync program?"
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr ""
-"Файл: <b>\"%s\"</b> - доступен только для чтения.\n"
-"\n"
-"Попробуйте сохранить его под другим именем."
+" \n"
+"Вы действительно хотите удалить ветвь <b>' %s '</b>?"
 
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Записная книжка CherryTree"
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "<b> Также будут удалены следующие дочерние ветви!</b>"
 
-msgid "_Exit CherryTree"
-msgstr "Выход"
+msgid "Select the New Parent"
+msgstr "Выберите родителя..."
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Родительскую ветвь невозможно переместить!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Выбранная родительская ветвь уже является родителем!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s свойств очищено"
+
+msgid "Latex Text"
+msgstr "LaTeX текст"
+
+msgid "Image Size dpi"
+msgstr "Размер изображения dpi"
+
+msgid "Tutorial"
+msgstr "Руководство"
+
+msgid "Reference"
+msgstr "Справка"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Учебник по математическим уравнениям LaTeX"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "Справочник по математическим символам LaTeX"
+
+msgid "Image Properties"
+msgstr "Свойства изображения"
+
+msgid "Width"
+msgstr "Ширина"
+
+msgid "Height"
+msgstr "Высота  "
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "pixels"
+msgstr "пикселей"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Options"
+msgstr "Настройки"
+
+msgid "Rows"
+msgstr "Число строк:"
+
+msgid "Columns"
+msgstr "Число столбцов:"
+
+msgid "Default Width"
+msgstr "Значение:"
+
+msgid "Table Size"
+msgstr "Размер таблицы"
+
+msgid "Column Properties"
+msgstr "Ширина столбца"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Облегчённый интерфейс (для больших таблиц)"
+
+msgid "Import from CSV File"
+msgstr "Импортировать данные из файла CSV"
+
+msgid "Remove Color"
+msgstr "Очистить"
+
+msgid "Question"
+msgstr "Вопрос"
+
+msgid "Info"
+msgstr "Информация"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Select File"
+msgstr "Открыть..."
+
+msgid "Select Folder"
+msgstr "Выбрать..."
+
+msgid "Save File as"
+msgstr "Сохранить как..."
+
+msgid "Save To Folder"
+msgstr "Сохранить в папку"
 
 msgid "HTML Document"
 msgstr "Документ HTML"
@@ -3535,4 +3577,5 @@ msgid "Leo Document"
 msgstr "Документ Leo"
 
 msgid "Are you sure to Reset to Default?"
-msgstr "Восстановить значение по умолчанию?"
+msgstr "Восстановить значения по умолчанию?"
+
