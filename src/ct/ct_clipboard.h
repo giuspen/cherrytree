@@ -31,6 +31,7 @@
 
 struct CtClipboardData
 {
+    CtClipboardData() {}
     xmlpp::Document xml_doc;
     Glib::ustring html_text;
     Glib::ustring plain_text;
