@@ -68,7 +68,8 @@ void CtApp::_on_startup()
     _initDone = true;
 
 #if defined(_WIN32)
-    fs::alter_TEXMFROOT_env_var();
+    (void)fs::alter_TEXMFROOT_env_var();
+    (void)fs::alter_PATH_env_var();
 #endif // _WIN32
 
     const fs::path config_dir = fs::get_cherrytree_configdir();

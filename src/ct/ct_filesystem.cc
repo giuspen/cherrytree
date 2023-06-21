@@ -85,10 +85,17 @@ bool alter_TEXMFROOT_env_var()
     if (not _mingw64Dir.empty()) {
         const fs::path TEXMFROOT = _mingw64Dir / "share";
         const bool retVal = Glib::setenv("TEXMFROOT", TEXMFROOT.string_unix(), true/*overwrite*/);
-        spdlog::debug("set TEXMFROOT={} {}", TEXMFROOT.string_unix(), retVal ? "OK":"FAIL !!");
         return retVal;
     }
-    spdlog::debug("running from sources");
+    return false;
+}
+bool alter_PATH_env_var()
+{
+    if (not _mingw64Dir.empty()) {
+        const fs::path PATH = _mingw64Dir / "bin";
+        const bool retVal = Glib::setenv("PATH", Glib::getenv("PATH") + ";" + PATH.string_native(), true/*overwrite*/);
+        return retVal;
+    }
     return false;
 }
 #else // !_WIN32

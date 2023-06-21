@@ -50,6 +50,7 @@ bool alter_locale_env_var(const std::string& key, const std::string& val);
 
 #if defined(_WIN32)
 bool alter_TEXMFROOT_env_var();
+bool alter_PATH_env_var();
 #else // !_WIN32
 const char* get_latex_dvipng_console_bin_prefix();
 #endif // !_WIN32
