@@ -1,14 +1,23 @@
-cherrytree (0.99.55-2) focal; urgency=low
+cherrytree (0.99.56-2) focal; urgency=low
 
-  * table actions: keyboard shortcuts now configurable in preferences dialog and available in toolbar configurability (#2124, #2195, #2219)
-  * codebox actions: keyboard shortcuts now configurable in preferences dialog and available in toolbar configurability
-  * implemented conversion of multi level lists to real html unordered and ordered lists (#1765)
-  * fixed autosave in case the document was never saved before, to prompt the user for a storage type/path (#2225)
-  * fixed export to pdf crash (#2227)
-  * fixed issue with font family name getting multiplied while zooming (#1895)
-  * added support for executing c-sharp code (#2234)
-  * windows version only - fixed issue with font sub-pixel rendering present since 0.99.52 (issue fixed from msys2, #2226, #2171)
-  * incomplete languages: ar, bg, el, es, fi, fr, hi_IN, kk_KZ, kk_LA, ko, lt, pl, pt, pt_BR, ru, tr, zh_CN
+  * implemented new data storage type: multiple files in hierarchical folder structure (#2123, #1823)
+  * the backups for the new multiple files data storage do not contain all the tree but only what has changed
+  * all backup files (or folders for the brand new multifile data storage) are now starting with a dot (.name~, .name~~, ..)
+  * fixed crash sorting rows of table lightweight interface (#2253)
+  * fix export to html of lists (#2276, #2286)
+  * fixed recent documents corruption when file is deleted/missing (#2277)
+  * fixed on Windows zooming the font reverts the font family to Sans (#2257)
+  * click on line number to behave as triple click (select line, #1363)
+  * column edit (selection with Ctrl+Alt held down) added clipboard support (#2232)
+  * added 37 new stock icons available to be chosen as tree node icons
+  * remember last selected custom icon in node properties same as last selected colour (#2185)
+  * implemented import nodes from indented list (#1551, #2258)
+  * added support for executing java code in code nodes and codeboxes
+  * added detection of exclusions from the search hit in the current search and message to the user / how to disable exclusions
+  * fixed in flatpak and appimage languages not available (#2270)
+  * fixed latex box issue with portable version of cherrytree on windows (#2294)
+  * added tooltip with node name when hovering node (#2295)
+  * incomplete languages: ar, bg, el, fi, hi_IN, hr, lt, zh_CN
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Tue, 07 Mar 2023 19:32:59 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 22 Jun 2023 20:08:13 +0100

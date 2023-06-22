@@ -1,5 +1,5 @@
 
-0.99.56 (June 20th, 2023)
+0.99.56 (June 22nd, 2023)
   * implemented new data storage type: multiple files in hierarchical folder structure (#2123, #1823)
   * the backups for the new multiple files data storage do not contain all the tree but only what has changed
   * all backup files (or folders for the brand new multifile data storage) are now starting with a dot (.name~, .name~~, ..)
@@ -15,7 +15,9 @@
   * added support for executing java code in code nodes and codeboxes
   * added detection of exclusions from the search hit in the current search and message to the user / how to disable exclusions
   * fixed in flatpak and appimage languages not available (#2270)
-  * incomplete languages: ar, bg, el, fi, hi_IN, hr, lt, ro, zh_CN
+  * fixed latex box issue with portable version of cherrytree on windows (#2294)
+  * added tooltip with node name when hovering node (#2295)
+  * incomplete languages: ar, bg, el, fi, hi_IN, hr, lt, zh_CN
 
 0.99.55 (March 7th, 2023)
   * table actions: keyboard shortcuts now configurable in preferences dialog and available in toolbar configurability (#2124, #2195, #2219)
