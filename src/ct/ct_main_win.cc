@@ -326,6 +326,9 @@ void CtMainWin::config_apply()
     _ctTextview.set_pixels_inside_wrap(_pCtConfig->spaceAroundLines, _pCtConfig->relativeWrappedSpace);
     _ctTextview.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
 
+    if (2 != _pCtConfig->cursorBlink) {
+        Gtk::Settings::get_default()->property_gtk_cursor_blink() = _pCtConfig->cursorBlink;
+    }
     update_theme();
 }
 

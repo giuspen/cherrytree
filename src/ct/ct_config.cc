@@ -255,6 +255,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "show_line_numbers", showLineNumbers);
     _uKeyFile->set_boolean(_currentGroup, "scroll_beyond_last_line", scrollBeyondLastLine);
     _uKeyFile->set_boolean(_currentGroup, "spaces_instead_tabs", spacesInsteadTabs);
+    _uKeyFile->set_integer(_currentGroup, "cursor_blink", cursorBlink);
     _uKeyFile->set_integer(_currentGroup, "tabs_width", tabsWidth);
     _uKeyFile->set_integer(_currentGroup, "anchor_size", anchorSize);
     _uKeyFile->set_integer(_currentGroup, "latex_size_dpi", latexSizeDpi);
@@ -545,6 +546,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("show_line_numbers", &showLineNumbers);
     _populate_bool_from_keyfile("scroll_beyond_last_line", &scrollBeyondLastLine);
     _populate_bool_from_keyfile("spaces_instead_tabs", &spacesInsteadTabs);
+    _populate_int_from_keyfile("cursor_blink", &cursorBlink);
     _populate_int_from_keyfile("tabs_width", &tabsWidth);
     _populate_int_from_keyfile("anchor_size", &anchorSize);
     _populate_int_from_keyfile("latex_size_dpi", &latexSizeDpi);

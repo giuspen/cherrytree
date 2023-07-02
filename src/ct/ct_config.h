@@ -103,6 +103,7 @@ public:
     bool                                        showLineNumbers{false};
     bool                                        scrollBeyondLastLine{true};
     bool                                        spacesInsteadTabs{false};
+    int                                         cursorBlink{2};
     int                                         tabsWidth{4};
     int                                         anchorSize{16};
     int                                         latexSizeDpi{140};

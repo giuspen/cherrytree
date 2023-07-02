@@ -183,6 +183,7 @@ void CtActions::preferences_import()
     _pCtConfig->showLineNumbers = ctConfigImported.showLineNumbers;
     _pCtConfig->scrollBeyondLastLine = ctConfigImported.scrollBeyondLastLine;
     _pCtConfig->spacesInsteadTabs = ctConfigImported.spacesInsteadTabs;
+    _pCtConfig->cursorBlink = ctConfigImported.cursorBlink;
     _pCtConfig->tabsWidth = ctConfigImported.tabsWidth;
     _pCtConfig->anchorSize = ctConfigImported.anchorSize;
     _pCtConfig->latexSizeDpi = ctConfigImported.latexSizeDpi;
