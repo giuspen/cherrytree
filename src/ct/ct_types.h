@@ -302,7 +302,10 @@ struct CtStockIcon
 {
     static const gchar* at(const size_t i) {
         if (i < CtConst::_NODE_CUSTOM_ICONS.size()) {
-            return CtConst::_NODE_CUSTOM_ICONS.at(i);
+            const gchar* retVal = CtConst::_NODE_CUSTOM_ICONS.at(i);
+            if (retVal) {
+                return retVal;
+            }
         }
         return CtConst::_NODE_CUSTOM_ICONS.at(CtConst::NODE_ICON_NO_ICON_ID);
     }

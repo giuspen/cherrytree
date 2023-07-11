@@ -172,6 +172,7 @@ TEST(TestTypesGroup, ctScalableTag)
 TEST(TestTypesGroup, CtStockIcon)
 {
     // non existing ID does not crash but returns 'no icon' icon
+    ASSERT_STREQ(CtStockIcon::at(0u),     "ct_node_no_icon");
     ASSERT_STREQ(CtStockIcon::at(10000u), "ct_node_no_icon");
     ASSERT_STREQ(CtStockIcon::at(10001u), "ct_node_no_icon");
 
