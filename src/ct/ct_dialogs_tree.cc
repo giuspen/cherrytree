@@ -57,10 +57,10 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
 
     Gtk::CheckButton c_icon_checkbutton{_("Use Selected Icon")};
-    c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtStockIcon::size());
+    c_icon_checkbutton.set_active(nodeData.customIconId > 0 and nodeData.customIconId < CtStockIcon::size());
     Gtk::Button c_icon_button;
-    int customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : pCtConfig->lastIconSel;
-    c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(customIconId), Gtk::ICON_SIZE_BUTTON));
+    int currCustomIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : pCtConfig->lastIconSel;
+    c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(currCustomIconId), Gtk::ICON_SIZE_BUTTON));
     c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
 
     grid_icons->attach(fg_checkbutton, 0, 1, 1, 1);
@@ -202,10 +202,17 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             fg_colorbutton.set_rgba(ret_color);
         }
     });
-    c_icon_checkbutton.signal_toggled().connect([&c_icon_checkbutton, &c_icon_button](){
-        c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
+    c_icon_checkbutton.signal_toggled().connect([&c_icon_checkbutton, &c_icon_button, &nodeData, &currCustomIconId](){
+        const bool custom_icon_active = c_icon_checkbutton.get_active();
+        c_icon_button.set_sensitive(custom_icon_active);
+        if (custom_icon_active) {
+            nodeData.customIconId = currCustomIconId;
+        }
+        else {
+            nodeData.customIconId = 0;
+        }
     });
-    c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData](){
+    c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData, &currCustomIconId](){
         auto itemStore = CtChooseDialogListStore::create();
         int pathCurrIdx{0};
         int pathSelectIdx{0};
@@ -223,6 +230,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                                                      std::to_string(pathSelectIdx));
         if (treeIter) {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
+            currCustomIconId = nodeData.customIconId;
             c_icon_button.set_label("");
             c_icon_button.property_always_show_image() = true; // to fix not showing image on Win32
             c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
@@ -273,9 +281,6 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     nodeData.excludeChildrenFromSearch = excl_ch_checkbutton.get_active();
     if (c_icon_checkbutton.get_active()) {
         pCtConfig->lastIconSel = nodeData.customIconId;
-    }
-    else {
-        nodeData.customIconId = 0;
     }
     nodeData.isBold = is_bold_checkbutton.get_active();
     if (fg_checkbutton.get_active()) {
