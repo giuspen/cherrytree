@@ -256,7 +256,7 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
 const inline static gchar* LANG_DEFAULT{"default"};
 
 const inline static std::vector<const gchar*> AVAILABLE_LANGS {
-    LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hu", "hy", "it",
+    LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fa", "fi", "fr", "hi_IN", "hr", "hu", "hy", "it",
     "ja", "kk_KZ", "kk_LA", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
@@ -448,6 +448,8 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_telephone",         // 175
     "ct_wifi",              // 176
     "ct_antenna",           // 177
+    "ct_rust",              // 178
+    "ct_fa",                // 179
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -469,12 +471,12 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     168/*female*/, 173/*male*/, 42/*people*/, 109/*smile*/, 110/*smile cool*/, 111/*smile surpr*/, 112/*skull*/, 126/*ghost*/,
     /*os start*/115, 116, 117, 118, 172, 119, 120, 121, 156/*os end*/,
     133/*microchip*/, 164/*computer*/, 165/*display*/, 166/*drive hd*/, 167/*drive usb*/,
-    /*coding start*/17, 21, 22, 23, 24, 38, 46, 47, 48, 49, 140, 114/*coding end*/,
+    /*coding start*/17, 21, 22, 23, 24, 178, 38, 46, 47, 48, 49, 140, 114/*coding end*/,
     /*devops start*/134, 135, 136, 137, 138, 139/*devops end*/,
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
     25/*bullet*/, 26/*noicon*/,
-    /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131/*flags end*/
+    /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131, 179/*flags end*/
 };
 
 // former NODES_ICONS
@@ -506,6 +508,7 @@ const inline static std::vector<std::pair<const gchar*, const gchar*>> NODE_CODE
     std::make_pair("cpp",           "ct_cpp"),
     std::make_pair("c-sharp",       "ct_csharp"),
     std::make_pair("ruby",          "ct_ruby"),
+    std::make_pair("rust",          "ct_rust"),
 };
 
 const inline static gchar* CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
@@ -523,6 +526,7 @@ const inline static std::vector<std::pair<const std::string, const std::string>>
     std::make_pair("python3",    std::string{"python3 "} + CODE_EXEC_TMP_SRC),
     std::make_pair("sh",         CODE_EXEC_CODE_TXT),
     std::make_pair("c-sharp",    std::string{"csc /out:"} + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
+    std::make_pair("rust",       std::string{"rustc -o "} + CODE_EXEC_TMP_BIN + " " + CODE_EXEC_TMP_SRC + " && " + CODE_EXEC_TMP_BIN),
     std::make_pair("java",       std::string{"java "} + CODE_EXEC_TMP_SRC),
 };
 
@@ -537,6 +541,7 @@ const inline static std::vector<std::pair<const std::string, const std::string>>
     std::make_pair("sh",         "sh"),
     std::make_pair("c-sharp",    "cs"),
     std::make_pair("java",       "java"),
+    std::make_pair("rust",       "rs"),
 };
 
 const inline static std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
