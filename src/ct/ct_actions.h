@@ -527,6 +527,9 @@ public:
     // help actions
     void check_for_newer_version();
     void online_help();
+    void online_home();
+    void online_code();
+    void online_issues();
     void folder_cfg_open();
     void dialog_about();
 

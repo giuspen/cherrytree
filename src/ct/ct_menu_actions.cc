@@ -476,9 +476,15 @@ void CtMenu::init_actions(CtActions* pActions)
 
     const char* help_cat = _("Help");
     _actions.push_back(CtMenuAction{help_cat, "ct_check_newer", "ct_network", _("_Check Newer Version"), None,
-        _("Check for a Newer Version"), sigc::mem_fun(*pActions, &CtActions::check_for_newer_version)});
+        _("Check for a Newer Version Available Online"), sigc::mem_fun(*pActions, &CtActions::check_for_newer_version)});
+    _actions.push_back(CtMenuAction{help_cat, "ct_homepage", "ct_globe", _("_Website"), None,
+        _("Visit CherryTree's Website"), sigc::mem_fun(*pActions, &CtActions::online_home)});
+    _actions.push_back(CtMenuAction{help_cat, "ct_github", "ct_github", _("_Source Code"), None,
+        _("Browse CherryTree's Source Code Online"), sigc::mem_fun(*pActions, &CtActions::online_code)});
+    _actions.push_back(CtMenuAction{help_cat, "ct_issues", "ct_bug", _("_Report a Bug"), None,
+        _("Report a Bug in CherryTree"), sigc::mem_fun(*pActions, &CtActions::online_issues)});
     _actions.push_back(CtMenuAction{help_cat, "ct_help", "ct_help", _("Online _Manual"), "F1",
-        _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
+        _("CherryTree's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
     _actions.push_back(CtMenuAction{help_cat, "ct_about", "ct_about", _("_About"), None,
         _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
     _actions.push_back(CtMenuAction{help_cat, "open_cfg_folder", "ct_directory", _("_Open Preferences Directory"), None,

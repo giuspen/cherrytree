@@ -454,6 +454,24 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_bug",               // 181
     "ct_github",            // 182
     "ct_gitlab",            // 183
+    "ct_cmake",             // 184
+    "ct_css",               // 185
+    "ct_csv",               // 186
+    "ct_diff",              // 187
+    "ct_js",                // 188
+    "ct_json",              // 189
+    "ct_yaml",              // 190
+    "ct_latex",             // 191
+    "ct_lua",               // 192
+    "ct_markdown",          // 193
+    "ct_matlab",            // 194
+    "ct_meson",             // 195
+    "ct_php",               // 196
+    "ct_scala",             // 197
+    "ct_swift",             // 198
+    "ct_ini",               // 199
+    "ct_gtk",               // 200
+    "ct_qt",                // 201
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -475,7 +493,8 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     168/*female*/, 173/*male*/, 42/*people*/, 109/*smile*/, 110/*smile cool*/, 111/*smile surpr*/, 112/*skull*/, 126/*ghost*/,
     /*os start*/115, 116, 117, 118, 172, 119, 120, 121, 156/*os end*/,
     133/*microchip*/, 164/*computer*/, 165/*display*/, 166/*drive hd*/, 167/*drive usb*/,
-    /*coding start*/17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114, 181/*coding end*/,
+    /*coding start*/181, 17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114,
+    184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201/*coding end*/,
     /*devops start*/134, 135, 136, 137, 138, 139, 182, 183/*devops end*/,
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
@@ -499,21 +518,41 @@ const inline static std::array<const gchar*, 11> NODE_CHERRY_ICONS {
 };
 
 const inline static std::vector<std::pair<const gchar*, const gchar*>> NODE_CODE_ICONS {
+    std::make_pair("c",             "ct_c"),
+    std::make_pair("c-sharp",       "ct_csharp"),
+    std::make_pair("cmake",         "ct_cmake"),
+    std::make_pair("cpp",           "ct_cpp"),
+    std::make_pair("css",           "ct_css"),
+    std::make_pair("csv",           "ct_csv"),
+    std::make_pair("diff",          "ct_diff"),
+    std::make_pair("dosbatch",      "ct_term-red"),
+    std::make_pair("go",            "ct_go"),
+    std::make_pair("gtk-doc",       "ct_gtk"),
+    std::make_pair("gtkrc",         "ct_gtk"),
+    std::make_pair("html",          "ct_html"),
+    std::make_pair("ini",           "ct_ini"),
+    std::make_pair("java",          "ct_java"),
+    std::make_pair("js",            "ct_js"),
+    std::make_pair("json",          "ct_json"),
+    std::make_pair("latex",         "ct_latex"),
+    std::make_pair("lua",           "ct_lua"),
+    std::make_pair("markdown",      "ct_markdown"),
+    std::make_pair("markdown-extra","ct_markdown"),
+    std::make_pair("matlab",        "ct_matlab"),
+    std::make_pair("meson",         "ct_meson"),
+    std::make_pair("perl",          "ct_perl"),
+    std::make_pair("php",           "ct_php"),
+    std::make_pair("powershell",    "ct_term-red"),
     std::make_pair("python",        "ct_python"),
     std::make_pair("python3",       "ct_python"),
-    std::make_pair("perl",          "ct_perl"),
-    std::make_pair("sh",            "ct_term"),
-    std::make_pair("dosbatch",      "ct_term-red"),
-    std::make_pair("powershell",    "ct_term-red"),
-    std::make_pair("java",          "ct_java"),
-    std::make_pair("html",          "ct_html"),
-    std::make_pair("xml",           "ct_xml"),
-    std::make_pair("c",             "ct_c"),
-    std::make_pair("cpp",           "ct_cpp"),
-    std::make_pair("c-sharp",       "ct_csharp"),
     std::make_pair("ruby",          "ct_ruby"),
     std::make_pair("rust",          "ct_rust"),
-    std::make_pair("go",            "ct_go"),
+    std::make_pair("scala",         "ct_scala"),
+    std::make_pair("sh",            "ct_term"),
+    std::make_pair("sql",           "ct_db"),
+    std::make_pair("swift",         "ct_swift"),
+    std::make_pair("xml",           "ct_xml"),
+    std::make_pair("yaml",          "ct_yaml"),
 };
 
 const inline static gchar* CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};

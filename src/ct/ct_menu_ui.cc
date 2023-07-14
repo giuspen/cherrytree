@@ -368,6 +368,9 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='HelpMenu'>
     <menuitem action='ct_check_newer'/>
     <separator/>
+    <menuitem action='ct_homepage'/>
+    <menuitem action='ct_github'/>
+    <menuitem action='ct_issues'/>
     <menuitem action='ct_help'/>
     <separator/>
     <menuitem action='ct_about'/>

@@ -29,6 +29,21 @@ void CtActions::online_help()
     fs::open_weblink("https://giuspen.net/cherrytreemanual/");
 }
 
+void CtActions::online_home()
+{
+    fs::open_weblink("https://www.giuspen.net/cherrytree/");
+}
+
+void CtActions::online_code()
+{
+    fs::open_weblink("https://github.com/giuspen/cherrytree");
+}
+
+void CtActions::online_issues()
+{
+    fs::open_weblink("https://github.com/giuspen/cherrytree/issues");
+}
+
 void CtActions::dialog_about()
 {
     CtDialogs::dialog_about(*_pCtMainWin, _pCtMainWin->get_icon_theme()->load_icon(CtConst::APP_NAME, 128));
