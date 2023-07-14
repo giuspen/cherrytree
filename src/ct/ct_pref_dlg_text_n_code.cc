@@ -52,7 +52,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     auto checkbutton_scroll_last_line = Gtk::manage(new Gtk::CheckButton{_("Scroll Beyond Last Line")});
     checkbutton_scroll_last_line->set_active(_pConfig->scrollBeyondLastLine);
 
-    auto hbox_cursor_blink = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    auto hbox_cursor_blink = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 6/*spacing*/});
     auto label_cursor_blink = Gtk::manage(new Gtk::Label{_("Cursor Blinking")});
     auto radiobutton_cursor_blink_default = Gtk::manage(new Gtk::RadioButton{_("System Default")});
     auto radiobutton_cursor_blink_on = Gtk::manage(new Gtk::RadioButton{_("On")});
