@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_text_n_code.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,59 +26,72 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 {
-    Gtk::HBox* hbox_tab_width = Gtk::manage(new Gtk::HBox());
-    hbox_tab_width->set_spacing(4);
-    Gtk::Label* label_tab_width = Gtk::manage(new Gtk::Label(_("Tab Width")));
+    auto hbox_tab_width = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_tab_width = Gtk::manage(new Gtk::Label{_("Tab Width")});
     Glib::RefPtr<Gtk::Adjustment> adj_tab_width = Gtk::Adjustment::create(_pConfig->tabsWidth, 1, 10000);
-    Gtk::SpinButton* spinbutton_tab_width = Gtk::manage(new Gtk::SpinButton(adj_tab_width));
+    auto spinbutton_tab_width = Gtk::manage(new Gtk::SpinButton{adj_tab_width});
     spinbutton_tab_width->set_value(_pConfig->tabsWidth);
     hbox_tab_width->pack_start(*label_tab_width, false, false);
     hbox_tab_width->pack_start(*spinbutton_tab_width, false, false);
-    Gtk::CheckButton* checkbutton_spaces_tabs = Gtk::manage(new Gtk::CheckButton(_("Insert Spaces Instead of Tabs")));
+    auto checkbutton_spaces_tabs = Gtk::manage(new Gtk::CheckButton{_("Insert Spaces Instead of Tabs")});
     checkbutton_spaces_tabs->set_active(_pConfig->spacesInsteadTabs);
-    Gtk::CheckButton* checkbutton_line_wrap = Gtk::manage(new Gtk::CheckButton(_("Use Line Wrapping")));
+    auto checkbutton_line_wrap = Gtk::manage(new Gtk::CheckButton{_("Use Line Wrapping")});
     checkbutton_line_wrap->set_active(_pConfig->lineWrapping);
-    Gtk::HBox* hbox_wrapping_indent = Gtk::manage(new Gtk::HBox());
-    hbox_wrapping_indent->set_spacing(4);
-    Gtk::Label* label_wrapping_indent = Gtk::manage(new Gtk::Label(_("Line Wrapping Indentation")));
+    auto hbox_wrapping_indent = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_wrapping_indent = Gtk::manage(new Gtk::Label{_("Line Wrapping Indentation")});
     gtk_label_set_xalign(label_wrapping_indent->gobj(), 0.0);
     Glib::RefPtr<Gtk::Adjustment> adj_wrapping_indent = Gtk::Adjustment::create(_pConfig->wrappingIndent, -10000, 10000, 1);
-    Gtk::SpinButton* spinbutton_wrapping_indent = Gtk::manage(new Gtk::SpinButton(adj_wrapping_indent));
+    auto spinbutton_wrapping_indent = Gtk::manage(new Gtk::SpinButton{adj_wrapping_indent});
     spinbutton_wrapping_indent->set_value(_pConfig->wrappingIndent);
     hbox_wrapping_indent->pack_start(*label_wrapping_indent, false, false);
     hbox_wrapping_indent->pack_start(*spinbutton_wrapping_indent, false, false);
-    Gtk::CheckButton* checkbutton_auto_indent = Gtk::manage(new Gtk::CheckButton(_("Enable Automatic Indentation")));
+    auto checkbutton_auto_indent = Gtk::manage(new Gtk::CheckButton{_("Enable Automatic Indentation")});
     checkbutton_auto_indent->set_active(_pConfig->autoIndent);
-    Gtk::CheckButton* checkbutton_line_nums = Gtk::manage(new Gtk::CheckButton(_("Show Line Numbers")));
+    auto checkbutton_line_nums = Gtk::manage(new Gtk::CheckButton{_("Show Line Numbers")});
     checkbutton_line_nums->set_active(_pConfig->showLineNumbers);
-    Gtk::CheckButton* checkbutton_scroll_last_line = Gtk::manage(new Gtk::CheckButton(_("Scroll Beyond Last Line")));
+    auto checkbutton_scroll_last_line = Gtk::manage(new Gtk::CheckButton{_("Scroll Beyond Last Line")});
     checkbutton_scroll_last_line->set_active(_pConfig->scrollBeyondLastLine);
-    Gtk::HBox* hbox_space_around_lines = Gtk::manage(new Gtk::HBox());
-    hbox_space_around_lines->set_spacing(4);
-    Gtk::Label* label_space_around_lines = Gtk::manage(new Gtk::Label(_("Vertical Space Around Lines")));
+
+    auto hbox_cursor_blink = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    auto label_cursor_blink = Gtk::manage(new Gtk::Label{_("Cursor Blinking")});
+    auto radiobutton_cursor_blink_default = Gtk::manage(new Gtk::RadioButton{_("System Default")});
+    auto radiobutton_cursor_blink_on = Gtk::manage(new Gtk::RadioButton{_("On")});
+    radiobutton_cursor_blink_on->join_group(*radiobutton_cursor_blink_default);
+    auto radiobutton_cursor_blink_off = Gtk::manage(new Gtk::RadioButton{_("Off")});
+    radiobutton_cursor_blink_off->join_group(*radiobutton_cursor_blink_default);
+    hbox_cursor_blink->pack_start(*label_cursor_blink, false, false);
+    hbox_cursor_blink->pack_start(*radiobutton_cursor_blink_default, false, false);
+    hbox_cursor_blink->pack_start(*radiobutton_cursor_blink_on, false, false);
+    hbox_cursor_blink->pack_start(*radiobutton_cursor_blink_off, false, false);
+
+    radiobutton_cursor_blink_default->set_active(2 == _pConfig->cursorBlink);
+    radiobutton_cursor_blink_on->set_active(1 == _pConfig->cursorBlink);
+    radiobutton_cursor_blink_off->set_active(0 ==_pConfig->cursorBlink);
+
+    auto hbox_space_around_lines = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_space_around_lines = Gtk::manage(new Gtk::Label{_("Vertical Space Around Lines")});
     label_space_around_lines->set_halign(Gtk::Align::ALIGN_START);
     gtk_label_set_xalign(label_space_around_lines->gobj(), 0.0);
     Glib::RefPtr<Gtk::Adjustment> adj_space_around_lines = Gtk::Adjustment::create(_pConfig->spaceAroundLines, -0, 255, 1);
-    Gtk::SpinButton* spinbutton_space_around_lines = Gtk::manage(new Gtk::SpinButton(adj_space_around_lines));
+    auto spinbutton_space_around_lines = Gtk::manage(new Gtk::SpinButton{adj_space_around_lines});
     spinbutton_space_around_lines->set_value(_pConfig->spaceAroundLines);
     hbox_space_around_lines->pack_start(*label_space_around_lines, false, false);
     hbox_space_around_lines->pack_start(*spinbutton_space_around_lines, false, false);
-    Gtk::HBox* hbox_relative_wrapped_space = Gtk::manage(new Gtk::HBox());
-    hbox_relative_wrapped_space->set_spacing(4);
-    Gtk::Label* label_relative_wrapped_space = Gtk::manage(new Gtk::Label(_("Vertical Space in Wrapped Lines")));
+    auto hbox_relative_wrapped_space = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_relative_wrapped_space = Gtk::manage(new Gtk::Label{_("Vertical Space in Wrapped Lines")});
     Glib::RefPtr<Gtk::Adjustment> adj_relative_wrapped_space = Gtk::Adjustment::create(_pConfig->relativeWrappedSpace, -0, 100, 1);
-    Gtk::SpinButton* spinbutton_relative_wrapped_space = Gtk::manage(new Gtk::SpinButton(adj_relative_wrapped_space));
+    auto spinbutton_relative_wrapped_space = Gtk::manage(new Gtk::SpinButton{adj_relative_wrapped_space});
     spinbutton_relative_wrapped_space->set_value(_pConfig->relativeWrappedSpace);
     hbox_relative_wrapped_space->pack_start(*label_relative_wrapped_space, false, false);
     hbox_relative_wrapped_space->pack_start(*spinbutton_relative_wrapped_space, false, false);
-    hbox_relative_wrapped_space->pack_start(*Gtk::manage(new Gtk::Label("%")), false, false);
+    hbox_relative_wrapped_space->pack_start(*Gtk::manage(new Gtk::Label{"%"}), false, false);
 
     auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
     size_group_1->add_widget(*label_wrapping_indent);
     size_group_1->add_widget(*label_space_around_lines);
     size_group_1->add_widget(*label_relative_wrapped_space);
 
-    Gtk::VBox* vbox_text_editor = Gtk::manage(new Gtk::VBox());
+    auto vbox_text_editor = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 0/*spacing*/});
     vbox_text_editor->pack_start(*hbox_tab_width, false, false);
     vbox_text_editor->pack_start(*checkbutton_spaces_tabs, false, false);
     vbox_text_editor->pack_start(*checkbutton_line_wrap, false, false);
@@ -88,25 +101,24 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     vbox_text_editor->pack_start(*checkbutton_scroll_last_line, false, false);
     vbox_text_editor->pack_start(*hbox_space_around_lines, false, false);
     vbox_text_editor->pack_start(*hbox_relative_wrapped_space, false, false);
+    vbox_text_editor->pack_start(*hbox_cursor_blink, false, false);
     Gtk::Frame* frame_text_editor = new_managed_frame_with_align(_("Text Editor"), vbox_text_editor);
 
-    Gtk::HBox* hbox_timestamp = Gtk::manage(new Gtk::HBox());
-    hbox_timestamp->set_spacing(4);
-    Gtk::Label* label_timestamp = Gtk::manage(new Gtk::Label(_("Timestamp Format")));
+    auto hbox_timestamp = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_timestamp = Gtk::manage(new Gtk::Label{_("Timestamp Format")});
     gtk_label_set_xalign(label_space_around_lines->gobj(), 0.0);
-    Gtk::Entry* entry_timestamp_format = Gtk::manage(new Gtk::Entry());
+    auto entry_timestamp_format = Gtk::manage(new Gtk::Entry{});
     entry_timestamp_format->set_text(_pConfig->timestampFormat);
-    Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
+    auto button_strftime_help = Gtk::manage(new Gtk::Button{});
     button_strftime_help->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
     button_strftime_help->set_tooltip_text(_("Online Manual"));
     hbox_timestamp->pack_start(*label_timestamp, false, false);
     hbox_timestamp->pack_start(*entry_timestamp_format, false, false);
     hbox_timestamp->pack_start(*button_strftime_help, false, false);
-    Gtk::HBox* hbox_horizontal_rule = Gtk::manage(new Gtk::HBox());
-    hbox_horizontal_rule->set_spacing(4);
-    Gtk::Label* label_horizontal_rule = Gtk::manage(new Gtk::Label(_("Horizontal Rule")));
+    auto hbox_horizontal_rule = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_horizontal_rule = Gtk::manage(new Gtk::Label{_("Horizontal Rule")});
     gtk_label_set_xalign(label_horizontal_rule->gobj(), 0.0);
-    Gtk::Entry* entry_horizontal_rule = Gtk::manage(new Gtk::Entry());
+    auto entry_horizontal_rule = Gtk::manage(new Gtk::Entry{});
     entry_horizontal_rule->set_text(_pConfig->hRule);
     hbox_horizontal_rule->pack_start(*label_horizontal_rule, false, false);
     hbox_horizontal_rule->pack_start(*entry_horizontal_rule);
@@ -115,23 +127,20 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     size_group_2->add_widget(*label_timestamp);
     size_group_2->add_widget(*label_horizontal_rule);
 
-    Gtk::HBox* hbox_selword_chars = Gtk::manage(new Gtk::HBox());
-    hbox_selword_chars->set_spacing(4);
-    Gtk::Label* label_selword_chars = Gtk::manage(new Gtk::Label(_("Chars to Select at Double Click")));
-    Gtk::Entry* entry_selword_chars = Gtk::manage(new Gtk::Entry());
+    auto hbox_selword_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_selword_chars = Gtk::manage(new Gtk::Label{_("Chars to Select at Double Click")});
+    auto entry_selword_chars = Gtk::manage(new Gtk::Entry{});
     entry_selword_chars->set_text(_pConfig->selwordChars.item());
     hbox_selword_chars->pack_start(*label_selword_chars, false, false);
     hbox_selword_chars->pack_start(*entry_selword_chars);
 
-    Gtk::VBox* vbox_misc_all = Gtk::manage(new Gtk::VBox());
-    vbox_misc_all->set_spacing(2);
+    auto vbox_misc_all = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 2/*spacing*/});
     vbox_misc_all->pack_start(*hbox_timestamp);
     vbox_misc_all->pack_start(*hbox_horizontal_rule);
     vbox_misc_all->pack_start(*hbox_selword_chars);
     Gtk::Frame* frame_misc_all = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_all);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_text_editor, false, false);
@@ -187,6 +196,22 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
     entry_selword_chars->signal_changed().connect([this, entry_selword_chars](){
         _pConfig->selwordChars = entry_selword_chars->get_text();
+    });
+
+    radiobutton_cursor_blink_default->signal_toggled().connect([this, radiobutton_cursor_blink_default](){
+        if (!radiobutton_cursor_blink_default->get_active()) return;
+        _pConfig->cursorBlink = 2;
+        need_restart(RESTART_REASON::CURSOR_BLINK);
+    });
+    radiobutton_cursor_blink_on->signal_toggled().connect([this, radiobutton_cursor_blink_on](){
+        if (!radiobutton_cursor_blink_on->get_active()) return;
+        _pConfig->cursorBlink = 1;
+        Gtk::Settings::get_default()->property_gtk_cursor_blink() = true;
+    });
+    radiobutton_cursor_blink_off->signal_toggled().connect([this, radiobutton_cursor_blink_off](){
+        if (!radiobutton_cursor_blink_off->get_active()) return;
+        _pConfig->cursorBlink = 0;
+        Gtk::Settings::get_default()->property_gtk_cursor_blink() = false;
     });
 
     return pMainBox;

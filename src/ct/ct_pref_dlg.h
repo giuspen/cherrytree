@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -53,12 +53,13 @@ private:
     Gtk::Widget* build_tab_misc();
 
 private:
-    enum RESTART_REASON {MONOSPACE         = 1 << 0,  EMBFILE_SIZE       = 1 << 1,
-                         SHOW_EMBFILE_NAME = 1 << 2,  LINKS              = 1 << 3,
-                         ANCHOR_SIZE       = 1 << 4,  COLOR              = 1 << 5,
-                         SCALABLE_TAGS     = 1 << 6,  LANG               = 1 << 7,
-                         SHORTCUT          = 1 << 8,  CODEBOX_AUTORESIZE = 1 << 9,
-                         TREE_NODE_WRAP    = 1 << 10, DEBUG_LOG          = 1 << 11};
+    enum RESTART_REASON{MONOSPACE         = 1 << 0,  EMBFILE_SIZE       = 1 << 1,
+                        SHOW_EMBFILE_NAME = 1 << 2,  LINKS              = 1 << 3,
+                        ANCHOR_SIZE       = 1 << 4,  COLOR              = 1 << 5,
+                        SCALABLE_TAGS     = 1 << 6,  LANG               = 1 << 7,
+                        SHORTCUT          = 1 << 8,  CODEBOX_AUTORESIZE = 1 << 9,
+                        TREE_NODE_WRAP    = 1 << 10, DEBUG_LOG          = 1 << 11,
+                        CURSOR_BLINK      = 1 << 12};
 
     const Glib::ustring reset_warning = Glib::ustring{"<b>"}+_("Are you sure to Reset to Default?")+"</b>";
 
