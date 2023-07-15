@@ -128,6 +128,7 @@ public:
 
     static const std::string LatexSpecialFilename;
     static const Glib::ustring LatexTextDefault;
+    static const int PrintZoom;
 
     static void ensureRenderingBinariesTested();
     static Glib::ustring getRenderingErrorMessage();
@@ -139,11 +140,14 @@ public:
 
     const Glib::ustring& get_latex_text() { return _latexText; }
     size_t               get_unique_id() { return _uniqueId; }
+    Glib::RefPtr<Gdk::Pixbuf> get_image_for_print() const {
+        return _get_latex_image(_pCtMainWin, _latexText, _uniqueId, PrintZoom);
+    }
 
     void update_tooltip();
 
 private:
-    static Glib::RefPtr<Gdk::Pixbuf> _get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId);
+    static Glib::RefPtr<Gdk::Pixbuf> _get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId, const int zoom = 1);
 
 private:
     bool _on_button_press_event(GdkEventButton* event);

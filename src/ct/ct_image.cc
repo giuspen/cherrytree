@@ -271,6 +271,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     return true; // do not propagate the event
 }
 
+/*static*/const int CtImageLatex::PrintZoom{2};
 /*static*/const std::string CtImageLatex::LatexSpecialFilename{"__ct_special.tex"};
 /*static*/const Glib::ustring CtImageLatex::LatexTextDefault{"\\documentclass{article}\n"
                                                              "\\pagestyle{empty}\n"
@@ -357,13 +358,14 @@ void CtImageLatex::update_tooltip()
 #define CONSOLE_BIN_PREFIX      fs::get_latex_dvipng_console_bin_prefix()
 #endif // !_FLATPAK_BUILD
 #endif // !_WIN32
-/*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
+/*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId, const int zoom)
 {
     if (not _renderingBinariesTested) {
         _renderingBinariesTested = true;
     }
     const fs::path filename = std::to_string(uniqueId) +
                               CtConst::CHAR_MINUS + std::to_string(getpid()) +
+                              CtConst::CHAR_MINUS + std::to_string(zoom) +
                               CtConst::CHAR_MINUS + CtImageLatex::LatexSpecialFilename;
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
@@ -404,8 +406,9 @@ void CtImageLatex::update_tooltip()
         tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
         const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
+        const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
         cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
-                           CONSOLE_BIN_PREFIX, pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+                           CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
         retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);

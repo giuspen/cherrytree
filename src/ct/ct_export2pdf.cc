@@ -631,11 +631,18 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
             }
             else if (auto page_image = dynamic_cast<const CtPageImage*>(element.get())) {
                 auto scale = page_image->scale; // it also contains _page_dpi_scale
-                auto pixbuf = page_image->image->get_pixbuf();
-                double pixbuf_height = pixbuf->get_height() * scale;
+                Glib::RefPtr<Gdk::Pixbuf> pPixbuf;
+                if (auto pLatexImage = dynamic_cast<const CtImageLatex*>(page_image->image)) {
+                    pPixbuf = pLatexImage->get_image_for_print();
+                    scale /= CtImageLatex::PrintZoom;
+                }
+                else {
+                    pPixbuf = page_image->image->get_pixbuf();;
+                }
+                double pixbuf_height = pPixbuf->get_height() * scale;
                 cairo_context->save();
                 cairo_context->scale(scale, scale);
-                Gdk::Cairo::set_source_pixbuf(cairo_context, pixbuf, page_image->x / scale, (line.y - pixbuf_height) / scale);
+                Gdk::Cairo::set_source_pixbuf(cairo_context, pPixbuf, page_image->x / scale, (line.y - pixbuf_height) / scale);
                 cairo_context->paint();
                 cairo_context->restore();
             }
