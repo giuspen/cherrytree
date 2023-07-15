@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-04 11:47+0100\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 18:11+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
 "Language: uk_UA\n"
@@ -1309,14 +1309,32 @@ msgstr "Допомога"
 msgid "_Check Newer Version"
 msgstr "Перевірити оновлення"
 
-msgid "Check for a Newer Version"
-msgstr "Перевірити оновлення"
+msgid "Check for a Newer Version Available Online"
+msgstr "Перевірте наявність новішої версії в Інтернеті"
+
+msgid "_Website"
+msgstr "Вебсайт"
+
+msgid "Visit CherryTree's Website"
+msgstr "Відвідайте вебсайт CherryTree"
+
+msgid "_Source Code"
+msgstr "Вихідний код"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Перегляньте вихідний код CherryTree в Інтернеті"
+
+msgid "_Report a Bug"
+msgstr "Повідомити про помилку"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Повідомити про помилку в CherryTree"
 
 msgid "Online _Manual"
 msgstr "Посібник онлайн"
 
-msgid "Application's Online Manual"
-msgstr "Посібник онлайн"
+msgid "CherryTree's Online Manual"
+msgstr "Посібник онлайн CherryTree"
 
 msgid "_About"
 msgstr "Про програму"
@@ -1735,6 +1753,9 @@ msgstr "Корейська"
 msgid "Lithuanian"
 msgstr "Литовська"
 
+msgid "Persian"
+msgstr "Перська"
+
 msgid "Polish"
 msgstr "Польська"
 
@@ -1948,6 +1969,15 @@ msgstr "Показати номери рядків"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Прокрутка за межі документу"
+
+msgid "Cursor Blinking"
+msgstr "Блимання курсору"
+
+msgid "On"
+msgstr "Увімк"
+
+msgid "Off"
+msgstr "Вимк"
 
 msgid "Vertical Space Around Lines"
 msgstr "Вертикальний відступ"
@@ -2782,6 +2812,9 @@ msgstr "Документ Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ви впевнені, що хочете скинути налаштування?"
+
+#~ msgid "Application's Online Manual"
+#~ msgstr "Посібник онлайн"
 
 #~ msgid "CherryTree Document"
 #~ msgstr "Документ CherryTree"

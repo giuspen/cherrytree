@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-03 10:36+0300\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 18:42+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Uyarı: Girilen Sayfada Bir Ya da Daha Fazla Resim Değiştirildi!"
@@ -1306,14 +1306,32 @@ msgstr "Yardım"
 msgid "_Check Newer Version"
 msgstr "Yeni Sürümü Kontrol Et"
 
-msgid "Check for a Newer Version"
-msgstr "Yeni Sürümü Kontrol Et"
+msgid "Check for a Newer Version Available Online"
+msgstr "Kullanılabilir Yeni Sürümü Çevrimiçi Kontrol Et"
+
+msgid "_Website"
+msgstr "_Web Sitesi"
+
+msgid "Visit CherryTree's Website"
+msgstr "CherryTree'nin Sitesine Git"
+
+msgid "_Source Code"
+msgstr "Kaynak Kodu"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "CherryTree'nin Kaynak Koduna Çevrimiçi Gözat"
+
+msgid "_Report a Bug"
+msgstr "Bir Hata Bildir"
+
+msgid "Report a Bug in CherryTree"
+msgstr "CherryTree'de Bir Hata Bildir Dışa Aktar"
 
 msgid "Online _Manual"
-msgstr "İnternet Yardım Dosyası"
+msgstr "Çevrimiçi Yardım Dosyası"
 
-msgid "Application's Online Manual"
-msgstr "Uygulamanın İnternet Yardım Dosyası"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree'nin Çevrimiçi Yardım Dosyası"
 
 msgid "_About"
 msgstr "Hakkında"
@@ -1727,6 +1745,9 @@ msgstr "Korece"
 msgid "Lithuanian"
 msgstr "Litvanca"
 
+msgid "Persian"
+msgstr "Farsça"
+
 msgid "Polish"
 msgstr "Polonyaca"
 
@@ -1942,6 +1963,15 @@ msgstr "Satır Numaralarını Göster"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Son Satırın Ötesine Kaydır"
+
+msgid "Cursor Blinking"
+msgstr "İmleç Yanıp Sönüyor"
+
+msgid "On"
+msgstr "Açık"
+
+msgid "Off"
+msgstr "Kapalı"
 
 msgid "Vertical Space Around Lines"
 msgstr "Çizgiler Etrafında Düşey Boşluk"
@@ -2783,10 +2813,12 @@ msgstr "Leo Belgesi"
 msgid "Are you sure to Reset to Default?"
 msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Uygulamanın İnternet Yardım Dosyası"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree Dökümanı"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "%s Dökümanı Bulunamadı"
 

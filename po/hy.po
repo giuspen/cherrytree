@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-28 20:24+0400\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 21:06+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -1306,14 +1306,32 @@ msgstr "Օգնություն"
 msgid "_Check Newer Version"
 msgstr "Ստուգել ծրագրի թարմացումները"
 
-msgid "Check for a Newer Version"
-msgstr "Ստուգել ծրագրի թարմացումները"
+msgid "Check for a Newer Version Available Online"
+msgstr "Ստուգել առցանց նոր տարբերակի առկայությունը"
+
+msgid "_Website"
+msgstr "_Կայք"
+
+msgid "Visit CherryTree's Website"
+msgstr "Այցելել CherryTree-ի կայք"
+
+msgid "_Source Code"
+msgstr "_Աղբյուր կոդ"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Զննիր CherryTree-ի աղբյուր կոդն առցանց"
+
+msgid "_Report a Bug"
+msgstr "_Հայտնիր վրիպակի մասին"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Հայտնել CherryTree-ի վրիպակի մասին"
 
 msgid "Online _Manual"
 msgstr "Առցանց ուղեցույց"
 
-msgid "Application's Online Manual"
-msgstr "Ծրագրի առցանց ուղեցույցը"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree-ի առցանց ուղեցույց"
 
 msgid "_About"
 msgstr "Ծրագրի մասին"
@@ -1733,6 +1751,9 @@ msgstr "Կորեերեն"
 msgid "Lithuanian"
 msgstr "Լիտվերեն"
 
+msgid "Persian"
+msgstr "Պարսկերեն"
+
 msgid "Polish"
 msgstr "Լեհերեն"
 
@@ -1946,6 +1967,15 @@ msgstr "Ցուցադրել տողերի համարակալումը"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Ոլորել վերջին տողից անդին"
+
+msgid "Cursor Blinking"
+msgstr "Նշորդի թարթում"
+
+msgid "On"
+msgstr "Միացված"
+
+msgid "Off"
+msgstr "Անջատված"
 
 msgid "Vertical Space Around Lines"
 msgstr "Միջպարբերութային տարածք"
@@ -2785,6 +2815,9 @@ msgstr "Leo փաստաթուղթ"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Վերականգնե՞լ սկզբնադիր տարբերակը։"
+
+#~ msgid "Application's Online Manual"
+#~ msgstr "Ծրագրի առցանց ուղեցույցը"
 
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree փաստաթուղթ"
