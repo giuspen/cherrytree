@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2022-10-03 19:38+0500\n"
-"Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 23:01+0500\n"
+"Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Qazaq (latyn)<camilot55@yandex.ru>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: kz_Latyn\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Eskertý: bir nemese birneshe keskin azaıtyldy"
@@ -1946,16 +1946,43 @@ msgstr "Málimet"
 msgid "_Check Newer Version"
 msgstr "Jańarý tekserilý..."
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
 msgstr ""
 "Jańarý tekserilý...\n"
 "\n"
 "CherryTree jańarýlaryn bar bolý tekserilý"
 
+msgid "_Website"
+msgstr "Vebsaıt"
+
+msgid "Visit CherryTree's Website"
+msgstr ""
+"Vebsaıt\n"
+"\n"
+"CherryTree veb saıtyna kirińiz"
+
+msgid "_Source Code"
+msgstr "Bastapqy kod"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr ""
+"Bastapqy kod\n"
+"\n"
+"CherryTree bastapqy kodyn onlaın kórý"
+
+msgid "_Report a Bug"
+msgstr "Qate týraly habarlaý"
+
+msgid "Report a Bug in CherryTree"
+msgstr ""
+"Qate týraly habarlaý\n"
+"\n"
+"CherryTree - de-kate turaly habarlaý"
+
 msgid "Online _Manual"
 msgstr "Ǵalamtorda málimet"
 
-msgid "Application's Online Manual"
+msgid "CherryTree's Online Manual"
 msgstr ""
 "Ǵalamtorda málimet\n"
 "\n"
@@ -2465,6 +2492,9 @@ msgstr "Káris"
 msgid "Lithuanian"
 msgstr "Lıtvalyq"
 
+msgid "Persian"
+msgstr "Parsy"
+
 msgid "Polish"
 msgstr "Polák"
 
@@ -2682,6 +2712,15 @@ msgstr "Joldardy nómirleý"
 msgid "Scroll Beyond Last Line"
 msgstr "Aınaldyrý joldyń syrtyna"
 
+msgid "Cursor Blinking"
+msgstr "Jypylyqtaıtyn kýrsor"
+
+msgid "On"
+msgstr "Qosýly"
+
+msgid "Off"
+msgstr "Óshirýli"
+
 msgid "Vertical Space Around Lines"
 msgstr "Jolaralyq ınterval"
 
@@ -2877,7 +2916,8 @@ msgid ""
 "In order to clear all the exclusions, use the menu:\n"
 "Search -> Clear All Exclusions From Search"
 msgstr ""
-"По крайней мере одна ветвь была пропущена из-за установленных в её свойствач исключений.\n"
+"По крайней мере одна ветвь была пропущена из-за установленных в её свойствач "
+"исключений.\n"
 "Чтобы снять все исключения, воспользуйтесь меню:\n"
 "Поиск -> Удалить все исключения из поиска"
 
@@ -3557,4 +3597,3 @@ msgstr "Leo qujat"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Úndemeý boıynshaǵa maǵyna qalpyna keledi me?"
-

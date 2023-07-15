@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2022-10-02 23:36+0500\n"
-"Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 23:01+0500\n"
+"Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Kazakh<camilot55@yandex.ru>\n"
 "Language: kk_KZ\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: kk_KZ\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Ескерту: бiр немесе болған iстiң бiрнеше бейнелерi азайған"
@@ -1946,16 +1946,40 @@ msgstr "Мәлiмет"
 msgid "_Check Newer Version"
 msgstr "Жаңару тексерiлу..."
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
 msgstr ""
 "Жаңару тексерiлу...\n"
 "\n"
 "CherryTree жаңаруларын бар болу тексерiлу"
 
+msgid "_Website"
+msgstr "Вебсайт"
+
+msgid "Visit CherryTree's Website"
+msgstr ""
+"Вебсайт\n"
+"\n"
+"CherryTree веб сайтына кіріңіз"
+
+msgid "_Source Code"
+msgstr "Бастапқы код"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr ""
+"Бастапқы код\n"
+"\n"
+"CherryTree бастапқы кодын онлайн көру"
+
+msgid "_Report a Bug"
+msgstr "Қате туралы хабарлау"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Қате туралы хабарлау"
+
 msgid "Online _Manual"
 msgstr "Ғаламторда мәлiмет"
 
-msgid "Application's Online Manual"
+msgid "CherryTree's Online Manual"
 msgstr ""
 "Ғаламторда мәлiмет\n"
 "\n"
@@ -2465,6 +2489,9 @@ msgstr "Кәрiс"
 msgid "Lithuanian"
 msgstr "Литвалық"
 
+msgid "Persian"
+msgstr "Парсы"
+
 msgid "Polish"
 msgstr "Поляк"
 
@@ -2682,6 +2709,15 @@ msgstr "Жолдарды нөмiрлеу"
 msgid "Scroll Beyond Last Line"
 msgstr "Айналдыру жолдың сыртына"
 
+msgid "Cursor Blinking"
+msgstr "Жыпылықтайтын курсор"
+
+msgid "On"
+msgstr "Қосулы"
+
+msgid "Off"
+msgstr "Өшірулі"
+
 msgid "Vertical Space Around Lines"
 msgstr "Жоларалық интервал"
 
@@ -2877,7 +2913,8 @@ msgid ""
 "In order to clear all the exclusions, use the menu:\n"
 "Search -> Clear All Exclusions From Search"
 msgstr ""
-"Onyń qasıetterinde belgilengen erekshelikterge baılanysty kem degende bir tarmaq alynyp tastaldy.\n"
+"Onyń qasıetterinde belgilengen erekshelikterge baılanysty kem degende bir "
+"tarmaq alynyp tastaldy.\n"
 "Barlyq erekshelikterdi joıý úshin mázirdi paıdalanyńyz:\n"
 "Izdeý - > Barlyq izdeý erekshelikterin joıý"
 
@@ -3555,4 +3592,3 @@ msgstr "Leo құжат"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Үндемеу бойыншаға мағына қалпына келедi ме?"
-
