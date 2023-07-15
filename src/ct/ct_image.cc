@@ -271,7 +271,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     return true; // do not propagate the event
 }
 
-/*static*/const int CtImageLatex::PrintZoom{2};
+/*static*/const int CtImageLatex::PrintZoom{4};
 /*static*/const std::string CtImageLatex::LatexSpecialFilename{"__ct_special.tex"};
 /*static*/const Glib::ustring CtImageLatex::LatexTextDefault{"\\documentclass{article}\n"
                                                              "\\pagestyle{empty}\n"
