@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1304,13 +1304,31 @@ msgstr ""
 msgid "_Check Newer Version"
 msgstr ""
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
+msgstr ""
+
+msgid "_Website"
+msgstr ""
+
+msgid "Visit CherryTree's Website"
+msgstr ""
+
+msgid "_Source Code"
+msgstr ""
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr ""
+
+msgid "_Report a Bug"
+msgstr ""
+
+msgid "Report a Bug in CherryTree"
 msgstr ""
 
 msgid "Online _Manual"
 msgstr ""
 
-msgid "Application's Online Manual"
+msgid "CherryTree's Online Manual"
 msgstr ""
 
 msgid "_About"
@@ -1704,6 +1722,9 @@ msgstr ""
 msgid "Lithuanian"
 msgstr ""
 
+msgid "Persian"
+msgstr ""
+
 msgid "Polish"
 msgstr ""
 
@@ -1916,6 +1937,15 @@ msgid "Show Line Numbers"
 msgstr ""
 
 msgid "Scroll Beyond Last Line"
+msgstr ""
+
+msgid "Cursor Blinking"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
+msgid "Off"
 msgstr ""
 
 msgid "Vertical Space Around Lines"

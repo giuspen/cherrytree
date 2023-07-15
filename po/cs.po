@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-04 09:36+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 12:41+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Varování: Pro vstup na stránku byl zmenšen jeden nebo více obrázků!"
@@ -1314,14 +1314,32 @@ msgstr "Nápověda"
 msgid "_Check Newer Version"
 msgstr "_Vyhledat novou verzi"
 
-msgid "Check for a Newer Version"
-msgstr "Vyhledat novou verzi"
+msgid "Check for a Newer Version Available Online"
+msgstr "Podívat se po novější verzi dostupné na internetu"
+
+msgid "_Website"
+msgstr "_Internetová stránka"
+
+msgid "Visit CherryTree's Website"
+msgstr "Navštívit internetovou stránku CherryTree"
+
+msgid "_Source Code"
+msgstr "_Zdrojový kód"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Procházet zdrojový kód CherryTree na internetu"
+
+msgid "_Report a Bug"
+msgstr "_Nahlásit chybu"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Nahlásit chybu v CherryTree"
 
 msgid "Online _Manual"
 msgstr "_Příručka na internetu"
 
-msgid "Application's Online Manual"
-msgstr "_Příručka programu na internetu"
+msgid "CherryTree's Online Manual"
+msgstr "Příručka k CherryTree na internetu"
 
 msgid "_About"
 msgstr "_O programu"
@@ -1734,6 +1752,9 @@ msgstr "Překlad do korejštiny"
 msgid "Lithuanian"
 msgstr "Překlad do litevštiny"
 
+msgid "Persian"
+msgstr "Překlad do perštiny"
+
 msgid "Polish"
 msgstr "Překlad do polštiny"
 
@@ -1948,6 +1969,15 @@ msgstr "Ukázat čísla řádků"
 msgid "Scroll Beyond Last Line"
 msgstr "Posunovat za poslední řádek"
 
+msgid "Cursor Blinking"
+msgstr "Blikání ukazovátka"
+
+msgid "On"
+msgstr "Zapnuto"
+
+msgid "Off"
+msgstr "Vypnuto"
+
 msgid "Vertical Space Around Lines"
 msgstr "Svislá mezera okolo řádků"
 
@@ -2140,8 +2170,8 @@ msgid ""
 "In order to clear all the exclusions, use the menu:\n"
 "Search -> Clear All Exclusions From Search"
 msgstr ""
-"Alespoň jeden uzel byl přeskočen kvůli vyloučením nastaveným ve vlastnostech"
-" uzlu.\n"
+"Alespoň jeden uzel byl přeskočen kvůli vyloučením nastaveným ve vlastnostech "
+"uzlu.\n"
 "Chcete-li zrušit všechna vyloučení, použijte nabídku:\n"
 "Hledat → Vymazat všechna vyloučení z hledání"
 
@@ -2790,6 +2820,9 @@ msgstr "Dokument Leo"
 msgid "Are you sure to Reset to Default?"
 msgstr "Opravdu chcete vrátit na výchozí?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "_Příručka programu na internetu"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Dokument CherryTree"
 
@@ -2799,7 +2832,6 @@ msgstr "Opravdu chcete vrátit na výchozí?"
 #~ msgid "Password Protected"
 #~ msgstr "Heslo chráněno"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Dokument %s nebyl nalezen"
 

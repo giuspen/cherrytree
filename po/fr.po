@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-31 17:56+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-14 22:07+0200\n"
 "Last-Translator: Francis Gernet <fgernet@concretx.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -1370,14 +1370,32 @@ msgstr "Aide"
 msgid "_Check Newer Version"
 msgstr "Vérifier les mises-à-jour"
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
 msgstr "Vérifier l'existence d'une nouvelle version"
+
+msgid "_Website"
+msgstr "site _Web"
+
+msgid "Visit CherryTree's Website"
+msgstr "Visiter le site de CherryTree"
+
+msgid "_Source Code"
+msgstr "Code _Source"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Accéder au code source de CherryTree en ligne"
+
+msgid "_Report a Bug"
+msgstr "_Reporter un bug"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Rapporter un bug sur CherryTree"
 
 msgid "Online _Manual"
 msgstr "_Manuel d'utilisation en ligne"
 
-msgid "Application's Online Manual"
-msgstr "Manuel en ligne de l'application"
+msgid "CherryTree's Online Manual"
+msgstr "Manuel d'utilisation en ligne"
 
 # where to place the underscore?
 msgid "_About"
@@ -1803,6 +1821,9 @@ msgstr "Coréen"
 msgid "Lithuanian"
 msgstr "Lituanien"
 
+msgid "Persian"
+msgstr "Perse"
+
 msgid "Polish"
 msgstr "Polonais"
 
@@ -1976,7 +1997,7 @@ msgstr "Correspondances"
 
 #, c-format
 msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Le motif '%s' n'a pas été trouvé"
+msgstr "<b>Le motif '%s' n'a pas été trouvé</b>"
 
 msgid "Replace in Multiple Nodes..."
 msgstr "Remplacer dans plusieurs nœuds..."
@@ -2017,6 +2038,15 @@ msgstr "Afficher les numéros de lignes"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Défilement jusqu'à la dernière ligne"
+
+msgid "Cursor Blinking"
+msgstr "Curseur clignotant"
+
+msgid "On"
+msgstr "On (actif)"
+
+msgid "Off"
+msgstr "Off (inactif)"
 
 msgid "Vertical Space Around Lines"
 msgstr "Espace vertical autour des lignes"
@@ -2872,6 +2902,9 @@ msgstr "Document Leo"
 msgid "Are you sure to Reset to Default?"
 msgstr "Êtes-vous sûr de vouloir restaurer les valeurs par défaut ?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Manuel en ligne de l'application"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Document CherryTree"
 
@@ -2881,7 +2914,6 @@ msgstr "Êtes-vous sûr de vouloir restaurer les valeurs par défaut ?"
 #~ msgid "Password Protected"
 #~ msgstr "Protégé par mot de passe"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Le document %s est introuvable"
 

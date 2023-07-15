@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38-rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-29 19:35+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-14 20:05+0200\n"
 "Last-Translator: Luuk Geurts\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina!"
@@ -1316,14 +1316,32 @@ msgstr "Hulp"
 msgid "_Check Newer Version"
 msgstr "Op nieuwe versie controleren"
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
 msgstr "Op nieuwe versie controleren"
+
+msgid "_Website"
+msgstr "_Website"
+
+msgid "Visit CherryTree's Website"
+msgstr "Bezoek CherryTree Website"
+
+msgid "_Source Code"
+msgstr "_Bron Code"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Bekijk CherryTree's Bron Code Online"
+
+msgid "_Report a Bug"
+msgstr "_Bug Melden"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Bug melden"
 
 msgid "Online _Manual"
 msgstr "Online _handleiding"
 
-msgid "Application's Online Manual"
-msgstr "Online handleiding van de applicatie"
+msgid "CherryTree's Online Manual"
+msgstr "Online handleiding"
 
 msgid "_About"
 msgstr "_Over"
@@ -1741,6 +1759,9 @@ msgstr "Koreaans"
 msgid "Lithuanian"
 msgstr "Litouws"
 
+msgid "Persian"
+msgstr "Perzisch"
+
 msgid "Polish"
 msgstr "Pools"
 
@@ -1957,6 +1978,15 @@ msgstr "Regelnummers weergeven"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Scroll verder dan laatste regel"
+
+msgid "Cursor Blinking"
+msgstr "Knipperende Cursor"
+
+msgid "On"
+msgstr "Aan"
+
+msgid "Off"
+msgstr "Uit"
 
 msgid "Vertical Space Around Lines"
 msgstr "Regelafstand"
@@ -2801,6 +2831,9 @@ msgstr "Leo document"
 msgid "Are you sure to Reset to Default?"
 msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Online handleiding van de applicatie"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree document"
 
@@ -2810,7 +2843,6 @@ msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
 #~ msgid "Password Protected"
 #~ msgstr "Wachtwoord beveiligd"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Het document %s is niet gevonden"
 

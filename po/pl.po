@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-02 11:48+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-15 11:43+0200\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -1307,14 +1307,32 @@ msgstr "Pomoc"
 msgid "_Check Newer Version"
 msgstr "_Sprawdź aktualizacje"
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
 msgstr "Sprawdź czy jest nowa wersja programu"
+
+msgid "_Website"
+msgstr "_Strona internetowa"
+
+msgid "Visit CherryTree's Website"
+msgstr "Wyświetl stronę internetową CherryTree"
+
+msgid "_Source Code"
+msgstr "_Kod źródłowy"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Przeglądaj kod źródłowy CherryTree online"
+
+msgid "_Report a Bug"
+msgstr "_Zgłoś błąd"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Zgłoś błąd w CherryTree"
 
 msgid "Online _Manual"
 msgstr "_Poradnik online"
 
-msgid "Application's Online Manual"
-msgstr "Poradnik aplikacji online"
+msgid "CherryTree's Online Manual"
+msgstr "Poradnik online"
 
 msgid "_About"
 msgstr "_Informacje"
@@ -1729,6 +1747,9 @@ msgstr "Koreański"
 msgid "Lithuanian"
 msgstr "Litewski"
 
+msgid "Persian"
+msgstr "Perski"
+
 msgid "Polish"
 msgstr "Polski"
 
@@ -1942,6 +1963,15 @@ msgstr "Wyświetl numery wierszy"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Przewiń poniżej ostatni wierszy"
+
+msgid "Cursor Blinking"
+msgstr "Miganie kursora"
+
+msgid "On"
+msgstr "Włącz"
+
+msgid "Off"
+msgstr "Wyłącz"
 
 msgid "Vertical Space Around Lines"
 msgstr "Pionowy odstęp pomiędzy wierszami"
@@ -2782,6 +2812,9 @@ msgstr "Dokument Leo"
 msgid "Are you sure to Reset to Default?"
 msgstr "Jesteś pewien, że chcesz przywrócić ustawienia do wartości domyślnych?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Poradnik aplikacji online"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Dokument CherryTree"
 
@@ -2791,7 +2824,6 @@ msgstr "Jesteś pewien, że chcesz przywrócić ustawienia do wartości domyśln
 #~ msgid "Password Protected"
 #~ msgstr "Chroniony hasłem"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Dokument '%s' nie został znaleziony"
 
