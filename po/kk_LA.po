@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2022-10-03 19:38+0500\n"
-"Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
+"POT-Creation-Date: 2023-07-14 18:27+0100\n"
+"PO-Revision-Date: 2023-07-15 23:01+0500\n"
+"Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Qazaq (latyn)<camilot55@yandex.ru>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
@@ -21,110 +21,31 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: kz_Latyn\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 3.0.1\n"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Eskertý: bir nemese birneshe keskin azaıtyldy"
-
-msgid "To WebSite"
-msgstr "Saıt:   "
-
-msgid "To File"
-msgstr "Faıl:  "
-
-msgid "To Folder"
-msgstr "Qalta:"
-
-msgid "To Node"
-msgstr "Tarmaq:"
-
-msgid "Anchor Name (optional)"
-msgstr " Siltemege zákir qosylý (opsıaly)"
-
-msgid "No Node is Selected"
-msgstr "Tarmaq tańdalmaǵan"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Bul tarmaqta ıakor joq"
-
-msgid "Choose Existing Anchor"
-msgstr "Zákirdi tańdańyz"
-
-msgid "Anchor Name"
-msgstr "Zákirdiń aty"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr ""
-"Qujatta izdeý aıaqtaldy.\n"
-"\n"
-"Qajetti element <b>' %s '</b > tabylmady!"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Index"
 msgstr "Ustaý"
 
-msgid "Print CherryTree version"
-msgstr "Mór úshin nobaı"
+msgid "Add"
+msgstr "Jıi paıdalanylatyn pármender qosylý"
 
-msgid "Node name to focus"
-msgstr "Esim fokýs úshin taral"
+msgid "Remove Selected"
+msgstr "Jıi paıdalanylatyn pármender alystap ketý"
 
-msgid "Anchor name to scroll to in node"
-msgstr "Tarmaqqa jyljý úshin ıakor ataýy"
+msgid "Reset to Default"
+msgstr "Úndemeý boıynshaǵa maǵyna"
 
-msgid "Export to HTML at specified directory path"
-msgstr "HTML bar dırektorıaǵa eksport"
+msgid "Split Toolbar"
+msgstr "Bólgish"
 
-msgid "Export to Text at specified directory path"
-msgstr "TXT bar dırektorıaǵa eksport"
-
-msgid "Export to PDF at specified directory path"
-msgstr "PDF bar dırektorıaǵa eksport"
-
-msgid "Overwrite if export path already exists"
-msgstr "Eger bolyp qoıdylardy faıl bolsa qaıta jazyp alý"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "(HTML úshin nemese TXT) bir faılǵa eksport"
-
-msgid "Password to open document"
-msgstr "Qujattyń paroli"
-
-msgid "Create a new window"
-msgstr "Jańa tereze qurý"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Ekinshi sesıany bastaý"
-
-msgid "CherryTree File"
-msgstr "Faıl CherryTree"
-
-msgid "Preferences File"
-msgstr "Teńshelimderdi faıl"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Cherrytree qaıta iske qosylǵannan keıin ózgerister kúshine enedi."
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree qoıyn kitapsha"
-
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTree ashylý"
-
-msgid "Toggle Show/Hide CherryTree"
+msgid "Open a CherryTree File"
 msgstr ""
-"CherryTree ashylý\n"
+"Ashylý...\n"
 "\n"
-"CherryTree aktıvtendirý"
+"CherryTree bar fail ashylý"
 
-msgid "_Exit CherryTree"
-msgstr "Shyǵý"
-
-msgid "Exit from CherryTree"
-msgstr ""
-"Shyǵý\n"
-"\n"
-"CherryTree shyǵý"
+msgid "Select Element to Add"
+msgstr "Jıi paıdalanylatyn pármender"
 
 msgid "_File"
 msgstr "Faıl"
@@ -234,12 +155,6 @@ msgstr ""
 msgid "_Open File..."
 msgstr "Ashylý..."
 
-msgid "Open a CherryTree File"
-msgstr ""
-"Ashylý...\n"
-"\n"
-"CherryTree bar fail ashylý"
-
 msgid "Open Fo_lder..."
 msgstr "Ashylý..."
 
@@ -331,6 +246,12 @@ msgstr ""
 
 msgid "E_xit CherryTree"
 msgstr "Shyǵý"
+
+msgid "Exit from CherryTree"
+msgstr ""
+"Shyǵý\n"
+"\n"
+"CherryTree shyǵý"
 
 msgid "Edit/Insert"
 msgstr "Túzetý/Qystyrma"
@@ -1946,16 +1867,43 @@ msgstr "Málimet"
 msgid "_Check Newer Version"
 msgstr "Jańarý tekserilý..."
 
-msgid "Check for a Newer Version"
+msgid "Check for a Newer Version Available Online"
 msgstr ""
 "Jańarý tekserilý...\n"
 "\n"
 "CherryTree jańarýlaryn bar bolý tekserilý"
 
+msgid "_Website"
+msgstr "Vebsaıt"
+
+msgid "Visit CherryTree's Website"
+msgstr ""
+"Vebsaıt\n"
+"\n"
+"CherryTree veb saıtyna kirińiz"
+
+msgid "_Source Code"
+msgstr "Bastapqy kod"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr ""
+"Bastapqy kod\n"
+"\n"
+"CherryTree bastapqy kodyn onlaın kórý"
+
+msgid "_Report a Bug"
+msgstr "Qate týraly habarlaý"
+
+msgid "Report a Bug in CherryTree"
+msgstr ""
+"Qate týraly habarlaý\n"
+"\n"
+"CherryTree - de-kate turaly habarlaý"
+
 msgid "Online _Manual"
 msgstr "Ǵalamtorda málimet"
 
-msgid "Application's Online Manual"
+msgid "CherryTree's Online Manual"
 msgstr ""
 "Ǵalamtorda málimet\n"
 "\n"
@@ -2174,6 +2122,15 @@ msgstr ""
 "\n"
 "Siltemesin beınege qatysty tazalaný"
 
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTree ashylý"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr ""
+"CherryTree ashylý\n"
+"\n"
+"CherryTree aktıvtendirý"
+
 msgid "Edit the Underlying Link"
 msgstr ""
 "Siltemeniń qasıeti...\n"
@@ -2222,85 +2179,316 @@ msgstr "Kiristirý"
 msgid "Reset"
 msgstr "Qalpyna keltirý"
 
-msgid "Enable System Tray Docking"
-msgstr "CherryTree málimdemelerdiń tóńirekteridegin belgisheni beıneleý"
+msgid "Rename"
+msgstr "Qaıta atalý"
 
-msgid "Start Minimized in the System Tray"
-msgstr "CherryTree málimdemelerdiń tóńirekteridegi starttan keıin burylý"
+msgid "PNG Image"
+msgstr "PNG beıne"
 
-msgid "System Tray"
-msgstr "Esepter jaqtaýy"
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Jazba %s sátti bolmady"
 
-msgid "Autosave Every"
-msgstr "Avtosaqtaý ár"
+msgid "Insert/Edit Link"
+msgstr "Siltemeniń qasıeti"
 
-msgid "Minutes"
-msgstr "mınýttar"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "%s muqabaǵa durys emes silteme"
 
-msgid "Autosave on Quit"
-msgstr "Jabýda saqtalý"
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "%s faılǵa durys emes silteme "
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Rezeretik kóshirme qurý"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "%s muqabaǵa durys emes silteme"
 
-msgid "Number of Backups to Keep"
-msgstr "Rezeretik kóshirmelerdiń sany"
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr ""
+"Butaqqa durys emes silteme.\n"
+"\n"
+"Endi taral bolmaıdy (Id = %s).\n"
+"Ol joıylǵan nemese ózgertilgen shyǵar"
 
-msgid "Custom Backup Directory"
-msgstr "Rezeretik kóshirmeler úshin muqaba"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr ""
+"Qujatta izdeý aıaqtaldy.\n"
+"\n"
+"Siz izdegen zákir <b> '%s ' < / b> tabylmady!"
 
-msgid "Saving"
-msgstr "Saqtaý"
+msgid "Edit CodeBox"
+msgstr "CodeBox qasıet"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Jańarýlardy bar bolý tekserý"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Siz tilmen pármenge baılanysýyńyz kerek <b>' %s '</b>.\n"
+"\n"
+"Bul qoldanba teńshelimderindegi jasaýǵa bolady"
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Sózderdi qalyp-jaǵdaı jolynda san"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Xterm deste ornatylyńyz nemese qoldanba teńshelimderindegi basqa termınal "
+"teńsheńiz"
 
-msgid "Reload Document From Last Session"
-msgstr "Sońǵy ashylǵan qujatty júkteý"
+msgid "Edit Table Properties"
+msgstr "Kesteniń qasıeti"
 
-msgid "Reload After External Update to CT* File"
-msgstr "Qujat ózgeristen keıin qaıta júktelý"
+msgid "CSV File"
+msgstr "CSV faıl"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Basty terezeni taqyrypta faılǵa jol"
+msgid "Insert Anchor"
+msgstr "Zákir ústemelený"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Taqyrypta jol taral"
+msgid "Edit Anchor"
+msgstr "Zákirdiń qasıeti"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Betbelgilerdi basty mázirde tizbe"
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "<b>\"Oqý ǵana!\"</b> faıldy múmkin emes redaksıalaý"
 
-msgid "Enable Debug Log"
-msgstr "Saıdy paıdalansyn-faıl"
+msgid "Embedded File Automatically Updated:"
+msgstr "Faıl avtomatty túrde jańartylǵan:"
 
-msgid "Debug Log Directory"
-msgstr "Tańdaý... "
+msgid "Change Selected"
+msgstr "Perneler kombınasıasyn ózgertý"
 
-msgid "Miscellaneous"
-msgstr "Ár túrli"
-
-msgid "System Default"
-msgstr "Úndemeý boıynshaǵa"
-
-msgid "Language"
-msgstr "Tel"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "CherryTree belgishe málimdemelerdiń tóńiregidegi paıda boldy ma?"
-
-msgid "Your system does not support the System Tray"
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
 msgstr ""
 " \n"
-"Sizdiń júıeńiz málimdemelerdi oblys qostalmaıdy!"
+"'%s' paıdalanyp qoıdylar perneler kombınasıasy!"
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Osy tirkesim <b>' %s '</b> is-áreketti oryndaıdy"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Perneler kombınasıasyn qaıta anyqtaıdy ma?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Jańa tirkesim..."
+
+msgid "No Keyboard Shortcut"
+msgstr "Berilgen emes"
+
+msgid "Writing to Disk..."
+msgstr "Dıskke jazba..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Faılǵa <b>\"%s\"</b> jazba qol jetpes"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Úshin paról %s engizińiz"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Qujat búlingen.\n"
+"\n"
+"Ony basqa atpen saqtaýǵa tyrysyńyz (Faıl-->Basqasha saqtaý...)."
+
+msgid "Failed to encrypt the file"
+msgstr "Faıldy shıfrlaý múmkin bolmady"
+
+msgid "Search for"
+msgstr "Tabylý:"
+
+msgid "Replace with"
+msgstr "Almastyrylý:"
+
+msgid "Match Case"
+msgstr "Regıstrdi eskerilý"
+
+msgid "Regular Expression"
+msgstr "Júıeli aıtylý"
+
+msgid "Online Manual"
+msgstr "Ǵalamtorda málimet"
+
+msgid "Accent Insensitive"
+msgstr "Joıýǵa sezimtaldyq"
+
+msgid "Override Exclusions"
+msgstr "Erekshelikterdi joıý"
+
+msgid "Whole Word"
+msgstr "Sóz ǵana tutastaı"
+
+msgid "Start Word"
+msgstr "Sózdiń basy"
+
+msgid "Forward"
+msgstr "Alǵa"
+
+msgid "Backward"
+msgstr "Keıin"
+
+msgid "All, List Matches"
+msgstr "Týra kelý bári"
+
+msgid "First From Selection"
+msgstr "Birinshi týra kelý erekshelengen"
+
+msgid "First in All Range"
+msgstr "Barlyq qujat boıymen birinshi týra kelý "
+
+msgid "Node Created After"
+msgstr "Keıin jaratylǵan"
+
+msgid "Node Created Before"
+msgstr "Deıin jaratylǵan"
+
+msgid "Node Modified After"
+msgstr "Keıin ózgertilgen"
+
+msgid "Node Modified Before"
+msgstr "Deıin ózgertilgen"
+
+msgid "Time filter"
+msgstr "Kúni boıymen taral..."
+
+msgid "Node Content"
+msgstr "Túıin mazmuny"
+
+msgid "Node Name and Tags"
+msgstr "Butaq atymen jáne tegter"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Butaǵy enshiles"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "\"Týra kelý ....\" dıalogktik terezeniń kórsetý"
+
+msgid "Search options"
+msgstr "Izdestirýdiń parametrleri"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"По крайней мере одна ветвь была пропущена из-за установленных в её свойствач "
+"исключений.\n"
+"Чтобы снять все исключения, воспользуйтесь меню:\n"
+"Поиск -> Удалить все исключения из поиска"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Oraý/Qalpyna kelý ('%s')"
+
+msgid "Node Name"
+msgstr "Esim"
+
+msgid "Line"
+msgstr "Jol"
+
+msgid "Line Content"
+msgstr "Ishindegi"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Qaıtalaný Tabylý/Almastyrylý"
+
+msgid "Close"
+msgstr "Jabý"
+
+msgid "Find Previous"
+msgstr "Aldyńǵy"
+
+msgid "Find Next"
+msgstr "Kelesi"
+
+msgid "Replace"
+msgstr "Almastyrý"
+
+msgid "Undo"
+msgstr "Boldyrmaý"
 
 msgid "Downloading"
 msgstr "Júkteý"
 
 msgid "Remove from list"
 msgstr "Áńgimeden alystap ketý"
+
+msgid "The new parent can't be one of his children!"
+msgstr "Jańa ata-ana butaǵy enshiles múmkin emes bolady!"
+
+msgid "Light Background, Dark Text"
+msgstr "Ashyq fondaǵy qarańǵy mátin"
+
+msgid "Dark Background, Light Text"
+msgstr "Qarańǵy fondaǵy ashyq má"
+
+msgid "Custom Background"
+msgstr "Fon"
+
+msgid "Text"
+msgstr "Mátin"
+
+msgid "Selection Background"
+msgstr "Erekshelengen mátinniń fony"
+
+msgid "Tree Explorer"
+msgstr "Aǵashtyń sholýshysy"
+
+msgid "Rich Text"
+msgstr "Formattalǵan mátin"
+
+msgid "Plain Text"
+msgstr "Kádimgi mátin"
+
+msgid "Table"
+msgstr "Keste"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Style Schemes"
+msgstr "Mátindik redaktor"
+
+msgid "Text Foreground"
+msgstr "Mátin"
+
+msgid "Text Background"
+msgstr "Fon"
+
+msgid "Selection Foreground"
+msgstr "Erekshelengen mátin"
+
+msgid "Cursor"
+msgstr "Júgirgi"
+
+msgid "Current Line Background"
+msgstr "Belsendi joldy fon"
+
+msgid "Line Numbers Foreground"
+msgstr "Joldardy nómirleý"
+
+msgid "Line Numbers Background"
+msgstr "Joldardy nómirleýdiń fony"
+
+msgid "Style Scheme Editor"
+msgstr "Kúıge keltiriletin taqyryp"
+
+msgid "Set Dark Theme Icons"
+msgstr "Qara belgisheler"
+
+msgid "Set Light Theme Icons"
+msgstr "Jaryq belgisheleri"
+
+msgid "Set Default Icons"
+msgstr "Ádetti belgisheler"
+
+msgid "Icon Theme"
+msgstr "Taqyryby"
 
 msgid "Move the Selected Bookmark Up"
 msgstr "Ústine oryn almasý"
@@ -2339,6 +2527,12 @@ msgstr ""
 
 msgid "Enter the New Password Twice"
 msgstr "Engizińiz jáne tekseris úshin paról rastalyńyz"
+
+msgid "Autosave Every"
+msgstr "Avtosaqtaý ár"
+
+msgid "Minutes"
+msgstr "mınýttar"
 
 msgid "The Password Fields Must be Filled."
 msgstr "Siz paról bermedińiz "
@@ -2465,6 +2659,9 @@ msgstr "Káris"
 msgid "Lithuanian"
 msgstr "Lıtvalyq"
 
+msgid "Persian"
+msgstr "Parsy"
+
 msgid "Polish"
 msgstr "Polák"
 
@@ -2522,433 +2719,119 @@ msgstr "CodeBox-ov"
 msgid "Number of Anchors"
 msgstr "Zákirler"
 
-msgid "Light Background, Dark Text"
-msgstr "Ashyq fondaǵy qarańǵy mátin"
+msgid "Latex Text"
+msgstr "LaTeX mátin"
 
-msgid "Dark Background, Light Text"
-msgstr "Qarańǵy fondaǵy ashyq má"
+msgid "Image Size dpi"
+msgstr "Dpi sýret ólshemi"
 
-msgid "Custom Background"
-msgstr "Fon"
+msgid "Tutorial"
+msgstr "Basshylyq"
 
-msgid "Text"
-msgstr "Mátin"
+msgid "Reference"
+msgstr "Anyqtama"
 
-msgid "Selection Background"
-msgstr "Erekshelengen mátinniń fony"
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX matematıkalyq teńdeýler boıynsha oqýlyq"
 
-msgid "Tree Explorer"
-msgstr "Aǵashtyń sholýshysy"
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX matematıkalyq sımvoldarynyń anyqtamalyǵy"
 
-msgid "Rich Text"
-msgstr "Formattalǵan mátin"
+msgid "Image Properties"
+msgstr "Beıneniń qasıeti"
 
-msgid "Plain Text"
-msgstr "Kádimgi mátin"
+msgid "Width"
+msgstr "En"
 
-msgid "Table"
-msgstr "Keste"
+msgid "Height"
+msgstr "Bıiktik"
 
-msgid "Code"
-msgstr "Kod"
+msgid "Automatic Syntax Highlighting"
+msgstr "Sıntaksıstiń kómeski jaryǵy"
 
-msgid "Style Schemes"
-msgstr "Mátindik redaktor"
+msgid "Type"
+msgstr "Túr"
 
-msgid "Text Foreground"
-msgstr "Mátin"
+msgid "pixels"
+msgstr "pıkselder"
 
-msgid "Text Background"
-msgstr "Fon"
-
-msgid "Selection Foreground"
-msgstr "Erekshelengen mátin"
-
-msgid "Cursor"
-msgstr "Júgirgi"
-
-msgid "Current Line Background"
-msgstr "Belsendi joldy fon"
-
-msgid "Line Numbers Foreground"
-msgstr "Joldardy nómirleý"
-
-msgid "Line Numbers Background"
-msgstr "Joldardy nómirleýdiń fony"
-
-msgid "Reset to Default"
-msgstr "Úndemeý boıynshaǵa maǵyna"
-
-msgid "Style Scheme Editor"
-msgstr "Kúıge keltiriletin taqyryp"
-
-msgid "Set Dark Theme Icons"
-msgstr "Qara belgisheler"
-
-msgid "Set Light Theme Icons"
-msgstr "Jaryq belgisheleri"
-
-msgid "Set Default Icons"
-msgstr "Ádetti belgisheler"
-
-msgid "Icon Theme"
-msgstr "Taqyryby"
-
-msgid "Add"
-msgstr "Jıi paıdalanylatyn pármender qosylý"
-
-msgid "Remove Selected"
-msgstr "Jıi paıdalanylatyn pármender alystap ketý"
-
-msgid "Split Toolbar"
-msgstr "Bólgish"
-
-msgid "Select Element to Add"
-msgstr "Jıi paıdalanylatyn pármender"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Áli de siz mátinniń qalyptaýy júrgizildińiz"
-
-msgid "No Text is Selected."
-msgstr "Mátin erekshelengen emes"
-
-msgid "Link Name"
-msgstr "Silteme ústemelený"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Júgirgi azatjoldyń syrtyna"
-
-msgid "Insert/Edit Link"
-msgstr "Siltemeniń qasıeti"
-
-msgid "Pick a Foreground Color"
-msgstr "Tústi tańdańyz"
-
-msgid "Pick a Background Color"
-msgstr "Tústi tańdańyz"
-
-msgid "Replace in Current Node"
-msgstr "Almastyryl taral..."
-
-msgid "Search in Current Node"
-msgstr "Tabyl taral..."
-
-msgid "Matches"
-msgstr " sáıkestikter"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr ""
-"Qujatta izdeý aıaqtaldy.\n"
-"\n"
-"Qajetti element <b>' %s '</b > tabylmady"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Fılıaldarǵa aýystyryńyz..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Fılıaldardan tabyńyz..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Áli de siz izdestirý júrgizildińiz nemese mátinniń aýystyrýyn"
-
-msgid "Tags"
-msgstr "Tegter"
-
-msgid ": "
-msgstr ": "
-
-msgid "The new parent can't be one of his children!"
-msgstr "Jańa ata-ana butaǵy enshiles múmkin emes bolady!"
-
-msgid "Tab Width"
-msgstr "Tabýlásıanyń eni"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Tabýlásıa orynyna bos oryndar"
-
-msgid "Use Line Wrapping"
-msgstr "Jol aýystyrylý"
-
-msgid "Line Wrapping Indentation"
-msgstr "Joldardy sheginis"
-
-msgid "Enable Automatic Indentation"
-msgstr "Avtomatty sheginis"
+msgid "Size"
+msgstr "Ólshem"
 
 msgid "Show Line Numbers"
 msgstr "Joldardy nómirleý"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Aınaldyrý joldyń syrtyna"
+msgid "Highlight Matching Brackets"
+msgstr "Jańa saýǵan jaqshalar jaryq túsirý"
 
-msgid "Vertical Space Around Lines"
-msgstr "Jolaralyq ınterval"
+msgid "Options"
+msgstr "Teńshelim"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Joldardy tik sheginis"
+msgid "Rows"
+msgstr "Joldar sany:"
+
+msgid "Columns"
+msgstr "San baǵana:"
+
+msgid "Default Width"
+msgstr "Maǵyna:"
+
+msgid "Table Size"
+msgstr "Kesteniń ólshemi"
+
+msgid "Column Properties"
+msgstr "Baǵananyń eni "
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Jeńil ınterfeıs (úlken kesteler úshin jyldamyraq)"
+
+msgid "Import from CSV File"
+msgstr "Faıl CSV derekterin ımporttaý"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "'Latex' jáne 'dvipng'oryndalatyn faıldaryna qol jetkizý múmkin bolmady"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Mysaly, Ubuntu-da ornatýǵa arnalǵan paketter:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Mysaly, Mac OS júıesinde ornatýǵa arnalǵan paketter:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "'Latex' oryndalatyn faılyna kirý múmkin bolmady"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "'dvipng' oryndalatyn faılyna kirý múmkin bolmady"
+
+msgid "Show White Spaces"
+msgstr "Bos oryndy beıneleý"
+
+msgid "Highlight Current Line"
+msgstr "Belsendi jol jaryq túsirý"
 
 msgid "Text Editor"
 msgstr "Mátindik redaktor"
 
-msgid "Timestamp Format"
-msgstr "Kúniniń pishimi"
+msgid "Internal Terminal Shell"
+msgstr "Kiristirilgen termınaldy paıdalanyńyz"
 
-msgid "Online Manual"
-msgstr "Ǵalamtorda málimet"
+msgid "Command per Node/CodeBox Type"
+msgstr "Kompılátordyń/ınterpretatorynyń pármeni"
 
-msgid "Horizontal Rule"
-msgstr "Gorızontal syzyq"
+msgid "Terminal Command"
+msgstr "Termınaldyń pármeni"
 
-msgid "Chars to Select at Double Click"
-msgstr "Mátindi eki ret túrtý arqyly bólekteńiz"
+msgid "Code Execution"
+msgstr "Kodtyń oryndaýy"
 
-msgid "PDF File"
-msgstr "PDF qujat "
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Qural-saımandar ólshem maksımaldy"
 
-msgid "Plain Text Document"
-msgstr "Mátindi qujat"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Qural-saımandar ólshem mınımaldy"
 
-msgid "Show Menubar:"
-msgstr "Mázir jolaǵyn kórsetý:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "<b>' %s '</b> joly joq"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s \" CherryTree qujatty bolyp kórinbeıdi"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Faıl CherryTree ashýyn qate:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr ""
-"Qujatta izdeý aıaqtaldy.\n"
-"\n"
-"Qajetti tarmaq <b> '%s ' < / b> tabylmady!"
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Jaratylǵan basqa qoldanba ashylǵan ýaqytsha faıldary qaı."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "CherryTree shyǵatyn esikti aldynda syrtqy qoldanbany jabyńyz."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Siz syrtqy qoldanba bitirdińiz be?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Qujat basqa baǵdarlama jańartqannan keıin qaıta júkteldi"
-
-msgid "_Hide"
-msgstr "Oraý..."
-
-msgid "Hide the Window"
-msgstr ""
-"Oraý...\n"
-"\n"
-"CherryTree málimdemelerdiń tóńirekteridegin oraý"
-
-msgid "Node Type"
-msgstr "Túr"
-
-msgid "Spell Check"
-msgstr "Emle"
-
-msgid "Word Count"
-msgstr "Sózder"
-
-msgid "Date Created"
-msgstr "Jaratylǵan"
-
-msgid "Date Modified"
-msgstr "Ózgertilgen"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr "Siz butaqty kóshirmedińiz nemese aǵash Qol jetimdi emes"
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Aǵash butaǵy qol jetimdi emes"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"'%s' qaltasy '%s ' ishinde burynnan bar.\n"
-"<b>Joıý?</b>"
-
-msgid "Checking for Newer Version..."
-msgstr "Jańa boljamnyń qol jetimdiligin tekseris..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Serverge jaýap bermeıdi. Sońyraq kórińiz"
-
-msgid "A Newer Version Is Available!"
-msgstr "Jańa boljam qol jetetin!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Jańarý tabylǵan emes! Siz sońǵy nobaıdy paıdalanyńyz CherryTree"
-
-msgid "You Are Using a Development Version."
-msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz"
-
-msgid "Search for"
-msgstr "Tabylý:"
-
-msgid "Replace with"
-msgstr "Almastyrylý:"
-
-msgid "Match Case"
-msgstr "Regıstrdi eskerilý"
-
-msgid "Regular Expression"
-msgstr "Júıeli aıtylý"
-
-msgid "Accent Insensitive"
-msgstr "Joıýǵa sezimtaldyq"
-
-msgid "Override Exclusions"
-msgstr "Erekshelikterdi joıý"
-
-msgid "Whole Word"
-msgstr "Sóz ǵana tutastaı"
-
-msgid "Start Word"
-msgstr "Sózdiń basy"
-
-msgid "Forward"
-msgstr "Alǵa"
-
-msgid "Backward"
-msgstr "Keıin"
-
-msgid "All, List Matches"
-msgstr "Týra kelý bári"
-
-msgid "First From Selection"
-msgstr "Birinshi týra kelý erekshelengen"
-
-msgid "First in All Range"
-msgstr "Barlyq qujat boıymen birinshi týra kelý "
-
-msgid "Node Created After"
-msgstr "Keıin jaratylǵan"
-
-msgid "Node Created Before"
-msgstr "Deıin jaratylǵan"
-
-msgid "Node Modified After"
-msgstr "Keıin ózgertilgen"
-
-msgid "Node Modified Before"
-msgstr "Deıin ózgertilgen"
-
-msgid "Time filter"
-msgstr "Kúni boıymen taral..."
-
-msgid "Node Content"
-msgstr "Túıin mazmuny"
-
-msgid "Node Name and Tags"
-msgstr "Butaq atymen jáne tegter"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Butaǵy enshiles"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "\"Týra kelý ....\" dıalogktik terezeniń kórsetý"
-
-msgid "Search options"
-msgstr "Izdestirýdiń parametrleri"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"По крайней мере одна ветвь была пропущена из-за установленных в её свойствач исключений.\n"
-"Чтобы снять все исключения, воспользуйтесь меню:\n"
-"Поиск -> Удалить все исключения из поиска"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Oraý/Qalpyna kelý ('%s')"
-
-msgid "Node Name"
-msgstr "Esim"
-
-msgid "Line"
-msgstr "Jol"
-
-msgid "Line Content"
-msgstr "Ishindegi"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr ""
-"Butaqqa durys emes silteme.\n"
-"\n"
-"Endi taral bolmaıdy (Id = %s).\n"
-"Ol joıylǵan nemese ózgertilgen shyǵar"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Qaıtalaný Tabylý/Almastyrylý"
-
-msgid "Close"
-msgstr "Jabý"
-
-msgid "Find Previous"
-msgstr "Aldyńǵy"
-
-msgid "Find Next"
-msgstr "Kelesi"
-
-msgid "Replace"
-msgstr "Almastyrý"
-
-msgid "Undo"
-msgstr "Boldyrmaý"
-
-msgid "Special Characters"
-msgstr "Nyshandar"
-
-msgid "Chars for Bulleted List"
-msgstr "Tańbalanǵan tizim"
-
-msgid "Chars for Todo List"
-msgstr "Tapsyrmalar tizim"
-
-msgid "Chars for Table Of Content"
-msgstr "Mazmun"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Qosarlanǵan tyrnaqshalardyń avtoalmastyrýy úshin"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Tyrnaqshalardyń avtoalmastyrýy úshin"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Tyrnaqshalardyń avtoalmastyrýy"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Nyshandardy avtoalmastyrý"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Qostalatyn nyshandar"
-
-msgid "Only at the Start of the Line"
-msgstr "Jol basynda ǵana"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Cherrytree qaıta iske qosylǵannan keıin ózgerister kúshine enedi."
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
@@ -2988,6 +2871,78 @@ msgstr ""
 "Faıl: <b>\"%s\"</b> - tek qana oqý úshinniń qol jetetini.\n"
 "\n"
 "Onynyń basqa esimimen saqtalyp kórińiz."
+
+msgid "Tab Width"
+msgstr "Tabýlásıanyń eni"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Tabýlásıa orynyna bos oryndar"
+
+msgid "Use Line Wrapping"
+msgstr "Jol aýystyrylý"
+
+msgid "Line Wrapping Indentation"
+msgstr "Joldardy sheginis"
+
+msgid "Enable Automatic Indentation"
+msgstr "Avtomatty sheginis"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Aınaldyrý joldyń syrtyna"
+
+msgid "Cursor Blinking"
+msgstr "Jypylyqtaıtyn kýrsor"
+
+msgid "System Default"
+msgstr "Úndemeý boıynshaǵa"
+
+msgid "On"
+msgstr "Qosýly"
+
+msgid "Off"
+msgstr "Óshirýli"
+
+msgid "Vertical Space Around Lines"
+msgstr "Jolaralyq ınterval"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Joldardy tik sheginis"
+
+msgid "Timestamp Format"
+msgstr "Kúniniń pishimi"
+
+msgid "Horizontal Rule"
+msgstr "Gorızontal syzyq"
+
+msgid "Chars to Select at Double Click"
+msgstr "Mátindi eki ret túrtý arqyly bólekteńiz"
+
+msgid "Miscellaneous"
+msgstr "Ár túrli"
+
+msgid "Remove Color"
+msgstr "Tazalaný"
+
+msgid "Question"
+msgstr "Suraq"
+
+msgid "Info"
+msgstr "Aqparat"
+
+msgid "Error"
+msgstr "Qate"
+
+msgid "Select File"
+msgstr "Ashylý..."
+
+msgid "Select Folder"
+msgstr "Tańdaý..."
+
+msgid "Save File as"
+msgstr "Basqasha saqtaý..."
+
+msgid "Save To Folder"
+msgstr "Qaltaǵa saqtaý"
 
 msgid "Use Different Cherries per Level"
 msgstr "Ár deńgeı úshin ár túrlisi shıeler"
@@ -3037,41 +2992,366 @@ msgstr "Sońǵy poseshennyeler taqyrypta taral"
 msgid "Select Node Icon"
 msgstr "Belgisheniń aýysymy"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Qural-saımandar ólshem maksımaldy"
+msgid "No Node is Selected"
+msgstr "Tarmaq tańdalmaǵan"
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Qural-saımandar ólshem mınımaldy"
+msgid "The Tree is Empty!"
+msgstr ""
+"<b> Bos aǵash! </b>\n"
+"\n"
+"Sizdiń birinshi aǵashyńyz quryńyz!\n"
+"Bastapqyda jumys jańa butaq qosylyńyz:\n"
+"<b>Basty mázir\\Aǵash\\Jańa butaq </b>"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "'Latex' jáne 'dvipng'oryndalatyn faıldaryna qol jetkizý múmkin bolmady"
+msgid "The Selected Node is Read Only."
+msgstr ""
+"Mynaý butaq qol jetetin <b>\"Oqý ǵana!\"</b>.\n"
+"\n"
+"Redaksıalaý úshin qasıetti ózgert taral."
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Mysaly, Ubuntu-da ornatýǵa arnalǵan paketter:"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Formattalǵan mátin úshin túsinikti tek qana mynaý fýnksıa"
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Mysaly, Mac OS júıesinde ornatýǵa arnalǵan paketter:"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Mynaý fýnksıa sıntaksıstiń kómeski jaryǵy úshin jetispedi"
 
-msgid "Could not access the executable 'latex'"
-msgstr "'Latex' oryndalatyn faılyna kirý múmkin bolmady"
+msgid "No Text is Selected."
+msgstr "Mátin erekshelengen emes"
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "'dvipng' oryndalatyn faılyna kirý múmkin bolmady"
+msgid "No Table is Selected."
+msgstr "Mátin erekshelengen emes"
+
+msgid "No CodeBox is Selected."
+msgstr "Tarmaq tańdalmaǵan"
+
+msgid "New Child Node Properties"
+msgstr "Qasıet jańa enshiles taral"
+
+msgid "New Node Properties"
+msgstr "Qasıet jańa taral"
+
+msgid "Node Properties"
+msgstr "Qasıet taral"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Sizi <b> \"Kádimgi mátin\" </b> <b> \"Formattalǵan mátin\" </b> \n"
+"aýysymynyń janynda mátinniń qalyptaýy tolyǵymen joǵalt bul úshin taral.\n"
+"Jalǵastyrady ma?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr ""
+" \n"
+"Siz <b>' %s '</b> butaq ras alystap ketkińiz keledi me?"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "<b> Da kelesi enshiles sylyn taral!</b>"
+
+msgid "Select the New Parent"
+msgstr "Atany tańdańyz..."
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Jańa ata-ana butaǵy múmkin emes oryn almasady! "
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Atamen bolyp kórinip qoıdylardy tańdalǵan jańa ata-ana butaǵy!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s qasıetteri tazartyldy"
+
+msgid "To WebSite"
+msgstr "Saıt:   "
+
+msgid "To File"
+msgstr "Faıl:  "
+
+msgid "To Folder"
+msgstr "Qalta:"
+
+msgid "To Node"
+msgstr "Tarmaq:"
+
+msgid "Anchor Name (optional)"
+msgstr " Siltemege zákir qosylý (opsıaly)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Bul tarmaqta ıakor joq"
+
+msgid "Choose Existing Anchor"
+msgstr "Zákirdi tańdańyz"
+
+msgid "Anchor Name"
+msgstr "Zákirdiń aty"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr ""
+"Qujatta izdeý aıaqtaldy.\n"
+"\n"
+"Qajetti element <b>' %s '</b > tabylmady!"
+
+msgid "CherryTree File"
+msgstr "Faıl CherryTree"
+
+msgid "Preferences File"
+msgstr "Teńshelimderdi faıl"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree qoıyn kitapsha"
+
+msgid "_Exit CherryTree"
+msgstr "Shyǵý"
+
+msgid "Show Menubar:"
+msgstr "Mázir jolaǵyn kórsetý:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "<b>' %s '</b> joly joq"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s \" CherryTree qujatty bolyp kórinbeıdi"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Faıl CherryTree ashýyn qate:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr ""
+"Qujatta izdeý aıaqtaldy.\n"
+"\n"
+"Qajetti tarmaq <b> '%s ' < / b> tabylmady!"
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Jaratylǵan basqa qoldanba ashylǵan ýaqytsha faıldary qaı."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "CherryTree shyǵatyn esikti aldynda syrtqy qoldanbany jabyńyz."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Siz syrtqy qoldanba bitirdińiz be?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Qujat basqa baǵdarlama jańartqannan keıin qaıta júkteldi"
+
+msgid "Enable System Tray Docking"
+msgstr "CherryTree málimdemelerdiń tóńirekteridegin belgisheni beıneleý"
+
+msgid "Start Minimized in the System Tray"
+msgstr "CherryTree málimdemelerdiń tóńirekteridegi starttan keıin burylý"
+
+msgid "System Tray"
+msgstr "Esepter jaqtaýy"
+
+msgid "Autosave on Quit"
+msgstr "Jabýda saqtalý"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Rezeretik kóshirme qurý"
+
+msgid "Number of Backups to Keep"
+msgstr "Rezeretik kóshirmelerdiń sany"
+
+msgid "Custom Backup Directory"
+msgstr "Rezeretik kóshirmeler úshin muqaba"
+
+msgid "Saving"
+msgstr "Saqtaý"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Jańarýlardy bar bolý tekserý"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Sózderdi qalyp-jaǵdaı jolynda san"
+
+msgid "Reload Document From Last Session"
+msgstr "Sońǵy ashylǵan qujatty júkteý"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Qujat ózgeristen keıin qaıta júktelý"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Basty terezeni taqyrypta faılǵa jol"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Taqyrypta jol taral"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Betbelgilerdi basty mázirde tizbe"
+
+msgid "Enable Debug Log"
+msgstr "Saıdy paıdalansyn-faıl"
+
+msgid "Debug Log Directory"
+msgstr "Tańdaý... "
+
+msgid "Language"
+msgstr "Tel"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "CherryTree belgishe málimdemelerdiń tóńiregidegi paıda boldy ma?"
+
+msgid "Your system does not support the System Tray"
+msgstr ""
+" \n"
+"Sizdiń júıeńiz málimdemelerdi oblys qostalmaıdy!"
+
+msgid "_Hide"
+msgstr "Oraý..."
+
+msgid "Hide the Window"
+msgstr ""
+"Oraý...\n"
+"\n"
+"CherryTree málimdemelerdiń tóńirekteridegin oraý"
+
+msgid "Node Type"
+msgstr "Túr"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "Tegter"
+
+msgid "Spell Check"
+msgstr "Emle"
+
+msgid "Word Count"
+msgstr "Sózder"
+
+msgid "Date Created"
+msgstr "Jaratylǵan"
+
+msgid "Date Modified"
+msgstr "Ózgertilgen"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "Siz butaqty kóshirmedińiz nemese aǵash Qol jetimdi emes"
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Aǵash butaǵy qol jetimdi emes"
+
+msgid "English"
+msgstr "Aǵylshyn"
+
+msgid "Text and Code"
+msgstr "Mátin jáne kod"
+
+msgid "Plain Text and Code"
+msgstr "Kádimgi mátin jáne kod"
+
+msgid "Special Characters"
+msgstr "Nyshandar"
+
+msgid "Theme"
+msgstr "Taqyryp"
+
+msgid "Fonts"
+msgstr "Qaripter"
+
+msgid "Links"
+msgstr "Silteme"
+
+msgid "Toolbar"
+msgstr "Qural-saımandar paneli"
+
+msgid "Keyboard Shortcuts"
+msgstr "Ystyq perneler"
+
+msgid "Monospace"
+msgstr "Birkelki mátin"
+
+msgid "Code Font"
+msgstr "Kodtyń mátini"
+
+msgid "Terminal Font"
+msgstr "Termınal mátini"
+
+msgid "Tree Font"
+msgstr "Aǵashtyń mátini"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Veb-betke siltemeniń ashýynda"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Faılǵa siltemeniń ashýynda"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Muqabaǵa siltemeniń ashýynda"
+
+msgid "Custom Actions"
+msgstr "Is-áreket"
+
+msgid "Colors"
+msgstr "Túsken"
+
+msgid "Underline Links"
+msgstr "Silteme astyn syzý"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Faıldarǵa salystyrmaly joldardy paıdalansyn jáne muqabalarǵa"
+
+msgid "Anchor Size"
+msgstr "Zákirdiń belgishesin ólshem"
+
+msgid "Replace in Current Node"
+msgstr "Almastyryl taral..."
+
+msgid "Search in Current Node"
+msgstr "Tabyl taral..."
+
+msgid "Matches"
+msgstr " sáıkestikter"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr ""
+"Qujatta izdeý aıaqtaldy.\n"
+"\n"
+"Qajetti element <b>' %s '</b > tabylmady"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Fılıaldarǵa aýystyryńyz..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Fılıaldardan tabyńyz..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Áli de siz izdestirý júrgizildińiz nemese mátinniń aýystyrýyn"
+
+msgid "PDF File"
+msgstr "PDF qujat "
+
+msgid "Plain Text Document"
+msgstr "Mátindi qujat"
+
+msgid "Who is the Parent?"
+msgstr "Qosylý..."
+
+msgid "The Tree Root"
+msgstr "Aǵash"
+
+msgid "The Selected Node"
+msgstr "Butaq"
 
 msgid "Enable Spell Check"
 msgstr "Orfografıany tekserý"
 
 msgid "Spell Check Language"
 msgstr "Sózdik:"
-
-msgid "Show White Spaces"
-msgstr "Bos oryndy beıneleý"
-
-msgid "Highlight Current Line"
-msgstr "Belsendi jol jaryq túsirý"
-
-msgid "Highlight Matching Brackets"
-msgstr "Jańa saýǵan jaqshalar jaryq túsirý"
 
 msgid "Expand CodeBoxes Automatically"
 msgstr "Ishindegi CodeBox boıymen ózdiginen tańdaý"
@@ -3124,80 +3404,58 @@ msgstr "Usaq"
 msgid "Scalable Tags"
 msgstr "Masshtab jasalatyn tegter"
 
-msgid "Monospace"
-msgstr "Birkelki mátin"
-
-msgid "Writing to Disk..."
-msgstr "Dıskke jazba..."
-
 #, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Faılǵa <b>\"%s\"</b> jazba qol jetpes"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Úshin paról %s engizińiz"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
 msgstr ""
-"Qujat búlingen.\n"
-"\n"
-"Ony basqa atpen saqtaýǵa tyrysyńyz (Faıl-->Basqasha saqtaý...)."
+"'%s' qaltasy '%s ' ishinde burynnan bar.\n"
+"<b>Joıý?</b>"
 
-msgid "Failed to encrypt the file"
-msgstr "Faıldy shıfrlaý múmkin bolmady"
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Áli de siz mátinniń qalyptaýy júrgizildińiz"
 
-msgid "Image Format Not Recognized"
-msgstr "Beıne pishim tanymal emes"
+msgid "Link Name"
+msgstr "Silteme ústemelený"
 
-msgid "Insert Table"
-msgstr "Keste ústemelený"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Júgirgi azatjoldyń syrtyna"
 
-msgid "CSV File"
-msgstr "CSV faıl"
+msgid "Pick a Foreground Color"
+msgstr "Tústi tańdańyz"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr ""
-"Faıl maksımal ólshemdi %s MB asady\n"
-" "
+msgid "Pick a Background Color"
+msgstr "Tústi tańdańyz"
 
-msgid "Do you want to Continue?"
-msgstr "Jalǵastyrady ma?"
+msgid "Chars for Bulleted List"
+msgstr "Tańbalanǵan tizim"
 
-msgid "Tabs Replaced"
-msgstr " tabýlásıalar aýystyrylǵan"
+msgid "Chars for Todo List"
+msgstr "Tapsyrmalar tizim"
 
-msgid "Lines Stripped"
-msgstr " jol tazalanǵan"
+msgid "Chars for Table Of Content"
+msgstr "Mazmun"
 
-msgid "Change Selected"
-msgstr "Perneler kombınasıasyn ózgertý"
+msgid "Chars for Smart Double Quotes"
+msgstr "Qosarlanǵan tyrnaqshalardyń avtoalmastyrýy úshin"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr ""
-" \n"
-"'%s' paıdalanyp qoıdylar perneler kombınasıasy!"
+msgid "Chars for Smart Single Quotes"
+msgstr "Tyrnaqshalardyń avtoalmastyrýy úshin"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Osy tirkesim <b>' %s '</b> is-áreketti oryndaıdy"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Tyrnaqshalardyń avtoalmastyrýy"
 
-msgid "Do you want to steal the shortcut?"
-msgstr "Perneler kombınasıasyn qaıta anyqtaıdy ma?"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Nyshandardy avtoalmastyrý"
 
-msgid "Edit Keyboard Shortcut"
-msgstr "Jańa tirkesim..."
+msgid "Supported Symbols Auto Replacements"
+msgstr "Qostalatyn nyshandar"
 
-msgid "No Keyboard Shortcut"
-msgstr "Berilgen emes"
+msgid "Only at the Start of the Line"
+msgstr "Jol basynda ǵana"
 
 msgid "Use Selected Color"
 msgstr "Taqyryp"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Sıntaksıstiń kómeski jaryǵy"
 
 msgid "Tags for Searching"
 msgstr "Izdestirý úshin tegter"
@@ -3250,295 +3508,80 @@ msgstr "Jańa betten jańa butaǵy"
 msgid "Single File"
 msgstr "Bir faıl"
 
-msgid "English"
-msgstr "Aǵylshyn"
+msgid "Checking for Newer Version..."
+msgstr "Jańa boljamnyń qol jetimdiligin tekseris..."
 
-msgid "Text and Code"
-msgstr "Mátin jáne kod"
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Serverge jaýap bermeıdi. Sońyraq kórińiz"
 
-msgid "Plain Text and Code"
-msgstr "Kádimgi mátin jáne kod"
+msgid "A Newer Version Is Available!"
+msgstr "Jańa boljam qol jetetin!"
 
-msgid "Theme"
-msgstr "Taqyryp"
+msgid "You Are Using the Latest Version Available."
+msgstr "Jańarý tabylǵan emes! Siz sońǵy nobaıdy paıdalanyńyz CherryTree"
 
-msgid "Fonts"
-msgstr "Qaripter"
+msgid "You Are Using a Development Version."
+msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz"
 
-msgid "Links"
-msgstr "Silteme"
+msgid "Image Format Not Recognized"
+msgstr "Beıne pishim tanymal emes"
 
-msgid "Toolbar"
-msgstr "Qural-saımandar paneli"
-
-msgid "Keyboard Shortcuts"
-msgstr "Ystyq perneler"
-
-msgid "Code Font"
-msgstr "Kodtyń mátini"
-
-msgid "Terminal Font"
-msgstr "Termınal mátini"
-
-msgid "Tree Font"
-msgstr "Aǵashtyń mátini"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Veb-betke siltemeniń ashýynda"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Faılǵa siltemeniń ashýynda"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Muqabaǵa siltemeniń ashýynda"
-
-msgid "Custom Actions"
-msgstr "Is-áreket"
-
-msgid "Colors"
-msgstr "Túsken"
-
-msgid "Underline Links"
-msgstr "Silteme astyn syzý"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Faıldarǵa salystyrmaly joldardy paıdalansyn jáne muqabalarǵa"
-
-msgid "Anchor Size"
-msgstr "Zákirdiń belgishesin ólshem"
-
-msgid "Who is the Parent?"
-msgstr "Qosylý..."
-
-msgid "The Tree Root"
-msgstr "Aǵash"
-
-msgid "The Selected Node"
-msgstr "Butaq"
-
-msgid "Internal Terminal Shell"
-msgstr "Kiristirilgen termınaldy paıdalanyńyz"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Kompılátordyń/ınterpretatorynyń pármeni"
-
-msgid "Terminal Command"
-msgstr "Termınaldyń pármeni"
-
-msgid "Code Execution"
-msgstr "Kodtyń oryndaýy"
-
-msgid "Rename"
-msgstr "Qaıta atalý"
-
-msgid "PNG Image"
-msgstr "PNG beıne"
+msgid "Insert Table"
+msgstr "Keste ústemelený"
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "Jazba %s sátti bolmady"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "%s muqabaǵa durys emes silteme"
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "%s faılǵa durys emes silteme "
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "%s muqabaǵa durys emes silteme"
-
-#, c-format
-msgid "No anchor named '%s' found"
+msgid "The Maximum Size for Embedded Files is %s MB."
 msgstr ""
-"Qujatta izdeý aıaqtaldy.\n"
-"\n"
-"Siz izdegen zákir <b> '%s ' < / b> tabylmady!"
+"Faıl maksımal ólshemdi %s MB asady\n"
+" "
 
-msgid "Edit CodeBox"
-msgstr "CodeBox qasıet"
+msgid "Do you want to Continue?"
+msgstr "Jalǵastyrady ma?"
 
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Siz tilmen pármenge baılanysýyńyz kerek <b>' %s '</b>.\n"
-"\n"
-"Bul qoldanba teńshelimderindegi jasaýǵa bolady"
+msgid "Tabs Replaced"
+msgstr " tabýlásıalar aýystyrylǵan"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Xterm deste ornatylyńyz nemese qoldanba teńshelimderindegi basqa termınal "
-"teńsheńiz"
+msgid "Lines Stripped"
+msgstr " jol tazalanǵan"
 
-msgid "Edit Table Properties"
-msgstr "Kesteniń qasıeti"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Eskertý: bir nemese birneshe keskin azaıtyldy"
 
-msgid "Insert Anchor"
-msgstr "Zákir ústemelený"
+msgid "Print CherryTree version"
+msgstr "Mór úshin nobaı"
 
-msgid "Edit Anchor"
-msgstr "Zákirdiń qasıeti"
+msgid "Node name to focus"
+msgstr "Esim fokýs úshin taral"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "<b>\"Oqý ǵana!\"</b> faıldy múmkin emes redaksıalaý"
+msgid "Anchor name to scroll to in node"
+msgstr "Tarmaqqa jyljý úshin ıakor ataýy"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "Faıl avtomatty túrde jańartylǵan:"
+msgid "Export to HTML at specified directory path"
+msgstr "HTML bar dırektorıaǵa eksport"
 
-msgid "The Tree is Empty!"
-msgstr ""
-"<b> Bos aǵash! </b>\n"
-"\n"
-"Sizdiń birinshi aǵashyńyz quryńyz!\n"
-"Bastapqyda jumys jańa butaq qosylyńyz:\n"
-"<b>Basty mázir\\Aǵash\\Jańa butaq </b>"
+msgid "Export to Text at specified directory path"
+msgstr "TXT bar dırektorıaǵa eksport"
 
-msgid "The Selected Node is Read Only."
-msgstr ""
-"Mynaý butaq qol jetetin <b>\"Oqý ǵana!\"</b>.\n"
-"\n"
-"Redaksıalaý úshin qasıetti ózgert taral."
+msgid "Export to PDF at specified directory path"
+msgstr "PDF bar dırektorıaǵa eksport"
 
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Formattalǵan mátin úshin túsinikti tek qana mynaý fýnksıa"
+msgid "Overwrite if export path already exists"
+msgstr "Eger bolyp qoıdylardy faıl bolsa qaıta jazyp alý"
 
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Mynaý fýnksıa sıntaksıstiń kómeski jaryǵy úshin jetispedi"
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "(HTML úshin nemese TXT) bir faılǵa eksport"
 
-msgid "No Table is Selected."
-msgstr "Mátin erekshelengen emes"
+msgid "Password to open document"
+msgstr "Qujattyń paroli"
 
-msgid "No CodeBox is Selected."
-msgstr "Tarmaq tańdalmaǵan"
+msgid "Create a new window"
+msgstr "Jańa tereze qurý"
 
-msgid "New Child Node Properties"
-msgstr "Qasıet jańa enshiles taral"
+msgid "Run in secondary session, independent from main session"
+msgstr "Ekinshi sesıany bastaý"
 
-msgid "New Node Properties"
-msgstr "Qasıet jańa taral"
-
-msgid "Node Properties"
-msgstr "Qasıet taral"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Sizi <b> \"Kádimgi mátin\" </b> <b> \"Formattalǵan mátin\" </b> \n"
-"aýysymynyń janynda mátinniń qalyptaýy tolyǵymen joǵalt bul úshin taral.\n"
-"Jalǵastyrady ma?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr ""
-" \n"
-"Siz <b>' %s '</b> butaq ras alystap ketkińiz keledi me?"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> Da kelesi enshiles sylyn taral!</b>"
-
-msgid "Select the New Parent"
-msgstr "Atany tańdańyz..."
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Jańa ata-ana butaǵy múmkin emes oryn almasady! "
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Atamen bolyp kórinip qoıdylardy tańdalǵan jańa ata-ana butaǵy!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s qasıetteri tazartyldy"
-
-msgid "Latex Text"
-msgstr "LaTeX mátin"
-
-msgid "Image Size dpi"
-msgstr "Dpi sýret ólshemi"
-
-msgid "Tutorial"
-msgstr "Basshylyq"
-
-msgid "Reference"
-msgstr "Anyqtama"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX matematıkalyq teńdeýler boıynsha oqýlyq"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX matematıkalyq sımvoldarynyń anyqtamalyǵy"
-
-msgid "Image Properties"
-msgstr "Beıneniń qasıeti"
-
-msgid "Width"
-msgstr "En"
-
-msgid "Height"
-msgstr "Bıiktik"
-
-msgid "Type"
-msgstr "Túr"
-
-msgid "pixels"
-msgstr "pıkselder"
-
-msgid "Size"
-msgstr "Ólshem"
-
-msgid "Options"
-msgstr "Teńshelim"
-
-msgid "Rows"
-msgstr "Joldar sany:"
-
-msgid "Columns"
-msgstr "San baǵana:"
-
-msgid "Default Width"
-msgstr "Maǵyna:"
-
-msgid "Table Size"
-msgstr "Kesteniń ólshemi"
-
-msgid "Column Properties"
-msgstr "Baǵananyń eni "
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Jeńil ınterfeıs (úlken kesteler úshin jyldamyraq)"
-
-msgid "Import from CSV File"
-msgstr "Faıl CSV derekterin ımporttaý"
-
-msgid "Remove Color"
-msgstr "Tazalaný"
-
-msgid "Question"
-msgstr "Suraq"
-
-msgid "Info"
-msgstr "Aqparat"
-
-msgid "Error"
-msgstr "Qate"
-
-msgid "Select File"
-msgstr "Ashylý..."
-
-msgid "Select Folder"
-msgstr "Tańdaý..."
-
-msgid "Save File as"
-msgstr "Basqasha saqtaý..."
-
-msgid "Save To Folder"
-msgstr "Qaltaǵa saqtaý"
+msgid "Are you sure to Reset to Default?"
+msgstr "Úndemeý boıynshaǵa maǵyna qalpyna keledi me?"
 
 msgid "HTML Document"
 msgstr "HTML qujat"
@@ -3554,7 +3597,3 @@ msgstr "Treepad qujat"
 
 msgid "Leo Document"
 msgstr "Leo qujat"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "Úndemeý boıynshaǵa maǵyna qalpyna keledi me?"
-
