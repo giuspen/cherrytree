@@ -170,6 +170,12 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
             if (vec::exists(targets, CtConst::TARGET_CTD_TABLE))
                 return std::make_tuple(CtConst::TARGET_CTD_TABLE, received_table, false);
 #if defined(_WIN32)
+            // on Windows, if the web clipboard is an image then paste it immediately (no html download needed)
+            if (is_rich_text) {
+                for (auto& target : CtConst::TARGETS_IMAGES)
+                    if (vec::exists(targets, target))
+                        return std::make_tuple(target, received_image, false);
+            }
             if (vec::exists(targets, CtConst::TARGET_WIN_HTML))
                 return std::make_tuple(CtConst::TARGET_WIN_HTML, received_html, false);
 #endif // _WIN32
