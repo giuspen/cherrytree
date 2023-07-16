@@ -1,4 +1,15 @@
 
+1.0.0 (July 16th, 2023)
+  * fixed crash when opening node properties (#2304, #2313)
+  * fixed blurry output when exporting LaTeX to pdf (#2308)
+  * added configurability of the blinking of the cursor in the preferences dialog (#2298)
+  * added support for executing 'rust' and 'go' code in code nodes and codeboxes
+  * added 24 new stock icons available to be chosen as tree node icons
+  * added menu items under top menu 'help' to link to website, source code and bug tracker
+  * on windows, paste image from clipboard to take priority over html target containing image so that can work offline (#2303, work of @DaPa)
+  * added new language Persian (work of Majid Abri)
+  * incomplete languages: ar, bg, el, es, fi, hi_IN, hr, hu, ja, ko, lt, pt, pt_BR, ro, sl, zh_TW
+
 0.99.56 (June 22nd, 2023)
   * implemented new data storage type: multiple files in hierarchical folder structure (#2123, #1823)
   * the backups for the new multiple files data storage do not contain all the tree but only what has changed

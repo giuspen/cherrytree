@@ -1,23 +1,14 @@
-cherrytree (0.99.56-2) focal; urgency=low
+cherrytree (1.0.0-2) focal; urgency=low
 
-  * implemented new data storage type: multiple files in hierarchical folder structure (#2123, #1823)
-  * the backups for the new multiple files data storage do not contain all the tree but only what has changed
-  * all backup files (or folders for the brand new multifile data storage) are now starting with a dot (.name~, .name~~, ..)
-  * fixed crash sorting rows of table lightweight interface (#2253)
-  * fix export to html of lists (#2276, #2286)
-  * fixed recent documents corruption when file is deleted/missing (#2277)
-  * fixed on Windows zooming the font reverts the font family to Sans (#2257)
-  * click on line number to behave as triple click (select line, #1363)
-  * column edit (selection with Ctrl+Alt held down) added clipboard support (#2232)
-  * added 37 new stock icons available to be chosen as tree node icons
-  * remember last selected custom icon in node properties same as last selected colour (#2185)
-  * implemented import nodes from indented list (#1551, #2258)
-  * added support for executing java code in code nodes and codeboxes
-  * added detection of exclusions from the search hit in the current search and message to the user / how to disable exclusions
-  * fixed in flatpak and appimage languages not available (#2270)
-  * fixed latex box issue with portable version of cherrytree on windows (#2294)
-  * added tooltip with node name when hovering node (#2295)
-  * incomplete languages: ar, bg, el, fi, hi_IN, hr, lt, zh_CN
+  * fixed crash when opening node properties (#2304, #2313)
+  * fixed blurry output when exporting LaTeX to pdf (#2308)
+  * added configurability of the blinking of the cursor in the preferences dialog (#2298)
+  * added support for executing 'rust' and 'go' code in code nodes and codeboxes
+  * added 24 new stock icons available to be chosen as tree node icons
+  * added menu items under top menu 'help' to link to website, source code and bug tracker
+  * on windows, paste image from clipboard to take priority over html target containing image so that can work offline (#2303, work of @DaPa)
+  * added new language Persian (work of Majid Abri)
+  * incomplete languages: ar, bg, el, es, fi, hi_IN, hr, hu, ja, ko, lt, pt, pt_BR, ro, sl, zh_TW
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Thu, 22 Jun 2023 20:08:13 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 16 Jul 2023 22:12:12 +0100
