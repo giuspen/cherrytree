@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-29 08:29+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-16 10:02+0200\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.1\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Varning: En eller flera bilder reducerades för att öppna sidan!"
@@ -1308,14 +1308,32 @@ msgstr "Hjälp"
 msgid "_Check Newer Version"
 msgstr "_Sök efter en nyare version"
 
-msgid "Check for a Newer Version"
-msgstr "Sök efter en nyare version"
+msgid "Check for a Newer Version Available Online"
+msgstr "Sök efter en nyare version online"
+
+msgid "_Website"
+msgstr "_Webbsida"
+
+msgid "Visit CherryTree's Website"
+msgstr "Besök CherryTree's webbplats"
+
+msgid "_Source Code"
+msgstr "_Källkod"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Bläddra i CherryTree's källkod online"
+
+msgid "_Report a Bug"
+msgstr "_Rapportera ett fel"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Rapportera ett fel i CherryTree"
 
 msgid "Online _Manual"
 msgstr "Online-_manual"
 
-msgid "Application's Online Manual"
-msgstr "Programmets online-manual"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree's online-manual"
 
 msgid "_About"
 msgstr "_Om"
@@ -1730,6 +1748,9 @@ msgstr "Koreanska"
 msgid "Lithuanian"
 msgstr "Litauiska"
 
+msgid "Persian"
+msgstr "Persiska"
+
 msgid "Polish"
 msgstr "Polska"
 
@@ -1943,6 +1964,15 @@ msgstr "Visa radnummer"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Skrolla bortom sista raden"
+
+msgid "Cursor Blinking"
+msgstr "Blinkande markör"
+
+msgid "On"
+msgstr "På"
+
+msgid "Off"
+msgstr "Av"
 
 msgid "Vertical Space Around Lines"
 msgstr "Vertikalt mellanrum runt rader"
@@ -2786,6 +2816,9 @@ msgstr "Leo-dokument"
 msgid "Are you sure to Reset to Default?"
 msgstr "Vill du verkligen återställa till standardvärden?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Programmets online-manual"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree-dokument"
 
@@ -2795,7 +2828,6 @@ msgstr "Vill du verkligen återställa till standardvärden?"
 #~ msgid "Password Protected"
 #~ msgstr "Lösenordsskyddad"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Dokumentet \"%s\" hittades inte"
 

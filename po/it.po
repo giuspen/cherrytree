@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-28 19:27+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-16 00:02+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
@@ -1309,14 +1309,32 @@ msgstr "Aiuto"
 msgid "_Check Newer Version"
 msgstr "_Cerca nuova versione"
 
-msgid "Check for a Newer Version"
-msgstr "Verifica la disponibilità di una nuova versione"
+msgid "Check for a Newer Version Available Online"
+msgstr "Verifica la disponibilità di una versione più recente in linea"
+
+msgid "_Website"
+msgstr "Sito _web"
+
+msgid "Visit CherryTree's Website"
+msgstr "Visita il sito di CherryTree"
+
+msgid "_Source Code"
+msgstr "Codice _sorgente"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Sfoglia il codice sorgente di CherryTree in linea"
+
+msgid "_Report a Bug"
+msgstr "Se_gnala un bug"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Segnala un bug in CherryTree"
 
 msgid "Online _Manual"
 msgstr "_Guida in linea"
 
-msgid "Application's Online Manual"
-msgstr "Guida in linea dell'applicazione"
+msgid "CherryTree's Online Manual"
+msgstr "Manuale in linea di CherryTree"
 
 msgid "_About"
 msgstr "_Informazioni"
@@ -1733,6 +1751,9 @@ msgstr "Coreano"
 msgid "Lithuanian"
 msgstr "Lituano"
 
+msgid "Persian"
+msgstr "Persiano"
+
 msgid "Polish"
 msgstr "Polacco"
 
@@ -1948,6 +1969,15 @@ msgstr "Mostra numeri di riga"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Scorri oltre l'ultima riga"
+
+msgid "Cursor Blinking"
+msgstr "Cursore lampeggiante"
+
+msgid "On"
+msgstr "Attivo"
+
+msgid "Off"
+msgstr "Disattivo"
 
 msgid "Vertical Space Around Lines"
 msgstr "Spazio verticale intorno alle righe"
@@ -2233,8 +2263,8 @@ msgstr ""
 msgid ""
 "%s write failed - file is missing. Reattach USB drive or shared resource!"
 msgstr ""
-"%s scrittura non riuscita - file mancante. Ricollega la memoria USB o la"
-" risorsa condivisa."
+"%s scrittura non riuscita - file mancante. Ricollega la memoria USB o la "
+"risorsa condivisa."
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
@@ -2795,6 +2825,9 @@ msgstr "Documento di Leo"
 msgid "Are you sure to Reset to Default?"
 msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Guida in linea dell'applicazione"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Documento di CherryTree"
 
@@ -2804,7 +2837,6 @@ msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
 #~ msgid "Password Protected"
 #~ msgstr "Protetto da password"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Il documento %s non è stato trovato"
 
