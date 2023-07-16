@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-07 10:00+0100\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-16 21:07+0200\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
@@ -1311,14 +1311,32 @@ msgstr "Hilfe"
 msgid "_Check Newer Version"
 msgstr "_Auf neuere Version prüfen"
 
-msgid "Check for a Newer Version"
-msgstr "Nach neuerer Version suchen"
+msgid "Check for a Newer Version Available Online"
+msgstr "Online prüfen, ob neuere Version verfügbar ist"
+
+msgid "_Website"
+msgstr "Webseite"
+
+msgid "Visit CherryTree's Website"
+msgstr "CherryTree-Webseite besuchen"
+
+msgid "_Source Code"
+msgstr "Quellcode"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Cherrytree Quellcode online ansehen"
+
+msgid "_Report a Bug"
+msgstr "Einen Fehler melden"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Fehler in Cherrytree melden"
 
 msgid "Online _Manual"
 msgstr "Online-_Handbuch"
 
-msgid "Application's Online Manual"
-msgstr "Online-Handbuch des Programms"
+msgid "CherryTree's Online Manual"
+msgstr "Cherrytree Online-Handbuch"
 
 msgid "_About"
 msgstr "_Über"
@@ -1740,6 +1758,9 @@ msgstr "Koreanisch"
 msgid "Lithuanian"
 msgstr "Litauisch"
 
+msgid "Persian"
+msgstr "Persisch"
+
 msgid "Polish"
 msgstr "Polnisch"
 
@@ -1953,6 +1974,15 @@ msgstr "Zeilennummern anzeigen"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Hinter die letzte Zeile scrollen"
+
+msgid "Cursor Blinking"
+msgstr "Cursor blinken"
+
+msgid "On"
+msgstr "An"
+
+msgid "Off"
+msgstr "Aus"
 
 msgid "Vertical Space Around Lines"
 msgstr "Zeilenabstand"
@@ -2805,6 +2835,9 @@ msgstr "Leo-Dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Standardeinstellungen wirklich wiederherstellen?"
+
+#~ msgid "Application's Online Manual"
+#~ msgstr "Online-Handbuch des Programms"
 
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree-Datei"
