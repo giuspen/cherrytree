@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-18 20:16+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-17 22:26+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.3\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
@@ -1317,14 +1317,32 @@ msgstr "Ajutor"
 msgid "_Check Newer Version"
 msgstr "_Verifică versiunea mai nouă"
 
-msgid "Check for a Newer Version"
-msgstr "Verifică pentru o versiune mai nouă"
+msgid "Check for a Newer Version Available Online"
+msgstr "Verifică pentru o versiune mai nouă online"
+
+msgid "_Website"
+msgstr "_Website"
+
+msgid "Visit CherryTree's Website"
+msgstr "Vizitează website CherryTree"
+
+msgid "_Source Code"
+msgstr "_Cod sursă"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Răsfoiește codul sursă CherryTree online"
+
+msgid "_Report a Bug"
+msgstr "_Raportează o eroare"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Raportează o eroare în CherryTree"
 
 msgid "Online _Manual"
 msgstr "Manual _Online"
 
-msgid "Application's Online Manual"
-msgstr "Manualul online al aplicației"
+msgid "CherryTree's Online Manual"
+msgstr "Manual online CherryTree"
 
 msgid "_About"
 msgstr "_Despre"
@@ -1731,6 +1749,9 @@ msgstr "Coreană"
 msgid "Lithuanian"
 msgstr "Lituaniană"
 
+msgid "Persian"
+msgstr "Persană"
+
 msgid "Polish"
 msgstr "Poloneză"
 
@@ -1947,6 +1968,15 @@ msgstr "Afișează număr rând"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Deplasare dincolo de ultimul rând"
+
+msgid "Cursor Blinking"
+msgstr "Cursorul clipește"
+
+msgid "On"
+msgstr "Pornit"
+
+msgid "Off"
+msgstr "Oprit"
 
 msgid "Vertical Space Around Lines"
 msgstr "Spațiu vertical în jurul rândurilor"
@@ -2798,6 +2828,9 @@ msgstr "Document Leo"
 msgid "Are you sure to Reset to Default?"
 msgstr "Ești sigur de revenirea la setările originale?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Manualul online al aplicației"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Document CherryTree"
 
@@ -2807,7 +2840,6 @@ msgstr "Ești sigur de revenirea la setările originale?"
 #~ msgid "Password Protected"
 #~ msgstr "Protejat cu parolă"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Documentul %s nu a fost găsit"
 

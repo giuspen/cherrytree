@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-29 07:59+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-17 06:59+0200\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
-"X-Generator: Poedit 3.3.1\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Pozor: ena ali več slik je bilo pomanjšanih ob vstopu na stran!"
@@ -1309,14 +1309,32 @@ msgstr "Pomoč"
 msgid "_Check Newer Version"
 msgstr "_Preveri za posodobitve"
 
-msgid "Check for a Newer Version"
-msgstr "Preveri ali je na voljo posodobitev"
+msgid "Check for a Newer Version Available Online"
+msgstr "Preveri ali je na voljo posodobitev na spletu"
+
+msgid "_Website"
+msgstr "_Spletna stran"
+
+msgid "Visit CherryTree's Website"
+msgstr "Obišči CherryTree spletno stran"
+
+msgid "_Source Code"
+msgstr "_Izvorna koda"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Prebrskaj CherryTree izvorno kodo na spletu"
+
+msgid "_Report a Bug"
+msgstr "_Prijavi hrošča"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Prijavi napako ali hrošča v CherryTree"
 
 msgid "Online _Manual"
 msgstr "Spletna _navodila"
 
-msgid "Application's Online Manual"
-msgstr "Spletna navodila aplikacije"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree spletna navodila"
 
 msgid "_About"
 msgstr "_O aplikaciji"
@@ -1730,6 +1748,9 @@ msgstr "Korejščina"
 msgid "Lithuanian"
 msgstr "Litovščina"
 
+msgid "Persian"
+msgstr "Perzijščina"
+
 msgid "Polish"
 msgstr "Poljščina"
 
@@ -1943,6 +1964,15 @@ msgstr "Prikaži številko vrstice"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Pomakni se čez zadnjo vrstico"
+
+msgid "Cursor Blinking"
+msgstr "Utripanje kazalca"
+
+msgid "On"
+msgstr "Vklop"
+
+msgid "Off"
+msgstr "Izklop"
 
 msgid "Vertical Space Around Lines"
 msgstr "Navpični razmak vrstic"
@@ -2788,6 +2818,9 @@ msgstr "Leo dokument"
 msgid "Are you sure to Reset to Default?"
 msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Spletna navodila aplikacije"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Dokument CherryTree"
 
@@ -2797,7 +2830,6 @@ msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
 #~ msgid "Password Protected"
 #~ msgstr "Zaščiteno z geslom"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Dokument %s ni bil najden"
 

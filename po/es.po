@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-29 16:05+1000\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-17 22:20+0100\n"
 "Last-Translator: User Fav <userfav.post@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 2.3\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
@@ -165,7 +165,7 @@ msgid "_Recent Documents"
 msgstr "Documentos _recientes"
 
 msgid "Open a Recent CherryTree Document"
-msgstr "Abrir un documento de CherryTree"
+msgstr "Abrir reciente documento de CherryTree"
 
 msgid "C_hange Case"
 msgstr "Cambiar capitali_zación"
@@ -177,10 +177,10 @@ msgid "_Justify"
 msgstr "_Justificar"
 
 msgid "Toggle _Font Property"
-msgstr "Activar propiedades de _fuente"
+msgstr "Activar propiedades de _Tipos"
 
 msgid "_Toggle Heading Property"
-msgstr "Aplicar formato de Encabezado"
+msgstr "Activar Propiedad de Encabezado"
 
 msgid "I_nsert"
 msgstr "_Insertar"
@@ -1320,14 +1320,32 @@ msgstr "Ay_uda"
 msgid "_Check Newer Version"
 msgstr "_Comprobar nueva versión"
 
-msgid "Check for a Newer Version"
-msgstr "Comprobar si hay una nueva versión"
+msgid "Check for a Newer Version Available Online"
+msgstr "Chequear existencia de nueva versión en-linea"
+
+msgid "_Website"
+msgstr "Sitio web"
+
+msgid "Visit CherryTree's Website"
+msgstr "Visitar Sitio web de CherryTree"
+
+msgid "_Source Code"
+msgstr "Código Fuente"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Revisar en-linea Código Fuente de CherryTree"
+
+msgid "_Report a Bug"
+msgstr "Reportar un defecto"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Reportar un error en CherryTree"
 
 msgid "Online _Manual"
 msgstr "_Manual en línea"
 
-msgid "Application's Online Manual"
-msgstr "Manual en línea del programa"
+msgid "CherryTree's Online Manual"
+msgstr "_Manual en línea de CherryTree"
 
 msgid "_About"
 msgstr "_Acerca de"
@@ -1741,6 +1759,9 @@ msgstr "Coreano"
 msgid "Lithuanian"
 msgstr "Lituano"
 
+msgid "Persian"
+msgstr "Persa"
+
 msgid "Polish"
 msgstr "Polaco"
 
@@ -1853,7 +1874,7 @@ msgid "Line Numbers Background"
 msgstr "Fondo de números de línea"
 
 msgid "Reset to Default"
-msgstr "Volver a valores predeterminados"
+msgstr "Restablecer valores predeterminados"
 
 msgid "Style Scheme Editor"
 msgstr "Editor de esquemas de estilo"
@@ -1874,7 +1895,7 @@ msgid "Add"
 msgstr "Agregar"
 
 msgid "Remove Selected"
-msgstr "Borrar seleccionado"
+msgstr "Borrar Selección"
 
 msgid "Split Toolbar"
 msgstr "Dividir Barra de herramientas"
@@ -1954,6 +1975,15 @@ msgstr "Insertar espacios, no tabuladores"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Desplazar posterior a última línea"
+
+msgid "Cursor Blinking"
+msgstr "Cursor parpadeando"
+
+msgid "On"
+msgstr "Encendido"
+
+msgid "Off"
+msgstr "Apagado"
 
 msgid "Vertical Space Around Lines"
 msgstr "Espacio vertical alrededor de la líneas"
@@ -2800,6 +2830,9 @@ msgstr "Documento de Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "¿Seguro que quieres restaurar los valores predeterminados?"
+
+#~ msgid "Application's Online Manual"
+#~ msgstr "Manual en línea del programa"
 
 #~ msgid "CherryTree Document"
 #~ msgstr "Documento de CherryTree"
