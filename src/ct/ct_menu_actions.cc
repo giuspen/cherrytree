@@ -75,21 +75,21 @@ void CtMenu::init_actions(CtActions* pActions)
     const char* file_cat = _("File");
     _actions.push_back(CtMenuAction{file_cat, "ct_new_inst", "ct_new-instance", _("_New Instance..."), None,
         _("Start a New Instance of CherryTree"), sigc::mem_fun(*pActions, &CtActions::file_new)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_open_file", "ct_open", _("_Open File..."), KB_CONTROL+"O",
+    _actions.push_back(CtMenuAction{file_cat, "ct_open_file", "ct_open", _("_Open File..."), KB_CONTROL+"o",
         _("Open a CherryTree File"), sigc::mem_fun(*pActions, &CtActions::file_open)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_open_folder", "ct_open", _("Open Fo_lder..."), KB_CONTROL+KB_SHIFT+"O",
+    _actions.push_back(CtMenuAction{file_cat, "ct_open_folder", "ct_open", _("Open Fo_lder..."), KB_CONTROL+KB_SHIFT+"o",
         _("Open a CherryTree Folder"), sigc::mem_fun(*pActions, &CtActions::folder_open)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_save", "ct_save", _("_Save"), KB_CONTROL+"S",
+    _actions.push_back(CtMenuAction{file_cat, "ct_save", "ct_save", _("_Save"), KB_CONTROL+"s",
         _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtMenuAction{file_cat, "ct_vacuum", "ct_clear", _("Save and _Vacuum"), None,
         _("Save File and Vacuum"), sigc::mem_fun(*pActions, &CtActions::file_vacuum)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_save_as", "ct_save-as", _("Save _As..."), KB_CONTROL+KB_SHIFT+"S",
+    _actions.push_back(CtMenuAction{file_cat, "ct_save_as", "ct_save-as", _("Save _As..."), KB_CONTROL+KB_SHIFT+"s",
         _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
     _actions.push_back(CtMenuAction{file_cat, "print_page_setup", "ct_print", _("Pa_ge Setup..."), None,
         _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
-    _actions.push_back(CtMenuAction{file_cat, "do_print", "ct_print", _("P_rint..."), KB_CONTROL+"P",
+    _actions.push_back(CtMenuAction{file_cat, "do_print", "ct_print", _("P_rint..."), KB_CONTROL+"p",
         _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
-    _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "ct_preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P",
+    _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "ct_preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"p",
         _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
     _actions.push_back(CtMenuAction{file_cat, "pref_import", CtConst::STR_STOCK_CT_IMP, _("_Import Preferences..."), None,
         _("Import Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_import) });
@@ -97,57 +97,57 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Export Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_export) });
     _actions.push_back(CtMenuAction{file_cat, "tree_parse_info", "ct_info", _("Tree In_fo"), None,
         _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
-    _actions.push_back(CtMenuAction{file_cat, "quit_app", "ct_quit-app", _("_Quit"), KB_CONTROL+"Q",
+    _actions.push_back(CtMenuAction{file_cat, "quit_app", "ct_quit-app", _("_Quit"), KB_CONTROL+"q",
         _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
-    _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("E_xit CherryTree"), KB_CONTROL+KB_SHIFT+"Q",
+    _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("E_xit CherryTree"), KB_CONTROL+KB_SHIFT+"q",
         _("Exit from CherryTree"), sigc::mem_fun(*pActions, &CtActions::quit_window)});
 
     const char* editor_cat = _("Edit/Insert");
-    _actions.push_back(CtMenuAction{editor_cat, "act_undo", "ct_undo", _("_Undo"), KB_CONTROL+"Z",
+    _actions.push_back(CtMenuAction{editor_cat, "act_undo", "ct_undo", _("_Undo"), KB_CONTROL+"z",
         _("Undo Last Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_back)});
-    _actions.push_back(CtMenuAction{editor_cat, "act_redo", "ct_redo", _("_Redo"), KB_CONTROL+"Y",
+    _actions.push_back(CtMenuAction{editor_cat, "act_redo", "ct_redo", _("_Redo"), KB_CONTROL+"y",
         _("Redo Previously Discarded Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_ahead)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_image", "ct_image_insert", _("Insert I_mage..."), KB_CONTROL+KB_ALT+"I",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_image", "ct_image_insert", _("Insert I_mage..."), KB_CONTROL+KB_ALT+"i",
         _("Insert an Image"), sigc::mem_fun(*pActions, &CtActions::image_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_latex", "ct_latex_insert", _("Insert Late_x..."), KB_CONTROL+KB_ALT+"X",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_latex", "ct_latex_insert", _("Insert Late_x..."), KB_CONTROL+KB_ALT+"x",
         _("Insert LatexBox"), sigc::mem_fun(*pActions, &CtActions::latex_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_table", "ct_table_insert", _("Insert _Table..."), KB_CONTROL+KB_ALT+"B",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_table", "ct_table_insert", _("Insert _Table..."), KB_CONTROL+KB_ALT+"b",
         _("Insert a Table"), sigc::mem_fun(*pActions, &CtActions::table_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_codebox", "ct_codebox_insert", _("Insert _CodeBox..."), KB_CONTROL+KB_ALT+"C",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_codebox", "ct_codebox_insert", _("Insert _CodeBox..."), KB_CONTROL+KB_ALT+"c",
         _("Insert a CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_embfile", "ct_file_icon", _("Insert _File..."), KB_CONTROL+KB_ALT+"E",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_embfile", "ct_file_icon", _("Insert _File..."), KB_CONTROL+KB_ALT+"e",
         _("Insert File"), sigc::mem_fun(*pActions, &CtActions::embfile_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_link", "ct_link_handle", _("Insert/Edit _Link..."), KB_CONTROL+"L",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_link", "ct_link_handle", _("Insert/Edit _Link..."), KB_CONTROL+"l",
         _("Insert a Link/Edit the Underlying Link"), sigc::mem_fun(*pActions, &CtActions::apply_tag_link)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_anchor", "ct_anchor_insert", _("Insert _Anchor..."), KB_CONTROL+KB_ALT+"A",
+    _actions.push_back(CtMenuAction{editor_cat, "handle_anchor", "ct_anchor_insert", _("Insert _Anchor..."), KB_CONTROL+KB_ALT+"a",
         _("Insert an Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_handle)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_toc", "ct_index", _("Insert T_OC..."), None,
         _("Insert Table of Contents"), sigc::mem_fun(*pActions, &CtActions::toc_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "insert_timestamp", "ct_timestamp", _("Insert Timestam_p"), KB_CONTROL+KB_ALT+"M",
+    _actions.push_back(CtMenuAction{editor_cat, "insert_timestamp", "ct_timestamp", _("Insert Timestam_p"), KB_CONTROL+KB_ALT+"m",
         _("Insert Timestamp"), sigc::mem_fun(*pActions, &CtActions::timestamp_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_special_char", "ct_insert", _("Insert _Special Character..."), None,
         _("Insert a Special Character"), sigc::mem_fun(*pActions, &CtActions::special_char_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "insert_horiz_rule", "ct_horiz_rule", _("Insert _Horizontal Rule"), KB_CONTROL+"R",
+    _actions.push_back(CtMenuAction{editor_cat, "insert_horiz_rule", "ct_horiz_rule", _("Insert _Horizontal Rule"), KB_CONTROL+"r",
         _("Insert Horizontal Rule"), sigc::mem_fun(*pActions, &CtActions::horizontal_rule_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "case_down", "ct_case_lower", _("_Lower Case of Selection/Word"), KB_CONTROL+"W",
+    _actions.push_back(CtMenuAction{editor_cat, "case_down", "ct_case_lower", _("_Lower Case of Selection/Word"), KB_CONTROL+"w",
         _("Lower the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_lower_case)});
-    _actions.push_back(CtMenuAction{editor_cat, "case_up", "ct_case_upper", _("_Upper Case of Selection/Word"), KB_CONTROL+KB_SHIFT+"W",
+    _actions.push_back(CtMenuAction{editor_cat, "case_up", "ct_case_upper", _("_Upper Case of Selection/Word"), KB_CONTROL+KB_SHIFT+"w",
         _("Upper the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_upper_case)});
-    _actions.push_back(CtMenuAction{editor_cat, "case_tggl", "ct_case_toggle", _("_Toggle Case of Selection/Word"), KB_CONTROL+"G",
+    _actions.push_back(CtMenuAction{editor_cat, "case_tggl", "ct_case_toggle", _("_Toggle Case of Selection/Word"), KB_CONTROL+"g",
         _("Toggle the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_toggle_case)});
-    _actions.push_back(CtMenuAction{editor_cat, "cut_plain", "ct_edit_cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"X",
+    _actions.push_back(CtMenuAction{editor_cat, "cut_plain", "ct_edit_cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"x",
         _("Cut as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::cut_as_plain_text)});
-    _actions.push_back(CtMenuAction{editor_cat, "copy_plain", "ct_edit_copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"C",
+    _actions.push_back(CtMenuAction{editor_cat, "copy_plain", "ct_edit_copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"c",
         _("Copy as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::copy_as_plain_text)});
-    _actions.push_back(CtMenuAction{editor_cat, "paste_plain", "ct_edit_paste", _("_Paste as Plain Text"), KB_CONTROL+KB_SHIFT+"V",
+    _actions.push_back(CtMenuAction{editor_cat, "paste_plain", "ct_edit_paste", _("_Paste as Plain Text"), KB_CONTROL+KB_SHIFT+"v",
         _("Paste as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::paste_as_plain_text)});
-    _actions.push_back(CtMenuAction{editor_cat, "cut_row", "ct_edit_cut", _("C_ut Row"), KB_SHIFT+KB_ALT+"X",
+    _actions.push_back(CtMenuAction{editor_cat, "cut_row", "ct_edit_cut", _("C_ut Row"), KB_SHIFT+KB_ALT+"x",
         _("Cut the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_cut)});
-    _actions.push_back(CtMenuAction{editor_cat, "copy_row", "ct_edit_copy", _("C_opy Row"), KB_SHIFT+KB_ALT+"C",
+    _actions.push_back(CtMenuAction{editor_cat, "copy_row", "ct_edit_copy", _("C_opy Row"), KB_SHIFT+KB_ALT+"c",
         _("Copy the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_copy)});
-    _actions.push_back(CtMenuAction{editor_cat, "del_row", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+"K",
+    _actions.push_back(CtMenuAction{editor_cat, "del_row", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+"k",
         _("Delete the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_delete)});
-    _actions.push_back(CtMenuAction{editor_cat, "dup_row", "ct_add", _("_Duplicate Row"), KB_CONTROL+"D",
+    _actions.push_back(CtMenuAction{editor_cat, "dup_row", "ct_add", _("_Duplicate Row"), KB_CONTROL+"d",
         _("Duplicate the Current Row/Selection"), sigc::mem_fun(*pActions, &CtActions::text_row_selection_duplicate)});
     _actions.push_back(CtMenuAction{editor_cat, "mv_up_row", "ct_go-up", _("_Move Up Row"), KB_ALT+CtConst::STR_KEY_UP,
         _("Move Up the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_up)});
@@ -229,19 +229,19 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Clone the Text Format Type at Cursor"), sigc::mem_fun(*pActions, &CtActions::save_tags_at_cursor_as_latest)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Format _Latest"), "F7",
         _("Memory of Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tags_latest)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_rm", "ct_fmt-txt-clear", _("_Remove Formatting"), KB_CONTROL+KB_SHIFT+"R",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_rm", "ct_fmt-txt-clear", _("_Remove Formatting"), KB_CONTROL+KB_SHIFT+"r",
         _("Remove the Formatting from the Selected Text"), sigc::mem_fun(*pActions, &CtActions::remove_text_formatting)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_fg", "ct_color_fg", _("Text _Color Foreground"), KB_SHIFT+KB_ALT+"F",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_fg", "ct_color_fg", _("Text _Color Foreground"), KB_SHIFT+KB_ALT+"f",
         _("Change the Color of the Selected Text Foreground"), sigc::mem_fun(*pActions, &CtActions::apply_tag_foreground)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_bg", "ct_color_bg", _("Text C_olor Background"), KB_SHIFT+KB_ALT+"B",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_bg", "ct_color_bg", _("Text C_olor Background"), KB_SHIFT+KB_ALT+"b",
         _("Change the Color of the Selected Text Background"), sigc::mem_fun(*pActions, &CtActions::apply_tag_background)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_bold", "ct_fmt-txt-bold", _("Toggle _Bold Property"), KB_CONTROL+"B",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_bold", "ct_fmt-txt-bold", _("Toggle _Bold Property"), KB_CONTROL+"b",
         _("Toggle Bold Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_bold)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_italic", "ct_fmt-txt-italic", _("Toggle _Italic Property"), KB_CONTROL+"I",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_italic", "ct_fmt-txt-italic", _("Toggle _Italic Property"), KB_CONTROL+"i",
         _("Toggle Italic Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_italic)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_underline", "ct_fmt-txt-underline", _("Toggle _Underline Property"), KB_CONTROL+"U",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_underline", "ct_fmt-txt-underline", _("Toggle _Underline Property"), KB_CONTROL+"u",
         _("Toggle Underline Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_underline)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_strikethrough", "ct_fmt-txt-strikethrough", _("Toggle Stri_kethrough Property"), KB_CONTROL+"E",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_strikethrough", "ct_fmt-txt-strikethrough", _("Toggle Stri_kethrough Property"), KB_CONTROL+"e",
         _("Toggle Strikethrough Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_strikethrough)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_h1", "ct_fmt-txt-h1", _("Toggle h_1 Property"), KB_CONTROL+"1",
         _("Toggle h1 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h1)});
@@ -261,7 +261,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Toggle Superscript Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_superscript)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_subscript", "ct_fmt-txt-subscript", _("Toggle Su_bscript Property"), None,
         _("Toggle Subscript Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_subscript)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_monospace", "ct_fmt-txt-monospace", _("Toggle _Monospace Property"), KB_CONTROL+"M",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_monospace", "ct_fmt-txt-monospace", _("Toggle _Monospace Property"), KB_CONTROL+"m",
         _("Toggle Monospace Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_monospace)});
     _actions.push_back(CtMenuAction{fmt_cat, "handle_bull_list", "ct_list_bulleted", _("Set/Unset _Bulleted List"), KB_CONTROL+KB_ALT+"1",
         _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), sigc::mem_fun(*pActions, &CtActions::list_bulleted_handler)});
@@ -283,13 +283,13 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Unindent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::reduce_tag_indent)});
 
     const char* tools_cat = _("Tools");
-    _actions.push_back(CtMenuAction{tools_cat, "spellcheck_toggle", "ct_spell-check", _("Enable/Disable _Spell Check"), KB_CONTROL+KB_ALT+"S",
+    _actions.push_back(CtMenuAction{tools_cat, "spellcheck_toggle", "ct_spell-check", _("Enable/Disable _Spell Check"), KB_CONTROL+KB_ALT+"s",
         _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
     _actions.push_back(CtMenuAction{tools_cat, "strip_trail_spaces", "ct_clear", _("Stri_p Trailing Spaces"), None,
         _("Strip Trailing Spaces"), sigc::mem_fun(*pActions, &CtActions::strip_trailing_spaces)});
     _actions.push_back(CtMenuAction{tools_cat, "repl_tabs_spaces", "ct_find_replace", _("_Replace Tabs with Spaces"), None,
         _("Replace Tabs with Spaces"), sigc::mem_fun(*pActions, &CtActions::replace_tabs_with_spaces)});
-    _actions.push_back(CtMenuAction{tools_cat, "command_palette", "ct_execute", _("_Command Palette..."), KB_CONTROL+KB_SHIFT+"P",
+    _actions.push_back(CtMenuAction{tools_cat, "command_palette", "ct_execute", _("_Command Palette..."), KB_CONTROL+KB_SHIFT+"p",
         _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
     _actions.push_back(CtMenuAction{tools_cat, "exec_code_all", "ct_play", _("_Execute Code All"), "F5",
         _("Execute All Code in CodeBox or Node"), sigc::mem_fun(*pActions, &CtActions::exec_code_all)});
@@ -301,11 +301,11 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Go to the Previous Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_back)});
     _actions.push_back(CtMenuAction{tree_cat, "go_node_next", "ct_go-forward", _("Go _Forward"), KB_ALT+CtConst::STR_KEY_RIGHT,
         _("Go to the Next Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_forward)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_add_node", "ct_tree-node-add", _("Add _Node..."), KB_CONTROL+"N",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_add_node", "ct_tree-node-add", _("Add _Node..."), KB_CONTROL+"n",
         _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_add)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_add_subnode", "ct_tree-subnode-add", _("Add _Subnode..."), KB_CONTROL+KB_SHIFT+"N",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_add_subnode", "ct_tree-subnode-add", _("Add _Subnode..."), KB_CONTROL+KB_SHIFT+"n",
         _("Add a Child Node to the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_child_add)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node", "ct_tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node", "ct_tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"d",
         _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_duplicate)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("Duplicate Node _and Subnodes"), None,
         _("Duplicate the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
@@ -319,7 +319,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_date_from_sel)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("C_hange Node Properties..."), "F2",
         _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"r",
         _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Cop_y Link to Node"), None,
         _("Copy Link to the Selected Node to Clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
@@ -328,13 +328,13 @@ void CtMenu::init_actions(CtActions* pActions)
         sigc::mem_fun(*pActions, &CtActions::node_inherit_syntax)});
     _actions.push_back(CtMenuAction{tree_cat, "handle_bookmarks", "ct_edit", _("_Handle Bookmarks..."), None,
         _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
-    _actions.push_back(CtMenuAction{tree_cat, "node_bookmark", "ct_pin-add", _("Add to Boo_kmarks"), KB_CONTROL+KB_SHIFT+"B",
+    _actions.push_back(CtMenuAction{tree_cat, "node_bookmark", "ct_pin-add", _("Add to Boo_kmarks"), KB_CONTROL+KB_SHIFT+"b",
         _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
-    _actions.push_back(CtMenuAction{tree_cat, "node_unbookmark", "ct_pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B",
+    _actions.push_back(CtMenuAction{tree_cat, "node_unbookmark", "ct_pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"b",
         _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
-    _actions.push_back(CtMenuAction{tree_cat, "nodes_all_expand", "ct_zoom-in", _("E_xpand All Nodes"), KB_CONTROL+KB_SHIFT+"E",
+    _actions.push_back(CtMenuAction{tree_cat, "nodes_all_expand", "ct_zoom-in", _("E_xpand All Nodes"), KB_CONTROL+KB_SHIFT+"e",
         _("Expand All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_expand_all)});
-    _actions.push_back(CtMenuAction{tree_cat, "nodes_all_collapse", "ct_zoom-out", _("_Collapse All Nodes"), KB_CONTROL+KB_SHIFT+"L",
+    _actions.push_back(CtMenuAction{tree_cat, "nodes_all_collapse", "ct_zoom-out", _("_Collapse All Nodes"), KB_CONTROL+KB_SHIFT+"l",
         _("Collapse All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_collapse_all)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_up", "ct_go-up", _("Node _Up"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_UP,
         _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
@@ -344,7 +344,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Move the Selected Node Left"), sigc::mem_fun(*pActions, &CtActions::node_left)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_right", "ct_go-forward", _("Node _Right"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_RIGHT,
         _("Move the Selected Node Right"), sigc::mem_fun(*pActions, &CtActions::node_right)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_new_father", "ct_go-jump", _("Node Change _Parent..."), KB_SHIFT+KB_ALT+"P",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_new_father", "ct_go-jump", _("Node Change _Parent..."), KB_SHIFT+KB_ALT+"p",
         _("Change the Selected Node's Parent"), sigc::mem_fun(*pActions, &CtActions::node_change_father)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_all_sort_asc", "ct_sort-asc", _("Sort Tree _Ascending"), None,
         _("Sort the Tree Ascending"), sigc::mem_fun(*pActions, &CtActions::tree_sort_ascending)});
@@ -358,25 +358,25 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Delete the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_delete)});
 
     const char* find_cat = _("Find/Replace");
-    _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content..."), KB_CONTROL+"F",
+    _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content..."), KB_CONTROL+"f",
         _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
-    _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find _in Multiple Nodes..."), KB_CONTROL+KB_SHIFT+"F",
+    _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find _in Multiple Nodes..."), KB_CONTROL+KB_SHIFT+"f",
         _("Find in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::find_in_multiple_nodes_act)});
-    _actions.push_back(CtMenuAction{find_cat, "find_in_node_names", "ct_find", _("Find in _Nodes Names and Tags..."), KB_CONTROL+"T",
+    _actions.push_back(CtMenuAction{find_cat, "find_in_node_names", "ct_find", _("Find in _Nodes Names and Tags..."), KB_CONTROL+"t",
         _("Find in Nodes Names and Tags"), sigc::mem_fun(*pActions, &CtActions::find_a_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_iter_fw", "ct_find_again", _("Find _Again"), "F3",
         _("Iterate the Last Find Operation"), sigc::mem_fun(*pActions, &CtActions::find_again)});
     _actions.push_back(CtMenuAction{find_cat, "find_iter_bw", "ct_find_back", _("Find _Back"), "F4",
         _("Iterate the Last Find Operation in Opposite Direction"), sigc::mem_fun(*pActions, &CtActions::find_back)});
-    _actions.push_back(CtMenuAction{find_cat, "replace_in_node", "ct_replace_sel", _("_Replace in Node Content..."), KB_CONTROL+"H",
+    _actions.push_back(CtMenuAction{find_cat, "replace_in_node", "ct_replace_sel", _("_Replace in Node Content..."), KB_CONTROL+"h",
         _("Replace into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::replace_in_selected_node)});
     _actions.push_back(CtMenuAction{find_cat, "replace_in_allnodes", "ct_replace_all",
-        _("Replace in _Multiple Nodes..."), KB_CONTROL+KB_SHIFT+"H",
+        _("Replace in _Multiple Nodes..."), KB_CONTROL+KB_SHIFT+"h",
         _("Replace in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::replace_in_multiple_nodes)});
     _actions.push_back(CtMenuAction{find_cat, "replace_iter_fw", "ct_replace_again", _("Replace A_gain"), "F6",
         _("Iterate the Last Replace Operation"), sigc::mem_fun(*pActions, &CtActions::replace_again)});
     _actions.push_back(CtMenuAction{find_cat, "toggle_show_allmatches_dlg", "ct_find",
-        _("Show All Matches _Dialog..."), KB_CONTROL+KB_SHIFT+"A",
+        _("Show All Matches _Dialog..."), KB_CONTROL+KB_SHIFT+"a",
         _("Show Search All Matches Dialog"), sigc::mem_fun(*pActions, &CtActions::find_allmatchesdialog_restore)});
     _actions.push_back(CtMenuAction{find_cat, "tree_clear_exclude_from_search", "ct_clear", _("_Clear All Exclusions From Search"), None,
         _("Clear All Tree Nodes Properties of Exclusions From Search"), sigc::mem_fun(*pActions, &CtActions::tree_clear_property_exclude_from_search)});
@@ -387,7 +387,7 @@ void CtMenu::init_actions(CtActions* pActions)
 #if defined(HAVE_VTE)
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_vte", "ct_term", _("Show/Hide Te_rminal"), KB_CONTROL+"F9",
         _("Toggle Show/Hide Terminal"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_vte)});
-    _actions.push_back(CtMenuAction{view_cat, "toggle_focus_vte_text", "ct_go-jump", _("Toggle Focus Terminal/Te_xt"), KB_CONTROL+KB_SHIFT+"T",
+    _actions.push_back(CtMenuAction{view_cat, "toggle_focus_vte_text", "ct_go-jump", _("Toggle Focus Terminal/Te_xt"), KB_CONTROL+KB_SHIFT+"t",
         _("Toggle Focus Between Terminal and Text"), sigc::mem_fun(*pActions, &CtActions::toggle_focus_vte_text)});
 #endif // HAVE_VTE
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_menubar", "ct_menubar", _("Show/Hide _Menubar"), "F12",
@@ -560,9 +560,9 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Delete the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_delete)});
 
     const char* terminal_cat = "";
-    _actions.push_back(CtMenuAction{terminal_cat, "term_copy", "ct_edit_copy", _("Copy Selection or All"), KB_CONTROL+KB_SHIFT+"C",
+    _actions.push_back(CtMenuAction{terminal_cat, "term_copy", "ct_edit_copy", _("Copy Selection or All"), KB_CONTROL+KB_SHIFT+"c",
         _("Copy Selection or All"), sigc::mem_fun(*pActions, &CtActions::terminal_copy)});
-    _actions.push_back(CtMenuAction{terminal_cat, "term_paste", "ct_edit_paste", _("Paste"), KB_CONTROL+KB_SHIFT+"V",
+    _actions.push_back(CtMenuAction{terminal_cat, "term_paste", "ct_edit_paste", _("Paste"), KB_CONTROL+KB_SHIFT+"v",
         _("Paste"), sigc::mem_fun(*pActions, &CtActions::terminal_paste)});
     _actions.push_back(CtMenuAction{terminal_cat, "term_reset", "ct_clear", _("Reset"), None,
         _("Reset"), sigc::mem_fun(*pActions, &CtActions::terminal_reset)});
