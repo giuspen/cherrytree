@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-05 12:27+0200\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-18 12:48+0200\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
@@ -1310,14 +1310,32 @@ msgstr "Súgó"
 msgid "_Check Newer Version"
 msgstr "_Frissítések keresése"
 
-msgid "Check for a Newer Version"
-msgstr "Frissítések keresése"
+msgid "Check for a Newer Version Available Online"
+msgstr "Frissítések keresése online"
+
+msgid "_Website"
+msgstr "_Weboldal"
+
+msgid "Visit CherryTree's Website"
+msgstr "CherryTree weboldalának megtekintése"
+
+msgid "_Source Code"
+msgstr "_Forráskód"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "CherryTree forráskódjának megtekintése"
+
+msgid "_Report a Bug"
+msgstr "_Hibajelentés"
+
+msgid "Report a Bug in CherryTree"
+msgstr "CherryTree-ben észlelt hiba jelentése"
 
 msgid "Online _Manual"
 msgstr "Online _súgó"
 
-msgid "Application's Online Manual"
-msgstr "Az applikáció online súgója"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree online súgója"
 
 msgid "_About"
 msgstr "_Névjegy"
@@ -1732,6 +1750,9 @@ msgstr "Kóreai"
 msgid "Lithuanian"
 msgstr "Litván"
 
+msgid "Persian"
+msgstr "Perzsa"
+
 msgid "Polish"
 msgstr "Lengyel"
 
@@ -1945,6 +1966,15 @@ msgstr "Sorszámok megjelenítése"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Görgetés az utolsó sornál tovább"
+
+msgid "Cursor Blinking"
+msgstr "Kurzor villogás"
+
+msgid "On"
+msgstr "Be"
+
+msgid "Off"
+msgstr "Ki"
 
 msgid "Vertical Space Around Lines"
 msgstr "Sorköz"
@@ -2790,6 +2820,9 @@ msgstr "Leo dokumentum"
 msgid "Are you sure to Reset to Default?"
 msgstr "Biztosan visszaállítod az alapértelmezett beállításokat?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Az applikáció online súgója"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree dokumentum"
 
@@ -2799,7 +2832,6 @@ msgstr "Biztosan visszaállítod az alapértelmezett beállításokat?"
 #~ msgid "Password Protected"
 #~ msgstr "jelszóval védett"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "A(z) \"%s\" dokumentum nem található"
 

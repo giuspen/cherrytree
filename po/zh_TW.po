@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-06-03 21:23+0800\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-18 06:07+0800\n"
 "Last-Translator: Emer Chen <ldsemerchen@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
@@ -1299,14 +1299,32 @@ msgstr "幫助"
 msgid "_Check Newer Version"
 msgstr "檢查新版本(_C)"
 
-msgid "Check for a Newer Version"
-msgstr "檢查新的版本"
+msgid "Check for a Newer Version Available Online"
+msgstr "檢查線上可用的新版本"
+
+msgid "_Website"
+msgstr "網站(_W)"
+
+msgid "Visit CherryTree's Website"
+msgstr "拜訪CherryTree的網站"
+
+msgid "_Source Code"
+msgstr "原始碼(_S)"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "線上瀏覽CherryTree的原始碼"
+
+msgid "_Report a Bug"
+msgstr "回報臭蟲(_R)"
+
+msgid "Report a Bug in CherryTree"
+msgstr "在CherryTree回報臭蟲"
 
 msgid "Online _Manual"
 msgstr "線上手冊(_M)"
 
-msgid "Application's Online Manual"
-msgstr "程式的線上手冊"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree的線上手冊"
 
 msgid "_About"
 msgstr "關於(_A)"
@@ -1716,6 +1734,9 @@ msgstr "韓語"
 msgid "Lithuanian"
 msgstr "立陶宛語"
 
+msgid "Persian"
+msgstr "波斯語"
+
 msgid "Polish"
 msgstr "波蘭語"
 
@@ -1929,6 +1950,15 @@ msgstr "顯示行號"
 
 msgid "Scroll Beyond Last Line"
 msgstr "滾動到最後一行之後"
+
+msgid "Cursor Blinking"
+msgstr "游標閃爍"
+
+msgid "On"
+msgstr "開"
+
+msgid "Off"
+msgstr "關"
 
 msgid "Vertical Space Around Lines"
 msgstr "行之間的距離"
@@ -2756,6 +2786,9 @@ msgstr "Leo檔案"
 msgid "Are you sure to Reset to Default?"
 msgstr "您確定要重設為預設值嗎？"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "程式的線上手冊"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree檔案"
 
@@ -2765,7 +2798,6 @@ msgstr "您確定要重設為預設值嗎？"
 #~ msgid "Password Protected"
 #~ msgstr "密碼保護"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "檔案 %s 未找到"
 

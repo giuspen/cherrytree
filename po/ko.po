@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-30 00:08+0900\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-17 20:53+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "경고 : 페이지에 맞게 하나 이상의 이미지가 축소되었습니다!"
@@ -1173,7 +1173,7 @@ msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "현재 Tree에 CherryTree파일을 불러와 노트로 추가하기"
 
 msgid "From _CherryTree Folder"
-msgstr "CherryTree폴ㄷ 불러오기(_C)"
+msgstr "CherryTree폴더 불러오기(_C)"
 
 msgid "Add Nodes of a CherryTree Folder to the Current Tree"
 msgstr "현재 Tree에 CherryTree폴더를 불러와 노트로 추가하기"
@@ -1307,14 +1307,32 @@ msgstr "도움말"
 msgid "_Check Newer Version"
 msgstr "새 버전 확인(_C)"
 
-msgid "Check for a Newer Version"
-msgstr "새 버전 확인"
+msgid "Check for a Newer Version Available Online"
+msgstr "온라인에서 사용 가능한 최신 버전 확인"
+
+msgid "_Website"
+msgstr "웹사이트(_W)"
+
+msgid "Visit CherryTree's Website"
+msgstr "CherryTree 웹사이트 방문하기"
+
+msgid "_Source Code"
+msgstr "소스코드(_S)"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "온라인에서 CherryTree의 소스 코드 찾아보기"
+
+msgid "_Report a Bug"
+msgstr "버그 신고(_R)"
+
+msgid "Report a Bug in CherryTree"
+msgstr "CherryTree에서 버그 신고"
 
 msgid "Online _Manual"
 msgstr "온라인 설명서(_M)"
 
-msgid "Application's Online Manual"
-msgstr "온라인 설명서를 브라우저에서 열기"
+msgid "CherryTree's Online Manual"
+msgstr "CherryTree의 온라인 매뉴얼"
 
 msgid "_About"
 msgstr "CherryTree 소개(_A)"
@@ -1729,6 +1747,9 @@ msgstr "Korean"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
+msgid "Persian"
+msgstr "Persian"
+
 msgid "Polish"
 msgstr "Polish"
 
@@ -1942,6 +1963,15 @@ msgstr "행 번호를 표시한다"
 
 msgid "Scroll Beyond Last Line"
 msgstr "마지막 행을 넘어 스크롤"
+
+msgid "Cursor Blinking"
+msgstr "커서 깜박임"
+
+msgid "On"
+msgstr "켜기"
+
+msgid "Off"
+msgstr "끄기"
 
 msgid "Vertical Space Around Lines"
 msgstr "행의 상하 여백 (px)"
@@ -2779,6 +2809,9 @@ msgstr "Leo 문서"
 msgid "Are you sure to Reset to Default?"
 msgstr "기본값으로 초기화 하겠습니까?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "온라인 설명서를 브라우저에서 열기"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree 문서"
 
@@ -2788,7 +2821,6 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgid "Password Protected"
 #~ msgstr "암호 보호"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "문서 %s를 찾을 수 없습니다"
 
