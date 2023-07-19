@@ -1,39 +1,62 @@
 #!/bin/bash
 set -e
 
-ARG_VAL_LOWER="$(echo ${1} | tr [:upper:] [:lower:])"
+ARG1_VAL_LOWER="$(echo ${1} | tr [:upper:] [:lower:])"
+ARG2_VAL_LOWER="$(echo ${2} | tr [:upper:] [:lower:])"
+ARG3_VAL_LOWER="$(echo ${3} | tr [:upper:] [:lower:])"
 BUILD_DIR="build"
 MAKE_DEB=""
 MAKE_RPM=""
 MAKE_APPIMAGE=""
 NO_TESTS=""
+RET_VAL=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
 [[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
 [ -n "${IS_MSYS2_BUILD}" ] && DEFAULT_BUILD_TYPE="Release" || DEFAULT_BUILD_TYPE="Debug"
 
-if [ "${ARG_VAL_LOWER}" == "debug" ] || [ "${ARG_VAL_LOWER}" == "dbg" ]
+f_any_argument_matches () {
+  if [ "${ARG1_VAL_LOWER}" == "$1" ] || [ "${ARG2_VAL_LOWER}" == "$1" ] || [ "${ARG3_VAL_LOWER}" == "$1" ]
+  then
+    RET_VAL="1"
+  elif [ -n "$2" ] && ( [ "${ARG1_VAL_LOWER}" == "$2" ] || [ "${ARG2_VAL_LOWER}" == "$2" ] || [ "${ARG3_VAL_LOWER}" == "$2" ] )
+  then
+    RET_VAL="2"
+  elif [ -n "$3" ] && ( [ "${ARG1_VAL_LOWER}" == "$3" ] || [ "${ARG2_VAL_LOWER}" == "$3" ] || [ "${ARG3_VAL_LOWER}" == "$3" ] )
+  then
+    RET_VAL="3"
+  else
+    RET_VAL=""
+  fi
+}
+
+f_any_argument_matches "help" "--help" "-h"
+if [ -n "${RET_VAL}" ]
+then
+  echo "$0 [dbg|debug|rel|release] [notest|notests] [deb|debian] [rpm] [appimage]"
+  exit 0
+fi
+
+f_any_argument_matches "debug" "dbg"
+if [ -n "${RET_VAL}" ]
 then
   CMAKE_BUILD_TYPE="Debug"
-elif [ "${ARG_VAL_LOWER}" == "release" ] || [ "${ARG_VAL_LOWER}" == "rel" ]
-then
-  CMAKE_BUILD_TYPE="Release"
 else
-  CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
-  if [ "${ARG_VAL_LOWER}" == "notests" ]
-  then
-    NO_TESTS="Y"
-  elif [ "${ARG_VAL_LOWER}" == "deb" ]
-  then
-    MAKE_DEB="Y"
-  elif [ "${ARG_VAL_LOWER}" == "rpm" ]
-  then
-    MAKE_RPM="Y"
-  elif [ "${ARG_VAL_LOWER}" == "appimage" ]
-  then
-    MAKE_APPIMAGE="Y"
-  fi
+  f_any_argument_matches "release" "rel"
+  [ -n "${RET_VAL}" ] && CMAKE_BUILD_TYPE="Release" || CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
 fi
+
+f_any_argument_matches "notests" "notest"
+[ -n "${RET_VAL}" ] && NO_TESTS="Y"
+
+f_any_argument_matches "deb" "debian"
+[ -n "${RET_VAL}" ] && MAKE_DEB="Y"
+
+f_any_argument_matches "rpm"
+[ -n "${RET_VAL}" ] && MAKE_RPM="Y"
+
+f_any_argument_matches "appimage" "appimg"
+[ -n "${RET_VAL}" ] && MAKE_APPIMAGE="Y"
 
 if [ -f /etc/lsb-release ]
 then
@@ -66,13 +89,18 @@ fi
 
 [[ "$OSTYPE" == "darwin"* ]] && export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig" && NO_TESTS="Y"
 
-[ -n "${NO_TESTS}" ] && EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
+if [ -n "${NO_TESTS}" ]
+then
+  EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
+else
+  EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DINSTALL_GTEST=''"
+fi
 
 cd ${BUILD_DIR}
 cmake .. -DCMAKE_C_COMPILER=gcc \
          -DCMAKE_CXX_COMPILER=g++ \
          -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
-         ${EXTRA_CMAKE_FLAGS} -DINSTALL_GTEST='' -GNinja
+         ${EXTRA_CMAKE_FLAGS} -GNinja
 [[ "$OSTYPE" == "darwin"* ]] && NUM_JOBS="$(sysctl -n hw.ncpu)" || NUM_JOBS="$(nproc --all)"
 echo "Starting ninja build with up to ${NUM_JOBS} parallel jobs..."
 ninja -j ${NUM_JOBS}
@@ -84,14 +112,16 @@ then
   TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.deb"
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb ${TARGET_PACKAGE_NAME}
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb.sha256 ${TARGET_PACKAGE_NAME}.sha256
-elif [ -n "${MAKE_RPM}" ]
+fi
+if [ -n "${MAKE_RPM}" ]
 then
   cpack -G RPM
   PACKAGE_VERSION="$(grep 'PACKAGE_VERSION ' ../config.h | awk -F\" '{print $2}')"
   TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.rpm"
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.rpm ${TARGET_PACKAGE_NAME}
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.rpm.sha256 ${TARGET_PACKAGE_NAME}.sha256
-elif [ -n "${MAKE_APPIMAGE}" ]
+fi
+if [ -n "${MAKE_APPIMAGE}" ]
 then
   # https://github.com/linuxdeploy/linuxdeploy-plugin-gtk
   [ -f linuxdeploy-plugin-gtk.sh ] || wget -c "https://raw.githubusercontent.com/linuxdeploy/linuxdeploy-plugin-gtk/master/linuxdeploy-plugin-gtk.sh"
