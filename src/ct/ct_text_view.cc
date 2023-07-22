@@ -83,8 +83,29 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     }, false);
     signal_focus_out_event().connect([&](GdkEventFocus* /*gdk_event*/){
         _columnEdit.column_mode_off();
+        _set_highlight_current_line_enabled(false);
         return false; /*propagate event*/
     }, false);
+    signal_focus_in_event().connect([&](GdkEventFocus* /*gdk_event*/){
+        _set_highlight_current_line_enabled(true);
+        return false; /*propagate event*/
+    }, false);
+    _columnEdit.register_on_off_callback([&](const bool col_edit_on){
+        _set_highlight_current_line_enabled(not col_edit_on);
+        spdlog::debug("colMode {}", col_edit_on);
+    });
+}
+
+void CtTextView::_set_highlight_current_line_enabled(const bool enabled)
+{
+    if (enabled) {
+        const bool isRichTextOrTable{CtConst::RICH_TEXT_ID == _syntaxHighlighting or
+                                     CtConst::TABLE_CELL_TEXT_ID == _syntaxHighlighting};
+        set_highlight_current_line(isRichTextOrTable ? _pCtConfig->rtHighlCurrLine : _pCtConfig->ptHighlCurrLine);
+    }
+    else {
+        set_highlight_current_line(false);
+    }
 }
 
 void CtTextView::setup_for_syntax(const std::string& syntax)
@@ -107,7 +128,6 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     get_style_context()->add_class(new_class);
 
     if (isRichTextOrTable) {
-        set_highlight_current_line(_pCtConfig->rtHighlCurrLine);
         if (_pCtConfig->rtShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
@@ -116,7 +136,6 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
         }
     }
     else {
-        set_highlight_current_line(_pCtConfig->ptHighlCurrLine);
         if (_pCtConfig->ptShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }

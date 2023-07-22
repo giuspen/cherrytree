@@ -105,7 +105,6 @@ void CtColumnEdit::_predit_to_edit()
     bool unexpected{false};
     if (CtColEditState::PrEdit == _state) {
         _state = CtColEditState::Edit;
-        spdlog::debug("colMode EDIT");
         bool firstLine{true};
         size_t currEndIdx{0};
         for (Glib::RefPtr<Gtk::TextMark>& markStart : _marksStart) {
@@ -356,7 +355,7 @@ void CtColumnEdit::column_mode_off()
         _clear_marks();
         _ctrlDown = false;
         _altDown = false;
-        spdlog::debug("colMode OFF");
+        if (_stateOnOffCallback) _stateOnOffCallback(false);
     }
     else {
         if (_ctrlDown) _ctrlDown = false;
@@ -460,7 +459,6 @@ void CtColumnEdit::button_1_released()
     }
     bool unexpected{false};
     _state = CtColEditState::PrEdit;
-    spdlog::debug("colMode PRE");
     if ( _marksStart.size() > 0 and
          _marksEnd.size() > 0 and
          _marksStart.front() and
@@ -474,7 +472,6 @@ void CtColumnEdit::button_1_released()
         {
             if (iterLeftCol.get_line_offset() == iterRightCol.get_line_offset()) {
                 _state = CtColEditState::Edit;
-                spdlog::debug("colMode EDIT");
                 _clear_marks(false/*alsoStart*/);
             }
         }
@@ -508,7 +505,7 @@ void CtColumnEdit::selection_update()
     {
         if (CtColEditState::Off == _state and _ctrlDown and _altDown) {
             _state = CtColEditState::Selection;
-            spdlog::debug("colMode SEL");
+            if (_stateOnOffCallback) _stateOnOffCallback(true);
         }
         if (CtColEditState::Selection == _state) {
             _pointStart = _get_point(startIter);

@@ -97,6 +97,7 @@ private:
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
+    void          _set_highlight_current_line_enabled(const bool enabled);
 
     void on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
                                int x,

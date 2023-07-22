@@ -34,9 +34,11 @@ enum class CtColEditState { Off, Selection, PrEdit, Edit };
 class CtColumnEdit
 {
 public:
+    using StateOnOffCallback = std::function<void(const bool)>;
     CtColumnEdit(Gtk::TextView& textView);
 
     CtColEditState get_state() const { return _state; }
+    void register_on_off_callback(StateOnOffCallback stateOnOffCallback) { _stateOnOffCallback = stateOnOffCallback; }
     Glib::ustring copy() const;
     Glib::ustring cut();
     void paste(const std::string& column_txt);
@@ -70,6 +72,7 @@ private:
     std::mutex _mutexLastInOut;
 
     Gtk::TextView& _textView;
+    StateOnOffCallback _stateOnOffCallback;
     std::atomic<CtColEditState> _state{CtColEditState::Off};
     std::atomic<bool> _ctrlDown{false};
     std::atomic<bool> _altDown{false};
