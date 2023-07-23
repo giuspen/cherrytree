@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 16:00+0100\n"
-"PO-Revision-Date: 2023-05-30 21:22-0300\n"
+"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"PO-Revision-Date: 2023-07-23 10:07-0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
@@ -1309,14 +1309,32 @@ msgstr "Ajuda"
 msgid "_Check Newer Version"
 msgstr "Atualizar CherryTree"
 
-msgid "Check for a Newer Version"
-msgstr "Verifica se há uma versão mais recente"
+msgid "Check for a Newer Version Available Online"
+msgstr "Verificar se há uma versão mais recente"
+
+msgid "_Website"
+msgstr "Site"
+
+msgid "Visit CherryTree's Website"
+msgstr "Visite CherryTree site"
+
+msgid "_Source Code"
+msgstr "Código-fonte"
+
+msgid "Browse CherryTree's Source Code Online"
+msgstr "Navegue pelo código-fonte do CherryTree on-line"
+
+msgid "_Report a Bug"
+msgstr "Reporte um Bug"
+
+msgid "Report a Bug in CherryTree"
+msgstr "Reportar um Bug no CherryTree"
 
 msgid "Online _Manual"
 msgstr "_Manual Online"
 
-msgid "Application's Online Manual"
-msgstr "Manual online do aplicativo"
+msgid "CherryTree's Online Manual"
+msgstr "Manual Online do CherryTree"
 
 msgid "_About"
 msgstr "Sobre"
@@ -1736,6 +1754,9 @@ msgstr "Coreano"
 msgid "Lithuanian"
 msgstr "Lituano"
 
+msgid "Persian"
+msgstr "Persa"
+
 msgid "Polish"
 msgstr "Polonês"
 
@@ -1949,6 +1970,15 @@ msgstr "Exibir números de linha"
 
 msgid "Scroll Beyond Last Line"
 msgstr "Rolar além da última linha"
+
+msgid "Cursor Blinking"
+msgstr "Cursor piscando"
+
+msgid "On"
+msgstr "Ligado"
+
+msgid "Off"
+msgstr "Desligado"
 
 msgid "Vertical Space Around Lines"
 msgstr "Espaço vertical entre as linhas"
@@ -2796,6 +2826,9 @@ msgstr "Documento Loe"
 msgid "Are you sure to Reset to Default?"
 msgstr "Você realmente quer restaurar aos valores padrão?"
 
+#~ msgid "Application's Online Manual"
+#~ msgstr "Manual online do aplicativo"
+
 #~ msgid "CherryTree Document"
 #~ msgstr "Documentação do CherryTree"
 
@@ -2805,7 +2838,6 @@ msgstr "Você realmente quer restaurar aos valores padrão?"
 #~ msgid "Password Protected"
 #~ msgstr "Protegido por senha"
 
-#, c-format
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "O documento %s não foi encontrado"
 
