@@ -31,18 +31,16 @@ parts:
       - '-DBUILD_TESTING='
       - '-DSNAP_OPT_PRE_CMAKE_INSTALL_PREFIX=/snap/cherrytree/current'
     build-packages:
-      - build-essential
-      - cmake
       - libcurl4-openssl-dev
       - libfmt-dev
       - libgtksourceviewmm-3.0-dev
       - libgspell-1-dev
-      - libpangoft2-1.0-0
       - libsqlite3-dev
       - libspdlog-dev
       - libuchardet-dev
       - libxml++2.6-dev
       - libvte-2.91-dev
+      - libxml2-utils
     stage-packages:
       - libcurl4
       - libfribidi0
@@ -59,7 +57,7 @@ parts:
       craftctl default
     parse-info: [ share/metainfo/net.giuspen.cherrytree.metainfo.xml ]
     build-environment:
-      - LD_LIBRARY_PATH: $CRAFT_PART_INSTALL/usr/lib/$CRAFT_ARCH_TRIPLET/libpangoft2-1.0.so.0
+      - LD_LIBRARY_PATH: $CRAFT_PART_INSTALL/usr/lib/$CRAFT_ARCH_TRIPLET${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 
   tinytex:
     source: https://www.giuspen.net/software/TinyTeX-1-v2022.04.04.tar.xz
