@@ -169,10 +169,10 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{editor_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+"braceright",
         _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
     _actions.push_back(CtMenuAction{editor_cat, "table_column_increase_width", "ct_go-forward",
-        _("Increase Column Width"), KB_CONTROL+"parenleft",
+        _("Increase Column Width"), KB_CONTROL+"parenright",
         _("Increase the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_increase_width)});
     _actions.push_back(CtMenuAction{editor_cat, "table_column_decrease_width", "ct_go-back",
-        _("Decrease Column Width"), KB_CONTROL+"parenright",
+        _("Decrease Column Width"), KB_CONTROL+"parenleft",
         _("Decrease the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_decrease_width)});
     _actions.push_back(CtMenuAction{editor_cat, "table_row_add", "ct_add", _("_Add Row"), KB_CONTROL+"comma",
         _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
