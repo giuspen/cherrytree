@@ -472,6 +472,7 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_ini",               // 199
     "ct_gtk",               // 200
     "ct_qt",                // 201
+    "ct_bulb",              // 202
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -480,7 +481,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     13/*help*/, 171/*lifebuoy*/, 14/*home*/, 15/*index*/, 16/*mail*/, 18/*notes*/, 142/*chat*/, 19/*timestamp*/, 20/*calendar*/,
     39/*find*/, 40/*locked*/, 41/*unlocked*/, 45/*leaf*/,
     50/*pin*/, 51/*anchor*/, 52/*edit*/, 53/*save*/, 54/*execute*/, 55/*preferences*/, 56/*clear*/, 57/*stop*/, 58/*close*/, 59/*quit app*/,
-    60/*file*/, 141/*7zip*/, 44/*folder*/, 143/*db*/, 146/*keys*/,
+    60/*file*/, 141/*7zip*/, 44/*folder*/,
     61/*print*/, 62/*attachment*/, 63/*link*/, 64/*linkweb*/, 65/*network*/,
     66/*back*/, 67/*down*/, 68/*forward*/, 69/*up*/, 70/*jump to*/, 71/*zoom out*/, 72/*zoom in*/,
     95/*sports*/, 96/*briefcase*/, 159/*building*/, 98/*chart*/, 145/*invest*/, 104/*money*/,
@@ -488,7 +489,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     157/*bike*/, 161/*car*/, 160/*bus*/,
     169/*food*/, 170/*hamburger*/, 174/*pizza*/,
     162/*cellphone*/, 175/*telephone*/,
-    102/*globe*/, 103/*server*/, 163/*cloud*/, 176/*wifi*/, 177/*antenna*/, 158/*bluetooth*/,
+    102/*globe*/, 103/*server*/, 163/*cloud*/, 143/*db*/, 146/*keys*/, 202/*bulb*/, 176/*wifi*/, 177/*antenna*/, 158/*bluetooth*/,
     105/*painting*/, 106/*puzzle*/, 107/*shopping*/, 108/*heart*/,
     168/*female*/, 173/*male*/, 42/*people*/, 109/*smile*/, 110/*smile cool*/, 111/*smile surpr*/, 112/*skull*/, 126/*ghost*/,
     /*os start*/115, 116, 117, 118, 172, 119, 120, 121, 156/*os end*/,
