@@ -51,7 +51,7 @@ set(CPACK_PACKAGE_CONTACT "Giuseppe Penone <giuspen@gmail.com>")
 set(CPACK_PACKAGE_VENDOR ${CPACK_PACKAGE_CONTACT})
 set(CPACK_PACKAGE_VERSION ${CT_VERSION})
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting.")
-set(CPACK_PACKAGE_DESCRIPTION "A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single xml or sqlite file.
+set(CPACK_PACKAGE_DESCRIPTION "A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories
    Cherrytree is not just about having a place to write notes and to-do items and keeping them organized, it's also a place you can store links, pictures, tables, even entire documents. It can be your one program for all the miscellaneous information you have and want to keep. All those little bits of information you have scattered around your hard drive can be conveniently placed into a Cherrytree document where you can easily find it.")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/license.txt")
 set(CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})

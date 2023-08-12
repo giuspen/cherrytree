@@ -1,8 +1,8 @@
 # CherryTree
-A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single XML or SQLite file.
+A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories.
 The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherrytree/).
 
-# Installation Guide
+# Build from source code
 
 - [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu)
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
@@ -52,9 +52,20 @@ This works on any operating system that supports Docker.
 4. Run the *Remote-Containers: Open Folder in Container...* command.
 5. See previous section for Build and Debug instructions.
 
-## To create a debian package
+## To create an AppImage bundle
 ```sh
-./build.sh deb
+./build.sh appimage
+```
+
+## To generate a backtrace for a crash bug report
+```sh
+./build.sh debug
+gdb ./build/cherrytree
+(gdb) r
+```
+...after reproducing the crash
+```sh
+(gdb) bt
 ```
 
 ## Building Cherrytree on Ubuntu
@@ -73,6 +84,12 @@ git submodule update --init
 ./build.sh
 ./build/cherrytree
 ```
+
+To create a debian package
+```sh
+./build.sh deb
+```
+
 Install documentation:
 ```sh
 sudo apt install devhelp libgtkmm-3.0-doc libgtksourceviewmm-3.0-doc libglibmm-2.4-doc libpangomm-1.4-doc libxml++2.6-doc libgspell-1-doc libvte-2.91-doc
@@ -127,7 +144,7 @@ git submodule update --init
 ./build/cherrytree
 ```
 
-## To create an rpm package
+To create an rpm package
 ```sh
 sudo dnf install rpm-build
 ./build.sh rpm
@@ -163,7 +180,7 @@ git submodule update --init
 ./build/cherrytree
 ```
 
-## To create an rpm package
+To create an rpm package
 ```sh
 sudo zypper install rpm-build
 ./build.sh rpm
@@ -171,13 +188,11 @@ sudo zypper install rpm-build
 
 ## Building Cherrytree on MacOS
 
-Cherrytree is now part of [Homebrew](https://brew.sh/index_it)!
-```
-brew update
-brew install cherrytree
-```
+NOTE: Cherrytree is available as an [Installer](https://gitlab.com/dehesselle/cherrytree_macos/-/releases) or in [Homebrew](https://formulae.brew.sh/formula/cherrytree) or [Mac Ports](https://ports.macports.org/port/cherrytree)
 
-If for any reason you prefer to build it yourself, install dependencies:
+In order build it yourself in [Homebrew](https://brew.sh/):
+
+Install dependencies:
 ```sh
 brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet fribidi curl vte3
 brew link icu4c --force

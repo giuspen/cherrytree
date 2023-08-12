@@ -3,7 +3,7 @@ name: cherrytree
 version: "1.0.0"
 summary: Hierarchical note taking application
 description: |
-  A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single XML or SQLite file. The project home page is giuspen.net/cherrytree.
+  A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories. The project home page is giuspen.net/cherrytree.
 
 grade: stable
 confinement: strict
