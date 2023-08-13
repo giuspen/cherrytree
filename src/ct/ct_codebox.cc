@@ -25,7 +25,6 @@
 #include "ct_list.h"
 #include "ct_clipboard.h"
 #include "ct_misc_utils.h"
-#include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
 #include "ct_logging.h"
@@ -57,7 +56,7 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
         }
     }, false);
     _rTextBuffer->signal_mark_set().connect([pCtMainWin, this](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
-        if (pCtMainWin->user_active()) {
+        if (pCtMainWin->user_active() and not pCtMainWin->force_exit()) {
             _ctTextview.set_editable(not pCtMainWin->curr_tree_iter().get_node_read_only());
             if (rMark->get_name() == "insert") {
                 _ctTextview.column_edit_selection_update();
