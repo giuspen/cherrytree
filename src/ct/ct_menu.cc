@@ -47,12 +47,13 @@ const std::string& CtMenuAction::get_shortcut(CtConfig* pCtConfig) const
     return it != pCtConfig->customKbShortcuts.end() ? it->second : built_in_shortcut;
 }
 
-CtMenu::CtMenu(CtConfig* pCtConfig, CtActions* pActions)
- : _pCtConfig{pCtConfig}
+CtMenu::CtMenu(CtMainWin* pCtMainWin)
+ : _pCtMainWin{pCtMainWin}
+ , _pCtConfig{pCtMainWin->get_ct_config()}
 {
     _pAccelGroup = Gtk::AccelGroup::create();
     _rGtkBuilder = Gtk::Builder::create();
-    init_actions(pActions);
+    init_actions(pCtMainWin->get_ct_actions());
 }
 
 /*static*/ Gtk::MenuItem* CtMenu::create_menu_item(Gtk::Menu* pMenu, const char* name, const char* image, const char* desc)
@@ -162,6 +163,7 @@ Gtk::Menu* CtMenu::get_popup_menu(POPUP_MENU_TYPE popupMenuType)
     if (_popupMenus[popupMenuType] == nullptr) {
         Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu{});
         build_popup_menu(pMenu, popupMenuType);
+        pMenu->attach_to_widget(*_pCtMainWin);
         _popupMenus[popupMenuType] = pMenu;
     }
     return _popupMenus[popupMenuType];

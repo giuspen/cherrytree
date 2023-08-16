@@ -1,7 +1,7 @@
 /*
  * ct_menu.h
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -29,6 +29,8 @@
 #include "ct_types.h"
 
 class CtConfig;
+class CtActions;
+class CtMainWin;
 
 struct CtMenuAction
 {
@@ -46,13 +48,10 @@ struct CtMenuAction
     const std::string& get_shortcut(CtConfig* pCtConfig) const;
 };
 
-class CtApp;
-class CtActions;
-
 class CtMenu
 {
 public:
-    CtMenu(CtConfig* pCtConfig, CtActions* pActions);
+    CtMenu(CtMainWin* pCtMainWin);
 
 public:
     const char*       None       = "";
@@ -121,7 +120,8 @@ private:
     const char*              _get_popup_menu_ui_str_terminal();
 
 private:
-    CtConfig*                     _pCtConfig;
+    CtMainWin*                    const _pCtMainWin;
+    CtConfig*                     const _pCtConfig;
     std::list<CtMenuAction>       _actions;
     Glib::RefPtr<Gtk::Builder>    _rGtkBuilder;
     Glib::RefPtr<Gtk::AccelGroup> _pAccelGroup;

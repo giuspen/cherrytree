@@ -52,7 +52,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
 
     _uCtActions.reset(new CtActions{this});
-    _uCtMenu.reset(new CtMenu{pCtConfig, _uCtActions.get()});
+    _uCtMenu.reset(new CtMenu{this});
     _uCtPrint.reset(new CtPrint{this});
     _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
