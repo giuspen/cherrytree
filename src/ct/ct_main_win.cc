@@ -557,6 +557,9 @@ void CtMainWin::menu_set_bookmark_menu_items()
 
 void CtMainWin::menu_set_items_recent_documents()
 {
+    if (not _pCtConfig->rememberRecentDocs) {
+        return;
+    }
     sigc::slot<void, const std::string&> recent_doc_open_action = [&](const std::string& filepath){
         if (Glib::file_test(filepath, Glib::FILE_TEST_EXISTS)) {
             if (file_open(filepath, ""/*node*/, ""/*anchor*/)) {

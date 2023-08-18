@@ -219,12 +219,12 @@ public:
     bool                                        bookmarksInTopMenu{true};
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
-    bool                                        useAppInd{false};
     bool                                        autosaveOn{true};
     int                                         autosaveVal{1};
     bool                                        checkVersion{false};
     bool                                        wordCountOn{false};
     bool                                        reloadDocLast{true};
+    bool                                        rememberRecentDocs{true};
     bool                                        winTitleShowDocDir{true};
     bool                                        nodeNameHeaderShowFullPath{true};
     bool                                        modTimeSentinel{false};

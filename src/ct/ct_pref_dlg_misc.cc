@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_misc.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2023
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -155,13 +155,17 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_systray->signal_toggled().connect([this, checkbutton_systray, checkbutton_start_on_systray](){
         if (checkbutton_systray->get_active()) {
             _pCtMainWin->get_status_icon()->set_visible(true);
+#if defined(_WIN32)
+            _pConfig->systrayOn = true; // windows does support the systray
+#else // !_WIN32
             _pConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *this);
+#endif // !_WIN32
             if (_pConfig->systrayOn) {
                 checkbutton_start_on_systray->set_sensitive(true);
                 apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
             }
             else {
-                CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *_pCtMainWin);
+                CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *this);
                 checkbutton_systray->set_active(false);
             }
         }

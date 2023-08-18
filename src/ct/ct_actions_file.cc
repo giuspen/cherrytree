@@ -277,15 +277,36 @@ void CtActions::preferences_import()
         _pCtConfig->update_user_style(n);
     }
     _pCtConfig->toolbarUiList = ctConfigImported.toolbarUiList;
-    _pCtConfig->systrayOn = ctConfigImported.systrayOn;
+    if (ctConfigImported.systrayOn != _pCtConfig->systrayOn) {
+        // this we have to apply immediately because it affects the way the app quits
+        if (ctConfigImported.systrayOn) {
+            _pCtMainWin->get_status_icon()->set_visible(true);
+#if defined(_WIN32)
+            _pCtConfig->systrayOn = true; // windows does support the systray
+#else // !_WIN32
+            _pCtConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *_pCtMainWin);
+#endif // !_WIN32
+            if (_pCtConfig->systrayOn) {
+                _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
+            }
+            else {
+                CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *_pCtMainWin);
+            }
+        }
+        else {
+            _pCtConfig->systrayOn = false;
+            _pCtMainWin->get_status_icon()->set_visible(false);
+            _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
+        }
+    }
     _pCtConfig->startOnSystray = ctConfigImported.startOnSystray;
-    _pCtConfig->useAppInd = ctConfigImported.useAppInd;
     _pCtConfig->autosaveOn = ctConfigImported.autosaveOn;
     _pCtConfig->autosaveVal = ctConfigImported.autosaveVal;
     _pCtConfig->bookmarksInTopMenu = ctConfigImported.bookmarksInTopMenu;
     _pCtConfig->checkVersion = ctConfigImported.checkVersion;
     _pCtConfig->wordCountOn = ctConfigImported.wordCountOn;
     _pCtConfig->reloadDocLast = ctConfigImported.reloadDocLast;
+    _pCtConfig->rememberRecentDocs = ctConfigImported.rememberRecentDocs;
     _pCtConfig->winTitleShowDocDir = ctConfigImported.winTitleShowDocDir;
     _pCtConfig->nodeNameHeaderShowFullPath = ctConfigImported.nodeNameHeaderShowFullPath;
     _pCtConfig->modTimeSentinel = ctConfigImported.modTimeSentinel;

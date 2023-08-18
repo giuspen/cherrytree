@@ -181,24 +181,27 @@ void CtConfig::_populate_keyfile_from_data()
 {
     // [state]
     _currentGroup = "state";
-    guint i{0};
-    for (const fs::path& filepath : recentDocsFilepaths) {
-        snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
-        _uKeyFile->set_string(_currentGroup, _tempKey, filepath.string());
-        const CtRecentDocsRestore::iterator mapIt = recentDocsRestore.find(filepath.string());
-        if (mapIt != recentDocsRestore.end()) {
-            snprintf(_tempKey, _maxTempKeySize, "visit_%d", i);
-            _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.visited_nodes);
-            snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
-            _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.exp_coll_str);
-            snprintf(_tempKey, _maxTempKeySize, "nodep_%d", i);
-            _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.node_path);
-            snprintf(_tempKey, _maxTempKeySize, "curs_%d", i);
-            _uKeyFile->set_integer(_currentGroup, _tempKey, mapIt->second.cursor_pos);
-            snprintf(_tempKey, _maxTempKeySize, "vscr_%d", i);
-            _uKeyFile->set_integer(_currentGroup, _tempKey, mapIt->second.v_adj_val);
+    if (rememberRecentDocs or reloadDocLast) {
+        guint i{0};
+        for (const fs::path& filepath : recentDocsFilepaths) {
+            snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
+            _uKeyFile->set_string(_currentGroup, _tempKey, filepath.string());
+            const CtRecentDocsRestore::iterator mapIt = recentDocsRestore.find(filepath.string());
+            if (mapIt != recentDocsRestore.end()) {
+                snprintf(_tempKey, _maxTempKeySize, "visit_%d", i);
+                _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.visited_nodes);
+                snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
+                _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.exp_coll_str);
+                snprintf(_tempKey, _maxTempKeySize, "nodep_%d", i);
+                _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.node_path);
+                snprintf(_tempKey, _maxTempKeySize, "curs_%d", i);
+                _uKeyFile->set_integer(_currentGroup, _tempKey, mapIt->second.cursor_pos);
+                snprintf(_tempKey, _maxTempKeySize, "vscr_%d", i);
+                _uKeyFile->set_integer(_currentGroup, _tempKey, mapIt->second.v_adj_val);
+            }
+            if (not rememberRecentDocs) break;
+            ++i;
         }
-        ++i;
     }
     _uKeyFile->set_boolean(_currentGroup, "toolbar_visible", toolbarVisible);
     _uKeyFile->set_boolean(_currentGroup, "statusbar_visible", statusbarVisible);
@@ -368,13 +371,13 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "toolbar_ui_list", toolbarUiList);
     _uKeyFile->set_boolean(_currentGroup, "systray", systrayOn);
     _uKeyFile->set_boolean(_currentGroup, "start_on_systray", startOnSystray);
-    //_uKeyFile->set_boolean(_currentGroup, "use_appind", useAppInd);
     _uKeyFile->set_boolean(_currentGroup, "autosave_on", autosaveOn);
     _uKeyFile->set_integer(_currentGroup, "autosave_val", autosaveVal);
     _uKeyFile->set_boolean(_currentGroup, "bookm_top_menu", bookmarksInTopMenu);
     _uKeyFile->set_boolean(_currentGroup, "check_version", checkVersion);
     _uKeyFile->set_boolean(_currentGroup, "word_count", wordCountOn);
     _uKeyFile->set_boolean(_currentGroup, "reload_doc_last", reloadDocLast);
+    _uKeyFile->set_boolean(_currentGroup, "recent_docs", rememberRecentDocs);
     _uKeyFile->set_boolean(_currentGroup, "win_title_doc_dir", winTitleShowDocDir);
     _uKeyFile->set_boolean(_currentGroup, "nn_header_full_path", nodeNameHeaderShowFullPath);
     _uKeyFile->set_boolean(_currentGroup, "mod_time_sentinel", modTimeSentinel);
@@ -682,9 +685,8 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("toolbar_ui_list", &toolbarUiList);
     _populate_bool_from_keyfile("systray", &systrayOn);
     _populate_bool_from_keyfile("start_on_systray", &startOnSystray);
-    _populate_bool_from_keyfile("use_appind", &useAppInd);
-    if (useAppInd) {
-        // if coming from pygtk2 version that supports appindicator which we currently do not
+    if (savedFromPyGtk) {
+        // if coming from pygtk2 version that supports appindicator which we currently do not, must re-enable
         systrayOn = false;
         startOnSystray = false;
     }
@@ -694,6 +696,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("check_version", &checkVersion);
     _populate_bool_from_keyfile("word_count", &wordCountOn);
     _populate_bool_from_keyfile("reload_doc_last", &reloadDocLast);
+    _populate_bool_from_keyfile("recent_docs", &rememberRecentDocs);
     _populate_bool_from_keyfile("win_title_doc_dir", &winTitleShowDocDir);
     _populate_bool_from_keyfile("nn_header_full_path", &nodeNameHeaderShowFullPath);
     _populate_bool_from_keyfile("mod_time_sentinel", &modTimeSentinel);
