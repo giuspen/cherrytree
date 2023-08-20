@@ -182,7 +182,7 @@ std::string CtMiscUtil::get_node_hierarchical_name(const CtTreeIter tree_iter, c
         father_iter = father_iter.parent();
     }
     if (trail_node_id) {
-        hierarchical_name += str::format("_{:d}", tree_iter.get_node_id());
+        hierarchical_name += fmt::format("_{:d}", tree_iter.get_node_id());
     }
     if (trailer) {
         hierarchical_name += trailer;

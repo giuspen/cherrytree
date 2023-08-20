@@ -94,11 +94,11 @@ void CtMainWin::restart_vte(const char* first_cmd_passed)
         _hBoxVte.remove(*pWidget);
     }
     if (_vtePid > 0) {
-        std::string shell_cmd = str::format("kill {}", _vtePid);
+        std::string shell_cmd = fmt::format("kill {}", _vtePid);
         int retVal = std::system(shell_cmd.c_str());
         if (retVal != 0) {
             spdlog::debug("!! system({})", shell_cmd);
-            shell_cmd = str::format("kill -9 {}", _vtePid);
+            shell_cmd = fmt::format("kill -9 {}", _vtePid);
             retVal = std::system(shell_cmd.c_str());
             if (retVal != 0) {
                 spdlog::debug("!! system({})", shell_cmd);

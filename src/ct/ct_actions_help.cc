@@ -82,7 +82,7 @@ void CtActions::check_for_newer_version()
     else {
         gint64 weighted_latest_v = splitted_latest_v[0]*10000 + splitted_latest_v[1]*100 + splitted_latest_v[2];
         gint64 weighted_local_v = splitted_local_v[0]*10000 + splitted_local_v[1]*100 + splitted_local_v[2];
-        std::string trail_latest_from_srv = str::format(" ({}.{}.{})", splitted_latest_v[0], splitted_latest_v[1], splitted_latest_v[2]);
+        std::string trail_latest_from_srv = fmt::format(" ({}.{}.{})", splitted_latest_v[0], splitted_latest_v[1], splitted_latest_v[2]);
         if (weighted_latest_v > weighted_local_v) {
             CtDialogs::info_dialog(Glib::ustring{_("A Newer Version Is Available!")} + trail_latest_from_srv, *_pCtMainWin);
             _pCtMainWin->update_selected_node_statusbar_info();

@@ -347,9 +347,9 @@ path prepare_export_folder(const path& dir_place, path new_folder, bool overwrit
         }
         else {
             int n = 2;
-            while (fs::is_directory(dir_place / (new_folder.string() + str::format("{:03d}", n))))
+            while (fs::is_directory(dir_place / (new_folder.string() + fmt::format("{:03d}", n))))
                 n += 1;
-            new_folder += str::format("{:03d}", n);
+            new_folder += fmt::format("{:03d}", n);
         }
     }
     return new_folder;
