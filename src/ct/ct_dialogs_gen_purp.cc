@@ -370,7 +370,7 @@ std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFile
     chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
     chooser->property_destroy_with_parent() = true;
 #endif
-    chooser->set_do_overwrite_confirmation(true);
+    chooser->set_do_overwrite_confirmation(args.overwrite_confirmation);
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(g_get_home_dir());
     }
@@ -402,7 +402,7 @@ std::string CtDialogs::folder_save_as_dialog(Gtk::Window* pParentWin, const CtFi
     chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
     chooser->property_destroy_with_parent() = true;
 #endif
-    chooser->set_do_overwrite_confirmation(true);
+    //chooser->set_do_overwrite_confirmation(true); unfortunately works only with Gtk::FILE_CHOOSER_ACTION_SAVE
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(g_get_home_dir());
     }

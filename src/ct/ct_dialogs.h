@@ -230,6 +230,7 @@ struct CtFileSelectArgs
     Glib::ustring               filter_name;
     std::vector<Glib::ustring>  filter_pattern;
     std::vector<Glib::ustring>  filter_mime;
+    bool                        overwrite_confirmation{true};
 };
 
 std::string file_select_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args);

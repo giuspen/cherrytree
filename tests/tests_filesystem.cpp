@@ -167,6 +167,14 @@ TEST(FileSystemGroup, remove)
     ASSERT_TRUE(fs::exists(test_file_in_dir));
     ASSERT_EQ(2, fs::remove_all(test_dir_path));
     ASSERT_FALSE(fs::exists(test_dir_path));
+
+    // file remove with remove_all
+    Glib::file_set_contents(test_file_path.string(), "blabla");
+    ASSERT_TRUE(fs::exists(test_file_path));
+
+    ASSERT_EQ(1, fs::remove_all(test_file_path));
+    ASSERT_FALSE(fs::exists(test_dir_path));
+    ASSERT_EQ(0, fs::remove_all(test_file_path));
 }
 
 TEST(FileSystemGroup, move)

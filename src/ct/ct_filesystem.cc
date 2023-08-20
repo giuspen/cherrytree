@@ -357,18 +357,22 @@ path prepare_export_folder(const path& dir_place, path new_folder, bool overwrit
 
 std::uintmax_t remove_all(const path& dir)
 {
-    std::uintmax_t count = 0;
-    for (const auto& file : get_dir_entries(dir)) {
-        if (is_directory(file)) {
-            count += remove_all(file);
-        }
-        else {
-            ++count;
-            remove(file);
+    std::uintmax_t count{0u};
+    if (fs::is_directory(dir)) {
+        for (const auto& file : get_dir_entries(dir)) {
+            if (is_directory(file)) {
+                count += remove_all(file);
+            }
+            else {
+                ++count;
+                remove(file);
+            }
         }
     }
-    remove(dir);
-    ++count;
+    if (fs::exists(dir)) {
+        remove(dir);
+        ++count;
+    }
     return count;
 }
 

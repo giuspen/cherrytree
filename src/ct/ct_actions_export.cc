@@ -112,12 +112,29 @@ void CtActions::export_to_ct()
     else {
         fileSelArgs.filter_name = _("CherryTree File");
         fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
+        fileSelArgs.overwrite_confirmation = false; // as not supported for the multifile, we do in both cases elsewhere
         new_filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
     }
     if (new_filepath.empty()) {
         return;
     }
     CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, new_filepath);
+    if (Glib::file_test(new_filepath, Glib::FILE_TEST_EXISTS)) {
+        // overwrite confirmation here
+        std::string message;
+        if (Glib::file_test(new_filepath, Glib::FILE_TEST_IS_DIR)) {
+            message = str::format(_("A folder '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
+                str::xml_escape(Glib::path_get_basename(new_filepath)), str::xml_escape(Glib::path_get_dirname(new_filepath)));
+        }
+        else {
+            message = str::format(_("A file '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
+                str::xml_escape(Glib::path_get_basename(new_filepath)), str::xml_escape(Glib::path_get_dirname(new_filepath)));
+        }
+        if (not CtDialogs::question_dialog(message, *_pCtMainWin)) {
+            return;
+        }
+        (void)fs::remove_all(new_filepath);
+    }
     Glib::ustring error;
     std::unique_ptr<CtStorageControl> new_storage{
         CtStorageControl::save_as(_pCtMainWin,

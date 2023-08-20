@@ -44,18 +44,6 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
         CtTreeStore& ct_tree_store = _pCtMainWin->get_tree_store();
         if (_dir_path.empty()) {
             // it's the first time (or an export), a new folder will be created
-            if (fs::is_directory(dir_path)) {
-                auto message = str::format(_("A folder '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
-                    str::xml_escape(dir_path.filename().string()), str::xml_escape(dir_path.parent_path().string()));
-                if (not CtDialogs::question_dialog(message, *_pCtMainWin)) {
-                    return false;
-                }
-                (void)fs::remove_all(dir_path);
-                if (fs::is_directory(dir_path)) {
-                    error = Glib::ustring{"failed to remove "} + dir_path.string();
-                    return false;
-                }
-            }
             if (g_mkdir(dir_path.c_str(), 0755) < 0) {
                 error = Glib::ustring{"failed to create "} + dir_path.string();
                 return false;
