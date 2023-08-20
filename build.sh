@@ -8,6 +8,7 @@ BUILD_DIR="build"
 MAKE_DEB=""
 MAKE_RPM=""
 MAKE_APPIMAGE=""
+BUNDLED_SPDLOG_FMT=""
 NO_TESTS=""
 RET_VAL=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
@@ -33,7 +34,7 @@ f_any_argument_matches () {
 f_any_argument_matches "help" "--help" "-h"
 if [ -n "${RET_VAL}" ]
 then
-  echo "$0 [dbg|debug|rel|release] [notest|notests] [deb|debian] [rpm] [appimage]"
+  echo "$0 [dbg|debug|rel|release] [notest|notests] [bundledspdfmt] [deb|debian] [rpm] [appimage]"
   exit 0
 fi
 
@@ -57,6 +58,9 @@ f_any_argument_matches "rpm"
 
 f_any_argument_matches "appimage" "appimg"
 [ -n "${RET_VAL}" ] && MAKE_APPIMAGE="Y"
+
+f_any_argument_matches "bundledspdlog" "bundledfmt" "bundledspdfmt"
+[ -n "${RET_VAL}" ] && BUNDLED_SPDLOG_FMT="Y"
 
 if [ -f /etc/lsb-release ]
 then
@@ -83,9 +87,11 @@ then
   echo "Building on ${DISTRIB_ID} ${DISTRIB_RELEASE}"
   if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ] || [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Debian10" ]
   then
-    EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DUSE_SHARED_FMT_SPDLOG=''"
+    BUNDLED_SPDLOG_FMT="Y"
   fi
 fi
+
+[ -n "${BUNDLED_SPDLOG_FMT}" ] && EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DUSE_SHARED_FMT_SPDLOG=''"
 
 [[ "$OSTYPE" == "darwin"* ]] && export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig" && NO_TESTS="Y"
 
