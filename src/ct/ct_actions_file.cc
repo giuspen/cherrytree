@@ -93,17 +93,24 @@ void CtActions::file_save_as()
         // overwrite confirmation here
         std::string message;
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_DIR)) {
-            message = str::format(_("A folder '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
-                str::xml_escape(Glib::path_get_basename(filepath)), str::xml_escape(Glib::path_get_dirname(filepath)));
+            // if the output is multifile and the folder is empty, then we are good, otherwise we need to ask
+            if (CtDocType::MultiFile != storageSelArgs.ctDocType or
+                fs::get_dir_entries(filepath).size())
+            {
+                message = str::format(_("A folder '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
+                    str::xml_escape(Glib::path_get_basename(filepath)), str::xml_escape(Glib::path_get_dirname(filepath)));
+            }
         }
         else {
             message = str::format(_("A file '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
                 str::xml_escape(Glib::path_get_basename(filepath)), str::xml_escape(Glib::path_get_dirname(filepath)));
         }
-        if (not CtDialogs::question_dialog(message, *_pCtMainWin)) {
-            return;
+        if (message.size()) {
+            if (not CtDialogs::question_dialog(message, *_pCtMainWin)) {
+                return;
+            }
+            (void)fs::remove_all(filepath);
         }
-        (void)fs::remove_all(filepath);
     }
     _pCtMainWin->file_save_as(filepath, storageSelArgs.ctDocType, storageSelArgs.password);
 }
