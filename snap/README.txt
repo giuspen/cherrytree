@@ -19,14 +19,14 @@ snapcraft
 
 - Install
 
-sudo snap install cherrytree_0.99.49_amd64.snap --dangerous --devmode
+sudo snap install cherrytree_1.0.1_amd64.snap --dangerous --devmode
 
 
 
 - Upload
 
 snapcraft login
-snapcraft upload --release=stable cherrytree_0.99.49_amd64.snap
+snapcraft upload --release=stable cherrytree_1.0.1_amd64.snap
 snapcraft logout
 
 NOTE: if it fails login with craft-store error: Credentials found for 'snapcraft' on 'dashboard.snapcraft.io'

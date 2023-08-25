@@ -124,8 +124,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.7.tar.xz",
-                    "sha256" : "1d7a35af9c5ceccacb244ee3c2deb9b245720d8510ac5c7e6f4b6f9947e6789c"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.8.tar.xz",
+                    "sha256" : "d2940c64922e5b958554b23d4c41d1839ea9e43e0d2e5b3819cfb46824a098c4"
                 }
             ]
         },
@@ -176,8 +176,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://mirror.accum.se/pub/GNOME/sources/gspell/1.12/gspell-1.12.1.tar.xz",
-                    "sha256" : "8ec44f32052e896fcdd4926eb814a326e39a5047e251eec7b9056fbd9444b0f1"
+                    "url" : "https://mirror.accum.se/pub/GNOME/sources/gspell/1.12/gspell-1.12.2.tar.xz",
+                    "sha256" : "b4e993bd827e4ceb6a770b1b5e8950fce3be9c8b2b0cbeb22fdf992808dd2139"
                 }
             ]
         },
@@ -198,8 +198,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/fmtlib/fmt/releases/download/7.1.3/fmt-7.1.3.zip",
-                    "sha256" : "5d98c504d0205f912e22449ecdea776b78ce0bb096927334f80781e720084c9f"
+                    "url" : "https://github.com/fmtlib/fmt/releases/download/9.1.0/fmt-9.1.0.zip",
+                    "sha256" : "cceb4cb9366e18a5742128cb3524ce5f50e88b476f1e54737a47ffdf4df4c996"
                 }
             ]
         },
@@ -209,8 +209,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/gabime/spdlog/archive/refs/tags/v1.8.5.tar.gz",
-                    "sha256" : "944d0bd7c763ac721398dca2bb0f3b5ed16f67cef36810ede5061f35a543b4b8"
+                    "url" : "https://github.com/gabime/spdlog/archive/refs/tags/v1.12.0.tar.gz",
+                    "sha256" : "4dccf2d10f410c1e2feaff89966bfc49a1abb29ef6f08246335b110e001e09a9"
                 }
             ]
         },
@@ -234,8 +234,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.net/software/cherrytree_0.99.55.99.tar.xz",
-                    "sha256" : "1d14c8facceea5641c3b14901c5e9808b6f2c66052fceef08a8a53c5b35bc318"
+                    "url" : "https://www.giuspen.net/software/cherrytree_1.0.1.tar.xz",
+                    "sha256" : "818f72d7693d7f103b59f1a5540d42f42249e51ced3bdbbb62ad9171efc298a0"
                 }
             ]
         },
