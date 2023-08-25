@@ -1,14 +1,15 @@
-cherrytree (1.0.0-2) focal; urgency=low
+cherrytree (1.0.1-2) focal; urgency=low
 
-  * fixed crash when opening node properties (#2304, #2313)
-  * fixed blurry output when exporting LaTeX to pdf (#2308)
-  * added configurability of the blinking of the cursor in the preferences dialog (#2298)
-  * added support for executing 'rust' and 'go' code in code nodes and codeboxes
-  * added 24 new stock icons available to be chosen as tree node icons
-  * added menu items under top menu 'help' to link to website, source code and bug tracker
-  * on windows, paste image from clipboard to take priority over html target containing image so that can work offline (#2303, work of @DaPa)
-  * added new language Persian (work of Majid Abri)
-  * incomplete languages: ar, bg, el, es, fi, hi_IN, hr, hu, ja, ko, lt, pt, pt_BR, ro, sl, zh_TW
+  * fixed overwrite confirmation not working when saving as new multifile storage (#2333)
+  * fixed crash on close (#2302)
+  * fixed xorg crash / wayland warning caused by popup menus without a parent (#2328)
+  * fixed paste content copied from column edit mode not working in codeboxes
+  * highlight current text line to be disabled when the text loses focus or when the text is in column mode
+  * reverted 'on windows, paste image from clipboard to take priority over html target ...' causing paste from spreadsheet cells generating a picture instead of a table
+  * default keyboard shortcut for increase/decrease table column changed to Ctrl+Alt+> Ctrl+Alt+< as Ctrl+) isn't working on windows (#2336)
+  * added new stock icon light bulb / internet of things IoT
+  * added option 'recent_docs' in config.cfg to be set to false in order to not remember the recent documents (#2330)
+  * incomplete languages: ar, el, fi, hi_IN, hr, ja, lt, pt
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 16 Jul 2023 22:12:12 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Fri, 25 Aug 2023 15:22:25 +0100
