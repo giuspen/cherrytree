@@ -13,9 +13,6 @@ NO_TESTS=""
 RET_VAL=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
-[[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
-[ -n "${IS_MSYS2_BUILD}" ] && DEFAULT_BUILD_TYPE="Release" || DEFAULT_BUILD_TYPE="Debug"
-
 f_any_argument_matches () {
   if [ "${ARG1_VAL_LOWER}" == "$1" ] || [ "${ARG2_VAL_LOWER}" == "$1" ] || [ "${ARG3_VAL_LOWER}" == "$1" ]
   then
@@ -38,14 +35,7 @@ then
   exit 0
 fi
 
-f_any_argument_matches "debug" "dbg"
-if [ -n "${RET_VAL}" ]
-then
-  CMAKE_BUILD_TYPE="Debug"
-else
-  f_any_argument_matches "release" "rel"
-  [ -n "${RET_VAL}" ] && CMAKE_BUILD_TYPE="Release" || CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
-fi
+[[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
 
 f_any_argument_matches "notests" "notest"
 [ -n "${RET_VAL}" ] && NO_TESTS="Y"
@@ -61,6 +51,24 @@ f_any_argument_matches "appimage" "appimg"
 
 f_any_argument_matches "bundledspdlog" "bundledfmt" "bundledspdfmt"
 [ -n "${RET_VAL}" ] && BUNDLED_SPDLOG_FMT="Y"
+
+if [ -n "${IS_MSYS2_BUILD}" ] || [ -n "${MAKE_DEB}" ] || [ -n "${MAKE_RPM}" ] || [ -n "${MAKE_APPIMAGE}" ]
+then
+  DEFAULT_BUILD_TYPE="Release"
+else
+  DEFAULT_BUILD_TYPE="Debug"
+fi
+
+f_any_argument_matches "debug" "dbg"
+if [ -n "${RET_VAL}" ]
+then
+  CMAKE_BUILD_TYPE="Debug"
+else
+  f_any_argument_matches "release" "rel"
+  [ -n "${RET_VAL}" ] && CMAKE_BUILD_TYPE="Release" || CMAKE_BUILD_TYPE=${DEFAULT_BUILD_TYPE}
+fi
+
+echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 
 if [ -f /etc/lsb-release ]
 then
@@ -79,8 +87,6 @@ then
   DISTRIB_ID="$(grep ^ID= /etc/os-release | awk -F\" '{print $2}')"
   DISTRIB_RELEASE="$(grep ^VERSION_ID= /etc/os-release | awk -F\" '{print $2}')"
 fi
-
-echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 
 if [ -n "${DISTRIB_ID}" ] && [ -n "${DISTRIB_RELEASE}" ]
 then
