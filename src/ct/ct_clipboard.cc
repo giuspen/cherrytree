@@ -145,7 +145,6 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
     auto text_buffer = pTextView->get_buffer();
     text_buffer->erase_selection(true, pTextView->get_editable());
 
-    // well, it's quite ugly code ...
     // need to recreate CtClipboard, because 'this' will be destroyed
     auto get_target = [&](const std::vector<Glib::ustring>& targets) -> std::tuple<Glib::ustring, std::function<void(const Gtk::SelectionData&, CtMainWin*, Gtk::TextView*, bool)>, bool>
     {
@@ -510,7 +509,7 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
     }
     auto curr_buffer = pTextView->get_buffer();
     Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
-    int start_offset = iter_insert.get_offset();
+    const int start_offset = iter_insert.get_offset();
     curr_buffer->insert(iter_insert, plain_text);
     if (is_rich_text and !force_plain_text) {
         auto web_links_offsets = CtImports::get_web_links_offsets_from_plain_text(plain_text);
@@ -538,8 +537,7 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
                 }
                 if (not property_value.empty()) {
                     Gtk::TextIter iter_sel_end = curr_buffer->get_insert()->get_iter();
-                    Gtk::TextIter iter_sel_start = iter_sel_end;
-                    iter_sel_start.backward_chars((int)plain_text.size());
+                    Gtk::TextIter iter_sel_start = curr_buffer->get_iter_at_offset(start_offset);
                     curr_buffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
                                                    iter_sel_start, iter_sel_end);
                 }
