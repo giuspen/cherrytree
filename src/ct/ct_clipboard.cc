@@ -132,7 +132,7 @@ void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 }
 
 // Paste from Clipboard
-void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodebox*/)
+void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 {
     auto on_scope_exit = scope_guard([&](void*) { CtClipboard::_static_force_plain_text = false; });
 
@@ -160,7 +160,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
             for (auto& target : CtConst::TARGETS_PLAIN_TEXT)
                 if (vec::exists(targets, target))
                     return std::make_tuple(target, received_plain_text, true);
-        const bool is_rich_text = _pCtMainWin->curr_tree_iter().get_node_is_rich_text();
+        const bool is_rich_text = not pCodebox and _pCtMainWin->curr_tree_iter().get_node_is_rich_text();
         if (is_rich_text) {
             if (vec::exists(targets, CtConst::TARGET_CTD_RICH_TEXT))
                 return std::make_tuple(CtConst::TARGET_CTD_RICH_TEXT, received_rich_text, false);
