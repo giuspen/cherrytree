@@ -118,13 +118,13 @@ msgid "_File"
 msgstr "_Plik"
 
 msgid "_Edit"
-msgstr "_Edycja"
+msgstr "Edyc_ja"
 
 msgid "_Insert"
 msgstr "Dodaj"
 
 msgid "F_ormat"
-msgstr "F_ormat"
+msgstr "For_mat"
 
 msgid "_Tree"
 msgstr "_Drzewo"
@@ -133,7 +133,7 @@ msgid "Too_ls"
 msgstr "Narzędzia"
 
 msgid "_Search"
-msgstr "_Szukaj"
+msgstr "Sz_ukaj"
 
 msgid "_View"
 msgstr "_Widok"
@@ -151,7 +151,7 @@ msgid "Nod_es Sort"
 msgstr "_Sortowanie gałęzi"
 
 msgid "B_ookmarks"
-msgstr "_Zakładki"
+msgstr "Za_kładki"
 
 msgid "_Import"
 msgstr "_Import"
