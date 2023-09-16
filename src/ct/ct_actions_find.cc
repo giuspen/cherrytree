@@ -473,7 +473,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
     Gtk::TextIter start_iter;
     if ((first_fromsel and first_node) or (all_matches and not _s_state.all_matches_first_in_node)) {
         gint64 node_id = tree_iter.get_node_id();
-        start_iter = _get_inner_start_iter(text_buffer, forward, node_id);
+        start_iter = _get_inner_start_iter(text_buffer, forward, all_matches, node_id);
     }
     else {
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
@@ -495,10 +495,17 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
 }
 
 // Get start_iter when not at beginning or end
-Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id)
+Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                               const bool forward,
+                                               const bool all_matches,
+                                               const gint64& node_id)
 {
     Gtk::TextIter min_iter, max_iter;
-    if (text_buffer->get_has_selection()) {
+    if (all_matches and _s_state.latest_match_offsets.first >= 0 and _s_state.latest_match_offsets.second >= 0) {
+        min_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
+        max_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
+    }
+    else if (text_buffer->get_has_selection()) {
         text_buffer->get_selection_bounds(min_iter, max_iter);
     }
     else {
@@ -585,7 +592,6 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     }
 
     int start_offset = start_iter.get_offset();
-    // # start_offset -= self.get_num_objs_before_offset(text_buffer, start_offset)
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
         Glib::MatchInfo match_info;
@@ -624,14 +630,13 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     int final_start_offset = match_offsets.first + num_objs;
     int final_delta_offset = match_offsets.second - match_offsets.first;
 
-    if (not _pCtMainWin->curr_tree_iter() or _pCtMainWin->curr_tree_iter().get_node_id() != tree_iter.get_node_id()) {
-        _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+    if (not all_matches) {
+        if (not _pCtMainWin->curr_tree_iter() or _pCtMainWin->curr_tree_iter().get_node_id() != tree_iter.get_node_id()) {
+            _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        }
+        _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
     }
-    CtTextView& ctTextView = _pCtMainWin->get_text_view();
-    ctTextView.set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
 
-    auto mark_insert = text_buffer->get_insert();
-    Gtk::TextIter iter_insert = text_buffer->get_iter_at_mark(mark_insert);
     const int newline_trick_offset = _s_state.newline_trick ? 1 : 0;
     _s_state.latest_match_offsets.first = match_offsets.first + num_objs - newline_trick_offset;
     _s_state.latest_match_offsets.second = match_offsets.second + num_objs - newline_trick_offset;
@@ -640,7 +645,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         const gint64 node_id = tree_iter.get_node_id();
         const Glib::ustring node_name = tree_iter.get_node_name();
         const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, " << ", false, false);
-        const std::string line_content = obj_match_offsets.first != -1 ? obj_content : _get_line_content(text_buffer, iter_insert);
+        const std::string line_content = obj_match_offsets.first != -1 ?
+            obj_content : _get_line_content(text_buffer, _s_state.latest_match_offsets.second);
         int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
         if (not _s_state.newline_trick) { line_num += 1; }
         const Glib::ustring text_tags = tree_iter.get_node_tags();
@@ -653,31 +659,31 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                                                           line_content);
     }
     else {
-        ctTextView.scroll_to(mark_insert, CtTextView::TEXT_SCROLL_MARGIN);
+        _pCtMainWin->get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (_s_state.replace_active) {
-        if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return false;
-        Gtk::TextIter sel_start, sel_end;
-        text_buffer->get_selection_bounds(sel_start, sel_end);
+        if (tree_iter.get_node_read_only()) return false;
+        Gtk::TextIter sel_start = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset);
+        Gtk::TextIter sel_end = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second + newline_trick_offset);
 
         Glib::ustring origin_text = sel_start.get_text(sel_end);
         Glib::ustring replacer_text = _s_options.str_replace; /* should be Glib::ustring to count symbols */
 
         // use re_pattern->replace for the cases with \n, maybe it even helps with groups
-        if (_s_options.reg_exp)
+        if (_s_options.reg_exp) {
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
-
+        }
         text_buffer->erase(sel_start, sel_end);
-        text_buffer->insert_at_cursor(replacer_text);
+        text_buffer->insert(text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset), replacer_text);
         _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + replacer_text.size();
         if (all_matches) {
             (*iterAllMatchesRow)[_s_state.match_store->columns.end_offset] = _s_state.latest_match_offsets.second;
         }
         else {
-            ctTextView.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
+            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
                                                        static_cast<int>(replacer_text.size()));
         }
-        _pCtMainWin->get_state_machine().update_state();
+        _pCtMainWin->get_state_machine().update_state(tree_iter);
         tree_iter.pending_edit_db_node_buff();
     }
     return true;
@@ -779,10 +785,10 @@ int CtActions::_get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_bu
 }
 
 // Returns the Line Content Given the Text Iter
-std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter)
+std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const int match_end_offset)
 {
-    auto line_start = text_iter;
-    auto line_end = text_iter;
+    Gtk::TextIter line_start = text_buffer->get_iter_at_offset(match_end_offset);
+    Gtk::TextIter line_end = line_start;
     if (not line_start.backward_char()) return "";
     while (line_start.get_char() != '\n')
         if (not line_start.backward_char())

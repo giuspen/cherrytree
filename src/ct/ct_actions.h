@@ -210,7 +210,8 @@ private:
                                       Glib::RefPtr<Glib::Regex> re_pattern,
                                       const bool all_matches);
     Gtk::TextIter _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                        bool forward,
+                                        const bool forward,
+                                        const bool all_matches,
                                         const gint64& node_id);
     bool _is_node_within_time_filter(const CtTreeIter& node_iter);
     Glib::RefPtr<Glib::Regex> _create_re_pattern(Glib::ustring pattern);
@@ -221,7 +222,7 @@ private:
                        bool forward,
                        bool all_matches);
     std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                          Gtk::TextIter text_iter);
+                                          const int match_end_offset);
     std::string         _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
     Glib::ustring       _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern,
                                                  CtAnchoredWidget* obj);
