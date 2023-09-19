@@ -85,8 +85,7 @@ void CtActions::find_in_selected_node()
     _pCtMainWin->user_active() = false;
 
     if (all_matches) {
-        _s_state.match_store->clear();
-        _s_state.match_store->saved_path.clear();
+        _s_state.match_store->deep_clear();
         _s_state.all_matches_first_in_node = true;
     }
     CtTreeIter::clear_hit_exclusion_from_search();
@@ -108,8 +107,7 @@ void CtActions::find_in_selected_node()
                                      str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern)));
     }
     else if (all_matches) {
-        _s_state.match_dialog_title = "'" + _s_options.str_find + "'  -  " + std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
+        CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state.match_store);
     }
     else if (_s_options.iterative_dialog) {
         CtDialogs::iterated_find_dialog(_pCtMainWin, _s_state);
@@ -183,8 +181,7 @@ void CtActions::find_in_multiple_nodes()
     }
     _s_state.matches_num = 0;
     if (all_matches) {
-        _s_state.match_store->clear();
-        _s_state.match_store->saved_path.clear();
+        _s_state.match_store->deep_clear();
     }
     CtTreeIter::clear_hit_exclusion_from_search();
 
@@ -252,8 +249,7 @@ void CtActions::find_in_multiple_nodes()
     }
     else {
         if (all_matches) {
-            _s_state.match_dialog_title = "'" + _s_options.str_find + "'  -  " + std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-            CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
+            CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state.match_store);
         }
         else {
             ctTreeView.set_cursor_safe(last_iterated_node);
@@ -330,7 +326,7 @@ void CtActions::replace_again()
 // Restore AllMatchesDialog
 void CtActions::find_allmatchesdialog_restore()
 {
-    CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
+    CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state.match_store);
 }
 
 // Returns True if pattern was found, False otherwise
@@ -640,7 +636,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     const int newline_trick_offset = _s_state.newline_trick ? 1 : 0;
     _s_state.latest_match_offsets.first = match_offsets.first + num_objs - newline_trick_offset;
     _s_state.latest_match_offsets.second = match_offsets.second + num_objs - newline_trick_offset;
-    Gtk::TreeIter iterAllMatchesRow;
+    CtMatchRowData* pCtMatchRowData{nullptr};
     if (all_matches) {
         const gint64 node_id = tree_iter.get_node_id();
         const Glib::ustring node_name = tree_iter.get_node_name();
@@ -650,13 +646,13 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
         if (not _s_state.newline_trick) { line_num += 1; }
         const Glib::ustring text_tags = tree_iter.get_node_tags();
-        iterAllMatchesRow = _s_state.match_store->add_row(node_id,
-                                                          text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
-                                                          str::xml_escape(node_hier_name),
-                                                          _s_state.latest_match_offsets.first,
-                                                          _s_state.latest_match_offsets.second,
-                                                          line_num,
-                                                          line_content);
+        pCtMatchRowData = _s_state.match_store->add_row(node_id,
+                                                        text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
+                                                        str::xml_escape(node_hier_name),
+                                                        _s_state.latest_match_offsets.first,
+                                                        _s_state.latest_match_offsets.second,
+                                                        line_num,
+                                                        line_content);
     }
     else {
         _pCtMainWin->get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
@@ -677,7 +673,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         text_buffer->insert(text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset), replacer_text);
         _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + replacer_text.size();
         if (all_matches) {
-            (*iterAllMatchesRow)[_s_state.match_store->columns.end_offset] = _s_state.latest_match_offsets.second;
+            pCtMatchRowData->end_offset = _s_state.latest_match_offsets.second;
         }
         else {
             _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,

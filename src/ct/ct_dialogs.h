@@ -84,12 +84,20 @@ public:
 
 typedef CtChooseDialogStore<Gtk::ListStore> CtChooseDialogListStore;
 typedef CtChooseDialogStore<Gtk::TreeStore> CtChooseDialogTreeStore;
-
-class CtMatchDialogStore : public Gtk::TreeStore
+struct CtMatchRowData {
+    gint64          node_id;
+    Glib::ustring   node_name;
+    Glib::ustring   node_hier_name;
+    int             start_offset;
+    int             end_offset;
+    int             line_num;
+    Glib::ustring   line_content;
+};
+class CtMatchDialogStore : public Gtk::ListStore
 {
 public:
-    struct CtMatchModelColumns : public Gtk::TreeModelColumnRecord
-    {
+    const size_t cMaxMatchesPerPage{50u};
+    struct CtMatchModelColumns : public Gtk::TreeModelColumnRecord {
         Gtk::TreeModelColumn<gint64>         node_id;
         Gtk::TreeModelColumn<Glib::ustring>  node_name;
         Gtk::TreeModelColumn<Glib::ustring>  node_hier_name;
@@ -107,38 +115,36 @@ public:
             add(line_content);
         }
     } columns;
+    std::array<int, 2>  dlg_size;
+    std::array<int, 2>  dlg_pos;
+    std::string         saved_path;
 
-    std::array<int, 2> dlg_size;
-    std::array<int, 2> dlg_pos;
-    std::string        saved_path; // don't use Gtk::TreePath, see git log
+    static Glib::RefPtr<CtMatchDialogStore> create();
 
-public:
-    virtual ~CtMatchDialogStore() {}
+    void deep_clear();
+    CtMatchRowData* add_row(gint64 node_id,
+                            const Glib::ustring& node_name,
+                            const Glib::ustring& node_hier_name,
+                            int start_offset,
+                            int end_offset,
+                            int line_num,
+                            const Glib::ustring& line_content);
+    void load_current_page();
+    void load_next_page();
+    void load_prev_page();
+    size_t get_tot_matches();
+    bool is_multipage();
+    bool has_next_page();
+    bool has_prev_page();
+    std::string get_this_page_range();
+    std::string get_next_page_range();
+    std::string get_prev_page_range();
 
-    static Glib::RefPtr<CtMatchDialogStore> create() {
-        Glib::RefPtr<CtMatchDialogStore> rModel{new CtMatchDialogStore()};
-        rModel->set_column_types(rModel->columns);
-        return rModel;
-    }
-    Gtk::TreeIter add_row(gint64 node_id,
-                          const Glib::ustring& node_name,
-                          const Glib::ustring& node_hier_name,
-                          int start_offset,
-                          int end_offset,
-                          int line_num,
-                          const Glib::ustring& line_content)
-    {
-        Gtk::TreeIter retIter = append();
-        Gtk::TreeRow row = *retIter;
-        row[columns.node_id] = node_id;
-        row[columns.node_name] = node_name;
-        row[columns.node_hier_name] = node_hier_name;
-        row[columns.start_offset] = start_offset;
-        row[columns.end_offset] = end_offset;
-        row[columns.line_num] = line_num;
-        row[columns.line_content] = line_content;
-        return retIter;
-    }
+private:
+    int                         _page_idx{0};
+    std::vector<CtMatchRowData> _all_matches;
+
+    Gtk::TreeIter _add_row(const CtMatchRowData& row_data);
 };
 
 namespace CtDialogs {
@@ -198,7 +204,7 @@ void no_matches_dialog(CtMainWin* pCtMainWin,
                        const Glib::ustring& message);
 
 // the All Matches Dialog
-void match_dialog(const Glib::ustring& title,
+void match_dialog(const std::string& str_find,
                   CtMainWin* ctMainWin,
                   Glib::RefPtr<CtMatchDialogStore>& rModel);
 

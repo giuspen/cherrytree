@@ -319,12 +319,132 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     dialog.run();
 }
 
-void CtDialogs::match_dialog(const Glib::ustring& title,
+/*static*/Glib::RefPtr<CtMatchDialogStore> CtMatchDialogStore::create()
+{
+    Glib::RefPtr<CtMatchDialogStore> rModel{new CtMatchDialogStore{}};
+    rModel->set_column_types(rModel->columns);
+    return rModel;
+}
+
+void CtMatchDialogStore::deep_clear()
+{
+    clear();
+    saved_path.clear();
+    _page_idx = 0;
+    _all_matches.clear();
+}
+
+CtMatchRowData* CtMatchDialogStore::add_row(gint64 node_id,
+                                            const Glib::ustring& node_name,
+                                            const Glib::ustring& node_hier_name,
+                                            int start_offset,
+                                            int end_offset,
+                                            int line_num,
+                                            const Glib::ustring& line_content)
+{
+    _all_matches.push_back(CtMatchRowData{
+        .node_id = node_id,
+        .node_name = node_name,
+        .node_hier_name = node_hier_name,
+        .start_offset = start_offset,
+        .end_offset = end_offset,
+        .line_num = line_num,
+        .line_content = line_content
+    });
+    return &_all_matches.back();
+}
+
+void CtMatchDialogStore::load_current_page()
+{
+    if (get_iter("0")) {
+        return; // already populated
+    }
+    const size_t iMax = (_page_idx + 1) * cMaxMatchesPerPage;
+    for (size_t i = _page_idx * cMaxMatchesPerPage; i < iMax; ++i) {
+        if (i >= _all_matches.size()) break;
+        (void)_add_row(_all_matches.at(i));
+    }
+}
+
+void CtMatchDialogStore::load_next_page()
+{
+    if (not has_next_page()) return;
+    clear();
+    ++_page_idx;
+    load_current_page();
+}
+
+void CtMatchDialogStore::load_prev_page()
+{
+    if (not has_prev_page()) return;
+    clear();
+    --_page_idx;
+    load_current_page();
+}
+
+size_t CtMatchDialogStore::get_tot_matches()
+{
+    return _all_matches.size();
+}
+
+bool CtMatchDialogStore::is_multipage()
+{
+    return _all_matches.size() > cMaxMatchesPerPage;
+}
+
+bool CtMatchDialogStore::has_next_page()
+{
+    return _all_matches.size() > cMaxMatchesPerPage*(_page_idx + 1);
+}
+
+bool CtMatchDialogStore::has_prev_page()
+{
+    return _page_idx > 0;
+}
+
+std::string CtMatchDialogStore::get_this_page_range()
+{
+    const size_t match_idx_start = _page_idx * cMaxMatchesPerPage;
+    size_t match_idx_end = (_page_idx + 1) * cMaxMatchesPerPage - 1;
+    if (match_idx_end >= _all_matches.size()) match_idx_end = _all_matches.size() - 1;
+    return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
+}
+
+std::string CtMatchDialogStore::get_next_page_range()
+{
+    if (not has_next_page()) return "";
+    const size_t match_idx_start = (_page_idx + 1) * cMaxMatchesPerPage;
+    size_t match_idx_end = (_page_idx + 2) * cMaxMatchesPerPage - 1;
+    if (match_idx_end >= _all_matches.size()) match_idx_end = _all_matches.size() - 1;
+    return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
+}
+
+std::string CtMatchDialogStore::get_prev_page_range()
+{
+    if (not has_prev_page()) return "";
+    const size_t match_idx_start = (_page_idx - 1) * cMaxMatchesPerPage;
+    const size_t match_idx_end = _page_idx * cMaxMatchesPerPage - 1;
+    return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
+}
+
+Gtk::TreeIter CtMatchDialogStore::_add_row(const CtMatchRowData& row_data) {
+    Gtk::TreeIter retIter = append();
+    Gtk::TreeRow row = *retIter;
+    row[columns.node_id] = row_data.node_id;
+    row[columns.node_name] = row_data.node_name;
+    row[columns.node_hier_name] = row_data.node_hier_name;
+    row[columns.start_offset] = row_data.start_offset;
+    row[columns.end_offset] = row_data.end_offset;
+    row[columns.line_num] = row_data.line_num;
+    row[columns.line_content] = row_data.line_content;
+    return retIter;
+}
+
+void CtDialogs::match_dialog(const std::string& str_find,
                              CtMainWin* pCtMainWin,
                              Glib::RefPtr<CtMatchDialogStore>& rModel)
 {
-    // cannot use static because dialog can be used in the several windows
-    auto pMatchesDialog = new Gtk::Dialog{title, *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    auto pMatchesDialog = new Gtk::Dialog{"", *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     pMatchesDialog->set_transient_for(*pCtMainWin);
     if (rModel->dlg_size[0] > 0) {
         pMatchesDialog->set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
@@ -334,11 +454,14 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pMatchesDialog->set_default_size(700, 350);
         pMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
+    Gtk::Button* pButtonPrev = pMatchesDialog->add_button("", Gtk::RESPONSE_NO);
+    Gtk::Button* pButtonNext = pMatchesDialog->add_button("", Gtk::RESPONSE_YES);
     CtMenuAction* pAction = pCtMainWin->get_ct_menu().find_action("toggle_show_allmatches_dlg");
     Glib::ustring label = CtStrUtil::get_accelerator_label(pAction->get_shortcut(pCtMainWin->get_ct_config()));
     Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
 
+    rModel->load_current_page();
     auto pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
@@ -365,7 +488,11 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     Gtk::Box* pContentArea = pMatchesDialog->get_content_area();
     pContentArea->pack_start(*pScrolledwindowAllmatches);
 
-    auto select_found_line = [pTreeview, rModel, pCtMainWin](){
+    bool in_loading{false};
+    auto select_found_line = [pTreeview, rModel, pCtMainWin, &in_loading](){
+        if (in_loading) {
+            return;
+        }
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (not list_iter) {
             return;
@@ -417,8 +544,43 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     pButtonHide->signal_clicked().connect([pMatchesDialog](){
         pMatchesDialog->close();
     });
+    auto f_reEval_multipage = [&str_find, rModel, pMatchesDialog, pButtonPrev, pButtonNext](){
+        Glib::ustring title = "'" + str_find + "'  -  " + std::to_string(rModel->get_tot_matches()) + CtConst::CHAR_SPACE + _("Matches");
+        if (rModel->is_multipage()) {
+            title += "  -  " + rModel->get_this_page_range();
+        }
+        pMatchesDialog->set_title(title);
+        if (rModel->has_prev_page()) {
+            pButtonPrev->set_label(rModel->get_prev_page_range());
+            pButtonPrev->set_visible(true);
+        }
+        else {
+            pButtonPrev->set_visible(false);
+        }
+        if (rModel->has_next_page()) {
+            pButtonNext->set_label(rModel->get_next_page_range());
+            pButtonNext->set_visible(true);
+        }
+        else {
+            pButtonNext->set_visible(false);
+        }
+    };
+
+    pButtonPrev->signal_clicked().connect([rModel, f_reEval_multipage, &in_loading](){
+        in_loading = true;
+        rModel->load_prev_page();
+        in_loading = false;
+        f_reEval_multipage();
+    });
+    pButtonNext->signal_clicked().connect([rModel, f_reEval_multipage, &in_loading](){
+        in_loading = true;
+        rModel->load_next_page();
+        in_loading = false;
+        f_reEval_multipage();
+    });
 
     pMatchesDialog->show_all();
+    f_reEval_multipage();
 }
 
 // Iterated Find/Replace Dialog
