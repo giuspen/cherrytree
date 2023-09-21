@@ -473,12 +473,58 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_gtk",               // 200
     "ct_qt",                // 201
     "ct_bulb",              // 202
+    "ct_airplane",          // 203
+    "ct_alarm_clock",       // 204
+    "ct_android",           // 205
+    "ct_bat",               // 206
+    "ct_bear",              // 207
+    "ct_bell",              // 208
+    "ct_bullseye",          // 209
+    "ct_butterfly",         // 210
+    "ct_cat",               // 211
+    "ct_chick",             // 212
+    "ct_coffee_beans",      // 213
+    "ct_dog",               // 214
+    "ct_dolphin",           // 215
+    "ct_download",          // 216
+    "ct_duck",              // 217
+    "ct_fedora",            // 218
+    "ct_fish",              // 219
+    "ct_four_leaf_clover",  // 220
+    "ct_fox",               // 221
+    "ct_git",               // 222
+    "ct_green_apple",       // 223
+    "ct_hamster",           // 224
+    "ct_horse",             // 225
+    "ct_hot_drink",         // 226
+    "ct_koala",             // 227
+    "ct_lady_beetle",       // 228
+    "ct_lion",              // 229
+    "ct_map_marker",        // 230
+    "ct_monkey",            // 231
+    "ct_mushroom",          // 232
+    "ct_owl",               // 233
+    "ct_panda",             // 234
+    "ct_pig",               // 235
+    "ct_pool_8_ball",       // 236
+    "ct_rabbit",            // 237
+    "ct_rainbow",           // 238
+    "ct_rocket",            // 239
+    "ct_rooster",           // 240
+    "ct_shield",            // 241
+    "ct_ship",              // 242
+    "ct_stackoverflow",     // 243
+    "ct_zebra",             // 244
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
-    132, /*circle start*/1, 2, 3, 4/*circle end*/,
+    132/*heart_ukraine*/, 238/*rainbow*/, /*circle start*/1, 2, 3, 4/*circle end*/,
+    206/*bat*/, 207/*bear*/, 210/*butterfly*/, 211/*cat*/, 212/*chick*/, 214/*dog*/, 215/*dolphin*/, 217/*duck*/,
+    219/*fish*/, 221/*fox*/, 224/*hamster*/, 225/*horse*/, 227/*koala*/, 228/*lady_beetle*/, 229/*lion*/,
+    231/*monkey*/, 233/*owl*/, 234/*panda*/, 235/*pig*/, 237/*rabbit*/, 240/*rooster*/, 244/*zebra*/,
     5/*add*/, 6/*remove*/, 7/*done*/, 8/*cancel*/, 9/*delete*/, 10/*warning*/, 43/*urgent*/, 113/*no access*/, 11/*star*/, 12/*info*/,
     13/*help*/, 171/*lifebuoy*/, 14/*home*/, 15/*index*/, 16/*mail*/, 18/*notes*/, 142/*chat*/, 19/*timestamp*/, 20/*calendar*/,
+    204/*alarm_clock*/, 208/*bell*/,
     39/*find*/, 40/*locked*/, 41/*unlocked*/, 45/*leaf*/,
     50/*pin*/, 51/*anchor*/, 52/*edit*/, 53/*save*/, 54/*execute*/, 55/*preferences*/, 56/*clear*/, 57/*stop*/, 58/*close*/, 59/*quit app*/,
     60/*file*/, 141/*7zip*/, 44/*folder*/,
@@ -486,20 +532,21 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     66/*back*/, 67/*down*/, 68/*forward*/, 69/*up*/, 70/*jump to*/, 71/*zoom out*/, 72/*zoom in*/,
     95/*sports*/, 96/*briefcase*/, 159/*building*/, 98/*chart*/, 145/*invest*/, 104/*money*/,
     97/*camera*/, 99/*clapperboard*/, 100/*maths*/, 101/*games*/, 144/*dictionary*/,
-    157/*bike*/, 161/*car*/, 160/*bus*/,
-    169/*food*/, 170/*hamburger*/, 174/*pizza*/,
+    157/*bike*/, 161/*car*/, 160/*bus*/, 242/*ship*/, 203/*airplane*/, 239/*rocket*/,
+    169/*food*/, 170/*hamburger*/, 174/*pizza*/, 232/*mushroom*/, 223/*green_apple*/, 213/*coffee beans*/, 226/*hot_drink*/,
     162/*cellphone*/, 175/*telephone*/,
-    102/*globe*/, 103/*server*/, 163/*cloud*/, 143/*db*/, 146/*keys*/, 202/*bulb*/, 176/*wifi*/, 177/*antenna*/, 158/*bluetooth*/,
+    102/*globe*/, 230/*map_marker*/, 103/*server*/, 163/*cloud*/, 216/*download*/, 143/*db*/, 146/*keys*/, 241/*shield*/,
+    202/*bulb*/, 176/*wifi*/, 177/*antenna*/, 158/*bluetooth*/,
     105/*painting*/, 106/*puzzle*/, 107/*shopping*/, 108/*heart*/,
     168/*female*/, 173/*male*/, 42/*people*/, 109/*smile*/, 110/*smile cool*/, 111/*smile surpr*/, 112/*skull*/, 126/*ghost*/,
-    /*os start*/115, 116, 117, 118, 172, 119, 120, 121, 156/*os end*/,
+    /*os start*/115, 116, 117, 118, 172/*linuxmint*/, 218/*fedora*/, 119/*freebsd*/, 205/*android*/, 120, 121, 156/*os end*/,
     133/*microchip*/, 164/*computer*/, 165/*display*/, 166/*drive hd*/, 167/*drive usb*/,
-    /*coding start*/181, 17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114,
+    /*coding start*/222/*git*/, 243/*stackoverflow*/, 181, 17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114,
     184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201/*coding end*/,
     /*devops start*/134, 135, 136, 137, 138, 139, 182, 183/*devops end*/,
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
-    25/*bullet*/, 26/*noicon*/,
+    25/*bullet*/, 26/*noicon*/, 209/*bullseye*/, 220/*four_leaf_clover*/, 236/*pool_8_ball*/,
     /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131, 179/*flags end*/
 };
 
