@@ -221,18 +221,19 @@ private:
                        Gtk::TextIter start_iter,
                        bool forward,
                        bool all_matches);
-    std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                          const int match_end_offset);
-    std::string         _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
-    Glib::ustring       _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern,
-                                                 CtAnchoredWidget* obj);
+    const size_t       _line_content_limit{100u};
+    Glib::ustring      _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                         const int match_end_offset);
+    Glib::ustring      _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    Glib::ustring      _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern,
+                                                CtAnchoredWidget* obj);
     std::pair<int, int> _check_pattern_in_object_between(CtTreeIter tree_iter,
                                                          Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                                          Glib::RefPtr<Glib::Regex> pattern,
                                                          int start_offset,
                                                          int end_offset,
                                                          bool forward,
-                                                         std::string& obj_content);
+                                                         Glib::ustring& obj_content);
     int  _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
     void _update_all_matches_progress();
 

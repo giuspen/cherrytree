@@ -611,7 +611,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     }
 
     std::pair<int,int> obj_match_offsets{-1, -1};
-    std::string obj_content;
+    Glib::ustring obj_content;
     if (not _s_state.replace_active) {
         obj_match_offsets = _check_pattern_in_object_between(tree_iter, text_buffer, re_pattern,
             start_iter.get_offset(), match_offsets.first, forward, obj_content);
@@ -641,7 +641,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         const gint64 node_id = tree_iter.get_node_id();
         const Glib::ustring node_name = tree_iter.get_node_name();
         const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, " << ", false, false);
-        const std::string line_content = obj_match_offsets.first != -1 ?
+        const Glib::ustring line_content = obj_match_offsets.first != -1 ?
             obj_content : _get_line_content(text_buffer, _s_state.latest_match_offsets.second);
         int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
         if (not _s_state.newline_trick) { line_num += 1; }
@@ -733,7 +733,7 @@ std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_
                                                                 int start_offset,
                                                                 int end_offset,
                                                                 bool forward,
-                                                                std::string& obj_content)
+                                                                Glib::ustring& obj_content)
 {
     if (not forward) start_offset -= 1;
     if (end_offset < 0) {
@@ -781,7 +781,7 @@ int CtActions::_get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_bu
 }
 
 // Returns the Line Content Given the Text Iter
-std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const int match_end_offset)
+Glib::ustring CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const int match_end_offset)
 {
     Gtk::TextIter line_start = text_buffer->get_iter_at_offset(match_end_offset);
     Gtk::TextIter line_end = line_start;
@@ -794,11 +794,13 @@ std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buff
     while (line_end.get_char() != '\n')
         if (not line_end.forward_char())
             break;
-    return text_buffer->get_text(line_start, line_end);
+    Glib::ustring line_content = text_buffer->get_text(line_start, line_end);
+    return line_content.size() <= _line_content_limit ?
+        line_content : line_content.substr(0u, _line_content_limit) + "...";
 }
 
 // Returns the First Not Empty Line Content Given the Text Buffer
-std::string CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
+Glib::ustring CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
 {
     Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(0);
     while (start_iter.get_char() == '\n')
@@ -808,7 +810,9 @@ std::string CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> tex
     while (end_iter.get_char() != '\n')
         if (not end_iter.forward_char())
             break;
-    return text_buffer->get_text(start_iter, end_iter);
+    Glib::ustring line_content = text_buffer->get_text(start_iter, end_iter);
+    return line_content.size() <= _line_content_limit ?
+        line_content : line_content.substr(0u, _line_content_limit) + "...";
 }
 
 void CtActions::_update_all_matches_progress()
