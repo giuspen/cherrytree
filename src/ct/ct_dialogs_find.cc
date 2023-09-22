@@ -456,6 +456,11 @@ void CtDialogs::match_dialog(const std::string& str_find,
     }
     Gtk::Button* pButtonPrev = pMatchesDialog->add_button("", Gtk::RESPONSE_NO);
     Gtk::Button* pButtonNext = pMatchesDialog->add_button("", Gtk::RESPONSE_YES);
+    pButtonPrev->set_image_from_icon_name("ct_go-back");
+    pButtonPrev->set_always_show_image(true);
+    pButtonNext->set_image_from_icon_name("ct_go-forward");
+    pButtonNext->set_always_show_image(true);
+    pButtonNext->set_image_position(Gtk::PositionType::POS_RIGHT);
     CtMenuAction* pAction = pCtMainWin->get_ct_menu().find_action("toggle_show_allmatches_dlg");
     Glib::ustring label = CtStrUtil::get_accelerator_label(pAction->get_shortcut(pCtMainWin->get_ct_config()));
     Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label), Gtk::RESPONSE_CLOSE);
