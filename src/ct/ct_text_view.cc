@@ -249,18 +249,32 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
     Gtk::TextIter iter_start;
     get_iter_at_location(iter_start, x, y);
+    const auto pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
+    if (pGutterLineNumbers) {
+        const auto pGutterLNWindow = pGutterLineNumbers->get_window();
+        if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
+            // line number click
+            _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
+            return;
+        }
+    }
     _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, iter_start);
 }
 
 // Called after every Triple Click with button 1
 void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
 {
-    auto text_buffer = get_buffer();
-    int x, y;
-    window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
-    Gtk::TextIter iter_start;
-    get_iter_at_location(iter_start, x, y);
-    _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
+    if (_pCtConfig->tripleClickParagraph and
+        _pCtMainWin->curr_tree_iter().get_node_is_rich_text() and
+        get_todo_rotate_time() != event->button.time)
+    {
+        auto text_buffer = get_buffer();
+        int x, y;
+        window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+        Gtk::TextIter iter_start;
+        get_iter_at_location(iter_start, x, y);
+        _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
+    }
 }
 
 #ifdef MD_AUTO_REPLACEMENT
@@ -304,7 +318,7 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
                 const auto pGutterLNWindow = pGutterLineNumbers->get_window();
                 if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
                     // line number click
-                    _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, text_iter);
+                    _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_iter);
                     return;
                 }
             }

@@ -382,8 +382,8 @@ bool CtMainWin::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> tex
 }
 
 // Try to select the full paragraph
-void CtMainWin::apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                                            Gtk::TextIter iter_start)
+void CtMainWin::apply_tag_try_automatic_bounds_paragraph(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                                         Gtk::TextIter iter_start)
 {
     Gtk::TextIter iter_end = iter_start;
     iter_end.forward_to_line_end();

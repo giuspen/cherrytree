@@ -161,7 +161,7 @@ public:
     void                      apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, CtScalableTag* pCtScalableTag);
     Glib::ustring             sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
     bool                      apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
-    void                      apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+    void                      apply_tag_try_automatic_bounds_paragraph(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
 
 private:
     Gtk::HBox&     _init_status_bar();

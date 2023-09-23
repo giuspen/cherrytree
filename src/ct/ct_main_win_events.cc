@@ -510,11 +510,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
         _ctTextview.for_event_after_double_click_button1(event);
     }
     if (event->type == GDK_3BUTTON_PRESS and event->button.button == 1) {
-        if (curr_tree_iter().get_node_is_rich_text() and _pCtConfig->tripleClickParagraph) {
-            if (_ctTextview.get_todo_rotate_time() != event->button.time) {
-                _ctTextview.for_event_after_triple_click_button1(event);
-            }
-        }
+        _ctTextview.for_event_after_triple_click_button1(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS) {
         if (event->type == GDK_BUTTON_PRESS) {
