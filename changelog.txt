@@ -1,4 +1,14 @@
 
+1.0.2 (September 26th, 2023)
+  * improved performance of search/replace with option 'all matches' (#272, #1830, #2019)
+  * added multi pages support to all matches dialog with a limit of 50 matches per page (#2019)
+  * fixed crash when searching with all matches option and the text line containing the pattern is very long
+  * fixed pasting file/folder path with non latin characters on windows applies the start of the link before the pasted text (#2320)
+  * fixed pasting rich text into codebox causing issues with syntax highlighting
+  * fixed single click on line number to select line, double click for pargraph (#1363)
+  * added 42 stock icons
+  * incomplete languages: ar, el, fi, hi_IN, hr, ja, lt, pt
+
 1.0.1 (August 25th, 2023)
   * fixed overwrite confirmation not working when saving as new multifile storage (#2333)
   * fixed crash on close (#2302)

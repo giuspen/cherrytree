@@ -1,15 +1,13 @@
-cherrytree (1.0.1-2) focal; urgency=low
+cherrytree (1.0.2-2) focal; urgency=low
 
-  * fixed overwrite confirmation not working when saving as new multifile storage (#2333)
-  * fixed crash on close (#2302)
-  * fixed xorg crash / wayland warning caused by popup menus without a parent (#2328)
-  * fixed paste content copied from column edit mode not working in codeboxes
-  * highlight current text line to be disabled when the text loses focus or when the text is in column mode
-  * reverted 'on windows, paste image from clipboard to take priority over html target ...' causing paste from spreadsheet cells generating a picture instead of a table
-  * default keyboard shortcut for increase/decrease table column changed to Ctrl+Alt+> Ctrl+Alt+< as Ctrl+) isn't working on windows (#2336)
-  * added new stock icon light bulb / internet of things IoT
-  * added option 'recent_docs' in config.cfg to be set to false in order to not remember the recent documents (#2330)
+  * improved performance of search/replace with option 'all matches' (#272, #1830, #2019)
+  * added multi pages support to all matches dialog with a limit of 50 matches per page (#2019)
+  * fixed crash when searching with all matches option and the text line containing the pattern is very long
+  * fixed pasting file/folder path with non latin characters on windows applies the start of the link before the pasted text (#2320)
+  * fixed pasting rich text into codebox causing issues with syntax highlighting
+  * fixed single click on line number to select line, double click for pargraph (#1363)
+  * added 42 stock icons
   * incomplete languages: ar, el, fi, hi_IN, hr, ja, lt, pt
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Fri, 25 Aug 2023 15:22:25 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 26 Sep 2023 20:13:08 +0100
