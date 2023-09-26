@@ -247,7 +247,7 @@ cp -rv ${OLD_MINGW64_FOLDER}/share/texmf-dist ${NEW_MINGW64_FOLDER}/share/
 for element_rel in dvipng.exe \
                    libgd.dll \
                    libheif.dll \
-                   libavif.dll \
+                   libavif-16.dll \
                    imagequant.dll \
                    libXpm-noX4.dll \
                    libaom.dll \
