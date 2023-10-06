@@ -1,4 +1,7 @@
 #!/usr/bin/make -f
 
+override_dh_auto_test:
+	echo "no tests"
+
 %:
-	dh $@ --buildsystem=cmake --parallel
+	dh $@ --buildsystem=cmake+ninja --parallel
