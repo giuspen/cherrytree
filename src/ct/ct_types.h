@@ -440,4 +440,5 @@ struct CtSearchState {
 
     std::pair<int,int>               latest_match_offsets{-1,-1};
     Glib::RefPtr<CtMatchDialogStore> match_store;
+    bool                             in_loading{false};
 };

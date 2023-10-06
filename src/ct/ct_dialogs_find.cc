@@ -442,8 +442,9 @@ Gtk::TreeIter CtMatchDialogStore::_add_row(const CtMatchRowData& row_data) {
 
 void CtDialogs::match_dialog(const std::string& str_find,
                              CtMainWin* pCtMainWin,
-                             Glib::RefPtr<CtMatchDialogStore>& rModel)
+                             CtSearchState& s_state)
 {
+    auto rModel = s_state.match_store;
     auto pMatchesDialog = new Gtk::Dialog{"", *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     pMatchesDialog->set_transient_for(*pCtMainWin);
     if (rModel->dlg_size[0] > 0) {
@@ -493,21 +494,20 @@ void CtDialogs::match_dialog(const std::string& str_find,
     Gtk::Box* pContentArea = pMatchesDialog->get_content_area();
     pContentArea->pack_start(*pScrolledwindowAllmatches);
 
-    bool in_loading{false};
-    auto select_found_line = [pTreeview, rModel, pCtMainWin, &in_loading](){
-        if (in_loading) {
+    auto select_found_line = [pTreeview, &s_state, pCtMainWin](){
+        if (s_state.in_loading) {
             return;
         }
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (not list_iter) {
             return;
         }
-        gint64 node_id = list_iter->get_value(rModel->columns.node_id);
+        gint64 node_id = list_iter->get_value(s_state.match_store->columns.node_id);
         CtTreeIter tree_iter = pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
         if (not tree_iter) {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id),
                                     *pCtMainWin);
-            rModel->erase(list_iter);
+            s_state.match_store->erase(list_iter);
             return;
         }
         // remove previous selection because it can cause freezing in specific cases, see more in issue
@@ -516,8 +516,8 @@ void CtDialogs::match_dialog(const std::string& str_find,
 
         pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         auto rCurrBuffer = pCtMainWin->get_text_view().get_buffer();
-        rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.start_offset)),
-                                  rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.end_offset)));
+        rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(list_iter->get_value(s_state.match_store->columns.start_offset)),
+                                  rCurrBuffer->get_iter_at_offset(list_iter->get_value(s_state.match_store->columns.end_offset)));
         pCtMainWin->get_text_view().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 
         // pump events so UI's not going to freeze (#835)
@@ -571,16 +571,16 @@ void CtDialogs::match_dialog(const std::string& str_find,
         }
     };
 
-    pButtonPrev->signal_clicked().connect([rModel, f_reEval_multipage, &in_loading](){
-        in_loading = true;
-        rModel->load_prev_page();
-        in_loading = false;
+    pButtonPrev->signal_clicked().connect([&s_state, f_reEval_multipage](){
+        s_state.in_loading = true;
+        s_state.match_store->load_prev_page();
+        s_state.in_loading = false;
         f_reEval_multipage();
     });
-    pButtonNext->signal_clicked().connect([rModel, f_reEval_multipage, &in_loading](){
-        in_loading = true;
-        rModel->load_next_page();
-        in_loading = false;
+    pButtonNext->signal_clicked().connect([&s_state, f_reEval_multipage](){
+        s_state.in_loading = true;
+        s_state.match_store->load_next_page();
+        s_state.in_loading = false;
         f_reEval_multipage();
     });
 

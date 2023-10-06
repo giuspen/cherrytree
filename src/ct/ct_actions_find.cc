@@ -107,7 +107,7 @@ void CtActions::find_in_selected_node()
                                      str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern)));
     }
     else if (all_matches) {
-        CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state.match_store);
+        CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state);
     }
     else if (_s_options.iterative_dialog) {
         CtDialogs::iterated_find_dialog(_pCtMainWin, _s_state);
@@ -249,7 +249,7 @@ void CtActions::find_in_multiple_nodes()
     }
     else {
         if (all_matches) {
-            CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state.match_store);
+            CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state);
         }
         else {
             ctTreeView.set_cursor_safe(last_iterated_node);
@@ -326,7 +326,7 @@ void CtActions::replace_again()
 // Restore AllMatchesDialog
 void CtActions::find_allmatchesdialog_restore()
 {
-    CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state.match_store);
+    CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state);
 }
 
 // Returns True if pattern was found, False otherwise

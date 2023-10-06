@@ -206,7 +206,7 @@ void no_matches_dialog(CtMainWin* pCtMainWin,
 // the All Matches Dialog
 void match_dialog(const std::string& str_find,
                   CtMainWin* ctMainWin,
-                  Glib::RefPtr<CtMatchDialogStore>& rModel);
+                  CtSearchState& s_state);
 
 void iterated_find_dialog(CtMainWin* pCtMainWin,
                           CtSearchState& s_state);
