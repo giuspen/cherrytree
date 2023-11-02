@@ -55,7 +55,7 @@
   <style name="cursor"                      foreground="white"/>
   <style name="current-line"                background="medium_blue"/>
   <style name="current-line-number"         background="medium_blue"/>
-  <style name="line-numbers"                foreground="bluish_grey" background="black_blue"/>
+  <style name="line-numbers"                foreground="bluish_grey" background="dark_blue"/>
   <style name="draw-spaces"                 foreground="bluish_grey"/>
   <style name="right-margin"                foreground="light_grey" background="light_grey"/>
   <style name="background-pattern"          background="dark_medium_blue_blend"/>
