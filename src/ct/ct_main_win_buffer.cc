@@ -101,7 +101,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
         switch (target) {
             case 'r': {
                 if (node.get_node_is_rich_text()) {
-                    apply_syntax_highlighting(curr_tree_iter().get_node_text_buffer(), curr_tree_iter().get_node_syntax_highlighting(), true/*forceReApply*/);
+                    apply_syntax_highlighting(node.get_node_text_buffer(), node.get_node_syntax_highlighting(), true/*forceReApply*/);
                 }
             } break;
             case 'p': {
@@ -115,7 +115,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                     }
                 }
                 else {
-                    apply_syntax_highlighting(curr_tree_iter().get_node_text_buffer(), curr_tree_iter().get_node_syntax_highlighting(), true/*forceReApply*/);
+                    apply_syntax_highlighting(node.get_node_text_buffer(), node.get_node_syntax_highlighting(), true/*forceReApply*/);
                 }
             } break;
             case 't': {
