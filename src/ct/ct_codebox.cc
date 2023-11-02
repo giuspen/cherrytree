@@ -131,7 +131,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
  , _frameHeight{frameHeight}
 {
     _ctTextview.get_style_context()->add_class("ct-codebox");
-    _ctTextview.set_border_width(1);
+    _ctTextview.set_border_width(2);
 
     if (!_pCtMainWin->get_ct_config()->codeboxAutoResize) {
         if (_frameHeight < MIN_SCROLL_HEIGHT) { /* overwise not possible to have 20 px height*/
