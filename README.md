@@ -5,7 +5,7 @@ The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherry
 ## How to start the project
 For starting the project, you have to build it from the source. Please read [BUILDING.md](BUILDING.md).
 
-## Links on used libraries
+## Used libraries
 https://www.gtkmm.org/en/documentation.shtml
 https://developer-old.gnome.org/gtkmm-tutorial/3.24/
 https://developer-old.gnome.org/gtkmm/3.24/
