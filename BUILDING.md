@@ -1,5 +1,5 @@
 # Build from source code
-- [Debian (+Linux Mint/Ubuntu)](#building-cherrytree-on-debian-ubuntulinux-mint)
+- [Debian (+Ubuntu/Linux Mint)](#building-cherrytree-on-debian-ubuntulinux-mint)
 - [Arch Linux (+Manjaro Linux)](#building-cherrytree-on-arch-linux-manjaro-linux)
 - [Gentoo](#building-cherrytree-on-gentoo)
 - [Fedora](#building-cherrytree-on-fedora)
