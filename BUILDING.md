@@ -1,5 +1,5 @@
 # Build from source code
-- [Debian (+Linux Mint/Ubuntu)](#building-cherrytree-on-ubuntu-linux-mintubuntu)
+- [Debian (+Linux Mint/Ubuntu)](#building-cherrytree-on-debian-linux-mintubuntu)
 - [Arch Linux (+Manjaro Linux)](#building-cherrytree-on-arch-linux-linux-mintubuntu)
 - [Gentoo](#building-cherrytree-on-gentoo)
 - [Fedora](#building-cherrytree-on-fedora)
@@ -50,7 +50,7 @@ gdb ./build/cherrytree
 (gdb) bt
 ```
 
-## Building Cherrytree on Ubuntu (+Linux Mint/Ubuntu)
+## Building Cherrytree on Debian (+Linux Mint/Ubuntu)
 Install dependencies:
 ```sh
 sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev
