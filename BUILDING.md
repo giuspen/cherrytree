@@ -33,11 +33,13 @@ This works on any operating system that supports Docker.
 5. See previous section for Build and Debug instructions.
 
 ## To build using the bundled spdlog and fmt libraries
+
 ```sh
 ./build.sh bundledspdfmt
 ```
 
 ## To create an AppImage bundle
+
 ```sh
 ./build.sh appimage
 ```
