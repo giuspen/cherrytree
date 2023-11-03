@@ -1,6 +1,6 @@
 # Build from source code
-- [Debian (+Linux Mint/Ubuntu)](#building-cherrytree-on-ubuntu)
-- [Arch Linux (+Manjaro Linux)](#building-cherrytree-on-arch)
+- [Debian (+Linux Mint/Ubuntu)](#building-cherrytree-on-ubuntu-linux-mintubuntu)
+- [Arch Linux (+Manjaro Linux)](#building-cherrytree-on-arch-linux-linux-mintubuntu)
 - [Gentoo](#building-cherrytree-on-gentoo)
 - [Fedora](#building-cherrytree-on-fedora)
 - [Opensuse](#building-cherrytree-on-opensuse)
@@ -50,7 +50,7 @@ gdb ./build/cherrytree
 (gdb) bt
 ```
 
-## Building Cherrytree on Ubuntu
+## Building Cherrytree on Ubuntu (+Linux Mint/Ubuntu)
 Install dependencies:
 ```sh
 sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev
@@ -85,7 +85,7 @@ xdg-open /usr/share/doc/libxml++2.6-doc/reference/html/index.html
 xdg-open /usr/share/doc/libgspell-1-dev/html/index.html
 ```
 
-## Building Cherrytree on Arch
+## Building Cherrytree on Arch Linux (+Linux Mint/Ubuntu)
 Install dependencies:
 ```sh
 sudo pacman -S gtksourceviewmm libxml++2.6 gspell uchardet fmt spdlog
