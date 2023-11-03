@@ -3,7 +3,7 @@ A hierarchical note taking application, featuring rich text and syntax highlight
 The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherrytree/).
 
 ## How to start the project
-For starting the project, you have to build it from the source. Please read [BUILDING.md](BUILDING.md).
+For starting the project, you have to build it from the source code. Please read [BUILDING.md](BUILDING.md).
 
 ## Used libraries
 https://www.gtkmm.org/en/documentation.shtml
