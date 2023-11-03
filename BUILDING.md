@@ -1,5 +1,4 @@
 # Build from source code
-
 - [Debian (+Linux Mint/Ubuntu)](#building-cherrytree-on-ubuntu)
 - [Arch Linux (+Manjaro Linux)](#building-cherrytree-on-arch)
 - [Gentoo](#building-cherrytree-on-gentoo)
@@ -10,7 +9,6 @@
 
 
 ## Build/Debug with Visual Studio Code on Linux
-
 https://code.visualstudio.com/docs/setup/linux
 required installation of Extension "C/C++"
 ```sh
@@ -21,7 +19,6 @@ Build with: Ctrl+Shift+B
 Debug with: F5
 
 ## Build/Debug with Visual Studio Code using a container
-
 It is possible to use a container as a full-featured development environment from VS Code.
 This works on any operating system that supports Docker.
 
@@ -33,13 +30,11 @@ This works on any operating system that supports Docker.
 5. See previous section for Build and Debug instructions.
 
 ## To build using the bundled spdlog and fmt libraries
-
 ```sh
 ./build.sh bundledspdfmt
 ```
 
 ## To create an AppImage bundle
-
 ```sh
 ./build.sh appimage
 ```
@@ -56,7 +51,6 @@ gdb ./build/cherrytree
 ```
 
 ## Building Cherrytree on Ubuntu
-
 Install dependencies:
 ```sh
 sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev
@@ -92,7 +86,6 @@ xdg-open /usr/share/doc/libgspell-1-dev/html/index.html
 ```
 
 ## Building Cherrytree on Arch
-
 Install dependencies:
 ```sh
 sudo pacman -S gtksourceviewmm libxml++2.6 gspell uchardet fmt spdlog
@@ -108,14 +101,12 @@ git submodule update --init
 ```
 
 ## Building Cherrytree on Gentoo
-
 Build and Install cherrytree:
 ```sh
 sudo emerge cherrytree
 ```
 
 ## Building Cherrytree on Fedora
-
 Install dependencies:
 ```sh
 sudo dnf install cmake ninja-build gcc-c++ gtkmm30-devel gtksourceviewmm3-devel gspell-devel libxml++-devel libcurl-devel uchardet-devel fmt-devel spdlog-devel vte291-devel sqlite-devel
@@ -152,7 +143,6 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 ```
 
 ## Building Cherrytree on OpenSuse
-
 Install dependencies:
 ```sh
 sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt-devel spdlog-devel vte-devel
@@ -174,7 +164,6 @@ sudo zypper install rpm-build
 ```
 
 ## Building Cherrytree on MacOS
-
 NOTE: Cherrytree is available as an [Installer](https://gitlab.com/dehesselle/cherrytree_macos/-/releases) or in [Homebrew](https://formulae.brew.sh/formula/cherrytree) or [Mac Ports](https://ports.macports.org/port/cherrytree)
 
 In order build it yourself in [Homebrew](https://brew.sh/):
@@ -199,7 +188,6 @@ export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
 ```
 
 ## Building Cherrytree on Windows
-
 Install MSYS2: https://www.msys2.org/ (we cover here the packages for 64 bit installation)
 
 Launch 'MSYS2 MinGW 64-bit' terminal (there are 3 different terminals, make sure it is 64-bit otherwise it will cause issues)
