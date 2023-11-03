@@ -52,7 +52,7 @@ f_any_argument_matches "appimage" "appimg"
 f_any_argument_matches "bundledspdlog" "bundledfmt" "bundledspdfmt"
 [ -n "${RET_VAL}" ] && BUNDLED_SPDLOG_FMT="Y"
 
-if [ -n "${IS_MSYS2_BUILD}" ] || [ -n "${MAKE_DEB}" ] || [ -n "${MAKE_RPM}" ] || [ -n "${MAKE_APPIMAGE}" ]
+if [ -n "${MAKE_DEB}" ] || [ -n "${MAKE_RPM}" ] || [ -n "${MAKE_APPIMAGE}" ]
 then
   DEFAULT_BUILD_TYPE="Release"
 else

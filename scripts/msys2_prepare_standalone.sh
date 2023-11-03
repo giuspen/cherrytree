@@ -25,7 +25,7 @@ then
 fi
 echo "build..."
 cd ${GIT_CT_FOLDER}
-./build.sh
+./build.sh release
 
 
 CT_VERSION_NUM="$(cat ${GIT_CT_CONFIG_H} | grep PACKAGE_VERSION_WINDOWS_STR | awk '{print substr($3, 2, length($3)-2)}')"
