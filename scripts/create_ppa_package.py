@@ -4,6 +4,7 @@ import os
 import shutil
 import re
 import subprocess
+import argparse
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPT_DIR)
@@ -24,19 +25,21 @@ def f_changelog_setup_for(package_num):
     with open(DEBIAN_CHANGELOG_PATH, "r") as fd:
         changelog_lines.extend(fd.readlines())
 
+    changes_filename = ""
     for i in range(len(changelog_lines)):
         # cherrytree (1.0.2-2) focal; urgency=low
         match = re.search(r"cherrytree +\(([0-9]+\.[0-9]+\.[0-9]+)-[0-9]+\)", changelog_lines[i])
         if match is not None:
             changelog_lines[i] = "cherrytree ({}-{}) {}; urgency=low\n".format(match.group(1), package_num, CONTROL_DICT[package_num][0])
+            changes_filename = "cherrytree_{}-{}_source.changes".format(match.group(1), package_num)
             break
     else:
         print("!! changelog version not found")
-        return False
+        return ""
 
     with open(DEBIAN_CHANGELOG_PATH, "w") as fd:
         fd.writelines(changelog_lines)
-    return True
+    return changes_filename
 
 def f_cmakelists_setup_for(package_num):
     cmakelists_lines = []
@@ -57,13 +60,29 @@ def f_cmakelists_setup_for(package_num):
     return True
 
 def f_setup_for(package_num):
-    f_changelog_setup_for(package_num)
-    f_cmakelists_setup_for(package_num)
-    shutil.copy(os.path.join(SCRIPTS_DIR, CONTROL_DICT[package_num][1], "control"), DEBIAN_CONTROL_PATH)
-
-def main(args):
-    f_setup_for(2)
+    changes_filename = f_changelog_setup_for(package_num)
+    if not changes_filename: return -1
+    if not f_cmakelists_setup_for(package_num): return -2
+    try: shutil.copy(os.path.join(SCRIPTS_DIR, CONTROL_DICT[package_num][1], "control"), DEBIAN_CONTROL_PATH)
+    except: return -3
+    if 0 != subprocess.call(["debuild", "-S", "-sa", "-i", "-I"], cwd=ROOT_DIR): return -4
+    if 0 != subprocess.call(["dput", "ppa:giuspen/ppa", changes_filename], cwd=os.path.dirname(ROOT_DIR)): return -5
+    return 0
 
 if __name__ == '__main__':
-    import sys
-    sys.exit(main(sys.argv))
+    parser = argparse.ArgumentParser(description="Generate PPA package for an ubuntu serie")
+    help_package_num = "Package Number { -1=all"
+    for k in CONTROL_DICT.keys():
+        help_package_num += " {}={}".format(k, CONTROL_DICT[k][0])
+    help_package_num += " }"
+    list_choices = [-1]
+    list_choices.extend([k for k in CONTROL_DICT.keys()])
+    parser.add_argument("package_num", type=int, choices=list_choices, help=help_package_num)
+    opts = parser.parse_args()
+    if opts.package_num >= 0:
+        exit(f_setup_for(opts.package_num))
+    else:
+        for k in CONTROL_DICT.keys():
+            ret_val = f_setup_for(k)
+            if 0 != ret_val: exit(ret_val)
+        exit(0)
