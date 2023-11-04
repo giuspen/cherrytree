@@ -2,8 +2,11 @@
 A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories.
 The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherrytree/).
 
-## How to start the project
-For starting the project, you have to build it from the source code. Please read [BUILDING.md](BUILDING.md).
+## Prebuilt binaries
+Prebuilt binaries can be found on [github.com/giuspen/cherrytree/releases](https://github.com/giuspen/cherrytree/releases) and [giuspen.net/cherrytree/#downl](https://www.giuspen.net/cherrytree/#downl).
+
+## How to build from source code
+In order to build from the source code, please read [BUILDING.md](BUILDING.md).
 
 ## Used libraries
 https://www.gtkmm.org/en/documentation.shtml
