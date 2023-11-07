@@ -300,8 +300,10 @@ void CtActions::replace_in_selected_node()
 {
     if (not _is_there_selected_node_or_error()) return;
     _s_state.replace_active = true;
+    _s_state.replace_subsequent = false;
     find_in_selected_node();
     _s_state.replace_active = false;
+    _s_state.replace_subsequent = false;
 }
 
 // Replace the pattern in all the Tree Nodes
@@ -309,8 +311,10 @@ void CtActions::replace_in_multiple_nodes()
 {
     if (not _is_tree_not_empty_or_error()) return;
     _s_state.replace_active = true;
+    _s_state.replace_subsequent = false;
     find_in_multiple_nodes();
     _s_state.replace_active = false;
+    _s_state.replace_subsequent = false;
 }
 
 // Continue the previous replace (a_node/in_selected_node/in_all_nodes)
@@ -673,6 +677,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         text_buffer->erase(sel_start, sel_end);
         text_buffer->insert(text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset), replacer_text);
         _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + replacer_text.size();
+        _s_state.replace_subsequent = true;
         if (all_matches) {
             pCtMatchRowData->end_offset = _s_state.latest_match_offsets.second;
         }
