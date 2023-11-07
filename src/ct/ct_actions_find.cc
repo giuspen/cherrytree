@@ -498,8 +498,9 @@ Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> tex
 {
     Gtk::TextIter min_iter, max_iter;
     if (all_matches and _s_state.latest_match_offsets.first >= 0 and _s_state.latest_match_offsets.second >= 0) {
-        min_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
-        max_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
+        const int newline_trick_offset = _s_state.newline_trick ? 1 : 0;
+        min_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset);
+        max_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second + newline_trick_offset);
     }
     else if (text_buffer->get_has_selection()) {
         text_buffer->get_selection_bounds(min_iter, max_iter);
@@ -676,7 +677,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             pCtMatchRowData->end_offset = _s_state.latest_match_offsets.second;
         }
         else {
-            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
+            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first + newline_trick_offset,
                                                        static_cast<int>(replacer_text.size()));
         }
         _pCtMainWin->get_state_machine().update_state(tree_iter);
