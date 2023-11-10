@@ -491,12 +491,7 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
                     // start of tag
                     Glib::ustring color = CtRgbUtil::rgb_to_no_white(curr_tag_str);
                     color = CtRgbUtil::get_rgb24str_from_str_any(color);
-                    if (from_selection) {
-                        html_text += "<span style=\"white-space:pre;color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
-                    }
-                    else {
-                        html_text += "<span style=\"color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
-                    }
+                    html_text += "<span style=\"color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
                     span_opened = true;
                 }
             }
@@ -515,7 +510,7 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
     }
 
     html_text = str::replace(html_text, CtConst::CHAR_NEWLINE, "<br />");
-    return from_selection ? html_text : "<pre>" + html_text + "</pre>";
+    return from_selection ? "<pre style=\"display:inline;>\"" + html_text + "</pre>" : "<pre>" + html_text + "</pre>";
 }
 
 // Given a treestore iter returns the HTML rich text
