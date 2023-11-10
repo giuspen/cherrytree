@@ -355,7 +355,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
     }
     else {
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
-        html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset(), syntax_highlighting);
+        html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset(), syntax_highlighting, true/*from_selection*/);
     }
     html_text += HTML_FOOTER;
     return html_text;
@@ -460,7 +460,7 @@ Glib::ustring CtExport2Html::_get_table_html(CtTableCommon* table)
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting)
+Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting, const bool from_selection/*=false*/)
 {
     Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
     Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
@@ -491,7 +491,12 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
                     // start of tag
                     Glib::ustring color = CtRgbUtil::rgb_to_no_white(curr_tag_str);
                     color = CtRgbUtil::get_rgb24str_from_str_any(color);
-                    html_text += "<span style=\"color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
+                    if (from_selection) {
+                        html_text += "<span style=\"white-space:pre;color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
+                    }
+                    else {
+                        html_text += "<span style=\"color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
+                    }
                     span_opened = true;
                 }
             }
@@ -502,8 +507,6 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
             html_text += "</span>";
         }
         Glib::ustring sym = str::xml_escape(Glib::ustring(1, curr_iter.get_char()));
-        //html_text += str::replace(sym, " ", "&nbsp;");
-        // let's try and use <pre></pre> instead of '&nbsp;' to preserve the spaces
         html_text += sym;
         if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() >= sel_end)) {
             if (span_opened) html_text += "</span>";
@@ -512,7 +515,7 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
     }
 
     html_text = str::replace(html_text, CtConst::CHAR_NEWLINE, "<br />");
-    return "<pre>" + html_text + "</pre>";
+    return from_selection ? html_text : "<pre>" + html_text + "</pre>";
 }
 
 // Given a treestore iter returns the HTML rich text

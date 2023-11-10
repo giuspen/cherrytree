@@ -75,7 +75,8 @@ private:
     Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer,
                                              int sel_start,
                                              int sel_end,
-                                             const std::string &syntax_highlighting);
+                                             const std::string &syntax_highlighting,
+                                             const bool from_selection = false);
     void _html_get_from_treestore_node(CtTreeIter node_iter,
                                        int sel_start,
                                        int sel_end,
