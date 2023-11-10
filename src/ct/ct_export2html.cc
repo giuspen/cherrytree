@@ -510,7 +510,10 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
     }
 
     html_text = str::replace(html_text, CtConst::CHAR_NEWLINE, "<br />");
-    return from_selection ? "<pre style=\"display:inline;>\"" + html_text + "</pre>" : "<pre>" + html_text + "</pre>";
+    if (from_selection) html_text = "<pre style=\"display:inline;\">" + html_text + "</pre>";
+    else html_text = "<pre>" + html_text + "</pre>";
+    //spdlog::debug("{}", html_text);
+    return html_text;
 }
 
 // Given a treestore iter returns the HTML rich text
