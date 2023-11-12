@@ -49,6 +49,14 @@ void CtMainWin::_on_treeview_cursor_changed()
         _nodesVScrollPos[prevNodeId] = round(_scrolledwindowText.get_vadjustment()->get_value());
     }
 
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+    if (not rTextBuffer) {
+        CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), treeIter.get_node_name()), *this);
+        if (_prevTreeIter) {
+            _uCtTreeview->set_cursor_safe(_prevTreeIter);
+        }
+        return;
+    }
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     if (user_active()) {
