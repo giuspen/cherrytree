@@ -277,6 +277,7 @@ public:
     virtual void close_connect() = 0;
     virtual void reopen_connect() = 0;
     virtual void test_connection() = 0;
+    virtual void try_reopen() = 0;
 
     virtual bool populate_treestore(const fs::path& file_path, Glib::ustring& error) = 0;
     virtual bool save_treestore(const fs::path& file_path,

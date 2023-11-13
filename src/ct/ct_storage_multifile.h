@@ -59,6 +59,7 @@ public:
     void close_connect() override {}
     void reopen_connect() override {}
     void test_connection() override {}
+    void try_reopen() override {}
     void vacuum() override {}
 
     bool populate_treestore(const fs::path& file_path, Glib::ustring& error) override;

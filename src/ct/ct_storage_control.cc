@@ -199,6 +199,19 @@
     return ret_list;
 }
 
+bool CtStorageControl::try_reopen(Glib::ustring& error)
+{
+    try {
+        _storage->try_reopen();
+        return true;
+    }
+    catch (std::exception& e) {
+        spdlog::error(e.what());
+        error = e.what();
+        return false;
+    }
+}
+
 bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
 {
     _mod_time = 0;

@@ -201,8 +201,7 @@ void CtStorageSqlite::test_connection()
         return;
 
     _close_db();
-
-    g_usleep(500 * 1000); // wait 0.5 sec, file can be block by sync program like Dropbox
+    g_usleep(500000); // wait 0.5 sec, file can be block by sync program like Dropbox
 
     try {
         _open_db(_file_path);
@@ -213,7 +212,21 @@ void CtStorageSqlite::test_connection()
     }
     if (not test_readwrite())
         throw std::runtime_error(str::format(_("%s write failed - is file blocked by a sync program?"), _file_path));
-    if (not _check_database_integrity()) return;
+    (void)_check_database_integrity();
+}
+
+void CtStorageSqlite::try_reopen()
+{
+    _close_db();
+    g_usleep(500000); // wait 0.5 sec, file can be block by sync program like Dropbox
+    try {
+        _open_db(_file_path);
+    }
+    catch(std::exception& e) {
+        spdlog::debug("{} {}", __FUNCTION__, e.what());
+        throw std::runtime_error(str::format(_("%s reopen failed - file is missing. Reattach USB drive or shared resource!"), _file_path));
+    }
+    (void)_check_database_integrity();
 }
 
 bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustring& error)

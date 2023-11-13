@@ -59,6 +59,7 @@ public:
     ThreadSafeDEQueue<std::shared_ptr<CtBackupEncryptData>,1000> backupEncryptDEQueue;
 
     bool save(bool need_vacuum, Glib::ustring& error);
+    bool try_reopen(Glib::ustring& error);
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const;

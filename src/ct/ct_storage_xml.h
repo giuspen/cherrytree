@@ -52,6 +52,7 @@ public:
     void close_connect() override {}
     void reopen_connect() override {}
     void test_connection() override {}
+    void try_reopen() override {}
     void vacuum() override {}
 
     static std::unique_ptr<xmlpp::DomParser> get_parser(const fs::path& file_path);
