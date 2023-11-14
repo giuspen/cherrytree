@@ -708,19 +708,31 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
     auto& store = pCtMainWin->get_tree_store();
     if (not pending) {
         // all nodes
+        std::string error;
         store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool{
-            for (auto widget: store.to_ct_tree_iter(iter).get_anchored_widgets_fast())
+            CtTreeIter ct_tree_iter = store.to_ct_tree_iter(iter);
+            Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
+            if (not rTextBuffer) {
+                error = str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name());
+                return true; /* true for stop */
+            }
+            for (auto widget : ct_tree_iter.get_anchored_widgets_fast())
                 if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
                     if (auto image = dynamic_cast<CtImagePng*>(widget))
                         image_list.emplace_back(image);
             return false; /* false for continue */
         });
+        if (not error.empty()) throw std::runtime_error(error);
     }
     else {
         for (const auto& node_pair : pending->nodes_to_write_dict) {
             CtTreeIter ct_tree_iter = store.get_node_from_node_id(node_pair.first);
             if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text()) {
-                for (auto widget: ct_tree_iter.get_anchored_widgets_fast())
+                Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
+                if (not rTextBuffer) {
+                    throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name()));
+                }
+                for (auto widget : ct_tree_iter.get_anchored_widgets_fast())
                     if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
                         if (auto image = dynamic_cast<CtImagePng*>(widget))
                             image_list.emplace_back(image);

@@ -178,6 +178,10 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
                                  const int start_offset/*= 0*/,
                                  const int end_offset/*=-1*/)
 {
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter->get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter->get_node_name()));
+    }
     xmlpp::Element* p_node_node =  CtStorageXmlHelper{_pCtMainWin}.node_to_xml(
         ct_tree_iter,
         p_node_parent,
