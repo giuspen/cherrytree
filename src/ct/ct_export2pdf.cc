@@ -365,13 +365,17 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
 
 void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
 {
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+    }
     std::vector<CtPangoObjectPtr> pango_slots;
     if (tree_iter.get_node_is_text()) {
         CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots);
     }
     else {
         Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
-            tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
+            rTextBuffer, sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
         pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, PANGO_DIRECTION_LTR));
     }
 
@@ -399,15 +403,21 @@ void CtExport2Pdf::tree_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     _pCtMainWin->get_ct_print().print_text(pdf_filepath, tree_pango_slots);
 }
 
-void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options, std::vector<CtPangoObjectPtr>& tree_pango_slots)
+void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter,
+                                                const CtExportOptions& options,
+                                                std::vector<CtPangoObjectPtr>& tree_pango_slots)
 {
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+    }
     std::vector<CtPangoObjectPtr> node_pango_slots;
     if (tree_iter.get_node_is_text()) {
         CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots);
     }
     else {
         Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
-            tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
+            rTextBuffer, -1, -1, tree_iter.get_node_syntax_highlighting());
         node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0/*indent*/, PANGO_DIRECTION_LTR));
     }
 

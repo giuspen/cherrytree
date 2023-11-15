@@ -183,68 +183,62 @@ void CtActions::export_to_txt_auto(const std::string& dir, bool overwrite, bool 
 void CtActions::_export_print(bool save_to_pdf, const fs::path& auto_path, bool auto_overwrite)
 {
     CtExporting export_type;
-    if (!auto_path.empty())
-    {
+    if (!auto_path.empty()) {
         export_type = CtExporting::ALL_TREE;
     }
-    else
-    {
+    else {
         if (!_is_there_selected_node_or_error()) return;
         export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
                                                                       &_export_options.new_node_page, nullptr, nullptr);
     }
     if (export_type == CtExporting::NONESAVE) return;
-
-    fs::path pdf_filepath;
-    if (export_type == CtExporting::CURRENT_NODE)
-    {
-        if (save_to_pdf)
-        {
-            pdf_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-            pdf_filepath = _get_pdf_filepath(pdf_filepath);
-            if (pdf_filepath.empty()) return;
-        }
-        CtExport2Pdf(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
-    }
-    else if (export_type == CtExporting::CURRENT_NODE_AND_SUBNODES)
-    {
-        if (save_to_pdf)
-        {
-            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
-            if (pdf_filepath == "") return;
-        }
-        CtExport2Pdf(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
-    }
-    else if (export_type == CtExporting::ALL_TREE)
-    {
-        if (!auto_path.empty())
-        {
-            pdf_filepath = auto_path / (_pCtMainWin->get_ct_storage()->get_file_name().string() + ".pdf");
-            if (!auto_overwrite && fs::is_regular_file(pdf_filepath)) {
-                spdlog::info("pdf exists and overwrite is off, export is stopped"); 
-                return;
+    try {
+        fs::path pdf_filepath;
+        if (export_type == CtExporting::CURRENT_NODE) {
+            if (save_to_pdf) {
+                pdf_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+                pdf_filepath = _get_pdf_filepath(pdf_filepath);
+                if (pdf_filepath.empty()) return;
             }
+            CtExport2Pdf{_pCtMainWin}.node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
         }
-        else if (save_to_pdf)
-        {
-            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
-            if (pdf_filepath.empty()) return;
+        else if (export_type == CtExporting::CURRENT_NODE_AND_SUBNODES) {
+            if (save_to_pdf) {
+                pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
+                if (pdf_filepath == "") return;
+            }
+            CtExport2Pdf{_pCtMainWin}.node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
         }
-        CtExport2Pdf(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->get_tree_store().get_ct_iter_first(), _export_options);
-    }
-    else if (export_type == CtExporting::SELECTED_TEXT)
-    {
-        if (!_is_there_text_selection_or_error()) return;
-        Gtk::TextIter iter_start, iter_end;
-        _curr_buffer()->get_selection_bounds(iter_start, iter_end);
+        else if (export_type == CtExporting::ALL_TREE) {
+            if (!auto_path.empty()) {
+                pdf_filepath = auto_path / (_pCtMainWin->get_ct_storage()->get_file_name().string() + ".pdf");
+                if (!auto_overwrite && fs::is_regular_file(pdf_filepath)) {
+                    spdlog::info("pdf exists and overwrite is off, export is stopped"); 
+                    return;
+                }
+            }
+            else if (save_to_pdf) {
+                pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
+                if (pdf_filepath.empty()) return;
+            }
+            CtExport2Pdf{_pCtMainWin}.tree_export_print(pdf_filepath, _pCtMainWin->get_tree_store().get_ct_iter_first(), _export_options);
+        }
+        else if (export_type == CtExporting::SELECTED_TEXT) {
+            if (!_is_there_text_selection_or_error()) return;
+            Gtk::TextIter iter_start, iter_end;
+            _curr_buffer()->get_selection_bounds(iter_start, iter_end);
 
-        if (save_to_pdf)
-        {
-            pdf_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-            pdf_filepath = _get_pdf_filepath(pdf_filepath);
-            if (pdf_filepath == "") return;
+            if (save_to_pdf) {
+                pdf_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+                pdf_filepath = _get_pdf_filepath(pdf_filepath);
+                if (pdf_filepath == "") return;
+            }
+            CtExport2Pdf{_pCtMainWin}.node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
         }
-        CtExport2Pdf(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
+    }
+    catch (std::exception& e) {
+        spdlog::error(e.what());
+        CtDialogs::error_dialog(e.what(), *_pCtMainWin);
     }
 }
 
