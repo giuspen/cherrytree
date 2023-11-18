@@ -32,6 +32,10 @@ CtExport2Txt::CtExport2Txt(CtMainWin* pCtMainWin)
 // Export the Selected Node To Txt
 Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path filepath, CtExportOptions export_options, int sel_start, int sel_end)
 {
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+    }
     Glib::ustring plain_text;
     if (export_options.include_node_name) {
         for (int i = 0; i < 1+_pCtMainWin->get_tree_store().get_store()->iter_depth(tree_iter); ++i) {
@@ -39,7 +43,7 @@ Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path fi
         }
         plain_text += CtConst::CHAR_SPACE + tree_iter.get_node_name() + CtConst::CHAR_NEWLINE;
     }
-    plain_text += selection_export_to_txt(tree_iter, tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
+    plain_text += selection_export_to_txt(tree_iter, rTextBuffer, sel_start, sel_end, false);
     plain_text += str::repeat(CtConst::CHAR_NEWLINE, 2);
     if (not filepath.empty()) {
         CtMiscUtil::text_file_set_contents_add_cr_on_win(filepath.string(), plain_text);
@@ -52,8 +56,8 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, f
 {
     // function to iterate nodes
     Glib::ustring tree_plain_text;
-    std::function<void(CtTreeIter)> traverseFunc;
-    traverseFunc = [this, &traverseFunc, &export_options, &tree_plain_text, &export_dir](CtTreeIter tree_iter) {
+    std::function<void(CtTreeIter)> f_traverseFunc;
+    f_traverseFunc = [this, &f_traverseFunc, &export_options, &tree_plain_text, &export_dir](CtTreeIter tree_iter) {
         if (export_dir.empty()) {
             tree_plain_text += node_export_to_txt(tree_iter, "", export_options, -1, -1);
         }
@@ -63,13 +67,12 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, f
             node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
         }
         for (auto& child: tree_iter->children())
-            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
+            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
     };
     // start to iterarte nodes
     CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
-    for (;tree_iter; ++tree_iter)
-    {
-        traverseFunc(tree_iter);
+    for (; tree_iter; ++tree_iter) {
+        f_traverseFunc(tree_iter);
         if (!all_tree) break;
     }
 

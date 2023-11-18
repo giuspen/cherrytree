@@ -81,6 +81,10 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
 // Export a Node To HTML
 void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
 {
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+    }
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
     if (not index.empty() and options.index_in_page) {
         auto script = R"HTML(
@@ -124,7 +128,6 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
                 }
             }
         }
-        auto rTextBuffer = tree_iter.get_node_text_buffer();
         Gtk::TextIter start_iter = rTextBuffer->get_iter_at_offset(sel_start == -1 ? 0 : sel_start);
         Gtk::TextIter end_iter = sel_end == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(sel_end);
         std::vector<Glib::ustring> node_lines = str::split(node_html_text, "\n");
@@ -141,7 +144,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         }
     }
     else {
-        html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
+        html_text += _html_get_from_code_buffer(rTextBuffer, sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
     }
     if (not index.empty() and not options.index_in_page) {
         html_text += Glib::ustring("<p align=\"center\">") + "<img src=\"" + Glib::build_filename("images", "home.svg") + "\" height=\"22\" width=\"22\">" +
@@ -169,8 +172,7 @@ void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree, const CtExp
           "</p>\n"
           "<ul class='outermost'>\n";
     CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
-    for (;tree_iter; ++tree_iter)
-    {
+    for (; tree_iter; ++tree_iter) {
         _tree_links_text_iter(tree_iter, tree_links_text, 1, options.index_in_page);
         if (!all_tree) break;
     }
@@ -179,16 +181,16 @@ void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree, const CtExp
 
     // create index html page
     Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
-    if (options.index_in_page)
-    {
+    if (options.index_in_page) {
         html_text += "<div class='two-panels'>\n<div class='tree-panel'>\n";
         html_text += tree_links_text;
         html_text += "</div>\n";
         html_text += "<div class='page-panel'><iframe src='' id='page_frame'></iframe></div>";
         html_text += "</div>"; // two-panels
     }
-    else
+    else {
         html_text += "<div class='page'>" + tree_links_text + "</div>";
+    }
     html_text += "<script src='res/script3.js'></script>\n";
     html_text += HTML_FOOTER;
     fs::path node_html_filepath = _export_dir / "index.html";
@@ -196,17 +198,17 @@ void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree, const CtExp
 
     // create html pages
     // function to iterate nodes
-    std::function<void(CtTreeIter)> traverseFunc;
-    traverseFunc = [this, &traverseFunc, &options, &tree_links_text](CtTreeIter tree_iter) {
+    std::function<void(CtTreeIter)> f_traverseFunc;
+    f_traverseFunc = [this, &f_traverseFunc, &options, &tree_links_text](CtTreeIter tree_iter) {
         node_export_to_html(tree_iter, options, tree_links_text, -1, -1);
-        for (auto& child: tree_iter->children())
-            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
+        for (auto& child : tree_iter->children()) {
+            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
+        }
     };
     // start to iterarte nodes
     tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
-    for (;tree_iter; ++tree_iter)
-    {
-        traverseFunc(tree_iter);
+    for (; tree_iter; ++tree_iter) {
+        f_traverseFunc(tree_iter);
         if (!all_tree) break;
     }
 }
@@ -221,8 +223,8 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
     // create html pages
     // function to iterate nodes
     Glib::ustring tree_links_text = "";
-    std::function<void(CtTreeIter, int)> traverseFunc;
-    traverseFunc = [this, &traverseFunc, rFileStream](CtTreeIter tree_iter, int node_level) {
+    std::function<void(CtTreeIter, int)> f_traverseFunc;
+    f_traverseFunc = [this, &f_traverseFunc, rFileStream](CtTreeIter tree_iter, int node_level) {
         Glib::ustring html_text = "<div class='page'>";
         html_text += "<h1 class='title level-" + std::to_string(node_level) + "'>" + tree_iter.get_node_name() + "</h1><br/>";
         std::vector<Glib::ustring> html_slots;
@@ -266,14 +268,18 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
             }
         }
         else {
-            html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
+            Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+            if (not rTextBuffer) {
+                throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+            }
+            html_text += _html_get_from_code_buffer(rTextBuffer, -1, -1, tree_iter.get_node_syntax_highlighting());
         }
         html_text += "</div>"; // div class='page'
         rFileStream->write(html_text.c_str(), html_text.bytes());
         html_text.clear();
 
         for (auto& child : tree_iter->children()) {
-            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), node_level + 1);
+            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), node_level + 1);
         }
     };
 
@@ -282,9 +288,8 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
 
     // start to iterarte nodes
     CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
-    for (;tree_iter; ++tree_iter)
-    {
-        traverseFunc(tree_iter, 1);
+    for (; tree_iter; ++tree_iter) {
+        f_traverseFunc(tree_iter, 1);
         if (!all_tree) break;
     }
     rFileStream->write(HTML_FOOTER.c_str(), HTML_FOOTER.bytes());
@@ -297,22 +302,21 @@ void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& t
 {
     Glib::ustring href = str::replace(_get_html_filename(tree_iter), "'", "\\'");
     Glib::ustring node_name = tree_iter.get_node_name();
-    if (tree_iter->children().empty())
-    {
+    if (tree_iter->children().empty()) {
         if (index_in_page)
             tree_links_text += "<li class='leaf'><a href='#' onclick=\"changeFrame('" + href + "')\">" + node_name + "</a></li>\n";
         else
             tree_links_text += "<li class='leaf'><a href='" + href + "'>" + node_name + "</a></li>\n";
     }
-    else
-    {
+    else {
         if (index_in_page)
             tree_links_text += "<li><button onclick='toggleSubTree(this)'>-</button> <a href='#' onclick=\"changeFrame('" + href + "')\">" + node_name + "</a></li>";
         else
             tree_links_text += "<li><button onclick='toggleSubTree(this)'>-</button> <a href='" + href + "'>" + node_name +"</a></li>";
         tree_links_text += "<ul class='subtree'>\n";
-        for (auto& child: tree_iter->children())
+        for (auto& child : tree_iter->children()) {
             _tree_links_text_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1, index_in_page);
+        }
         tree_links_text += "</ul>\n";
     }
 }
@@ -517,28 +521,31 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
 }
 
 // Given a treestore iter returns the HTML rich text
-void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter,
+void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
                                                   int sel_start,
                                                   int sel_end,
                                                   std::vector<Glib::ustring>& out_slots,
                                                   std::vector<CtAnchoredWidget*>& out_widgets)
 {
-    auto curr_buffer = node_iter.get_node_text_buffer();
-    auto widgets = node_iter.get_anchored_widgets(sel_start, sel_end);
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+    }
+    auto widgets = tree_iter.get_anchored_widgets(sel_start, sel_end);
     out_widgets = std::vector<CtAnchoredWidget*>(widgets.begin(), widgets.end()); // copy from list to vector
 
     out_slots.clear();
     int start_offset = sel_start == -1 ? 0 : sel_start;
     for (auto widget : out_widgets) {
         int end_offset = widget->getOffset();
-        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, end_offset, curr_buffer));
+        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, end_offset, rTextBuffer));
         start_offset = end_offset;
     }
     if (sel_end == -1) {
-        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, -1, curr_buffer));
+        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, -1, rTextBuffer));
     }
     else {
-        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, sel_end, curr_buffer));
+        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, sel_end, rTextBuffer));
     }
 }
 
