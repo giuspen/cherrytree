@@ -203,14 +203,14 @@ void CtActions::codebox_insert()
 
 void CtActions::embfile_insert_path(const std::string& filepath)
 {
-    if (!_node_sel_and_rich_text()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _node_sel_and_rich_text()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
     if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
         bool is_sqlite = fs::get_doc_type_from_file_ext(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
         auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
         if (is_sqlite) {
-            if (!CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
+            if (not CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
                 return;
         }
         else {
@@ -273,8 +273,8 @@ void CtActions::apply_tag_link()
 // Insert an Anchor
 void CtActions::anchor_handle()
 {
-    if (!_node_sel_and_rich_text()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _node_sel_and_rich_text()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _anchor_edit_dialog(nullptr, _curr_buffer()->get_insert()->get_iter(), nullptr);
 }
 
@@ -314,8 +314,11 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     TocEntry entry{fmt::format("node {}", node_id), true, node.get_node_name(), depth};
     std::string scale_tag{"scale_"};
     std::unordered_map<int, int> encountered_headers;
-    auto text_buffer = node.get_node_text_buffer();
-    Gtk::TextIter text_iter = text_buffer->begin();
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
+    if (not rTextBuffer) {
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name()));
+    }
+    Gtk::TextIter text_iter = rTextBuffer->begin();
 
     do {
         std::optional<Glib::ustring> tag_name = iter_in_tag(text_iter, scale_tag);
@@ -341,7 +344,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 Glib::ustring txt{start_iter, end_iter};
                 //spdlog::debug("{} - {}", txt, txt.size());
 
-                auto mark = text_buffer->create_mark(end_iter, false);
+                auto mark = rTextBuffer->create_mark(end_iter, false);
 
                 Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = end_iter.get_child_anchor();
                 if (rChildAnchor) {
@@ -353,8 +356,8 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                             const int endOffset = end_iter.get_offset();
                             auto iter_bound = end_iter;
                             iter_bound.forward_char();
-                            text_buffer->erase(end_iter, iter_bound);
-                            end_iter = text_buffer->get_iter_at_offset(endOffset);
+                            rTextBuffer->erase(end_iter, iter_bound);
+                            end_iter = rTextBuffer->get_iter_at_offset(endOffset);
                         }
                     }
                 }
@@ -362,7 +365,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 actions.image_insert_anchor(end_iter, anchor_txt, "right");
 
                 text_iter = mark->get_iter();
-                text_buffer->delete_mark(mark);
+                rTextBuffer->delete_mark(mark);
                 //spdlog::debug("INSERT DONE");
                 entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false, txt, depth + 1, h_lvl);
             }
@@ -429,8 +432,8 @@ void find_toc_entries_and_children(std::list<TocEntry>& entries,
 
 void CtActions::toc_insert()
 {
-    if (!_is_there_selected_node_or_error()) return;
-    if (!_node_sel_and_rich_text()) return;
+    if (not _is_there_selected_node_or_error()) return;
+    if (not _node_sel_and_rich_text()) return;
 
     auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr, nullptr);
 
@@ -438,31 +441,33 @@ void CtActions::toc_insert()
 
     std::list<TocEntry> entries;
     CtTreeIter curr_node = _pCtMainWin->curr_tree_iter();
-    if (toc_type == CtExporting::CURRENT_NODE) {
-        auto txt_buff = curr_node.get_node_text_buffer();
-        _pCtMainWin->get_tree_view().set_cursor_safe(curr_node);
 
-        TocEntry entry = find_toc_entries(*this, curr_node, 0);
-        entries.emplace_back(std::move(entry));
-    }
-    else if (toc_type == CtExporting::CURRENT_NODE_AND_SUBNODES) {
-        find_toc_entries_and_children(entries, *this, *_pCtMainWin, curr_node, 0);
-    }
-    else if (toc_type == CtExporting::ALL_TREE) {
-        CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
-        CtTreeIter top_node = tree_store.get_ct_iter_first();
-        CtTreeIter sib = top_node;
-        while (sib) {
-            find_toc_entries_and_children(entries, *this, *_pCtMainWin, sib, 0);
-            ++sib;
+    try {
+        if (toc_type == CtExporting::CURRENT_NODE) {
+            TocEntry entry = find_toc_entries(*this, curr_node, 0);
+            entries.emplace_back(std::move(entry));
         }
+        else if (toc_type == CtExporting::CURRENT_NODE_AND_SUBNODES) {
+            find_toc_entries_and_children(entries, *this, *_pCtMainWin, curr_node, 0);
+        }
+        else if (toc_type == CtExporting::ALL_TREE) {
+            CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
+            CtTreeIter top_node = tree_store.get_ct_iter_first();
+            CtTreeIter sib = top_node;
+            while (sib) {
+                find_toc_entries_and_children(entries, *this, *_pCtMainWin, sib, 0);
+                ++sib;
+            }
+        }
+        else {
+            return;
+        }
+        _insert_toc_at_pos(curr_node.get_node_text_buffer(), entries);
     }
-    else {
-        return;
+    catch (std::exception& e) {
+        spdlog::error(e.what());
+        CtDialogs::error_dialog(e.what(), *_pCtMainWin);
     }
-
-    _insert_toc_at_pos(curr_node.get_node_text_buffer(), entries);
-
     _pCtMainWin->get_tree_view().set_cursor_safe(curr_node);
 }
 

@@ -95,13 +95,19 @@ void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTex
 
 void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/)
 {
+    std::string error;
     get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
     {
         CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
         switch (target) {
             case 'r': {
                 if (node.get_node_is_rich_text()) {
-                    apply_syntax_highlighting(node.get_node_text_buffer(), node.get_node_syntax_highlighting(), true/*forceReApply*/);
+                    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
+                    if (not rTextBuffer) {
+                        error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name());
+                        return true; /* true for stop */
+                    }
+                    apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
                 }
             } break;
             case 'p': {
@@ -115,7 +121,12 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                     }
                 }
                 else {
-                    apply_syntax_highlighting(node.get_node_text_buffer(), node.get_node_syntax_highlighting(), true/*forceReApply*/);
+                    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
+                    if (not rTextBuffer) {
+                        error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name());
+                        return true; /* true for stop */
+                    }
+                    apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
                 }
             } break;
             case 't': {
@@ -129,12 +140,11 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                     }
                 }
             } break;
-            default:
-                spdlog::debug("bad reapply target {}", target);
-                break;
+            default: spdlog::debug("bad reapply target {}", target);
         }
         return false; /* false for continue */
     });
+    if (not error.empty()) CtDialogs::error_dialog(error, *this);
 }
 
 Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& textContent)

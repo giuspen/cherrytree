@@ -995,8 +995,9 @@ unsigned CtTreeStore::tree_clear_property_exclude_from_search()
     return nodes_properties_changed;
 }
 
-void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
+bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
 {
+    std::string error;
     _rTreeStore->foreach(
         [&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool{
             auto ctTreeIter = to_ct_tree_iter(treeIter);
@@ -1010,7 +1011,12 @@ void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
             else {
                 ++summaryInfo.nodes_code_num;
             }
-            (void)ctTreeIter.get_node_text_buffer(); // ensure the node content is populated
+             // ensure the node content is populated
+            Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
+            if (not rTextBuffer) {
+                error = str::format(_("Failed to retrieve the content of the node '%s'"), ctTreeIter.get_node_name());
+                return true; /* true for stop */
+            }
             for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_anchored_widgets_fast()) {
                 switch (pAnchoredWidget->get_type()) {
                     case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
@@ -1025,4 +1031,9 @@ void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
             return false; /* false for continue */
         }
     );
+    if (error.empty()) {
+        return true;
+    }
+    CtDialogs::error_dialog(error, *_pCtMainWin);
+    return false;
 }

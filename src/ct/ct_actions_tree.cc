@@ -781,8 +781,9 @@ void CtActions::tree_info()
 {
     if (not _is_tree_not_empty_or_error()) return;
     CtSummaryInfo summaryInfo{};
-    _pCtMainWin->get_tree_store().populate_summary_info(summaryInfo);
-    CtDialogs::summary_info_dialog(_pCtMainWin, summaryInfo);
+    if (_pCtMainWin->get_tree_store().populate_summary_info(summaryInfo)) {
+        CtDialogs::summary_info_dialog(_pCtMainWin, summaryInfo);
+    }
 }
 
 void CtActions::tree_clear_property_exclude_from_search()
