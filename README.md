@@ -2,6 +2,8 @@
 A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories.
 The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherrytree/).
 
+![Cherrytree main window text](docs/cherrytree-main_window_text.png)
+
 ## Features
 - Rich text (foreground color, background color, bold, italic, underline, strikethrough, small, h1, h2, h3, h4, h5, h6, subscript, superscript, monospace)
 - Syntax highlighting supporting several programming languages
@@ -41,7 +43,6 @@ Prebuilt binaries can be found on [github.com/giuspen/cherrytree/releases](https
 In order to build from the source code, please read [BUILDING.md](BUILDING.md).
 
 ## Localization
-You can contribute to the localization of the app by creating PR.
 The following languages are supported (If you want to help translating to your language write me):
 
 - Armenian (Seda Stamboltsyan, up to date)
