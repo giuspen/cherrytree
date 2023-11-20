@@ -2,6 +2,8 @@
 A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories.
 The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherrytree/).
 
+Written by Giuseppe Penone (aka giuspen) and Evgenii Gurianov (aka txe).
+
 ![Cherrytree main window text](docs/cherrytree-main_window_text.png)
 
 ## Features
