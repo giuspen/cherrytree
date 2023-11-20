@@ -4,7 +4,7 @@ The project home page is [giuspen.net/cherrytree](https://www.giuspen.net/cherry
 
 Written by Giuseppe Penone (aka giuspen) and Evgenii Gurianov (aka txe).
 
-![Cherrytree main window text](docs/cherrytree-main_window_text.png)
+![Cherrytree main window with text](docs/cherrytree-main_window_text.png)
 
 ## Features
 - Rich text (foreground color, background color, bold, italic, underline, strikethrough, small, h1, h2, h3, h4, h5, h6, subscript, superscript, monospace)
