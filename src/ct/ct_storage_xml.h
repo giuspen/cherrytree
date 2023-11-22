@@ -111,7 +111,7 @@ public:
                                                                  const int force_offset,
                                                                  const std::string& multifile_dir);
 
-    void get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
+    bool get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
                                            xmlpp::Node* slot_node,
                                            std::list<CtAnchoredWidget*>& widgets,
                                            Gtk::TextIter* text_insert_pos,

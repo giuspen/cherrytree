@@ -165,10 +165,13 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& no
         spdlog::error("!! {} node_id {}", __FUNCTION__, node_id);
         return Glib::RefPtr<Gsv::Buffer>{};
     }
-    auto node_buffer = _delayed_text_buffers[node_id];
-    _delayed_text_buffers.erase(node_id);
+    std::shared_ptr<xmlpp::Document> node_buffer = _delayed_text_buffers[node_id];
     auto xml_element = dynamic_cast<xmlpp::Element*>(node_buffer->get_root_node()->get_first_child());
-    return CtStorageXmlHelper{_pCtMainWin}.create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1, "");
+    auto ret_buffer = CtStorageXmlHelper{_pCtMainWin}.create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1, "");
+    if (ret_buffer) {
+        _delayed_text_buffers.erase(node_id);
+    }
+    return ret_buffer;
 }
 
 void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
@@ -331,16 +334,20 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml
                                                                                  const std::string& multifile_dir)
 {
     Glib::RefPtr<Gsv::Buffer> pBuffer = _pCtMainWin->get_new_text_buffer();
+    bool error{false};
     pBuffer->begin_not_undoable_action();
     for (xmlpp::Node* xml_slot : parent_xml_element->get_children()) {
-        get_text_buffer_one_slot_from_xml(pBuffer, xml_slot, widgets, text_insert_pos, force_offset, multifile_dir);
+        if (not get_text_buffer_one_slot_from_xml(pBuffer, xml_slot, widgets, text_insert_pos, force_offset, multifile_dir)) {
+            error = true;
+            break;
+        }
     }
     pBuffer->end_not_undoable_action();
     pBuffer->set_modified(false);
-    return pBuffer;
+    return error ? Glib::RefPtr<Gsv::Buffer>{} : pBuffer;
 }
 
-void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
+bool CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
                                                            xmlpp::Node* slot_node,
                                                            std::list<CtAnchoredWidget*>& widgets,
                                                            Gtk::TextIter* text_insert_pos,
@@ -368,6 +375,9 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
         CtAnchoredWidget* widget{nullptr};
         if (SlotType::Image == slot_type) {
             widget = _create_image_from_xml(slot_element, char_offset, justification, multifile_dir);
+            if (not widget) {
+                return false;
+            }
         }
         else if (SlotType::Table == slot_type) {
             widget = _create_table_from_xml(slot_element, char_offset, justification);
@@ -380,6 +390,7 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
             widgets.push_back(widget);
         }
     }
+    return true;
 }
 
 Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content)
@@ -486,7 +497,10 @@ void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffe
         buffer->insert(iter, text_content);
 }
 
-CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification, const std::string& multifile_dir)
+CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml_element,
+                                                             int charOffset,
+                                                             const Glib::ustring& justification,
+                                                             const std::string& multifile_dir)
 {
     const Glib::ustring anchorName = xml_element->get_attribute_value("anchor");
     if (not anchorName.empty()) {
@@ -506,6 +520,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
         const std::string sha256sum = xml_element->get_attribute_value("sha256sum");
         if (not CtStorageMultiFile::read_blob(multifile_dir, sha256sum, rawBlob)) {
             spdlog::warn("!! unexp not found {} in {}", sha256sum, multifile_dir);
+            return nullptr;
         }
     }
     if (not file_name.empty()) {

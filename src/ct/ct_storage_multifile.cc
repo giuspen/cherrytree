@@ -413,13 +413,18 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                                              const std::string& sha256sum,
                                              std::string& rawBlob)
 {
-    Glib::Dir gdir{dir_path};
-    std::list<std::string> dir_entries{gdir.begin(), gdir.end()};
-    for (const std::string& filename : dir_entries) {
-        if (str::startswith(filename, sha256sum)) {
-            rawBlob = Glib::file_get_contents(Glib::build_filename(dir_path, filename));
-            return true;
+    try {
+        Glib::Dir gdir{dir_path};
+        std::list<std::string> dir_entries{gdir.begin(), gdir.end()};
+        for (const std::string& filename : dir_entries) {
+            if (str::startswith(filename, sha256sum)) {
+                rawBlob = Glib::file_get_contents(Glib::build_filename(dir_path, filename));
+                return true;
+            }
         }
+    }
+    catch (Glib::Error& error) {
+        spdlog::error("{} {}", __FUNCTION__, error.what());
     }
     return false;
 }
@@ -527,9 +532,12 @@ Glib::RefPtr<Gsv::Buffer> CtStorageMultiFile::get_delayed_text_buffer(const gint
         spdlog::error("!! {} node_id {}", __FUNCTION__, node_id);
         return Glib::RefPtr<Gsv::Buffer>{};
     }
-    auto node_buffer = _delayed_text_buffers[node_id];
-    _delayed_text_buffers.erase(node_id);
+    std::shared_ptr<xmlpp::Document> node_buffer = _delayed_text_buffers[node_id];
     auto xml_element = dynamic_cast<xmlpp::Element*>(node_buffer->get_root_node()->get_first_child());
     const fs::path multifile_dir = _get_node_dirpath(_pCtMainWin->get_tree_store().get_node_from_node_id(node_id));
-    return CtStorageXmlHelper{_pCtMainWin}.create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1, multifile_dir.string());
+    auto ret_buffer = CtStorageXmlHelper{_pCtMainWin}.create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1, multifile_dir.string());
+    if (ret_buffer) {
+        _delayed_text_buffers.erase(node_id);
+    }
+    return ret_buffer;
 }
