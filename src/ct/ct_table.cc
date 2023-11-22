@@ -523,7 +523,7 @@ void CtTableHeavy::row_move_up(const size_t rowIdx, const bool/*from_move_down*/
 
 bool CtTableHeavy::_row_sort(const bool sortAsc)
 {
-    auto f_tableCompare = [sortAsc](const CtTableRow& l, const CtTableRow& r)->bool{
+    auto f_need_swap = [sortAsc](const CtTableRow& l, const CtTableRow& r)->bool{
         const size_t minCols = std::min(l.size(), r.size());
         for (size_t i = 0; i < minCols; ++i) {
             const int cmpResult = CtStrUtil::natural_compare(static_cast<CtTextCell*>(l.at(i))->get_text_content(),
@@ -532,10 +532,10 @@ bool CtTableHeavy::_row_sort(const bool sortAsc)
                 return sortAsc ? cmpResult < 0 : cmpResult > 0;
             }
         }
-        return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
+        return false; // no swap needed as equal
     };
     auto pPrevState = std::static_pointer_cast<CtAnchoredWidgetState_TableHeavy>(get_state());
-    std::sort(_tableMatrix.begin()+1, _tableMatrix.end(), f_tableCompare);
+    std::sort(_tableMatrix.begin()+1, _tableMatrix.end(), f_need_swap);
     auto pCurrState = std::static_pointer_cast<CtAnchoredWidgetState_TableHeavy>(get_state());
     std::list<size_t> changed;
     for (size_t rowIdx = 1; rowIdx < get_num_rows(); ++rowIdx) {
