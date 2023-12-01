@@ -72,7 +72,7 @@ public:
     std::string                                 pickDirCsv;
     std::string                                 pickDirCbox;
     std::string                                 linkType{CtConst::LINK_TYPE_WEBS};
-    bool                                        menubarInTitlebar{false};
+    bool                                        menubarInTitlebar{true};
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
     int                                         toolbarIconSize{1};
@@ -191,7 +191,7 @@ public:
     std::string                                 ttSelFg{CtConst::TREE_TEXT_LIGHT_BG};
     std::string                                 ttSelBg{CtConst::TREE_TEXT_SEL_BG};
     std::string                                 monospaceFg{CtConst::DEFAULT_MONOSPACE_FG};
-    std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
+    std::string                                 monospaceBg;
     bool                                        msDedicatedFont{false};
     Glib::ustring                               monospaceFont{CtConst::FONT_MS_DEFAULT};
     CtScalableTag                               scalableH1{CtConst::SCALABLE_H1_DEFAULT};
