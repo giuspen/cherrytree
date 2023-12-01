@@ -356,12 +356,11 @@ void CtActions::node_edit()
 {
     if (not _is_there_selected_node_or_error()) return;
     CtNodeData nodeData;
-    _pCtMainWin->get_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
+    CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+    _pCtMainWin->get_tree_store().get_node_data(ct_tree_iter, nodeData);
     CtNodeData newData = nodeData;
     if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, _pCtMainWin->get_tree_store().get_used_tags()))
         return;
-
-    _pCtConfig->syntaxHighlighting = newData.syntax;
 
     // leaving rich text
     if (nodeData.syntax != newData.syntax)
@@ -369,29 +368,34 @@ void CtActions::node_edit()
             if (not CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
                 return;
 
-    // update node info, because we might need to delete widgets later
-    _pCtMainWin->get_tree_store().update_node_data(_pCtMainWin->curr_tree_iter(), newData);
+    _pCtConfig->syntaxHighlighting = newData.syntax;
 
-    if (nodeData.syntax != newData.syntax)
-    {
+    // update node info, because we might need to delete widgets later
+    _pCtMainWin->get_tree_store().update_node_data(ct_tree_iter, newData);
+
+    if (_pCtMainWin->get_tree_store().is_node_bookmarked(ct_tree_iter.get_node_id())) {
+        _pCtMainWin->menu_set_bookmark_menu_items();
+    }
+
+    if (nodeData.syntax != newData.syntax) {
         // if from/to RICH , change buffer
         if (nodeData.syntax == CtConst::RICH_TEXT_ID || newData.syntax == CtConst::RICH_TEXT_ID)
-            _pCtMainWin->switch_buffer_text_source(_pCtMainWin->curr_tree_iter().get_node_text_buffer(), _pCtMainWin->curr_tree_iter(), newData.syntax, nodeData.syntax);
+            _pCtMainWin->switch_buffer_text_source(ct_tree_iter.get_node_text_buffer(), ct_tree_iter, newData.syntax, nodeData.syntax);
         else {
             // todo: improve code by only changing syntax of buffer and text_view
-            _pCtMainWin->switch_buffer_text_source(_pCtMainWin->curr_tree_iter().get_node_text_buffer(), _pCtMainWin->curr_tree_iter(), newData.syntax, nodeData.syntax);
+            _pCtMainWin->switch_buffer_text_source(ct_tree_iter.get_node_text_buffer(), ct_tree_iter, newData.syntax, nodeData.syntax);
         }
 
         // from RICH to text
         if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
-            _pCtMainWin->get_state_machine().delete_states(_pCtMainWin->curr_tree_iter().get_node_id());
-            _pCtMainWin->get_state_machine().update_state(_pCtMainWin->curr_tree_iter());
+            _pCtMainWin->get_state_machine().delete_states(ct_tree_iter.get_node_id());
+            _pCtMainWin->get_state_machine().update_state(ct_tree_iter);
         }
     }
 
-    _pCtMainWin->get_text_view().set_editable(!newData.isReadOnly);
+    _pCtMainWin->get_text_view().set_editable(not newData.isReadOnly);
     _pCtMainWin->update_selected_node_statusbar_info();
-    _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    _pCtMainWin->get_tree_store().update_node_aux_icon(ct_tree_iter);
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isReadOnly);
     _pCtMainWin->window_header_update_ghost_icon(newData.excludeMeFromSearch or newData.excludeChildrenFromSearch);
