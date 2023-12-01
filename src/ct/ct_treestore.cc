@@ -582,33 +582,33 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 
 Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)
 {
-    Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
+    const char* stock_id = get_node_icon(nodeDepth, syntax, customIconId);
+    return _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE);
+}
+
+const char* CtTreeStore::get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)
+{
     if (0 != customIconId) {
         // customIconId
-        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtStockIcon::at(customIconId), CtConst::NODE_ICON_SIZE);
+        return CtStockIcon::at(customIconId);
     }
-    else if (CtConst::NODE_ICON_TYPE_NONE == _pCtMainWin->get_ct_config()->nodesIcons) {
+    if (CtConst::NODE_ICON_TYPE_NONE == _pCtMainWin->get_ct_config()->nodesIcons) {
         // NODE_ICON_TYPE_NONE
-        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtStockIcon::at(CtConst::NODE_ICON_NO_ICON_ID), CtConst::NODE_ICON_SIZE);
+        return CtStockIcon::at(CtConst::NODE_ICON_NO_ICON_ID);
     }
-    else if (CtStrUtil::contains(std::array<const gchar*, 2>{CtConst::RICH_TEXT_ID, CtConst::PLAIN_TEXT_ID}, syntax.c_str())) {
+    if (CtStrUtil::contains(std::array<const gchar*, 2>{CtConst::RICH_TEXT_ID, CtConst::PLAIN_TEXT_ID}, syntax.c_str())) {
         // text node
         if (CtConst::NODE_ICON_TYPE_CHERRY == _pCtMainWin->get_ct_config()->nodesIcons) {
             if (nodeDepth >= static_cast<int>(CtConst::NODE_CHERRY_ICONS.size())) {
                 nodeDepth %= CtConst::NODE_CHERRY_ICONS.size();
             }
-            rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtConst::NODE_CHERRY_ICONS.at(nodeDepth), CtConst::NODE_ICON_SIZE);
+            return CtConst::NODE_CHERRY_ICONS.at(nodeDepth);
         }
-        else {
-            // NODE_ICON_TYPE_CUSTOM
-            rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtStockIcon::at(_pCtMainWin->get_ct_config()->defaultIconText), CtConst::NODE_ICON_SIZE);
-        }
+        // NODE_ICON_TYPE_CUSTOM
+        return CtStockIcon::at(_pCtMainWin->get_ct_config()->defaultIconText);
     }
-    else {
-        // code node
-        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(_pCtMainWin->get_code_icon_name(syntax), CtConst::NODE_ICON_SIZE);
-    }
-    return rPixbuf;
+    // code node
+    return _pCtMainWin->get_code_icon_name(syntax);
 }
 
 void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData)

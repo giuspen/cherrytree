@@ -77,7 +77,7 @@ public:
 
     std::vector<Gtk::Toolbar*> build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton);
     Gtk::MenuBar*              build_menubar();
-    Gtk::Menu*                 build_bookmarks_menu(std::list<std::pair<gint64, std::string>>& bookmarks,
+    Gtk::Menu*                 build_bookmarks_menu(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
                                                     sigc::slot<void, gint64>& bookmark_action,
                                                     const bool isTopMenu);
     Gtk::Menu*                 build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths,

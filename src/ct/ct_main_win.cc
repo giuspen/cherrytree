@@ -235,7 +235,7 @@ bool CtMainWin::start_on_systray_delayed_file_open_kick()
     return false;
 }
 
-std::string CtMainWin::get_code_icon_name(std::string code_type)
+const char* CtMainWin::get_code_icon_name(std::string code_type)
 {
     for (const auto& iconPair : CtConst::NODE_CODE_ICONS) {
         if (0 == strcmp(iconPair.first, code_type.c_str())) {
@@ -540,9 +540,14 @@ void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
 
 void CtMainWin::menu_set_bookmark_menu_items()
 {
-    std::list<std::pair<gint64, std::string>> bookmarks;
+    std::list<std::tuple<gint64, Glib::ustring, const char*>> bookmarks;
     for (const gint64& node_id : _uCtTreestore->bookmarks_get()) {
-        bookmarks.push_back(std::make_pair(node_id, _uCtTreestore->get_node_name_from_node_id(node_id)));
+        CtTreeIter ct_tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
+        bookmarks.push_back(std::make_tuple(node_id,
+            ct_tree_iter.get_node_name(),
+            _uCtTreestore->get_node_icon(_uCtTreestore->get_store()->iter_depth(ct_tree_iter),
+                ct_tree_iter.get_node_syntax_highlighting(),
+                ct_tree_iter.get_node_custom_icon_id())));
     }
 
     sigc::slot<void, gint64> bookmark_action = [&](gint64 node_id) {
@@ -553,7 +558,7 @@ void CtMainWin::menu_set_bookmark_menu_items()
     };
     for (unsigned i = 0; i < _pBookmarksSubmenus.size(); ++i) {
         if (_pBookmarksSubmenus[i]) {
-            _pBookmarksSubmenus[i]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action, 2== i/*isTopMenu*/));
+            _pBookmarksSubmenus[i]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action, 2 == i/*isTopMenu*/));
         }
     }
 }

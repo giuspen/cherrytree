@@ -151,7 +151,7 @@ public:
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
 public:
-    std::string               get_code_icon_name(std::string code_type);
+    const char*               get_code_icon_name(std::string code_type);
     Gtk::Image*               new_managed_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
     void                      apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax, const bool forceReApply);
     void                      reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/);

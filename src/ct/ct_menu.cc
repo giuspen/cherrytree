@@ -111,7 +111,7 @@ Gtk::MenuBar* CtMenu::build_menubar()
     return pMenuBar;
 }
 
-Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>>& bookmarks,
+Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
                                         sigc::slot<void, gint64>& bookmark_action,
                                         const bool isTopMenu)
 {
@@ -129,9 +129,10 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>
     _add_menu_item(pMenu, find_action("handle_bookmarks"));
     _add_menu_separator(pMenu);
     for (const auto& bookmark : bookmarks) {
-        const gint64& node_id = bookmark.first;
-        const std::string& node_name = bookmark.second;
-        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, node_name.c_str(), "ct_pin", nullptr, _pAccelGroup, node_name.c_str(), nullptr, nullptr, nullptr);
+        const gint64& node_id = std::get<0>(bookmark);
+        const Glib::ustring& node_name = std::get<1>(bookmark);
+        const char* node_icon = std::get<2>(bookmark);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, node_name.c_str(), node_icon, nullptr, _pAccelGroup, node_name.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(bookmark_action, node_id));
     }
     return pMenu;

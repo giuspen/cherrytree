@@ -205,6 +205,7 @@ public:
 
     void pending_edit_db_bookmarks();
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
+    const char* get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
 
 protected:
     Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
