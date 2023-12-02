@@ -139,7 +139,7 @@ msgid "_View"
 msgstr "_Widok"
 
 msgid "_Bookmarks"
-msgstr "_Zakładki"
+msgstr "Za_kładki"
 
 msgid "_Help"
 msgstr "_Pomoc"
