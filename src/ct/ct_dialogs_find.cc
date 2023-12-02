@@ -319,9 +319,9 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     dialog.run();
 }
 
-/*static*/Glib::RefPtr<CtMatchDialogStore> CtMatchDialogStore::create()
+/*static*/Glib::RefPtr<CtMatchDialogStore> CtMatchDialogStore::create(const size_t maxMatchesInPage)
 {
-    Glib::RefPtr<CtMatchDialogStore> rModel{new CtMatchDialogStore{}};
+    Glib::RefPtr<CtMatchDialogStore> rModel{new CtMatchDialogStore{maxMatchesInPage}};
     rModel->set_column_types(rModel->columns);
     return rModel;
 }
@@ -359,8 +359,8 @@ void CtMatchDialogStore::load_current_page()
     if (get_iter("0")) {
         return; // already populated
     }
-    const size_t iMax = (_page_idx + 1) * cMaxMatchesPerPage;
-    for (size_t i = _page_idx * cMaxMatchesPerPage; i < iMax; ++i) {
+    const size_t iMax = (_page_idx + 1) * cMaxMatchesInPage;
+    for (size_t i = _page_idx * cMaxMatchesInPage; i < iMax; ++i) {
         if (i >= _all_matches.size()) break;
         (void)_add_row(_all_matches.at(i));
     }
@@ -389,12 +389,12 @@ size_t CtMatchDialogStore::get_tot_matches()
 
 bool CtMatchDialogStore::is_multipage()
 {
-    return _all_matches.size() > cMaxMatchesPerPage;
+    return _all_matches.size() > cMaxMatchesInPage;
 }
 
 bool CtMatchDialogStore::has_next_page()
 {
-    return _all_matches.size() > cMaxMatchesPerPage*(_page_idx + 1);
+    return _all_matches.size() > cMaxMatchesInPage*(_page_idx + 1);
 }
 
 bool CtMatchDialogStore::has_prev_page()
@@ -404,8 +404,8 @@ bool CtMatchDialogStore::has_prev_page()
 
 std::string CtMatchDialogStore::get_this_page_range()
 {
-    const size_t match_idx_start = _page_idx * cMaxMatchesPerPage;
-    size_t match_idx_end = (_page_idx + 1) * cMaxMatchesPerPage - 1;
+    const size_t match_idx_start = _page_idx * cMaxMatchesInPage;
+    size_t match_idx_end = (_page_idx + 1) * cMaxMatchesInPage - 1;
     if (match_idx_end >= _all_matches.size()) match_idx_end = _all_matches.size() - 1;
     return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
 }
@@ -413,8 +413,8 @@ std::string CtMatchDialogStore::get_this_page_range()
 std::string CtMatchDialogStore::get_next_page_range()
 {
     if (not has_next_page()) return "";
-    const size_t match_idx_start = (_page_idx + 1) * cMaxMatchesPerPage;
-    size_t match_idx_end = (_page_idx + 2) * cMaxMatchesPerPage - 1;
+    const size_t match_idx_start = (_page_idx + 1) * cMaxMatchesInPage;
+    size_t match_idx_end = (_page_idx + 2) * cMaxMatchesInPage - 1;
     if (match_idx_end >= _all_matches.size()) match_idx_end = _all_matches.size() - 1;
     return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
 }
@@ -422,8 +422,8 @@ std::string CtMatchDialogStore::get_next_page_range()
 std::string CtMatchDialogStore::get_prev_page_range()
 {
     if (not has_prev_page()) return "";
-    const size_t match_idx_start = (_page_idx - 1) * cMaxMatchesPerPage;
-    const size_t match_idx_end = _page_idx * cMaxMatchesPerPage - 1;
+    const size_t match_idx_start = (_page_idx - 1) * cMaxMatchesInPage;
+    const size_t match_idx_end = _page_idx * cMaxMatchesInPage - 1;
     return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
 }
 

@@ -32,7 +32,7 @@
 
 void CtActions::_find_init()
 {
-    _s_state.match_store = CtMatchDialogStore::create();
+    _s_state.match_store = CtMatchDialogStore::create(_pCtConfig->maxMatchesInPage);
     std::time_t curr_time = std::time(nullptr);
     std::time_t yesterday_time = curr_time - 86400; //24*60*60
     _s_options.ts_cre_after  = {yesterday_time, false};

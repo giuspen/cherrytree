@@ -96,7 +96,7 @@ struct CtMatchRowData {
 class CtMatchDialogStore : public Gtk::ListStore
 {
 public:
-    const size_t cMaxMatchesPerPage{50u};
+    const size_t cMaxMatchesInPage;
     struct CtMatchModelColumns : public Gtk::TreeModelColumnRecord {
         Gtk::TreeModelColumn<gint64>         node_id;
         Gtk::TreeModelColumn<Glib::ustring>  node_name;
@@ -119,7 +119,7 @@ public:
     std::array<int, 2>  dlg_pos;
     std::string         saved_path;
 
-    static Glib::RefPtr<CtMatchDialogStore> create();
+    static Glib::RefPtr<CtMatchDialogStore> create(const size_t maxMatchesInPage);
 
     void deep_clear();
     CtMatchRowData* add_row(gint64 node_id,
@@ -141,10 +141,13 @@ public:
     std::string get_prev_page_range();
 
 private:
+    CtMatchDialogStore(const size_t maxMatchesInPage)
+     : cMaxMatchesInPage{maxMatchesInPage}
+    {}
+    Gtk::TreeIter _add_row(const CtMatchRowData& row_data);
+
     int                         _page_idx{0};
     std::vector<CtMatchRowData> _all_matches;
-
-    Gtk::TreeIter _add_row(const CtMatchRowData& row_data);
 };
 
 namespace CtDialogs {

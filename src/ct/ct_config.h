@@ -75,6 +75,7 @@ public:
     bool                                        menubarInTitlebar{true};
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
+    int                                         maxMatchesInPage{500};
     int                                         toolbarIconSize{1};
     std::unordered_map<gchar, std::string>      currColors{{'f', ""}, {'b', ""}, {'n', ""}};
 

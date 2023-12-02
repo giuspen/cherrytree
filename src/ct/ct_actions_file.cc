@@ -181,6 +181,7 @@ void CtActions::preferences_import()
     _pCtConfig->menubarInTitlebar = ctConfigImported.menubarInTitlebar;
     _pCtConfig->showNodeNameHeader = ctConfigImported.showNodeNameHeader;
     _pCtConfig->nodesOnNodeNameHeader = ctConfigImported.nodesOnNodeNameHeader;
+    _pCtConfig->maxMatchesInPage = ctConfigImported.maxMatchesInPage;
     _pCtConfig->toolbarIconSize = ctConfigImported.toolbarIconSize;
     _pCtConfig->currColors['f'] = ctConfigImported.currColors['f'];
     _pCtConfig->currColors['b'] = ctConfigImported.currColors['b'];
