@@ -137,7 +137,7 @@ public:
     void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
     std::string to_csv() const override;
     void set_modified_false() override {}
-    CtAnchWidgType get_type() override { return CtAnchWidgType::TableLight; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::TableLight; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const override;
@@ -193,7 +193,7 @@ public:
     void apply_syntax_highlighting(const bool forceReApply) override;
     std::string to_csv() const override;
     void set_modified_false() override;
-    CtAnchWidgType get_type() override { return CtAnchWidgType::TableHeavy; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::TableHeavy; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     CtTextView& curr_cell_text_view() const;

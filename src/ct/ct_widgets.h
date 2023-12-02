@@ -65,7 +65,7 @@ public:
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) = 0;
     virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) = 0;
     virtual void set_modified_false() = 0;
-    virtual CtAnchWidgType get_type() = 0;
+    virtual CtAnchWidgType get_type() const = 0;
     virtual std::shared_ptr<CtAnchoredWidgetState> get_state() = 0;
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }

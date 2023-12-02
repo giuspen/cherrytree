@@ -67,7 +67,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
 
         if (auto anchor = dynamic_cast<CtImageAnchor*>(widget)) {
             out_slots.emplace_back(std::make_shared<CtPangoDest>(
-                "<sup>⚓</sup>",
+                "<sup> </sup>", // ⚓
                 CtConst::RICH_TEXT_ID,
                 widget_indent,
                 "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'",

@@ -79,7 +79,7 @@ public:
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     void set_modified_false() override { set_text_buffer_modified_false(); }
-    CtAnchWidgType get_type() override { return CtAnchWidgType::CodeBox; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::CodeBox; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     void set_width_height(int newWidth, int newHeight);

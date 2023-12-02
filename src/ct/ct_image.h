@@ -76,7 +76,7 @@ public:
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
-    CtAnchWidgType get_type() override { return CtAnchWidgType::ImagePng; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::ImagePng; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const std::string get_raw_blob();
@@ -102,7 +102,7 @@ public:
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
-    CtAnchWidgType get_type() override { return CtAnchWidgType::ImageAnchor; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::ImageAnchor; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const Glib::ustring& get_anchor_name() { return _anchorName; }
@@ -135,7 +135,7 @@ public:
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
-    CtAnchWidgType get_type() override { return CtAnchWidgType::ImageLatex; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::ImageLatex; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const Glib::ustring& get_latex_text() { return _latexText; }
@@ -174,7 +174,7 @@ public:
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
-    CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::ImageEmbFile; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const fs::path&      get_file_name() const { return _fileName; }
