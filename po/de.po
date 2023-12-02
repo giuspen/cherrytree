@@ -91,7 +91,7 @@ msgid "Run in secondary session, independent from main session"
 msgstr "In zweiter, getrennter Sitzung ausführen"
 
 msgid "CherryTree File"
-msgstr "_CherryTree-Datei"
+msgstr "CherryTree-Datei"
 
 msgid "Preferences File"
 msgstr "Einstellungsdatei"
