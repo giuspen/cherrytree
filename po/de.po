@@ -1324,19 +1324,19 @@ msgid "_Source Code"
 msgstr "Quellcode"
 
 msgid "Browse CherryTree's Source Code Online"
-msgstr "Cherrytree Quellcode online ansehen"
+msgstr "CherryTree-Quellcode online ansehen"
 
 msgid "_Report a Bug"
 msgstr "Einen Fehler melden"
 
 msgid "Report a Bug in CherryTree"
-msgstr "Fehler in Cherrytree melden"
+msgstr "Fehler in CherryTree melden"
 
 msgid "Online _Manual"
 msgstr "Online-_Handbuch"
 
 msgid "CherryTree's Online Manual"
-msgstr "Cherrytree Online-Handbuch"
+msgstr "CherryTree-Online-Handbuch"
 
 msgid "_About"
 msgstr "_Über"
