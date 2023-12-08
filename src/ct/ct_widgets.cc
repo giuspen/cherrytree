@@ -118,10 +118,13 @@ void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
     });
 }
 
-CtTreeView::CtTreeView()
+CtTreeView::CtTreeView(CtConfig* pCtConfig)
+ : _pCtConfig{pCtConfig}
 {
     set_headers_visible(false);
-    set_tooltip_column(1); // node name
+    if (_pCtConfig->treeTooltips) {
+        set_tooltip_column(1); // node name
+    }
 }
 
 void CtTreeView::set_cursor_safe(const Gtk::TreeIter& treeIter)

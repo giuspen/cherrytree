@@ -97,12 +97,14 @@ public:
     const inline static int TITLE_COL_NUM = 0;
     const inline static int AUX_ICON_COL_NUM = 1;
 
-public:
-    CtTreeView();
+    CtTreeView(CtConfig* pCtConfig);
     virtual ~CtTreeView() {}
 
     void set_cursor_safe(const Gtk::TreeIter& iter);
     void set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width);
+
+private:
+    CtConfig* const _pCtConfig;
 };
 
 class CtApp;

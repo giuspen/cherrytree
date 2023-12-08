@@ -259,7 +259,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _nodesVScrollPos.clear();
 
     _scrolledwindowTree.remove();
-    _uCtTreeview.reset(new CtTreeView);
+    _uCtTreeview.reset(new CtTreeView{_pCtConfig});
     _scrolledwindowTree.add(*_uCtTreeview);
     _uCtTreeview->show();
 

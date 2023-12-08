@@ -245,6 +245,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "cherry_wrap_width", cherryWrapWidth);
     _uKeyFile->set_boolean(_currentGroup, "tree_click_focus_text", treeClickFocusText);
     _uKeyFile->set_boolean(_currentGroup, "tree_click_expand", treeClickExpand);
+    _uKeyFile->set_boolean(_currentGroup, "tree_tooltips", treeTooltips);
 
     // [editor]
     _currentGroup = "editor";
@@ -535,6 +536,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("cherry_wrap_width", &cherryWrapWidth);
     _populate_bool_from_keyfile("tree_click_focus_text", &treeClickFocusText);
     _populate_bool_from_keyfile("tree_click_expand", &treeClickExpand);
+    _populate_bool_from_keyfile("tree_tooltips", &treeTooltips);
 
     // [editor]
     _currentGroup = "editor";
