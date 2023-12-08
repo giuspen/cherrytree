@@ -45,7 +45,10 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
                     str += "<property name='label'>" + pAction->name + "</property>";
                     std::string kb_shortcut = pAction->get_shortcut(_pCtConfig);
                     std::string tooltip;
-                    if (kb_shortcut.empty()) {
+                    if (not _pCtConfig->toolbarTooltips) {
+                        // keep empty
+                    }
+                    else if (kb_shortcut.empty()) {
                         tooltip = pAction->desc;
                     }
                     else {
@@ -63,7 +66,9 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
                         }
                         tooltip = pAction->desc + " (" + str::xml_escape(kb_shortcut).c_str() + ")";
                     }
-                    str += "<property name='tooltip-text'>" + tooltip + "</property>";
+                    if (not tooltip.empty()) {
+                        str += "<property name='tooltip-text'>" + tooltip + "</property>";
+                    }
                     str += "<property name='visible'>True</property>";
                     str += "<property name='use_underline'>True</property>";
                     str += "</object></child>";

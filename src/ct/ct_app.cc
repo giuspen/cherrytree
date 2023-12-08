@@ -110,7 +110,7 @@ void CtApp::_on_startup()
 
     _rCssProvider = Gtk::CssProvider::create();
 
-    _uCtStatusIcon.reset(new CtStatusIcon{*this});
+    _uCtStatusIcon.reset(new CtStatusIcon{*this, _uCtCfg.get()});
 
     if (not _no_gui) {
         _pCtApp = this;

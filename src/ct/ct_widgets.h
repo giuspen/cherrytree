@@ -112,13 +112,14 @@ class CtApp;
 class CtStatusIcon
 {
 public:
-    CtStatusIcon(CtApp& ctApp);
+    CtStatusIcon(CtApp& ctApp, CtConfig* pCtConfig);
 
     Gtk::StatusIcon* get();
     void ensure_menu_hidden();
 
 private:
     CtApp& _ctApp;
+    CtConfig* const _pCtConfig;
     Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
     std::unique_ptr<Gtk::Menu> _uStatusIconMenu;
 };

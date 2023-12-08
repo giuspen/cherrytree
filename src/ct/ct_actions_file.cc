@@ -329,6 +329,8 @@ void CtActions::preferences_import()
     _pCtConfig->autosaveOn = ctConfigImported.autosaveOn;
     _pCtConfig->autosaveVal = ctConfigImported.autosaveVal;
     _pCtConfig->bookmarksInTopMenu = ctConfigImported.bookmarksInTopMenu;
+    _pCtConfig->menusTooltips = ctConfigImported.menusTooltips;
+    _pCtConfig->toolbarTooltips = ctConfigImported.toolbarTooltips;
     _pCtConfig->checkVersion = ctConfigImported.checkVersion;
     _pCtConfig->wordCountOn = ctConfigImported.wordCountOn;
     _pCtConfig->reloadDocLast = ctConfigImported.reloadDocLast;

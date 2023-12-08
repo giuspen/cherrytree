@@ -150,8 +150,9 @@ void CtTreeView::set_tree_node_name_wrap_width(const bool wrap_enabled, const in
     }
 }
 
-CtStatusIcon::CtStatusIcon(CtApp& ctApp)
+CtStatusIcon::CtStatusIcon(CtApp& ctApp, CtConfig* pCtConfig)
  : _ctApp{ctApp}
+ , _pCtConfig{pCtConfig}
 {
 }
 
@@ -168,9 +169,15 @@ Gtk::StatusIcon* CtStatusIcon::get()
         _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
             if (not _uStatusIconMenu) {
                 _uStatusIconMenu = std::make_unique<Gtk::Menu>();
-                auto item1 = CtMenu::create_menu_item(_uStatusIconMenu.get(), _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
+                auto item1 = CtMenu::create_menu_item(_uStatusIconMenu.get(),
+                                                      _("Show/Hide _CherryTree"),
+                                                      CtConst::APP_NAME,
+                                                      _pCtConfig->menusTooltips ? _("Toggle Show/Hide CherryTree") : nullptr);
                 item1->signal_activate().connect([&](){ _ctApp.systray_show_hide_windows(); });
-                auto item2 = CtMenu::create_menu_item(_uStatusIconMenu.get(), _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
+                auto item2 = CtMenu::create_menu_item(_uStatusIconMenu.get(),
+                                                      _("_Exit CherryTree"),
+                                                      "ct_quit-app",
+                                                      _pCtConfig->menusTooltips ? _("Exit from CherryTree") : nullptr);
                 item2->signal_activate().connect([&](){ _ctApp.close_all_windows(false/*fromKillCallback*/); });
             }
             _uStatusIconMenu->show_all();

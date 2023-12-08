@@ -245,7 +245,6 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "cherry_wrap_width", cherryWrapWidth);
     _uKeyFile->set_boolean(_currentGroup, "tree_click_focus_text", treeClickFocusText);
     _uKeyFile->set_boolean(_currentGroup, "tree_click_expand", treeClickExpand);
-    _uKeyFile->set_boolean(_currentGroup, "tree_tooltips", treeTooltips);
 
     // [editor]
     _currentGroup = "editor";
@@ -376,6 +375,9 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "autosave_on", autosaveOn);
     _uKeyFile->set_integer(_currentGroup, "autosave_val", autosaveVal);
     _uKeyFile->set_boolean(_currentGroup, "bookm_top_menu", bookmarksInTopMenu);
+    _uKeyFile->set_boolean(_currentGroup, "tree_tooltips", treeTooltips);
+    _uKeyFile->set_boolean(_currentGroup, "menus_tooltips", menusTooltips);
+    _uKeyFile->set_boolean(_currentGroup, "toolbar_tooltips", toolbarTooltips);
     _uKeyFile->set_boolean(_currentGroup, "check_version", checkVersion);
     _uKeyFile->set_boolean(_currentGroup, "word_count", wordCountOn);
     _uKeyFile->set_boolean(_currentGroup, "reload_doc_last", reloadDocLast);
@@ -536,7 +538,6 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("cherry_wrap_width", &cherryWrapWidth);
     _populate_bool_from_keyfile("tree_click_focus_text", &treeClickFocusText);
     _populate_bool_from_keyfile("tree_click_expand", &treeClickExpand);
-    _populate_bool_from_keyfile("tree_tooltips", &treeTooltips);
 
     // [editor]
     _currentGroup = "editor";
@@ -697,6 +698,9 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("autosave_on", &autosaveOn);
     _populate_int_from_keyfile("autosave_val", &autosaveVal);
     _populate_bool_from_keyfile("bookm_top_menu", &bookmarksInTopMenu);
+    _populate_bool_from_keyfile("tree_tooltips", &treeTooltips);
+    _populate_bool_from_keyfile("menus_tooltips", &menusTooltips);
+    _populate_bool_from_keyfile("toolbar_tooltips", &toolbarTooltips);
     _populate_bool_from_keyfile("check_version", &checkVersion);
     _populate_bool_from_keyfile("word_count", &wordCountOn);
     _populate_bool_from_keyfile("reload_doc_last", &reloadDocLast);

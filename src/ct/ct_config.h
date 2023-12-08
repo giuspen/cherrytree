@@ -96,7 +96,6 @@ public:
     int                                         cherryWrapWidth{130};
     bool                                        treeClickFocusText{false};
     bool                                        treeClickExpand{false};
-    bool                                        treeTooltips{true};
 
     // [editor]
     std::string                                 syntaxHighlighting{CtConst::RICH_TEXT_ID};
@@ -224,6 +223,9 @@ public:
     // [misc]
     std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
     bool                                        bookmarksInTopMenu{true};
+    bool                                        treeTooltips{true};
+    bool                                        menusTooltips{true};
+    bool                                        toolbarTooltips{true};
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        autosaveOn{true};
