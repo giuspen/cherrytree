@@ -72,8 +72,9 @@ public:
     std::string                                 pickDirCsv;
     std::string                                 pickDirCbox;
     std::string                                 linkType{CtConst::LINK_TYPE_WEBS};
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(__APPLE__)
     // in windows when you click on the taskbar it doesn't minimise correctly with menubarInTitlebar
+    // the mac os just doesn't look good with this
     bool                                        menubarInTitlebar{false};
 #else
     bool                                        menubarInTitlebar{true};
