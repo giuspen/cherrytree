@@ -251,12 +251,13 @@ for element_rel in dvipng.exe \
                    imagequant.dll \
                    libXpm-noX4.dll \
                    libaom.dll \
-                   libdav1d.dll \
+                   libdav1d-7.dll \
                    rav1e.dll \
                    libde265-0.dll \
                    libx265.dll \
                    libSvtAv1Enc.dll \
-                   libyuv.dll
+                   libyuv.dll \
+                   libopenjp2-7.dll
 do
   cp -v ${OLD_MINGW64_FOLDER}/bin/${element_rel} ${NEW_MINGW64_FOLDER}/bin/
 done
