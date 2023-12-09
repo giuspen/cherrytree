@@ -13,12 +13,13 @@ SCRIPTS_DIR = os.path.join(ROOT_DIR, "scripts")
 ROOT_CMAKELISTS_PATH = os.path.join(ROOT_DIR, "CMakeLists.txt")
 DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
-#     package_num:  serie,    control, SHARED_FMT_SPDLOG
-CONTROL_DICT = {1: ("bionic", "18.04", False),
-                2: ("focal",  "20.04", True),
-                3: ("jammy",  "20.04", True),
-                4: ("lunar",  "22.10", True),
-                5: ("mantic", "22.10", True)}
+DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
+#     package_num:  serie,    control, SHARED_FMT_SPDLOG, ninja
+CONTROL_DICT = {1: ("bionic", "18.04", False,             False),
+                2: ("focal",  "20.04", True,              True),
+                3: ("jammy",  "20.04", True,              True),
+                4: ("lunar",  "22.10", True,              True),
+                5: ("mantic", "22.10", True,              True)}
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
@@ -59,14 +60,33 @@ def f_cmakelists_setup_for(package_num):
         fd.writelines(cmakelists_lines)
     return True
 
+def f_rules_setup_for(package_num):
+    rules_lines = []
+    with open(DEBIAN_RULES_PATH, "r") as fd:
+        rules_lines.extend(fd.readlines())
+
+    for i in range(len(rules_lines)):
+        #	dh $@ --buildsystem=cmake+ninja --parallel
+        if rules_lines[i].find("--buildsystem=") >= 0:
+            rules_lines[i] = "\tdh $@ --buildsystem={} --parallel\n".format("cmake+ninja" if CONTROL_DICT[package_num][3] else "cmake")
+            break
+    else:
+        print("!! rules --buildsystem= not found")
+        return False
+
+    with open(DEBIAN_RULES_PATH, "w") as fd:
+        fd.writelines(rules_lines)
+    return True
+
 def f_setup_for(package_num):
     changes_filename = f_changelog_setup_for(package_num)
     if not changes_filename: return -1
     if not f_cmakelists_setup_for(package_num): return -2
+    if not f_rules_setup_for(package_num): return -3
     try: shutil.copy(os.path.join(SCRIPTS_DIR, CONTROL_DICT[package_num][1], "control"), DEBIAN_CONTROL_PATH)
-    except: return -3
-    if 0 != subprocess.call(["debuild", "-S", "-sa", "-i", "-I"], cwd=ROOT_DIR): return -4
-    if 0 != subprocess.call(["dput", "ppa:giuspen/ppa", changes_filename], cwd=os.path.dirname(ROOT_DIR)): return -5
+    except: return -4
+    if 0 != subprocess.call(["debuild", "-S", "-sa", "-i", "-I"], cwd=ROOT_DIR): return -5
+    if 0 != subprocess.call(["dput", "ppa:giuspen/ppa", changes_filename], cwd=os.path.dirname(ROOT_DIR)): return -6
     return 0
 
 if __name__ == '__main__':

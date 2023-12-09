@@ -7,7 +7,6 @@ Build-Depends:
  desktop-file-utils,
  gettext,
  cmake,
- ninja-build,
  libgtkmm-3.0-dev,
  libgtksourceviewmm-3.0-dev,
  libxml++2.6-dev,
