@@ -1,3 +1,19 @@
+1.0.3 (December 9th, 2023)
+  * fixed crash when losing access to open document (#2120)
+  * fixed crash sorting table (#2391)
+  * fixed issues with search/replace and option 'all matches'
+  * fixed corrupted export to pdf on mac os with non ascii links to files/folders (#2388)
+  * multi page search results increased default limit 50->500 and configurable in config.cfg 'max_matches_in_page' (#2370)
+  * changed all the default keyboard shortcuts using Ctrl+Alt for issues on windows with AltGr key (#2341, #2324, #2316, #2124, #2069, #1944)
+  * fixed progress bar of search hardly visible on windows (#2373)
+  * nodes in bookmark menu to have the correct icon rather the anonymous pin icon (#206)
+  * fixed node name in bookmarks menu not updated if node renamed (#2393)
+  * export to pdf, now hiding anchor character (#2379)
+  * changed codebox border colour with theme cobalt-darkened as hardly visible
+  * added option in config.cfg to disable tree, menus and toolbar tooltips 'tree_tooltips', 'menus_tooltips', 'toolbar_tooltips' (#2169)
+  * fixed paste of code selection to rich text target adding unwanted newline with </pre>
+  * fixed issue when changing theme in preferences dialog, style scheme editor, the change was only applied to the current node
+  * incomplete languages: ar, el, fi, hi_IN, hr, ja, pt
 
 1.0.2 (September 26th, 2023)
   * improved performance of search/replace with option 'all matches' (#272, #1830, #2019)
