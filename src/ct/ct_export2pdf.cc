@@ -342,7 +342,7 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
              link_entry.type == CtConst::LINK_TYPE_FOLD)
     {
         std::string fileOrFold = link_entry.type == CtConst::LINK_TYPE_FILE ? link_entry.file.raw() : link_entry.fold.raw();
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__APPLE__)
         const std::string encoding = CtStrUtil::get_encoding(fileOrFold.c_str(), fileOrFold.size());
         if (encoding == "ASCII") {
             uri = (Glib::path_is_absolute(fileOrFold) ? "uri='file://":"uri='") + str::xml_escape(fs::path{fileOrFold}.string_unix()) + "'";
@@ -350,9 +350,9 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
         else {
             uri = "uri='file://non_supported_encoding_" + encoding + "'";
         }
-#else // !_WIN32
+#else /* !_WIN32 && !__APPLE__ */
         uri = (Glib::path_is_absolute(fileOrFold) ? "uri='file://":"uri='") + str::xml_escape(fileOrFold) + "'";
-#endif // !_WIN32
+#endif /* !_WIN32 && !__APPLE__ */
     }
     else {
         spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
