@@ -77,7 +77,12 @@ then
 elif [ -f /etc/debian_version ]
 then
   DISTRIB_ID="Debian"
-  DISTRIB_RELEASE="$(cat /etc/debian_version | awk -F. '{print $1}' | tr -d '\n')"
+    if grep -q sid /etc/debian_version
+    then
+      DISTRIB_RELEASE="$(cat /etc/debian_version | awk -F/ '{print $1}' | tr -d '\n')"
+    else
+      DISTRIB_RELEASE="$(cat /etc/debian_version | awk -F. '{print $1}' | tr -d '\n')"
+    fi
 elif [ -f /etc/fedora-release ]
 then
   DISTRIB_ID="Fedora"
