@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 name: cherrytree
-version: "1.0.1"
+version: "1.0.3"
 summary: Hierarchical note taking application
 description: |
   A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories. The project home page is giuspen.net/cherrytree.
@@ -24,7 +24,7 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/giuspen/cherrytree.git
-    source-commit: 1.0.1
+    source-commit: v1.0.3
     source-depth: 0
     cmake-parameters:
       - '-DCMAKE_INSTALL_PREFIX='
