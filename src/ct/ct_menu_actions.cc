@@ -336,15 +336,15 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Expand All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_expand_all)});
     _actions.push_back(CtMenuAction{tree_cat, "nodes_all_collapse", "ct_zoom-out", _("_Collapse All Nodes"), KB_CONTROL+KB_SHIFT+"l",
         _("Collapse All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_collapse_all)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_up", "ct_go-up", _("Node _Up"), KB_SHIFT+CtConst::STR_KEY_UP,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_up", "ct_go-up", _("Node _Up"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_UP,
         _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_down", "ct_go-down", _("Node _Down"), KB_SHIFT+CtConst::STR_KEY_DOWN,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_down", "ct_go-down", _("Node _Down"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_DOWN,
         _("Move the Selected Node Down"), sigc::mem_fun(*pActions, &CtActions::node_down)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_left", "ct_go-back", _("Node _Left"), KB_SHIFT+CtConst::STR_KEY_LEFT,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_left", "ct_go-back", _("Node _Left"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_LEFT,
         _("Move the Selected Node Left"), sigc::mem_fun(*pActions, &CtActions::node_left)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_right", "ct_go-forward", _("Node _Right"), KB_SHIFT+CtConst::STR_KEY_RIGHT,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_right", "ct_go-forward", _("Node _Right"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_RIGHT,
         _("Move the Selected Node Right"), sigc::mem_fun(*pActions, &CtActions::node_right)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_new_father", "ct_go-jump", _("Node Change _Parent..."), KB_CONTROL+KB_SHIFT+CtConst::STR_KEY_RIGHT,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_new_father", "ct_go-jump", _("Node Change _Parent..."), KB_SHIFT+KB_ALT+"j",
         _("Change the Selected Node's Parent"), sigc::mem_fun(*pActions, &CtActions::node_change_father)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_all_sort_asc", "ct_sort-asc", _("Sort Tree _Ascending"), None,
         _("Sort the Tree Ascending"), sigc::mem_fun(*pActions, &CtActions::tree_sort_ascending)});

@@ -173,26 +173,6 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 {
     if (not curr_tree_iter()) return false;
     if (event->state & GDK_SHIFT_MASK) {
-        if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_KEY_Right) {
-            _uCtActions->node_change_father();
-            return true;
-        }
-        else if (event->keyval == GDK_KEY_Up) {
-            _uCtActions->node_up();
-            return true;
-        }
-        else if (event->keyval == GDK_KEY_Down) {
-            _uCtActions->node_down();
-            return true;
-        }
-        else if (event->keyval == GDK_KEY_Left) {
-            _uCtActions->node_left();
-            return true;
-        }
-        else if (event->keyval == GDK_KEY_Right) {
-            _uCtActions->node_right();
-            return true;
-        }
     }
     else if (event->state & GDK_MOD1_MASK) {
     }
