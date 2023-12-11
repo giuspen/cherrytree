@@ -46,6 +46,7 @@ struct CtMenuAction
     sigc::signal<void, bool> signal_set_visible = sigc::signal<void, bool>();
 
     const std::string& get_shortcut(CtConfig* pCtConfig) const;
+    bool is_shortcut_overridden(CtConfig* pCtConfig) const;
 };
 
 class CtMenu

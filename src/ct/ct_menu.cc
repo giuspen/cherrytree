@@ -43,8 +43,18 @@ static void on_menu_activate(void* /*pObject*/, CtMenuAction* pAction)
 
 const std::string& CtMenuAction::get_shortcut(CtConfig* pCtConfig) const
 {
-    auto it = pCtConfig->customKbShortcuts.find(id);
+    const auto it = pCtConfig->customKbShortcuts.find(id);
     return it != pCtConfig->customKbShortcuts.end() ? it->second : built_in_shortcut;
+}
+
+bool CtMenuAction::is_shortcut_overridden(CtConfig* pCtConfig) const
+{
+    const auto it = pCtConfig->customKbShortcuts.find(id);
+    if (pCtConfig->customKbShortcuts.end() == it) return false;
+    if (it->second != built_in_shortcut) return true;
+    // we have a value in the map but it's just like the default => cleanup
+    pCtConfig->customKbShortcuts.erase(id);
+    return false;
 }
 
 CtMenu::CtMenu(CtMainWin* pCtMainWin)

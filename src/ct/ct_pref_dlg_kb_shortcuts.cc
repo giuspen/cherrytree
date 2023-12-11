@@ -49,6 +49,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
         ((Gtk::CellRendererText*)cell)->property_markup() = "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(_shortcutModelColumns.shortcut))) + "  ";
     });
+    shortcut_column->add_attribute(shortcut_cell_renderer->property_weight(), _shortcutModelColumns.colWeight);
     treeview->append_column(*shortcut_column);
     // desc
     treeview->append_column("", _shortcutModelColumns.desc);
@@ -237,5 +238,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
         row[_shortcutModelColumns.key] = action.id;
         row[_shortcutModelColumns.desc] = action.desc;
         row[_shortcutModelColumns.shortcut] = action.get_shortcut(_pCtMainWin->get_ct_config());
+        const bool is_overridden = action.is_shortcut_overridden(_pCtMainWin->get_ct_config());
+        row[_shortcutModelColumns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(is_overridden);
     }
 }

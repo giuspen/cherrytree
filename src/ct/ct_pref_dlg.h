@@ -96,7 +96,8 @@ private:
        Gtk::TreeModelColumn<Glib::ustring>  ext;
        Gtk::TreeModelColumn<Glib::ustring>  desc;
        Gtk::TreeModelColumn<Glib::ustring>  shortcut;
-       UniversalModelColumns() { add(icon); add(key); add(ext); add(desc); add(shortcut); }
+       Gtk::TreeModelColumn<int>            colWeight;
+       UniversalModelColumns() { add(icon); add(key); add(ext); add(desc); add(shortcut); add(colWeight); }
     };
 
 private:
