@@ -122,7 +122,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
     if (!tree_iter || tree_iter->get_value(_shortcutModelColumns.key).empty()) return false;
     std::string shortcut = tree_iter->get_value(_shortcutModelColumns.shortcut);
     std::string id = tree_iter->get_value(_shortcutModelColumns.key);
-    if (edit_shortcut_dialog(shortcut)) {
+    if (edit_shortcut_dialog(shortcut, _pCtMainWin->get_ct_menu().find_action(id)->built_in_shortcut)) {
         if (shortcut != "") {
             for (const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
@@ -141,14 +141,8 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
     return false;
 }
 
-bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
+bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut, const std::string& default_shortcut)
 {
-    std::string kb_shortcut_key = shortcut;
-    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
-    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
-    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
-    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_META.c_str(), "");
-
     Gtk::Dialog dialog{_("Edit Keyboard Shortcut"),
                        *this,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -169,26 +163,41 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     alt_toggle->set_size_request(70, 1);
     meta_toggle->set_size_request(70,1);
     auto key_entry = Gtk::manage(new Gtk::Entry{});
+    auto button_reset = Gtk::manage(new Gtk::Button{});
+    button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo",  Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_tooltip_text(_("Reset to Default"));
     auto vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-    auto hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/});
-    hbox->pack_start(*radiobutton_kb_shortcut);
-    hbox->pack_start(*ctrl_toggle);
-    hbox->pack_start(*shift_toggle);
-    hbox->pack_start(*alt_toggle);
-    hbox->pack_start(*meta_toggle);
-    hbox->pack_start(*key_entry);
+    auto hbox_combo = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/});
+    auto hbox_reset = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    hbox_combo->pack_start(*radiobutton_kb_shortcut);
+    hbox_combo->pack_start(*ctrl_toggle);
+    hbox_combo->pack_start(*shift_toggle);
+    hbox_combo->pack_start(*alt_toggle);
+    hbox_combo->pack_start(*meta_toggle);
+    hbox_combo->pack_start(*key_entry);
+    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label{}), true, true);
+    hbox_reset->pack_start(*button_reset, false, false);
     vbox->pack_start(*radiobutton_kb_none);
-    vbox->pack_start(*hbox);
+    vbox->pack_start(*hbox_combo);
+    vbox->pack_start(*hbox_reset);
     auto content_area = dialog.get_content_area();
     content_area->pack_start(*vbox);
 
-    key_entry->set_text(kb_shortcut_key);
-    radiobutton_kb_none->set_active(kb_shortcut_key.empty());
-    radiobutton_kb_shortcut->set_active(!kb_shortcut_key.empty());
-    ctrl_toggle->set_active(shortcut.find(_pCtMenu->KB_CONTROL) != std::string::npos);
-    shift_toggle->set_active(shortcut.find(_pCtMenu->KB_SHIFT) != std::string::npos);
-    alt_toggle->set_active(shortcut.find(_pCtMenu->KB_ALT) != std::string::npos);
-    meta_toggle->set_active(shortcut.find(_pCtMenu->KB_META) != std::string::npos);
+    auto f_apply_shortcut = [&](const std::string in_shortcut){
+        std::string kb_shortcut_key = in_shortcut;
+        kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
+        kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
+        kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
+        kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_META.c_str(), "");
+        key_entry->set_text(kb_shortcut_key);
+        radiobutton_kb_none->set_active(kb_shortcut_key.empty());
+        radiobutton_kb_shortcut->set_active(!kb_shortcut_key.empty());
+        ctrl_toggle->set_active(in_shortcut.find(_pCtMenu->KB_CONTROL) != std::string::npos);
+        shift_toggle->set_active(in_shortcut.find(_pCtMenu->KB_SHIFT) != std::string::npos);
+        alt_toggle->set_active(in_shortcut.find(_pCtMenu->KB_ALT) != std::string::npos);
+        meta_toggle->set_active(in_shortcut.find(_pCtMenu->KB_META) != std::string::npos);
+    };
+    f_apply_shortcut(shortcut);
 
     auto f_kb_shortcut_on_off = [ctrl_toggle, shift_toggle, alt_toggle, meta_toggle, key_entry, radiobutton_kb_shortcut](){
         const bool isSensitive = radiobutton_kb_shortcut->get_active();
@@ -211,10 +220,15 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
         return true;
     }, false);
 
+    button_reset->signal_clicked().connect([&](){
+        f_apply_shortcut(default_shortcut);
+    });
+
     content_area->show_all();
     if (dialog.run() != Gtk::RESPONSE_ACCEPT)
         return false;
 
+    const std::string was_shortcut{shortcut};
     shortcut = "";
     if (radiobutton_kb_shortcut->get_active() && !key_entry->get_text().empty()) {
         if (ctrl_toggle->get_active()) shortcut += _pCtMenu->KB_CONTROL;
@@ -223,7 +237,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
         if (meta_toggle->get_active()) shortcut += _pCtMenu->KB_META;
         shortcut += key_entry->get_text();
     }
-    return true;
+    return shortcut != was_shortcut;
 }
 
 void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)

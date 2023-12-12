@@ -78,7 +78,7 @@ private:
 
     void fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model);
     bool edit_shortcut(Gtk::TreeView* treeview);
-    bool edit_shortcut_dialog(std::string& shortcut);
+    bool edit_shortcut_dialog(std::string& shortcut, const std::string& default_shortcut);
 
     void apply_for_each_window(std::function<void(CtMainWin*)> callback);
 
