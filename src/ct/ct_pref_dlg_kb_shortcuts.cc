@@ -51,8 +51,13 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     });
     shortcut_column->add_attribute(shortcut_cell_renderer->property_weight(), _shortcutModelColumns.colWeight);
     treeview->append_column(*shortcut_column);
-    // desc
-    treeview->append_column("", _shortcutModelColumns.desc);
+    // desc column
+    auto desc_cell_renderer = Gtk::manage(new Gtk::CellRendererText{});
+    auto desc_column = Gtk::manage(new Gtk::TreeViewColumn{});
+    desc_column->pack_start(*desc_cell_renderer, true);
+    desc_column->add_attribute(desc_cell_renderer->property_text(), _shortcutModelColumns.desc);
+    desc_column->add_attribute(desc_cell_renderer->property_weight(), _shortcutModelColumns.colWeight);
+    treeview->append_column(*desc_column);
 
     treeview->expand_all();
     auto scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
