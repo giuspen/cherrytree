@@ -115,8 +115,8 @@ public:
             add(line_content);
         }
     } columns;
-    std::array<int, 2>  dlg_size;
-    std::array<int, 2>  dlg_pos;
+    std::array<int, 2>  dlg_size{0,0};
+    std::array<int, 2>  dlg_pos{0,0};
     std::string         saved_path;
 
     static Glib::RefPtr<CtMatchDialogStore> create(const size_t maxMatchesInPage);
