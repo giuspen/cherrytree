@@ -1,3 +1,10 @@
+1.0.4 (December 16th, 2023)
+  * fixed crash when displaying search results dialog (#2398, #2399, #2404, #2405)
+  * preferences dialog, keyboard shortcuts, now emphasizing with bold the overridden/non default shortcuts (#2397)
+  * preferences dialog, keyboard shortcuts, added possibility to reset an individual shortcut to the default value
+  * changed default keyboard shortcuts to move tree nodes From Shift+Arrows to Shift+Alt+Arrows as disrupting the functionality of text selection (#2397, #2400)
+  * incomplete languages: ar, el, fi, hi_IN, hr, ja, pt
+
 1.0.3 (December 9th, 2023)
   * fixed crash when losing access to open document (#2120)
   * fixed crash sorting table (#2391)
