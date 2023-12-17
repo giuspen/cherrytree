@@ -13,7 +13,7 @@ sudo apt install flatpak flatpak-builder gnome-software-plugin-flatpak
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-flatpak install flathub org.gnome.Platform//44 org.gnome.Sdk//44
+flatpak install flathub org.gnome.Platform//45 org.gnome.Sdk//45
 
 flatpak-builder --force-clean --arch=x86_64 build-dir net.giuspen.cherrytree.json
 
