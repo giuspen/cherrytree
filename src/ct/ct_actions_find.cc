@@ -203,10 +203,12 @@ void CtActions::find_in_multiple_nodes()
     while (node_iter) {
         _s_state.all_matches_first_in_node = true;
         CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(node_iter);
-        Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
-        if (not rTextBuffer) {
-            CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name()), *_pCtMainWin);
-            break;
+        if (_s_options.node_content) {
+            Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
+            if (not rTextBuffer) {
+                CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name()), *_pCtMainWin);
+                break;
+            }
         }
         while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
             ++_s_state.matches_num;
@@ -385,10 +387,12 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
             while (child_iter and not _pCtMainWin->get_status_bar().is_progress_stop()) {
                 _s_state.all_matches_first_in_node = true;
                 CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(child_iter);
-                Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
-                if (not rTextBuffer) {
-                    CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name()), *_pCtMainWin);
-                    break;
+                if (_s_options.node_content) {
+                    Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
+                    if (not rTextBuffer) {
+                        CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name()), *_pCtMainWin);
+                        break;
+                    }
                 }
                 while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
                     _s_state.matches_num += 1;
