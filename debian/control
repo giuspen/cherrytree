@@ -18,7 +18,9 @@ Build-Depends:
  libfribidi-dev,
  libvte-2.91-dev,
  libfmt-dev,
- libspdlog-dev
+ libspdlog-dev,
+ file,
+ libxml2-utils
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.net/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
