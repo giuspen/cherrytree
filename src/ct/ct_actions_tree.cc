@@ -552,6 +552,9 @@ void CtActions::_node_date(const bool from_sel_not_root)
 
 void CtActions::node_up()
 {
+    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    _in_action = true;
     if (not _is_there_selected_node_or_error()) return;
     auto prev_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(--_pCtMainWin->curr_tree_iter());
     if (not prev_iter) return;
@@ -568,6 +571,9 @@ void CtActions::node_up()
 
 void CtActions::node_down()
 {
+    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    _in_action = true;
     if (not _is_there_selected_node_or_error()) return;
     auto next_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(++_pCtMainWin->curr_tree_iter());
     if (not next_iter) return;
@@ -584,6 +590,9 @@ void CtActions::node_down()
 
 void CtActions::node_right()
 {
+    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    _in_action = true;
     if (not _is_there_selected_node_or_error()) return;
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (not prev_iter) return;
@@ -593,6 +602,9 @@ void CtActions::node_right()
 
 void CtActions::node_left()
 {
+    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    _in_action = true;
     if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (not father_iter) return;

@@ -70,6 +70,7 @@ private:
 private:
     CtMainWin* const _pCtMainWin;
     CtConfig* const _pCtConfig;
+    bool _in_action{false};
 
 private:
     CtExportOptions _export_options;
