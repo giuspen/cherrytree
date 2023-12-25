@@ -27,8 +27,6 @@
 #include "tests_common.h"
 #include "ct_export2html.h"
 
-static const CtConfig ct_config;
-
 const Glib::ustring bufferContent_1{
     "- primo elemento" _NL              // 0
     "- secondo elemento" _NL            // 17
@@ -73,6 +71,7 @@ TEST(ListsGroup, CtListInfo_2)
                                pBuffer->get_iter_at_offset(23),
                                pBuffer->get_iter_at_offset(26));
 
+    const CtConfig ct_config;
     CtList ct_list{&ct_config, pBuffer};
 
     CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
@@ -102,6 +101,7 @@ TEST(ListsGroup, CtListInfo_1)
     Glib::init();
     auto pBuffer = Gsv::Buffer::create();
     pBuffer->set_text(bufferContent_1);
+    const CtConfig ct_config;
     CtList ct_list{&ct_config, pBuffer};
 
     CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
