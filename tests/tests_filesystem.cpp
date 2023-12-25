@@ -186,8 +186,11 @@ TEST(FileSystemGroup, move)
     if (fs::exists(test_dir_path2)) fs::remove_all(test_dir_path2);
 
     Glib::file_set_contents(test_file_path.string(), "blabla");
+    ASSERT_TRUE(fs::is_regular_file(test_file_path));
     ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path1.c_str(), 0755));
     ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path2.c_str(), 0755));
+    ASSERT_TRUE(fs::is_directory(test_dir_path1));
+    ASSERT_TRUE(fs::is_directory(test_dir_path2));
 
     ASSERT_TRUE(fs::move_file(test_file_path, test_dir_path1 / fs::path{"test_mv.txt"}));
     ASSERT_TRUE(fs::is_regular_file(test_dir_path1 / fs::path{"test_mv.txt"}));

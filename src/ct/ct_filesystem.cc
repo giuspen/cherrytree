@@ -194,15 +194,23 @@ bool copy_file(const path& from, const path& to)
 
 bool move_file(const path& from, const path& to)
 {
-    try {
-        Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
-        Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
-        return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
+    GFile* pGFile_from = g_file_new_for_path(from.c_str());
+    GFile* pGFile_to = g_file_new_for_path(to.c_str());
+    GError* pError = NULL;
+    bool retSuccess = g_file_move(pGFile_from,
+                                  pGFile_to,
+                                  G_FILE_COPY_OVERWRITE,
+                                  NULL,
+                                  NULL,  // GFileProgressCallback
+                                  NULL,  // data
+                                  &pError);
+    if (pError) {
+        spdlog::warn("{}, error: {}, from: {}, to: {}", __FUNCTION__, pError->message, from.string(), to.string());
+        g_error_free(pError);
     }
-    catch (Gio::Error& error) {
-        spdlog::debug("fs::move_file, error: {}, from: {}, to: {}", error.what(), from.string(), to.string());
-        return false;
-    }
+    g_object_unref(pGFile_from);
+    g_object_unref(pGFile_to);
+    return retSuccess;
 }
 
 path absolute(const path& p)
