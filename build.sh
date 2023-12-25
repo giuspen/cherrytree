@@ -118,7 +118,7 @@ cmake .. -DCMAKE_C_COMPILER=gcc \
          -DCMAKE_CXX_COMPILER=g++ \
          -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
          ${EXTRA_CMAKE_FLAGS} -GNinja
-[[ "$OSTYPE" == "darwin"* ]] && NUM_JOBS="$(sysctl -n hw.ncpu)" || NUM_JOBS="$(nproc --all)"
+[[ "$OSTYPE" == "darwin"* ]] && NUM_JOBS="$(($(sysctl -n hw.ncpu)/2))" || NUM_JOBS="$(($(nproc --all)/2))"
 echo "Starting ninja build with up to ${NUM_JOBS} parallel jobs..."
 ninja -j ${NUM_JOBS}
 
