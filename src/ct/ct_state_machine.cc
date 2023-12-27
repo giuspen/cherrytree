@@ -232,7 +232,7 @@ CtStateMachine::CtStateMachine(CtMainWin *pCtMainWin)
  : _pCtMainWin{pCtMainWin}
 {
     _word_regex = Glib::Regex::create("\\w");
-    _go_bk_fw_click = false;
+    _go_bk_fw_active = false;
     _not_undoable_timeslot = false;
     _visited_nodes_idx = -1;
 }
@@ -271,7 +271,7 @@ void CtStateMachine::node_selected_changed(gint64 node_id)
     if (node_id == -1) {
         return;
     }
-    if (_pCtMainWin->user_active() and !_go_bk_fw_click) {
+    if (_pCtMainWin->user_active() and !_go_bk_fw_active) {
         int last_index = (int)_visited_nodes_list.size() - 1;
         if (_visited_nodes_idx != last_index)
             _visited_nodes_list.erase(_visited_nodes_list.begin() + (_visited_nodes_idx + 1), _visited_nodes_list.begin() + (last_index+1));

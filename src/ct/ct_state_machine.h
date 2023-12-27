@@ -198,7 +198,7 @@ public:
     void update_curr_state_cursor_pos(gint64 node_id);
     void update_curr_state_v_adj_val(gint64 node_id);
 
-    void set_go_bk_fw_click(bool val) { _go_bk_fw_click = val; }
+    void set_go_bk_fw_active(bool val) { _go_bk_fw_active = val; }
 
     const std::vector<gint64>& get_visited_nodes_list() { return _visited_nodes_list; }
     void set_visited_nodes_list(const std::vector<gint64>& list) {
@@ -209,7 +209,7 @@ public:
 private:
     CtMainWin*                  _pCtMainWin;
     Glib::RefPtr<Glib::Regex>   _word_regex;
-    bool                        _go_bk_fw_click;
+    bool                        _go_bk_fw_active;
     bool                        _not_undoable_timeslot;
 
     std::vector<gint64>         _visited_nodes_list;

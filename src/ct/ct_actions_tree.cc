@@ -119,7 +119,7 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
     return false;
 }
 
-// Put Selection Upon the achrored widget
+// Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
     Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
@@ -147,6 +147,10 @@ void CtActions::node_subnodes_copy()
 
 void CtActions::node_subnodes_paste()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     _pCtMainWin->signal_app_tree_node_paste();
 }
 
@@ -203,6 +207,10 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
 
 void CtActions::node_subnodes_duplicate()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     CtTreeIter top_iter = _pCtMainWin->curr_tree_iter();
     node_subnodes_paste2(top_iter, _pCtMainWin);
@@ -354,6 +362,10 @@ bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& chil
 
 void CtActions::node_edit()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     CtNodeData nodeData;
     CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
@@ -406,6 +418,10 @@ void CtActions::node_edit()
 // Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting
 void CtActions::node_inherit_syntax()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
 
     const std::string& new_syntax = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
@@ -446,9 +462,12 @@ void CtActions::node_inherit_syntax()
     _pCtMainWin->update_window_save_needed();
 }
 
-// Delete the Selected Node
 void CtActions::node_delete()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
@@ -520,6 +539,10 @@ void CtActions::node_delete()
 
 void CtActions::node_toggle_read_only()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     bool node_is_ro = not _pCtMainWin->curr_tree_iter().get_node_read_only();
     _pCtMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
@@ -533,12 +556,16 @@ void CtActions::node_toggle_read_only()
 
 void CtActions::_node_date(const bool from_sel_not_root)
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     const time_t time = std::time(nullptr);
     const Glib::ustring year = str::time_format("%Y", time);
     const Glib::ustring month = str::time_format("%B", time);
     const Glib::ustring day = str::time_format("%d %a", time);
 
-    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true); // so nodes won't be in the list of visited
+    _pCtMainWin->get_state_machine().set_go_bk_fw_active(true); // so nodes won't be in the list of visited
     Gtk::TreeIter nodeParent;
     if (from_sel_not_root) {
         if (not _is_there_selected_node_or_error()) return;
@@ -546,15 +573,16 @@ void CtActions::_node_date(const bool from_sel_not_root)
     }
     Gtk::TreeIter treeIterYear = node_child_exist_or_create(nodeParent, year, false/*focusIfExisting*/);
     Gtk::TreeIter treeIterMonth = node_child_exist_or_create(treeIterYear, month, false/*focusIfExisting*/);
-    _pCtMainWin->get_state_machine().set_go_bk_fw_click(false);
+    _pCtMainWin->get_state_machine().set_go_bk_fw_active(false);
     (void)node_child_exist_or_create(treeIterMonth, day, true/*focusIfExisting*/);
 }
 
 void CtActions::node_up()
 {
-    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
-    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     auto prev_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(--_pCtMainWin->curr_tree_iter());
     if (not prev_iter) return;
@@ -571,9 +599,10 @@ void CtActions::node_up()
 
 void CtActions::node_down()
 {
-    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
-    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     auto next_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(++_pCtMainWin->curr_tree_iter());
     if (not next_iter) return;
@@ -590,9 +619,10 @@ void CtActions::node_down()
 
 void CtActions::node_right()
 {
-    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
-    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (not prev_iter) return;
@@ -602,9 +632,10 @@ void CtActions::node_right()
 
 void CtActions::node_left()
 {
-    if (_in_action) { spdlog::debug("?? {} in action", __FUNCTION__); return; }
-    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (not father_iter) return;
@@ -614,6 +645,10 @@ void CtActions::node_left()
 
 void CtActions::node_change_father()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     CtTreeIter old_father_iter = _pCtMainWin->curr_tree_iter().parent();
     CtTreeIter father_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(_pCtMainWin,
@@ -684,27 +719,36 @@ bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path de
     return true;
 }
 
-//"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_ascending()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (_tree_sort_level_and_sublevels(_pCtMainWin->get_tree_store().get_store()->children(), true)) {
         _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
         _pCtMainWin->update_window_save_needed();
     }
 }
 
-//"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_descending()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (_tree_sort_level_and_sublevels(_pCtMainWin->get_tree_store().get_store()->children(), false)) {
         _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
         _pCtMainWin->update_window_save_needed();
     }
 }
 
-//"""Sorts all the Siblings of the Selected Node Ascending"""
 void CtActions::node_siblings_sort_ascending()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
@@ -715,9 +759,12 @@ void CtActions::node_siblings_sort_ascending()
     }
 }
 
-//"""Sorts all the Siblings of the Selected Node Descending"""
 void CtActions::node_siblings_sort_descending()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
@@ -731,37 +778,55 @@ void CtActions::node_siblings_sort_descending()
 // Go to the Previous Visited Node
 void CtActions::node_go_back()
 {
-    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true);
-    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().set_go_bk_fw_click(false); });
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    CtStateMachine& ct_state_machine = _pCtMainWin->get_state_machine();
+    ct_state_machine.set_go_bk_fw_active(true);
+    auto on_scope_exit = scope_guard([&](void*) {
+        ct_state_machine.set_go_bk_fw_active(false);
+        _in_action = false;
+    });
 
-    auto new_node_id = _pCtMainWin->get_state_machine().requested_visited_previous();
-    if (new_node_id > 0) {
+    gint64 new_node_id = ct_state_machine.requested_visited_previous();
+    while (new_node_id > 0) {
         auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(new_node_id);
-        if (node_iter)
+        if (node_iter) {
             _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
-        else
-            node_go_back();
+            break;
+        }
+        new_node_id = ct_state_machine.requested_visited_previous();
     }
 }
 
 // Go to the Next Visited Node
 void CtActions::node_go_forward()
 {
-    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true);
-    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().set_go_bk_fw_click(false); });
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    CtStateMachine& ct_state_machine = _pCtMainWin->get_state_machine();
+    ct_state_machine.set_go_bk_fw_active(true);
+    auto on_scope_exit = scope_guard([&](void*) {
+        ct_state_machine.set_go_bk_fw_active(false);
+        _in_action = false;
+    });
 
-    auto new_node_id = _pCtMainWin->get_state_machine().requested_visited_next();
-    if (new_node_id > 0) {
+    gint64 new_node_id = ct_state_machine.requested_visited_next();
+    while (new_node_id > 0) {
         auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(new_node_id);
-        if (node_iter)
+        if (node_iter) {
             _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
-        else
-            node_go_forward();
+            break;
+        }
+        new_node_id = ct_state_machine.requested_visited_next();
     }
 }
 
 void CtActions::bookmark_curr_node()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
@@ -776,6 +841,10 @@ void CtActions::bookmark_curr_node()
 
 void CtActions::bookmark_curr_node_remove()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
@@ -790,6 +859,10 @@ void CtActions::bookmark_curr_node_remove()
 
 void CtActions::bookmarks_handle()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     CtDialogs::bookmarks_handle_dialog(_pCtMainWin);
 }
 
@@ -804,6 +877,10 @@ void CtActions::tree_info()
 
 void CtActions::tree_clear_property_exclude_from_search()
 {
+    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
+    _in_action = true;
+    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+
     if (not _is_tree_not_empty_or_error()) return;
     const unsigned nodes_properties_changed = _pCtMainWin->get_tree_store().tree_clear_property_exclude_from_search();
     if (nodes_properties_changed > 0u) {
