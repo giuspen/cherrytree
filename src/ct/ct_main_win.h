@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -215,6 +215,7 @@ public:
     void set_systray_can_hide(const bool systrayCanHide) { _systrayCanHide = systrayCanHide; }
     bool get_systray_can_hide() const { return _systrayCanHide; }
     void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; set_keep_above(_alwaysOnTop); }
+    void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
 private:
     bool _on_window_key_press_event(GdkEventKey* event);
@@ -302,6 +303,7 @@ private:
     bool                _userActive{true}; // pygtk: user_active
     bool                _forceExit{false};
     int                 _cursorKeyPress{-1};
+    int                 _autoSaveCounter{0};
     int                 _hovering_link_iter_offset{-1};
     int                 _prevTextviewWidth{0};
     bool                _fileSaveNeeded{false}; // pygtk: file_update

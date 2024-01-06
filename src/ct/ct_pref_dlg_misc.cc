@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_misc.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -41,7 +41,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto vbox_saving = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
-    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(_pConfig->autosaveVal, 1, 1000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(_pConfig->autosaveMinutes, 1, 1000, 1);
     auto spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
     auto label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
     hbox_autosave->pack_start(*checkbutton_autosave, false, false);
@@ -71,7 +71,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     vbox_saving->pack_start(*hbox_custom_backup_dir, false, false);
 
     checkbutton_autosave->set_active(_pConfig->autosaveOn);
-    spinbutton_autosave->set_value(_pConfig->autosaveVal);
+    spinbutton_autosave->set_value(_pConfig->autosaveMinutes);
     spinbutton_autosave->set_sensitive(_pConfig->autosaveOn);
     checkbutton_autosave_on_quit->set_active(_pConfig->autosaveOnQuit);
     checkbutton_backup_before_saving->set_active(_pConfig->backupCopy);
@@ -186,7 +186,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         spinbutton_autosave->set_sensitive(_pConfig->autosaveOn);
     });
     spinbutton_autosave->signal_value_changed().connect([this, spinbutton_autosave](){
-        _pConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
+        _pConfig->autosaveMinutes = spinbutton_autosave->get_value_as_int();
         _pCtMainWin->file_autosave_restart();
     });
     checkbutton_autosave_on_quit->signal_toggled().connect([this, checkbutton_autosave_on_quit](){

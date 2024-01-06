@@ -1,7 +1,7 @@
 /*
  * ct_main_win_file.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -277,6 +277,7 @@ bool CtMainWin::file_save_ask_user()
 
 bool CtMainWin::file_save(const bool need_vacuum)
 {
+    resetAutoSaveCounter();
     if (_uCtStorage->get_file_path().empty()) {
         return false;
     }
@@ -300,6 +301,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath,
                              const CtDocType doc_type,
                              const Glib::ustring& password)
 {
+    resetAutoSaveCounter();
     Glib::ustring error;
     std::unique_ptr<CtStorageControl> new_storage{
         CtStorageControl::save_as(this,
@@ -338,28 +340,33 @@ void CtMainWin::file_save_as(const std::string& new_filepath,
 
 void CtMainWin::file_autosave_restart()
 {
+    resetAutoSaveCounter();
     const bool was_connected = not _autosave_timout_connection.empty();
     _autosave_timout_connection.disconnect();
     if (not _pCtConfig->autosaveOn) {
-        if (was_connected) spdlog::debug("autosave was stopped");
+        if (was_connected) spdlog::debug("autosave off");
         return;
     }
-    if (_pCtConfig->autosaveVal < 1) {
+    if (_pCtConfig->autosaveMinutes < 1) {
         CtDialogs::error_dialog("Wrong timeout for autosave", *this);
         return;
     }
 
-    spdlog::debug("autosave is started");
+    spdlog::debug("autosave on {} min", _pCtConfig->autosaveMinutes);
     _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {
-        if (get_file_save_needed()) {
-            spdlog::debug("autosave needed");
-            _uCtActions->file_save();
+        if (++_autoSaveCounter >= _pCtConfig->autosaveMinutes) {
+            resetAutoSaveCounter();
+            if (get_file_save_needed()) {
+                spdlog::debug("autosave needed");
+                _uCtActions->file_save();
+            }
+            else {
+                spdlog::debug("autosave no need");
+            }
         }
-        else {
-            spdlog::debug("autosave no need");
-        }
+        else spdlog::debug("autosave {}/{}", _autoSaveCounter, _pCtConfig->autosaveMinutes);
         return true;
-    }, _pCtConfig->autosaveVal * 60);
+    }, 60/*1 min iter*/);
 }
 
 void CtMainWin::mod_time_sentinel_restart()

@@ -1,7 +1,7 @@
 /*
  * ct_config.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -230,7 +230,7 @@ public:
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        autosaveOn{true};
-    int                                         autosaveVal{1};
+    int                                         autosaveMinutes{1};
     bool                                        checkVersion{false};
     bool                                        wordCountOn{false};
     bool                                        reloadDocLast{true};

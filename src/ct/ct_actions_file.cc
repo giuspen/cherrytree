@@ -1,7 +1,7 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -327,7 +327,7 @@ void CtActions::preferences_import()
     }
     _pCtConfig->startOnSystray = ctConfigImported.startOnSystray;
     _pCtConfig->autosaveOn = ctConfigImported.autosaveOn;
-    _pCtConfig->autosaveVal = ctConfigImported.autosaveVal;
+    _pCtConfig->autosaveMinutes = ctConfigImported.autosaveMinutes;
     _pCtConfig->bookmarksInTopMenu = ctConfigImported.bookmarksInTopMenu;
     _pCtConfig->menusTooltips = ctConfigImported.menusTooltips;
     _pCtConfig->toolbarTooltips = ctConfigImported.toolbarTooltips;

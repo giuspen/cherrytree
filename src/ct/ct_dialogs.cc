@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -299,11 +299,11 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
     auto pCtConfig = pCtMainWin->get_ct_config();
     auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
-    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(pCtConfig->autosaveVal, 1, 1000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(pCtConfig->autosaveMinutes, 1, 1000, 1);
     auto spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
     auto label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
     checkbutton_autosave->set_active(pCtConfig->autosaveOn);
-    spinbutton_autosave->set_value(pCtConfig->autosaveVal);
+    spinbutton_autosave->set_value(pCtConfig->autosaveMinutes);
     spinbutton_autosave->set_sensitive(pCtConfig->autosaveOn);
     hbox_autosave->pack_start(*checkbutton_autosave, false, false);
     hbox_autosave->pack_start(*spinbutton_autosave, false, false);
@@ -315,7 +315,7 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
         spinbutton_autosave->set_sensitive(pCtConfig->autosaveOn);
     });
     spinbutton_autosave->signal_value_changed().connect([pCtConfig, pCtMainWin, spinbutton_autosave](){
-        pCtConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
+        pCtConfig->autosaveMinutes = spinbutton_autosave->get_value_as_int();
         pCtMainWin->file_autosave_restart();
     });
 
@@ -522,7 +522,7 @@ void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon
     auto dialog = Gtk::AboutDialog();
     dialog.set_program_name("CherryTree");
     dialog.set_version(CtConst::CT_VERSION);
-    dialog.set_copyright("Copyright © 2009-2023\n"
+    dialog.set_copyright("Copyright © 2009-2024\n"
                          "Giuseppe Penone <giuspen@gmail.com>\n"
                          "Evgenii Gurianov <https://github.com/txe>");
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));

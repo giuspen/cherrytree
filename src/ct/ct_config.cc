@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -373,7 +373,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "systray", systrayOn);
     _uKeyFile->set_boolean(_currentGroup, "start_on_systray", startOnSystray);
     _uKeyFile->set_boolean(_currentGroup, "autosave_on", autosaveOn);
-    _uKeyFile->set_integer(_currentGroup, "autosave_val", autosaveVal);
+    _uKeyFile->set_integer(_currentGroup, "autosave_val", autosaveMinutes);
     _uKeyFile->set_boolean(_currentGroup, "bookm_top_menu", bookmarksInTopMenu);
     _uKeyFile->set_boolean(_currentGroup, "tree_tooltips", treeTooltips);
     _uKeyFile->set_boolean(_currentGroup, "menus_tooltips", menusTooltips);
@@ -696,7 +696,7 @@ void CtConfig::_populate_data_from_keyfile()
         startOnSystray = false;
     }
     _populate_bool_from_keyfile("autosave_on", &autosaveOn);
-    _populate_int_from_keyfile("autosave_val", &autosaveVal);
+    _populate_int_from_keyfile("autosave_val", &autosaveMinutes);
     _populate_bool_from_keyfile("bookm_top_menu", &bookmarksInTopMenu);
     _populate_bool_from_keyfile("tree_tooltips", &treeTooltips);
     _populate_bool_from_keyfile("menus_tooltips", &menusTooltips);
