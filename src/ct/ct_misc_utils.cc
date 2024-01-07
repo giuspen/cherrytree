@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -956,14 +956,14 @@ guint32 CtRgbUtil::get_rgb24int_from_str_any(const char* rgbStrAny)
     return get_rgb24int_from_rgb24str(rgb24Str);
 }
 
-std::string CtRgbUtil::rgb_to_string(Gdk::RGBA color)
+std::string CtRgbUtil::rgb_to_string(const Gdk::RGBA& color)
 {
     char rgbStrOut[16];
     sprintf(rgbStrOut, "#%.4x%.4x%.4x", color.get_red_u(), color.get_green_u(), color.get_blue_u());
     return rgbStrOut;
 }
 
-std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
+std::string CtRgbUtil::rgb_any_to_24(const Gdk::RGBA& color)
 {
     char rgb24StrOut[16];
     set_rgb24str_from_str_any(CtRgbUtil::rgb_to_string(color).c_str(), rgb24StrOut);

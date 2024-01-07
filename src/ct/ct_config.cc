@@ -228,9 +228,9 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "nodes_on_node_name_header", nodesOnNodeNameHeader);
     _uKeyFile->set_integer(_currentGroup, "max_matches_in_page", maxMatchesInPage);
     _uKeyFile->set_integer(_currentGroup, "toolbar_icon_size", toolbarIconSize);
-    if (not currColors['f'].empty()) _uKeyFile->set_string(_currentGroup, "fg", currColors['f']);
-    if (not currColors['b'].empty()) _uKeyFile->set_string(_currentGroup, "bg", currColors['b']);
-    if (not currColors['n'].empty()) _uKeyFile->set_string(_currentGroup, "nn", currColors['n']);
+    if (not currColour_fg.empty()) _uKeyFile->set_string(_currentGroup, "fg", currColour_fg);
+    if (not currColour_bg.empty()) _uKeyFile->set_string(_currentGroup, "bg", currColour_bg);
+    if (not currColour_nn.empty()) _uKeyFile->set_string(_currentGroup, "nn", currColour_nn);
 
     // [tree]
     _currentGroup = "tree";
@@ -489,9 +489,9 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);
     _populate_int_from_keyfile("max_matches_in_page", &maxMatchesInPage);
     _populate_int_from_keyfile("toolbar_icon_size", &toolbarIconSize);
-    _populate_string_from_keyfile("fg", &currColors['f']);
-    _populate_string_from_keyfile("bg", &currColors['b']);
-    _populate_string_from_keyfile("nn", &currColors['n']);
+    _populate_string_from_keyfile("fg", &currColour_fg);
+    _populate_string_from_keyfile("bg", &currColour_bg);
+    _populate_string_from_keyfile("nn", &currColour_nn);
 
     // [tree]
     _currentGroup = "tree";

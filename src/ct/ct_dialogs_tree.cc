@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_tree.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -52,7 +52,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
 
     Gtk::CheckButton fg_checkbutton{_("Use Selected Color")};
     fg_checkbutton.set_active(not nodeData.foregroundRgb24.empty());
-    Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtConfig->currColors.at('n').empty() ? pCtConfig->currColors.at('n').c_str() : "red");
+    Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtConfig->currColour_nn.empty() ? pCtConfig->currColour_nn.c_str() : "red");
     Gtk::ColorButton fg_colorbutton{Gdk::RGBA{real_fg}};
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
 
@@ -197,9 +197,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         fg_colorbutton.set_sensitive(fg_checkbutton.get_active());
     });
     fg_colorbutton.signal_pressed().connect([&pCtMainWin, &fg_colorbutton](){
-        Gdk::RGBA ret_color = fg_colorbutton.get_rgba();
-        if (CtDialogs::color_pick_dialog(pCtMainWin, _("Pick a Color"), ret_color, false) == CtPickDlgState::SELECTED) {
-            fg_colorbutton.set_rgba(ret_color);
+        Glib::ustring ret_colour = fg_colorbutton.get_rgba().to_string();
+        if (CtDialogs::colour_pick_dialog(pCtMainWin, _("Pick a Color"), ret_colour, false) == CtPickDlgState::SELECTED) {
+            fg_colorbutton.set_rgba(Gdk::RGBA(ret_colour));
         }
     });
     c_icon_checkbutton.signal_toggled().connect([&c_icon_checkbutton, &c_icon_button, &nodeData, &currCustomIconId](){
@@ -285,7 +285,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     nodeData.isBold = is_bold_checkbutton.get_active();
     if (fg_checkbutton.get_active()) {
         nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton.get_color().to_string());
-        pCtConfig->currColors['n'] = nodeData.foregroundRgb24;
+        pCtConfig->currColour_nn = nodeData.foregroundRgb24;
     }
     else {
         nodeData.foregroundRgb24.clear();

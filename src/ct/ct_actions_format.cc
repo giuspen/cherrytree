@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -365,19 +365,17 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             property_value = _links_entries_post_dialog(_link_entry);
         }
         else {
-            gchar color_for = tag_property[0] == 'f' ? 'f' : 'b';
-            Gdk::RGBA ret_color = Gdk::RGBA(_pCtConfig->currColors.at(color_for));
-            Glib::ustring title = tag_property[0] == 'f' ? _("Pick a Foreground Color") : _("Pick a Background Color");
-            auto res = CtDialogs::color_pick_dialog(_pCtMainWin, title, ret_color, true);
+            Glib::ustring& ret_colour = 'f' == tag_property[0] ? _pCtConfig->currColour_fg : _pCtConfig->currColour_bg;
+            const Glib::ustring title = 'f' == tag_property[0] ? _("Pick a Foreground Color") : _("Pick a Background Color");
+            const CtDialogs::CtPickDlgState res = CtDialogs::colour_pick_dialog(_pCtMainWin, title, ret_colour, true/*allow_remove_colour*/);
             if (res == CtDialogs::CtPickDlgState::CANCEL) {
                 return;
             }
-            else if (res == CtDialogs::CtPickDlgState::REMOVE_COLOR) {
+            if (res == CtDialogs::CtPickDlgState::REMOVE_COLOR) {
                 property_value = "-"; // don't use empty because `apply prev tag` command brings a color dialog again
             }
             else {
-                _pCtConfig->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
-                property_value = CtRgbUtil::rgb_to_string(ret_color);
+                property_value = ret_colour;
             }
         }
     }

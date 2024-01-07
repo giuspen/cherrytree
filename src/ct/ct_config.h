@@ -83,7 +83,9 @@ public:
     int                                         nodesOnNodeNameHeader{3};
     int                                         maxMatchesInPage{500};
     int                                         toolbarIconSize{1};
-    std::unordered_map<gchar, std::string>      currColors{{'f', ""}, {'b', ""}, {'n', ""}};
+    Glib::ustring                               currColour_fg;
+    Glib::ustring                               currColour_bg;
+    Glib::ustring                               currColour_nn;
 
     // [tree]
     CtRestoreExpColl                            restoreExpColl{CtRestoreExpColl::FROM_STR};

@@ -183,9 +183,9 @@ void CtActions::preferences_import()
     _pCtConfig->nodesOnNodeNameHeader = ctConfigImported.nodesOnNodeNameHeader;
     _pCtConfig->maxMatchesInPage = ctConfigImported.maxMatchesInPage;
     _pCtConfig->toolbarIconSize = ctConfigImported.toolbarIconSize;
-    _pCtConfig->currColors['f'] = ctConfigImported.currColors['f'];
-    _pCtConfig->currColors['b'] = ctConfigImported.currColors['b'];
-    _pCtConfig->currColors['n'] = ctConfigImported.currColors['n'];
+    _pCtConfig->currColour_fg = ctConfigImported.currColour_fg;
+    _pCtConfig->currColour_bg = ctConfigImported.currColour_bg;
+    _pCtConfig->currColour_nn = ctConfigImported.currColour_nn;
     _pCtConfig->restoreExpColl = ctConfigImported.restoreExpColl;
     _pCtConfig->nodesBookmExp = ctConfigImported.nodesBookmExp;
     _pCtConfig->nodesIcons = ctConfigImported.nodesIcons;

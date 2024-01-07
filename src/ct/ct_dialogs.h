@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -168,8 +168,8 @@ CtExporting selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
 
 // Dialog to select a color, featuring a palette
 enum class CtPickDlgState {SELECTED, CANCEL, REMOVE_COLOR };
-CtPickDlgState color_pick_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title,
-                                 Gdk::RGBA& color, bool allow_remove_color);
+CtPickDlgState colour_pick_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title,
+                                  Glib::ustring& colour, bool allow_remove_colour);
 
 // The Question dialog, returns True if the user presses OK
 bool question_dialog(const Glib::ustring& message,
