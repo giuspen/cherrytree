@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ With some problems like comments and hashtags, if solved, please mail the author
+
+ Author: Marcelo M Bovo marbovo@gmail.com
+ Copyright (C) 2017 Marcelo M Bovo <marbovo@gmail.com>
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+
+ You should have received a copy of the GNU Library General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+
+-->
+<language id="abap" _name="Abap" version="2.0" _section="Sources">
+  <metadata>
+    <property name="mimetypes">text/x-abap</property>
+    <property name="globs">*.abap</property>
+    <property name="line-comment-start">*</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="regex" _name="Regular Expression" map-to="def:string"/>
+    <style id="namespace" _name="Namespace" map-to="def:preprocessor"/>
+    <style id="type" _name="Data Type" map-to="def:type"/>
+    <style id="definition" _name="Definition" map-to="def:keyword"/>
+    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
+    <style id="special-variable"     _name="Special Variable"      map-to="def:identifier"/>
+    <style id="null-value" _name="Null Value" map-to="def:special-constant"/>
+    <style id="boolean" _name="Boolean" map-to="def:boolean"/>
+    <style id="number" _name="Number" map-to="def:number"/>
+    <style id="builtin" _name="Builtin Function" map-to="def:builtin"/>
+  </styles>
+
+   <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+
+
+    <context id="c-style-line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>"</start>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="type" end-at-line-end="true" class="type" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="special-variables" style-ref="special-variable">
+<keyword>abs</keyword>
+<keyword>acos</keyword>
+<keyword>add</keyword>
+<keyword>add-corresponding</keyword>
+<keyword>adjacent</keyword>
+<keyword>after</keyword>
+<keyword>aliases</keyword>
+<keyword>all</keyword>
+<keyword>alpha</keyword>
+<keyword>analyzer</keyword>
+<keyword>and</keyword>
+<keyword>any</keyword>
+<keyword>append</keyword>
+<keyword>as</keyword>
+<keyword>ascending</keyword>
+<keyword>asin</keyword>
+<keyword>assign</keyword>
+<keyword>assigned</keyword>
+<keyword>assigning</keyword>
+<keyword>at</keyword>
+<keyword>atan</keyword>
+<keyword>authority-check</keyword>
+<keyword>avg</keyword>
+<keyword>back</keyword>
+<keyword>base</keyword>
+<keyword>before</keyword>
+<keyword>begin</keyword>
+<keyword>between</keyword>
+<keyword>binary</keyword>
+<keyword>bit</keyword>
+<keyword>bit-and</keyword>
+<keyword>bit-not</keyword>
+<keyword>bit-or</keyword>
+<keyword>bit-xor</keyword>
+<keyword>blank</keyword>
+<keyword>block</keyword>
+<keyword>break-point</keyword>
+<keyword>buffer</keyword>
+<keyword>by</keyword>
+<keyword>ca</keyword>
+<keyword>call</keyword>
+<keyword>case</keyword>
+<keyword>catch</keyword>
+<keyword>ceil</keyword>
+<keyword>centered</keyword>
+<keyword>chain</keyword>
+<keyword>change</keyword>
+<keyword>changing</keyword>
+<keyword>check</keyword>
+<keyword>checkbox</keyword>
+<keyword>class</keyword>
+<keyword>class-data</keyword>
+<keyword>class-events</keyword>
+<keyword>class-methods</keyword>
+<keyword>class-pool</keyword>
+<keyword>clear</keyword>
+<keyword>client</keyword>
+<keyword>close</keyword>
+<keyword>cn</keyword>
+<keyword>cnt</keyword>
+<keyword>co</keyword>
+<keyword>code</keyword>
+<keyword>col_background</keyword>
+<keyword>col_group</keyword>
+<keyword>col_heading</keyword>
+<keyword>col_key</keyword>
+<keyword>col_negative</keyword>
+<keyword>col_normal</keyword>
+<keyword>col_positive</keyword>
+<keyword>col_total</keyword>
+<keyword>collect</keyword>
+<keyword>color</keyword>
+<keyword>comment</keyword>
+<keyword>commit</keyword>
+<keyword>communication</keyword>
+<keyword>component</keyword>
+<keyword>compute</keyword>
+<keyword>concatenate</keyword>
+<keyword>cond</keyword>
+<keyword>condense</keyword>
+<keyword>constants</keyword>
+<keyword>context</keyword>
+<keyword>contexts</keyword>
+<keyword>continue</keyword>
+<keyword>control</keyword>
+<keyword>controls</keyword>
+<keyword>convert</keyword>
+<keyword>copy</keyword>
+<keyword>corresponding</keyword>
+<keyword>cos</keyword>
+<keyword>cosh</keyword>
+<keyword>count</keyword>
+<keyword>country</keyword>
+<keyword>cp</keyword>
+<keyword>create</keyword>
+<keyword>cs</keyword>
+<keyword>currency</keyword>
+<keyword>cursor</keyword>
+<keyword>customer-function</keyword>
+<keyword>data</keyword>
+<keyword>database</keyword>
+<keyword>dataset</keyword>
+<keyword>decimals</keyword>
+<keyword>default</keyword>
+<keyword>define</keyword>
+<keyword>delete</keyword>
+<keyword>demand</keyword>
+<keyword>descending</keyword>
+<keyword>describe</keyword>
+<keyword>dialog</keyword>
+<keyword>distinct</keyword>
+<keyword>div</keyword>
+<keyword>divide</keyword>
+<keyword>divide-corresponding</keyword>
+<keyword>do</keyword>
+<keyword>duplicates</keyword>
+<keyword>dynpro</keyword>
+<keyword>edit</keyword>
+<keyword>editor-call</keyword>
+<keyword>else</keyword>
+<keyword>elseif</keyword>
+<keyword>endat</keyword>
+<keyword>endcase</keyword>
+<keyword>endcatch</keyword>
+<keyword>endchain</keyword>
+<keyword>endclass</keyword>
+<keyword>enddo</keyword>
+<keyword>endexec</keyword>
+<keyword>endform</keyword>
+<keyword>endfunction</keyword>
+<keyword>endif</keyword>
+<keyword>endinterface</keyword>
+<keyword>endloop</keyword>
+<keyword>endmethod</keyword>
+<keyword>endmodule</keyword>
+<keyword>endtry</keyword>
+<keyword>end-of-definition</keyword>
+<keyword>end-of-page</keyword>
+<keyword>end-of-selection</keyword>
+<keyword>endon</keyword>
+<keyword>endprovide</keyword>
+<keyword>endselect</keyword>
+<keyword>endwhile</keyword>
+<keyword>entries</keyword>
+<keyword>eq</keyword>
+<keyword>events</keyword>
+<keyword>exceptions</keyword>
+<keyword>exec</keyword>
+<keyword>exit</keyword>
+<keyword>exit-command</keyword>
+<keyword>exp</keyword>
+<keyword>exponent</keyword>
+<keyword>export</keyword>
+<keyword>exporting</keyword>
+<keyword>extended</keyword>
+<keyword>extract</keyword>
+<keyword>fetch</keyword>
+<keyword>field</keyword>
+<keyword>field-groups</keyword>
+<keyword>fields</keyword>
+<keyword>field-symbols</keyword>
+<keyword>first</keyword>
+<keyword>floor</keyword>
+<keyword>for</keyword>
+<keyword>form</keyword>
+<keyword>format</keyword>
+<keyword>frac</keyword>
+<keyword>frame</keyword>
+<keyword>free</keyword>
+<keyword>from</keyword>
+<keyword>function</keyword>
+<keyword>function-pool</keyword>
+<keyword>ge</keyword>
+<keyword>generate</keyword>
+<keyword>get</keyword>
+<keyword>group</keyword>
+<keyword>gt</keyword>
+<keyword>hashed</keyword>
+<keyword>header</keyword>
+<keyword>help-id</keyword>
+<keyword>help-request</keyword>
+<keyword>hide</keyword>
+<keyword>hotspot</keyword>
+<keyword>icon</keyword>
+<keyword>id</keyword>
+<keyword>if</keyword>
+<keyword>import</keyword>
+<keyword>importing</keyword>
+<keyword>in</keyword>
+<keyword>include</keyword>
+<keyword>index</keyword>
+<keyword>infotypes</keyword>
+<keyword>init</keyword>
+<keyword>initial</keyword>
+<keyword>initialization</keyword>
+<keyword>inner</keyword>
+<keyword>input</keyword>
+<keyword>insert</keyword>
+<keyword>intensified</keyword>
+<keyword>interface</keyword>
+<keyword>interface-pool</keyword>
+<keyword>interfaces</keyword>
+<keyword>into</keyword>
+<keyword>inverse</keyword>
+<keyword>is</keyword>
+<keyword>join</keyword>
+<keyword>key</keyword>
+<keyword>language</keyword>
+<keyword>last</keyword>
+<keyword>le</keyword>
+<keyword>leave</keyword>
+<keyword>left</keyword>
+<keyword>left-justified</keyword>
+<keyword>let</keyword>
+<keyword>like</keyword>
+<keyword>line</keyword>
+<keyword>line_exists</keyword>
+<keyword>line-count</keyword>
+<keyword>lines</keyword>
+<keyword>line-selection</keyword>
+<keyword>line-size</keyword>
+<keyword>list-processing</keyword>
+<keyword>load</keyword>
+<keyword>load-of-program</keyword>
+<keyword>local</keyword>
+<keyword>locale</keyword>
+<keyword>log</keyword>
+<keyword>log10</keyword>
+<keyword>loop</keyword>
+<keyword>lt</keyword>
+<keyword>margin</keyword>
+<keyword>mask</keyword>
+<keyword>matchcode</keyword>
+<keyword>max</keyword>
+<keyword>memory</keyword>
+<keyword>message</keyword>
+<keyword>message-id</keyword>
+<keyword>messages</keyword>
+<keyword>method</keyword>
+<keyword>methods</keyword>
+<keyword>min</keyword>
+<keyword>mod</keyword>
+<keyword>mode</keyword>
+<keyword>modif</keyword>
+<keyword>modify</keyword>
+<keyword>module</keyword>
+<keyword>move</keyword>
+<keyword>move-corresponding</keyword>
+<keyword>multiply</keyword>
+<keyword>multiply-corresponding</keyword>
+<keyword>na</keyword>
+<keyword>ne</keyword>
+<keyword>new</keyword>
+<keyword>new-line</keyword>
+<keyword>new-page</keyword>
+<keyword>next</keyword>
+<keyword>no</keyword>
+<keyword>nodes</keyword>
+<keyword>no-gap</keyword>
+<keyword>no-gaps</keyword>
+<keyword>no-heading</keyword>
+<keyword>non-unique</keyword>
+<keyword>no-scrolling</keyword>
+<keyword>no-sign</keyword>
+<keyword>not</keyword>
+<keyword>no-title</keyword>
+<keyword>no-zero</keyword>
+<keyword>np</keyword>
+<keyword>ns</keyword>
+<keyword>object</keyword>
+<keyword>obligatory</keyword>
+<keyword>occurs</keyword>
+<keyword>of</keyword>
+<keyword>off</keyword>
+<keyword>on</keyword>
+<keyword>open</keyword>
+<keyword>optional</keyword>
+<keyword>or</keyword>
+<keyword>order</keyword>
+<keyword>others</keyword>
+<keyword>outer</keyword>
+<keyword>output</keyword>
+<keyword>overlay</keyword>
+<keyword>pack</keyword>
+<keyword>page</keyword>
+<keyword>parameter</keyword>
+<keyword>parameters</keyword>
+<keyword>perform</keyword>
+<keyword>pf-status</keyword>
+<keyword>position</keyword>
+<keyword>print</keyword>
+<keyword>print-control</keyword>
+<keyword>private</keyword>
+<keyword>process</keyword>
+<keyword>program</keyword>
+<keyword>property</keyword>
+<keyword>protected</keyword>
+<keyword>provide</keyword>
+<keyword>public</keyword>
+<keyword>put</keyword>
+<keyword>radiobutton</keyword>
+<keyword>raise</keyword>
+<keyword>raising</keyword>
+<keyword>range</keyword>
+<keyword>ranges</keyword>
+<keyword>read</keyword>
+<keyword>receive</keyword>
+<keyword>receiving</keyword>
+<keyword>reduce</keyword>
+<keyword>ref</keyword>
+<keyword>refresh</keyword>
+<keyword>reject</keyword>
+<keyword>replace</keyword>
+<keyword>report</keyword>
+<keyword>requested</keyword>
+<keyword>reserve</keyword>
+<keyword>reset</keyword>
+<keyword>return</keyword>
+<keyword>right-justified</keyword>
+<keyword>rollback</keyword>
+<keyword>round</keyword>
+<keyword>rows</keyword>
+<keyword>rtti</keyword>
+<keyword>run</keyword>
+<keyword>scan</keyword>
+<keyword>screen-active</keyword>
+<keyword>screen-group1</keyword>
+<keyword>screen-group2</keyword>
+<keyword>screen-group3</keyword>
+<keyword>screen-group4</keyword>
+<keyword>screen-input</keyword>
+<keyword>screen-intensified</keyword>
+<keyword>screen-invisible</keyword>
+<keyword>screen-length</keyword>
+<keyword>screen-name</keyword>
+<keyword>screen-output</keyword>
+<keyword>screen-required</keyword>
+<keyword>scroll</keyword>
+<keyword>scroll-boundary</keyword>
+<keyword>search</keyword>
+<keyword>select</keyword>
+<keyword>selection-screen</keyword>
+<keyword>selection-table</keyword>
+<keyword>select-options</keyword>
+<keyword>options</keyword>
+<keyword>separated</keyword>
+<keyword>set</keyword>
+<keyword>shared</keyword>
+<keyword>shift</keyword>
+<keyword>sign</keyword>
+<keyword>sin</keyword>
+<keyword>single</keyword>
+<keyword>sinh</keyword>
+<keyword>size</keyword>
+<keyword>skip</keyword>
+<keyword>sort</keyword>
+<keyword>sorted</keyword>
+<keyword>split</keyword>
+<keyword>sql</keyword>
+<keyword>sqrt</keyword>
+<keyword>stamp</keyword>
+<keyword>standard</keyword>
+<keyword>start-of-selection</keyword>
+<keyword>statics</keyword>
+<keyword>stop</keyword>
+<keyword>string</keyword>
+<keyword>strlen</keyword>
+<keyword>structure</keyword>
+<keyword>submit</keyword>
+<keyword>subtract</keyword>
+<keyword>subtract-corresponding</keyword>
+<keyword>sum</keyword>
+<keyword>supply</keyword>
+<keyword>suppress</keyword>
+<keyword>symbol</keyword>
+<keyword>syntax-check</keyword>
+<keyword>syntax-trace</keyword>
+<keyword>system-call</keyword>
+<keyword>system-exceptions</keyword>
+<keyword>table_line</keyword>
+<keyword>table</keyword>
+<keyword>tables</keyword>
+<keyword>tan</keyword>
+<keyword>tanh</keyword>
+<keyword>text</keyword>
+<keyword>textpool</keyword>
+<keyword>then</keyword>
+<keyword>time</keyword>
+<keyword>times</keyword>
+<keyword>title</keyword>
+<keyword>titlebar</keyword>
+<keyword>to</keyword>
+<keyword>top-of-page</keyword>
+<keyword>transaction</keyword>
+<keyword>transfer</keyword>
+<keyword>translate</keyword>
+<keyword>transporting</keyword>
+<keyword>trunc</keyword>
+<keyword>try</keyword>
+<keyword>type</keyword>
+<keyword>type-pool</keyword>
+<keyword>type-pools</keyword>
+<keyword>types</keyword>
+<keyword>uline</keyword>
+<keyword>under</keyword>
+<keyword>unique</keyword>
+<keyword>unit</keyword>
+<keyword>unpack</keyword>
+<keyword>up</keyword>
+<keyword>update</keyword>
+<keyword>user-command</keyword>
+<keyword>using</keyword>
+<keyword>value</keyword>
+<keyword>value-request</keyword>
+<keyword>values</keyword>
+<keyword>vary</keyword>
+<keyword>when</keyword>
+<keyword>where</keyword>
+<keyword>while</keyword>
+<keyword>window</keyword>
+<keyword>with</keyword>
+<keyword>with-title</keyword>
+<keyword>work</keyword>
+<keyword>write</keyword>
+<keyword>xstring</keyword>
+<keyword>zone</keyword>
+    </context>
+
+    <context id="builtin" style-ref="builtin">
+<keyword>sy-abcde</keyword>
+<keyword>sy-appli</keyword>
+<keyword>sy-batch</keyword>
+<keyword>sy-batzd</keyword>
+<keyword>sy-batzm</keyword>
+<keyword>sy-batzo</keyword>
+<keyword>sy-batzs</keyword>
+<keyword>sy-batzw</keyword>
+<keyword>sy-binpt</keyword>
+<keyword>sy-brep4</keyword>
+<keyword>sy-bspld</keyword>
+<keyword>sy-calld</keyword>
+<keyword>sy-callr</keyword>
+<keyword>sy-ccurs</keyword>
+<keyword>sy-ccurt</keyword>
+<keyword>sy-cdate</keyword>
+<keyword>sy-cfwae</keyword>
+<keyword>sy-chwae</keyword>
+<keyword>sy-colno</keyword>
+<keyword>sy-cpage</keyword>
+<keyword>sy-cprog</keyword>
+<keyword>sy-ctabl</keyword>
+<keyword>sy-ctype</keyword>
+<keyword>sy-cucol</keyword>
+<keyword>sy-curow</keyword>
+<keyword>sy-datar</keyword>
+<keyword>sy-datlo</keyword>
+<keyword>sy-datum</keyword>
+<keyword>sy-dayst</keyword>
+<keyword>sy-dbcnt</keyword>
+<keyword>sy-dbnam</keyword>
+<keyword>sy-dbsys</keyword>
+<keyword>sy-dcsys</keyword>
+<keyword>sy-debug</keyword>
+<keyword>sy-dsnam</keyword>
+<keyword>sy-dyngr</keyword>
+<keyword>sy-dynnr</keyword>
+<keyword>sy-entry</keyword>
+<keyword>sy-fdayw</keyword>
+<keyword>sy-fdpos</keyword>
+<keyword>sy-ffile</keyword>
+<keyword>sy-fleng</keyword>
+<keyword>sy-fmkey</keyword>
+<keyword>sy-fodec</keyword>
+<keyword>sy-folen</keyword>
+<keyword>sy-ftype</keyword>
+<keyword>sy-group</keyword>
+<keyword>sy-host</keyword>
+<keyword>sy-index</keyword>
+<keyword>sy-input</keyword>
+<keyword>sy-langu</keyword>
+<keyword>sy-ldbpg</keyword>
+<keyword>sy-lilli</keyword>
+<keyword>sy-linct</keyword>
+<keyword>sy-linno</keyword>
+<keyword>sy-linsz</keyword>
+<keyword>sy-lisel</keyword>
+<keyword>sy-listi</keyword>
+<keyword>sy-locdb</keyword>
+<keyword>sy-locop</keyword>
+<keyword>sy-loopc</keyword>
+<keyword>sy-lpass</keyword>
+<keyword>sy-lsind</keyword>
+<keyword>sy-lstat</keyword>
+<keyword>sy-macdb</keyword>
+<keyword>sy-macol</keyword>
+<keyword>sy-mandt</keyword>
+<keyword>sy-marky</keyword>
+<keyword>sy-marow</keyword>
+<keyword>sy-modno</keyword>
+<keyword>sy-msgid</keyword>
+<keyword>sy-msgli</keyword>
+<keyword>sy-msgno</keyword>
+<keyword>sy-msgty</keyword>
+<keyword>sy-msgv1</keyword>
+<keyword>sy-msgv2</keyword>
+<keyword>sy-msgv3</keyword>
+<keyword>sy-msgv4</keyword>
+<keyword>sy-newpa</keyword>
+<keyword>sy-nrpag</keyword>
+<keyword>sy-oncom</keyword>
+<keyword>sy-opsys</keyword>
+<keyword>sy-paart</keyword>
+<keyword>sy-pagct</keyword>
+<keyword>sy-pagno</keyword>
+<keyword>sy-pauth</keyword>
+<keyword>sy-pdest</keyword>
+<keyword>sy-pexpi</keyword>
+<keyword>sy-pfkey</keyword>
+<keyword>sy-playo</keyword>
+<keyword>sy-playp</keyword>
+<keyword>sy-plist</keyword>
+<keyword>sy-pnwpa</keyword>
+<keyword>sy-prabt</keyword>
+<keyword>sy-prbig</keyword>
+<keyword>sy-prcop</keyword>
+<keyword>sy-prdsn</keyword>
+<keyword>sy-prefx</keyword>
+<keyword>sy-pri40</keyword>
+<keyword>sy-primm</keyword>
+<keyword>sy-prini</keyword>
+<keyword>sy-prlog</keyword>
+<keyword>sy-prnew</keyword>
+<keyword>sy-prrec</keyword>
+<keyword>sy-prrel</keyword>
+<keyword>sy-prtxt</keyword>
+<keyword>sy-repi2</keyword>
+<keyword>sy-repid</keyword>
+<keyword>sy-rstrt</keyword>
+<keyword>sy-rtitl</keyword>
+<keyword>sy-saprl</keyword>
+<keyword>sy-scols</keyword>
+<keyword>sy-sfnam</keyword>
+<keyword>sy-sfoff</keyword>
+<keyword>sy-slset</keyword>
+<keyword>sy-spono</keyword>
+<keyword>sy-sponr</keyword>
+<keyword>sy-srows</keyword>
+<keyword>syst-abcde</keyword>
+<keyword>sy-staco</keyword>
+<keyword>syst-appli</keyword>
+<keyword>sy-staro</keyword>
+<keyword>syst-batch</keyword>
+<keyword>syst-batzd</keyword>
+<keyword>syst-batzm</keyword>
+<keyword>syst-batzo</keyword>
+<keyword>syst-batzs</keyword>
+<keyword>syst-batzw</keyword>
+<keyword>syst-binpt</keyword>
+<keyword>syst-brep4</keyword>
+<keyword>syst-bspld</keyword>
+<keyword>syst-calld</keyword>
+<keyword>syst-callr</keyword>
+<keyword>syst-ccurs</keyword>
+<keyword>syst-ccurt</keyword>
+<keyword>syst-cdate</keyword>
+<keyword>syst-cfwae</keyword>
+<keyword>syst-chwae</keyword>
+<keyword>syst-colno</keyword>
+<keyword>syst-cpage</keyword>
+<keyword>syst-cprog</keyword>
+<keyword>syst-ctabl</keyword>
+<keyword>syst-ctype</keyword>
+<keyword>syst-cucol</keyword>
+<keyword>syst-curow</keyword>
+<keyword>syst-datar</keyword>
+<keyword>syst-datlo</keyword>
+<keyword>syst-datum</keyword>
+<keyword>syst-dayst</keyword>
+<keyword>syst-dbcnt</keyword>
+<keyword>syst-dbnam</keyword>
+<keyword>syst-dbsys</keyword>
+<keyword>syst-dcsys</keyword>
+<keyword>syst-debug</keyword>
+<keyword>syst-dsnam</keyword>
+<keyword>syst-dyngr</keyword>
+<keyword>syst-dynnr</keyword>
+<keyword>syst-entry</keyword>
+<keyword>sy-stepl</keyword>
+<keyword>syst-fdayw</keyword>
+<keyword>syst-fdpos</keyword>
+<keyword>syst-ffile</keyword>
+<keyword>syst-fleng</keyword>
+<keyword>syst-fmkey</keyword>
+<keyword>syst-fodec</keyword>
+<keyword>syst-folen</keyword>
+<keyword>syst-ftype</keyword>
+<keyword>syst-group</keyword>
+<keyword>syst-host</keyword>
+<keyword>syst-index</keyword>
+<keyword>syst-input</keyword>
+<keyword>syst-langu</keyword>
+<keyword>syst-ldbpg</keyword>
+<keyword>syst-lilli</keyword>
+<keyword>syst-linct</keyword>
+<keyword>syst-linno</keyword>
+<keyword>syst-linsz</keyword>
+<keyword>syst-lisel</keyword>
+<keyword>syst-listi</keyword>
+<keyword>syst-locdb</keyword>
+<keyword>syst-locop</keyword>
+<keyword>syst-loopc</keyword>
+<keyword>syst-lpass</keyword>
+<keyword>syst-lsind</keyword>
+<keyword>syst-lstat</keyword>
+<keyword>syst-macdb</keyword>
+<keyword>syst-macol</keyword>
+<keyword>syst-mandt</keyword>
+<keyword>syst-marky</keyword>
+<keyword>syst-marow</keyword>
+<keyword>syst-modno</keyword>
+<keyword>syst-msgid</keyword>
+<keyword>syst-msgli</keyword>
+<keyword>syst-msgno</keyword>
+<keyword>syst-msgty</keyword>
+<keyword>syst-msgv1</keyword>
+<keyword>syst-msgv2</keyword>
+<keyword>syst-msgv3</keyword>
+<keyword>syst-msgv4</keyword>
+<keyword>syst-newpa</keyword>
+<keyword>syst-nrpag</keyword>
+<keyword>syst-oncom</keyword>
+<keyword>syst-opsys</keyword>
+<keyword>syst-paart</keyword>
+<keyword>syst-pagct</keyword>
+<keyword>syst-pagno</keyword>
+<keyword>syst-pauth</keyword>
+<keyword>syst-pdest</keyword>
+<keyword>syst-pexpi</keyword>
+<keyword>syst-pfkey</keyword>
+<keyword>syst-playo</keyword>
+<keyword>syst-playp</keyword>
+<keyword>syst-plist</keyword>
+<keyword>syst-pnwpa</keyword>
+<keyword>syst-prabt</keyword>
+<keyword>syst-prbig</keyword>
+<keyword>syst-prcop</keyword>
+<keyword>syst-prdsn</keyword>
+<keyword>syst-prefx</keyword>
+<keyword>syst-pri40</keyword>
+<keyword>syst-primm</keyword>
+<keyword>syst-prini</keyword>
+<keyword>syst-prlog</keyword>
+<keyword>syst-prnew</keyword>
+<keyword>syst-prrec</keyword>
+<keyword>syst-prrel</keyword>
+<keyword>syst-prtxt</keyword>
+<keyword>syst-repi2</keyword>
+<keyword>syst-repid</keyword>
+<keyword>syst-rstrt</keyword>
+<keyword>syst-rtitl</keyword>
+<keyword>syst-saprl</keyword>
+<keyword>syst-scols</keyword>
+<keyword>syst-sfnam</keyword>
+<keyword>syst-sfoff</keyword>
+<keyword>syst-slset</keyword>
+<keyword>syst-spono</keyword>
+<keyword>syst-sponr</keyword>
+<keyword>syst-srows</keyword>
+<keyword>syst-staco</keyword>
+<keyword>syst-staro</keyword>
+<keyword>syst-stepl</keyword>
+<keyword>syst-subcs</keyword>
+<keyword>syst-subrc</keyword>
+<keyword>syst-subty</keyword>
+<keyword>syst-sysid</keyword>
+<keyword>syst-tabid</keyword>
+<keyword>syst-tabix</keyword>
+<keyword>syst-tcode</keyword>
+<keyword>syst-tfdsn</keyword>
+<keyword>syst-tfill</keyword>
+<keyword>syst-timlo</keyword>
+<keyword>syst-title</keyword>
+<keyword>syst-tleng</keyword>
+<keyword>syst-tlopc</keyword>
+<keyword>syst-tmaxl</keyword>
+<keyword>syst-tname</keyword>
+<keyword>syst-toccu</keyword>
+<keyword>syst-tpagi</keyword>
+<keyword>syst-tstis</keyword>
+<keyword>syst-ttabc</keyword>
+<keyword>syst-ttabi</keyword>
+<keyword>syst-tvar0</keyword>
+<keyword>syst-tvar1</keyword>
+<keyword>syst-tvar2</keyword>
+<keyword>syst-tvar3</keyword>
+<keyword>syst-tvar4</keyword>
+<keyword>syst-tvar5</keyword>
+<keyword>syst-tvar6</keyword>
+<keyword>syst-tvar7</keyword>
+<keyword>syst-tvar8</keyword>
+<keyword>syst-tvar9</keyword>
+<keyword>syst-tzone</keyword>
+<keyword>syst-ucomm</keyword>
+<keyword>syst-uline</keyword>
+<keyword>syst-uname</keyword>
+<keyword>syst-uzeit</keyword>
+<keyword>syst-vline</keyword>
+<keyword>syst-waers</keyword>
+<keyword>syst-willi</keyword>
+<keyword>syst-winco</keyword>
+<keyword>syst-windi</keyword>
+<keyword>syst-winro</keyword>
+<keyword>syst-winsl</keyword>
+<keyword>syst-winx1</keyword>
+<keyword>syst-winx2</keyword>
+<keyword>syst-winy1</keyword>
+<keyword>syst-winy2</keyword>
+<keyword>syst-wtitl</keyword>
+<keyword>syst-xcode</keyword>
+<keyword>syst-xform</keyword>
+<keyword>syst-xprog</keyword>
+<keyword>syst-zonlo</keyword>
+<keyword>sy-subcs</keyword>
+<keyword>sy-subrc</keyword>
+<keyword>sy-subty</keyword>
+<keyword>sy-sysid</keyword>
+<keyword>sy-tabid</keyword>
+<keyword>sy-tabix</keyword>
+<keyword>sy-tcode</keyword>
+<keyword>sy-tfdsn</keyword>
+<keyword>sy-tfill</keyword>
+<keyword>sy-timlo</keyword>
+<keyword>sy-title</keyword>
+<keyword>sy-tleng</keyword>
+<keyword>sy-tlopc</keyword>
+<keyword>sy-tmaxl</keyword>
+<keyword>sy-tname</keyword>
+<keyword>sy-toccu</keyword>
+<keyword>sy-tpagi</keyword>
+<keyword>sy-tstis</keyword>
+<keyword>sy-ttabc</keyword>
+<keyword>sy-ttabi</keyword>
+<keyword>sy-tvar0</keyword>
+<keyword>sy-tvar1</keyword>
+<keyword>sy-tvar2</keyword>
+<keyword>sy-tvar3</keyword>
+<keyword>sy-tvar4</keyword>
+<keyword>sy-tvar5</keyword>
+<keyword>sy-tvar6</keyword>
+<keyword>sy-tvar7</keyword>
+<keyword>sy-tvar8</keyword>
+<keyword>sy-tvar9</keyword>
+<keyword>sy-tzone</keyword>
+<keyword>sy-ucomm</keyword>
+<keyword>sy-uline</keyword>
+<keyword>sy-uname</keyword>
+<keyword>sy-uzeit</keyword>
+<keyword>sy-vline</keyword>
+<keyword>sy-waers</keyword>
+<keyword>sy-willi</keyword>
+<keyword>sy-winco</keyword>
+<keyword>sy-windi</keyword>
+<keyword>sy-winro</keyword>
+<keyword>sy-winsl</keyword>
+<keyword>sy-winx1</keyword>
+<keyword>sy-winx2</keyword>
+<keyword>sy-winy1</keyword>
+<keyword>sy-winy2</keyword>
+<keyword>sy-wtitl</keyword>
+<keyword>sy-xcode</keyword>
+<keyword>sy-xform</keyword>
+<keyword>sy-xprog</keyword>
+<keyword>sy-zonlo</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>abap_false</keyword>
+      <keyword>abap_true</keyword>
+      <keyword>space</keyword>
+    </context>
+
+    <context id="numbers" style-ref="number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9\.]*(m|ms|d|h|s|f|F|l|L)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="abap" class="no-spell-check">
+      <include>
+        <context ref="def:shell-like-comment" style-ref="comment"/>
+        <context ref="c-style-line-comment"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="special-variables"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="builtin"/>
+        <context ref="numbers"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>
