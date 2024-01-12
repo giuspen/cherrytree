@@ -86,6 +86,7 @@ public:
     Glib::ustring                               currColour_fg;
     Glib::ustring                               currColour_bg;
     Glib::ustring                               currColour_nn;
+    CtColoursUserPalette                        coloursUserPalette;
 
     // [tree]
     CtRestoreExpColl                            restoreExpColl{CtRestoreExpColl::FROM_STR};

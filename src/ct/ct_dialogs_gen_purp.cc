@@ -236,9 +236,27 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
         "#ffffff", "#f6f5f4", "#deddda", "#c0bfbc", "#9a9996", /* Light */
         "#77767b", "#5e5c64", "#3d3846", "#241f31", "#000000"};/* Dark */
     std::vector<Gdk::RGBA> default_colours;
-    for (int i=0; i<45; ++i) { default_colours.push_back(Gdk::RGBA{default_colors[i]}); }
-    dialog.add_palette(Gtk::Orientation::ORIENTATION_VERTICAL, 5, default_colours);
-    dialog.set_rgba(Gdk::RGBA(ret_colour));
+    std::vector<Gdk::RGBA> palette_colours;
+    auto& coloursUserPalette = pCtMainWin->get_ct_config()->coloursUserPalette;
+    size_t column_idx{0u};
+    for (int i = 0; i < 45; ++i) {
+        const Gdk::RGBA curr_colour{default_colors[i]};
+        default_colours.push_back(curr_colour);
+        palette_colours.push_back(curr_colour);
+        if (coloursUserPalette.size() > 0u) {
+            if (4 == i % 5) {
+                if (coloursUserPalette.size() > column_idx) palette_colours.push_back(*coloursUserPalette.at(column_idx));
+                else palette_colours.push_back(Gdk::RGBA{});
+                if (coloursUserPalette.size() > 9u) {
+                    if (coloursUserPalette.size() > (9+column_idx)) palette_colours.push_back(*coloursUserPalette.at(9+column_idx));
+                    else palette_colours.push_back(Gdk::RGBA{});
+                }
+                ++column_idx;
+            }
+        }
+    }
+    dialog.add_palette(Gtk::Orientation::ORIENTATION_VERTICAL, 5 + (coloursUserPalette.size() + 8)/9, palette_colours);
+    dialog.set_rgba(Gdk::RGBA{ret_colour});
 
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
@@ -259,7 +277,11 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
     if (Gtk::RESPONSE_OK != response) {
         return CtPickDlgState::CANCEL;
     }
-    ret_colour = dialog.get_rgba().to_string();
+    const Gdk::RGBA sel_colour = dialog.get_rgba();
+    ret_colour = sel_colour.to_string();
+    if (not vec::exists(default_colours, sel_colour)) {
+        coloursUserPalette.move_or_push_front(sel_colour);
+    }
     return CtPickDlgState::SELECTED;
 }
 

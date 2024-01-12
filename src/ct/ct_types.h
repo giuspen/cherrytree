@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -204,6 +204,29 @@ struct CtScalableTag
 struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
 {
     CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
+};
+
+struct CtColoursUserPalette : public CtMaxSizedList<Gdk::RGBA>
+{
+    CtColoursUserPalette() : CtMaxSizedList<Gdk::RGBA>{18} {}
+    std::string serialise_to_colon_sep() const {
+        std::string outString;
+        bool firstIteration{true};
+        for (const Gdk::RGBA& element : *this) {
+            if (not firstIteration) outString += ":";
+            else firstIteration = false;
+            outString += element.to_string();
+        }
+        return outString;
+    }
+    Gdk::RGBA* at(const int i) {
+        int idx{0};
+        for (Gdk::RGBA& element : *this) {
+            if (i == idx) return &element;
+            ++idx;
+        }
+        return nullptr;
+    }
 };
 
 class CtStringSplittable
