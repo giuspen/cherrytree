@@ -1,7 +1,7 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -566,7 +566,7 @@ std::string CtHtml2Xml::_convert_html_color(const std::string& html_color)
         return ""; // though I think it should explicitly return black/white
 
 
-    return CtRgbUtil::rgb_any_to_24(rgba);
+    return CtRgbUtil::rgb_to_string_24(rgba);
 }
 
 // Insert Image in Buffer

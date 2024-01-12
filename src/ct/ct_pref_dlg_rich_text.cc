@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_rich_text.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -302,7 +302,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         });
         pCheckButton_fgTab->signal_toggled().connect([pCheckButton_fgTab, pColorButton_fgTab, pScalableCfg, pScalableTagId, this](){
             pScalableCfg->foreground = pCheckButton_fgTab->get_active() ?
-                CtRgbUtil::rgb_any_to_24(pColorButton_fgTab->get_rgba()) : "";
+                CtRgbUtil::rgb_to_string_24(pColorButton_fgTab->get_rgba()) : "";
             pColorButton_fgTab->set_sensitive(not pScalableCfg->foreground.empty());
             if (not pScalableCfg->foreground.empty()) {
                 if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
@@ -314,14 +314,14 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
             }
         });
         pColorButton_fgTab->signal_color_set().connect([pColorButton_fgTab, pScalableCfg, pScalableTagId, this](){
-            pScalableCfg->foreground = CtRgbUtil::rgb_any_to_24(pColorButton_fgTab->get_rgba());
+            pScalableCfg->foreground = CtRgbUtil::rgb_to_string_24(pColorButton_fgTab->get_rgba());
             if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
                 _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
             }
         });
         pCheckButton_bgTab->signal_toggled().connect([pCheckButton_bgTab, pColorButton_bgTab, pScalableCfg, pScalableTagId, this](){
             pScalableCfg->background = pCheckButton_bgTab->get_active() ?
-                CtRgbUtil::rgb_any_to_24(pColorButton_bgTab->get_rgba()) : "";
+                CtRgbUtil::rgb_to_string_24(pColorButton_bgTab->get_rgba()) : "";
             pColorButton_bgTab->set_sensitive(not pScalableCfg->background.empty());
             if (not pScalableCfg->background.empty()) {
                 if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
@@ -333,7 +333,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
             }
         });
         pColorButton_bgTab->signal_color_set().connect([pColorButton_bgTab, pScalableCfg, pScalableTagId, this](){
-            pScalableCfg->background = CtRgbUtil::rgb_any_to_24(pColorButton_bgTab->get_rgba());
+            pScalableCfg->background = CtRgbUtil::rgb_to_string_24(pColorButton_bgTab->get_rgba());
             if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
                 _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
             }
@@ -369,7 +369,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
 
     checkbutton_monospace_fg->signal_toggled().connect([this, checkbutton_monospace_fg, colorbutton_monospace_fg](){
         _pConfig->monospaceFg = checkbutton_monospace_fg->get_active() ?
-            CtRgbUtil::rgb_any_to_24(colorbutton_monospace_fg->get_rgba()) : "";
+            CtRgbUtil::rgb_to_string_24(colorbutton_monospace_fg->get_rgba()) : "";
         colorbutton_monospace_fg->set_sensitive(not _pConfig->monospaceFg.empty());
         if (not _pConfig->monospaceFg.empty()) {
             if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
@@ -381,14 +381,14 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         }
     });
     colorbutton_monospace_fg->signal_color_set().connect([this, colorbutton_monospace_fg](){
-        _pConfig->monospaceFg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_fg->get_rgba());
+        _pConfig->monospaceFg = CtRgbUtil::rgb_to_string_24(colorbutton_monospace_fg->get_rgba());
         if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
             tag->property_foreground() = _pConfig->monospaceFg;
         }
     });
     checkbutton_monospace_bg->signal_toggled().connect([this, checkbutton_monospace_bg, colorbutton_monospace_bg](){
         _pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
-            CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba()) : "";
+            CtRgbUtil::rgb_to_string_24(colorbutton_monospace_bg->get_rgba()) : "";
         colorbutton_monospace_bg->set_sensitive(not _pConfig->monospaceBg.empty());
         if (not _pConfig->monospaceBg.empty()) {
             if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
@@ -400,7 +400,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         }
     });
     colorbutton_monospace_bg->signal_color_set().connect([this, colorbutton_monospace_bg](){
-        _pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+        _pConfig->monospaceBg = CtRgbUtil::rgb_to_string_24(colorbutton_monospace_bg->get_rgba());
         if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
             tag->property_background() = _pConfig->monospaceBg;
         }

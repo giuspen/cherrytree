@@ -231,7 +231,16 @@ void CtConfig::_populate_keyfile_from_data()
     if (not currColour_fg.empty()) _uKeyFile->set_string(_currentGroup, "fg", currColour_fg);
     if (not currColour_bg.empty()) _uKeyFile->set_string(_currentGroup, "bg", currColour_bg);
     if (not currColour_nn.empty()) _uKeyFile->set_string(_currentGroup, "nn", currColour_nn);
-    if (not coloursUserPalette.empty()) _uKeyFile->set_string(_currentGroup, "colours_user", coloursUserPalette.serialise_to_colon_sep());
+    if (not coloursUserPalette.empty()) {
+        std::string colours_user;
+        bool firstIteration{true};
+        for (const Gdk::RGBA& colour : coloursUserPalette) {
+            if (not firstIteration) colours_user += ":";
+            else firstIteration = false;
+            colours_user += CtRgbUtil::rgb_to_string_24(colour);
+        }
+        _uKeyFile->set_string(_currentGroup, "colours_user", colours_user);
+    }
 
     // [tree]
     _currentGroup = "tree";
@@ -495,7 +504,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("nn", &currColour_nn);
     std::string colours_user;
     _populate_string_from_keyfile("colours_user", &colours_user);
-    for (const auto& colour : str::split(colours_user, ":")) {
+    for (const std::string& colour : str::split(colours_user, ":")) {
         if (not colour.empty()) {
             coloursUserPalette.push_back(Gdk::RGBA{colour});
         }

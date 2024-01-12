@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -381,19 +381,19 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
         need_restart(RESTART_REASON::ANCHOR_SIZE);
     });
     colorbutton_col_link_webs->signal_color_set().connect([this, colorbutton_col_link_webs](){
-        _pConfig->colLinkWebs = CtRgbUtil::rgb_to_string(colorbutton_col_link_webs->get_rgba());
+        _pConfig->colLinkWebs = CtRgbUtil::rgb_to_string_24(colorbutton_col_link_webs->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
     colorbutton_col_link_node->signal_color_set().connect([this, colorbutton_col_link_node](){
-        _pConfig->colLinkNode = CtRgbUtil::rgb_to_string(colorbutton_col_link_node->get_rgba());
+        _pConfig->colLinkNode = CtRgbUtil::rgb_to_string_24(colorbutton_col_link_node->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
     colorbutton_col_link_file->signal_color_set().connect([this, colorbutton_col_link_file](){
-        _pConfig->colLinkFile =  CtRgbUtil::rgb_to_string(colorbutton_col_link_file->get_rgba());
+        _pConfig->colLinkFile =  CtRgbUtil::rgb_to_string_24(colorbutton_col_link_file->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
     colorbutton_col_link_fold->signal_color_set().connect([this, colorbutton_col_link_fold](){
-        _pConfig->colLinkFold = CtRgbUtil::rgb_to_string(colorbutton_col_link_fold->get_rgba());
+        _pConfig->colLinkFold = CtRgbUtil::rgb_to_string_24(colorbutton_col_link_fold->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
 

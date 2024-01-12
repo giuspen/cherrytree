@@ -186,6 +186,9 @@ void CtActions::preferences_import()
     _pCtConfig->currColour_fg = ctConfigImported.currColour_fg;
     _pCtConfig->currColour_bg = ctConfigImported.currColour_bg;
     _pCtConfig->currColour_nn = ctConfigImported.currColour_nn;
+    for (const Gdk::RGBA& colour : ctConfigImported.coloursUserPalette) {
+        _pCtConfig->coloursUserPalette.move_or_push_front(colour);
+    }
     _pCtConfig->restoreExpColl = ctConfigImported.restoreExpColl;
     _pCtConfig->nodesBookmExp = ctConfigImported.nodesBookmExp;
     _pCtConfig->nodesIcons = ctConfigImported.nodesIcons;

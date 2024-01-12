@@ -281,9 +281,9 @@ std::string get_rgb24str_from_str_any(const std::string& rgbStrAny);
 
 guint32 get_rgb24int_from_str_any(const char* rgbStrAny);
 
-std::string rgb_to_string(const Gdk::RGBA& color);
+std::string rgb_to_string_48(const Gdk::RGBA& color);
 
-std::string rgb_any_to_24(const Gdk::RGBA& color);
+std::string rgb_to_string_24(const Gdk::RGBA& color);
 
 } // namespace CtRgbUtil
 

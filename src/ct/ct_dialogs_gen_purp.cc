@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_gen_purp.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -278,7 +278,7 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
         return CtPickDlgState::CANCEL;
     }
     const Gdk::RGBA sel_colour = dialog.get_rgba();
-    ret_colour = sel_colour.to_string();
+    ret_colour = CtRgbUtil::rgb_to_string_24(sel_colour);
     if (not vec::exists(default_colours, sel_colour)) {
         coloursUserPalette.move_or_push_front(sel_colour);
     }

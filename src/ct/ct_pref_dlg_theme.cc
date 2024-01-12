@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_theme.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -88,10 +88,10 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                                colorbutton_tree_bg,
                                colorbutton_tree_sel_fg,
                                colorbutton_tree_sel_bg]() {
-        _pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        _pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        _pConfig->ttSelFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_sel_fg->get_rgba());
-        _pConfig->ttSelBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_sel_bg->get_rgba());
+        _pConfig->ttDefFg = CtRgbUtil::rgb_to_string_24(colorbutton_tree_fg->get_rgba());
+        _pConfig->ttDefBg = CtRgbUtil::rgb_to_string_24(colorbutton_tree_bg->get_rgba());
+        _pConfig->ttSelFg = CtRgbUtil::rgb_to_string_24(colorbutton_tree_sel_fg->get_rgba());
+        _pConfig->ttSelBg = CtRgbUtil::rgb_to_string_24(colorbutton_tree_sel_bg->get_rgba());
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
     };
     auto update_tree_color = [radiobutton_tt_col_custom,
@@ -288,56 +288,56 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         pNotebook->append_page(*(pVBoxThemeEditor[i]), CtConfig::get_user_style_id(i+1));
 
         pColorButtonTextFg[i]->signal_color_set().connect([this, pColorButtonTextFg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonTextFg[i]->get_rgba());
             if (rgba != _pConfig->userStyleTextFg[i]) {
                 _pConfig->userStyleTextFg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonTextBg[i]->signal_color_set().connect([this, pColorButtonTextBg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonTextBg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonTextBg[i]->get_rgba());
             if (rgba != _pConfig->userStyleTextBg[i]) {
                 _pConfig->userStyleTextBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonSelectionFg[i]->signal_color_set().connect([this, pColorButtonSelectionFg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionFg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonSelectionFg[i]->get_rgba());
             if (rgba != _pConfig->userStyleSelectionFg[i]) {
                 _pConfig->userStyleSelectionFg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonSelectionBg[i]->signal_color_set().connect([this, pColorButtonSelectionBg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionBg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonSelectionBg[i]->get_rgba());
             if (rgba != _pConfig->userStyleSelectionBg[i]) {
                 _pConfig->userStyleSelectionBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonCursor[i]->signal_color_set().connect([this, pColorButtonCursor, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonCursor[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonCursor[i]->get_rgba());
             if (rgba != _pConfig->userStyleCursor[i]) {
                 _pConfig->userStyleCursor[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonCurrentLineBg[i]->signal_color_set().connect([this, pColorButtonCurrentLineBg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonCurrentLineBg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonCurrentLineBg[i]->get_rgba());
             if (rgba != _pConfig->userStyleCurrentLineBg[i]) {
                 _pConfig->userStyleCurrentLineBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonLineNumbersFg[i]->signal_color_set().connect([this, pColorButtonLineNumbersFg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersFg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonLineNumbersFg[i]->get_rgba());
             if (rgba != _pConfig->userStyleLineNumbersFg[i]) {
                 _pConfig->userStyleLineNumbersFg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
         pColorButtonLineNumbersBg[i]->signal_color_set().connect([this, pColorButtonLineNumbersBg, i, f_onUserStyleChanged](){
-            const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersBg[i]->get_rgba());
+            const std::string rgba = CtRgbUtil::rgb_to_string_24(pColorButtonLineNumbersBg[i]->get_rgba());
             if (rgba != _pConfig->userStyleLineNumbersBg[i]) {
                 _pConfig->userStyleLineNumbersBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
