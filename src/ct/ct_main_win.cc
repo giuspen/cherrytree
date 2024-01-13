@@ -378,8 +378,11 @@ void CtMainWin::update_theme()
     css_str += ".ct-header-panel button { margin: 2px; padding: 0 4px 0 4px; } ";
     css_str += ".ct-status-bar bar { margin: 0px; } ";
 #if defined(_WIN32)
-    css_str += ".ct-status-bar progressbar trough, progressbar progress { min-height: 16px; } ";
-#endif // _WIN32 - without this the progress bar height is 1 or 2 px, hardly visible
+    // without this the progress bar height is 1 or 2 px, hardly visible (#2373)
+    css_str += ".ct-status-bar progressbar trough, progressbar progress { min-width: 16px; min-height: 16px; } ";
+    // scrollbar too thin (#2427)
+    css_str += "scrollbar slider { min-width: 16px; min-height: 16px; } ";
+#endif // _WIN32
     css_str += ".ct-table-header-cell { font-weight: bold; } ";
     css_str += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
     css_str += "toolbar { padding: 2px 2px 2px 2px; } ";
