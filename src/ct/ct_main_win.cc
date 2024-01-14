@@ -1,7 +1,7 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -328,6 +328,10 @@ void CtMainWin::config_apply()
 
     if (2 != _pCtConfig->cursorBlink) {
         Gtk::Settings::get_default()->property_gtk_cursor_blink() = _pCtConfig->cursorBlink;
+    }
+    if (2 != _pCtConfig->overlayScroll) {
+//        Gtk::Settings::get_default()->property_gtk_overlay_scrolling() = _pCtConfig->overlayScroll;
+        _scrolledwindowText.set_overlay_scrolling(static_cast<bool>(_pCtConfig->overlayScroll));
     }
     update_theme();
 }
