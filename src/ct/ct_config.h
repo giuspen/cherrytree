@@ -113,8 +113,9 @@ public:
     bool                                        showLineNumbers{false};
     bool                                        scrollBeyondLastLine{true};
     bool                                        spacesInsteadTabs{false};
-    int                                         cursorBlink{2}; /* 0=off, 1=on, 2=system */
-    int                                         overlayScroll{2}; /* 0=off, 1=on, 2=system */
+    int                                         cursorBlink{2}; /* 0=off, 1=on, 2=system theme */
+    int                                         overlayScroll{2}; /* 0=off, 1=on, 2=system theme */
+    int                                         scrollSliderMin{16}; /* 0=system theme, >0=pixels */
     int                                         tabsWidth{4};
     int                                         anchorSize{16};
     int                                         latexSizeDpi{140};

@@ -214,6 +214,7 @@ void CtActions::preferences_import()
     _pCtConfig->spacesInsteadTabs = ctConfigImported.spacesInsteadTabs;
     _pCtConfig->cursorBlink = ctConfigImported.cursorBlink;
     _pCtConfig->overlayScroll = ctConfigImported.overlayScroll;
+    _pCtConfig->scrollSliderMin = ctConfigImported.scrollSliderMin;
     _pCtConfig->tabsWidth = ctConfigImported.tabsWidth;
     _pCtConfig->anchorSize = ctConfigImported.anchorSize;
     _pCtConfig->latexSizeDpi = ctConfigImported.latexSizeDpi;
