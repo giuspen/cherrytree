@@ -272,6 +272,8 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "cursor_blink", cursorBlink);
     _uKeyFile->set_integer(_currentGroup, "overlay_scroll", overlayScroll);
     _uKeyFile->set_integer(_currentGroup, "scroll_slider_min", scrollSliderMin);
+    _uKeyFile->set_integer(_currentGroup, "txt_margin_left", textMarginLeft);
+    _uKeyFile->set_integer(_currentGroup, "txt_margin_right", textMarginRight);
     _uKeyFile->set_integer(_currentGroup, "tabs_width", tabsWidth);
     _uKeyFile->set_integer(_currentGroup, "anchor_size", anchorSize);
     _uKeyFile->set_integer(_currentGroup, "latex_size_dpi", latexSizeDpi);
@@ -576,6 +578,8 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("cursor_blink", &cursorBlink);
     _populate_int_from_keyfile("overlay_scroll", &overlayScroll);
     _populate_int_from_keyfile("scroll_slider_min", &scrollSliderMin);
+    _populate_int_from_keyfile("txt_margin_left", &textMarginLeft);
+    _populate_int_from_keyfile("txt_margin_right", &textMarginRight);
     _populate_int_from_keyfile("tabs_width", &tabsWidth);
     _populate_int_from_keyfile("anchor_size", &anchorSize);
     _populate_int_from_keyfile("latex_size_dpi", &latexSizeDpi);

@@ -1,7 +1,7 @@
 /*
  * ct_text_view.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -35,8 +35,8 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
  , _columnEdit{*this}
 {
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
-    set_left_margin(7);
-    set_right_margin(7);
+    set_left_margin(_pCtConfig->textMarginLeft);
+    set_right_margin(_pCtConfig->textMarginRight);
     set_insert_spaces_instead_of_tabs(_pCtConfig->spacesInsteadTabs);
     set_tab_width((guint)_pCtConfig->tabsWidth);
     if (_pCtConfig->lineWrapping) {

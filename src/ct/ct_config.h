@@ -115,7 +115,9 @@ public:
     bool                                        spacesInsteadTabs{false};
     int                                         cursorBlink{2}; /* 0=off, 1=on, 2=system theme */
     int                                         overlayScroll{2}; /* 0=off, 1=on, 2=system theme */
-    int                                         scrollSliderMin{16}; /* 0=system theme, >0=pixels */
+    int                                         scrollSliderMin{14}; /* 0=system theme, >0=pixels */
+    int                                         textMarginLeft{7};
+    int                                         textMarginRight{7};
     int                                         tabsWidth{4};
     int                                         anchorSize{16};
     int                                         latexSizeDpi{140};
