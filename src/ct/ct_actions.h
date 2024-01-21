@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -255,6 +255,8 @@ public:
     // helpers for find actions
     void find_again_iter(const bool fromIterativeDialog);
     void find_back_iter(const bool fromIterativeDialog);
+    void find_in_selected_node_ok_clicked();
+    void find_in_multiple_nodes_ok_clicked();
 
 private:
     // helper for view actions

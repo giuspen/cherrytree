@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -65,10 +65,12 @@ void CtActions::find_in_selected_node()
         _s_state.curr_find_pattern = pattern;
         _s_state.curr_find_type = CtCurrFindType::SingleNode;
     }
-    else {
-        pattern = _s_state.curr_find_pattern;
-    }
-    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
+    find_in_selected_node_ok_clicked();
+}
+
+void CtActions::find_in_selected_node_ok_clicked()
+{
+    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(_s_state.curr_find_pattern);
     if (not re_pattern) return;
 
     bool forward = _s_options.direction_fw;
@@ -90,6 +92,8 @@ void CtActions::find_in_selected_node()
     }
     CtTreeIter::clear_hit_exclusion_from_search();
 
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
+
     while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(),
                                     curr_buffer,
                                     re_pattern,
@@ -104,7 +108,7 @@ void CtActions::find_in_selected_node()
     if (0 == _s_state.matches_num) {
         CtDialogs::no_matches_dialog(_pCtMainWin,
                                      "'" + _s_options.str_find + "'  -  0 " + _("Matches"),
-                                     str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern)));
+                                     str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(_s_state.curr_find_pattern)));
     }
     else if (all_matches) {
         CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state);
@@ -127,9 +131,6 @@ void CtActions::find_in_multiple_nodes()
 
     CtTextView& ctTextView = _pCtMainWin->get_text_view();
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
-    CtStatusBar& ctStatusBar = _pCtMainWin->get_status_bar();
-    CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
-    CtTreeView& ctTreeView = _pCtMainWin->get_tree_view();
 
     Glib::ustring title;
     Glib::ustring pattern;
@@ -155,11 +156,19 @@ void CtActions::find_in_multiple_nodes()
             return;
         }
     }
-    else {
-        pattern = _s_state.curr_find_pattern;
-    }
-    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
+    find_in_multiple_nodes_ok_clicked();
+}
+
+void CtActions::find_in_multiple_nodes_ok_clicked()
+{
+    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(_s_state.curr_find_pattern);
     if (not re_pattern) return;
+
+    CtTextView& ctTextView = _pCtMainWin->get_text_view();
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
+    CtStatusBar& ctStatusBar = _pCtMainWin->get_status_bar();
+    CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
+    CtTreeView& ctTreeView = _pCtMainWin->get_tree_view();
 
     CtTreeIter starting_tree_iter = _pCtMainWin->curr_tree_iter();
     Gtk::TreeIter node_iter;
@@ -252,7 +261,7 @@ void CtActions::find_in_multiple_nodes()
     if (not _s_state.matches_num) {
         CtDialogs::no_matches_dialog(_pCtMainWin,
                                      "'" + _s_options.str_find + "'  -  0 " + _("Matches"),
-                                     str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(pattern)));
+                                     str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(_s_state.curr_find_pattern)));
     }
     else {
         if (all_matches) {
