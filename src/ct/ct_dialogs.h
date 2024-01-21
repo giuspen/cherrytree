@@ -214,11 +214,11 @@ void match_dialog(const std::string& str_find,
 void iterated_find_dialog(CtMainWin* pCtMainWin,
                           CtSearchState& s_state);
 
-std::string dialog_search(CtMainWin* pCtMainWin,
-                          const std::string& title,
-                          CtSearchOptions& s_options,
-                          bool replace_on,
-                          bool multiple_nodes);
+void dialog_search(CtMainWin* pCtMainWin,
+                   const Glib::ustring& title,
+                   CtSearchOptions& s_options,
+                   CtSearchState& s_state,
+                   bool multiple_nodes);
 
 // Insert/Edit Anchor Name
 Glib::ustring img_n_entry_dialog(Gtk::Window& parent,

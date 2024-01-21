@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_find.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -25,38 +25,41 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 
-std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
-                                     const std::string& title,
-                                     CtSearchOptions& s_options,
-                                     bool replace_on,
-                                     bool multiple_nodes)
+void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
+                              const Glib::ustring& title,
+                              CtSearchOptions& s_options,
+                              CtSearchState& s_state,
+                              bool multiple_nodes)
 {
-    Gtk::Dialog dialog{title,
-                       *pCtMainWin,
-                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.set_transient_for(*pCtMainWin);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
-    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(400, -1);
+    auto pDialog = new Gtk::Dialog{title,
+                                   *pCtMainWin,
+                                   Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    s_state.searchfinddialog.reset(pDialog);
 
-    Gtk::Entry search_entry{};
-    search_entry.set_text(s_options.str_find);
+    auto button_cancel = pDialog->add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    auto button_ok = pDialog->add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    pDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+    button_cancel->set_always_show_image(true);
+    button_ok->set_always_show_image(true);
+    button_cancel->grab_focus();
+    button_ok->grab_default();
+    pDialog->set_default_size(400, -1);
 
-    auto button_ok = dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT);
+    auto search_entry = Gtk::manage(new Gtk::Entry{});
+    search_entry->set_text(s_options.str_find);
+
     button_ok->set_sensitive(s_options.str_find.length() != 0);
-    search_entry.signal_changed().connect([&button_ok, &search_entry](){
-        button_ok->set_sensitive(search_entry.get_text().length() != 0);
+    search_entry->signal_changed().connect([button_ok, search_entry](){
+        button_ok->set_sensitive(search_entry->get_text().length() != 0);
     });
-    auto search_frame = Gtk::Frame{std::string("<b>")+_("Search for")+"</b>"};
-    dynamic_cast<Gtk::Label*>(search_frame.get_label_widget())->set_use_markup(true);
-    search_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    search_frame.add(search_entry);
+    auto search_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Search for")+"</b>"});
+    dynamic_cast<Gtk::Label*>(search_frame->get_label_widget())->set_use_markup(true);
+    search_frame->set_shadow_type(Gtk::SHADOW_NONE);
+    search_frame->add(*search_entry);
 
     Gtk::Frame* replace_frame{nullptr};
     Gtk::Entry* replace_entry{nullptr};
-    if (replace_on) {
+    if (s_state.replace_active) {
         replace_entry = Gtk::manage(new Gtk::Entry{});
         replace_entry->set_text(s_options.str_replace);
         replace_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Replace with")+"</b>"});
@@ -64,49 +67,49 @@ std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         replace_frame->set_shadow_type(Gtk::SHADOW_NONE);
         replace_frame->add(*replace_entry);
     }
-    Gtk::Box opt_vbox{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/};
-    Gtk::Box reg_exp_hbox{Gtk::ORIENTATION_HORIZONTAL, 1/*spacing*/};
-    Gtk::Box four_1_hbox{Gtk::ORIENTATION_HORIZONTAL};
-    four_1_hbox.set_homogeneous(true);
-    Gtk::Box four_2_hbox{Gtk::ORIENTATION_HORIZONTAL};
-    four_2_hbox.set_homogeneous(true);
-    Gtk::Box four_3_hbox{Gtk::ORIENTATION_HORIZONTAL};
-    four_3_hbox.set_homogeneous(true);
-    Gtk::Box bw_fw_hbox{Gtk::ORIENTATION_HORIZONTAL};
-    bw_fw_hbox.set_homogeneous(true);
-    Gtk::Box three_hbox{Gtk::ORIENTATION_HORIZONTAL};
-    three_hbox.set_homogeneous(true);
-    Gtk::Box three_vbox{Gtk::ORIENTATION_VERTICAL};
-    Gtk::CheckButton match_case_checkbutton{_("Match Case")};
-    match_case_checkbutton.set_active(s_options.match_case);
-    Gtk::CheckButton reg_exp_checkbutton{_("Regular Expression")};
-    reg_exp_checkbutton.set_active(s_options.reg_exp);
-    Gtk::Button reg_exp_help_button;
-    reg_exp_help_button.set_image(*pCtMainWin->new_managed_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
-    reg_exp_help_button.set_tooltip_text(_("Online Manual"));
-    reg_exp_hbox.pack_start(reg_exp_checkbutton);
-    reg_exp_hbox.pack_start(reg_exp_help_button);
-    Gtk::CheckButton accent_insensitive_checkbutton{_("Accent Insensitive")};
-    accent_insensitive_checkbutton.set_active(s_options.accent_insensitive);
-    Gtk::CheckButton override_exclusions_checkbutton{_("Override Exclusions")};
-    override_exclusions_checkbutton.set_active(s_options.override_exclusions);
-    Gtk::CheckButton whole_word_checkbutton{_("Whole Word")};
-    whole_word_checkbutton.set_active(s_options.whole_word);
-    Gtk::CheckButton start_word_checkbutton{_("Start Word")};
-    start_word_checkbutton.set_active(s_options.start_word);
-    Gtk::RadioButton fw_radiobutton{_("Forward")};
-    fw_radiobutton.set_active(s_options.direction_fw);
-    Gtk::RadioButton bw_radiobutton{_("Backward")};
-    bw_radiobutton.join_group(fw_radiobutton);
-    bw_radiobutton.set_active(!s_options.direction_fw);
-    Gtk::RadioButton all_radiobutton{_("All, List Matches")};
-    all_radiobutton.set_active(s_options.all_firstsel_firstall == 0);
-    Gtk::RadioButton first_from_radiobutton{_("First From Selection")};
-    first_from_radiobutton.join_group(all_radiobutton);
-    first_from_radiobutton.set_active(s_options.all_firstsel_firstall == 1);
-    Gtk::RadioButton first_all_radiobutton{_("First in All Range")};
-    first_all_radiobutton.join_group(all_radiobutton);
-    first_all_radiobutton.set_active(s_options.all_firstsel_firstall == 2);
+    auto opt_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/});
+    auto reg_exp_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 1/*spacing*/});
+    auto four_1_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    four_1_hbox->set_homogeneous(true);
+    auto four_2_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    four_2_hbox->set_homogeneous(true);
+    auto four_3_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    four_3_hbox->set_homogeneous(true);
+    auto bw_fw_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    bw_fw_hbox->set_homogeneous(true);
+    auto three_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    three_hbox->set_homogeneous(true);
+    auto three_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto match_case_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Match Case")});
+    match_case_checkbutton->set_active(s_options.match_case);
+    auto reg_exp_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Regular Expression")});
+    reg_exp_checkbutton->set_active(s_options.reg_exp);
+    auto reg_exp_help_button = Gtk::manage(new Gtk::Button{});
+    reg_exp_help_button->set_image(*pCtMainWin->new_managed_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
+    reg_exp_help_button->set_tooltip_text(_("Online Manual"));
+    reg_exp_hbox->pack_start(*reg_exp_checkbutton);
+    reg_exp_hbox->pack_start(*reg_exp_help_button);
+    auto accent_insensitive_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Accent Insensitive")});
+    accent_insensitive_checkbutton->set_active(s_options.accent_insensitive);
+    auto override_exclusions_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Override Exclusions")});
+    override_exclusions_checkbutton->set_active(s_options.override_exclusions);
+    auto whole_word_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Whole Word")});
+    whole_word_checkbutton->set_active(s_options.whole_word);
+    auto start_word_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Start Word")});
+    start_word_checkbutton->set_active(s_options.start_word);
+    auto fw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Forward")});
+    fw_radiobutton->set_active(s_options.direction_fw);
+    auto bw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Backward")});
+    bw_radiobutton->join_group(*fw_radiobutton);
+    bw_radiobutton->set_active(!s_options.direction_fw);
+    auto all_radiobutton = Gtk::manage(new Gtk::RadioButton{_("All, List Matches")});
+    all_radiobutton->set_active(s_options.all_firstsel_firstall == 0);
+    auto first_from_radiobutton = Gtk::manage(new Gtk::RadioButton{_("First From Selection")});
+    first_from_radiobutton->join_group(*all_radiobutton);
+    first_from_radiobutton->set_active(s_options.all_firstsel_firstall == 1);
+    auto first_all_radiobutton = Gtk::manage(new Gtk::RadioButton{_("First in All Range")});
+    first_all_radiobutton->join_group(*all_radiobutton);
+    first_all_radiobutton->set_active(s_options.all_firstsel_firstall == 2);
 
     Gtk::Frame* ts_frame{nullptr};
     Gtk::CheckButton* ts_node_created_after_checkbutton{nullptr};
@@ -114,7 +117,7 @@ std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     Gtk::CheckButton* ts_node_modified_after_checkbutton{nullptr};
     Gtk::CheckButton* ts_node_modified_before_checkbutton{nullptr};
     if (multiple_nodes) {
-        std::string ts_format = "%A, %d %B %Y, %H:%M";
+        std::string ts_format{"%A, %d %B %Y, %H:%M"};
         ts_node_created_after_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Created After")});
         Glib::ustring ts_label = str::time_format(ts_format, s_options.ts_cre_after.time);
         auto ts_node_created_after_button = Gtk::manage(new Gtk::Button{ts_label});
@@ -159,8 +162,8 @@ std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         ts_frame->set_shadow_type(Gtk::SHADOW_NONE);
         ts_frame->add(*ts_node_vbox);
 
-        auto on_ts_node_button_clicked = [&dialog, ts_format](Gtk::Button* button, const char* title, std::time_t* ts_value) {
-            std::time_t new_time = CtDialogs::date_select_dialog(dialog, title, *ts_value);
+        auto on_ts_node_button_clicked = [pDialog, ts_format](Gtk::Button* button, const char* title, std::time_t* ts_value) {
+            std::time_t new_time = CtDialogs::date_select_dialog(*pDialog, title, *ts_value);
             if (new_time == 0) return;
             *ts_value = new_time;
             button->set_label(str::time_format(ts_format, new_time));
@@ -186,105 +189,149 @@ std::string CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                        _("Node Modified Before"),
                        &s_options.ts_mod_before.time));
     }
-    Gtk::CheckButton node_content_checkbutton{_("Node Content")};
-    node_content_checkbutton.set_active(s_options.node_content);
-    Gtk::CheckButton node_name_n_tags_checkbutton{_("Node Name and Tags")};
-    node_name_n_tags_checkbutton.set_active(s_options.node_name_n_tags);
-    Gtk::Box hbox_node_content_name_n_tags{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/};
-    hbox_node_content_name_n_tags.pack_start(node_content_checkbutton);
-    hbox_node_content_name_n_tags.pack_start(node_name_n_tags_checkbutton);
-    Gtk::CheckButton only_sel_n_subnodes_checkbutton{_("Only Selected Node and Subnodes")};
-    only_sel_n_subnodes_checkbutton.set_active(s_options.only_sel_n_subnodes);
-    Gtk::CheckButton iter_dialog_checkbutton{_("Show Iterated Find/Replace Dialog")};
-    iter_dialog_checkbutton.set_active(s_options.iterative_dialog);
-    four_1_hbox.pack_start(match_case_checkbutton);
-    four_1_hbox.pack_start(reg_exp_hbox);
-    four_2_hbox.pack_start(whole_word_checkbutton);
-    four_2_hbox.pack_start(start_word_checkbutton);
-    four_3_hbox.pack_start(accent_insensitive_checkbutton);
-    four_3_hbox.pack_start(override_exclusions_checkbutton);
-    bw_fw_hbox.pack_start(fw_radiobutton);
-    bw_fw_hbox.pack_start(bw_radiobutton);
-    three_hbox.pack_start(all_radiobutton);
-    three_vbox.pack_start(first_from_radiobutton);
-    three_vbox.pack_start(first_all_radiobutton);
-    three_hbox.pack_start(three_vbox);
-    opt_vbox.pack_start(four_1_hbox);
-    opt_vbox.pack_start(four_2_hbox);
-    opt_vbox.pack_start(four_3_hbox);
-    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
-    opt_vbox.pack_start(bw_fw_hbox);
-    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
-    opt_vbox.pack_start(three_hbox);
-    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    auto node_content_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Content")});
+    node_content_checkbutton->set_active(s_options.node_content);
+    auto node_name_n_tags_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Name and Tags")});
+    node_name_n_tags_checkbutton->set_active(s_options.node_name_n_tags);
+    auto hbox_node_content_name_n_tags = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/});
+    hbox_node_content_name_n_tags->pack_start(*node_content_checkbutton);
+    hbox_node_content_name_n_tags->pack_start(*node_name_n_tags_checkbutton);
+    auto only_sel_n_subnodes_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Only Selected Node and Subnodes")});
+    only_sel_n_subnodes_checkbutton->set_active(s_options.only_sel_n_subnodes);
+    auto iter_dialog_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Show Iterated Find/Replace Dialog")});
+    iter_dialog_checkbutton->set_active(s_options.iterative_dialog);
+    four_1_hbox->pack_start(*match_case_checkbutton);
+    four_1_hbox->pack_start(*reg_exp_hbox);
+    four_2_hbox->pack_start(*whole_word_checkbutton);
+    four_2_hbox->pack_start(*start_word_checkbutton);
+    four_3_hbox->pack_start(*accent_insensitive_checkbutton);
+    four_3_hbox->pack_start(*override_exclusions_checkbutton);
+    bw_fw_hbox->pack_start(*fw_radiobutton);
+    bw_fw_hbox->pack_start(*bw_radiobutton);
+    three_hbox->pack_start(*all_radiobutton);
+    three_vbox->pack_start(*first_from_radiobutton);
+    three_vbox->pack_start(*first_all_radiobutton);
+    three_hbox->pack_start(*three_vbox);
+    opt_vbox->pack_start(*four_1_hbox);
+    opt_vbox->pack_start(*four_2_hbox);
+    opt_vbox->pack_start(*four_3_hbox);
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    opt_vbox->pack_start(*bw_fw_hbox);
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    opt_vbox->pack_start(*three_hbox);
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     if (multiple_nodes) {
-        opt_vbox.pack_start(*ts_frame);
-        opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
-        opt_vbox.pack_start(hbox_node_content_name_n_tags);
-        opt_vbox.pack_start(only_sel_n_subnodes_checkbutton);
+        opt_vbox->pack_start(*ts_frame);
+        opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+        opt_vbox->pack_start(*hbox_node_content_name_n_tags);
+        opt_vbox->pack_start(*only_sel_n_subnodes_checkbutton);
     }
-    opt_vbox.pack_start(iter_dialog_checkbutton);
-    Gtk::Frame opt_frame{std::string("<b>")+_("Search options")+"</b>"};
-    dynamic_cast<Gtk::Label*>(opt_frame.get_label_widget())->set_use_markup(true);
-    opt_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    opt_frame.add(opt_vbox);
-    auto content_area = dialog.get_content_area();
+    opt_vbox->pack_start(*iter_dialog_checkbutton);
+    auto opt_frame = Gtk::manage(new Gtk::Frame{Glib::ustring("<b>")+_("Search options")+"</b>"});
+    dynamic_cast<Gtk::Label*>(opt_frame->get_label_widget())->set_use_markup(true);
+    opt_frame->set_shadow_type(Gtk::SHADOW_NONE);
+    opt_frame->add(*opt_vbox);
+    auto content_area = pDialog->get_content_area();
     content_area->set_spacing(5);
-    content_area->pack_start(search_frame);
-    if (replace_on) content_area->pack_start(*replace_frame);
-    content_area->pack_start(opt_frame);
+    content_area->pack_start(*search_frame);
+    if (s_state.replace_active) content_area->pack_start(*replace_frame);
+    content_area->pack_start(*opt_frame);
     content_area->show_all();
-    search_entry.grab_focus();
+    search_entry->grab_focus();
 
-    reg_exp_help_button.signal_clicked().connect([](){
+    reg_exp_help_button->signal_clicked().connect([](){
         fs::open_weblink("https://developer-old.gnome.org/glib/stable/glib-regex-syntax.html");
     });
 
-    auto press_enter = [&dialog, &button_ok](GdkEventKey* pEventKey){
+    auto press_enter = [button_ok](GdkEventKey* pEventKey){
         if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
             if (button_ok && button_ok->get_sensitive()) {
-                dialog.response(Gtk::RESPONSE_ACCEPT);
+                button_ok->clicked();
                 return true;
             }
         }
         return false;
     };
-    dialog.signal_key_press_event().connect(press_enter);
-    search_entry.signal_key_press_event().connect(press_enter, false);
-    if (replace_on) {
+    pDialog->signal_key_press_event().connect(press_enter);
+    search_entry->signal_key_press_event().connect(press_enter, false);
+    if (replace_entry) {
         replace_entry->signal_key_press_event().connect(press_enter, false);
     }
 
-    if (dialog.run() != Gtk::RESPONSE_ACCEPT) {
-        return "";
+    button_cancel->signal_clicked().connect([pDialog, &s_state](){
+        pDialog->get_position(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
+        pDialog->hide();
+    });
+
+    button_ok->signal_clicked().connect([pDialog,
+                                         &s_state,
+                                         &s_options,
+                                         multiple_nodes,
+                                         search_entry,
+                                         replace_entry,
+                                         match_case_checkbutton,
+                                         reg_exp_checkbutton,
+                                         accent_insensitive_checkbutton,
+                                         override_exclusions_checkbutton,
+                                         whole_word_checkbutton,
+                                         start_word_checkbutton,
+                                         fw_radiobutton,
+                                         all_radiobutton,
+                                         first_from_radiobutton,
+                                         ts_node_created_after_checkbutton,
+                                         ts_node_created_before_checkbutton,
+                                         ts_node_modified_after_checkbutton,
+                                         ts_node_modified_before_checkbutton,
+                                         node_content_checkbutton,
+                                         node_name_n_tags_checkbutton,
+                                         only_sel_n_subnodes_checkbutton,
+                                         iter_dialog_checkbutton,
+                                         pCtMainWin](){
+        pDialog->get_position(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
+        pDialog->hide();
+
+        s_options.str_find = search_entry->get_text();
+        if (replace_entry) {
+            s_options.str_replace = replace_entry->get_text();
+        }
+        s_options.match_case = match_case_checkbutton->get_active();
+        s_options.reg_exp = reg_exp_checkbutton->get_active();
+        s_options.accent_insensitive = accent_insensitive_checkbutton->get_active();
+        s_options.override_exclusions = override_exclusions_checkbutton->get_active();
+        s_options.whole_word = whole_word_checkbutton->get_active();
+        s_options.start_word = start_word_checkbutton->get_active();
+        s_options.direction_fw = fw_radiobutton->get_active();
+        if (all_radiobutton->get_active())              s_options.all_firstsel_firstall = 0;
+        else if (first_from_radiobutton->get_active())  s_options.all_firstsel_firstall = 1;
+        else                                            s_options.all_firstsel_firstall = 2;
+        s_options.ts_cre_after.on = multiple_nodes ? ts_node_created_after_checkbutton->get_active() : false;
+        s_options.ts_cre_before.on = multiple_nodes ? ts_node_created_before_checkbutton->get_active() : false;
+        s_options.ts_mod_after.on = multiple_nodes ? ts_node_modified_after_checkbutton->get_active() : false;
+        s_options.ts_mod_before.on = multiple_nodes ? ts_node_modified_before_checkbutton->get_active() : false;
+        s_options.node_content = node_content_checkbutton->get_active();
+        s_options.node_name_n_tags = node_name_n_tags_checkbutton->get_active();
+        s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton->get_active();
+        s_options.iterative_dialog = iter_dialog_checkbutton->get_active();
+        // special cases (#2190)
+        if (s_options.reg_exp and s_options.str_find == ".*" ) {
+            s_options.node_content = false;
+            s_options.node_name_n_tags = true;
+        }
+
+        s_state.curr_find_pattern = s_options.str_find;
+        if (multiple_nodes) {
+            s_state.curr_find_type = CtCurrFindType::MultipleNodes;
+            pCtMainWin->get_ct_actions()->find_in_multiple_nodes_ok_clicked();
+        }
+        else {
+            s_state.curr_find_type = CtCurrFindType::SingleNode;
+            pCtMainWin->get_ct_actions()->find_in_selected_node_ok_clicked();
+        }
+    });
+    s_state.searchfinddialog->show();
+    if (s_state.searchDialogPos[0] >= 0) {
+        s_state.searchfinddialog->move(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
     }
-    s_options.str_find = search_entry.get_text();
-    if (replace_on)
-        s_options.str_replace = replace_entry->get_text();
-    s_options.match_case = match_case_checkbutton.get_active();
-    s_options.reg_exp = reg_exp_checkbutton.get_active();
-    s_options.accent_insensitive = accent_insensitive_checkbutton.get_active();
-    s_options.override_exclusions = override_exclusions_checkbutton.get_active();
-    s_options.whole_word = whole_word_checkbutton.get_active();
-    s_options.start_word = start_word_checkbutton.get_active();
-    s_options.direction_fw = fw_radiobutton.get_active();
-    if (all_radiobutton.get_active())              s_options.all_firstsel_firstall = 0;
-    else if (first_from_radiobutton.get_active())  s_options.all_firstsel_firstall = 1;
-    else                                           s_options.all_firstsel_firstall = 2;
-    s_options.ts_cre_after.on = multiple_nodes ? ts_node_created_after_checkbutton->get_active() : false;
-    s_options.ts_cre_before.on = multiple_nodes ? ts_node_created_before_checkbutton->get_active() : false;
-    s_options.ts_mod_after.on = multiple_nodes ? ts_node_modified_after_checkbutton->get_active() : false;
-    s_options.ts_mod_before.on = multiple_nodes ? ts_node_modified_before_checkbutton->get_active() : false;
-    s_options.node_content = node_content_checkbutton.get_active();
-    s_options.node_name_n_tags = node_name_n_tags_checkbutton.get_active();
-    s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton.get_active();
-    s_options.iterative_dialog = iter_dialog_checkbutton.get_active();
-    // special cases (#2190)
-    if (s_options.reg_exp and s_options.str_find == ".*" ) {
-        s_options.node_content = false;
-        s_options.node_name_n_tags = true;
-    }
-    return s_options.str_find;
 }
 
 void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,

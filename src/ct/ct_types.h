@@ -452,6 +452,9 @@ struct CtSearchState {
     std::unique_ptr<Gtk::Dialog> iteratedfinddialog;
     int            iterDialogPos[2]{-1,-1};
 
+    std::unique_ptr<Gtk::Dialog> searchfinddialog;
+    int            searchDialogPos[2]{-1,-1};
+
     std::pair<int,int>               latest_match_offsets{-1,-1};
     Glib::RefPtr<CtMatchDialogStore> match_store;
     bool                             in_loading{false};

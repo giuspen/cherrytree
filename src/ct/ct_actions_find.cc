@@ -46,7 +46,6 @@ void CtActions::find_in_selected_node()
     if (not _is_there_selected_node_or_error()) return;
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
 
-    std::string pattern;
     if (not _s_state.from_find_iterated) {
         _s_state.latest_node_offset = -1;
         auto iter_insert = curr_buffer->get_iter_at_mark(curr_buffer->get_insert());
@@ -55,17 +54,18 @@ void CtActions::find_in_selected_node()
         if (entry_predefined_text.length()) {
             _s_options.str_find = entry_predefined_text;
         }
-        std::string title = _s_state.replace_active ? _("Replace in Current Node") : _("Search in Current Node");
-        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, false/*multiple_nodes*/);
+        Glib::ustring title = _s_state.replace_active ? _("Replace in Current Node") : _("Search in Current Node");
+        CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state, false/*multiple_nodes*/);
+#if 0 /* TODO check if still needed */
         if (entry_predefined_text.length()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
             curr_buffer->move_mark(curr_buffer->get_selection_bound(), iter_bound);
         }
-        if (pattern.empty()) return;
-        _s_state.curr_find_pattern = pattern;
-        _s_state.curr_find_type = CtCurrFindType::SingleNode;
+#endif
     }
-    find_in_selected_node_ok_clicked();
+    else {
+        find_in_selected_node_ok_clicked();
+    }
 }
 
 void CtActions::find_in_selected_node_ok_clicked()
@@ -132,8 +132,6 @@ void CtActions::find_in_multiple_nodes()
     CtTextView& ctTextView = _pCtMainWin->get_text_view();
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
 
-    Glib::ustring title;
-    Glib::ustring pattern;
     if (not _s_state.from_find_iterated) {
         _s_state.latest_node_offset = -1;
         Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
@@ -142,21 +140,18 @@ void CtActions::find_in_multiple_nodes()
         if (not entry_predefined_text.empty()) {
             _s_options.str_find = entry_predefined_text;
         }
-        title = _s_state.replace_active ? _("Replace in Multiple Nodes...") : _("Find in Multiple Nodes...");
-        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true/*multiple_nodes*/);
+        Glib::ustring title = _s_state.replace_active ? _("Replace in Multiple Nodes...") : _("Find in Multiple Nodes...");
+        CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state, true/*multiple_nodes*/);
+#if 0 /* TODO check if still needed */
         if (not entry_predefined_text.empty()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
             curr_buffer->move_mark(curr_buffer->get_selection_bound(), iter_bound);
         }
-        if (not pattern.empty()) {
-            _s_state.curr_find_pattern = pattern;
-            _s_state.curr_find_type = CtCurrFindType::MultipleNodes;
-        }
-        else {
-            return;
-        }
+#endif
     }
-    find_in_multiple_nodes_ok_clicked();
+    else {
+        find_in_multiple_nodes_ok_clicked();
+    }
 }
 
 void CtActions::find_in_multiple_nodes_ok_clicked()
