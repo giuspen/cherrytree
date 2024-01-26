@@ -164,9 +164,9 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Add a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_add)});
     _actions.push_back(CtMenuAction{editor_cat, "table_column_delete", "ct_edit_delete", _("De_lete Column"), None,
         _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
-    _actions.push_back(CtMenuAction{editor_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), KB_CONTROL+"braceleft",
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), KB_CONTROL+KB_SHIFT+"b",
         _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
-    _actions.push_back(CtMenuAction{editor_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+"braceright",
+    _actions.push_back(CtMenuAction{editor_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+KB_SHIFT+"m",
         _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
     _actions.push_back(CtMenuAction{editor_cat, "table_column_increase_width", "ct_go-forward",
         _("Increase Column Width"), KB_ALT+"greater",
@@ -184,9 +184,9 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Paste a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_paste)});
     _actions.push_back(CtMenuAction{editor_cat, "table_row_delete", "ct_edit_delete", _("De_lete Row"), KB_SHIFT+KB_ALT+"q",
         _("Delete the Selected Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_delete)});
-    _actions.push_back(CtMenuAction{editor_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+"bracketleft",
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+KB_SHIFT+"j",
         _("Move the Selected Row Up"), sigc::mem_fun(*pActions, &CtActions::table_row_up)});
-    _actions.push_back(CtMenuAction{editor_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"bracketright",
+    _actions.push_back(CtMenuAction{editor_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"j",
         _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
     _actions.push_back(CtMenuAction{editor_cat, "table_rows_sort_descending", "ct_sort-desc", _("Sort Rows De_scending"), None,
         _("Sort all the Rows Descending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_descending)});
@@ -218,10 +218,10 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Decrease CodeBox Width"), KB_ALT+"parenleft",
         _("Decrease the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_width)});
     _actions.push_back(CtMenuAction{editor_cat, "codebox_increase_height", "ct_go-down",
-        _("Increase CodeBox Height"), KB_ALT+"bracketright",
+        _("Increase CodeBox Height"), KB_CONTROL+KB_SHIFT+"i",
         _("Increase the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_height)});
     _actions.push_back(CtMenuAction{editor_cat, "codebox_decrease_height", "ct_go-up",
-        _("Decrease CodeBox Height"), KB_ALT+"bracketleft",
+        _("Decrease CodeBox Height"), KB_CONTROL+KB_SHIFT+"u",
         _("Decrease the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_height)});
 
     const char* fmt_cat = _("Format");
