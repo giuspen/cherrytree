@@ -1,7 +1,7 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -294,25 +294,25 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
     if (event->state & Gdk::CONTROL_MASK) {
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
         if (not (event->state & Gdk::MOD1_MASK)) {
-            if (event->keyval == GDK_KEY_space) {
+            if (GDK_KEY_space == event->keyval) {
                 Gtk::TextIter text_iter = _pCtMainWin->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
                 text_iter.forward_char();
                 _pCtMainWin->get_text_view().get_buffer()->place_cursor(text_iter);
                 _pCtMainWin->get_text_view().grab_focus();
                 return true;
             }
-            if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
+            if (GDK_KEY_plus == event->keyval or GDK_KEY_KP_Add == event->keyval or GDK_KEY_equal == event->keyval) {
                 _ctTextview.zoom_text(true, get_syntax_highlighting());
                 return true;
             }
-            if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
+            if (GDK_KEY_minus == event->keyval or GDK_KEY_KP_Subtract == event->keyval) {
                 _ctTextview.zoom_text(false, get_syntax_highlighting());
                 return true;
             }
         }
     }
     //std::cout << "keyval " << event->keyval << std::endl;
-    if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab) {
+    if (GDK_KEY_Tab == event->keyval or GDK_KEY_ISO_Left_Tab == event->keyval) {
         auto text_buffer = _ctTextview.get_buffer();
         if (not text_buffer->get_has_selection()) {
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();

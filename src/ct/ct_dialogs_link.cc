@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_link.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -357,7 +357,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         }
     });
     dialog.signal_key_press_event().connect([&](GdkEventKey* event) {
-        if (event->keyval == GDK_KEY_Tab) {
+        if (GDK_KEY_Tab == event->keyval or GDK_KEY_ISO_Left_Tab == event->keyval) {
             if (link_entries.type == CtConst::LINK_TYPE_WEBS) radiobutton_file.set_active(true);
             else if (link_entries.type == CtConst::LINK_TYPE_FILE) radiobutton_folder.set_active(true);
             else if (link_entries.type == CtConst::LINK_TYPE_FOLD) radiobutton_node.set_active(true);

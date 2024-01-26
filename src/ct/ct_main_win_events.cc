@@ -1,7 +1,7 @@
 /*
  * ct_main_win_events.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -93,7 +93,7 @@ bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
 bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 {
     if (event->state & GDK_CONTROL_MASK) {
-        if (event->keyval == GDK_KEY_Tab) {
+        if (GDK_KEY_Tab == event->keyval or GDK_KEY_ISO_Left_Tab == event->keyval) {
             _uCtActions->toggle_focus_tree_text();
             return true;
         }
@@ -172,9 +172,7 @@ bool CtMainWin::_on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,c
 bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 {
     if (not curr_tree_iter()) return false;
-    if (event->state & GDK_SHIFT_MASK) {
-    }
-    else if (event->state & GDK_MOD1_MASK) {
+    if (event->state & GDK_MOD1_MASK) {
     }
     else if (event->state & GDK_CONTROL_MASK) {
         auto reduce = [](Gtk::TreeIter first, std::function<Gtk::TreeIter(Gtk::TreeIter)> operatr)->Gtk::TreeIter{
@@ -183,50 +181,50 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
                 result = next;
             return result;
         };
-        if (event->keyval == GDK_KEY_Up) {
+        if (GDK_KEY_Up == event->keyval) {
             auto fist_sibling = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return --iter;});
             if (fist_sibling)
                 get_tree_view().set_cursor_safe(fist_sibling);
             return true;
         }
-        else if (event->keyval == GDK_KEY_Down) {
+        else if (GDK_KEY_Down == event->keyval) {
             auto last_sibling = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return ++iter;});
             if (last_sibling)
                 get_tree_view().set_cursor_safe(last_sibling);
             return true;
         }
-        else if (event->keyval == GDK_KEY_Left) {
+        else if (GDK_KEY_Left == event->keyval) {
             auto fist_parent = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return iter->parent();});
             if (fist_parent)
                 get_tree_view().set_cursor_safe(fist_parent);
             return true;
         }
-        else if (event->keyval == GDK_KEY_Right) {
+        else if (GDK_KEY_Right == event->keyval) {
             auto last_child = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return iter->children().begin();});
             if (last_child)
                 get_tree_view().set_cursor_safe(last_child);
             return true;
         }
         else {
-            if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
+            if (GDK_KEY_plus == event->keyval or GDK_KEY_KP_Add == event->keyval or GDK_KEY_equal == event->keyval) {
                 _zoom_tree(true);
                 return true;
             }
-            else if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
+            else if (GDK_KEY_minus == event->keyval or GDK_KEY_KP_Subtract == event->keyval) {
                 _zoom_tree(false);
                 return true;
             }
         }
     }
     else {
-        if (event->keyval == GDK_KEY_Left) {
+        if (GDK_KEY_Left == event->keyval) {
             if (_uCtTreeview->row_expanded(_uCtTreestore->get_path(curr_tree_iter())))
                 _uCtTreeview->collapse_row(_uCtTreestore->get_path(curr_tree_iter()));
             else if (curr_tree_iter().parent())
                 get_tree_view().set_cursor_safe(curr_tree_iter().parent());
             return true;
         }
-        else if (event->keyval == GDK_KEY_Right) {
+        else if (GDK_KEY_Right == event->keyval) {
             get_tree_view().expand_row(get_tree_store().get_path(curr_tree_iter()), false);
             return true;
         }
@@ -238,15 +236,15 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
                 _uCtTreeview->expand_row(path, false);
             return true;
         }
-        else if (event->keyval == GDK_KEY_Menu) {
+        else if (GDK_KEY_Menu == event->keyval) {
             _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, event->time);
             return true;
         }
-        else if (event->keyval == GDK_KEY_Tab) {
+        else if (GDK_KEY_Tab == event->keyval or GDK_KEY_ISO_Left_Tab == event->keyval) {
             _uCtActions->toggle_focus_tree_text();
             return true;
         }
-        else if (event->keyval == GDK_KEY_Delete) {
+        else if (GDK_KEY_Delete == event->keyval) {
             _uCtActions->node_delete();
             return true;
         }
@@ -403,7 +401,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
         }
     }
-    else if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval) {
+    if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval) {
         auto iter_insert = curr_buffer->get_insert()->get_iter();
         if (iter_insert)
             cursor_key_press() = iter_insert.get_offset();
@@ -411,7 +409,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             cursor_key_press() = -1;
         // print "self.cursor_key_press", self.cursor_key_press
     }
-    else if (event->key.keyval == GDK_KEY_Menu) {
+    else if (GDK_KEY_Menu == event->key.keyval) {
         if (curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID) {
             if (not curr_buffer->get_has_selection()) return false;
             Gtk::TextIter iter_sel_start, iter_sel_end;
@@ -434,7 +432,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             return true;
         }
     }
-    else if (event->key.keyval == GDK_KEY_Tab) {
+    else if (GDK_KEY_Tab == event->key.keyval or GDK_KEY_ISO_Left_Tab == event->key.keyval) {
         if (not curr_buffer->get_has_selection()) {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
@@ -464,7 +462,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     }
     else if (event->key.state & Gdk::CONTROL_MASK) {
         if (not (event->key.state & Gdk::MOD1_MASK)) {
-            if (event->key.keyval == GDK_KEY_space) {
+            if (GDK_KEY_space == event->key.keyval) {
                 if (_try_move_focus_to_anchored_widget_if_on_it()) {
                     return true;
                 }
@@ -478,11 +476,11 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                     }
                 }
             }
-            if (event->key.keyval == GDK_KEY_plus || event->key.keyval == GDK_KEY_KP_Add || event->key.keyval == GDK_KEY_equal) {
+            if (GDK_KEY_plus == event->key.keyval or GDK_KEY_KP_Add == event->key.keyval or GDK_KEY_equal == event->key.keyval) {
                 _ctTextview.zoom_text(true, curr_tree_iter().get_node_syntax_highlighting());
                 return true;
             }
-            else if (event->key.keyval == GDK_KEY_minus|| event->key.keyval == GDK_KEY_KP_Subtract) {
+            else if (GDK_KEY_minus == event->key.keyval or GDK_KEY_KP_Subtract == event->key.keyval) {
                 _ctTextview.zoom_text(false, curr_tree_iter().get_node_syntax_highlighting());
                 return true;
             }
