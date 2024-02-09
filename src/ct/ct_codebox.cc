@@ -55,11 +55,14 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
             pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
     }, false);
-    _rTextBuffer->signal_mark_set().connect([pCtMainWin, this](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
+    _rTextBuffer->signal_mark_set().connect([pCtMainWin, this](const Gtk::TextIter&, const Glib::RefPtr<Gtk::TextMark>& rMark){
         if (pCtMainWin->user_active() and not pCtMainWin->force_exit()) {
-            _ctTextview.set_editable(not pCtMainWin->curr_tree_iter().get_node_read_only());
-            if (rMark->get_name() == "insert") {
-                _ctTextview.column_edit_selection_update();
+            CtTreeIter currTreeIter = pCtMainWin->curr_tree_iter();
+            if (currTreeIter) {
+                _ctTextview.set_editable(not currTreeIter.get_node_read_only());
+                if (rMark->get_name() == "insert") {
+                    _ctTextview.column_edit_selection_update();
+                }
             }
         }
     }, false);
