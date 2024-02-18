@@ -100,11 +100,11 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             g_autoptr(GDateTime) pGDateTime = g_date_time_new_now_local();
             const gint64 curr_time = g_date_time_to_unix(pGDateTime);
             treeIter.set_node_modification_time(curr_time);
-            const gint64 node_id = treeIter.get_node_id();
-            if ( (0 == _latestStatusbarUpdateTime.count(node_id)) or
-                 (curr_time - _latestStatusbarUpdateTime.at(node_id) > 60) )
+            const gint64 node_id_data_holder = treeIter.get_node_id_data_holder();
+            if ( (0 == _latestStatusbarUpdateTime.count(node_id_data_holder)) or
+                 (curr_time - _latestStatusbarUpdateTime.at(node_id_data_holder) > 60) )
             {
-                _latestStatusbarUpdateTime[node_id] = curr_time;
+                _latestStatusbarUpdateTime[node_id_data_holder] = curr_time;
                 update_selected_node_statusbar_info();
             }
         } break;
@@ -116,7 +116,7 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             std::vector<gint64> rm_node_ids = treeIter.get_children_node_ids();
             rm_node_ids.push_back(top_node_id);
             _uCtTreestore->pending_rm_db_nodes(rm_node_ids);
-            for (auto node_id: rm_node_ids) {
+            for (auto node_id : rm_node_ids) {
                 _ctStateMachine.delete_states(node_id);
             }
         } break;

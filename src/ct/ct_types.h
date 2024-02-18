@@ -58,6 +58,8 @@ enum class CtExporting { NONESAVE, NONESAVEAS, SELECTED_TEXT, CURRENT_NODE, CURR
 
 enum class CtListType { None, Todo, Bullet, Number };
 
+enum class CtDuplicateShared { None, Duplicate, Shared };
+
 enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 
 class CtCodebox;
@@ -68,6 +70,7 @@ class Document;
 }
 using CtDelayedTextBufferMap = std::unordered_map<gint64, std::shared_ptr<xmlpp::Document>>;
 using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
+using CtSharedNodesMap = std::map<gint64, std::set<gint64>>;
 
 struct CtLinkEntry
 {
@@ -297,12 +300,13 @@ public:
                                 const CtStorageSyncPending& syncPending,
                                 Glib::ustring& error,
                                 const CtExporting exporting,
+                                const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                                 const int start_offset = 0,
                                 const int end_offset = -1) = 0;
     virtual void vacuum() = 0;
     virtual void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) = 0;
 
-    virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
+    virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
                                                               const std::string& syntax,
                                                               std::list<CtAnchoredWidget*>& widgets) const = 0;
 
@@ -336,16 +340,18 @@ struct CtExportOptions
 
 struct CtSummaryInfo
 {
-    size_t nodes_rich_text_num{0};
-    size_t nodes_plain_text_num{0};
-    size_t nodes_code_num{0};
-    size_t images_num{0};
-    size_t latexes_num{0};
-    size_t embfile_num{0};
-    size_t heavytables_num{0};
-    size_t lighttables_num{0};
-    size_t codeboxes_num{0};
-    size_t anchors_num{0};
+    size_t nodes_rich_text_num{0u};
+    size_t nodes_plain_text_num{0u};
+    size_t nodes_code_num{0u};
+    size_t nodes_shared_tot{0u};
+    size_t nodes_shared_groups{0u};
+    size_t images_num{0u};
+    size_t latexes_num{0u};
+    size_t embfile_num{0u};
+    size_t heavytables_num{0u};
+    size_t lighttables_num{0u};
+    size_t codeboxes_num{0u};
+    size_t anchors_num{0u};
 };
 
 template<class F> auto scope_guard(F&& f) {

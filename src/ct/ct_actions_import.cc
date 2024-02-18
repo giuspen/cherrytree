@@ -1,7 +1,7 @@
 /*
  * ct_actions_import.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -295,31 +295,33 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
     }
 
     // to apply functions to nodes
-    std::function<void(CtImportedNode*, std::function<void(CtImportedNode*)>)> foreach_nodes;
-    foreach_nodes = [&](CtImportedNode* imported_node, std::function<void(CtImportedNode*)> fun_apply) {
-        fun_apply(imported_node);
-        for (auto& node : imported_node->children)
-            foreach_nodes(node.get(), fun_apply);
+    std::function<void(CtImportedNode*, std::function<void(CtImportedNode*)>)> f_foreach_node;
+    f_foreach_node = [&](CtImportedNode* imported_node, std::function<void(CtImportedNode*)> f_apply) {
+        f_apply(imported_node);
+        for (auto& node : imported_node->children) {
+            f_foreach_node(node.get(), f_apply);
+        }
     };
 
     // setup node id
     std::map<Glib::ustring, gint64> node_ids;
-    gint64 max_node_id = _pCtMainWin->get_tree_store().node_id_get();
-    foreach_nodes(imported_nodes, [&](CtImportedNode* node) {
+    CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
+    gint64 max_node_id = ct_treestore.node_id_get();
+    f_foreach_node(imported_nodes, [&](CtImportedNode* node) {
         node->node_id = max_node_id++;
         node_ids[node->node_name] = node->node_id;
     });
 
     // fix broken links, node name -> node id
-    foreach_nodes(imported_nodes, [&](CtImportedNode* node) {
+    f_foreach_node(imported_nodes, [&](CtImportedNode* node) {
         for (auto& broken_link : node->content_broken_links)
             if (node_ids.count(broken_link.first))
                 for (xmlpp::Element* link_el : broken_link.second)
                     link_el->set_attribute(CtConst::TAG_LINK, "node " + std::to_string(node_ids[broken_link.first]));
     });
 
-    auto create_node = [&](CtImportedNode* imported_node, Gtk::TreeIter curr_iter, bool is_child) {
-        CtNodeData node_data;
+    auto f_create_node = [&](CtImportedNode* imported_node, Gtk::TreeIter curr_iter, bool is_child) {
+        CtNodeData node_data{};
         node_data.name = imported_node->node_name;
         node_data.nodeId = imported_node->node_id;
         node_data.syntax = imported_node->node_syntax;
@@ -339,28 +341,30 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
             pBuffer->set_modified(false);
             node_data.rTextBuffer = pBuffer;
         }
-        else
+        else {
             node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+        }
 
         Gtk::TreeIter node_iter;
-        if (is_child && curr_iter)
-            node_iter = _pCtMainWin->get_tree_store().append_node(&node_data, &curr_iter /* as parent */);
+        if (is_child and curr_iter)
+            node_iter = ct_treestore.append_node(&node_data, &curr_iter /* as parent */);
         else if (curr_iter)
-            node_iter = _pCtMainWin->get_tree_store().insert_node(&node_data, curr_iter /* after */);
+            node_iter = ct_treestore.insert_node(&node_data, curr_iter /* after */);
         else
-            node_iter = _pCtMainWin->get_tree_store().append_node(&node_data);
+            node_iter = ct_treestore.append_node(&node_data);
 
-        _pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter).pending_new_db_node();
-        _pCtMainWin->get_tree_store().update_node_aux_icon(node_iter);
+        CtTreeIter ct_tree_iter = ct_treestore.to_ct_tree_iter(node_iter);
+        ct_tree_iter.pending_new_db_node();
+        ct_treestore.update_node_aux_icon(ct_tree_iter);
         return node_iter;
     };
 
     // just create nodes
-    std::function<void(Gtk::TreeIter, CtImportedNode*)> create_nodes;
-    create_nodes = [&](Gtk::TreeIter curr_iter, CtImportedNode* imported_node) {
-        auto iter = create_node(imported_node, curr_iter, true);
+    std::function<void(Gtk::TreeIter, CtImportedNode*)> f_create_nodes;
+    f_create_nodes = [&](Gtk::TreeIter curr_iter, CtImportedNode* imported_node) {
+        auto iter = f_create_node(imported_node, curr_iter, true);
         for (auto& child : imported_node->children)
-            create_nodes(iter, child.get());
+            f_create_nodes(iter, child.get());
     };
 
     std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
@@ -368,15 +372,14 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
         return;
     }
     if (not dummy_root and imported_nodes->has_content()) {
-        create_nodes(parent_iter.value(), imported_nodes);
+        f_create_nodes(parent_iter.value(), imported_nodes);
     }
-    else // skip top if it's dir
-    {
+    else { // skip top if it's dir
         for (auto& child : imported_nodes->children) {
-            create_nodes(parent_iter.value(), child.get());
+            f_create_nodes(parent_iter.value(), child.get());
         }
     }
 
-    _pCtMainWin->get_tree_store().nodes_sequences_fix(parent_iter.value(), true);
+    ct_treestore.nodes_sequences_fix(parent_iter.value(), true);
     _pCtMainWin->update_window_save_needed();
 }

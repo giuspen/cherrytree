@@ -119,13 +119,13 @@ public:
 
 private:
     // helpers for tree actions
-    void          _node_add(const bool is_duplicate,
-                            const bool add_as_child,
-                            const CtTreeIter* pCtTreeIterFrom = nullptr,
-                            CtMainWin* pWinToCopyFrom = nullptr);
+    void _node_add(const CtDuplicateShared duplicate_shared,
+                   const bool add_as_child,
+                   const CtTreeIter* pCtTreeIterFrom = nullptr,
+                   CtMainWin* pWinToCopyFrom = nullptr);
     Gtk::TreeIter _node_add_with_data(Gtk::TreeIter curr_iter,
                                       CtNodeData& nodeData,
-                                      bool add_as_child,
+                                      const bool add_as_child,
                                       std::shared_ptr<CtNodeState> node_state);
 
 public:
@@ -147,17 +147,22 @@ private:
 
 public:
     // tree actions
-    void node_add()                {
-        _node_add(false/*is_duplicate*/, false/*add_as_child*/);
+    void node_add() {
+        _node_add(CtDuplicateShared::None, false/*add_as_child*/);
     }
-    void node_duplicate()          {
+    void node_duplicate() {
         if (not _is_there_selected_node_or_error()) return;
         CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
-        _node_add(true/*is_duplicate*/, false/*add_as_child*/, &treeIter, _pCtMainWin);
+        _node_add(CtDuplicateShared::Duplicate, false/*add_as_child*/, &treeIter, _pCtMainWin);
     }
-    void node_child_add()          {
+    void node_make_shared() {
         if (not _is_there_selected_node_or_error()) return;
-        _node_add(false/*is_duplicate*/, true/*add_as_child*/);
+        CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+        _node_add(CtDuplicateShared::Shared, false/*add_as_child*/, &treeIter, _pCtMainWin);
+    }
+    void node_child_add() {
+        if (not _is_there_selected_node_or_error()) return;
+        _node_add(CtDuplicateShared::None, true/*add_as_child*/);
     }
     void node_subnodes_duplicate();
     void node_subnodes_copy();

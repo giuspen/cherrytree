@@ -163,8 +163,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         CtMiscUtil::node_siblings_sort(rModel, rModel->children(), need_swap);
     });
 
-    if (dialog.run() != Gtk::RESPONSE_ACCEPT)
-    {
+    if (dialog.run() != Gtk::RESPONSE_ACCEPT) {
         return;
     }
 
@@ -179,24 +178,19 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     });
 
     std::list<gint64> removed_bookmarks;
-    for (const gint64& node_id : bookmarks)
-    {
-        if (0 == temp_bookmarks.count(node_id))
-        {
+    for (const gint64& node_id : bookmarks) {
+        if (0 == temp_bookmarks.count(node_id)) {
             removed_bookmarks.push_back(node_id);
         }
     }
 
     ctTreestore.bookmarks_set(temp_bookmarks_order);
     gint64 curr_node_id = pCtMainWin->curr_tree_iter().get_node_id();
-    for (gint64& node_id: removed_bookmarks)
-    {
-        Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
-        if (tree_iter)
-        {
-            ctTreestore.update_node_aux_icon(tree_iter);
-            if (curr_node_id == node_id)
-            {
+    for (gint64& node_id: removed_bookmarks) {
+        CtTreeIter ct_tree_iter = ctTreestore.get_node_from_node_id(node_id);
+        if (ct_tree_iter) {
+            ctTreestore.update_node_aux_icon(ct_tree_iter);
+            if (curr_node_id == node_id) {
                 pCtMainWin->menu_update_bookmark_menu_item(false);
             }
         }
@@ -650,6 +644,11 @@ void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& 
     grid.attach(label_an_key, 0, 8, 1, 1);
     Gtk::Label label_an_val{std::to_string(summaryInfo.anchors_num)};
     grid.attach(label_an_val, 1, 8, 1, 1);
+    Gtk::Label label_shared_key;
+    label_shared_key.set_markup(Glib::ustring{"<b>"} + _("Number of Shared Nodes / Groups") + "</b>");
+    grid.attach(label_shared_key, 0, 9, 1, 1);
+    Gtk::Label label_shared_val{fmt::format("{} / {}", summaryInfo.nodes_shared_tot, summaryInfo.nodes_shared_groups)};
+    grid.attach(label_shared_val, 1, 9, 1, 1);
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(grid);
     pContentArea->show_all();

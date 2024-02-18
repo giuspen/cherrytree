@@ -1,7 +1,7 @@
 /*
  * ct_storage_multifile.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -36,7 +36,8 @@
 bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                                         const CtStorageSyncPending& syncPending,
                                         Glib::ustring& error,
-                                        const CtExporting exporting,
+                                        const CtExporting export_type,
+                                        const std::map<gint64, gint64>* pExpoMasterReassign/*= nullptr*/,
                                         const int start_offset/*= 0*/,
                                         const int end_offset/*= -1*/)
 {
@@ -50,8 +51,8 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
             }
             _dir_path = dir_path;
 
-            if ( CtExporting::NONESAVEAS == exporting or
-                 CtExporting::ALL_TREE == exporting )
+            if ( CtExporting::NONESAVEAS == export_type or
+                 CtExporting::ALL_TREE == export_type )
             {
                 // save bookmarks
                 _write_bookmarks_to_disk(ct_tree_store.bookmarks_get());
@@ -68,8 +69,8 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
             std::list<gint64> subnodes_list;
 
             // save nodes
-            if ( CtExporting::NONESAVEAS == exporting or
-                 CtExporting::ALL_TREE == exporting )
+            if ( CtExporting::NONESAVEAS == export_type or
+                 CtExporting::ALL_TREE == export_type )
             {
                 CtTreeIter ct_tree_iter = ct_tree_store.get_ct_iter_first();
                 while (ct_tree_iter) {
@@ -80,7 +81,8 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                                                 error,
                                                 &storage_cache,
                                                 node_state,
-                                                exporting,
+                                                export_type,
+                                                pExpoMasterReassign,
                                                 start_offset,
                                                 end_offset))
                     {
@@ -98,7 +100,8 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                                             error,
                                             &storage_cache,
                                             node_state,
-                                            exporting,
+                                            export_type,
+                                            pExpoMasterReassign,
                                             start_offset,
                                             end_offset))
                 {
@@ -129,7 +132,8 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                                     error,
                                     &storage_cache,
                                     node_pair.second,
-                                    exporting,
+                                    export_type,
+                                    pExpoMasterReassign,
                                     0,
                                     -1);
                 if (not any_hier and node_pair.second.hier) {
@@ -287,11 +291,12 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                                              Glib::ustring& error,
                                              CtStorageCache* storage_cache,
                                              const CtStorageNodeState& node_state,
-                                             const CtExporting exporting,
+                                             const CtExporting export_type,
+                                             const std::map<gint64, gint64>* pExpoMasterReassign/*= nullptr*/,
                                              const int start_offset/*= 0*/,
                                              const int end_offset/*=-1*/)
 {
-    if (CtExporting::NONESAVE == exporting and
+    if (CtExporting::NONESAVE == export_type and
         node_state.hier and
         node_state.is_update_of_existing and
         not fs::is_directory(dir_path))
@@ -306,7 +311,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
     }
     if (node_state.buff or node_state.prop) {
         fs::path dir_before_save;
-        if (CtExporting::NONESAVE == exporting) {
+        if (CtExporting::NONESAVE == export_type) {
             // create folder of previous node.xml and widgets
             // (if binaries not changed, won't re-save but move over)
             dir_before_save = dir_path / BEFORE_SAVE;
@@ -336,6 +341,8 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                 xml_doc_node.get_root_node(),
                 dir_path.string()/*multifile_dir*/,
                 storage_cache,
+                export_type,
+                pExpoMasterReassign,
                 start_offset,
                 end_offset
             );
@@ -343,7 +350,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
             // write file
             xml_doc_node.write_to_file_formatted(Glib::build_filename(dir_path.string(), NODE_XML));
         }
-        if (CtExporting::NONESAVE == exporting) {
+        if (CtExporting::NONESAVE == export_type) {
             std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
             pBackupEncryptData->backupType = CtBackupType::MultiFile;
             pBackupEncryptData->needEncrypt = false;
@@ -353,9 +360,9 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
         }
     }
     // subnodes?
-    if (CtExporting::NONESAVE != exporting and
-        CtExporting::CURRENT_NODE != exporting and
-        CtExporting::SELECTED_TEXT != exporting)
+    if (CtExporting::NONESAVE != export_type and
+        CtExporting::CURRENT_NODE != export_type and
+        CtExporting::SELECTED_TEXT != export_type)
     {
         CtTreeIter ct_tree_iter_child = ct_tree_iter->first_child();
         if (ct_tree_iter_child) {
@@ -370,7 +377,8 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                                             error,
                                             storage_cache,
                                             node_state,
-                                            exporting,
+                                            export_type,
+                                            pExpoMasterReassign,
                                             start_offset,
                                             end_offset))
                 {
@@ -466,16 +474,30 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
 
         // load node tree
         std::list<CtTreeIter> nodes_with_duplicated_id;
+        std::list<CtTreeIter> nodes_shared_non_master;
         std::function<void(const fs::path&, const gint64, Gtk::TreeIter)> f_nodes_from_multifile;
         f_nodes_from_multifile = [&](const fs::path& nodedir, const gint64 sequence, Gtk::TreeIter parent_iter) {
             bool has_duplicated_id{false};
+            bool is_shared_non_master{false};
             std::unique_ptr<xmlpp::DomParser> parser = CtStorageXml::get_parser(nodedir / NODE_XML);
             xmlpp::Node* xml_node = parser->get_document()->get_root_node()->get_first_child("node");
             auto xml_element = static_cast<xmlpp::Element*>(xml_node);
             Gtk::TreeIter new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
-                xml_element, sequence, parent_iter, -1/*new_id*/, &has_duplicated_id, _delayed_text_buffers, _isDryRun, nodedir.string());
+                xml_element,
+                sequence,
+                parent_iter,
+                -1/*new_id*/,
+                &has_duplicated_id,
+                &is_shared_non_master,
+                nullptr/*pImportedIdsRemap*/,
+                _delayed_text_buffers,
+                _isDryRun,
+                nodedir.string());
             if (has_duplicated_id and not _isDryRun) {
                 nodes_with_duplicated_id.push_back(ct_tree_store.to_ct_tree_iter(new_iter));
+            }
+            if (is_shared_non_master and not _isDryRun) {
+                nodes_shared_non_master.push_back(ct_tree_store.to_ct_tree_iter(new_iter));
             }
             gint64 child_sequence{0};
             for (const fs::path& subnode_dirpath : CtStorageMultiFile::get_child_nodes_dirs(nodedir)) {
@@ -486,10 +508,17 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
         for (const fs::path& node_dirpath : CtStorageMultiFile::get_child_nodes_dirs(_dir_path)) {
             f_nodes_from_multifile(node_dirpath, ++sequence, Gtk::TreeIter{});
         }
-
-        // fixes duplicated ids by setting new ids
-        for (auto& node : nodes_with_duplicated_id) {
-            node.set_node_id(ct_tree_store.node_id_get());
+        // fix duplicated ids by allocating new ids
+        // new ids can be allocated only after the whole tree is parsed
+        for (CtTreeIter& ctTreeIter : nodes_with_duplicated_id) {
+            ctTreeIter.set_node_id(ct_tree_store.node_id_get());
+        }
+        // populate shared non master nodes now that the master nodes
+        // are in the tree
+        for (CtTreeIter& ctTreeIter : nodes_shared_non_master) {
+            CtNodeData nodeData{};
+            ct_tree_store.get_node_data(ctTreeIter, nodeData, false/*loadTextBuffer*/);
+            ct_tree_store.update_node_data(ctTreeIter, nodeData);
         }
         return true;
     }
@@ -503,28 +532,58 @@ void CtStorageMultiFile::import_nodes(const fs::path& dir_path, const Gtk::TreeI
 {
     CtTreeStore& ct_tree_store = _pCtMainWin->get_tree_store();
 
-    std::function<void(const fs::path&, const gint64 sequence, Gtk::TreeIter)> f_recursive_import;
-    f_recursive_import = [&](const fs::path& nodedir, const gint64 sequence, Gtk::TreeIter parent_iter) {
+    std::list<CtTreeIter> nodes_shared_non_master;
+    std::map<gint64,gint64> imported_ids_remap;
+    std::function<void(const fs::path&, const gint64 sequence, Gtk::TreeIter)> f_nodes_from_multifile;
+    f_nodes_from_multifile = [&](const fs::path& nodedir, const gint64 sequence, Gtk::TreeIter parent_iter) {
         std::unique_ptr<xmlpp::DomParser> parser = CtStorageXml::get_parser(nodedir / NODE_XML);
         xmlpp::Node* xml_node = parser->get_document()->get_root_node()->get_first_child("node");
         auto xml_element = static_cast<xmlpp::Element*>(xml_node);
+        bool is_shared_non_master{false};
         Gtk::TreeIter new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
-            xml_element, sequence, parent_iter, ct_tree_store.node_id_get(), nullptr/*pHasDuplicatedId*/, _delayed_text_buffers, _isDryRun, nodedir.string());
+            xml_element,
+            sequence,
+            parent_iter,
+            ct_tree_store.node_id_get(),
+            nullptr/*pHasDuplicatedId*/,
+            &is_shared_non_master,
+            &imported_ids_remap,
+            _delayed_text_buffers,
+            _isDryRun,
+            nodedir.string());
         CtTreeIter new_ct_iter = ct_tree_store.to_ct_tree_iter(new_iter);
         new_ct_iter.pending_new_db_node();
+        if (is_shared_non_master) {
+            nodes_shared_non_master.push_back(ct_tree_store.to_ct_tree_iter(new_iter));
+        }
         gint64 child_sequence{0};
         for (const fs::path& subnode_dirpath : CtStorageMultiFile::get_child_nodes_dirs(nodedir)) {
-            f_recursive_import(subnode_dirpath, ++child_sequence, new_iter);
+            f_nodes_from_multifile(subnode_dirpath, ++child_sequence, new_iter);
         }
     };
-
     gint64 sequence{0};
     for (const fs::path& node_dirpath : CtStorageMultiFile::get_child_nodes_dirs(dir_path)) {
-        f_recursive_import(node_dirpath, ++sequence, ct_tree_store.to_ct_tree_iter(parent_iter));
+        f_nodes_from_multifile(node_dirpath, ++sequence, ct_tree_store.to_ct_tree_iter(parent_iter));
+    }
+    // populate shared non master nodes now that the master nodes
+    // are in the tree
+    for (CtTreeIter& ctTreeIter : nodes_shared_non_master) {
+        // the shared node master id is remapped after the import
+        const gint64 origMasterId = ctTreeIter.get_node_shared_master_id();
+        const auto it = imported_ids_remap.find(origMasterId);
+        if (imported_ids_remap.end() == it) {
+            spdlog::error("!! unexp missing master id {} from remap", origMasterId);
+        }
+        else {
+            ctTreeIter.set_node_shared_master_id(it->second);
+            CtNodeData nodeData{};
+            ct_tree_store.get_node_data(ctTreeIter, nodeData, false/*loadTextBuffer*/);
+            ct_tree_store.update_node_data(ctTreeIter, nodeData);
+        }
     }
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageMultiFile::get_delayed_text_buffer(const gint64& node_id,
+Glib::RefPtr<Gsv::Buffer> CtStorageMultiFile::get_delayed_text_buffer(const gint64 node_id,
                                                                       const std::string& syntax,
                                                                       std::list<CtAnchoredWidget*>& widgets) const
 {

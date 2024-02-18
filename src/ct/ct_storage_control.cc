@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -118,7 +118,7 @@
                                                       const CtDocType doc_type,
                                                       const Glib::ustring& password,
                                                       Glib::ustring& error,
-                                                      const CtExporting exporting,
+                                                      const CtExporting export_type,
                                                       const int start_offset/*= 0*/,
                                                       const int end_offset/*= -1*/)
 {
@@ -138,6 +138,44 @@
         }
     };
 
+    CtTreeStore& ctTreeStore = pCtMainWin->get_tree_store();
+    std::map<gint64, gint64> expo_master_reassign;
+    if (CtExporting::CURRENT_NODE_AND_SUBNODES == export_type) {
+        // shared nodes groups may need to change in the exported data if we are
+        // not exporting a master while exporting non masters of the same group
+        CtSharedNodesMap shared_nodes_map;
+        if (ctTreeStore.populate_shared_nodes_map(shared_nodes_map) > 0u) {
+            std::function<void(Gtk::TreeIter)> f_collect_ids_to_export;
+            std::list<gint64> nodeIdsToExport;
+            f_collect_ids_to_export = [&ctTreeStore, &nodeIdsToExport, f_collect_ids_to_export](Gtk::TreeIter iter) {
+                CtTreeIter ctTreeIter = ctTreeStore.to_ct_tree_iter(iter);
+                nodeIdsToExport.push_back(ctTreeIter.get_node_id());
+                for (Gtk::TreeIter child : iter->children()) {
+                    f_collect_ids_to_export(child);
+                }
+            };
+            f_collect_ids_to_export(pCtMainWin->curr_tree_iter());
+            for (const gint64 expo_node_id : nodeIdsToExport) {
+                for (const auto& currPair : shared_nodes_map) {
+                    if (vec::exists(currPair.second, expo_node_id)) {
+                        // we are going to export a non master node
+                        if (not vec::exists(nodeIdsToExport, currPair.first)) {
+                            // we are not going to export its master
+                            if (0u == expo_master_reassign.count(currPair.first)) {
+                                // we have not already reassigned this master
+                                expo_master_reassign[currPair.first] = expo_node_id;
+                            }
+                        }
+                        break; // a node cannot belong to more than one shared group
+                    }
+                    if (expo_node_id == currPair.first) {
+                        break; // a node cannot belong to more than one shared group
+                    }
+                }
+            }
+        }
+    }
+
     try {
         if (fs::get_doc_encrypt_from_file_ext(file_path) == CtDocEncrypt::True) {
             extracted_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
@@ -149,7 +187,14 @@
 
         // will save all data because it's the first time
         CtStorageSyncPending fakePending;
-        if (not storage->save_treestore(extracted_file_path, fakePending, error, exporting, start_offset, end_offset)) {
+        if (not storage->save_treestore(extracted_file_path,
+                                        fakePending,
+                                        error,
+                                        export_type,
+                                        &expo_master_reassign,
+                                        start_offset,
+                                        end_offset))
+        {
             throw std::runtime_error(error);
         }
         // encrypt the file
@@ -263,7 +308,11 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
             }
         }
         // save changes
-        if (not _storage->save_treestore(_extracted_file_path, _syncPending, error, CtExporting::NONESAVE)) {
+        if (not _storage->save_treestore(_extracted_file_path,
+                                         _syncPending,
+                                         error,
+                                         CtExporting::NONESAVE))
+        {
             throw std::runtime_error(error);
         }
 #if defined(DEBUG_BACKUP_ENCRYPT)
@@ -314,7 +363,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
     }
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64& node_id,
+Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64 node_id,
                                                                     const std::string& syntax,
                                                                     std::list<CtAnchoredWidget*>& widgets) const
 {
@@ -325,7 +374,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);
 }
 
-/*static*/ fs::path CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password)
+/*static*/fs::path CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password)
 {
     fs::path temp_dir = pCtMainWin->get_ct_tmp()->getHiddenDirPath(file_path);
     fs::path temp_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
@@ -596,7 +645,7 @@ void CtStorageControl::_backupEncryptThread()
 #endif // DEBUG_BACKUP_ENCRYPT
 }
 
-void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
+void CtStorageControl::pending_edit_db_node_prop(const gint64 node_id)
 {
     if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
         _syncPending.nodes_to_write_dict[node_id].prop = true;
@@ -609,7 +658,7 @@ void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
     }
 }
 
-void CtStorageControl::pending_edit_db_node_buff(gint64 node_id)
+void CtStorageControl::pending_edit_db_node_buff(const gint64 node_id)
 {
     if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
         _syncPending.nodes_to_write_dict[node_id].buff = true;
@@ -622,7 +671,7 @@ void CtStorageControl::pending_edit_db_node_buff(gint64 node_id)
     }
 }
 
-void CtStorageControl::pending_edit_db_node_hier(gint64 node_id)
+void CtStorageControl::pending_edit_db_node_hier(const gint64 node_id)
 {
     if (0 != _syncPending.nodes_to_write_dict.count(node_id)) {
         _syncPending.nodes_to_write_dict[node_id].hier = true;
@@ -635,7 +684,7 @@ void CtStorageControl::pending_edit_db_node_hier(gint64 node_id)
     }
 }
 
-void CtStorageControl::pending_new_db_node(gint64 node_id)
+void CtStorageControl::pending_new_db_node(const gint64 node_id)
 {
     CtStorageNodeState node_state;
     node_state.is_update_of_existing = false;

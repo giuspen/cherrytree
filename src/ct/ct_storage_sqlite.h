@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -53,13 +53,14 @@ public:
     bool save_treestore(const fs::path& file_path,
                         const CtStorageSyncPending& syncPending,
                         Glib::ustring& error,
-                        const CtExporting exporting,
+                        const CtExporting export_type,
+                        const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                         const int start_offset = 0,
                         const int end_offset = -1) override;
     void vacuum() override;
     void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
 
-    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
+    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
@@ -67,7 +68,11 @@ private:
     void _close_db();
     bool _check_database_integrity();
 
-    Gtk::TreeIter       _node_from_db(gint64 node_id, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
+    Gtk::TreeIter _node_from_db(const gint64 node_id,
+                                const gint64 master_id,
+                                const gint64 sequence,
+                                Gtk::TreeIter parent_iter,
+                                const gint64 new_id);
 
     /**
      * @brief Check that the database contains the required tables
@@ -93,10 +98,13 @@ private:
                                           const gint64 sequence,
                                           const gint64 node_father_id,
                                           const CtStorageNodeState& write_dict,
-                                          const int start_offset, const int end_offset,
-                                          CtStorageCache* storage_cache);
+                                          const int start_offset,
+                                          const int end_offset,
+                                          CtStorageCache* storage_cache,
+                                          const CtExporting export_type,
+                                          const std::map<gint64, gint64>* pExpoMasterReassign);
 
-    std::list<gint64>   _get_children_node_ids_from_db(gint64 father_id);
+    std::list<std::pair<gint64,gint64>> _get_children_node_ids_from_db(const gint64 father_id);
     void                _remove_db_node_with_children(const gint64 node_id);
 
     void                _exec_no_callback(const char* sqlCmd);

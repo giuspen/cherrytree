@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -184,19 +184,19 @@ public:
     void reset();
     gint64 requested_visited_previous();
     gint64 requested_visited_next();
-    void node_selected_changed(gint64 node_id);
-    void text_variation(gint64 node_id, const Glib::ustring& varied_text);
-    std::shared_ptr<CtNodeState> requested_state_previous(gint64 node_id);
-    std::shared_ptr<CtNodeState> requested_state_current(gint64 node_id);
-    std::shared_ptr<CtNodeState> requested_state_subsequent(gint64 node_id);
-    void delete_states(gint64 node_id);
-    bool curr_index_is_last_index(gint64 node_id);
+    void node_selected_changed(const gint64 node_id_data_holder);
+    void text_variation(const gint64 node_id_data_holder, const Glib::ustring& varied_text);
+    std::shared_ptr<CtNodeState> requested_state_previous(const gint64 node_id_data_holder);
+    std::shared_ptr<CtNodeState> requested_state_current(const gint64 node_id_data_holder);
+    std::shared_ptr<CtNodeState> requested_state_subsequent(const gint64 node_id_data_holder);
+    void delete_states(const gint64 node_id_data_holder);
+    bool curr_index_is_last_index(const gint64 node_id_data_holder);
     void not_undoable_timeslot_set(bool not_undoable_val);
     bool not_undoable_timeslot_get();
     void update_state();
     void update_state(CtTreeIter tree_iter);
-    void update_curr_state_cursor_pos(gint64 node_id);
-    void update_curr_state_v_adj_val(gint64 node_id);
+    void update_curr_state_cursor_pos(const gint64 node_id_data_holder);
+    void update_curr_state_v_adj_val(const gint64 node_id_data_holder);
 
     void set_go_bk_fw_active(bool val) { _go_bk_fw_active = val; }
 

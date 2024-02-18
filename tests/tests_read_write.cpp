@@ -1,7 +1,7 @@
 /*
  * tests_read_write.cpp
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -137,7 +137,7 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
         CtTreeIter ctTreeIterNewParent = pWin2->get_tree_store().get_node_from_node_name("e");
         Gtk::TreeIter new_node_iter = pWin2->get_tree_store().get_store()->append(ctTreeIterNewParent->children());
         CtNodeData node_data;
-        pWin2->get_tree_store().get_node_data(ctTreeIter, node_data);
+        pWin2->get_tree_store().get_node_data(ctTreeIter, node_data, true/*loadTextBuffer*/);
         pWin2->get_tree_store().update_node_data(new_node_iter, node_data);
         pWin2->get_tree_store().get_store()->erase(ctTreeIter);
         CtTreeIter newCtTreeIter = pWin2->get_tree_store().to_ct_tree_iter(new_node_iter);

@@ -144,7 +144,7 @@ void CtActions::embfile_open()
     fs::path tmp_filepath;
     if (mapIter == _embfiles_opened.end()) {
         // the file was not opened yet
-        const fs::path filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id()) +
+        const fs::path filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id_data_holder()) +
                                                  CtConst::CHAR_MINUS + std::to_string(open_id) +
                                                  CtConst::CHAR_MINUS + std::to_string(getpid())+
                                                  CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().string();

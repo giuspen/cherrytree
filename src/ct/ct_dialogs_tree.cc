@@ -38,120 +38,120 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_default_size(300, -1);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    Gtk::Entry name_entry;
-    name_entry.set_text(nodeData.name);
+    auto name_entry = Gtk::manage(new Gtk::Entry);
+    name_entry->set_text(nodeData.name);
 
     auto grid_icons = Gtk::manage(new Gtk::Grid{});
     grid_icons->set_row_spacing(0);
     grid_icons->set_column_spacing(0);
     grid_icons->set_row_homogeneous(true);
 
-    Gtk::CheckButton is_bold_checkbutton{_("Bold")};
-    is_bold_checkbutton.set_active(nodeData.isBold);
-    is_bold_checkbutton.set_margin_top(4);
+    auto is_bold_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Bold")});
+    is_bold_checkbutton->set_active(nodeData.isBold);
+    is_bold_checkbutton->set_margin_top(4);
 
-    Gtk::CheckButton fg_checkbutton{_("Use Selected Color")};
-    fg_checkbutton.set_active(not nodeData.foregroundRgb24.empty());
+    auto fg_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Use Selected Color")});
+    fg_checkbutton->set_active(not nodeData.foregroundRgb24.empty());
     Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtConfig->currColour_nn.empty() ? pCtConfig->currColour_nn.c_str() : "red");
-    Gtk::ColorButton fg_colorbutton{Gdk::RGBA{real_fg}};
-    fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
+    auto fg_colorbutton = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{real_fg}});
+    fg_colorbutton->set_sensitive(not nodeData.foregroundRgb24.empty());
 
-    Gtk::CheckButton c_icon_checkbutton{_("Use Selected Icon")};
-    c_icon_checkbutton.set_active(nodeData.customIconId > 0 and nodeData.customIconId < CtStockIcon::size());
-    Gtk::Button c_icon_button;
-    int currCustomIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : pCtConfig->lastIconSel;
-    c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(currCustomIconId), Gtk::ICON_SIZE_BUTTON));
-    c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
+    auto c_icon_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Use Selected Icon")});
+    c_icon_checkbutton->set_active(nodeData.customIconId > 0 and nodeData.customIconId < CtStockIcon::size());
+    auto c_icon_button = Gtk::manage(new Gtk::Button);
+    int currCustomIconId = c_icon_checkbutton->get_active() ? nodeData.customIconId : pCtConfig->lastIconSel;
+    c_icon_button->set_image(*pCtMainWin->new_managed_image_from_stock(CtStockIcon::at(currCustomIconId), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button->set_sensitive(c_icon_checkbutton->get_active());
 
-    grid_icons->attach(fg_checkbutton, 0, 1, 1, 1);
-    grid_icons->attach(fg_colorbutton, 1, 1, 1, 1);
-    grid_icons->attach(c_icon_checkbutton, 0, 2, 1, 1);
-    grid_icons->attach(c_icon_button, 1, 2, 1, 1);
+    grid_icons->attach(*fg_checkbutton, 0, 1, 1, 1);
+    grid_icons->attach(*fg_colorbutton, 1, 1, 1, 1);
+    grid_icons->attach(*c_icon_checkbutton, 0, 2, 1, 1);
+    grid_icons->attach(*c_icon_button, 1, 2, 1, 1);
 
-    Gtk::Box name_vbox{Gtk::ORIENTATION_VERTICAL};
-    name_vbox.pack_start(name_entry);
-    name_vbox.pack_start(is_bold_checkbutton);
-    name_vbox.pack_start(*grid_icons);
-    Gtk::Frame name_frame{Glib::ustring{"<b>"}+_("Node Name")+"</b>"};
-    dynamic_cast<Gtk::Label*>(name_frame.get_label_widget())->set_use_markup(true);
-    name_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    name_frame.add(name_vbox);
-    Gtk::RadioButton radiobutton_rich_text{_("Rich Text")};
-    Gtk::RadioButton::Group rbGroup = radiobutton_rich_text.get_group();
-    Gtk::RadioButton radiobutton_plain_text(rbGroup, _("Plain Text"));
-    Gtk::RadioButton radiobutton_auto_syntax_highl(rbGroup, _("Automatic Syntax Highlighting"));
-    Gtk::Button button_prog_lang;
+    auto name_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    name_vbox->pack_start(*name_entry);
+    name_vbox->pack_start(*is_bold_checkbutton);
+    name_vbox->pack_start(*grid_icons);
+    auto name_frame = Gtk::manage(new Gtk::Frame{Glib::ustring{"<b>"}+_("Node Name")+"</b>"});
+    dynamic_cast<Gtk::Label*>(name_frame->get_label_widget())->set_use_markup(true);
+    name_frame->set_shadow_type(Gtk::SHADOW_NONE);
+    name_frame->add(*name_vbox);
+    auto radiobutton_rich_text = Gtk::manage(new Gtk::RadioButton{_("Rich Text")});
+    Gtk::RadioButton::Group rbGroup = radiobutton_rich_text->get_group();
+    auto radiobutton_plain_text = Gtk::manage(new Gtk::RadioButton{rbGroup, _("Plain Text")});
+    auto radiobutton_auto_syntax_highl = Gtk::manage(new Gtk::RadioButton{rbGroup, _("Automatic Syntax Highlighting")});
+    auto button_prog_lang = Gtk::manage(new Gtk::Button);
     std::string syntax_hl_id = nodeData.syntax;
-    if (nodeData.syntax == CtConst::RICH_TEXT_ID || nodeData.syntax == CtConst::PLAIN_TEXT_ID) {
+    if (CtConst::RICH_TEXT_ID == nodeData.syntax or CtConst::PLAIN_TEXT_ID == nodeData.syntax) {
         syntax_hl_id = pCtConfig->autoSynHighl;
     }
     std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
-    button_prog_lang.set_label(syntax_hl_id);
-    button_prog_lang.set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
-    if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
-        radiobutton_rich_text.set_active(true);
-        button_prog_lang.set_sensitive(false);
+    button_prog_lang->set_label(syntax_hl_id);
+    button_prog_lang->set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+    if (CtConst::RICH_TEXT_ID == nodeData.syntax) {
+        radiobutton_rich_text->set_active(true);
+        button_prog_lang->set_sensitive(false);
     }
-    else if (nodeData.syntax == CtConst::PLAIN_TEXT_ID) {
-        radiobutton_plain_text.set_active(true);
-        button_prog_lang.set_sensitive(false);
+    else if (CtConst::PLAIN_TEXT_ID == nodeData.syntax) {
+        radiobutton_plain_text->set_active(true);
+        button_prog_lang->set_sensitive(false);
     }
     else {
-        radiobutton_auto_syntax_highl.set_active(true);
+        radiobutton_auto_syntax_highl->set_active(true);
     }
-    Gtk::Box type_vbox{Gtk::ORIENTATION_VERTICAL};
-    type_vbox.pack_start(radiobutton_rich_text);
-    type_vbox.pack_start(radiobutton_plain_text);
-    type_vbox.pack_start(radiobutton_auto_syntax_highl);
-    type_vbox.pack_start(button_prog_lang);
-    Gtk::Frame type_frame{Glib::ustring{"<b>"}+_("Node Type")+"</b>"};
-    dynamic_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
-    type_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    type_frame.add(type_vbox);
-    type_frame.set_sensitive(!nodeData.isReadOnly);
+    auto type_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    type_vbox->pack_start(*radiobutton_rich_text);
+    type_vbox->pack_start(*radiobutton_plain_text);
+    type_vbox->pack_start(*radiobutton_auto_syntax_highl);
+    type_vbox->pack_start(*button_prog_lang);
+    auto type_frame = Gtk::manage(new Gtk::Frame{Glib::ustring{"<b>"}+_("Node Type")+"</b>"});
+    dynamic_cast<Gtk::Label*>(type_frame->get_label_widget())->set_use_markup(true);
+    type_frame->set_shadow_type(Gtk::SHADOW_NONE);
+    type_frame->add(*type_vbox);
+    type_frame->set_sensitive(not nodeData.isReadOnly);
 
-    Gtk::Box tags_hbox{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
-    Gtk::Entry tags_entry;
-    tags_entry.set_text(nodeData.tags);
-    Gtk::Button button_browse_tags;
-    button_browse_tags.set_image(*pCtMainWin->new_managed_image_from_stock("ct_find", Gtk::ICON_SIZE_BUTTON));
-    button_browse_tags.set_sensitive(!tags_set.empty());
-    tags_hbox.pack_start(tags_entry);
-    tags_hbox.pack_start(button_browse_tags, false, false);
-    Gtk::Frame tags_frame{Glib::ustring{"<b>"}+_("Tags for Searching")+"</b>"};
-    dynamic_cast<Gtk::Label*>(tags_frame.get_label_widget())->set_use_markup(true);
-    tags_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    tags_frame.add(tags_hbox);
+    auto tags_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    auto tags_entry = Gtk::manage(new Gtk::Entry);
+    tags_entry->set_text(nodeData.tags);
+    auto button_browse_tags = Gtk::manage(new Gtk::Button);
+    button_browse_tags->set_image(*pCtMainWin->new_managed_image_from_stock("ct_find", Gtk::ICON_SIZE_BUTTON));
+    button_browse_tags->set_sensitive(not tags_set.empty());
+    tags_hbox->pack_start(*tags_entry);
+    tags_hbox->pack_start(*button_browse_tags, false, false);
+    auto tags_frame = Gtk::manage(new Gtk::Frame{Glib::ustring{"<b>"}+_("Tags for Searching")+"</b>"});
+    dynamic_cast<Gtk::Label*>(tags_frame->get_label_widget())->set_use_markup(true);
+    tags_frame->set_shadow_type(Gtk::SHADOW_NONE);
+    tags_frame->add(*tags_hbox);
 
-    Gtk::Label excl_label{_("Exclude from Searches")};
-    Gtk::Box excl_hbox{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
-    excl_hbox.set_margin_left(5);
-    Gtk::CheckButton excl_me_checkbutton{_("This Node")};
-    excl_me_checkbutton.set_active(nodeData.excludeMeFromSearch);
-    Gtk::CheckButton excl_ch_checkbutton{_("The Subnodes")};
-    excl_ch_checkbutton.set_active(nodeData.excludeChildrenFromSearch);
-    excl_hbox.pack_start(excl_label);
-    excl_hbox.pack_start(excl_me_checkbutton);
-    excl_hbox.pack_start(excl_ch_checkbutton);
+    auto excl_label = Gtk::manage(new Gtk::Label{_("Exclude from Searches")});
+    auto excl_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    excl_hbox->set_margin_left(5);
+    auto excl_me_checkbutton = Gtk::manage(new Gtk::CheckButton{_("This Node")});
+    excl_me_checkbutton->set_active(nodeData.excludeMeFromSearch);
+    auto excl_ch_checkbutton = Gtk::manage(new Gtk::CheckButton{_("The Subnodes")});
+    excl_ch_checkbutton->set_active(nodeData.excludeChildrenFromSearch);
+    excl_hbox->pack_start(*excl_label);
+    excl_hbox->pack_start(*excl_me_checkbutton);
+    excl_hbox->pack_start(*excl_ch_checkbutton);
 
-    Gtk::CheckButton ro_checkbutton{_("Read Only")};
-    ro_checkbutton.set_active(nodeData.isReadOnly);
+    auto ro_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Read Only")});
+    ro_checkbutton->set_active(nodeData.isReadOnly);
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
-    pContentArea->pack_start(name_frame);
-    pContentArea->pack_start(type_frame);
-    pContentArea->pack_start(tags_frame);
-    pContentArea->pack_start(excl_hbox);
-    pContentArea->pack_start(ro_checkbutton);
+    pContentArea->pack_start(*name_frame);
+    pContentArea->pack_start(*type_frame);
+    pContentArea->pack_start(*tags_frame);
+    pContentArea->pack_start(*excl_hbox);
+    pContentArea->pack_start(*ro_checkbutton);
     pContentArea->show_all();
-    name_entry.grab_focus();
+    name_entry->grab_focus();
 
-    button_prog_lang.signal_clicked().connect([&dialog, &pCtMainWin, &button_prog_lang](){
+    button_prog_lang->signal_clicked().connect([&dialog, pCtMainWin, button_prog_lang](){
         auto itemStore = CtChooseDialogListStore::create();
         unsigned pathSelectIdx{0};
         unsigned pathCurrIdx{0};
-        const auto currSyntaxHighl = button_prog_lang.get_label();
+        const auto currSyntaxHighl = button_prog_lang->get_label();
         for (const auto& lang : pCtMainWin->get_language_manager()->get_language_ids()) {
             itemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
             if (lang == currSyntaxHighl) {
@@ -167,44 +167,44 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         if (treeIter) {
             const Glib::ustring syntax_hl_id = treeIter->get_value(itemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
-            button_prog_lang.set_label(syntax_hl_id);
-            button_prog_lang.set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+            button_prog_lang->set_label(syntax_hl_id);
+            button_prog_lang->set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
     });
-    radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang](){
-       button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
+    radiobutton_auto_syntax_highl->signal_toggled().connect([radiobutton_auto_syntax_highl, button_prog_lang](){
+       button_prog_lang->set_sensitive(radiobutton_auto_syntax_highl->get_active());
     });
-    button_browse_tags.signal_clicked().connect([&dialog, &tags_entry, &tags_set](){
+    button_browse_tags->signal_clicked().connect([&dialog, tags_entry, &tags_set](){
         auto itemStore = CtChooseDialogListStore::create();
         for (const auto& tag : tags_set) {
             itemStore->add_row("", "", tag);
         }
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Tag"), itemStore, _("Tag Name"));
         if (treeIter) {
-            std::string cur_tag = tags_entry.get_text();
+            std::string cur_tag = tags_entry->get_text();
             if  (str::endswith(cur_tag, CtConst::CHAR_SPACE)) {
-                tags_entry.set_text(cur_tag + treeIter->get_value(itemStore->columns.desc));
+                tags_entry->set_text(cur_tag + treeIter->get_value(itemStore->columns.desc));
             }
             else {
-                tags_entry.set_text(cur_tag + CtConst::CHAR_SPACE + treeIter->get_value(itemStore->columns.desc));
+                tags_entry->set_text(cur_tag + CtConst::CHAR_SPACE + treeIter->get_value(itemStore->columns.desc));
             }
         }
     });
-    ro_checkbutton.signal_toggled().connect([&ro_checkbutton, &type_frame](){
-        type_frame.set_sensitive(!ro_checkbutton.get_active());
+    ro_checkbutton->signal_toggled().connect([ro_checkbutton, type_frame](){
+        type_frame->set_sensitive(not ro_checkbutton->get_active());
     });
-    fg_checkbutton.signal_toggled().connect([&](){
-        fg_colorbutton.set_sensitive(fg_checkbutton.get_active());
+    fg_checkbutton->signal_toggled().connect([fg_colorbutton, fg_checkbutton](){
+        fg_colorbutton->set_sensitive(fg_checkbutton->get_active());
     });
-    fg_colorbutton.signal_pressed().connect([&pCtMainWin, &fg_colorbutton](){
-        Glib::ustring ret_colour = fg_colorbutton.get_rgba().to_string();
+    fg_colorbutton->signal_pressed().connect([pCtMainWin, fg_colorbutton](){
+        Glib::ustring ret_colour = fg_colorbutton->get_rgba().to_string();
         if (CtDialogs::colour_pick_dialog(pCtMainWin, _("Pick a Color"), ret_colour, false) == CtPickDlgState::SELECTED) {
-            fg_colorbutton.set_rgba(Gdk::RGBA(ret_colour));
+            fg_colorbutton->set_rgba(Gdk::RGBA{ret_colour});
         }
     });
-    c_icon_checkbutton.signal_toggled().connect([&c_icon_checkbutton, &c_icon_button, &nodeData, &currCustomIconId](){
-        const bool custom_icon_active = c_icon_checkbutton.get_active();
-        c_icon_button.set_sensitive(custom_icon_active);
+    c_icon_checkbutton->signal_toggled().connect([c_icon_checkbutton, c_icon_button, &nodeData, &currCustomIconId](){
+        const bool custom_icon_active = c_icon_checkbutton->get_active();
+        c_icon_button->set_sensitive(custom_icon_active);
         if (custom_icon_active) {
             nodeData.customIconId = currCustomIconId;
         }
@@ -212,7 +212,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             nodeData.customIconId = 0;
         }
     });
-    c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData, &currCustomIconId](){
+    c_icon_button->signal_clicked().connect([&dialog, pCtMainWin, c_icon_button, &nodeData, &currCustomIconId](){
         auto itemStore = CtChooseDialogListStore::create();
         int pathCurrIdx{0};
         int pathSelectIdx{0};
@@ -231,9 +231,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         if (treeIter) {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
             currCustomIconId = nodeData.customIconId;
-            c_icon_button.set_label("");
-            c_icon_button.property_always_show_image() = true; // to fix not showing image on Win32
-            c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
+            c_icon_button->set_label("");
+            c_icon_button->property_always_show_image() = true; // to fix not showing image on Win32
+            c_icon_button->set_image(*pCtMainWin->new_managed_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
         }
     });
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
@@ -257,34 +257,34 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         return false;
     }
 
-    nodeData.name = str::trim(name_entry.get_text());
+    nodeData.name = str::trim(name_entry->get_text());
     nodeData.name = str::replace(nodeData.name, "\r", ""); // the given name can contain \r and \n as a result
-    nodeData.name = str::replace(nodeData.name, "\n", ""); // of cope/paste from some source
+    nodeData.name = str::replace(nodeData.name, "\n", ""); // of a copy & paste
     nodeData.name = str::replace(nodeData.name, "\t", " ");
 
     if (nodeData.name.empty()) {
         nodeData.name = CtConst::CHAR_QUESTION;
     }
-    if (radiobutton_rich_text.get_active()) {
+    if (radiobutton_rich_text->get_active()) {
         nodeData.syntax = CtConst::RICH_TEXT_ID;
     }
-    else if (radiobutton_plain_text.get_active()) {
+    else if (radiobutton_plain_text->get_active()) {
         nodeData.syntax = CtConst::PLAIN_TEXT_ID;
     }
     else {
-        nodeData.syntax = button_prog_lang.get_label();
+        nodeData.syntax = button_prog_lang->get_label();
         pCtConfig->autoSynHighl = nodeData.syntax;
     }
-    nodeData.tags = tags_entry.get_text();
-    nodeData.isReadOnly = ro_checkbutton.get_active();
-    nodeData.excludeMeFromSearch = excl_me_checkbutton.get_active();
-    nodeData.excludeChildrenFromSearch = excl_ch_checkbutton.get_active();
-    if (c_icon_checkbutton.get_active()) {
+    nodeData.tags = tags_entry->get_text();
+    nodeData.isReadOnly = ro_checkbutton->get_active();
+    nodeData.excludeMeFromSearch = excl_me_checkbutton->get_active();
+    nodeData.excludeChildrenFromSearch = excl_ch_checkbutton->get_active();
+    if (c_icon_checkbutton->get_active()) {
         pCtConfig->lastIconSel = nodeData.customIconId;
     }
-    nodeData.isBold = is_bold_checkbutton.get_active();
-    if (fg_checkbutton.get_active()) {
-        nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton.get_color().to_string());
+    nodeData.isBold = is_bold_checkbutton->get_active();
+    if (fg_checkbutton->get_active()) {
+        nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton->get_color().to_string());
         pCtConfig->currColour_nn = nodeData.foregroundRgb24;
     }
     else {

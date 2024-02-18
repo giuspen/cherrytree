@@ -430,7 +430,7 @@ void CtMainWin::re_load_current_buffer(const bool new_machine_state)
     if (new_machine_state) {
         _ctStateMachine.update_state(currTreeIter);
     }
-    std::shared_ptr<CtNodeState> currState = _ctStateMachine.requested_state_current(currTreeIter.get_node_id());
+    std::shared_ptr<CtNodeState> currState = _ctStateMachine.requested_state_current(currTreeIter.get_node_id_data_holder());
     load_buffer_from_state(currState, currTreeIter);
 }
 
@@ -451,11 +451,11 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     }
     tree_iter.remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> widgets;
-    for (xmlpp::Node* text_node: state->buffer_xml.get_root_node()->get_children()) {
+    for (xmlpp::Node* text_node : state->buffer_xml.get_root_node()->get_children()) {
         CtStorageXmlHelper{this}.get_text_buffer_one_slot_from_xml(gsv_buffer, text_node, widgets, nullptr, -1, "");
     }
 
-    // xml storage doesn't have widgets, so load them seperatrly
+    // xml storage doesn't have widgets, so load them separately
     for (auto widgetState : state->widgetStates) {
         widgets.push_back(widgetState->to_widget(this));
     }

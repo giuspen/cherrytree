@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -266,21 +266,22 @@ gint64 CtStateMachine::requested_visited_next()
 }
 
 // When a New Node is Selected
-void CtStateMachine::node_selected_changed(gint64 node_id)
+void CtStateMachine::node_selected_changed(const gint64 node_id_data_holder)
 {
-    if (node_id == -1) {
+    if (node_id_data_holder <= 0) {
         return;
     }
-    if (_pCtMainWin->user_active() and !_go_bk_fw_active) {
+    if (_pCtMainWin->user_active() and not _go_bk_fw_active) {
         int last_index = (int)_visited_nodes_list.size() - 1;
-        if (_visited_nodes_idx != last_index)
+        if (_visited_nodes_idx != last_index) {
             _visited_nodes_list.erase(_visited_nodes_list.begin() + (_visited_nodes_idx + 1), _visited_nodes_list.begin() + (last_index+1));
-        vec::remove(_visited_nodes_list, node_id);
-        _visited_nodes_list.push_back(node_id);
+        }
+        vec::remove(_visited_nodes_list, node_id_data_holder);
+        _visited_nodes_list.push_back(node_id_data_holder);
         _visited_nodes_idx = _visited_nodes_list.size() - 1;
     }
-    if (!map::exists(_node_states, node_id)) {
-        auto node = _pCtMainWin->curr_tree_iter();
+    if (not map::exists(_node_states, node_id_data_holder)) {
+        CtTreeIter node = _pCtMainWin->curr_tree_iter();
         auto state = std::shared_ptr<CtNodeState>(new CtNodeState{});
         CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(state->buffer_xml.get_root_node(),
                                                                       node.get_node_text_buffer(), 0, -1, 'n');
@@ -293,20 +294,20 @@ void CtStateMachine::node_selected_changed(gint64 node_id)
         states.states.push_back(state);
         states.index = 0;     // first state
         states.indicator = 0; // the current buffer state is saved
-        _node_states.insert(std::make_pair(node_id, states));
+        _node_states.insert(std::make_pair(node_id_data_holder, states));
     }
 }
 
 // Insertion or Removal of text in the given node_id
-void CtStateMachine::text_variation(gint64 node_id, const Glib::ustring& varied_text)
+void CtStateMachine::text_variation(const gint64 node_id_data_holder, const Glib::ustring& varied_text)
 {
     // we need to add state if current state is not last one otherwise second undo stop working
-    if (!curr_index_is_last_index(node_id)) {
-        bool saved_not_undoable_timeslot = _pCtMainWin->get_state_machine().not_undoable_timeslot_get(); // if comes from paste html
+    if (not curr_index_is_last_index(node_id_data_holder)) {
+        bool saved_not_undoable_timeslot = not_undoable_timeslot_get(); // if comes from paste html
         auto on_scope_exit = scope_guard([&](void*){
-            _pCtMainWin->get_state_machine().not_undoable_timeslot_set(saved_not_undoable_timeslot);
+            not_undoable_timeslot_set(saved_not_undoable_timeslot);
         });
-        _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false);
+        not_undoable_timeslot_set(false);
         update_state();
         return;
     }
@@ -317,59 +318,59 @@ void CtStateMachine::text_variation(gint64 node_id, const Glib::ustring& varied_
     }
 
     bool is_alphanum = _word_regex->match(varied_text); // we search for an alphanumeric character
-    if (_node_states[node_id].indicator < 2) {
-        if (is_alphanum) _node_states[node_id].indicator = 2; // alphanumeric transition
-        else             _node_states[node_id].indicator = 1; // non alphanumeric transition
+    if (_node_states[node_id_data_holder].indicator < 2) {
+        if (is_alphanum) _node_states[node_id_data_holder].indicator = 2; // alphanumeric transition
+        else             _node_states[node_id_data_holder].indicator = 1; // non alphanumeric transition
     }
-    else if (!is_alphanum) { // _nodes_indicators[node_id] == 2 and non alphanumeric transition
+    else if (not is_alphanum) { // _nodes_indicators[node_id] == 2 and non alphanumeric transition
         update_state();
     }
 }
 
 // A Previous State, if Existing, is Requested
-std::shared_ptr<CtNodeState> CtStateMachine::requested_state_previous(gint64 node_id)
+std::shared_ptr<CtNodeState> CtStateMachine::requested_state_previous(const gint64 node_id_data_holder)
 {
-    if (curr_index_is_last_index(node_id)) {
+    if (curr_index_is_last_index(node_id_data_holder)) {
         update_state();
     }
-    if (_node_states[node_id].index > 0) {
-        _node_states[node_id].index -= 1;
-        return _node_states[node_id].get_state();
+    if (_node_states[node_id_data_holder].index > 0) {
+        _node_states[node_id_data_holder].index -= 1;
+        return _node_states[node_id_data_holder].get_state();
     }
     return nullptr;
 }
 
 // The current state is requested
-std::shared_ptr<CtNodeState> CtStateMachine::requested_state_current(gint64 node_id)
+std::shared_ptr<CtNodeState> CtStateMachine::requested_state_current(const gint64 node_id_data_holder)
 {
-    return _node_states[node_id].get_state();
+    return _node_states[node_id_data_holder].get_state();
 }
 
 // A Subsequent State, if Existing, is Requested
-std::shared_ptr<CtNodeState> CtStateMachine::requested_state_subsequent(gint64 node_id)
+std::shared_ptr<CtNodeState> CtStateMachine::requested_state_subsequent(const gint64 node_id_data_holder)
 {
-    if (_node_states[node_id].index < (int)_node_states[node_id].states.size()-1) {
-        _node_states[node_id].index += 1;
-        return _node_states[node_id].get_state();
+    if (_node_states[node_id_data_holder].index < (int)_node_states[node_id_data_holder].states.size()-1) {
+        _node_states[node_id_data_holder].index += 1;
+        return _node_states[node_id_data_holder].get_state();
     }
     return nullptr;
 }
 
 // Delete the states for the given node_id
-void CtStateMachine::delete_states(gint64 node_id)
+void CtStateMachine::delete_states(const gint64 node_id_data_holder)
 {
-    _node_states.erase(node_id);
-    if (vec::exists(_visited_nodes_list, node_id)) {
-        vec::remove(_visited_nodes_list, node_id);
+    _node_states.erase(node_id_data_holder);
+    if (vec::exists(_visited_nodes_list, node_id_data_holder)) {
+        vec::remove(_visited_nodes_list, node_id_data_holder);
         _visited_nodes_idx = _visited_nodes_list.size()-1;
     }
 }
 
 // Are we in the last state?
-bool CtStateMachine::curr_index_is_last_index(gint64 node_id)
+bool CtStateMachine::curr_index_is_last_index(const gint64 node_id_data_holder)
 {
-    int curr_index = _node_states[node_id].index;
-    int last_index = _node_states[node_id].states.size() - 1;
+    int curr_index = _node_states[node_id_data_holder].index;
+    int last_index = _node_states[node_id_data_holder].states.size() - 1;
     return curr_index == last_index;
 }
 
@@ -396,14 +397,14 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     if (not tree_iter) return;
     if (not tree_iter.get_node_is_rich_text()) return;
 
-    gint64 node_id = tree_iter.get_node_id();
-    auto& node_states = _node_states[node_id];
-    if (!node_states.states.empty() and !curr_index_is_last_index(node_id)) {
+    const gint64 node_id_data_holder = tree_iter.get_node_id_data_holder();
+    auto& node_states = _node_states[node_id_data_holder];
+    if (not node_states.states.empty() and not curr_index_is_last_index(node_id_data_holder)) {
         node_states.states.erase(node_states.states.begin() + node_states.index + 1, node_states.states.end());
     }
 
-    auto new_state = std::shared_ptr<CtNodeState>(new CtNodeState());
-    CtStorageXmlHelper(_pCtMainWin).save_buffer_no_widgets_to_xml(new_state->buffer_xml.get_root_node(),
+    auto new_state = std::shared_ptr<CtNodeState>(new CtNodeState{});
+    CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(new_state->buffer_xml.get_root_node(),
                                                                   tree_iter.get_node_text_buffer(), 0, -1, 'n');
     new_state->buffer_xml_string = new_state->buffer_xml.write_to_string();
     for (auto widget : tree_iter.get_anchored_widgets()) {
@@ -436,11 +437,11 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     node_states.indicator = 0; // the current buffer state is saved
 }
 
-void CtStateMachine::update_curr_state_cursor_pos(gint64 node_id)
+void CtStateMachine::update_curr_state_cursor_pos(const gint64 node_id_data_holder)
 {
     if (not_undoable_timeslot_get()) return;
     if (not _pCtMainWin->user_active()) return;
-    const auto iterStates = _node_states.find(node_id);
+    const auto iterStates = _node_states.find(node_id_data_holder);
     if (iterStates == _node_states.end()) return;
     if (0 == iterStates->second.indicator) {
         const int cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
@@ -448,11 +449,11 @@ void CtStateMachine::update_curr_state_cursor_pos(gint64 node_id)
     }
 }
 
-void CtStateMachine::update_curr_state_v_adj_val(gint64 node_id)
+void CtStateMachine::update_curr_state_v_adj_val(const gint64 node_id_data_holder)
 {
     if (not_undoable_timeslot_get()) return;
     if (not _pCtMainWin->user_active()) return;
-    const auto iterStates = _node_states.find(node_id);
+    const auto iterStates = _node_states.find(node_id_data_holder);
     if (iterStates == _node_states.end()) return;
     if (0 == iterStates->second.indicator) {
         const int v_adj_val = round(_pCtMainWin->getScrolledwindowText().get_vadjustment()->get_value());

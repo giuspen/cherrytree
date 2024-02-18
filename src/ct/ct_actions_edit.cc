@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -37,7 +37,7 @@ void CtActions::requested_step_back()
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     if (currTreeIter.get_node_is_rich_text()) {
-        auto step_back = _pCtMainWin->get_state_machine().requested_state_previous(currTreeIter.get_node_id());
+        auto step_back = _pCtMainWin->get_state_machine().requested_state_previous(currTreeIter.get_node_id_data_holder());
         if (step_back) {
             _pCtMainWin->load_buffer_from_state(step_back, currTreeIter);
         }
@@ -56,7 +56,7 @@ void CtActions::requested_step_ahead()
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     if (currTreeIter.get_node_is_rich_text()) {
-        auto step_ahead = _pCtMainWin->get_state_machine().requested_state_subsequent(currTreeIter.get_node_id());
+        auto step_ahead = _pCtMainWin->get_state_machine().requested_state_subsequent(currTreeIter.get_node_id_data_holder());
         if (step_ahead) {
             _pCtMainWin->load_buffer_from_state(step_ahead, currTreeIter);
         }

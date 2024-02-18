@@ -1,7 +1,7 @@
 /*
  * ct_menu_ui.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -295,6 +295,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='tree_add_subnode'/>
     <menuitem action='tree_dup_node'/>
     <menuitem action='tree_dup_node_subnodes'/>
+    <menuitem action='tree_shared_node'/>
     <menuitem action='tree_copy_node_subnodes'/>
     <menuitem action='tree_paste_node_subnodes'/>
     <menuitem action='tree_node_date_root'/>

@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -61,19 +61,21 @@ public:
     bool save_treestore(const fs::path& file_path,
                         const CtStorageSyncPending& syncPending,
                         Glib::ustring& error,
-                        const CtExporting exporting,
+                        const CtExporting export_type,
+                        const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                         const int start_offset = 0,
                         const int end_offset = -1) override;
     void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
 
-    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
+    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     void _nodes_to_xml(CtTreeIter* ct_tree_iter,
                        xmlpp::Element* p_node_parent,
                        CtStorageCache* storage_cache,
-                       const CtExporting exporting,
+                       const CtExporting export_type,
+                       const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                        const int start_offset = 0,
                        const int end_offset =-1);
 
@@ -93,6 +95,8 @@ public:
                                 xmlpp::Element* p_node_parent,
                                 const std::string& multifile_dir,
                                 CtStorageCache* storage_cache,
+                                const CtExporting export_type,
+                                const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                                 const int start_offset = 0,
                                 const int end_offset = -1);
     Gtk::TreeIter node_from_xml(const xmlpp::Element* xml_element,
@@ -100,6 +104,8 @@ public:
                                 const Gtk::TreeIter parent_iter,
                                 const gint64 new_id,
                                 bool* pHasDuplicatedId,
+                                bool* pIsSharedNonMaster,
+                                std::map<gint64,gint64>* pImportedIdsRemap,
                                 CtDelayedTextBufferMap& delayed_text_buffers,
                                 const bool isDryRun,
                                 const std::string& multifile_dir);

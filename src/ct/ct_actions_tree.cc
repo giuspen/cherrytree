@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -158,15 +158,15 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
                                      CtMainWin* pWinToCopyFrom)
 {
     // create duplicate of the top node
-    _node_add(true/*is_duplicate*/, false/*add_as_child*/, &other_ct_tree_iter, pWinToCopyFrom);
+    _node_add(CtDuplicateShared::Duplicate, false/*add_as_child*/, &other_ct_tree_iter, pWinToCopyFrom);
 
     Gtk::TreeIter new_top_iter = _pCtMainWin->curr_tree_iter();
 
     // function to duplicate a node
     auto duplicate_subnode = [&](CtTreeIter old_iter, Gtk::TreeIter new_parent) {
-        CtNodeData node_data;
+        CtNodeData node_data{};
         std::shared_ptr<CtNodeState> node_state;
-        pWinToCopyFrom->get_tree_store().get_node_data(old_iter, node_data);
+        pWinToCopyFrom->get_tree_store().get_node_data(old_iter, node_data, true/*loadTextBuffer*/);
         if (node_data.syntax != CtConst::RICH_TEXT_ID) {
             node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer(node_data.rTextBuffer->get_text());
             node_data.anchoredWidgets.clear();
@@ -174,7 +174,7 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
         else {
             CtStateMachine& state_machine_from = pWinToCopyFrom->get_state_machine();
             state_machine_from.update_state(old_iter);
-            node_state = state_machine_from.requested_state_current(old_iter.get_node_id());
+            node_state = state_machine_from.requested_state_current(old_iter.get_node_id_data_holder());
             node_data.anchoredWidgets.clear();                          // node_state will be used instead
             node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
         }
@@ -216,29 +216,14 @@ void CtActions::node_subnodes_duplicate()
     node_subnodes_paste2(top_iter, _pCtMainWin);
 }
 
-void CtActions::_node_add(const bool is_duplicate,
+void CtActions::_node_add(const CtDuplicateShared duplicate_shared,
                           const bool add_as_child,
                           const CtTreeIter* pCtTreeIterFrom/*=nullptr*/,
                           CtMainWin* pWinToCopyFrom/*=nullptr*/)
 {
-    CtNodeData nodeData;
+    CtNodeData nodeData{};
     std::shared_ptr<CtNodeState> node_state;
-    if (is_duplicate) {
-        pWinToCopyFrom->get_tree_store().get_node_data(*pCtTreeIterFrom, nodeData);
-
-        if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
-            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.rTextBuffer->get_text());
-            nodeData.anchoredWidgets.clear();
-        }
-        else {
-            CtStateMachine& state_machine_from = pWinToCopyFrom->get_state_machine();
-            state_machine_from.update_state(*pCtTreeIterFrom);
-            node_state = state_machine_from.requested_state_current(pCtTreeIterFrom->get_node_id());
-            nodeData.anchoredWidgets.clear();                          // node_state will be used instead
-            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
-        }
-    }
-    else {
+    if (CtDuplicateShared::None == duplicate_shared) {
         std::string title = add_as_child ? _("New Child Node Properties") : _("New Node Properties");
         CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
         nodeData.syntax = currTreeIter ? currTreeIter.get_node_syntax_highlighting() : CtConst::RICH_TEXT_ID;
@@ -246,38 +231,72 @@ void CtActions::_node_add(const bool is_duplicate,
             return;
         }
     }
+    else {
+        pWinToCopyFrom->get_tree_store().get_node_data(*pCtTreeIterFrom, nodeData, true/*loadTextBuffer*/);
+        if (CtDuplicateShared::Duplicate == duplicate_shared) {
+            if (CtConst::RICH_TEXT_ID != nodeData.syntax) {
+                nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.rTextBuffer->get_text());
+                nodeData.anchoredWidgets.clear();
+            }
+            else {
+                CtStateMachine& state_machine_from = pWinToCopyFrom->get_state_machine();
+                state_machine_from.update_state(*pCtTreeIterFrom);
+                node_state = state_machine_from.requested_state_current(pCtTreeIterFrom->get_node_id_data_holder());
+                nodeData.anchoredWidgets.clear();                          // node_state will be used instead
+                nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
+            }
+            nodeData.sharedNodesMasterId = 0;
+        }
+        else {
+            // CtDuplicateShared::Shared
+            if (nodeData.sharedNodesMasterId > 0) {
+                // node from is also a shared node, we just point to the same master / leave it as is
+            }
+            else {
+                // node from is not a shared node, let's set the shared node id to its node id (new node id will be assigned)
+                nodeData.sharedNodesMasterId = nodeData.nodeId;
+            }
+        }
+    }
     (void)_node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_as_child, node_state);
 }
 
-Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_as_child, std::shared_ptr<CtNodeState> node_state)
+Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter,
+                                             CtNodeData& nodeData,
+                                             const bool add_as_child,
+                                             std::shared_ptr<CtNodeState> node_state)
 {
-    if (not nodeData.rTextBuffer) {
-        nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+    if (nodeData.sharedNodesMasterId <= 0) {
+        // not a shared node
+        if (not nodeData.rTextBuffer) {
+            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+        }
+        nodeData.tsCreation = std::time(nullptr);
+        nodeData.tsLastSave = nodeData.tsCreation;
     }
-    nodeData.tsCreation = std::time(nullptr);
-    nodeData.tsLastSave = nodeData.tsCreation;
-    nodeData.nodeId = _pCtMainWin->get_tree_store().node_id_get();
+    CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
+    nodeData.nodeId = ct_treestore.node_id_get();
 
     _pCtMainWin->update_window_save_needed();
     _pCtConfig->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeIter nodeIter;
     if (add_as_child) {
-        nodeIter = _pCtMainWin->get_tree_store().append_node(&nodeData, &curr_iter/*as parent*/);
+        nodeIter = ct_treestore.append_node(&nodeData, &curr_iter/*as parent*/);
     }
     else if (curr_iter) {
-        nodeIter = _pCtMainWin->get_tree_store().insert_node(&nodeData, curr_iter/*after*/);
+        nodeIter = ct_treestore.insert_node(&nodeData, curr_iter/*after*/);
     }
     else {
-        nodeIter = _pCtMainWin->get_tree_store().append_node(&nodeData);
+        nodeIter = ct_treestore.append_node(&nodeData);
     }
-
+    CtTreeIter nodeCtIter = ct_treestore.to_ct_tree_iter(nodeIter);
     if (node_state) {
-        _pCtMainWin->load_buffer_from_state(node_state, _pCtMainWin->get_tree_store().to_ct_tree_iter(nodeIter));
+        _pCtMainWin->load_buffer_from_state(node_state, nodeCtIter);
     }
-    _pCtMainWin->get_tree_store().to_ct_tree_iter(nodeIter).pending_new_db_node();
-    _pCtMainWin->get_tree_store().nodes_sequences_fix(nodeIter->parent(), false);
-    _pCtMainWin->get_tree_store().update_node_aux_icon(nodeIter);
+    nodeCtIter.pending_new_db_node();
+    ct_treestore.nodes_sequences_fix(nodeIter->parent(), false);
+    ct_treestore.update_node_aux_icon(nodeCtIter);
     _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _pCtMainWin->get_text_view().grab_focus();
     return nodeIter;
@@ -294,7 +313,7 @@ Gtk::TreeIter CtActions::node_child_exist_or_create(Gtk::TreeIter parentIter, co
             return childIter;
         }
     }
-    CtNodeData nodeData;
+    CtNodeData nodeData{};
     nodeData.name = nodeName;
     nodeData.syntax = CtConst::RICH_TEXT_ID;
     return _node_add_with_data(parentIter, nodeData, true/*add_as_child*/, nullptr/*node_state*/);
@@ -306,19 +325,21 @@ void CtActions::node_move_after(Gtk::TreeIter iter_to_move,
                                 Gtk::TreeIter brother_iter/*= Gtk::TreeIter{}*/,
                                 bool set_first/*= false*/)
 {
+    CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
+    Glib::RefPtr<Gtk::TreeStore> pTreeStore = ctTreeStore.get_store();
     Gtk::TreeIter new_node_iter;
-    if (brother_iter)   new_node_iter = _pCtMainWin->get_tree_store().get_store()->insert_after(brother_iter);
-    else if (set_first) new_node_iter = _pCtMainWin->get_tree_store().get_store()->prepend(father_iter->children());
-    else                new_node_iter = _pCtMainWin->get_tree_store().get_store()->append(father_iter->children());
+    if (brother_iter)   new_node_iter = pTreeStore->insert_after(brother_iter);
+    else if (set_first) new_node_iter = pTreeStore->prepend(father_iter->children());
+    else                new_node_iter = pTreeStore->append(father_iter->children());
 
     // we move also all the children
     std::function<void(Gtk::TreeIter&,Gtk::TreeIter&)> node_move_data_and_children;
-    node_move_data_and_children = [this, &node_move_data_and_children](Gtk::TreeIter& old_iter,Gtk::TreeIter& new_iter) {
-        CtNodeData node_data;
-        _pCtMainWin->get_tree_store().get_node_data(old_iter, node_data);
-        _pCtMainWin->get_tree_store().update_node_data(new_iter, node_data);
-        for (Gtk::TreeIter child: old_iter->children()) {
-            Gtk::TreeIter new_child = _pCtMainWin->get_tree_store().get_store()->append(new_iter->children());
+    node_move_data_and_children = [&](Gtk::TreeIter& old_iter,Gtk::TreeIter& new_iter) {
+        CtNodeData node_data{};
+        ctTreeStore.get_node_data(old_iter, node_data, true/*loadTextBuffer*/);
+        ctTreeStore.update_node_data(new_iter, node_data);
+        for (Gtk::TreeIter child : old_iter->children()) {
+            Gtk::TreeIter new_child = pTreeStore->append(new_iter->children());
             node_move_data_and_children(child, new_child);
         }
     };
@@ -326,17 +347,20 @@ void CtActions::node_move_after(Gtk::TreeIter iter_to_move,
 
     // now we can remove the old iter (and all children)
     _pCtMainWin->resetPrevTreeIter();
-    _pCtMainWin->get_tree_store().get_store()->erase(iter_to_move);
-    _pCtMainWin->get_tree_store().to_ct_tree_iter(new_node_iter).pending_edit_db_node_hier();
+    pTreeStore->erase(iter_to_move);
+    ctTreeStore.to_ct_tree_iter(new_node_iter).pending_edit_db_node_hier();
 
-    _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
-    if (father_iter)
-        _pCtMainWin->get_tree_view().expand_row(_pCtMainWin->get_tree_store().get_path(father_iter), false);
-    else
-        _pCtMainWin->get_tree_view().expand_row(_pCtMainWin->get_tree_store().get_path(new_node_iter), false);    
+    ctTreeStore.nodes_sequences_fix(Gtk::TreeIter(), true);
+    CtTreeView& ctTreeView = _pCtMainWin->get_tree_view();
+    if (father_iter) {
+        ctTreeView.expand_row(ctTreeStore.get_path(father_iter), false);
+    }
+    else {
+        ctTreeView.expand_row(ctTreeStore.get_path(new_node_iter), false);
+    }
     Gtk::TreePath new_node_path = _pCtMainWin->get_tree_store().get_path(new_node_iter);
-    _pCtMainWin->get_tree_view().collapse_row(new_node_path);
-    _pCtMainWin->get_tree_view().set_cursor(new_node_path);
+    ctTreeView.collapse_row(new_node_path);
+    ctTreeView.set_cursor(new_node_path);
     _pCtMainWin->update_window_save_needed();
 }
 
@@ -367,52 +391,84 @@ void CtActions::node_edit()
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
 
     if (not _is_there_selected_node_or_error()) return;
-    CtNodeData nodeData;
+    CtNodeData nodeData{};
     CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
-    _pCtMainWin->get_tree_store().get_node_data(ct_tree_iter, nodeData);
+    CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
+    ct_treestore.get_node_data(ct_tree_iter, nodeData, true/*loadTextBuffer*/);
     CtNodeData newData = nodeData;
-    if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, _pCtMainWin->get_tree_store().get_used_tags()))
+    if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, ct_treestore.get_used_tags())) {
         return;
+    }
 
-    // leaving rich text
-    if (nodeData.syntax != newData.syntax)
-        if (nodeData.syntax == CtConst::RICH_TEXT_ID)
-            if (not CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
-                return;
+    // leaving rich text ?
+    if (nodeData.syntax != newData.syntax and
+        CtConst::RICH_TEXT_ID == nodeData.syntax and
+        not CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
+    {
+        return;
+    }
 
     _pCtConfig->syntaxHighlighting = newData.syntax;
 
     // update node info, because we might need to delete widgets later
-    _pCtMainWin->get_tree_store().update_node_data(ct_tree_iter, newData);
+    ct_treestore.update_node_data(ct_tree_iter, newData);
 
-    if (_pCtMainWin->get_tree_store().is_node_bookmarked(ct_tree_iter.get_node_id())) {
+    if (ct_treestore.is_node_bookmarked(ct_tree_iter.get_node_id())) {
         _pCtMainWin->menu_set_bookmark_menu_items();
     }
 
     if (nodeData.syntax != newData.syntax) {
         // if from/to RICH , change buffer
-        if (nodeData.syntax == CtConst::RICH_TEXT_ID || newData.syntax == CtConst::RICH_TEXT_ID)
+        if (CtConst::RICH_TEXT_ID == nodeData.syntax or CtConst::RICH_TEXT_ID == newData.syntax) {
             _pCtMainWin->switch_buffer_text_source(ct_tree_iter.get_node_text_buffer(), ct_tree_iter, newData.syntax, nodeData.syntax);
+        }
         else {
             // todo: improve code by only changing syntax of buffer and text_view
             _pCtMainWin->switch_buffer_text_source(ct_tree_iter.get_node_text_buffer(), ct_tree_iter, newData.syntax, nodeData.syntax);
         }
 
         // from RICH to text
-        if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
-            _pCtMainWin->get_state_machine().delete_states(ct_tree_iter.get_node_id());
+        if (CtConst::RICH_TEXT_ID == nodeData.syntax) {
+            _pCtMainWin->get_state_machine().delete_states(ct_tree_iter.get_node_id_data_holder());
             _pCtMainWin->get_state_machine().update_state(ct_tree_iter);
         }
     }
 
     _pCtMainWin->get_text_view().set_editable(not newData.isReadOnly);
     _pCtMainWin->update_selected_node_statusbar_info();
-    _pCtMainWin->get_tree_store().update_node_aux_icon(ct_tree_iter);
+    ct_treestore.update_node_aux_icon(ct_tree_iter);
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isReadOnly);
     _pCtMainWin->window_header_update_ghost_icon(newData.excludeMeFromSearch or newData.excludeChildrenFromSearch);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
+
+    // if this node belongs to a shared group, we need to update the other nodes of the group
+    CtSharedNodesMap shared_nodes_map;
+    if (ct_treestore.populate_shared_nodes_map(shared_nodes_map) > 0u) {
+        for (auto& currPair : shared_nodes_map) {
+            if (newData.nodeId == currPair.first or
+                newData.sharedNodesMasterId == currPair.first)
+            {
+                // add the master id to the set of non master ids of the group
+                currPair.second.insert(currPair.first);
+                // loop all the ids of the group
+                for (const gint64 nodeId : currPair.second) {
+                    if (nodeId != newData.nodeId) {
+                        // skip ourselves
+                        CtTreeIter other_ct_tree_iter = ct_treestore.get_node_from_node_id(nodeId);
+                        if (other_ct_tree_iter) {
+                            newData.nodeId = nodeId;
+                            newData.sharedNodesMasterId = other_ct_tree_iter.get_node_shared_master_id();
+                            newData.sequence = other_ct_tree_iter.get_node_sequence();
+                            ct_treestore.update_node_data(other_ct_tree_iter, newData);
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    }
 }
 
 // Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting
@@ -425,14 +481,12 @@ void CtActions::node_inherit_syntax()
     if (not _is_there_selected_node_or_error()) return;
 
     const std::string& new_syntax = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
-    std::function<void(Gtk::TreeIter)> iterate_childs;
-    iterate_childs = [&](Gtk::TreeIter parent){
-        for (auto child: parent->children())
-        {
+    std::function<void(Gtk::TreeIter)> f_iterate_childs;
+    f_iterate_childs = [&](Gtk::TreeIter parent){
+        for (auto child : parent->children()) {
             CtTreeIter iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(child);
             std::string node_syntax = iter.get_node_syntax_highlighting();
-            if (not iter.get_node_read_only() && node_syntax != new_syntax)
-            {
+            if (not iter.get_node_read_only() and node_syntax != new_syntax) {
                 // if from/to RICH , change buffer
                 if (node_syntax == CtConst::RICH_TEXT_ID || new_syntax == CtConst::RICH_TEXT_ID)
                     _pCtMainWin->switch_buffer_text_source(iter.get_node_text_buffer(), iter, new_syntax, node_syntax);
@@ -443,17 +497,17 @@ void CtActions::node_inherit_syntax()
 
                 // from RICH to text
                 if (node_syntax == CtConst::RICH_TEXT_ID) {
-                    _pCtMainWin->get_state_machine().delete_states(iter.get_node_id());
+                    _pCtMainWin->get_state_machine().delete_states(iter.get_node_id_data_holder());
                     _pCtMainWin->get_state_machine().update_state(iter);
                 }
                 _pCtMainWin->get_tree_store().update_node_icon(iter);
                 iter.pending_edit_db_node_prop();
             }
-            iterate_childs(child);
+            f_iterate_childs(child);
         }
     };
 
-    iterate_childs(_pCtMainWin->curr_tree_iter());
+    f_iterate_childs(_pCtMainWin->curr_tree_iter());
 
     // to recover text view
     _pCtMainWin->resetPrevTreeIter();
@@ -471,37 +525,86 @@ void CtActions::node_delete()
     if (not _is_there_selected_node_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    std::function<void(Gtk::TreeIter, int, std::list<gint64>&, std::list<std::string>&)> collect_children;
-    collect_children = [this, &collect_children](Gtk::TreeIter iter,
-                                                 int level,
-                                                 std::list<gint64>& listIds,
-                                                 std::list<std::string>& listWarns) {
-        CtTreeIter ctTreeIter = _pCtMainWin->get_tree_store().to_ct_tree_iter(iter);
-        listIds.push_back(ctTreeIter.get_node_id());
-        if (listWarns.size() > 15) {
-            if (listWarns.size() == 16) {
-                listWarns.push_back(CtConst::CHAR_NEWLINE + "...");
+    CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
+    std::function<void(Gtk::TreeIter, int)> f_collect_ids_to_rm;
+    std::list<gint64> nodeIdsToRemove;
+    std::list<std::string> lstNodesWarn;
+    f_collect_ids_to_rm = [this, &ctTreeStore, &nodeIdsToRemove, &lstNodesWarn, f_collect_ids_to_rm](Gtk::TreeIter iter,
+                                                                                                     const int level) {
+        CtTreeIter ctTreeIter = ctTreeStore.to_ct_tree_iter(iter);
+        nodeIdsToRemove.push_back(ctTreeIter.get_node_id());
+        if (lstNodesWarn.size() > 15) {
+            if (lstNodesWarn.size() == 16) {
+                lstNodesWarn.push_back(CtConst::CHAR_NEWLINE + "...");
             }
         }
         else {
-            listWarns.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE + ctTreeIter.get_node_name());
-            for (auto child : iter->children()) {
-                collect_children(child, level + 1, listIds, listWarns);
-            }
+            lstNodesWarn.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE + ctTreeIter.get_node_name());
+        }
+        for (Gtk::TreeIter child : iter->children()) {
+            f_collect_ids_to_rm(child, level + 1);
         }
     };
+    f_collect_ids_to_rm(_pCtMainWin->curr_tree_iter(), 0);
 
-    std::list<gint64> lstNodesIds;
-    std::list<std::string> lstNodesWarn;
-    collect_children(_pCtMainWin->curr_tree_iter(), 0, lstNodesIds, lstNodesWarn);
     Glib::ustring warning_label = str::format(_("Are you sure to <b>Delete the node '%s'?</b>"), str::xml_escape(_pCtMainWin->curr_tree_iter().get_node_name()));
-    if (not _pCtMainWin->curr_tree_iter()->children().empty()) {
+    if (nodeIdsToRemove.size() > 1u) {
         warning_label += str::repeat(CtConst::CHAR_NEWLINE, 2) + _("The node <b>has Children, they will be Deleted too!</b>");
         warning_label += str::xml_escape(str::join(lstNodesWarn, ""));
     }
     if (not CtDialogs::question_dialog(warning_label, *_pCtMainWin)) {
         return;
     }
+
+    // if we delete a shared node master and not all the other members of the group,
+    // then we need to move the data to a remaining member of the group
+    CtSharedNodesMap shared_nodes_map;
+    if (ctTreeStore.populate_shared_nodes_map(shared_nodes_map) > 0u) {
+        for (const auto& currPair : shared_nodes_map) {
+            if (vec::exists(nodeIdsToRemove, currPair.first)) {
+                // we are removing a master, look for a non master in the group not being deleted
+                CtTreeIter oldMasterTreeIter = ctTreeStore.get_node_from_node_id(currPair.first);
+                if (oldMasterTreeIter) {
+                    for (const gint64 new_master_id : currPair.second) {
+                        if (not vec::exists(nodeIdsToRemove, new_master_id)) {
+                            // found a non master in the group that is not being deleted
+                            CtTreeIter newMasterTreeIter = ctTreeStore.get_node_from_node_id(new_master_id);
+                            if (newMasterTreeIter) {
+                                // copy over the data from the old master
+                                CtNodeData nodeData{};
+                                ctTreeStore.get_node_data(oldMasterTreeIter, nodeData, true/*loadTextBuffer*/);
+                                nodeData.nodeId = new_master_id;
+                                nodeData.sequence = newMasterTreeIter.get_node_sequence();
+                                ctTreeStore.update_node_data(newMasterTreeIter, nodeData);
+                                newMasterTreeIter.pending_edit_db_node_prop();
+                                newMasterTreeIter.pending_edit_db_node_buff();
+                                newMasterTreeIter.pending_edit_db_node_hier(); // master id is in the hierarchy table
+                                // update other non masters to point to the new master
+                                for (const gint64 nonMasterId : currPair.second) {
+                                    if (nonMasterId != new_master_id and not vec::exists(nodeIdsToRemove, nonMasterId)) {
+                                        CtTreeIter nonMasterTreeIter = ctTreeStore.get_node_from_node_id(nonMasterId);
+                                        if (nonMasterTreeIter) {
+                                            nonMasterTreeIter.set_node_shared_master_id(new_master_id);
+                                            nonMasterTreeIter.pending_edit_db_node_hier(); // master id is in the hierarchy table
+                                        }
+                                        else {
+                                            spdlog::error("!! unexp nonMasterId {} not in tree", nonMasterId);
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            spdlog::error("!! unexp new_master_id {} not in tree", new_master_id);
+                        }
+                    }
+                }
+                else {
+                    spdlog::error("!! unexp old_master_id {} not in tree", currPair.first);
+                }
+            }
+        }
+    }
+
     // next selected node will be previous sibling or next sibling or parent or None
     Gtk::TreeIter new_iter = --_pCtMainWin->curr_tree_iter();
     if (not new_iter) new_iter = ++_pCtMainWin->curr_tree_iter();
@@ -523,10 +626,10 @@ void CtActions::node_delete()
         _pCtMainWin->get_text_view().set_sensitive(false);
     }
 
-    _pCtMainWin->get_tree_store().get_store()->erase(erase_iter);
+    ctTreeStore.get_store()->erase(erase_iter);
 
     bool anyRemovedBookmarked{false};
-    for (gint64 nodeId : lstNodesIds) {
+    for (gint64 nodeId : nodeIdsToRemove) {
         if (_pCtMainWin->get_tree_store().bookmarks_remove(nodeId)) {
             anyRemovedBookmarked = true;
         }
@@ -544,14 +647,40 @@ void CtActions::node_toggle_read_only()
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
 
     if (not _is_there_selected_node_or_error()) return;
-    bool node_is_ro = not _pCtMainWin->curr_tree_iter().get_node_read_only();
-    _pCtMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
-    _pCtMainWin->get_text_view().set_editable(!node_is_ro);
+    CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
+    const bool node_is_ro = not currTreeIter.get_node_read_only();
+    currTreeIter.set_node_read_only(node_is_ro);
+    _pCtMainWin->get_text_view().set_editable(not node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
     _pCtMainWin->update_selected_node_statusbar_info();
-    _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
+    ct_treestore.update_node_aux_icon(currTreeIter);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
+
+    // if this node belongs to a shared group, we need to update all the nodes of the group
+    CtSharedNodesMap shared_nodes_map;
+    if (ct_treestore.populate_shared_nodes_map(shared_nodes_map) > 0u) {
+        const gint64 currNodeId = currTreeIter.get_node_id();
+        const gint64 currNodeMasterId = currTreeIter.get_node_shared_master_id();
+        for (auto& currPair : shared_nodes_map) {
+            if (currNodeId == currPair.first or
+                currNodeMasterId == currPair.first)
+            {
+                // add the master id to the set of non master ids of the group
+                currPair.second.insert(currPair.first);
+                // loop all the ids of the group
+                for (const gint64 nodeId : currPair.second) {
+                    CtTreeIter other_ct_tree_iter = ct_treestore.get_node_from_node_id(nodeId);
+                    if (other_ct_tree_iter) {
+                        other_ct_tree_iter->set_value(ct_treestore.get_columns().colNodeIsReadOnly, node_is_ro);
+                        ct_treestore.update_node_aux_icon(other_ct_tree_iter);
+                    }
+                }
+                break;
+            }
+        }
+    }
 }
 
 void CtActions::_node_date(const bool from_sel_not_root)

@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -43,7 +43,7 @@ public:
                                      const CtDocType doc_type,
                                      const Glib::ustring& password,
                                      Glib::ustring& error,
-                                     const CtExporting exporting,
+                                     const CtExporting export_type,
                                      const int start_offset = 0,
                                      const int end_offset = -1);
     static bool document_integrity_check_pass(CtMainWin* pCtMainWin,
@@ -60,7 +60,7 @@ public:
 
     bool save(bool need_vacuum, Glib::ustring& error);
     bool try_reopen(Glib::ustring& error);
-    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
+    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const;
 
@@ -71,10 +71,10 @@ public:
 
     const CtStorageSyncPending* get_storage_sync_pending() { return &_syncPending; }
 
-    void pending_edit_db_node_prop(gint64 node_id);
-    void pending_edit_db_node_buff(gint64 node_id);
-    void pending_edit_db_node_hier(gint64 node_id);
-    void pending_new_db_node(gint64 node_id);
+    void pending_edit_db_node_prop(const gint64 node_id);
+    void pending_edit_db_node_buff(const gint64 node_id);
+    void pending_edit_db_node_hier(const gint64 node_id);
+    void pending_new_db_node(const gint64 node_id);
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
     void pending_edit_db_bookmarks();
 

@@ -44,14 +44,14 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
     _rTextBuffer->signal_insert().connect([pCtMainWin, this](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/) {
         if (pCtMainWin->user_active() and not _ctTextview.column_edit_get_own_insert_delete_active()) {
             _ctTextview.column_edit_text_inserted(pos, text);
-            pCtMainWin->get_state_machine().text_variation(pCtMainWin->curr_tree_iter().get_node_id(), text);
+            pCtMainWin->get_state_machine().text_variation(pCtMainWin->curr_tree_iter().get_node_id_data_holder(), text);
             pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
     }, false);
     _rTextBuffer->signal_erase().connect([pCtMainWin, this](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
         if (pCtMainWin->user_active() and not _ctTextview.column_edit_get_own_insert_delete_active()) {
             _ctTextview.column_edit_text_removed(range_start, range_end);
-            pCtMainWin->get_state_machine().text_variation(pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
+            pCtMainWin->get_state_machine().text_variation(pCtMainWin->curr_tree_iter().get_node_id_data_holder(), range_start.get_text(range_end));
             pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
     }, false);

@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -36,6 +36,9 @@ class CtTreeView;
 struct CtNodeData
 {
     gint64         nodeId{0};
+    gint64         sharedNodesMasterId{0};
+    gint64         sequence{-1};
+    // the following fields are ignored in a shared node, the master id's are used
     Glib::ustring  name;
     std::string    syntax;
     Glib::ustring  tags;
@@ -47,15 +50,14 @@ struct CtNodeData
     std::string    foregroundRgb24;
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
-    gint64         sequence{-1};
-    Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer;
     std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
 struct CtTreeModelColumns : public Gtk::TreeModelColumnRecord
 {
     CtTreeModelColumns() {
-        add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
+        add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId); add(colSharedNodesMasterId);
         add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeIsReadOnly);
         add(colNodeIsExcludedFromSearch); add(colNodeChildrenAreExcludedFromSearch);
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
@@ -65,6 +67,7 @@ struct CtTreeModelColumns : public Gtk::TreeModelColumnRecord
     Gtk::TreeModelColumn<Glib::ustring>                colNodeName;
     Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>    rColTextBuffer;
     Gtk::TreeModelColumn<gint64>                       colNodeUniqueId;
+    Gtk::TreeModelColumn<gint64>                       colSharedNodesMasterId;
     Gtk::TreeModelColumn<std::string>                  colSyntaxHighlighting;
     Gtk::TreeModelColumn<gint64>                       colNodeSequence;
     Gtk::TreeModelColumn<Glib::ustring>                colNodeTags;
@@ -101,6 +104,9 @@ public:
     gint64        get_node_sequence() const;
     gint64        get_node_id() const;
     void          set_node_id(const gint64 new_id);
+    gint64        get_node_shared_master_id() const;
+    void          set_node_shared_master_id(const gint64 new_master_id);
+    gint64        get_node_id_data_holder() const;
     std::vector<gint64> get_children_node_ids() const;
     guint16       get_node_custom_icon_id() const;
     Glib::ustring get_node_name() const;
@@ -115,16 +121,15 @@ public:
     gint64        get_node_creating_time() const;
     gint64        get_node_modification_time() const;
     void          set_node_modification_time(const gint64 modification_time);
-    void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
     void          set_node_sequence(gint64 num);
 
-    void                      set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_hilighting);
+    void                      set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_highlighting);
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
     bool                      get_node_buffer_already_loaded() const;
 
     void                         remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_anchored_widgets_fast(const char doSort = 'n') const;
-    std::list<CtAnchoredWidget*> get_anchored_widgets(int start_offset = -1, int end_offset = -1) const;
+    std::list<CtAnchoredWidget*> get_anchored_widgets(const int start_offset = -1, const int end_offset = -1) const;
     CtAnchoredWidget*            get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor) const;
 
     void pending_edit_db_node_prop();
@@ -132,8 +137,8 @@ public:
     void pending_edit_db_node_hier();
     void pending_new_db_node();
 
-    static int  get_pango_weight_from_is_bold(bool isBold);
-    static bool get_is_bold_from_pango_weight(int pangoWeight);
+    static int  get_pango_weight_from_is_bold(const bool isBold);
+    static bool get_is_bold_from_pango_weight(const int pangoWeight);
 
     static bool get_hit_exclusion_from_search() { return _hitExclusionFromSearch; }
     static void clear_hit_exclusion_from_search() { _hitExclusionFromSearch = false; }
@@ -156,9 +161,10 @@ public:
     void          tree_view_connect(Gtk::TreeView* pTreeView);
     void          text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView);
 
-    void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
+    void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData, const bool loadTextBuffer);
     bool          populate_summary_info(CtSummaryInfo& summaryInfo);
     unsigned      tree_clear_property_exclude_from_search();
+    unsigned      populate_shared_nodes_map(CtSharedNodesMap& sharedNodesMap) const;
 
     void          update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData);
     void          update_node_icon(const Gtk::TreeIter& treeIter);
@@ -168,7 +174,7 @@ public:
     Gtk::TreeIter append_node(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter insert_node(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
-    void addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
+    void addAnchoredWidgets(CtTreeIter ctTreeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
 
     void treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
                                               const std::string& node_path,
@@ -197,11 +203,11 @@ public:
     Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
     CtTreeIter                      get_iter(Gtk::TreePath& path);
-    CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
+    CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter) const;
 
-    void nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children);
+    void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children);
 
-    const CtTreeModelColumns& get_columns() { return _columns; }
+    const CtTreeModelColumns& get_columns() const { return _columns; }
 
     void pending_edit_db_bookmarks();
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);

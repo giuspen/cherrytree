@@ -1,7 +1,7 @@
 /*
  * ct_menu_actions.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -309,6 +309,8 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_duplicate)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("Duplicate Node _and Subnodes"), None,
         _("Duplicate the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_shared_node", "ct_tree-node-shared", _("_Create Shared Node"), None,
+        _("Create a New Node Sharing the Same Data of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_make_shared)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_copy_node_subnodes", "ct_edit_copy", _("Copy Node and S_ubnodes"), None,
         _("Copy the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_copy)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_paste_node_subnodes", "ct_edit_paste", _("_Paste Node and Subnodes"), None,

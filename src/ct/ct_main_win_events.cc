@@ -34,6 +34,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         return;
     }
     const gint64 nodeId = treeIter.get_node_id();
+    const gint64 nodeIdDataHolder = treeIter.get_node_id_data_holder();
     if (_prevTreeIter) {
         const gint64 prevNodeId = _prevTreeIter.get_node_id();
         if (prevNodeId == nodeId) {
@@ -45,8 +46,8 @@ void CtMainWin::_on_treeview_cursor_changed()
             rTextBuffer->set_modified(false);
             _ctStateMachine.update_state(_prevTreeIter);
         }
-        _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
-        _nodesVScrollPos[prevNodeId] = round(_scrolledwindowText.get_vadjustment()->get_value());
+        _nodesCursorPos[nodeIdDataHolder] = rTextBuffer->property_cursor_position();
+        _nodesVScrollPos[nodeIdDataHolder] = round(_scrolledwindowText.get_vadjustment()->get_value());
     }
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
@@ -60,23 +61,24 @@ void CtMainWin::_on_treeview_cursor_changed()
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     if (user_active()) {
-        auto mapIter = _nodesCursorPos.find(nodeId);
+        auto mapIter = _nodesCursorPos.find(nodeIdDataHolder);
         if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
-            text_view_apply_cursor_position(treeIter, mapIter->second, _nodesVScrollPos.at(nodeId));
+            text_view_apply_cursor_position(treeIter, mapIter->second, _nodesVScrollPos.at(nodeIdDataHolder));
         }
         else {
             text_view_apply_cursor_position(treeIter, 0, 0);
         }
 
-        menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(nodeId));
+        const bool is_bookmarked = _uCtTreestore->is_node_bookmarked(nodeId);
+        menu_update_bookmark_menu_item(is_bookmarked);
         window_header_update();
         window_header_update_lock_icon(treeIter.get_node_read_only());
         window_header_update_ghost_icon(treeIter.get_node_is_excluded_from_search() or treeIter.get_node_children_are_excluded_from_search());
-        window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(nodeId));
+        window_header_update_bookmark_icon(is_bookmarked);
         update_selected_node_statusbar_info();
     }
 
-    _ctStateMachine.node_selected_changed(nodeId);
+    _ctStateMachine.node_selected_changed(nodeIdDataHolder);
 
     _prevTreeIter = treeIter;
 }

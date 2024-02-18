@@ -387,7 +387,7 @@ Glib::ustring CtExport2Html::codebox_export_to_html(CtCodebox* codebox)
 Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, fs::path embed_dir)
 {
     Glib::ustring embfile_align_text = _get_object_alignment_string(embfile->getJustification());
-    fs::path embfile_name = std::to_string(tree_iter.get_node_id()) + "-" +  embfile->get_file_name().string();
+    fs::path embfile_name = std::to_string(tree_iter.get_node_id_data_holder()) + "-" +  embfile->get_file_name().string();
     fs::path embfile_rel_path = "EmbeddedFiles" / embfile_name;
     Glib::ustring embfile_html = "<table style=\"" + embfile_align_text + "\"><tr><td><a href=\"" +
             embfile_rel_path.string_unix() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
@@ -406,7 +406,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const fs::path& ima
     images_count += 1;
     Glib::ustring image_name, image_rel_path;
     if (tree_iter) {
-        image_name = std::to_string(tree_iter->get_node_id()) + "-" + std::to_string(images_count) + ".png";
+        image_name = std::to_string(tree_iter->get_node_id_data_holder()) + "-" + std::to_string(images_count) + ".png";
         image_rel_path = (fs::path{"images"} / image_name).string_unix();
     }
     else {
