@@ -1409,19 +1409,9 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                 error = str::format(_("Failed to retrieve the content of the node '%s'"), ctTreeIter.get_node_name());
                 return true; /* true for stop */
             }
-            for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_anchored_widgets_fast()) {
-                switch (pAnchoredWidget->get_type()) {
-                    case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
-                    case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;
-                    case CtAnchWidgType::ImageLatex: ++summaryInfo.latexes_num; break;
-                    case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
-                    case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
-                    case CtAnchWidgType::TableHeavy: ++summaryInfo.heavytables_num; break;
-                    case CtAnchWidgType::TableLight: ++summaryInfo.lighttables_num; break;
-                }
-            }
             const gint64 shared_master_id = ctTreeIter.get_node_shared_master_id();
             if (shared_master_id > 0) {
+                // shared non master
                 ++summaryInfo.nodes_shared_tot;
                 const auto it = sharedNodesMap.find(shared_master_id);
                 if (sharedNodesMap.end() == it) {
@@ -1429,6 +1419,20 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                     ++summaryInfo.nodes_shared_tot; // add the new master to the count
                 }
                 sharedNodesMap[shared_master_id].insert(ctTreeIter.get_node_id());
+            }
+            else {
+                // non shared or shared master (data holder)
+                for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_anchored_widgets_fast()) {
+                    switch (pAnchoredWidget->get_type()) {
+                        case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
+                        case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;
+                        case CtAnchWidgType::ImageLatex: ++summaryInfo.latexes_num; break;
+                        case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
+                        case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
+                        case CtAnchWidgType::TableHeavy: ++summaryInfo.heavytables_num; break;
+                        case CtAnchWidgType::TableLight: ++summaryInfo.lighttables_num; break;
+                    }
+                }
             }
             return false; /* false for continue */
         }
