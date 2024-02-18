@@ -137,6 +137,26 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     auto ro_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Read Only")});
     ro_checkbutton->set_active(nodeData.isReadOnly);
 
+    Glib::ustring id_str = Glib::ustring{_("Unique Id")} + ": " + std::to_string(nodeData.nodeId);
+    CtSharedNodesMap shared_nodes_map;
+    if (pCtMainWin->get_tree_store().populate_shared_nodes_map(shared_nodes_map) > 0u) {
+        for (auto& currPair : shared_nodes_map) {
+            if (nodeData.nodeId == currPair.first or
+                nodeData.sharedNodesMasterId == currPair.first)
+            {
+                // add the master id to the set of non master ids of the group
+                id_str += CtConst::CHAR_NEWLINE + _("Shared Nodes Group") + ": " + std::to_string(currPair.first);
+                for (const gint64 nodeId : currPair.second) {
+                    id_str += ", " + std::to_string(nodeId);
+                }
+                break;
+            }
+        }
+    }
+    auto id_label = Gtk::manage(new Gtk::Label{id_str});
+    id_label->set_xalign(0.0);
+    id_label->set_padding(3/*xpad*/, 0/*ypad*/);
+
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
     pContentArea->pack_start(*name_frame);
@@ -144,6 +164,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     pContentArea->pack_start(*tags_frame);
     pContentArea->pack_start(*excl_hbox);
     pContentArea->pack_start(*ro_checkbutton);
+    pContentArea->pack_start(*id_label);
     pContentArea->show_all();
     name_entry->grab_focus();
 
