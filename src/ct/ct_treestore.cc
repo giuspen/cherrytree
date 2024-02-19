@@ -66,7 +66,7 @@ bool CtTreeIter::get_node_read_only() const
                 return masterIter.get_node_read_only();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colNodeIsReadOnly);
     }
@@ -85,7 +85,7 @@ void CtTreeIter::set_node_read_only(const bool val)
                 return;
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         (*this)->set_value(_pColumns->colNodeIsReadOnly, val);
     }
@@ -179,7 +179,7 @@ bool CtTreeIter::get_node_is_bold() const
                 return masterIter.get_node_is_bold();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return get_is_bold_from_pango_weight((*this)->get_value(_pColumns->colWeight));
     }
@@ -197,7 +197,7 @@ bool CtTreeIter::get_node_is_excluded_from_search() const
                 return masterIter.get_node_is_excluded_from_search();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         const bool exclude = (*this)->get_value(_pColumns->colNodeIsExcludedFromSearch);
         if (exclude and not _hitExclusionFromSearch) {
@@ -229,7 +229,7 @@ bool CtTreeIter::get_node_children_are_excluded_from_search() const
                 return masterIter.get_node_children_are_excluded_from_search();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         const bool exclude = (*this)->get_value(_pColumns->colNodeChildrenAreExcludedFromSearch);
         if (exclude and not _hitExclusionFromSearch) {
@@ -261,7 +261,7 @@ guint16 CtTreeIter::get_node_custom_icon_id() const
                 return masterIter.get_node_custom_icon_id();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colCustomIconId);
     }
@@ -279,7 +279,7 @@ Glib::ustring CtTreeIter::get_node_name() const
                 return masterIter.get_node_name();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colNodeName);
     }
@@ -298,7 +298,7 @@ void CtTreeIter::set_node_name(const Glib::ustring& node_name)
                 return;
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         (*this)->set_value(_pColumns->colNodeName, node_name);
     }
@@ -317,7 +317,7 @@ Glib::ustring CtTreeIter::get_node_tags() const
                 return masterIter.get_node_tags();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colNodeTags);
     }
@@ -335,7 +335,7 @@ std::string CtTreeIter::get_node_foreground() const
                 return masterIter.get_node_foreground();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colForeground);
     }
@@ -353,7 +353,7 @@ std::string CtTreeIter::get_node_syntax_highlighting() const
                 return masterIter.get_node_syntax_highlighting();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colSyntaxHighlighting);
     }
@@ -387,7 +387,7 @@ gint64 CtTreeIter::get_node_creating_time() const
                 return masterIter.get_node_creating_time();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colTsCreation);
     }
@@ -405,7 +405,7 @@ gint64 CtTreeIter::get_node_modification_time() const
                 return masterIter.get_node_modification_time();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return (*this)->get_value(_pColumns->colTsLastSave);
     }
@@ -424,7 +424,7 @@ void CtTreeIter::set_node_modification_time(const gint64 modification_time)
                 return;
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         (*this)->set_value(_pColumns->colTsLastSave, modification_time);
     }
@@ -454,7 +454,7 @@ void CtTreeIter::set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, cons
                 return;
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         remove_all_embedded_widgets();
         (*this)->set_value(_pColumns->rColTextBuffer, new_buffer);
@@ -477,7 +477,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
                 return masterIter.get_node_text_buffer();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
         const Gtk::TreeIter& self = *this;
@@ -523,7 +523,7 @@ bool CtTreeIter::get_node_buffer_already_loaded() const
                 return masterIter.get_node_buffer_already_loaded();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         return static_cast<bool>((*this)->get_value(_pColumns->rColTextBuffer));
     }
@@ -552,7 +552,7 @@ void CtTreeIter::remove_all_embedded_widgets()
                 return;
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         (void)get_node_text_buffer(); // ensure buffer/widgets loaded
         for (CtAnchoredWidget* pWidget : (*this)->get_value(_pColumns->colAnchoredWidgets)) {
@@ -575,7 +575,7 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char do
                 return masterIter.get_anchored_widgets_fast();
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         (void)get_node_text_buffer(); // ensure buffer/widgets loaded
         // remove invalid widgets (deleted from buffer)
@@ -630,7 +630,7 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
                 return masterIter.get_anchored_widgets(start_offset, end_offset);
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         (void)get_node_text_buffer(); // ensure buffer/widgets loaded
         std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
@@ -669,7 +669,7 @@ CtAnchoredWidget* CtTreeIter::get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnc
                 return masterIter.get_anchored_widget(rChildAnchor);
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
-            (*this)->set_value(_pColumns->colSharedNodesMasterId, 0ll);
+            (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets)) {
             if (rChildAnchor == pCtAnchoredWidget->getTextChildAnchor()) {
