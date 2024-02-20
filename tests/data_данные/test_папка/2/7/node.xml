@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cherrytree>
-  <node name="py" unique_id="7" prog_lang="python3" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795143" ts_lastsave="0">
+  <node unique_id="7" master_id="0" name="py" prog_lang="python3" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795143" ts_lastsave="0">
     <rich_text>print("ciao!")</rich_text>
   </node>
 </cherrytree>

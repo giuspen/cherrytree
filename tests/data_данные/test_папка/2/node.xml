@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cherrytree>
-  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1617718637">
+  <node unique_id="2" master_id="0" name="b" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1617718637">
     <rich_text justification="fill">ciao rich</rich_text>
     <rich_text>
 </rich_text>

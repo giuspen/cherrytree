@@ -92,3 +92,48 @@ link to folder /etc
 link to file /etc/fstab
 
 
+# e
+anchored widgets:
+
+codebox:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def test_function:
+    print "hi there йцукенгшщз"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+anchor:
+
+
+table:
+
+| h1 | h2 |
+| йцукенгшщз | 2 |
+| 3 | 4 |
+ 
+| h1 | h2 |
+| йцукенгшщз | 2 |
+| 3 | 4 |
+
+
+image:
+
+
+embedded file:
+
+
+latex equation:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$a^2+b^2=c^2$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+link to web ansa.it
+link to node ‘d’
+link to node ‘e’ + anchor
+link to folder /etc
+link to file /etc/fstab
+
+

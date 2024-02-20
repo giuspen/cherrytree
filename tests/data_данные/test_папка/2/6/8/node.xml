@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cherrytree>
-  <node name="html" unique_id="8" prog_lang="html" tags="" readonly="0" nosearch_me="1" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795273" ts_lastsave="0">
+  <node unique_id="8" master_id="0" name="html" prog_lang="html" tags="" readonly="0" nosearch_me="1" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795273" ts_lastsave="0">
     <rich_text>&lt;head&gt;
 &lt;title&gt;NO&lt;/title&gt;
 &lt;/head&gt;</rich_text>

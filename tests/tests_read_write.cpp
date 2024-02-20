@@ -114,11 +114,11 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
         auto pTextBuffer = ctTreeIter.get_node_text_buffer();
         pTextBuffer->insert(pTextBuffer->end(), "after_mods");
         pWin2->update_window_save_needed(CtSaveNeededUpdType::nbuf, false/*new_machine_state*/, &ctTreeIter);
-        const auto node_id = ctTreeIter.get_node_id();
-        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).buff);
-        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).is_update_of_existing);
-        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).prop);
-        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_id).hier);
+        const auto node_data_holder_id = ctTreeIter.get_node_id_data_holder();
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data_holder_id).buff);
+        ASSERT_TRUE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data_holder_id).is_update_of_existing);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data_holder_id).prop);
+        ASSERT_FALSE(pCtStorageSyncPending->nodes_to_write_dict.at(node_data_holder_id).hier);
     }
     {
         // edit node "d", prop
@@ -218,16 +218,19 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
 {
     CtSummaryInfo summaryInfo{};
     pWin->get_tree_store().populate_summary_info(summaryInfo);
-    ASSERT_EQ(3, summaryInfo.nodes_rich_text_num);
+    ASSERT_EQ(4, summaryInfo.nodes_rich_text_num);
     ASSERT_EQ(1, summaryInfo.nodes_plain_text_num);
     if (after_mods) ASSERT_EQ(4, summaryInfo.nodes_code_num);
     else ASSERT_EQ(5, summaryInfo.nodes_code_num);
     ASSERT_EQ(1, summaryInfo.images_num);
     ASSERT_EQ(1, summaryInfo.embfile_num);
     ASSERT_EQ(1, summaryInfo.heavytables_num);
+    ASSERT_EQ(1, summaryInfo.lighttables_num);
     ASSERT_EQ(1, summaryInfo.codeboxes_num);
     ASSERT_EQ(1, summaryInfo.anchors_num);
     ASSERT_EQ(1, summaryInfo.latexes_num);
+    ASSERT_EQ(2, summaryInfo.nodes_shared_tot);
+    ASSERT_EQ(1, summaryInfo.nodes_shared_groups);
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("йцукенгшщз");
         ASSERT_TRUE(ctTreeIter);
@@ -475,6 +478,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
         // assert node properties
         const gint64 node_e_id = ctTreeIter.get_node_id();
         ASSERT_TRUE(node_e_id > 0);
+        const gint64 node_e_master_id = ctTreeIter.get_node_shared_master_id();
+        ASSERT_TRUE(node_e_master_id > 0); // the first in the tree is the non master
         ASSERT_STREQ("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
@@ -532,7 +537,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
                 .text_slot="link to node ‘e’ + anchor",
                 .attr_map=CtCurrAttributesMap{{
                     CtConst::TAG_LINK,
-                    std::string{"node "} + std::to_string(node_e_id) + " йцукенгшщз"
+                    std::string{"node "} + std::to_string(node_e_master_id) + " йцукенгшщз"
                 }}},
             ExpectedTag{
                 .text_slot="link to folder /etc",
