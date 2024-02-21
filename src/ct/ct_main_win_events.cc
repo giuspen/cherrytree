@@ -333,13 +333,16 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 // Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)
 bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
 {
-    if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID and
-        curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
-    {
+    CtTreeIter ct_tree_iter = curr_tree_iter();
+    if (not ct_tree_iter) {
+        return false;
+    }
+    const auto syntax_highl = ct_tree_iter.get_node_syntax_highlighting();
+    if (CtConst::RICH_TEXT_ID != syntax_highl and CtConst::PLAIN_TEXT_ID != syntax_highl) {
         _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }
-    int x,y, bx, by;
+    int x, y, bx, by;
     Gdk::ModifierType mask;
     _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
     _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
