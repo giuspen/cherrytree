@@ -379,11 +379,14 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
     }
     else if (_prevTextviewWidth != allocation.get_width()) {
         _prevTextviewWidth = allocation.get_width();
-        auto widgets = curr_tree_iter().get_anchored_widgets_fast();
-        for (auto& widget: widgets) {
-            if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) {
-                if (not codebox->get_width_in_pixels()) {
-                    codebox->apply_width_height(allocation.get_width());
+        CtTreeIter ct_tree_iter = curr_tree_iter();
+        if (ct_tree_iter) {
+            std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets_fast();
+            for (CtAnchoredWidget* pWidget : widgets) {
+                if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pWidget)) {
+                    if (not pCodebox->get_width_in_pixels()) {
+                        pCodebox->apply_width_height(allocation.get_width());
+                    }
                 }
             }
         }
