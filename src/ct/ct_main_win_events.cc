@@ -614,6 +614,8 @@ void CtMainWin::_on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>&
                                            guint /*time*/)
 {
     Gtk::TreeIter sel_iter = _uCtTreeview->get_selection()->get_selected();
-    const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(sel_iter).to_string();
-    selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());
+    if (sel_iter) {
+        const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(sel_iter).to_string();
+        selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());
+    }
 }
