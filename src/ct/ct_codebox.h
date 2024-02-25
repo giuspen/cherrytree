@@ -87,7 +87,7 @@ public:
     void set_highlight_brackets(const bool highlightBrackets);
     void set_show_line_numbers(const bool showLineNumbers);
     void apply_cursor_pos(const int cursorPos);
-    void update_tool_button_properties();
+    void update_toolbar_buttons();
 
     bool get_width_in_pixels() const { return _widthInPixels; }
     int  get_frame_width() const {

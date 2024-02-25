@@ -466,7 +466,7 @@ void CtActions::codebox_change_properties()
 
     curr_codebox_anchor->set_syntax_highlighting(_pCtConfig->codeboxSynHighl,
                                                  _pCtMainWin->get_language_manager());
-    curr_codebox_anchor->update_tool_button_properties();
+    curr_codebox_anchor->update_toolbar_buttons();
     curr_codebox_anchor->set_width_in_pixels(_pCtConfig->codeboxWidthPixels);
     curr_codebox_anchor->set_width_height((int)_pCtConfig->codeboxWidth, (int)_pCtConfig->codeboxHeight);
     curr_codebox_anchor->set_show_line_numbers(_pCtConfig->codeboxLineNum);
