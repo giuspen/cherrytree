@@ -194,56 +194,27 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     auto checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
     auto checkbutton_nn_header_full_path = Gtk::manage(new Gtk::CheckButton{_("Show the Full Path in the Node Name Header")});
     auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Menubar")});
+    auto checkbutton_menubar_in_titlebar = Gtk::manage(new Gtk::CheckButton{_("Menubar in Titlebar")});
 
     vbox_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
     vbox_misc->pack_start(*checkbutton_nn_header_full_path, false, false);
     vbox_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
+    vbox_misc->pack_start(*checkbutton_menubar_in_titlebar, false, false);
 
     checkbutton_word_count->set_active(_pConfig->wordCountOn);
     checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
     checkbutton_nn_header_full_path->set_active(_pConfig->nodeNameHeaderShowFullPath);
     checkbutton_bookmarks_top_menu->set_active(_pConfig->bookmarksInTopMenu);
+    checkbutton_menubar_in_titlebar->set_active(_pConfig->menubarInTitlebar);
 
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
-
-    auto vbox_system_tray = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-    auto checkbutton_systray = Gtk::manage(new Gtk::CheckButton{_("Enable System Tray Docking")});
-    auto checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton{_("Start Minimized in the System Tray")});
-    vbox_system_tray->pack_start(*checkbutton_systray, false, false);
-    vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
-
-    Gtk::Frame* frame_system_tray = new_managed_frame_with_align(_("System Tray"), vbox_system_tray);
-
-    checkbutton_systray->set_active(_pConfig->systrayOn);
-    checkbutton_start_on_systray->set_active(_pConfig->startOnSystray);
-    checkbutton_start_on_systray->set_sensitive(_pConfig->systrayOn);
-
-#ifdef HAVE_NLS
-    auto f_getButtonLabel = [this](const std::string langCode)->Glib::ustring{
-        auto it = _mapCountryLanguages.find(langCode);
-        return it != _mapCountryLanguages.end() ? it->second : _("System Default");
-    };
-    auto f_getStockId = [](const std::string langCode)->std::string{
-        return langCode == CtConst::LANG_DEFAULT ? "ct_node_no_icon" : "ct_" + langCode;
-    };
-    const auto currLangId = CtMiscUtil::get_ct_language();
-    auto button_country_language = Gtk::manage(new Gtk::Button{});
-    button_country_language->set_label(f_getButtonLabel(currLangId));
-    button_country_language->set_image(*_pCtMainWin->new_managed_image_from_stock(f_getStockId(currLangId), Gtk::ICON_SIZE_MENU));
-    button_country_language->set_always_show_image(true);
-    Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), button_country_language);
-#endif
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
     pMainBox->pack_start(*frame_misc, false, false);
-    pMainBox->pack_start(*frame_system_tray, false, false);
-#ifdef HAVE_NLS
-    pMainBox->pack_start(*frame_language, false, false);
-#endif
 
     auto f_on_font_rt_set = [this, fontbutton_rt](){
         _pConfig->rtFont = fontbutton_rt->get_font_name();
@@ -316,36 +287,6 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
         f_on_font_ms_set();
     });
 
-    // cannot just turn on systray icon, we have to check if systray exists
-    checkbutton_systray->signal_toggled().connect([this, checkbutton_systray, checkbutton_start_on_systray](){
-        if (checkbutton_systray->get_active()) {
-            _pCtMainWin->get_status_icon()->set_visible(true);
-#if defined(_WIN32)
-            _pConfig->systrayOn = true; // windows does support the systray
-#else // !_WIN32
-            _pConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *this);
-#endif // !_WIN32
-            if (_pConfig->systrayOn) {
-                checkbutton_start_on_systray->set_sensitive(true);
-                apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
-            }
-            else {
-                CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *this);
-                checkbutton_systray->set_active(false);
-            }
-        }
-        else {
-            _pConfig->systrayOn = false;
-            _pCtMainWin->get_status_icon()->set_visible(false);
-            apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
-            checkbutton_start_on_systray->set_sensitive(false);
-        }
-        checkbutton_systray->get_parent()->grab_focus();
-    });
-    checkbutton_start_on_systray->signal_toggled().connect([this, checkbutton_start_on_systray](){
-        _pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
-    });
-
     checkbutton_win_title_doc_dir->signal_toggled().connect([this, checkbutton_win_title_doc_dir](){
         _pConfig->winTitleShowDocDir = checkbutton_win_title_doc_dir->get_active();
         _pCtMainWin->window_title_update();
@@ -358,47 +299,14 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
         _pConfig->bookmarksInTopMenu = checkbutton_bookmarks_top_menu->get_active();
         _pCtMainWin->menu_top_optional_bookmarks_enforce();
     });
+    checkbutton_menubar_in_titlebar->signal_toggled().connect([this, checkbutton_menubar_in_titlebar](){
+        _pConfig->menubarInTitlebar = checkbutton_menubar_in_titlebar->get_active();
+        need_restart(RESTART_REASON::MENUBAR_IN_TITLEBAR);
+    });
     checkbutton_word_count->signal_toggled().connect([this, checkbutton_word_count](){
         _pConfig->wordCountOn = checkbutton_word_count->get_active();
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });
-#ifdef HAVE_NLS
-    button_country_language->signal_clicked().connect([this, button_country_language, f_getStockId, f_getButtonLabel](){
-
-        struct customCompare {
-            bool operator()(const std::pair<std::string, Glib::ustring>& l, const std::pair<std::string, Glib::ustring>& r) const {
-                return l.second < r.second;
-            }
-        };
-        std::set<std::pair<std::string, Glib::ustring>, customCompare> orderedSet{_mapCountryLanguages.begin(), _mapCountryLanguages.end()};
-
-        Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
-        const std::string currLang = CtMiscUtil::get_ct_language();
-        rItemStore->add_row(f_getStockId(CtConst::LANG_DEFAULT), CtConst::LANG_DEFAULT, _("System Default"));
-        unsigned pathSelectIdx{0};
-        unsigned pathCurrIdx{1};
-        for (const auto& currPair : orderedSet) {
-            rItemStore->add_row(f_getStockId(currPair.first), currPair.first, currPair.second);
-            if (currLang == currPair.first) {
-                pathSelectIdx = pathCurrIdx;
-            }
-            ++pathCurrIdx;
-        }
-        Gtk::TreeIter res = CtDialogs::choose_item_dialog(*this,
-                                                          _("Language"),
-                                                          rItemStore,
-                                                          nullptr/*single_column_name*/,
-                                                          std::to_string(pathSelectIdx));
-        if (res) {
-            const Glib::ustring selLangId = res->get_value(rItemStore->columns.key);
-            button_country_language->set_label(f_getButtonLabel(selLangId));
-            button_country_language->set_image(*_pCtMainWin->new_managed_image_from_stock(f_getStockId(selLangId), Gtk::ICON_SIZE_MENU));
-            need_restart(RESTART_REASON::LANG);
-            g_file_set_contents(fs::get_cherrytree_langcfg_filepath().c_str(),
-                                selLangId.c_str(), (gssize)selLangId.bytes(), nullptr);
-        }
-    });
-#endif
 
     return pMainBox;
 }
