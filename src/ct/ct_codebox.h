@@ -1,7 +1,7 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -87,6 +87,7 @@ public:
     void set_highlight_brackets(const bool highlightBrackets);
     void set_show_line_numbers(const bool showLineNumbers);
     void apply_cursor_pos(const int cursorPos);
+    void update_tool_button_properties();
 
     bool get_width_in_pixels() const { return _widthInPixels; }
     int  get_frame_width() const {
@@ -109,4 +110,9 @@ private:
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
     Gtk::ScrolledWindow _scrolledwindow;
+    Gtk::Box _hbox{Gtk::ORIENTATION_HORIZONTAL};
+    Gtk::Toolbar _toolbar;
+    Gtk::ToolButton _toolButtonPlay;
+    Gtk::ToolButton _toolButtonCopy;
+    Gtk::ToolButton _toolButtonProp;
 };

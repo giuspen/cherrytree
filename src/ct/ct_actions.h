@@ -446,6 +446,7 @@ public:
 
     void codebox_cut();
     void codebox_copy();
+    void codebox_copy_content();
     void codebox_delete();
     void codebox_delete_keeping_text();
     void codebox_change_properties();

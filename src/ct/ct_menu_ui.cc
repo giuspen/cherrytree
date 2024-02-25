@@ -202,6 +202,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menu action='CodeBoxSubMenu'>
       <menuitem action='codebox_cut'/>
       <menuitem action='codebox_copy'/>
+      <menuitem action='codebox_copy_content'/>
       <menuitem action='codebox_delete'/>
       <menuitem action='codebox_delete_keeping_text'/>
       <menuitem action='codebox_increase_width'/>

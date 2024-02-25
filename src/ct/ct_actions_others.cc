@@ -1,7 +1,7 @@
 /*
  * ct_actions_others.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -422,6 +422,14 @@ void CtActions::codebox_copy()
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
+void CtActions::codebox_copy_content()
+{
+    if (not _is_there_anch_widg_selection_or_error('c')) return;
+    Glib::RefPtr<Gsv::Buffer> pBuffer = curr_codebox_anchor->get_buffer();
+    pBuffer->select_range(pBuffer->begin(), pBuffer->end());
+    g_signal_emit_by_name(G_OBJECT(curr_codebox_anchor->get_text_view().gobj()), "copy-clipboard");
+}
+
 void CtActions::codebox_delete()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
@@ -458,6 +466,7 @@ void CtActions::codebox_change_properties()
 
     curr_codebox_anchor->set_syntax_highlighting(_pCtConfig->codeboxSynHighl,
                                                  _pCtMainWin->get_language_manager());
+    curr_codebox_anchor->update_tool_button_properties();
     curr_codebox_anchor->set_width_in_pixels(_pCtConfig->codeboxWidthPixels);
     curr_codebox_anchor->set_width_height((int)_pCtConfig->codeboxWidth, (int)_pCtConfig->codeboxHeight);
     curr_codebox_anchor->set_show_line_numbers(_pCtConfig->codeboxLineNum);

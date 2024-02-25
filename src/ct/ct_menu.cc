@@ -1,7 +1,7 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -253,6 +253,7 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
             _add_menu_separator(pMenu);
             _add_menu_item(pMenu, find_action("codebox_cut"));
             _add_menu_item(pMenu, find_action("codebox_copy"));
+            _add_menu_item(pMenu, find_action("codebox_copy_content"));
             _add_menu_item(pMenu, find_action("codebox_delete"));
             _add_menu_item(pMenu, find_action("codebox_delete_keeping_text"));
             _add_menu_separator(pMenu);

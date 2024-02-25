@@ -207,6 +207,8 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Cut the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_cut)});
     _actions.push_back(CtMenuAction{editor_cat, "codebox_copy", "ct_edit_copy", _("_Copy CodeBox"), None,
         _("Copy the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy)});
+    _actions.push_back(CtMenuAction{editor_cat, "codebox_copy_content", "ct_edit_copy", _("_Copy CodeBox Content"), None,
+        _("Copy the Content of the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy_content)});
     _actions.push_back(CtMenuAction{editor_cat, "codebox_delete", "ct_edit_delete", _("_Delete CodeBox"), None,
         _("Delete the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_delete)});
     _actions.push_back(CtMenuAction{editor_cat, "codebox_delete_keeping_text", "ct_edit_delete", _("Delete CodeBox _Keep Content"), None,
