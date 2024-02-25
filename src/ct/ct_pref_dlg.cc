@@ -196,6 +196,12 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Menubar")});
     auto checkbutton_menubar_in_titlebar = Gtk::manage(new Gtk::CheckButton{_("Menubar in Titlebar")});
 
+    checkbutton_word_count->set_active(_pConfig->wordCountOn);
+    checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
+    checkbutton_nn_header_full_path->set_active(_pConfig->nodeNameHeaderShowFullPath);
+    checkbutton_bookmarks_top_menu->set_active(_pConfig->bookmarksInTopMenu);
+    checkbutton_menubar_in_titlebar->set_active(_pConfig->menubarInTitlebar);
+
     auto hbox_toolbar_icons_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_toolbar_icons_size = Gtk::manage(new Gtk::Label{_("Toolbar Icons Size")});
     Glib::RefPtr<Gtk::Adjustment> adjustment_toolbar_icons_size = Gtk::Adjustment::create(_pConfig->toolbarIconSize, 2, 5, 1);
@@ -203,18 +209,28 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     hbox_toolbar_icons_size->pack_start(*label_toolbar_icons_size, false, false);
     hbox_toolbar_icons_size->pack_start(*spinbutton_toolbar_icons_size, false, false);
 
+    auto hbox_scrollbar_overlay = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 6/*spacing*/});
+    auto label_scrollbar_overlay = Gtk::manage(new Gtk::Label{_("Scrollbar Overlays Text Editor")});
+    auto radiobutton_scrollbar_overlay_default = Gtk::manage(new Gtk::RadioButton{_("System Default")});
+    auto radiobutton_scrollbar_overlay_on = Gtk::manage(new Gtk::RadioButton{_("Yes")});
+    radiobutton_scrollbar_overlay_on->join_group(*radiobutton_scrollbar_overlay_default);
+    auto radiobutton_scrollbar_overlay_off = Gtk::manage(new Gtk::RadioButton{_("No")});
+    radiobutton_scrollbar_overlay_off->join_group(*radiobutton_scrollbar_overlay_default);
+    hbox_scrollbar_overlay->pack_start(*label_scrollbar_overlay, false, false);
+    hbox_scrollbar_overlay->pack_start(*radiobutton_scrollbar_overlay_default, false, false);
+    hbox_scrollbar_overlay->pack_start(*radiobutton_scrollbar_overlay_on, false, false);
+    hbox_scrollbar_overlay->pack_start(*radiobutton_scrollbar_overlay_off, false, false);
+    radiobutton_scrollbar_overlay_default->set_active(2 == _pConfig->overlayScroll);
+    radiobutton_scrollbar_overlay_on->set_active(1 == _pConfig->overlayScroll);
+    radiobutton_scrollbar_overlay_off->set_active(0 ==_pConfig->overlayScroll);
+
     vbox_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
     vbox_misc->pack_start(*checkbutton_nn_header_full_path, false, false);
     vbox_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
     vbox_misc->pack_start(*checkbutton_menubar_in_titlebar, false, false);
     vbox_misc->pack_start(*hbox_toolbar_icons_size, false, false);
-
-    checkbutton_word_count->set_active(_pConfig->wordCountOn);
-    checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
-    checkbutton_nn_header_full_path->set_active(_pConfig->nodeNameHeaderShowFullPath);
-    checkbutton_bookmarks_top_menu->set_active(_pConfig->bookmarksInTopMenu);
-    checkbutton_menubar_in_titlebar->set_active(_pConfig->menubarInTitlebar);
+    vbox_misc->pack_start(*hbox_scrollbar_overlay, false, false);
 
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
 
@@ -318,6 +334,22 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     spinbutton_toolbar_icons_size->signal_value_changed().connect([this, spinbutton_toolbar_icons_size](){
         _pConfig->toolbarIconSize = spinbutton_toolbar_icons_size->get_value_as_int();
         apply_for_each_window([this](CtMainWin* win) { win->set_toolbars_icon_size(_pConfig->toolbarIconSize); });
+    });
+
+    radiobutton_scrollbar_overlay_default->signal_toggled().connect([this, radiobutton_scrollbar_overlay_default](){
+        if (not radiobutton_scrollbar_overlay_default->get_active()) return;
+        _pConfig->overlayScroll = 2;
+        need_restart(RESTART_REASON::OVERLAY_SCROLL);
+    });
+    radiobutton_scrollbar_overlay_on->signal_toggled().connect([this, radiobutton_scrollbar_overlay_on](){
+        if (not radiobutton_scrollbar_overlay_on->get_active()) return;
+        _pConfig->overlayScroll = 1;
+        _pCtMainWin->getScrolledwindowText().set_overlay_scrolling(static_cast<bool>(_pConfig->overlayScroll));
+    });
+    radiobutton_scrollbar_overlay_off->signal_toggled().connect([this, radiobutton_scrollbar_overlay_off](){
+        if (not radiobutton_scrollbar_overlay_off->get_active()) return;
+        _pConfig->overlayScroll = 0;
+        _pCtMainWin->getScrolledwindowText().set_overlay_scrolling(static_cast<bool>(_pConfig->overlayScroll));
     });
 
     return pMainBox;
