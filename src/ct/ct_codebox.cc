@@ -203,6 +203,7 @@ void CtCodebox::update_toolbar_buttons()
 {
     _toolbar.foreach([this](Gtk::Widget& widget){ _toolbar.remove(widget); });
     if (_pCtMainWin->get_ct_config()->codeboxWithToolbar) {
+        _toolbar.set_tooltip_text(_syntaxHighlighting);
         if (CtConst::PLAIN_TEXT_ID != _syntaxHighlighting) {
             const std::string label_n_tooltip = fmt::format("[{}] - {}", _syntaxHighlighting, _("Execute Code"));
             _toolButtonPlay.set_icon_name("ct_play");

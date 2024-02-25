@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -46,7 +46,7 @@ private:
     Gtk::Widget* build_tab_special_characters();
     Gtk::Widget* build_tab_tree();
     Gtk::Widget* build_tab_theme();
-    Gtk::Widget* build_tab_fonts();
+    Gtk::Widget* build_tab_interface();
     Gtk::Widget* build_tab_links();
     Gtk::Widget* build_tab_toolbar();
     Gtk::Widget* build_tab_kb_shortcuts();
