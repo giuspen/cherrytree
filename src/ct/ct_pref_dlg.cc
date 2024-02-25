@@ -196,11 +196,19 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Menubar")});
     auto checkbutton_menubar_in_titlebar = Gtk::manage(new Gtk::CheckButton{_("Menubar in Titlebar")});
 
+    auto hbox_toolbar_icons_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_toolbar_icons_size = Gtk::manage(new Gtk::Label{_("Toolbar Icons Size")});
+    Glib::RefPtr<Gtk::Adjustment> adjustment_toolbar_icons_size = Gtk::Adjustment::create(_pConfig->toolbarIconSize, 2, 5, 1);
+    auto spinbutton_toolbar_icons_size = Gtk::manage(new Gtk::SpinButton{adjustment_toolbar_icons_size});
+    hbox_toolbar_icons_size->pack_start(*label_toolbar_icons_size, false, false);
+    hbox_toolbar_icons_size->pack_start(*spinbutton_toolbar_icons_size, false, false);
+
     vbox_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
     vbox_misc->pack_start(*checkbutton_nn_header_full_path, false, false);
     vbox_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
     vbox_misc->pack_start(*checkbutton_menubar_in_titlebar, false, false);
+    vbox_misc->pack_start(*hbox_toolbar_icons_size, false, false);
 
     checkbutton_word_count->set_active(_pConfig->wordCountOn);
     checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
@@ -306,6 +314,10 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     checkbutton_word_count->signal_toggled().connect([this, checkbutton_word_count](){
         _pConfig->wordCountOn = checkbutton_word_count->get_active();
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
+    });
+    spinbutton_toolbar_icons_size->signal_value_changed().connect([this, spinbutton_toolbar_icons_size](){
+        _pConfig->toolbarIconSize = spinbutton_toolbar_icons_size->get_value_as_int();
+        apply_for_each_window([this](CtMainWin* win) { win->set_toolbars_icon_size(_pConfig->toolbarIconSize); });
     });
 
     return pMainBox;
