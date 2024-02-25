@@ -209,6 +209,13 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     hbox_toolbar_icons_size->pack_start(*label_toolbar_icons_size, false, false);
     hbox_toolbar_icons_size->pack_start(*spinbutton_toolbar_icons_size, false, false);
 
+    auto hbox_scrollbar_min_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_scrollbar_min_size = Gtk::manage(new Gtk::Label{_("Scrollbar Slider Minimum Size (0 = System Default)")});
+    Glib::RefPtr<Gtk::Adjustment> adjustment_scrollbar_min_size = Gtk::Adjustment::create(_pConfig->scrollSliderMin, 0, 1000, 1);
+    auto spinbutton_scrollbar_min_size = Gtk::manage(new Gtk::SpinButton{adjustment_scrollbar_min_size});
+    hbox_scrollbar_min_size->pack_start(*label_scrollbar_min_size, false, false);
+    hbox_scrollbar_min_size->pack_start(*spinbutton_scrollbar_min_size, false, false);
+
     auto hbox_scrollbar_overlay = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 6/*spacing*/});
     auto label_scrollbar_overlay = Gtk::manage(new Gtk::Label{_("Scrollbar Overlays Text Editor")});
     auto radiobutton_scrollbar_overlay_default = Gtk::manage(new Gtk::RadioButton{_("System Default")});
@@ -230,6 +237,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     vbox_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
     vbox_misc->pack_start(*checkbutton_menubar_in_titlebar, false, false);
     vbox_misc->pack_start(*hbox_toolbar_icons_size, false, false);
+    vbox_misc->pack_start(*hbox_scrollbar_min_size, false, false);
     vbox_misc->pack_start(*hbox_scrollbar_overlay, false, false);
 
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
@@ -335,7 +343,10 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
         _pConfig->toolbarIconSize = spinbutton_toolbar_icons_size->get_value_as_int();
         apply_for_each_window([this](CtMainWin* win) { win->set_toolbars_icon_size(_pConfig->toolbarIconSize); });
     });
-
+    spinbutton_scrollbar_min_size->signal_value_changed().connect([this, spinbutton_scrollbar_min_size](){
+        _pConfig->scrollSliderMin = spinbutton_scrollbar_min_size->get_value_as_int();
+        apply_for_each_window([this](CtMainWin* win) { win->update_theme(); });
+    });
     radiobutton_scrollbar_overlay_default->signal_toggled().connect([this, radiobutton_scrollbar_overlay_default](){
         if (not radiobutton_scrollbar_overlay_default->get_active()) return;
         _pConfig->overlayScroll = 2;
