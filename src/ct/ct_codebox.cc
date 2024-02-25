@@ -202,36 +202,38 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
 void CtCodebox::update_toolbar_buttons()
 {
     _toolbar.foreach([this](Gtk::Widget& widget){ _toolbar.remove(widget); });
-    if (CtConst::PLAIN_TEXT_ID != _syntaxHighlighting) {
-        const std::string label_n_tooltip = fmt::format("[{}] - {}", _syntaxHighlighting, _("Execute Code"));
-        _toolButtonPlay.set_icon_name("ct_play");
-        _toolButtonPlay.set_label(label_n_tooltip);
-        _toolButtonPlay.set_tooltip_text(label_n_tooltip);
-        _toolbar.append(_toolButtonPlay, [this](){
+    if (_pCtMainWin->get_ct_config()->codeboxWithToolbar) {
+        if (CtConst::PLAIN_TEXT_ID != _syntaxHighlighting) {
+            const std::string label_n_tooltip = fmt::format("[{}] - {}", _syntaxHighlighting, _("Execute Code"));
+            _toolButtonPlay.set_icon_name("ct_play");
+            _toolButtonPlay.set_label(label_n_tooltip);
+            _toolButtonPlay.set_tooltip_text(label_n_tooltip);
+            _toolbar.append(_toolButtonPlay, [this](){
+                CtActions* pCtActions = _pCtMainWin->get_ct_actions();
+                pCtActions->curr_codebox_anchor = this;
+                pCtActions->object_set_selection(this);
+                pCtActions->exec_code_all();
+            });
+        }
+        _toolButtonCopy.set_icon_name("ct_edit_copy");
+        _toolButtonCopy.set_label("Copy Code");
+        _toolButtonCopy.set_tooltip_text("Copy Code");
+        _toolbar.append(_toolButtonCopy, [this](){
             CtActions* pCtActions = _pCtMainWin->get_ct_actions();
             pCtActions->curr_codebox_anchor = this;
             pCtActions->object_set_selection(this);
-            pCtActions->exec_code_all();
+            pCtActions->codebox_copy_content();
+        });
+        _toolButtonProp.set_icon_name("ct_codebox_edit");
+        _toolButtonProp.set_label(_("Change CodeBox Properties"));
+        _toolButtonProp.set_tooltip_text(_("Change CodeBox Properties"));
+        _toolbar.append(_toolButtonProp, [this](){
+            CtActions* pCtActions = _pCtMainWin->get_ct_actions();
+            pCtActions->curr_codebox_anchor = this;
+            pCtActions->object_set_selection(this);
+            pCtActions->codebox_change_properties();
         });
     }
-    _toolButtonCopy.set_icon_name("ct_edit_copy");
-    _toolButtonCopy.set_label("Copy Code");
-    _toolButtonCopy.set_tooltip_text("Copy Code");
-    _toolbar.append(_toolButtonCopy, [this](){
-        CtActions* pCtActions = _pCtMainWin->get_ct_actions();
-        pCtActions->curr_codebox_anchor = this;
-        pCtActions->object_set_selection(this);
-        pCtActions->codebox_copy_content();
-    });
-    _toolButtonProp.set_icon_name("ct_codebox_edit");
-    _toolButtonProp.set_label(_("Change CodeBox Properties"));
-    _toolButtonProp.set_tooltip_text(_("Change CodeBox Properties"));
-    _toolbar.append(_toolButtonProp, [this](){
-        CtActions* pCtActions = _pCtMainWin->get_ct_actions();
-        pCtActions->curr_codebox_anchor = this;
-        pCtActions->object_set_selection(this);
-        pCtActions->codebox_change_properties();
-    });
 }
 
 void CtCodebox::apply_width_height(const int parentTextWidth)

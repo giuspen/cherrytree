@@ -55,6 +55,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_rt_highl_match_bra->set_active(_pConfig->rtHighlMatchBra);
     auto checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton{_("Expand CodeBoxes Automatically")});
     checkbutton_codebox_auto_resize->set_active(_pConfig->codeboxAutoResize);
+    auto checkbutton_codebox_with_toolbar = Gtk::manage(new Gtk::CheckButton{_("CodeBoxes Have Toolbar")});
+    checkbutton_codebox_with_toolbar->set_active(_pConfig->codeboxWithToolbar);
 
     auto hbox_table_cells_to_light = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_table_cells_to_light = Gtk::manage(new Gtk::Label{_("Threshold Number of Table Cells for Lightweight Interface")});
@@ -98,6 +100,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
+    vbox_misc_text->pack_start(*checkbutton_codebox_with_toolbar, false, false);
     vbox_misc_text->pack_start(*hbox_table_cells_to_light, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
@@ -153,6 +156,12 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_codebox_auto_resize->signal_toggled().connect([this, checkbutton_codebox_auto_resize](){
         _pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
+    });
+    checkbutton_codebox_with_toolbar->signal_toggled().connect([this, checkbutton_codebox_with_toolbar](){
+        _pConfig->codeboxWithToolbar = checkbutton_codebox_with_toolbar->get_active();
+        apply_for_each_window([](CtMainWin* win) {
+            win->codeboxes_reload_toolbar();
+        });
     });
     spinbutton_table_cells_to_light->signal_value_changed().connect([this, spinbutton_table_cells_to_light](){
         _pConfig->tableCellsGoLight = spinbutton_table_cells_to_light->get_value_as_int();

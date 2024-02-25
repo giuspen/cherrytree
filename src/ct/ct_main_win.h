@@ -156,7 +156,8 @@ public:
     void                      apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax, const bool forceReApply);
     void                      reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/);
     void                      resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTextNCode*/);
-    Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const Glib::ustring& textContent=""); // pygtk: buffer_create
+    void                      codeboxes_reload_toolbar();
+    Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const Glib::ustring& textContent="");
     const std::string         get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
     void                      apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, CtScalableTag* pCtScalableTag);
     Glib::ustring             sourceview_hovering_link_get_tooltip(const Glib::ustring& link);

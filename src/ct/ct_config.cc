@@ -332,6 +332,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "codebox_match_bra", codeboxMatchBra);
     _uKeyFile->set_string(_currentGroup, "codebox_syn_highl", codeboxSynHighl);
     _uKeyFile->set_boolean(_currentGroup, "codebox_auto_resize", codeboxAutoResize);
+    _uKeyFile->set_boolean(_currentGroup, "codebox_with_toolbar", codeboxWithToolbar);
 
     // [table]
     _currentGroup = "table";
@@ -653,6 +654,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("codebox_match_bra", &codeboxMatchBra);
     _populate_string_from_keyfile("codebox_syn_highl", &codeboxSynHighl);
     _populate_bool_from_keyfile("codebox_auto_resize", &codeboxAutoResize);
+    _populate_bool_from_keyfile("codebox_with_toolbar", &codeboxWithToolbar);
 
     // [table]
     _currentGroup = "table";
