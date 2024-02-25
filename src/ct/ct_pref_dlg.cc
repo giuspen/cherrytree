@@ -231,6 +231,19 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     radiobutton_scrollbar_overlay_on->set_active(1 == _pConfig->overlayScroll);
     radiobutton_scrollbar_overlay_off->set_active(0 ==_pConfig->overlayScroll);
 
+    auto hbox_tooltips_enable = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/});
+    auto label_tooltips_enable = Gtk::manage(new Gtk::Label{_("Enable Tooltips When Hovering")});
+    auto checkbutton_tooltips_enable_tree = Gtk::manage(new Gtk::CheckButton{_("Tree")});
+    auto checkbutton_tooltips_enable_menus = Gtk::manage(new Gtk::CheckButton{_("Menus")});
+    auto checkbutton_tooltips_enable_toolbar = Gtk::manage(new Gtk::CheckButton{_("Toolbar")});
+    hbox_tooltips_enable->pack_start(*label_tooltips_enable, false, false);
+    hbox_tooltips_enable->pack_start(*checkbutton_tooltips_enable_tree, false, false);
+    hbox_tooltips_enable->pack_start(*checkbutton_tooltips_enable_menus, false, false);
+    hbox_tooltips_enable->pack_start(*checkbutton_tooltips_enable_toolbar, false, false);
+    checkbutton_tooltips_enable_tree->set_active(_pConfig->treeTooltips);
+    checkbutton_tooltips_enable_menus->set_active(_pConfig->menusTooltips);
+    checkbutton_tooltips_enable_toolbar->set_active(_pConfig->toolbarTooltips);
+
     vbox_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
     vbox_misc->pack_start(*checkbutton_nn_header_full_path, false, false);
@@ -239,6 +252,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     vbox_misc->pack_start(*hbox_toolbar_icons_size, false, false);
     vbox_misc->pack_start(*hbox_scrollbar_min_size, false, false);
     vbox_misc->pack_start(*hbox_scrollbar_overlay, false, false);
+    vbox_misc->pack_start(*hbox_tooltips_enable, false, false);
 
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
 
@@ -361,6 +375,18 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
         if (not radiobutton_scrollbar_overlay_off->get_active()) return;
         _pConfig->overlayScroll = 0;
         _pCtMainWin->getScrolledwindowText().set_overlay_scrolling(static_cast<bool>(_pConfig->overlayScroll));
+    });
+    checkbutton_tooltips_enable_tree->signal_toggled().connect([this, checkbutton_tooltips_enable_tree](){
+        _pConfig->treeTooltips = checkbutton_tooltips_enable_tree->get_active();
+        apply_for_each_window([this](CtMainWin* win) { win->get_tree_view().set_tooltips_enable(_pConfig->treeTooltips/*on*/); });
+    });
+    checkbutton_tooltips_enable_menus->signal_toggled().connect([this, checkbutton_tooltips_enable_menus](){
+        _pConfig->menusTooltips = checkbutton_tooltips_enable_menus->get_active();
+        need_restart(RESTART_REASON::MENUS_TOOLTIPS);
+    });
+    checkbutton_tooltips_enable_toolbar->signal_toggled().connect([this, checkbutton_tooltips_enable_toolbar](){
+        _pConfig->toolbarTooltips = checkbutton_tooltips_enable_toolbar->get_active();
+        _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
     });
 
     return pMainBox;

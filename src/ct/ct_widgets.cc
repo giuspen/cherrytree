@@ -1,7 +1,7 @@
 /*
  * ct_widgets.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -123,8 +123,14 @@ CtTreeView::CtTreeView(CtConfig* pCtConfig)
 {
     set_headers_visible(false);
     if (_pCtConfig->treeTooltips) {
-        set_tooltip_column(1); // node name
+        set_tooltips_enable(true/*on*/);
     }
+}
+
+void CtTreeView::set_tooltips_enable(const bool on)
+{
+    if (on) set_tooltip_column(1); // node name
+    else set_tooltip_column(-1);
 }
 
 void CtTreeView::set_cursor_safe(const Gtk::TreeIter& treeIter)

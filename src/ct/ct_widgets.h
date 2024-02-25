@@ -1,7 +1,7 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -102,6 +102,7 @@ public:
 
     void set_cursor_safe(const Gtk::TreeIter& iter);
     void set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width);
+    void set_tooltips_enable(const bool on);
 
 private:
     CtConfig* const _pCtConfig;
