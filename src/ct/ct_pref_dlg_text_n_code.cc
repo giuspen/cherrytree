@@ -33,6 +33,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     spinbutton_tab_width->set_value(_pConfig->tabsWidth);
     hbox_tab_width->pack_start(*label_tab_width, false, false);
     hbox_tab_width->pack_start(*spinbutton_tab_width, false, false);
+
     auto checkbutton_spaces_tabs = Gtk::manage(new Gtk::CheckButton{_("Insert Spaces Instead of Tabs")});
     checkbutton_spaces_tabs->set_active(_pConfig->spacesInsteadTabs);
     auto checkbutton_line_wrap = Gtk::manage(new Gtk::CheckButton{_("Use Line Wrapping")});
@@ -63,10 +64,21 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     hbox_cursor_blink->pack_start(*radiobutton_cursor_blink_default, false, false);
     hbox_cursor_blink->pack_start(*radiobutton_cursor_blink_on, false, false);
     hbox_cursor_blink->pack_start(*radiobutton_cursor_blink_off, false, false);
-
     radiobutton_cursor_blink_default->set_active(2 == _pConfig->cursorBlink);
     radiobutton_cursor_blink_on->set_active(1 == _pConfig->cursorBlink);
     radiobutton_cursor_blink_off->set_active(0 ==_pConfig->cursorBlink);
+
+    auto hbox_margins = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_margins_left = Gtk::manage(new Gtk::Label{_("Text Margin: Left")});
+    auto label_margins_right = Gtk::manage(new Gtk::Label{_("Right")});
+    Glib::RefPtr<Gtk::Adjustment> adj_margins_left = Gtk::Adjustment::create(_pConfig->textMarginLeft, 0, 1000);
+    Glib::RefPtr<Gtk::Adjustment> adj_margins_right = Gtk::Adjustment::create(_pConfig->textMarginRight, 0, 1000);
+    auto spinbutton_margins_left = Gtk::manage(new Gtk::SpinButton{adj_margins_left});
+    auto spinbutton_margins_right = Gtk::manage(new Gtk::SpinButton{adj_margins_right});
+    hbox_margins->pack_start(*label_margins_left, false, false);
+    hbox_margins->pack_start(*spinbutton_margins_left, false, false);
+    hbox_margins->pack_start(*label_margins_right, false, false);
+    hbox_margins->pack_start(*spinbutton_margins_right, false, false);
 
     auto hbox_space_around_lines = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_space_around_lines = Gtk::manage(new Gtk::Label{_("Vertical Space Around Lines")});
@@ -102,6 +114,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     vbox_text_editor->pack_start(*hbox_space_around_lines, false, false);
     vbox_text_editor->pack_start(*hbox_relative_wrapped_space, false, false);
     vbox_text_editor->pack_start(*hbox_cursor_blink, false, false);
+    vbox_text_editor->pack_start(*hbox_margins, false, false);
     Gtk::Frame* frame_text_editor = new_managed_frame_with_align(_("Text Editor"), vbox_text_editor);
 
     auto hbox_timestamp = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
@@ -149,6 +162,14 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     spinbutton_tab_width->signal_value_changed().connect([this, spinbutton_tab_width](){
         _pConfig->tabsWidth = spinbutton_tab_width->get_value_as_int();
         apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_tab_width((guint)win->get_ct_config()->tabsWidth); });
+    });
+    spinbutton_margins_left->signal_value_changed().connect([this, spinbutton_margins_left](){
+        _pConfig->textMarginLeft = spinbutton_margins_left->get_value_as_int();
+        need_restart(RESTART_REASON::TEXT_MARGIN);
+    });
+    spinbutton_margins_right->signal_value_changed().connect([this, spinbutton_margins_right](){
+        _pConfig->textMarginRight = spinbutton_margins_right->get_value_as_int();
+        need_restart(RESTART_REASON::TEXT_MARGIN);
     });
     spinbutton_wrapping_indent->signal_value_changed().connect([this, spinbutton_wrapping_indent](){
         _pConfig->wrappingIndent = spinbutton_wrapping_indent->get_value_as_int();
