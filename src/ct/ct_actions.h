@@ -242,6 +242,8 @@ private:
                                                          Glib::ustring& obj_content);
     int  _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
     void _update_all_matches_progress();
+public:
+    void find_matches_store_reset();
 
 public:
     // find actions

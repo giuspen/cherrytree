@@ -493,6 +493,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
 {
     auto rModel = s_state.match_store;
     auto pMatchesDialog = new Gtk::Dialog{"", *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    s_state.pMatchStoreDialog = pMatchesDialog;
     pMatchesDialog->set_transient_for(*pCtMainWin);
     if (rModel->dlg_size[0] > 0) {
         pMatchesDialog->set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
@@ -583,12 +584,13 @@ void CtDialogs::match_dialog(const std::string& str_find,
 
     pTreeview->signal_cursor_changed().connect(select_found_line);
 
-    auto on_allmatchesdialog_delete_event = [pMatchesDialog, rModel, pTreeview](GdkEventAny* /*any_event*/)->bool{
+    auto on_allmatchesdialog_delete_event = [pMatchesDialog, rModel, pTreeview, &s_state](GdkEventAny* /*any_event*/)->bool{
         pMatchesDialog->get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
         pMatchesDialog->get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         rModel->saved_path = list_iter ? pTreeview->get_model()->get_path(list_iter).to_string() : "";
 
+        s_state.pMatchStoreDialog = nullptr;
         delete pMatchesDialog; // should delete ourselves
         return false;
     };

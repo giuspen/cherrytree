@@ -23,6 +23,7 @@
 
 #include "ct_pref_dlg.h"
 #include "ct_main_win.h"
+#include "ct_actions.h"
 
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
  : Gtk::Dialog{_("Preferences"), *parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT}
@@ -244,6 +245,14 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     checkbutton_tooltips_enable_menus->set_active(_pConfig->menusTooltips);
     checkbutton_tooltips_enable_toolbar->set_active(_pConfig->toolbarTooltips);
 
+    auto hbox_find_all_max_in_page = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_find_all_max_in_page = Gtk::manage(new Gtk::Label{_("Max Search Results per Page")});
+    label_find_all_max_in_page->set_margin_left(2);
+    Glib::RefPtr<Gtk::Adjustment> adjustment_find_all_max_in_page = Gtk::Adjustment::create(_pConfig->maxMatchesInPage, 0, 100000, 1);
+    auto spinbutton_find_all_max_in_page = Gtk::manage(new Gtk::SpinButton{adjustment_find_all_max_in_page});
+    hbox_find_all_max_in_page->pack_start(*label_find_all_max_in_page, false, false);
+    hbox_find_all_max_in_page->pack_start(*spinbutton_find_all_max_in_page, false, false);
+
     vbox_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
     vbox_misc->pack_start(*checkbutton_nn_header_full_path, false, false);
@@ -253,6 +262,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     vbox_misc->pack_start(*hbox_scrollbar_min_size, false, false);
     vbox_misc->pack_start(*hbox_scrollbar_overlay, false, false);
     vbox_misc->pack_start(*hbox_tooltips_enable, false, false);
+    vbox_misc->pack_start(*hbox_find_all_max_in_page, false, false);
 
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
 
@@ -387,6 +397,10 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     checkbutton_tooltips_enable_toolbar->signal_toggled().connect([this, checkbutton_tooltips_enable_toolbar](){
         _pConfig->toolbarTooltips = checkbutton_tooltips_enable_toolbar->get_active();
         _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+    });
+    spinbutton_find_all_max_in_page->signal_value_changed().connect([this, spinbutton_find_all_max_in_page](){
+        _pConfig->maxMatchesInPage = spinbutton_find_all_max_in_page->get_value_as_int();
+        _pCtMainWin->get_ct_actions()->find_matches_store_reset();
     });
 
     return pMainBox;

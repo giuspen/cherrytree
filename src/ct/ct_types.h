@@ -463,5 +463,6 @@ struct CtSearchState {
 
     std::pair<int,int>               latest_match_offsets{-1,-1};
     Glib::RefPtr<CtMatchDialogStore> match_store;
+    Gtk::Dialog*                     pMatchStoreDialog{nullptr};
     bool                             in_loading{false};
 };
