@@ -1,10 +1,10 @@
-# Vincenzo Reale <smart2128vr@gmail.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 14:35+0100\n"
-"PO-Revision-Date: 2023-07-16 00:02+0200\n"
+"POT-Creation-Date: 2024-02-27 22:06+0000\n"
+"PO-Revision-Date: 2024-02-28 09:13+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -12,103 +12,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr ""
-"Attenzione: una o più immagini è stata ridotta per adattarsi alla pagina!"
-
-msgid "To WebSite"
-msgstr "A sito web"
-
-msgid "To File"
-msgstr "A file"
-
-msgid "To Folder"
-msgstr "A cartella"
-
-msgid "To Node"
-msgstr "A nodo"
-
-msgid "Anchor Name (optional)"
-msgstr "Nome ancora (opzionale)"
-
-msgid "No Node is Selected"
-msgstr "Nessun nodo è selezionato"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Non ci sono ancore nel nodo selezionato."
-
-msgid "Choose Existing Anchor"
-msgstr "Scegli un'ancora esistente"
-
-msgid "Anchor Name"
-msgstr "Nome ancora"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Il modello '%s' non è stato trovato"
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Impossibile recuperare il contenuto del nodo '%s'"
 
 msgid "Index"
 msgstr "Indice"
 
-msgid "Print CherryTree version"
-msgstr "Stampa la versione di CherryTree"
+msgid "Add"
+msgstr "Aggiungi"
 
-msgid "Node name to focus"
-msgstr "Nome del nodo da mettere a fuoco"
+msgid "Remove Selected"
+msgstr "Rimuovi selezionati"
 
-msgid "Anchor name to scroll to in node"
-msgstr "Nome dell'ancora su cui scorrere nel nodo"
+msgid "Reset to Default"
+msgstr "Ripristina i valori predefiniti"
 
-msgid "Export to HTML at specified directory path"
-msgstr "Esporta in HTML nel percorso di cartelle specificato"
+msgid "Split Toolbar"
+msgstr "Barra degli strumenti divisa"
 
-msgid "Export to Text at specified directory path"
-msgstr "Esporta in testo nel percorso di cartelle specificato"
+msgid "Open a CherryTree File"
+msgstr "Apri un file di CherryTree"
 
-msgid "Export to PDF at specified directory path"
-msgstr "Esporta in PDF nel percorso di cartelle specificato"
-
-msgid "Overwrite if export path already exists"
-msgstr "Sovrascrivi se il percorso di esportazione esiste già"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Esporta in un singolo file (per HTML o TXT)"
-
-msgid "Password to open document"
-msgstr "Password per aprire il documento"
-
-msgid "Create a new window"
-msgstr "Crea una nuova finestra"
-
-msgid "Run in secondary session, independent from main session"
-msgstr ""
-"Esegui nella sessione secondaria, indipendente dalla sessione principale"
-
-msgid "CherryTree File"
-msgstr "File di CherryTree"
-
-msgid "Preferences File"
-msgstr "File di preferenze"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Questa modifica avrà effetto solo dopo il riavvio di CherryTree."
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree - Gestore di appunti gerarchico"
-
-msgid "Show/Hide _CherryTree"
-msgstr "Mostra/Nascondi _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Mostra/Nascondi CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "_Esci da CherryTree"
-
-msgid "Exit from CherryTree"
-msgstr "Esci da CherryTree"
+msgid "Select Element to Add"
+msgstr "Seleziona elementi da aggiungere"
 
 msgid "_File"
 msgstr "_File"
@@ -209,9 +138,6 @@ msgstr "Avvia una nuova istanza di CherryTree"
 msgid "_Open File..."
 msgstr "_Apri file..."
 
-msgid "Open a CherryTree File"
-msgstr "Apri un file di CherryTree"
-
 msgid "Open Fo_lder..."
 msgstr "Apri carte_lla..."
 
@@ -277,6 +203,9 @@ msgstr "Chiudi l'applicazione"
 
 msgid "E_xit CherryTree"
 msgstr "E_sci da CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Esci da CherryTree"
 
 msgid "Edit/Insert"
 msgstr "Modifica/Inserisci"
@@ -578,6 +507,12 @@ msgstr "_Copia blocco di codice"
 msgid "Copy the Selected CodeBox"
 msgstr "Copia il blocco di codice selezionato"
 
+msgid "_Copy CodeBox Content"
+msgstr "_Copia contenuto del blocco di codice"
+
+msgid "Copy the Content of the Selected CodeBox"
+msgstr "Copia il contenuto del blocco di codice selezionato"
+
 msgid "_Delete CodeBox"
 msgstr "_Elimina blocco di codice"
 
@@ -863,6 +798,12 @@ msgstr "Duplic_a nodo e sottonodi"
 
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr "Duplica il nodo selezionato e i sottonodi"
+
+msgid "_Create Shared Node"
+msgstr "_Crea nodo condiviso"
+
+msgid "Create a New Node Sharing the Same Data of the Selected Node"
+msgstr "Crea un nuovo nodo condividendo gli stessi dati del nodo selezionato"
 
 msgid "Copy Node and S_ubnodes"
 msgstr "Copia nodo e s_ottonodi"
@@ -1477,6 +1418,12 @@ msgstr "_Annulla collegamento"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Annulla il collegamento associato all'immagine"
 
+msgid "Show/Hide _CherryTree"
+msgstr "Mostra/Nascondi _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Mostra/Nascondi CherryTree"
+
 msgid "Edit the Underlying Link"
 msgstr "Modifica il collegamento sottostante"
 
@@ -1510,83 +1457,308 @@ msgstr "Incolla"
 msgid "Reset"
 msgstr "Ripristina"
 
-msgid "Enable System Tray Docking"
-msgstr "Abilita l'ancoraggio alla barra di sistema"
+msgid "Rename"
+msgstr "Rinomina"
 
-msgid "Start Minimized in the System Tray"
-msgstr "Avvia minimizzato nella barra di sistema"
+msgid "PNG Image"
+msgstr "Immagine PNG"
 
-msgid "System Tray"
-msgstr "Barra di sistema"
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Scrittura di %s non riuscita"
 
-msgid "Autosave Every"
-msgstr "Salva automaticamente ogni"
+msgid "Insert/Edit Link"
+msgstr "Inserisci/Modifica collegamento"
 
-msgid "Minutes"
-msgstr "Minuti"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Il collegamento alla cartella '%s' non è valido."
 
-msgid "Autosave on Quit"
-msgstr "Salva automaticamente all'uscita"
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Il collegamento al file '%s' non è valido."
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Crea una copia di sicurezza prima di salvare"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Il collegamento alla cartella '%s' non è valido"
 
-msgid "Number of Backups to Keep"
-msgstr "Numero di copie di sicurezza da conservare"
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Il collegamento si riferisce a un nodo che non esiste più (Id = %s)"
 
-msgid "Custom Backup Directory"
-msgstr "Cartella di backup personalizzata"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Nessuna ancora con nome '%s' trovata"
 
-msgid "Saving"
-msgstr "Salvataggio"
+msgid "Edit CodeBox"
+msgstr "Modifica blocco di codice"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Controllo automatico nuova versione"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Devi associare un comando a '%s'.\n"
+"Puoi farlo nella finestra delle preferenze."
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Abilita conteggio delle parole nella barra di stato"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Installa il pacchetto 'xterm' o configura un terminale diverso nella "
+"finestra delle preferenze."
 
-msgid "Reload Document From Last Session"
-msgstr "Ricarica documento dall'ultima sessione"
+msgid "Edit Table Properties"
+msgstr "Modifica proprietà tabella"
 
-msgid "Reload After External Update to CT* File"
-msgstr "Ricarica dopo aggiornamento esterno al file CT*"
+msgid "CSV File"
+msgstr "File CSV"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Mostra la cartella dei documenti nel titolo della finestra"
+msgid "Insert Anchor"
+msgstr "Inserisci ancora"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Mostra il percorso completo nell'intestazione nome nodo"
+msgid "Edit Anchor"
+msgstr "Modifica ancora"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Menu segnalibri dedicato nella barra dei menu"
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Impossibile modificare i file incorporati in un nodo in sola lettura."
 
-msgid "Enable Debug Log"
-msgstr "Abilita log di debug"
+msgid "Embedded File Automatically Updated:"
+msgstr "File incorporato aggiornato automaticamente:"
 
-msgid "Debug Log Directory"
-msgstr "Cartella log di debug"
+msgid "Change Selected"
+msgstr "Modifica i selezionati"
 
-msgid "Miscellaneous"
-msgstr "Varie"
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "La scorciatoia da tastiera '%s' è già in uso."
 
-msgid "System Default"
-msgstr "Predefinito di sistema"
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "L'azione associata attualmente è '%s'"
 
-msgid "Language"
-msgstr "Lingua"
+msgid "Do you want to steal the shortcut?"
+msgstr "Vuoi rubare la scorciatoia?"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "La barra delle applicazioni è apparsa sul pannello?"
+msgid "Edit Keyboard Shortcut"
+msgstr "Modifica scorciatoia da tastiera"
 
-msgid "Your system does not support the System Tray"
-msgstr "Il tuo sistema non supporta la barra delle applicazioni"
+msgid "No Keyboard Shortcut"
+msgstr "Nessuna scorciatoia da tastiera"
+
+msgid "Writing to Disk..."
+msgstr "Scrittura su disco in corso..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Non disponi dell'accesso in scrittura su %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Inserisci la password per %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Controllo di integrità del documento salvato non riuscito. Prova File--"
+">Salva come"
+
+msgid "Failed to encrypt the file"
+msgstr "Impossibile cifrare il file"
+
+msgid "Search for"
+msgstr "Cerca"
+
+msgid "Replace with"
+msgstr "Sostituisci con"
+
+msgid "Match Case"
+msgstr "Distingui maiuscole"
+
+msgid "Regular Expression"
+msgstr "Espressione regolare"
+
+msgid "Online Manual"
+msgstr "Guida in linea"
+
+msgid "Accent Insensitive"
+msgstr "Ignora gli accenti"
+
+msgid "Override Exclusions"
+msgstr "Ignora le esclusioni"
+
+msgid "Whole Word"
+msgstr "Parola intera"
+
+msgid "Start Word"
+msgstr "Inizio di parola"
+
+msgid "Forward"
+msgstr "Avanti"
+
+msgid "Backward"
+msgstr "Indietro"
+
+msgid "All, List Matches"
+msgstr "Tutte, elenca corrispondenze"
+
+msgid "First From Selection"
+msgstr "Primo della selezione"
+
+msgid "First in All Range"
+msgstr "Primo in tutto l'intervallo"
+
+msgid "Node Created After"
+msgstr "Nodo creato dopo"
+
+msgid "Node Created Before"
+msgstr "Nodo creato prima"
+
+msgid "Node Modified After"
+msgstr "Nodo modificato dopo"
+
+msgid "Node Modified Before"
+msgstr "Nodo modificato prima"
+
+msgid "Time filter"
+msgstr "Filtro temporale"
+
+msgid "Node Content"
+msgstr "Contenuto nodo"
+
+msgid "Node Name and Tags"
+msgstr "Nome nodo ed etichette"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Solo il nodo selezionato e i sottonodi"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Mostra finestra di Ricerca/Sostituzione iterata"
+
+msgid "Search options"
+msgstr "Opzioni di ricerca"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Almeno un nodo è stato ignorato a causa delle esclusioni impostate nelle "
+"proprietà del nodo.\n"
+"Per cancellare tutte le esclusioni, utilizza il menu:\n"
+"Cerca -> Cancella tutte le esclusioni dalla ricerca"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Nascondi (Ripristina con '%s')"
+
+msgid "Node Name"
+msgstr "Nome nodo"
+
+msgid "Line"
+msgstr "Riga"
+
+msgid "Line Content"
+msgstr "Contenuto riga"
+
+msgid "Matches"
+msgstr "Corrispondenze"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Ripeti l'ultimo Trova/Sostituisci"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Find Previous"
+msgstr "Trova precedente"
+
+msgid "Find Next"
+msgstr "Trova successivo"
+
+msgid "Replace"
+msgstr "Sostituisci"
+
+msgid "Undo"
+msgstr "Annulla"
 
 msgid "Downloading"
 msgstr "Scaricamento"
 
 msgid "Remove from list"
 msgstr "Rimuovi dall'elenco"
+
+msgid "The new parent can't be one of his children!"
+msgstr "Il nuovo padre non può essere uno dei suoi figli!"
+
+msgid "Light Background, Dark Text"
+msgstr "Sfondo chiaro, testo scuro"
+
+msgid "Dark Background, Light Text"
+msgstr "Sfondo scuro, testo chiaro"
+
+msgid "Custom Background"
+msgstr "Sfondo personalizzato"
+
+msgid "Text"
+msgstr "Testo"
+
+msgid "Selection Background"
+msgstr "Selezione sfondo"
+
+msgid "Tree Explorer"
+msgstr "Albero"
+
+msgid "Rich Text"
+msgstr "Testo formattato"
+
+msgid "Plain Text"
+msgstr "Testo semplice"
+
+msgid "Table"
+msgstr "Tabella"
+
+msgid "Code"
+msgstr "Codice"
+
+msgid "Style Schemes"
+msgstr "Schemi di stile"
+
+msgid "Text Foreground"
+msgstr "Primo piano del testo"
+
+msgid "Text Background"
+msgstr "Sfondo del testo"
+
+msgid "Selection Foreground"
+msgstr "Selezione primo piano"
+
+msgid "Cursor"
+msgstr "Cursore"
+
+msgid "Current Line Background"
+msgstr "Sfondo della riga corrente"
+
+msgid "Line Numbers Foreground"
+msgstr "Primo piano dei numeri di riga"
+
+msgid "Line Numbers Background"
+msgstr "Sfondo dei numeri di riga"
+
+msgid "Style Scheme Editor"
+msgstr "Editor degli schemi di stile"
+
+msgid "Set Dark Theme Icons"
+msgstr "Imposta icone per tema scuro"
+
+msgid "Set Light Theme Icons"
+msgstr "Imposta icone per tema chiaro"
+
+msgid "Set Default Icons"
+msgstr "Imposta icone predefinite"
+
+msgid "Icon Theme"
+msgstr "Tema icone"
 
 msgid "Move the Selected Bookmark Up"
 msgstr "Sposta in alto il segnalibro selezionato"
@@ -1625,6 +1797,12 @@ msgstr ""
 
 msgid "Enter the New Password Twice"
 msgstr "Inserisci la nuova password due volte"
+
+msgid "Autosave Every"
+msgstr "Salva automaticamente ogni"
+
+msgid "Minutes"
+msgstr "Minuti"
 
 msgid "The Password Fields Must be Filled."
 msgstr "I campi password devono essere compilati."
@@ -1811,435 +1989,123 @@ msgstr "Numero di blocchi di codice"
 msgid "Number of Anchors"
 msgstr "Numero di ancore"
 
-msgid "Light Background, Dark Text"
-msgstr "Sfondo chiaro, testo scuro"
+msgid "Number of Shared Nodes / Groups"
+msgstr "Numero di nodi condivisi/gruppi"
 
-msgid "Dark Background, Light Text"
-msgstr "Sfondo scuro, testo chiaro"
+msgid "Latex Text"
+msgstr "Testo Latex"
 
-msgid "Custom Background"
-msgstr "Sfondo personalizzato"
+msgid "Image Size dpi"
+msgstr "Dimensione immagine dpi"
 
-msgid "Text"
-msgstr "Testo"
+msgid "Tutorial"
+msgstr "Esercitazione"
 
-msgid "Selection Background"
-msgstr "Selezione sfondo"
+msgid "Reference"
+msgstr "Riferimento"
 
-msgid "Tree Explorer"
-msgstr "Albero"
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Esercitazione di matematica ed equazioni di LaTeX"
 
-msgid "Rich Text"
-msgstr "Testo formattato"
+msgid "LaTeX Math Symbols Reference"
+msgstr "Guida ai simboli matematici di LaTeX"
 
-msgid "Plain Text"
-msgstr "Testo semplice"
+msgid "Image Properties"
+msgstr "Proprietà immagine"
 
-msgid "Table"
-msgstr "Tabella"
+msgid "Width"
+msgstr "Larghezza"
 
-msgid "Code"
-msgstr "Codice"
+msgid "Height"
+msgstr "Altezza"
 
-msgid "Style Schemes"
-msgstr "Schemi di stile"
+msgid "Automatic Syntax Highlighting"
+msgstr "Evidenziazione automatica della sintassi"
 
-msgid "Text Foreground"
-msgstr "Primo piano del testo"
+msgid "Type"
+msgstr "Tipo"
 
-msgid "Text Background"
-msgstr "Sfondo del testo"
+msgid "pixels"
+msgstr "pixel"
 
-msgid "Selection Foreground"
-msgstr "Selezione primo piano"
-
-msgid "Cursor"
-msgstr "Cursore"
-
-msgid "Current Line Background"
-msgstr "Sfondo della riga corrente"
-
-msgid "Line Numbers Foreground"
-msgstr "Primo piano dei numeri di riga"
-
-msgid "Line Numbers Background"
-msgstr "Sfondo dei numeri di riga"
-
-msgid "Reset to Default"
-msgstr "Ripristina i valori predefiniti"
-
-msgid "Style Scheme Editor"
-msgstr "Editor degli schemi di stile"
-
-msgid "Set Dark Theme Icons"
-msgstr "Imposta icone per tema scuro"
-
-msgid "Set Light Theme Icons"
-msgstr "Imposta icone per tema chiaro"
-
-msgid "Set Default Icons"
-msgstr "Imposta icone predefinite"
-
-msgid "Icon Theme"
-msgstr "Tema icone"
-
-msgid "Add"
-msgstr "Aggiungi"
-
-msgid "Remove Selected"
-msgstr "Rimuovi selezionati"
-
-msgid "Split Toolbar"
-msgstr "Barra degli strumenti divisa"
-
-msgid "Select Element to Add"
-msgstr "Seleziona elementi da aggiungere"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr ""
-"Nessuna formattazione del testo è stata applicata precedentemente in questa "
-"sessione."
-
-msgid "No Text is Selected."
-msgstr "Nessun testo selezionato."
-
-msgid "Link Name"
-msgstr "Nome collegamento"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Il cursore non è in un paragrafo."
-
-msgid "Insert/Edit Link"
-msgstr "Inserisci/Modifica collegamento"
-
-msgid "Pick a Foreground Color"
-msgstr "Scegli un colore di primo piano"
-
-msgid "Pick a Background Color"
-msgstr "Scegli un colore di sfondo"
-
-msgid "Replace in Current Node"
-msgstr "Sostituisci nel nodo corrente"
-
-msgid "Search in Current Node"
-msgstr "Cerca nel nodo corrente"
-
-msgid "Matches"
-msgstr "Corrispondenze"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Il modello '%s' non è stato trovato</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Sostituisci in più nodi..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Trova in più nodi..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Nessuna ricerca è stata eseguita precedentemente in questa sessione."
-
-msgid "Tags"
-msgstr "Etichette"
-
-msgid ": "
-msgstr ": "
-
-msgid "The new parent can't be one of his children!"
-msgstr "Il nuovo padre non può essere uno dei suoi figli!"
-
-msgid "Tab Width"
-msgstr "Larghezza tabulazione"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Inserisci spazi invece delle tabulazioni"
-
-msgid "Use Line Wrapping"
-msgstr "Usa a capo automatico"
-
-msgid "Line Wrapping Indentation"
-msgstr "Rientro a capo automatico"
-
-msgid "Enable Automatic Indentation"
-msgstr "Abilita rientro automatico"
+msgid "Size"
+msgstr "Dimensione"
 
 msgid "Show Line Numbers"
 msgstr "Mostra numeri di riga"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Scorri oltre l'ultima riga"
+msgid "Highlight Matching Brackets"
+msgstr "Evidenziazione parentesi corrispondenti"
 
-msgid "Cursor Blinking"
-msgstr "Cursore lampeggiante"
+msgid "Options"
+msgstr "Opzioni"
 
-msgid "On"
-msgstr "Attivo"
+msgid "Rows"
+msgstr "Righe"
 
-msgid "Off"
-msgstr "Disattivo"
+msgid "Columns"
+msgstr "Colonne"
 
-msgid "Vertical Space Around Lines"
-msgstr "Spazio verticale intorno alle righe"
+msgid "Default Width"
+msgstr "Larghezza predefinita"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Spazio verticale nelle righe interrotte"
+msgid "Table Size"
+msgstr "Dimensione tabella"
+
+msgid "Column Properties"
+msgstr "Proprietà colonne"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr ""
+"Interfaccia leggera (molto più veloce per tabelle di grandi dimensioni)"
+
+msgid "Import from CSV File"
+msgstr "Importa da file CSV"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Impossibile accedere agli eseguibili 'latex' e 'dvipng'"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Ad esempio, su Ubuntu i pacchetti da installare sono:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Ad esempio, su macOS i pacchetti da installare sono:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Impossibile accedere all'eseguibile \"latex\""
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Impossibile accedere all'eseguibile 'dvipng'"
+
+msgid "Show White Spaces"
+msgstr "Mostra spazi bianchi"
+
+msgid "Highlight Current Line"
+msgstr "Evidenzia riga corrente"
 
 msgid "Text Editor"
 msgstr "Editor di testo"
 
-msgid "Timestamp Format"
-msgstr "Formato marca temporale"
+msgid "Internal Terminal Shell"
+msgstr "Shell del terminale interno"
 
-msgid "Online Manual"
-msgstr "Guida in linea"
+msgid "Command per Node/CodeBox Type"
+msgstr "Comando per tipo di nodo/blocco di codice"
 
-msgid "Horizontal Rule"
-msgstr "Linea orizzontale"
+msgid "Terminal Command"
+msgstr "Comando di terminale"
 
-msgid "Chars to Select at Double Click"
-msgstr "Caratteri da selezionare con il doppio clic"
+msgid "Code Execution"
+msgstr "Esecuzione codice"
 
-msgid "PDF File"
-msgstr "File PDF"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "La dimensione della barra degli strumenti è già al valore massimo."
 
-msgid "Plain Text Document"
-msgstr "Documento di testo semplice"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "La dimensione della barra degli strumenti è già al valore minimo."
 
-msgid "Show Menubar:"
-msgstr "Mostra lai barra dei menu:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Il percorso %s non esiste"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" non è un file di CherryTree"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Errore durante l'analisi del percorso di CherryTree:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Nessun nodo con nome '%s' trovato."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "File temporanei sono stati creati e aperti con applicazioni esterne."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Chiudi le applicazioni esterne prima di uscire da CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Hai chiuso le applicazioni esterne?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr ""
-"Il documento è stato ricaricato dopo un aggiornamento esterno al file CT*."
-
-msgid "_Hide"
-msgstr "Na_scondi"
-
-msgid "Hide the Window"
-msgstr "Nascondi la finestra"
-
-msgid "Node Type"
-msgstr "Tipo nodo"
-
-msgid "Spell Check"
-msgstr "Controllo ortografico"
-
-msgid "Word Count"
-msgstr "Conteggio parole"
-
-msgid "Date Created"
-msgstr "Data di creazione"
-
-msgid "Date Modified"
-msgstr "Data di modifica"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Nessuna copia del nodo precedente è stata eseguita durante questa sessione o "
-"l'albero di origine non è più disponibile."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Il nodo dell'albero di origine non è più disponibile."
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Una cartella '%s' esiste già in '%s'.\n"
-"<b>Vuoi rimuoverla?</b>"
-
-msgid "Checking for Newer Version..."
-msgstr "Verifica disponibilità nuova versione..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Recupero delle informazioni sull'ultima versione - riprova più tardi."
-
-msgid "A Newer Version Is Available!"
-msgstr "Una nuova versione è disponibile!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Stai usando l'ultima versione disponibile."
-
-msgid "You Are Using a Development Version."
-msgstr "Stai usando una versione di sviluppo."
-
-msgid "Search for"
-msgstr "Cerca"
-
-msgid "Replace with"
-msgstr "Sostituisci con"
-
-msgid "Match Case"
-msgstr "Distingui maiuscole"
-
-msgid "Regular Expression"
-msgstr "Espressione regolare"
-
-msgid "Accent Insensitive"
-msgstr "Ignora gli accenti"
-
-msgid "Override Exclusions"
-msgstr "Ignora le esclusioni"
-
-msgid "Whole Word"
-msgstr "Parola intera"
-
-msgid "Start Word"
-msgstr "Inizio di parola"
-
-msgid "Forward"
-msgstr "Avanti"
-
-msgid "Backward"
-msgstr "Indietro"
-
-msgid "All, List Matches"
-msgstr "Tutte, elenca corrispondenze"
-
-msgid "First From Selection"
-msgstr "Primo della selezione"
-
-msgid "First in All Range"
-msgstr "Primo in tutto l'intervallo"
-
-msgid "Node Created After"
-msgstr "Nodo creato dopo"
-
-msgid "Node Created Before"
-msgstr "Nodo creato prima"
-
-msgid "Node Modified After"
-msgstr "Nodo modificato dopo"
-
-msgid "Node Modified Before"
-msgstr "Nodo modificato prima"
-
-msgid "Time filter"
-msgstr "Filtro temporale"
-
-msgid "Node Content"
-msgstr "Contenuto nodo"
-
-msgid "Node Name and Tags"
-msgstr "Nome nodo ed etichette"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Solo il nodo selezionato e i sottonodi"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Mostra finestra di Ricerca/Sostituzione iterata"
-
-msgid "Search options"
-msgstr "Opzioni di ricerca"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Almeno un nodo è stato ignorato a causa delle esclusioni impostate nelle "
-"proprietà del nodo.\n"
-"Per cancellare tutte le esclusioni, utilizza il menu:\n"
-"Cerca -> Cancella tutte le esclusioni dalla ricerca"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Nascondi (Ripristina con '%s')"
-
-msgid "Node Name"
-msgstr "Nome nodo"
-
-msgid "Line"
-msgstr "Riga"
-
-msgid "Line Content"
-msgstr "Contenuto riga"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Il collegamento si riferisce a un nodo che non esiste più (Id = %s)"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Ripeti l'ultimo Trova/Sostituisci"
-
-msgid "Close"
-msgstr "Chiudi"
-
-msgid "Find Previous"
-msgstr "Trova precedente"
-
-msgid "Find Next"
-msgstr "Trova successivo"
-
-msgid "Replace"
-msgstr "Sostituisci"
-
-msgid "Undo"
-msgstr "Annulla"
-
-msgid "Special Characters"
-msgstr "Caratteri speciali"
-
-msgid "Chars for Bulleted List"
-msgstr "Caratteri per l'elenco puntato"
-
-msgid "Chars for Todo List"
-msgstr "Caratteri per l'elenco delle cose da fare"
-
-msgid "Chars for Table Of Content"
-msgstr "Caratteri per l'indice"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Caratteri per doppi apici intelligenti"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Caratteri per apici singoli intelligenti"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Abilita la sostituzione automatica degli apici"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Abilita la sostituzione automatica dei simboli"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Sostituzioni automatiche di simboli supportate"
-
-msgid "Only at the Start of the Line"
-msgstr "Solo ad inizio riga"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Questa modifica avrà effetto solo dopo il riavvio di CherryTree."
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
@@ -2271,6 +2137,91 @@ msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
 "%s scrittura non riuscita - il file è bloccato da un programma di "
 "sincronizzazione?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
+msgstr ""
+"Riapertura di %s non riuscita: manca il file. Ricollega l'unità USB o la"
+" risorsa condivisa!"
+
+msgid "Tab Width"
+msgstr "Larghezza tabulazione"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Inserisci spazi invece delle tabulazioni"
+
+msgid "Use Line Wrapping"
+msgstr "Usa a capo automatico"
+
+msgid "Line Wrapping Indentation"
+msgstr "Rientro a capo automatico"
+
+msgid "Enable Automatic Indentation"
+msgstr "Abilita rientro automatico"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Scorri oltre l'ultima riga"
+
+msgid "Cursor Blinking"
+msgstr "Cursore lampeggiante"
+
+msgid "System Default"
+msgstr "Predefinito di sistema"
+
+msgid "On"
+msgstr "Attivo"
+
+msgid "Off"
+msgstr "Disattivo"
+
+msgid "Text Margin: Left"
+msgstr "Margine del testo: sinistro"
+
+msgid "Right"
+msgstr "Destra"
+
+msgid "Vertical Space Around Lines"
+msgstr "Spazio verticale intorno alle righe"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Spazio verticale nelle righe interrotte"
+
+msgid "Timestamp Format"
+msgstr "Formato marca temporale"
+
+msgid "Horizontal Rule"
+msgstr "Linea orizzontale"
+
+msgid "Chars to Select at Double Click"
+msgstr "Caratteri da selezionare con il doppio clic"
+
+msgid "Miscellaneous"
+msgstr "Varie"
+
+msgid "Remove Color"
+msgstr "Rimuovi colore"
+
+msgid "Question"
+msgstr "Domanda"
+
+msgid "Info"
+msgstr "Informazione"
+
+msgid "Error"
+msgstr "Errore"
+
+msgid "Select File"
+msgstr "Seleziona file"
+
+msgid "Select Folder"
+msgstr "Seleziona cartella"
+
+msgid "Save File as"
+msgstr "Salva file come"
+
+msgid "Save To Folder"
+msgstr "Salva nella cartella"
 
 msgid "Use Different Cherries per Level"
 msgstr "Usa diverse ciliegie per livello"
@@ -2320,26 +2271,384 @@ msgstr "Nodi visitati di recente nell'intestazione del nome del nodo"
 msgid "Select Node Icon"
 msgstr "Seleziona icona del nodo"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "La dimensione della barra degli strumenti è già al valore massimo."
+msgid "No Node is Selected"
+msgstr "Nessun nodo è selezionato"
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "La dimensione della barra degli strumenti è già al valore minimo."
+msgid "The Tree is Empty!"
+msgstr "L'albero è vuoto!"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Impossibile accedere agli eseguibili 'latex' e 'dvipng'"
+msgid "The Selected Node is Read Only."
+msgstr "Il nodo selezionato è in sola lettura."
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Ad esempio, su Ubuntu i pacchetti da installare sono:"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Disponibile solo nei nodi di testo formattato."
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Ad esempio, su macOS i pacchetti da installare sono:"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Non disponibile nei nodi con evidenziazione automatica della sintassi."
 
-msgid "Could not access the executable 'latex'"
-msgstr "Impossibile accedere all'eseguibile \"latex\""
+msgid "No Text is Selected."
+msgstr "Nessun testo selezionato."
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "Impossibile accedere all'eseguibile 'dvipng'"
+msgid "No Table is Selected."
+msgstr "Nessun testo selezionato."
+
+msgid "No CodeBox is Selected."
+msgstr "Nessun nodo è selezionato."
+
+msgid "New Child Node Properties"
+msgstr "Proprietà del nuovo nodo figlio"
+
+msgid "New Node Properties"
+msgstr "Proprietà del nuovo nodo"
+
+msgid "Node Properties"
+msgstr "Proprietà del nodo"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Abbandonando il tipo di nodo testo formattato perderai tutta la "
+"formattazione del testo per questo nodo, Vuoi continuare?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Sei sicuro di voler <b>eliminare il nodo '%s'?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Il nodo <b>ha figli che saranno eliminati!</b>"
+
+msgid "Select the New Parent"
+msgstr "Seleziona il nuovo padre"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Il nuovo padre non può essere lo stesso nodo da spostare!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Il nuovo padre scelto è ancora il vecchio padre!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s proprietà di nodo cambiate"
+
+msgid "To WebSite"
+msgstr "A sito web"
+
+msgid "To File"
+msgstr "A file"
+
+msgid "To Folder"
+msgstr "A cartella"
+
+msgid "To Node"
+msgstr "A nodo"
+
+msgid "Anchor Name (optional)"
+msgstr "Nome ancora (opzionale)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Non ci sono ancore nel nodo selezionato."
+
+msgid "Choose Existing Anchor"
+msgstr "Scegli un'ancora esistente"
+
+msgid "Anchor Name"
+msgstr "Nome ancora"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Il modello '%s' non è stato trovato"
+
+msgid "CherryTree File"
+msgstr "File di CherryTree"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Una cartella '%s' esiste già in '%s'.\n"
+"<b>Vuoi rimuoverla?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Una file '%s' esiste già in '%s'.\n"
+"<b>Vuoi rimuoverlo?</b>"
+
+msgid "Preferences File"
+msgstr "File di preferenze"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "La barra delle applicazioni è apparsa sul pannello?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Il tuo sistema non supporta la barra delle applicazioni"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree - Gestore di appunti gerarchico"
+
+msgid "_Exit CherryTree"
+msgstr "_Esci da CherryTree"
+
+msgid "Show Menubar:"
+msgstr "Mostra lai barra dei menu:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Il percorso %s non esiste"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" non è un file di CherryTree"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Errore durante l'analisi del percorso di CherryTree:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Nessun nodo con nome '%s' trovato."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "File temporanei sono stati creati e aperti con applicazioni esterne."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Chiudi le applicazioni esterne prima di uscire da CherryTree."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Hai chiuso le applicazioni esterne?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr ""
+"Il documento è stato ricaricato dopo un aggiornamento esterno al file CT*."
+
+msgid "Autosave on Quit"
+msgstr "Salva automaticamente all'uscita"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Crea una copia di sicurezza prima di salvare"
+
+msgid "Number of Backups to Keep"
+msgstr "Numero di copie di sicurezza da conservare"
+
+msgid "Custom Backup Directory"
+msgstr "Cartella di backup personalizzata"
+
+msgid "Saving"
+msgstr "Salvataggio"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Controllo automatico nuova versione"
+
+msgid "Reload Document From Last Session"
+msgstr "Ricarica documento dall'ultima sessione"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Ricarica dopo aggiornamento esterno al file CT*"
+
+msgid "Enable Debug Log"
+msgstr "Abilita log di debug"
+
+msgid "Debug Log Directory"
+msgstr "Cartella log di debug"
+
+msgid "Enable System Tray Docking"
+msgstr "Abilita l'ancoraggio alla barra di sistema"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Avvia minimizzato nella barra di sistema"
+
+msgid "System Tray"
+msgstr "Barra di sistema"
+
+msgid "Language"
+msgstr "Lingua"
+
+msgid "_Hide"
+msgstr "Na_scondi"
+
+msgid "Hide the Window"
+msgstr "Nascondi la finestra"
+
+msgid "Node Type"
+msgstr "Tipo nodo"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "Etichette"
+
+msgid "Spell Check"
+msgstr "Controllo ortografico"
+
+msgid "Word Count"
+msgstr "Conteggio parole"
+
+msgid "Date Created"
+msgstr "Data di creazione"
+
+msgid "Date Modified"
+msgstr "Data di modifica"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Nessuna copia del nodo precedente è stata eseguita durante questa sessione o "
+"l'albero di origine non è più disponibile."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Il nodo dell'albero di origine non è più disponibile."
+
+msgid "English"
+msgstr "Inglese"
+
+msgid "Text and Code"
+msgstr "Testo e codice"
+
+msgid "Plain Text and Code"
+msgstr "Testo semplice e codice"
+
+msgid "Special Characters"
+msgstr "Caratteri speciali"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Interface"
+msgstr "Interfaccia"
+
+msgid "Links"
+msgstr "Collegamenti"
+
+msgid "Toolbar"
+msgstr "Barra degli strumenti"
+
+msgid "Keyboard Shortcuts"
+msgstr "Scorciatoie da tastiera"
+
+msgid "Monospace"
+msgstr "Spaziatura fissa"
+
+msgid "Code Font"
+msgstr "Carattere codice"
+
+msgid "Terminal Font"
+msgstr "Carattere del terminale"
+
+msgid "Tree Font"
+msgstr "Carattere albero"
+
+msgid "Fonts"
+msgstr "Caratteri"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Abilita conteggio delle parole nella barra di stato"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Mostra la cartella dei documenti nel titolo della finestra"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Mostra il percorso completo nell'intestazione nome nodo"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Menu segnalibri dedicato nella barra dei menu"
+
+msgid "Menubar in Titlebar"
+msgstr "Barra dei menu nella barra del titolo"
+
+msgid "Toolbar Icons Size"
+msgstr "Dimensione delle icone della barra degli strumenti"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr ""
+"Dimensione minima del cursore della barra di scorrimento (0 = predefinita del"
+" sistema)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "La barra di scorrimento si sovrappone all'editor di testo"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Abilita le descrizioni comandi al passaggio del puntatore"
+
+msgid "Menus"
+msgstr "Menu"
+
+msgid "Max Search Results per Page"
+msgstr "Il numero massimo di risultati di ricerca per pagina"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Abilita azione personalizzata per il clic su un collegamento web"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Abilita azione personalizzata per il clic sul collegamento a un file"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr ""
+"Abilita azione personalizzata per il clic sul collegamento a una cartella"
+
+msgid "Custom Actions"
+msgstr "Azioni personalizzate"
+
+msgid "Colors"
+msgstr "Colori"
+
+msgid "Underline Links"
+msgstr "Sottolinea i collegamenti"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Usa percorsi relativi per file e cartelle"
+
+msgid "Anchor Size"
+msgstr "Dimensione ancora"
+
+msgid "Replace in Current Node"
+msgstr "Sostituisci nel nodo corrente"
+
+msgid "Search in Current Node"
+msgstr "Cerca nel nodo corrente"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Il modello '%s' non è stato trovato</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Sostituisci in più nodi..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Trova in più nodi..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Nessuna ricerca è stata eseguita precedentemente in questa sessione."
+
+msgid "PDF File"
+msgstr "File PDF"
+
+msgid "Plain Text Document"
+msgstr "Documento di testo semplice"
+
+msgid "Who is the Parent?"
+msgstr "Chi è il padre?"
+
+msgid "The Tree Root"
+msgstr "La radice dell'albero"
+
+msgid "The Selected Node"
+msgstr "Il nodo selezionato"
 
 msgid "Enable Spell Check"
 msgstr "Abilita controllo ortografico"
@@ -2347,17 +2656,11 @@ msgstr "Abilita controllo ortografico"
 msgid "Spell Check Language"
 msgstr "Lingua controllo ortografico"
 
-msgid "Show White Spaces"
-msgstr "Mostra spazi bianchi"
-
-msgid "Highlight Current Line"
-msgstr "Evidenzia riga corrente"
-
-msgid "Highlight Matching Brackets"
-msgstr "Evidenziazione parentesi corrispondenti"
-
 msgid "Expand CodeBoxes Automatically"
 msgstr "Espandi automaticamente il blocco di codice"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "I blocchi di codice hanno la barra degli strumenti"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "Soglia del numero di celle della tabella per l'interfaccia leggera"
@@ -2409,75 +2712,58 @@ msgstr "Piccolo"
 msgid "Scalable Tags"
 msgstr "Formati scalabili"
 
-msgid "Monospace"
-msgstr "Spaziatura fissa"
+msgid "Execute Code"
+msgstr "Esegui codice"
 
-msgid "Writing to Disk..."
-msgstr "Scrittura su disco in corso..."
+msgid "Change CodeBox Properties"
+msgstr "Cambia proprietà del blocco di codice"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Non disponi dell'accesso in scrittura su %s"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Inserisci la password per %s"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgid "No Previous Text Format Was Performed During This Session."
 msgstr ""
-"Controllo di integrità del documento salvato non riuscito. Prova File--"
-">Salva come"
+"Nessuna formattazione del testo è stata applicata precedentemente in questa "
+"sessione."
 
-msgid "Failed to encrypt the file"
-msgstr "Impossibile cifrare il file"
+msgid "Link Name"
+msgstr "Nome collegamento"
 
-msgid "Image Format Not Recognized"
-msgstr "Formato immagine non riconosciuto"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Il cursore non è in un paragrafo."
 
-msgid "Insert Table"
-msgstr "Inserisci tabella"
+msgid "Pick a Foreground Color"
+msgstr "Scegli un colore di primo piano"
 
-msgid "CSV File"
-msgstr "File CSV"
+msgid "Pick a Background Color"
+msgstr "Scegli un colore di sfondo"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "La dimensione massima per i file incorporati è %s MB."
+msgid "Chars for Bulleted List"
+msgstr "Caratteri per l'elenco puntato"
 
-msgid "Do you want to Continue?"
-msgstr "Vuoi continuare?"
+msgid "Chars for Todo List"
+msgstr "Caratteri per l'elenco delle cose da fare"
 
-msgid "Tabs Replaced"
-msgstr "Tabulazioni sostituite"
+msgid "Chars for Table Of Content"
+msgstr "Caratteri per l'indice"
 
-msgid "Lines Stripped"
-msgstr "Righe rimosse"
+msgid "Chars for Smart Double Quotes"
+msgstr "Caratteri per doppi apici intelligenti"
 
-msgid "Change Selected"
-msgstr "Modifica i selezionati"
+msgid "Chars for Smart Single Quotes"
+msgstr "Caratteri per apici singoli intelligenti"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "La scorciatoia da tastiera '%s' è già in uso."
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Abilita la sostituzione automatica degli apici"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "L'azione associata attualmente è '%s'"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Abilita la sostituzione automatica dei simboli"
 
-msgid "Do you want to steal the shortcut?"
-msgstr "Vuoi rubare la scorciatoia?"
+msgid "Supported Symbols Auto Replacements"
+msgstr "Sostituzioni automatiche di simboli supportate"
 
-msgid "Edit Keyboard Shortcut"
-msgstr "Modifica scorciatoia da tastiera"
-
-msgid "No Keyboard Shortcut"
-msgstr "Nessuna scorciatoia da tastiera"
+msgid "Only at the Start of the Line"
+msgstr "Solo ad inizio riga"
 
 msgid "Use Selected Color"
 msgstr "Utilizza il colore selezionato"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Evidenziazione automatica della sintassi"
 
 msgid "Tags for Searching"
 msgstr "Etichette per ricerca"
@@ -2493,6 +2779,12 @@ msgstr "I sottonodi"
 
 msgid "Read Only"
 msgstr "Sola lettura"
+
+msgid "Unique Id"
+msgstr "ID univoco"
+
+msgid "Shared Nodes Group"
+msgstr "Gruppo di nodi condivisi"
 
 msgid "Choose Existing Tag"
 msgstr "Scegli etichetta esistente"
@@ -2530,282 +2822,80 @@ msgstr "Nuovo nodo in una nuova pagina"
 msgid "Single File"
 msgstr "File singolo"
 
-msgid "English"
-msgstr "Inglese"
+msgid "Checking for Newer Version..."
+msgstr "Verifica disponibilità nuova versione..."
 
-msgid "Text and Code"
-msgstr "Testo e codice"
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Recupero delle informazioni sull'ultima versione - riprova più tardi."
 
-msgid "Plain Text and Code"
-msgstr "Testo semplice e codice"
+msgid "A Newer Version Is Available!"
+msgstr "Una nuova versione è disponibile!"
 
-msgid "Theme"
-msgstr "Tema"
+msgid "You Are Using the Latest Version Available."
+msgstr "Stai usando l'ultima versione disponibile."
 
-msgid "Fonts"
-msgstr "Caratteri"
+msgid "You Are Using a Development Version."
+msgstr "Stai usando una versione di sviluppo."
 
-msgid "Links"
-msgstr "Collegamenti"
+msgid "Image Format Not Recognized"
+msgstr "Formato immagine non riconosciuto"
 
-msgid "Toolbar"
-msgstr "Barra degli strumenti"
+msgid "Insert Table"
+msgstr "Inserisci tabella"
 
-msgid "Keyboard Shortcuts"
-msgstr "Scorciatoie da tastiera"
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "La dimensione massima per i file incorporati è %s MB."
 
-msgid "Code Font"
-msgstr "Carattere codice"
+msgid "Do you want to Continue?"
+msgstr "Vuoi continuare?"
 
-msgid "Terminal Font"
-msgstr "Carattere del terminale"
+msgid "Tabs Replaced"
+msgstr "Tabulazioni sostituite"
 
-msgid "Tree Font"
-msgstr "Carattere albero"
+msgid "Lines Stripped"
+msgstr "Righe rimosse"
 
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Abilita azione personalizzata per il clic su un collegamento web"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Abilita azione personalizzata per il clic sul collegamento a un file"
-
-msgid "Enable Custom Folder Link Clicked Action"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
-"Abilita azione personalizzata per il clic sul collegamento a una cartella"
+"Attenzione: una o più immagini è stata ridotta per adattarsi alla pagina!"
 
-msgid "Custom Actions"
-msgstr "Azioni personalizzate"
+msgid "Print CherryTree version"
+msgstr "Stampa la versione di CherryTree"
 
-msgid "Colors"
-msgstr "Colori"
+msgid "Node name to focus"
+msgstr "Nome del nodo da mettere a fuoco"
 
-msgid "Underline Links"
-msgstr "Sottolinea i collegamenti"
+msgid "Anchor name to scroll to in node"
+msgstr "Nome dell'ancora su cui scorrere nel nodo"
 
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Usa percorsi relativi per file e cartelle"
+msgid "Export to HTML at specified directory path"
+msgstr "Esporta in HTML nel percorso di cartelle specificato"
 
-msgid "Anchor Size"
-msgstr "Dimensione ancora"
+msgid "Export to Text at specified directory path"
+msgstr "Esporta in testo nel percorso di cartelle specificato"
 
-msgid "Who is the Parent?"
-msgstr "Chi è il padre?"
+msgid "Export to PDF at specified directory path"
+msgstr "Esporta in PDF nel percorso di cartelle specificato"
 
-msgid "The Tree Root"
-msgstr "La radice dell'albero"
+msgid "Overwrite if export path already exists"
+msgstr "Sovrascrivi se il percorso di esportazione esiste già"
 
-msgid "The Selected Node"
-msgstr "Il nodo selezionato"
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Esporta in un singolo file (per HTML o TXT)"
 
-msgid "Internal Terminal Shell"
-msgstr "Shell del terminale interno"
+msgid "Password to open document"
+msgstr "Password per aprire il documento"
 
-msgid "Command per Node/CodeBox Type"
-msgstr "Comando per tipo di nodo/blocco di codice"
+msgid "Create a new window"
+msgstr "Crea una nuova finestra"
 
-msgid "Terminal Command"
-msgstr "Comando di terminale"
-
-msgid "Code Execution"
-msgstr "Esecuzione codice"
-
-msgid "Rename"
-msgstr "Rinomina"
-
-msgid "PNG Image"
-msgstr "Immagine PNG"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Scrittura di %s non riuscita"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "Il collegamento alla cartella '%s' non è valido."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Il collegamento al file '%s' non è valido."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Il collegamento alla cartella '%s' non è valido"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Nessuna ancora con nome '%s' trovata"
-
-msgid "Edit CodeBox"
-msgstr "Modifica blocco di codice"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
+msgid "Run in secondary session, independent from main session"
 msgstr ""
-"Devi associare un comando a '%s'.\n"
-"Puoi farlo nella finestra delle preferenze."
+"Esegui nella sessione secondaria, indipendente dalla sessione principale"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Installa il pacchetto 'xterm' o configura un terminale diverso nella "
-"finestra delle preferenze."
-
-msgid "Edit Table Properties"
-msgstr "Modifica proprietà tabella"
-
-msgid "Insert Anchor"
-msgstr "Inserisci ancora"
-
-msgid "Edit Anchor"
-msgstr "Modifica ancora"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Impossibile modificare i file incorporati in un nodo in sola lettura."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "File incorporato aggiornato automaticamente:"
-
-msgid "The Tree is Empty!"
-msgstr "L'albero è vuoto!"
-
-msgid "The Selected Node is Read Only."
-msgstr "Il nodo selezionato è in sola lettura."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Disponibile solo nei nodi di testo formattato."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Non disponibile nei nodi con evidenziazione automatica della sintassi."
-
-msgid "No Table is Selected."
-msgstr "Nessun testo selezionato."
-
-msgid "No CodeBox is Selected."
-msgstr "Nessun nodo è selezionato."
-
-msgid "New Child Node Properties"
-msgstr "Proprietà del nuovo nodo figlio"
-
-msgid "New Node Properties"
-msgstr "Proprietà del nuovo nodo"
-
-msgid "Node Properties"
-msgstr "Proprietà del nodo"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Abbandonando il tipo di nodo testo formattato perderai tutta la "
-"formattazione del testo per questo nodo, Vuoi continuare?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Sei sicuro di voler <b>eliminare il nodo '%s'?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Il nodo <b>ha figli che saranno eliminati!</b>"
-
-msgid "Select the New Parent"
-msgstr "Seleziona il nuovo padre"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Il nuovo padre non può essere lo stesso nodo da spostare!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Il nuovo padre scelto è ancora il vecchio padre!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s proprietà di nodo cambiate"
-
-msgid "Latex Text"
-msgstr "Testo Latex"
-
-msgid "Image Size dpi"
-msgstr "Dimensione immagine dpi"
-
-msgid "Tutorial"
-msgstr "Esercitazione"
-
-msgid "Reference"
-msgstr "Riferimento"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "Esercitazione di matematica ed equazioni di LaTeX"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "Guida ai simboli matematici di LaTeX"
-
-msgid "Image Properties"
-msgstr "Proprietà immagine"
-
-msgid "Width"
-msgstr "Larghezza"
-
-msgid "Height"
-msgstr "Altezza"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "pixels"
-msgstr "pixel"
-
-msgid "Size"
-msgstr "Dimensione"
-
-msgid "Options"
-msgstr "Opzioni"
-
-msgid "Rows"
-msgstr "Righe"
-
-msgid "Columns"
-msgstr "Colonne"
-
-msgid "Default Width"
-msgstr "Larghezza predefinita"
-
-msgid "Table Size"
-msgstr "Dimensione tabella"
-
-msgid "Column Properties"
-msgstr "Proprietà colonne"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr ""
-"Interfaccia leggera (molto più veloce per tabelle di grandi dimensioni)"
-
-msgid "Import from CSV File"
-msgstr "Importa da file CSV"
-
-msgid "Remove Color"
-msgstr "Rimuovi colore"
-
-msgid "Question"
-msgstr "Domanda"
-
-msgid "Info"
-msgstr "Informazione"
-
-msgid "Error"
-msgstr "Errore"
-
-msgid "Select File"
-msgstr "Seleziona file"
-
-msgid "Select Folder"
-msgstr "Seleziona cartella"
-
-msgid "Save File as"
-msgstr "Salva file come"
-
-msgid "Save To Folder"
-msgstr "Salva nella cartella"
+msgid "Are you sure to Reset to Default?"
+msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
 
 msgid "HTML Document"
 msgstr "Documento HTML"
@@ -2821,9 +2911,6 @@ msgstr "Documento di Treepad"
 
 msgid "Leo Document"
 msgstr "Documento di Leo"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Guida in linea dell'applicazione"
@@ -2845,3 +2932,4 @@ msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
 
 #~ msgid "Replace in _Multiple Nodes"
 #~ msgstr "Sostituisci in _più nodi"
+

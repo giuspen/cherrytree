@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 14:35+0100\n"
-"PO-Revision-Date: 2023-07-16 10:02+0200\n"
+"POT-Creation-Date: 2024-02-27 22:06+0000\n"
+"PO-Revision-Date: 2024-02-28 11:38+0100\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -16,101 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Varning: En eller flera bilder reducerades för att öppna sidan!"
-
-msgid "To WebSite"
-msgstr "Till webbplats"
-
-msgid "To File"
-msgstr "Till fil"
-
-msgid "To Folder"
-msgstr "Till mapp"
-
-msgid "To Node"
-msgstr "Till post"
-
-msgid "Anchor Name (optional)"
-msgstr "Fästpunktsnamn (valfritt)"
-
-msgid "No Node is Selected"
-msgstr "Ingen kod vald"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Det finns inga fästpunkter i markerad post."
-
-msgid "Choose Existing Anchor"
-msgstr "Välj befintlig fästpunkt"
-
-msgid "Anchor Name"
-msgstr "Fästpunktsnamn"
+"X-Generator: Poedit 3.4.2\n"
 
 #, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Mönstret \"%s\" hittades inte"
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Kunde inte hämta innehållet i post \"%s\""
 
 msgid "Index"
 msgstr "Index"
 
-msgid "Print CherryTree version"
-msgstr "Skriv ut CherryTree-version"
+msgid "Add"
+msgstr "Lägg till"
 
-msgid "Node name to focus"
-msgstr "Postnamn att fokusera"
+msgid "Remove Selected"
+msgstr "Ta bort markerat"
 
-msgid "Anchor name to scroll to in node"
-msgstr "Fästpunktsnamn att skrolla till i post"
+msgid "Reset to Default"
+msgstr "Återställ till standard"
 
-msgid "Export to HTML at specified directory path"
-msgstr "Exportera till HTML på angiven mappsökväg"
+msgid "Split Toolbar"
+msgstr "Dela verktygsfält"
 
-msgid "Export to Text at specified directory path"
-msgstr "Exportera till text på angiven mappsökväg"
+msgid "Open a CherryTree File"
+msgstr "Öppna en CherryTree-fil"
 
-msgid "Export to PDF at specified directory path"
-msgstr "Exportera till PDF på angiven mappsökväg"
-
-msgid "Overwrite if export path already exists"
-msgstr "Skriv över om exportsökvägen redan finns"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Exportera till en enskild fil (för HTML och TXT)"
-
-msgid "Password to open document"
-msgstr "Lösenord för att öppna dokument"
-
-msgid "Create a new window"
-msgstr "Skapa ett nytt fönster"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Kör i sekundär session, oberoende av huvudsessionen"
-
-msgid "CherryTree File"
-msgstr "CherryTree-fil"
-
-msgid "Preferences File"
-msgstr "Inställningsfil"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Denna ändring blir tillgängligt först efter omstart av CherryTree."
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree hierarkiska anteckningar"
-
-msgid "Show/Hide _CherryTree"
-msgstr "Visa/Dölj _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Visa/Dölj CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "Avsluta CherryTree"
-
-msgid "Exit from CherryTree"
-msgstr "Avsluta CherryTree"
+msgid "Select Element to Add"
+msgstr "Välj element att lägga till"
 
 msgid "_File"
 msgstr "_Arkiv"
@@ -211,9 +142,6 @@ msgstr "Starta en ny instans av CherryTree"
 msgid "_Open File..."
 msgstr "_Öppna fil..."
 
-msgid "Open a CherryTree File"
-msgstr "Öppna en CherryTree-fil"
-
 msgid "Open Fo_lder..."
 msgstr "_Öppna mapp..."
 
@@ -279,6 +207,9 @@ msgstr "Avsluta programmet"
 
 msgid "E_xit CherryTree"
 msgstr "A_vsluta CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Avsluta CherryTree"
 
 msgid "Edit/Insert"
 msgstr "Redigera/Infoga"
@@ -580,6 +511,12 @@ msgstr "_Kopiera kodbox"
 msgid "Copy the Selected CodeBox"
 msgstr "Kopiera markerad kodbox"
 
+msgid "_Copy CodeBox Content"
+msgstr "_Kopiera kodboxinnehåll"
+
+msgid "Copy the Content of the Selected CodeBox"
+msgstr "Kopiera innehållet i markerad kodbox"
+
 msgid "_Delete CodeBox"
 msgstr "_Ta bort kodbox"
 
@@ -864,6 +801,12 @@ msgstr "_Duplicera post och underposter"
 
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr "Duplicera markerad post och underposter"
+
+msgid "_Create Shared Node"
+msgstr "_Skapa delad post"
+
+msgid "Create a New Node Sharing the Same Data of the Selected Node"
+msgstr "Skapa en ny post som delar samma data som den markerade posten"
 
 msgid "Copy Node and S_ubnodes"
 msgstr "_Kopiera post och underposter"
@@ -1476,6 +1419,12 @@ msgstr "A_vfärda länk"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Avfärda länken som associeras med bilden"
 
+msgid "Show/Hide _CherryTree"
+msgstr "Visa/Dölj _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Visa/Dölj CherryTree"
+
 msgid "Edit the Underlying Link"
 msgstr "Redigera den underliggande länken"
 
@@ -1509,83 +1458,308 @@ msgstr "Klistra in"
 msgid "Reset"
 msgstr "Återställ"
 
-msgid "Enable System Tray Docking"
-msgstr "Aktivera systemfältsdockning"
+msgid "Rename"
+msgstr "Byt namn"
 
-msgid "Start Minimized in the System Tray"
-msgstr "Starta minimerad till systemfältet"
+msgid "PNG Image"
+msgstr "PNG-bild"
 
-msgid "System Tray"
-msgstr "Systemfältet"
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Kunde inte skriva till %s"
 
-msgid "Autosave Every"
-msgstr "Spara automatiskt varje"
+msgid "Insert/Edit Link"
+msgstr "Infoga/Redigera länk"
 
-msgid "Minutes"
-msgstr "Minuter"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Mapplänken \"%s\" är inte giltig."
 
-msgid "Autosave on Quit"
-msgstr "Spara automatiskt vid avslut"
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Fillänken \"%s\" är inte giltig."
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Skapa en säkerhetskopia före spara"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Mapplänken \"%s\" är inte giltig"
 
-msgid "Number of Backups to Keep"
-msgstr "Antal säkerhetskopior att spara"
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Länken pekar mot en post som inte finns längre (ID=%s)"
 
-msgid "Custom Backup Directory"
-msgstr "Anpassad säkerhetskopieringsmapp"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Ingen fästpunkt kallad \"%s\" hittades"
 
-msgid "Saving"
-msgstr "Sparar"
+msgid "Edit CodeBox"
+msgstr "Redigera kodbox"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Sök automatiskt efter nya versioner"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Du måste associera ett kommando med \"%s\".\n"
+"Gör så i inställningarna."
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Aktivera ordräknare i statusfältet"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Installera paketet \"xterm\" eller konfigurera en annan terminal i "
+"inställningarna."
 
-msgid "Reload Document From Last Session"
-msgstr "Läs in dokument från senaste sessionen"
+msgid "Edit Table Properties"
+msgstr "Redigera tabellegenskaper"
 
-msgid "Reload After External Update to CT* File"
-msgstr "Läs in igen efter extern uppdatering till CT*-fil"
+msgid "CSV File"
+msgstr "CSV-fil"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Visa dokumenmappen i fönsterrubriken"
+msgid "Insert Anchor"
+msgstr "Infoga fästpunkt"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Visa fullständig sökväg i postnamnsrubriken"
+msgid "Edit Anchor"
+msgstr "Redigera fästpunkt"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Dedikerad bokmärkesmeny i menyfältet"
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Kan inte redigera inbäddad fil i skrivskyddad post."
 
-msgid "Enable Debug Log"
-msgstr "Aktivera felsökningslogg"
+msgid "Embedded File Automatically Updated:"
+msgstr "Inbäddad fil automatiskt uppdaterad:"
 
-msgid "Debug Log Directory"
-msgstr "Mapp för felsökningslogg"
+msgid "Change Selected"
+msgstr "Ändra markerat"
 
-msgid "Miscellaneous"
-msgstr "Diverse"
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "Tangenbordsgenvägen \"%s\" används redan."
 
-msgid "System Default"
-msgstr "Systemstandard"
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Nuvarande associerad åtgärd är \"%s\""
 
-msgid "Language"
-msgstr "Språk"
+msgid "Do you want to steal the shortcut?"
+msgstr "Vill du stjäla genvägen?"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Har systemfältet visats på panelen?"
+msgid "Edit Keyboard Shortcut"
+msgstr "Redigera tangentbordsgenväg"
 
-msgid "Your system does not support the System Tray"
-msgstr "Ditt system stödjer inte systemfältet"
+msgid "No Keyboard Shortcut"
+msgstr "Ingen tangentbordsgenväg"
+
+msgid "Writing to Disk..."
+msgstr "Skriver till disk..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Du har inte skrivbehörighet i %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Ange lösenord för %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Misslyckad integritetskontroll av det sparade dokumentet. Försök med Arkiv --"
+"> Spara som"
+
+msgid "Failed to encrypt the file"
+msgstr "Kunde inte kryptera filen"
+
+msgid "Search for"
+msgstr "Sök efter"
+
+msgid "Replace with"
+msgstr "Ersätt med"
+
+msgid "Match Case"
+msgstr "Skiftläge"
+
+msgid "Regular Expression"
+msgstr "Regular Expression"
+
+msgid "Online Manual"
+msgstr "Online-manual"
+
+msgid "Accent Insensitive"
+msgstr "Accentokänslig"
+
+msgid "Override Exclusions"
+msgstr "Åsidosätt undantag"
+
+msgid "Whole Word"
+msgstr "Hela ord"
+
+msgid "Start Word"
+msgstr "Startord"
+
+msgid "Forward"
+msgstr "Framåt"
+
+msgid "Backward"
+msgstr "Tillbaka"
+
+msgid "All, List Matches"
+msgstr "Alla, listmatchningar"
+
+msgid "First From Selection"
+msgstr "Första i markerat"
+
+msgid "First in All Range"
+msgstr "Första i hela intervallet"
+
+msgid "Node Created After"
+msgstr "Post skapad efter"
+
+msgid "Node Created Before"
+msgstr "Post skapad före"
+
+msgid "Node Modified After"
+msgstr "Post ändrad efter"
+
+msgid "Node Modified Before"
+msgstr "Post ändrad före"
+
+msgid "Time filter"
+msgstr "Tidsfilter"
+
+msgid "Node Content"
+msgstr "Postinnehåll"
+
+msgid "Node Name and Tags"
+msgstr "Postnamn och taggar"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Endast markerad post och underposter"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Visa upprepad dialog för Sök/Ersätt"
+
+msgid "Search options"
+msgstr "Sökalternativ"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Minst en post hoppades över på grund av undantag som angetts i "
+"postegenskaperna.\n"
+"För att ta bort alla undantag, använd menyn:\n"
+"Sök > Ta bort alla undantag från sökning"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Dölj (återställ med \"%s\")"
+
+msgid "Node Name"
+msgstr "Postnamn"
+
+msgid "Line"
+msgstr "Rad"
+
+msgid "Line Content"
+msgstr "Radinnehåll"
+
+msgid "Matches"
+msgstr "Matchar"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Upprepa senaste Sök/Ersätt"
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "Find Previous"
+msgstr "Sök föregående"
+
+msgid "Find Next"
+msgstr "Sök nästa"
+
+msgid "Replace"
+msgstr "Ersätt"
+
+msgid "Undo"
+msgstr "Ångra"
 
 msgid "Downloading"
 msgstr "Nerladdning"
 
 msgid "Remove from list"
 msgstr "Ta bort från listan"
+
+msgid "The new parent can't be one of his children!"
+msgstr "Den nya överordnade mappen kan inte vara en av dess underordnade!"
+
+msgid "Light Background, Dark Text"
+msgstr "Ljus bakgrund, mörk text"
+
+msgid "Dark Background, Light Text"
+msgstr "Mörk bakgrund, ljus text"
+
+msgid "Custom Background"
+msgstr "Anpassad bakgrund"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Selection Background"
+msgstr "Markeringsbakgrund"
+
+msgid "Tree Explorer"
+msgstr "Trädutforskare"
+
+msgid "Rich Text"
+msgstr "Rich Text"
+
+msgid "Plain Text"
+msgstr "Oformaterad text"
+
+msgid "Table"
+msgstr "Tabell"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Style Schemes"
+msgstr "Stilscheman"
+
+msgid "Text Foreground"
+msgstr "Textförgrund"
+
+msgid "Text Background"
+msgstr "Textbakgrund"
+
+msgid "Selection Foreground"
+msgstr "Markeringsförgrund"
+
+msgid "Cursor"
+msgstr "Markör"
+
+msgid "Current Line Background"
+msgstr "Bakgrund för aktuell rad"
+
+msgid "Line Numbers Foreground"
+msgstr "Radnummerförgrund"
+
+msgid "Line Numbers Background"
+msgstr "Bakgrund för radnummer"
+
+msgid "Style Scheme Editor"
+msgstr "Stilschemaredigerare"
+
+msgid "Set Dark Theme Icons"
+msgstr "Ange mörka temaikoner"
+
+msgid "Set Light Theme Icons"
+msgstr "Ange ljusa temaikoner"
+
+msgid "Set Default Icons"
+msgstr "Ange standardikoner"
+
+msgid "Icon Theme"
+msgstr "Ikontema"
 
 msgid "Move the Selected Bookmark Up"
 msgstr "Flytta upp markerat bokmärke"
@@ -1624,6 +1798,12 @@ msgstr ""
 
 msgid "Enter the New Password Twice"
 msgstr "Ange det nya lösenordet två gånger"
+
+msgid "Autosave Every"
+msgstr "Spara automatiskt varje"
+
+msgid "Minutes"
+msgstr "Minuter"
 
 msgid "The Password Fields Must be Filled."
 msgstr "Lösenordsfältet måste fyllas i."
@@ -1808,432 +1988,122 @@ msgstr "Antal kodboxar"
 msgid "Number of Anchors"
 msgstr "Antal fästpunkter"
 
-msgid "Light Background, Dark Text"
-msgstr "Ljus bakgrund, mörk text"
+msgid "Number of Shared Nodes / Groups"
+msgstr "Antal delade poster/grupper"
 
-msgid "Dark Background, Light Text"
-msgstr "Mörk bakgrund, ljus text"
+msgid "Latex Text"
+msgstr "Latex-text"
 
-msgid "Custom Background"
-msgstr "Anpassad bakgrund"
+msgid "Image Size dpi"
+msgstr "Bildstorlek dpi"
 
-msgid "Text"
-msgstr "Text"
+msgid "Tutorial"
+msgstr "Handledning"
 
-msgid "Selection Background"
-msgstr "Markeringsbakgrund"
+msgid "Reference"
+msgstr "Referens"
 
-msgid "Tree Explorer"
-msgstr "Trädutforskare"
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX-matematik och ekvationshandledning"
 
-msgid "Rich Text"
-msgstr "Rich Text"
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX-matematik symbolreferenser"
 
-msgid "Plain Text"
-msgstr "Oformaterad text"
+msgid "Image Properties"
+msgstr "Bildegenskaper"
 
-msgid "Table"
-msgstr "Tabell"
+msgid "Width"
+msgstr "Bredd"
 
-msgid "Code"
-msgstr "Kod"
+msgid "Height"
+msgstr "Höjd"
 
-msgid "Style Schemes"
-msgstr "Stilscheman"
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatisk syntaxmarkering"
 
-msgid "Text Foreground"
-msgstr "Textförgrund"
+msgid "Type"
+msgstr "Typ"
 
-msgid "Text Background"
-msgstr "Textbakgrund"
+msgid "pixels"
+msgstr "bildpunkter"
 
-msgid "Selection Foreground"
-msgstr "Markeringsförgrund"
-
-msgid "Cursor"
-msgstr "Markör"
-
-msgid "Current Line Background"
-msgstr "Bakgrund för aktuell rad"
-
-msgid "Line Numbers Foreground"
-msgstr "Radnummerförgrund"
-
-msgid "Line Numbers Background"
-msgstr "Bakgrund för radnummer"
-
-msgid "Reset to Default"
-msgstr "Återställ till standard"
-
-msgid "Style Scheme Editor"
-msgstr "Stilschemaredigerare"
-
-msgid "Set Dark Theme Icons"
-msgstr "Ange mörka temaikoner"
-
-msgid "Set Light Theme Icons"
-msgstr "Ange ljusa temaikoner"
-
-msgid "Set Default Icons"
-msgstr "Ange standardikoner"
-
-msgid "Icon Theme"
-msgstr "Ikontema"
-
-msgid "Add"
-msgstr "Lägg till"
-
-msgid "Remove Selected"
-msgstr "Ta bort markerat"
-
-msgid "Split Toolbar"
-msgstr "Dela verktygsfält"
-
-msgid "Select Element to Add"
-msgstr "Välj element att lägga till"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Ingen textformatering har utförts tidigare under denna session."
-
-msgid "No Text is Selected."
-msgstr "Ingen text markerad."
-
-msgid "Link Name"
-msgstr "Länknamn"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Markören är inte i något stycke."
-
-msgid "Insert/Edit Link"
-msgstr "Infoga/Redigera länk"
-
-msgid "Pick a Foreground Color"
-msgstr "Välj en förgrundsfärg"
-
-msgid "Pick a Background Color"
-msgstr "Välj en bakgrundsfärg"
-
-msgid "Replace in Current Node"
-msgstr "Ersätt i aktuell post"
-
-msgid "Search in Current Node"
-msgstr "Sök i aktuell post"
-
-msgid "Matches"
-msgstr "Matchar"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Mönstret \"%s\" hittades inte</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Ersätt i flera poster..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Sök i flera poster..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Ingen sökning har utförts tidigare under denna session."
-
-msgid "Tags"
-msgstr "Taggar"
-
-msgid ": "
-msgstr ": "
-
-msgid "The new parent can't be one of his children!"
-msgstr "Den nya överordnade mappen kan inte vara en av dess underordnade!"
-
-msgid "Tab Width"
-msgstr "Tabulatorbredd"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Infoga blanksteg istället för tabbar"
-
-msgid "Use Line Wrapping"
-msgstr "Använd radbrytning"
-
-msgid "Line Wrapping Indentation"
-msgstr "Radbrytningsindrag"
-
-msgid "Enable Automatic Indentation"
-msgstr "Aktivera automatiskt indrag"
+msgid "Size"
+msgstr "Storlek"
 
 msgid "Show Line Numbers"
 msgstr "Visa radnummer"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Skrolla bortom sista raden"
+msgid "Highlight Matching Brackets"
+msgstr "Belys matchande klamrar"
 
-msgid "Cursor Blinking"
-msgstr "Blinkande markör"
+msgid "Options"
+msgstr "Alternativ"
 
-msgid "On"
-msgstr "På"
+msgid "Rows"
+msgstr "Rader"
 
-msgid "Off"
-msgstr "Av"
+msgid "Columns"
+msgstr "Kolumner"
 
-msgid "Vertical Space Around Lines"
-msgstr "Vertikalt mellanrum runt rader"
+msgid "Default Width"
+msgstr "Standardbredd"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Vertikalt mellanrum i radbrutna rader"
+msgid "Table Size"
+msgstr "Tabellstorlek"
+
+msgid "Column Properties"
+msgstr "Kolumnegenskaper"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Förenklat gränssnitt (mycket snabbare för stora tabeller)"
+
+msgid "Import from CSV File"
+msgstr "Importera från CSV-fil"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Kunde inte komma åt de körbara \"latex- och dvipng-filerna\""
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Till exempel, på Ubuntu är paketen som ska installeras:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Till exempel, på Mac OS är paketen som ska installeras:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Kunde inte komma åt den körbara \"latex-filen\""
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Kunde inte komma åt den körbara \"dvipng-filen\""
+
+msgid "Show White Spaces"
+msgstr "Visa blanksteg"
+
+msgid "Highlight Current Line"
+msgstr "Belys aktuell rad"
 
 msgid "Text Editor"
 msgstr "Textredigerare"
 
-msgid "Timestamp Format"
-msgstr "Tidsstämpelformat"
+msgid "Internal Terminal Shell"
+msgstr "Internt terminalskal"
 
-msgid "Online Manual"
-msgstr "Online-manual"
+msgid "Command per Node/CodeBox Type"
+msgstr "Kommando per post/kodboxtyp"
 
-msgid "Horizontal Rule"
-msgstr "Horisontell avgränsare"
+msgid "Terminal Command"
+msgstr "Terminalkommando"
 
-msgid "Chars to Select at Double Click"
-msgstr "Tecken att välja vid dubbelklick"
+msgid "Code Execution"
+msgstr "Kodexekvering"
 
-msgid "PDF File"
-msgstr "PDF-fil"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Storleken på verktygsfältets ikoner är redan största möjliga."
 
-msgid "Plain Text Document"
-msgstr "Oformaterat textdokument"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Storleken på verktygsfältets ikoner är redan minsta möjliga."
 
-msgid "Show Menubar:"
-msgstr "Visa menyfält:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Sökvägen %s finns inte"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" är inte en CherryTree-fil"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Fel vid tolkning av CherryTree-sökvägen:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Ingen post kallad \"%s\" hittades."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Temporära filer skapades och öppnades med externa program."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Avsluta externa program innan CherryTree avslutas."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Har du avslutat de externa programmen?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Dokumentet lästes in igen, efter extern uppdatering till CT*-fil."
-
-msgid "_Hide"
-msgstr "_Dölj"
-
-msgid "Hide the Window"
-msgstr "Dölj fönstret"
-
-msgid "Node Type"
-msgstr "Posttyp"
-
-msgid "Spell Check"
-msgstr "Stavningskontroll"
-
-msgid "Word Count"
-msgstr "Ordräkning"
-
-msgid "Date Created"
-msgstr "Skapad"
-
-msgid "Date Modified"
-msgstr "Ändrad"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Ingen tidigare postkopia utfördes under den här sessionen eller källträdet "
-"är inte längre tillgängligt."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Källträdposten finns inte längre tillgänglig."
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"En mapp \"%s\" finns redan i \"%s\".\n"
-"<b>Vill du ta bort den?</b>"
-
-msgid "Checking for Newer Version..."
-msgstr "Söker efter nyare version..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Kunde inte hämta information om senaste versionen. Försök igen senare."
-
-msgid "A Newer Version Is Available!"
-msgstr "En nyare version finns tillgänglig!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Du använder den senaste versionen."
-
-msgid "You Are Using a Development Version."
-msgstr "Du använder en utvecklingsversion."
-
-msgid "Search for"
-msgstr "Sök efter"
-
-msgid "Replace with"
-msgstr "Ersätt med"
-
-msgid "Match Case"
-msgstr "Skiftläge"
-
-msgid "Regular Expression"
-msgstr "Regular Expression"
-
-msgid "Accent Insensitive"
-msgstr "Accentokänslig"
-
-msgid "Override Exclusions"
-msgstr "Åsidosätt undantag"
-
-msgid "Whole Word"
-msgstr "Hela ord"
-
-msgid "Start Word"
-msgstr "Startord"
-
-msgid "Forward"
-msgstr "Framåt"
-
-msgid "Backward"
-msgstr "Tillbaka"
-
-msgid "All, List Matches"
-msgstr "Alla, listmatchningar"
-
-msgid "First From Selection"
-msgstr "Första i markerat"
-
-msgid "First in All Range"
-msgstr "Första i hela intervallet"
-
-msgid "Node Created After"
-msgstr "Post skapad efter"
-
-msgid "Node Created Before"
-msgstr "Post skapad före"
-
-msgid "Node Modified After"
-msgstr "Post ändrad efter"
-
-msgid "Node Modified Before"
-msgstr "Post ändrad före"
-
-msgid "Time filter"
-msgstr "Tidsfilter"
-
-msgid "Node Content"
-msgstr "Postinnehåll"
-
-msgid "Node Name and Tags"
-msgstr "Postnamn och taggar"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Endast markerad post och underposter"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Visa upprepad dialog för Sök/Ersätt"
-
-msgid "Search options"
-msgstr "Sökalternativ"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Minst en post hoppades över på grund av undantag som angetts i "
-"postegenskaperna.\n"
-"För att ta bort alla undantag, använd menyn:\n"
-"Sök > Ta bort alla undantag från sökning"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Dölj (återställ med \"%s\")"
-
-msgid "Node Name"
-msgstr "Postnamn"
-
-msgid "Line"
-msgstr "Rad"
-
-msgid "Line Content"
-msgstr "Radinnehåll"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Länken pekar mot en post som inte finns längre (ID=%s)"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Upprepa senaste Sök/Ersätt"
-
-msgid "Close"
-msgstr "Stäng"
-
-msgid "Find Previous"
-msgstr "Sök föregående"
-
-msgid "Find Next"
-msgstr "Sök nästa"
-
-msgid "Replace"
-msgstr "Ersätt"
-
-msgid "Undo"
-msgstr "Ångra"
-
-msgid "Special Characters"
-msgstr "Specialtecken"
-
-msgid "Chars for Bulleted List"
-msgstr "Tecken för punktlista"
-
-msgid "Chars for Todo List"
-msgstr "Tecken för Att-göra-listan"
-
-msgid "Chars for Table Of Content"
-msgstr "Tecken för tabell över innehåll"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Tecken för smarta dubbla citattecken"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Tecken för smarta enkla citattecken"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Aktivera automatisk ersättning av smarta citationstecken"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Aktivera automatisk ersättning av tecken"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Automatisk ersättning av tecken som stöds"
-
-msgid "Only at the Start of the Line"
-msgstr "Endast i början på raden"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Denna ändring blir tillgängligt först efter omstart av CherryTree."
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
@@ -2264,6 +2134,91 @@ msgstr ""
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
 "%s skrivning misslyckades - Är filen blockerad av ett synkroniseringsprogram?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
+msgstr ""
+"%s återöppning misslyckades - Filen saknas. Återanslut USB-disk eller delad "
+"resurs!"
+
+msgid "Tab Width"
+msgstr "Tabulatorbredd"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Infoga blanksteg istället för tabbar"
+
+msgid "Use Line Wrapping"
+msgstr "Använd radbrytning"
+
+msgid "Line Wrapping Indentation"
+msgstr "Radbrytningsindrag"
+
+msgid "Enable Automatic Indentation"
+msgstr "Aktivera automatiskt indrag"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Skrolla bortom sista raden"
+
+msgid "Cursor Blinking"
+msgstr "Blinkande markör"
+
+msgid "System Default"
+msgstr "Systemstandard"
+
+msgid "On"
+msgstr "På"
+
+msgid "Off"
+msgstr "Av"
+
+msgid "Text Margin: Left"
+msgstr "Textmarginal: Vänster"
+
+msgid "Right"
+msgstr "Höger"
+
+msgid "Vertical Space Around Lines"
+msgstr "Vertikalt mellanrum runt rader"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Vertikalt mellanrum i radbrutna rader"
+
+msgid "Timestamp Format"
+msgstr "Tidsstämpelformat"
+
+msgid "Horizontal Rule"
+msgstr "Horisontell avgränsare"
+
+msgid "Chars to Select at Double Click"
+msgstr "Tecken att välja vid dubbelklick"
+
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+msgid "Remove Color"
+msgstr "Ta bort färg"
+
+msgid "Question"
+msgstr "Fråga"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "Select File"
+msgstr "Välj fil"
+
+msgid "Select Folder"
+msgstr "Välj mappa"
+
+msgid "Save File as"
+msgstr "Spara fil som"
+
+msgid "Save To Folder"
+msgstr "Spara i mapp"
 
 msgid "Use Different Cherries per Level"
 msgstr "Använd olika körsbär per nivå"
@@ -2313,26 +2268,382 @@ msgstr "Senast besökta poster i postrubriken"
 msgid "Select Node Icon"
 msgstr "Välj postikon"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Storleken på verktygsfältets ikoner är redan största möjliga."
+msgid "No Node is Selected"
+msgstr "Ingen kod vald"
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Storleken på verktygsfältets ikoner är redan minsta möjliga."
+msgid "The Tree is Empty!"
+msgstr "Trädet är tomt!"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Kunde inte komma åt de körbara \"latex- och dvipng-filerna\""
+msgid "The Selected Node is Read Only."
+msgstr "Den valda posten är skrivskyddad."
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Till exempel, på Ubuntu är paketen som ska installeras:"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Denna funktion finns bara tillgänglig i Rich Text-poster."
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Till exempel, på Mac OS är paketen som ska installeras:"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr ""
+"Denna funktion finns inte tillgänglig i poster med automatisk "
+"syntaxmarkering."
 
-msgid "Could not access the executable 'latex'"
-msgstr "Kunde inte komma åt den körbara \"latex-filen\""
+msgid "No Text is Selected."
+msgstr "Ingen text markerad."
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "Kunde inte komma åt den körbara \"dvipng-filen\""
+msgid "No Table is Selected."
+msgstr "Ingen tabell markerad."
+
+msgid "No CodeBox is Selected."
+msgstr "Ingen kodbox vald."
+
+msgid "New Child Node Properties"
+msgstr "Nya egenskaper för underordnad post"
+
+msgid "New Node Properties"
+msgstr "Nya postegenskaper"
+
+msgid "Node Properties"
+msgstr "Postegenskaper"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Om du lämnar posttypen Rich Text, förlorar du all formatering för denna "
+"post. Vill du fortsätta?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Vill du verkligen <b>ta bort posten \"%s\"?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Posten har <b>underordnade poster, de kommer också att tas bort!</b>"
+
+msgid "Select the New Parent"
+msgstr "Välj ny överordnad"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Ny överordnad kan inte vara den post som flyttas!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Ny överordnad är fortfarande den gamla!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s postegenskaper ändrade"
+
+msgid "To WebSite"
+msgstr "Till webbplats"
+
+msgid "To File"
+msgstr "Till fil"
+
+msgid "To Folder"
+msgstr "Till mapp"
+
+msgid "To Node"
+msgstr "Till post"
+
+msgid "Anchor Name (optional)"
+msgstr "Fästpunktsnamn (valfritt)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Det finns inga fästpunkter i markerad post."
+
+msgid "Choose Existing Anchor"
+msgstr "Välj befintlig fästpunkt"
+
+msgid "Anchor Name"
+msgstr "Fästpunktsnamn"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Mönstret \"%s\" hittades inte"
+
+msgid "CherryTree File"
+msgstr "CherryTree-fil"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"En mapp \"%s\" finns redan i \"%s\".\n"
+"<b>Vill du ta bort den?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"En fil \"%s\" finns redan i \"%s\".\n"
+"<b>Vill du ta bort den?</b>"
+
+msgid "Preferences File"
+msgstr "Inställningsfil"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Har systemfältet visats på panelen?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Ditt system stödjer inte systemfältet"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree hierarkiska anteckningar"
+
+msgid "_Exit CherryTree"
+msgstr "Avsluta CherryTree"
+
+msgid "Show Menubar:"
+msgstr "Visa menyfält:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Sökvägen %s finns inte"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" är inte en CherryTree-fil"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Fel vid tolkning av CherryTree-sökvägen:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Ingen post kallad \"%s\" hittades."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Temporära filer skapades och öppnades med externa program."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Avsluta externa program innan CherryTree avslutas."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Har du avslutat de externa programmen?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Dokumentet lästes in igen, efter extern uppdatering till CT*-fil."
+
+msgid "Autosave on Quit"
+msgstr "Spara automatiskt vid avslut"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Skapa en säkerhetskopia före spara"
+
+msgid "Number of Backups to Keep"
+msgstr "Antal säkerhetskopior att spara"
+
+msgid "Custom Backup Directory"
+msgstr "Anpassad säkerhetskopieringsmapp"
+
+msgid "Saving"
+msgstr "Sparar"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Sök automatiskt efter nya versioner"
+
+msgid "Reload Document From Last Session"
+msgstr "Läs in dokument från senaste sessionen"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Läs in igen efter extern uppdatering till CT*-fil"
+
+msgid "Enable Debug Log"
+msgstr "Aktivera felsökningslogg"
+
+msgid "Debug Log Directory"
+msgstr "Mapp för felsökningslogg"
+
+msgid "Enable System Tray Docking"
+msgstr "Aktivera systemfältsdockning"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Starta minimerad till systemfältet"
+
+msgid "System Tray"
+msgstr "Systemfältet"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "_Hide"
+msgstr "_Dölj"
+
+msgid "Hide the Window"
+msgstr "Dölj fönstret"
+
+msgid "Node Type"
+msgstr "Posttyp"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "Taggar"
+
+msgid "Spell Check"
+msgstr "Stavningskontroll"
+
+msgid "Word Count"
+msgstr "Ordräkning"
+
+msgid "Date Created"
+msgstr "Skapad"
+
+msgid "Date Modified"
+msgstr "Ändrad"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Ingen tidigare postkopia utfördes under den här sessionen eller källträdet "
+"är inte längre tillgängligt."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Källträdposten finns inte längre tillgänglig."
+
+msgid "English"
+msgstr "Engelska"
+
+msgid "Text and Code"
+msgstr "Text och kod"
+
+msgid "Plain Text and Code"
+msgstr "Oformaterad text och kod"
+
+msgid "Special Characters"
+msgstr "Specialtecken"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Interface"
+msgstr "Gränssnitt"
+
+msgid "Links"
+msgstr "Länkar"
+
+msgid "Toolbar"
+msgstr "Verktygsfält"
+
+msgid "Keyboard Shortcuts"
+msgstr "Tangenbordsgenvägar"
+
+msgid "Monospace"
+msgstr "Monospace"
+
+msgid "Code Font"
+msgstr "Kodteckensnitt"
+
+msgid "Terminal Font"
+msgstr "Terminalteckensnitt"
+
+msgid "Tree Font"
+msgstr "Trädteckensnitt"
+
+msgid "Fonts"
+msgstr "Teckensnitt"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Aktivera ordräknare i statusfältet"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Visa dokumenmappen i fönsterrubriken"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Visa fullständig sökväg i postnamnsrubriken"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Dedikerad bokmärkesmeny i menyfältet"
+
+msgid "Menubar in Titlebar"
+msgstr "Menyfält i namnlisten"
+
+msgid "Toolbar Icons Size"
+msgstr "Verktygsfältets ikonstorlek"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Minsta storlek på skrollisten (0=Systemstandard)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Textredigerare för rullningslistöverlägg"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Aktivera knappbeskrivning vid hovring"
+
+msgid "Menus"
+msgstr "Menyer"
+
+msgid "Max Search Results per Page"
+msgstr "Max anta sökträffar per sida"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Aktivera anpassad klickåtgärd för webblänk"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Aktivera anpassad klickåtgärd för fillänk"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Aktivera anpassad klickåtgärd för mapplänk"
+
+msgid "Custom Actions"
+msgstr "Anpassade åtgärder"
+
+msgid "Colors"
+msgstr "Färger"
+
+msgid "Underline Links"
+msgstr "Stryk under länkar"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Använd relativa sökvägar för filer och mappar"
+
+msgid "Anchor Size"
+msgstr "Fästpunktsstorlek"
+
+msgid "Replace in Current Node"
+msgstr "Ersätt i aktuell post"
+
+msgid "Search in Current Node"
+msgstr "Sök i aktuell post"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Mönstret \"%s\" hittades inte</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Ersätt i flera poster..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Sök i flera poster..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Ingen sökning har utförts tidigare under denna session."
+
+msgid "PDF File"
+msgstr "PDF-fil"
+
+msgid "Plain Text Document"
+msgstr "Oformaterat textdokument"
+
+msgid "Who is the Parent?"
+msgstr "Vilken är den överordnade?"
+
+msgid "The Tree Root"
+msgstr "Trädroten"
+
+msgid "The Selected Node"
+msgstr "Markerad post"
 
 msgid "Enable Spell Check"
 msgstr "Aktivera stavningskontroll"
@@ -2340,17 +2651,11 @@ msgstr "Aktivera stavningskontroll"
 msgid "Spell Check Language"
 msgstr "Stavningsspråk"
 
-msgid "Show White Spaces"
-msgstr "Visa blanksteg"
-
-msgid "Highlight Current Line"
-msgstr "Belys aktuell rad"
-
-msgid "Highlight Matching Brackets"
-msgstr "Belys matchande klamrar"
-
 msgid "Expand CodeBoxes Automatically"
 msgstr "Expandera kodboxar automatiskt"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Kodrutor har verktygsfält"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "Tröskelvärde för antal tabellceller i förenklat gränssnitt"
@@ -2400,75 +2705,56 @@ msgstr "Liten"
 msgid "Scalable Tags"
 msgstr "Skalbara taggar"
 
-msgid "Monospace"
-msgstr "Monospace"
+msgid "Execute Code"
+msgstr "Exekvera kod"
 
-msgid "Writing to Disk..."
-msgstr "Skriver till disk..."
+msgid "Change CodeBox Properties"
+msgstr "Ändra kodboxegenskaper"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Du har inte skrivbehörighet i %s"
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Ingen textformatering har utförts tidigare under denna session."
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Ange lösenord för %s"
+msgid "Link Name"
+msgstr "Länknamn"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Misslyckad integritetskontroll av det sparade dokumentet. Försök med Arkiv --"
-"> Spara som"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Markören är inte i något stycke."
 
-msgid "Failed to encrypt the file"
-msgstr "Kunde inte kryptera filen"
+msgid "Pick a Foreground Color"
+msgstr "Välj en förgrundsfärg"
 
-msgid "Image Format Not Recognized"
-msgstr "Bildformatet kan inte identifieras"
+msgid "Pick a Background Color"
+msgstr "Välj en bakgrundsfärg"
 
-msgid "Insert Table"
-msgstr "Infoga tabell"
+msgid "Chars for Bulleted List"
+msgstr "Tecken för punktlista"
 
-msgid "CSV File"
-msgstr "CSV-fil"
+msgid "Chars for Todo List"
+msgstr "Tecken för Att-göra-listan"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Maximal storlek på inbäddade filer är %s MB."
+msgid "Chars for Table Of Content"
+msgstr "Tecken för tabell över innehåll"
 
-msgid "Do you want to Continue?"
-msgstr "Vill du fortsätta?"
+msgid "Chars for Smart Double Quotes"
+msgstr "Tecken för smarta dubbla citattecken"
 
-msgid "Tabs Replaced"
-msgstr "Tabbar ersatta"
+msgid "Chars for Smart Single Quotes"
+msgstr "Tecken för smarta enkla citattecken"
 
-msgid "Lines Stripped"
-msgstr "Rader rensade"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Aktivera automatisk ersättning av smarta citationstecken"
 
-msgid "Change Selected"
-msgstr "Ändra markerat"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Aktivera automatisk ersättning av tecken"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "Tangenbordsgenvägen \"%s\" används redan."
+msgid "Supported Symbols Auto Replacements"
+msgstr "Automatisk ersättning av tecken som stöds"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Nuvarande associerad åtgärd är \"%s\""
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Vill du stjäla genvägen?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Redigera tangentbordsgenväg"
-
-msgid "No Keyboard Shortcut"
-msgstr "Ingen tangentbordsgenväg"
+msgid "Only at the Start of the Line"
+msgstr "Endast i början på raden"
 
 msgid "Use Selected Color"
 msgstr "Använd vald färg"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Automatisk syntaxmarkering"
 
 msgid "Tags for Searching"
 msgstr "Taggar för sökning"
@@ -2484,6 +2770,12 @@ msgstr "Underposter"
 
 msgid "Read Only"
 msgstr "Skrivskyddad"
+
+msgid "Unique Id"
+msgstr "Unikt ID"
+
+msgid "Shared Nodes Group"
+msgstr "Grupp för delade poster"
 
 msgid "Choose Existing Tag"
 msgstr "Välj befintlig tagg"
@@ -2521,282 +2813,78 @@ msgstr "Ny post på ny sida"
 msgid "Single File"
 msgstr "Enskild fil"
 
-msgid "English"
-msgstr "Engelska"
+msgid "Checking for Newer Version..."
+msgstr "Söker efter nyare version..."
 
-msgid "Text and Code"
-msgstr "Text och kod"
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Kunde inte hämta information om senaste versionen. Försök igen senare."
 
-msgid "Plain Text and Code"
-msgstr "Oformaterad text och kod"
+msgid "A Newer Version Is Available!"
+msgstr "En nyare version finns tillgänglig!"
 
-msgid "Theme"
-msgstr "Tema"
+msgid "You Are Using the Latest Version Available."
+msgstr "Du använder den senaste versionen."
 
-msgid "Fonts"
-msgstr "Teckensnitt"
+msgid "You Are Using a Development Version."
+msgstr "Du använder en utvecklingsversion."
 
-msgid "Links"
-msgstr "Länkar"
+msgid "Image Format Not Recognized"
+msgstr "Bildformatet kan inte identifieras"
 
-msgid "Toolbar"
-msgstr "Verktygsfält"
-
-msgid "Keyboard Shortcuts"
-msgstr "Tangenbordsgenvägar"
-
-msgid "Code Font"
-msgstr "Kodteckensnitt"
-
-msgid "Terminal Font"
-msgstr "Terminalteckensnitt"
-
-msgid "Tree Font"
-msgstr "Trädteckensnitt"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Aktivera anpassad klickåtgärd för webblänk"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Aktivera anpassad klickåtgärd för fillänk"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Aktivera anpassad klickåtgärd för mapplänk"
-
-msgid "Custom Actions"
-msgstr "Anpassade åtgärder"
-
-msgid "Colors"
-msgstr "Färger"
-
-msgid "Underline Links"
-msgstr "Stryk under länkar"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Använd relativa sökvägar för filer och mappar"
-
-msgid "Anchor Size"
-msgstr "Fästpunktsstorlek"
-
-msgid "Who is the Parent?"
-msgstr "Vilken är den överordnade?"
-
-msgid "The Tree Root"
-msgstr "Trädroten"
-
-msgid "The Selected Node"
-msgstr "Markerad post"
-
-msgid "Internal Terminal Shell"
-msgstr "Internt terminalskal"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Kommando per post/kodboxtyp"
-
-msgid "Terminal Command"
-msgstr "Terminalkommando"
-
-msgid "Code Execution"
-msgstr "Kodexekvering"
-
-msgid "Rename"
-msgstr "Byt namn"
-
-msgid "PNG Image"
-msgstr "PNG-bild"
+msgid "Insert Table"
+msgstr "Infoga tabell"
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "Kunde inte skriva till %s"
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Maximal storlek på inbäddade filer är %s MB."
 
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "Mapplänken \"%s\" är inte giltig."
+msgid "Do you want to Continue?"
+msgstr "Vill du fortsätta?"
 
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Fillänken \"%s\" är inte giltig."
+msgid "Tabs Replaced"
+msgstr "Tabbar ersatta"
 
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Mapplänken \"%s\" är inte giltig"
+msgid "Lines Stripped"
+msgstr "Rader rensade"
 
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Ingen fästpunkt kallad \"%s\" hittades"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Varning: En eller flera bilder reducerades för att öppna sidan!"
 
-msgid "Edit CodeBox"
-msgstr "Redigera kodbox"
+msgid "Print CherryTree version"
+msgstr "Skriv ut CherryTree-version"
 
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Du måste associera ett kommando med \"%s\".\n"
-"Gör så i inställningarna."
+msgid "Node name to focus"
+msgstr "Postnamn att fokusera"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Installera paketet \"xterm\" eller konfigurera en annan terminal i "
-"inställningarna."
+msgid "Anchor name to scroll to in node"
+msgstr "Fästpunktsnamn att skrolla till i post"
 
-msgid "Edit Table Properties"
-msgstr "Redigera tabellegenskaper"
+msgid "Export to HTML at specified directory path"
+msgstr "Exportera till HTML på angiven mappsökväg"
 
-msgid "Insert Anchor"
-msgstr "Infoga fästpunkt"
+msgid "Export to Text at specified directory path"
+msgstr "Exportera till text på angiven mappsökväg"
 
-msgid "Edit Anchor"
-msgstr "Redigera fästpunkt"
+msgid "Export to PDF at specified directory path"
+msgstr "Exportera till PDF på angiven mappsökväg"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Kan inte redigera inbäddad fil i skrivskyddad post."
+msgid "Overwrite if export path already exists"
+msgstr "Skriv över om exportsökvägen redan finns"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "Inbäddad fil automatiskt uppdaterad:"
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Exportera till en enskild fil (för HTML och TXT)"
 
-msgid "The Tree is Empty!"
-msgstr "Trädet är tomt!"
+msgid "Password to open document"
+msgstr "Lösenord för att öppna dokument"
 
-msgid "The Selected Node is Read Only."
-msgstr "Den valda posten är skrivskyddad."
+msgid "Create a new window"
+msgstr "Skapa ett nytt fönster"
 
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Denna funktion finns bara tillgänglig i Rich Text-poster."
+msgid "Run in secondary session, independent from main session"
+msgstr "Kör i sekundär session, oberoende av huvudsessionen"
 
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr ""
-"Denna funktion finns inte tillgänglig i poster med automatisk "
-"syntaxmarkering."
-
-msgid "No Table is Selected."
-msgstr "Ingen tabell markerad."
-
-msgid "No CodeBox is Selected."
-msgstr "Ingen kodbox vald."
-
-msgid "New Child Node Properties"
-msgstr "Nya egenskaper för underordnad post"
-
-msgid "New Node Properties"
-msgstr "Nya postegenskaper"
-
-msgid "Node Properties"
-msgstr "Postegenskaper"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Om du lämnar posttypen Rich Text, förlorar du all formatering för denna "
-"post. Vill du fortsätta?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Vill du verkligen <b>ta bort posten \"%s\"?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Posten har <b>underordnade poster, de kommer också att tas bort!</b>"
-
-msgid "Select the New Parent"
-msgstr "Välj ny överordnad"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Ny överordnad kan inte vara den post som flyttas!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Ny överordnad är fortfarande den gamla!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s postegenskaper ändrade"
-
-msgid "Latex Text"
-msgstr "Latex-text"
-
-msgid "Image Size dpi"
-msgstr "Bildstorlek dpi"
-
-msgid "Tutorial"
-msgstr "Handledning"
-
-msgid "Reference"
-msgstr "Referens"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX-matematik och ekvationshandledning"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX-matematik symbolreferenser"
-
-msgid "Image Properties"
-msgstr "Bildegenskaper"
-
-msgid "Width"
-msgstr "Bredd"
-
-msgid "Height"
-msgstr "Höjd"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "pixels"
-msgstr "bildpunkter"
-
-msgid "Size"
-msgstr "Storlek"
-
-msgid "Options"
-msgstr "Alternativ"
-
-msgid "Rows"
-msgstr "Rader"
-
-msgid "Columns"
-msgstr "Kolumner"
-
-msgid "Default Width"
-msgstr "Standardbredd"
-
-msgid "Table Size"
-msgstr "Tabellstorlek"
-
-msgid "Column Properties"
-msgstr "Kolumnegenskaper"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Förenklat gränssnitt (mycket snabbare för stora tabeller)"
-
-msgid "Import from CSV File"
-msgstr "Importera från CSV-fil"
-
-msgid "Remove Color"
-msgstr "Ta bort färg"
-
-msgid "Question"
-msgstr "Fråga"
-
-msgid "Info"
-msgstr "Info"
-
-msgid "Error"
-msgstr "Fel"
-
-msgid "Select File"
-msgstr "Välj fil"
-
-msgid "Select Folder"
-msgstr "Välj mappa"
-
-msgid "Save File as"
-msgstr "Spara fil som"
-
-msgid "Save To Folder"
-msgstr "Spara i mapp"
+msgid "Are you sure to Reset to Default?"
+msgstr "Vill du verkligen återställa till standardvärden?"
 
 msgid "HTML Document"
 msgstr "HTML-dokument"
@@ -2812,9 +2900,6 @@ msgstr "Treepad-dokument"
 
 msgid "Leo Document"
 msgstr "Leo-dokument"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "Vill du verkligen återställa till standardvärden?"
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Programmets online-manual"
@@ -2846,9 +2931,6 @@ msgstr "Vill du verkligen återställa till standardvärden?"
 
 #~ msgid "Add a node to the current tree using Pandoc"
 #~ msgstr "Lägg till en post till aktuellt träd, med hjälp av Pandoc"
-
-#~ msgid "Execute Code"
-#~ msgstr "Exekvera kod"
 
 #~ msgid "The New Language will be Available Only After Restarting CherryTree"
 #~ msgstr "Det nya språket blir tillgängligt först efter omstart av CherryTree"
@@ -3057,12 +3139,6 @@ msgstr "Vill du verkligen återställa till standardvärden?"
 
 #~ msgid "Cancel"
 #~ msgstr "Avbryt"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nej"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Tecknen  %s  är inte tillåtna"
