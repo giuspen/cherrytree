@@ -487,17 +487,6 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
         return false;
     }
 
-    bool restore_modified;
-    Gtk::TextIter buff_start_iter = text_buffer->begin();
-    if (buff_start_iter.get_char() != '\n') {
-        _s_state.newline_trick = true;
-        restore_modified = not text_buffer->get_modified();
-        text_buffer->insert(buff_start_iter, CtConst::CHAR_NEWLINE);
-    }
-    else {
-        _s_state.newline_trick = false;
-        restore_modified = false;
-    }
     Gtk::TextIter start_iter;
     if ((first_fromsel and first_node) or (all_matches and not _s_state.all_matches_first_in_node)) {
         gint64 node_id = tree_iter.get_node_id();
@@ -510,13 +499,6 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
 
     bool pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
 
-    if (_s_state.newline_trick) {
-        buff_start_iter = text_buffer->begin();
-        Gtk::TextIter buff_step_iter = buff_start_iter;
-        (void)buff_step_iter.forward_char();
-        text_buffer->erase(buff_start_iter, buff_step_iter);
-        if (restore_modified) text_buffer->set_modified(false);
-    }
     if (_s_state.replace_active and pattern_found)
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, false/*new_machine_state*/, &tree_iter);
     return pattern_found;
@@ -530,9 +512,8 @@ Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> tex
 {
     Gtk::TextIter min_iter, max_iter;
     if (all_matches and _s_state.latest_match_offsets.first >= 0 and _s_state.latest_match_offsets.second >= 0) {
-        const int newline_trick_offset = _s_state.newline_trick ? 1 : 0;
-        min_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset);
-        max_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second + newline_trick_offset);
+        min_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
+        max_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
     }
     else if (text_buffer->get_has_selection()) {
         text_buffer->get_selection_bounds(min_iter, max_iter);
@@ -605,7 +586,6 @@ Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
     }
 }
 
-// """Returns (start_iter, end_iter) or (None, None)"""
 bool CtActions::_find_pattern(CtTreeIter tree_iter,
                               Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                               Glib::RefPtr<Glib::Regex> re_pattern,
@@ -666,9 +646,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
     }
 
-    const int newline_trick_offset = _s_state.newline_trick ? 1 : 0;
-    _s_state.latest_match_offsets.first = match_offsets.first + num_objs - newline_trick_offset;
-    _s_state.latest_match_offsets.second = match_offsets.second + num_objs - newline_trick_offset;
+    _s_state.latest_match_offsets.first = match_offsets.first + num_objs;
+    _s_state.latest_match_offsets.second = match_offsets.second + num_objs;
     CtMatchRowData* pCtMatchRowData{nullptr};
     if (all_matches) {
         const gint64 node_id = tree_iter.get_node_id();
@@ -677,7 +656,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         const Glib::ustring line_content = obj_match_offsets.first != -1 ?
             obj_content : _get_line_content(text_buffer, _s_state.latest_match_offsets.second);
         int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
-        if (not _s_state.newline_trick) { line_num += 1; }
+        line_num += 1;
         const Glib::ustring text_tags = tree_iter.get_node_tags();
         pCtMatchRowData = _s_state.match_store->add_row(node_id,
                                                         text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
@@ -692,8 +671,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     }
     if (_s_state.replace_active) {
         if (tree_iter.get_node_read_only()) return false;
-        Gtk::TextIter sel_start = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset);
-        Gtk::TextIter sel_end = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second + newline_trick_offset);
+        Gtk::TextIter sel_start = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
+        Gtk::TextIter sel_end = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
 
         Glib::ustring origin_text = sel_start.get_text(sel_end);
         Glib::ustring replacer_text = _s_options.str_replace; /* should be Glib::ustring to count symbols */
@@ -703,15 +682,15 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
         }
         text_buffer->erase(sel_start, sel_end);
-        text_buffer->insert(text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first + newline_trick_offset), replacer_text);
+        text_buffer->insert(text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first), replacer_text);
         _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + replacer_text.size();
         _s_state.replace_subsequent = true;
         if (all_matches) {
             pCtMatchRowData->end_offset = _s_state.latest_match_offsets.second;
         }
         else {
-            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first + newline_trick_offset,
-                                                       static_cast<int>(replacer_text.size()));
+            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
+                                                                         static_cast<int>(replacer_text.size()));
         }
         _pCtMainWin->get_state_machine().update_state(tree_iter);
         tree_iter.pending_edit_db_node_buff();

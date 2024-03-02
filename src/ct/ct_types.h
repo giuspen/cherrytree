@@ -442,7 +442,6 @@ struct CtSearchState {
     std::string    curr_find_pattern;
     bool           from_find_iterated{false};
     bool           from_find_back{false};
-    bool           newline_trick{false};
 
     bool           first_useful_node{false};
     int            counted_nodes{0};
