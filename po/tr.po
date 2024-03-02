@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 14:35+0100\n"
-"PO-Revision-Date: 2023-07-15 18:42+0300\n"
+"POT-Creation-Date: 2024-02-27 22:06+0000\n"
+"PO-Revision-Date: 2024-03-01 23:05+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -16,102 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Uyarı: Girilen Sayfada Bir Ya da Daha Fazla Resim Değiştirildi!"
-
-msgid "To WebSite"
-msgstr "Web Adresine"
-
-msgid "To File"
-msgstr "Dosyaya"
-
-msgid "To Folder"
-msgstr "Klasöre"
-
-msgid "To Node"
-msgstr "Nota"
-
-msgid "Anchor Name (optional)"
-msgstr "Çapa İsmine (İsteğe Bağlı)"
-
-msgid "No Node is Selected"
-msgstr "Seçili Not Yok"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Seçili Not İçinde Hiç Çapa Yok."
-
-msgid "Choose Existing Anchor"
-msgstr "Oluşturulmuş Çapa Seç"
-
-msgid "Anchor Name"
-msgstr "Çapa İsmi"
+"X-Generator: Poedit 3.4.2\n"
 
 #, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Şablon '%s' bulunamadı"
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "'%s' notunun içeriği alınamadı"
 
 msgid "Index"
 msgstr "İçindekiler"
 
-msgid "Print CherryTree version"
-msgstr "CherryTreeyi Sürümünü Yazdır"
+msgid "Add"
+msgstr "Ekle"
 
-msgid "Node name to focus"
-msgstr "Odaklanacak Not Adı"
+msgid "Remove Selected"
+msgstr "Seçili Olanı Sil"
 
-msgid "Anchor name to scroll to in node"
-msgstr "Notta kaydırılacak bağlantı adı"
+msgid "Reset to Default"
+msgstr "Varsayılana Sıfırla"
 
-msgid "Export to HTML at specified directory path"
-msgstr "Belirtilen dizin yolunda HTML ye aktar"
+msgid "Split Toolbar"
+msgstr "Araç Çubuğunu Böl"
 
-msgid "Export to Text at specified directory path"
-msgstr "Belirtilen Dizin Yolunda Metne Aktar"
+msgid "Open a CherryTree File"
+msgstr "Bir CherryTree Dosyası Aç"
 
-msgid "Export to PDF at specified directory path"
-msgstr "Belirtilen dizin yolunda PDF ye aktar"
-
-msgid "Overwrite if export path already exists"
-msgstr "Dışa aktarma yolu zaten mevcutsa üzerine yaz"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Tek dosya olarak dışa aktar (HTML veya TXT)"
-
-msgid "Password to open document"
-msgstr "Dökümanı açmak için şifre"
-
-msgid "Create a new window"
-msgstr "Yeni bir pencere oluştur"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Ana oturumdan bağımsız olarak ikincil oturumda çalıştır"
-
-msgid "CherryTree File"
-msgstr "CherryTree Dosyası"
-
-msgid "Preferences File"
-msgstr "Seçenekler Dosyası"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr ""
-"Yapılan Değişiklikler CherryTree Yeniden Başlatıldığında Etkili Olacak."
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree Hiyerarşik Notları Tutar"
-
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTree Yazılımını Göster/Gizle"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "CherryTree Yazılımını Göster/Gizle"
-
-msgid "_Exit CherryTree"
-msgstr "CherryTreeyi Kapat"
-
-msgid "Exit from CherryTree"
-msgstr "CherryTreeden Çıkış"
+msgid "Select Element to Add"
+msgstr "Eklemek İçin Nesne Seçin"
 
 msgid "_File"
 msgstr "_Dosya"
@@ -212,9 +142,6 @@ msgstr "CherryTreeyi Yeni Bir Veri Tabanıyla Başlat"
 msgid "_Open File..."
 msgstr "_Dosya Aç..."
 
-msgid "Open a CherryTree File"
-msgstr "Bir CherryTree Dosyası Aç"
-
 msgid "Open Fo_lder..."
 msgstr "_Klasör Aç..."
 
@@ -280,6 +207,9 @@ msgstr "Uygula_madan Çıkış"
 
 msgid "E_xit CherryTree"
 msgstr "CherryTreeyi Kapat"
+
+msgid "Exit from CherryTree"
+msgstr "CherryTreeden Çıkış"
 
 msgid "Edit/Insert"
 msgstr "Ekle/Düzenle"
@@ -581,6 +511,12 @@ msgstr "Kod Kutusunu Kopyala"
 msgid "Copy the Selected CodeBox"
 msgstr "Seçili Kod Kutusunu Kopyala"
 
+msgid "_Copy CodeBox Content"
+msgstr "Kod Kutusunun İçeriğini Kopyala"
+
+msgid "Copy the Content of the Selected CodeBox"
+msgstr "Seçili Kod Kutusunun İçeriğini Kopyala"
+
 msgid "_Delete CodeBox"
 msgstr "Kod Kutusunu Sil"
 
@@ -865,6 +801,12 @@ msgstr "Notu ve Alt Notların Kopyasını Oluştur"
 
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr "Seçili Notun Alt Notlarıyla Kopyasını Oluştur"
+
+msgid "_Create Shared Node"
+msgstr "Paylaşılan Not Oluştur"
+
+msgid "Create a New Node Sharing the Same Data of the Selected Node"
+msgstr "Seçilen Not İle Aynı Verileri Paylaşan Yeni Bir Not Oluştur"
 
 msgid "Copy Node and S_ubnodes"
 msgstr "Notu ve Alt Notları Kopyala"
@@ -1474,6 +1416,12 @@ msgstr "Linki Çıkar"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Resimle Bağlantılı Linki Çıkar"
 
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTree Yazılımını Göster/Gizle"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTree Yazılımını Göster/Gizle"
+
 msgid "Edit the Underlying Link"
 msgstr "Altı Çizili Linki Düzenle"
 
@@ -1507,83 +1455,309 @@ msgstr "Yapıştır"
 msgid "Reset"
 msgstr "Sıfırla"
 
-msgid "Enable System Tray Docking"
-msgstr "Sistem Çekmecesi Bağlantısını Etkinleştir"
+msgid "Rename"
+msgstr "Yeniden Adlandır"
 
-msgid "Start Minimized in the System Tray"
-msgstr "Başlangıçta Sistem Çekmecesinde Başlat"
+msgid "PNG Image"
+msgstr "PNG Resmi"
 
-msgid "System Tray"
-msgstr "Sistem Çekmecesi"
+#, c-format
+msgid "Write to %s Failed"
+msgstr "%s Kısmına Yazma Hatası"
 
-msgid "Autosave Every"
-msgstr "Sürekli Otomatik Kayıt"
+msgid "Insert/Edit Link"
+msgstr "Link Ekle/Düzenle"
 
-msgid "Minutes"
-msgstr "Dakika"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "'%s' Geçerli Bir Klasör Linki Değil."
 
-msgid "Autosave on Quit"
-msgstr "Çıkışta Otomatik Kaydet"
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "'%s' Geçerli Bir Dosya Linki Değil."
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Kaydetmeden Önce Yedek Kopyası Oluştur"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "'%s' Geçerli Bir Klasör Linki Değil"
 
-msgid "Number of Backups to Keep"
-msgstr "Saklamak İçin Yedekleri Numaralandır"
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Link Verilen Not Yok (Id = %s)"
 
-msgid "Custom Backup Directory"
-msgstr "Özel Yedek Klasörü"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "'%s' isminde çapa bulunamadı"
 
-msgid "Saving"
-msgstr "Kaydediliyor"
+msgid "Edit CodeBox"
+msgstr "Kod Kutusunu Düzenle"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Yeni Sürümü Otomatik Kontrol Et"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"'%s' için bir komut belirlemesiniz.\n"
+"Seçenekler ekranına gidin."
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Kelime Sayısını Durum Çubuğunda Göster"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"'xterm' paketini yükleyin ve seçenekler ekranında farklı bir terminal "
+"ayarlayın."
 
-msgid "Reload Document From Last Session"
-msgstr "Son Oturumu Yeniden Yükle"
+msgid "Edit Table Properties"
+msgstr "Tablo Özelliklerini Düzenle"
 
-msgid "Reload After External Update to CT* File"
-msgstr "CT* Dosyasını Güncelledikten Sonra Tekrar Yükle"
+msgid "CSV File"
+msgstr "CSV Dosyası"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Belge Dizinini Pencere Başlığında Göster"
+msgid "Insert Anchor"
+msgstr "Çapa Ekle"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Not Başlığında Tüm Dosya Yolunu Göster/Gizle"
+msgid "Edit Anchor"
+msgstr "Çapa Düzenle"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Menü Çubuğunda Özel Yer İşaretleri Menüsü"
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Yalnız Okunabilir Özelliğinde Olan Nottaki Gömülü Dosya Düzenlenemez."
 
-msgid "Enable Debug Log"
-msgstr "Hata Ayıklama Kaydını Aktif Et"
+msgid "Embedded File Automatically Updated:"
+msgstr "Gömülü Dosya Otomatik Güncellendi:"
 
-msgid "Debug Log Directory"
-msgstr "Hata Kaydı Klasörü"
+msgid "Change Selected"
+msgstr "Seçili Olanı Değiştir"
 
-msgid "Miscellaneous"
-msgstr "Çeşitli"
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "'%s' Klavye Kısayolu Zaten Kullanımda."
 
-msgid "System Default"
-msgstr "Sistem Varsayılanı"
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Aktif '%s' ilişkilendirildi"
 
-msgid "Language"
-msgstr "Dil"
+msgid "Do you want to steal the shortcut?"
+msgstr "Kısayolu değiştirmek (çalmak:) ) istediğinizden emin misiniz?"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Panelde Sistem Tepsisi göründü mü?"
+msgid "Edit Keyboard Shortcut"
+msgstr "Klavye Kısayollarını Düzenle"
 
-msgid "Your system does not support the System Tray"
-msgstr "Sisteminiz Sistem Tepsisini desteklemiyor"
+msgid "No Keyboard Shortcut"
+msgstr "Klavye Kısayolu Yok"
+
+msgid "Writing to Disk..."
+msgstr "Diske Yazılıyor..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "%s Klasörüne/Sürücüsüne Yazma İzniniz Yok"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "%s İçin Parolayı Girin"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Kaydedilen belgenin bütünlük denetimi başarısız oldu. Dosya-->Farklı Kaydet "
+"Deneyin"
+
+msgid "Failed to encrypt the file"
+msgstr "Dosya şifrelenemedi"
+
+msgid "Search for"
+msgstr "Bunu Ara"
+
+msgid "Replace with"
+msgstr "Bununla Değiştir"
+
+msgid "Match Case"
+msgstr "Birebir Eşleştir"
+
+msgid "Regular Expression"
+msgstr "Düzenli İfade"
+
+msgid "Online Manual"
+msgstr "İnternet Yardım Dosyası"
+
+msgid "Accent Insensitive"
+msgstr "Aksan Duyarsız"
+
+msgid "Override Exclusions"
+msgstr "İstisnaları Geçersiz Kıl"
+
+msgid "Whole Word"
+msgstr "Tam Kelime"
+
+msgid "Start Word"
+msgstr "Kelime Başlangıcı"
+
+msgid "Forward"
+msgstr "İleri"
+
+msgid "Backward"
+msgstr "Geri"
+
+msgid "All, List Matches"
+msgstr "Tümü, Sonuçları Listele"
+
+msgid "First From Selection"
+msgstr "Seçimden İlki"
+
+msgid "First in All Range"
+msgstr "Tüm Aralıkta İlki"
+
+msgid "Node Created After"
+msgstr "Bu tarihten sonra oluşturulan not"
+
+msgid "Node Created Before"
+msgstr "Bu tarihten önce oluşturulan not"
+
+msgid "Node Modified After"
+msgstr "Bu tarihten sonra düzenlenen not"
+
+msgid "Node Modified Before"
+msgstr "Bu tarihten önce düzenlenen not"
+
+msgid "Time filter"
+msgstr "Zaman filtresi"
+
+msgid "Node Content"
+msgstr "Not İçeriği"
+
+msgid "Node Name and Tags"
+msgstr "Not İsmi ve Etiketleri"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Sadece Seçili Not ve Alt Notlar"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Yinelenenleri Bul/Değiştir Penceresini Göster"
+
+msgid "Search options"
+msgstr "Arama Ayarları"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Not özelliklerinde ayarlanan dışlamalar nedeniyle en az bir not atlandı.\n"
+"Tüm hariç tutmaları temizlemek için menüyü kullanın:\n"
+"Ara -> Arama Dışındaki Dışlamaları Temizle"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Gizle (Geri Yüklemek İçin %s Kısayolunu Kullanın)"
+
+msgid "Node Name"
+msgstr "Not İsmi"
+
+msgid "Line"
+msgstr "Çizgi"
+
+msgid "Line Content"
+msgstr "Çizgi İçeriği"
+
+msgid "Matches"
+msgstr "Eşleştirmeler"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Son Aramayı/Değiştirmeyi Yinele"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Find Previous"
+msgstr "Öncekini Bul"
+
+msgid "Find Next"
+msgstr "Sonrakini Bul"
+
+msgid "Replace"
+msgstr "Değiştir"
+
+msgid "Undo"
+msgstr "Geri Al"
 
 msgid "Downloading"
 msgstr "İndiriliyor"
 
 msgid "Remove from list"
 msgstr "Listeden Sil"
+
+msgid "The new parent can't be one of his children!"
+msgstr ""
+"Bir not, kendisine bağlı bir alt notun alt notu olamaz. (Biliyorum biraz "
+"karışık:))"
+
+msgid "Light Background, Dark Text"
+msgstr "Açık Renk Arkaplan, Koyu Renk Metin"
+
+msgid "Dark Background, Light Text"
+msgstr "Koyu Renk Arkaplan, Açık Renk Metin"
+
+msgid "Custom Background"
+msgstr "Özel Arkaplan"
+
+msgid "Text"
+msgstr "Metin"
+
+msgid "Selection Background"
+msgstr "Seçili Zemin Rengi"
+
+msgid "Tree Explorer"
+msgstr "Ağaç Gezgini"
+
+msgid "Rich Text"
+msgstr "Zengin Metin"
+
+msgid "Plain Text"
+msgstr "Düz Metin"
+
+msgid "Table"
+msgstr "Tablo"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Style Schemes"
+msgstr "Şema Tarzı"
+
+msgid "Text Foreground"
+msgstr "Yazı Rengi"
+
+msgid "Text Background"
+msgstr "Zemin Rengi"
+
+msgid "Selection Foreground"
+msgstr "Seçili Yazı Rengi"
+
+msgid "Cursor"
+msgstr "İmleç"
+
+msgid "Current Line Background"
+msgstr "Aktif Çizgi Zemin Rengi"
+
+msgid "Line Numbers Foreground"
+msgstr "Satır Çizgi Numaraları Yazı Rengi"
+
+msgid "Line Numbers Background"
+msgstr "Satır Çizgi Numaraları Zemin Rengi"
+
+msgid "Style Scheme Editor"
+msgstr "Şema Tarzı Düzenleyici"
+
+msgid "Set Dark Theme Icons"
+msgstr "Koyu Tema Simgelerini Ayarla"
+
+msgid "Set Light Theme Icons"
+msgstr "Açık Tema Simgelerini Ayarla"
+
+msgid "Set Default Icons"
+msgstr "Varsayılan Simgeleri Ayarla"
+
+msgid "Icon Theme"
+msgstr "Simge Teması"
 
 msgid "Move the Selected Bookmark Up"
 msgstr "Seçili Yer İmini Üste Taşı"
@@ -1621,6 +1795,12 @@ msgstr ""
 
 msgid "Enter the New Password Twice"
 msgstr "Yeni Parolayı İki Defa Yazın"
+
+msgid "Autosave Every"
+msgstr "Sürekli Otomatik Kayıt"
+
+msgid "Minutes"
+msgstr "Dakika"
 
 msgid "The Password Fields Must be Filled."
 msgstr "Parola Alanları Doldurulmalı."
@@ -1805,434 +1985,123 @@ msgstr "Kod Kutularının Sayısı"
 msgid "Number of Anchors"
 msgstr "Çapaların Sayısı"
 
-msgid "Light Background, Dark Text"
-msgstr "Açık Renk Arkaplan, Koyu Renk Metin"
+msgid "Number of Shared Nodes / Groups"
+msgstr "Paylaşılan Notların / Grupların Sayısı"
 
-msgid "Dark Background, Light Text"
-msgstr "Koyu Renk Arkaplan, Açık Renk Metin"
+msgid "Latex Text"
+msgstr "Latex Metni"
 
-msgid "Custom Background"
-msgstr "Özel Arkaplan"
+msgid "Image Size dpi"
+msgstr "Resim dpi Boyutu"
 
-msgid "Text"
-msgstr "Metin"
+msgid "Tutorial"
+msgstr "Öğretici"
 
-msgid "Selection Background"
-msgstr "Seçili Zemin Rengi"
+msgid "Reference"
+msgstr "Referans"
 
-msgid "Tree Explorer"
-msgstr "Ağaç Gezgini"
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX Matematik ve Denklem Öğreticisi"
 
-msgid "Rich Text"
-msgstr "Zengin Metin"
+msgid "LaTeX Math Symbols Reference"
+msgstr "Latex Matematik Referansı"
 
-msgid "Plain Text"
-msgstr "Düz Metin"
+msgid "Image Properties"
+msgstr "Resim Özellikleri"
 
-msgid "Table"
-msgstr "Tablo"
+msgid "Width"
+msgstr "Genişlik"
 
-msgid "Code"
-msgstr "Kod"
+msgid "Height"
+msgstr "Yükseklik"
 
-msgid "Style Schemes"
-msgstr "Şema Tarzı"
+msgid "Automatic Syntax Highlighting"
+msgstr "Otomatik sözdizimi vurgulama"
 
-msgid "Text Foreground"
-msgstr "Yazı Rengi"
+msgid "Type"
+msgstr "Tür"
 
-msgid "Text Background"
-msgstr "Zemin Rengi"
+msgid "pixels"
+msgstr "piksel"
 
-msgid "Selection Foreground"
-msgstr "Seçili Yazı Rengi"
-
-msgid "Cursor"
-msgstr "İmleç"
-
-msgid "Current Line Background"
-msgstr "Aktif Çizgi Zemin Rengi"
-
-msgid "Line Numbers Foreground"
-msgstr "Satır Çizgi Numaraları Yazı Rengi"
-
-msgid "Line Numbers Background"
-msgstr "Satır Çizgi Numaraları Zemin Rengi"
-
-msgid "Reset to Default"
-msgstr "Varsayılana Sıfırla"
-
-msgid "Style Scheme Editor"
-msgstr "Şema Tarzı Düzenleyici"
-
-msgid "Set Dark Theme Icons"
-msgstr "Koyu Tema Simgelerini Ayarla"
-
-msgid "Set Light Theme Icons"
-msgstr "Açık Tema Simgelerini Ayarla"
-
-msgid "Set Default Icons"
-msgstr "Varsayılan Simgeleri Ayarla"
-
-msgid "Icon Theme"
-msgstr "Simge Teması"
-
-msgid "Add"
-msgstr "Ekle"
-
-msgid "Remove Selected"
-msgstr "Seçili Olanı Sil"
-
-msgid "Split Toolbar"
-msgstr "Araç Çubuğunu Böl"
-
-msgid "Select Element to Add"
-msgstr "Eklemek İçin Nesne Seçin"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Bu Oturumda Gerçekleştirilen Önceki Metin Formatı Yok."
-
-msgid "No Text is Selected."
-msgstr "Seçili Metin Yok."
-
-msgid "Link Name"
-msgstr "Link İsmi"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "İmleç Bir Paragraf İçinde Değil."
-
-msgid "Insert/Edit Link"
-msgstr "Link Ekle/Düzenle"
-
-msgid "Pick a Foreground Color"
-msgstr "Yazı Rengini Seçin"
-
-msgid "Pick a Background Color"
-msgstr "Arkaplan Rengini Seçin"
-
-msgid "Replace in Current Node"
-msgstr "Aktif Notu Değiştir"
-
-msgid "Search in Current Node"
-msgstr "Aktif Not İçinde Ara"
-
-msgid "Matches"
-msgstr "Eşleştirmeler"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Şablon '%s' bulunamadı</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Çoklu Notlarda Değiştir..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Çoklu Notlarda Bul..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Bu Oturumda Gerçekleştirilen Önceki Bir Arama Yok."
-
-msgid "Tags"
-msgstr "Etiketler"
-
-msgid ": "
-msgstr ": "
-
-msgid "The new parent can't be one of his children!"
-msgstr ""
-"Bir not, kendisine bağlı bir alt notun alt notu olamaz. (Biliyorum biraz "
-"karışık:))"
-
-msgid "Tab Width"
-msgstr "Tab Genişliği"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Sekmelerin Yerine Boşluk Ekle"
-
-msgid "Use Line Wrapping"
-msgstr "Satır Girintisi Kullan"
-
-msgid "Line Wrapping Indentation"
-msgstr "Satır Girintisi"
-
-msgid "Enable Automatic Indentation"
-msgstr "Otomatik Girintiyi Aktif Et"
+msgid "Size"
+msgstr "Ebat"
 
 msgid "Show Line Numbers"
 msgstr "Satır Numaralarını Göster"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Son Satırın Ötesine Kaydır"
+msgid "Highlight Matching Brackets"
+msgstr "Köşeli Ayraçların Eşleştirmesini Vurgula"
 
-msgid "Cursor Blinking"
-msgstr "İmleç Yanıp Sönüyor"
+msgid "Options"
+msgstr "Seçenekler"
 
-msgid "On"
-msgstr "Açık"
+msgid "Rows"
+msgstr "Satırlar"
 
-msgid "Off"
-msgstr "Kapalı"
+msgid "Columns"
+msgstr "Kolonlar"
 
-msgid "Vertical Space Around Lines"
-msgstr "Çizgiler Etrafında Düşey Boşluk"
+msgid "Default Width"
+msgstr "Varsayılan Genişlik"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Girintili Satırlarda Düşey Boşluk"
+msgid "Table Size"
+msgstr "Tablo Boyutu"
+
+msgid "Column Properties"
+msgstr "Kolon Özellikleri"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Hafif Arayüz (büyük tablolar için çok daha hızlı)"
+
+msgid "Import from CSV File"
+msgstr "CSV Dosyasından İçe Aktar"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "'lateks' ve 'dvipng' yürütülebilir dosyalarına erişilemedi"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Örneğin, Ubuntu'da kurulacak paketler şunlardır:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Örneğin, MacOS'ta kurulacak paketler şunlardır:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "'lateks' yürütülebilir dosyalarına erişilemedi"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "'dvipng' yürütülebilir dosyalarına erişilemedi"
+
+msgid "Show White Spaces"
+msgstr "Beyaz Boşlukları Göster"
+
+msgid "Highlight Current Line"
+msgstr "Aktif Satırı Vurgula"
 
 msgid "Text Editor"
 msgstr "Metin Düzenleyici"
 
-msgid "Timestamp Format"
-msgstr "Zaman Bilgisi Biçimi"
+msgid "Internal Terminal Shell"
+msgstr "Dahili Konsol Kabuğu"
 
-msgid "Online Manual"
-msgstr "İnternet Yardım Dosyası"
+msgid "Command per Node/CodeBox Type"
+msgstr "Herbir Not/Kod Kutusuna Komut"
 
-msgid "Horizontal Rule"
-msgstr "Yatay Kural"
+msgid "Terminal Command"
+msgstr "Terminal Komutu"
 
-msgid "Chars to Select at Double Click"
-msgstr "Karakteri Çift Tıklayarak Seç"
+msgid "Code Execution"
+msgstr "Kod Yürütme"
 
-msgid "PDF File"
-msgstr "PDF Dosyası"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Araç Çubuğu Simge Boyutu Zaten En Büyük Değerinde Seçili Durumda."
 
-msgid "Plain Text Document"
-msgstr "Düz Metin Belgesi"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Araç Çubuğu Simge Boyutu Zaten En Küçük Değerinde Seçili Durumda."
 
-msgid "Show Menubar:"
-msgstr "Menü Çubuğunu Göster:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "%s Klasör Yolu Mevcut Değil"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" bir CherryTree Dosyası Değil"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
+msgid "This Change will have Effect Only After Restarting CherryTree."
 msgstr ""
-"CherryTree Dosyasını Ayrıştırırken Hata:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "'%s' isminde not bulunamadı."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Geçici Dosyalar Dış Uygulamalarla Oluşturuldu ve Açıldı."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "CherryTree Uygulamasından Çıkmadan Önce Dış Uygulamaları Kapatın."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Dış Uygulamalardan Çıkmak İstediğinizden Emin misiniz?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Belge CT* Dosyasını Güncelledikten Sonra Tekrar Yüklendi."
-
-msgid "_Hide"
-msgstr "Gizle"
-
-msgid "Hide the Window"
-msgstr "Pencereyi Gizle"
-
-msgid "Node Type"
-msgstr "Not Tipi"
-
-msgid "Spell Check"
-msgstr "Yazım Denetimi"
-
-msgid "Word Count"
-msgstr "Kelime Sayısı"
-
-msgid "Date Created"
-msgstr "Oluşturulma Tarihi"
-
-msgid "Date Modified"
-msgstr "Düzenlenme Tarihi"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Bu Oturumda Önceki Notu Kopyalama İşlemi Gerçekleştirilemedi veya Kaynak Not "
-"Artık Kullanılmıyor."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Kaynak Not Artık Kullanılmıyor."
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"'%s' klasörü '%s' klasörünün içinde zaten mevcut.\n"
-"<b>Silmek ister misiniz?</b>"
-
-msgid "Checking for Newer Version..."
-msgstr "Yeni Sürüm Kontrol Ediliyor..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"Versiyon Bilgisine Bakılırken Bir Hata Oluştu - Daha Sonra Tekrar deneyin."
-
-msgid "A Newer Version Is Available!"
-msgstr "Yeni Bir Sürüm Bulundu!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Zaten En Son Sürümü Kullanıyorsunuz."
-
-msgid "You Are Using a Development Version."
-msgstr "Geliştirme Sürümünü Kullanıyorsunuz."
-
-msgid "Search for"
-msgstr "Bunu Ara"
-
-msgid "Replace with"
-msgstr "Bununla Değiştir"
-
-msgid "Match Case"
-msgstr "Birebir Eşleştir"
-
-msgid "Regular Expression"
-msgstr "Düzenli İfade"
-
-msgid "Accent Insensitive"
-msgstr "Aksan Duyarsız"
-
-msgid "Override Exclusions"
-msgstr "İstisnaları Geçersiz Kıl"
-
-msgid "Whole Word"
-msgstr "Tam Kelime"
-
-msgid "Start Word"
-msgstr "Kelime Başlangıcı"
-
-msgid "Forward"
-msgstr "İleri"
-
-msgid "Backward"
-msgstr "Geri"
-
-msgid "All, List Matches"
-msgstr "Tümü, Sonuçları Listele"
-
-msgid "First From Selection"
-msgstr "Seçimden İlki"
-
-msgid "First in All Range"
-msgstr "Tüm Aralıkta İlki"
-
-msgid "Node Created After"
-msgstr "Bu tarihten sonra oluşturulan not"
-
-msgid "Node Created Before"
-msgstr "Bu tarihten önce oluşturulan not"
-
-msgid "Node Modified After"
-msgstr "Bu tarihten sonra düzenlenen not"
-
-msgid "Node Modified Before"
-msgstr "Bu tarihten önce düzenlenen not"
-
-msgid "Time filter"
-msgstr "Zaman filtresi"
-
-msgid "Node Content"
-msgstr "Not İçeriği"
-
-msgid "Node Name and Tags"
-msgstr "Not İsmi ve Etiketleri"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Sadece Seçili Not ve Alt Notlar"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Yinelenenleri Bul/Değiştir Penceresini Göster"
-
-msgid "Search options"
-msgstr "Arama Ayarları"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Not özelliklerinde ayarlanan dışlamalar nedeniyle en az bir not atlandı.\n"
-"Tüm hariç tutmaları temizlemek için menüyü kullanın:\n"
-"Ara -> Arama Dışındaki Dışlamaları Temizle"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Gizle (Geri Yüklemek İçin %s Kısayolunu Kullanın)"
-
-msgid "Node Name"
-msgstr "Not İsmi"
-
-msgid "Line"
-msgstr "Çizgi"
-
-msgid "Line Content"
-msgstr "Çizgi İçeriği"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Link Verilen Not Yok (Id = %s)"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Son Aramayı/Değiştirmeyi Yinele"
-
-msgid "Close"
-msgstr "Kapat"
-
-msgid "Find Previous"
-msgstr "Öncekini Bul"
-
-msgid "Find Next"
-msgstr "Sonrakini Bul"
-
-msgid "Replace"
-msgstr "Değiştir"
-
-msgid "Undo"
-msgstr "Geri Al"
-
-msgid "Special Characters"
-msgstr "Özel Karakterler"
-
-msgid "Chars for Bulleted List"
-msgstr "Madde İşaretli Liste Karakterleri"
-
-msgid "Chars for Todo List"
-msgstr "Yapılacaklar Listesi İçin Karakterler"
-
-msgid "Chars for Table Of Content"
-msgstr "İçindekiler İçin Karakterler"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Akıllı Çift Tırnaklar İçin Karakterler"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Akıllı Tek Tırnaklar İçin Karakterler"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Akıllı Tırnakların Otomatik Değişimini Etkinleştir"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Sembollerin Otomatik Değişimini Etkinleştir"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Otomatik Değişimi Desteklenen Semboller"
-
-msgid "Only at the Start of the Line"
-msgstr "Sadece Satırın Başlangıcında"
+"Yapılan Değişiklikler CherryTree Yeniden Başlatıldığında Etkili Olacak."
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
@@ -2263,6 +2132,91 @@ msgstr ""
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
 "%s yazma hatası - dosya bir senkronizasyon programı tarafından engellendi mi?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
+msgstr ""
+"%s tekrar açılamadı. Dosya bulunamıyor. USB sürücüsünü veya dosya kaynağını "
+"yeniden bağlayın!"
+
+msgid "Tab Width"
+msgstr "Tab Genişliği"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Sekmelerin Yerine Boşluk Ekle"
+
+msgid "Use Line Wrapping"
+msgstr "Satır Girintisi Kullan"
+
+msgid "Line Wrapping Indentation"
+msgstr "Satır Girintisi"
+
+msgid "Enable Automatic Indentation"
+msgstr "Otomatik Girintiyi Aktif Et"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Son Satırın Ötesine Kaydır"
+
+msgid "Cursor Blinking"
+msgstr "İmleç Yanıp Sönüyor"
+
+msgid "System Default"
+msgstr "Sistem Varsayılanı"
+
+msgid "On"
+msgstr "Açık"
+
+msgid "Off"
+msgstr "Kapalı"
+
+msgid "Text Margin: Left"
+msgstr "Metin Kenar Boşluğu: Sol"
+
+msgid "Right"
+msgstr "Sağ"
+
+msgid "Vertical Space Around Lines"
+msgstr "Çizgiler Etrafında Düşey Boşluk"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Girintili Satırlarda Düşey Boşluk"
+
+msgid "Timestamp Format"
+msgstr "Zaman Bilgisi Biçimi"
+
+msgid "Horizontal Rule"
+msgstr "Yatay Kural"
+
+msgid "Chars to Select at Double Click"
+msgstr "Karakteri Çift Tıklayarak Seç"
+
+msgid "Miscellaneous"
+msgstr "Çeşitli"
+
+msgid "Remove Color"
+msgstr "Rengi Sil"
+
+msgid "Question"
+msgstr "Soru"
+
+msgid "Info"
+msgstr "Bilgi"
+
+msgid "Error"
+msgstr "Hata"
+
+msgid "Select File"
+msgstr "Dosya Seç"
+
+msgid "Select Folder"
+msgstr "Klasör Seç"
+
+msgid "Save File as"
+msgstr "Farklı Kaydet"
+
+msgid "Save To Folder"
+msgstr "Klasöre Kaydet"
 
 msgid "Use Different Cherries per Level"
 msgstr "Herbir Bölümde Farklı Çilek Simgeleri Kullan"
@@ -2312,26 +2266,380 @@ msgstr "Not Adı Başlağında Son Ziyaret Edilen Notlar"
 msgid "Select Node Icon"
 msgstr "Not Simgesini Seç"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Araç Çubuğu Simge Boyutu Zaten En Büyük Değerinde Seçili Durumda."
+msgid "No Node is Selected"
+msgstr "Seçili Not Yok"
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Araç Çubuğu Simge Boyutu Zaten En Küçük Değerinde Seçili Durumda."
+msgid "The Tree is Empty!"
+msgstr "Ağaç boş!"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "'lateks' ve 'dvipng' yürütülebilir dosyalarına erişilemedi"
+msgid "The Selected Node is Read Only."
+msgstr "Seçili Not, Yalnız Okunabilir ve Düzenlenemez."
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Örneğin, Ubuntu'da kurulacak paketler şunlardır:"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Bu Özellik Sadece Zengin Metin Biçimindeki Notlarda Kullanılabilir."
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Örneğin, MacOS'ta kurulacak paketler şunlardır:"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Bu Özellik Otomatik Söz Dizimi Kurallı Notlarda Kullanılamaz."
 
-msgid "Could not access the executable 'latex'"
-msgstr "'lateks' yürütülebilir dosyalarına erişilemedi"
+msgid "No Text is Selected."
+msgstr "Seçili Metin Yok."
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "'dvipng' yürütülebilir dosyalarına erişilemedi"
+msgid "No Table is Selected."
+msgstr "Seçili Tablo Yok."
+
+msgid "No CodeBox is Selected."
+msgstr "Seçili Kod Kutusu Yok."
+
+msgid "New Child Node Properties"
+msgstr "Yeni Alt Not Özellikleri"
+
+msgid "New Node Properties"
+msgstr "Yeni Not Özellikleri"
+
+msgid "Node Properties"
+msgstr "Not Özellikleri"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Bu notun, zengin metin belgesi özelliğini değiştirirseniz, pek çok "
+"biçimlendirme özelliği kaybolacak. Yine de devam etmek ister misiniz?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "'%s' notunu <b>silmek istediğinizden emin misiniz?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Bu not, alt not(lar) içeriyor.<b>Tüm alt notlar da silinecek!</b>"
+
+msgid "Select the New Parent"
+msgstr "Yeni Üst Notu Seçin"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Yeni üst not, taşınan çok not olamaz!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Seçilen yeni üst not, zaten halihazırda üst not!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s Notun Özellikleri Değişti"
+
+msgid "To WebSite"
+msgstr "Web Adresine"
+
+msgid "To File"
+msgstr "Dosyaya"
+
+msgid "To Folder"
+msgstr "Klasöre"
+
+msgid "To Node"
+msgstr "Nota"
+
+msgid "Anchor Name (optional)"
+msgstr "Çapa İsmine (İsteğe Bağlı)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Seçili Not İçinde Hiç Çapa Yok."
+
+msgid "Choose Existing Anchor"
+msgstr "Oluşturulmuş Çapa Seç"
+
+msgid "Anchor Name"
+msgstr "Çapa İsmi"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Şablon '%s' bulunamadı"
+
+msgid "CherryTree File"
+msgstr "CherryTree Dosyası"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"'%s' klasörü '%s' klasörünün içinde zaten mevcut.\n"
+"<b>Silmek ister misiniz?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"'%s' dosyası '%s' klasörünün içinde zaten mevcut.\n"
+"<b>Silmek ister misiniz?</b>"
+
+msgid "Preferences File"
+msgstr "Seçenekler Dosyası"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Panelde Sistem Tepsisi göründü mü?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Sisteminiz Sistem Tepsisini desteklemiyor"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree Hiyerarşik Notları Tutar"
+
+msgid "_Exit CherryTree"
+msgstr "CherryTreeyi Kapat"
+
+msgid "Show Menubar:"
+msgstr "Menü Çubuğunu Göster:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "%s Klasör Yolu Mevcut Değil"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" bir CherryTree Dosyası Değil"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"CherryTree Dosyasını Ayrıştırırken Hata:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "'%s' isminde not bulunamadı."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Geçici Dosyalar Dış Uygulamalarla Oluşturuldu ve Açıldı."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "CherryTree Uygulamasından Çıkmadan Önce Dış Uygulamaları Kapatın."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Dış Uygulamalardan Çıkmak İstediğinizden Emin misiniz?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Belge CT* Dosyasını Güncelledikten Sonra Tekrar Yüklendi."
+
+msgid "Autosave on Quit"
+msgstr "Çıkışta Otomatik Kaydet"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Kaydetmeden Önce Yedek Kopyası Oluştur"
+
+msgid "Number of Backups to Keep"
+msgstr "Saklamak İçin Yedekleri Numaralandır"
+
+msgid "Custom Backup Directory"
+msgstr "Özel Yedek Klasörü"
+
+msgid "Saving"
+msgstr "Kaydediliyor"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Yeni Sürümü Otomatik Kontrol Et"
+
+msgid "Reload Document From Last Session"
+msgstr "Son Oturumu Yeniden Yükle"
+
+msgid "Reload After External Update to CT* File"
+msgstr "CT* Dosyasını Güncelledikten Sonra Tekrar Yükle"
+
+msgid "Enable Debug Log"
+msgstr "Hata Ayıklama Kaydını Aktif Et"
+
+msgid "Debug Log Directory"
+msgstr "Hata Kaydı Klasörü"
+
+msgid "Enable System Tray Docking"
+msgstr "Sistem Çekmecesi Bağlantısını Etkinleştir"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Başlangıçta Sistem Çekmecesinde Başlat"
+
+msgid "System Tray"
+msgstr "Sistem Çekmecesi"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "_Hide"
+msgstr "Gizle"
+
+msgid "Hide the Window"
+msgstr "Pencereyi Gizle"
+
+msgid "Node Type"
+msgstr "Not Tipi"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "Etiketler"
+
+msgid "Spell Check"
+msgstr "Yazım Denetimi"
+
+msgid "Word Count"
+msgstr "Kelime Sayısı"
+
+msgid "Date Created"
+msgstr "Oluşturulma Tarihi"
+
+msgid "Date Modified"
+msgstr "Düzenlenme Tarihi"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Bu Oturumda Önceki Notu Kopyalama İşlemi Gerçekleştirilemedi veya Kaynak Not "
+"Artık Kullanılmıyor."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Kaynak Not Artık Kullanılmıyor."
+
+msgid "English"
+msgstr "İngilizce"
+
+msgid "Text and Code"
+msgstr "Metin ve Kod"
+
+msgid "Plain Text and Code"
+msgstr "Düz Metin ve Kod"
+
+msgid "Special Characters"
+msgstr "Özel Karakterler"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Interface"
+msgstr "Arayüz"
+
+msgid "Links"
+msgstr "Linkler"
+
+msgid "Toolbar"
+msgstr "Araç Çubuğu"
+
+msgid "Keyboard Shortcuts"
+msgstr "Kısayollar"
+
+msgid "Monospace"
+msgstr "Tekli Boşluk"
+
+msgid "Code Font"
+msgstr "Kod Yazı Tipi"
+
+msgid "Terminal Font"
+msgstr "Terminal Yazı Tipi"
+
+msgid "Tree Font"
+msgstr "Ağaç Yazı Tipi"
+
+msgid "Fonts"
+msgstr "Yazı Tipleri"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Kelime Sayısını Durum Çubuğunda Göster"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Belge Dizinini Pencere Başlığında Göster"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Not Başlığında Tüm Dosya Yolunu Göster/Gizle"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Menü Çubuğunda Özel Yer İşaretleri Menüsü"
+
+msgid "Menubar in Titlebar"
+msgstr "Başlık Çubuğunda Menü Çubuğu"
+
+msgid "Toolbar Icons Size"
+msgstr "Araç Çubuğu Simge Boyutu"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Kaydırma Çubuğu Minimum Boyutu (0 = Sistem Varsayılanı)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Kaydırma Çubuğu Kaplamaları Metin Düzenleyicisi"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Fareyle Gezinirken Araç İpuçlarını Etkinleştir"
+
+msgid "Menus"
+msgstr "Menüler"
+
+msgid "Max Search Results per Page"
+msgstr "Sayfa Başına Maksimum Arama Sonucu"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Özel Web Linki Tıklanma Durumunu Aktif Et"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Özel Dosya Tıklanma Durumunu Aktif Et"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Özel Klasör Tıklanma Durumunu Aktif Et"
+
+msgid "Custom Actions"
+msgstr "Özel Hareketler"
+
+msgid "Colors"
+msgstr "Renkler"
+
+msgid "Underline Links"
+msgstr "Altı Çizili Linkler"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Klasör ve Dosyalar İçin Göreceli Bağlantılar"
+
+msgid "Anchor Size"
+msgstr "Çapa Boyutu"
+
+msgid "Replace in Current Node"
+msgstr "Aktif Notu Değiştir"
+
+msgid "Search in Current Node"
+msgstr "Aktif Not İçinde Ara"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Şablon '%s' bulunamadı</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Çoklu Notlarda Değiştir..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Çoklu Notlarda Bul..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Bu Oturumda Gerçekleştirilen Önceki Bir Arama Yok."
+
+msgid "PDF File"
+msgstr "PDF Dosyası"
+
+msgid "Plain Text Document"
+msgstr "Düz Metin Belgesi"
+
+msgid "Who is the Parent?"
+msgstr "Üst Not Hangisi?"
+
+msgid "The Tree Root"
+msgstr "Ağacın Kökü"
+
+msgid "The Selected Node"
+msgstr "Seçili Not"
 
 msgid "Enable Spell Check"
 msgstr "Yazım Denetimini Aç"
@@ -2339,17 +2647,11 @@ msgstr "Yazım Denetimini Aç"
 msgid "Spell Check Language"
 msgstr "Yazım Denetimi Dili"
 
-msgid "Show White Spaces"
-msgstr "Beyaz Boşlukları Göster"
-
-msgid "Highlight Current Line"
-msgstr "Aktif Satırı Vurgula"
-
-msgid "Highlight Matching Brackets"
-msgstr "Köşeli Ayraçların Eşleştirmesini Vurgula"
-
 msgid "Expand CodeBoxes Automatically"
 msgstr "Kod Kutularını Otomatik Genişlet"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Kod Kutularında Araç Çubuğu Var"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "Hafif Arayüz İçin Tablo Hücrelerinin Eşik Sayısı"
@@ -2399,75 +2701,56 @@ msgstr "Küçük"
 msgid "Scalable Tags"
 msgstr "Ölçeklenebilir Etiketler"
 
-msgid "Monospace"
-msgstr "Tekli Boşluk"
+msgid "Execute Code"
+msgstr "Kodu Çalıştır"
 
-msgid "Writing to Disk..."
-msgstr "Diske Yazılıyor..."
+msgid "Change CodeBox Properties"
+msgstr "Kod Kutusu Özelliklerini Değiştir"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "%s Klasörüne/Sürücüsüne Yazma İzniniz Yok"
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Bu Oturumda Gerçekleştirilen Önceki Metin Formatı Yok."
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "%s İçin Parolayı Girin"
+msgid "Link Name"
+msgstr "Link İsmi"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Kaydedilen belgenin bütünlük denetimi başarısız oldu. Dosya-->Farklı Kaydet "
-"Deneyin"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "İmleç Bir Paragraf İçinde Değil."
 
-msgid "Failed to encrypt the file"
-msgstr "Dosya şifrelenemedi"
+msgid "Pick a Foreground Color"
+msgstr "Yazı Rengini Seçin"
 
-msgid "Image Format Not Recognized"
-msgstr "Resim Dosyası Biçimi Belirlenemedi"
+msgid "Pick a Background Color"
+msgstr "Arkaplan Rengini Seçin"
 
-msgid "Insert Table"
-msgstr "Tablo Ekle"
+msgid "Chars for Bulleted List"
+msgstr "Madde İşaretli Liste Karakterleri"
 
-msgid "CSV File"
-msgstr "CSV Dosyası"
+msgid "Chars for Todo List"
+msgstr "Yapılacaklar Listesi İçin Karakterler"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Gömülü Dosya için boyut sınırı en fazla %s MB olmalı."
+msgid "Chars for Table Of Content"
+msgstr "İçindekiler İçin Karakterler"
 
-msgid "Do you want to Continue?"
-msgstr "Devam etmek istiyor musunuz?"
+msgid "Chars for Smart Double Quotes"
+msgstr "Akıllı Çift Tırnaklar İçin Karakterler"
 
-msgid "Tabs Replaced"
-msgstr "Sekmeler Değiştirildi"
+msgid "Chars for Smart Single Quotes"
+msgstr "Akıllı Tek Tırnaklar İçin Karakterler"
 
-msgid "Lines Stripped"
-msgstr "Boş Satırlar"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Akıllı Tırnakların Otomatik Değişimini Etkinleştir"
 
-msgid "Change Selected"
-msgstr "Seçili Olanı Değiştir"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Sembollerin Otomatik Değişimini Etkinleştir"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "'%s' Klavye Kısayolu Zaten Kullanımda."
+msgid "Supported Symbols Auto Replacements"
+msgstr "Otomatik Değişimi Desteklenen Semboller"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Aktif '%s' ilişkilendirildi"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Kısayolu değiştirmek (çalmak:) ) istediğinizden emin misiniz?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Klavye Kısayollarını Düzenle"
-
-msgid "No Keyboard Shortcut"
-msgstr "Klavye Kısayolu Yok"
+msgid "Only at the Start of the Line"
+msgstr "Sadece Satırın Başlangıcında"
 
 msgid "Use Selected Color"
 msgstr "Seçili Rengi Kullan"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Otomatik sözdizimi vurgulama"
 
 msgid "Tags for Searching"
 msgstr "Aramada Kullanılacak Etiketler"
@@ -2483,6 +2766,12 @@ msgstr "Alt notlar"
 
 msgid "Read Only"
 msgstr "Yalnızca Oku"
+
+msgid "Unique Id"
+msgstr "Benzersiz Kimlik"
+
+msgid "Shared Nodes Group"
+msgstr "Paylaşılan Notlar Grubu"
 
 msgid "Choose Existing Tag"
 msgstr "Var Olan Etiketi Seç"
@@ -2520,280 +2809,79 @@ msgstr "Özel Karakter Ekle"
 msgid "Single File"
 msgstr "Tek dosya"
 
-msgid "English"
-msgstr "İngilizce"
+msgid "Checking for Newer Version..."
+msgstr "Yeni Sürüm Kontrol Ediliyor..."
 
-msgid "Text and Code"
-msgstr "Metin ve Kod"
-
-msgid "Plain Text and Code"
-msgstr "Düz Metin ve Kod"
-
-msgid "Theme"
-msgstr "Tema"
-
-msgid "Fonts"
-msgstr "Yazı Tipleri"
-
-msgid "Links"
-msgstr "Linkler"
-
-msgid "Toolbar"
-msgstr "Araç Çubuğu"
-
-msgid "Keyboard Shortcuts"
-msgstr "Kısayollar"
-
-msgid "Code Font"
-msgstr "Kod Yazı Tipi"
-
-msgid "Terminal Font"
-msgstr "Terminal Yazı Tipi"
-
-msgid "Tree Font"
-msgstr "Ağaç Yazı Tipi"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Özel Web Linki Tıklanma Durumunu Aktif Et"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Özel Dosya Tıklanma Durumunu Aktif Et"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Özel Klasör Tıklanma Durumunu Aktif Et"
-
-msgid "Custom Actions"
-msgstr "Özel Hareketler"
-
-msgid "Colors"
-msgstr "Renkler"
-
-msgid "Underline Links"
-msgstr "Altı Çizili Linkler"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Klasör ve Dosyalar İçin Göreceli Bağlantılar"
-
-msgid "Anchor Size"
-msgstr "Çapa Boyutu"
-
-msgid "Who is the Parent?"
-msgstr "Üst Not Hangisi?"
-
-msgid "The Tree Root"
-msgstr "Ağacın Kökü"
-
-msgid "The Selected Node"
-msgstr "Seçili Not"
-
-msgid "Internal Terminal Shell"
-msgstr "Dahili Konsol Kabuğu"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Herbir Not/Kod Kutusuna Komut"
-
-msgid "Terminal Command"
-msgstr "Terminal Komutu"
-
-msgid "Code Execution"
-msgstr "Kod Yürütme"
-
-msgid "Rename"
-msgstr "Yeniden Adlandır"
-
-msgid "PNG Image"
-msgstr "PNG Resmi"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "%s Kısmına Yazma Hatası"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "'%s' Geçerli Bir Klasör Linki Değil."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "'%s' Geçerli Bir Dosya Linki Değil."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "'%s' Geçerli Bir Klasör Linki Değil"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "'%s' isminde çapa bulunamadı"
-
-msgid "Edit CodeBox"
-msgstr "Kod Kutusunu Düzenle"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
 msgstr ""
-"'%s' için bir komut belirlemesiniz.\n"
-"Seçenekler ekranına gidin."
+"Versiyon Bilgisine Bakılırken Bir Hata Oluştu - Daha Sonra Tekrar deneyin."
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"'xterm' paketini yükleyin ve seçenekler ekranında farklı bir terminal "
-"ayarlayın."
+msgid "A Newer Version Is Available!"
+msgstr "Yeni Bir Sürüm Bulundu!"
 
-msgid "Edit Table Properties"
-msgstr "Tablo Özelliklerini Düzenle"
+msgid "You Are Using the Latest Version Available."
+msgstr "Zaten En Son Sürümü Kullanıyorsunuz."
 
-msgid "Insert Anchor"
-msgstr "Çapa Ekle"
+msgid "You Are Using a Development Version."
+msgstr "Geliştirme Sürümünü Kullanıyorsunuz."
 
-msgid "Edit Anchor"
-msgstr "Çapa Düzenle"
+msgid "Image Format Not Recognized"
+msgstr "Resim Dosyası Biçimi Belirlenemedi"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Yalnız Okunabilir Özelliğinde Olan Nottaki Gömülü Dosya Düzenlenemez."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "Gömülü Dosya Otomatik Güncellendi:"
-
-msgid "The Tree is Empty!"
-msgstr "Ağaç boş!"
-
-msgid "The Selected Node is Read Only."
-msgstr "Seçili Not, Yalnız Okunabilir ve Düzenlenemez."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Bu Özellik Sadece Zengin Metin Biçimindeki Notlarda Kullanılabilir."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Bu Özellik Otomatik Söz Dizimi Kurallı Notlarda Kullanılamaz."
-
-msgid "No Table is Selected."
-msgstr "Seçili Tablo Yok."
-
-msgid "No CodeBox is Selected."
-msgstr "Seçili Kod Kutusu Yok."
-
-msgid "New Child Node Properties"
-msgstr "Yeni Alt Not Özellikleri"
-
-msgid "New Node Properties"
-msgstr "Yeni Not Özellikleri"
-
-msgid "Node Properties"
-msgstr "Not Özellikleri"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Bu notun, zengin metin belgesi özelliğini değiştirirseniz, pek çok "
-"biçimlendirme özelliği kaybolacak. Yine de devam etmek ister misiniz?"
+msgid "Insert Table"
+msgstr "Tablo Ekle"
 
 #, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "'%s' notunu <b>silmek istediğinizden emin misiniz?</b>"
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Gömülü Dosya için boyut sınırı en fazla %s MB olmalı."
 
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Bu not, alt not(lar) içeriyor.<b>Tüm alt notlar da silinecek!</b>"
+msgid "Do you want to Continue?"
+msgstr "Devam etmek istiyor musunuz?"
 
-msgid "Select the New Parent"
-msgstr "Yeni Üst Notu Seçin"
+msgid "Tabs Replaced"
+msgstr "Sekmeler Değiştirildi"
 
-msgid "The new parent can't be the very node to move!"
-msgstr "Yeni üst not, taşınan çok not olamaz!"
+msgid "Lines Stripped"
+msgstr "Boş Satırlar"
 
-msgid "The new chosen parent is still the old parent!"
-msgstr "Seçilen yeni üst not, zaten halihazırda üst not!"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Uyarı: Girilen Sayfada Bir Ya da Daha Fazla Resim Değiştirildi!"
 
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s Notun Özellikleri Değişti"
+msgid "Print CherryTree version"
+msgstr "CherryTreeyi Sürümünü Yazdır"
 
-msgid "Latex Text"
-msgstr "Latex Metni"
+msgid "Node name to focus"
+msgstr "Odaklanacak Not Adı"
 
-msgid "Image Size dpi"
-msgstr "Resim dpi Boyutu"
+msgid "Anchor name to scroll to in node"
+msgstr "Notta kaydırılacak bağlantı adı"
 
-msgid "Tutorial"
-msgstr "Öğretici"
+msgid "Export to HTML at specified directory path"
+msgstr "Belirtilen dizin yolunda HTML ye aktar"
 
-msgid "Reference"
-msgstr "Referans"
+msgid "Export to Text at specified directory path"
+msgstr "Belirtilen Dizin Yolunda Metne Aktar"
 
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX Matematik ve Denklem Öğreticisi"
+msgid "Export to PDF at specified directory path"
+msgstr "Belirtilen dizin yolunda PDF ye aktar"
 
-msgid "LaTeX Math Symbols Reference"
-msgstr "Latex Matematik Referansı"
+msgid "Overwrite if export path already exists"
+msgstr "Dışa aktarma yolu zaten mevcutsa üzerine yaz"
 
-msgid "Image Properties"
-msgstr "Resim Özellikleri"
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Tek dosya olarak dışa aktar (HTML veya TXT)"
 
-msgid "Width"
-msgstr "Genişlik"
+msgid "Password to open document"
+msgstr "Dökümanı açmak için şifre"
 
-msgid "Height"
-msgstr "Yükseklik"
+msgid "Create a new window"
+msgstr "Yeni bir pencere oluştur"
 
-msgid "Type"
-msgstr "Tür"
+msgid "Run in secondary session, independent from main session"
+msgstr "Ana oturumdan bağımsız olarak ikincil oturumda çalıştır"
 
-msgid "pixels"
-msgstr "piksel"
-
-msgid "Size"
-msgstr "Ebat"
-
-msgid "Options"
-msgstr "Seçenekler"
-
-msgid "Rows"
-msgstr "Satırlar"
-
-msgid "Columns"
-msgstr "Kolonlar"
-
-msgid "Default Width"
-msgstr "Varsayılan Genişlik"
-
-msgid "Table Size"
-msgstr "Tablo Boyutu"
-
-msgid "Column Properties"
-msgstr "Kolon Özellikleri"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Hafif Arayüz (büyük tablolar için çok daha hızlı)"
-
-msgid "Import from CSV File"
-msgstr "CSV Dosyasından İçe Aktar"
-
-msgid "Remove Color"
-msgstr "Rengi Sil"
-
-msgid "Question"
-msgstr "Soru"
-
-msgid "Info"
-msgstr "Bilgi"
-
-msgid "Error"
-msgstr "Hata"
-
-msgid "Select File"
-msgstr "Dosya Seç"
-
-msgid "Select Folder"
-msgstr "Klasör Seç"
-
-msgid "Save File as"
-msgstr "Farklı Kaydet"
-
-msgid "Save To Folder"
-msgstr "Klasöre Kaydet"
+msgid "Are you sure to Reset to Default?"
+msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
 msgid "HTML Document"
 msgstr "HTML Belgesi"
@@ -2809,9 +2897,6 @@ msgstr "Treepad Belgesi"
 
 msgid "Leo Document"
 msgstr "Leo Belgesi"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Uygulamanın İnternet Yardım Dosyası"
@@ -2845,9 +2930,6 @@ msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
 #~ msgid "Add a node to the current tree using Pandoc"
 #~ msgstr "Pandoc Kullanarak Aktif Ağaca Bir Not Ekle"
-
-#~ msgid "Execute Code"
-#~ msgstr "Kodu Çalıştır"
 
 #~ msgid "The New Language will be Available Only After Restarting CherryTree"
 #~ msgstr "Yeni Dil CherryTree Yeniden Başlatılınca Aktif Olacak"
@@ -3059,12 +3141,6 @@ msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
 #~ msgid "Cancel"
 #~ msgstr "Vazgeç"
-
-#~ msgid "Yes"
-#~ msgstr "Evet"
-
-#~ msgid "No"
-#~ msgstr "Hayır"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "%s Karakterine İzin Verilmiyor"
