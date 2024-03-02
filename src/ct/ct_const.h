@@ -1,7 +1,7 @@
 /*
  * ct_const.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -515,6 +515,7 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_ship",              // 242
     "ct_stackoverflow",     // 243
     "ct_zebra",             // 244
+    "ct_postman",           // 245
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -543,7 +544,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     133/*microchip*/, 164/*computer*/, 165/*display*/, 166/*drive hd*/, 167/*drive usb*/,
     /*coding start*/222/*git*/, 243/*stackoverflow*/, 181, 17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114,
     184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201/*coding end*/,
-    /*devops start*/134, 135, 136, 137, 138, 139, 182, 183/*devops end*/,
+    /*devops start*/134, 135, 136, 137, 138, 139, 182, 183, 245/*devops end*/,
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
     25/*bullet*/, 26/*noicon*/, 209/*bullseye*/, 220/*four_leaf_clover*/, 236/*pool_8_ball*/,
