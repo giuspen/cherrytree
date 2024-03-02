@@ -321,8 +321,6 @@ void CtActions::replace_in_selected_node()
     _s_state.replace_active = true;
     _s_state.replace_subsequent = false;
     find_in_selected_node();
-    _s_state.replace_active = false;
-    _s_state.replace_subsequent = false;
 }
 
 // Replace the pattern in all the Tree Nodes
@@ -332,8 +330,6 @@ void CtActions::replace_in_multiple_nodes()
     _s_state.replace_active = true;
     _s_state.replace_subsequent = false;
     find_in_multiple_nodes();
-    _s_state.replace_active = false;
-    _s_state.replace_subsequent = false;
 }
 
 // Continue the previous replace (a_node/in_selected_node/in_all_nodes)
@@ -622,16 +618,6 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
 
     // match found!
     const int num_objs = _get_num_objs_before_offset(text_buffer, match_offsets.first);
-
-    if (not all_matches) {
-        const int final_start_offset = match_offsets.first + num_objs;
-        const int final_delta_offset = match_offsets.second - match_offsets.first;
-        if (not _pCtMainWin->curr_tree_iter() or _pCtMainWin->curr_tree_iter().get_node_id() != tree_iter.get_node_id()) {
-            _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
-        }
-        _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
-    }
-
     _s_state.latest_match_offsets.first = match_offsets.first + num_objs;
     _s_state.latest_match_offsets.second = match_offsets.second + num_objs;
     CtMatchRowData* pCtMatchRowData{nullptr};
@@ -653,7 +639,13 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                                                         line_content);
     }
     else {
-        _pCtMainWin->get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        CtTreeIter curr_tree_iter = _pCtMainWin->curr_tree_iter();
+        if (not curr_tree_iter or curr_tree_iter.get_node_id() != tree_iter.get_node_id()) {
+            _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        }
+        CtTextView& ct_text_view = _pCtMainWin->get_text_view();
+        ct_text_view.scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        ct_text_view.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first, match_offsets.second - match_offsets.first);
     }
     if (_s_state.replace_active) {
         if (tree_iter.get_node_read_only()) return false;
