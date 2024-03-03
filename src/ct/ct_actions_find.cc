@@ -444,7 +444,7 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
     if (match_info.matches()) {
         if (all_matches) {
             gint64 node_id = node_iter.get_node_id();
-            Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
+            Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, "  /  ", false/*for_filename*/, true/*root_to_leaf*/);
             Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
             const Glib::ustring text_tags = node_iter.get_node_tags();
             _s_state.match_store->add_row(node_id,
@@ -624,7 +624,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     if (all_matches) {
         const gint64 node_id = tree_iter.get_node_id();
         const Glib::ustring node_name = tree_iter.get_node_name();
-        const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, " << ", false, false);
+        const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "  /  ", false/*for_filename*/, true/*root_to_leaf*/);
         const Glib::ustring line_content = obj_match_offsets.first != -1 ?
             obj_content : _get_line_content(text_buffer, _s_state.latest_match_offsets.second);
         int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
