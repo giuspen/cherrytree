@@ -1,7 +1,7 @@
 /*
  * ct_menu.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -61,7 +61,7 @@ public:
     const std::string KB_ALT     = "<alt>";
     const std::string KB_META    = "<meta>";
 
-    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Latex, Anchor, EmbFile, Terminal, PopupMenuNum };
+    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Latex, Anchor, EmbFile, Terminal, PopupMenuNum};
 
 public:
    static Gtk::MenuItem* create_menu_item(Gtk::Menu* pMenu, const char* name, const char* image, const char* desc);
@@ -76,7 +76,7 @@ public:
     static Gtk::MenuItem*   find_menu_item(Gtk::MenuShell* menuShell, std::string name);
     static Gtk::AccelLabel* get_accel_label(Gtk::MenuItem* item);
 
-    std::vector<Gtk::Toolbar*> build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton);
+    std::vector<Gtk::Toolbar*> build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton, Gtk::ToolButton*& pToolButtonSave);
     Gtk::MenuBar*              build_menubar();
     Gtk::Menu*                 build_bookmarks_menu(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
                                                     sigc::slot<void, gint64>& bookmark_action,

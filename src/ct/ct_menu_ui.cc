@@ -29,20 +29,20 @@
 std::vector<std::string> CtMenu::_get_ui_str_toolbars()
 {
     auto generate_ui = [&](size_t id, const std::vector<std::string>& items){
-        std::string str;
-        for (const std::string& element: items) {
+        std::string str_buff;
+        for (const std::string& element : items) {
             if (element == CtConst::TAG_SEPARATOR) {
-                str += "<child><object class='GtkSeparatorToolItem'/></child>";
+                str_buff += "<child><object class='GtkSeparatorToolItem'/></child>";
             }
             else {
                 const bool isOpenRecent{element == CtConst::CHAR_STAR};
                 CtMenuAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(element);
                 if (pAction) {
-                    if (isOpenRecent) str += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
-                    else str += "<child><object class='GtkToolButton'>";
-                    str += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
-                    str += "<property name='icon-name'>" + pAction->image + "</property>";
-                    str += "<property name='label'>" + pAction->name + "</property>";
+                    if (isOpenRecent) str_buff += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
+                    else str_buff += "<child><object class='GtkToolButton' id='" + element + "'>";
+                    str_buff += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
+                    str_buff += "<property name='icon-name'>" + pAction->image + "</property>";
+                    str_buff += "<property name='label'>" + pAction->name + "</property>";
                     std::string kb_shortcut = pAction->get_shortcut(_pCtConfig);
                     std::string tooltip;
                     if (not _pCtConfig->toolbarTooltips) {
@@ -67,20 +67,20 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
                         tooltip = pAction->desc + " (" + str::xml_escape(kb_shortcut).c_str() + ")";
                     }
                     if (not tooltip.empty()) {
-                        str += "<property name='tooltip-text'>" + tooltip + "</property>";
+                        str_buff += "<property name='tooltip-text'>" + tooltip + "</property>";
                     }
-                    str += "<property name='visible'>True</property>";
-                    str += "<property name='use_underline'>True</property>";
-                    str += "</object></child>";
+                    str_buff += "<property name='visible'>True</property>";
+                    str_buff += "<property name='use_underline'>True</property>";
+                    str_buff += "</object></child>";
                 }
             }
         }
-        str = "<interface><object class='GtkToolbar' id='ToolBar" + std::to_string(id) + "'>"
-                "<property name='visible'>True</property>"
-                "<property name='can_focus'>False</property>"
-                + str +
-                "</object></interface>";
-        return str;
+        str_buff = "<interface><object class='GtkToolbar' id='ToolBar" + std::to_string(id) + "'>"
+                   "<property name='visible'>True</property>"
+                   "<property name='can_focus'>False</property>"
+                   + str_buff +
+                   "</object></interface>";
+        return str_buff;
     };
 
     std::vector<std::string> toolbarUIstr;

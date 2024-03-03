@@ -107,7 +107,7 @@ CtMenu::CtMenu(CtMainWin* pCtMainWin)
     return nullptr;
 }
 
-std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
+std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton, Gtk::ToolButton*& pToolButtonSave)
 {
     pRecentDocsMenuToolButton = nullptr;
     std::vector<Gtk::Toolbar*> toolbars;
@@ -118,6 +118,9 @@ std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentD
         toolbars.push_back(pToolbar);
         if (not pRecentDocsMenuToolButton) {
             _rGtkBuilder->get_widget("RecentDocs", pRecentDocsMenuToolButton);
+        }
+        if (not pToolButtonSave) {
+            _rGtkBuilder->get_widget("ct_save", pToolButtonSave);
         }
     }
     return toolbars;

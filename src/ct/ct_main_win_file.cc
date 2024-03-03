@@ -35,6 +35,10 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     }
     if (saveNeeded.value()) {
         title += "*";
+        if (_pSaveToolButton) _pSaveToolButton->set_sensitive(true);
+    }
+    else {
+        if (_pSaveToolButton) _pSaveToolButton->set_sensitive(false);
     }
     if (not _uCtStorage->get_file_path().empty()) {
         title += _uCtStorage->get_file_name().string() + " - ";

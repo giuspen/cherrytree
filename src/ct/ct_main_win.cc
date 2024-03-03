@@ -93,7 +93,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsSubMenu");
     _pMenuBar->show_all();
     add_accel_group(_uCtMenu->get_accel_group());
-    _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
+    _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton, _pSaveToolButton);
 
     if (_pCtConfig->menubarInTitlebar) {
         _pHeaderBar = Gtk::manage(new Gtk::HeaderBar{});
@@ -624,10 +624,12 @@ void CtMainWin::menu_set_visible_exit_app(bool visible)
 void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
 {
     if (new_toolbar) {
-        for (auto pToolbar: _pToolbars) {
+        _pRecentDocsMenuToolButton = nullptr;
+        _pSaveToolButton = nullptr;
+        for (auto pToolbar : _pToolbars) {
             _vboxMain.remove(*pToolbar);
         }
-        _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
+        _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton, _pSaveToolButton);
         for (auto toolbar = _pToolbars.rbegin(); toolbar != _pToolbars.rend(); ++toolbar) {
             _vboxMain.pack_start(*(*toolbar), false, false);
             if (not _pCtConfig->menubarInTitlebar) {
@@ -638,13 +640,14 @@ void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
             }
         }
         menu_set_items_recent_documents();
-        for (auto pToolbar: _pToolbars) {
+        window_title_update(); // this is to restore currect sensitive status of save icon
+        for (auto pToolbar : _pToolbars) {
             pToolbar->show_all();
         }
     }
 
     show_hide_toolbars(_pCtConfig->toolbarVisible);
-    for (auto pToolbar: _pToolbars) {
+    for (auto pToolbar : _pToolbars) {
         pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
     }
     set_toolbars_icon_size(_pCtConfig->toolbarIconSize);

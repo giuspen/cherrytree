@@ -290,6 +290,7 @@ private:
     std::array<Gtk::MenuItem*,3> _pBookmarksSubmenus{nullptr,nullptr,nullptr};
     Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
+    Gtk::ToolButton*             _pSaveToolButton{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
