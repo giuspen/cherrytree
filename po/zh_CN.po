@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"POT-Creation-Date: 2024-02-27 22:06+0000\n"
 "PO-Revision-Date: 2023-07-16 20:44+0100\n"
 "Last-Translator: Wang Yu <krwy0330@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -17,99 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0.1\n"
 
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "警告：一张或多张图片被压缩并插入到当前页面"
-
-msgid "To WebSite"
-msgstr "连接到网址"
-
-msgid "To File"
-msgstr "连接到文件"
-
-msgid "To Folder"
-msgstr "连接到文件夹"
-
-msgid "To Node"
-msgstr "连接到节点"
-
-msgid "Anchor Name (optional)"
-msgstr "锚点名称(可选)"
-
-msgid "No Node is Selected"
-msgstr "没有节点被选中"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "在已选中的节点中没有锚点"
-
-msgid "Choose Existing Anchor"
-msgstr "选择现有的锚点"
-
-msgid "Anchor Name"
-msgstr "锚点名称"
-
 #, c-format
-msgid "The pattern '%s' was not found"
-msgstr "匹配模式 '%s' 未找到"
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "无法在节点“%s”中检索内容"
 
 msgid "Index"
 msgstr "索引"
 
-msgid "Print CherryTree version"
-msgstr "打印CherryTree版本"
+msgid "Add"
+msgstr "添加"
 
-msgid "Node name to focus"
-msgstr "要关注的节点名称"
+msgid "Remove Selected"
+msgstr "移除所选"
 
-msgid "Anchor name to scroll to in node"
-msgstr "节点中想要滚动到的锚点名称"
+msgid "Reset to Default"
+msgstr "还原至默认"
 
-msgid "Export to HTML at specified directory path"
-msgstr "在指定的目录路径下导出为HTML"
+msgid "Split Toolbar"
+msgstr "分割工具栏"
 
-msgid "Export to Text at specified directory path"
-msgstr "在指定的目录路径下导出为文本"
+msgid "Open a CherryTree File"
+msgstr "打开一个CherryTree文档"
 
-msgid "Export to PDF at specified directory path"
-msgstr "在指定的目录路径下导出为PDF格式"
-
-msgid "Overwrite if export path already exists"
-msgstr "如果导出路径已经存在，则覆盖"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "导出成单一文件(网页或文本)"
-
-msgid "Password to open document"
-msgstr "文档密码"
-
-msgid "Create a new window"
-msgstr "创建一个新窗口"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "在次会话中运行，独立于主会话"
-
-msgid "CherryTree File"
-msgstr "CherryTree文件"
-
-msgid "Preferences File"
-msgstr "配置文件"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "改变仅在CherryTree下次启动时生效"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree层级笔记记录"
-
-msgid "Show/Hide _CherryTree"
-msgstr "显示/隐藏CherryTree(_C)"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "切换CherryTree的显示"
-
-msgid "_Exit CherryTree"
-msgstr "退出CherryTree(_E)"
-
-msgid "Exit from CherryTree"
-msgstr "从CherryTree中退出"
+msgid "Select Element to Add"
+msgstr "选择元素添加"
 
 msgid "_File"
 msgstr "文件(_F)"
@@ -210,9 +141,6 @@ msgstr "开始一个新的CherryTree实例"
 msgid "_Open File..."
 msgstr "打开文件(_O)"
 
-msgid "Open a CherryTree File"
-msgstr "打开一个CherryTree文档"
-
 msgid "Open Fo_lder..."
 msgstr "打开文件夹(_L)"
 
@@ -278,6 +206,9 @@ msgstr "退出程序"
 
 msgid "E_xit CherryTree"
 msgstr "退出CherryTree(_x)"
+
+msgid "Exit from CherryTree"
+msgstr "从CherryTree中退出"
 
 msgid "Edit/Insert"
 msgstr "编辑/插入"
@@ -579,6 +510,12 @@ msgstr "复制代码框(_C)"
 msgid "Copy the Selected CodeBox"
 msgstr "复制当前所选的代码框"
 
+msgid "_Copy CodeBox Content"
+msgstr "复制代码框内容(_C)"
+
+msgid "Copy the Content of the Selected CodeBox"
+msgstr "复制当前所选的代码框内容"
+
 msgid "_Delete CodeBox"
 msgstr "删除代码框(_D)"
 
@@ -863,6 +800,12 @@ msgstr "复制节点及其子节点(_a)"
 
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr "复制选中的节点及其子节点"
+
+msgid "_Create Shared Node"
+msgstr "创建共享节点(_C)"
+
+msgid "Create a New Node Sharing the Same Data of the Selected Node"
+msgstr "从选中节点创建一个共享相同数据的新节点"
 
 msgid "Copy Node and S_ubnodes"
 msgstr "复制节点及其子节点(_U)"
@@ -1472,6 +1415,12 @@ msgstr "取消链接(_D)"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "忽略图片所关联的链接"
 
+msgid "Show/Hide _CherryTree"
+msgstr "显示/隐藏CherryTree(_C)"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "切换CherryTree的显示"
+
 msgid "Edit the Underlying Link"
 msgstr "编辑相关链接"
 
@@ -1505,83 +1454,303 @@ msgstr "粘贴"
 msgid "Reset"
 msgstr "重置"
 
-msgid "Enable System Tray Docking"
-msgstr "启用系统托盘"
+msgid "Rename"
+msgstr "重命名"
 
-msgid "Start Minimized in the System Tray"
-msgstr "程序启动后最小化到托盘"
+msgid "PNG Image"
+msgstr "PNG图片"
 
-msgid "System Tray"
-msgstr "系统托盘"
+#, c-format
+msgid "Write to %s Failed"
+msgstr "写入到 %s 失败"
 
-msgid "Autosave Every"
-msgstr "自动保存每隔"
+msgid "Insert/Edit Link"
+msgstr "插入/编辑链接"
 
-msgid "Minutes"
-msgstr "分钟"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "文件夹链接'%s'无效"
 
-msgid "Autosave on Quit"
-msgstr "退出前自动保存"
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "文件链接'%s'无效"
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "保存前创建备份"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "文件夹链接'%s'无效"
 
-msgid "Number of Backups to Keep"
-msgstr "欲保留的备份数"
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "链接所指向的节点不存在 (Id = %s)"
 
-msgid "Custom Backup Directory"
-msgstr "自定义备份目录"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "未找到锚点 '%s'"
 
-msgid "Saving"
-msgstr "保存中"
+msgid "Edit CodeBox"
+msgstr "编辑代码框"
 
-msgid "Automatically Check for Newer Version"
-msgstr "自动检查新版本"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"你必须将一个命令与'%s'联系起来。\n"
+"在 \"首选项 \"对话框中这样做"
 
-msgid "Enable Word Count in Statusbar"
-msgstr "启用状态栏中的字数统计"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr "安装软件包‘xterm’或在首选项对话框中配置不同的终端"
 
-msgid "Reload Document From Last Session"
-msgstr "重载上一次会话中的文档"
+msgid "Edit Table Properties"
+msgstr "编辑表格属性"
 
-msgid "Reload After External Update to CT* File"
-msgstr "将重载，因CT*文件在外部被修改"
+msgid "CSV File"
+msgstr "CSV 文件"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "在窗口标题中显示文件目录"
+msgid "Insert Anchor"
+msgstr "插入锚点"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "在节点名称栏中显示完整路径"
+msgid "Edit Anchor"
+msgstr "编辑锚点"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "在菜单栏中显示书签"
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "不能编辑只读节点下的嵌入文件"
 
-msgid "Enable Debug Log"
-msgstr "开启调试日志"
+msgid "Embedded File Automatically Updated:"
+msgstr "嵌入文件已自动更新："
 
-msgid "Debug Log Directory"
-msgstr "调试日志文件夹"
+msgid "Change Selected"
+msgstr "改变当前所选"
 
-msgid "Miscellaneous"
-msgstr "杂项"
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "快捷键’%s’已被占用"
 
-msgid "System Default"
-msgstr "系统默认值"
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "当前关联动作是’%s’"
 
-msgid "Language"
-msgstr "语言"
+msgid "Do you want to steal the shortcut?"
+msgstr "要覆盖这个快捷键吗？"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "系统托盘是否已出现在面板上？"
+msgid "Edit Keyboard Shortcut"
+msgstr "编辑快捷键"
 
-msgid "Your system does not support the System Tray"
-msgstr "你的系统不支持系统托盘"
+msgid "No Keyboard Shortcut"
+msgstr "没有快捷键"
+
+msgid "Writing to Disk..."
+msgstr "正在写入到磁盘..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "您没有%s文件的写入权限"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "请输入 %s 的密码"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr "检查文件完整性失败，请尝试另存文件"
+
+msgid "Failed to encrypt the file"
+msgstr "加密文件失败"
+
+msgid "Search for"
+msgstr "查找"
+
+msgid "Replace with"
+msgstr "替换为"
+
+msgid "Match Case"
+msgstr "匹配大小写"
+
+msgid "Regular Expression"
+msgstr "正则表达式"
+
+msgid "Online Manual"
+msgstr "在线手册"
+
+msgid "Accent Insensitive"
+msgstr "不区分重音"
+
+msgid "Override Exclusions"
+msgstr "覆盖排除项"
+
+msgid "Whole Word"
+msgstr "完整单词"
+
+msgid "Start Word"
+msgstr "单词开始部分"
+
+msgid "Forward"
+msgstr "向前"
+
+msgid "Backward"
+msgstr "向后"
+
+msgid "All, List Matches"
+msgstr "所有，并列出匹配"
+
+msgid "First From Selection"
+msgstr "在所选中搜索"
+
+msgid "First in All Range"
+msgstr "在当前页搜索"
+
+msgid "Node Created After"
+msgstr "在此之后创建的节点"
+
+msgid "Node Created Before"
+msgstr "在此之前创建的节点"
+
+msgid "Node Modified After"
+msgstr "在此之后修改的节点"
+
+msgid "Node Modified Before"
+msgstr "在此之前修改过的节点"
+
+msgid "Time filter"
+msgstr "时间筛选器"
+
+msgid "Node Content"
+msgstr "节点内容"
+
+msgid "Node Name and Tags"
+msgstr "节点名和标签"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "仅已选择的节点及其子节点"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "显示循环搜索/替换对话框"
+
+msgid "Search options"
+msgstr "搜索选项"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"由于在节点属性中设置了排除项，所以至少跳过了一个节点。\n"
+"要清除所有排除项，请使用菜单：\n"
+"搜索->清除搜索中的所有排除项 "
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "隐藏 (用 ‘%s’ 恢复)"
+
+msgid "Node Name"
+msgstr "节点名称"
+
+msgid "Line"
+msgstr "行"
+
+msgid "Line Content"
+msgstr "首行内容"
+
+msgid "Matches"
+msgstr "已匹配"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "重复上次搜索/替换"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Find Previous"
+msgstr "查找上一个"
+
+msgid "Find Next"
+msgstr "查找下一个"
+
+msgid "Replace"
+msgstr "替换"
+
+msgid "Undo"
+msgstr "撤销"
 
 msgid "Downloading"
 msgstr "正在下载"
 
 msgid "Remove from list"
 msgstr "从列表中删除"
+
+msgid "The new parent can't be one of his children!"
+msgstr "父节点不能是其自身的子节点！"
+
+msgid "Light Background, Dark Text"
+msgstr "浅色背景，深色文字"
+
+msgid "Dark Background, Light Text"
+msgstr "深色背景，浅色文字"
+
+msgid "Custom Background"
+msgstr "自定义背景"
+
+msgid "Text"
+msgstr "文字"
+
+msgid "Selection Background"
+msgstr "选择背景"
+
+msgid "Tree Explorer"
+msgstr "树型资源管理器"
+
+msgid "Rich Text"
+msgstr "富文本"
+
+msgid "Plain Text"
+msgstr "纯文本"
+
+msgid "Table"
+msgstr "列表"
+
+msgid "Code"
+msgstr "编码"
+
+msgid "Style Schemes"
+msgstr "样式方案"
+
+msgid "Text Foreground"
+msgstr "文本前景"
+
+msgid "Text Background"
+msgstr "文本背景"
+
+msgid "Selection Foreground"
+msgstr "选择前景"
+
+msgid "Cursor"
+msgstr "光标"
+
+msgid "Current Line Background"
+msgstr "当前行背景"
+
+msgid "Line Numbers Foreground"
+msgstr "行号前景"
+
+msgid "Line Numbers Background"
+msgstr "行号背景"
+
+msgid "Style Scheme Editor"
+msgstr "样式方案编辑器"
+
+msgid "Set Dark Theme Icons"
+msgstr "深色主题图标"
+
+msgid "Set Light Theme Icons"
+msgstr "浅色主题图标"
+
+msgid "Set Default Icons"
+msgstr "系统默认图标"
+
+msgid "Icon Theme"
+msgstr "图标主题"
 
 msgid "Move the Selected Bookmark Up"
 msgstr "将所选书签上移"
@@ -1617,6 +1786,12 @@ msgstr ""
 
 msgid "Enter the New Password Twice"
 msgstr "输入两次新密码"
+
+msgid "Autosave Every"
+msgstr "自动保存每隔"
+
+msgid "Minutes"
+msgstr "分钟"
 
 msgid "The Password Fields Must be Filled."
 msgstr "密码必填"
@@ -1799,429 +1974,122 @@ msgstr "代码框个数"
 msgid "Number of Anchors"
 msgstr "锚点个数"
 
-msgid "Light Background, Dark Text"
-msgstr "浅色背景，深色文字"
+msgid "Number of Shared Nodes / Groups"
+msgstr "共享节点/组的数量"
 
-msgid "Dark Background, Light Text"
-msgstr "深色背景，浅色文字"
+msgid "Latex Text"
+msgstr "Latex文本"
 
-msgid "Custom Background"
-msgstr "自定义背景"
+msgid "Image Size dpi"
+msgstr "图像dpi大小"
 
-msgid "Text"
-msgstr "文字"
+msgid "Tutorial"
+msgstr "教程"
 
-msgid "Selection Background"
-msgstr "选择背景"
+msgid "Reference"
+msgstr "参考"
 
-msgid "Tree Explorer"
-msgstr "树型资源管理器"
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX数学和方程式教程 "
 
-msgid "Rich Text"
-msgstr "富文本"
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX数学符号参考"
 
-msgid "Plain Text"
-msgstr "纯文本"
+msgid "Image Properties"
+msgstr "图片属性"
 
-msgid "Table"
-msgstr "列表"
+msgid "Width"
+msgstr "宽"
 
-msgid "Code"
-msgstr "编码"
+msgid "Height"
+msgstr "高"
 
-msgid "Style Schemes"
-msgstr "样式方案"
+msgid "Automatic Syntax Highlighting"
+msgstr "自动语法高亮"
 
-msgid "Text Foreground"
-msgstr "文本前景"
+msgid "Type"
+msgstr "类型"
 
-msgid "Text Background"
-msgstr "文本背景"
+msgid "pixels"
+msgstr "像素"
 
-msgid "Selection Foreground"
-msgstr "选择前景"
-
-msgid "Cursor"
-msgstr "光标"
-
-msgid "Current Line Background"
-msgstr "当前行背景"
-
-msgid "Line Numbers Foreground"
-msgstr "行号前景"
-
-msgid "Line Numbers Background"
-msgstr "行号背景"
-
-msgid "Reset to Default"
-msgstr "还原至默认"
-
-msgid "Style Scheme Editor"
-msgstr "样式方案编辑器"
-
-msgid "Set Dark Theme Icons"
-msgstr "深色主题图标"
-
-msgid "Set Light Theme Icons"
-msgstr "浅色主题图标"
-
-msgid "Set Default Icons"
-msgstr "系统默认图标"
-
-msgid "Icon Theme"
-msgstr "图标主题"
-
-msgid "Add"
-msgstr "添加"
-
-msgid "Remove Selected"
-msgstr "移除所选"
-
-msgid "Split Toolbar"
-msgstr "分割工具栏"
-
-msgid "Select Element to Add"
-msgstr "选择元素添加"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "当前会话没有格式化操作历史"
-
-msgid "No Text is Selected."
-msgstr "没有文字被选择"
-
-msgid "Link Name"
-msgstr "链接名称"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "光标未进入一个段落"
-
-msgid "Insert/Edit Link"
-msgstr "插入/编辑链接"
-
-msgid "Pick a Foreground Color"
-msgstr "选择前景色"
-
-msgid "Pick a Background Color"
-msgstr "选择背景颜色"
-
-msgid "Replace in Current Node"
-msgstr "在当前节点中替换..."
-
-msgid "Search in Current Node"
-msgstr "在当前节点中搜索..."
-
-msgid "Matches"
-msgstr "已匹配"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>匹配模式 '%s' 未找到</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "在多个节点中替换..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "在多个节点中搜索..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "当前会话没有历史搜索"
-
-msgid "Tags"
-msgstr "标签"
-
-msgid ": "
-msgstr ": "
-
-msgid "The new parent can't be one of his children!"
-msgstr "父节点不能是其自身的子节点！"
-
-msgid "Tab Width"
-msgstr "制表符宽度"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "用空格代替Tab"
-
-msgid "Use Line Wrapping"
-msgstr "启用换行显示"
-
-msgid "Line Wrapping Indentation"
-msgstr "换行缩进"
-
-msgid "Enable Automatic Indentation"
-msgstr "启用自动缩进"
+msgid "Size"
+msgstr "尺寸"
 
 msgid "Show Line Numbers"
 msgstr "显示行号"
 
-msgid "Scroll Beyond Last Line"
-msgstr "滚动到最后一行之后"
+msgid "Highlight Matching Brackets"
+msgstr "高亮括号匹配"
 
-msgid "Cursor Blinking"
-msgstr "光标闪烁"
+msgid "Options"
+msgstr "选项"
 
-msgid "On"
-msgstr "开"
+msgid "Rows"
+msgstr "行"
 
-msgid "Off"
-msgstr "关"
+msgid "Columns"
+msgstr "列"
 
-msgid "Vertical Space Around Lines"
-msgstr "行之间的距离"
+msgid "Default Width"
+msgstr "默认宽度"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "换行之间的间距"
+msgid "Table Size"
+msgstr "表格尺寸"
+
+msgid "Column Properties"
+msgstr "列属性"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "轻量级界面（大表格下更加快速） "
+
+msgid "Import from CSV File"
+msgstr "从CSV文件导入"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "无法访问可以执行文件“latex”和“dvipng”"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "例如，在Ubuntu上安装软件包："
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "例如，在Mac OS安装软件包："
+
+msgid "Could not access the executable 'latex'"
+msgstr "无法访问可执行文件“latex”"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "无法访问可执行文件“dvipng”"
+
+msgid "Show White Spaces"
+msgstr "显示空白字符"
+
+msgid "Highlight Current Line"
+msgstr "高亮当前行"
 
 msgid "Text Editor"
 msgstr "文本编辑器"
 
-msgid "Timestamp Format"
-msgstr "时间戳格式"
+msgid "Internal Terminal Shell"
+msgstr "使用内部终端"
 
-msgid "Online Manual"
-msgstr "在线手册"
+msgid "Command per Node/CodeBox Type"
+msgstr "用于节点/代码框类型的命令"
 
-msgid "Horizontal Rule"
-msgstr "定义分割线"
+msgid "Terminal Command"
+msgstr "终端命令"
 
-msgid "Chars to Select at Double Click"
-msgstr "双击选中图表"
+msgid "Code Execution"
+msgstr "代码执行"
 
-msgid "PDF File"
-msgstr "PDF文件"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "工具栏图标已经最大"
 
-msgid "Plain Text Document"
-msgstr "纯文本文档"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "工具栏图标已经最小"
 
-msgid "Show Menubar:"
-msgstr "显示菜单栏："
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "路径%s不存在"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" 不是一个CherryTree文档"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"解析CherryTree路径时出错：\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "未找到名为“%s”的节点"
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "临时文件已被创建并被外部程序打开。"
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "退出CherryTree前先退出外部程序。"
-
-msgid "Did you Quit the External Applications?"
-msgstr "要退出外部程序吗？"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "因CT*文件在外部被修改，文档已重载"
-
-msgid "_Hide"
-msgstr "隐藏(_H)"
-
-msgid "Hide the Window"
-msgstr "隐藏窗口"
-
-msgid "Node Type"
-msgstr "节点类型"
-
-msgid "Spell Check"
-msgstr "拼写检查"
-
-msgid "Word Count"
-msgstr "字数"
-
-msgid "Date Created"
-msgstr "创建日期"
-
-msgid "Date Modified"
-msgstr "修改日期"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr "在此会话中未执行一个节点复制或源树不再可用"
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "源树节点不再可用"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"路径%s下已经存在%s。\n"
-"<b>是不移除存在项</b>"
-
-msgid "Checking for Newer Version..."
-msgstr "查找新版本..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "获取最新版本信息失败，稍候再试"
-
-msgid "A Newer Version Is Available!"
-msgstr "有新版本可用！"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "您使用的是最新版本"
-
-msgid "You Are Using a Development Version."
-msgstr "您正在使用开发版本"
-
-msgid "Search for"
-msgstr "查找"
-
-msgid "Replace with"
-msgstr "替换为"
-
-msgid "Match Case"
-msgstr "匹配大小写"
-
-msgid "Regular Expression"
-msgstr "正则表达式"
-
-msgid "Accent Insensitive"
-msgstr "不区分重音"
-
-msgid "Override Exclusions"
-msgstr "覆盖排除项"
-
-msgid "Whole Word"
-msgstr "完整单词"
-
-msgid "Start Word"
-msgstr "单词开始部分"
-
-msgid "Forward"
-msgstr "向前"
-
-msgid "Backward"
-msgstr "向后"
-
-msgid "All, List Matches"
-msgstr "所有，并列出匹配"
-
-msgid "First From Selection"
-msgstr "在所选中搜索"
-
-msgid "First in All Range"
-msgstr "在当前页搜索"
-
-msgid "Node Created After"
-msgstr "在此之后创建的节点"
-
-msgid "Node Created Before"
-msgstr "在此之前创建的节点"
-
-msgid "Node Modified After"
-msgstr "在此之后修改的节点"
-
-msgid "Node Modified Before"
-msgstr "在此之前修改过的节点"
-
-msgid "Time filter"
-msgstr "时间筛选器"
-
-msgid "Node Content"
-msgstr "节点内容"
-
-msgid "Node Name and Tags"
-msgstr "节点名和标签"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "仅已选择的节点及其子节点"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "显示循环搜索/替换对话框"
-
-msgid "Search options"
-msgstr "搜索选项"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"由于在节点属性中设置了排除项，所以至少跳过了一个节点。\n"
-"要清除所有排除项，请使用菜单：\n"
-"搜索->清除搜索中的所有排除项 "
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "隐藏 (用 ‘%s’ 恢复)"
-
-msgid "Node Name"
-msgstr "节点名称"
-
-msgid "Line"
-msgstr "行"
-
-msgid "Line Content"
-msgstr "首行内容"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "链接所指向的节点不存在 (Id = %s)"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "重复上次搜索/替换"
-
-msgid "Close"
-msgstr "关闭"
-
-msgid "Find Previous"
-msgstr "查找上一个"
-
-msgid "Find Next"
-msgstr "查找下一个"
-
-msgid "Replace"
-msgstr "替换"
-
-msgid "Undo"
-msgstr "撤销"
-
-msgid "Special Characters"
-msgstr "特殊字符"
-
-msgid "Chars for Bulleted List"
-msgstr "列举式列表的字符"
-
-msgid "Chars for Todo List"
-msgstr "待办事项列表的字符"
-
-msgid "Chars for Table Of Content"
-msgstr "字符表的内容"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "智能双引号的字符数"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "智能单引号的字符"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "启动智能引号替换"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "启用符号自动替换"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "启用符号自动替换"
-
-msgid "Only at the Start of the Line"
-msgstr "仅在行首"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "改变仅在CherryTree下次启动时生效"
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
@@ -2247,6 +2115,89 @@ msgstr "%s 写入失败 - 文件丢失。重新连接usb驱动或共享资源"
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr "%s 写入失败 - 文件被同步程序阻止了吗？"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
+msgstr "%s 重新打开失败 - 文件丢失。重新连接usb驱动或共享资源"
+
+msgid "Tab Width"
+msgstr "制表符宽度"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "用空格代替Tab"
+
+msgid "Use Line Wrapping"
+msgstr "启用换行显示"
+
+msgid "Line Wrapping Indentation"
+msgstr "换行缩进"
+
+msgid "Enable Automatic Indentation"
+msgstr "启用自动缩进"
+
+msgid "Scroll Beyond Last Line"
+msgstr "滚动到最后一行之后"
+
+msgid "Cursor Blinking"
+msgstr "光标闪烁"
+
+msgid "System Default"
+msgstr "系统默认值"
+
+msgid "On"
+msgstr "开"
+
+msgid "Off"
+msgstr "关"
+
+msgid "Text Margin: Left"
+msgstr "文本边距：左"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Vertical Space Around Lines"
+msgstr "行之间的距离"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "换行之间的间距"
+
+msgid "Timestamp Format"
+msgstr "时间戳格式"
+
+msgid "Horizontal Rule"
+msgstr "定义分割线"
+
+msgid "Chars to Select at Double Click"
+msgstr "双击选中图表"
+
+msgid "Miscellaneous"
+msgstr "杂项"
+
+msgid "Remove Color"
+msgstr "删除颜色"
+
+msgid "Question"
+msgstr "询问"
+
+msgid "Info"
+msgstr "消息"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Select File"
+msgstr "选择文件"
+
+msgid "Select Folder"
+msgstr "选择文件夹"
+
+msgid "Save File as"
+msgstr "文件另存为"
+
+msgid "Save To Folder"
+msgstr "保存到文件夹"
 
 msgid "Use Different Cherries per Level"
 msgstr "每层及使用不同的樱桃图标"
@@ -2296,26 +2247,376 @@ msgstr "节点标题头上次访问的节点"
 msgid "Select Node Icon"
 msgstr "选择节点图标"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "工具栏图标已经最大"
+msgid "No Node is Selected"
+msgstr "没有节点被选中"
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "工具栏图标已经最小"
+msgid "The Tree is Empty!"
+msgstr "树型为空！"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "无法访问可以执行文件“latex”和“dvipng”"
+msgid "The Selected Node is Read Only."
+msgstr "选择的节点只读"
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "例如，在Ubuntu上安装软件包："
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "此功能仅在富文本节点中有效"
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "例如，在Mac OS安装软件包："
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "此功能在代码自动高亮的节点中无效"
 
-msgid "Could not access the executable 'latex'"
-msgstr "无法访问可执行文件“latex”"
+msgid "No Text is Selected."
+msgstr "没有文字被选择"
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "无法访问可执行文件“dvipng”"
+msgid "No Table is Selected."
+msgstr "没有表格被选择"
+
+msgid "No CodeBox is Selected."
+msgstr "没有代码框被选中"
+
+msgid "New Child Node Properties"
+msgstr "新的子节点属性"
+
+msgid "New Node Properties"
+msgstr "新的节点属性"
+
+msgid "Node Properties"
+msgstr "节点属性"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr "脱离富文本将丢失此节点的所有格式，继续吗？"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "确实要<b>删除节点“%s”吗</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "此节点<b>有子节点，它们也将被删除</b>"
+
+msgid "Select the New Parent"
+msgstr "选择新的父节点"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "新的父节点不能随意移动！"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "新选择的父节点和原先一样！"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s节点属性已改变"
+
+msgid "To WebSite"
+msgstr "连接到网址"
+
+msgid "To File"
+msgstr "连接到文件"
+
+msgid "To Folder"
+msgstr "连接到文件夹"
+
+msgid "To Node"
+msgstr "连接到节点"
+
+msgid "Anchor Name (optional)"
+msgstr "锚点名称(可选)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "在已选中的节点中没有锚点"
+
+msgid "Choose Existing Anchor"
+msgstr "选择现有的锚点"
+
+msgid "Anchor Name"
+msgstr "锚点名称"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "匹配模式 '%s' 未找到"
+
+msgid "CherryTree File"
+msgstr "CherryTree文件"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"目录%s已经存在路径%s下。\n"
+"<b>是否移除存在项</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"文件%s已经存在路径%s下。\n"
+"<b>是否移除存在项</b>"
+
+msgid "Preferences File"
+msgstr "配置文件"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "系统托盘是否已出现在面板上？"
+
+msgid "Your system does not support the System Tray"
+msgstr "你的系统不支持系统托盘"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree层级笔记记录"
+
+msgid "_Exit CherryTree"
+msgstr "退出CherryTree(_E)"
+
+msgid "Show Menubar:"
+msgstr "显示菜单栏："
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "路径%s不存在"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" 不是一个CherryTree文档"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"解析CherryTree路径时出错：\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "未找到名为“%s”的节点"
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "临时文件已被创建并被外部程序打开。"
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "退出CherryTree前先退出外部程序。"
+
+msgid "Did you Quit the External Applications?"
+msgstr "要退出外部程序吗？"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "因CT*文件在外部被修改，文档已重载"
+
+msgid "Autosave on Quit"
+msgstr "退出前自动保存"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "保存前创建备份"
+
+msgid "Number of Backups to Keep"
+msgstr "欲保留的备份数"
+
+msgid "Custom Backup Directory"
+msgstr "自定义备份目录"
+
+msgid "Saving"
+msgstr "保存中"
+
+msgid "Automatically Check for Newer Version"
+msgstr "自动检查新版本"
+
+msgid "Reload Document From Last Session"
+msgstr "重载上一次会话中的文档"
+
+msgid "Reload After External Update to CT* File"
+msgstr "将重载，因CT*文件在外部被修改"
+
+msgid "Enable Debug Log"
+msgstr "开启调试日志"
+
+msgid "Debug Log Directory"
+msgstr "调试日志文件夹"
+
+msgid "Enable System Tray Docking"
+msgstr "启用系统托盘"
+
+msgid "Start Minimized in the System Tray"
+msgstr "程序启动后最小化到托盘"
+
+msgid "System Tray"
+msgstr "系统托盘"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "_Hide"
+msgstr "隐藏(_H)"
+
+msgid "Hide the Window"
+msgstr "隐藏窗口"
+
+msgid "Node Type"
+msgstr "节点类型"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "标签"
+
+msgid "Spell Check"
+msgstr "拼写检查"
+
+msgid "Word Count"
+msgstr "字数"
+
+msgid "Date Created"
+msgstr "创建日期"
+
+msgid "Date Modified"
+msgstr "修改日期"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "在此会话中未执行一个节点复制或源树不再可用"
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "源树节点不再可用"
+
+msgid "English"
+msgstr "英语"
+
+msgid "Text and Code"
+msgstr "纯文本和代码"
+
+msgid "Plain Text and Code"
+msgstr "纯文本和代码"
+
+msgid "Special Characters"
+msgstr "特殊字符"
+
+msgid "Theme"
+msgstr "主题"
+
+msgid "Interface"
+msgstr "界面"
+
+msgid "Links"
+msgstr "链接"
+
+msgid "Toolbar"
+msgstr "工具栏"
+
+msgid "Keyboard Shortcuts"
+msgstr "快捷键"
+
+msgid "Monospace"
+msgstr "等宽字体"
+
+msgid "Code Font"
+msgstr "代码字体"
+
+msgid "Terminal Font"
+msgstr "终端字体"
+
+msgid "Tree Font"
+msgstr "树型字体"
+
+msgid "Fonts"
+msgstr "字体"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "启用状态栏中的字数统计"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "在窗口标题中显示文件目录"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "在节点名称栏中显示完整路径"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "在菜单栏中显示书签"
+
+msgid "Menubar in Titlebar"
+msgstr "标题栏中的菜单栏"
+
+msgid "Toolbar Icons Size"
+msgstr "工具栏图标大小"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "滚动条滑块最小大小（0=使用系统默认值）"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "滚动条在文本编辑器上层"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "悬停时启用工具提示"
+
+msgid "Menus"
+msgstr "菜单"
+
+msgid "Max Search Results per Page"
+msgstr "每页的最大搜索结果数"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "启用并定义网页链接点击动作"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "启用并定义文件链接点击动作"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "启用并定义文件夹链接点击动作"
+
+msgid "Custom Actions"
+msgstr "自定义动作"
+
+msgid "Colors"
+msgstr "颜色"
+
+msgid "Underline Links"
+msgstr "链接下划线"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "对文件和文件夹使用相对路径"
+
+msgid "Anchor Size"
+msgstr "锚点大小"
+
+msgid "Replace in Current Node"
+msgstr "在当前节点中替换..."
+
+msgid "Search in Current Node"
+msgstr "在当前节点中搜索..."
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>匹配模式 '%s' 未找到</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "在多个节点中替换..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "在多个节点中搜索..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "当前会话没有历史搜索"
+
+msgid "PDF File"
+msgstr "PDF文件"
+
+msgid "Plain Text Document"
+msgstr "纯文本文档"
+
+msgid "Who is the Parent?"
+msgstr "哪个是父节点？"
+
+msgid "The Tree Root"
+msgstr "树根"
+
+msgid "The Selected Node"
+msgstr "已选择的节点"
 
 msgid "Enable Spell Check"
 msgstr "启用拼写检查"
@@ -2323,17 +2624,11 @@ msgstr "启用拼写检查"
 msgid "Spell Check Language"
 msgstr "语言拼写检查"
 
-msgid "Show White Spaces"
-msgstr "显示空白字符"
-
-msgid "Highlight Current Line"
-msgstr "高亮当前行"
-
-msgid "Highlight Matching Brackets"
-msgstr "高亮括号匹配"
-
 msgid "Expand CodeBoxes Automatically"
 msgstr "代码框自适应"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "在代码框中开启工具栏"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "轻型界面下的表单元格阈值数量"
@@ -2383,73 +2678,56 @@ msgstr "小型的"
 msgid "Scalable Tags"
 msgstr "可伸缩标签"
 
-msgid "Monospace"
-msgstr "等宽字体"
+msgid "Execute Code"
+msgstr "执行代码"
 
-msgid "Writing to Disk..."
-msgstr "正在写入到磁盘..."
+msgid "Change CodeBox Properties"
+msgstr "修改代码框属性"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "您没有%s文件的写入权限"
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "当前会话没有格式化操作历史"
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "请输入 %s 的密码"
+msgid "Link Name"
+msgstr "链接名称"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr "检查文件完整性失败，请尝试另存文件"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "光标未进入一个段落"
 
-msgid "Failed to encrypt the file"
-msgstr "加密文件失败"
+msgid "Pick a Foreground Color"
+msgstr "选择前景色"
 
-msgid "Image Format Not Recognized"
-msgstr "图片格式未能识别"
+msgid "Pick a Background Color"
+msgstr "选择背景颜色"
 
-msgid "Insert Table"
-msgstr "插入表格"
+msgid "Chars for Bulleted List"
+msgstr "列举式列表的字符"
 
-msgid "CSV File"
-msgstr "CSV 文件"
+msgid "Chars for Todo List"
+msgstr "待办事项列表的字符"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "嵌入文件的最大尺寸是 %s MB"
+msgid "Chars for Table Of Content"
+msgstr "字符表的内容"
 
-msgid "Do you want to Continue?"
-msgstr "你想继续吗？"
+msgid "Chars for Smart Double Quotes"
+msgstr "智能双引号的字符数"
 
-msgid "Tabs Replaced"
-msgstr "制表符已替换"
+msgid "Chars for Smart Single Quotes"
+msgstr "智能单引号的字符"
 
-msgid "Lines Stripped"
-msgstr "已删除行尾空格的行"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "启动智能引号替换"
 
-msgid "Change Selected"
-msgstr "改变当前所选"
+msgid "Enable Symbol Auto Replacement"
+msgstr "启用符号自动替换"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "快捷键’%s’已被占用"
+msgid "Supported Symbols Auto Replacements"
+msgstr "启用符号自动替换"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "当前关联动作是’%s’"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "要覆盖这个快捷键吗？"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "编辑快捷键"
-
-msgid "No Keyboard Shortcut"
-msgstr "没有快捷键"
+msgid "Only at the Start of the Line"
+msgstr "仅在行首"
 
 msgid "Use Selected Color"
 msgstr "使用所选颜色"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "自动语法高亮"
 
 msgid "Tags for Searching"
 msgstr "搜索标签"
@@ -2465,6 +2743,12 @@ msgstr "子节点"
 
 msgid "Read Only"
 msgstr "只读"
+
+msgid "Unique Id"
+msgstr "唯一ID"
+
+msgid "Shared Nodes Group"
+msgstr "共享节点组 "
 
 msgid "Choose Existing Tag"
 msgstr "选择现有的标签"
@@ -2502,276 +2786,78 @@ msgstr "在新页面建立新节点"
 msgid "Single File"
 msgstr "单独的文件"
 
-msgid "English"
-msgstr "英语"
+msgid "Checking for Newer Version..."
+msgstr "查找新版本..."
 
-msgid "Text and Code"
-msgstr "纯文本和代码"
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "获取最新版本信息失败，稍候再试"
 
-msgid "Plain Text and Code"
-msgstr "纯文本和代码"
+msgid "A Newer Version Is Available!"
+msgstr "有新版本可用！"
 
-msgid "Theme"
-msgstr "主题"
+msgid "You Are Using the Latest Version Available."
+msgstr "您使用的是最新版本"
 
-msgid "Fonts"
-msgstr "字体"
+msgid "You Are Using a Development Version."
+msgstr "您正在使用开发版本"
 
-msgid "Links"
-msgstr "链接"
+msgid "Image Format Not Recognized"
+msgstr "图片格式未能识别"
 
-msgid "Toolbar"
-msgstr "工具栏"
-
-msgid "Keyboard Shortcuts"
-msgstr "快捷键"
-
-msgid "Code Font"
-msgstr "代码字体"
-
-msgid "Terminal Font"
-msgstr "终端字体"
-
-msgid "Tree Font"
-msgstr "树型字体"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "启用并定义网页链接点击动作"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "启用并定义文件链接点击动作"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "启用并定义文件夹链接点击动作"
-
-msgid "Custom Actions"
-msgstr "自定义动作"
-
-msgid "Colors"
-msgstr "颜色"
-
-msgid "Underline Links"
-msgstr "链接下划线"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "对文件和文件夹使用相对路径"
-
-msgid "Anchor Size"
-msgstr "锚点大小"
-
-msgid "Who is the Parent?"
-msgstr "哪个是父节点？"
-
-msgid "The Tree Root"
-msgstr "树根"
-
-msgid "The Selected Node"
-msgstr "已选择的节点"
-
-msgid "Internal Terminal Shell"
-msgstr "使用内部终端"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "用于节点/代码框类型的命令"
-
-msgid "Terminal Command"
-msgstr "终端命令"
-
-msgid "Code Execution"
-msgstr "代码执行"
-
-msgid "Rename"
-msgstr "重命名"
-
-msgid "PNG Image"
-msgstr "PNG图片"
+msgid "Insert Table"
+msgstr "插入表格"
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "写入到 %s 失败"
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "嵌入文件的最大尺寸是 %s MB"
 
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "文件夹链接'%s'无效"
+msgid "Do you want to Continue?"
+msgstr "你想继续吗？"
 
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "文件链接'%s'无效"
+msgid "Tabs Replaced"
+msgstr "制表符已替换"
 
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "文件夹链接'%s'无效"
+msgid "Lines Stripped"
+msgstr "已删除行尾空格的行"
 
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "未找到锚点 '%s'"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "警告：一张或多张图片被压缩并插入到当前页面"
 
-msgid "Edit CodeBox"
-msgstr "编辑代码框"
+msgid "Print CherryTree version"
+msgstr "打印CherryTree版本"
 
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"你必须将一个命令与'%s'联系起来。\n"
-"在 \"首选项 \"对话框中这样做"
+msgid "Node name to focus"
+msgstr "要关注的节点名称"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr "安装软件包‘xterm’或在首选项对话框中配置不同的终端"
+msgid "Anchor name to scroll to in node"
+msgstr "节点中想要滚动到的锚点名称"
 
-msgid "Edit Table Properties"
-msgstr "编辑表格属性"
+msgid "Export to HTML at specified directory path"
+msgstr "在指定的目录路径下导出为HTML"
 
-msgid "Insert Anchor"
-msgstr "插入锚点"
+msgid "Export to Text at specified directory path"
+msgstr "在指定的目录路径下导出为文本"
 
-msgid "Edit Anchor"
-msgstr "编辑锚点"
+msgid "Export to PDF at specified directory path"
+msgstr "在指定的目录路径下导出为PDF格式"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "不能编辑只读节点下的嵌入文件"
+msgid "Overwrite if export path already exists"
+msgstr "如果导出路径已经存在，则覆盖"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "嵌入文件已自动更新："
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "导出成单一文件(网页或文本)"
 
-msgid "The Tree is Empty!"
-msgstr "树型为空！"
+msgid "Password to open document"
+msgstr "文档密码"
 
-msgid "The Selected Node is Read Only."
-msgstr "选择的节点只读"
+msgid "Create a new window"
+msgstr "创建一个新窗口"
 
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "此功能仅在富文本节点中有效"
+msgid "Run in secondary session, independent from main session"
+msgstr "在次会话中运行，独立于主会话"
 
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "此功能在代码自动高亮的节点中无效"
-
-msgid "No Table is Selected."
-msgstr "没有表格被选择"
-
-msgid "No CodeBox is Selected."
-msgstr "没有代码框被选中"
-
-msgid "New Child Node Properties"
-msgstr "新的子节点属性"
-
-msgid "New Node Properties"
-msgstr "新的节点属性"
-
-msgid "Node Properties"
-msgstr "节点属性"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr "脱离富文本将丢失此节点的所有格式，继续吗？"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "确实要<b>删除节点“%s”吗</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "此节点<b>有子节点，它们也将被删除</b>"
-
-msgid "Select the New Parent"
-msgstr "选择新的父节点"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "新的父节点不能随意移动！"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "新选择的父节点和原先一样！"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s节点属性已改变"
-
-msgid "Latex Text"
-msgstr "Latex文本"
-
-msgid "Image Size dpi"
-msgstr "图像dpi大小"
-
-msgid "Tutorial"
-msgstr "教程"
-
-msgid "Reference"
-msgstr "参考"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX数学和方程式教程 "
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX数学符号参考"
-
-msgid "Image Properties"
-msgstr "图片属性"
-
-msgid "Width"
-msgstr "宽"
-
-msgid "Height"
-msgstr "高"
-
-msgid "Type"
-msgstr "类型"
-
-msgid "pixels"
-msgstr "像素"
-
-msgid "Size"
-msgstr "尺寸"
-
-msgid "Options"
-msgstr "选项"
-
-msgid "Rows"
-msgstr "行"
-
-msgid "Columns"
-msgstr "列"
-
-msgid "Default Width"
-msgstr "默认宽度"
-
-msgid "Table Size"
-msgstr "表格尺寸"
-
-msgid "Column Properties"
-msgstr "列属性"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "轻量级界面（大表格下更加快速） "
-
-msgid "Import from CSV File"
-msgstr "从CSV文件导入"
-
-msgid "Remove Color"
-msgstr "删除颜色"
-
-msgid "Question"
-msgstr "询问"
-
-msgid "Info"
-msgstr "消息"
-
-msgid "Error"
-msgstr "错误"
-
-msgid "Select File"
-msgstr "选择文件"
-
-msgid "Select Folder"
-msgstr "选择文件夹"
-
-msgid "Save File as"
-msgstr "文件另存为"
-
-msgid "Save To Folder"
-msgstr "保存到文件夹"
+msgid "Are you sure to Reset to Default?"
+msgstr "您确定要重置为默认值吗？"
 
 msgid "HTML Document"
 msgstr "HTML 文档"
@@ -2787,6 +2873,3 @@ msgstr "Treepad文件"
 
 msgid "Leo Document"
 msgstr "Leo文件"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "您确定要重置为默认值吗？"
