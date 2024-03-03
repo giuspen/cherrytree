@@ -644,8 +644,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         }
         CtTextView& ct_text_view = _pCtMainWin->get_text_view();
-        ct_text_view.scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
         ct_text_view.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first, match_offsets.second - match_offsets.first);
+        ct_text_view.scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (_s_state.replace_active) {
         if (tree_iter.get_node_read_only()) return false;
