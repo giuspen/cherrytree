@@ -291,6 +291,7 @@ private:
     Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ToolButton*             _pSaveToolButton{nullptr};
+    CtMenuAction*                _pSaveMenuAction{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
     std::unique_ptr<CtTreeStore> _uCtTreestore;

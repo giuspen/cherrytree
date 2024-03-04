@@ -53,6 +53,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     _uCtActions.reset(new CtActions{this});
     _uCtMenu.reset(new CtMenu{this});
+    _pSaveMenuAction = _uCtMenu->find_action("ct_save");
     _uCtPrint.reset(new CtPrint{this});
     _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
@@ -640,7 +641,7 @@ void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
             }
         }
         menu_set_items_recent_documents();
-        window_title_update(); // this is to restore currect sensitive status of save icon
+        window_title_update(); // this is to restore correct sensitive status of save icon
         for (auto pToolbar : _pToolbars) {
             pToolbar->show_all();
         }
