@@ -35,7 +35,7 @@ msgid "Reset to Default"
 msgstr "기본설정으로 초기화"
 
 msgid "Split Toolbar"
-msgstr "도구 모음을 분할"
+msgstr "툴바를 분할"
 
 msgid "Open a CherryTree File"
 msgstr "CherryTree 문서 열기"
@@ -1041,16 +1041,16 @@ msgid "Toggle Show/Hide Menubar"
 msgstr "메뉴바 표시/숨기기"
 
 msgid "Show/Hide Tool_bar"
-msgstr "도구 모음 표시/숨기기(_B)"
+msgstr "툴바 표시/숨기기(_B)"
 
 msgid "Toggle Show/Hide Toolbar"
-msgstr "도구 모음 표시/숨기기"
+msgstr "툴바 표시/숨기기"
 
 msgid "Show/Hide _Statusbar"
-msgstr "도구 모음 표시/숨기기(_B)"
+msgstr "상태표시줄 표시/숨기기(_B)"
 
 msgid "Toggle Show/Hide Statusbar"
-msgstr "도구 모음 표시/숨기기"
+msgstr "상태표시줄 표시/숨기기"
 
 msgid "Show/Hide _Lines Node Parent to Children"
 msgstr "Tree 탐색기 표시/숨기기(_T)"
@@ -2093,10 +2093,10 @@ msgid "Code Execution"
 msgstr "코드의 실행"
 
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "도구 모음 아이콘은 이미 최대 크기입니다."
+msgstr "툴바 아이콘은 이미 최대 크기입니다."
 
 msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "도구 모음 아이콘은 이미 최소 크기입니다."
+msgstr "툴바 아이콘은 이미 최소 크기입니다."
 
 msgid "This Change will have Effect Only After Restarting CherryTree."
 msgstr "변경 사항은 CherryTree를 재 실행한 후에 적용됩니다."
