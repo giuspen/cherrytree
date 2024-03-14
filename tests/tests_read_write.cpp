@@ -660,6 +660,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
                                  "$a^2+b^2=c^2$\n"
                                  "\\end{document}", pImageLatex->get_latex_text().c_str());
                 } break;
+                default: break;
             }
         }
     }

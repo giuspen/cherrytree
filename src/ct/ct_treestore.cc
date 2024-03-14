@@ -1431,6 +1431,7 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                         case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
                         case CtAnchWidgType::TableHeavy: ++summaryInfo.heavytables_num; break;
                         case CtAnchWidgType::TableLight: ++summaryInfo.lighttables_num; break;
+                        default: break;
                     }
                 }
             }

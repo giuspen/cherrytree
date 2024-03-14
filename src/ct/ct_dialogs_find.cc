@@ -381,13 +381,17 @@ void CtMatchDialogStore::deep_clear()
     _all_matches.clear();
 }
 
-CtMatchRowData* CtMatchDialogStore::add_row(gint64 node_id,
+CtMatchRowData* CtMatchDialogStore::add_row(const gint64 node_id,
                                             const Glib::ustring& node_name,
                                             const Glib::ustring& node_hier_name,
-                                            int start_offset,
-                                            int end_offset,
-                                            int line_num,
-                                            const Glib::ustring& line_content)
+                                            const int start_offset,
+                                            const int end_offset,
+                                            const int line_num,
+                                            const Glib::ustring& line_content,
+                                            const CtAnchWidgType anch_type,
+                                            const int anch_cell_idx,
+                                            const int anch_offs_start,
+                                            const int anch_offs_end)
 {
     _all_matches.push_back(CtMatchRowData{
         .node_id = node_id,
@@ -396,7 +400,11 @@ CtMatchRowData* CtMatchDialogStore::add_row(gint64 node_id,
         .start_offset = start_offset,
         .end_offset = end_offset,
         .line_num = line_num,
-        .line_content = line_content
+        .line_content = line_content,
+        .anch_type = anch_type,
+        .anch_cell_idx = anch_cell_idx,
+        .anch_offs_start = anch_offs_start,
+        .anch_offs_end = anch_offs_end
     });
     return &_all_matches.back();
 }
@@ -484,6 +492,10 @@ Gtk::TreeIter CtMatchDialogStore::_add_row(const CtMatchRowData& row_data) {
     row[columns.end_offset] = row_data.end_offset;
     row[columns.line_num] = row_data.line_num;
     row[columns.line_content] = row_data.line_content;
+    row[columns.anch_type] = row_data.anch_type;
+    row[columns.anch_cell_idx] = row_data.anch_cell_idx;
+    row[columns.anch_offs_start] = row_data.anch_offs_start;
+    row[columns.anch_offs_end] = row_data.anch_offs_end;
     return retIter;
 }
 
@@ -542,10 +554,12 @@ void CtDialogs::match_dialog(const std::string& str_find,
 
     auto select_found_line = [pTreeview, &s_state, pCtMainWin](){
         if (s_state.in_loading) {
+            //spdlog::debug("in_loading");
             return;
         }
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (not list_iter) {
+            //spdlog::debug("!get_selected");
             return;
         }
         gint64 node_id = list_iter->get_value(s_state.match_store->columns.node_id);
@@ -558,13 +572,30 @@ void CtDialogs::match_dialog(const std::string& str_find,
         }
         // remove previous selection because it can cause freezing in specific cases, see more in issue
         auto fake_iter = pCtMainWin->get_text_view().get_buffer()->get_iter_at_offset(-1);
-        pCtMainWin->get_text_view().get_buffer()->place_cursor(fake_iter);
+        auto rCurrBuffer = pCtMainWin->get_text_view().get_buffer();
+        rCurrBuffer->place_cursor(fake_iter);
 
         pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
-        auto rCurrBuffer = pCtMainWin->get_text_view().get_buffer();
-        rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(list_iter->get_value(s_state.match_store->columns.start_offset)),
-                                  rCurrBuffer->get_iter_at_offset(list_iter->get_value(s_state.match_store->columns.end_offset)));
+        const int start_offset = list_iter->get_value(s_state.match_store->columns.start_offset);
+        const int end_offset = list_iter->get_value(s_state.match_store->columns.end_offset);
+        rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(start_offset),
+                                  rCurrBuffer->get_iter_at_offset(end_offset));
         pCtMainWin->get_text_view().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+
+        const CtAnchWidgType anch_type = list_iter->get_value(s_state.match_store->columns.anch_type);
+        //spdlog::debug("anch_type={}", static_cast<int>(anch_type));
+        if (CtAnchWidgType::None != anch_type) {
+            const size_t anch_cell_idx = list_iter->get_value(s_state.match_store->columns.anch_cell_idx);
+            const int anch_offs_start = list_iter->get_value(s_state.match_store->columns.anch_offs_start);
+            const int anch_offs_end = list_iter->get_value(s_state.match_store->columns.anch_offs_end);
+            CtActions::find_match_in_obj_focus(start_offset,
+                                               rCurrBuffer,
+                                               tree_iter,
+                                               anch_type,
+                                               anch_cell_idx,
+                                               anch_offs_start,
+                                               anch_offs_end);
+        }
 
         // pump events so UI's not going to freeze (#835)
         while (gdk_events_pending())

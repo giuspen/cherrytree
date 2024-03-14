@@ -57,6 +57,7 @@ void CtActions::find_in_selected_node()
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
 
     if (not _s_state.from_find_iterated) {
+        _s_state.find_iter_anchlist_size = 0u;
         auto iter_insert = curr_buffer->get_iter_at_mark(curr_buffer->get_insert());
         auto iter_bound = curr_buffer->get_iter_at_mark(curr_buffer->get_selection_bound());
         auto entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
@@ -142,6 +143,7 @@ void CtActions::find_in_multiple_nodes()
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
 
     if (not _s_state.from_find_iterated) {
+        _s_state.find_iter_anchlist_size = 0u;
         Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
         Gtk::TextIter iter_bound = curr_buffer->get_selection_bound()->get_iter();
         Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
@@ -292,6 +294,40 @@ void CtActions::find_again_iter(const bool fromIterativeDialog)
     const bool restore_iterative_dialog = _s_options.iterative_dialog;
     _s_options.iterative_dialog = fromIterativeDialog;
     _s_state.from_find_iterated = true;
+    if (0u != _s_state.find_iter_anchlist_size) {
+        if (_s_state.from_find_back == _s_options.direction_fw) {
+            if (_s_state.find_iter_anchlist_idx >= 1u) {
+                --_s_state.find_iter_anchlist_idx;
+                spdlog::debug("{}-- {}/{}", __FUNCTION__, _s_state.find_iter_anchlist_idx, _s_state.find_iter_anchlist_size);
+            }
+            else {
+                spdlog::debug("{} LOLIM {}/{}", __FUNCTION__, _s_state.find_iter_anchlist_idx, _s_state.find_iter_anchlist_size);
+                _s_state.find_iter_anchlist_size = 0u;
+                Glib::RefPtr<Gtk::TextBuffer> text_buffer = _pCtMainWin->get_text_view().get_buffer();
+                Gtk::TextIter min_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
+                if (not min_iter.backward_char()) {
+                    spdlog::debug("?? {} obj at offs 0", __FUNCTION__);
+                    _s_state.find_back_exclude_obj_offs_zero = true;
+                }
+                else {
+                    text_buffer->place_cursor(min_iter);
+                }
+            }
+        }
+        else {
+            if (_s_state.find_iter_anchlist_idx < (_s_state.find_iter_anchlist_size - 1u)) {
+                ++_s_state.find_iter_anchlist_idx;
+                spdlog::debug("{}++ {}/{}", __FUNCTION__, _s_state.find_iter_anchlist_idx, _s_state.find_iter_anchlist_size);
+            }
+            else {
+                spdlog::debug("{} HILIM {}/{}", __FUNCTION__, _s_state.find_iter_anchlist_idx, _s_state.find_iter_anchlist_size);
+                _s_state.find_iter_anchlist_size = 0u;
+                Glib::RefPtr<Gtk::TextBuffer> text_buffer = _pCtMainWin->get_text_view().get_buffer();
+                Gtk::TextIter max_iter = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
+                text_buffer->place_cursor(max_iter);
+            }
+        }
+    }
     switch (_s_state.curr_find_type) {
         case CtCurrFindType::SingleNode: {
             find_in_selected_node();
@@ -445,12 +481,12 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
         if (all_matches) {
             gint64 node_id = node_iter.get_node_id();
             Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, "  /  ", false/*for_filename*/, true/*root_to_leaf*/);
-            Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
+            Glib::ustring line_content = CtTextIterUtil::get_first_line_content(node_iter.get_node_text_buffer());
             const Glib::ustring text_tags = node_iter.get_node_tags();
             _s_state.match_store->add_row(node_id,
                                           text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
                                           str::xml_escape(node_hier_name),
-                                          0, 0, 1, line_content);
+                                          0, 0, 1, line_content, CtAnchWidgType::None, 0, 0, 0);
         }
         if (_s_state.replace_active and not node_iter.get_node_read_only()) {
             std::string replacer_text = _s_options.str_replace;
@@ -588,7 +624,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
         Glib::MatchInfo match_info;
-        if (re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset) - start_num_objs/*start_position*/, match_info)) {
+        if (re_pattern->match(text, std::max(str::symb_pos_to_byte_pos(text, start_offset) - start_num_objs, 0)/*start_position*/, match_info)) {
             if (match_info.matches()) {
                 match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
             }
@@ -596,7 +632,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     }
     else {
         Glib::MatchInfo match_info;
-        re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset) - start_num_objs/*string_len*/, 0/*start_position*/, match_info);
+        re_pattern->match(text, std::max(str::symb_pos_to_byte_pos(text, start_offset) - start_num_objs, 0)/*string_len*/, 0/*start_position*/, match_info);
         while (match_info.matches()) {
             match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
             match_info.next();
@@ -607,36 +643,107 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         match_offsets.second = str::byte_pos_to_symb_pos(text, match_offsets.second);
     }
 
-    std::pair<int,int> obj_match_offsets{-1, -1};
-    Glib::ustring obj_content;
-    if (not _s_state.replace_active) {
-        obj_match_offsets = _check_pattern_in_object_between(tree_iter, text_buffer, re_pattern,
-            start_iter.get_offset(), match_offsets.first, forward, obj_content);
+    CtAnchMatchList anchMatchList;
+    int obj_search_start_offs = start_iter.get_offset();
+    int obj_search_end_offs = match_offsets.first != -1 ? match_offsets.first : (forward ? text_buffer->end().get_offset() : 0);
+    if (not forward) {
+        std::swap(obj_search_start_offs, obj_search_end_offs);
     }
-    if (obj_match_offsets.first != -1) match_offsets = obj_match_offsets;
+    if (_check_pattern_in_object_between(tree_iter,
+                                         re_pattern,
+                                         obj_search_start_offs,
+                                         obj_search_end_offs,
+                                         forward,
+                                         all_matches,
+                                         anchMatchList))
+    {
+        // find_iter_anchlist_idx is always 0 for all_matches, changes only in iterative find
+        if (not all_matches) {
+            if (0u == _s_state.find_iter_anchlist_size) {
+                // first iteration in anch match list
+                _s_state.find_iter_anchlist_idx = forward ? 0u : anchMatchList.size() - 1u;
+            }
+            else if (anchMatchList.size() != _s_state.find_iter_anchlist_size) {
+                spdlog::debug("?? find_iter_anchlist_size {}->{}", _s_state.find_iter_anchlist_size, anchMatchList.size());
+                _s_state.find_iter_anchlist_idx = forward ? 0u : anchMatchList.size() - 1u;
+            }
+            else if (_s_state.find_iter_anchlist_idx >= anchMatchList.size()) {
+                spdlog::debug("?? after anchMatchList of {}", anchMatchList.size());
+                _s_state.find_iter_anchlist_idx = forward ? 0u : anchMatchList.size() - 1u;
+            }
+            if (not forward and _s_state.find_back_exclude_obj_offs_zero) {
+                anchMatchList.clear();
+                _s_state.find_iter_anchlist_size = 0u;
+                _s_state.find_back_exclude_obj_offs_zero = false;
+                spdlog::debug("find_back_exclude_obj_offs_zero");
+                return false;
+            }
+            _s_state.find_iter_anchlist_size = anchMatchList.size();
+            spdlog::debug("anchMatchList {}->{} {}/{}",
+                obj_search_start_offs, obj_search_end_offs,
+                _s_state.find_iter_anchlist_idx, _s_state.find_iter_anchlist_size);
+        }
+        match_offsets.first = anchMatchList[0]->start_offset;
+        match_offsets.second = match_offsets.first + 1;
+    }
+    else {
+        if (not all_matches) {
+            if (0u != _s_state.find_iter_anchlist_size) {
+                _s_state.find_iter_anchlist_size = 0u;
+            }
+        }
+    }
     if (match_offsets.first == -1) return false;
 
     // match found!
-    const int num_objs = _get_num_objs_before_offset(text_buffer, match_offsets.first);
-    _s_state.latest_match_offsets.first = match_offsets.first + num_objs;
-    _s_state.latest_match_offsets.second = match_offsets.second + num_objs;
+    if (0u == anchMatchList.size()) {
+        const int num_objs = _get_num_objs_before_offset(text_buffer, match_offsets.first);
+        _s_state.latest_match_offsets.first = match_offsets.first + num_objs;
+        _s_state.latest_match_offsets.second = match_offsets.second + num_objs;
+    }
+    else {
+        // the match offset comes from the anchored widget
+        _s_state.latest_match_offsets.first = match_offsets.first;
+        _s_state.latest_match_offsets.second = match_offsets.second;
+    }
     CtMatchRowData* pCtMatchRowData{nullptr};
     if (all_matches) {
         const gint64 node_id = tree_iter.get_node_id();
         const Glib::ustring node_name = tree_iter.get_node_name();
         const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "  /  ", false/*for_filename*/, true/*root_to_leaf*/);
-        const Glib::ustring line_content = obj_match_offsets.first != -1 ?
-            obj_content : _get_line_content(text_buffer, _s_state.latest_match_offsets.second);
-        int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
-        line_num += 1;
+        const Glib::ustring esc_node_hier_name = str::xml_escape(node_hier_name);
         const Glib::ustring text_tags = tree_iter.get_node_tags();
-        pCtMatchRowData = _s_state.match_store->add_row(node_id,
-                                                        text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
-                                                        str::xml_escape(node_hier_name),
-                                                        _s_state.latest_match_offsets.first,
-                                                        _s_state.latest_match_offsets.second,
-                                                        line_num,
-                                                        line_content);
+        const Glib::ustring node_name_w_tags = text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]";
+        if (0u == anchMatchList.size()) {
+            const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
+            const Glib::ustring line_content = CtTextIterUtil::get_line_content(text_buffer, _s_state.latest_match_offsets.second);
+            pCtMatchRowData = _s_state.match_store->add_row(node_id,
+                                                            node_name_w_tags,
+                                                            esc_node_hier_name,
+                                                            _s_state.latest_match_offsets.first,
+                                                            _s_state.latest_match_offsets.second,
+                                                            line_num,
+                                                            line_content,
+                                                            CtAnchWidgType::None, 0, 0, 0);
+        }
+        else {
+            for (std::shared_ptr<CtAnchMatch>& pAnchMatch : anchMatchList) {
+                _s_state.latest_match_offsets.first = pAnchMatch->start_offset;
+                _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + 1;
+                const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
+                (void)_s_state.match_store->add_row(node_id,
+                                                    node_name_w_tags,
+                                                    esc_node_hier_name,
+                                                    _s_state.latest_match_offsets.first,
+                                                    _s_state.latest_match_offsets.second,
+                                                    line_num,
+                                                    pAnchMatch->line_content,
+                                                    pAnchMatch->anch_type,
+                                                    pAnchMatch->anch_cell_idx,
+                                                    pAnchMatch->anch_offs_start,
+                                                    pAnchMatch->anch_offs_end);
+            }
+        }
     }
     else {
         CtTreeIter curr_tree_iter = _pCtMainWin->curr_tree_iter();
@@ -646,8 +753,18 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         CtTextView& ct_text_view = _pCtMainWin->get_text_view();
         ct_text_view.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first, match_offsets.second - match_offsets.first);
         ct_text_view.scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        if (anchMatchList.size() > 0u) {
+            auto& pAnchMatch = anchMatchList[_s_state.find_iter_anchlist_idx];
+            CtActions::find_match_in_obj_focus(_s_state.latest_match_offsets.first,
+                                               text_buffer,
+                                               tree_iter,
+                                               pAnchMatch->anch_type,
+                                               pAnchMatch->anch_cell_idx,
+                                               pAnchMatch->anch_offs_start,
+                                               pAnchMatch->anch_offs_end);
+        }
     }
-    if (_s_state.replace_active) {
+    if (_s_state.replace_active and 0u == anchMatchList.size()) {
         if (tree_iter.get_node_read_only()) return false;
         Gtk::TextIter sel_start = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
         Gtk::TextIter sel_end = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
@@ -676,79 +793,212 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     return true;
 }
 
-// Search for the pattern in the given object
-Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern, CtAnchoredWidget* obj)
+/*static*/void CtActions::find_match_in_obj_focus(const int obj_offset,
+                                                  Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
+                                                  const CtTreeIter& tree_iter,
+                                                  const CtAnchWidgType anch_type,
+                                                  const size_t anch_cell_idx,
+                                                  const int anch_offs_start,
+                                                  const int anch_offs_end)
 {
-    if (CtImageEmbFile* image = dynamic_cast<CtImageEmbFile*>(obj)) {
-        Glib::ustring text = image->get_file_name().string();
-        if (_s_options.accent_insensitive) {
-            text = str::diacritical_to_ascii(text);
+    spdlog::debug("{} obj={} cell={} {}->{}", __FUNCTION__, obj_offset, anch_cell_idx, anch_offs_start, anch_offs_end);
+    Gtk::TextIter anchor_iter = pTextBuffer->get_iter_at_offset(obj_offset);
+    Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = anchor_iter.get_child_anchor();
+    if (rChildAnchor) {
+        CtAnchoredWidget* pCtAnchoredWidget = tree_iter.get_anchored_widget(rChildAnchor);
+        if (pCtAnchoredWidget) {
+            switch (anch_type) {
+                case CtAnchWidgType::CodeBox: {
+                    if (auto pCodebox = dynamic_cast<CtCodebox*>(pCtAnchoredWidget)) {
+                        pCodebox->get_text_view().set_selection_at_offset_n_delta(anch_offs_start,
+                            anch_offs_end - anch_offs_start);
+                    }
+                    else {
+                        spdlog::debug("? {} !pCodebox", __FUNCTION__);
+                    }
+                } break;
+                case CtAnchWidgType::TableHeavy: [[fallthrough]];
+                case CtAnchWidgType::TableLight: {
+                    if (auto pTable = dynamic_cast<CtTableCommon*>(pCtAnchoredWidget)) {
+                        const size_t num_columns = pTable->get_num_columns();
+                        const size_t rowIdx = anch_cell_idx / num_columns;
+                        const size_t colIdx = anch_cell_idx % num_columns;
+                        pTable->set_current_row_column(rowIdx, colIdx);
+                        pTable->grab_focus();
+                        pTable->set_selection_at_offset_n_delta(anch_offs_start,
+                            anch_offs_end - anch_offs_start);
+                    }
+                    else {
+                        spdlog::debug("? {} !pTable", __FUNCTION__);
+                    }
+                } break;
+                default: break;
+            }
         }
-        if (pattern->match(text)) return text;
-    }
-    else if (CtImageAnchor* image = dynamic_cast<CtImageAnchor*>(obj)) {
-        Glib::ustring text = image->get_anchor_name();
-        if (_s_options.accent_insensitive) {
-            text = str::diacritical_to_ascii(text);
+        else {
+            spdlog::debug("? {} !pCtAnchoredWidget", __FUNCTION__);
         }
-        if (pattern->match(text)) return text;
     }
-    else if (auto table = dynamic_cast<CtTableCommon*>(obj)) {
-        std::vector<std::vector<Glib::ustring>> rows;
-        table->write_strings_matrix(rows);
-        for (auto& row : rows) {
-            for (Glib::ustring& col : row) {
+    else {
+        spdlog::debug("? {} !rChildAnchor", __FUNCTION__);
+    }
+}
+
+bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
+                                         CtAnchoredWidget* pAnchWidg,
+                                         CtAnchMatchList& anchMatchList)
+{
+    bool retVal{false};
+    const CtAnchWidgType anchWidgType = pAnchWidg->get_type();
+    switch (anchWidgType) {
+        case CtAnchWidgType::ImageEmbFile: {
+            if (CtImageEmbFile* pImageEmbFile = dynamic_cast<CtImageEmbFile*>(pAnchWidg)) {
+                Glib::ustring text = pImageEmbFile->get_file_name().string();
                 if (_s_options.accent_insensitive) {
-                    col = str::diacritical_to_ascii(col);
+                    text = str::diacritical_to_ascii(text);
                 }
-                if (pattern->match(col)) {
-                    return "<table>";
+                if (re_pattern->match(text)) {
+                    auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                    pAnchMatch->start_offset = pAnchWidg->getOffset();
+                    pAnchMatch->line_content = text;
+                    pAnchMatch->anch_type = anchWidgType;
+                    anchMatchList.push_back(pAnchMatch);
+                    retVal = true;
                 }
+            }
+            else {
+                spdlog::warn("!! unexp no CtImageEmbFile");
+            }
+        } break;
+        case CtAnchWidgType::ImageAnchor: {
+            if (CtImageAnchor* pImageAnchor = dynamic_cast<CtImageAnchor*>(pAnchWidg)) {
+                Glib::ustring text = pImageAnchor->get_anchor_name();
+                if (_s_options.accent_insensitive) {
+                    text = str::diacritical_to_ascii(text);
+                }
+                if (re_pattern->match(text)) {
+                    auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                    pAnchMatch->start_offset = pAnchWidg->getOffset();
+                    pAnchMatch->line_content = text;
+                    pAnchMatch->anch_type = anchWidgType;
+                    anchMatchList.push_back(pAnchMatch);
+                    retVal = true;
+                }
+            }
+            else {
+                spdlog::warn("!! unexp no CtImageAnchor");
+            }
+        } break;
+        case CtAnchWidgType::CodeBox: {
+            if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchWidg)) {
+                Glib::ustring text = pCodebox->get_text_content();
+                if (_s_options.accent_insensitive) {
+                    text = str::diacritical_to_ascii(text);
+                }
+                Glib::MatchInfo match_info;
+                if (re_pattern->match(text, match_info)) {
+                    CtAnchMatchList localAnchMatchList;
+                    while (match_info.matches()) {
+                        int match_start_offset, match_end_offset;
+                        match_info.fetch_pos(0, match_start_offset, match_end_offset);
+                        match_start_offset = str::byte_pos_to_symb_pos(text, match_start_offset);
+                        match_end_offset = str::byte_pos_to_symb_pos(text, match_end_offset);
+                        auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                        pAnchMatch->start_offset = pAnchWidg->getOffset();
+                        pAnchMatch->line_content = CtTextIterUtil::get_line_content(pCodebox->get_buffer(), match_end_offset);
+                        pAnchMatch->anch_type = anchWidgType;
+                        pAnchMatch->anch_offs_start = match_start_offset;
+                        pAnchMatch->anch_offs_end = match_end_offset;
+                        localAnchMatchList.push_back(pAnchMatch);
+                        match_info.next();
+                    }
+                    for (auto& pAnchMatch : localAnchMatchList) {
+                        anchMatchList.push_back(pAnchMatch);
+                    }
+                    retVal = true;
+                }
+            }
+            else {
+                spdlog::warn("!! unexp no CtCodebox");
+            }
+        } break;
+        case CtAnchWidgType::TableHeavy:
+        case CtAnchWidgType::TableLight: {
+            if (auto pTable = dynamic_cast<CtTableCommon*>(pAnchWidg)) {
+                std::vector<std::vector<Glib::ustring>> rows;
+                pTable->write_strings_matrix(rows);
+                CtAnchMatchList localAnchMatchList;
+                size_t rowIdx{0u};
+                for (auto& row : rows) {
+                    size_t colIdx{0u};
+                    for (Glib::ustring& text : row) {
+                        if (_s_options.accent_insensitive) {
+                            text = str::diacritical_to_ascii(text);
+                        }
+                        Glib::MatchInfo match_info;
+                        if (re_pattern->match(text, match_info)) {
+                            while (match_info.matches()) {
+                                int match_start_offset, match_end_offset;
+                                match_info.fetch_pos(0, match_start_offset, match_end_offset);
+                                match_start_offset = str::byte_pos_to_symb_pos(text, match_start_offset);
+                                match_end_offset = str::byte_pos_to_symb_pos(text, match_end_offset);
+                                auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                                pAnchMatch->start_offset = pAnchWidg->getOffset();
+                                pAnchMatch->line_content = pTable->get_line_content(rowIdx, colIdx, match_end_offset);
+                                pAnchMatch->anch_type = anchWidgType;
+                                pAnchMatch->anch_offs_start = match_start_offset;
+                                pAnchMatch->anch_offs_end = match_end_offset;
+                                pAnchMatch->anch_cell_idx = pTable->get_num_columns()*rowIdx + colIdx;
+                                localAnchMatchList.push_back(pAnchMatch);
+                                match_info.next();
+                            }
+                        }
+                        ++colIdx;
+                    }
+                    ++rowIdx;
+                }
+                if (localAnchMatchList.size() > 0u) {
+                    for (auto& pAnchMatch : localAnchMatchList) {
+                        anchMatchList.push_back(pAnchMatch);
+                    }
+                    retVal = true;
+                }
+            }
+            else {
+                spdlog::warn("!! unexp no CtTableCommon");
+            }
+        } break;
+        default: break;
+    }
+    return retVal;
+}
+
+bool CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
+                                                 Glib::RefPtr<Glib::Regex> re_pattern,
+                                                 int start_offset,
+                                                 int end_offset,
+                                                 const bool forward,
+                                                 const bool all_matches,
+                                                 CtAnchMatchList& anchMatchList)
+{
+    bool retVal{false};
+    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset);
+    if (not forward) {
+        std::reverse(obj_vec.begin(), obj_vec.end());
+    }
+    for (CtAnchoredWidget* pAnchWidg : obj_vec) {
+        if (_check_pattern_in_object(re_pattern, pAnchWidg, anchMatchList)) {
+            if (not retVal) {
+                retVal = true;
+            }
+            if (not all_matches) {
+                break;
             }
         }
     }
-    else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(obj)) {
-        Glib::ustring text = codebox->get_text_content();
-        if (_s_options.accent_insensitive) {
-            text = str::diacritical_to_ascii(text);
-        }
-        if (pattern->match(text)) return "<codebox>";
-    }
-    return "";
+    return retVal;
 }
 
-// Search for the pattern in the given slice and direction
-std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
-                                                                Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                                                Glib::RefPtr<Glib::Regex> pattern,
-                                                                int start_offset,
-                                                                int end_offset,
-                                                                bool forward,
-                                                                Glib::ustring& obj_content)
-{
-    if (not forward) start_offset -= 1;
-    if (end_offset < 0) {
-        if (forward) {
-            Gtk::TextIter start, end;
-            text_buffer->get_bounds(start, end);
-            end_offset = end.get_offset();
-        } else
-            end_offset = 0;
-    }
-    if (not forward) std::swap(start_offset, end_offset);
-
-    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset);
-    if (not forward)
-        std::reverse(obj_vec.begin(), obj_vec.end());
-    for (auto element : obj_vec) {
-        obj_content = _check_pattern_in_object(pattern, element);
-        if (not obj_content.empty())
-            return {element->getOffset(), element->getOffset() + 1};
-    }
-    return {-1, -1};
-}
-
-// Returns the num of objects from buffer start to the given offset
 int CtActions::_get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset)
 {
     int num_objs = 0;
@@ -769,41 +1019,6 @@ int CtActions::_get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_bu
         curr_offset = next_offset;
     }
     return num_objs;
-}
-
-// Returns the Line Content Given the Text Iter
-Glib::ustring CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const int match_end_offset)
-{
-    Gtk::TextIter line_start = text_buffer->get_iter_at_offset(match_end_offset);
-    Gtk::TextIter line_end = line_start;
-    if (not line_start.backward_char()) return "";
-    while (line_start.get_char() != '\n')
-        if (not line_start.backward_char())
-            break;
-    if (line_start.get_char() == '\n')
-        line_start.forward_char();
-    while (line_end.get_char() != '\n')
-        if (not line_end.forward_char())
-            break;
-    Glib::ustring line_content = text_buffer->get_text(line_start, line_end);
-    return line_content.size() <= _line_content_limit ?
-        line_content : line_content.substr(0u, _line_content_limit) + "...";
-}
-
-// Returns the First Not Empty Line Content Given the Text Buffer
-Glib::ustring CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
-{
-    Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(0);
-    while (start_iter.get_char() == '\n')
-        if (not start_iter.forward_char())
-            return "";
-    Gtk::TextIter end_iter = start_iter;
-    while (end_iter.get_char() != '\n')
-        if (not end_iter.forward_char())
-            break;
-    Glib::ustring line_content = text_buffer->get_text(start_iter, end_iter);
-    return line_content.size() <= _line_content_limit ?
-        line_content : line_content.substr(0u, _line_content_limit) + "...";
 }
 
 void CtActions::_update_all_matches_progress()

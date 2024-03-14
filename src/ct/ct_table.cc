@@ -1,7 +1,7 @@
 /*
  * ct_table.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -63,6 +63,22 @@ void CtTableCommon::row_move_down(const size_t rowIdx)
     row_move_up(rowIdxDown, true/*from_move_down*/);
     _currentRow = rowIdxDown;
     grab_focus();
+}
+
+void CtTableCommon::set_current_row_column(const size_t rowIdx, const size_t colIdx)
+{
+    if (rowIdx < get_num_rows()) {
+        _currentRow = rowIdx;
+    }
+    else {
+        spdlog::warn("?? {} row {} >= {}", __FUNCTION__, rowIdx, get_num_rows());
+    }
+    if (colIdx < get_num_columns()) {
+        _currentColumn = colIdx;
+    }
+    else {
+        spdlog::warn("?? {} col {} >= {}", __FUNCTION__, colIdx, get_num_columns());
+    }
 }
 
 bool CtTableCommon::on_table_button_press_event(GdkEventButton* event)
@@ -593,9 +609,31 @@ void CtTableHeavy::grab_focus() const
     static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view().grab_focus();
 }
 
+void CtTableHeavy::set_selection_at_offset_n_delta(const int offset, const int delta) const
+{
+    curr_cell_text_view().set_selection_at_offset_n_delta(offset, delta);
+}
+
 CtTextView& CtTableHeavy::curr_cell_text_view() const
 {
     return static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view();
+}
+
+Glib::RefPtr<Gsv::Buffer> CtTableHeavy::get_buffer(const size_t rowIdx, const size_t colIdx) const
+{
+    if (rowIdx < get_num_rows() and colIdx < get_num_columns()) {
+        return static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_buffer();
+    }
+    return Glib::RefPtr<Gsv::Buffer>{};
+}
+
+Glib::ustring CtTableHeavy::get_line_content(size_t rowIdx, size_t colIdx, int match_end_offset) const
+{
+    Glib::RefPtr<Gsv::Buffer> pBuffer = get_buffer(rowIdx, colIdx);
+    if (pBuffer) {
+        return CtTextIterUtil::get_line_content(pBuffer, match_end_offset);
+    }
+    return "!?";
 }
 
 void CtTableHeavy::_on_grid_set_focus_child(Gtk::Widget* pWidget)

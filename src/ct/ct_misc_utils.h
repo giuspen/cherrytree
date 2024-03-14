@@ -175,6 +175,11 @@ PangoDirection get_pango_direction(const Gtk::TextIter& textIter);
 
 int get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer);
 
+const inline static size_t LINE_CONTENT_LIMIT{100u};
+Glib::ustring get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const int match_end_offset);
+Glib::ustring get_line_content(const Glib::ustring& text_multiline, const int match_end_offset);
+Glib::ustring get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+
 } // namespace CtTextIterUtil
 
 namespace CtStrUtil {

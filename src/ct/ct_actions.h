@@ -226,23 +226,27 @@ private:
                        Gtk::TextIter start_iter,
                        bool forward,
                        bool all_matches);
-    const size_t       _line_content_limit{100u};
-    Glib::ustring      _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                         const int match_end_offset);
-    Glib::ustring      _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
-    Glib::ustring      _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern,
-                                                CtAnchoredWidget* obj);
-    std::pair<int, int> _check_pattern_in_object_between(CtTreeIter tree_iter,
-                                                         Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                                         Glib::RefPtr<Glib::Regex> pattern,
-                                                         int start_offset,
-                                                         int end_offset,
-                                                         bool forward,
-                                                         Glib::ustring& obj_content);
+    bool _check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
+                                  CtAnchoredWidget* pAnchWidg,
+                                  CtAnchMatchList& anchMatchList);
+    bool _check_pattern_in_object_between(CtTreeIter tree_iter,
+                                          Glib::RefPtr<Glib::Regex> pattern,
+                                          int start_offset,
+                                          int end_offset,
+                                          const bool forward,
+                                          const bool all_matches,
+                                          CtAnchMatchList& anchMatchList);
     int  _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
     void _update_all_matches_progress();
 public:
     void find_matches_store_reset();
+    static void find_match_in_obj_focus(const int obj_offset,
+                                        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
+                                        const CtTreeIter& tree_iter,
+                                        const CtAnchWidgType anch_type,
+                                        const size_t anch_cell_idx,
+                                        const int anch_offs_start,
+                                        const int anch_offs_end);
 
 public:
     // find actions

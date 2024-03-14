@@ -46,7 +46,7 @@ enum class CtDocType { None, XML, SQLite, MultiFile };
 
 enum class CtDocEncrypt { None, True, False };
 
-enum class CtAnchWidgType { CodeBox, TableHeavy, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
+enum class CtAnchWidgType { None, CodeBox, TableHeavy, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
 
 enum class CtPixTabCBox { Pixbuf, Table, CodeBox };
 
@@ -442,6 +442,9 @@ struct CtSearchState {
     std::string    curr_find_pattern;
     bool           from_find_iterated{false};
     bool           from_find_back{false};
+    bool           find_back_exclude_obj_offs_zero{false};
+    size_t         find_iter_anchlist_idx{0u};
+    size_t         find_iter_anchlist_size{0u};
 
     bool           first_useful_node{false};
     int            counted_nodes{0};
@@ -462,3 +465,14 @@ struct CtSearchState {
     Gtk::Dialog*                     pMatchStoreDialog{nullptr};
     bool                             in_loading{false};
 };
+
+struct CtAnchMatch {
+    int             start_offset;
+    Glib::ustring   line_content;
+    CtAnchWidgType  anch_type;
+    size_t          anch_cell_idx;
+    int             anch_offs_start;
+    int             anch_offs_end;
+};
+
+using CtAnchMatchList = std::vector<std::shared_ptr<CtAnchMatch>>;
