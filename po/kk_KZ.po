@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 14:35+0100\n"
+"POT-Creation-Date: 2024-02-27 22:06+0000\n"
 "PO-Revision-Date: 2023-07-15 23:01+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Kazakh<camilot55@yandex.ru>\n"
@@ -16,115 +16,40 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: kk_KZ\n"
 "X-Source-Language: C\n"
 "X-Generator: Poedit 3.3.2\n"
 
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Ескерту: бiр немесе болған iстiң бiрнеше бейнелерi азайған"
-
-msgid "To WebSite"
-msgstr "Сайт:   "
-
-msgid "To File"
-msgstr "Файл:  "
-
-msgid "To Folder"
-msgstr "Қалта:"
-
-msgid "To Node"
-msgstr "Бұтақ:"
-
-msgid "Anchor Name (optional)"
-msgstr " Сiлтемеге зәкiр қосылу (опциялы)"
-
-msgid "No Node is Selected"
-msgstr "Бұтақ таңдалған емес"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Бұл тарал зәкiр жоқ"
-
-msgid "Choose Existing Anchor"
-msgstr "Зәкiрдi таңдаңыз"
-
-msgid "Anchor Name"
-msgstr "Зәкiрдiң есiмi"
-
 #, c-format
-msgid "The pattern '%s' was not found"
-msgstr ""
-"Құжатта іздеу аяқталды.\n"
-"\n"
-"Қажетті элемент <b>' %s '</b > табылмады!"
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "'%s' тармағының мазмұнын алу мүмкін болмады"
 
 msgid "Index"
 msgstr "Ұстау"
 
-msgid "Print CherryTree version"
-msgstr "Мөр үшiн нобай"
+msgid "Add"
+msgstr "Жиi пайдаланылатын пәрмендер қосылу"
 
-msgid "Node name to focus"
-msgstr "Есiм фокус үшiн тарал"
+msgid "Remove Selected"
+msgstr "Жиi пайдаланылатын пәрмендер алыстап кету"
 
-msgid "Anchor name to scroll to in node"
-msgstr "Тармаққа жылжу үшін якорь атауы"
+msgid "Reset to Default"
+msgstr "Үндемеу бойыншаға мағына"
 
-msgid "Export to HTML at specified directory path"
-msgstr "HTML бар директорияға экспорт"
+msgid "Split Toolbar"
+msgstr "Бөлгiш"
 
-msgid "Export to Text at specified directory path"
-msgstr "TXT бар директорияға экспорт"
-
-msgid "Export to PDF at specified directory path"
-msgstr "PDF бар директорияға экспорт"
-
-msgid "Overwrite if export path already exists"
-msgstr "Егер болып қойдыларды файл болса қайта жазып алу"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "(HTML үшiн немесе TXT) бiр файлға экспорт"
-
-msgid "Password to open document"
-msgstr "Құжаттың паролі"
-
-msgid "Create a new window"
-msgstr "Жаңа терезе құру"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Екінші сессияны бастау"
-
-msgid "CherryTree File"
-msgstr "Файл CherryTree"
-
-msgid "Preferences File"
-msgstr "Теңшелiмдердi файл"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Cherrytree қайта іске қосылғаннан кейін өзгерістер күшіне енеді."
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree қойын кiтапша"
-
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTree ашылу"
-
-msgid "Toggle Show/Hide CherryTree"
+msgid "Open a CherryTree File"
 msgstr ""
-"CherryTree ашылу\n"
+"Ашылу...\n"
 "\n"
-"CherryTree активтендiру"
+"CherryTree бар файл ашылу"
 
-msgid "_Exit CherryTree"
-msgstr "Шығу"
-
-msgid "Exit from CherryTree"
-msgstr ""
-"Шығу\n"
-"\n"
-"CherryTree шығу"
+msgid "Select Element to Add"
+msgstr "Жиi пайдаланылатын пәрмендер"
 
 msgid "_File"
 msgstr "Файл"
@@ -234,12 +159,6 @@ msgstr ""
 msgid "_Open File..."
 msgstr "Ашылу..."
 
-msgid "Open a CherryTree File"
-msgstr ""
-"Ашылу...\n"
-"\n"
-"CherryTree бар файл ашылу"
-
 msgid "Open Fo_lder..."
 msgstr "Ашылу..."
 
@@ -331,6 +250,12 @@ msgstr ""
 
 msgid "E_xit CherryTree"
 msgstr "Шығу"
+
+msgid "Exit from CherryTree"
+msgstr ""
+"Шығу\n"
+"\n"
+"CherryTree шығу"
 
 msgid "Edit/Insert"
 msgstr "Түзету/Қыстырма"
@@ -814,6 +739,15 @@ msgstr ""
 "\n"
 "CodeBox алмасу буферiне көшiрiп алу"
 
+msgid "_Copy CodeBox Content"
+msgstr "Codebox мазмұнын көшіру"
+
+msgid "Copy the Content of the Selected CodeBox"
+msgstr ""
+"Codebox мазмұнын көшіру\n"
+"\n"
+"Codebox мазмұнын алмасу буферіне көшіру"
+
 msgid "_Delete CodeBox"
 msgstr "CodeBox алыстап кету"
 
@@ -1264,6 +1198,15 @@ msgstr ""
 "Еншiлес қайталау\n"
 "\n"
 "Көшiрiлiп алынсын және бұтақ бiрге еншiлес үстемелену"
+
+msgid "_Create Shared Node"
+msgstr "Ортақ филиал құру"
+
+msgid "Create a New Node Sharing the Same Data of the Selected Node"
+msgstr ""
+"Жалпы тармақ\n"
+"\n"
+"Таңдалған бұтақтарды пайдаланып жалпы тармақ жасайды"
 
 msgid "Copy Node and S_ubnodes"
 msgstr "Қыздармен көшіру"
@@ -2198,6 +2141,15 @@ msgstr ""
 "\n"
 "Сiлтемесiн бейнеге қатысты тазалану"
 
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTree ашылу"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr ""
+"CherryTree ашылу\n"
+"\n"
+"CherryTree активтендiру"
+
 msgid "Edit the Underlying Link"
 msgstr ""
 "Сiлтеменiң қасиетi...\n"
@@ -2246,85 +2198,319 @@ msgstr "Кірістіру"
 msgid "Reset"
 msgstr "Қалпына келтіру"
 
-msgid "Enable System Tray Docking"
-msgstr "CherryTree мәлiмдемелердiң төңiректерiдегiн белгiшенi бейнелеу"
+msgid "Rename"
+msgstr "Қайта аталу"
 
-msgid "Start Minimized in the System Tray"
-msgstr "CherryTree мәлiмдемелердiң төңiректерiдегi старттан кейiн бұрылу"
+msgid "PNG Image"
+msgstr "PNG бейне"
 
-msgid "System Tray"
-msgstr "Есептер жақтауы"
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Жазба %s сәттi болмады"
 
-msgid "Autosave Every"
-msgstr "Автосақтау әр"
+msgid "Insert/Edit Link"
+msgstr "Сiлтеменiң қасиетi"
 
-msgid "Minutes"
-msgstr "минуттар"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "%s мұқабаға дұрыс емес сiлтеме"
 
-msgid "Autosave on Quit"
-msgstr "Жабуда сақталу"
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "%s файлға дұрыс емес сiлтеме "
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Резеретiк көшiрме құру"
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "%s мұқабаға дұрыс емес сiлтеме"
 
-msgid "Number of Backups to Keep"
-msgstr "Резеретiк көшiрмелердiң саны"
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr ""
+"Бұтаққа дұрыс емес сiлтеме.\n"
+"\n"
+"Ендi тарал болмайды (Id = %s).\n"
+"Ол жойылған немесе өзгертілген шығар"
 
-msgid "Custom Backup Directory"
-msgstr "Резеретiк көшiрмелер үшiн мұқаба"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr ""
+"Құжатта іздеу аяқталды.\n"
+"\n"
+"Сіз іздеген зәкір <b> '%s ' < / b> табылмады!"
 
-msgid "Saving"
-msgstr "Сақтау"
+msgid "Edit CodeBox"
+msgstr "CodeBox қасиет"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Жаңаруларды бар болу тексеру"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Сiз тiлмен пәрменге байланысуыңыз керек <b>' %s '</b>.\n"
+"\n"
+"Бұл қолданба теңшелiмдерiндегi жасауға болады"
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Сөздердi қалып-жағдай жолында сан"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Xterm десте орнатылыңыз немесе қолданба теңшелiмдерiндегi басқа терминал "
+"теңшеңiз"
 
-msgid "Reload Document From Last Session"
-msgstr "Соңғы ашылған құжатты жүктеу"
+msgid "Edit Table Properties"
+msgstr "Кестенiң қасиетi"
 
-msgid "Reload After External Update to CT* File"
-msgstr "Құжат өзгерiстен кейiн қайта жүктелу"
+msgid "CSV File"
+msgstr "CSV файл"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Басты терезенi тақырыпта файлға жол"
+msgid "Insert Anchor"
+msgstr "Зәкiр үстемелену"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Тақырыпта жол тарал"
+msgid "Edit Anchor"
+msgstr "Зәкiрдiң қасиетi"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Бетбелгiлердi басты мәзiрде тiзбе"
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "<b>\"Оқу ғана!\"</b> файлды мүмкiн емес редакциялау"
 
-msgid "Enable Debug Log"
-msgstr "Сайды пайдалансын-файл"
+msgid "Embedded File Automatically Updated:"
+msgstr "Файл автоматты түрде жаңартылған:"
 
-msgid "Debug Log Directory"
-msgstr "Таңдау... "
+msgid "Change Selected"
+msgstr "Пернелер комбинациясын өзгерту"
 
-msgid "Miscellaneous"
-msgstr "Әр түрлi"
-
-msgid "System Default"
-msgstr "Үндемеу бойыншаға"
-
-msgid "Language"
-msgstr "Тiл"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "CherryTree белгiше мәлiмдемелердiң төңiрегiдегi пайда болды ма?"
-
-msgid "Your system does not support the System Tray"
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
 msgstr ""
 " \n"
-"Сiздiң жүйеңiз мәлiмдемелердi облыс қосталмайды!"
+"'%s' пайдаланып қойдылар пернелер комбинациясы!"
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Осы тiркесiм <b>' %s '</b> iс-әрекеттi орындайды"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Пернелер комбинациясын қайта анықтайды ма?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Жаңа тiркесiм..."
+
+msgid "No Keyboard Shortcut"
+msgstr "Берiлген емес"
+
+msgid "Writing to Disk..."
+msgstr "Дискке жазба..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Файлға <b>\"%s\"</b> жазба қол жетпес"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Үшiн пароль %s енгiзiңiз"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Құжат бүлінген.\n"
+"\n"
+"Оны басқа атпен сақтауға тырысыңыз (Файл-->Басқаша сақтау...)"
+
+msgid "Failed to encrypt the file"
+msgstr "Файлды шифрлау мүмкін болмады"
+
+msgid "Search for"
+msgstr "Табылу:"
+
+msgid "Replace with"
+msgstr "Алмастырылу:"
+
+msgid "Match Case"
+msgstr "Регистрдi ескерiлу"
+
+msgid "Regular Expression"
+msgstr "Жүйелi айтылу"
+
+msgid "Online Manual"
+msgstr "Ғаламторда мәлiмет"
+
+msgid "Accent Insensitive"
+msgstr "Жоюға сезімталдық"
+
+msgid "Override Exclusions"
+msgstr "Ерекшеліктерді жою"
+
+msgid "Whole Word"
+msgstr "Сөз ғана тұтастай"
+
+msgid "Start Word"
+msgstr "Сөздiң басы"
+
+msgid "Forward"
+msgstr "Алға"
+
+msgid "Backward"
+msgstr "Кейiн"
+
+msgid "All, List Matches"
+msgstr "Тура келу бәрi"
+
+msgid "First From Selection"
+msgstr "Бiрiншi тура келу ерекшеленген"
+
+msgid "First in All Range"
+msgstr "Барлық құжат бойымен бiрiншi тура келу "
+
+msgid "Node Created After"
+msgstr "Кейiн жаратылған"
+
+msgid "Node Created Before"
+msgstr "Дейiн жаратылған"
+
+msgid "Node Modified After"
+msgstr "Кейiн өзгертiлген"
+
+msgid "Node Modified Before"
+msgstr "Дейiн өзгертiлген"
+
+msgid "Time filter"
+msgstr "Күнi бойымен тарал..."
+
+msgid "Node Content"
+msgstr "Түйін мазмұны"
+
+msgid "Node Name and Tags"
+msgstr "Бұтақ атымен және тегтер"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Бұтағы еншілес"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "\"Тура келу ....\" диалогктiк терезенiң көрсету"
+
+msgid "Search options"
+msgstr "Iздестiрудiң параметрлерi"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Onyń qasıetterinde belgilengen erekshelikterge baılanysty kem degende bir "
+"tarmaq alynyp tastaldy.\n"
+"Barlyq erekshelikterdi joıý úshin mázirdi paıdalanyńyz:\n"
+"Izdeý - > Barlyq izdeý erekshelikterin joıý"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Орау/Қалпына келу ('%s')"
+
+msgid "Node Name"
+msgstr "Есiм"
+
+msgid "Line"
+msgstr "Жол"
+
+msgid "Line Content"
+msgstr "Iшiндегi"
+
+msgid "Matches"
+msgstr " сәйкестiктер"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Қайталану Табылу/Алмастырылу"
+
+msgid "Close"
+msgstr "Жабу"
+
+msgid "Find Previous"
+msgstr "Алдыңғы"
+
+msgid "Find Next"
+msgstr "Келесi"
+
+msgid "Replace"
+msgstr "Алмастырылу"
+
+msgid "Undo"
+msgstr "Болдырмау"
 
 msgid "Downloading"
 msgstr "Жүктеу"
 
 msgid "Remove from list"
 msgstr "Әңгiмеден алыстап кету"
+
+msgid "The new parent can't be one of his children!"
+msgstr "Жаңа ата-ана бұтағы еншiлес мүмкiн емес болады!"
+
+msgid "Light Background, Dark Text"
+msgstr "Ашық фондағы қараңғы мәтiн"
+
+msgid "Dark Background, Light Text"
+msgstr "Қараңғы фондағы ашық мә"
+
+msgid "Custom Background"
+msgstr "Фон"
+
+msgid "Text"
+msgstr "Мәтiн"
+
+msgid "Selection Background"
+msgstr "Ерекшеленген мәтiннiң фоны"
+
+msgid "Tree Explorer"
+msgstr "Ағаштың шолушысы"
+
+msgid "Rich Text"
+msgstr "Форматталған мәтiн"
+
+msgid "Plain Text"
+msgstr "Кәдiмгi мәтiн"
+
+msgid "Table"
+msgstr "Кесте"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Style Schemes"
+msgstr "Мәтiндiк редактор"
+
+msgid "Text Foreground"
+msgstr "Мәтiн"
+
+msgid "Text Background"
+msgstr "Фон"
+
+msgid "Selection Foreground"
+msgstr "Ерекшеленген мәтiн"
+
+msgid "Cursor"
+msgstr "Жүгiргi"
+
+msgid "Current Line Background"
+msgstr "Белсендi жолды фон"
+
+msgid "Line Numbers Foreground"
+msgstr "Жолдарды нөмiрлеу"
+
+msgid "Line Numbers Background"
+msgstr "Жолдарды нөмiрлеудiң фоны"
+
+msgid "Style Scheme Editor"
+msgstr "Күйге келтiрiлетiн тақырып"
+
+msgid "Set Dark Theme Icons"
+msgstr "Қара белгішелер"
+
+msgid "Set Light Theme Icons"
+msgstr "Жарық белгішелері"
+
+msgid "Set Default Icons"
+msgstr "Әдетті белгішелер"
+
+msgid "Icon Theme"
+msgstr "Тақырыбы"
 
 msgid "Move the Selected Bookmark Up"
 msgstr "Үстiне орын алмасу"
@@ -2363,6 +2549,12 @@ msgstr ""
 
 msgid "Enter the New Password Twice"
 msgstr "Енгiзiңiз және тексерiс үшiн пароль расталыңыз"
+
+msgid "Autosave Every"
+msgstr "Автосақтау әр"
+
+msgid "Minutes"
+msgstr "минуттар"
 
 msgid "The Password Fields Must be Filled."
 msgstr "Сiз пароль бермедiңiз "
@@ -2549,443 +2741,122 @@ msgstr "CodeBox-ов"
 msgid "Number of Anchors"
 msgstr "Зәкiрлер"
 
-msgid "Light Background, Dark Text"
-msgstr "Ашық фондағы қараңғы мәтiн"
+msgid "Number of Shared Nodes / Groups"
+msgstr "Жалпы тармақтар / топтар"
 
-msgid "Dark Background, Light Text"
-msgstr "Қараңғы фондағы ашық мә"
+msgid "Latex Text"
+msgstr "LaTeX мәтiн"
 
-msgid "Custom Background"
-msgstr "Фон"
+msgid "Image Size dpi"
+msgstr "Dpi сурет өлшемі"
 
-msgid "Text"
-msgstr "Мәтiн"
+msgid "Tutorial"
+msgstr "Басшылық"
 
-msgid "Selection Background"
-msgstr "Ерекшеленген мәтiннiң фоны"
+msgid "Reference"
+msgstr "Анықтама"
 
-msgid "Tree Explorer"
-msgstr "Ағаштың шолушысы"
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX математикалық теңдеулер бойынша оқулық"
 
-msgid "Rich Text"
-msgstr "Форматталған мәтiн"
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX математикалық символдарының анықтамалығы"
 
-msgid "Plain Text"
-msgstr "Кәдiмгi мәтiн"
+msgid "Image Properties"
+msgstr "Бейненiң қасиетi"
 
-msgid "Table"
-msgstr "Кесте"
+msgid "Width"
+msgstr "Ен"
 
-msgid "Code"
-msgstr "Код"
+msgid "Height"
+msgstr "Биiктiк"
 
-msgid "Style Schemes"
-msgstr "Мәтiндiк редактор"
+msgid "Automatic Syntax Highlighting"
+msgstr "Синтаксистiң көмескi жарығы"
 
-msgid "Text Foreground"
-msgstr "Мәтiн"
+msgid "Type"
+msgstr "Түр"
 
-msgid "Text Background"
-msgstr "Фон"
+msgid "pixels"
+msgstr "пиксельдер"
 
-msgid "Selection Foreground"
-msgstr "Ерекшеленген мәтiн"
-
-msgid "Cursor"
-msgstr "Жүгiргi"
-
-msgid "Current Line Background"
-msgstr "Белсендi жолды фон"
-
-msgid "Line Numbers Foreground"
-msgstr "Жолдарды нөмiрлеу"
-
-msgid "Line Numbers Background"
-msgstr "Жолдарды нөмiрлеудiң фоны"
-
-msgid "Reset to Default"
-msgstr "Үндемеу бойыншаға мағына"
-
-msgid "Style Scheme Editor"
-msgstr "Күйге келтiрiлетiн тақырып"
-
-msgid "Set Dark Theme Icons"
-msgstr "Қара белгішелер"
-
-msgid "Set Light Theme Icons"
-msgstr "Жарық белгішелері"
-
-msgid "Set Default Icons"
-msgstr "Әдетті белгішелер"
-
-msgid "Icon Theme"
-msgstr "Тақырыбы"
-
-msgid "Add"
-msgstr "Жиi пайдаланылатын пәрмендер қосылу"
-
-msgid "Remove Selected"
-msgstr "Жиi пайдаланылатын пәрмендер алыстап кету"
-
-msgid "Split Toolbar"
-msgstr "Бөлгiш"
-
-msgid "Select Element to Add"
-msgstr "Жиi пайдаланылатын пәрмендер"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Әлi де сiз мәтiннiң қалыптауы жүргiзiлдiңiз"
-
-msgid "No Text is Selected."
-msgstr "Мәтiн ерекшеленген емес"
-
-msgid "Link Name"
-msgstr "Сiлтеме үстемелену"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Жүгiргi азатжолдың сыртына"
-
-msgid "Insert/Edit Link"
-msgstr "Сiлтеменiң қасиетi"
-
-msgid "Pick a Foreground Color"
-msgstr "Түстi таңдаңыз"
-
-msgid "Pick a Background Color"
-msgstr "Түстi таңдаңыз"
-
-msgid "Replace in Current Node"
-msgstr "Алмастырыл тарал..."
-
-msgid "Search in Current Node"
-msgstr "Табыл тарал..."
-
-msgid "Matches"
-msgstr " сәйкестiктер"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr ""
-"Құжатта іздеу аяқталды.\n"
-"\n"
-"Қажетті элемент <b>' %s '</b > табылмады"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Филиалдарға ауыстырыңыз..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Филиалдардан табыңыз..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Әлi де сiз iздестiру жүргiзiлдiңiз немесе мәтiннiң ауыстыруын"
-
-msgid "Tags"
-msgstr "Тегтер"
-
-msgid ": "
-msgstr ": "
-
-msgid "The new parent can't be one of his children!"
-msgstr "Жаңа ата-ана бұтағы еншiлес мүмкiн емес болады!"
-
-msgid "Tab Width"
-msgstr "Табуляцияның енi"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Табуляция орынына бос орындар"
-
-msgid "Use Line Wrapping"
-msgstr "Жол ауыстырылу"
-
-msgid "Line Wrapping Indentation"
-msgstr "Жолдарды шегiнiс"
-
-msgid "Enable Automatic Indentation"
-msgstr "Автоматты шегiнiс"
+msgid "Size"
+msgstr "Өлшем"
 
 msgid "Show Line Numbers"
 msgstr "Жолдарды нөмiрлеу"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Айналдыру жолдың сыртына"
+msgid "Highlight Matching Brackets"
+msgstr "Жаңа сауған жақшалар жарық түсiру"
 
-msgid "Cursor Blinking"
-msgstr "Жыпылықтайтын курсор"
+msgid "Options"
+msgstr "Теңшелiм"
 
-msgid "On"
-msgstr "Қосулы"
+msgid "Rows"
+msgstr "Жолдар саны:"
 
-msgid "Off"
-msgstr "Өшірулі"
+msgid "Columns"
+msgstr "Сан бағана:"
 
-msgid "Vertical Space Around Lines"
-msgstr "Жоларалық интервал"
+msgid "Default Width"
+msgstr "Мағына:"
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Жолдарды тiк шегiнiс"
+msgid "Table Size"
+msgstr "Кестенiң өлшемi"
+
+msgid "Column Properties"
+msgstr "Бағананың енi "
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Жеңіл интерфейс (үлкен кестелер үшін жылдамырақ)"
+
+msgid "Import from CSV File"
+msgstr "Файл CSV деректерiн импорттау"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "'Latex' және 'dvipng'орындалатын файлдарына қол жеткізу мүмкін болмады"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Мысалы, Ubuntu-да орнатуға арналған пакеттер:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Мысалы, Mac OS жүйесінде орнатуға арналған пакеттер:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "'Latex' орындалатын файлына кіру мүмкін болмады"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "'dvipng' орындалатын файлына кіру мүмкін болмады"
+
+msgid "Show White Spaces"
+msgstr "Бос орынды бейнелеу"
+
+msgid "Highlight Current Line"
+msgstr "Белсендi жол жарық түсiру"
 
 msgid "Text Editor"
 msgstr "Мәтiндiк редактор"
 
-msgid "Timestamp Format"
-msgstr "Күнiнiң пiшiмi"
+msgid "Internal Terminal Shell"
+msgstr "Кірістірілген терминалды пайдаланыңыз"
 
-msgid "Online Manual"
-msgstr "Ғаламторда мәлiмет"
+msgid "Command per Node/CodeBox Type"
+msgstr "Компилятордың/интерпретаторының пәрменi"
 
-msgid "Horizontal Rule"
-msgstr "Горизонталь сызық"
+msgid "Terminal Command"
+msgstr "Терминалдың пәрменi"
 
-msgid "Chars to Select at Double Click"
-msgstr "Мәтінді екі рет түрту арқылы бөлектеңіз"
+msgid "Code Execution"
+msgstr "Кодтың орындауы"
 
-msgid "PDF File"
-msgstr "PDF құжат "
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Құрал-саймандар өлшем максималды"
 
-msgid "Plain Text Document"
-msgstr "Мәтiндi құжат"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Құрал-саймандар өлшем минималды"
 
-msgid "Show Menubar:"
-msgstr "Мәзір жолағын көрсету:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "<b>' %s '</b> жолы жоқ"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s \" CherryTree құжатты болып көрiнбейдi"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Файл CherryTree ашуын қате:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr ""
-"Құжатта іздеу аяқталды.\n"
-"\n"
-"Қажетті тармақ <b> '%s ' < / b> табылмады!"
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Жаратылған басқа қолданба ашылған уақытша файлдары қай."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "CherryTree шығатын есiктi алдында сыртқы қолданбаны жабыңыз."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Сiз сыртқы қолданба бiтiрдiңiз бе?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Құжат басқа бағдарлама жаңартқаннан кейін қайта жүктелді"
-
-msgid "_Hide"
-msgstr "Орау..."
-
-msgid "Hide the Window"
-msgstr ""
-"Орау...\n"
-"\n"
-"CherryTree мәлiмдемелердiң төңiректерiдегiн орау"
-
-msgid "Node Type"
-msgstr "Түр"
-
-msgid "Spell Check"
-msgstr "Емле"
-
-msgid "Word Count"
-msgstr "Сөздер"
-
-msgid "Date Created"
-msgstr "Жаратылған"
-
-msgid "Date Modified"
-msgstr "Өзгертiлген"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr "Сіз бұтақты көшірмедіңіз немесе ағаш Қол жетімді емес"
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Ағаш бұтағы қол жетімді емес"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"'%s' қалтасы '%s ' ішінде бұрыннан бар.\n"
-"<b>Жою?</b>"
-
-msgid "Checking for Newer Version..."
-msgstr "Жаңа болжамның қол жетiмдiлiгiн тексерiс..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Серверге жауап бермейдi. Соңырақ көрiңiз."
-
-msgid "A Newer Version Is Available!"
-msgstr "Жаңа болжам қол жететiн!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Жаңару табылған емес! Сiз соңғы нобайды пайдаланыңыз CherryTree"
-
-msgid "You Are Using a Development Version."
-msgstr "Сiз өңдеушi үшiн нобайды пайдаланыңыз"
-
-msgid "Search for"
-msgstr "Табылу:"
-
-msgid "Replace with"
-msgstr "Алмастырылу:"
-
-msgid "Match Case"
-msgstr "Регистрдi ескерiлу"
-
-msgid "Regular Expression"
-msgstr "Жүйелi айтылу"
-
-msgid "Accent Insensitive"
-msgstr "Жоюға сезімталдық"
-
-msgid "Override Exclusions"
-msgstr "Ерекшеліктерді жою"
-
-msgid "Whole Word"
-msgstr "Сөз ғана тұтастай"
-
-msgid "Start Word"
-msgstr "Сөздiң басы"
-
-msgid "Forward"
-msgstr "Алға"
-
-msgid "Backward"
-msgstr "Кейiн"
-
-msgid "All, List Matches"
-msgstr "Тура келу бәрi"
-
-msgid "First From Selection"
-msgstr "Бiрiншi тура келу ерекшеленген"
-
-msgid "First in All Range"
-msgstr "Барлық құжат бойымен бiрiншi тура келу "
-
-msgid "Node Created After"
-msgstr "Кейiн жаратылған"
-
-msgid "Node Created Before"
-msgstr "Дейiн жаратылған"
-
-msgid "Node Modified After"
-msgstr "Кейiн өзгертiлген"
-
-msgid "Node Modified Before"
-msgstr "Дейiн өзгертiлген"
-
-msgid "Time filter"
-msgstr "Күнi бойымен тарал..."
-
-msgid "Node Content"
-msgstr "Түйін мазмұны"
-
-msgid "Node Name and Tags"
-msgstr "Бұтақ атымен және тегтер"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Бұтағы еншілес"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "\"Тура келу ....\" диалогктiк терезенiң көрсету"
-
-msgid "Search options"
-msgstr "Iздестiрудiң параметрлерi"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Onyń qasıetterinde belgilengen erekshelikterge baılanysty kem degende bir "
-"tarmaq alynyp tastaldy.\n"
-"Barlyq erekshelikterdi joıý úshin mázirdi paıdalanyńyz:\n"
-"Izdeý - > Barlyq izdeý erekshelikterin joıý"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Орау/Қалпына келу ('%s')"
-
-msgid "Node Name"
-msgstr "Есiм"
-
-msgid "Line"
-msgstr "Жол"
-
-msgid "Line Content"
-msgstr "Iшiндегi"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr ""
-"Бұтаққа дұрыс емес сiлтеме.\n"
-"\n"
-"Ендi тарал болмайды (Id = %s).\n"
-"Ол жойылған немесе өзгертілген шығар"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Қайталану Табылу/Алмастырылу"
-
-msgid "Close"
-msgstr "Жабу"
-
-msgid "Find Previous"
-msgstr "Алдыңғы"
-
-msgid "Find Next"
-msgstr "Келесi"
-
-msgid "Replace"
-msgstr "Алмастырылу"
-
-msgid "Undo"
-msgstr "Болдырмау"
-
-msgid "Special Characters"
-msgstr "Нышандар"
-
-msgid "Chars for Bulleted List"
-msgstr "Таңбаланған тiзiм"
-
-msgid "Chars for Todo List"
-msgstr "Тапсырмалар тiзiм"
-
-msgid "Chars for Table Of Content"
-msgstr "Мазмұн"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Қосарланған тырнақшалардың автоалмастыруы үшiн"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Тырнақшалардың автоалмастыруы үшiн"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Тырнақшалардың автоалмастыруы"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Нышандарды автоалмастыру"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Қосталатын нышандар"
-
-msgid "Only at the Start of the Line"
-msgstr "Жол басында ғана"
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Cherrytree қайта іске қосылғаннан кейін өзгерістер күшіне енеді."
 
 #, c-format
 msgid "The database file %s is corrupt, see log for more details."
@@ -3013,16 +2884,102 @@ msgstr ""
 msgid ""
 "%s write failed - file is missing. Reattach USB drive or shared resource!"
 msgstr ""
-"Файл: <b>\"%s\"</b> - болмайды.\n"
+"Жазу қатесі! Файл: <b>\"%s\"</b> - болмайды.\n"
 "\n"
-"USB құрылғы қосуға қайта көрiңiз."
+"USB құрылғысын немесе ортақ ресурсты қайта қосыңыз!"
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
-"Файл: <b>\"%s\"</b> - тек қана оқу үшiннiң қол жететiнi.\n"
+"Жазу қатесі!\n"
 "\n"
-"Онының басқа есiмiмен сақталып көрiңiз."
+" Файл: <b>\"%s\"</b> - синхрондау бағдарламасы бұғаттады ма?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
+msgstr ""
+"Файл: <b>\"%s\"</b> - болмайды.\n"
+"\n"
+"USB құрылғысын немесе ортақ ресурсты қайта қосыңыз!"
+
+msgid "Tab Width"
+msgstr "Табуляцияның енi"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Табуляция орынына бос орындар"
+
+msgid "Use Line Wrapping"
+msgstr "Жол ауыстырылу"
+
+msgid "Line Wrapping Indentation"
+msgstr "Жолдарды шегiнiс"
+
+msgid "Enable Automatic Indentation"
+msgstr "Автоматты шегiнiс"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Айналдыру жолдың сыртына"
+
+msgid "Cursor Blinking"
+msgstr "Жыпылықтайтын курсор"
+
+msgid "System Default"
+msgstr "Үндемеу бойыншаға"
+
+msgid "On"
+msgstr "Қосулы"
+
+msgid "Off"
+msgstr "Өшірулі"
+
+msgid "Text Margin: Left"
+msgstr "Мәтін өрісі: Сол жақта"
+
+msgid "Right"
+msgstr "Оң жақта"
+
+msgid "Vertical Space Around Lines"
+msgstr "Жоларалық интервал"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Жолдарды тiк шегiнiс"
+
+msgid "Timestamp Format"
+msgstr "Күнiнiң пiшiмi"
+
+msgid "Horizontal Rule"
+msgstr "Горизонталь сызық"
+
+msgid "Chars to Select at Double Click"
+msgstr "Мәтінді екі рет түрту арқылы бөлектеңіз"
+
+msgid "Miscellaneous"
+msgstr "Әр түрлi"
+
+msgid "Remove Color"
+msgstr "Тазалану"
+
+msgid "Question"
+msgstr "Сұрақ"
+
+msgid "Info"
+msgstr "Ақпарат"
+
+msgid "Error"
+msgstr "Қате"
+
+msgid "Select File"
+msgstr "Ашылу..."
+
+msgid "Select Folder"
+msgstr "Таңдау..."
+
+msgid "Save File as"
+msgstr "Басқаша сақтау..."
+
+msgid "Save To Folder"
+msgstr "Қалтаға сақтау"
 
 msgid "Use Different Cherries per Level"
 msgstr "Әр деңгей үшiн әр түрлiсi шиелер"
@@ -3072,26 +3029,403 @@ msgstr "Соңғы посещённыелер тақырыпта тарал"
 msgid "Select Node Icon"
 msgstr "Белгiшенiң ауысымы"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Құрал-саймандар өлшем максималды"
+msgid "No Node is Selected"
+msgstr "Бұтақ таңдалған емес"
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Құрал-саймандар өлшем минималды"
+msgid "The Tree is Empty!"
+msgstr ""
+"<b> Бос ағаш! </b>\n"
+"\n"
+"Сiздiң бiрiншi ағашыңыз құрыңыз!\n"
+"Бастапқыда жұмыс жаңа бұтақ қосылыңыз:\n"
+"<b>Басты мәзiр\\Ағаш\\Жаңа бұтақ </b>"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "'Latex' және 'dvipng'орындалатын файлдарына қол жеткізу мүмкін болмады"
+msgid "The Selected Node is Read Only."
+msgstr ""
+"Мынау бұтақ қол жететiн <b>\"Оқу ғана!\"</b>.\n"
+"\n"
+"Редакциялау үшiн қасиеттi өзгерт тарал."
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Мысалы, Ubuntu-да орнатуға арналған пакеттер:"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Форматталған мәтiн үшiн түсiнiктi тек қана мынау функция"
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Мысалы, Mac OS жүйесінде орнатуға арналған пакеттер:"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Мынау функция синтаксистiң көмескi жарығы үшiн жетiспедi"
 
-msgid "Could not access the executable 'latex'"
-msgstr "'Latex' орындалатын файлына кіру мүмкін болмады"
+msgid "No Text is Selected."
+msgstr "Мәтiн ерекшеленген емес"
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "'dvipng' орындалатын файлына кіру мүмкін болмады"
+msgid "No Table is Selected."
+msgstr "Мәтiн ерекшеленген емес"
+
+msgid "No CodeBox is Selected."
+msgstr "Бұтақ таңдалған емес"
+
+msgid "New Child Node Properties"
+msgstr "Қасиет жаңа еншiлес тарал"
+
+msgid "New Node Properties"
+msgstr "Қасиет жаңа тарал"
+
+msgid "Node Properties"
+msgstr "Қасиет тарал"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Сiзi <b> \"Кәдiмгi мәтiн\" </b> <b> \"Форматталған мәтiн\" </b> \n"
+"ауысымының жанында мәтiннiң қалыптауы толығымен жоғалт бұл үшiн тарал.\n"
+"Жалғастырады ма?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr ""
+" \n"
+"Сiз <b>' %s '</b> бұтақ рас алыстап кеткiңiз келедi ме?"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "<b> Да келесi еншiлес сылын тарал!</b>"
+
+msgid "Select the New Parent"
+msgstr "Атаны таңдаңыз..."
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Жаңа ата-ана бұтағы мүмкiн емес орын алмасады! "
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Атамен болып көрiнiп қойдыларды таңдалған жаңа ата-ана бұтағы!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s қасиеттері тазартылды"
+
+msgid "To WebSite"
+msgstr "Сайт:   "
+
+msgid "To File"
+msgstr "Файл:  "
+
+msgid "To Folder"
+msgstr "Қалта:"
+
+msgid "To Node"
+msgstr "Бұтақ:"
+
+msgid "Anchor Name (optional)"
+msgstr " Сiлтемеге зәкiр қосылу (опциялы)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Бұл тарал зәкiр жоқ"
+
+msgid "Choose Existing Anchor"
+msgstr "Зәкiрдi таңдаңыз"
+
+msgid "Anchor Name"
+msgstr "Зәкiрдiң есiмi"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr ""
+"Құжатта іздеу аяқталды.\n"
+"\n"
+"Қажетті элемент <b>' %s '</b > табылмады!"
+
+msgid "CherryTree File"
+msgstr "Файл CherryTree"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"'%s' қалтасы '%s ' ішінде бұрыннан бар.\n"
+"<b>Жою?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"'%s' фаил '%s ' ішінде бұрыннан бар.\n"
+"<b>Жою?</b>"
+
+msgid "Preferences File"
+msgstr "Теңшелiмдердi файл"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "CherryTree белгiше мәлiмдемелердiң төңiрегiдегi пайда болды ма?"
+
+msgid "Your system does not support the System Tray"
+msgstr ""
+" \n"
+"Сiздiң жүйеңiз мәлiмдемелердi облыс қосталмайды!"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree қойын кiтапша"
+
+msgid "_Exit CherryTree"
+msgstr "Шығу"
+
+msgid "Show Menubar:"
+msgstr "Мәзір жолағын көрсету:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "<b>' %s '</b> жолы жоқ"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s \" CherryTree құжатты болып көрiнбейдi"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Файл CherryTree ашуын қате:\n"
+"\"%s\""
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr ""
+"Құжатта іздеу аяқталды.\n"
+"\n"
+"Қажетті тармақ <b> '%s ' < / b> табылмады!"
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Жаратылған басқа қолданба ашылған уақытша файлдары қай."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "CherryTree шығатын есiктi алдында сыртқы қолданбаны жабыңыз."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Сiз сыртқы қолданба бiтiрдiңiз бе?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Құжат басқа бағдарлама жаңартқаннан кейін қайта жүктелді"
+
+msgid "Autosave on Quit"
+msgstr "Жабуда сақталу"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Резеретiк көшiрме құру"
+
+msgid "Number of Backups to Keep"
+msgstr "Резеретiк көшiрмелердiң саны"
+
+msgid "Custom Backup Directory"
+msgstr "Резеретiк көшiрмелер үшiн мұқаба"
+
+msgid "Saving"
+msgstr "Сақтау"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Жаңаруларды бар болу тексеру"
+
+msgid "Reload Document From Last Session"
+msgstr "Соңғы ашылған құжатты жүктеу"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Құжат өзгерiстен кейiн қайта жүктелу"
+
+msgid "Enable Debug Log"
+msgstr "Сайды пайдалансын-файл"
+
+msgid "Debug Log Directory"
+msgstr "Таңдау... "
+
+msgid "Enable System Tray Docking"
+msgstr "CherryTree мәлiмдемелердiң төңiректерiдегiн белгiшенi бейнелеу"
+
+msgid "Start Minimized in the System Tray"
+msgstr "CherryTree мәлiмдемелердiң төңiректерiдегi старттан кейiн бұрылу"
+
+msgid "System Tray"
+msgstr "Есептер жақтауы"
+
+msgid "Language"
+msgstr "Тiл"
+
+msgid "_Hide"
+msgstr "Орау..."
+
+msgid "Hide the Window"
+msgstr ""
+"Орау...\n"
+"\n"
+"CherryTree мәлiмдемелердiң төңiректерiдегiн орау"
+
+msgid "Node Type"
+msgstr "Түр"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "Тегтер"
+
+msgid "Spell Check"
+msgstr "Емле"
+
+msgid "Word Count"
+msgstr "Сөздер"
+
+msgid "Date Created"
+msgstr "Жаратылған"
+
+msgid "Date Modified"
+msgstr "Өзгертiлген"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "Сіз бұтақты көшірмедіңіз немесе ағаш Қол жетімді емес"
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Ағаш бұтағы қол жетімді емес"
+
+msgid "English"
+msgstr "Ағылшын"
+
+msgid "Text and Code"
+msgstr "Мәтiн және код"
+
+msgid "Plain Text and Code"
+msgstr "Кәдiмгi мәтiн және код"
+
+msgid "Special Characters"
+msgstr "Нышандар"
+
+msgid "Theme"
+msgstr "Тақырып"
+
+msgid "Interface"
+msgstr "Интерфейс"
+
+msgid "Links"
+msgstr "Сiлтеме"
+
+msgid "Toolbar"
+msgstr "Құрал-саймандар панелi"
+
+msgid "Keyboard Shortcuts"
+msgstr "Ыстық пернелер"
+
+msgid "Monospace"
+msgstr "Бiркелкi мәтiн"
+
+msgid "Code Font"
+msgstr "Кодтың мәтiнi"
+
+msgid "Terminal Font"
+msgstr "Терминал мәтіні"
+
+msgid "Tree Font"
+msgstr "Ағаштың мәтiнi"
+
+msgid "Fonts"
+msgstr "Қарiптер"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Сөздердi қалып-жағдай жолында сан"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Басты терезенi тақырыпта файлға жол"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Тақырыпта жол тарал"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Бетбелгiлердi басты мәзiрде тiзбе"
+
+msgid "Menubar in Titlebar"
+msgstr "Тақырып жолағындағы негізгі мәзір"
+
+msgid "Toolbar Icons Size"
+msgstr "Құралдар тақтасындағы белгішелердің өлшемі"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Айналдыру жолағының минималды өлшемі (0 = әдепкі)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Мәтіндік редактордағы айналдыру жолағы"
+
+msgid "Yes"
+msgstr "Иә"
+
+msgid "No"
+msgstr "Жоқ"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Қалқымалы кеңестерді қосыңыз"
+
+msgid "Menus"
+msgstr "Мәзір"
+
+msgid "Max Search Results per Page"
+msgstr "Беттегі іздеу нәтижелерінің максималды саны"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Веб-бетке сiлтеменiң ашуында"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Файлға сiлтеменiң ашуында"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Мұқабаға сiлтеменiң ашуында"
+
+msgid "Custom Actions"
+msgstr "Iс-әрекет"
+
+msgid "Colors"
+msgstr "Түскен"
+
+msgid "Underline Links"
+msgstr "Сiлтеме астын сызу"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Файлдарға салыстырмалы жолдарды пайдалансын және мұқабаларға"
+
+msgid "Anchor Size"
+msgstr "Зәкiрдiң белгiшесiн өлшем"
+
+msgid "Replace in Current Node"
+msgstr "Алмастырыл тарал..."
+
+msgid "Search in Current Node"
+msgstr "Табыл тарал..."
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr ""
+"Құжатта іздеу аяқталды.\n"
+"\n"
+"Қажетті элемент <b>' %s '</b > табылмады"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Филиалдарға ауыстырыңыз..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Филиалдардан табыңыз..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Әлi де сiз iздестiру жүргiзiлдiңiз немесе мәтiннiң ауыстыруын"
+
+msgid "PDF File"
+msgstr "PDF құжат "
+
+msgid "Plain Text Document"
+msgstr "Мәтiндi құжат"
+
+msgid "Who is the Parent?"
+msgstr "Қосылу..."
+
+msgid "The Tree Root"
+msgstr "Ағаш"
+
+msgid "The Selected Node"
+msgstr "Бұтақ"
 
 msgid "Enable Spell Check"
 msgstr "Орфографияны тексеру"
@@ -3099,17 +3433,11 @@ msgstr "Орфографияны тексеру"
 msgid "Spell Check Language"
 msgstr "Сөздiк:"
 
-msgid "Show White Spaces"
-msgstr "Бос орынды бейнелеу"
-
-msgid "Highlight Current Line"
-msgstr "Белсендi жол жарық түсiру"
-
-msgid "Highlight Matching Brackets"
-msgstr "Жаңа сауған жақшалар жарық түсiру"
-
 msgid "Expand CodeBoxes Automatically"
 msgstr "Iшiндегi CodeBox бойымен өздiгiнен таңдау"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Codebox ішіндегі құралдар тақтасы"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "Жеңіл интерфейс үшін кесте ұяшықтарының саны"
@@ -3159,80 +3487,56 @@ msgstr "Ұсақ"
 msgid "Scalable Tags"
 msgstr "Масштаб жасалатын тегтер"
 
-msgid "Monospace"
-msgstr "Бiркелкi мәтiн"
+msgid "Execute Code"
+msgstr "Кодты орындау"
 
-msgid "Writing to Disk..."
-msgstr "Дискке жазба..."
+msgid "Change CodeBox Properties"
+msgstr "CodeBox қасиет..."
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Файлға <b>\"%s\"</b> жазба қол жетпес"
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Әлi де сiз мәтiннiң қалыптауы жүргiзiлдiңiз"
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Үшiн пароль %s енгiзiңiз"
+msgid "Link Name"
+msgstr "Сiлтеме үстемелену"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Құжат бүлінген.\n"
-"\n"
-"Оны басқа атпен сақтауға тырысыңыз (Файл-->Басқаша сақтау...)"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Жүгiргi азатжолдың сыртына"
 
-msgid "Failed to encrypt the file"
-msgstr "Файлды шифрлау мүмкін болмады"
+msgid "Pick a Foreground Color"
+msgstr "Түстi таңдаңыз"
 
-msgid "Image Format Not Recognized"
-msgstr "Бейне пiшiм танымал емес"
+msgid "Pick a Background Color"
+msgstr "Түстi таңдаңыз"
 
-msgid "Insert Table"
-msgstr "Кесте үстемелену"
+msgid "Chars for Bulleted List"
+msgstr "Таңбаланған тiзiм"
 
-msgid "CSV File"
-msgstr "CSV файл"
+msgid "Chars for Todo List"
+msgstr "Тапсырмалар тiзiм"
 
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr ""
-"Файл максималь өлшемдi %s Мбайт асады\n"
-" "
+msgid "Chars for Table Of Content"
+msgstr "Мазмұн"
 
-msgid "Do you want to Continue?"
-msgstr "Жалғастырады ма?"
+msgid "Chars for Smart Double Quotes"
+msgstr "Қосарланған тырнақшалардың автоалмастыруы үшiн"
 
-msgid "Tabs Replaced"
-msgstr " табуляциялар ауыстырылған"
+msgid "Chars for Smart Single Quotes"
+msgstr "Тырнақшалардың автоалмастыруы үшiн"
 
-msgid "Lines Stripped"
-msgstr " жол тазаланған"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Тырнақшалардың автоалмастыруы"
 
-msgid "Change Selected"
-msgstr "Пернелер комбинациясын өзгерту"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Нышандарды автоалмастыру"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr ""
-" \n"
-"'%s' пайдаланып қойдылар пернелер комбинациясы!"
+msgid "Supported Symbols Auto Replacements"
+msgstr "Қосталатын нышандар"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Осы тiркесiм <b>' %s '</b> iс-әрекеттi орындайды"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Пернелер комбинациясын қайта анықтайды ма?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Жаңа тiркесiм..."
-
-msgid "No Keyboard Shortcut"
-msgstr "Берiлген емес"
+msgid "Only at the Start of the Line"
+msgstr "Жол басында ғана"
 
 msgid "Use Selected Color"
 msgstr "Тақырып"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Синтаксистiң көмескi жарығы"
 
 msgid "Tags for Searching"
 msgstr "Iздестiру үшiн тегтер"
@@ -3248,6 +3552,12 @@ msgstr "еншілес"
 
 msgid "Read Only"
 msgstr "Оқу ғана"
+
+msgid "Unique Id"
+msgstr "Бірегей ID"
+
+msgid "Shared Nodes Group"
+msgstr "Бұтақтарды топтастыру"
 
 msgid "Choose Existing Tag"
 msgstr "Тегтер"
@@ -3285,295 +3595,80 @@ msgstr "Жаңа беттен жаңа бұтағы"
 msgid "Single File"
 msgstr "Бiр файл"
 
-msgid "English"
-msgstr "Ағылшын"
+msgid "Checking for Newer Version..."
+msgstr "Жаңа болжамның қол жетiмдiлiгiн тексерiс..."
 
-msgid "Text and Code"
-msgstr "Мәтiн және код"
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Серверге жауап бермейдi. Соңырақ көрiңiз."
 
-msgid "Plain Text and Code"
-msgstr "Кәдiмгi мәтiн және код"
+msgid "A Newer Version Is Available!"
+msgstr "Жаңа болжам қол жететiн!"
 
-msgid "Theme"
-msgstr "Тақырып"
+msgid "You Are Using the Latest Version Available."
+msgstr "Жаңару табылған емес! Сiз соңғы нобайды пайдаланыңыз CherryTree"
 
-msgid "Fonts"
-msgstr "Қарiптер"
+msgid "You Are Using a Development Version."
+msgstr "Сiз өңдеушi үшiн нобайды пайдаланыңыз"
 
-msgid "Links"
-msgstr "Сiлтеме"
+msgid "Image Format Not Recognized"
+msgstr "Бейне пiшiм танымал емес"
 
-msgid "Toolbar"
-msgstr "Құрал-саймандар панелi"
-
-msgid "Keyboard Shortcuts"
-msgstr "Ыстық пернелер"
-
-msgid "Code Font"
-msgstr "Кодтың мәтiнi"
-
-msgid "Terminal Font"
-msgstr "Терминал мәтіні"
-
-msgid "Tree Font"
-msgstr "Ағаштың мәтiнi"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Веб-бетке сiлтеменiң ашуында"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Файлға сiлтеменiң ашуында"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Мұқабаға сiлтеменiң ашуында"
-
-msgid "Custom Actions"
-msgstr "Iс-әрекет"
-
-msgid "Colors"
-msgstr "Түскен"
-
-msgid "Underline Links"
-msgstr "Сiлтеме астын сызу"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Файлдарға салыстырмалы жолдарды пайдалансын және мұқабаларға"
-
-msgid "Anchor Size"
-msgstr "Зәкiрдiң белгiшесiн өлшем"
-
-msgid "Who is the Parent?"
-msgstr "Қосылу..."
-
-msgid "The Tree Root"
-msgstr "Ағаш"
-
-msgid "The Selected Node"
-msgstr "Бұтақ"
-
-msgid "Internal Terminal Shell"
-msgstr "Кірістірілген терминалды пайдаланыңыз"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Компилятордың/интерпретаторының пәрменi"
-
-msgid "Terminal Command"
-msgstr "Терминалдың пәрменi"
-
-msgid "Code Execution"
-msgstr "Кодтың орындауы"
-
-msgid "Rename"
-msgstr "Қайта аталу"
-
-msgid "PNG Image"
-msgstr "PNG бейне"
+msgid "Insert Table"
+msgstr "Кесте үстемелену"
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "Жазба %s сәттi болмады"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "%s мұқабаға дұрыс емес сiлтеме"
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "%s файлға дұрыс емес сiлтеме "
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "%s мұқабаға дұрыс емес сiлтеме"
-
-#, c-format
-msgid "No anchor named '%s' found"
+msgid "The Maximum Size for Embedded Files is %s MB."
 msgstr ""
-"Құжатта іздеу аяқталды.\n"
-"\n"
-"Сіз іздеген зәкір <b> '%s ' < / b> табылмады!"
+"Файл максималь өлшемдi %s Мбайт асады\n"
+" "
 
-msgid "Edit CodeBox"
-msgstr "CodeBox қасиет"
+msgid "Do you want to Continue?"
+msgstr "Жалғастырады ма?"
 
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Сiз тiлмен пәрменге байланысуыңыз керек <b>' %s '</b>.\n"
-"\n"
-"Бұл қолданба теңшелiмдерiндегi жасауға болады"
+msgid "Tabs Replaced"
+msgstr " табуляциялар ауыстырылған"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Xterm десте орнатылыңыз немесе қолданба теңшелiмдерiндегi басқа терминал "
-"теңшеңiз"
+msgid "Lines Stripped"
+msgstr " жол тазаланған"
 
-msgid "Edit Table Properties"
-msgstr "Кестенiң қасиетi"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Ескерту: бiр немесе болған iстiң бiрнеше бейнелерi азайған"
 
-msgid "Insert Anchor"
-msgstr "Зәкiр үстемелену"
+msgid "Print CherryTree version"
+msgstr "Мөр үшiн нобай"
 
-msgid "Edit Anchor"
-msgstr "Зәкiрдiң қасиетi"
+msgid "Node name to focus"
+msgstr "Есiм фокус үшiн тарал"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "<b>\"Оқу ғана!\"</b> файлды мүмкiн емес редакциялау"
+msgid "Anchor name to scroll to in node"
+msgstr "Тармаққа жылжу үшін якорь атауы"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматты түрде жаңартылған:"
+msgid "Export to HTML at specified directory path"
+msgstr "HTML бар директорияға экспорт"
 
-msgid "The Tree is Empty!"
-msgstr ""
-"<b> Бос ағаш! </b>\n"
-"\n"
-"Сiздiң бiрiншi ағашыңыз құрыңыз!\n"
-"Бастапқыда жұмыс жаңа бұтақ қосылыңыз:\n"
-"<b>Басты мәзiр\\Ағаш\\Жаңа бұтақ </b>"
+msgid "Export to Text at specified directory path"
+msgstr "TXT бар директорияға экспорт"
 
-msgid "The Selected Node is Read Only."
-msgstr ""
-"Мынау бұтақ қол жететiн <b>\"Оқу ғана!\"</b>.\n"
-"\n"
-"Редакциялау үшiн қасиеттi өзгерт тарал."
+msgid "Export to PDF at specified directory path"
+msgstr "PDF бар директорияға экспорт"
 
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Форматталған мәтiн үшiн түсiнiктi тек қана мынау функция"
+msgid "Overwrite if export path already exists"
+msgstr "Егер болып қойдыларды файл болса қайта жазып алу"
 
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Мынау функция синтаксистiң көмескi жарығы үшiн жетiспедi"
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "(HTML үшiн немесе TXT) бiр файлға экспорт"
 
-msgid "No Table is Selected."
-msgstr "Мәтiн ерекшеленген емес"
+msgid "Password to open document"
+msgstr "Құжаттың паролі"
 
-msgid "No CodeBox is Selected."
-msgstr "Бұтақ таңдалған емес"
+msgid "Create a new window"
+msgstr "Жаңа терезе құру"
 
-msgid "New Child Node Properties"
-msgstr "Қасиет жаңа еншiлес тарал"
+msgid "Run in secondary session, independent from main session"
+msgstr "Екінші сессияны бастау"
 
-msgid "New Node Properties"
-msgstr "Қасиет жаңа тарал"
-
-msgid "Node Properties"
-msgstr "Қасиет тарал"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Сiзi <b> \"Кәдiмгi мәтiн\" </b> <b> \"Форматталған мәтiн\" </b> \n"
-"ауысымының жанында мәтiннiң қалыптауы толығымен жоғалт бұл үшiн тарал.\n"
-"Жалғастырады ма?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr ""
-" \n"
-"Сiз <b>' %s '</b> бұтақ рас алыстап кеткiңiз келедi ме?"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> Да келесi еншiлес сылын тарал!</b>"
-
-msgid "Select the New Parent"
-msgstr "Атаны таңдаңыз..."
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Жаңа ата-ана бұтағы мүмкiн емес орын алмасады! "
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Атамен болып көрiнiп қойдыларды таңдалған жаңа ата-ана бұтағы!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s қасиеттері тазартылды"
-
-msgid "Latex Text"
-msgstr "LaTeX мәтiн"
-
-msgid "Image Size dpi"
-msgstr "Dpi сурет өлшемі"
-
-msgid "Tutorial"
-msgstr "Басшылық"
-
-msgid "Reference"
-msgstr "Анықтама"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX математикалық теңдеулер бойынша оқулық"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX математикалық символдарының анықтамалығы"
-
-msgid "Image Properties"
-msgstr "Бейненiң қасиетi"
-
-msgid "Width"
-msgstr "Ен"
-
-msgid "Height"
-msgstr "Биiктiк"
-
-msgid "Type"
-msgstr "Түр"
-
-msgid "pixels"
-msgstr "пиксельдер"
-
-msgid "Size"
-msgstr "Өлшем"
-
-msgid "Options"
-msgstr "Теңшелiм"
-
-msgid "Rows"
-msgstr "Жолдар саны:"
-
-msgid "Columns"
-msgstr "Сан бағана:"
-
-msgid "Default Width"
-msgstr "Мағына:"
-
-msgid "Table Size"
-msgstr "Кестенiң өлшемi"
-
-msgid "Column Properties"
-msgstr "Бағананың енi "
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Жеңіл интерфейс (үлкен кестелер үшін жылдамырақ)"
-
-msgid "Import from CSV File"
-msgstr "Файл CSV деректерiн импорттау"
-
-msgid "Remove Color"
-msgstr "Тазалану"
-
-msgid "Question"
-msgstr "Сұрақ"
-
-msgid "Info"
-msgstr "Ақпарат"
-
-msgid "Error"
-msgstr "Қате"
-
-msgid "Select File"
-msgstr "Ашылу..."
-
-msgid "Select Folder"
-msgstr "Таңдау..."
-
-msgid "Save File as"
-msgstr "Басқаша сақтау..."
-
-msgid "Save To Folder"
-msgstr "Қалтаға сақтау"
+msgid "Are you sure to Reset to Default?"
+msgstr "Үндемеу бойыншаға мағына қалпына келедi ме?"
 
 msgid "HTML Document"
 msgstr "HTML құжат"
@@ -3589,6 +3684,3 @@ msgstr "Treepad құжат"
 
 msgid "Leo Document"
 msgstr "Leo құжат"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "Үндемеу бойыншаға мағына қалпына келедi ме?"
