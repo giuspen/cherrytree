@@ -570,17 +570,20 @@ void CtDialogs::match_dialog(const std::string& str_find,
             s_state.match_store->erase(list_iter);
             return;
         }
+        CtTextView& ct_text_view = pCtMainWin->get_text_view();
         // remove previous selection because it can cause freezing in specific cases, see more in issue
-        auto fake_iter = pCtMainWin->get_text_view().get_buffer()->get_iter_at_offset(-1);
-        auto rCurrBuffer = pCtMainWin->get_text_view().get_buffer();
-        rCurrBuffer->place_cursor(fake_iter);
+        auto rCurrBuffer = ct_text_view.get_buffer();
+        rCurrBuffer->place_cursor(rCurrBuffer->begin());
 
         pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        // new text buffer after selected node changed
+        rCurrBuffer = ct_text_view.get_buffer();
+
         const int start_offset = list_iter->get_value(s_state.match_store->columns.start_offset);
         const int end_offset = list_iter->get_value(s_state.match_store->columns.end_offset);
         rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(start_offset),
                                   rCurrBuffer->get_iter_at_offset(end_offset));
-        pCtMainWin->get_text_view().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        ct_text_view.scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 
         const CtAnchWidgType anch_type = list_iter->get_value(s_state.match_store->columns.anch_type);
         //spdlog::debug("anch_type={}", static_cast<int>(anch_type));
@@ -598,8 +601,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
         }
 
         // pump events so UI's not going to freeze (#835)
-        while (gdk_events_pending())
-            gtk_main_iteration();
+        while (gdk_events_pending()) gtk_main_iteration();
     };
 
     if (not rModel->saved_path.empty()) {
