@@ -54,24 +54,19 @@ void CtActions::_find_init()
 void CtActions::find_in_selected_node()
 {
     if (not _is_there_selected_node_or_error()) return;
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
 
     if (not _s_state.from_find_iterated) {
         _s_state.find_iter_anchlist_size = 0u;
-        auto iter_insert = curr_buffer->get_iter_at_mark(curr_buffer->get_insert());
-        auto iter_bound = curr_buffer->get_iter_at_mark(curr_buffer->get_selection_bound());
-        auto entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
+        CtTextView& ctTextView = _pCtMainWin->get_text_view();
+        Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
+        Gtk::TextIter iter_insert = curr_buffer->get_iter_at_mark(curr_buffer->get_insert());
+        Gtk::TextIter iter_bound = curr_buffer->get_iter_at_mark(curr_buffer->get_selection_bound());
+        Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
         if (entry_predefined_text.length()) {
             _s_options.str_find = entry_predefined_text;
         }
         Glib::ustring title = _s_state.replace_active ? _("Replace in Current Node") : _("Search in Current Node");
         CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state, false/*multiple_nodes*/);
-#if 0 /* TODO check if still needed */
-        if (entry_predefined_text.length()) {
-            curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
-            curr_buffer->move_mark(curr_buffer->get_selection_bound(), iter_bound);
-        }
-#endif
     }
     else {
         find_in_selected_node_ok_clicked();
@@ -139,11 +134,10 @@ void CtActions::find_in_multiple_nodes()
 {
     if (not _is_there_selected_node_or_error()) return;
 
-    CtTextView& ctTextView = _pCtMainWin->get_text_view();
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
-
     if (not _s_state.from_find_iterated) {
         _s_state.find_iter_anchlist_size = 0u;
+        CtTextView& ctTextView = _pCtMainWin->get_text_view();
+        Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
         Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
         Gtk::TextIter iter_bound = curr_buffer->get_selection_bound()->get_iter();
         Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
@@ -152,12 +146,6 @@ void CtActions::find_in_multiple_nodes()
         }
         Glib::ustring title = _s_state.replace_active ? _("Replace in Multiple Nodes...") : _("Find in Multiple Nodes...");
         CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state, true/*multiple_nodes*/);
-#if 0 /* TODO check if still needed */
-        if (not entry_predefined_text.empty()) {
-            curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
-            curr_buffer->move_mark(curr_buffer->get_selection_bound(), iter_bound);
-        }
-#endif
     }
     else {
         find_in_multiple_nodes_ok_clicked();
@@ -183,7 +171,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         forward = not forward;
         _s_state.from_find_back = false;
     }
-    const bool first_fromsel = 1 == _s_options.all_firstsel_firstall;
+    const bool first_fromsel = 1 == _s_options.all_firstsel_firstall or _s_state.from_find_iterated;
     const bool all_matches = 0 == _s_options.all_firstsel_firstall;
     if (first_fromsel or _s_options.only_sel_n_subnodes) {
         _s_state.first_useful_node = false; // no one node content was parsed yet
@@ -259,6 +247,8 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
     ctTreeStore.treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, ctTreeView, _pCtConfig->nodesBookmExp);
     if (not _s_state.matches_num or all_matches) {
         ctTreeView.set_cursor_safe(starting_tree_iter);
+        // new text buffer
+        curr_buffer = ctTextView.get_buffer();
         ctTextView.grab_focus();
         curr_buffer->place_cursor(curr_buffer->get_iter_at_offset(current_cursor_pos));
         ctTextView.scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
@@ -274,6 +264,8 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         }
         else {
             ctTreeView.set_cursor_safe(last_iterated_node);
+            // new text buffer
+            curr_buffer = ctTextView.get_buffer();
             ctTextView.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
                 _s_state.latest_match_offsets.second - _s_state.latest_match_offsets.first);
             ctTextView.scroll_to(ctTextView.get_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
@@ -394,7 +386,8 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
     std::optional<bool> optFirstNode;
     if (not _s_state.first_useful_node) {
         // first_fromsel plus first_node not already parsed
-        if (not _pCtMainWin->curr_tree_iter() or node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
+        CtTreeIter selTreeIter = _pCtMainWin->curr_tree_iter();
+        if (not selTreeIter or node_iter.get_node_id() == selTreeIter.get_node_id()) {
             _s_state.first_useful_node = true; // a first_node was parsed
             optFirstNode = true;
         }
@@ -525,6 +518,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
         if (all_matches) _s_state.all_matches_first_in_node = false;
     }
+    spdlog::debug("parsing {} content from {} ffs={} 1st={}", tree_iter.get_node_id(), start_iter.get_offset(), first_fromsel, first_node);
 
     bool pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
 

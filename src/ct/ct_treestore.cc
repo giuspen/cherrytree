@@ -857,7 +857,11 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     }
     _curr_node_sigc_conn.clear();
 
-    spdlog::debug("Node name: {}", treeIter.get_node_name());
+    const gint64 nodeMasterId = treeIter.get_node_shared_master_id();
+    const gint64 nodeId = treeIter.get_node_id();
+    const Glib::ustring nodeName = treeIter.get_node_name();
+    if (nodeMasterId <= 0) spdlog::debug("Node {} > {}", nodeId, nodeName);
+    else spdlog::debug("Node {}[{}] > {}", nodeId, nodeMasterId, nodeName);
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
     _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
