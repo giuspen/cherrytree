@@ -83,7 +83,7 @@ void CtActions::find_in_selected_node_ok_clicked()
         forward = not forward;
         _s_state.from_find_back = false;
     }
-    const bool first_fromsel = 1 == _s_options.all_firstsel_firstall;
+    const bool first_fromsel = 1 == _s_options.all_firstsel_firstall or _s_state.from_find_iterated;
     const bool all_matches = 0 == _s_options.all_firstsel_firstall;
     _s_state.matches_num = 0;
 
