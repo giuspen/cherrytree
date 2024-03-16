@@ -136,6 +136,10 @@ void CtActions::find_in_multiple_nodes()
 
     if (not _s_state.from_find_iterated) {
         _s_state.find_iter_anchlist_size = 0u;
+        if (_s_state.find_iterated_last_name_n_tags_id > 0) {
+            _s_state.find_iterated_last_name_n_tags_id = 0;
+            spdlog::debug("{} find_iterated_last_name_n_tags_id 0", __FUNCTION__);
+        }
         CtTextView& ctTextView = _pCtMainWin->get_text_view();
         Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
         Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
@@ -217,7 +221,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
             if (not all_matches or ctStatusBar.is_progress_stop()) break;
         }
         ++_s_state.processed_nodes;
-        if (1 == _s_state.matches_num and not all_matches) break;
+        if (_s_state.matches_num > 0 and not all_matches) break;
         if (_s_options.only_sel_n_subnodes and not _s_state.from_find_iterated) break;
         Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) { ++node_iter; }
@@ -245,7 +249,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
     _pCtMainWin->user_active() = user_active_restore;
     auto last_iterated_node = _pCtMainWin->curr_tree_iter();
     ctTreeStore.treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, ctTreeView, _pCtConfig->nodesBookmExp);
-    if (not _s_state.matches_num or all_matches) {
+    if (0 == _s_state.matches_num or all_matches) {
         ctTreeView.set_cursor_safe(starting_tree_iter);
         // new text buffer
         curr_buffer = ctTextView.get_buffer();
@@ -253,7 +257,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         curr_buffer->place_cursor(curr_buffer->get_iter_at_offset(current_cursor_pos));
         ctTextView.scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
-    if (not _s_state.matches_num) {
+    if (0 == _s_state.matches_num) {
         CtDialogs::no_matches_dialog(_pCtMainWin,
                                      "'" + _s_options.str_find + "'  -  0 " + _("Matches"),
                                      str::format(_("<b>The pattern '%s' was not found</b>"), str::xml_escape(_s_state.curr_find_pattern)));
@@ -383,11 +387,12 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
                                           bool first_fromsel,
                                           bool all_matches)
 {
+    const gint64 argNodeId = node_iter.get_node_id();
     std::optional<bool> optFirstNode;
     if (not _s_state.first_useful_node) {
         // first_fromsel plus first_node not already parsed
         CtTreeIter selTreeIter = _pCtMainWin->curr_tree_iter();
-        if (not selTreeIter or node_iter.get_node_id() == selTreeIter.get_node_id()) {
+        if (not selTreeIter or argNodeId == selTreeIter.get_node_id()) {
             _s_state.first_useful_node = true; // a first_node was parsed
             optFirstNode = true;
         }
@@ -411,8 +416,20 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
         }
         if (_s_options.node_name_n_tags) {
             if (_parse_node_name_n_tags_iter(node_iter, re_pattern, all_matches) and not all_matches) {
-                return false;
+                
+                if (_s_state.find_iterated_last_name_n_tags_id <= 0 or
+                    _s_state.find_iterated_last_name_n_tags_id != argNodeId)
+                {
+                    _s_state.find_iterated_last_name_n_tags_id = argNodeId;
+                    spdlog::debug("{} find_iterated_last_name_n_tags_id {}", __FUNCTION__, _s_state.find_iterated_last_name_n_tags_id);
+                    return true;
+                }
+                spdlog::debug("skipped name_n_tags {}", argNodeId);
             }
+        }
+        if (_s_state.find_iterated_last_name_n_tags_id > 0) {
+            _s_state.find_iterated_last_name_n_tags_id = 0;
+            spdlog::debug("{} find_iterated_last_name_n_tags_id 0", __FUNCTION__);
         }
     }
 
@@ -432,10 +449,10 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
                     }
                 }
                 while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
-                    _s_state.matches_num += 1;
+                    ++_s_state.matches_num;
                     if (not all_matches or _pCtMainWin->get_status_bar().is_progress_stop()) break;
                 }
-                if (_s_state.matches_num == 1 and not all_matches) break;
+                if (_s_state.matches_num > 0 and not all_matches) break;
                 if (forward) child_iter = ++child_iter;
                 else         child_iter = --child_iter;
                 _s_state.processed_nodes += 1;
@@ -491,7 +508,6 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
             _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
             _pCtMainWin->get_text_view().grab_focus();
         }
-        _s_state.matches_num += 1;
         return true;
     }
     return false;

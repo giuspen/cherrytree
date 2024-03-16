@@ -441,6 +441,7 @@ struct CtSearchState {
     CtCurrFindType curr_find_type{CtCurrFindType::None};
     std::string    curr_find_pattern;
     bool           from_find_iterated{false};
+    gint64         find_iterated_last_name_n_tags_id{0};
     bool           from_find_back{false};
     bool           find_back_exclude_obj_offs_zero{false};
     size_t         find_iter_anchlist_idx{0u};
