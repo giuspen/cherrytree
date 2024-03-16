@@ -161,15 +161,10 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
     Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(_s_state.curr_find_pattern);
     if (not re_pattern) return;
 
-    CtTextView& ctTextView = _pCtMainWin->get_text_view();
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
     CtStatusBar& ctStatusBar = _pCtMainWin->get_status_bar();
     CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
-    CtTreeView& ctTreeView = _pCtMainWin->get_tree_view();
 
-    CtTreeIter starting_tree_iter = _pCtMainWin->curr_tree_iter();
     Gtk::TreeIter node_iter;
-    int current_cursor_pos = curr_buffer->property_cursor_position();
     bool forward = _s_options.direction_fw;
     if (_s_state.from_find_back) {
         forward = not forward;
@@ -191,7 +186,6 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
     }
     CtTreeIter::clear_hit_exclusion_from_search();
 
-    std::string tree_expanded_collapsed_string = ctTreeStore.treeview_get_tree_expanded_collapsed_string(ctTreeView);
     // searching start
     bool user_active_restore = _pCtMainWin->user_active();
     _pCtMainWin->user_active() = false;
@@ -247,16 +241,6 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
     spdlog::debug("Search took {} sec", search_end_time - search_start_time);
 
     _pCtMainWin->user_active() = user_active_restore;
-    auto last_iterated_node = _pCtMainWin->curr_tree_iter();
-    ctTreeStore.treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, ctTreeView, _pCtConfig->nodesBookmExp);
-    if (0 == _s_state.matches_num or all_matches) {
-        ctTreeView.set_cursor_safe(starting_tree_iter);
-        // new text buffer
-        curr_buffer = ctTextView.get_buffer();
-        ctTextView.grab_focus();
-        curr_buffer->place_cursor(curr_buffer->get_iter_at_offset(current_cursor_pos));
-        ctTextView.scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
-    }
     if (0 == _s_state.matches_num) {
         CtDialogs::no_matches_dialog(_pCtMainWin,
                                      "'" + _s_options.str_find + "'  -  0 " + _("Matches"),
@@ -267,12 +251,6 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
             CtDialogs::match_dialog(_s_options.str_find, _pCtMainWin, _s_state);
         }
         else {
-            ctTreeView.set_cursor_safe(last_iterated_node);
-            // new text buffer
-            curr_buffer = ctTextView.get_buffer();
-            ctTextView.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
-                _s_state.latest_match_offsets.second - _s_state.latest_match_offsets.first);
-            ctTextView.scroll_to(ctTextView.get_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
             if (_s_options.iterative_dialog) {
                 CtDialogs::iterated_find_dialog(_pCtMainWin, _s_state);
             }
@@ -284,6 +262,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         ctStatusBar.set_progress_stop(false);
     }
 }
+
 // Continue the previous search (a_node/in_selected_node/in_all_nodes)
 void CtActions::find_again_iter(const bool fromIterativeDialog)
 {

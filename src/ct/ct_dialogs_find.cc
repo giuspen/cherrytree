@@ -504,7 +504,9 @@ void CtDialogs::match_dialog(const std::string& str_find,
                              CtSearchState& s_state)
 {
     auto rModel = s_state.match_store;
-    auto pMatchesDialog = new Gtk::Dialog{"", *pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    auto pMatchesDialog = new Gtk::Dialog{"",
+                                          *pCtMainWin,
+                                          Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     s_state.pMatchStoreDialog = pMatchesDialog;
     pMatchesDialog->set_transient_for(*pCtMainWin);
     if (rModel->dlg_size[0] > 0) {
@@ -676,6 +678,7 @@ void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_sta
         auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"),
                                        *pCtMainWin,
                                        Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+        pDialog->set_transient_for(*pCtMainWin);
         auto button_close = pDialog->add_button(_("Close"), 0);
         auto button_find_bw = pDialog->add_button(_("Find Previous"), 4);
         auto button_find_fw = pDialog->add_button(_("Find Next"), 1);
