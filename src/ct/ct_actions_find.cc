@@ -710,7 +710,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
         }
         pTextBuffer->erase(sel_start, sel_end);
-        pTextBuffer->insert(pTextBuffer->get_iter_at_offset(_s_state.latest_match_offsets.first), replacer_text);
+        pTextBuffer->insert(pTextBuffer->get_iter_at_offset(startOffset), replacer_text);
         endOffset = startOffset + replacer_text.size();
         _s_state.replace_subsequent = true;
         _pCtMainWin->get_state_machine().update_state(tree_iter);
@@ -777,7 +777,38 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         if (anchMatchList.size() > 0u) {
             auto& pAnchMatch = anchMatchList[_s_state.find_iter_anchlist_idx];
             if (_s_state.replace_active) {
-                // TODO
+                if (CtAnchWidgType::CodeBox == pAnchMatch->anch_type) {
+                    if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchMatch->pAnchWidg)) {
+                        if (not f_match_replace_text_buffer(pCodebox->get_text_view().get_buffer(),
+                                                            pAnchMatch->anch_offs_start,
+                                                            pAnchMatch->anch_offs_end))
+                        {
+                            return false;
+                        }
+                    }
+                    else {
+                        spdlog::warn("!! {} unexp no CtCodebox", __FUNCTION__);
+                    }
+                }
+                else if (CtAnchWidgType::TableHeavy == pAnchMatch->anch_type) {
+                    if (auto pTable = dynamic_cast<CtTableHeavy*>(pAnchMatch->pAnchWidg)) {
+                        const size_t num_columns = pTable->get_num_columns();
+                        const size_t rowIdx = pAnchMatch->anch_cell_idx / num_columns;
+                        const size_t colIdx = pAnchMatch->anch_cell_idx % num_columns;
+                        if (not f_match_replace_text_buffer(pTable->get_buffer(rowIdx, colIdx),
+                                                            pAnchMatch->anch_offs_start,
+                                                            pAnchMatch->anch_offs_end))
+                        {
+                            return false;
+                        }
+                    }
+                    else {
+                        spdlog::warn("!! {} unexp no CtTableHeavy", __FUNCTION__);
+                    }
+                }
+                else if (CtAnchWidgType::TableLight == pAnchMatch->anch_type) {
+                    // TODO
+                }
             }
             CtActions::find_match_in_obj_focus(_s_state.latest_match_offsets.first,
                                                text_buffer,
@@ -930,7 +961,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                 }
             }
             else {
-                spdlog::warn("!! unexp no CtCodebox");
+                spdlog::warn("!! {} unexp no CtCodebox", __FUNCTION__);
             }
         } break;
         case CtAnchWidgType::TableHeavy:
@@ -977,7 +1008,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                 }
             }
             else {
-                spdlog::warn("!! unexp no CtTableCommon");
+                spdlog::warn("!! {} unexp no CtTableCommon", __FUNCTION__);
             }
         } break;
         default: break;
