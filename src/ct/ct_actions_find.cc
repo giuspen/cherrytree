@@ -475,7 +475,7 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
             _s_state.match_store->add_row(node_id,
                                           text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
                                           str::xml_escape(node_hier_name),
-                                          0, 0, 1, line_content, CtAnchWidgType::None, 0, 0, 0);
+                                          0, 0, 0/*line_num*/, line_content, CtAnchWidgType::None, 0, 0, 0);
         }
         if (_s_state.replace_active and not node_iter.get_node_read_only()) {
             std::string replacer_text = _s_options.str_replace;
@@ -513,7 +513,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
         if (all_matches) _s_state.all_matches_first_in_node = false;
     }
-    spdlog::debug("parsing {} content from {} ffs={} 1st={}", tree_iter.get_node_id(), start_iter.get_offset(), first_fromsel, first_node);
+    //spdlog::debug("parsing {} content from {} ffs={} 1st={}", tree_iter.get_node_id(), start_iter.get_offset(), first_fromsel, first_node);
 
     bool pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
 
@@ -704,7 +704,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         const Glib::ustring text_tags = tree_iter.get_node_tags();
         const Glib::ustring node_name_w_tags = text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]";
         if (0u == anchMatchList.size()) {
-            const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
+            const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line()/*0-based indexing*/ + 1;
             const Glib::ustring line_content = CtTextIterUtil::get_line_content(text_buffer, _s_state.latest_match_offsets.second);
             pCtMatchRowData = _s_state.match_store->add_row(node_id,
                                                             node_name_w_tags,
@@ -719,7 +719,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             for (std::shared_ptr<CtAnchMatch>& pAnchMatch : anchMatchList) {
                 _s_state.latest_match_offsets.first = pAnchMatch->start_offset;
                 _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + 1;
-                const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
+                const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line()/*0-based indexing*/ + 1;
                 (void)_s_state.match_store->add_row(node_id,
                                                     node_name_w_tags,
                                                     esc_node_hier_name,
@@ -790,7 +790,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                                                   const int anch_offs_start,
                                                   const int anch_offs_end)
 {
-    spdlog::debug("{} obj={} cell={} {}->{}", __FUNCTION__, obj_offset, anch_cell_idx, anch_offs_start, anch_offs_end);
+    //spdlog::debug("{} obj={} cell={} {}->{}", __FUNCTION__, obj_offset, anch_cell_idx, anch_offs_start, anch_offs_end);
     Gtk::TextIter anchor_iter = pTextBuffer->get_iter_at_offset(obj_offset);
     Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = anchor_iter.get_child_anchor();
     if (rChildAnchor) {
