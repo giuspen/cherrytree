@@ -263,6 +263,14 @@ bool CtTableCommon::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     return retVal;
 }
 
+std::pair<size_t, size_t> CtTableCommon::get_row_idx_col_idx(const size_t cell_idx) const
+{
+    const size_t num_columns = get_num_columns();
+    const size_t rowIdx = cell_idx / num_columns;
+    const size_t colIdx = cell_idx % num_columns;
+    return std::make_pair(rowIdx, colIdx);
+}
+
 CtTableHeavy::CtTableHeavy(CtMainWin* pCtMainWin,
                  CtTableMatrix& tableMatrix,
                  const int colWidthDefault,

@@ -470,7 +470,7 @@ void CtTableLight::set_selection_at_offset_n_delta(const int offset, const int d
     _pEditingCellEntry->select_region(offset, offset+delta);
 }
 
-Glib::ustring CtTableLight::get_line_content(const size_t rowIdx, const size_t colIdx, const int match_end_offset) const
+Glib::ustring CtTableLight::get_cell_text(const size_t rowIdx, const size_t colIdx) const
 {
     Gtk::TreePath treePath{std::to_string(rowIdx)};
     Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
@@ -484,7 +484,29 @@ Glib::ustring CtTableLight::get_line_content(const size_t rowIdx, const size_t c
         spdlog::warn("!! {} col {}", __FUNCTION__, colIdx);
         return "!?";
     }
-    Glib::ustring cellText = treeRow[cols.columnsText.at(colIdx)];
+    return treeRow[cols.columnsText.at(colIdx)];
+}
+
+void CtTableLight::set_cell_text(const size_t rowIdx, const size_t colIdx, const Glib::ustring& cell_text)
+{
+    Gtk::TreePath treePath{std::to_string(rowIdx)};
+    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
+    if (not treeIter) {
+        spdlog::warn("!! {} row {}", __FUNCTION__, rowIdx);
+        return;
+    }
+    Gtk::TreeRow treeRow = *treeIter;
+    const CtTableLightColumns& cols = get_columns();
+    if (cols.columnsText.size() <= colIdx) {
+        spdlog::warn("!! {} col {}", __FUNCTION__, colIdx);
+        return;
+    }
+    treeRow[cols.columnsText.at(colIdx)] = cell_text;
+}
+
+Glib::ustring CtTableLight::get_line_content(const size_t rowIdx, const size_t colIdx, const int match_end_offset) const
+{
+    Glib::ustring cellText = get_cell_text(rowIdx, colIdx);
     return CtTextIterUtil::get_line_content(cellText, match_end_offset);
 }
 

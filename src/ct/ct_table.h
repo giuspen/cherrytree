@@ -81,6 +81,7 @@ public:
     bool row_sort_desc() { return _row_sort(false/*sortAsc*/); }
     void row_move_down(const size_t rowIdx);
     void set_current_row_column(const size_t rowIdx, const size_t colIdx);
+    std::pair<size_t, size_t> get_row_idx_col_idx(const size_t cell_idx) const;
 
     virtual void column_add(const size_t afterColIdx) = 0;
     virtual void column_delete(const size_t colIdx) = 0;
@@ -138,6 +139,9 @@ public:
                  const size_t currCol = 0);
 
     const CtTableLightColumns& get_columns() const { return *_pColumns; }
+
+    Glib::ustring get_cell_text(const size_t rowIdx, const size_t colIdx) const;
+    void set_cell_text(const size_t rowIdx, const size_t colIdx, const Glib::ustring& cell_text);
 
     void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
     std::string to_csv() const override;

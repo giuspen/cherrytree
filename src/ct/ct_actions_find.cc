@@ -695,16 +695,37 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         _s_state.latest_match_offsets.first = match_offsets.first;
         _s_state.latest_match_offsets.second = match_offsets.second;
     }
+    auto f_match_replace_light_table = [this, &tree_iter, &re_pattern](CtTableLight* pTableLight,
+                                                                       const int cellIdx,
+                                                                       const int startOffset,
+                                                                       int& endOffset)->bool{
+        if (tree_iter.get_node_read_only()) return false;
+        const std::pair<size_t, size_t> rowIdxColIdx = pTableLight->get_row_idx_col_idx(cellIdx);
+        const Glib::ustring in_cell_text = pTableLight->get_cell_text(rowIdxColIdx.first, rowIdxColIdx.second);
+        const Glib::ustring pre_text = in_cell_text.substr(0, startOffset);
+        const Glib::ustring origin_text = in_cell_text.substr(startOffset, endOffset - startOffset);
+        const Glib::ustring post_text = in_cell_text.substr(endOffset);
+        Glib::ustring replacer_text = _s_options.str_replace; /* use Glib::ustring to count symbols */
+        // use re_pattern->replace for the cases with \n, maybe it even helps with groups
+        if (_s_options.reg_exp) {
+            replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+        }
+        const Glib::ustring out_cell_text = pre_text + replacer_text + post_text;
+        pTableLight->set_cell_text(rowIdxColIdx.first, rowIdxColIdx.second, out_cell_text);
+        endOffset = startOffset + replacer_text.size();
+        _s_state.replace_subsequent = true;
+        _pCtMainWin->get_state_machine().update_state(tree_iter);
+        tree_iter.pending_edit_db_node_buff();
+        return true;
+    };
     auto f_match_replace_text_buffer = [this, &tree_iter, &re_pattern](Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
                                                                        const int startOffset,
                                                                        int& endOffset)->bool{
         if (tree_iter.get_node_read_only()) return false;
         Gtk::TextIter sel_start = pTextBuffer->get_iter_at_offset(startOffset);
         Gtk::TextIter sel_end = pTextBuffer->get_iter_at_offset(endOffset);
-
         Glib::ustring origin_text = sel_start.get_text(sel_end);
-        Glib::ustring replacer_text = _s_options.str_replace; /* should be Glib::ustring to count symbols */
-
+        Glib::ustring replacer_text = _s_options.str_replace; /* use Glib::ustring to count symbols */
         // use re_pattern->replace for the cases with \n, maybe it even helps with groups
         if (_s_options.reg_exp) {
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
@@ -792,10 +813,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                 }
                 else if (CtAnchWidgType::TableHeavy == pAnchMatch->anch_type) {
                     if (auto pTable = dynamic_cast<CtTableHeavy*>(pAnchMatch->pAnchWidg)) {
-                        const size_t num_columns = pTable->get_num_columns();
-                        const size_t rowIdx = pAnchMatch->anch_cell_idx / num_columns;
-                        const size_t colIdx = pAnchMatch->anch_cell_idx % num_columns;
-                        if (not f_match_replace_text_buffer(pTable->get_buffer(rowIdx, colIdx),
+                        const std::pair<size_t, size_t> rowIdxColIdx = pTable->get_row_idx_col_idx(pAnchMatch->anch_cell_idx);
+                        if (not f_match_replace_text_buffer(pTable->get_buffer(rowIdxColIdx.first, rowIdxColIdx.second),
                                                             pAnchMatch->anch_offs_start,
                                                             pAnchMatch->anch_offs_end))
                         {
@@ -807,7 +826,18 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                     }
                 }
                 else if (CtAnchWidgType::TableLight == pAnchMatch->anch_type) {
-                    // TODO
+                    if (auto pTable = dynamic_cast<CtTableLight*>(pAnchMatch->pAnchWidg)) {
+                        if (not f_match_replace_light_table(pTable,
+                                                            pAnchMatch->anch_cell_idx,
+                                                            pAnchMatch->anch_offs_start,
+                                                            pAnchMatch->anch_offs_end))
+                        {
+                            return false;
+                        }
+                    }
+                    else {
+                        spdlog::warn("!! {} unexp no CtTableLight", __FUNCTION__);
+                    }
                 }
             }
             CtActions::find_match_in_obj_focus(_s_state.latest_match_offsets.first,
