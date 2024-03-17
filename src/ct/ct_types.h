@@ -468,12 +468,13 @@ struct CtSearchState {
 };
 
 struct CtAnchMatch {
-    int             start_offset;
-    Glib::ustring   line_content;
-    CtAnchWidgType  anch_type;
-    size_t          anch_cell_idx;
-    int             anch_offs_start;
-    int             anch_offs_end;
+    int               start_offset;
+    Glib::ustring     line_content;
+    CtAnchWidgType    anch_type;
+    size_t            anch_cell_idx;
+    int               anch_offs_start;
+    int               anch_offs_end;
+    CtAnchoredWidget* pAnchWidg;
 };
 
 using CtAnchMatchList = std::vector<std::shared_ptr<CtAnchMatch>>;

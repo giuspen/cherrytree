@@ -695,7 +695,28 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         _s_state.latest_match_offsets.first = match_offsets.first;
         _s_state.latest_match_offsets.second = match_offsets.second;
     }
-    CtMatchRowData* pCtMatchRowData{nullptr};
+    auto f_match_replace_text_buffer = [this, &tree_iter, &re_pattern](Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
+                                                                       const int startOffset,
+                                                                       int& endOffset)->bool{
+        if (tree_iter.get_node_read_only()) return false;
+        Gtk::TextIter sel_start = pTextBuffer->get_iter_at_offset(startOffset);
+        Gtk::TextIter sel_end = pTextBuffer->get_iter_at_offset(endOffset);
+
+        Glib::ustring origin_text = sel_start.get_text(sel_end);
+        Glib::ustring replacer_text = _s_options.str_replace; /* should be Glib::ustring to count symbols */
+
+        // use re_pattern->replace for the cases with \n, maybe it even helps with groups
+        if (_s_options.reg_exp) {
+            replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+        }
+        pTextBuffer->erase(sel_start, sel_end);
+        pTextBuffer->insert(pTextBuffer->get_iter_at_offset(_s_state.latest_match_offsets.first), replacer_text);
+        endOffset = startOffset + replacer_text.size();
+        _s_state.replace_subsequent = true;
+        _pCtMainWin->get_state_machine().update_state(tree_iter);
+        tree_iter.pending_edit_db_node_buff();
+        return true;
+    };
     if (all_matches) {
         const gint64 node_id = tree_iter.get_node_id();
         const Glib::ustring node_name = tree_iter.get_node_name();
@@ -706,20 +727,31 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         if (0u == anchMatchList.size()) {
             const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line()/*0-based indexing*/ + 1;
             const Glib::ustring line_content = CtTextIterUtil::get_line_content(text_buffer, _s_state.latest_match_offsets.second);
-            pCtMatchRowData = _s_state.match_store->add_row(node_id,
-                                                            node_name_w_tags,
-                                                            esc_node_hier_name,
-                                                            _s_state.latest_match_offsets.first,
-                                                            _s_state.latest_match_offsets.second,
-                                                            line_num,
-                                                            line_content,
-                                                            CtAnchWidgType::None, 0, 0, 0);
+            if (_s_state.replace_active) {
+                if (not f_match_replace_text_buffer(text_buffer,
+                                                    _s_state.latest_match_offsets.first,
+                                                    _s_state.latest_match_offsets.second))
+                {
+                    return false;
+                }
+            }
+            (void)_s_state.match_store->add_row(node_id,
+                                                node_name_w_tags,
+                                                esc_node_hier_name,
+                                                _s_state.latest_match_offsets.first,
+                                                _s_state.latest_match_offsets.second,
+                                                line_num,
+                                                line_content,
+                                                CtAnchWidgType::None, 0, 0, 0);
         }
         else {
             for (std::shared_ptr<CtAnchMatch>& pAnchMatch : anchMatchList) {
                 _s_state.latest_match_offsets.first = pAnchMatch->start_offset;
                 _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + 1;
                 const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line()/*0-based indexing*/ + 1;
+                if (_s_state.replace_active) {
+                    // TODO
+                }
                 (void)_s_state.match_store->add_row(node_id,
                                                     node_name_w_tags,
                                                     esc_node_hier_name,
@@ -744,6 +776,9 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         ct_text_view.scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
         if (anchMatchList.size() > 0u) {
             auto& pAnchMatch = anchMatchList[_s_state.find_iter_anchlist_idx];
+            if (_s_state.replace_active) {
+                // TODO
+            }
             CtActions::find_match_in_obj_focus(_s_state.latest_match_offsets.first,
                                                text_buffer,
                                                tree_iter,
@@ -752,32 +787,16 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                                                pAnchMatch->anch_offs_start,
                                                pAnchMatch->anch_offs_end);
         }
-    }
-    if (_s_state.replace_active and 0u == anchMatchList.size()) {
-        if (tree_iter.get_node_read_only()) return false;
-        Gtk::TextIter sel_start = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first);
-        Gtk::TextIter sel_end = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.second);
-
-        Glib::ustring origin_text = sel_start.get_text(sel_end);
-        Glib::ustring replacer_text = _s_options.str_replace; /* should be Glib::ustring to count symbols */
-
-        // use re_pattern->replace for the cases with \n, maybe it even helps with groups
-        if (_s_options.reg_exp) {
-            replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
-        }
-        text_buffer->erase(sel_start, sel_end);
-        text_buffer->insert(text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first), replacer_text);
-        _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + replacer_text.size();
-        _s_state.replace_subsequent = true;
-        if (all_matches) {
-            pCtMatchRowData->end_offset = _s_state.latest_match_offsets.second;
-        }
-        else {
+        else if (_s_state.replace_active) {
+            if (not f_match_replace_text_buffer(text_buffer,
+                                                _s_state.latest_match_offsets.first,
+                                                _s_state.latest_match_offsets.second))
+            {
+                return false;
+            }
             _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
-                                                                         static_cast<int>(replacer_text.size()));
+                _s_state.latest_match_offsets.second - _s_state.latest_match_offsets.first);
         }
-        _pCtMainWin->get_state_machine().update_state(tree_iter);
-        tree_iter.pending_edit_db_node_buff();
     }
     return true;
 }
@@ -851,6 +870,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                     pAnchMatch->start_offset = pAnchWidg->getOffset();
                     pAnchMatch->line_content = text;
                     pAnchMatch->anch_type = anchWidgType;
+                    pAnchMatch->pAnchWidg = pAnchWidg;
                     anchMatchList.push_back(pAnchMatch);
                     retVal = true;
                 }
@@ -870,6 +890,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                     pAnchMatch->start_offset = pAnchWidg->getOffset();
                     pAnchMatch->line_content = text;
                     pAnchMatch->anch_type = anchWidgType;
+                    pAnchMatch->pAnchWidg = pAnchWidg;
                     anchMatchList.push_back(pAnchMatch);
                     retVal = true;
                 }
@@ -898,6 +919,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                         pAnchMatch->anch_type = anchWidgType;
                         pAnchMatch->anch_offs_start = match_start_offset;
                         pAnchMatch->anch_offs_end = match_end_offset;
+                        pAnchMatch->pAnchWidg = pAnchWidg;
                         localAnchMatchList.push_back(pAnchMatch);
                         match_info.next();
                     }
@@ -938,6 +960,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                                 pAnchMatch->anch_offs_start = match_start_offset;
                                 pAnchMatch->anch_offs_end = match_end_offset;
                                 pAnchMatch->anch_cell_idx = pTable->get_num_columns()*rowIdx + colIdx;
+                                pAnchMatch->pAnchWidg = pAnchWidg;
                                 localAnchMatchList.push_back(pAnchMatch);
                                 match_info.next();
                             }
