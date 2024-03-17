@@ -766,12 +766,77 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                                                 CtAnchWidgType::None, 0, 0, 0);
         }
         else {
+            int last_obj_offs{0};
+            size_t last_cell_idx{0u};
+            int accumulated_delta_offs{0};
             for (std::shared_ptr<CtAnchMatch>& pAnchMatch : anchMatchList) {
                 _s_state.latest_match_offsets.first = pAnchMatch->start_offset;
                 _s_state.latest_match_offsets.second = _s_state.latest_match_offsets.first + 1;
                 const int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line()/*0-based indexing*/ + 1;
-                if (_s_state.replace_active) {
-                    // TODO
+                if ( _s_state.replace_active and
+                     ( CtAnchWidgType::CodeBox == pAnchMatch->anch_type or
+                       CtAnchWidgType::TableHeavy == pAnchMatch->anch_type or
+                       CtAnchWidgType::TableLight == pAnchMatch->anch_type ) )
+                {
+                    if ( last_obj_offs == pAnchMatch->start_offset and
+                         last_cell_idx == pAnchMatch->anch_cell_idx )
+                    {
+                        // we have a subsequent replace in the same cell, we need to apply the accumulated delta
+                        pAnchMatch->anch_offs_start += accumulated_delta_offs;
+                        pAnchMatch->anch_offs_end += accumulated_delta_offs;
+                    }
+                    else {
+                        last_obj_offs = pAnchMatch->start_offset;
+                        last_cell_idx = pAnchMatch->anch_cell_idx;
+                        accumulated_delta_offs = 0;
+                    }
+                    if (CtAnchWidgType::CodeBox == pAnchMatch->anch_type) {
+                        if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchMatch->pAnchWidg)) {
+                            const int prev_anch_offs_end = pAnchMatch->anch_offs_end;
+                            if (not f_match_replace_text_buffer(pCodebox->get_text_view().get_buffer(),
+                                                                pAnchMatch->anch_offs_start,
+                                                                pAnchMatch->anch_offs_end))
+                            {
+                                return false;
+                            }
+                            accumulated_delta_offs += (pAnchMatch->anch_offs_end - prev_anch_offs_end);
+                        }
+                        else {
+                            spdlog::warn("!! {} unexp no CtCodebox", __FUNCTION__);
+                        }
+                    }
+                    else if (CtAnchWidgType::TableHeavy == pAnchMatch->anch_type) {
+                        if (auto pTable = dynamic_cast<CtTableHeavy*>(pAnchMatch->pAnchWidg)) {
+                            const std::pair<size_t, size_t> rowIdxColIdx = pTable->get_row_idx_col_idx(pAnchMatch->anch_cell_idx);
+                            const int prev_anch_offs_end = pAnchMatch->anch_offs_end;
+                            if (not f_match_replace_text_buffer(pTable->get_buffer(rowIdxColIdx.first, rowIdxColIdx.second),
+                                                                pAnchMatch->anch_offs_start,
+                                                                pAnchMatch->anch_offs_end))
+                            {
+                                return false;
+                            }
+                            accumulated_delta_offs += (pAnchMatch->anch_offs_end - prev_anch_offs_end);
+                        }
+                        else {
+                            spdlog::warn("!! {} unexp no CtTableHeavy", __FUNCTION__);
+                        }
+                    }
+                    else if (CtAnchWidgType::TableLight == pAnchMatch->anch_type) {
+                        if (auto pTable = dynamic_cast<CtTableLight*>(pAnchMatch->pAnchWidg)) {
+                            const int prev_anch_offs_end = pAnchMatch->anch_offs_end;
+                            if (not f_match_replace_light_table(pTable,
+                                                                pAnchMatch->anch_cell_idx,
+                                                                pAnchMatch->anch_offs_start,
+                                                                pAnchMatch->anch_offs_end))
+                            {
+                                return false;
+                            }
+                            accumulated_delta_offs += (pAnchMatch->anch_offs_end - prev_anch_offs_end);
+                        }
+                        else {
+                            spdlog::warn("!! {} unexp no CtTableLight", __FUNCTION__);
+                        }
+                    }
                 }
                 (void)_s_state.match_store->add_row(node_id,
                                                     node_name_w_tags,
