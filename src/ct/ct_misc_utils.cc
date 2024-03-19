@@ -315,6 +315,15 @@ void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size
         task.join();
 }
 
+Glib::ustring CtTextIterUtil::get_selected_text(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer)
+{
+    Gtk::TextIter iter_sel_start, iter_sel_end;
+    if (pTextBuffer->get_selection_bounds(iter_sel_start, iter_sel_end)) {
+        return pTextBuffer->get_text(iter_sel_start, iter_sel_end);
+    }
+    return Glib::ustring{};
+}
+
 // Returns True if the characters compose a camel case word
 bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
 {

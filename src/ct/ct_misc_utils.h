@@ -135,6 +135,8 @@ inline bool startswith(Gtk::TextIter text_iter, const gchar* str)
     }
 }
 
+Glib::ustring get_selected_text(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer);
+
 template<class type>
 const gchar* get_str_pointer(const type& str)
 {

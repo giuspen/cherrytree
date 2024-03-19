@@ -57,11 +57,8 @@ void CtActions::find_in_selected_node()
 
     if (not _s_state.from_find_iterated) {
         _s_state.find_iter_anchlist_size = 0u;
-        CtTextView& ctTextView = _pCtMainWin->get_text_view();
-        Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
-        Gtk::TextIter iter_insert = curr_buffer->get_iter_at_mark(curr_buffer->get_insert());
-        Gtk::TextIter iter_bound = curr_buffer->get_iter_at_mark(curr_buffer->get_selection_bound());
-        Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
+        text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
+        Glib::ustring entry_predefined_text = CtTextIterUtil::get_selected_text(proof.text_view->get_buffer());
         if (entry_predefined_text.length()) {
             _s_options.str_find = entry_predefined_text;
         }
@@ -140,11 +137,8 @@ void CtActions::find_in_multiple_nodes()
             _s_state.find_iterated_last_name_n_tags_id = 0;
             spdlog::debug("{} find_iterated_last_name_n_tags_id 0", __FUNCTION__);
         }
-        CtTextView& ctTextView = _pCtMainWin->get_text_view();
-        Glib::RefPtr<Gtk::TextBuffer> curr_buffer = ctTextView.get_buffer();
-        Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
-        Gtk::TextIter iter_bound = curr_buffer->get_selection_bound()->get_iter();
-        Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
+        text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
+        Glib::ustring entry_predefined_text = CtTextIterUtil::get_selected_text(proof.text_view->get_buffer());
         if (not entry_predefined_text.empty()) {
             _s_options.str_find = entry_predefined_text;
         }
