@@ -18,8 +18,7 @@ DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
 CONTROL_DICT = {1: ("bionic", "18.04", False,             False),
                 2: ("focal",  "20.04", True,              True),
                 3: ("jammy",  "20.04", True,              True),
-                4: ("lunar",  "22.10", True,              True),
-                5: ("mantic", "22.10", True,              True)}
+                4: ("mantic", "22.10", True,              True)}
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
