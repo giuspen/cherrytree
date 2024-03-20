@@ -84,7 +84,7 @@ void CtTableCommon::set_current_row_column(const size_t rowIdx, const size_t col
 bool CtTableCommon::on_table_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    if (event->button != 3/*right button*/ and event->type != GDK_3BUTTON_PRESS) {
+    if (event->button != 3/*right button*/ and event->type != GDK_2BUTTON_PRESS and event->type != GDK_3BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     return false;
