@@ -1,3 +1,30 @@
+1.1.0 (March 20th, 2024)
+  * implemented support for so called shared nodes that all point to the same data - create with right click on node (#1222)
+  * improved search in tables and codeboxes to list and select all the instances; replace is also now supported (#2155, #2444)
+  * implemented vertical toolbar in codeboxes supporting code exec, code copy, edit properties (can be disabled in preferences)
+  * fixed crash when rapidly moving a node in the tree via keyboard shortcuts (#2409)
+  * fixed issues with find and presence of anchored widgets (#2444)
+  * fixed double click on word in table cell, heavy implementation, not selecting word
+  * icon save on toolbar/menu is now greyed out when save is not needed
+  * moved some preferences dialog settings from tab 'miscellanous' to tab 'fonts' that has been renamed 'interface'
+  * added option to allow to override the system setting for scrollbar overlay/auto hide (#2427)
+  * added option to allow control of the minimum size of the scrollbar slider (#2427)
+  * added options to control the text margins (#2425)
+  * added also in preferences dialog option to enable/disable the menubar in titlebar (was already under top menu view, #2443)
+  * added also in preferences dialog option to control the size of the toolbar icons (was already under top menu view, #2406)
+  * added in preferences dialog enable/disable tooltips on tree, menus, toolbar (#2169)
+  * added in preferences dialog control of max search results per page to display in the matches dialog
+  * added up to 18 custom user colours in the colour picker palette (#2422)
+  * allowing now underneath text selection with search/replace dialog open (#2426)
+  * fixed regression in speed when searching in nodes names and tags (no nodes contents) after v1.0.2 (#2408)
+  * reset autosave when manually saving; autosave to use a counter so that suspended time doesn't count (#2120)
+  * fixed tooltip on search results dialog, expected to display the node hierarchical name (#674)
+  * added ABAP syntax highlighting (work of @marbovo, #2430)
+  * added new gruvbox-light, gruvbox-dark style themes (work of Rafael Remigio, #2435)
+  * fixed zoom not working with Ctrl+ on english keyboard (key + is on shift)
+  * changed 6 default keyboard shortcuts using {,},[,] as problematic on German/Norwegian keyboards (#2423)
+  * incomplete languages: el, fi, hi_IN, hu
+
 1.0.4 (December 16th, 2023)
   * fixed crash when displaying search results dialog (#2398, #2399, #2404, #2405)
   * preferences dialog, keyboard shortcuts, now emphasizing with bold the overridden/non default shortcuts (#2397)
