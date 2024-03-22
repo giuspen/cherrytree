@@ -62,6 +62,8 @@ enum class CtDuplicateShared { None, Duplicate, Shared };
 
 enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 
+enum class CtMatchType { None, Content, NameNTags };
+
 class CtCodebox;
 class CtMainWin;
 using CtPairCodeboxMainWin = std::pair<CtCodebox*, CtMainWin*>;

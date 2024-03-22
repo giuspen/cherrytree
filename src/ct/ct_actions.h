@@ -200,11 +200,11 @@ public:
 private:
     // helpers for find actions
     void _find_init();
-    bool _parse_given_node_content(CtTreeIter node_iter,
-                                   Glib::RefPtr<Glib::Regex> re_pattern,
-                                   bool forward,
-                                   bool first_fromsel,
-                                   bool all_matches);
+    CtMatchType _parse_given_node_content(CtTreeIter node_iter,
+                                          Glib::RefPtr<Glib::Regex> re_pattern,
+                                          bool forward,
+                                          bool first_fromsel,
+                                          bool all_matches);
     bool _parse_node_content_iter(const CtTreeIter& tree_iter,
                                   Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                   Glib::RefPtr<Glib::Regex> re_pattern,

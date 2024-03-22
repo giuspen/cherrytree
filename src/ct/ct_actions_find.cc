@@ -204,9 +204,14 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
                 break;
             }
         }
-        while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
+        CtMatchType matchType;
+        auto f_matchTypeNotNone = [&](){
+            matchType = _parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches);
+            return CtMatchType::None != matchType;
+        };
+        while (f_matchTypeNotNone()) {
             ++_s_state.matches_num;
-            if (not all_matches or ctStatusBar.is_progress_stop()) break;
+            if (not all_matches or ctStatusBar.is_progress_stop() or CtMatchType::NameNTags == matchType) break;
         }
         ++_s_state.processed_nodes;
         if (_s_state.matches_num > 0 and not all_matches) break;
@@ -354,11 +359,11 @@ void CtActions::find_allmatchesdialog_restore()
 }
 
 // Returns True if pattern was found, False otherwise
-bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
-                                          Glib::RefPtr<Glib::Regex> re_pattern,
-                                          bool forward,
-                                          bool first_fromsel,
-                                          bool all_matches)
+CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
+                                                 Glib::RefPtr<Glib::Regex> re_pattern,
+                                                 bool forward,
+                                                 bool first_fromsel,
+                                                 bool all_matches)
 {
     const gint64 argNodeId = node_iter.get_node_id();
     std::optional<bool> optFirstNode;
@@ -384,18 +389,17 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
                                          all_matches,
                                          optFirstNode.value()))
             {
-                return true;
+                return CtMatchType::Content;
             }
         }
         if (_s_options.node_name_n_tags) {
-            if (_parse_node_name_n_tags_iter(node_iter, re_pattern, all_matches) and not all_matches) {
-                
+            if (_parse_node_name_n_tags_iter(node_iter, re_pattern, all_matches)) {
                 if (_s_state.find_iterated_last_name_n_tags_id <= 0 or
                     _s_state.find_iterated_last_name_n_tags_id != argNodeId)
                 {
                     _s_state.find_iterated_last_name_n_tags_id = argNodeId;
                     spdlog::debug("{} find_iterated_last_name_n_tags_id {}", __FUNCTION__, _s_state.find_iterated_last_name_n_tags_id);
-                    return true;
+                    return CtMatchType::NameNTags;
                 }
                 spdlog::debug("skipped name_n_tags {}", argNodeId);
             }
@@ -421,9 +425,14 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
                         break;
                     }
                 }
-                while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
+                CtMatchType matchType;
+                auto f_matchTypeNotNone = [&](){
+                    matchType = _parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches);
+                    return CtMatchType::None != matchType;
+                };
+                while (f_matchTypeNotNone()) {
                     ++_s_state.matches_num;
-                    if (not all_matches or _pCtMainWin->get_status_bar().is_progress_stop()) break;
+                    if (not all_matches or _pCtMainWin->get_status_bar().is_progress_stop() or CtMatchType::NameNTags == matchType) break;
                 }
                 if (_s_state.matches_num > 0 and not all_matches) break;
                 if (forward) child_iter = ++child_iter;
@@ -435,7 +444,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
             }
         }
     }
-    return false;
+    return CtMatchType::None;
 }
 
 // Returns True if pattern was found, False otherwise
