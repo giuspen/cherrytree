@@ -40,14 +40,18 @@ void CtMainWin::_on_treeview_cursor_changed()
         if (prevNodeId == nodeId) {
             return;
         }
+        const gint64 prevNodeIdDataHolder = _prevTreeIter.get_node_id_data_holder();
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
         if (rTextBuffer->get_modified()) {
             _fileSaveNeeded = true;
             rTextBuffer->set_modified(false);
             _ctStateMachine.update_state(_prevTreeIter);
         }
-        _nodesCursorPos[nodeIdDataHolder] = rTextBuffer->property_cursor_position();
-        _nodesVScrollPos[nodeIdDataHolder] = round(_scrolledwindowText.get_vadjustment()->get_value());
+        const int scr = round(_scrolledwindowText.get_vadjustment()->get_value());
+        const int cur = rTextBuffer->property_cursor_position();
+        _nodesVScrollPos[prevNodeIdDataHolder] = scr;
+        _nodesCursorPos[prevNodeIdDataHolder] = cur;
+        //spdlog::debug("W[{}] scr={}, cur={}", prevNodeIdDataHolder, scr, cur);
     }
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
@@ -61,9 +65,15 @@ void CtMainWin::_on_treeview_cursor_changed()
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     if (user_active()) {
-        auto mapIter = _nodesCursorPos.find(nodeIdDataHolder);
-        if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
-            text_view_apply_cursor_position(treeIter, mapIter->second, _nodesVScrollPos.at(nodeIdDataHolder));
+        auto mapScrIter = _nodesVScrollPos.find(nodeIdDataHolder);
+        auto mapCurIter = _nodesCursorPos.find(nodeIdDataHolder);
+        if (mapScrIter != _nodesVScrollPos.end() and
+            mapCurIter != _nodesCursorPos.end() and mapCurIter->second > 0)
+        {
+            const int scr = mapScrIter->second;
+            const int cur = mapCurIter->second;
+            text_view_apply_cursor_position(treeIter, cur, scr);
+            //spdlog::debug("R[{}] scr={}, cur={}", nodeIdDataHolder, scr, cur);
         }
         else {
             text_view_apply_cursor_position(treeIter, 0, 0);
