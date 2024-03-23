@@ -98,7 +98,7 @@ public:
     bool                                        treeRightSide{false};
     bool                                        cherryWrapEnabled{false};
     int                                         cherryWrapWidth{130};
-    bool                                        treeClickFocusText{false};
+    bool                                        treeClickFocusText{true};
     bool                                        treeClickExpand{false};
 
     // [editor]
