@@ -140,7 +140,11 @@ bool CtMainWin::get_file_save_needed()
     return _fileSaveNeeded or (curr_tree_iter() and curr_tree_iter().get_node_text_buffer()->get_modified());
 }
 
-bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string& anchor_to_focus, const Glib::ustring password)
+bool CtMainWin::file_open(const fs::path& filepath,
+                          const std::string& node_to_focus,
+                          const std::string& anchor_to_focus,
+                          const Glib::ustring password/*= ""*/,
+                          const bool is_reload/*= false*/)
 {
     if (not fs::exists(filepath)) {
         g_autofree gchar* title = g_strdup_printf(_("The Path %s does Not Exist"), str::xml_escape(filepath.string()).c_str());
@@ -193,11 +197,13 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
         } break;
         case CtRestoreExpColl::ALL_COLL: {
             _uCtTreeview->expand_all();
-            _uCtTreestore->treeview_set_tree_expanded_collapsed_string("", *_uCtTreeview, _pCtConfig->nodesBookmExp);
+            _uCtTreestore->treeview_set_tree_expanded_collapsed_string("", *_uCtTreeview, _pCtConfig->nodesBookmExp and not is_reload);
         } break;
         default: {
             if (iterDocsRestore != _pCtConfig->recentDocsRestore.end()) {
-                _uCtTreestore->treeview_set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str, *_uCtTreeview, _pCtConfig->nodesBookmExp);
+                _uCtTreestore->treeview_set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str,
+                                                                           *_uCtTreeview,
+                                                                           _pCtConfig->nodesBookmExp and not is_reload);
             }
         } break;
     }
@@ -391,7 +397,7 @@ void CtMainWin::mod_time_sentinel_restart()
             if (currModTime > _uCtStorage->get_mod_time()) {
                 spdlog::debug("mod time was {} now {}", _uCtStorage->get_mod_time(), currModTime);
                 fs::path file_path = _uCtStorage->get_file_path();
-                if (file_open(file_path, ""/*node*/, ""/*anchor*/)) {
+                if (file_open(file_path, ""/*node*/, ""/*anchor*/, ""/*password*/, true/*is_reload*/)) {
                     _ctStatusBar.update_status(_("The Document was Reloaded After External Update to CT* File."));
                 }
             }

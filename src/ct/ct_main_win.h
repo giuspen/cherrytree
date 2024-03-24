@@ -99,7 +99,11 @@ public:
 
     void update_theme();
 
-    bool file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string& anchor_to_focus, const Glib::ustring password = "");
+    bool file_open(const fs::path& filepath,
+                   const std::string& node_to_focus,
+                   const std::string& anchor_to_focus,
+                   const Glib::ustring password = "",
+                   const bool is_reload = false);
     bool file_save_ask_user();
     bool file_save(const bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const CtDocType doc_type, const Glib::ustring& password);
