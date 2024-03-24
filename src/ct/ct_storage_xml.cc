@@ -382,7 +382,7 @@ Gtk::TreeIter CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_elemen
     else {
         // use the passed new_id
         node_data.nodeId = new_id;
-        if (pImportedIdsRemap) pImportedIdsRemap->at(readNodeId) = new_id;
+        if (pImportedIdsRemap) (*pImportedIdsRemap)[readNodeId] = new_id;
     }
     node_data.sharedNodesMasterId = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("master_id").c_str());
     node_data.sequence = sequence;
