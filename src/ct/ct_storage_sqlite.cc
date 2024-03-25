@@ -255,7 +255,11 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
         // load node tree
         std::function<void(const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter)> f_nodes_from_db;
         f_nodes_from_db = [this, &f_nodes_from_db](const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter) {
-            Gtk::TreeIter new_iter = _node_from_db(id_pair.first, id_pair.second, sequence, parent_iter, -1);
+            Gtk::TreeIter new_iter = _node_from_db(id_pair.first,
+                                                   id_pair.second,
+                                                   sequence,
+                                                   parent_iter,
+                                                   -1/*new_id*/);
             gint64 child_sequence{0};
             for (const std::pair<gint64,gint64>& child_id_pair : _get_children_node_ids_from_db(id_pair.first)) {
                 f_nodes_from_db(child_id_pair, ++child_sequence, new_iter);
@@ -920,12 +924,23 @@ void CtStorageSqlite::import_nodes(const fs::path& path, const Gtk::TreeIter& pa
     _open_db(path); // storage is temp so can just open db
     if (not _check_database_integrity()) return;
 
+    std::map<gint64,gint64> imported_ids_remap;
+    std::list<CtTreeIter> nodes_shared_non_master;
     CtTreeStore& ct_tree_store = _pCtMainWin->get_tree_store();
     std::function<void(const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter)> f_nodes_from_db;
     f_nodes_from_db = [&](const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter) {
-        Gtk::TreeIter new_iter = _node_from_db(id_pair.first, id_pair.second, sequence, parent_iter, ct_tree_store.node_id_get());
+        const gint64 new_id = ct_tree_store.node_id_get();
+        Gtk::TreeIter new_iter = _node_from_db(id_pair.first,
+                                               id_pair.second,
+                                               sequence,
+                                               parent_iter,
+                                               new_id);
+        imported_ids_remap[id_pair.first] = new_id;
         CtTreeIter node_iter = ct_tree_store.to_ct_tree_iter(new_iter);
         node_iter.pending_new_db_node();
+        if (id_pair.second > 0) {
+            nodes_shared_non_master.push_back(ct_tree_store.to_ct_tree_iter(new_iter));
+        }
         gint64 child_sequence{0};
         for (const std::pair<gint64,gint64>& child_id_pair : _get_children_node_ids_from_db(id_pair.first)) {
             f_nodes_from_db(child_id_pair, ++child_sequence, node_iter);
@@ -936,6 +951,17 @@ void CtStorageSqlite::import_nodes(const fs::path& path, const Gtk::TreeIter& pa
         f_nodes_from_db(node_id_pair, ++sequence, parent_iter);
     }
     _close_db();
+    for (CtTreeIter& ctTreeIter : nodes_shared_non_master) {
+        // the shared node master id is remapped after the import
+        const gint64 origMasterId = ctTreeIter.get_node_shared_master_id();
+        const auto it = imported_ids_remap.find(origMasterId);
+        if (imported_ids_remap.end() == it) {
+            spdlog::error("!! unexp missing master id {} from remap", origMasterId);
+        }
+        else {
+            ctTreeIter.set_node_shared_master_id(it->second);
+        }
+    }
 }
 
 std::unordered_set<std::string> CtStorageSqlite::_get_table_field_names(std::string_view table_name)
