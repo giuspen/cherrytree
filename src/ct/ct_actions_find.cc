@@ -204,14 +204,14 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
                 break;
             }
         }
-        CtMatchType matchType;
+        CtMatchType matchType{CtMatchType::None};
         auto f_matchTypeNotNone = [&](){
-            matchType = _parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches);
+            matchType = _parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches, matchType);
             return CtMatchType::None != matchType;
         };
         while (f_matchTypeNotNone()) {
             ++_s_state.matches_num;
-            if (not all_matches or ctStatusBar.is_progress_stop() or CtMatchType::NameNTags == matchType) break;
+            if (not all_matches or ctStatusBar.is_progress_stop()) break;
         }
         ++_s_state.processed_nodes;
         if (_s_state.matches_num > 0 and not all_matches) break;
@@ -363,7 +363,8 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                                                  Glib::RefPtr<Glib::Regex> re_pattern,
                                                  bool forward,
                                                  bool first_fromsel,
-                                                 bool all_matches)
+                                                 bool all_matches,
+                                                 CtMatchType thisNodeLastMatchType)
 {
     const gint64 argNodeId = node_iter.get_node_id();
     std::optional<bool> optFirstNode;
@@ -392,7 +393,9 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                 return CtMatchType::Content;
             }
         }
-        if (_s_options.node_name_n_tags) {
+        if (_s_options.node_name_n_tags and
+            (not all_matches or CtMatchType::NameNTags != thisNodeLastMatchType))
+        {
             if (_parse_node_name_n_tags_iter(node_iter, re_pattern, all_matches)) {
                 if (_s_state.find_iterated_last_name_n_tags_id <= 0 or
                     _s_state.find_iterated_last_name_n_tags_id != argNodeId)
@@ -425,14 +428,14 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                         break;
                     }
                 }
-                CtMatchType matchType;
+                CtMatchType matchType{CtMatchType::None};
                 auto f_matchTypeNotNone = [&](){
-                    matchType = _parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches);
+                    matchType = _parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches, matchType);
                     return CtMatchType::None != matchType;
                 };
                 while (f_matchTypeNotNone()) {
                     ++_s_state.matches_num;
-                    if (not all_matches or _pCtMainWin->get_status_bar().is_progress_stop() or CtMatchType::NameNTags == matchType) break;
+                    if (not all_matches or _pCtMainWin->get_status_bar().is_progress_stop()) break;
                 }
                 if (_s_state.matches_num > 0 and not all_matches) break;
                 if (forward) child_iter = ++child_iter;

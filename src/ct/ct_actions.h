@@ -204,7 +204,8 @@ private:
                                           Glib::RefPtr<Glib::Regex> re_pattern,
                                           bool forward,
                                           bool first_fromsel,
-                                          bool all_matches);
+                                          bool all_matches,
+                                          CtMatchType thisNodeLastMatchType);
     bool _parse_node_content_iter(const CtTreeIter& tree_iter,
                                   Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                   Glib::RefPtr<Glib::Regex> re_pattern,
