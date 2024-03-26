@@ -53,6 +53,12 @@ void CtActions::_find_init()
 
 void CtActions::find_in_selected_node()
 {
+    _s_state.replace_active = false;
+    find_replace_in_selected_node();
+}
+
+void CtActions::find_replace_in_selected_node()
+{
     if (not _is_there_selected_node_or_error()) return;
 
     if (not _s_state.from_find_iterated) {
@@ -128,6 +134,12 @@ static int _count_nodes(const Gtk::TreeNodeChildren& children)
 }
 
 void CtActions::find_in_multiple_nodes()
+{
+    _s_state.replace_active = false;
+    find_replace_in_multiple_nodes();
+}
+
+void CtActions::find_replace_in_multiple_nodes()
 {
     if (not _is_there_selected_node_or_error()) return;
 
@@ -304,10 +316,10 @@ void CtActions::find_again_iter(const bool fromIterativeDialog)
     }
     switch (_s_state.curr_find_type) {
         case CtCurrFindType::SingleNode: {
-            find_in_selected_node();
+            find_replace_in_selected_node();
         } break;
         case CtCurrFindType::MultipleNodes: {
-            find_in_multiple_nodes();
+            find_replace_in_multiple_nodes();
         } break;
         default:
             CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session."), *_pCtMainWin);
@@ -327,19 +339,17 @@ void CtActions::find_back_iter(const bool fromIterativeDialog)
 // Replace a pattern in the selected Node
 void CtActions::replace_in_selected_node()
 {
-    if (not _is_there_selected_node_or_error()) return;
     _s_state.replace_active = true;
     _s_state.replace_subsequent = false;
-    find_in_selected_node();
+    find_replace_in_selected_node();
 }
 
 // Replace the pattern in all the Tree Nodes
 void CtActions::replace_in_multiple_nodes()
 {
-    if (not _is_tree_not_empty_or_error()) return;
     _s_state.replace_active = true;
     _s_state.replace_subsequent = false;
-    find_in_multiple_nodes();
+    find_replace_in_multiple_nodes();
 }
 
 // Continue the previous replace (a_node/in_selected_node/in_all_nodes)

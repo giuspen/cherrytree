@@ -268,6 +268,8 @@ public:
     void find_back_iter(const bool fromIterativeDialog);
     void find_in_selected_node_ok_clicked();
     void find_in_multiple_nodes_ok_clicked();
+    void find_replace_in_selected_node();
+    void find_replace_in_multiple_nodes();
 
 private:
     // helper for view actions
