@@ -1,3 +1,13 @@
+1.1.1 (March 27th, 2024)
+  * fixed regression after one search with replace, all subsequent searches open replace dialog (#2468)
+  * fixed regression searching in multiple nodes, only nodes names and tags, not working (#2461, #2408)
+  * fixed regression vertical scroll and cursor position of previous nodes not remembered (#2460)
+  * fixed regression import nodes from cherrytree not importing anything (#2463)
+  * fixed import from cherrytree sqlite document having shared nodes
+  * fixed unwanted nodes expansion with auto reload from extenal doc edit and enabled option to show bookmarked nodes at start (#2464)
+  * changed default value of option to automatically focus the text at new tree node clicked, from false to true
+  * incomplete languages: el, fi, hi_IN, hu
+
 1.1.0 (March 20th, 2024)
   * implemented support for so called shared nodes that all point to the same data - create with right click on node (#1222)
   * improved search in tables and codeboxes to list and select all the instances; replace is also now supported (#2155, #2444)
