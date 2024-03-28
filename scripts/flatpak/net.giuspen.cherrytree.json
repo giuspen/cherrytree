@@ -1,7 +1,7 @@
 {
     "app-id": "net.giuspen.cherrytree",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "45",
+    "runtime-version": "46",
     "sdk": "org.gnome.Sdk",
     "command": "cherrytree",
     "rename-desktop-file": "cherrytree.desktop",
@@ -37,8 +37,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.5.tar.xz",
-                    "sha256": "705c6d29f4116a29bde4e36cfc1b046c92b6ef8c6dae4eaec85018747e6da5aa"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.6.tar.xz",
+                    "sha256": "b55c46037dbcdabc5cee3b389ea11cc3910adb68ebe883e9477847aa660862e7"
                 }
             ],
             "cleanup": [
@@ -94,8 +94,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.3.tar.xz",
-                    "sha256": "410fe04d471a608f3f0273d3a17d840241d911ed0ff2c758a9859c66c6f24379"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.4.tar.xz",
+                    "sha256": "b92016661526424de4b9377f1512f59781f41fb16c9c0267d6133ba1cd68db22"
                 }
             ]
         },
@@ -108,8 +108,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.3.tar.xz",
-                    "sha256": "7c2088b486a909be8da2b18304e56c5f90884d1343c8da7367ea5cd3258b9969"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.4.tar.xz",
+                    "sha256": "0a142a8128f83c001efb8014ee463e9a766054ef84686af953135e04d28fdab3"
                 }
             ]
         },
@@ -122,8 +122,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.8.tar.xz",
-                    "sha256" : "d2940c64922e5b958554b23d4c41d1839ea9e43e0d2e5b3819cfb46824a098c4"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.9.tar.xz",
+                    "sha256" : "30d5bfe404571ce566a8e938c8bac17576420eb508f1e257837da63f14ad44ce"
                 }
             ]
         },
@@ -161,8 +161,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.2.tar.xz",
-                    "sha256" : "a433987f54cc1ecaa84af26af047a62df9e884574e0d686e5ddc6f70441c152b"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.3.tar.xz",
+                    "sha256" : "74b95302e24dbebc56e97048e86ad0a4121fc82a43e58d381fbe1d380e8eba04"
                 }
             ]
         },
@@ -218,8 +218,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.74.1/vte-0.74.1.tar.bz2",
-                    "sha256" : "193496182428a34cfe555ee3df7ac6185de7eb7fc4af60b5dd175be46854b21a"
+                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.74.2/vte-0.74.2.tar.bz2",
+                    "sha256" : "2a1162738c9bccfac1bb801125c1889d3980d857499909439803cf1def4c25d1"
                 }
             ]
         },
@@ -232,8 +232,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.net/software/cherrytree_1.0.4.tar.xz",
-                    "sha256" : "db4161268d555b10a6bbe6b43dd97ec968000b76aaac0a5d15716088f567fc84"
+                    "url" : "https://www.giuspen.net/software/cherrytree_1.1.1.tar.xz",
+                    "sha256" : "05c1252dd46769565700df1146e78d66c6ef60362599ea4f0b5abbd2b7304035"
                 }
             ]
         },

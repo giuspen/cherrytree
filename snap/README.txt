@@ -30,4 +30,4 @@ snapcraft upload --release=stable cherrytree_1.0.1_amd64.snap
 snapcraft logout
 
 NOTE: if it fails login with craft-store error: Credentials found for 'snapcraft' on 'dashboard.snapcraft.io'
-      run 'seahorse' and remove the login to 'dashboard.snapcraft.io', likely last time you missed the logout
+      it's likely that the last time you didn't logout, so you are simply already logged in!
