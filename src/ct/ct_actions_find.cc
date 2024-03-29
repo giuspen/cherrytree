@@ -629,15 +629,16 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
         Glib::MatchInfo match_info;
-        if (re_pattern->match(text, std::max(str::symb_pos_to_byte_pos(text, start_offset) - start_num_objs, 0)/*start_position*/, match_info)) {
-            if (match_info.matches()) {
-                match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
-            }
+        const int start_position = str::symb_pos_to_byte_pos(text, start_offset - start_num_objs);
+        (void)re_pattern->match(text, start_position, match_info);
+        if (match_info.matches()) {
+            match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
         }
     }
     else {
         Glib::MatchInfo match_info;
-        re_pattern->match(text, std::max(str::symb_pos_to_byte_pos(text, start_offset) - start_num_objs, 0)/*string_len*/, 0/*start_position*/, match_info);
+        const int string_len = str::symb_pos_to_byte_pos(text, start_offset - start_num_objs);
+        (void)re_pattern->match(text, string_len, 0/*start_position*/, match_info);
         while (match_info.matches()) {
             match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
             match_info.next();
