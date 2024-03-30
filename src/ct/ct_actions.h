@@ -218,8 +218,7 @@ private:
                                       const bool all_matches);
     Gtk::TextIter _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                         const bool forward,
-                                        const bool all_matches,
-                                        const gint64 node_id);
+                                        const bool all_matches);
     bool _is_node_within_time_filter(const CtTreeIter& node_iter);
     Glib::RefPtr<Glib::Regex> _create_re_pattern(Glib::ustring pattern);
     bool _find_pattern(CtTreeIter tree_iter,

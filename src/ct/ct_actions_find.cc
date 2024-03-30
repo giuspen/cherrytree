@@ -62,7 +62,8 @@ void CtActions::find_replace_in_selected_node()
     if (not _is_there_selected_node_or_error()) return;
 
     if (not _s_state.from_find_iterated) {
-        _s_state.latest_node_offset = -1;
+        _s_state.latest_node_offset_search_start = -1;
+        _s_state.latest_node_offset_match_start = -1;
         _s_state.find_iter_anchlist_size = 0u;
         text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
         Glib::ustring entry_predefined_text = CtTextIterUtil::get_selected_text(proof.text_view->get_buffer());
@@ -145,7 +146,8 @@ void CtActions::find_replace_in_multiple_nodes()
     if (not _is_there_selected_node_or_error()) return;
 
     if (not _s_state.from_find_iterated) {
-        _s_state.latest_node_offset = -1;
+        _s_state.latest_node_offset_search_start = -1;
+        _s_state.latest_node_offset_match_start = -1;
         _s_state.find_iter_anchlist_size = 0u;
         if (_s_state.find_iterated_last_name_n_tags_id > 0) {
             _s_state.find_iterated_last_name_n_tags_id = 0;
@@ -525,7 +527,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
 
     Gtk::TextIter start_iter;
     if ((first_fromsel and first_node) or (all_matches and not _s_state.all_matches_first_in_node)) {
-        start_iter = _get_inner_start_iter(text_buffer, forward, all_matches, tree_iter.get_node_id());
+        start_iter = _get_inner_start_iter(text_buffer, forward, all_matches);
     }
     else {
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
@@ -543,8 +545,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
 // Get start_iter when not at beginning or end
 Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                                const bool forward,
-                                               const bool all_matches,
-                                               const gint64 node_id)
+                                               const bool all_matches)
 {
     Gtk::TextIter min_iter, max_iter;
     if (all_matches and _s_state.latest_match_offsets.first >= 0 and _s_state.latest_match_offsets.second >= 0) {
@@ -569,24 +570,6 @@ Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> tex
         if (forward)    start_iter = min_iter;
         else            start_iter = max_iter;
     }
-    if (-1 != _s_state.latest_node_offset and
-        node_id == _s_state.latest_node_offset_node_id)
-    {
-        if (forward) {
-            if (start_iter.get_offset() <= _s_state.latest_node_offset) {
-                start_iter = text_buffer->get_iter_at_offset(_s_state.latest_node_offset);
-                start_iter.forward_char();
-            }
-        }
-        else {
-            if (start_iter.get_offset() >= _s_state.latest_node_offset) {
-                start_iter = text_buffer->get_iter_at_offset(_s_state.latest_node_offset);
-                start_iter.backward_char();
-            }
-        }
-    }
-    _s_state.latest_node_offset_node_id = node_id;
-    _s_state.latest_node_offset = start_iter.get_offset();
     //spdlog::debug("fw={} m={} M={} -> s={}", forward, min_iter.get_offset(), max_iter.get_offset(), start_iter.get_offset());
     return start_iter;
 }
@@ -645,26 +628,67 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         text = str::diacritical_to_ascii(text);
     }
 
-    const int start_offset = start_iter.get_offset();
-    const int start_num_objs = _get_num_objs_before_offset(text_buffer, start_offset);
+    const gint64 node_id = tree_iter.get_node_id();
+    int start_offset = start_iter.get_offset();
+    const int num_objs_before_start = _get_num_objs_before_offset(text_buffer, start_offset);
+    start_offset -= num_objs_before_start;
+    int position_fw_start_or_bw_end = str::symb_pos_to_byte_pos(text, start_offset);
+    for (int i = 0; i < 10; ++i) {
+        if (-1 != _s_state.latest_node_offset_search_start and
+            node_id == _s_state.latest_node_offset_node_id)
+        {
+            if (forward) {
+                if (position_fw_start_or_bw_end <= _s_state.latest_node_offset_search_start) {
+                    ++start_offset;
+                }
+                else break;
+            }
+            else {
+                if (position_fw_start_or_bw_end >= _s_state.latest_node_offset_search_start) {
+                    --start_offset;
+                }
+                else break;
+            }
+            position_fw_start_or_bw_end = str::symb_pos_to_byte_pos(text, start_offset);
+        }
+    }
+    _s_state.latest_node_offset_search_start = position_fw_start_or_bw_end;
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
         Glib::MatchInfo match_info;
-        const int start_position = str::symb_pos_to_byte_pos(text, start_offset - start_num_objs);
-        (void)re_pattern->match(text, start_position, match_info);
-        if (match_info.matches()) {
+        (void)re_pattern->match(text, position_fw_start_or_bw_end, match_info);
+        while (match_info.matches()) {
             match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
+            if (match_offsets.first != _s_state.latest_node_offset_match_start or
+                node_id != _s_state.latest_node_offset_node_id)
+            {
+                _s_state.latest_node_offset_match_start = match_offsets.first;
+                break;
+            }
+            match_info.next();
         }
     }
     else {
         Glib::MatchInfo match_info;
-        const int string_len = str::symb_pos_to_byte_pos(text, start_offset - start_num_objs);
-        (void)re_pattern->match(text, string_len, 0/*start_position*/, match_info);
+        (void)re_pattern->match(text, position_fw_start_or_bw_end, 0/*start_position*/, match_info);
+        std::deque<std::pair<int,int>> match_deque;
         while (match_info.matches()) {
-            match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
+            std::pair<int,int> curr_pair;
+            match_info.fetch_pos(0, curr_pair.first, curr_pair.second);
+            match_deque.push_front(curr_pair);
             match_info.next();
         }
+        for (const auto& curr_pair : match_deque) {
+            if (curr_pair.first != _s_state.latest_node_offset_match_start or
+                node_id != _s_state.latest_node_offset_node_id)
+            {
+                match_offsets = curr_pair;
+                _s_state.latest_node_offset_match_start = match_offsets.first;
+                break;
+            }
+        }
     }
+    _s_state.latest_node_offset_node_id = node_id;
     if (match_offsets.first != -1) {
         match_offsets.first = str::byte_pos_to_symb_pos(text, match_offsets.first);
         match_offsets.second = str::byte_pos_to_symb_pos(text, match_offsets.second);
