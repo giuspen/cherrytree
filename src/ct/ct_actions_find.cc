@@ -62,7 +62,6 @@ void CtActions::find_replace_in_selected_node()
     if (not _is_there_selected_node_or_error()) return;
 
     if (not _s_state.from_find_iterated) {
-        _s_state.latest_node_offset_search_start = -1;
         _s_state.latest_node_offset_match_start = -1;
         _s_state.find_iter_anchlist_size = 0u;
         text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
@@ -146,7 +145,6 @@ void CtActions::find_replace_in_multiple_nodes()
     if (not _is_there_selected_node_or_error()) return;
 
     if (not _s_state.from_find_iterated) {
-        _s_state.latest_node_offset_search_start = -1;
         _s_state.latest_node_offset_match_start = -1;
         _s_state.find_iter_anchlist_size = 0u;
         if (_s_state.find_iterated_last_name_n_tags_id > 0) {
@@ -629,30 +627,9 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     }
 
     const gint64 node_id = tree_iter.get_node_id();
-    int start_offset = start_iter.get_offset();
+    const int start_offset = start_iter.get_offset();
     const int num_objs_before_start = _get_num_objs_before_offset(text_buffer, start_offset);
-    start_offset -= num_objs_before_start;
-    int position_fw_start_or_bw_end = str::symb_pos_to_byte_pos(text, start_offset);
-    for (int i = 0; i < 10; ++i) {
-        if (-1 != _s_state.latest_node_offset_search_start and
-            node_id == _s_state.latest_node_offset_node_id)
-        {
-            if (forward) {
-                if (position_fw_start_or_bw_end <= _s_state.latest_node_offset_search_start) {
-                    ++start_offset;
-                }
-                else break;
-            }
-            else {
-                if (position_fw_start_or_bw_end >= _s_state.latest_node_offset_search_start) {
-                    --start_offset;
-                }
-                else break;
-            }
-            position_fw_start_or_bw_end = str::symb_pos_to_byte_pos(text, start_offset);
-        }
-    }
-    _s_state.latest_node_offset_search_start = position_fw_start_or_bw_end;
+    const int position_fw_start_or_bw_end = str::symb_pos_to_byte_pos(text, start_offset - num_objs_before_start);
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
         Glib::MatchInfo match_info;
