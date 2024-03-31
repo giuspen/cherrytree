@@ -635,10 +635,12 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         Glib::MatchInfo match_info;
         (void)re_pattern->match(text, position_fw_start_or_bw_end, match_info);
         while (match_info.matches()) {
-            match_info.fetch_pos(0, match_offsets.first, match_offsets.second);
-            if (match_offsets.first != _s_state.latest_node_offset_match_start or
+            std::pair<int,int> curr_pair;
+            match_info.fetch_pos(0, curr_pair.first, curr_pair.second);
+            if (curr_pair.first != _s_state.latest_node_offset_match_start or
                 node_id != _s_state.latest_node_offset_node_id)
             {
+                match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
                 break;
             }
