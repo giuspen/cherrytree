@@ -936,6 +936,7 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
         //spdlog::debug("drop {} from {} to {}", sel_size, start_offset, target_offset);
         g_signal_emit_by_name(G_OBJECT(gobj()), "cut-clipboard");
         text_iter = text_buffer->get_iter_at_offset(target_offset);
+        if ('\n' != text_iter.get_char()) text_iter.forward_char();
         text_buffer->place_cursor(text_iter);
         g_signal_emit_by_name(G_OBJECT(gobj()), "paste-clipboard");
         success = true;
