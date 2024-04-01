@@ -637,11 +637,12 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         while (match_info.matches()) {
             std::pair<int,int> curr_pair;
             match_info.fetch_pos(0, curr_pair.first, curr_pair.second);
-            if (curr_pair.first != _s_state.latest_node_offset_match_start or
+            if (curr_pair.first > _s_state.latest_node_offset_match_start or
                 node_id != _s_state.latest_node_offset_node_id)
             {
                 match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
+                //spdlog::debug("{}->{}", curr_pair.first, curr_pair.second);
                 break;
             }
             match_info.next();
@@ -658,7 +659,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             match_info.next();
         }
         for (const auto& curr_pair : match_deque) {
-            if (curr_pair.first != _s_state.latest_node_offset_match_start or
+            if (curr_pair.first < _s_state.latest_node_offset_match_start or
                 node_id != _s_state.latest_node_offset_node_id)
             {
                 match_offsets = curr_pair;
