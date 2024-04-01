@@ -504,7 +504,7 @@ void CtHtml2Xml::_pop_tag_styles()
 {
     // every tag has at least one style
     int tag_id = _tag_styles.back().tag_id;
-    while (_tag_styles.back().tag_id == tag_id)
+    while (!_tag_styles.empty() && _tag_styles.back().tag_id == tag_id)
         _tag_styles.pop_back();
 }
 
