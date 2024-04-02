@@ -458,6 +458,7 @@ struct CtSearchState {
     bool           all_matches_first_in_node{false};
 
     int            latest_node_offset_match_start{-1};
+    int            latest_node_offset_match_end{-1};
     gint64         latest_node_offset_node_id{-1};
 
     std::unique_ptr<Gtk::Dialog> iteratedfinddialog;

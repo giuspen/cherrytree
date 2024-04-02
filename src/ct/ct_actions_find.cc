@@ -63,6 +63,8 @@ void CtActions::find_replace_in_selected_node()
 
     if (not _s_state.from_find_iterated) {
         _s_state.latest_node_offset_match_start = -1;
+        _s_state.latest_node_offset_match_end = -1;
+        _s_state.latest_node_offset_node_id = -1;
         _s_state.find_iter_anchlist_size = 0u;
         text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
         Glib::ustring entry_predefined_text = CtTextIterUtil::get_selected_text(proof.text_view->get_buffer());
@@ -146,6 +148,8 @@ void CtActions::find_replace_in_multiple_nodes()
 
     if (not _s_state.from_find_iterated) {
         _s_state.latest_node_offset_match_start = -1;
+        _s_state.latest_node_offset_match_end = -1;
+        _s_state.latest_node_offset_node_id = -1;
         _s_state.find_iter_anchlist_size = 0u;
         if (_s_state.find_iterated_last_name_n_tags_id > 0) {
             _s_state.find_iterated_last_name_n_tags_id = 0;
@@ -637,11 +641,12 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         while (match_info.matches()) {
             std::pair<int,int> curr_pair;
             match_info.fetch_pos(0, curr_pair.first, curr_pair.second);
-            if (curr_pair.first > _s_state.latest_node_offset_match_start or
+            if (curr_pair.first >= _s_state.latest_node_offset_match_end or
                 node_id != _s_state.latest_node_offset_node_id)
             {
                 match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
+                _s_state.latest_node_offset_match_end = match_offsets.second;
                 //spdlog::debug("{}->{}", curr_pair.first, curr_pair.second);
                 break;
             }
@@ -659,11 +664,12 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             match_info.next();
         }
         for (const auto& curr_pair : match_deque) {
-            if (curr_pair.first < _s_state.latest_node_offset_match_start or
+            if (curr_pair.second <= _s_state.latest_node_offset_match_start or
                 node_id != _s_state.latest_node_offset_node_id)
             {
                 match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
+                _s_state.latest_node_offset_match_end = match_offsets.second;
                 break;
             }
         }
