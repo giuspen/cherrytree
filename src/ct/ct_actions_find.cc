@@ -682,7 +682,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
 
     CtAnchMatchList anchMatchList;
     int obj_search_start_offs = start_iter.get_offset();
-    int obj_search_end_offs = match_offsets.first != -1 ? match_offsets.first : (forward ? text_buffer->end().get_offset() : 0);
+    int obj_search_end_offs = match_offsets.first != -1 ? _s_state.latest_node_offset_match_start : (forward ? text_buffer->end().get_offset() : 0);
     if (not forward) {
         std::swap(obj_search_start_offs, obj_search_end_offs);
     }
