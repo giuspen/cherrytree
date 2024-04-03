@@ -633,7 +633,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     const gint64 node_id = tree_iter.get_node_id();
     const int start_offset = start_iter.get_offset();
     const int num_objs_before_start = _get_num_objs_before_offset(text_buffer, start_offset);
-    const int position_fw_start_or_bw_end = std::max(0, str::symb_pos_to_byte_pos(text, start_offset - num_objs_before_start));
+    const int position_fw_start_or_bw_end = str::symb_pos_to_byte_pos(text, std::max(0, start_offset - num_objs_before_start));
     std::pair<int, int> match_offsets{-1, -1};
     if (forward) {
         Glib::MatchInfo match_info;
