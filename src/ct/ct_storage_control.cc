@@ -147,7 +147,7 @@
         if (ctTreeStore.populate_shared_nodes_map(shared_nodes_map) > 0u) {
             std::function<void(Gtk::TreeIter)> f_collect_ids_to_export;
             std::list<gint64> nodeIdsToExport;
-            f_collect_ids_to_export = [&ctTreeStore, &nodeIdsToExport, f_collect_ids_to_export](Gtk::TreeIter iter) {
+            f_collect_ids_to_export = [&ctTreeStore, &nodeIdsToExport, &f_collect_ids_to_export](Gtk::TreeIter iter) {
                 CtTreeIter ctTreeIter = ctTreeStore.to_ct_tree_iter(iter);
                 nodeIdsToExport.push_back(ctTreeIter.get_node_id());
                 for (Gtk::TreeIter child : iter->children()) {

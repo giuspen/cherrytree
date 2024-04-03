@@ -529,8 +529,8 @@ void CtActions::node_delete()
     std::function<void(Gtk::TreeIter, int)> f_collect_ids_to_rm;
     std::list<gint64> nodeIdsToRemove;
     std::list<std::string> lstNodesWarn;
-    f_collect_ids_to_rm = [this, &ctTreeStore, &nodeIdsToRemove, &lstNodesWarn, f_collect_ids_to_rm](Gtk::TreeIter iter,
-                                                                                                     const int level) {
+    f_collect_ids_to_rm = [this, &ctTreeStore, &nodeIdsToRemove, &lstNodesWarn, &f_collect_ids_to_rm](Gtk::TreeIter iter,
+                                                                                                      const int level) {
         CtTreeIter ctTreeIter = ctTreeStore.to_ct_tree_iter(iter);
         nodeIdsToRemove.push_back(ctTreeIter.get_node_id());
         if (lstNodesWarn.size() > 15) {
