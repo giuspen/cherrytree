@@ -1,3 +1,10 @@
+1.1.2 (April 4th, 2024)
+  * fixed regression issues with the search (#2469)
+  * fixed regression crash when deleting a node with children (#2476)
+  * fixed html paste (@VladislavGrudinin, #2474)
+  * fixed drop position of dragged text wrongly one position to the left
+  * incomplete languages: el, fi, hi_IN, hu
+
 1.1.1 (March 27th, 2024)
   * fixed regression after one search with replace, all subsequent searches open replace dialog (#2468)
   * fixed regression searching in multiple nodes, only nodes names and tags, not working (#2461, #2408)

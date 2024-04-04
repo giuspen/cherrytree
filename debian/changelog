@@ -1,13 +1,10 @@
-cherrytree (1.1.1-2) focal; urgency=low
+cherrytree (1.1.2-2) focal; urgency=low
 
-  * fixed regression after one search with replace, all subsequent searches open replace dialog (#2468)
-  * fixed regression searching in multiple nodes, only nodes names and tags, not working (#2461, #2408)
-  * fixed regression vertical scroll and cursor position of previous nodes not remembered (#2460)
-  * fixed regression import nodes from cherrytree not importing anything (#2463)
-  * fixed import from cherrytree sqlite document having shared nodes
-  * fixed unwanted nodes expansion with auto reload from extenal doc edit and enabled option to show bookmarked nodes at start (#2464)
-  * changed default value of option to automatically focus the text at new tree node clicked, from false to true
+  * fixed regression issues with the search (#2469)
+  * fixed regression crash when deleting a node with children (#2476)
+  * fixed html paste (@VladislavGrudinin, #2474)
+  * fixed drop position of dragged text wrongly one position to the left
   * incomplete languages: el, fi, hi_IN, hu
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Wed, 27 Mar 2024 21:22:08 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 04 Apr 2024 21:28:16 +0100
