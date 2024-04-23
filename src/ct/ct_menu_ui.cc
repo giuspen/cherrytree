@@ -28,18 +28,18 @@
 
 std::vector<std::string> CtMenu::_get_ui_str_toolbars()
 {
-    auto generate_ui = [&](size_t id, const std::vector<std::string>& items){
+    auto f_generate_ui = [&](const size_t id, const std::vector<std::unordered_set<std::string>::const_iterator>& items){
         std::string str_buff;
-        for (const std::string& element : items) {
-            if (element == CtConst::TAG_SEPARATOR) {
+        for (std::unordered_set<std::string>::const_iterator element : items) {
+            if (*element == CtConst::TAG_SEPARATOR) {
                 str_buff += "<child><object class='GtkSeparatorToolItem'/></child>";
             }
             else {
-                const bool isOpenRecent{element == CtConst::CHAR_STAR};
-                CtMenuAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(element);
+                const bool isOpenRecent{*element == CtConst::CHAR_STAR};
+                CtMenuAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(*element);
                 if (pAction) {
                     if (isOpenRecent) str_buff += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
-                    else str_buff += "<child><object class='GtkToolButton' id='" + element + "'>";
+                    else str_buff += "<child><object class='GtkToolButton' id='" + *element + "'>";
                     str_buff += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
                     str_buff += "<property name='icon-name'>" + pAction->image + "</property>";
                     str_buff += "<property name='label'>" + pAction->name + "</property>";
@@ -85,18 +85,23 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
 
     std::vector<std::string> toolbarUIstr;
     std::vector<std::string> vecToolbarElements = str::split(_pCtConfig->toolbarUiList, ",");
-    std::vector<std::string> toolbar_accumulator;
+    std::unordered_set<std::string> toolbarSet;
+    std::vector<std::unordered_set<std::string>::const_iterator> toolbar_accumulator;
     for (const std::string& element : vecToolbarElements) {
-        if (element != CtConst::TOOLBAR_SPLIT)
-            toolbar_accumulator.push_back(element);
-        else if (!toolbar_accumulator.empty()) {
-            toolbarUIstr.push_back(generate_ui(toolbarUIstr.size(), toolbar_accumulator));
+        if (element != CtConst::TOOLBAR_SPLIT) {
+            const auto retPair = toolbarSet.insert(element);
+            // only the separator can be inserted multiple times
+            if (retPair.second or CtConst::TAG_SEPARATOR == element) toolbar_accumulator.push_back(retPair.first);
+            else spdlog::debug("?? {} skipped dupl {}", __FUNCTION__, element);
+        }
+        else if (not toolbar_accumulator.empty()) {
+            toolbarUIstr.push_back(f_generate_ui(toolbarUIstr.size(), toolbar_accumulator));
             toolbar_accumulator.clear();
         }
     }
 
-    if (!toolbar_accumulator.empty()) {
-        toolbarUIstr.push_back(generate_ui(toolbarUIstr.size(), toolbar_accumulator));
+    if (not toolbar_accumulator.empty()) {
+        toolbarUIstr.push_back(f_generate_ui(toolbarUIstr.size(), toolbar_accumulator));
         toolbar_accumulator.clear();
     }
 
