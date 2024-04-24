@@ -74,7 +74,7 @@ private:
     std::set<std::string> _get_code_exec_type_keys();
 
     void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
-    void add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key);
+    void populate_row_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key);
     bool add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model);
     void update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model);
 

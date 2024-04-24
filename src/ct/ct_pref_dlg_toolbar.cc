@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_toolbar.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -109,11 +109,11 @@ void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
     std::vector<std::string> vecToolbarElements = str::split(_pConfig->toolbarUiList, ",");
     model->clear();
     for (const std::string& key : vecToolbarElements) {
-        add_new_item_in_toolbar_model(model->append(), key);
+        populate_row_in_toolbar_model(model->append(), key);
     }
 }
 
-void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key)
+void CtPrefDlg::populate_row_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key)
 {
     Glib::ustring icon, desc;
     if (key == CtConst::TAG_SEPARATOR) {
@@ -130,7 +130,6 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
         icon = action->image;
         desc = action->desc;
     }
-
     row->set_value(_toolbarModelColumns.icon, icon);
     row->set_value(_toolbarModelColumns.key, key);
     row->set_value(_toolbarModelColumns.desc, desc);
@@ -141,12 +140,17 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
     auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
     itemStore->add_row("", CtConst::TOOLBAR_SPLIT, _("Split Toolbar"));
+    std::vector<std::string> vecToolbarElements = str::split(_pConfig->toolbarUiList, ",");
     for (const CtMenuAction& action : _pCtMenu->get_actions()) {
         if (action.desc.empty()) continue; // skip stub menu entries
         if (action.category.empty()) continue; // skip popup menu entries
         if (action.id == "ct_open_file" and
-            _pConfig->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos)
+            vecToolbarElements.end() != std::find(vecToolbarElements.begin(), vecToolbarElements.end(), CtConst::CHAR_STAR))
         {
+            continue;
+        }
+        if (vecToolbarElements.end() != std::find(vecToolbarElements.begin(), vecToolbarElements.end(), action.id)) {
+            // do not allow to add a button that already exist
             continue;
         }
         Glib::ustring id = action.id == "ct_open_file" ? CtConst::CHAR_STAR : action.id;
@@ -157,7 +161,7 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
     if (chosen_row) {
         auto selected_row = treeview->get_selection()->get_selected();
         auto new_row = selected_row ? model->insert_after(*selected_row) : model->append();
-        add_new_item_in_toolbar_model(new_row, chosen_row->get_value(itemStore->columns.key));
+        populate_row_in_toolbar_model(new_row, chosen_row->get_value(itemStore->columns.key));
         return true;
     }
     return false;
