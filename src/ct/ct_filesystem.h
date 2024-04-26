@@ -1,7 +1,7 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -123,7 +123,7 @@ std::string download_file(const std::string& filepath);
 class path
 {
 public:
-    friend void swap(path& lhs, path& rhs) noexcept {
+    friend void swap(path& lhs, path& rhs) {
         using std::swap;
         swap(lhs._path, rhs._path);
     }
@@ -147,7 +147,7 @@ public:
     }
     ~path() = default;
 
-    void swap(path& other) noexcept {
+    void swap(path& other) {
         using std::swap;
         swap(*this, other);
     }
@@ -189,7 +189,7 @@ public:
     bool is_absolute() const { return Glib::path_is_absolute(_path); }
     bool is_relative() const { return !is_absolute(); }
     void clear() { _path.clear(); }
-    bool empty() const noexcept { return _path.empty(); }
+    bool empty() const { return _path.empty(); }
     path filename() const { return Glib::path_get_basename(_path); }
     path parent_path() const { return Glib::path_get_dirname(_path); }
     std::string extension() const;

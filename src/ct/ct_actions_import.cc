@@ -80,20 +80,20 @@ static std::optional<Gtk::TreeIter> select_parent_dialog(CtMainWin* pCtMainWin)
 }
 
 // Import a node from a html file
-void CtActions::import_node_from_html_file() noexcept
+void CtActions::import_node_from_html_file()
 {
     CtHtmlImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
 // Import a directory of html files - non recursive
-void CtActions::import_node_from_html_directory() noexcept
+void CtActions::import_node_from_html_directory()
 {
     CtHtmlImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 }
 
-void CtActions::import_nodes_from_ct_folder() noexcept
+void CtActions::import_nodes_from_ct_folder()
 {
     try {
         const std::string folder_path = CtDialogs::folder_select_dialog(_pCtMainWin, _pCtConfig->pickDirImport);
@@ -113,7 +113,7 @@ void CtActions::import_nodes_from_ct_folder() noexcept
     }
 }
 
-void CtActions::import_nodes_from_ct_file() noexcept
+void CtActions::import_nodes_from_ct_file()
 {
     try {
         CtDialogs::CtFileSelectArgs args{};
@@ -141,49 +141,49 @@ void CtActions::import_nodes_from_ct_file() noexcept
     }
 }
 
-void CtActions::import_node_from_plaintext_file() noexcept
+void CtActions::import_node_from_plaintext_file()
 {
     CtPlainTextImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
-void CtActions::import_nodes_from_plaintext_directory() noexcept
+void CtActions::import_nodes_from_plaintext_directory()
 {
     CtPlainTextImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 }
 
-void CtActions::import_node_from_md_file() noexcept
+void CtActions::import_node_from_md_file()
 {
     CtMDImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
-void CtActions::import_nodes_from_md_directory() noexcept
+void CtActions::import_nodes_from_md_directory()
 {
     CtMDImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 }
 
-void CtActions::import_nodes_from_zim_directory() noexcept
+void CtActions::import_nodes_from_zim_directory()
 {
     CtZimImport importer{_pCtConfig};
     _import_from_dir(&importer, Glib::build_filename(Glib::get_home_dir(), "Notebooks", "Notes"));
 }
 
-void CtActions::import_nodes_from_gnote_directory() noexcept
+void CtActions::import_nodes_from_gnote_directory()
 {
     CtTomboyImport importer(_pCtConfig);
     _import_from_dir(&importer, Glib::build_filename(g_get_user_data_dir(), "gnote"));
 }
 
-void CtActions::import_nodes_from_tomboy_directory() noexcept
+void CtActions::import_nodes_from_tomboy_directory()
 {
     CtTomboyImport importer(_pCtConfig);
     _import_from_dir(&importer, Glib::build_filename(g_get_user_data_dir(), "tomboy"));
 }
 
-void CtActions::import_nodes_from_keepnote_directory() noexcept {
+void CtActions::import_nodes_from_keepnote_directory() {
     try {
         CtKeepnoteImport importer(_pCtConfig);
         _import_from_dir(&importer, "");
@@ -192,7 +192,7 @@ void CtActions::import_nodes_from_keepnote_directory() noexcept {
     }
 }
 
-void CtActions::import_nodes_from_treepad_file() noexcept
+void CtActions::import_nodes_from_treepad_file()
 {
     try {
         CtTreepadImporter importer;
@@ -202,7 +202,7 @@ void CtActions::import_nodes_from_treepad_file() noexcept
     }
 }
 
-void CtActions::import_nodes_from_mempad_file() noexcept
+void CtActions::import_nodes_from_mempad_file()
 {
     try {
         CtMempadImporter importer;
@@ -212,7 +212,7 @@ void CtActions::import_nodes_from_mempad_file() noexcept
     }
 }
 
-void CtActions::import_nodes_from_indented_list_file() noexcept
+void CtActions::import_nodes_from_indented_list_file()
 {
     try {
         CtIndentedListImporter importer;
@@ -222,7 +222,7 @@ void CtActions::import_nodes_from_indented_list_file() noexcept
     }
 }
 
-void CtActions::import_nodes_from_leo_file() noexcept
+void CtActions::import_nodes_from_leo_file()
 {
     try {
         CtLeoImporter importer;
@@ -232,7 +232,7 @@ void CtActions::import_nodes_from_leo_file() noexcept
     }
 }
 
-void CtActions::import_nodes_from_rednotebook_html() noexcept
+void CtActions::import_nodes_from_rednotebook_html()
 {
     try {
         CtRedNotebookImporter importer{_pCtConfig};
@@ -242,13 +242,13 @@ void CtActions::import_nodes_from_rednotebook_html() noexcept
     }
 }
 
-void CtActions::import_nodes_from_notecase_html() noexcept
+void CtActions::import_nodes_from_notecase_html()
 {
     CtNoteCaseHTMLImporter importer{_pCtConfig};
     _import_from_file(&importer);
 }
 
-void CtActions::_import_from_file(CtImporterInterface* importer, const bool dummy_root) noexcept
+void CtActions::_import_from_file(CtImporterInterface* importer, const bool dummy_root)
 {
     CtDialogs::CtFileSelectArgs args{};
     args.curr_folder = _pCtConfig->pickDirImport;
@@ -271,7 +271,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
     }
 }
 
-void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept
+void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir)
 {
     std::string start_dir = custom_dir.empty() or not fs::is_directory(custom_dir) ? _pCtConfig->pickDirImport : custom_dir;
     std::string import_dir = CtDialogs::folder_select_dialog(_pCtMainWin, start_dir);

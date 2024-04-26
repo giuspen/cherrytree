@@ -246,8 +246,8 @@ public:
     template<typename T>
     bool contains(const T& item) const { return std::find(_internal_vec.begin(), _internal_vec.end(), item) != _internal_vec.end(); }
 
-    typename vect_t::const_iterator end() const noexcept { return _internal_vec.end(); }
-    typename vect_t::const_iterator begin() const noexcept { return _internal_vec.begin(); }
+    typename vect_t::const_iterator end() const { return _internal_vec.end(); }
+    typename vect_t::const_iterator begin() const { return _internal_vec.begin(); }
 
     const Glib::ustring& item() const { return _string_cache; }
 

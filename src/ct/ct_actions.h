@@ -490,30 +490,30 @@ public:
 
 private:
     // helper for import actions
-    void _import_from_file(CtImporterInterface* importer, const bool dummy_root = false) noexcept;
-    void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept;
+    void _import_from_file(CtImporterInterface* importer, const bool dummy_root = false);
+    void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir);
     void _create_imported_nodes(CtImportedNode* imported_nodes, const bool dummy_root = false);
 
 public:
     // import actions
-    void import_node_from_html_file() noexcept;
-    void import_node_from_html_directory() noexcept;
-    void import_node_from_plaintext_file() noexcept;
-    void import_nodes_from_plaintext_directory() noexcept;
-    void import_nodes_from_ct_file() noexcept;
-    void import_nodes_from_ct_folder() noexcept;
-    void import_nodes_from_zim_directory() noexcept;
-    void import_node_from_md_file() noexcept;
-    void import_nodes_from_md_directory() noexcept;
-    void import_nodes_from_gnote_directory() noexcept;
-    void import_nodes_from_tomboy_directory() noexcept;
-    void import_nodes_from_keepnote_directory() noexcept;
-    void import_nodes_from_mempad_file() noexcept;
-    void import_nodes_from_indented_list_file() noexcept;
-    void import_nodes_from_treepad_file() noexcept;
-    void import_nodes_from_leo_file() noexcept;
-    void import_nodes_from_rednotebook_html() noexcept;
-    void import_nodes_from_notecase_html() noexcept;
+    void import_node_from_html_file();
+    void import_node_from_html_directory();
+    void import_node_from_plaintext_file();
+    void import_nodes_from_plaintext_directory();
+    void import_nodes_from_ct_file();
+    void import_nodes_from_ct_folder();
+    void import_nodes_from_zim_directory();
+    void import_node_from_md_file();
+    void import_nodes_from_md_directory();
+    void import_nodes_from_gnote_directory();
+    void import_nodes_from_tomboy_directory();
+    void import_nodes_from_keepnote_directory();
+    void import_nodes_from_mempad_file();
+    void import_nodes_from_indented_list_file();
+    void import_nodes_from_treepad_file();
+    void import_nodes_from_leo_file();
+    void import_nodes_from_rednotebook_html();
+    void import_nodes_from_notecase_html();
 
 private:
     // helper for export actions

@@ -1,7 +1,7 @@
 /*
  * ct_parser_text.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -372,8 +372,8 @@ void CtTokenMatcher::_reset_and_refeed() {
     }
 }
 
-void CtTokenMatcher::reset() noexcept {
-    // All of these are noexcept
+void CtTokenMatcher::reset()
+{
     _token_buff.clear();
     _pos_tokens.clear();
     _pos_chars.clear();
@@ -461,7 +461,7 @@ void CtTokenMatcher::_update_tokens() {
 
 }
 
-CtTokenMatcher::size_type CtTokenMatcher::contents_end_offset() const noexcept
+CtTokenMatcher::size_type CtTokenMatcher::contents_end_offset() const
 {
     if (_found_open && _close_token.empty()) return _token_buff.size();
     else                                     return _close_token.size();

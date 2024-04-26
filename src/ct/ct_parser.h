@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -94,7 +94,7 @@ public:
     void add_tag_data(std::string_view, std::string data);
     void add_codebox(const std::string& language, const std::string& text);
     void add_table(const std::vector<std::vector<Glib::ustring>>& table_matrix);
-    void add_image(const std::string& path) noexcept;
+    void add_image(const std::string& path);
     void add_hrule();
     void add_broken_link(const std::string& link);
 
@@ -269,16 +269,16 @@ public:
      * @brief Reset the matcher so that it can be reused for a different stream
      * @warning Does not wipe its companion CtTextParser
      */
-    void reset() noexcept;
+    void reset();
 
     /// If the matcher is finished then feed(), erase(), etc will have no effect until a call to reset()
-    [[nodiscard]] constexpr bool finished() const noexcept { return _finished; }
-    [[nodiscard]] constexpr bool has_open() const noexcept { return _found_open; }
-    [[nodiscard]] size_type contents_end_offset() const noexcept;
-    [[nodiscard]] size_type contents_start_offset() const noexcept { return contents_end_offset() + _token_contents.size(); }
-    [[nodiscard]] size_type raw_start_offset() const noexcept { return contents_start_offset() + _open_token.size(); }
-    [[nodiscard]] constexpr size_type raw_end_offset() const noexcept { return 0; }
-    [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
+    [[nodiscard]] constexpr bool finished() const { return _finished; }
+    [[nodiscard]] constexpr bool has_open() const { return _found_open; }
+    [[nodiscard]] size_type contents_end_offset() const;
+    [[nodiscard]] size_type contents_start_offset() const { return contents_end_offset() + _token_contents.size(); }
+    [[nodiscard]] size_type raw_start_offset() const { return contents_start_offset() + _open_token.size(); }
+    [[nodiscard]] constexpr size_type raw_end_offset() const { return 0; }
+    [[nodiscard]] const std::string& contents() const { return _token_contents; }
     [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
 
 private:
@@ -418,17 +418,17 @@ class CtMarkdownFilter
 public:
     CtMarkdownFilter(std::unique_ptr<CtClipboard> clipboard, Glib::RefPtr<Gtk::TextBuffer> buffer, CtConfig* config);
     /// Reset parser state
-    void reset() noexcept;
+    void reset();
 
     /// Connect to a new buffer
     void buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
 
-    constexpr void active(bool active) noexcept { _active = active; }
-    [[nodiscard]] bool active() const noexcept;
+    constexpr void active(bool active) { _active = active; }
+    [[nodiscard]] bool active() const;
 
 private:
-    void _on_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) noexcept;
-    void _on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept;
+    void _on_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes);
+    void _on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end);
 
     void _markdown_insert();
     void _apply_tag(const Glib::ustring& tag, const Gtk::TextIter& start, const Gtk::TextIter& end);

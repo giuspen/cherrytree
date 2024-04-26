@@ -1,7 +1,7 @@
 /*
  * ct_parser.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -48,7 +48,7 @@ CtDocumentBuilder::CtDocumentBuilder(const CtConfig* pCtConfig)
  , _current_element{_document->create_root_node("root")->add_child("slot")->add_child("rich_text")}
 {}
 
-void CtDocumentBuilder::add_image(const std::string& path) noexcept
+void CtDocumentBuilder::add_image(const std::string& path)
 {
     try {
         CtXML::image_to_xml(_current_element->get_parent(), path, _currOffset, CtConst::TAG_PROP_VAL_LEFT);
@@ -263,7 +263,7 @@ void CtMarkdownFilter::buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
     _buffer = std::move(text_buffer);
 }
 
-void CtMarkdownFilter::reset() noexcept
+void CtMarkdownFilter::reset()
 {
     if (active()) {
         _md_matchers.clear();
@@ -272,7 +272,7 @@ void CtMarkdownFilter::reset() noexcept
     }
 }
 
-void CtMarkdownFilter::_on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept
+void CtMarkdownFilter::_on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end)
 {
     try {
         bool is_all = (begin == _buffer->begin()) && (end == _buffer->end());
@@ -346,7 +346,7 @@ void CtMarkdownFilter::_markdown_insert()
     }
 }
 
-void CtMarkdownFilter::_on_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) noexcept
+void CtMarkdownFilter::_on_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int)
 {
     try {
         if (active() &&
@@ -434,7 +434,7 @@ std::string CtMarkdownFilter::_get_new_md_tag_name() const
     return fmt::format("md-formatting-{}", _md_matchers.size());
 }
 
-bool CtMarkdownFilter::active() const noexcept
+bool CtMarkdownFilter::active() const
 {
     return _active && _config->enableMdFormatting;
 }
