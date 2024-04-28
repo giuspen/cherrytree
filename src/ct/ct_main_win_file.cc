@@ -410,13 +410,15 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
 {
     spdlog::debug("trying to insert text file as node: {}", filepath);
     try {
-        std::string node_contents = Glib::file_get_contents(filepath.string());
-        if (not node_contents.empty()) {
-            CtStrUtil::convert_if_not_utf8(node_contents, true/*sanitise*/);
-            std::string name = filepath.filename().string();
-            _uCtActions->node_child_exist_or_create(Gtk::TreeIter{}, name);
-            _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), node_contents);
-            return true;
+        Glib::RefPtr<Gsv::Buffer> pBuffer = Gsv::Buffer::create();
+        if (CtStrUtil::file_any_encoding_load_into_source_buffer(filepath.string(), pBuffer)) {
+            const Glib::ustring utf8_text = pBuffer->get_text();
+            if (not utf8_text.empty()) {
+                const std::string name = filepath.filename().string();
+                _uCtActions->node_child_exist_or_create(Gtk::TreeIter{}, name);
+                _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), utf8_text);
+                return true;
+            }
         }
     }
     catch (std::exception& ex) {

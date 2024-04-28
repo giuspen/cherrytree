@@ -260,6 +260,8 @@ bool is_codeset_not_utf8(const std::string& codeset);
 
 void convert_if_not_utf8(std::string& inOutText, const bool sanitise);
 
+bool file_any_encoding_load_into_source_buffer(const std::string& filepath, Glib::RefPtr<Gsv::Buffer> pSourceBuffer);
+
 } // namespace CtStrUtil
 
 namespace CtFontUtil {

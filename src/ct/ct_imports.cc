@@ -444,12 +444,14 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
         return nullptr;
     }
     try {
-        std::string converted = Glib::file_get_contents(file.string());
-        CtStrUtil::convert_if_not_utf8(converted, true/*sanitise*/);
-        auto node = std::make_unique<CtImportedNode>(file, file.stem());
-        node->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(converted);
-        node->node_syntax = CtConst::PLAIN_TEXT_ID;
-        return node;
+        Glib::RefPtr<Gsv::Buffer> pBuffer = Gsv::Buffer::create();
+        if (CtStrUtil::file_any_encoding_load_into_source_buffer(file.string(), pBuffer)) {
+            const Glib::ustring utf8_text = pBuffer->get_text();
+            auto pNode = std::make_unique<CtImportedNode>(file, file.stem());
+            pNode->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(utf8_text);
+            pNode->node_syntax = CtConst::PLAIN_TEXT_ID;
+            return pNode;
+        }
     }
     catch (std::exception& ex) {
         spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), file);

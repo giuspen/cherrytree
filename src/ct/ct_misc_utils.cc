@@ -870,6 +870,10 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
                 inOutText = std::string{pConverted, bytes_written};
             }
         }
+        else {
+            spdlog::debug("!! {} pConverted", __FUNCTION__);
+            return;
+        }
     }
     else if (Glib::str_has_prefix(inOutText, "\xEF\xBB\xBF")) {
         // remove UTF-8 BOM
@@ -878,6 +882,42 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
     if (sanitise) {
         inOutText = str::sanitize_bad_symbols(inOutText);
     }
+}
+
+bool CtStrUtil::file_any_encoding_load_into_source_buffer(const std::string& filepath, Glib::RefPtr<Gsv::Buffer> pSourceBuffer)
+{
+    GFile* pGFile = g_file_new_for_path(filepath.c_str());
+    GtkSourceFile* pGtkSourceFile = gtk_source_file_new();
+    gtk_source_file_set_location(pGtkSourceFile, pGFile);
+    GtkSourceFileLoader* pGtkSourceFileLoader = gtk_source_file_loader_new(pSourceBuffer->gobj(), pGtkSourceFile);
+    int operationStatus{0};
+    auto f_GAsyncReadyCallback = [](GObject* pSourceObject, GAsyncResult* pRes, gpointer user_data){
+        g_autoptr(GError) pError{nullptr};
+        const bool retVal = gtk_source_file_loader_load_finish((GtkSourceFileLoader*)pSourceObject,
+                                                               pRes,
+                                                               &pError);
+        if (not retVal and pError) {
+            spdlog::warn("!! {} {}", __FUNCTION__, pError->message);
+        }
+        int* pOperationStatus = (int*)user_data;
+        *pOperationStatus = retVal ? 1 : -1;
+    };
+    gtk_source_file_loader_load_async(pGtkSourceFileLoader,
+                                      G_PRIORITY_HIGH,
+                                      NULL/*cancellable*/,
+                                      NULL/*progress_callback*/,
+                                      NULL/*progress_callback_data*/,
+                                      NULL/*progress_callback_notify*/,
+                                      f_GAsyncReadyCallback,
+                                      &operationStatus/*user_data*/);
+    while (0 == operationStatus) {
+        g_usleep(10000); // wait 10 msec
+        while (gtk_events_pending()) gtk_main_iteration();
+    }
+    g_object_unref(pGtkSourceFileLoader);
+    g_object_unref(pGtkSourceFile);
+    g_object_unref(pGFile);
+    return operationStatus > 0;
 }
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
