@@ -398,6 +398,9 @@ fs::path get_cherrytree_datadir()
     //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\icons
     return _mingw64Dir / "usr" / "share" / "cherrytree";
 #else
+    if (not _AppImageUsrDir.empty()) {
+        return _AppImageUsrDir / "share" / "cherrytree";
+    }
     return CHERRYTREE_DATADIR;
 #endif // _WIN32
 }
