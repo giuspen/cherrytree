@@ -106,19 +106,26 @@ void CtActions::export_to_ct()
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
     }
     std::string new_filepath;
-    if (CtDocType::MultiFile == storageSelArgs.ctDocType) {
-        new_filepath = CtDialogs::folder_save_as_dialog(_pCtMainWin, fileSelArgs);
+    do {
+        if (CtDocType::MultiFile == storageSelArgs.ctDocType) {
+            new_filepath = CtDialogs::folder_save_as_dialog(_pCtMainWin, fileSelArgs);
+        }
+        else {
+            fileSelArgs.filter_name = _("CherryTree File");
+            fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
+            fileSelArgs.overwrite_confirmation = false; // as not supported for the multifile, we do in both cases elsewhere
+            new_filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
+        }
+        if (new_filepath.empty()) {
+            return;
+        }
+        CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, new_filepath);
+        if (currDocFilepath == new_filepath) {
+            CtDialogs::warning_dialog(_("The file/folder in use cannot be overwritten!\nPlease use a different name or location."), *_pCtMainWin);
+        }
     }
-    else {
-        fileSelArgs.filter_name = _("CherryTree File");
-        fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
-        fileSelArgs.overwrite_confirmation = false; // as not supported for the multifile, we do in both cases elsewhere
-        new_filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
-    }
-    if (new_filepath.empty()) {
-        return;
-    }
-    CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, new_filepath);
+    while (currDocFilepath == new_filepath);
+    
     if (Glib::file_test(new_filepath, Glib::FILE_TEST_EXISTS)) {
         // overwrite confirmation here
         std::string message;

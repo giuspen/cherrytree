@@ -60,7 +60,7 @@ void CtActions::file_save_as()
     }
     CtDialogs::CtStorageSelectArgs storageSelArgs{};
     storageSelArgs.showAutosaveOptions = true;
-    fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
+    const fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     if (not currDocFilepath.empty()) {
         storageSelArgs.ctDocType = fs::get_doc_type_from_file_ext(currDocFilepath);
         storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt_from_file_ext(currDocFilepath);
@@ -75,20 +75,26 @@ void CtActions::file_save_as()
         fileSelArgs.curr_file_name = suggested_basename.stem() + CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     }
     std::string filepath;
-    if (CtDocType::MultiFile == storageSelArgs.ctDocType) {
-        filepath = CtDialogs::folder_save_as_dialog(_pCtMainWin, fileSelArgs);
+    do {
+        if (CtDocType::MultiFile == storageSelArgs.ctDocType) {
+            filepath = CtDialogs::folder_save_as_dialog(_pCtMainWin, fileSelArgs);
+        }
+        else {
+            fileSelArgs.filter_name = _("CherryTree File");
+            std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+            fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
+            fileSelArgs.overwrite_confirmation = false; // as not supported for the multifile, we do in both cases elsewhere
+            filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
+        }
+        if (filepath.empty()) {
+            return;
+        }
+        CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, filepath);
+        if (currDocFilepath == filepath) {
+            CtDialogs::warning_dialog(_("The file/folder in use cannot be overwritten!\nPlease use a different name or location."), *_pCtMainWin);
+        }
     }
-    else {
-        fileSelArgs.filter_name = _("CherryTree File");
-        std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
-        fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
-        fileSelArgs.overwrite_confirmation = false; // as not supported for the multifile, we do in both cases elsewhere
-        filepath = CtDialogs::file_save_as_dialog(_pCtMainWin, fileSelArgs);
-    }
-    if (filepath.empty()) {
-        return;
-    }
-    CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, filepath);
+    while (currDocFilepath == filepath);
     if (Glib::file_test(filepath, Glib::FILE_TEST_EXISTS)) {
         // overwrite confirmation here
         std::string message;
