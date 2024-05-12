@@ -348,7 +348,27 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
             );
 
             // write file
-            xml_doc_node.write_to_file_formatted(Glib::build_filename(dir_path.string(), NODE_XML));
+            const std::string xml_filepath = Glib::build_filename(dir_path.string(), NODE_XML);
+            xml_doc_node.write_to_file_formatted(xml_filepath);
+
+            // parse back
+            try {
+                std::unique_ptr<xmlpp::DomParser> parser = CtStorageXml::get_parser(xml_filepath);
+            }
+            catch (std::exception& ex) {
+                spdlog::error("parse {} after write: {}", xml_filepath, ex.what());
+                if (CtExporting::NONESAVE == export_type) {
+                    // restore from BEFORE_SAVE
+                    for (const fs::path& file_from : fs::get_dir_entries(dir_before_save)) {
+                        if (fs::is_regular_file(file_from)) {
+                            const fs::path name_from = file_from.filename();
+                            const fs::path file_to = dir_path / name_from;
+                            fs::move_file(file_from, file_to);
+                        }
+                    }
+                }
+                return false;
+            }
         }
         if (CtExporting::NONESAVE == export_type) {
             std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
