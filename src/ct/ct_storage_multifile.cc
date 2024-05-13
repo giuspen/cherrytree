@@ -127,15 +127,18 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                 &_pCtMainWin->get_tree_store(), syncPending.nodes_to_write_dict);
             bool any_hier{false};
             for (const auto& node_pair : nodes_to_write) {
-                _nodes_to_multifile(&node_pair.first,
-                                    _get_node_dirpath(node_pair.first),
-                                    error,
-                                    &storage_cache,
-                                    node_pair.second,
-                                    export_type,
-                                    pExpoMasterReassign,
-                                    0,
-                                    -1);
+                if (not _nodes_to_multifile(&node_pair.first,
+                                            _get_node_dirpath(node_pair.first),
+                                            error,
+                                            &storage_cache,
+                                            node_pair.second,
+                                            export_type,
+                                            pExpoMasterReassign,
+                                            0,
+                                            -1))
+                {
+                    return false;
+                }
                 if (not any_hier and node_pair.second.hier) {
                     any_hier = true;
                 }
@@ -356,7 +359,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                 std::unique_ptr<xmlpp::DomParser> parser = CtStorageXml::get_parser(xml_filepath);
             }
             catch (std::exception& ex) {
-                spdlog::error("parse {} after write: {}", xml_filepath, ex.what());
+                error = fmt::format("parse {} after write: {}", xml_filepath, ex.what());
                 if (CtExporting::NONESAVE == export_type) {
                     // restore from BEFORE_SAVE
                     for (const fs::path& file_from : fs::get_dir_entries(dir_before_save)) {
