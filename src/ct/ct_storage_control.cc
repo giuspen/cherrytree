@@ -113,6 +113,42 @@
     return storage->populate_treestore(file_path, error);
 }
 
+/*static*/void CtStorageControl::get_first_backup_file_or_dir(std::string& out_first_backup_file_or_dir,
+                                                              const std::string& file_or_dir_path,
+                                                              const CtConfig* pCtConfig)
+{
+    // backups with tildas can either be in the same directory where the db is or in a custom backup dir
+    // main_backup is always in the same directory of the main db
+    auto get_custom_backup_file_or_dir = [&]()->std::string {
+        // backup path in custom dir: /custom_dir/full_file_path/filename.ext~
+        std::string hash_dir = file_or_dir_path;
+        for (auto str : {"\\", "/", ":", "?"}) {
+            hash_dir = str::replace(hash_dir, str, "_");
+        }
+        std::string new_backup_dir = Glib::build_filename(pCtConfig->customBackupDir, hash_dir);
+        Glib::RefPtr<Gio::File> dir_file = Gio::File::create_for_path(new_backup_dir);
+        try {
+            if (not dir_file->query_exists() and not dir_file->make_directory_with_parents()) {
+                spdlog::error("failed to create backup directory: {}", new_backup_dir);
+                return "";
+            }
+            return Glib::build_filename(new_backup_dir, CtConst::CHAR_DOT + Glib::path_get_basename(file_or_dir_path)) + CtConst::CHAR_TILDE;
+        }
+        catch (Glib::Error& ex) {
+            spdlog::error("failed to create backup directory: {}, \n{}", new_backup_dir, ex.what());
+            return "";
+        }
+    };
+
+    if (pCtConfig->customBackupDirOn and not pCtConfig->customBackupDir.empty()) {
+        out_first_backup_file_or_dir = get_custom_backup_file_or_dir();
+    }
+    if (out_first_backup_file_or_dir.empty()) {
+        out_first_backup_file_or_dir = Glib::build_filename(Glib::path_get_dirname(file_or_dir_path),
+            CtConst::CHAR_DOT + Glib::path_get_basename(file_or_dir_path) + CtConst::CHAR_TILDE);
+    }
+}
+
 /*static*/CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin,
                                                       const fs::path& file_path,
                                                       const CtDocType doc_type,
@@ -516,40 +552,8 @@ void CtStorageControl::_backupEncryptThread()
 #endif // DEBUG_BACKUP_ENCRYPT
         }
 
-        // backups with tildas can either be in the same directory where the db is or in a custom backup dir
-        // main_backup is always in the same directory of the main db
-        auto get_custom_backup_file_or_dir = [&]()->std::string {
-            // backup path in custom dir: /custom_dir/full_file_path/filename.ext~
-            std::string hash_dir = pBackupEncryptData->file_path;
-            for (auto str : {"\\", "/", ":", "?"}) {
-                hash_dir = str::replace(hash_dir, str, "_");
-            }
-            std::string new_backup_dir = Glib::build_filename(_pCtConfig->customBackupDir, hash_dir);
-            Glib::RefPtr<Gio::File> dir_file = Gio::File::create_for_path(new_backup_dir);
-            try {
-                if (not dir_file->query_exists() and not dir_file->make_directory_with_parents()) {
-                    spdlog::error("failed to create backup directory: {}", new_backup_dir);
-                    return "";
-                }
-                return Glib::build_filename(new_backup_dir, CtConst::CHAR_DOT + Glib::path_get_basename(pBackupEncryptData->file_path)) + CtConst::CHAR_TILDE;
-            }
-            catch (Glib::Error& ex) {
-                spdlog::error("failed to create backup directory: {}, \n{}", new_backup_dir, ex.what());
-                return "";
-            }
-        };
-
         std::string new_backup_file_or_dir;
-        if (_pCtConfig->customBackupDirOn and not _pCtConfig->customBackupDir.empty()) {
-            const std::string custom_backup_file_or_dir = get_custom_backup_file_or_dir();
-            if (not custom_backup_file_or_dir.empty()) {
-                new_backup_file_or_dir = custom_backup_file_or_dir;
-            }
-        }
-        if (new_backup_file_or_dir.empty()) {
-            new_backup_file_or_dir = Glib::build_filename(Glib::path_get_dirname(pBackupEncryptData->file_path),
-                CtConst::CHAR_DOT + Glib::path_get_basename(pBackupEncryptData->file_path) + CtConst::CHAR_TILDE);
-        }
+        CtStorageControl::get_first_backup_file_or_dir(new_backup_file_or_dir, pBackupEncryptData->file_path, _pCtConfig);
 #if defined(DEBUG_BACKUP_ENCRYPT)
         spdlog::debug("new_backup_file_or_dir = {}", new_backup_file_or_dir);
 #endif // DEBUG_BACKUP_ENCRYPT

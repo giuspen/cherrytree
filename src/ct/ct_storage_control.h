@@ -49,6 +49,9 @@ public:
     static bool document_integrity_check_pass(CtMainWin* pCtMainWin,
                                               const fs::path& file_path,
                                               Glib::ustring& error);
+    static void get_first_backup_file_or_dir(std::string& out_first_backup_file_or_dir,
+                                             const std::string& file_or_dir_path,
+                                             const CtConfig* pCtConfig);
 
     static std::list<std::pair<CtTreeIter, CtStorageNodeState>> get_sorted_by_level_nodes_to_write(
         CtTreeStore* pCtTreeStore,
