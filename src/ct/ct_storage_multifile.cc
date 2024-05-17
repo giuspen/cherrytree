@@ -504,24 +504,42 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
             bool is_shared_non_master{false};
             std::unique_ptr<xmlpp::DomParser> pParser;
             fs::path node_xml_path = nodedir / NODE_XML;
+            bool parsingOk{false};
             try {
                 pParser = CtStorageXml::get_parser(node_xml_path);
+                parsingOk = true;
             }
             catch (std::exception& ex) {
-                spdlog::error("parse {} : {} - trying backed up data...", node_xml_path, ex.what());
-                std::string new_backup_file_or_dir;
-                CtStorageControl::get_first_backup_file_or_dir(new_backup_file_or_dir, _dir_path.string(), _pCtMainWin->get_ct_config());
-                const fs::path new_backup_dir{new_backup_file_or_dir};
-                fs::path backup_node_xml_path = new_backup_dir / nodedir.filename() / NODE_XML;
-                if (fs::is_regular_file(backup_node_xml_path)) {
-                    spdlog::debug("backed up data, {} found", backup_node_xml_path);
-                    pParser = CtStorageXml::get_parser(backup_node_xml_path);
-                    spdlog::debug("parse backed up data ok, copying {} -> {}", backup_node_xml_path, node_xml_path);
-                    fs::move_file(node_xml_path, node_xml_path.parent_path() / (node_xml_path.stem() + std::string{"_BAD.xml"}));
-                    fs::copy_file(backup_node_xml_path, node_xml_path);
-                }
-                else {
-                    spdlog::debug("?? backed up data, {} missing", backup_node_xml_path);
+                spdlog::error("parse {} : {} - trying first backup...", node_xml_path, ex.what());
+            }
+            if (not parsingOk) {
+                std::string first_backup_dir;
+                CtStorageControl::get_first_backup_file_or_dir(first_backup_dir, _dir_path.string(), _pCtMainWin->get_ct_config());
+                for (int b = 0; b < 100; ++b) {
+                    const fs::path curr_backup_dir = first_backup_dir + str::repeat(CtConst::CHAR_TILDE, b).raw();
+                    if (fs::is_directory(curr_backup_dir)) {
+                        spdlog::debug("backed up data, {} found", curr_backup_dir);
+                        const fs::path backup_node_xml_path = curr_backup_dir / nodedir.filename() / NODE_XML;
+                        try {
+                            pParser = CtStorageXml::get_parser(backup_node_xml_path);
+                            parsingOk = true;
+                        }
+                        catch (std::exception& ex) {
+                            spdlog::error("parse {} : {} - trying backup {}...", node_xml_path, ex.what(), b+2);
+                        }
+                        if (parsingOk) {
+                            if (fs::exists(node_xml_path)) {
+                                fs::move_file(node_xml_path, node_xml_path.parent_path() / (node_xml_path.stem() + std::string{"_BAD.xml"}));
+                            }
+                            spdlog::debug("parse backed up data ok, copying {} -> {}", backup_node_xml_path, node_xml_path);
+                            fs::copy_file(backup_node_xml_path, node_xml_path);
+                            break;
+                        }
+                    }
+                    else {
+                        spdlog::debug("?? backed up data, {} missing", curr_backup_dir);
+                        break;
+                    }
                 }
             }
             xmlpp::Node* xml_node = pParser->get_document()->get_root_node()->get_first_child("node");

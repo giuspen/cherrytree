@@ -280,6 +280,9 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
 
 /*static*/std::unique_ptr<xmlpp::DomParser> CtStorageXml::get_parser(const fs::path& file_path)
 {
+    if (not fs::exists(file_path)) {
+        throw std::runtime_error(fmt::format("{} missing", file_path.string()));
+    }
     // open file
     auto parser = std::make_unique<xmlpp::DomParser>();
     bool parseOk{true};
