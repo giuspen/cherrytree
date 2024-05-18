@@ -908,7 +908,7 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     return gspell_checker;
 }
 
-void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pContext,
                                        int x,
                                        int y,
                                        const Gtk::SelectionData& selection_data,
@@ -916,35 +916,42 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
                                        guint time)
 {
     bool success{false};
+    const Gdk::DragAction dragAction = pContext->get_selected_action();
     auto text_buffer = get_buffer();
     int xb, yb;
     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
     Gtk::TextIter text_iter;
     int trailing;
     get_iter_at_position(text_iter, trailing, xb, yb);
-    //spdlog::debug("targets: {}", str::join(context->list_targets(), ", "));
-    if (vec::exists(context->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS) and text_buffer->get_has_selection()) {
+    //spdlog::debug("targets: {}", str::join(pContext->list_targets(), ", "));
+    if (vec::exists(pContext->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS) and text_buffer->get_has_selection()) {
         int target_offset = text_iter.get_offset();
         Gtk::TextIter sel_start, sel_end;
         text_buffer->get_selection_bounds(sel_start, sel_end);
         const int start_offset = sel_start.get_offset();
         const int end_offset = sel_end.get_offset();
         const int sel_size = end_offset - start_offset;
-        if (target_offset > start_offset) {
-            target_offset -= sel_size;
+        if (Gdk::DragAction::ACTION_MOVE == dragAction) {
+            if (target_offset > start_offset) {
+                target_offset -= sel_size;
+            }
+            spdlog::debug("drop move {} from {} to {}", sel_size, start_offset, target_offset);
+            g_signal_emit_by_name(G_OBJECT(gobj()), "cut-clipboard");
         }
-        //spdlog::debug("drop {} from {} to {}", sel_size, start_offset, target_offset);
-        g_signal_emit_by_name(G_OBJECT(gobj()), "cut-clipboard");
+        else {
+            spdlog::debug("drop copy {} from {} to {}", sel_size, start_offset, target_offset);
+            g_signal_emit_by_name(G_OBJECT(gobj()), "copy-clipboard");
+        }
         text_iter = text_buffer->get_iter_at_offset(target_offset);
         if ('\n' != text_iter.get_char()) text_iter.forward_char();
         text_buffer->place_cursor(text_iter);
         g_signal_emit_by_name(G_OBJECT(gobj()), "paste-clipboard");
         success = true;
     }
-    else if (vec::exists(context->list_targets(), CtConst::TARGET_URI_LIST)) {
+    else if (vec::exists(pContext->list_targets(), CtConst::TARGET_URI_LIST)) {
         text_buffer->place_cursor(text_iter);
         CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
         success = true;
     }
-    context->drag_finish(success, false/*del*/, time);
+    pContext->drag_finish(success, success and Gdk::DragAction::ACTION_MOVE == dragAction/*del*/, time);
 }
