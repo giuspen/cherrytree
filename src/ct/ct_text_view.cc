@@ -249,9 +249,9 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
     Gtk::TextIter iter_start;
     get_iter_at_location(iter_start, x, y);
-    const auto pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
+    const Glib::RefPtr<Gsv::Gutter> pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
     if (pGutterLineNumbers) {
-        const auto pGutterLNWindow = pGutterLineNumbers->get_window();
+        const Glib::RefPtr<Gdk::Window> pGutterLNWindow = pGutterLineNumbers->get_window();
         if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
             // line number click
             _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
@@ -313,9 +313,9 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         Gdk::Rectangle iter_rect;
         get_iter_location(text_iter, iter_rect);
         if (1 == event->button.button) {
-            const auto pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
+            const Glib::RefPtr<Gsv::Gutter> pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
             if (pGutterLineNumbers) {
-                const auto pGutterLNWindow = pGutterLineNumbers->get_window();
+                const Glib::RefPtr<Gdk::Window> pGutterLNWindow = pGutterLineNumbers->get_window();
                 if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
                     // line number click
                     _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_iter);
@@ -918,6 +918,14 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pCo
     bool success{false};
     const Gdk::DragAction dragAction = pContext->get_selected_action();
     auto text_buffer = get_buffer();
+    const Glib::RefPtr<Gsv::Gutter> pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
+    if (pGutterLineNumbers) {
+        const Glib::RefPtr<Gdk::Window> pGutterLNWindow = pGutterLineNumbers->get_window();
+        if (pGutterLNWindow) {
+            //spdlog::debug("gutter width {}", pGutterLNWindow->get_width());
+            x -= pGutterLNWindow->get_width();
+        }
+    }
     int xb, yb;
     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
     Gtk::TextIter text_iter;
@@ -935,15 +943,15 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pCo
             if (target_offset > start_offset) {
                 target_offset -= sel_size;
             }
-            spdlog::debug("drop move {} from {} to {}", sel_size, start_offset, target_offset);
+            spdlog::debug("drop move {} from {} to {} [x/xb={}/{}]", sel_size, start_offset, target_offset, x, xb);
             g_signal_emit_by_name(G_OBJECT(gobj()), "cut-clipboard");
         }
         else {
-            spdlog::debug("drop copy {} from {} to {}", sel_size, start_offset, target_offset);
+            spdlog::debug("drop copy {} from {} to {} [x/xb={}/{}]", sel_size, start_offset, target_offset, x, xb);
             g_signal_emit_by_name(G_OBJECT(gobj()), "copy-clipboard");
         }
         text_iter = text_buffer->get_iter_at_offset(target_offset);
-        if ('\n' != text_iter.get_char()) text_iter.forward_char();
+        //if ('\n' != text_iter.get_char()) text_iter.forward_char();
         text_buffer->place_cursor(text_iter);
         g_signal_emit_by_name(G_OBJECT(gobj()), "paste-clipboard");
         success = true;
