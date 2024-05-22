@@ -240,7 +240,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     search_entry->grab_focus();
 
     reg_exp_help_button->signal_clicked().connect([](){
-        fs::open_weblink("https://developer-old.gnome.org/glib/stable/glib-regex-syntax.html");
+        fs::open_weblink("https://www.geany.org/manual/gtk/glib/glib-regex-syntax.html");
     });
 
     auto press_enter = [button_ok](GdkEventKey* pEventKey){
