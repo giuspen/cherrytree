@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-**Version, Operative system**
-State the Version and the Operative System/Desktop. Try the latest available version before reporting an issue.
+**Version, Operating system**
+State the Version and the Operating System/Desktop. Try the latest available version before reporting an issue.
 
 **Describe the bug**
 A clear and concise description of what the bug is.
