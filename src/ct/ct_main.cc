@@ -1,7 +1,7 @@
 /*
  * ct_main.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,31 +28,23 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 
-void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, gpointer)
+void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, const gchar* message, gpointer user_data)
 {
-    auto gtk_logger = spdlog::get("gtk");
+    if (not message or not user_data) {
+        return;
+    }
+    auto pGtkLogger = static_cast<spdlog::logger*>(user_data);
     switch (log_level) {
-        case G_LOG_LEVEL_ERROR:
-            gtk_logger->error(msg);
-            break;
-        case G_LOG_LEVEL_CRITICAL:
-            gtk_logger->critical(msg);
-            break;
-        case G_LOG_LEVEL_WARNING:
-            gtk_logger->warn(msg);
-            break;
-        case G_LOG_LEVEL_MESSAGE:
-            gtk_logger->info(msg);
-            break;
-        case G_LOG_LEVEL_INFO:
-            gtk_logger->info(msg);
-            break;
+        case G_LOG_LEVEL_ERROR:    pGtkLogger->error(message);    break;
+        case G_LOG_LEVEL_CRITICAL: pGtkLogger->critical(message); break;
+        case G_LOG_LEVEL_WARNING:  pGtkLogger->warn(message);     break;
+        case G_LOG_LEVEL_MESSAGE:  pGtkLogger->info(message);     break;
+        case G_LOG_LEVEL_INFO:     pGtkLogger->info(message);     break;
         case G_LOG_LEVEL_DEBUG:
             // disable due to excessive output
-            //gtk_logger->debug(msg);
+            //pGtkLogger->debug(msg);
             break;
-        default:
-            gtk_logger->info(msg);
+        default:                   pGtkLogger->info(message);
     }
 }
 
@@ -104,8 +96,8 @@ int main(int argc, char *argv[])
     }
 
     spdlog::drop(""); // remove the default logger (if you want, you can use its name)
-    // these two loggers are the same, they just add "[  ]" and "[gtk]" in their output
-    auto cherrytree_logger = std::make_shared<spdlog::logger>("   ", begin(sinks), end(sinks));
+    // these two loggers are the same, they just add "[che]" and "[gtk]" in their output
+    auto cherrytree_logger = std::make_shared<spdlog::logger>("che", begin(sinks), end(sinks));
     auto gtk_logger = std::make_shared<spdlog::logger>("gtk", begin(sinks), end(sinks));
 
     spdlog::set_default_logger(cherrytree_logger);         // make our logger as a default logger
@@ -113,7 +105,7 @@ int main(int argc, char *argv[])
     spdlog::flush_on(spdlog::level::debug);                // flush when "info" or higher message is logged on all loggers
     spdlog::set_level(spdlog::level::debug);               // Setup spdlog, use debug level by default for now
 
-    g_log_set_default_handler(glib_log_handler, nullptr);  // Redirect Gtk log messages to spdlog
+    g_log_set_default_handler(glib_log_handler, gtk_logger.get()); // Redirect Gtk log messages to spdlog
 
     bool is_secondary_session{false};
     for (int i = 1; i < argc; ++i) {
