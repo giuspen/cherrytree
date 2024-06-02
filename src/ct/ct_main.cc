@@ -50,13 +50,6 @@ void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, cons
 
 int main(int argc, char *argv[])
 {
-    try {
-        std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
-    }
-    catch (std::exception& e) {
-        g_warning("%s\n", e.what());
-    }
-
     fs::register_exe_path_detect_if_portable(argv[0]);
 
 #ifdef HAVE_NLS

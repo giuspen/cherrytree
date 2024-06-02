@@ -1,7 +1,7 @@
 /*
  * tests_main.cpp
  *
- * Copyright 2009-2021
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -33,7 +33,7 @@ static void _glib_log_handler(const gchar*, GLogLevelFlags, const gchar*, gpoint
 int main(int argc, char** argv)
 {
 #ifdef _WIN32
-    g_log_set_default_handler(_glib_log_handler, nullptr);
+    g_log_set_default_handler(_glib_log_handler, NULL);
 #endif // _WIN32
     fs::register_exe_path_detect_if_portable(argv[0]);
     ::testing::InitGoogleTest(&argc, argv);
