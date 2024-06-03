@@ -42,6 +42,7 @@ public:
     static Glib::RefPtr<CtApp> create(const Glib::ustring application_id_postfix = Glib::ustring{});
     void                       close_all_windows(const bool fromKillCallback);
     void                       systray_show_hide_windows();
+    static bool inside_gsv_init;
 
 protected:
     std::unique_ptr<CtConfig> _uCtCfg;

@@ -29,10 +29,16 @@
 #include "ct_logging.h"
 #include <iostream>
 
+/*static*/bool CtApp::inside_gsv_init{false};
+
 CtApp::CtApp(const Glib::ustring application_id_postfix)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
 {
+    CtApp::inside_gsv_init = true;
+    // on windows, msys2 -> [gtk] [critical] Class::register_derived_type(): base_query.type_name is NULL.
+    // on mac os, mac ports reported a crash -> https://github.com/giuspen/cherrytree/issues/2518
     Gsv::init();
+    CtApp::inside_gsv_init = false;
 
     // action to call from second instance
     // user wanted to create a new window from command line
