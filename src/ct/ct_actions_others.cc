@@ -38,17 +38,27 @@
 #include <vte/vte.h>
 #endif // HAVE_VTE
 
+void CtActions::_link_right_click_pre_action()
+{
+    if (_curr_buffer()->get_has_selection() and _pCtMainWin->hovering_link_iter_offset() >= 0) {
+        Gtk::TextIter target_iter = _curr_buffer()->get_iter_at_offset(_pCtMainWin->hovering_link_iter_offset());
+        if (target_iter) _curr_buffer()->place_cursor(target_iter);
+    }
+}
+
 void CtActions::link_cut()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    if (!_link_check_around_cursor().empty()) {
+    _link_right_click_pre_action();
+    if (not _link_check_around_cursor().empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
     }
 }
 
 void CtActions::link_copy()
 {
-    if (!_link_check_around_cursor().empty()) {
+    _link_right_click_pre_action();
+    if (not _link_check_around_cursor().empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
     }
 }
@@ -56,7 +66,8 @@ void CtActions::link_copy()
 void CtActions::link_dismiss()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    if (!_link_check_around_cursor().empty()) {
+    _link_right_click_pre_action();
+    if (not _link_check_around_cursor().empty()) {
         remove_text_formatting();
     }
 }
@@ -64,7 +75,8 @@ void CtActions::link_dismiss()
 void CtActions::link_delete()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    if (!_link_check_around_cursor().empty()) {
+    _link_right_click_pre_action();
+    if (not _link_check_around_cursor().empty()) {
         _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
         _pCtMainWin->get_text_view().grab_focus();
     }

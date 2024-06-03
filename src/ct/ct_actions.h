@@ -417,6 +417,7 @@ private:
                              Gtk::TextIter* iter_bound);
     bool _on_embfiles_sentinel_timeout();
     void _exec_code(const bool is_all);
+    void _link_right_click_pre_action();
 
 public:
     // others actions
