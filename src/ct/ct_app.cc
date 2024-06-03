@@ -1,7 +1,7 @@
 /*
  * ct_app.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -35,6 +35,7 @@ CtApp::CtApp(const Glib::ustring application_id_postfix)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
 {
     CtApp::inside_gsv_init = true;
+    // https://gitlab.gnome.org/GNOME/gtksourceviewmm/-/issues/6
     // on windows, msys2 -> [gtk] [critical] Class::register_derived_type(): base_query.type_name is NULL.
     // on mac os, mac ports reported a crash -> https://github.com/giuspen/cherrytree/issues/2518
     Gsv::init();
