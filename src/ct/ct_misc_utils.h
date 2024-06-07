@@ -44,6 +44,8 @@ std::string table_to_csv(const CtStringTable& table);
 
 namespace CtMiscUtil {
 
+bool system_cmd(const char* shell_cmd);
+
 std::string get_ct_language();
 
 std::string get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt);

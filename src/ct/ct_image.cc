@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -372,28 +372,8 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
     std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
                                    CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
-#if defined(_WIN32)
-    glong utf16text_len = 0;
-    g_autofree gunichar2* utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
-    STARTUPINFOW si;
-    PROCESS_INFORMATION pi;
-    ZeroMemory(&si, sizeof(si));
-    si.cb = sizeof(si);
-    ZeroMemory(&pi, sizeof(pi));
-    bool success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
-    if (success) {
-        WaitForSingleObject(pi.hProcess, INFINITE);
-        CloseHandle(pi.hProcess);
-        CloseHandle(pi.hThread);
-    }
-    int retVal;
+    bool success = CtMiscUtil::system_cmd(cmd.c_str());
     if (not success) {
-        spdlog::error("!! CreateProcessW({})", cmd);
-#else
-    int retVal = std::system(cmd.c_str());
-    if (retVal != 0) {
-        spdlog::error("system({}) returned {}", cmd, retVal);
-#endif
         if (_renderingBinariesLatexOk) {
             _renderingBinariesLatexOk = false;
             if (_renderingBinariesDviPngOk and 0 != system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str())) {
@@ -409,7 +389,7 @@ void CtImageLatex::update_tooltip()
         const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
         cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
                            CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
-        retVal = std::system(cmd.c_str());
+        int retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
             if (_renderingBinariesDviPngOk) {

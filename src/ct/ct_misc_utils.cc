@@ -46,7 +46,9 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <shellapi.h>
-#endif // _WIN32
+#else // !_WIN32
+#include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)
+#endif // !_WIN32
 
 CtCSV::CtStringTable CtCSV::table_from_csv(const std::string& filepath)
 {
@@ -275,6 +277,38 @@ CtMiscUtil::URI_TYPE CtMiscUtil::get_uri_type(const std::string &uri)
     if (str::startswith_any(uri, http_ids)) return URI_TYPE::WEB_URL;
     else if (str::startswith_any(uri, fs_ids) || Glib::file_test(uri, Glib::FILE_TEST_EXISTS)) return URI_TYPE::LOCAL_FILEPATH;
     else return URI_TYPE::UNKNOWN;
+}
+
+bool CtMiscUtil::system_cmd(const char* shell_cmd)
+{
+    bool success{false};
+#if defined(_WIN32)
+    glong utf16text_len = 0;
+    g_autofree gunichar2* utf16text = g_utf8_to_utf16(shell_cmd, (glong)Glib::ustring{shell_cmd}.bytes(), nullptr, &utf16text_len, nullptr);
+    STARTUPINFOW si;
+    PROCESS_INFORMATION pi;
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+    if (success) {
+        WaitForSingleObject(pi.hProcess, INFINITE);
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
+    }
+    else {
+        spdlog::error("!! CreateProcessW({})", shell_cmd);
+    }
+#else // !_WIN32
+    const int retVal = std::system(shell_cmd);
+    if (WEXITSTATUS(retVal) != 0) {
+        spdlog::error("!! system({}) returned {}", shell_cmd, retVal);
+    }
+    else {
+        success = true;
+    }
+#endif // !_WIN32
+    return success;
 }
 
 // analog to tbb::parallel_for
