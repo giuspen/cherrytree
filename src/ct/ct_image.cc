@@ -370,10 +370,17 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
-                                   CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+    std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s"
+#ifndef _WIN32
+                                   CONSOLE_SILENCE_OUTPUT
+#endif // _WIN32
+                                   , CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
     bool success = CtMiscUtil::system_cmd(cmd.c_str());
-    if (not success) {
+    std::string tmp_filepath_noext = tmp_filepath_tex.string();
+    tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
+    const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
+    if (not success or not fs::is_regular_file(tmp_filepath_dvi)) {
+        if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_dvi.c_str());
         if (_renderingBinariesLatexOk) {
             _renderingBinariesLatexOk = false;
             if (_renderingBinariesDviPngOk and 0 != system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str())) {
@@ -382,16 +389,16 @@ void CtImageLatex::update_tooltip()
         }
     }
     else {
-        std::string tmp_filepath_noext = tmp_filepath_tex.string();
-        tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
-        const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
         const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
-        cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
-                           CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
-        int retVal = std::system(cmd.c_str());
-        if (retVal != 0) {
-            spdlog::error("system({}) returned {}", cmd, retVal);
+        cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s"
+#ifndef _WIN32
+                           CONSOLE_SILENCE_OUTPUT
+#endif // _WIN32
+                           , CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+        success = CtMiscUtil::system_cmd(cmd.c_str());
+        if (not success or not fs::is_regular_file(tmp_filepath_png)) {
+            if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_png.c_str());
             if (_renderingBinariesDviPngOk) {
                 _renderingBinariesDviPngOk = false;
             }
