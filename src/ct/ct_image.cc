@@ -347,7 +347,7 @@ void CtImageLatex::update_tooltip()
 
 #if defined(_WIN32)
 #define CONSOLE_SILENCE_OUTPUT  " > nul"
-#define CONSOLE_BIN_PREFIX      ""
+#define CONSOLE_BIN_PREFIX      fs::get_latex_dvipng_console_bin_prefix()
 #else // !_WIN32
 #define CONSOLE_SILENCE_OUTPUT  " > /dev/null"
 #if defined(_FLATPAK_BUILD)
@@ -373,9 +373,9 @@ void CtImageLatex::update_tooltip()
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
     std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s"
-//#ifndef _WIN32
+#ifndef _WIN32
                                    CONSOLE_SILENCE_OUTPUT
-//#endif // _WIN32
+#endif /* !_WIN32 */
                                    , CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
     bool success = CtMiscUtil::system_cmd(cmd.c_str());
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
@@ -390,9 +390,9 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
     const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
     cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s"
-//#ifndef _WIN32
+#ifndef _WIN32
                        CONSOLE_SILENCE_OUTPUT
-//#endif // _WIN32
+#endif /* !_WIN32 */
                        , CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
     success = CtMiscUtil::system_cmd(cmd.c_str());
     if (not success or not fs::is_regular_file(tmp_filepath_png)) {

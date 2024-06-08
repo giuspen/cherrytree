@@ -283,7 +283,7 @@ CtMiscUtil::URI_TYPE CtMiscUtil::get_uri_type(const std::string &uri)
 bool CtMiscUtil::system_cmd(const char* shell_cmd)
 {
     bool success{false};
-#if 0
+#ifdef _WIN32
     glong utf16text_len = 0;
     g_autofree gunichar2* utf16text = g_utf8_to_utf16(shell_cmd, (glong)Glib::ustring{shell_cmd}.bytes(), nullptr, &utf16text_len, nullptr);
     STARTUPINFOW si;
@@ -300,7 +300,7 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd)
     else {
         spdlog::error("!! CreateProcessW({})", shell_cmd);
     }
-#else
+#else /* !_WIN32 */
     const int retVal = std::system(shell_cmd);
     if (WEXITSTATUS(retVal) != 0) {
         spdlog::error("!! system({}) returned {}", shell_cmd, retVal);
@@ -308,7 +308,7 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd)
     else {
         success = true;
     }
-#endif
+#endif /* !_WIN32 */
     return success;
 }
 
