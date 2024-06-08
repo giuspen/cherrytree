@@ -360,8 +360,10 @@ void CtImageLatex::update_tooltip()
 #endif // !_WIN32
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId, const int zoom)
 {
-    if (not _renderingBinariesTested) {
-        _renderingBinariesTested = true;
+    CtImageLatex::ensureRenderingBinariesTested();
+    if (not _renderingBinariesLatexOk or not _renderingBinariesDviPngOk) {
+        // fallback
+        return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
     }
     const fs::path filename = std::to_string(uniqueId) +
                               CtConst::CHAR_MINUS + std::to_string(getpid()) +
@@ -371,9 +373,9 @@ void CtImageLatex::update_tooltip()
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
     std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s"
-#ifndef _WIN32
+//#ifndef _WIN32
                                    CONSOLE_SILENCE_OUTPUT
-#endif // _WIN32
+//#endif // _WIN32
                                    , CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
     bool success = CtMiscUtil::system_cmd(cmd.c_str());
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
@@ -381,41 +383,31 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
     if (not success or not fs::is_regular_file(tmp_filepath_dvi)) {
         if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_dvi.c_str());
-        if (_renderingBinariesLatexOk) {
-            _renderingBinariesLatexOk = false;
-            if (_renderingBinariesDviPngOk and 0 != system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str())) {
-                _renderingBinariesDviPngOk = false;
-            }
-        }
+        _renderingBinariesLatexOk = false;
+        // fallback
+        return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
     }
-    else {
-        const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
-        const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
-        cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s"
-#ifndef _WIN32
-                           CONSOLE_SILENCE_OUTPUT
-#endif // _WIN32
-                           , CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
-        success = CtMiscUtil::system_cmd(cmd.c_str());
-        if (not success or not fs::is_regular_file(tmp_filepath_png)) {
-            if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_png.c_str());
-            if (_renderingBinariesDviPngOk) {
-                _renderingBinariesDviPngOk = false;
-            }
-        }
-        else {
-            Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
-            try {
-                rPixbuf = Gdk::Pixbuf::create_from_file(tmp_filepath_png.c_str());
-            }
-            catch (Glib::Error& error) {
-                spdlog::error("{} {}", __FUNCTION__, error.what());
-            }
-            if (rPixbuf) {
-                // success
-                return rPixbuf;
-            }
-        }
+    const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
+    const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
+    cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s"
+//#ifndef _WIN32
+                       CONSOLE_SILENCE_OUTPUT
+//#endif // _WIN32
+                       , CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+    success = CtMiscUtil::system_cmd(cmd.c_str());
+    if (not success or not fs::is_regular_file(tmp_filepath_png)) {
+        if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_png.c_str());
+        _renderingBinariesDviPngOk = false;
+        // fallback
+        return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+    }
+    Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
+    try {
+        rPixbuf = Gdk::Pixbuf::create_from_file(tmp_filepath_png.c_str());
+        return rPixbuf;
+    }
+    catch (Glib::Error& error) {
+        spdlog::error("{} {}", __FUNCTION__, error.what());
     }
     // fallback
     return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
@@ -427,8 +419,8 @@ void CtImageLatex::update_tooltip()
         return;
     }
     _renderingBinariesTested = true;
-    _renderingBinariesLatexOk = 0 == system(fmt::sprintf("%slatex --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
-    _renderingBinariesDviPngOk = 0 == system(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
+    _renderingBinariesLatexOk = CtMiscUtil::system_cmd(fmt::sprintf("%slatex --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
+    _renderingBinariesDviPngOk = CtMiscUtil::system_cmd(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
 }
 
 /*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()

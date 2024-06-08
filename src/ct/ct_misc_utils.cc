@@ -46,6 +46,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <shellapi.h>
+#define WEXITSTATUS(x) x
 #else // !_WIN32
 #include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)
 #endif // !_WIN32
@@ -282,7 +283,7 @@ CtMiscUtil::URI_TYPE CtMiscUtil::get_uri_type(const std::string &uri)
 bool CtMiscUtil::system_cmd(const char* shell_cmd)
 {
     bool success{false};
-#if defined(_WIN32)
+#if 0
     glong utf16text_len = 0;
     g_autofree gunichar2* utf16text = g_utf8_to_utf16(shell_cmd, (glong)Glib::ustring{shell_cmd}.bytes(), nullptr, &utf16text_len, nullptr);
     STARTUPINFOW si;
@@ -299,7 +300,7 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd)
     else {
         spdlog::error("!! CreateProcessW({})", shell_cmd);
     }
-#else // !_WIN32
+#else
     const int retVal = std::system(shell_cmd);
     if (WEXITSTATUS(retVal) != 0) {
         spdlog::error("!! system({}) returned {}", shell_cmd, retVal);
@@ -307,7 +308,7 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd)
     else {
         success = true;
     }
-#endif // !_WIN32
+#endif
     return success;
 }
 
