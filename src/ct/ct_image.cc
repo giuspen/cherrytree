@@ -358,6 +358,33 @@ void CtImageLatex::update_tooltip()
 #define CONSOLE_BIN_PREFIX      fs::get_latex_dvipng_console_bin_prefix()
 #endif // !_FLATPAK_BUILD
 #endif // !_WIN32
+
+static const char* get_latex_bin_cmd()
+{
+    auto _get_latex_bin_cmd = []()->const char*{
+#if defined(_WIN32)
+        return g_strdup_printf("\"%slatex.exe\"", CONSOLE_BIN_PREFIX);
+#else /* !_WIN32 */
+        return g_strdup_printf("%slatex", CONSOLE_BIN_PREFIX);
+#endif /* !_WIN32 */
+    };
+    static const char* latex_bin_cmd = _get_latex_bin_cmd();
+    return latex_bin_cmd;
+}
+
+static const char* get_dvipng_bin_cmd()
+{
+    auto _get_dvipng_bin_cmd = []()->const char*{
+#if defined(_WIN32)
+        return g_strdup_printf("\"%sdvipng.exe\"", CONSOLE_BIN_PREFIX);
+#else /* !_WIN32 */
+        return g_strdup_printf("%sdvipng", CONSOLE_BIN_PREFIX);
+#endif /* !_WIN32 */
+    };
+    static const char* dvipng_bin_cmd = _get_dvipng_bin_cmd();
+    return dvipng_bin_cmd;
+}
+
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId, const int zoom)
 {
     CtImageLatex::ensureRenderingBinariesTested();
@@ -372,11 +399,11 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf("%slatex --interaction=batchmode -output-directory=%s %s"
+    std::string cmd = fmt::sprintf("%s --interaction=batchmode -output-directory=%s %s"
 #ifndef _WIN32
                                    CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
-                                   , CONSOLE_BIN_PREFIX, tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+                                   , get_latex_bin_cmd(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
     bool success = CtMiscUtil::system_cmd(cmd.c_str());
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
     tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
@@ -389,11 +416,11 @@ void CtImageLatex::update_tooltip()
     }
     const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
     const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
-    cmd = fmt::sprintf("%sdvipng -q -T tight -D %d %s -o %s"
+    cmd = fmt::sprintf("%s -q -T tight -D %d %s -o %s"
 #ifndef _WIN32
                        CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
-                       , CONSOLE_BIN_PREFIX, latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+                       , get_dvipng_bin_cmd(), latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
     success = CtMiscUtil::system_cmd(cmd.c_str());
     if (not success or not fs::is_regular_file(tmp_filepath_png)) {
         if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_png.c_str());
@@ -419,16 +446,16 @@ void CtImageLatex::update_tooltip()
         return;
     }
     _renderingBinariesTested = true;
-    _renderingBinariesLatexOk = CtMiscUtil::system_cmd(fmt::sprintf("%slatex --version"
+    _renderingBinariesLatexOk = CtMiscUtil::system_cmd(fmt::sprintf("%s --version"
 #ifndef _WIN32
                                                                     CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
-                                                                    , CONSOLE_BIN_PREFIX).c_str());
-    _renderingBinariesDviPngOk = CtMiscUtil::system_cmd(fmt::sprintf("%sdvipng --version"
+                                                                    , get_latex_bin_cmd()).c_str());
+    _renderingBinariesDviPngOk = CtMiscUtil::system_cmd(fmt::sprintf("%s --version"
 #ifndef _WIN32
                                                                     CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
-                                                                    , CONSOLE_BIN_PREFIX).c_str());
+                                                                    , get_dvipng_bin_cmd()).c_str());
 }
 
 /*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
