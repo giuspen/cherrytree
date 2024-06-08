@@ -419,8 +419,16 @@ void CtImageLatex::update_tooltip()
         return;
     }
     _renderingBinariesTested = true;
-    _renderingBinariesLatexOk = CtMiscUtil::system_cmd(fmt::sprintf("%slatex --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
-    _renderingBinariesDviPngOk = CtMiscUtil::system_cmd(fmt::sprintf("%sdvipng --version" CONSOLE_SILENCE_OUTPUT, CONSOLE_BIN_PREFIX).c_str());
+    _renderingBinariesLatexOk = CtMiscUtil::system_cmd(fmt::sprintf("%slatex --version"
+#ifndef _WIN32
+                                                                    CONSOLE_SILENCE_OUTPUT
+#endif /* !_WIN32 */
+                                                                    , CONSOLE_BIN_PREFIX).c_str());
+    _renderingBinariesDviPngOk = CtMiscUtil::system_cmd(fmt::sprintf("%sdvipng --version"
+#ifndef _WIN32
+                                                                    CONSOLE_SILENCE_OUTPUT
+#endif /* !_WIN32 */
+                                                                    , CONSOLE_BIN_PREFIX).c_str());
 }
 
 /*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
