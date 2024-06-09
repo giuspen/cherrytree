@@ -294,8 +294,14 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd)
     success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
     if (success) {
         WaitForSingleObject(pi.hProcess, INFINITE);
+        DWORD exit_code;
+        GetExitCodeProcess(pi.hProcess, &exit_code);
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
+        if (0 != exit_code) {
+            spdlog::error("!! GetExitCodeProcess({}) returned {}", shell_cmd, exit_code);
+            success = false;
+        }
     }
     else {
         spdlog::error("!! CreateProcessW({})", shell_cmd);
