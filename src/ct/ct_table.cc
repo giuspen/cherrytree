@@ -150,6 +150,25 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
             return _on_cell_key_press_alt_or_ctrl_enter();
         }
     }
+    else if (GDK_KEY_Up == event->keyval) {
+        if (not get_is_light()) {
+            const int curr_line_num = get_curr_cell_curr_line_num();
+            //spdlog::debug("line {}", curr_line_num);
+            if (0 == curr_line_num and rowIdx > 0) {
+                index = (rowIdx - 1) * get_num_columns() + colIdx;
+            }
+        }
+    }
+    else if (GDK_KEY_Down == event->keyval) {
+        if (not get_is_light()) {
+            const int curr_line_num = get_curr_cell_curr_line_num();
+            const int max_line_num = get_curr_cell_max_line_num();
+            //spdlog::debug("line {}/{}", curr_line_num, max_line_num);
+            if (max_line_num == curr_line_num and rowIdx < (get_num_rows()-1)) {
+                index = (rowIdx + 1) * get_num_columns() + colIdx;
+            }
+        }
+    }
     if (index >= 0) {
         const size_t nextRowIdx = index / get_num_columns();
         const size_t nextColIdx = index % get_num_columns();
@@ -620,6 +639,20 @@ void CtTableHeavy::grab_focus() const
 void CtTableHeavy::set_selection_at_offset_n_delta(const int offset, const int delta) const
 {
     curr_cell_text_view().set_selection_at_offset_n_delta(offset, delta);
+}
+
+int CtTableHeavy::get_curr_cell_curr_line_num() const
+{
+    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Gtk::TextIter iter_insert = pCurrCellBuffer->get_insert()->get_iter();
+    return iter_insert.get_line();
+}
+
+int CtTableHeavy::get_curr_cell_max_line_num() const
+{
+    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Gtk::TextIter iter_end = pCurrCellBuffer->end();
+    return iter_end.get_line();
 }
 
 CtTextView& CtTableHeavy::curr_cell_text_view() const

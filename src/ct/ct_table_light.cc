@@ -470,6 +470,23 @@ void CtTableLight::set_selection_at_offset_n_delta(const int offset, const int d
     _pEditingCellEntry->select_region(offset, offset+delta);
 }
 
+int CtTableLight::get_curr_cell_curr_line_num() const
+{
+    if (not _pEditingCellEntry) {
+        spdlog::warn("!! {} !_pEditingCellEntry", __FUNCTION__);
+        return -1;
+    }
+    const int position = _pEditingCellEntry->get_position();
+    Glib::ustring cell_text = _pEditingCellEntry->get_text();
+    return str::split(cell_text.substr(0, position), "\n").size() - 1;
+}
+
+int CtTableLight::get_curr_cell_max_line_num() const
+{
+    Glib::ustring cell_text = get_cell_text(current_row(), current_column());
+    return str::split(cell_text, "\n").size() - 1;
+}
+
 Glib::ustring CtTableLight::get_cell_text(const size_t rowIdx, const size_t colIdx) const
 {
     Gtk::TreePath treePath{std::to_string(rowIdx)};
