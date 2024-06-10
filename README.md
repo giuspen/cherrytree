@@ -59,7 +59,7 @@ The following languages are supported (If you want to help translating to your l
 - French (Francis Gernet, up to date)
 - Finnish (Henri Kaustinen, TO BE UPDATED)
 - German (Matthias Hoffmann, up to date)
-- Greek (TO BE UPDATED)
+- Greek (Asterios Siomos, up to date)
 - Hindi India (TO BE UPDATED)
 - Hungarian (Stiener Norbert, TO BE UPDATED)
 - Italian (Vincenzo Reale, up to date)

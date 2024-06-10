@@ -551,7 +551,7 @@ MA 02110-1301, USA.
  _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("French")+" (fr) Francis Gernet <fgernet@concretx.com>"+CtConst::CHAR_NEWLINE+
  _("German")+" (de) Matthias Hoffmann <MHoffi@web.de>"+CtConst::CHAR_NEWLINE+
- _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
+ _("Greek")+" (el) Asterios Siomos <terry.sio@hotmail.com>"+CtConst::CHAR_NEWLINE+
  _("Hindi India")+" (hi_IN) Paresh Mhatre <pareshmhatrework@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Hungarian")+" (hu) Stiener Norbert <stienernorbert@protonmail.com>"+CtConst::CHAR_NEWLINE+
  _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
