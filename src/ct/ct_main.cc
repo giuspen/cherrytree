@@ -27,6 +27,10 @@
 #include "ct_logging.h"
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
+#if defined(_WIN32)
+#include <locale>
+#include <codecvt>
+#endif /* _WIN32 */
 
 void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, const gchar* message, gpointer user_data)
 {
@@ -50,7 +54,18 @@ void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, cons
 
 int main(int argc, char *argv[])
 {
-    fs::register_exe_path_detect_if_portable(argv[0]);
+    {
+        const char* pExePath = argv[0];
+#if defined(_WIN32)
+        wchar_t path_buff[1024];
+        std::wstring wtf = std::wstring(path_buff, GetModuleFileNameW(NULL, path_buff, 1023));
+        std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
+        std::string converted_str = converter.to_bytes(wtf);
+        pExePath = converted_str.c_str();
+#endif /* _WIN32 */
+        g_message("exe_path = %s", pExePath);
+        fs::register_exe_path_detect_if_portable(pExePath);
+    }
 
 #ifdef HAVE_NLS
     const std::string ct_lang = CtMiscUtil::get_ct_language();
@@ -68,7 +83,7 @@ int main(int argc, char *argv[])
     bindtextdomain(GETTEXT_PACKAGE, fs::get_cherrytree_localedir().c_str());
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
-#endif
+#endif /* HAVE_NLS */
 
     // output logs into console and a log file
     std::vector<spdlog::sink_ptr> sinks;
