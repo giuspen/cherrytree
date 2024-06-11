@@ -280,18 +280,27 @@ CtMiscUtil::URI_TYPE CtMiscUtil::get_uri_type(const std::string &uri)
     else return URI_TYPE::UNKNOWN;
 }
 
-bool CtMiscUtil::system_cmd(const char* shell_cmd)
+bool CtMiscUtil::system_cmd(const char* shell_cmd, const char* cwd)
 {
     bool success{false};
 #ifdef _WIN32
-    glong utf16text_len = 0;
-    g_autofree gunichar2* utf16text = g_utf8_to_utf16(shell_cmd, (glong)Glib::ustring{shell_cmd}.bytes(), nullptr, &utf16text_len, nullptr);
+    glong utf16text_len;
+    g_autofree gunichar2* utf16_lpCommandLine = g_utf8_to_utf16(shell_cmd, (glong)Glib::ustring{shell_cmd}.bytes(), nullptr, &utf16text_len, nullptr);
+    g_autofree gunichar2* utf16_lpCurrentDirectory = cwd[0] ? g_utf8_to_utf16(cwd, (glong)Glib::ustring{cwd}.bytes(), nullptr, &utf16text_len, nullptr) : NULL;
     STARTUPINFOW si;
     PROCESS_INFORMATION pi;
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
-    success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+    success = CreateProcessW(NULL/*lpApplicationName*/,
+                             (LPWSTR)utf16_lpCommandLine,
+                             NULL/*lpProcessAttributes*/,
+                             NULL/*lpThreadAttributes*/,
+                             FALSE/*bInheritHandles*/,
+                             CREATE_NO_WINDOW/*dwCreationFlags*/,
+                             NULL/*lpEnvironment*/,
+                             (LPCWSTR)utf16_lpCurrentDirectory,
+                             &si, &pi);
     if (success) {
         WaitForSingleObject(pi.hProcess, INFINITE);
         DWORD exit_code;
@@ -307,6 +316,7 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd)
         spdlog::error("!! CreateProcessW({})", shell_cmd);
     }
 #else /* !_WIN32 */
+    (void)cwd;
     const int retVal = std::system(shell_cmd);
     if (WEXITSTATUS(retVal) != 0) {
         spdlog::error("!! system({}) returned {}", shell_cmd, retVal);

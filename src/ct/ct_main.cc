@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
         std::string converted_str = converter.to_bytes(wtf);
         pExePath = converted_str.c_str();
 #endif /* _WIN32 */
-        g_message("exe_path = %s", pExePath);
+        //g_message("exe_path = %s", pExePath);
         fs::register_exe_path_detect_if_portable(pExePath);
     }
 

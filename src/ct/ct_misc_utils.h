@@ -44,7 +44,7 @@ std::string table_to_csv(const CtStringTable& table);
 
 namespace CtMiscUtil {
 
-bool system_cmd(const char* shell_cmd);
+bool system_cmd(const char* shell_cmd, const char* cwd);
 
 std::string get_ct_language();
 

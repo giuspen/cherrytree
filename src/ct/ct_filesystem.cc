@@ -110,7 +110,7 @@ const char* get_latex_dvipng_console_bin_prefix()
             const fs::path dvipngBin = binDir / "dvipng.exe";
             if (fs::is_regular_file(latexBin) and fs::is_regular_file(dvipngBin)) {
                 spdlog::debug("found latex and dvipng in {}", binDir.c_str());
-                return g_strdup_printf("%s\\", binDir.c_str());
+                return g_strdup(binDir.c_str());
             }
             spdlog::debug("?? NOT FOUND latex and dvipng in {}", binDir.c_str());
         }

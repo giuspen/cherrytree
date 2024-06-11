@@ -363,7 +363,7 @@ static const char* get_latex_bin_cmd()
 {
     auto _get_latex_bin_cmd = []()->const char*{
 #if defined(_WIN32)
-        return g_strdup_printf("\"%slatex.exe\"", CONSOLE_BIN_PREFIX);
+        return g_strdup("latex.exe");
 #else /* !_WIN32 */
         return g_strdup_printf("%slatex", CONSOLE_BIN_PREFIX);
 #endif /* !_WIN32 */
@@ -376,7 +376,7 @@ static const char* get_dvipng_bin_cmd()
 {
     auto _get_dvipng_bin_cmd = []()->const char*{
 #if defined(_WIN32)
-        return g_strdup_printf("\"%sdvipng.exe\"", CONSOLE_BIN_PREFIX);
+        return g_strdup("dvipng.exe");
 #else /* !_WIN32 */
         return g_strdup_printf("%sdvipng", CONSOLE_BIN_PREFIX);
 #endif /* !_WIN32 */
@@ -404,7 +404,7 @@ static const char* get_dvipng_bin_cmd()
                                    CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
                                    , get_latex_bin_cmd(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
-    bool success = CtMiscUtil::system_cmd(cmd.c_str());
+    bool success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
     tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
     const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
@@ -421,7 +421,7 @@ static const char* get_dvipng_bin_cmd()
                        CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
                        , get_dvipng_bin_cmd(), latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
-    success = CtMiscUtil::system_cmd(cmd.c_str());
+    success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
     if (not success or not fs::is_regular_file(tmp_filepath_png)) {
         if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_png.c_str());
         _renderingBinariesDviPngOk = false;
@@ -450,12 +450,12 @@ static const char* get_dvipng_bin_cmd()
 #ifndef _WIN32
                                                                     CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
-                                                                    , get_latex_bin_cmd()).c_str());
+                                                                    , get_latex_bin_cmd()).c_str(), CONSOLE_BIN_PREFIX);
     _renderingBinariesDviPngOk = CtMiscUtil::system_cmd(fmt::sprintf("%s --version"
 #ifndef _WIN32
                                                                     CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
-                                                                    , get_dvipng_bin_cmd()).c_str());
+                                                                    , get_dvipng_bin_cmd()).c_str(), CONSOLE_BIN_PREFIX);
 }
 
 /*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
