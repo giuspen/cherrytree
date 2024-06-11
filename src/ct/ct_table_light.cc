@@ -487,6 +487,21 @@ int CtTableLight::get_curr_cell_max_line_num() const
     return str::split(cell_text, "\n").size() - 1;
 }
 
+int CtTableLight::get_curr_cell_curr_offset() const
+{
+    if (not _pEditingCellEntry) {
+        spdlog::warn("!! {} !_pEditingCellEntry", __FUNCTION__);
+        return -1;
+    }
+    return _pEditingCellEntry->get_position();
+}
+
+int CtTableLight::get_curr_cell_max_offset() const
+{
+    Glib::ustring cell_text = get_cell_text(current_row(), current_column());
+    return cell_text.size();
+}
+
 Glib::ustring CtTableLight::get_cell_text(const size_t rowIdx, const size_t colIdx) const
 {
     Gtk::TreePath treePath{std::to_string(rowIdx)};

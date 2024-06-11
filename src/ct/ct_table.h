@@ -100,6 +100,8 @@ public:
 
     virtual int get_curr_cell_curr_line_num() const = 0;
     virtual int get_curr_cell_max_line_num() const = 0;
+    virtual int get_curr_cell_curr_offset() const = 0;
+    virtual int get_curr_cell_max_offset() const = 0;
 
     bool on_table_button_press_event(GdkEventButton* event);
     void on_cell_populate_popup(Gtk::Menu* menu);
@@ -174,6 +176,8 @@ public:
 
     int get_curr_cell_curr_line_num() const override;
     int get_curr_cell_max_line_num() const override;
+    int get_curr_cell_curr_offset() const override;
+    int get_curr_cell_max_offset() const override;
 
 protected:
     void _reset(CtTableMatrix& tableMatrix);
@@ -238,6 +242,8 @@ public:
 
     int get_curr_cell_curr_line_num() const override;
     int get_curr_cell_max_line_num() const override;
+    int get_curr_cell_curr_offset() const override;
+    int get_curr_cell_max_offset() const override;
 
 protected:
     void _apply_styles_to_cells(const bool forceReApply);

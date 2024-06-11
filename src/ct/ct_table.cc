@@ -169,6 +169,32 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
             }
         }
     }
+    else if (GDK_KEY_Left == event->keyval) {
+        if (not get_is_light()) {
+            const int curr_offset = get_curr_cell_curr_offset();
+            //spdlog::debug("offset {}", curr_offset);
+            if (0 == curr_offset) {
+                const int curr_index = rowIdx * get_num_columns() + colIdx;
+                if (curr_index > 0) {
+                    index = curr_index - 1;
+                }
+            }
+        }
+    }
+    else if (GDK_KEY_Right == event->keyval) {
+        if (not get_is_light()) {
+            const int curr_offset = get_curr_cell_curr_offset();
+            const int max_offset = get_curr_cell_max_offset();
+            //spdlog::debug("offset {}/{}", curr_offset, max_offset);
+            if (max_offset == curr_offset) {
+                const int curr_index = rowIdx * get_num_columns() + colIdx;
+                const int max_index = get_num_rows() * get_num_columns() - 1;
+                if (curr_index < max_index) {
+                    index = curr_index + 1;
+                }
+            }
+        }
+    }
     if (index >= 0) {
         const size_t nextRowIdx = index / get_num_columns();
         const size_t nextColIdx = index % get_num_columns();
@@ -653,6 +679,20 @@ int CtTableHeavy::get_curr_cell_max_line_num() const
     Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
     Gtk::TextIter iter_end = pCurrCellBuffer->end();
     return iter_end.get_line();
+}
+
+int CtTableHeavy::get_curr_cell_curr_offset() const
+{
+    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Gtk::TextIter iter_insert = pCurrCellBuffer->get_insert()->get_iter();
+    return iter_insert.get_offset();
+}
+
+int CtTableHeavy::get_curr_cell_max_offset() const
+{
+    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Gtk::TextIter iter_end = pCurrCellBuffer->end();
+    return iter_end.get_offset();
 }
 
 CtTextView& CtTableHeavy::curr_cell_text_view() const
