@@ -308,12 +308,12 @@ bool CtMiscUtil::system_cmd(const char* shell_cmd, const char* cwd)
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
         if (0 != exit_code) {
-            spdlog::error("!! GetExitCodeProcess({}) returned {}", shell_cmd, exit_code);
+            spdlog::error("!! GetExitCodeProcess(cmd='{}' cwd='{}') returned {}", shell_cmd, cwd, exit_code);
             success = false;
         }
     }
     else {
-        spdlog::error("!! CreateProcessW({})", shell_cmd);
+        spdlog::error("!! CreateProcessW(cmd='{}' cwd='{}')", shell_cmd, cwd);
     }
 #else /* !_WIN32 */
     (void)cwd;
