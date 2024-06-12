@@ -363,7 +363,7 @@ static const char* get_latex_bin_cmd()
 {
     auto _get_latex_bin_cmd = []()->const char*{
 #if defined(_WIN32)
-        return g_strdup("latex.exe");
+        return CONSOLE_BIN_PREFIX[0] ? g_strdup(".\\latex.exe") : g_strdup("latex.exe");
 #else /* !_WIN32 */
         return g_strdup_printf("%slatex", CONSOLE_BIN_PREFIX);
 #endif /* !_WIN32 */
@@ -376,7 +376,7 @@ static const char* get_dvipng_bin_cmd()
 {
     auto _get_dvipng_bin_cmd = []()->const char*{
 #if defined(_WIN32)
-        return g_strdup("dvipng.exe");
+        return CONSOLE_BIN_PREFIX[0] ? g_strdup(".\\dvipng.exe") : g_strdup("dvipng.exe");
 #else /* !_WIN32 */
         return g_strdup_printf("%sdvipng", CONSOLE_BIN_PREFIX);
 #endif /* !_WIN32 */
