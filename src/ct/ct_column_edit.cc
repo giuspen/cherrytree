@@ -519,11 +519,13 @@ void CtColumnEdit::focus_in()
 void CtColumnEdit::selection_update()
 {
     const Gdk::Point cursorPlace = _get_cursor_place();
-    if (_newCursorRowColCallback) {
-        _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
-    }
-    else {
-        spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
+    if (_textView.has_focus()) {
+        if (_newCursorRowColCallback) {
+            _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
+        }
+        else {
+            spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
+        }
     }
     Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
     if (not rTextBuffer->get_has_selection()) {
