@@ -1,7 +1,7 @@
 /*
  * tests_lists.cpp
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -71,8 +71,8 @@ TEST(ListsGroup, CtListInfo_2)
                                pBuffer->get_iter_at_offset(23),
                                pBuffer->get_iter_at_offset(26));
 
-    const CtConfig ct_config;
-    CtList ct_list{&ct_config, pBuffer};
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pBuffer};
 
     CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
     ASSERT_EQ(CtListType::None, curr_list_info.type);
@@ -89,7 +89,7 @@ TEST(ListsGroup, CtListInfo_2)
     ASSERT_EQ(31, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    Glib::ustring out_html = CtExport2Html::html_process_slot(&ct_config,
+    Glib::ustring out_html = CtExport2Html::html_process_slot(pCtConfig,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_2.size()-1,
                                                               pBuffer);
@@ -101,8 +101,8 @@ TEST(ListsGroup, CtListInfo_1)
     Glib::init();
     auto pBuffer = Gsv::Buffer::create();
     pBuffer->set_text(bufferContent_1);
-    const CtConfig ct_config;
-    CtList ct_list{&ct_config, pBuffer};
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pBuffer};
 
     CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
@@ -242,7 +242,7 @@ TEST(ListsGroup, CtListInfo_1)
     ASSERT_EQ(377, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    Glib::ustring out_html = CtExport2Html::html_process_slot(&ct_config,
+    Glib::ustring out_html = CtExport2Html::html_process_slot(pCtConfig,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_1.size()-1,
                                                               pBuffer);

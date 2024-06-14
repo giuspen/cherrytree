@@ -33,8 +33,8 @@
 class CtConfig
 {
 public:
-    CtConfig();
-    CtConfig(const std::string filepath);
+    static CtConfig* GetCtConfig(); /* This is the core instance which is unique and lives with the app */
+    CtConfig(const std::string filepath); /* This is a temporary instance (used for e.g. import) */
 
     static const fs::path ConfigFilename;
     static const fs::path PrintPageSetupFilename;
@@ -271,6 +271,8 @@ public:
                                                               &scalableSmall};
 
 protected:
+    CtConfig(); /* This is the core instance which is unique and lives with the app */
+
     template<class String> bool _populate_string_from_keyfile(std::string key, String* pTarget) {
         bool gotIt{false};
         if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key)) {
@@ -295,6 +297,9 @@ protected:
 
     bool _load_from_file();
     void _ensure_user_styles_exist();
+
+    static CtConfig* _pCtConfig;
+    static std::mutex _getInstanceMutex;
 
     static const size_t _maxTempKeySize{20};
 

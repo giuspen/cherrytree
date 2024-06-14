@@ -45,7 +45,7 @@ public:
     static bool inside_gsv_init;
 
 protected:
-    std::unique_ptr<CtConfig> _uCtCfg;
+    CtConfig* const _pCtConfig;
     std::unique_ptr<CtTmp> _uCtTmp;
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;

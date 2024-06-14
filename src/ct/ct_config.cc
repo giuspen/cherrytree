@@ -37,6 +37,7 @@ const fs::path CtConfig::ConfigStylesDirname{"styles"};
 const fs::path CtConfig::ConfigIconsDirname{"icons"};
 const fs::path CtConfig::UserStyleTemplate{"user-style.xml"};
 
+/* This is the core instance which is unique and lives with the app */
 CtConfig::CtConfig()
  : _configFilepath{fs::get_cherrytree_config_filepath()}
  , _configFilepathTmp{_configFilepath.string() + ".tmp"}
@@ -45,10 +46,23 @@ CtConfig::CtConfig()
     _ensure_user_styles_exist();
 }
 
+/* This is a temporary instance (used for e.g. import) */
 CtConfig::CtConfig(const std::string filepath)
  : _configFilepath{filepath}
 {
     _initLoadFromFileOk = _load_from_file();
+}
+
+/*static*/CtConfig* CtConfig::_pCtConfig{nullptr};
+/*static*/std::mutex CtConfig::_getInstanceMutex;
+
+/*static*/CtConfig* CtConfig::GetCtConfig()
+{
+    std::lock_guard<std::mutex> lock(_getInstanceMutex);
+    if (not _pCtConfig) {
+        _pCtConfig = new CtConfig{};
+    }
+    return _pCtConfig;
 }
 
 void CtConfig::move_from_tmp()

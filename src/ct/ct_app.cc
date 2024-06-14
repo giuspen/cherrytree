@@ -33,6 +33,7 @@
 
 CtApp::CtApp(const Glib::ustring application_id_postfix)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
+ , _pCtConfig{CtConfig::GetCtConfig()}
 {
     CtApp::inside_gsv_init = true;
     // https://gitlab.gnome.org/GNOME/gtksourceviewmm/-/issues/6
@@ -85,8 +86,6 @@ void CtApp::_on_startup()
             spdlog::warn("Could not create config dir {}", config_dir.c_str());
         }
     }
-    _uCtCfg.reset(new CtConfig{});
-    //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
     const fs::path user_dir_icons = config_dir / "icons";
     _rIcontheme = Gtk::IconTheme::get_default();
@@ -117,7 +116,7 @@ void CtApp::_on_startup()
 
     _rCssProvider = Gtk::CssProvider::create();
 
-    _uCtStatusIcon.reset(new CtStatusIcon{*this, _uCtCfg.get()});
+    _uCtStatusIcon.reset(new CtStatusIcon{*this, _pCtConfig});
 
     if (not _no_gui) {
         _pCtApp = this;
@@ -138,8 +137,8 @@ void CtApp::on_activate()
     if (get_windows().size() == 0) {
         // start of main instance
         CtMainWin* pAppWindow = _create_window();
-        if (CtApp::_uCtCfg->reloadDocLast && not CtApp::_uCtCfg->recentDocsFilepaths.empty()) {
-            Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
+        if (_pCtConfig->reloadDocLast && not _pCtConfig->recentDocsFilepaths.empty()) {
+            Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(_pCtConfig->recentDocsFilepaths.front().string());
             if (r_file->query_exists()) {
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
                 if (not pAppWindow->start_on_systray_is_active()) {
@@ -152,13 +151,13 @@ void CtApp::on_activate()
                 }
             }
             else {
-                const fs::path last_doc_path{CtApp::_uCtCfg->recentDocsFilepaths.front()};
+                const fs::path last_doc_path{_pCtConfig->recentDocsFilepaths.front()};
                 spdlog::info("{} Last doc not found: {}", __FUNCTION__, last_doc_path);
-                CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(last_doc_path);
+                _pCtConfig->recentDocsFilepaths.move_or_push_back(last_doc_path);
                 pAppWindow->menu_set_items_recent_documents();
             }
         }
-        if (CtApp::_uCtCfg->checkVersion) {
+        if (_pCtConfig->checkVersion) {
             pAppWindow->get_ct_actions()->check_for_newer_version();
         }
     }
@@ -243,7 +242,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             }
             if (get_windows().size() == 1) {
                 // start of main instance
-                if (CtApp::_uCtCfg->checkVersion) {
+                if (_pCtConfig->checkVersion) {
                     pAppWindow->get_ct_actions()->check_for_newer_version();
                 }
             }
@@ -269,7 +268,7 @@ void CtApp::on_window_removed(Gtk::Window* window)
 CtMainWin* CtApp::_create_window(const bool no_gui)
 {
     CtMainWin* pCtMainWin = new CtMainWin{no_gui,
-                                          _uCtCfg.get(),
+                                          _pCtConfig,
                                           _uCtTmp.get(),
                                           _rIcontheme.get(),
                                           _rTextTagTable,
@@ -341,12 +340,12 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, 
 
     if (not _no_gui) {
         pCtMainWin->config_update_data_from_curr_status();
-        _uCtCfg->write_to_file();
+        _pCtConfig->write_to_file();
     }
 
     if (not fromKillCallback) {
-        _uCtCfg->move_from_tmp();
-        if (_uCtCfg->systrayOn and not pCtMainWin->force_exit()) {
+        _pCtConfig->move_from_tmp();
+        if (_pCtConfig->systrayOn and not pCtMainWin->force_exit()) {
             pCtMainWin->save_position();
             pCtMainWin->set_visible(false);
             return false; // stop deleting window
