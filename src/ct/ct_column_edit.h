@@ -55,6 +55,7 @@ public:
     bool get_ctrl_down() { return _ctrlDown; }
     bool get_alt_down() { return _altDown; }
     bool get_own_insert_delete_active() { return _myOwnInsertDelete; }
+    void focus_in();
 
 private:
     Gdk::Point _get_point(const Gtk::TextIter& textIter);

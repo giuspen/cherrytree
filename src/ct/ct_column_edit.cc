@@ -505,9 +505,8 @@ void CtColumnEdit::button_1_released()
     }
 }
 
-void CtColumnEdit::selection_update()
+void CtColumnEdit::focus_in()
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
     const Gdk::Point cursorPlace = _get_cursor_place();
     if (_newCursorRowColCallback) {
         _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
@@ -515,6 +514,18 @@ void CtColumnEdit::selection_update()
     else {
         spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
     }
+}
+
+void CtColumnEdit::selection_update()
+{
+    const Gdk::Point cursorPlace = _get_cursor_place();
+    if (_newCursorRowColCallback) {
+        _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
+    }
+    else {
+        spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
+    }
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
     if (not rTextBuffer->get_has_selection()) {
         if ( CtColEditState::Off != _state and
              cursorPlace != _get_cursor_column_mode_place() )

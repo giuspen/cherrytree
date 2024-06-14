@@ -89,6 +89,7 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     }, false);
     signal_focus_in_event().connect([this](GdkEventFocus*/*gdk_event*/){
         _set_highlight_current_line_enabled(true);
+        _columnEdit.focus_in();
         return false; /*propagate event*/
     }, false);
     _columnEdit.register_on_off_callback([this](const bool col_edit_on){
