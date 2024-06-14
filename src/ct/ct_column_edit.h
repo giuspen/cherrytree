@@ -1,7 +1,7 @@
 /*
  * ct_column_edit.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -35,10 +35,12 @@ class CtColumnEdit
 {
 public:
     using StateOnOffCallback = std::function<void(const bool)>;
+    using NewCursorRowColCallback = std::function<void(const int, const int)>;
     CtColumnEdit(Gtk::TextView& textView);
 
     CtColEditState get_state() const { return _state; }
     void register_on_off_callback(StateOnOffCallback stateOnOffCallback) { _stateOnOffCallback = stateOnOffCallback; }
+    void register_new_cursor_row_col_callback(NewCursorRowColCallback newCursorRowColCallback) { _newCursorRowColCallback = newCursorRowColCallback; }
     Glib::ustring copy() const;
     Glib::ustring cut();
     void paste(const std::string& column_txt);
@@ -73,6 +75,7 @@ private:
 
     Gtk::TextView& _textView;
     StateOnOffCallback _stateOnOffCallback;
+    NewCursorRowColCallback _newCursorRowColCallback;
     std::atomic<CtColEditState> _state{CtColEditState::Off};
     std::atomic<bool> _ctrlDown{false};
     std::atomic<bool> _altDown{false};

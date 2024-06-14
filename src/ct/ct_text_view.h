@@ -1,7 +1,7 @@
 /*
  * ct_text_view.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -32,6 +32,7 @@
 #include <unordered_map>
 
 class CtMainWin;
+class CtStatusBar;
 
 class CtTextView : public Gsv::View
 {
@@ -123,6 +124,7 @@ private:
 #endif // MD_AUTO_REPLACEMENT
     CtMainWin* const _pCtMainWin;
     CtConfig* const _pCtConfig;
+    CtStatusBar* const _pCtStatusBar;
     CtColumnEdit _columnEdit;
     guint32      _todoRotateTime{0};
     std::string  _syntaxHighlighting;

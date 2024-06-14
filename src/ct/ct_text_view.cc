@@ -32,6 +32,7 @@ std::unordered_map<std::string, GspellChecker*> CtTextView::_static_spell_checke
 CtTextView::CtTextView(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{_pCtMainWin->get_ct_config()}
+ , _pCtStatusBar{&_pCtMainWin->get_status_bar()}
  , _columnEdit{*this}
 {
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
@@ -54,7 +55,7 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     }
 
     // column edit signals
-    signal_event_after().connect([&](GdkEvent* pEvent){
+    signal_event_after().connect([this](GdkEvent* pEvent){
         switch (pEvent->type) {
             case GDK_KEY_PRESS: {
                 if (pEvent->key.keyval == GDK_KEY_Control_L) {
@@ -81,18 +82,21 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
                 break;
         }
     }, false);
-    signal_focus_out_event().connect([&](GdkEventFocus* /*gdk_event*/){
+    signal_focus_out_event().connect([this](GdkEventFocus*/*gdk_event*/){
         _columnEdit.column_mode_off();
         _set_highlight_current_line_enabled(false);
         return false; /*propagate event*/
     }, false);
-    signal_focus_in_event().connect([&](GdkEventFocus* /*gdk_event*/){
+    signal_focus_in_event().connect([this](GdkEventFocus*/*gdk_event*/){
         _set_highlight_current_line_enabled(true);
         return false; /*propagate event*/
     }, false);
-    _columnEdit.register_on_off_callback([&](const bool col_edit_on){
+    _columnEdit.register_on_off_callback([this](const bool col_edit_on){
         _set_highlight_current_line_enabled(not col_edit_on);
         spdlog::debug("colMode {}", col_edit_on);
+    });
+    _columnEdit.register_new_cursor_row_col_callback([this](const int r, const int c){
+        _pCtStatusBar->new_cursor_pos(r, c);
     });
 }
 

@@ -42,6 +42,7 @@
 struct CtStatusBar
 {
     Gtk::Statusbar   statusBar;
+    Gtk::Label       cursorPos;
     guint            statusId;
     Gtk::ProgressBar progressBar;
     Gtk::Button      stopButton;
@@ -53,9 +54,12 @@ struct CtStatusBar
     void push(const Glib::ustring& text) { statusBar.push(text, statusId); }
     void pop() { statusBar.pop(statusId); }
     void update_status(const Glib::ustring& text) { pop(); push(text); }
+    void new_cursor_pos(const int r, const int c);
 
 private:
-    bool _progress_stop;
+    bool _progress_stop{false};
+    int _r{-1};
+    int _c{-1};
 };
 
 struct CtWinHeader

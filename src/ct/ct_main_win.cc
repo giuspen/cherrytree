@@ -26,6 +26,15 @@
 #include "ct_storage_control.h"
 #include "ct_clipboard.h"
 
+void CtStatusBar::new_cursor_pos(const int r, const int c)
+{
+    if (_r != r or _c != c) {
+        cursorPos.set_text(Glib::ustring::sprintf(" (%d,%d)", r, c));
+        _r = r;
+        _c = c;
+    }
+}
+
 CtMainWin::CtMainWin(bool                            no_gui,
                      CtConfig*                       pCtConfig,
                      CtTmp*                          pCtTmp,
@@ -412,6 +421,7 @@ Gtk::HBox& CtMainWin::_init_status_bar()
     _ctStatusBar.frame.set_shadow_type(Gtk::SHADOW_NONE);
     _ctStatusBar.frame.add(_ctStatusBar.progressBar);
     _ctStatusBar.stopButton.set_image_from_icon_name("ct_stop", Gtk::ICON_SIZE_MENU);
+    _ctStatusBar.hbox.pack_start(_ctStatusBar.cursorPos, false, false);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.statusBar, true, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.frame, false, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.stopButton, false, true);

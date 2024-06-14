@@ -1,7 +1,7 @@
 /*
  * ct_column_edit.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -365,6 +365,15 @@ void CtColumnEdit::column_mode_off()
 
 void CtColumnEdit::text_inserted(const Gtk::TextIter& pos, const Glib::ustring& text)
 {
+    Glib::signal_idle().connect_once([&](){
+        const Gdk::Point cursorPlace = _get_cursor_place();
+        if (_newCursorRowColCallback) {
+            _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
+        }
+        else {
+            spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
+        }
+    });  
     if (CtColEditState::Off == _state or _myOwnInsertDelete) {
         return;
     }
@@ -383,6 +392,15 @@ void CtColumnEdit::text_inserted(const Gtk::TextIter& pos, const Glib::ustring& 
 
 void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end)
 {
+    Glib::signal_idle().connect_once([&](){
+        const Gdk::Point cursorPlace = _get_cursor_place();
+        if (_newCursorRowColCallback) {
+            _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
+        }
+        else {
+            spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
+        }
+    }); 
     if (CtColEditState::Off == _state or _myOwnInsertDelete) {
         return;
     }
@@ -490,9 +508,16 @@ void CtColumnEdit::button_1_released()
 void CtColumnEdit::selection_update()
 {
     Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+    const Gdk::Point cursorPlace = _get_cursor_place();
+    if (_newCursorRowColCallback) {
+        _newCursorRowColCallback(cursorPlace.get_y()+1, cursorPlace.get_x());
+    }
+    else {
+        spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
+    }
     if (not rTextBuffer->get_has_selection()) {
         if ( CtColEditState::Off != _state and
-             _get_cursor_place() != _get_cursor_column_mode_place() )
+             cursorPlace != _get_cursor_column_mode_place() )
         {
             column_mode_off();
         }
