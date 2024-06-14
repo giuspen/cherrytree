@@ -253,6 +253,11 @@ public:
     std::string                                 customBackupDir{""};
     int                                         limitUndoableSteps{10};
 
+    // [proxy]
+    std::string                                 proxyUrlColonPort;
+    std::string                                 proxyUsername;
+    std::string                                 proxyPassword;
+
     // [keyboard]
     std::map<std::string, std::string>          customKbShortcuts;
 

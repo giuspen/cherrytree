@@ -1,7 +1,7 @@
 /*
   ct_filesystem.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -514,6 +514,7 @@ std::string download_file(const std::string& filepath)
             return realsize;
         }
     };
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
 
     spdlog::debug("fs::download_file: start downloading {}", filepath);
 
@@ -525,6 +526,15 @@ std::string download_file(const std::string& filepath)
     CURL* pCurlHandle = curl_easy_init();
 
     curl_easy_setopt(pCurlHandle, CURLOPT_URL, filepath.c_str());
+    if (not pCtConfig->proxyUrlColonPort.empty()) {
+        curl_easy_setopt(pCurlHandle, CURLOPT_PROXY, pCtConfig->proxyUrlColonPort.c_str());
+        if (not pCtConfig->proxyUsername.empty()) {
+            curl_easy_setopt(pCurlHandle, CURLOPT_PROXYUSERNAME, pCtConfig->proxyUsername.c_str());
+            if (not pCtConfig->proxyPassword.empty()) {
+                curl_easy_setopt(pCurlHandle, CURLOPT_PROXYPASSWORD, pCtConfig->proxyPassword.c_str());
+            }
+        }
+    }
     curl_easy_setopt(pCurlHandle, CURLOPT_WRITEFUNCTION, local::write_memory_callback);
     curl_easy_setopt(pCurlHandle, CURLOPT_WRITEDATA, (void*)&buffer);
     curl_easy_setopt(pCurlHandle, CURLOPT_TIMEOUT, 3);

@@ -421,6 +421,12 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "custom_backup_dir", customBackupDir);
     _uKeyFile->set_integer(_currentGroup, "limit_undoable_steps", limitUndoableSteps);
 
+    // [proxy]
+    _currentGroup = "proxy";
+    _uKeyFile->set_string(_currentGroup, "proxy_urlcolonport", proxyUrlColonPort);
+    _uKeyFile->set_string(_currentGroup, "proxy_username", proxyUsername);
+    _uKeyFile->set_string(_currentGroup, "proxy_password", proxyPassword);
+
     // [keyboard]
     _currentGroup = "keyboard";
     _populate_current_group_from_map(customKbShortcuts);
@@ -755,6 +761,12 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("enable_custom_backup_dir", &customBackupDirOn);
     _populate_string_from_keyfile("custom_backup_dir", &customBackupDir);
     _populate_int_from_keyfile("limit_undoable_steps", &limitUndoableSteps);
+
+    // [proxy]
+    _currentGroup = "proxy";
+    _populate_string_from_keyfile("proxy_urlcolonport", &proxyUrlColonPort);
+    _populate_string_from_keyfile("proxy_username", &proxyUsername);
+    _populate_string_from_keyfile("proxy_password", &proxyPassword);
 
     // [keyboard]
     _currentGroup = "keyboard";

@@ -358,6 +358,9 @@ void CtActions::preferences_import()
     _pCtConfig->customBackupDirOn = ctConfigImported.customBackupDirOn;
     _pCtConfig->customBackupDir = ctConfigImported.customBackupDir;
     _pCtConfig->limitUndoableSteps = ctConfigImported.limitUndoableSteps;
+    _pCtConfig->proxyUrlColonPort = ctConfigImported.proxyUrlColonPort;
+    _pCtConfig->proxyUsername = ctConfigImported.proxyUsername;
+    _pCtConfig->proxyPassword = ctConfigImported.proxyPassword;
     for (const auto& currPair : ctConfigImported.customKbShortcuts) {
         _pCtConfig->customKbShortcuts[currPair.first] = currPair.second;
     }
