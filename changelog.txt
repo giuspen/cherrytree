@@ -1,3 +1,21 @@
+1.1.3 (June 14th, 2024)
+  * new multifile data storage, added data integrity check after save (re-read and parse) (#2505)
+  * new multifile data storage, in case of corruption, all backups are looked for data recovery starting from the most recent (#2505)
+  * fixed crash when importing text file for incorrect detection of encoding (#2492)
+  * fixed crash in case of a duplicated button configured in the toolbar (#2482)
+  * workaround for crash in Gsv::Init() -> [gtk] [critical] Class::register_derived_type(): base_query.type_name is NULL (#2518)
+  * added support for moving cursor to table cell above/below when key up pressed on first line/down pressed on the last line (#2523)
+  * added support for moving cursor to table cell previous/next when key left pressed before first character/right pressed after the last character (#2523)
+  * added in statusbar the position (row,column) of the cursor
+  * do not allow in the preferences dialog, toolbar configurator, to add a button twice (#2482)
+  * added checks to prevent a save as or export overwriting the currently open document as it is not supported (#2504)
+  * drag and drop of text, fixed issus and added support for copy instead of move
+  * fixed right click -> copy link not working if there is a text selection (#2362)
+  * fixed syntax highlighting broken in the AppImage (#2493)
+  * replaced regular expression help dead url (#2511)
+  * added in config.cfg the group [proxy] to support downloading data/checking for new version available from behind a proxy (#2522)
+  * incomplete languages: fi, hi_IN, hu
+
 1.1.2 (April 4th, 2024)
   * fixed regression issues with the search (#2469)
   * fixed regression crash when deleting a node with children (#2476)
