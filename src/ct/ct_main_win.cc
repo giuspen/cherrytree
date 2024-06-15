@@ -29,7 +29,11 @@
 void CtStatusBar::new_cursor_pos(const int r, const int c)
 {
     if (_r != r or _c != c) {
+#if GLIBMM_MAJOR_VERSION > 2 || (GLIBMM_MAJOR_VERSION == 2 && GLIBMM_MINOR_VERSION >= 62)
         cursorPos.set_text(Glib::ustring::sprintf(" (%d,%d)", r, c));
+#else /* glibmm < 2.62 */
+        cursorPos.set_text(fmt::format(" ({},{})", r, c));
+#endif /* glibmm < 2.62 */
         _r = r;
         _c = c;
     }
