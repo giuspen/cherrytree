@@ -54,6 +54,15 @@ void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, cons
 
 int main(int argc, char *argv[])
 {
+#if !defined(_WIN32) && !defined(__APPLE__)
+    try {
+        std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
+    }
+    catch (std::exception& e) {
+        g_warning("%s\n", e.what());
+    }
+#endif /* !_WIN32 && !__APPLE__ */
+
     {
         const char* pExePath = argv[0];
 #if defined(_WIN32)
