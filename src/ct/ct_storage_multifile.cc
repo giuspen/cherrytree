@@ -533,6 +533,8 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                             }
                             spdlog::debug("parse backed up data ok, copying {} -> {}", backup_node_xml_path, node_xml_path);
                             fs::copy_file(backup_node_xml_path, node_xml_path);
+                            if (error.empty()) error += _("A Restore From Backup Was Necessary For:");
+                            error += "\n\n" + node_xml_path.string();
                             break;
                         }
                     }

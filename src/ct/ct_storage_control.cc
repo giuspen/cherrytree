@@ -78,11 +78,11 @@
             }
         }
 
-        // choose storage type
+        // detect storage type
         std::unique_ptr<CtStorageEntity> pStorage = CtStorageControl::_get_entity_by_type(pCtMainWin, doc_type);
         if (not pStorage) throw std::runtime_error("no storage");
 
-        // load from file
+        // load from file / folder
         if (not pStorage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
 
         // it's ready

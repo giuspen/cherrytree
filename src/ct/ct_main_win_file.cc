@@ -170,11 +170,11 @@ bool CtMainWin::file_open(const fs::path& filepath,
     _ensure_curr_doc_in_recent_docs();
     reset(); // cannot reset after load_from because load_from fill tree store
 
-    Glib::ustring error;
-    CtStorageControl* new_storage = CtStorageControl::load_from(this, filepath, doc_type, error, password);
+    Glib::ustring error_or_warning;
+    CtStorageControl* new_storage = CtStorageControl::load_from(this, filepath, doc_type, error_or_warning, password);
     if (not new_storage) {
-        if (not error.empty()) {
-            CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree Path:\n\"%s\""), str::xml_escape(error)), *this);
+        if (not error_or_warning.empty()) {
+            CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree Path:\n\"%s\""), str::xml_escape(error_or_warning)), *this);
         }
 
         // trying to recover prevous document
@@ -249,6 +249,10 @@ bool CtMainWin::file_open(const fs::path& filepath,
 
     _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(filepath));
     menu_set_items_recent_documents();
+
+    if (not error_or_warning.empty()) {
+        CtDialogs::warning_dialog(str::xml_escape(error_or_warning), *this);
+    }
 
     return true;
 }
