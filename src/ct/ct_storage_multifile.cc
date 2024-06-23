@@ -515,9 +515,11 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
             if (not parsingOk) {
                 std::string first_backup_dir;
                 CtStorageControl::get_first_backup_file_or_dir(first_backup_dir, _dir_path.string(), _pCtMainWin->get_ct_config());
+                int missing_backup{0};
                 for (int b = 0; b < 100; ++b) {
                     const fs::path curr_backup_dir = first_backup_dir + str::repeat(CtConst::CHAR_TILDE, b).raw();
                     if (fs::is_directory(curr_backup_dir)) {
+                        missing_backup = 0;
                         spdlog::debug("backed up data, {} found", curr_backup_dir);
                         const fs::path backup_node_xml_path = curr_backup_dir / nodedir.filename() / NODE_XML;
                         try {
@@ -540,7 +542,7 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                     }
                     else {
                         spdlog::debug("?? backed up data, {} missing", curr_backup_dir);
-                        break;
+                        if (++missing_backup > 3) break;
                     }
                 }
             }

@@ -165,8 +165,6 @@ bool CtMainWin::file_open(const fs::path& filepath,
         return false;
     }
 
-    fs::path prev_path = _uCtStorage->get_file_path();
-
     _ensure_curr_doc_in_recent_docs();
     reset(); // cannot reset after load_from because load_from fill tree store
 
@@ -176,12 +174,46 @@ bool CtMainWin::file_open(const fs::path& filepath,
         if (not error_or_warning.empty()) {
             CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree Path:\n\"%s\""), str::xml_escape(error_or_warning)), *this);
         }
-
-        // trying to recover prevous document
-        if (not prev_path.empty()) {
-            file_open(prev_path, ""/*node*/, ""/*anchor*/); // it won't be in loop because storage is empty
+        if (CtDocType::MultiFile != doc_type) {
+            // NOTE: MultiFile storage has a different recover mechanism from the backups
+            if (CtDialogs::question_dialog(_("Do you want to Open the Last Backup?"), *this)) {
+                fs::path filepath_parked{filepath};
+                filepath_parked += (std::to_string(g_get_monotonic_time()) + filepath.extension());
+                fs::move_file(filepath, filepath_parked);
+                spdlog::debug("parked {} -> {}", filepath.string(), filepath_parked.string());
+                std::string first_backup_file;
+                CtStorageControl::get_first_backup_file_or_dir(first_backup_file, filepath.string(), _pCtConfig);
+                int missing_backup{0};
+                for (int b = 0; b < 100; ++b) {
+                    const fs::path curr_backup_file = first_backup_file + str::repeat(CtConst::CHAR_TILDE, b).raw();
+                    if (fs::is_regular_file(curr_backup_file)) {
+                        missing_backup = 0;
+                        error_or_warning.clear();
+                        fs::move_file(curr_backup_file, filepath);
+                        spdlog::debug("trying {} -> {}", curr_backup_file.string(), filepath.string());
+                        new_storage = CtStorageControl::load_from(this, filepath, doc_type, error_or_warning, password);
+                        if (new_storage) {
+                            spdlog::debug("OK recover from {}", curr_backup_file);
+                            break;
+                        }
+                        fs::move_file(filepath, curr_backup_file);
+                        spdlog::debug("moved back {} -> {}", filepath.string(), curr_backup_file.string());
+                    }
+                    else {
+                        spdlog::debug("?? backed up data, {} missing", curr_backup_file);
+                        if (++missing_backup > 3) break;
+                    }
+                }
+                if (not new_storage) {
+                    CtDialogs::error_dialog(_("Failed to Load from Backup Data"), *this);
+                    fs::move_file(filepath_parked, filepath);
+                    spdlog::debug("unparked {} -> {}", filepath_parked.string(), filepath.string());
+                }
+            }
         }
-        return false; // show the given document is not loaded
+        if (not new_storage) {
+            return false; // show the given document is not loaded
+        }
     }
 
     _uCtStorage.reset(new_storage);
