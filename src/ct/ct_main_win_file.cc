@@ -174,7 +174,8 @@ bool CtMainWin::file_open(const fs::path& filepath,
         if (not error_or_warning.empty()) {
             CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree Path:\n\"%s\""), str::xml_escape(error_or_warning)), *this);
         }
-        if (CtDocType::MultiFile != doc_type) {
+        // an empty error_or_warning means that the user pressed cancel on the request for password dialog
+        if (not error_or_warning.empty() and CtDocType::MultiFile != doc_type) {
             // NOTE: MultiFile storage has a different recover mechanism from the backups
             if (CtDialogs::question_dialog(_("Do you want to Open the Last Backup?"), *this)) {
                 fs::path filepath_parked{filepath};

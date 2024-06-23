@@ -1,7 +1,7 @@
 /*
  * tests_tmp_n_p7zip.cpp
  *
- * Copyright 2009-2020
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -110,7 +110,11 @@ TEST(TmpP7zipGroup, P7zaExtravtWrongPasswd)
     const std::string ctdTmpPath{(ctTmp.getHiddenDirPath(UT::ctzInputPath) /"7zr.ctd").string()};
 
     // wrong password
-    ASSERT_TRUE(0 != CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), "wrongpassword", true));
+    ASSERT_EQ(2, CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), "wrongpassword", true));
+    ASSERT_FALSE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
+
+    // not an archive
+    ASSERT_EQ(3, CtP7zaIface::p7za_extract(UT::testCtbDocPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), "wrongpassword", true));
     ASSERT_FALSE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
 
     // correct password

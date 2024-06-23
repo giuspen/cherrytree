@@ -714,7 +714,7 @@ int Main2(int numArgs, char *args[])
         }
 
         if (isError)
-          retCode = NExitCode::kFatalError;
+          retCode = ecs->NumCantOpenArcs > 0 ? NExitCode::kFatalCantOpenArcs : NExitCode::kFatalError;
 
         if (so)
         {

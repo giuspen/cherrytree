@@ -33,6 +33,8 @@
 
 //#define DEBUG_BACKUP_ENCRYPT
 
+static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
+
 /*static*/std::unique_ptr<CtStorageEntity> CtStorageControl::_get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (CtDocType::SQLite == file_type) {
@@ -74,6 +76,9 @@
                 if (extracted_file_path.empty()) {
                     // user canceled operation
                     return nullptr;
+                }
+                if (extracted_file_path.string() == BAD_ARCHIVE) {
+                    throw std::runtime_error(str::format(_("'%s' is Not a Valid Archive"), file_path));
                 }
             }
         }
@@ -428,7 +433,8 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
             }
             password = dialogTextEntry.get_entry_text();
         }
-        if (0 == CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str(), false)) {
+        const int retVal = CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str(), false);
+        if (0 == retVal) {
             if (fs::is_regular_file(temp_file_path)) {
                 return temp_file_path;
             }
@@ -442,7 +448,10 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
             }
         }
         else {
-            spdlog::debug("!! CtP7zaIface::p7za_extract");
+            spdlog::debug("!! CtP7zaIface::p7za_extract retVal={}", retVal);
+            if (3 == retVal) {
+                return fs::path{BAD_ARCHIVE};
+            }
         }
         password.clear();
     }
@@ -736,6 +745,9 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& file_path,
         if (extracted_file_path.empty()) {
             // user canceled operation
             return;
+        }
+        if (extracted_file_path.string() == BAD_ARCHIVE) {
+            throw std::runtime_error(str::format(_("'%s' is Not a Valid Archive"), file_path));
         }
     }
 
