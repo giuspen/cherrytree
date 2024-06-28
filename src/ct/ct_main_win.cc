@@ -688,14 +688,33 @@ void CtMainWin::config_switch_tree_side()
     _pCtConfig->hpanedPos = _hPaned.property_position();
 }
 
-void CtMainWin::_zoom_tree(bool is_increase)
+void CtMainWin::_zoom_tree(const std::optional<bool> is_increase)
 {
-    Glib::RefPtr<Gtk::StyleContext> context = _uCtTreeview->get_style_context();
-    const Pango::FontDescription fontDesc = context->get_font(context->get_state());
-    int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
-    if (size < 6) size = 6;
-    _pCtConfig->treeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->treeFont), size);
-    signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+    Glib::RefPtr<Gtk::StyleContext> pContext = _uCtTreeview->get_style_context();
+    const Pango::FontDescription fontDesc = pContext->get_font(pContext->get_state());
+    const int size_pre = fontDesc.get_size() / Pango::SCALE;
+    int size_new = 0;
+    if (is_increase.has_value()) {
+        if (0 == _pCtConfig->treeResetFontSize) {
+            _pCtConfig->treeResetFontSize = size_pre;
+            spdlog::debug("{} set reset to {}", __FUNCTION__, size_pre);
+        }
+        size_new = size_pre + (is_increase.value() ? 1 : -1);
+    }
+    else {
+        // it's a reset
+        if (0 == _pCtConfig->treeResetFontSize || size_pre == _pCtConfig->treeResetFontSize) {
+            spdlog::debug("{} reset not necessary", __FUNCTION__);
+        }
+        else {
+            size_new = _pCtConfig->treeResetFontSize;
+        }
+    }
+    if (size_new > 0) {
+        if (size_new < 6) size_new = 6;
+        _pCtConfig->treeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->treeFont), size_new);
+        signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+    }
 }
 
 void CtMainWin::reset()

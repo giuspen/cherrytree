@@ -194,11 +194,18 @@ public:
 
     // [fonts]
     Glib::ustring                               rtFont{CtConst::FONT_RT_DEFAULT};
+    int                                         rtResetFontSize{0};
     Glib::ustring                               ptFont{CtConst::FONT_PT_DEFAULT};
+    int                                         ptResetFontSize{0};
     Glib::ustring                               treeFont{CtConst::FONT_TREE_DEFAULT};
+    int                                         treeResetFontSize{0};
     Glib::ustring                               codeFont{CtConst::FONT_CODE_DEFAULT};
+    int                                         codeResetFontSize{0};
     Glib::ustring                               vteFont{CtConst::FONT_VTE_DEFAULT};
     Glib::ustring                               fallbackFontFamily{"Sans"};
+    bool                                        msDedicatedFont{false};
+    Glib::ustring                               monospaceFont{CtConst::FONT_MS_DEFAULT};
+    int                                         msResetFontSize{0};
 
     // [colors]
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
@@ -207,8 +214,6 @@ public:
     std::string                                 ttSelBg{CtConst::TREE_TEXT_SEL_BG};
     std::string                                 monospaceFg{CtConst::DEFAULT_MONOSPACE_FG};
     std::string                                 monospaceBg;
-    bool                                        msDedicatedFont{false};
-    Glib::ustring                               monospaceFont{CtConst::FONT_MS_DEFAULT};
     CtScalableTag                               scalableH1{CtConst::SCALABLE_H1_DEFAULT};
     CtScalableTag                               scalableH2{CtConst::SCALABLE_H2_DEFAULT};
     CtScalableTag                               scalableH3{CtConst::SCALABLE_H3_DEFAULT};

@@ -357,6 +357,10 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                 _ctTextview.zoom_text(false, get_syntax_highlighting());
                 return true;
             }
+            if (GDK_KEY_0 == event->keyval or GDK_KEY_KP_0 == event->keyval) {
+                _ctTextview.zoom_text(std::nullopt, get_syntax_highlighting());
+                return true;
+            }
         }
     }
     //std::cout << "keyval " << event->keyval << std::endl;
@@ -371,7 +375,7 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                     _ctTextview.list_change_level(iter_insert, list_info, false);
                     return true;
                 }
-                else if (not backward) {
+                if (not backward) {
                     _ctTextview.list_change_level(iter_insert, list_info, true);
                     return true;
                 }

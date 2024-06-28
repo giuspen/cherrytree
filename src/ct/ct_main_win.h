@@ -263,7 +263,7 @@ private:
 
     void _reset_CtTreestore_CtTreeview();
     void _ensure_curr_doc_in_recent_docs();
-    void _zoom_tree(bool is_increase);
+    void _zoom_tree(const std::optional<bool> is_increase);
     bool _try_move_focus_to_anchored_widget_if_on_it();
 
 private:

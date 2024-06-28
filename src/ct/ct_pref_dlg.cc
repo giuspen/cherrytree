@@ -274,11 +274,13 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
 
     auto f_on_font_rt_set = [this, fontbutton_rt](){
         _pConfig->rtFont = fontbutton_rt->get_font_name();
+        _pConfig->rtResetFontSize = 0;
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     };
     fontbutton_rt->signal_font_set().connect(f_on_font_rt_set);
     checkbutton_ms->signal_toggled().connect([this, checkbutton_ms, fontbutton_ms](){
         _pConfig->msDedicatedFont = checkbutton_ms->get_active();
+        _pConfig->msResetFontSize = 0;
         fontbutton_ms->set_sensitive(_pConfig->msDedicatedFont);
         if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
             tag->property_family() = _pConfig->msDedicatedFont ? "" : CtConst::TAG_PROP_VAL_MONOSPACE;
@@ -296,11 +298,13 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     fontbutton_ms->signal_font_set().connect(f_on_font_ms_set);
     auto f_on_font_pt_set = [this, fontbutton_pt](){
         _pConfig->ptFont = fontbutton_pt->get_font_name();
+        _pConfig->ptResetFontSize = 0;
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     };
     fontbutton_pt->signal_font_set().connect(f_on_font_pt_set);
     auto f_on_font_code_set = [this, fontbutton_code](){
         _pConfig->codeFont = fontbutton_code->get_font_name();
+        _pConfig->codeResetFontSize = 0;
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     };
     fontbutton_code->signal_font_set().connect(f_on_font_code_set);
@@ -313,6 +317,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
 #endif // HAVE_VTE
     auto f_on_font_tree_set = [this, fontbutton_tree](){
         _pConfig->treeFont = fontbutton_tree->get_font_name();
+        _pConfig->treeResetFontSize = 0;
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
     };
     fontbutton_tree->signal_font_set().connect(f_on_font_tree_set);

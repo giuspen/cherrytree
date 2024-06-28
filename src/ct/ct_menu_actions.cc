@@ -257,7 +257,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Toggle h5 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h5)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_h6", "ct_fmt-txt-h6", _("Toggle h_6 Property"), KB_CONTROL+"6",
         _("Toggle h6 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h6)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_small", "ct_fmt-txt-small", _("Toggle _Small Property"), KB_CONTROL+"0",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_small", "ct_fmt-txt-small", _("Toggle _Small Property"), None,
         _("Toggle Small Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_small)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_superscript", "ct_fmt-txt-superscript", _("Toggle Su_perscript Property"), None,
         _("Toggle Superscript Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_superscript)});
