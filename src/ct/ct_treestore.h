@@ -137,6 +137,8 @@ public:
     void pending_edit_db_node_hier();
     void pending_new_db_node();
 
+    const char* get_cherrytree_filepath() const;
+
     static int  get_pango_weight_from_is_bold(const bool isBold);
     static bool get_is_bold_from_pango_weight(const int pangoWeight);
 

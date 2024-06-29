@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -236,7 +236,7 @@ void CtClipboard::node_link_to_clipboard(CtTreeIter node)
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {}">{}</rich_text></slot></root>)XML";
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(node.get_node_name()));
-    clip_data->plain_text = "node: " + node.get_node_name();
+    clip_data->plain_text = fmt::format("{} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str());
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
 }
@@ -246,7 +246,7 @@ void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring&
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {} {}">{}</rich_text></slot></root>)XML";
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
-    clip_data->plain_text = "anchor: " + anchor_name;
+    clip_data->plain_text = fmt::format("{} - {} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str(), anchor_name);
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
 }
