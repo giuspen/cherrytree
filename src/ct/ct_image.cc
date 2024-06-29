@@ -410,9 +410,8 @@ static const char* get_dvipng_bin_cmd()
     const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
     if (not success or not fs::is_regular_file(tmp_filepath_dvi)) {
         if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_dvi.c_str());
-        _renderingBinariesLatexOk = false;
         // fallback
-        return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+        return pCtMainWin->get_icon_theme()->load_icon("ct_bug", 48);
     }
     const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
     const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
