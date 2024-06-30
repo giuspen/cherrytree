@@ -254,7 +254,7 @@ for element_rel in dvipng.exe \
                    libdav1d-7.dll \
                    rav1e.dll \
                    libde265-0.dll \
-                   libx265.dll \
+                   libx265-209.dll \
                    libSvtAv1Enc-2.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
