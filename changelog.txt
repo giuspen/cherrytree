@@ -1,3 +1,12 @@
+1.1.4 (June 30th, 2024)
+  * implemented reset of zoom with Ctrl+0 (#1835)
+  * fixed syntax error in latex box wrongly detected as a failure to access latex executable (#2534)
+  * copy link to node and copy anchor link to include absolute path to the cherrytree document and hierarchical path to node (#2452)
+  * added auto recovery from a backup (after asking the user) in case of corrupted cherrytree single file document (.ctd, .ctz, .ctb, .ctx)
+  * added warning message in case an automatic restore from backup was necessary for the new multifile data storage document
+  * fixed regression with locale in some linux systems (#2529)
+  * incomplete languages: fi, hi_IN, hu
+
 1.1.3 (June 14th, 2024)
   * new multifile data storage, added data integrity check after save (re-read and parse) (#2505)
   * new multifile data storage, in case of corruption, all backups are looked for data recovery starting from the most recent (#2505)
