@@ -390,8 +390,10 @@ void CtMainWin::update_theme()
             case Pango::Stretch::STRETCH_ULTRA_EXPANDED: stretch_str = "ultra-expanded"; break;
             default: break;
         }
-        retStr += fmt::format("; font-size: {}pt; font-weight: {}; font-style: {}; font-stretch: {}; }} ",
-            std::to_string(font.get_size()/Pango::SCALE), std::to_string(font.get_weight()), style_str, stretch_str);
+        const Pango::Variant variant_enum = font.get_variant();
+        const char* variant_str = Pango::Variant::VARIANT_SMALL_CAPS == variant_enum ? "small-caps" : "normal";
+        retStr += fmt::format("; font-size: {}pt; font-weight: {}; font-style: {}; font-stretch: {}; font-variant: {}; }} ",
+            std::to_string(font.get_size()/Pango::SCALE), std::to_string(font.get_weight()), style_str, stretch_str, variant_str);
         return retStr;
     };
 
