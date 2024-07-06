@@ -358,17 +358,23 @@ void CtMainWin::config_update_data_from_curr_status()
 
 void CtMainWin::update_theme()
 {
-    auto font_to_string = [](const Pango::FontDescription& font, const Glib::ustring& fallbackFont)->std::string{
+    auto font_to_string = [](const Pango::FontDescription& font, const Glib::ustring&
+#if defined(_WIN32)
+                                                                                      fallbackFont
+#endif /* _WIN32 */
+                            )->std::string{
         // adds fallback font on Win32; on Linux, fonts work ok without explicit fallback
         // https://docs.gtk.org/gtk3/css-properties.html#font-properties
-#ifdef _WIN32
-        return " { font-family: \"" + Glib::locale_from_utf8(font.get_family()) + "\",\"" + fallbackFont +  "\""
-                    "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; " + "font-weight: " + std::to_string(font.get_weight()) + "; } ";
-#else
-        (void)fallbackFont; // to silence the warning
-        return std::string{" { font-family: "} + Glib::locale_from_utf8(font.get_family()) +
-                 "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; " + "font-weight: " + std::to_string(font.get_weight()) + "; } ";
-#endif
+        // NOTE: {{ and }} are fmt::format escapes for { and }
+        std::string retStr = fmt::format(" {{ font-family: \"{}\"", Glib::locale_from_utf8(font.get_family()));
+#if defined(_WIN32)
+        retStr += fmt::format(",\"{}\"", fallbackFont.raw());
+#endif /* _WIN32 */
+        const Pango::Style style_enum = font.get_style();
+        const char* style_str = Pango::Style::STYLE_OBLIQUE == style_enum ? "oblique" : (Pango::Style::STYLE_ITALIC == style_enum ? "italic" : "normal");
+        retStr += fmt::format("; font-size: {}pt; font-weight: {}; font-style: {}; }} ",
+            std::to_string(font.get_size()/Pango::SCALE), std::to_string(font.get_weight()), style_str);
+        return retStr;
     };
 
     std::string rtFont = font_to_string(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
