@@ -371,9 +371,27 @@ void CtMainWin::update_theme()
         retStr += fmt::format(",\"{}\"", fallbackFont.raw());
 #endif /* _WIN32 */
         const Pango::Style style_enum = font.get_style();
-        const char* style_str = Pango::Style::STYLE_OBLIQUE == style_enum ? "oblique" : (Pango::Style::STYLE_ITALIC == style_enum ? "italic" : "normal");
-        retStr += fmt::format("; font-size: {}pt; font-weight: {}; font-style: {}; }} ",
-            std::to_string(font.get_size()/Pango::SCALE), std::to_string(font.get_weight()), style_str);
+        const char* style_str = "normal";
+        switch (style_enum) {
+            case Pango::Style::STYLE_OBLIQUE: style_str = "oblique"; break;
+            case Pango::Style::STYLE_ITALIC: style_str = "italic"; break;
+            default: break;
+        }
+        const Pango::Stretch stretch_enum = font.get_stretch();
+        const char* stretch_str = "normal";
+        switch (stretch_enum) {
+            case Pango::Stretch::STRETCH_ULTRA_CONDENSED: stretch_str = "ultra-condensed"; break;
+            case Pango::Stretch::STRETCH_EXTRA_CONDENSED: stretch_str = "extra-condensed"; break;
+            case Pango::Stretch::STRETCH_CONDENSED: stretch_str = "condensed"; break;
+            case Pango::Stretch::STRETCH_SEMI_CONDENSED: stretch_str = "semi-condensed"; break;
+            case Pango::Stretch::STRETCH_SEMI_EXPANDED: stretch_str = "semi-expanded"; break;
+            case Pango::Stretch::STRETCH_EXPANDED: stretch_str = "expanded"; break;
+            case Pango::Stretch::STRETCH_EXTRA_EXPANDED: stretch_str = "extra-expanded"; break;
+            case Pango::Stretch::STRETCH_ULTRA_EXPANDED: stretch_str = "ultra-expanded"; break;
+            default: break;
+        }
+        retStr += fmt::format("; font-size: {}pt; font-weight: {}; font-style: {}; font-stretch: {}; }} ",
+            std::to_string(font.get_size()/Pango::SCALE), std::to_string(font.get_weight()), style_str, stretch_str);
         return retStr;
     };
 
