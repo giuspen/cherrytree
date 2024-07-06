@@ -360,13 +360,14 @@ void CtMainWin::update_theme()
 {
     auto font_to_string = [](const Pango::FontDescription& font, const Glib::ustring& fallbackFont)->std::string{
         // adds fallback font on Win32; on Linux, fonts work ok without explicit fallback
+        // https://docs.gtk.org/gtk3/css-properties.html#font-properties
 #ifdef _WIN32
         return " { font-family: \"" + Glib::locale_from_utf8(font.get_family()) + "\",\"" + fallbackFont +  "\""
-                    "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
+                    "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; " + "font-weight: " + std::to_string(font.get_weight()) + "; } ";
 #else
         (void)fallbackFont; // to silence the warning
         return std::string{" { font-family: "} + Glib::locale_from_utf8(font.get_family()) +
-                 "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
+                 "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; " + "font-weight: " + std::to_string(font.get_weight()) + "; } ";
 #endif
     };
 
