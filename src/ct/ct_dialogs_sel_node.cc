@@ -64,11 +64,10 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
 
     int order_cnt = 0;
 
-    treeStore.get_store()->foreach([&](const Gtk::TreeModel::Path& path, const Gtk::TreeModel::iterator& iter)
+    treeStore.get_store()->foreach_iter([&](const Gtk::TreeModel::iterator& iter)
     {
         auto ctit = treeStore.to_ct_tree_iter(iter);
         auto full_path = CtMiscUtil::get_node_hierarchical_name(ctit, " / ", false);
-        spdlog::debug("Node path for {} in ints is: {}", ctit.get_node_name(), path.to_string());
         auto listIter = *list_store->append();
         listIter[columns.order] = ++order_cnt;
         listIter[columns.id] = ctit.get_node_id();
