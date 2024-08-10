@@ -387,6 +387,14 @@ void CtActions::preferences_export()
     _pCtConfig->write_to_file(filepath);
 }
 
+void CtActions::command_selnode()
+{
+    auto id = CtDialogs::dialog_selnode(_pCtMainWin);
+    auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(id);
+    _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
+    _pCtMainWin->get_text_view().grab_focus();
+}
+
 void CtActions::command_palette()
 {
     std::string id = CtDialogs::dialog_palette(_pCtMainWin);

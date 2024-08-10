@@ -34,6 +34,7 @@ set(CT_SHARED_FILES
   ct_dialogs.cc
   ct_dialogs_anch_widg.cc
   ct_dialogs_cmd_palette.cc
+  ct_dialogs_sel_node.cc
   ct_dialogs_find.cc
   ct_dialogs_gen_purp.cc
   ct_dialogs_link.cc
