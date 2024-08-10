@@ -1,7 +1,7 @@
 /*
- * ct_dialogs_cmd_palette.cc
+ * ct_dialogs_sel_node.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *

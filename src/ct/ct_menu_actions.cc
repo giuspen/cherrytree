@@ -293,7 +293,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Replace Tabs with Spaces"), sigc::mem_fun(*pActions, &CtActions::replace_tabs_with_spaces)});
     _actions.push_back(CtMenuAction{tools_cat, "command_palette", "ct_execute", _("_Command Palette..."), KB_CONTROL+KB_SHIFT+"p",
         _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
-    _actions.push_back(CtMenuAction{tools_cat, "select_node", "ct_execute", _("_Select Node..."), KB_CONTROL+KB_ALT+"p",
+    _actions.push_back(CtMenuAction{tools_cat, "select_node", "ct_execute", _("_Select Node..."), "",
         _("Select Node"), sigc::mem_fun(*pActions, &CtActions::command_selnode)});
     _actions.push_back(CtMenuAction{tools_cat, "exec_code_all", "ct_play", _("_Execute Code All"), "F5",
         _("Execute All Code in CodeBox or Node"), sigc::mem_fun(*pActions, &CtActions::exec_code_all)});
