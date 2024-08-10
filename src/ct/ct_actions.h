@@ -115,6 +115,7 @@ public:
     void dialog_preferences();
     void preferences_import();
     void preferences_export();
+    void command_selnode();
     void command_palette();
 
 private:

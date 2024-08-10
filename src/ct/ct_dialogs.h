@@ -25,6 +25,7 @@
 
 #include "ct_misc_utils.h"
 #include "ct_filesystem.h"
+#include <glibconfig.h>
 #include <gtkmm.h>
 #include <array>
 
@@ -303,6 +304,7 @@ bool exec_code_confirm_dialog(CtMainWin& ct_main_win,
 void dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon);
 
 std::string dialog_palette(CtMainWin* pCtMainWin);
+gint64 dialog_selnode(CtMainWin* pCtMainWin);
 
 void summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& summaryInfo);
 

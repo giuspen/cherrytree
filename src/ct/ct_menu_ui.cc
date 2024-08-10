@@ -291,6 +291,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='repl_tabs_spaces'/>
     <separator/>
     <menuitem action='command_palette'/>
+    <menuitem action='select_node'/>
   </menu>
 
   <menu action='TreeMenu'>
