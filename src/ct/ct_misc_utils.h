@@ -119,6 +119,8 @@ bool text_file_set_contents_add_cr_on_win(const std::string& filepath, const std
 
 namespace CtTextIterUtil {
 
+std::optional<Glib::ustring> iter_get_tag_startingwith(const Gtk::TextIter& iter, const Glib::ustring& tag_startwith);
+
 bool get_is_camel_case(Gtk::TextIter iter_start, int num_chars);
 
 inline bool startswith(Gtk::TextIter text_iter, const gchar* str)

@@ -282,37 +282,24 @@ struct TocEntry
 {
     std::string anchor_link;
     std::string text;
-    bool is_node = false;
-    unsigned int depth = 0;
-    unsigned int h_level = 0;
+    bool is_node{false};
+    unsigned int depth{0};
+    unsigned int h_level{0};
     std::list<TocEntry> children;
-    TocEntry(std::string a_link, bool is_n, std::string txt, unsigned int dep, unsigned int h_lvl = 0)
-     : anchor_link(std::move(a_link))
-     , text(std::move(txt))
-     , is_node(is_n)
-     , depth(dep)
-     , h_level(h_lvl)
+    TocEntry(std::string a_link, bool is_node_, std::string txt, unsigned int dep, unsigned int h_lvl = 0)
+     : anchor_link{std::move(a_link)}
+     , text{std::move(txt)}
+     , is_node{is_node_}
+     , depth{dep}
+     , h_level{h_lvl}
     {}
 };
 
-std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::ustring& tag)
-{
-    for (const auto& iter_tag : iter.get_tags()) {
-        Glib::ustring tag_name;
-        iter_tag->get_property("name", tag_name);
-        //spdlog::debug("TAG: {}", tag_name);
-        if (str::startswith(tag_name, tag)) {
-            return tag_name;
-        }
-    }
-    return std::nullopt;
-}
-
 TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
 {
-    int node_id = node.get_node_id();
-    TocEntry entry{fmt::format("node {}", node_id), true, node.get_node_name(), depth};
-    std::string scale_tag{"scale_"};
+    const int node_id = node.get_node_id();
+    TocEntry entry{fmt::format("node {}", node_id), true/*is_node*/, node.get_node_name(), depth};
+    const std::string scale_tag{"scale_"};
     std::unordered_map<int, int> encountered_headers;
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
     if (not rTextBuffer) {
@@ -321,15 +308,12 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     Gtk::TextIter text_iter = rTextBuffer->begin();
 
     do {
-        std::optional<Glib::ustring> tag_name = iter_in_tag(text_iter, scale_tag);
+        std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(text_iter, scale_tag);
         if (tag_name and not Glib::str_has_suffix(tag_name.value(), CtConst::TAG_PROP_VAL_SMALL)) {
-            auto h_start = tag_name->find(scale_tag) + scale_tag.length() + 1;
-            auto begin = tag_name->begin();
-            std::advance(begin, h_start);
-            Glib::ustring h_level_str{begin, tag_name->end()};
+            const Glib::ustring h_level_str = tag_name.value().substr(scale_tag.length() + 1);
             try {
-                int h_lvl = std::stoi(h_level_str);
-                encountered_headers[h_lvl] += 1;
+                const int h_lvl = std::stoi(h_level_str);
+                ++encountered_headers[h_lvl];
 
                 Gtk::TextIter start_iter{text_iter};
                 Gtk::TextIter end_iter{text_iter};
@@ -362,12 +346,12 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                     }
                 }
                 const std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
-                actions.image_insert_anchor(end_iter, anchor_txt, "right");
+                actions.image_insert_anchor(end_iter, anchor_txt, CtConst::TAG_PROP_VAL_RIGHT);
 
                 text_iter = mark->get_iter();
                 rTextBuffer->delete_mark(mark);
                 //spdlog::debug("INSERT DONE");
-                entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false, txt, depth + 1, h_lvl);
+                entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false/*is_node*/, txt, depth + 1, h_lvl);
             }
             catch(std::invalid_argument&) {
                 spdlog::error("Could not convert [{}] to an integer", h_level_str);
@@ -1012,9 +996,9 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert,
                                                      &_pCtMainWin->get_text_view());
 }
 
-void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring &name, const Glib::ustring &image_justification)
+void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification)
 {
-    int charOffset = iter_insert.get_offset();
+    const int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor{_pCtMainWin, name, charOffset, image_justification};
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);

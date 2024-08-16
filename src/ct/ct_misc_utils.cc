@@ -366,6 +366,19 @@ void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size
         task.join();
 }
 
+std::optional<Glib::ustring> CtTextIterUtil::iter_get_tag_startingwith(const Gtk::TextIter& iter, const Glib::ustring& tag_startwith)
+{
+    for (const auto& iter_tag : iter.get_tags()) {
+        Glib::ustring tag_name;
+        iter_tag->get_property("name", tag_name);
+        //spdlog::debug("TAG: {}", tag_name);
+        if (str::startswith(tag_name, tag_startwith)) {
+            return tag_name;
+        }
+    }
+    return std::nullopt;
+}
+
 Glib::ustring CtTextIterUtil::get_selected_text(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer)
 {
     Gtk::TextIter iter_sel_start, iter_sel_end;
