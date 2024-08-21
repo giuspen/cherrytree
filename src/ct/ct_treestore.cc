@@ -866,8 +866,8 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     const gint64 nodeMasterId = treeIter.get_node_shared_master_id();
     const gint64 nodeId = treeIter.get_node_id();
     const Glib::ustring nodeName = treeIter.get_node_name();
-    if (nodeMasterId <= 0) spdlog::debug("Node {} > {}", nodeId, nodeName);
-    else spdlog::debug("Node {}[{}] > {}", nodeId, nodeMasterId, nodeName);
+    if (nodeMasterId <= 0) spdlog::debug("Node {} > {}", nodeId, nodeName.raw());
+    else spdlog::debug("Node {}[{}] > {}", nodeId, nodeMasterId, nodeName.raw());
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
     _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
@@ -1416,7 +1416,7 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
             // ensure the node content is populated
             Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
             if (not rTextBuffer) {
-                error = str::format(_("Failed to retrieve the content of the node '%s'"), ctTreeIter.get_node_name());
+                error = str::format(_("Failed to retrieve the content of the node '%s'"), ctTreeIter.get_node_name().raw());
                 return true; /* true for stop */
             }
             const gint64 shared_master_id = ctTreeIter.get_node_shared_master_id();

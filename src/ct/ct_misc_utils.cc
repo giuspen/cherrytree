@@ -1160,7 +1160,7 @@ int str::indexOf(const Glib::ustring& str, const gunichar& uc)
     return index != std::string::npos ? static_cast<int>(index) : -1;
 }
 
-Glib::ustring str::xml_escape(const Glib::ustring& text)
+std::string str::xml_escape(const Glib::ustring& text)
 {
     Glib::ustring buffer;
     buffer.reserve(text.size());
@@ -1175,7 +1175,7 @@ Glib::ustring str::xml_escape(const Glib::ustring& text)
             default:   buffer.append(1, *ch);        break;
         }
     }
-    return buffer;
+    return buffer.raw();
 }
 
 Glib::ustring str::sanitize_bad_symbols(const Glib::ustring& xml_content)

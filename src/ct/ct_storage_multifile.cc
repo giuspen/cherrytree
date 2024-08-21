@@ -455,7 +455,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
         }
     }
     catch (Glib::Error& error) {
-        spdlog::error("{} {}", __FUNCTION__, error.what());
+        spdlog::error("{} {}", __FUNCTION__, error.what().raw());
     }
     return false;
 }

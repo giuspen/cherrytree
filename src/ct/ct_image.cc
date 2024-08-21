@@ -433,7 +433,7 @@ static const char* get_dvipng_bin_cmd()
         return rPixbuf;
     }
     catch (Glib::Error& error) {
-        spdlog::error("{} {}", __FUNCTION__, error.what());
+        spdlog::error("{} {}", __FUNCTION__, error.what().raw());
     }
     // fallback
     return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);

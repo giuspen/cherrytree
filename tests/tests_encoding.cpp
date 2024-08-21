@@ -1,7 +1,7 @@
 /*
  * tests_encoding.cpp
  *
- * Copyright 2009-2020
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,5 +28,5 @@ TEST(EncodingGroup, ustring_format)
 {
     // on win32 this could throw an exception due to locale
     Glib::ustring str = "привет こんにちは";
-    ASSERT_STREQ(str.c_str(), fmt::format("{}", str).c_str());
+    ASSERT_STREQ(str.c_str(), fmt::format("{}", str.raw()).c_str());
 }

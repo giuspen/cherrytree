@@ -1,7 +1,7 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -83,9 +83,9 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 {
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
-        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
-    Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
+    Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name().raw());
     if (not index.empty() and options.index_in_page) {
         auto script = R"HTML(
             <script type='text/javascript'>
@@ -270,7 +270,7 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
         else {
             Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
             if (not rTextBuffer) {
-                throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+                throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
             }
             html_text += _html_get_from_code_buffer(rTextBuffer, -1, -1, tree_iter.get_node_syntax_highlighting());
         }
@@ -529,7 +529,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
 {
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
-        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
     auto widgets = tree_iter.get_anchored_widgets(sel_start, sel_end);
     out_widgets = std::vector<CtAnchoredWidget*>(widgets.begin(), widgets.end()); // copy from list to vector

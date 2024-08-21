@@ -1,7 +1,7 @@
 /*
  * ct_logging.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -32,14 +32,3 @@
 #include "spdlog/fmt/bundled/core.h"
 #include "spdlog/fmt/bundled/printf.h"
 #endif // not SHARED_FMT_SPDLOG
-#include <glibmm/ustring.h>
-
-// ostream works badly on Win32 due to locale encoding
-template <>
-struct fmt::formatter<Glib::ustring>: formatter<string_view> {
-  // parse is inherited from formatter<string_view>.
-  template <typename FormatContext>
-  auto format(Glib::ustring c, FormatContext& ctx) {
-    return formatter<string_view>::format(c.c_str(), ctx);
-  }
-};

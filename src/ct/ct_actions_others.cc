@@ -575,7 +575,7 @@ void CtActions::_exec_code(const bool is_all)
     }
     else {
         const int retVal = std::system(terminal_cmd.c_str());
-        if (retVal != 0) spdlog::error("system({}) returned {}", terminal_cmd, retVal);
+        if (retVal != 0) spdlog::error("system({}) returned {}", terminal_cmd.raw(), retVal);
     }
 }
 

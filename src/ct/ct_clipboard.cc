@@ -246,7 +246,7 @@ void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring&
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {} {}">{}</rich_text></slot></root>)XML";
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
-    clip_data->plain_text = fmt::format("{} - {} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str(), anchor_name);
+    clip_data->plain_text = fmt::format("{} - {} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str(), anchor_name.raw());
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
 }
@@ -756,7 +756,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                 property_value = "webs " + element;
             }
             else if (str::startswith(element, "file://")) {
-                Glib::ustring file_path = element.substr(7);
+                std::string file_path = element.substr(7);
                 file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
                 g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
                 if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
@@ -794,7 +794,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                     _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
                 }
                 else {
-                    spdlog::debug("'{}' not dir or file", element);
+                    spdlog::debug("'{}' not dir or file", element.raw());
                 }
             }
             if (not property_value.empty()) {
@@ -883,10 +883,10 @@ void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView
         _xml_to_codebox(xml_doc.write_to_string(), pTextView);
     }
     catch (std::exception& e) {
-        spdlog::error("_yaml_to_codebox exception: {}\n{}", e.what(), yaml_text);
+        spdlog::error("_yaml_to_codebox exception: {}\n{}", e.what(), yaml_text.raw());
     }
     catch (...) {
-        spdlog::error("_yaml_to_codebox unknown exception\n{}", yaml_text);
+        spdlog::error("_yaml_to_codebox unknown exception\n{}", yaml_text.raw());
     }
 }
 

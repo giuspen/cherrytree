@@ -125,7 +125,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                 if (node.get_node_is_rich_text()) {
                     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
                     if (not rTextBuffer) {
-                        error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name());
+                        error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw());
                         return true; /* true for stop */
                     }
                     apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
@@ -144,7 +144,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                 else {
                     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
                     if (not rTextBuffer) {
-                        error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name());
+                        error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw());
                         return true; /* true for stop */
                     }
                     apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);

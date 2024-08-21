@@ -218,7 +218,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         if (_s_options.node_content) {
             Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
             if (not rTextBuffer) {
-                CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name()), *_pCtMainWin);
+                CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name().raw()), *_pCtMainWin);
                 break;
             }
         }
@@ -440,7 +440,7 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                 if (_s_options.node_content) {
                     Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
                     if (not rTextBuffer) {
-                        CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name()), *_pCtMainWin);
+                        CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name().raw()), *_pCtMainWin);
                         break;
                     }
                 }

@@ -1,7 +1,7 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -384,7 +384,7 @@ void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<
                 _is_link_to_node = false;
             }
             else {
-                spdlog::debug(dom_iter->get_name());
+                spdlog::debug(dom_iter->get_name().raw());
                 _iterate_tomboy_note(dom_iter_el, node);
             }
         }

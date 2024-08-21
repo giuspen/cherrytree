@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -355,7 +355,7 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
 #endif /* !_WIN32 && !__APPLE__ */
     }
     else {
-        spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
+        spdlog::debug("invalid link entry {}, text {}", link.raw(), tagged_text.raw());
         return std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID, indent, pango_dir);
     }
 
@@ -367,7 +367,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
 {
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
-        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
     std::vector<CtPangoObjectPtr> pango_slots;
     if (tree_iter.get_node_is_text()) {
@@ -409,7 +409,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter,
 {
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
-        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name()));
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
     std::vector<CtPangoObjectPtr> node_pango_slots;
     if (tree_iter.get_node_is_text()) {
@@ -592,7 +592,7 @@ bool CtPrint::_cairo_tag_can_apply(const Glib::ustring& tag_name, const Glib::us
             return true;
         }
     }
-    spdlog::debug("{} dropped", tag_attr);
+    spdlog::debug("{} dropped", tag_attr.raw());
     return false;
 }
 

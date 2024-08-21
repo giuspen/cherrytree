@@ -140,7 +140,7 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
             return Glib::build_filename(first_backup_dir, CtConst::CHAR_DOT + Glib::path_get_basename(file_or_dir_path)) + CtConst::CHAR_TILDE;
         }
         catch (Glib::Error& ex) {
-            spdlog::error("failed to create backup directory: {}, \n{}", first_backup_dir, ex.what());
+            spdlog::error("failed to create backup directory: {}, \n{}", first_backup_dir, ex.what().raw());
             return "";
         }
     };
@@ -778,7 +778,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
             CtTreeIter ct_tree_iter = store.to_ct_tree_iter(iter);
             Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
             if (not rTextBuffer) {
-                error = str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name());
+                error = str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name().raw());
                 return true; /* true for stop */
             }
             for (auto widget : ct_tree_iter.get_anchored_widgets_fast())
@@ -795,7 +795,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
             if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text()) {
                 Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
                 if (not rTextBuffer) {
-                    throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name()));
+                    throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name().raw()));
                 }
                 for (auto widget : ct_tree_iter.get_anchored_widgets_fast())
                     if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type

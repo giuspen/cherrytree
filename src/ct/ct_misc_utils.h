@@ -328,7 +328,7 @@ int indexOf(const std::array<T, size>& array, const T& uc)
     return -1;
 }
 
-Glib::ustring xml_escape(const Glib::ustring& text);
+std::string xml_escape(const Glib::ustring& text);
 
 Glib::ustring sanitize_bad_symbols(const Glib::ustring& xml_content);
 

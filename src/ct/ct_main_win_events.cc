@@ -56,7 +56,7 @@ void CtMainWin::_on_treeview_cursor_changed()
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
     if (not rTextBuffer) {
-        CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), treeIter.get_node_name()), *this);
+        CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), treeIter.get_node_name().raw()), *this);
         if (_prevTreeIter) {
             _uCtTreeview->set_cursor_safe(_prevTreeIter);
         }

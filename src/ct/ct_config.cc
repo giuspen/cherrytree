@@ -92,7 +92,7 @@ bool CtConfig::_load_from_file()
             _uKeyFile->load_from_file(_configFilepath.string());
         }
         catch (Glib::Error& error) {
-            spdlog::error("CtConfig {}: {}", _configFilepath, error.what());
+            spdlog::error("CtConfig {}: {}", _configFilepath, error.what().raw());
             return false;
         }
         _populate_data_from_keyfile();

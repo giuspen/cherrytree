@@ -202,7 +202,7 @@ bool copy_file(const path& from, const path& to)
         return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
     }
     catch (Gio::Error& error) {
-        spdlog::debug("fs::copy_file, error: {}, from: {}, to: {}", error.what(), from.string(), to.string());
+        spdlog::debug("fs::copy_file, error: {}, from: {}, to: {}", error.what().raw(), from.string(), to.string());
         return false;
     }
 }

@@ -129,8 +129,8 @@ public:
     static const char TABLE_BOOKMARK_CREATE[];
     static const char TABLE_BOOKMARK_INSERT[];
     static const char TABLE_BOOKMARK_DELETE[];
-    static const Glib::ustring ERR_SQLITE_PREPV2;
-    static const Glib::ustring ERR_SQLITE_STEP;
+    static const std::string ERR_SQLITE_PREPV2;
+    static const std::string ERR_SQLITE_STEP;
     static const char* safe_sqlite3_column_text(sqlite3_stmt* stmt, int iCol);
 
 private:

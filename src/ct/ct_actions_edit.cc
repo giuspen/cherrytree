@@ -93,7 +93,7 @@ void CtActions::image_insert()
         rPixbuf = Gdk::Pixbuf::create_from_file(filename);
     }
     catch (Glib::Error& error) {
-        spdlog::error("{} {}", __FUNCTION__, error.what());
+        spdlog::error("{} {}", __FUNCTION__, error.what().raw());
     }
     if (rPixbuf)
         _image_edit_dialog(rPixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr/*pIterBound*/);
@@ -303,7 +303,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     std::unordered_map<int, int> encountered_headers;
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
     if (not rTextBuffer) {
-        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name()));
+        throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw()));
     }
     Gtk::TextIter text_iter = rTextBuffer->begin();
 
@@ -354,7 +354,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false/*is_node*/, txt, depth + 1, h_lvl);
             }
             catch(std::invalid_argument&) {
-                spdlog::error("Could not convert [{}] to an integer", h_level_str);
+                spdlog::error("Could not convert [{}] to an integer", h_level_str.raw());
             }
         }
 
