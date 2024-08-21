@@ -898,7 +898,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
     for (auto& item : _embfiles_opened) {
         const fs::path& tmp_filepath = item.second.tmp_filepath;
         if (not fs::is_regular_file(tmp_filepath)) {
-            spdlog::debug("embdrop {}", tmp_filepath);
+            spdlog::debug("embdrop {}", tmp_filepath.string());
             _embfiles_opened.erase(item.first);
             break;
         }
