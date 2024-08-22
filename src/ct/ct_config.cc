@@ -69,7 +69,7 @@ void CtConfig::move_from_tmp()
 {
     if (not _configFilepathTmp.string().empty() and fs::exists(_configFilepathTmp)) {
         if (not fs::move_file(_configFilepathTmp, _configFilepath)) {
-            spdlog::error("{} -> {}", _configFilepathTmp, _configFilepath);
+            spdlog::error("{} -> {}", _configFilepathTmp.string(), _configFilepath.string());
         }
     }
 }
@@ -92,15 +92,15 @@ bool CtConfig::_load_from_file()
             _uKeyFile->load_from_file(_configFilepath.string());
         }
         catch (Glib::Error& error) {
-            spdlog::error("CtConfig {}: {}", _configFilepath, error.what().raw());
+            spdlog::error("CtConfig {}: {}", _configFilepath.string(), error.what().raw());
             return false;
         }
         _populate_data_from_keyfile();
         _uKeyFile.reset(nullptr);
-        spdlog::debug("{} parsed", _configFilepath);
+        spdlog::debug("{} parsed", _configFilepath.string());
         return true;
     }
-    spdlog::warn("{} missing", _configFilepath);
+    spdlog::warn("{} missing", _configFilepath.string());
     return false;
 }
 
