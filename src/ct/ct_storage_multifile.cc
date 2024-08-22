@@ -284,7 +284,7 @@ void CtStorageMultiFile::_hier_try_move_node(const fs::path& dir_path_to)
     };
     f_find_dir_from(_dir_path);
     if (not dir_path_from.empty()) {
-        spdlog::debug("{} -> {}", dir_path_from, dir_path_to);
+        spdlog::debug("{} -> {}", dir_path_from.string(), dir_path_to.string());
         fs::move_file(dir_path_from, dir_path_to);
     }
 }
@@ -520,7 +520,7 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                     const fs::path curr_backup_dir = first_backup_dir + str::repeat(CtConst::CHAR_TILDE, b).raw();
                     if (fs::is_directory(curr_backup_dir)) {
                         missing_backup = 0;
-                        spdlog::debug("backed up data, {} found", curr_backup_dir);
+                        spdlog::debug("backed up data, {} found", curr_backup_dir.string());
                         const fs::path backup_node_xml_path = curr_backup_dir / nodedir.filename() / NODE_XML;
                         try {
                             pParser = CtStorageXml::get_parser(backup_node_xml_path);
@@ -541,7 +541,7 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                         }
                     }
                     else {
-                        spdlog::debug("?? backed up data, {} missing", curr_backup_dir);
+                        spdlog::debug("?? backed up data, {} missing", curr_backup_dir.string());
                         if (++missing_backup > 3) break;
                     }
                 }

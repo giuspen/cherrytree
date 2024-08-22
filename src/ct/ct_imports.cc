@@ -454,7 +454,7 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
         }
     }
     catch (std::exception& ex) {
-        spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), file);
+        spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), file.string());
     }
     return nullptr;
 }

@@ -163,13 +163,13 @@ bool remove(const fs::path& path2rm)
 {
     if (fs::is_directory(path2rm)) {
         if (g_rmdir(path2rm.c_str()) != 0) {
-            spdlog::error("fs::remove: g_rmdir failed to remove {}", path2rm);
+            spdlog::error("fs::remove: g_rmdir failed to remove {}", path2rm.string());
             return false;
         }
     }
     else if (fs::exists(path2rm)) {
         if (::g_remove(path2rm.c_str()) != 0) {
-            spdlog::error("fs::remove: g_remove failed to remove {}", path2rm);
+            spdlog::error("fs::remove: g_remove failed to remove {}", path2rm.string());
             return false;
         }
     }
@@ -249,13 +249,13 @@ time_t getmtime(const path& p)
 std::uintmax_t file_size(const path& p)
 {
     if (fs::is_directory(p)) {
-        spdlog::error("fs::file_size: path is a directory, {}", p);
+        spdlog::error("fs::file_size: path is a directory, {}", p.string());
         return 0;
     }
 
     GStatBuf st;
     if (g_stat(p.c_str(), &st) != 0) {
-        spdlog::error("fs::file_size: g_stat failed, {}", p);
+        spdlog::error("fs::file_size: g_stat failed, {}", p.string());
         return 0;
     }
 
@@ -317,7 +317,7 @@ void _open_path_with_default_app(const fs::path& file_or_folder_path)
 // Open Filepath with External App
 void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
-    spdlog::debug("fs::open_filepath {}", filepath);
+    spdlog::debug("fs::open_filepath {}", filepath.string());
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
         _locale_env_vars_set_for_external_cmd(true/*isPre*/);
@@ -344,7 +344,7 @@ void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists
 // Open Folderpath with External App
 void open_folderpath(const fs::path& folderpath, CtConfig* config)
 {
-    spdlog::debug("fs::open_folderpath {}", folderpath);
+    spdlog::debug("fs::open_folderpath {}", folderpath.string());
     if (config->folderlinkCustomOn) {
         std::string cmd = fmt::sprintf(config->folderlinkCustomAct, folderpath.string());
         _locale_env_vars_set_for_external_cmd(true/*isPre*/);
@@ -361,12 +361,12 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
 
 path prepare_export_folder(const path& dir_place, path new_folder, bool overwrite_existing)
 {
-    if (fs::is_directory(dir_place / new_folder))
-    {
+    const fs::path dir_place_new_folder = dir_place / new_folder;
+    if (fs::is_directory(dir_place_new_folder)) {
         // todo:
         if (overwrite_existing) {
-            spdlog::debug("fs::prepare_export_folder: removing dir {}", dir_place / new_folder);
-            remove_all(dir_place / new_folder);
+            spdlog::debug("fs::prepare_export_folder: removing dir {}", dir_place_new_folder.string());
+            remove_all(dir_place_new_folder);
         }
         else {
             int n = 2;

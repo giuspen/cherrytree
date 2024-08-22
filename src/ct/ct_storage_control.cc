@@ -443,7 +443,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
                 fs::get_doc_type_from_file_ext(filesInTmpDir.front()) == fs::get_doc_type_from_file_ext(temp_file_path) and
                 fs::move_file(filesInTmpDir.front(), temp_file_path))
             {
-                spdlog::debug("encrypt doc renamed {} -> {}", filesInTmpDir.front().filename(), temp_file_path.filename());
+                spdlog::debug("encrypt doc renamed {} -> {}", filesInTmpDir.front().filename().string(), temp_file_path.filename().string());
                 return temp_file_path;
             }
         }
@@ -476,7 +476,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
         return false;
     }
     if (not fs::is_regular_file(file_to)) {
-        spdlog::debug("!! is_regular_file {}", file_to);
+        spdlog::debug("!! is_regular_file {}", file_to.string());
         if (not tmp_prev_archive.empty()) {
             (void)fs::move_file(tmp_prev_archive, file_to);
         }
@@ -628,7 +628,7 @@ void CtStorageControl::_backupEncryptThread()
                                 break;
                             }
 #if defined(DEBUG_BACKUP_ENCRYPT)
-                            spdlog::debug("{} -> {}", tilda_node_dir_from, tilda_node_dir_to);
+                            spdlog::debug("{} -> {}", tilda_node_dir_from.string(), tilda_node_dir_to.string());
 #endif // DEBUG_BACKUP_ENCRYPT
                         }
                         tilda_dirpath = tilda_dirpath.string().substr(0, tilda_dirpath.string().size()-1);
@@ -647,7 +647,7 @@ void CtStorageControl::_backupEncryptThread()
                 }
 #if defined(DEBUG_BACKUP_ENCRYPT)
                 else {
-                    spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, tilda_node_dir_to);
+                    spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, tilda_node_dir_to.string());
                 }
 #endif // DEBUG_BACKUP_ENCRYPT
             }

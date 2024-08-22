@@ -194,14 +194,14 @@ bool CtMainWin::file_open(const fs::path& filepath,
                         spdlog::debug("trying {} -> {}", curr_backup_file.string(), filepath.string());
                         new_storage = CtStorageControl::load_from(this, filepath, doc_type, error_or_warning, password);
                         if (new_storage) {
-                            spdlog::debug("OK recover from {}", curr_backup_file);
+                            spdlog::debug("OK recover from {}", curr_backup_file.string());
                             break;
                         }
                         fs::move_file(filepath, curr_backup_file);
                         spdlog::debug("moved back {} -> {}", filepath.string(), curr_backup_file.string());
                     }
                     else {
-                        spdlog::debug("?? backed up data, {} missing", curr_backup_file);
+                        spdlog::debug("?? backed up data, {} missing", curr_backup_file.string());
                         if (++missing_backup > 3) break;
                     }
                 }
@@ -445,7 +445,7 @@ void CtMainWin::mod_time_sentinel_restart()
 
 bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
 {
-    spdlog::debug("trying to insert text file as node: {}", filepath);
+    spdlog::debug("trying to insert text file as node: {}", filepath.string());
     try {
         Glib::RefPtr<Gsv::Buffer> pBuffer = Gsv::Buffer::create();
         if (CtStrUtil::file_any_encoding_load_into_source_buffer(filepath.string(), pBuffer)) {
@@ -459,7 +459,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
         }
     }
     catch (std::exception& ex) {
-        spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), filepath);
+        spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), filepath.string());
     }
     return false;
 }

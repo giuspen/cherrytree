@@ -152,7 +152,7 @@ void CtApp::on_activate()
             }
             else {
                 const fs::path last_doc_path{_pCtConfig->recentDocsFilepaths.front()};
-                spdlog::info("{} Last doc not found: {}", __FUNCTION__, last_doc_path);
+                spdlog::info("{} Last doc not found: {}", __FUNCTION__, last_doc_path.string());
                 _pCtConfig->recentDocsFilepaths.move_or_push_back(last_doc_path);
                 pAppWindow->menu_set_items_recent_documents();
             }
