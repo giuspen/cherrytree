@@ -510,7 +510,7 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                 parsingOk = true;
             }
             catch (std::exception& ex) {
-                spdlog::error("parse {} : {} - trying first backup...", node_xml_path, ex.what());
+                spdlog::error("parse {} : {} - trying first backup...", node_xml_path.string(), ex.what());
             }
             if (not parsingOk) {
                 std::string first_backup_dir;
@@ -527,13 +527,13 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                             parsingOk = true;
                         }
                         catch (std::exception& ex) {
-                            spdlog::error("parse {} : {} - trying backup {}...", node_xml_path, ex.what(), b+2);
+                            spdlog::error("parse {} : {} - trying backup {}...", node_xml_path.string(), ex.what(), b+2);
                         }
                         if (parsingOk) {
                             if (fs::exists(node_xml_path)) {
                                 fs::move_file(node_xml_path, node_xml_path.parent_path() / (node_xml_path.stem() + std::string{"_BAD.xml"}));
                             }
-                            spdlog::debug("parse backed up data ok, copying {} -> {}", backup_node_xml_path, node_xml_path);
+                            spdlog::debug("parse backed up data ok, copying {} -> {}", backup_node_xml_path.string(), node_xml_path.string());
                             fs::copy_file(backup_node_xml_path, node_xml_path);
                             if (error.empty()) error += _("A Restore From Backup Was Necessary For:");
                             error += "\n\n" + node_xml_path.string();

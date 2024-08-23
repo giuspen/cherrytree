@@ -78,7 +78,7 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
                     return nullptr;
                 }
                 if (extracted_file_path.string() == BAD_ARCHIVE) {
-                    throw std::runtime_error(str::format(_("'%s' is Not a Valid Archive"), file_path));
+                    throw std::runtime_error(str::format(_("'%s' is Not a Valid Archive"), file_path.string()));
                 }
             }
         }
@@ -533,14 +533,14 @@ void CtStorageControl::_backupEncryptThread()
                 // move back the latest file version
                 (void)fs::move_file(pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
 #if defined(DEBUG_BACKUP_ENCRYPT)
-                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
+                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, pBackupEncryptData->file_path.string());
 #endif // DEBUG_BACKUP_ENCRYPT
                 _pCtMainWin->errorsDEQueue.push_back(_("Failed to encrypt the file"));
                 _pCtMainWin->dispatcherErrorMsg.emit();
                 continue;
             }
 #if defined(DEBUG_BACKUP_ENCRYPT)
-            spdlog::debug("{} => {}", pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path);
+            spdlog::debug("{} => {}", pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path.string());
 #endif // DEBUG_BACKUP_ENCRYPT
         }
 
@@ -729,12 +729,12 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& file_path,
 {
     if (is_folder) {
         if (not fs::is_directory(file_path)) {
-            throw std::runtime_error(fmt::format("{} not a dir", file_path));
+            throw std::runtime_error(fmt::format("{} not a dir", file_path.string()));
         }
     }
     else {
         if (not fs::is_regular_file(file_path)) {
-            throw std::runtime_error(fmt::format("{} not a file", file_path));
+            throw std::runtime_error(fmt::format("{} not a file", file_path.string()));
         }
     }
 
@@ -747,7 +747,7 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& file_path,
             return;
         }
         if (extracted_file_path.string() == BAD_ARCHIVE) {
-            throw std::runtime_error(str::format(_("'%s' is Not a Valid Archive"), file_path));
+            throw std::runtime_error(str::format(_("'%s' is Not a Valid Archive"), file_path.string()));
         }
     }
 

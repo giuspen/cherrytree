@@ -180,7 +180,7 @@ void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree, const CtExp
     tree_links_text += "</div>\n";
 
     // create index html page
-    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
+    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name().string());
     if (options.index_in_page) {
         html_text += "<div class='two-panels'>\n<div class='tree-panel'>\n";
         html_text += tree_links_text;
@@ -283,7 +283,7 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
         }
     };
 
-    Glib::ustring html_header = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
+    Glib::ustring html_header = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name().string());
     rFileStream->write(html_header.c_str(), html_header.bytes());
 
     // start to iterarte nodes
