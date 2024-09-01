@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- This file is part of GtkSourceView
-
- Copyright (C) 2006-2007 GtkSourceView team
- Author: Michael Monreal <michael.monreal@gmail.com>
-
- GtkSourceView is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
-
- GtkSourceView is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
-
- You should have received a copy of the GNU Lesser General Public License
- along with this library; if not, see <http://www.gnu.org/licenses/>.
-
--->
-<style-scheme id="tango" _name="Tango" version="1.0">
-  <author>Michael Monreal</author>
-  <_description>Color scheme using Tango color palette</_description>
+<style-scheme id="xed" _name="Xed" version="1.0">
+  <author>Xed Team</author>
+  <_description>The default color scheme.</_description>
 
   <!-- Tango Palette -->
   <color name="butter1"                     value="#fce94f"/>
@@ -54,7 +33,7 @@
   <color name="aluminium6"                  value="#2e3436"/>
 
   <!-- Global Settings -->
-  <style name="line-numbers"                background="aluminium1"/>
+  <style name="line-numbers"                background="#rgba(18,20,21,0.005)"/>
   <style name="current-line"                background="aluminium1"/>
   <style name="current-line-number"         background="aluminium1"/>
   <style name="draw-spaces"                 foreground="aluminium3"/>
@@ -71,7 +50,7 @@
   <style name="search-match"                background="butter1"/>
 
   <!-- Comments -->
-  <style name="def:comment"                 foreground="skyblue3"/>
+  <style name="def:comment"                 foreground="aluminium4"/>
   <style name="def:shebang"                 foreground="skyblue3" bold="true"/>
   <style name="def:doc-comment-element"     italic="true"/>
 

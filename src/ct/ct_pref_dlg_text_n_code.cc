@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_text_n_code.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -161,7 +161,9 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     spinbutton_tab_width->signal_value_changed().connect([this, spinbutton_tab_width](){
         _pConfig->tabsWidth = spinbutton_tab_width->get_value_as_int();
-        apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_tab_width((guint)win->get_ct_config()->tabsWidth); });
+        apply_for_each_window([](CtMainWin* win) {
+            gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(win->get_text_view().gobj()), (guint)win->get_ct_config()->tabsWidth);
+        });
     });
     spinbutton_margins_left->signal_value_changed().connect([this, spinbutton_margins_left](){
         _pConfig->textMarginLeft = spinbutton_margins_left->get_value_as_int();
@@ -173,7 +175,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
     spinbutton_wrapping_indent->signal_value_changed().connect([this, spinbutton_wrapping_indent](){
         _pConfig->wrappingIndent = spinbutton_wrapping_indent->get_value_as_int();
-        apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_indent(win->get_ct_config()->wrappingIndent); });
+        apply_for_each_window([](CtMainWin* win) { win->get_text_view().mm().set_indent(win->get_ct_config()->wrappingIndent); });
     });
     spinbutton_relative_wrapped_space->signal_value_changed().connect([this, spinbutton_relative_wrapped_space](){
        _pConfig->relativeWrappedSpace = spinbutton_relative_wrapped_space->get_value_as_int();
@@ -182,25 +184,29 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     spinbutton_space_around_lines->signal_value_changed().connect([this, spinbutton_space_around_lines](){
         _pConfig->spaceAroundLines = spinbutton_space_around_lines->get_value_as_int();
         apply_for_each_window([](CtMainWin* win) {
-            win->get_text_view().set_pixels_above_lines(win->get_ct_config()->spaceAroundLines);
-            win->get_text_view().set_pixels_below_lines(win->get_ct_config()->spaceAroundLines);
+            win->get_text_view().mm().set_pixels_above_lines(win->get_ct_config()->spaceAroundLines);
+            win->get_text_view().mm().set_pixels_below_lines(win->get_ct_config()->spaceAroundLines);
             win->get_text_view().set_pixels_inside_wrap(win->get_ct_config()->spaceAroundLines, win->get_ct_config()->relativeWrappedSpace);
         });
     });
     checkbutton_spaces_tabs->signal_toggled().connect([this, checkbutton_spaces_tabs](){
         _pConfig->spacesInsteadTabs = checkbutton_spaces_tabs->get_active();
-        apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_insert_spaces_instead_of_tabs(win->get_ct_config()->spacesInsteadTabs); });
+        apply_for_each_window([](CtMainWin* win) {
+            gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(win->get_text_view().gobj()), win->get_ct_config()->spacesInsteadTabs);
+        });
     });
     checkbutton_line_wrap->signal_toggled().connect([this, checkbutton_line_wrap](){
         _pConfig->lineWrapping = checkbutton_line_wrap->get_active();
-        apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_wrap_mode(win->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE); });
+        apply_for_each_window([](CtMainWin* win) { win->get_text_view().mm().set_wrap_mode(win->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE); });
     });
     checkbutton_auto_indent->signal_toggled().connect([this, checkbutton_auto_indent](){
         _pConfig->autoIndent = checkbutton_auto_indent->get_active();
     });
     checkbutton_line_nums->signal_toggled().connect([this, checkbutton_line_nums](){
         _pConfig->showLineNumbers = checkbutton_line_nums->get_active();
-        apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_show_line_numbers(win->get_ct_config()->showLineNumbers); });
+        apply_for_each_window([](CtMainWin* win) {
+            gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(win->get_text_view().gobj()), win->get_ct_config()->showLineNumbers);
+        });
     });
     checkbutton_scroll_last_line->signal_toggled().connect([this, checkbutton_scroll_last_line](){
         _pConfig->scrollBeyondLastLine = checkbutton_scroll_last_line->get_active();

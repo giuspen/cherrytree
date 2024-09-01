@@ -89,7 +89,7 @@ void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
     updateJustification(CtTextIterUtil::get_text_iter_alignment(textIter, _pCtMainWin));
 }
 
-void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
+void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer)
 {
     _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(_charOffset));
     if (not _justification.empty()) {
@@ -113,8 +113,8 @@ void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
     }
     Glib::signal_idle().connect_once([&](){
         CtTextView& textView = _pCtMainWin->get_text_view();
-        textView.set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
-        textView.set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
+        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
     });
 }
 

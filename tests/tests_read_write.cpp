@@ -51,7 +51,7 @@ private:
     void _run_test(const fs::path doc_filepath_from, const fs::path doc_filepath_to);
     void _assert_tree_data(CtMainWin* pWin, const bool after_mods);
     void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
-    void _process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
+    void _process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gtk::TextBuffer> pTextBuffer);
 
     const std::vector<std::string>& _vec_args;
     const bool _test_save;
@@ -179,7 +179,7 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     remove_window(*pWin3);
 }
 
-void TestCtApp::_process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
+void TestCtApp::_process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gtk::TextBuffer> pTextBuffer)
 {
     CtTextIterUtil::SerializeFunc test_slot = [&expectedTags](Gtk::TextIter& start_iter,
                                                               Gtk::TextIter& end_iter,
@@ -204,14 +204,14 @@ void TestCtApp::_process_rich_text_buffer(CtMainWin* pWin, std::list<ExpectedTag
             }
         }
     };
-    CtTextIterUtil::generic_process_slot(pWin->get_ct_config(), 0, -1, rTextBuffer, test_slot);
+    CtTextIterUtil::generic_process_slot(pWin->get_ct_config(), 0, -1, pTextBuffer, test_slot);
 }
 
 void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText)
 {
-    const Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
-    ASSERT_TRUE(static_cast<bool>(rTextBuffer));
-    ASSERT_STREQ(expectedText.c_str(), rTextBuffer->get_text().c_str());
+    const Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ctTreeIter.get_node_text_buffer();
+    ASSERT_TRUE(static_cast<bool>(pTextBuffer));
+    ASSERT_STREQ(expectedText.c_str(), pTextBuffer->get_text().c_str());
 }
 
 void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)

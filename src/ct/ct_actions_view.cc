@@ -35,7 +35,7 @@ void CtActions::toggle_show_hide_vte()
         if (pVte) pVte->grab_focus();
     }
     else {
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
 }
 
@@ -47,7 +47,7 @@ void CtActions::toggle_show_hide_tree()
         _pCtMainWin->get_tree_view().grab_focus();
     }
     else {
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
 }
 
@@ -90,7 +90,7 @@ void CtActions::toggle_show_hide_tree_lines()
 void CtActions::toggle_focus_tree_text()
 {
     if (_pCtMainWin->get_tree_view().has_focus()) {
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
     else {
         _pCtMainWin->get_tree_view().grab_focus();
@@ -99,12 +99,12 @@ void CtActions::toggle_focus_tree_text()
 
 void CtActions::toggle_focus_vte_text()
 {
-    if (_pCtMainWin->is_vte_visible() and _pCtMainWin->get_text_view().has_focus()) {
+    if (_pCtMainWin->is_vte_visible() and _pCtMainWin->get_text_view().mm().has_focus()) {
         Gtk::Widget* pVte = _pCtMainWin->get_vte();
         if (pVte) pVte->grab_focus();
     }
     else {
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
 }
 

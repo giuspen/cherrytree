@@ -33,7 +33,7 @@
 #include <condition_variable>
 #include <type_traits>
 #include <glibmm/ustring.h>
-#include <gtksourceviewmm/buffer.h>
+#include <gtkmm/textbuffer.h>
 #include "ct_const.h"
 
 namespace fs {
@@ -308,9 +308,9 @@ public:
     virtual void vacuum() = 0;
     virtual void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) = 0;
 
-    virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
-                                                              const std::string& syntax,
-                                                              std::list<CtAnchoredWidget*>& widgets) const = 0;
+    virtual Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
+                                                                  const std::string& syntax,
+                                                                  std::list<CtAnchoredWidget*>& widgets) const = 0;
 
     void set_is_dry_run() { _isDryRun = true; }
 

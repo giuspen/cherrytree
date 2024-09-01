@@ -45,8 +45,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
                      Gtk::IconTheme*                 pGtkIconTheme,
                      Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
                      Glib::RefPtr<Gtk::CssProvider>  rGtkCssProvider,
-                     Gsv::LanguageManager*           pGsvLanguageManager,
-                     Gsv::StyleSchemeManager*        pGsvStyleSchemeManager,
+                     GtkSourceLanguageManager*       pGtkSourceLanguageManager,
                      CtStatusIcon*                   pCtStatusIcon)
  : Gtk::ApplicationWindow{}
  , _no_gui{no_gui}
@@ -55,8 +54,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
  , _pGtkIconTheme{pGtkIconTheme}
  , _rGtkTextTagTable{rGtkTextTagTable}
  , _rGtkCssProvider{rGtkCssProvider}
- , _pGsvLanguageManager{pGsvLanguageManager}
- , _pGsvStyleSchemeManager{pGsvStyleSchemeManager}
+ , _pGtkSourceLanguageManager{pGtkSourceLanguageManager}
  , _pCtStatusIcon{pCtStatusIcon}
  , _ctTextview{this}
  , _ctStateMachine{this}
@@ -73,7 +71,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowTree.get_style_context()->add_class("ct-tree-scroll-panel");
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    _scrolledwindowText.add(_ctTextview);
+    _scrolledwindowText.add(_ctTextview.mm());
     _vboxText.pack_start(_init_window_header(), false, false);
     _vboxText.pack_start(_scrolledwindowText);
     if (_pCtConfig->treeRightSide) {
@@ -132,15 +130,16 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     _reset_CtTreestore_CtTreeview();
 
-    _ctTextview.get_style_context()->add_class("ct-view-panel");
-    _ctTextview.set_sensitive(false);
+    auto& textView = _ctTextview.mm();
+    textView.get_style_context()->add_class("ct-view-panel");
+    textView.set_sensitive(false);
 
-    _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
-    _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
-    _ctTextview.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_visibility_notify_event));
-    _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
-    _ctTextview.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
-    _ctTextview.signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_scroll_event));
+    textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
+    textView.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
+    textView.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_visibility_notify_event));
+    textView.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
+    textView.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
+    textView.signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_scroll_event));
 
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{nullptr, this});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
@@ -194,7 +193,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
         Glib::signal_idle().connect_once([this](){
             _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() + process events pending (#1534, #1918, #2126)
             _vPaned.property_position() = _pCtConfig->vpanedPos;
-            _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
+            _ctTextview.mm().signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
             signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
             // show status icon if needed
@@ -331,14 +330,16 @@ void CtMainWin::config_apply()
 
     menu_set_visible_exit_app(_pCtConfig->systrayOn);
 
-    _ctTextview.set_show_line_numbers(_pCtConfig->showLineNumbers);
-    _ctTextview.set_insert_spaces_instead_of_tabs(_pCtConfig->spacesInsteadTabs);
-    _ctTextview.set_tab_width(_pCtConfig->tabsWidth);
-    _ctTextview.set_indent(_pCtConfig->wrappingIndent);
-    _ctTextview.set_pixels_above_lines(_pCtConfig->spaceAroundLines);
-    _ctTextview.set_pixels_below_lines(_pCtConfig->spaceAroundLines);
+    auto pGtkSourceView = GTK_SOURCE_VIEW(_ctTextview.gobj());
+    auto& textView = _ctTextview.mm();
+    gtk_source_view_set_show_line_numbers(pGtkSourceView, _pCtConfig->showLineNumbers);
+    gtk_source_view_set_insert_spaces_instead_of_tabs(pGtkSourceView, _pCtConfig->spacesInsteadTabs);
+    gtk_source_view_set_tab_width(pGtkSourceView, _pCtConfig->tabsWidth);
+    textView.set_indent(_pCtConfig->wrappingIndent);
+    textView.set_pixels_above_lines(_pCtConfig->spaceAroundLines);
+    textView.set_pixels_below_lines(_pCtConfig->spaceAroundLines);
     _ctTextview.set_pixels_inside_wrap(_pCtConfig->spaceAroundLines, _pCtConfig->relativeWrappedSpace);
-    _ctTextview.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+    textView.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
 
     if (2 != _pCtConfig->cursorBlink) {
         Gtk::Settings::get_default()->property_gtk_cursor_blink() = _pCtConfig->cursorBlink;
@@ -521,7 +522,7 @@ void CtMainWin::window_header_update()
                 if (node_id != _ctWinHeader.button_to_node_id.end()) {
                     if (CtTreeIter tree_iter = get_tree_store().get_node_from_node_id(node_id->second))
                         _uCtTreeview->set_cursor_safe(tree_iter);
-                    _ctTextview.grab_focus();
+                    _ctTextview.mm().grab_focus();
                 }
             };
             button->signal_clicked().connect(sigc::bind(click, button));
@@ -771,7 +772,7 @@ void CtMainWin::reset()
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>{});
     _ctTextview.set_spell_check(false);
     if (not _no_gui) {
-        _ctTextview.set_sensitive(false);
+        _ctTextview.mm().set_sensitive(false);
     }
 }
 

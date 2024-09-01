@@ -443,7 +443,7 @@ void CtTreeIter::set_node_sequence(gint64 num)
     }
 }
 
-void CtTreeIter::set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_highlighting)
+void CtTreeIter::set_node_text_buffer(Glib::RefPtr<Gtk::TextBuffer> new_buffer, const std::string& new_syntax_highlighting)
 {
     if (*this) {
         const gint64 masterId = (*this)->get_value(_pColumns->colSharedNodesMasterId);
@@ -467,7 +467,7 @@ void CtTreeIter::set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, cons
     }
 }
 
-Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
+Glib::RefPtr<Gtk::TextBuffer> CtTreeIter::get_node_text_buffer() const
 {
     if (*this) {
         const gint64 masterId = (*this)->get_value(_pColumns->colSharedNodesMasterId);
@@ -479,7 +479,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
             (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
-        Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
+        Glib::RefPtr<Gtk::TextBuffer> rRetTextBuffer;
         const Gtk::TreeIter& self = *this;
         if (static_cast<bool>(self)) {
             Gtk::TreeRow row = *self;
@@ -510,7 +510,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
         return rRetTextBuffer;
     }
     spdlog::error("!! {}", __FUNCTION__);
-    return Glib::RefPtr<Gsv::Buffer>{};
+    return Glib::RefPtr<Gtk::TextBuffer>{};
 }
 
 bool CtTreeIter::get_node_buffer_already_loaded() const
@@ -635,7 +635,7 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
         (void)get_node_text_buffer(); // ensure buffer/widgets loaded
         std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
         if ((*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0) {
-            Glib::RefPtr<Gsv::Buffer> rTextBuffer = get_node_text_buffer();
+            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = get_node_text_buffer();
             Gtk::TextIter curr_iter = start_offset >= 0 ? rTextBuffer->get_iter_at_offset(start_offset) : rTextBuffer->begin();
             do {
                 if (end_offset >= 0 and curr_iter.get_offset() > end_offset) {
@@ -848,12 +848,13 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
     }
 }
 
-void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView)
+void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pCtTextView)
 {
+    auto& textView = pCtTextView->mm();
     if (not static_cast<bool>(treeIter)) {
-        pTextView->set_buffer(Glib::RefPtr<Gsv::Buffer>{});
-        pTextView->set_spell_check(false);
-        pTextView->set_sensitive(false);
+        pCtTextView->set_buffer(Glib::RefPtr<Gtk::TextBuffer>{});
+        pCtTextView->set_spell_check(false);
+        textView.set_sensitive(false);
         return;
     }
 
@@ -869,22 +870,22 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     if (nodeMasterId <= 0) spdlog::debug("Node {} > {}", nodeId, nodeName.raw());
     else spdlog::debug("Node {}[{}] > {}", nodeId, nodeMasterId, nodeName.raw());
 
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
     _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
-    pTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
-    pTextView->set_buffer(rTextBuffer);
-    pTextView->set_spell_check(treeIter.get_node_is_text());
-    pTextView->set_sensitive(true);
-    pTextView->set_editable(not treeIter.get_node_read_only());
-    pTextView->cursor_and_tooltips_reset();
+    pCtTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
+    pCtTextView->set_buffer(rTextBuffer);
+    pCtTextView->set_spell_check(treeIter.get_node_is_text());
+    textView.set_sensitive(true);
+    textView.set_editable(not treeIter.get_node_read_only());
+    pCtTextView->cursor_and_tooltips_reset();
 
     for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor) {
             if (0 == rChildAnchor->get_widgets().size()) {
                 // Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
-                pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
-                pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
+                textView.add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+                pCtAnchoredWidget->apply_width_height(textView.get_allocation().get_width());
                 pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
             }
             else {
@@ -897,7 +898,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
         }
     }
 
-    pTextView->show_all();
+    textView.show_all();
     // we shouldn't lose focus from TREE because TREE shortcuts/arrays movement stop working
     // pTextView->grab_focus();
 
@@ -1414,7 +1415,7 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                 ++summaryInfo.nodes_code_num;
             }
             // ensure the node content is populated
-            Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
+            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
             if (not rTextBuffer) {
                 error = str::format(_("Failed to retrieve the content of the node '%s'"), ctTreeIter.get_node_name().raw());
                 return true; /* true for stop */

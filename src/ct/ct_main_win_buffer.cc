@@ -25,34 +25,53 @@
 #include "ct_storage_xml.h"
 #include "ct_export2txt.h"
 
-void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
+void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
                                           const std::string& syntax,
                                           const bool forceReApply)
 {
-    if (not forceReApply and text_buffer->get_data(CtConst::STYLE_APPLIED_ID)) {
+    if (not forceReApply and pTextBuffer->get_data(CtConst::STYLE_APPLIED_ID)) {
         return;
     }
+    GtkSourceStyleSchemeManager* pGtkSourceStyleSchemeManager = gtk_source_style_scheme_manager_get_default();
+    auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+    auto f_applyScheme = [pGtkSourceStyleSchemeManager, pGtkSourceBuffer](const char* scheme){
+        GtkSourceStyleScheme* pGtkSourceStyleScheme = gtk_source_style_scheme_manager_get_scheme(pGtkSourceStyleSchemeManager, scheme);
+        if (pGtkSourceStyleScheme) {
+            gtk_source_buffer_set_style_scheme(pGtkSourceBuffer, pGtkSourceStyleScheme);
+        }
+        else {
+            spdlog::error("!! {} pGtkSourceStyleScheme '{}'", __FUNCTION__, scheme);
+        }
+    };
     if (CtConst::TABLE_CELL_TEXT_ID == syntax) {
-        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->taStyleScheme));
-        text_buffer->set_highlight_matching_brackets(_pCtConfig->rtHighlMatchBra);
+        f_applyScheme(_pCtConfig->taStyleScheme.c_str());
+        gtk_source_buffer_set_highlight_matching_brackets(pGtkSourceBuffer, _pCtConfig->rtHighlMatchBra);
+        gtk_source_buffer_set_highlight_syntax(pGtkSourceBuffer, false);
     }
     else if (CtConst::RICH_TEXT_ID == syntax) {
-        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->rtStyleScheme));
-        text_buffer->set_highlight_matching_brackets(_pCtConfig->rtHighlMatchBra);
+        f_applyScheme(_pCtConfig->rtStyleScheme.c_str());
+        gtk_source_buffer_set_highlight_matching_brackets(pGtkSourceBuffer, _pCtConfig->rtHighlMatchBra);
+        gtk_source_buffer_set_highlight_syntax(pGtkSourceBuffer, false);
     }
     else {
         if (CtConst::PLAIN_TEXT_ID == syntax) {
-            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->ptStyleScheme));
-            text_buffer->set_highlight_syntax(false);
+            f_applyScheme(_pCtConfig->ptStyleScheme.c_str());
+            gtk_source_buffer_set_highlight_syntax(pGtkSourceBuffer, false);
         }
         else {
-            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->coStyleScheme));
-            text_buffer->set_language(_pGsvLanguageManager->get_language(syntax));
-            text_buffer->set_highlight_syntax(true);
+            f_applyScheme(_pCtConfig->coStyleScheme.c_str());
+            GtkSourceLanguage* pGtkSourceLanguage = gtk_source_language_manager_get_language(get_language_manager(), syntax.c_str());
+            if (pGtkSourceLanguage) {
+                gtk_source_buffer_set_language(pGtkSourceBuffer, pGtkSourceLanguage);
+                gtk_source_buffer_set_highlight_syntax(pGtkSourceBuffer, true);
+            }
+            else {
+                spdlog::error("!! {} pGtkSourceLanguage '{}'", __FUNCTION__, syntax);
+            }
         }
-        text_buffer->set_highlight_matching_brackets(_pCtConfig->ptHighlMatchBra);
+        gtk_source_buffer_set_highlight_matching_brackets(pGtkSourceBuffer, _pCtConfig->ptHighlMatchBra);
     }
-    text_buffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
+    pTextBuffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
 }
 
 void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTextNCode*/)
@@ -123,7 +142,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
         switch (target) {
             case 'r': {
                 if (node.get_node_is_rich_text()) {
-                    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
+                    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = node.get_node_text_buffer();
                     if (not rTextBuffer) {
                         error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw());
                         return true; /* true for stop */
@@ -142,7 +161,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                     }
                 }
                 else {
-                    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
+                    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = node.get_node_text_buffer();
                     if (not rTextBuffer) {
                         error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw());
                         return true; /* true for stop */
@@ -168,16 +187,16 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
     if (not error.empty()) CtDialogs::error_dialog(error, *this);
 }
 
-Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& textContent)
+Glib::RefPtr<Gtk::TextBuffer> CtMainWin::get_new_text_buffer(const Glib::ustring& textContent)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
-    rRetTextBuffer = Gsv::Buffer::create(_rGtkTextTagTable);
-    rRetTextBuffer->set_max_undo_levels(_pCtConfig->limitUndoableSteps);
+    GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(_rGtkTextTagTable->gobj());
+    Glib::RefPtr<Gtk::TextBuffer> rRetTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
+    gtk_source_buffer_set_max_undo_levels(pGtkSourceBuffer, _pCtConfig->limitUndoableSteps);
 
     if (not textContent.empty()) {
-        rRetTextBuffer->begin_not_undoable_action();
+        gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
         rRetTextBuffer->set_text(textContent);
-        rRetTextBuffer->end_not_undoable_action();
+        gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
         rRetTextBuffer->set_modified(false);
     }
     return rRetTextBuffer;
@@ -461,19 +480,19 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     bool user_active_restore = user_active();
     user_active() = false;
 
-    auto text_buffer = tree_iter.get_node_text_buffer();
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
+    auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
 
-    text_buffer->begin_not_undoable_action();
+    gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
 
     // erase is slow on empty buffer
-    if (text_buffer->begin() != text_buffer->end()) {
-        text_buffer->erase(text_buffer->begin(), text_buffer->end());
+    if (pTextBuffer->begin() != pTextBuffer->end()) {
+        pTextBuffer->erase(pTextBuffer->begin(), pTextBuffer->end());
     }
     tree_iter.remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* text_node : state->buffer_xml.get_root_node()->get_children()) {
-        CtStorageXmlHelper{this}.get_text_buffer_one_slot_from_xml(gsv_buffer, text_node, widgets, nullptr, -1, "");
+        CtStorageXmlHelper{this}.get_text_buffer_one_slot_from_xml(pTextBuffer, text_node, widgets, nullptr, -1, "");
     }
 
     // xml storage doesn't have widgets, so load them separately
@@ -481,19 +500,19 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
         widgets.push_back(widgetState->to_widget(this));
     }
     for (auto widget : widgets) {
-        widget->insertInTextBuffer(gsv_buffer);
+        widget->insertInTextBuffer(pTextBuffer);
     }
-    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &_ctTextview);
+    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &_ctTextview.mm());
 
-    text_buffer->end_not_undoable_action();
-    text_buffer->set_modified(false);
+    gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+    pTextBuffer->set_modified(false);
 
     _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
-    _ctTextview.grab_focus();
+    _ctTextview.mm().grab_focus();
 
     _ctTextview.set_spell_check(curr_tree_iter().get_node_is_text());
 
-    text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
+    pTextBuffer->place_cursor(pTextBuffer->get_iter_at_offset(state->cursor_pos));
     (void)_try_move_focus_to_anchored_widget_if_on_it();
 
     while (gtk_events_pending()) gtk_main_iteration();
@@ -505,7 +524,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
 }
 
 // Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer
-void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
+void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
                                           CtTreeIter tree_iter,
                                           const std::string& new_syntax,
                                           const std::string& old_syntax)
@@ -521,7 +540,7 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
         node_text = CtExport2Txt{this}.node_export_to_txt(tree_iter, "", {0}, -1, -1);
     }
     else {
-        node_text = text_buffer->get_text();
+        node_text = pTextBuffer->get_text();
     }
 
     auto new_buffer = get_new_text_buffer(node_text);
@@ -533,7 +552,7 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
 
 void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos, const int v_adj_val)
 {
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
     Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
     // if (static_cast<bool>(textIter)) <- don't check because iter at the end returns false
 
@@ -549,7 +568,7 @@ bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
     auto widgets = curr_tree_iter().get_anchored_widgets(iter_insert.get_offset(), iter_insert.get_offset());
     if (not widgets.empty()) {
         if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(widgets.front())) {
-            pCodebox->get_text_view().grab_focus();
+            pCodebox->get_text_view().mm().grab_focus();
             return true;
         }
         if (auto pTable = dynamic_cast<CtTableCommon*>(widgets.front())) {

@@ -25,7 +25,6 @@
 
 #include "ct_types.h"
 #include <gtkmm.h>
-#include <gtksourceviewmm.h>
 #include <set>
 #include <unordered_map>
 
@@ -50,7 +49,7 @@ struct CtNodeData
     std::string    foregroundRgb24;
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer;
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer;
     std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
@@ -65,7 +64,7 @@ struct CtTreeModelColumns : public Gtk::TreeModelColumnRecord
     }
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>    rColPixbuf;
     Gtk::TreeModelColumn<Glib::ustring>                colNodeName;
-    Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>    rColTextBuffer;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gtk::TextBuffer>>  rColTextBuffer;
     Gtk::TreeModelColumn<gint64>                       colNodeUniqueId;
     Gtk::TreeModelColumn<gint64>                       colSharedNodesMasterId;
     Gtk::TreeModelColumn<std::string>                  colSyntaxHighlighting;
@@ -123,8 +122,8 @@ public:
     void          set_node_modification_time(const gint64 modification_time);
     void          set_node_sequence(gint64 num);
 
-    void                      set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_highlighting);
-    Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
+    void                      set_node_text_buffer(Glib::RefPtr<Gtk::TextBuffer> new_buffer, const std::string& new_syntax_highlighting);
+    Glib::RefPtr<Gtk::TextBuffer> get_node_text_buffer() const;
     bool                      get_node_buffer_already_loaded() const;
 
     void                         remove_all_embedded_widgets();

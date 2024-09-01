@@ -59,7 +59,7 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
         if (pCtMainWin->user_active() and not pCtMainWin->force_exit()) {
             CtTreeIter currTreeIter = pCtMainWin->curr_tree_iter();
             if (currTreeIter) {
-                _ctTextview.set_editable(not currTreeIter.get_node_read_only());
+                _ctTextview.mm().set_editable(not currTreeIter.get_node_read_only());
                 if (rMark->get_name() == "insert") {
                     _ctTextview.column_edit_selection_update();
                 }
@@ -67,7 +67,7 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
         }
     }, false);
 
-    _ctTextview.signal_event_after().connect([pCtMainWin, this](GdkEvent* event){
+    _ctTextview.mm().signal_event_after().connect([pCtMainWin, this](GdkEvent* event){
         if (not pCtMainWin->user_active()) return;
         if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
             _ctTextview.for_event_after_double_click_button1(event);
@@ -76,14 +76,14 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
         else if (event->type == GDK_KEY_PRESS)
             _ctTextview.for_event_after_key_press(event, _syntaxHighlighting);
     });
-    _ctTextview.signal_motion_notify_event().connect([pCtMainWin, this](GdkEventMotion* event){
+    _ctTextview.mm().signal_motion_notify_event().connect([pCtMainWin, this](GdkEventMotion* event){
         if (not pCtMainWin->user_active()) return false;
         int x, y;
-        _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
+        _ctTextview.mm().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
         _ctTextview.cursor_and_tooltips_handler(x, y);
         return false;
     });
-    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
+    _ctTextview.mm().signal_scroll_event().connect([this](GdkEventScroll* event){
         if (!(event->state & GDK_CONTROL_MASK))
             return false;
         if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
@@ -101,22 +101,27 @@ Glib::ustring CtTextCell::get_text_content() const
     return start_iter.get_text(end_iter);
 }
 
-void CtTextCell::set_syntax_highlighting(const std::string& syntaxHighlighting, Gsv::LanguageManager* pGsvLanguageManager)
+void CtTextCell::set_syntax_highlighting(const std::string& syntaxHighlighting, GtkSourceLanguageManager* pGtkSourceLanguageManager)
 {
     _syntaxHighlighting = syntaxHighlighting;
+    auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(_rTextBuffer->gobj());
     if (CtConst::TABLE_CELL_TEXT_ID == syntaxHighlighting or
         CtConst::RICH_TEXT_ID == syntaxHighlighting or
         CtConst::PLAIN_TEXT_ID == syntaxHighlighting)
     {
-        _rTextBuffer->set_highlight_syntax(false);
+        gtk_source_buffer_set_highlight_syntax(pGtkSourceBuffer, false);
     }
     else {
-        _rTextBuffer->set_language(pGsvLanguageManager->get_language(syntaxHighlighting));
-        _rTextBuffer->set_highlight_syntax(true);
+        GtkSourceLanguage* pGtkSourceLanguage = gtk_source_language_manager_get_language(pGtkSourceLanguageManager, syntaxHighlighting.c_str());
+        if (pGtkSourceLanguage) {
+            gtk_source_buffer_set_language(pGtkSourceBuffer, pGtkSourceLanguage);
+            gtk_source_buffer_set_highlight_syntax(pGtkSourceBuffer, true);
+        }
+        else {
+            spdlog::error("!! {} pGtkSourceLanguage '{}'", __FUNCTION__, syntaxHighlighting);
+        }
     }
 }
-
-const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
 
 CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
                      const Glib::ustring& textContent,
@@ -133,8 +138,8 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
  , _frameWidth{frameWidth}
  , _frameHeight{frameHeight}
 {
-    _ctTextview.get_style_context()->add_class("ct-codebox");
-    _ctTextview.set_border_width(1);
+    _ctTextview.mm().get_style_context()->add_class("ct-codebox");
+    _ctTextview.mm().set_border_width(1);
 
     if (not _pCtMainWin->get_ct_config()->codeboxAutoResize) {
         if (_frameHeight < MIN_SCROLL_HEIGHT) { /* overwise not possible to have 20 px height*/
@@ -146,10 +151,10 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     }
     else {
         _scrolledwindow.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
-        _ctTextview.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+        _ctTextview.mm().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
     }
 
-    _scrolledwindow.add(_ctTextview);
+    _scrolledwindow.add(_ctTextview.mm());
     _hbox.pack_start(_scrolledwindow, true/*expand*/, true/*fill*/);
     _toolbar.get_style_context()->add_class("ct-cboxtoolbar");
     _toolbar.set_property("orientation", Gtk::ORIENTATION_VERTICAL);
@@ -166,14 +171,14 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     set_show_line_numbers(showLineNumbers);
 
     // signals
-    _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
+    _ctTextview.mm().signal_populate_popup().connect([this](Gtk::Menu* menu){
         if (not _pCtMainWin->user_active()) return;
         //for (auto iter : menu->get_children()) menu->remove(*iter);
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
         _pCtMainWin->get_ct_menu().build_popup_menu(menu, CtMenu::POPUP_MENU_TYPE::Codebox);
     });
-    _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_on_key_press_event), false);
-    _ctTextview.signal_button_press_event().connect([this](GdkEventButton* event){
+    _ctTextview.mm().signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_on_key_press_event), false);
+    _ctTextview.mm().signal_button_press_event().connect([this](GdkEventButton* event){
         if (not _pCtMainWin->user_active()) return false;
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
         if ( event->button != 3 /* right button */ and
@@ -245,8 +250,9 @@ void CtCodebox::apply_width_height(const int parentTextWidth)
 
 void CtCodebox::apply_syntax_highlighting(const bool forceReApply)
 {
-    _pCtMainWin->apply_syntax_highlighting(get_buffer(), _syntaxHighlighting, forceReApply);
-    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = get_buffer();
+    _pCtMainWin->apply_syntax_highlighting(pTextBuffer, _syntaxHighlighting, forceReApply);
+    gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(pTextBuffer->gobj()), _highlightBrackets);
 }
 
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
@@ -301,7 +307,7 @@ std::shared_ptr<CtAnchoredWidgetState> CtCodebox::get_state()
 void CtCodebox::set_show_line_numbers(const bool showLineNumbers)
 {
     _showLineNumbers = showLineNumbers;
-    _ctTextview.set_show_line_numbers(_showLineNumbers);
+    gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(_ctTextview.gobj()), _showLineNumbers);
 }
 
 void CtCodebox::set_width_height(int newWidth, int newHeight)
@@ -318,13 +324,13 @@ void CtCodebox::set_width_height(int newWidth, int newHeight)
                 _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
         }
     }
-    apply_width_height(_pCtMainWin->get_text_view().get_allocation().get_width());
+    apply_width_height(_pCtMainWin->get_text_view().mm().get_allocation().get_width());
 }
 
 void CtCodebox::set_highlight_brackets(const bool highlightBrackets)
 {
     _highlightBrackets = highlightBrackets;
-    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
+    gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(_rTextBuffer->gobj()), _highlightBrackets);
 }
 
 void CtCodebox::apply_cursor_pos(const int cursorPos)
@@ -346,7 +352,7 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
                 Gtk::TextIter text_iter = _pCtMainWin->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
                 text_iter.forward_char();
                 _pCtMainWin->get_text_view().get_buffer()->place_cursor(text_iter);
-                _pCtMainWin->get_text_view().grab_focus();
+                _pCtMainWin->get_text_view().mm().grab_focus();
                 return true;
             }
             if (GDK_KEY_plus == event->keyval or GDK_KEY_KP_Add == event->keyval or GDK_KEY_equal == event->keyval) {

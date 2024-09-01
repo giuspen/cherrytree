@@ -329,17 +329,18 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
         node_data.tsLastSave = node_data.tsCreation;
         node_data.sequence = -1;
         if (imported_node->has_content()) {
-            Glib::RefPtr<Gsv::Buffer> pBuffer = _pCtMainWin->get_new_text_buffer();
-            pBuffer->begin_not_undoable_action();
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->get_new_text_buffer();
+            auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+            gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
             for (xmlpp::Node* xml_slot : imported_node->xml_content->get_root_node()->get_children("slot")) {
                 for (xmlpp::Node* child: xml_slot->get_children()) {
-                    Gtk::TextIter insert_iter = pBuffer->get_insert()->get_iter();
-                    CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(pBuffer, child, node_data.anchoredWidgets, &insert_iter, -1, "");
+                    Gtk::TextIter insert_iter = pTextBuffer->get_insert()->get_iter();
+                    CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(pTextBuffer, child, node_data.anchoredWidgets, &insert_iter, -1, "");
                 }
             }
-            pBuffer->end_not_undoable_action();
-            pBuffer->set_modified(false);
-            node_data.rTextBuffer = pBuffer;
+            gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+            pTextBuffer->set_modified(false);
+            node_data.rTextBuffer = pTextBuffer;
         }
         else {
             node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();

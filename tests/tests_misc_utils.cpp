@@ -138,26 +138,30 @@ TEST(MiscUtilsGroup, gstring_split_to_int64)
 TEST(MiscUtilsGroup, iter_util__startswith)
 {
     Glib::init();
-    auto buffer = Gsv::Buffer::create();
-    buffer->set_text("Saitama さいたま市");
-    ASSERT_TRUE(CtTextIterUtil::startswith(buffer->begin(), "Sai"));
-    ASSERT_TRUE(not CtTextIterUtil::startswith(buffer->begin(), "さ"));
-    buffer->set_text("さいたま市 Saitama");
-    ASSERT_TRUE(CtTextIterUtil::startswith(buffer->begin(), "さ"));
-    ASSERT_TRUE(not CtTextIterUtil::startswith(buffer->begin(), "Sai"));
+    // I'm struggling to Glib::wrap the GtkSourceBuffer from here, this is otherwise incorrect and should
+    // never be used in application code as all text buffers must be source buffers
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    pTextBuffer->set_text("Saitama さいたま市");
+    ASSERT_TRUE(CtTextIterUtil::startswith(pTextBuffer->begin(), "Sai"));
+    ASSERT_TRUE(not CtTextIterUtil::startswith(pTextBuffer->begin(), "さ"));
+    pTextBuffer->set_text("さいたま市 Saitama");
+    ASSERT_TRUE(CtTextIterUtil::startswith(pTextBuffer->begin(), "さ"));
+    ASSERT_TRUE(not CtTextIterUtil::startswith(pTextBuffer->begin(), "Sai"));
 }
 
 TEST(MiscUtilsGroup, iter_util__startswith_any)
 {
     Glib::init();
-    auto buffer = Gsv::Buffer::create();
-    buffer->set_text("Saitama さいたま市");
+    // I'm struggling to Glib::wrap the GtkSourceBuffer from here, this is otherwise incorrect and should
+    // never be used in application code as all text buffers must be source buffers
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    pTextBuffer->set_text("Saitama さいたま市");
 
-    ASSERT_TRUE(CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "さ"}));
-    ASSERT_TRUE(not CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "21", "さ"}));
-    buffer->set_text("さいたま市 Saitama");
-    ASSERT_TRUE(CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "さ"}));
-    ASSERT_TRUE(not CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "123"}));
+    ASSERT_TRUE(CtTextIterUtil::startswith_any(pTextBuffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "さ"}));
+    ASSERT_TRUE(not CtTextIterUtil::startswith_any(pTextBuffer->begin(), std::array<const gchar*, 3>{"M", "21", "さ"}));
+    pTextBuffer->set_text("さいたま市 Saitama");
+    ASSERT_TRUE(CtTextIterUtil::startswith_any(pTextBuffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "さ"}));
+    ASSERT_TRUE(not CtTextIterUtil::startswith_any(pTextBuffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "123"}));
 }
 
 TEST(MiscUtilsGroup, contains)
@@ -494,6 +498,9 @@ TEST(MiscUtilsGroup, get_link_entry)
 
 TEST(MiscUtilsGroup, get_is_camel_case)
 {
+    Glib::init();
+    // I'm struggling to Glib::wrap the GtkSourceBuffer from here, this is otherwise incorrect and should
+    // never be used in application code as all text buffers must be source buffers
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
     {
         const std::string notcamelcase{"notcamelcase"};

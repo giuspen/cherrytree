@@ -29,18 +29,11 @@
 #include "ct_logging.h"
 #include <iostream>
 
-/*static*/bool CtApp::inside_gsv_init{false};
-
 CtApp::CtApp(const Glib::ustring application_id_postfix)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
  , _pCtConfig{CtConfig::GetCtConfig()}
 {
-    CtApp::inside_gsv_init = true;
-    // https://gitlab.gnome.org/GNOME/gtksourceviewmm/-/issues/6
-    // on windows, msys2 -> [gtk] [critical] Class::register_derived_type(): base_query.type_name is NULL.
-    // on mac os, mac ports reported a crash -> https://github.com/giuspen/cherrytree/issues/2518
-    Gsv::init();
-    CtApp::inside_gsv_init = false;
+    gtk_source_init();
 
     // action to call from second instance
     // user wanted to create a new window from command line
@@ -55,6 +48,11 @@ CtApp::CtApp(const Glib::ustring application_id_postfix)
     // we want to rely on actions for handling options, we need to call it here. This appears to
     // have no unwanted side-effect. It will also trigger the call to on_startup().
     register_application();
+}
+
+CtApp::~CtApp()
+{
+    gtk_source_finalize();
 }
 
 /*static*/Glib::RefPtr<CtApp> CtApp::create(const Glib::ustring application_id_postfix)
@@ -98,21 +96,27 @@ void CtApp::_on_startup()
 
     _rTextTagTable = Gtk::TextTagTable::create();
 
-    _rLanguageManager = Gsv::LanguageManager::create();
-    std::vector<std::string> langSearchPath = _rLanguageManager->get_search_path();
+    GtkSourceLanguageManager* pGtkSourceLanguageManager = gtk_source_language_manager_get_default();
+    const gchar * const * pLMSearchPath = gtk_source_language_manager_get_search_path(pGtkSourceLanguageManager);
+    std::vector<gchar const *> langSearchPath;
+    for (auto pPath = pLMSearchPath; *pPath; ++pPath) {
+        langSearchPath.push_back(*pPath);
+    }
     fs::path ctLanguageSpecsData = fs::get_cherrytree_datadir() / CtConfig::ConfigLanguageSpecsDirname;
-    langSearchPath.push_back(ctLanguageSpecsData.string());
+    langSearchPath.push_back(ctLanguageSpecsData.c_str());
     fs::path ctLanguageSpecsConfig = fs::get_cherrytree_config_language_specs_dirpath();
-    langSearchPath.push_back(ctLanguageSpecsConfig.string());
-    _rLanguageManager->set_search_path(langSearchPath);
+    langSearchPath.push_back(ctLanguageSpecsConfig.c_str());
+    langSearchPath.push_back(nullptr);
+    /* At the moment this function can be called only before the language files are loaded for the first time.
+       In practice to set a custom search path for a GtkSourceLanguageManager, you have to call this function right after creating it. */
+    _pGtkSourceLanguageManager = gtk_source_language_manager_new();
+    gtk_source_language_manager_set_search_path(_pGtkSourceLanguageManager, (gchar **)langSearchPath.data());
 
-    _rStyleSchemeManager = Gsv::StyleSchemeManager::create();
-    std::vector<std::string> styleSearchPath = _rStyleSchemeManager->get_search_path();
+    GtkSourceStyleSchemeManager* pGtkSourceStyleSchemeManager = gtk_source_style_scheme_manager_get_default();
     fs::path ctStylesData = fs::get_cherrytree_datadir() / CtConfig::ConfigStylesDirname;
-    styleSearchPath.push_back(ctStylesData.string());
+    gtk_source_style_scheme_manager_append_search_path(pGtkSourceStyleSchemeManager, ctStylesData.c_str());
     fs::path ctStylesConfig = fs::get_cherrytree_config_styles_dirpath();
-    styleSearchPath.push_back(ctStylesConfig.string());
-    _rStyleSchemeManager->set_search_path(styleSearchPath);
+    gtk_source_style_scheme_manager_append_search_path(pGtkSourceStyleSchemeManager, ctStylesConfig.c_str());
 
     _rCssProvider = Gtk::CssProvider::create();
 
@@ -273,8 +277,7 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                                           _rIcontheme.get(),
                                           _rTextTagTable,
                                           _rCssProvider,
-                                          _rLanguageManager.get(),
-                                          _rStyleSchemeManager.get(),
+                                          _pGtkSourceLanguageManager,
                                           _uCtStatusIcon.get()};
     add_window(*pCtMainWin);
 

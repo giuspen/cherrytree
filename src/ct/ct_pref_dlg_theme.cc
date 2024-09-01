@@ -156,32 +156,35 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pGridStyleSchemes->set_row_homogeneous(true);
     pGridStyleSchemes->set_column_spacing(4);
 
+    GtkSourceStyleSchemeManager* pGtkSourceStyleSchemeManager = gtk_source_style_scheme_manager_get_default();
+    const gchar * const * pSSMSchemeIds = gtk_source_style_scheme_manager_get_scheme_ids(pGtkSourceStyleSchemeManager);
+
     auto label_style_scheme_rt = Gtk::manage(new Gtk::Label{_("Rich Text")});
     auto combobox_style_scheme_rt = Gtk::manage(new Gtk::ComboBoxText{});
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
-        combobox_style_scheme_rt->append(scheme);
+    for (auto pScheme = pSSMSchemeIds; *pScheme; ++pScheme) {
+        combobox_style_scheme_rt->append(*pScheme);
     }
     combobox_style_scheme_rt->set_active_text(_pConfig->rtStyleScheme);
 
     auto label_style_scheme_pt = Gtk::manage(new Gtk::Label{_("Plain Text")});
     auto combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText{});
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
-        combobox_style_scheme_pt->append(scheme);
+    for (auto pScheme = pSSMSchemeIds; *pScheme; ++pScheme) {
+        combobox_style_scheme_pt->append(*pScheme);
     }
     combobox_style_scheme_pt->set_active_text(_pConfig->ptStyleScheme);
 
     auto label_style_scheme_ta = Gtk::manage(new Gtk::Label{_("Table")});
     auto combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText{});
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
-        combobox_style_scheme_ta->append(scheme);
+    for (auto pScheme = pSSMSchemeIds; *pScheme; ++pScheme) {
+        combobox_style_scheme_ta->append(*pScheme);
     }
     combobox_style_scheme_ta->set_active_text(_pConfig->taStyleScheme);
 
     auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Code")});
     auto combobox_style_scheme_co = Gtk::manage(new Gtk::ComboBoxText{});
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
-        if (not Glib::str_has_prefix(scheme, "user-")) {
-            combobox_style_scheme_co->append(scheme);
+    for (auto pScheme = pSSMSchemeIds; *pScheme; ++pScheme) {
+        if (not g_str_has_prefix(*pScheme, "user-")) {
+            combobox_style_scheme_co->append(*pScheme);
         }
     }
     combobox_style_scheme_co->set_active_text(_pConfig->coStyleScheme);
@@ -201,11 +204,12 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto pNotebook = Gtk::manage(new Gtk::Notebook{});
 
     auto f_onUserStyleChanged = [this,
+                                 pGtkSourceStyleSchemeManager,
                                  combobox_style_scheme_rt,
                                  combobox_style_scheme_pt,
                                  combobox_style_scheme_ta](const unsigned num){
         _pConfig->update_user_style(num);
-        _pCtMainWin->get_style_scheme_manager()->force_rescan();
+        gtk_source_style_scheme_manager_force_rescan(pGtkSourceStyleSchemeManager);
         const std::string styleId = CtConfig::get_user_style_id(num);
         if (combobox_style_scheme_rt->get_active_text() == styleId) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });

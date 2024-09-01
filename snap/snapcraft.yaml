@@ -33,7 +33,7 @@ parts:
     build-packages:
       - libcurl4-openssl-dev
       - libfmt-dev
-      - libgtksourceviewmm-3.0-dev
+      - libgtksourceview-4-dev
       - libgspell-1-dev
       - libsqlite3-dev
       - libspdlog-dev
@@ -44,7 +44,7 @@ parts:
     stage-packages:
       - libcurl4
       - libfribidi0
-      - libgtksourceviewmm-3.0-0v5
+      - libgtksourceview-4-0
       - libspdlog1
       - libuchardet0
       - libxml++2.6-2v5

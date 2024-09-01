@@ -33,29 +33,31 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{_pCtMainWin->get_ct_config()}
  , _pCtStatusBar{&_pCtMainWin->get_status_bar()}
- , _columnEdit{*this}
+ , _pGtkSourceView{GTK_SOURCE_VIEW(gtk_source_view_new())}
+ , _pTextView{Gtk::manage(Glib::wrap(GTK_TEXT_VIEW(_pGtkSourceView)))}
+ , _columnEdit{*_pTextView}
 {
-    set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
-    set_left_margin(_pCtConfig->textMarginLeft);
-    set_right_margin(_pCtConfig->textMarginRight);
-    set_insert_spaces_instead_of_tabs(_pCtConfig->spacesInsteadTabs);
-    set_tab_width((guint)_pCtConfig->tabsWidth);
+    gtk_source_view_set_smart_home_end(_pGtkSourceView, GTK_SOURCE_SMART_HOME_END_AFTER);
+    _pTextView->set_left_margin(_pCtConfig->textMarginLeft);
+    _pTextView->set_right_margin(_pCtConfig->textMarginRight);
+    gtk_source_view_set_insert_spaces_instead_of_tabs(_pGtkSourceView, _pCtConfig->spacesInsteadTabs);
+    gtk_source_view_set_tab_width(_pGtkSourceView, (guint)_pCtConfig->tabsWidth);
     if (_pCtConfig->lineWrapping) {
-        set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
+        _pTextView->set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
     }
     else {
-        set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+        _pTextView->set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
     }
     for (const Gtk::TextWindowType& textWinType : std::list<Gtk::TextWindowType>{Gtk::TEXT_WINDOW_LEFT,
                                                                                  Gtk::TEXT_WINDOW_RIGHT,
                                                                                  Gtk::TEXT_WINDOW_TOP,
                                                                                  Gtk::TEXT_WINDOW_BOTTOM})
     {
-        set_border_window_size(textWinType, 1);
+        _pTextView->set_border_window_size(textWinType, 1);
     }
 
     // column edit signals
-    signal_event_after().connect([this](GdkEvent* pEvent){
+    _pTextView->signal_event_after().connect([this](GdkEvent* pEvent){
         switch (pEvent->type) {
             case GDK_KEY_PRESS: {
                 if (pEvent->key.keyval == GDK_KEY_Control_L) {
@@ -82,16 +84,17 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
                 break;
         }
     }, false);
-    signal_focus_out_event().connect([this](GdkEventFocus*/*gdk_event*/){
+    _pTextView->signal_focus_out_event().connect([this](GdkEventFocus*/*gdk_event*/){
         _columnEdit.column_mode_off();
         _set_highlight_current_line_enabled(false);
         return false; /*propagate event*/
     }, false);
-    signal_focus_in_event().connect([this](GdkEventFocus*/*gdk_event*/){
+    _pTextView->signal_focus_in_event().connect([this](GdkEventFocus*/*gdk_event*/){
         _set_highlight_current_line_enabled(true);
         _columnEdit.focus_in();
         return false; /*propagate event*/
     }, false);
+    _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received), false);
     _columnEdit.register_on_off_callback([this](const bool col_edit_on){
         _set_highlight_current_line_enabled(not col_edit_on);
         spdlog::debug("colMode {}", col_edit_on);
@@ -106,10 +109,10 @@ void CtTextView::_set_highlight_current_line_enabled(const bool enabled)
     if (enabled) {
         const bool isRichTextOrTable{CtConst::RICH_TEXT_ID == _syntaxHighlighting or
                                      CtConst::TABLE_CELL_TEXT_ID == _syntaxHighlighting};
-        set_highlight_current_line(isRichTextOrTable ? _pCtConfig->rtHighlCurrLine : _pCtConfig->ptHighlCurrLine);
+        gtk_source_view_set_highlight_current_line(_pGtkSourceView, isRichTextOrTable ? _pCtConfig->rtHighlCurrLine : _pCtConfig->ptHighlCurrLine);
     }
     else {
-        set_highlight_current_line(false);
+        gtk_source_view_set_highlight_current_line(_pGtkSourceView, false);
     }
 }
 
@@ -127,33 +130,40 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     else if (CtConst::PLAIN_TEXT_ID == _syntaxHighlighting) { new_class = "ct-view-plain-text"; }
     else                                                    { new_class = "ct-view-code"; }
 
-    if (new_class != "ct-view-rich-text") get_style_context()->remove_class("ct-view-rich-text");
-    if (new_class != "ct-view-plain-text") get_style_context()->remove_class("ct-view-plain-text");
-    if (new_class != "ct-view-code") get_style_context()->remove_class("ct-view-code");
-    get_style_context()->add_class(new_class);
+    if (new_class != "ct-view-rich-text") _pTextView->get_style_context()->remove_class("ct-view-rich-text");
+    if (new_class != "ct-view-plain-text") _pTextView->get_style_context()->remove_class("ct-view-plain-text");
+    if (new_class != "ct-view-code") _pTextView->get_style_context()->remove_class("ct-view-code");
+    _pTextView->get_style_context()->add_class(new_class);
 
+    bool drawSpaces{false};
     if (isRichTextOrTable) {
         if (_pCtConfig->rtShowWhiteSpaces) {
-            set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
-        }
-        else {
-            set_draw_spaces(static_cast<Gsv::DrawSpacesFlags>(0));
+            drawSpaces = true;
         }
     }
     else {
         if (_pCtConfig->ptShowWhiteSpaces) {
-            set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
-        }
-        else {
-            set_draw_spaces(static_cast<Gsv::DrawSpacesFlags>(0));
+            drawSpaces = true;
         }
     }
+    GtkSourceSpaceDrawer* pGtkSourceSpaceDrawer = gtk_source_view_get_space_drawer(_pGtkSourceView);
+    if (drawSpaces) {
+        gtk_source_space_drawer_set_types_for_locations(pGtkSourceSpaceDrawer,
+                                                        GTK_SOURCE_SPACE_LOCATION_ALL,
+                                                        static_cast<GtkSourceSpaceTypeFlags>(GTK_SOURCE_SPACE_TYPE_ALL & ~GTK_SOURCE_SPACE_TYPE_NEWLINE));
+    }
+    else {
+        gtk_source_space_drawer_set_types_for_locations(pGtkSourceSpaceDrawer,
+                                                        GTK_SOURCE_SPACE_LOCATION_ALL,
+                                                        GTK_SOURCE_SPACE_TYPE_NONE);
+    }
+    gtk_source_space_drawer_set_enable_matrix(pGtkSourceSpaceDrawer, TRUE);
 }
 
 void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space)
 {
     int pixels_around_wrap = (int)((double)space_around_lines * ((double)relative_wrapped_space / 100.0));
-    Gtk::TextView::set_pixels_inside_wrap(pixels_around_wrap);
+    _pTextView->set_pixels_inside_wrap(pixels_around_wrap);
 }
 
 void CtTextView::set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*=Glib::RefPtr<Gtk::TextBuffer>()*/)
@@ -251,16 +261,19 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
 {
     auto text_buffer = get_buffer();
     int x, y;
-    window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+    _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
     Gtk::TextIter iter_start;
-    get_iter_at_location(iter_start, x, y);
-    const Glib::RefPtr<Gsv::Gutter> pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
-    if (pGutterLineNumbers) {
-        const Glib::RefPtr<Gdk::Window> pGutterLNWindow = pGutterLineNumbers->get_window();
-        if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
-            // line number click
-            _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
-            return;
+    _pTextView->get_iter_at_location(iter_start, x, y);
+    GtkSourceGutter* pGtkSourceGutter = gtk_source_view_get_gutter(_pGtkSourceView, GTK_TEXT_WINDOW_LEFT);
+    if (pGtkSourceGutter) {
+        GtkSourceView* pGutterGtkSourceView = gtk_source_gutter_get_view(pGtkSourceGutter);
+        if (pGutterGtkSourceView) {
+            GdkWindow* pGutterLNWindow = gtk_widget_get_window(GTK_WIDGET(pGutterGtkSourceView));
+            if (pGutterLNWindow == event->button.window) {
+                // line number click
+                _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
+                return;
+            }
         }
     }
     _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, iter_start);
@@ -275,9 +288,9 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
     {
         auto text_buffer = get_buffer();
         int x, y;
-        window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+        _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
         Gtk::TextIter iter_start;
-        get_iter_at_location(iter_start, x, y);
+        _pTextView->get_iter_at_location(iter_start, x, y);
         _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
     }
 }
@@ -297,7 +310,8 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
     // reset the column mode on the previous buffer
     _columnEdit.column_mode_off();
 
-    Gsv::View::set_buffer(buffer);
+    GtkTextBuffer* pGtkTextBuffer = buffer ? buffer->gobj() : NULL;
+    gtk_text_view_set_buffer(GTK_TEXT_VIEW(_pGtkSourceView), pGtkTextBuffer);
 
 #ifdef MD_AUTO_REPLACEMENT
     // Setup the markdown filter for a new buffer
@@ -311,20 +325,23 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
     auto text_buffer = get_buffer();
     if (event->button.button == 1 or event->button.button == 2) {
         int x, y, trailing;
-        window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+        _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
         Gtk::TextIter text_iter;
-        get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
+        _pTextView->get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
         // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
         Gdk::Rectangle iter_rect;
-        get_iter_location(text_iter, iter_rect);
+        _pTextView->get_iter_location(text_iter, iter_rect);
         if (1 == event->button.button) {
-            const Glib::RefPtr<Gsv::Gutter> pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
-            if (pGutterLineNumbers) {
-                const Glib::RefPtr<Gdk::Window> pGutterLNWindow = pGutterLineNumbers->get_window();
-                if (pGutterLNWindow and pGutterLNWindow->gobj() == event->button.window) {
-                    // line number click
-                    _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_iter);
-                    return;
+            GtkSourceGutter* pGtkSourceGutter = gtk_source_view_get_gutter(_pGtkSourceView, GTK_TEXT_WINDOW_LEFT);
+            if (pGtkSourceGutter) {
+                GtkSourceView* pGutterGtkSourceView = gtk_source_gutter_get_view(pGtkSourceGutter);
+                if (pGutterGtkSourceView) {
+                    GdkWindow* pGutterLNWindow = gtk_widget_get_window(GTK_WIDGET(pGutterGtkSourceView));
+                    if (pGutterLNWindow == event->button.window) {
+                        // line number click
+                        _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_iter);
+                        return;
+                    }
                 }
             }
         }
@@ -351,9 +368,9 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
     }
     else if (event->button.button == 3 and not text_buffer->get_has_selection()) {
         int x, y;
-        window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+        _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
         Gtk::TextIter text_iter;
-        get_iter_at_location(text_iter, x, y);
+        _pTextView->get_iter_at_location(text_iter, x, y);
         text_buffer->place_cursor(text_iter);
     }
 }
@@ -607,17 +624,17 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     Gtk::TextIter text_iter;
 
     int trailing;
-    get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location though has an issue
+    _pTextView->get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location though has an issue
 
     // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
     Gdk::Rectangle iter_rect;
-    get_iter_location(text_iter, iter_rect);
+    _pTextView->get_iter_location(text_iter, iter_rect);
     if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
          (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
     {
         if (CtList{_pCtConfig, get_buffer()}.is_list_todo_beginning(text_iter)) {
-            get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
-            set_tooltip_text("");
+            _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
+            _pTextView->set_tooltip_text("");
             return;
         }
         auto tags = text_iter.get_tags();
@@ -653,11 +670,11 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         _pCtMainWin->hovering_link_iter_offset() = hovering_link_iter_offset;
     }
     if (_pCtMainWin->hovering_link_iter_offset() >= 0) {
-        get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2));
+        _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2));
         if (tooltip.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
             tooltip = tooltip.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
         }
-        set_tooltip_text(tooltip);
+        _pTextView->set_tooltip_text(tooltip);
     }
     else {
         cursor_and_tooltips_reset();
@@ -667,14 +684,14 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 void CtTextView::cursor_and_tooltips_reset()
 {
     _pCtMainWin->hovering_link_iter_offset() = -1;
-    get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
-    set_tooltip_text("");
+    _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+    _pTextView->set_tooltip_text("");
 }
 
 // Increase or Decrease Text Font
 void CtTextView::zoom_text(const std::optional<bool> is_increase, const std::string& syntaxHighlighting)
 {
-    Glib::RefPtr<Gtk::StyleContext> pContext = get_style_context();
+    Glib::RefPtr<Gtk::StyleContext> pContext = _pTextView->get_style_context();
     const Pango::FontDescription fontDesc = pContext->get_font(pContext->get_state());
     const int size_pre = fontDesc.get_size() / Pango::SCALE;
     const bool is_rt = syntaxHighlighting == CtConst::RICH_TEXT_ID or syntaxHighlighting == CtConst::TABLE_CELL_TEXT_ID;
@@ -980,29 +997,33 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     return gspell_checker;
 }
 
-void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pContext,
-                                       int x,
-                                       int y,
-                                       const Gtk::SelectionData& selection_data,
-                                       guint /*info*/,
-                                       guint time)
+void CtTextView::_on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pContext,
+                                        int x,
+                                        int y,
+                                        const Gtk::SelectionData& selection_data,
+                                        guint /*info*/,
+                                        guint time)
 {
     bool success{false};
     const Gdk::DragAction dragAction = pContext->get_selected_action();
     auto text_buffer = get_buffer();
-    const Glib::RefPtr<Gsv::Gutter> pGutterLineNumbers = get_gutter(Gtk::TEXT_WINDOW_LEFT);
-    if (pGutterLineNumbers) {
-        const Glib::RefPtr<Gdk::Window> pGutterLNWindow = pGutterLineNumbers->get_window();
-        if (pGutterLNWindow) {
-            //spdlog::debug("gutter width {}", pGutterLNWindow->get_width());
-            x -= pGutterLNWindow->get_width();
+
+    GtkSourceGutter* pGtkSourceGutter = gtk_source_view_get_gutter(_pGtkSourceView, GTK_TEXT_WINDOW_LEFT);
+    if (pGtkSourceGutter) {
+        GtkSourceView* pGutterGtkSourceView = gtk_source_gutter_get_view(pGtkSourceGutter);
+        if (pGutterGtkSourceView) {
+            GdkWindow* pGutterLNWindow = gtk_widget_get_window(GTK_WIDGET(pGutterGtkSourceView));
+            if (pGutterLNWindow) {
+                //spdlog::debug("gutter width {}", gdk_window_get_width(pGutterLNWindow));
+                x -= gdk_window_get_width(pGutterLNWindow);
+            }
         }
     }
     int xb, yb;
-    window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
+    _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
     Gtk::TextIter text_iter;
     int trailing;
-    get_iter_at_position(text_iter, trailing, xb, yb);
+    _pTextView->get_iter_at_position(text_iter, trailing, xb, yb);
     //spdlog::debug("targets: {}", str::join(pContext->list_targets(), ", "));
     if (vec::exists(pContext->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS) and text_buffer->get_has_selection()) {
         int target_offset = text_iter.get_offset();
@@ -1030,7 +1051,7 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pCo
     }
     else if (vec::exists(pContext->list_targets(), CtConst::TARGET_URI_LIST)) {
         text_buffer->place_cursor(text_iter);
-        CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
+        CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, _pTextView, false/*forcePlain*/, true/*fromDragNDrop*/);
         success = true;
     }
     pContext->drag_finish(success, success and Gdk::DragAction::ACTION_MOVE == dragAction/*del*/, time);

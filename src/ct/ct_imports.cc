@@ -444,9 +444,10 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
         return nullptr;
     }
     try {
-        Glib::RefPtr<Gsv::Buffer> pBuffer = Gsv::Buffer::create();
-        if (CtStrUtil::file_any_encoding_load_into_source_buffer(file.string(), pBuffer)) {
-            const Glib::ustring utf8_text = pBuffer->get_text();
+        GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(NULL);
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
+        if (CtStrUtil::file_any_encoding_load_into_source_buffer(file.string(), pGtkSourceBuffer)) {
+            const Glib::ustring utf8_text = pTextBuffer->get_text();
             auto pNode = std::make_unique<CtImportedNode>(file, file.stem());
             pNode->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(utf8_text);
             pNode->node_syntax = CtConst::PLAIN_TEXT_ID;

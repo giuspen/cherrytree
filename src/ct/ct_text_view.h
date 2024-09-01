@@ -26,7 +26,7 @@
 #include "ct_types.h"
 #include "ct_column_edit.h"
 
-#include <gtksourceviewmm.h>
+#include <gtkmm/textview.h>
 #include <gspell/gspell.h>
 #include <memory>
 #include <unordered_map>
@@ -34,10 +34,16 @@
 class CtMainWin;
 class CtStatusBar;
 
-class CtTextView : public Gsv::View
+class CtTextView
 {
 public:
     CtTextView(CtMainWin* pCtMainWin);
+
+    GtkSourceView* gobj() { return _pGtkSourceView; }
+    Gtk::TextView& mm() { return *_pTextView; }
+    const Gtk::TextView& mm() const { return *_pTextView; }
+    Glib::RefPtr<Gtk::TextBuffer> get_buffer() { return _pTextView->get_buffer(); }
+    Glib::RefPtr<const Gtk::TextBuffer> get_buffer() const { return _pTextView->get_buffer(); }
 
     void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
@@ -100,12 +106,12 @@ private:
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _set_highlight_current_line_enabled(const bool enabled);
 
-    void on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
-                               int x,
-                               int y,
-                               const Gtk::SelectionData& selection_data,
-                               guint info,
-                               guint time) override;
+    void _on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                int x,
+                                int y,
+                                const Gtk::SelectionData& selection_data,
+                                guint info,
+                                guint time);
 
 #ifdef MD_AUTO_REPLACEMENT
     bool          _markdown_filter_active();
@@ -125,6 +131,8 @@ private:
     CtMainWin* const _pCtMainWin;
     CtConfig* const _pCtConfig;
     CtStatusBar* const _pCtStatusBar;
+    GtkSourceView* const _pGtkSourceView;
+    Gtk::TextView* _pTextView;
     CtColumnEdit _columnEdit;
     guint32      _todoRotateTime{0};
     std::string  _syntaxHighlighting;

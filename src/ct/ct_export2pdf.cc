@@ -46,7 +46,7 @@ CtExport2Pango::CtExport2Pango(CtMainWin* pCtMainWin)
 // Given a treestore iter returns the Pango rich text
 void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, std::vector<CtPangoObjectPtr>& out_slots)
 {
-    auto curr_buffer = node_iter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = node_iter.get_node_text_buffer();
 
     std::list<CtAnchoredWidget*> out_widgets = node_iter.get_anchored_widgets(sel_start, sel_end);
     int start_text_offset = sel_start < 1 ? 0 : sel_start;
@@ -84,7 +84,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer,
+Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gtk::TextBuffer> code_buffer,
                                                          int sel_start,
                                                          int sel_end,
                                                          const std::string& syntax_highlighting)
@@ -95,7 +95,7 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
     bool indentation_force_spaces{false};
     if (syntax_highlighting != CtConst::PLAIN_TEXT_ID) {
         _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
-        code_buffer->ensure_highlight(curr_iter, end_iter);
+        gtk_source_buffer_ensure_highlight(GTK_SOURCE_BUFFER(code_buffer->gobj()), curr_iter.gobj(), end_iter.gobj());
         indentation = str::repeat(CtConst::CHAR_SPACE, _pCtConfig->tabsWidth);
         indentation_force_spaces = true;
     }
@@ -365,7 +365,7 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
 
 void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
 {
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
@@ -407,7 +407,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter,
                                                 const CtExportOptions& options,
                                                 std::vector<CtPangoObjectPtr>& tree_pango_slots)
 {
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
@@ -537,7 +537,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     _rich_font = get_font_with_fallback_(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
     _plain_font = get_font_with_fallback_(Pango::FontDescription(_pCtConfig->ptFont), _pCtConfig->fallbackFontFamily);
     _code_font = get_font_with_fallback_(Pango::FontDescription(_pCtConfig->codeFont), "monospace");
-    _text_window_width = _pCtMainWin->get_text_view().get_allocation().get_width();
+    _text_window_width = _pCtMainWin->get_text_view().mm().get_allocation().get_width();
     _table_text_row_height = _rich_font.get_size()/Pango::SCALE;
     _table_line_thickness = 6;
     // standard - 72, but MS print to pdf - 600

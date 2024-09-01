@@ -25,9 +25,9 @@
 
 #include "ct_types.h"
 #include "ct_logging.h"
-#include <gtksourceviewmm.h>
 #include <gtkmm/treeiter.h>
 #include <gtkmm/treestore.h>
+#include <gtksourceview/gtksource.h>
 
 class CtConfig;
 class CtTreeIter;
@@ -264,7 +264,7 @@ bool is_codeset_not_utf8(const std::string& codeset);
 
 void convert_if_not_utf8(std::string& inOutText, const bool sanitise);
 
-bool file_any_encoding_load_into_source_buffer(const std::string& filepath, Glib::RefPtr<Gsv::Buffer> pSourceBuffer);
+bool file_any_encoding_load_into_source_buffer(const std::string& filepath, GtkSourceBuffer* pGtkSourceBuffer);
 
 } // namespace CtStrUtil
 

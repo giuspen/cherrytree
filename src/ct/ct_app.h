@@ -37,12 +37,12 @@ class CtApp : public Gtk::Application
 {
 protected:
     CtApp(const Glib::ustring application_id_postfix = Glib::ustring{});
+    ~CtApp() override;
 
 public:
     static Glib::RefPtr<CtApp> create(const Glib::ustring application_id_postfix = Glib::ustring{});
     void                       close_all_windows(const bool fromKillCallback);
     void                       systray_show_hide_windows();
-    static bool inside_gsv_init;
 
 protected:
     CtConfig* const _pCtConfig;
@@ -50,8 +50,7 @@ protected:
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
-    Glib::RefPtr<Gsv::LanguageManager> _rLanguageManager;
-    Glib::RefPtr<Gsv::StyleSchemeManager> _rStyleSchemeManager;
+    GtkSourceLanguageManager* _pGtkSourceLanguageManager{nullptr};
     std::unique_ptr<CtStatusIcon> _uCtStatusIcon;
 
 protected:

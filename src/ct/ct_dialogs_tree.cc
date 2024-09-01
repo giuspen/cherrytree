@@ -169,24 +169,25 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     name_entry->grab_focus();
 
     button_prog_lang->signal_clicked().connect([&dialog, pCtMainWin, button_prog_lang](){
-        auto itemStore = CtChooseDialogListStore::create();
+        auto rItemStore = CtChooseDialogListStore::create();
         unsigned pathSelectIdx{0};
         unsigned pathCurrIdx{0};
         const auto currSyntaxHighl = button_prog_lang->get_label();
-        for (const auto& lang : pCtMainWin->get_language_manager()->get_language_ids()) {
-            itemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
-            if (lang == currSyntaxHighl) {
+        const gchar * const * pLanguageIDs = gtk_source_language_manager_get_language_ids(pCtMainWin->get_language_manager());
+        for (auto pLang = pLanguageIDs; *pLang; ++pLang) {
+            rItemStore->add_row(pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
+            if (*pLang == currSyntaxHighl) {
                 pathSelectIdx = pathCurrIdx;
             }
             ++pathCurrIdx;
         }
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
                                                                      _("Automatic Syntax Highlighting"),
-                                                                     itemStore,
+                                                                     rItemStore,
                                                                      nullptr/*single_column_name*/,
                                                                      std::to_string(pathSelectIdx));
         if (treeIter) {
-            const Glib::ustring syntax_hl_id = treeIter->get_value(itemStore->columns.desc);
+            const Glib::ustring syntax_hl_id = treeIter->get_value(rItemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
             button_prog_lang->set_label(syntax_hl_id);
             button_prog_lang->set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));

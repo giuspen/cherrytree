@@ -41,7 +41,7 @@ void CtMainWin::_on_treeview_cursor_changed()
             return;
         }
         const gint64 prevNodeIdDataHolder = _prevTreeIter.get_node_id_data_holder();
-        Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
+        Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
         if (rTextBuffer->get_modified()) {
             _fileSaveNeeded = true;
             rTextBuffer->set_modified(false);
@@ -54,7 +54,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         //spdlog::debug("W[{}] scr={}, cur={}", prevNodeIdDataHolder, scr, cur);
     }
 
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
     if (not rTextBuffer) {
         CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), treeIter.get_node_name().raw()), *this);
         if (_prevTreeIter) {
@@ -117,7 +117,7 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_BUTTON_PRESS and event->button.button == 1) {
         if (_pCtConfig->treeClickFocusText) {
-            _ctTextview.grab_focus();
+            _ctTextview.mm().grab_focus();
         }
         if (_pCtConfig->treeClickExpand) {
             _tree_just_auto_expanded = false;
@@ -328,16 +328,16 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
 // Update the cursor image if the pointer moved
 bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 {
-    if (not _ctTextview.get_cursor_visible())
-        _ctTextview.set_cursor_visible(true);
+    if (not _ctTextview.mm().get_cursor_visible())
+        _ctTextview.mm().set_cursor_visible(true);
     if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID
         and curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
     {
-        _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }
     int x, y;
-    _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
+    _ctTextview.mm().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
     _ctTextview.cursor_and_tooltips_handler(x, y);
     return false;
 }
@@ -351,13 +351,13 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
     }
     const auto syntax_highl = ct_tree_iter.get_node_syntax_highlighting();
     if (CtConst::RICH_TEXT_ID != syntax_highl and CtConst::PLAIN_TEXT_ID != syntax_highl) {
-        _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }
     int x, y, bx, by;
     Gdk::ModifierType mask;
-    _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
-    _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
+    _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
+    _ctTextview.mm().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
     _ctTextview.cursor_and_tooltips_handler(bx, by);
     return false;
 }
@@ -474,7 +474,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
             if (dynamic_cast<CtTableCommon*>(widgets.front())) {
                 curr_buffer->place_cursor(iter_sel_end);
-                _ctTextview.grab_focus();
+                _ctTextview.mm().grab_focus();
                 return true;
             }
             return false;

@@ -125,7 +125,7 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
                 Gtk::TextIter text_iter = textView.get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
                 text_iter.forward_char();
                 textView.get_buffer()->place_cursor(text_iter);
-                textView.grab_focus();
+                textView.mm().grab_focus();
                 return true;
             }
         }
@@ -382,17 +382,18 @@ void CtTableHeavy::write_strings_matrix(std::vector<std::vector<Glib::ustring>>&
 
 void CtTableHeavy::_new_text_cell_attach(const size_t rowIdx, const size_t colIdx, CtTextCell* pTextCell)
 {
-    CtTextView& textView = pTextCell->get_text_view();
+    CtTextView& ctTextView = pTextCell->get_text_view();
+    auto& textView = ctTextView.mm();
     const bool is_header = 0 == rowIdx;
     textView.set_size_request(get_col_width(colIdx), -1);
-    textView.set_highlight_current_line(false);
+    gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(ctTextView.gobj()), false);
     if (is_header) {
-        _apply_remove_header_style(true/*isApply*/, textView);
+        _apply_remove_header_style(true/*isApply*/, ctTextView);
     }
     textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
     textView.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_key_press_event), false);
 
-    _grid.attach(pTextCell->get_text_view(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
+    _grid.attach(pTextCell->get_text_view().mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
 
     _pCtMainWin->apply_syntax_highlighting(pTextCell->get_buffer(), pTextCell->get_syntax_highlighting(), false/*forceReApply*/);
     textView.show();
@@ -502,8 +503,8 @@ void CtTableHeavy::column_move_left(const size_t colIdx, const bool/*from_move_r
     _grid.insert_column(colIdx);
     for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
         std::swap(_tableMatrix[rowIdx][colIdxLeft], _tableMatrix[rowIdx][colIdx]);
-        CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
-        _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
+        CtTextView& ctTextView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
+        _grid.attach(ctTextView.mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
     }
     _currentColumn = colIdxLeft;
 }
@@ -552,18 +553,18 @@ void CtTableHeavy::row_delete(const size_t rowIdx)
 void CtTableHeavy::_apply_remove_header_style(const bool isApply, CtTextView& textView)
 {
     const char headerStyle[] = "ct-table-header-cell";
-    auto rStyleContext = textView.get_style_context();
+    auto rStyleContext = textView.mm().get_style_context();
     if (isApply) {
         if (not rStyleContext->has_class(headerStyle)) {
             rStyleContext->add_class(headerStyle);
-            textView.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+            textView.mm().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
         }
     }
     else {
         if (rStyleContext->has_class(headerStyle)) {
             rStyleContext->remove_class(headerStyle);
-            textView.set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ?
-                                   Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+            textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ?
+                                        Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
         }
     }
 }
@@ -579,7 +580,7 @@ void CtTableHeavy::row_move_up(const size_t rowIdx, const bool/*from_move_down*/
     std::swap(_tableMatrix[rowIdxUp], _tableMatrix[rowIdx]);
     for (size_t colIdx = 0; colIdx < get_num_columns(); ++colIdx) {
         CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
-        _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
+        _grid.attach(textView.mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
         if (0 == rowIdxUp) {
             // we swapped header
             CtTextView& textViewUp = static_cast<CtTextCell*>(_tableMatrix.at(rowIdxUp).at(colIdx))->get_text_view();
@@ -618,7 +619,7 @@ bool CtTableHeavy::_row_sort(const bool sortAsc)
         for (auto rowIdx : changed) {
             for (size_t colIdx = 0; colIdx < _tableMatrix.at(rowIdx).size(); ++colIdx) {
                 CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
-                _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
+                _grid.attach(textView.mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
             }
         }
         return true;
@@ -638,7 +639,7 @@ void CtTableHeavy::set_col_width_default(const int colWidthDefault)
                 if (0u == _colWidths.at(c)) {
                     CtTextCell* pTextCell = static_cast<CtTextCell*>(_tableMatrix[r][c]);
                     CtTextView& textView = pTextCell->get_text_view();
-                    textView.set_size_request(colWidthDefault, -1);
+                    textView.mm().set_size_request(colWidthDefault, -1);
                 }
             }
         }
@@ -653,13 +654,13 @@ void CtTableHeavy::set_col_width(const int colWidth, std::optional<size_t> optCo
     for (size_t r = 0u; r < numRows; ++r) {
         CtTextCell* pTextCell = static_cast<CtTextCell*>(_tableMatrix[r][c]);
         CtTextView& textView = pTextCell->get_text_view();
-        textView.set_size_request(colWidth, -1);
+        textView.mm().set_size_request(colWidth, -1);
     }
 }
 
 void CtTableHeavy::grab_focus() const
 {
-    static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view().grab_focus();
+    static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view().mm().grab_focus();
 }
 
 void CtTableHeavy::set_selection_at_offset_n_delta(const int offset, const int delta) const
@@ -669,28 +670,28 @@ void CtTableHeavy::set_selection_at_offset_n_delta(const int offset, const int d
 
 int CtTableHeavy::get_curr_cell_curr_line_num() const
 {
-    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Glib::RefPtr<Gtk::TextBuffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
     Gtk::TextIter iter_insert = pCurrCellBuffer->get_insert()->get_iter();
     return iter_insert.get_line();
 }
 
 int CtTableHeavy::get_curr_cell_max_line_num() const
 {
-    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Glib::RefPtr<Gtk::TextBuffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
     Gtk::TextIter iter_end = pCurrCellBuffer->end();
     return iter_end.get_line();
 }
 
 int CtTableHeavy::get_curr_cell_curr_offset() const
 {
-    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Glib::RefPtr<Gtk::TextBuffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
     Gtk::TextIter iter_insert = pCurrCellBuffer->get_insert()->get_iter();
     return iter_insert.get_offset();
 }
 
 int CtTableHeavy::get_curr_cell_max_offset() const
 {
-    Glib::RefPtr<Gsv::Buffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
+    Glib::RefPtr<Gtk::TextBuffer> pCurrCellBuffer = get_buffer(current_row(), current_column());
     Gtk::TextIter iter_end = pCurrCellBuffer->end();
     return iter_end.get_offset();
 }
@@ -700,17 +701,17 @@ CtTextView& CtTableHeavy::curr_cell_text_view() const
     return static_cast<CtTextCell*>(_tableMatrix.at(current_row()).at(current_column()))->get_text_view();
 }
 
-Glib::RefPtr<Gsv::Buffer> CtTableHeavy::get_buffer(const size_t rowIdx, const size_t colIdx) const
+Glib::RefPtr<Gtk::TextBuffer> CtTableHeavy::get_buffer(const size_t rowIdx, const size_t colIdx) const
 {
     if (rowIdx < get_num_rows() and colIdx < get_num_columns()) {
         return static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_buffer();
     }
-    return Glib::RefPtr<Gsv::Buffer>{};
+    return Glib::RefPtr<Gtk::TextBuffer>{};
 }
 
 Glib::ustring CtTableHeavy::get_line_content(size_t rowIdx, size_t colIdx, int match_end_offset) const
 {
-    Glib::RefPtr<Gsv::Buffer> pBuffer = get_buffer(rowIdx, colIdx);
+    Glib::RefPtr<Gtk::TextBuffer> pBuffer = get_buffer(rowIdx, colIdx);
     if (pBuffer) {
         return CtTextIterUtil::get_line_content(pBuffer, match_end_offset);
     }
@@ -721,7 +722,7 @@ void CtTableHeavy::_on_grid_set_focus_child(Gtk::Widget* pWidget)
 {
     for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
         for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
-            if (pWidget == &static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view()) {
+            if (pWidget == &static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view().mm()) {
                 _currentRow = rowIdx;
                 _currentColumn = colIdx;
                 return;

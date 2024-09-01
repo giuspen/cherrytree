@@ -394,7 +394,7 @@ void CtActions::command_selnode()
     {
         auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(id);
         _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
 }
 

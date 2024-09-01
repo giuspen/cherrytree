@@ -126,7 +126,7 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
     if (dynamic_cast<CtImage*>(widget)) {
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
     _curr_buffer()->select_range(iter_object, iter_bound);
 }
@@ -202,7 +202,7 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
     _pCtMainWin->get_tree_store().nodes_sequences_fix(new_top_iter->parent(), true);
     pWinToCopyFrom->get_tree_view().set_cursor_safe(other_ct_tree_iter); // this line fixes glich with text_buffer with widgets caused by the next line
     _pCtMainWin->get_tree_view().set_cursor_safe(new_top_iter);
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::node_subnodes_duplicate()
@@ -298,7 +298,7 @@ Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter,
     ct_treestore.nodes_sequences_fix(nodeIter->parent(), false);
     ct_treestore.update_node_aux_icon(nodeCtIter);
     _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
     return nodeIter;
 }
 
@@ -434,14 +434,14 @@ void CtActions::node_edit()
         }
     }
 
-    _pCtMainWin->get_text_view().set_editable(not newData.isReadOnly);
+    _pCtMainWin->get_text_view().mm().set_editable(not newData.isReadOnly);
     _pCtMainWin->update_selected_node_statusbar_info();
     ct_treestore.update_node_aux_icon(ct_tree_iter);
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isReadOnly);
     _pCtMainWin->window_header_update_ghost_icon(newData.excludeMeFromSearch or newData.excludeChildrenFromSearch);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 
     // if this node belongs to a shared group, we need to update the other nodes of the group
     CtSharedNodesMap shared_nodes_map;
@@ -617,13 +617,13 @@ void CtActions::node_delete()
 
     if (new_iter) {
         _pCtMainWin->get_tree_view().set_cursor_safe(new_iter);
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
     else {
         _curr_buffer()->set_text("");
         _pCtMainWin->window_header_update();
         _pCtMainWin->update_selected_node_statusbar_info();
-        _pCtMainWin->get_text_view().set_sensitive(false);
+        _pCtMainWin->get_text_view().mm().set_sensitive(false);
     }
 
     ctTreeStore.get_store()->erase(erase_iter);
@@ -650,13 +650,13 @@ void CtActions::node_toggle_read_only()
     CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
     const bool node_is_ro = not currTreeIter.get_node_read_only();
     currTreeIter.set_node_read_only(node_is_ro);
-    _pCtMainWin->get_text_view().set_editable(not node_is_ro);
+    _pCtMainWin->get_text_view().mm().set_editable(not node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
     _pCtMainWin->update_selected_node_statusbar_info();
     CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
     ct_treestore.update_node_aux_icon(currTreeIter);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 
     // if this node belongs to a shared group, we need to update all the nodes of the group
     CtSharedNodesMap shared_nodes_map;

@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_plain_text_n_code.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -278,10 +278,10 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
 {
     const std::set<std::string> all_codexec_keys = _get_code_exec_type_keys();
     auto itemStore = CtChooseDialogListStore::create();
-    for (const auto& lang : _pCtMainWin->get_language_manager()->get_language_ids())
-    {
-        if (0 == all_codexec_keys.count(lang)) {
-            itemStore->add_row(_pCtMainWin->get_code_icon_name(lang), "", lang);
+    const gchar * const * pLanguageIDs = gtk_source_language_manager_get_language_ids(_pCtMainWin->get_language_manager());
+    for (auto pLang = pLanguageIDs; *pLang; ++pLang) {
+        if (0 == all_codexec_keys.count(*pLang)) {
+            itemStore->add_row(_pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
         }
     }
     const Gtk::TreeIter treeIterChosen = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);

@@ -28,7 +28,7 @@
 
 #include <glibmm/i18n.h>
 #include <gtkmm.h>
-#include <gtksourceviewmm.h>
+#include <gtksourceview/gtksource.h>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 #include "ct_menu.h"
@@ -91,8 +91,7 @@ public:
         Gtk::IconTheme*          pGtkIconTheme,
         Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
         Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
-        Gsv::LanguageManager*    pGsvLanguageManager,
-        Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
+        GtkSourceLanguageManager* pGtkSourceLanguageManager,
         CtStatusIcon*            pCtStatusIcon
     );
     virtual ~CtMainWin();
@@ -121,7 +120,7 @@ public:
                                    const CtTreeIter* give_tree_iter = nullptr);
     void load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter);
     void re_load_current_buffer(const bool new_machine_state = false);
-    void switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer, CtTreeIter tree_iter, const std::string& new_syntax, const std::string& old_syntax);
+    void switch_buffer_text_source(Glib::RefPtr<Gtk::TextBuffer> text_buffer, CtTreeIter tree_iter, const std::string& new_syntax, const std::string& old_syntax);
     void update_window_save_not_needed();
     bool get_file_save_needed();
 
@@ -147,8 +146,7 @@ public:
     CtStateMachine&                   get_state_machine() { return _ctStateMachine; }
     Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
-    Gsv::LanguageManager*             get_language_manager() { return _pGsvLanguageManager; }
-    Gsv::StyleSchemeManager*          get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
+    GtkSourceLanguageManager*         get_language_manager() { return _pGtkSourceLanguageManager; }
     Gtk::StatusIcon*                  get_status_icon() { return _pCtStatusIcon->get(); }
     Gtk::ScrolledWindow&              getScrolledwindowText() { return _scrolledwindowText; }
 
@@ -161,11 +159,11 @@ public:
 public:
     const char*               get_code_icon_name(std::string code_type);
     Gtk::Image*               new_managed_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
-    void                      apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax, const bool forceReApply);
+    void                      apply_syntax_highlighting(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& syntax, const bool forceReApply);
     void                      reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/);
     void                      resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTextNCode*/);
     void                      codeboxes_reload_toolbar();
-    Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const Glib::ustring& textContent="");
+    Glib::RefPtr<Gtk::TextBuffer> get_new_text_buffer(const Glib::ustring& textContent="");
     const std::string         get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
     void                      apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, CtScalableTag* pCtScalableTag);
     Glib::ustring             sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
@@ -275,8 +273,7 @@ private:
     Gtk::IconTheme*              _pGtkIconTheme;
     Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
-    Gsv::LanguageManager*        _pGsvLanguageManager;
-    Gsv::StyleSchemeManager*     _pGsvStyleSchemeManager;
+    GtkSourceLanguageManager*    const _pGtkSourceLanguageManager;
     CtStatusIcon*                _pCtStatusIcon;
 
     std::unique_ptr<CtActions>        _uCtActions;

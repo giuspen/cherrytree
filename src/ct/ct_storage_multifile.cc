@@ -649,13 +649,13 @@ void CtStorageMultiFile::import_nodes(const fs::path& dir_path, const Gtk::TreeI
     }
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageMultiFile::get_delayed_text_buffer(const gint64 node_id,
-                                                                      const std::string& syntax,
-                                                                      std::list<CtAnchoredWidget*>& widgets) const
+Glib::RefPtr<Gtk::TextBuffer> CtStorageMultiFile::get_delayed_text_buffer(const gint64 node_id,
+                                                                          const std::string& syntax,
+                                                                          std::list<CtAnchoredWidget*>& widgets) const
 {
     if (_delayed_text_buffers.count(node_id) == 0) {
         spdlog::error("!! {} node_id {}", __FUNCTION__, node_id);
-        return Glib::RefPtr<Gsv::Buffer>{};
+        return Glib::RefPtr<Gtk::TextBuffer>{};
     }
     std::shared_ptr<xmlpp::Document> node_buffer = _delayed_text_buffers[node_id];
     auto xml_element = dynamic_cast<xmlpp::Element*>(node_buffer->get_root_node()->get_first_child());

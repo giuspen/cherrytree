@@ -404,13 +404,13 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
     }
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64 node_id,
-                                                                    const std::string& syntax,
-                                                                    std::list<CtAnchoredWidget*>& widgets) const
+Glib::RefPtr<Gtk::TextBuffer> CtStorageControl::get_delayed_text_buffer(const gint64 node_id,
+                                                                        const std::string& syntax,
+                                                                        std::list<CtAnchoredWidget*>& widgets) const
 {
     if (not _storage) {
         spdlog::error("!! storage is not initialized");
-        return Glib::RefPtr<Gsv::Buffer>{};
+        return Glib::RefPtr<Gtk::TextBuffer>{};
     }
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);
 }
@@ -776,7 +776,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
         std::string error;
         store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool{
             CtTreeIter ct_tree_iter = store.to_ct_tree_iter(iter);
-            Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
+            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
             if (not rTextBuffer) {
                 error = str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name().raw());
                 return true; /* true for stop */
@@ -793,7 +793,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
         for (const auto& node_pair : pending->nodes_to_write_dict) {
             CtTreeIter ct_tree_iter = store.get_node_from_node_id(node_pair.first);
             if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text()) {
-                Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
+                Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
                 if (not rTextBuffer) {
                     throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name().raw()));
                 }

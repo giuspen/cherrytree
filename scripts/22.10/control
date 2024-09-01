@@ -9,7 +9,7 @@ Build-Depends:
  cmake,
  ninja-build,
  libgtkmm-3.0-dev,
- libgtksourceviewmm-3.0-dev,
+ libgtksourceview-4-dev,
  libxml++2.6-dev,
  libsqlite3-dev,
  libgspell-1-dev,
@@ -30,7 +30,7 @@ Package: cherrytree
 Architecture: any
 Depends:
  libgtkmm-3.0-1v5,
- libgtksourceviewmm-3.0-0v5,
+ libgtksourceview-4-0,
  libxml++2.6-2v5,
  libsqlite3-0,
  libgspell-1-2,

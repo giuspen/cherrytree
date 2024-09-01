@@ -219,7 +219,7 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     CtTextView& curr_cell_text_view() const;
-    Glib::RefPtr<Gsv::Buffer> get_buffer(const size_t rowIdx, const size_t colIdx) const;
+    Glib::RefPtr<Gtk::TextBuffer> get_buffer(const size_t rowIdx, const size_t colIdx) const;
 
     void write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const override;
     size_t get_num_rows() const override { return _tableMatrix.size(); }

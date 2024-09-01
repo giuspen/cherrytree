@@ -14,7 +14,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
       libcurl4-openssl-dev \
       libgspell-1-dev \
       libgtkmm-3.0-dev \
-      libgtksourceviewmm-3.0-dev \
+      libgtksourceview-4-dev \
       libsqlite3-dev \
       libuchardet-dev \
       libfmt-dev \

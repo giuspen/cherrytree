@@ -86,7 +86,7 @@ set(CT_SHARED_FILES
 add_library(cherrytree_shared STATIC ${CT_SHARED_FILES})
 target_link_libraries(cherrytree_shared
   ${GTKMM_LIBRARIES}
-  ${GTKSVMM_LIBRARIES}
+  ${GTKSV_LIBRARIES}
   ${GLIBMM_LIBRARIES}
   ${PANGOMM_LIBRARIES}
   ${GSPELL_LIBRARIES}

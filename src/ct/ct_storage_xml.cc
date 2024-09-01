@@ -222,13 +222,13 @@ void CtStorageXml::import_nodes(const fs::path& filepath, const Gtk::TreeIter& p
     }
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64 node_id,
-                                                                const std::string& syntax,
-                                                                std::list<CtAnchoredWidget*>& widgets) const
+Glib::RefPtr<Gtk::TextBuffer> CtStorageXml::get_delayed_text_buffer(const gint64 node_id,
+                                                                    const std::string& syntax,
+                                                                    std::list<CtAnchoredWidget*>& widgets) const
 {
     if (_delayed_text_buffers.count(node_id) == 0) {
         spdlog::error("!! {} node_id {}", __FUNCTION__, node_id);
-        return Glib::RefPtr<Gsv::Buffer>{};
+        return Glib::RefPtr<Gtk::TextBuffer>{};
     }
     std::shared_ptr<xmlpp::Document> node_buffer = _delayed_text_buffers[node_id];
     auto xml_element = dynamic_cast<xmlpp::Element*>(node_buffer->get_root_node()->get_first_child());
@@ -247,7 +247,7 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
                                  const int start_offset/*= 0*/,
                                  const int end_offset/*= -1*/)
 {
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter->get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_tree_iter->get_node_text_buffer();
     if (not rTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter->get_node_name().raw()));
     }
@@ -355,7 +355,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(const CtTreeIter* ct_tree_iter,
         p_node_node->set_attribute("ts_creation", std::to_string(ct_tree_iter->get_node_creating_time()));
         p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter->get_node_modification_time()));
 
-        Glib::RefPtr<Gsv::Buffer> buffer = ct_tree_iter->get_node_text_buffer();
+        Glib::RefPtr<Gtk::TextBuffer> buffer = ct_tree_iter->get_node_text_buffer();
         save_buffer_no_widgets_to_xml(p_node_node, buffer, start_offset, end_offset, 'n');
 
         for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_anchored_widgets(start_offset, end_offset)) {
@@ -435,28 +435,29 @@ Gtk::TreeIter CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_elemen
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
-                                                                                 const Glib::ustring&/*syntax*/,
-                                                                                 std::list<CtAnchoredWidget*>& widgets,
-                                                                                 Gtk::TextIter* text_insert_pos,
-                                                                                 const int force_offset,
-                                                                                 const std::string& multifile_dir)
+Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
+                                                                                     const Glib::ustring&/*syntax*/,
+                                                                                     std::list<CtAnchoredWidget*>& widgets,
+                                                                                     Gtk::TextIter* text_insert_pos,
+                                                                                     const int force_offset,
+                                                                                     const std::string& multifile_dir)
 {
-    Glib::RefPtr<Gsv::Buffer> pBuffer = _pCtMainWin->get_new_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> pBuffer = _pCtMainWin->get_new_text_buffer();
     bool error{false};
-    pBuffer->begin_not_undoable_action();
+    auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pBuffer->gobj());
+    gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
     for (xmlpp::Node* xml_slot : parent_xml_element->get_children()) {
         if (not get_text_buffer_one_slot_from_xml(pBuffer, xml_slot, widgets, text_insert_pos, force_offset, multifile_dir)) {
             error = true;
             break;
         }
     }
-    pBuffer->end_not_undoable_action();
+    gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
     pBuffer->set_modified(false);
-    return error ? Glib::RefPtr<Gsv::Buffer>{} : pBuffer;
+    return error ? Glib::RefPtr<Gtk::TextBuffer>{} : pBuffer;
 }
 
-bool CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
+bool CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gtk::TextBuffer> buffer,
                                                            xmlpp::Node* slot_node,
                                                            std::list<CtAnchoredWidget*>& widgets,
                                                            Gtk::TextIter* text_insert_pos,
@@ -502,14 +503,14 @@ bool CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
     return true;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content)
+Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content)
 {
     xmlpp::DomParser parser;
     std::list<CtAnchoredWidget*> widgets;
     if (CtXmlHelper::safe_parse_memory(parser, xml_content)) {
         return create_buffer_and_widgets_from_xml(parser.get_document()->get_root_node(), syntax, widgets, nullptr, -1, "");
     }
-    return Glib::RefPtr<Gsv::Buffer>{};
+    return Glib::RefPtr<Gtk::TextBuffer>{};
 }
 
 bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
@@ -587,7 +588,7 @@ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_pa
     CtTextIterUtil::generic_process_slot(_pCtMainWin->get_ct_config(), start_offset, end_offset, rBuffer, rich_txt_serialize);
 }
 
-void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos)
+void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gtk::TextBuffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos)
 {
     xmlpp::TextNode* text_node = xml_element->get_child_text();
     if (not text_node) return;

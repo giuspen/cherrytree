@@ -57,7 +57,7 @@ public:
     CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification);
     ~CtAnchoredWidget() override {}
 
-    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
+    void insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
 
     virtual void apply_width_height(const int parentTextWidth) = 0;

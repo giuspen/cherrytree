@@ -33,6 +33,7 @@
   <color name="base1"   value="#93A1A1"/>
   <color name="base2"   value="#EEE8D5"/>
   <color name="base3"   value="#FDF6E3"/>
+  <color name="base4"   value="#C8CCC2"/>
   <color name="yellow"  value="#B58900"/>
   <color name="orange"  value="#CB4B16"/>
   <color name="red"     value="#DC322F"/>
@@ -51,6 +52,7 @@
   <style name="current-line"                background="base2"/>
   <style name="line-numbers"                foreground="base1" background="base2"/>
   <style name="background-pattern"          background="base3-2-blend"/>
+  <style name="draw-spaces"                 foreground="base4"/>
 
   <!-- Bracket Matching -->
   <style name="bracket-match"               foreground="base3" background="base1"/>
@@ -69,10 +71,16 @@
 
   <!-- Constants -->
   <style name="def:constant"                foreground="cyan"/>
-  <style name="def:special-char"            foreground="green"/>
+  <style name="def:special-char"            foreground="red"/>
+
+  <!-- Functions -->
+  <style name="def:function"                foreground="blue"/>
 
   <!-- Identifiers -->
   <style name="def:identifier"              foreground="blue"/>
+
+  <!-- Keywords -->
+  <style name="def:keyword"                 foreground="green"/>
 
   <!-- Statements -->
   <style name="def:statement"               foreground="orange"/>
@@ -113,4 +121,20 @@
   <style name="def:heading5"                scale="1.3"/>
   <style name="def:heading6"                scale="1.2"/>
   -->
+
+  <!-- C Overrides -->
+  <style name="c:preprocessor"              foreground="orange"/>
+  <style name="c:type-keyword"              foreground="yellow"/>
+
+  <!-- GTK-DOC Overrides -->
+  <style name="gtk-doc:type"                foreground="yellow"/>
+  <style name="gtk-doc:function"            foreground="blue"/>
+  <style name="gtk-doc:function-name"       bold="true"/>
+  <style name="gtk-doc:property-name"       bold="true"/>
+  <style name="gtk-doc:signal-name"         bold="true"/>
+  <style name="gtk-doc:parameter"           bold="true"/>
+  <style name="gtk-doc:constant"            foreground="cyan"/>
+  <style name="gtk-doc:return"              bold="true"/>
+  <style name="gtk-doc:since"               bold="true"/>
+  <style name="gtk-doc:deprecated"          bold="true"/>
 </style-scheme>

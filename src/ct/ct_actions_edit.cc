@@ -42,9 +42,13 @@ void CtActions::requested_step_back()
             _pCtMainWin->load_buffer_from_state(step_back, currTreeIter);
         }
     }
-    else if (currTreeIter.get_node_text_buffer()->can_undo()) {
-        currTreeIter.get_node_text_buffer()->undo();
-        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+    else {
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
+        auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+        if (gtk_source_buffer_can_undo(pGtkSourceBuffer)) {
+            gtk_source_buffer_undo(pGtkSourceBuffer);
+            _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
     }
 }
 
@@ -61,9 +65,13 @@ void CtActions::requested_step_ahead()
             _pCtMainWin->load_buffer_from_state(step_ahead, currTreeIter);
         }
     }
-    else if (currTreeIter.get_node_text_buffer()->can_redo()) {
-        currTreeIter.get_node_text_buffer()->redo();
-        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+    else {
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
+        auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+        if (gtk_source_buffer_can_redo(pGtkSourceBuffer)) {
+            gtk_source_buffer_redo(pGtkSourceBuffer);
+            _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
     }
 }
 
@@ -155,12 +163,11 @@ void CtActions::table_insert()
     else {
         pCtTable = new CtTableHeavy{_pCtMainWin, tbl_matrix, col_width, charOffset, "", CtTableColWidths{}};
     }
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-    pCtTable->insertInTextBuffer(gsv_buffer);
+    pCtTable->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
-        {pCtTable}, &_pCtMainWin->get_text_view());
-    //pCtTable->get_text_view().grab_focus();
+        {pCtTable}, &_pCtMainWin->get_text_view().mm());
+    //pCtTable->get_text_view().mm().grab_focus();
 }
 
 void CtActions::codebox_insert()
@@ -192,13 +199,12 @@ void CtActions::codebox_insert()
                                           _pCtConfig->codeboxWidthPixels,
                                           _pCtConfig->codeboxMatchBra,
                                           _pCtConfig->codeboxLineNum};
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-    pCtCodebox->insertInTextBuffer(gsv_buffer);
+    pCtCodebox->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pCtCodebox},
-                                                     &_pCtMainWin->get_text_view());
-    pCtCodebox->get_text_view().grab_focus();
+                                                     &_pCtMainWin->get_text_view().mm());
+    pCtCodebox->get_text_view().mm().grab_focus();
 }
 
 void CtActions::embfile_insert_path(const std::string& filepath)
@@ -228,12 +234,11 @@ void CtActions::embfile_insert_path(const std::string& filepath)
                                                            _curr_buffer()->get_insert()->get_iter().get_offset(),
                                                            "",
                                                            CtImageEmbFile::get_next_unique_id()};
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+    pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pAnchoredWidget},
-                                                     &_pCtMainWin->get_text_view());
+                                                     &_pCtMainWin->get_text_view().mm());
 }
 
 void CtActions::embfile_insert()
@@ -301,7 +306,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     TocEntry entry{fmt::format("node {}", node_id), true/*is_node*/, node.get_node_name(), depth};
     const std::string scale_tag{"scale_"};
     std::unordered_map<int, int> encountered_headers;
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = node.get_node_text_buffer();
     if (not rTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw()));
     }
@@ -866,7 +871,7 @@ void CtActions::replace_tabs_with_spaces()
 
     int replaced_tabs{0};
     Gtk::TextIter curr_iter = text_buffer->begin();
-    const int tab_width = proof.text_view->get_tab_width();
+    const int tab_width = gtk_source_view_get_tab_width(GTK_SOURCE_VIEW(proof.text_view->gobj()));
     const Glib::ustring replaceStr = str::repeat(CtConst::CHAR_SPACE, tab_width);
 
     text_buffer->begin_user_action();
@@ -957,11 +962,10 @@ void CtActions::image_insert_latex(Gtk::TextIter iter_insert,
     if (latex_text.empty()) return;
     const int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImageLatex{_pCtMainWin, latex_text, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+    pAnchoredWidget->insertInTextBuffer(_curr_buffer());
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pAnchoredWidget},
-                                                     &_pCtMainWin->get_text_view());
+                                                     &_pCtMainWin->get_text_view().mm());
 }
 
 // Insert/Edit Image Dialog
@@ -989,23 +993,21 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert,
     if (not rPixbuf) return;
     const int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImagePng{_pCtMainWin, rPixbuf, link, charOffset, image_justification};
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+    pAnchoredWidget->insertInTextBuffer(_curr_buffer());
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pAnchoredWidget},
-                                                     &_pCtMainWin->get_text_view());
+                                                     &_pCtMainWin->get_text_view().mm());
 }
 
 void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification)
 {
     const int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor{_pCtMainWin, name, charOffset, image_justification};
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+    pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pAnchoredWidget},
-                                                     &_pCtMainWin->get_text_view());
+                                                     &_pCtMainWin->get_text_view().mm());
 }
 
 // Change the Case of the Selected Text/the Underlying Word"""

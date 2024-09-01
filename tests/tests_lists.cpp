@@ -60,30 +60,32 @@ const Glib::ustring bufferContent_2{
 TEST(ListsGroup, CtListInfo_2)
 {
     Glib::init();
-    auto rTextTagTable = Gtk::TextTagTable::create();
-    auto pBuffer = Gsv::Buffer::create(rTextTagTable);
-    pBuffer->set_text(bufferContent_2);
+    auto pTextTagTable = Gtk::TextTagTable::create();
+    // I'm struggling to Glib::wrap the GtkSourceBuffer from here, this is otherwise incorrect and should
+    // never be used in application code as all text buffers must be source buffers
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create(pTextTagTable);
+    pTextBuffer->set_text(bufferContent_2);
     const std::string tagName{CtConst::TAG_WEIGHT + CtConst::CHAR_USCORE + CtConst::TAG_PROP_VAL_HEAVY};
-    auto rTextTag = Gtk::TextTag::create(tagName);
-    rTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
-    rTextTagTable->add(rTextTag);
-    pBuffer->apply_tag_by_name(tagName,
-                               pBuffer->get_iter_at_offset(23),
-                               pBuffer->get_iter_at_offset(26));
+    auto pTextTag = Gtk::TextTag::create(tagName);
+    pTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
+    pTextTagTable->add(pTextTag);
+    pTextBuffer->apply_tag_by_name(tagName,
+                                   pTextBuffer->get_iter_at_offset(23),
+                                   pTextBuffer->get_iter_at_offset(26));
 
     CtConfig* pCtConfig = CtConfig::GetCtConfig();
-    CtList ct_list{pCtConfig, pBuffer};
+    CtList ct_list{pCtConfig, pTextBuffer};
 
-    CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
+    CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(0));
     ASSERT_EQ(CtListType::None, curr_list_info.type);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(6));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(6));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(6, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(31));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(31));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(31, curr_list_info.startoffs);
@@ -92,150 +94,152 @@ TEST(ListsGroup, CtListInfo_2)
     Glib::ustring out_html = CtExport2Html::html_process_slot(pCtConfig,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_2.size()-1,
-                                                              pBuffer);
+                                                              pTextBuffer);
     ASSERT_STREQ("ciao\n<ul><li>primo elemento <strong>con</strong> tag</li><li>secondo elemento</li></ul>", out_html.c_str());
 }
 
 TEST(ListsGroup, CtListInfo_1)
 {
     Glib::init();
-    auto pBuffer = Gsv::Buffer::create();
-    pBuffer->set_text(bufferContent_1);
+    // I'm struggling to Glib::wrap the GtkSourceBuffer from here, this is otherwise incorrect and should
+    // never be used in application code as all text buffers must be source buffers
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    pTextBuffer->set_text(bufferContent_1);
     CtConfig* pCtConfig = CtConfig::GetCtConfig();
-    CtList ct_list{pCtConfig, pBuffer};
+    CtList ct_list{pCtConfig, pTextBuffer};
 
-    CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(0));
+    CtListInfo curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(0));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(0, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(17));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(17));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(17, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(36));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(36));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(17, curr_list_info.startoffs);
     ASSERT_EQ(1, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(52));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(52));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(52, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(82));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(82));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(82, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(97));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(97));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(82, curr_list_info.startoffs);
     ASSERT_EQ(1, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(109));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(109));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(82, curr_list_info.startoffs);
     ASSERT_EQ(2, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(121));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(121));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(82, curr_list_info.startoffs);
     ASSERT_EQ(3, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(133));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(133));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(2, curr_list_info.level);
     ASSERT_EQ(133, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(159));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(159));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(2, curr_list_info.level);
     ASSERT_EQ(133, curr_list_info.startoffs);
     ASSERT_EQ(1, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(181));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(181));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(2, curr_list_info.level);
     ASSERT_EQ(181, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(204));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(204));
     ASSERT_EQ(CtListType::Bullet, curr_list_info.type);
     ASSERT_EQ(3, curr_list_info.level);
     ASSERT_EQ(204, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(233));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(233));
     ASSERT_EQ(CtListType::None, curr_list_info.type);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(234));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(234));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(1, curr_list_info.num_seq);
     ASSERT_EQ(234, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(252));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(252));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(2, curr_list_info.num_seq);
     ASSERT_EQ(252, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(272));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(272));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(0, curr_list_info.level);
     ASSERT_EQ(2, curr_list_info.num_seq);
     ASSERT_EQ(252, curr_list_info.startoffs);
     ASSERT_EQ(1, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(288));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(288));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(1, curr_list_info.num_seq);
     ASSERT_EQ(288, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(310));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(310));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(2, curr_list_info.num_seq);
     ASSERT_EQ(310, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(326));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(326));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(2, curr_list_info.num_seq);
     ASSERT_EQ(310, curr_list_info.startoffs);
     ASSERT_EQ(1, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(338));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(338));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(1, curr_list_info.level);
     ASSERT_EQ(2, curr_list_info.num_seq);
     ASSERT_EQ(310, curr_list_info.startoffs);
     ASSERT_EQ(2, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(350));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(350));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(2, curr_list_info.level);
     ASSERT_EQ(1, curr_list_info.num_seq);
     ASSERT_EQ(350, curr_list_info.startoffs);
     ASSERT_EQ(0, curr_list_info.count_nl);
 
-    curr_list_info = ct_list.get_paragraph_list_info(pBuffer->get_iter_at_offset(377));
+    curr_list_info = ct_list.get_paragraph_list_info(pTextBuffer->get_iter_at_offset(377));
     ASSERT_EQ(CtListType::Number, curr_list_info.type);
     ASSERT_EQ(3, curr_list_info.level);
     ASSERT_EQ(1, curr_list_info.num_seq);
@@ -245,6 +249,6 @@ TEST(ListsGroup, CtListInfo_1)
     Glib::ustring out_html = CtExport2Html::html_process_slot(pCtConfig,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_1.size()-1,
-                                                              pBuffer);
+                                                              pTextBuffer);
     ASSERT_STREQ("<ul><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ul><li>terzo elemento indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2 pi\xC3\xB9 3<ul><li>ancora un livello su pi\xC3\xB9 righe</li><li>stesso livello<ul><li>ancora uno avanti</li></ul></li></ul></li></ul></li></ul>\n<ol><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ol><li>terzo indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2<ol><li>ancora un livello<ol><li>ancora uno avant</li></ol></li></ol></li></ol></li></ol>", out_html.c_str());
 }

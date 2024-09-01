@@ -64,12 +64,12 @@ set(CPACK_STRIP_FILES TRUE)
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "texlive-latex-base, dvipng")
 if(EXISTS "/etc/fedora-release")
-  set(CPACK_RPM_PACKAGE_REQUIRES "gtkmm30, gtksourceviewmm3, gspell, libxml++, libcurl, uchardet, fmt, spdlog")
+  set(CPACK_RPM_PACKAGE_REQUIRES "gtkmm30, gtksourceview4, gspell, libxml++, libcurl, uchardet, fmt, spdlog")
   if(USE_VTE)
     set(CPACK_RPM_PACKAGE_REQUIRES "${CPACK_RPM_PACKAGE_REQUIRES}, vte291")
   endif()
 else()
-  set(CPACK_RPM_PACKAGE_REQUIRES "libgtkmm-3_0-1, libgtksourceviewmm-3_0-0, libgspell-1-2, libxml++-2_6-2, libsqlite3-0, libcurl4, libuchardet0, libfmt8, libspdlog1")
+  set(CPACK_RPM_PACKAGE_REQUIRES "libgtkmm-3_0-1, libgtksourceview-4-0, libgspell-1-2, libxml++-2_6-2, libsqlite3-0, libcurl4, libuchardet0, libfmt8, libspdlog1")
   if(USE_VTE)
     set(CPACK_RPM_PACKAGE_REQUIRES "${CPACK_RPM_PACKAGE_REQUIRES}, libvte-2_91-0")
   endif()
@@ -139,7 +139,7 @@ endif()
 
 include(FindPkgConfig)
 pkg_check_modules(GTKMM gtkmm-3.0 REQUIRED)
-pkg_check_modules(GTKSVMM gtksourceviewmm-3.0 REQUIRED)
+pkg_check_modules(GTKSV gtksourceview-4 REQUIRED)
 pkg_check_modules(GLIBMM glibmm-2.4 REQUIRED)
 pkg_check_modules(PANGOMM pangomm-1.4 REQUIRED)
 pkg_check_modules(GSPELL gspell-1 REQUIRED)
@@ -167,7 +167,7 @@ include(FindPackageHandleStandardArgs)
 # For both src and tests targets
 include_directories(
   SYSTEM ${GTKMM_INCLUDE_DIRS}
-  SYSTEM ${GTKSVMM_INCLUDE_DIRS}
+  SYSTEM ${GTKSV_INCLUDE_DIRS}
   SYSTEM ${GLIBMM_INCLUDE_DIRS}
   SYSTEM ${PANGOMM_INCLUDE_DIRS}
   SYSTEM ${GSPELL_INCLUDE_DIRS}

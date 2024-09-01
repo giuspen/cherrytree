@@ -27,7 +27,7 @@
 #include "ct_filesystem.h"
 #include <sqlite3.h>
 #include <glibmm/refptr.h>
-#include <gtksourceviewmm/buffer.h>
+#include <gtkmm/textbuffer.h>
 #include <gtkmm/treeiter.h>
 #include <unordered_set>
 
@@ -60,9 +60,9 @@ public:
     void vacuum() override;
     void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
 
-    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
-                                                      const std::string& syntax,
-                                                      std::list<CtAnchoredWidget*>& widgets) const override;
+    Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
+                                                          const std::string& syntax,
+                                                          std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     void _open_db(const fs::path& path);
     void _close_db();

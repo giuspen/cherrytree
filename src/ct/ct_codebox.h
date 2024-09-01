@@ -24,7 +24,7 @@
 #pragma once
 
 #include <gtkmm.h>
-#include <gtksourceviewmm.h>
+#include <gtksourceview/gtksource.h>
 #include "ct_const.h"
 #include "ct_widgets.h"
 #include "ct_text_view.h"
@@ -38,15 +38,15 @@ public:
     virtual ~CtTextCell() {}
 
     Glib::ustring get_text_content() const;
-    Glib::RefPtr<Gsv::Buffer> get_buffer() const { return _rTextBuffer; }
+    Glib::RefPtr<Gtk::TextBuffer> get_buffer() const { return _rTextBuffer; }
     CtTextView& get_text_view() { return _ctTextview; }
     const std::string& get_syntax_highlighting() const { return _syntaxHighlighting; }
-    void set_syntax_highlighting(const std::string& syntaxHighlighting, Gsv::LanguageManager* pGsvLanguageManager);
+    void set_syntax_highlighting(const std::string& syntaxHighlighting, GtkSourceLanguageManager* pGtkSourceLanguageManager);
     void set_text_buffer_modified_false() { _rTextBuffer->set_modified(false); }
 
 protected:
     std::string _syntaxHighlighting;
-    Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
+    Glib::RefPtr<Gtk::TextBuffer> _rTextBuffer{};
     CtTextView _ctTextview;
     std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 };
@@ -54,8 +54,6 @@ protected:
 class CtCodebox : public CtAnchoredWidget, public CtTextCell
 {
 public:
-    static const Gsv::DrawSpacesFlags DRAW_SPACES_FLAGS;
-
     enum { CB_WIDTH_HEIGHT_STEP_PIX = 15,
            CB_WIDTH_HEIGHT_STEP_PERC = 9,
            CB_WIDTH_LIMIT_MIN = 40,
@@ -91,8 +89,8 @@ public:
 
     bool get_width_in_pixels() const { return _widthInPixels; }
     int  get_frame_width() const {
-        if (_widthInPixels and _ctTextview.get_allocated_width() > _frameWidth) {
-            return _ctTextview.get_allocated_width();
+        if (_widthInPixels and _ctTextview.mm().get_allocated_width() > _frameWidth) {
+            return _ctTextview.mm().get_allocated_width();
         }
         return _frameWidth;
     }

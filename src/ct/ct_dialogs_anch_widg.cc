@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_anch_widg.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -29,13 +29,13 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
                                              const Glib::ustring& latex_text)
 {
     CtTextView textView{pCtMainWin};
-    Glib::RefPtr<Gsv::Buffer> rBuffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(textView.get_buffer());
+    Glib::RefPtr<Gtk::TextBuffer> rBuffer = textView.get_buffer();
     rBuffer->set_text(latex_text);
     textView.setup_for_syntax("latex");
     pCtMainWin->apply_syntax_highlighting(rBuffer, "latex", false/*forceReApply*/);
     auto scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
     scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    scrolledwindow->add(textView);
+    scrolledwindow->add(textView.mm());
     Gtk::Dialog dialog{_("Latex Text"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -333,9 +333,10 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
         unsigned pathSelectIdx{0};
         unsigned pathCurrIdx{0};
         const auto currSyntaxHighl = button_prog_lang.get_label();
-        for (const std::string& lang : pCtMainWin->get_language_manager()->get_language_ids()) {
-            rItemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
-            if (lang == currSyntaxHighl) {
+        const gchar * const * pLanguageIDs = gtk_source_language_manager_get_language_ids(pCtMainWin->get_language_manager());
+        for (auto pLang = pLanguageIDs; *pLang; ++pLang) {
+            rItemStore->add_row(pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
+            if (*pLang == currSyntaxHighl) {
                 pathSelectIdx = pathCurrIdx;
             }
             ++pathCurrIdx;

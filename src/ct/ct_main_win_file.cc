@@ -77,7 +77,7 @@ void CtMainWin::update_window_save_not_needed()
     _fileSaveNeeded = false;
     CtTreeIter treeIter = curr_tree_iter();
     if (treeIter) {
-        Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+        Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
         rTextBuffer->set_modified(false);
         std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_anchored_widgets_fast();
         for (CtAnchoredWidget* pAnchoredWidget : anchoredWidgets) {
@@ -246,7 +246,7 @@ bool CtMainWin::file_open(const fs::path& filepath,
         CtTreeIter node = get_tree_store().get_node_from_node_name(node_to_focus);
         if (node) {
             _uCtTreeview->set_cursor_safe(node);
-            _ctTextview.grab_focus();
+            _ctTextview.mm().grab_focus();
             node_is_set = true;
             if (not anchor_to_focus.empty()) {
                 _uCtActions->current_node_scroll_to_anchor(anchor_to_focus);
@@ -269,7 +269,7 @@ bool CtMainWin::file_open(const fs::path& filepath,
         else {
             _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(), "0", 0, 0);
         }
-        _ctTextview.grab_focus();
+        _ctTextview.mm().grab_focus();
     }
 
     if (iterDocsRestore != _pCtConfig->recentDocsRestore.end()) {
@@ -447,9 +447,10 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
 {
     spdlog::debug("trying to insert text file as node: {}", filepath.string());
     try {
-        Glib::RefPtr<Gsv::Buffer> pBuffer = Gsv::Buffer::create();
-        if (CtStrUtil::file_any_encoding_load_into_source_buffer(filepath.string(), pBuffer)) {
-            const Glib::ustring utf8_text = pBuffer->get_text();
+        GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(NULL);
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
+        if (CtStrUtil::file_any_encoding_load_into_source_buffer(filepath.string(), pGtkSourceBuffer)) {
+            const Glib::ustring utf8_text = pTextBuffer->get_text();
             if (not utf8_text.empty()) {
                 const std::string name = filepath.filename().string();
                 _uCtActions->node_child_exist_or_create(Gtk::TreeIter{}, name);
@@ -475,7 +476,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
         const CtTreeIter prevTreeIter = curr_tree_iter();
         if (prevTreeIter) {
             prevDocRestore.node_path = _uCtTreestore->get_path(prevTreeIter).to_string();
-            const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
+            const Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
             prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
             prevDocRestore.v_adj_val = round(_scrolledwindowText.get_vadjustment()->get_value());
         }

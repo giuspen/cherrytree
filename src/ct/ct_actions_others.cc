@@ -77,8 +77,8 @@ void CtActions::link_delete()
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
     if (not _link_check_around_cursor().empty()) {
-        _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
-        _pCtMainWin->get_text_view().grab_focus();
+        _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
+        _pCtMainWin->get_text_view().mm().grab_focus();
     }
 }
 
@@ -97,9 +97,9 @@ void CtActions::anchor_copy()
 void CtActions::anchor_delete()
 {
     object_set_selection(curr_anchor_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_anchor_anchor = nullptr;
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::anchor_edit()
@@ -131,9 +131,9 @@ void CtActions::embfile_copy()
 void CtActions::embfile_delete()
 {
     object_set_selection(curr_file_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_file_anchor = nullptr;
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::embfile_save()
@@ -237,9 +237,9 @@ void CtActions::latex_copy()
 void CtActions::latex_delete()
 {
     object_set_selection(curr_latex_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_latex_anchor = nullptr;
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::image_save()
@@ -287,9 +287,9 @@ void CtActions::image_copy()
 void CtActions::image_delete()
 {
     object_set_selection(curr_image_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_image_anchor = nullptr;
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::image_link_edit()
@@ -383,9 +383,10 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
             return;
         }
         _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
-        _pCtMainWin->get_text_view().grab_focus();
-        _pCtMainWin->get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
-        _pCtMainWin->get_text_view().set_tooltip_text("");
+        auto& textView = _pCtMainWin->get_text_view().mm();
+        textView.grab_focus();
+        textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        textView.set_tooltip_text("");
         if (not link_entry.anch.empty()) {
             current_node_scroll_to_anchor(link_entry.anch);
         }
@@ -416,7 +417,7 @@ void CtActions::current_node_scroll_to_anchor(Glib::ustring anchor_name)
     else {
         Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
         _curr_buffer()->place_cursor(iter_anchor);
-        _pCtMainWin->get_text_view().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        _pCtMainWin->get_text_view().mm().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
 }
 
@@ -437,7 +438,7 @@ void CtActions::codebox_copy()
 void CtActions::codebox_copy_content()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
-    Glib::RefPtr<Gsv::Buffer> pBuffer = curr_codebox_anchor->get_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> pBuffer = curr_codebox_anchor->get_buffer();
     pBuffer->select_range(pBuffer->begin(), pBuffer->end());
     g_signal_emit_by_name(G_OBJECT(curr_codebox_anchor->get_text_view().gobj()), "copy-clipboard");
 }
@@ -446,9 +447,9 @@ void CtActions::codebox_delete()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
     object_set_selection(curr_codebox_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_codebox_anchor = nullptr;
-   _pCtMainWin->get_text_view().grab_focus();
+   _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::codebox_delete_keeping_text()
@@ -457,9 +458,9 @@ void CtActions::codebox_delete_keeping_text()
     if (not _is_curr_node_not_read_only_or_error()) return;
     Glib::ustring content = curr_codebox_anchor->get_text_content();
     object_set_selection(curr_codebox_anchor);
-    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_codebox_anchor = nullptr;
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
     _curr_buffer()->insert_at_cursor(content);
 }
 
@@ -614,8 +615,8 @@ void CtActions::codebox_increase_width()
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameWidth = curr_codebox_anchor->get_frame_width();
     if (curr_codebox_anchor->get_width_in_pixels()) {
-        if (_pCtConfig->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().get_allocated_width() ) {
-            prevFrameWidth = curr_codebox_anchor->get_text_view().get_allocated_width();
+        if (_pCtConfig->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().mm().get_allocated_width() ) {
+            prevFrameWidth = curr_codebox_anchor->get_text_view().mm().get_allocated_width();
         }
         curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
@@ -651,8 +652,8 @@ void CtActions::codebox_increase_height()
     if (not _is_there_anch_widg_selection_or_error('c')) return;
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameHeight = curr_codebox_anchor->get_frame_height();
-    if (_pCtConfig->codeboxAutoResize and prevFrameHeight < curr_codebox_anchor->get_text_view().get_allocated_height() ) {
-        prevFrameHeight = curr_codebox_anchor->get_text_view().get_allocated_height();
+    if (_pCtConfig->codeboxAutoResize and prevFrameHeight < curr_codebox_anchor->get_text_view().mm().get_allocated_height() ) {
+        prevFrameHeight = curr_codebox_anchor->get_text_view().mm().get_allocated_height();
     }
     curr_codebox_anchor->set_width_height(0, prevFrameHeight + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
@@ -686,9 +687,9 @@ void CtActions::table_delete()
 {
     if (not _is_there_anch_widg_selection_or_error('t')) return;
     object_set_selection(curr_table_anchor);
-    _curr_buffer()->erase_selection(true/*interactive*/, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true/*interactive*/, _pCtMainWin->get_text_view().mm().get_editable());
     curr_table_anchor = nullptr;
-    _pCtMainWin->get_text_view().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::table_column_add()
@@ -841,10 +842,10 @@ void CtActions::table_edit_properties()
         table_delete();
         auto pCtTable = is_light ? static_cast<CtTableCommon*>(pStateCommon->to_widget_light(_pCtMainWin)) :
             static_cast<CtTableCommon*>(pStateCommon->to_widget_heavy(_pCtMainWin));
-        Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
-        pCtTable->insertInTextBuffer(gsv_buffer);
+        pCtTable->insertInTextBuffer(_curr_buffer());
         _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
-            {pCtTable}, &_pCtMainWin->get_text_view());
+                                                         {pCtTable},
+                                                         &_pCtMainWin->get_text_view().mm());
         curr_table_anchor = pCtTable;
     }
     else {

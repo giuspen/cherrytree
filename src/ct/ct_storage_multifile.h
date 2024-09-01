@@ -26,7 +26,7 @@
 #include "ct_types.h"
 #include "ct_filesystem.h"
 #include <glibmm/refptr.h>
-#include <gtksourceviewmm/buffer.h>
+#include <gtkmm/textbuffer.h>
 #include <gtkmm/treeiter.h>
 #include <libxml++/libxml++.h>
 
@@ -72,9 +72,9 @@ public:
                         const int end_offset = -1) override;
     void import_nodes(const fs::path& file_path, const Gtk::TreeIter& parent_iter) override;
 
-    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
-                                                      const std::string& syntax,
-                                                      std::list<CtAnchoredWidget*>& widgets) const override;
+    Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
+                                                          const std::string& syntax,
+                                                          std::list<CtAnchoredWidget*>& widgets) const override;
 
 private:
     CtMainWin* const _pCtMainWin;

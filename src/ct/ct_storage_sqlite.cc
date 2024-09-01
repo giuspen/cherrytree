@@ -477,23 +477,23 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(const gint64 node_id,
     return _pCtMainWin->get_tree_store().append_node(&nodeData, &parent_iter);
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64 node_id,
-                                                                   const std::string& syntax,
-                                                                   std::list<CtAnchoredWidget*>& widgets) const
+Glib::RefPtr<Gtk::TextBuffer> CtStorageSqlite::get_delayed_text_buffer(const gint64 node_id,
+                                                                       const std::string& syntax,
+                                                                       std::list<CtAnchoredWidget*>& widgets) const
 {
     Sqlite3StmtAuto stmt{_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?"};
     if (stmt.is_bad()) {
         spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
-        return Glib::RefPtr<Gsv::Buffer>();
+        return Glib::RefPtr<Gtk::TextBuffer>{};
     }
 
     sqlite3_bind_int64(stmt, 1, node_id);
     if (sqlite3_step(stmt) != SQLITE_ROW) {
         spdlog::error("!! missing node properties for id {}", node_id);
-        return Glib::RefPtr<Gsv::Buffer>();
+        return Glib::RefPtr<Gtk::TextBuffer>{};
     }
 
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
+    Glib::RefPtr<Gtk::TextBuffer> rRetTextBuffer;
     const char* textContent = safe_sqlite3_column_text(stmt, 0);
     if (CtConst::RICH_TEXT_ID != syntax) {
         rRetTextBuffer = _pCtMainWin->get_new_text_buffer(textContent);
@@ -509,11 +509,12 @@ Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64 
         if (sqlite3_column_int64(stmt, 3)) _image_from_db(node_id, widgets);
 
         widgets.sort([](const CtAnchoredWidget* w1, const CtAnchoredWidget* w2) { return w1->getOffset() < w2->getOffset(); });
-        rRetTextBuffer->begin_not_undoable_action();
+        auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(rRetTextBuffer->gobj());
+        gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
         for (auto widget : widgets) {
             widget->insertInTextBuffer(rRetTextBuffer);
         }
-        rRetTextBuffer->end_not_undoable_action();
+        gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
         rRetTextBuffer->set_modified(false);
     }
     return rRetTextBuffer;

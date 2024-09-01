@@ -22,6 +22,7 @@
  */
 
 #include <glibmm/miscutils.h>
+#include <giomm/file.h>
 #include <glib/gstdio.h>
 #include <curl/curl.h>
 #include <system_error>

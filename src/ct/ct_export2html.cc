@@ -81,7 +81,7 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
 // Export a Node To HTML
 void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
 {
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
@@ -268,7 +268,7 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
             }
         }
         else {
-            Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
             if (not rTextBuffer) {
                 throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
             }
@@ -358,8 +358,11 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         }
     }
     else {
-        Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
-        html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset(), syntax_highlighting, true/*from_selection*/);
+        html_text += _html_get_from_code_buffer(text_buffer,
+                                                start_iter.get_offset(),
+                                                end_iter.get_offset(),
+                                                syntax_highlighting,
+                                                true/*from_selection*/);
     }
     html_text += HTML_FOOTER;
     return html_text;
@@ -464,13 +467,17 @@ Glib::ustring CtExport2Html::_get_table_html(CtTableCommon* table)
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting, const bool from_selection/*=false*/)
+Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gtk::TextBuffer>& code_buffer,
+                                                        int sel_start,
+                                                        int sel_end,
+                                                        const std::string& syntax_highlighting,
+                                                        const bool from_selection/*=false*/)
 {
     Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
     Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
 
     _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
-    code_buffer->ensure_highlight(curr_iter, end_iter);
+    gtk_source_buffer_ensure_highlight(GTK_SOURCE_BUFFER(code_buffer->gobj()), curr_iter.gobj(), end_iter.gobj());
 
     Glib::ustring html_text;
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
@@ -527,7 +534,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
                                                   std::vector<Glib::ustring>& out_slots,
                                                   std::vector<CtAnchoredWidget*>& out_widgets)
 {
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = tree_iter.get_node_text_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
     if (not rTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }

@@ -34,7 +34,7 @@
 
 void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, const gchar* message, gpointer user_data)
 {
-    if (CtApp::inside_gsv_init or not message or not user_data) {
+    if (not message or not user_data) {
         return;
     }
     auto pGtkLogger = static_cast<spdlog::logger*>(user_data);

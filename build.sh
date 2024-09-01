@@ -150,7 +150,7 @@ then
   tar xf TinyTeX-1-v2022.04.04.tar.xz -C AppDir/
   mv AppDir/.TinyTeX AppDir/usr
   mkdir -p AppDir/usr/share
-  [ -d /usr/share/gtksourceview-3.0 ] && cp -rv /usr/share/gtksourceview-3.0 AppDir/usr/share/ || echo "!! /usr/share/gtksourceview-3.0 NOT FOUND !!"
+  [ -d /usr/share/gtksourceview-4 ] && cp -rv /usr/share/gtksourceview-4 AppDir/usr/share/ || echo "!! /usr/share/gtksourceview-4 NOT FOUND !!"
   DESTDIR=AppDir ninja install
   ./linuxdeploy-x86_64.AppImage \
         --appdir AppDir \

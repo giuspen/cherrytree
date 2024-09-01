@@ -948,12 +948,12 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
     }
 }
 
-bool CtStrUtil::file_any_encoding_load_into_source_buffer(const std::string& filepath, Glib::RefPtr<Gsv::Buffer> pSourceBuffer)
+bool CtStrUtil::file_any_encoding_load_into_source_buffer(const std::string& filepath, GtkSourceBuffer* pGtkSourceBuffer)
 {
     GFile* pGFile = g_file_new_for_path(filepath.c_str());
     GtkSourceFile* pGtkSourceFile = gtk_source_file_new();
     gtk_source_file_set_location(pGtkSourceFile, pGFile);
-    GtkSourceFileLoader* pGtkSourceFileLoader = gtk_source_file_loader_new(pSourceBuffer->gobj(), pGtkSourceFile);
+    GtkSourceFileLoader* pGtkSourceFileLoader = gtk_source_file_loader_new(pGtkSourceBuffer, pGtkSourceFile);
     int operationStatus{0};
     auto f_GAsyncReadyCallback = [](GObject* pSourceObject, GAsyncResult* pRes, gpointer user_data){
         g_autoptr(GError) pError{nullptr};

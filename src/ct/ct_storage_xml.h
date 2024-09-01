@@ -26,8 +26,8 @@
 #include "ct_types.h"
 #include "ct_filesystem.h"
 #include <glibmm/refptr.h>
-#include <gtksourceviewmm/buffer.h>
 #include <gtkmm/treeiter.h>
+#include <gtkmm/textbuffer.h>
 #include <libxml++/libxml++.h>
 
 namespace xmlpp {
@@ -67,9 +67,9 @@ public:
                         const int end_offset = -1) override;
     void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
 
-    Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64 node_id,
-                                                      const std::string& syntax,
-                                                      std::list<CtAnchoredWidget*>& widgets) const override;
+    Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
+                                                          const std::string& syntax,
+                                                          std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     void _nodes_to_xml(CtTreeIter* ct_tree_iter,
                        xmlpp::Element* p_node_parent,
@@ -110,21 +110,21 @@ public:
                                 const bool isDryRun,
                                 const std::string& multifile_dir);
 
-    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
-                                                                 const Glib::ustring& syntax,
-                                                                 std::list<CtAnchoredWidget*>& widgets,
-                                                                 Gtk::TextIter* text_insert_pos,
-                                                                 const int force_offset,
-                                                                 const std::string& multifile_dir);
+    Glib::RefPtr<Gtk::TextBuffer> create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
+                                                                     const Glib::ustring& syntax,
+                                                                     std::list<CtAnchoredWidget*>& widgets,
+                                                                     Gtk::TextIter* text_insert_pos,
+                                                                     const int force_offset,
+                                                                     const std::string& multifile_dir);
 
-    bool get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
+    bool get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gtk::TextBuffer> buffer,
                                            xmlpp::Node* slot_node,
                                            std::list<CtAnchoredWidget*>& widgets,
                                            Gtk::TextIter* text_insert_pos,
                                            const int force_offset,
                                            const std::string& multifile_dir);
 
-    Glib::RefPtr<Gsv::Buffer> create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content);
+    Glib::RefPtr<Gtk::TextBuffer> create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content);
 
     bool populate_table_matrix(CtTableMatrix& tableMatrix,
                                const char* xml_content,
@@ -141,7 +141,7 @@ public:
                                        const gchar change_case);
 
 private:
-    void              _add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);
+    void              _add_rich_text_from_xml(Glib::RefPtr<Gtk::TextBuffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);
     CtAnchoredWidget* _create_image_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification, const std::string& multifile_dir);
     CtAnchoredWidget* _create_codebox_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
     CtAnchoredWidget* _create_table_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);

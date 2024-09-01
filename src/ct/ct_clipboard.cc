@@ -223,7 +223,7 @@ void CtClipboard::table_row_paste(CtTableCommon* pTable)
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
     if (vec::exists(targets, CtConst::TARGET_CTD_TABLE)) {
         auto win = _pCtMainWin;
-        Gtk::TextView* view = &_pCtMainWin->get_text_view();
+        Gtk::TextView* view = &_pCtMainWin->get_text_view().mm();
         auto received_table = [win, view, pTable](const Gtk::SelectionData& s) {
             CtClipboard{win}.on_received_to_table(s, view, false, pTable);
         };
@@ -311,10 +311,9 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
         if (slot_node->get_name() != "slot")
             continue;
         for (xmlpp::Node* child_node : slot_node->get_children()) {
-            Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
             Gtk::TextIter insert_iter = text_buffer->get_insert()->get_iter();
             CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(
-                gsv_buffer,
+                text_buffer,
                 child_node,
                 widgets,
                 &insert_iter,
@@ -323,10 +322,9 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
         }
     }
     if (not widgets.empty()) {
-        _pCtMainWin->get_tree_store().addAnchoredWidgets(
-                    _pCtMainWin->curr_tree_iter(),
-                    widgets,
-                    &_pCtMainWin->get_text_view());
+        _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
+                                                         widgets,
+                                                         &_pCtMainWin->get_text_view().mm());
         if (pPasteHadWidgets) {
             *pPasteHadWidgets = true;
         }
@@ -645,20 +643,18 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
     }
     else {
         std::list<CtAnchoredWidget*> widgets;
-        Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
         Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
         CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(
-            gsv_buffer,
+            pTextView->get_buffer(),
             parser.get_document()->get_root_node()->get_first_child("table"),
             widgets,
             &insert_iter,
             insert_iter.get_offset(),
             "");
         if (not widgets.empty()) {
-            _pCtMainWin->get_tree_store().addAnchoredWidgets(
-                _pCtMainWin->curr_tree_iter(),
-                widgets,
-                &_pCtMainWin->get_text_view());
+            _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
+                                                             widgets,
+                                                             &_pCtMainWin->get_text_view().mm());
             _pCtMainWin->get_state_machine().update_state();
         }
 
@@ -902,13 +898,18 @@ void CtClipboard::_xml_to_codebox(const Glib::ustring &xml_text, Gtk::TextView* 
     }
 
     std::list<CtAnchoredWidget*> widgets;
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(gsv_buffer, parser.get_document()->get_root_node()->get_first_child("codebox"), widgets, &insert_iter, insert_iter.get_offset(), "");
+    CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(
+        pTextView->get_buffer(),
+        parser.get_document()->get_root_node()->get_first_child("codebox"),
+        widgets,
+        &insert_iter,
+        insert_iter.get_offset(),
+        "");
     if (not widgets.empty()) {
-        _pCtMainWin->get_tree_store().addAnchoredWidgets(
-                    _pCtMainWin->curr_tree_iter(),
-                    widgets, &_pCtMainWin->get_text_view());
+        _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
+                                                         widgets,
+                                                         &_pCtMainWin->get_text_view().mm());
         _pCtMainWin->get_state_machine().update_state();
     }
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());

@@ -216,7 +216,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         _s_state.all_matches_first_in_node = true;
         CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(node_iter);
         if (_s_options.node_content) {
-            Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
+            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
             if (not rTextBuffer) {
                 CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name().raw()), *_pCtMainWin);
                 break;
@@ -438,7 +438,7 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                 _s_state.all_matches_first_in_node = true;
                 CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(child_iter);
                 if (_s_options.node_content) {
-                    Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
+                    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
                     if (not rTextBuffer) {
                         CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name().raw()), *_pCtMainWin);
                         break;
@@ -507,7 +507,7 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
         }
         if (not all_matches) {
             _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
-            _pCtMainWin->get_text_view().grab_focus();
+            _pCtMainWin->get_text_view().mm().grab_focus();
         }
         return true;
     }
@@ -907,7 +907,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         }
         CtTextView& ct_text_view = _pCtMainWin->get_text_view();
         ct_text_view.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first, match_offsets.second - match_offsets.first);
-        ct_text_view.scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        ct_text_view.mm().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
         if (anchMatchList.size() > 0u) {
             auto& pAnchMatch = anchMatchList[_s_state.find_iter_anchlist_idx];
             if (_s_state.replace_active) {

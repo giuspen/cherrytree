@@ -448,7 +448,7 @@ void CtTableLight::grab_focus() const
     const size_t currCol = current_column();
     //spdlog::debug("focus ({},{})", currRow, currCol);
     for (int i = 0; i < 2; ++i) {
-        _pCtMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().mm().grab_focus();
         while (gtk_events_pending()) gtk_main_iteration();
         _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
                                       *_pManagedTreeView->get_column(currCol),

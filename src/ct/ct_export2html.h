@@ -1,7 +1,7 @@
 /*
  * ct_export2html.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -72,7 +72,7 @@ private:
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
     Glib::ustring _get_table_html(CtTableCommon* table);
 
-    Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer,
+    Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gtk::TextBuffer>& code_buffer,
                                              int sel_start,
                                              int sel_end,
                                              const std::string &syntax_highlighting,
