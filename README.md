@@ -80,19 +80,8 @@ The following languages are supported (If you want to help translating to your l
 - Turkish (Ferhat Aydin, up to date)
 - Ukrainian (Giuseppe Penone, up to date)
 
-## Used libraries
-https://www.gtkmm.org/en/documentation.shtml
-https://developer-old.gnome.org/gtkmm-tutorial/3.24/
-https://developer-old.gnome.org/gtkmm/3.24/
-https://developer-old.gnome.org/gtkmm/3.24/hierarchy.html
-
-https://developer-old.gnome.org/gtksourceviewmm/stable/
-
-https://developer-old.gnome.org/libxml++-tutorial/stable/
-https://developer-old.gnome.org/libxml++/stable/
-
-https://wiki.gnome.org/Projects/gspell
-https://developer-old.gnome.org/gspell/stable/
+## Programming with GTKmm3
+https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.8.0/en/
 
 ## Third party Android project SourCherry
 Outstanding third party Android project: https://github.com/FFDA/SourCherry

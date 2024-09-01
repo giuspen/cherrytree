@@ -58,7 +58,7 @@ pacman -S --noconfirm --root ${NEW_MSYS2_FOLDER} \
   bash \
   pacman \
   mingw-w64-x86_64-gtkmm3 \
-  mingw-w64-x86_64-gtksourceviewmm3 \
+  mingw-w64-x86_64-gtksourceview4 \
   mingw-w64-x86_64-libxml++2.6 \
   mingw-w64-x86_64-sqlite3 \
   mingw-w64-x86_64-gspell \
