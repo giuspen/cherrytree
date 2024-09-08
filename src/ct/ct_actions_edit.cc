@@ -331,7 +331,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 }
 
                 Glib::ustring txt{start_iter, end_iter};
-                //spdlog::debug("{} - {}", txt, txt.size());
+                spdlog::debug("{} - {}", txt, txt.size());
 
                 auto mark = rTextBuffer->create_mark(end_iter, false);
 
@@ -999,10 +999,13 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert,
                                                      &_pCtMainWin->get_text_view().mm());
 }
 
-void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification)
+void CtActions::image_insert_anchor(Gtk::TextIter iter_insert,
+                                    const Glib::ustring& name,
+                                    const CtAnchorExpCollState expCollState,
+                                    const Glib::ustring& image_justification)
 {
     const int charOffset = iter_insert.get_offset();
-    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor{_pCtMainWin, name, charOffset, image_justification};
+    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor{_pCtMainWin, name, expCollState, charOffset, image_justification};
     pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),

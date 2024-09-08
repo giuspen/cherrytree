@@ -205,13 +205,26 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 
 CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
                              const Glib::ustring& anchorName,
+                             const CtAnchorExpCollState expCollState,
                              const int charOffset,
                              const std::string& justification)
- : CtImage{pCtMainWin, "ct_anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification}
+ : CtImage{pCtMainWin,
+           _get_stock_id_for_exp_coll_state(expCollState),
+           pCtMainWin->get_ct_config()->anchorSize,
+           charOffset,
+           justification}
  , _anchorName{anchorName}
+ , _expCollState{expCollState}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
     update_tooltip();
+}
+
+/*static*/const char* CtImageAnchor::_get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState)
+{
+    if (CtAnchorExpCollState::None == expCollState) return "ct_anchor";
+    if (CtAnchorExpCollState::Collapsed == expCollState) return "ct_add";
+    return "ct_remove";
 }
 
 void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
