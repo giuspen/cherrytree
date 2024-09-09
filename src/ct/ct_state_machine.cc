@@ -53,6 +53,7 @@ CtAnchoredWidget* CtAnchoredWidgetState_ImagePng::to_widget(CtMainWin* pCtMainWi
 CtAnchoredWidgetState_Anchor::CtAnchoredWidgetState_Anchor(CtImageAnchor* anchor)
  : CtAnchoredWidgetState{anchor->getOffset(), anchor->getJustification()}
  , name{anchor->get_anchor_name()}
+ , expCollState{anchor->get_exp_coll_state()}
 {
 }
 
@@ -62,12 +63,13 @@ bool CtAnchoredWidgetState_Anchor::equal(std::shared_ptr<CtAnchoredWidgetState> 
     return other_state and
            charOffset == other_state->charOffset and
            justification == other_state->justification and
-           name == other_state->name;
+           name == other_state->name and
+           expCollState == other_state->expCollState;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_Anchor::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImageAnchor{pCtMainWin, name, charOffset, justification};
+    return new CtImageAnchor{pCtMainWin, name, expCollState, charOffset, justification};
 }
 
 // ImageLatex

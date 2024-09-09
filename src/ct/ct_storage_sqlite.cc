@@ -537,7 +537,11 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
         // image
         const Glib::ustring anchorName = safe_sqlite3_column_text(stmt, 3);
         if (not anchorName.empty()) {
-            anchoredWidgets.push_back(new CtImageAnchor{_pCtMainWin, anchorName, charOffset, justification});
+            CtAnchorExpCollState expCollState{CtAnchorExpCollState::None};
+            if (0 != CtStrUtil::is_header_anchor_name(anchorName)) {
+                expCollState = CtAnchorExpCollState::Expanded; // we don't support saving the collapsed state ATM
+            }
+            anchoredWidgets.push_back(new CtImageAnchor{_pCtMainWin, anchorName, expCollState, charOffset, justification});
         }
         else {
             fs::path fileName = safe_sqlite3_column_text(stmt, 5);

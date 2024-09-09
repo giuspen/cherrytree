@@ -201,6 +201,8 @@ std::vector<bool> get_rtl_for_lines(const Glib::ustring& text);
 
 bool is_str_true(const Glib::ustring& inStr);
 
+int is_header_anchor_name(const Glib::ustring& anchorName);
+
 gint64 gint64_from_gstring(const gchar* inGstring, bool hexPrefix=false);
 
 guint32 guint32_from_hex_chars(const char* hexChars, guint8 numChars);

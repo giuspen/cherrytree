@@ -341,9 +341,10 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                     CtAnchoredWidget* pCtAnchoredWidget = node.get_anchored_widget(rChildAnchor);
                     if (pCtAnchoredWidget) {
                         auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
-                        static Glib::RefPtr<Glib::Regex> rRegExpAnchorName = Glib::Regex::create("h\\d+-\\d+");
-                        if (pCtImageAnchor and rRegExpAnchorName->match(pCtImageAnchor->get_anchor_name())) {
-                            expCollState = pCtImageAnchor->get_exp_coll_state();
+                        if (pCtImageAnchor and CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {
+                            if (CtAnchorExpCollState::None != pCtImageAnchor->get_exp_coll_state()) {
+                                expCollState = pCtImageAnchor->get_exp_coll_state();
+                            }
                             const int endOffset = end_iter.get_offset();
                             auto iter_bound = end_iter;
                             iter_bound.forward_char();

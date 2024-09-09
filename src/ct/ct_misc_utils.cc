@@ -721,6 +721,17 @@ bool CtStrUtil::is_str_true(const Glib::ustring& inStr)
     return retVal;
 }
 
+int CtStrUtil::is_header_anchor_name(const Glib::ustring& anchorName)
+{
+    static Glib::RefPtr<Glib::Regex> pRegExpAnchorNamePattern = Glib::Regex::create("h\\d+-\\d+");
+    Glib::MatchInfo matchInfo;
+    if (pRegExpAnchorNamePattern->match(anchorName, matchInfo)) {
+        const int h_num = atoi(matchInfo.fetch(1).c_str());
+        return h_num >= 1 and h_num <= 6 ? h_num : 0;
+    }
+    return 0;
+}
+
 gint64 CtStrUtil::gint64_from_gstring(const gchar* inGstring, bool hexPrefix)
 {
     gint64 retVal;

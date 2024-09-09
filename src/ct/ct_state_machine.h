@@ -74,6 +74,7 @@ public:
 
 public:
     Glib::ustring name;
+    CtAnchorExpCollState expCollState;
 };
 
 class CtAnchoredWidgetState_Latex : public CtAnchoredWidgetState
