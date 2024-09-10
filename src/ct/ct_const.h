@@ -257,7 +257,7 @@ const inline static gchar* LANG_DEFAULT{"default"};
 
 const inline static std::vector<const gchar*> AVAILABLE_LANGS {
     LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fa", "fi", "fr", "hi_IN", "hr", "hu", "hy", "it",
-    "ja", "kk_KZ", "kk_LA", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
+    "ja", "kk_KZ", "kk_LA", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sk", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
 const inline static int NODE_ICON_CODE_ID          {38};
@@ -516,6 +516,7 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_stackoverflow",     // 243
     "ct_zebra",             // 244
     "ct_postman",           // 245
+    "ct_sk",                // 246
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -548,7 +549,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
     25/*bullet*/, 26/*noicon*/, 209/*bullseye*/, 220/*four_leaf_clover*/, 236/*pool_8_ball*/,
-    /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131, 179/*flags end*/
+    /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 246, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131, 179/*flags end*/
 };
 
 // former NODES_ICONS

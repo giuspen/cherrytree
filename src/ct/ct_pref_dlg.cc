@@ -58,6 +58,7 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
     {"pt_BR",   _("Portuguese Brazil")},
     {"ro",      _("Romanian")},
     {"ru",      _("Russian")},
+    {"sk",      _("Slovak")},
     {"sl",      _("Slovenian")},
     {"es",      _("Spanish")},
     {"sv",      _("Swedish")},

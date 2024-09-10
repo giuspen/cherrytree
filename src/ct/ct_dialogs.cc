@@ -566,6 +566,7 @@ MA 02110-1301, USA.
  _("Portuguese Brazil")+" (pt_BR) Raysa Dutra <raysadutra.dev@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
  _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
+ _("Slovak")+" (sk) Michal Fusatý <fusaty@proton.me>"+CtConst::CHAR_NEWLINE+
  _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Spanish")+" (es) UserFav <userfav.post@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
