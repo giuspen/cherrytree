@@ -74,6 +74,7 @@ The following languages are supported (If you want to help translating to your l
 - Portuguese Brazil (Raysa Dutra, up to date)
 - Romanian (Tudor Sprinceana, up to date)
 - Russian (Viktor Polyanskiy, up to date)
+- Slovak (Michal Fusatý, up to date)
 - Slovenian (Erik Lovrič, up to date)
 - Spanish (up to date)
 - Swedish (Åke Engelbrektson, up to date)
