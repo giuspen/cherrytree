@@ -74,7 +74,7 @@ TEST(MiscUtilsGroup, is_header_anchor_name)
     ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h7-10"));
     ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h710"));
     ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h-710"));
-    ASSERT_EQ(1, CtStrUtil::is_header_anchor_name("h1-0"));
+    ASSERT_EQ(1, CtStrUtil::is_header_anchor_name("h1-1"));
     ASSERT_EQ(2, CtStrUtil::is_header_anchor_name("h2-10"));
     ASSERT_EQ(3, CtStrUtil::is_header_anchor_name("h3-20"));
     ASSERT_EQ(4, CtStrUtil::is_header_anchor_name("h4-30"));

@@ -331,7 +331,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 }
 
                 Glib::ustring txt{start_iter, end_iter};
-                spdlog::debug("{} - {}", txt, txt.size());
+                spdlog::debug("{} - {}", txt.raw(), txt.size());
 
                 auto mark = rTextBuffer->create_mark(end_iter, false);
 
