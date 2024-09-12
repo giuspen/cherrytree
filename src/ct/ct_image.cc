@@ -276,11 +276,22 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 3)
+    if (3 == event->button) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
-    else if (event->type == GDK_2BUTTON_PRESS)
-        _pCtMainWin->get_ct_actions()->anchor_edit();
-
+    }
+    else if (1 == event->button) {
+        if (event->type == GDK_2BUTTON_PRESS) {
+            _pCtMainWin->get_ct_actions()->anchor_edit();
+        }
+        else if (CtAnchorExpCollState::None != _expCollState) {
+            if (CtAnchorExpCollState::Expanded == _expCollState) {
+                spdlog::debug("exp2coll");
+            }
+            else {
+                spdlog::debug("coll2exp");
+            }
+        }
+    }
     return true; // do not propagate the event
 }
 
