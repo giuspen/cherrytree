@@ -284,11 +284,16 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
             _pCtMainWin->get_ct_actions()->anchor_edit();
         }
         else if (CtAnchorExpCollState::None != _expCollState) {
-            if (CtAnchorExpCollState::Expanded == _expCollState) {
-                spdlog::debug("exp2coll");
+            const Glib::ustring& anchorName = get_anchor_name();
+            const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+            if (0 == headerNum) {
+                spdlog::warn("!! unexp {} expCollState {}", anchorName.c_str(), CtAnchorExpCollState::Collapsed == _expCollState ? "coll" : "exp");
+            }
+            else if (CtAnchorExpCollState::Expanded == _expCollState) {
+                spdlog::debug("exp2coll {}", headerNum);
             }
             else {
-                spdlog::debug("coll2exp");
+                spdlog::debug("coll2exp {}", headerNum);
             }
         }
     }
