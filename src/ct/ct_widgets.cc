@@ -78,7 +78,7 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
 {
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
     signal_button_press_event().connect([this](GdkEventButton* /*pEvent*/){
-        _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor((_rTextChildAnchor)));
+        _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor(_rTextChildAnchor));
         return true; // we need to block this or the focus will go to the text buffer below
     });
     add(_frame);

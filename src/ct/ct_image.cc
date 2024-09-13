@@ -284,16 +284,26 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
             _pCtMainWin->get_ct_actions()->anchor_edit();
         }
         else if (CtAnchorExpCollState::None != _expCollState) {
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->curr_buffer();
+            Gtk::TextIter textIterAnchor = pTextBuffer->get_iter_at_child_anchor(getTextChildAnchor());
             const Glib::ustring& anchorName = get_anchor_name();
             const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
             if (0 == headerNum) {
                 spdlog::warn("!! unexp {} expCollState {}", anchorName.c_str(), CtAnchorExpCollState::Collapsed == _expCollState ? "coll" : "exp");
             }
-            else if (CtAnchorExpCollState::Expanded == _expCollState) {
-                spdlog::debug("exp2coll {}", headerNum);
-            }
             else {
-                spdlog::debug("coll2exp {}", headerNum);
+                const std::string tagName = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, std::string{"h"} + std::to_string(headerNum));
+                Glib::RefPtr<Gtk::TextTag> pTextTag = _pCtMainWin->get_text_tag_table()->lookup(tagName);
+                if (CtAnchorExpCollState::Expanded == _expCollState) {
+                    spdlog::debug("exp2coll {}", headerNum);
+                    (void)textIterAnchor.forward_to_line_end();
+                    Gtk::TextIter textIterEnd{textIterAnchor};
+                    (void)textIterEnd.forward_to_tag_toggle(pTextTag);
+                    spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
+                }
+                else {
+                    spdlog::debug("coll2exp {}", headerNum);
+                }
             }
         }
     }
