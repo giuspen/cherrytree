@@ -166,20 +166,26 @@ void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wra
     _pTextView->set_pixels_inside_wrap(pixels_around_wrap);
 }
 
-void CtTextView::set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*=Glib::RefPtr<Gtk::TextBuffer>()*/)
+void CtTextView::set_selection_at_offset_n_delta(const int offset, const int delta, Glib::RefPtr<Gtk::TextBuffer> pTextBuffer/*= Glib::RefPtr<Gtk::TextBuffer>{}*/)
 {
-    text_buffer = text_buffer ? text_buffer : get_buffer();
-    Gtk::TextIter target = text_buffer->get_iter_at_offset(offset);
-    if (target) {
-        text_buffer->place_cursor(target);
-        if (not target.forward_chars(delta)) {
-            // #print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
-        }
-        text_buffer->move_mark(text_buffer->get_selection_bound(), target);
+    if (not pTextBuffer) {
+        pTextBuffer = get_buffer();
     }
-    else {
-        // # print "! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+    const Gtk::TextIter iterStart = pTextBuffer->get_iter_at_offset(offset);
+    if (not iterStart) {
+        return;
     }
+    Gtk::TextIter iterEnd{iterStart};
+    (void)iterEnd.forward_chars(delta);
+    const std::string invisible_tag{"invisible_"};
+    const std::optional<Glib::ustring> invisibleStart = CtTextIterUtil::iter_get_tag_startingwith(iterStart, invisible_tag);
+    const std::optional<Glib::ustring> invisibleEnd = CtTextIterUtil::iter_get_tag_startingwith(iterEnd, invisible_tag);
+    if (invisibleStart or invisibleEnd) {
+        const int hNum = (invisibleStart ? invisibleStart.value().at(invisibleStart.value().size()-1) : invisibleEnd.value().at(invisibleEnd.value().size()-1)) - '0';
+        spdlog::debug("collapsed h{}", hNum);
+    }
+    pTextBuffer->place_cursor(iterStart);
+    pTextBuffer->move_mark(pTextBuffer->get_selection_bound(), iterEnd);
 }
 
 // Called at list indent/unindent time

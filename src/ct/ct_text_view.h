@@ -47,9 +47,9 @@ public:
 
     void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
-    void set_selection_at_offset_n_delta(int offset,
-                                         int delta,
-                                         Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>{});
+    void set_selection_at_offset_n_delta(const int offset,
+                                         const int delta,
+                                         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::RefPtr<Gtk::TextBuffer>{});
     void list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase);
     void replace_text(const Glib::ustring& text, int start_offset, int end_offset);
 
