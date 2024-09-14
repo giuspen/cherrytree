@@ -292,16 +292,21 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                 spdlog::warn("!! unexp {} expCollState {}", anchorName.c_str(), CtAnchorExpCollState::Collapsed == _expCollState ? "coll" : "exp");
             }
             else {
-                const std::string tagName = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, std::string{"h"} + std::to_string(headerNum));
-                Glib::RefPtr<Gtk::TextTag> pTextTag = _pCtMainWin->get_text_tag_table()->lookup(tagName);
+                const std::string tagPropVal{"h" + std::to_string(headerNum)};
+                const std::string tagNameH = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, tagPropVal);
+                const std::string tagNameInvis = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
+                Glib::RefPtr<Gtk::TextTag> pTextTagH = _pCtMainWin->get_text_tag_table()->lookup(tagNameH);
+                //Glib::RefPtr<Gtk::TextTag> pTextTagInvis = _pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
                 if (CtAnchorExpCollState::Expanded == _expCollState) {
                     spdlog::debug("exp2coll {}", headerNum);
                     (void)textIterAnchor.forward_to_line_end();
                     (void)textIterAnchor.forward_char();
                     Gtk::TextIter textIterEnd{textIterAnchor};
-                    (void)textIterEnd.forward_to_tag_toggle(pTextTag);
+                    (void)textIterEnd.forward_to_tag_toggle(pTextTagH);
                     (void)textIterEnd.backward_char();
                     spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
+                    pTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal),
+                                                   textIterAnchor, textIterEnd);
                 }
                 else {
                     spdlog::debug("coll2exp {}", headerNum);

@@ -222,8 +222,8 @@ void CtMainWin::apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, C
     }
 }
 
-const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName,
-                                                               const std::string& propertyValue)
+std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName,
+                                                         const std::string& propertyValue)
 {
     const std::string tagName{propertyName + "_" + propertyValue};
     Glib::RefPtr<Gtk::TextTag> rTextTag = _rGtkTextTagTable->lookup(tagName);
@@ -279,6 +279,9 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
             else {
                 identified = false;
             }
+        }
+        else if (CtConst::TAG_INVISIBLE == propertyName) {
+            rTextTag->property_invisible() = true;
         }
         else if (CtConst::TAG_STYLE == propertyName and CtConst::TAG_PROP_VAL_ITALIC == propertyValue) {
             rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
