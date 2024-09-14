@@ -539,7 +539,9 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
         if (not anchorName.empty()) {
             CtAnchorExpCollState expCollState{CtAnchorExpCollState::None};
             if (0 != CtStrUtil::is_header_anchor_name(anchorName)) {
-                expCollState = CtAnchorExpCollState::Expanded; // we don't support saving the collapsed state ATM
+                const Glib::ustring link = safe_sqlite3_column_text(stmt, 6); // link field used in anchors for else
+                if (strstr(link.c_str(), "state:coll")) expCollState = CtAnchorExpCollState::Collapsed;
+                else expCollState = CtAnchorExpCollState::Expanded;
             }
             anchoredWidgets.push_back(new CtImageAnchor{_pCtMainWin, anchorName, expCollState, charOffset, justification});
         }

@@ -108,12 +108,12 @@ public:
 
     const Glib::ustring& get_anchor_name() const { return _anchorName; }
     CtAnchorExpCollState get_exp_coll_state() const { return _expCollState; }
-    void set_exp_coll_state(const CtAnchorExpCollState expCollState);
 
     void update_tooltip();
 
 private:
     bool _on_button_press_event(GdkEventButton* event);
+    void _set_exp_coll_state(const CtAnchorExpCollState expCollState);
     static const char* _get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState);
 
 protected:

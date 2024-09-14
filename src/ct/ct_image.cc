@@ -227,7 +227,7 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
     return "ct_remove";
 }
 
-void CtImageAnchor::set_exp_coll_state(const CtAnchorExpCollState expCollState)
+void CtImageAnchor::_set_exp_coll_state(const CtAnchorExpCollState expCollState)
 {
     if (expCollState != _expCollState) {
         _expCollState = expCollState;
@@ -243,6 +243,9 @@ void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjus
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("anchor", _anchorName);
+    if (CtAnchorExpCollState::Collapsed == _expCollState) {
+        p_image_node->set_attribute("state", "coll");
+    }
 }
 
 bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
@@ -261,7 +264,12 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
         sqlite3_bind_text(p_stmt, 4, anchor_name.c_str(), anchor_name.size(), SQLITE_STATIC);
         sqlite3_bind_blob(p_stmt, 5, nullptr, 0, SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
-        sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        if (CtAnchorExpCollState::Collapsed == _expCollState) {
+            sqlite3_bind_text(p_stmt, 7, "state:coll", 10, SQLITE_STATIC); // link field used in anchors for else
+        }
+        else {
+            sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        }
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE) {
             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
@@ -315,7 +323,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                     //(void)textIterEnd.backward_char();
                     //spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
                     pTextBuffer->apply_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
-                    set_exp_coll_state(CtAnchorExpCollState::Collapsed);
+                    _set_exp_coll_state(CtAnchorExpCollState::Collapsed);
                 }
                 else {
                     spdlog::debug("coll2exp {}", headerNum);
@@ -324,8 +332,9 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                     Gtk::TextIter textIterEnd{textIterAnchor};
                     (void)textIterEnd.forward_to_tag_toggle(pTextTagInvis);
                     pTextBuffer->remove_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
-                    set_exp_coll_state(CtAnchorExpCollState::Expanded);
+                    _set_exp_coll_state(CtAnchorExpCollState::Expanded);
                 }
+                _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
             }
         }
     }

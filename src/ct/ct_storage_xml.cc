@@ -616,7 +616,9 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
     if (not anchorName.empty()) {
         CtAnchorExpCollState expCollState{CtAnchorExpCollState::None};
         if (0 != CtStrUtil::is_header_anchor_name(anchorName)) {
-            expCollState = CtAnchorExpCollState::Expanded; // we don't support saving the collapsed state ATM
+            const Glib::ustring state = xml_element->get_attribute_value("state");
+            if (0 == strcmp(state.c_str(), "coll")) expCollState = CtAnchorExpCollState::Collapsed;
+            else expCollState = CtAnchorExpCollState::Expanded;
         }
         return new CtImageAnchor{_pCtMainWin, anchorName, expCollState, charOffset, justification};
     }
