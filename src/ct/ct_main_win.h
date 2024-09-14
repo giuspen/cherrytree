@@ -164,7 +164,7 @@ public:
     void                      resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTextNCode*/);
     void                      codeboxes_reload_toolbar();
     Glib::RefPtr<Gtk::TextBuffer> get_new_text_buffer(const Glib::ustring& textContent="");
-    const std::string         get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
+    std::string               get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
     void                      apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, CtScalableTag* pCtScalableTag);
     Glib::ustring             sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
     bool                      apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);

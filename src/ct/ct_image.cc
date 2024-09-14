@@ -205,13 +205,36 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 
 CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
                              const Glib::ustring& anchorName,
+                             const CtAnchorExpCollState expCollState,
                              const int charOffset,
                              const std::string& justification)
- : CtImage{pCtMainWin, "ct_anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification}
+ : CtImage{pCtMainWin,
+           _get_stock_id_for_exp_coll_state(expCollState),
+           pCtMainWin->get_ct_config()->anchorSize,
+           charOffset,
+           justification}
  , _anchorName{anchorName}
+ , _expCollState{expCollState}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
     update_tooltip();
+}
+
+/*static*/const char* CtImageAnchor::_get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState)
+{
+    if (CtAnchorExpCollState::None == expCollState) return "ct_anchor";
+    if (CtAnchorExpCollState::Collapsed == expCollState) return "ct_visible";
+    return "ct_invisible";
+}
+
+void CtImageAnchor::_set_exp_coll_state(const CtAnchorExpCollState expCollState)
+{
+    if (expCollState != _expCollState) {
+        _expCollState = expCollState;
+        const char* stockImage = _get_stock_id_for_exp_coll_state(expCollState);
+        _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, _pCtMainWin->get_ct_config()->anchorSize);
+        _image.set(_rPixbuf);
+    }
 }
 
 void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
@@ -220,6 +243,9 @@ void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjus
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("anchor", _anchorName);
+    if (CtAnchorExpCollState::Collapsed == _expCollState) {
+        p_image_node->set_attribute("state", "coll");
+    }
 }
 
 bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
@@ -238,7 +264,12 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
         sqlite3_bind_text(p_stmt, 4, anchor_name.c_str(), anchor_name.size(), SQLITE_STATIC);
         sqlite3_bind_blob(p_stmt, 5, nullptr, 0, SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
-        sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        if (CtAnchorExpCollState::Collapsed == _expCollState) {
+            sqlite3_bind_text(p_stmt, 7, "state:coll", 10, SQLITE_STATIC); // link field used in anchors for else
+        }
+        else {
+            sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        }
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE) {
             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
@@ -263,11 +294,50 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 3)
+    if (3 == event->button) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
-    else if (event->type == GDK_2BUTTON_PRESS)
-        _pCtMainWin->get_ct_actions()->anchor_edit();
-
+    }
+    else if (1 == event->button) {
+        if (event->type == GDK_2BUTTON_PRESS) {
+            _pCtMainWin->get_ct_actions()->anchor_edit();
+        }
+        else if (CtAnchorExpCollState::None != _expCollState) {
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->curr_buffer();
+            Gtk::TextIter textIterAnchor = pTextBuffer->get_iter_at_child_anchor(getTextChildAnchor());
+            const Glib::ustring& anchorName = get_anchor_name();
+            const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+            if (0 == headerNum) {
+                spdlog::warn("!! unexp {} expCollState {}", anchorName.c_str(), CtAnchorExpCollState::Collapsed == _expCollState ? "coll" : "exp");
+            }
+            else {
+                const std::string tagPropVal{"h" + std::to_string(headerNum)};
+                const std::string tagNameH = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, tagPropVal);
+                const std::string tagNameInvis = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
+                Glib::RefPtr<Gtk::TextTag> pTextTagH = _pCtMainWin->get_text_tag_table()->lookup(tagNameH);
+                if (CtAnchorExpCollState::Expanded == _expCollState) {
+                    spdlog::debug("exp2coll {}", headerNum);
+                    (void)textIterAnchor.forward_to_line_end();
+                    (void)textIterAnchor.forward_char();
+                    Gtk::TextIter textIterEnd{textIterAnchor};
+                    (void)textIterEnd.forward_to_tag_toggle(pTextTagH);
+                    //(void)textIterEnd.backward_char();
+                    //spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
+                    pTextBuffer->apply_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
+                    _set_exp_coll_state(CtAnchorExpCollState::Collapsed);
+                }
+                else {
+                    spdlog::debug("coll2exp {}", headerNum);
+                    Glib::RefPtr<Gtk::TextTag> pTextTagInvis = _pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
+                    (void)textIterAnchor.forward_to_tag_toggle(pTextTagInvis);
+                    Gtk::TextIter textIterEnd{textIterAnchor};
+                    (void)textIterEnd.forward_to_tag_toggle(pTextTagInvis);
+                    pTextBuffer->remove_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
+                    _set_exp_coll_state(CtAnchorExpCollState::Expanded);
+                }
+                _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+            }
+        }
+    }
     return true; // do not propagate the event
 }
 

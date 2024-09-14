@@ -48,6 +48,8 @@ enum class CtDocEncrypt { None, True, False };
 
 enum class CtAnchWidgType { None, CodeBox, TableHeavy, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
 
+enum class CtAnchorExpCollState { None, Expanded, Collapsed };
+
 enum class CtPixTabCBox { Pixbuf, Table, CodeBox };
 
 enum class CtSaveNeededUpdType { None, nbuf, npro, ndel, book };

@@ -331,17 +331,20 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 }
 
                 Glib::ustring txt{start_iter, end_iter};
-                //spdlog::debug("{} - {}", txt, txt.size());
+                spdlog::debug("{} - {}", txt.raw(), txt.size());
 
                 auto mark = rTextBuffer->create_mark(end_iter, false);
 
+                CtAnchorExpCollState expCollState{CtAnchorExpCollState::Expanded};
                 Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = end_iter.get_child_anchor();
                 if (rChildAnchor) {
                     CtAnchoredWidget* pCtAnchoredWidget = node.get_anchored_widget(rChildAnchor);
                     if (pCtAnchoredWidget) {
                         auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
-                        static Glib::RefPtr<Glib::Regex> rRegExpAnchorName = Glib::Regex::create("h\\d+-\\d+");
-                        if (pCtImageAnchor and rRegExpAnchorName->match(pCtImageAnchor->get_anchor_name())) {
+                        if (pCtImageAnchor and CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {
+                            if (CtAnchorExpCollState::None != pCtImageAnchor->get_exp_coll_state()) {
+                                expCollState = pCtImageAnchor->get_exp_coll_state();
+                            }
                             const int endOffset = end_iter.get_offset();
                             auto iter_bound = end_iter;
                             iter_bound.forward_char();
@@ -351,7 +354,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                     }
                 }
                 const std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
-                actions.image_insert_anchor(end_iter, anchor_txt, CtConst::TAG_PROP_VAL_RIGHT);
+                actions.image_insert_anchor(end_iter, anchor_txt, expCollState, CtConst::TAG_PROP_VAL_RIGHT);
 
                 text_iter = mark->get_iter();
                 rTextBuffer->delete_mark(mark);
@@ -999,10 +1002,13 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert,
                                                      &_pCtMainWin->get_text_view().mm());
 }
 
-void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification)
+void CtActions::image_insert_anchor(Gtk::TextIter iter_insert,
+                                    const Glib::ustring& name,
+                                    const CtAnchorExpCollState expCollState,
+                                    const Glib::ustring& image_justification)
 {
     const int charOffset = iter_insert.get_offset();
-    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor{_pCtMainWin, name, charOffset, image_justification};
+    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor{_pCtMainWin, name, expCollState, charOffset, image_justification};
     pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),

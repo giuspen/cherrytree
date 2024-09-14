@@ -614,7 +614,13 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
 {
     const Glib::ustring anchorName = xml_element->get_attribute_value("anchor");
     if (not anchorName.empty()) {
-        return new CtImageAnchor{_pCtMainWin, anchorName, charOffset, justification};
+        CtAnchorExpCollState expCollState{CtAnchorExpCollState::None};
+        if (0 != CtStrUtil::is_header_anchor_name(anchorName)) {
+            const Glib::ustring state = xml_element->get_attribute_value("state");
+            if (0 == strcmp(state.c_str(), "coll")) expCollState = CtAnchorExpCollState::Collapsed;
+            else expCollState = CtAnchorExpCollState::Expanded;
+        }
+        return new CtImageAnchor{_pCtMainWin, anchorName, expCollState, charOffset, justification};
     }
     fs::path file_name = static_cast<std::string>(xml_element->get_attribute_value("filename"));
     xmlpp::TextNode* pTextNode = xml_element->get_child_text();

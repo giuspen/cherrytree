@@ -440,6 +440,7 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH] = "";
         else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT] = "";
         else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = "";
+        else if (str::startswith(tag_name, "invisible_")) delta_attributes[CtConst::TAG_INVISIBLE] = "";
         else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = "";
         else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK] = "";
         else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY] = "";
@@ -454,6 +455,7 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
         else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
         else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
+        else if (str::startswith(tag_name, "invisible_")) delta_attributes[CtConst::TAG_INVISIBLE] = tag_name.substr(10);
         else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
         else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
         else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
@@ -719,6 +721,19 @@ bool CtStrUtil::is_str_true(const Glib::ustring& inStr)
         retVal = true;
     }
     return retVal;
+}
+
+int CtStrUtil::is_header_anchor_name(const Glib::ustring& anchorName)
+{
+    static Glib::RefPtr<Glib::Regex> pRegExpAnchorNamePattern = Glib::Regex::create("h(\\d+)-\\d+");
+    Glib::MatchInfo matchInfo;
+    if (pRegExpAnchorNamePattern->match(anchorName, matchInfo)) {
+        const int h_num = atoi(matchInfo.fetch(1).c_str());
+        if (h_num >= 1 and h_num <= 6) {
+            return h_num;
+        }
+    }
+    return 0;
 }
 
 gint64 CtStrUtil::gint64_from_gstring(const gchar* inGstring, bool hexPrefix)

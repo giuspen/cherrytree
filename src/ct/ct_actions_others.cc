@@ -879,8 +879,13 @@ void CtActions::table_export()
 
 void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
-    Glib::ustring dialog_title = anchor == nullptr ? _("Insert Anchor") :  _("Edit Anchor");
-    Glib::ustring name = anchor == nullptr ? "" : anchor->get_anchor_name();
+    const Glib::ustring dialog_title = anchor == nullptr ? _("Insert Anchor") : _("Edit Anchor");
+    CtAnchorExpCollState expCollState{CtAnchorExpCollState::None};
+    Glib::ustring name;
+    if (anchor) {
+        name = anchor->get_anchor_name();
+        expCollState = anchor->get_exp_coll_state();
+    }
     Glib::ustring ret_anchor_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, dialog_title, name, "ct_anchor");
     if (ret_anchor_name.empty()) return;
 
@@ -891,7 +896,7 @@ void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_
         _curr_buffer()->erase(insert_iter, *iter_bound);
         insert_iter = _curr_buffer()->get_iter_at_offset(image_offset);
     }
-    image_insert_anchor(insert_iter, ret_anchor_name, image_justification);
+    image_insert_anchor(insert_iter, ret_anchor_name, expCollState, image_justification);
 }
 
 bool CtActions::_on_embfiles_sentinel_timeout()

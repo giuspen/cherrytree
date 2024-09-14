@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -96,6 +96,7 @@ class CtImageAnchor : public CtImage
 public:
     CtImageAnchor(CtMainWin* pCtMainWin,
                   const Glib::ustring& anchorName,
+                  const CtAnchorExpCollState expCollState,
                   const int charOffset,
                   const std::string& justification);
     ~CtImageAnchor() override {}
@@ -105,15 +106,19 @@ public:
     CtAnchWidgType get_type() const override { return CtAnchWidgType::ImageAnchor; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
-    const Glib::ustring& get_anchor_name() { return _anchorName; }
+    const Glib::ustring& get_anchor_name() const { return _anchorName; }
+    CtAnchorExpCollState get_exp_coll_state() const { return _expCollState; }
 
     void update_tooltip();
 
 private:
     bool _on_button_press_event(GdkEventButton* event);
+    void _set_exp_coll_state(const CtAnchorExpCollState expCollState);
+    static const char* _get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState);
 
 protected:
     Glib::ustring _anchorName;
+    CtAnchorExpCollState _expCollState;
 };
 
 class CtImageLatex : public CtImage

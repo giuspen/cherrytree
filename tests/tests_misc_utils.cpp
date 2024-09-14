@@ -67,6 +67,21 @@ TEST(MiscUtilsGroup, is_str_true)
     ASSERT_TRUE(not CtStrUtil::is_str_true("0"));
 }
 
+TEST(MiscUtilsGroup, is_header_anchor_name)
+{
+    ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("ciao"));
+    ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h0-2"));
+    ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h7-10"));
+    ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h710"));
+    ASSERT_EQ(0, CtStrUtil::is_header_anchor_name("h-710"));
+    ASSERT_EQ(1, CtStrUtil::is_header_anchor_name("h1-1"));
+    ASSERT_EQ(2, CtStrUtil::is_header_anchor_name("h2-10"));
+    ASSERT_EQ(3, CtStrUtil::is_header_anchor_name("h3-20"));
+    ASSERT_EQ(4, CtStrUtil::is_header_anchor_name("h4-30"));
+    ASSERT_EQ(5, CtStrUtil::is_header_anchor_name("h5-40"));
+    ASSERT_EQ(6, CtStrUtil::is_header_anchor_name("h6-50"));
+}
+
 TEST(MiscUtilsGroup, str__replace)
 {
     {

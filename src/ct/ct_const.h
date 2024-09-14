@@ -140,6 +140,7 @@ const inline static gchar* TAG_UNDERLINE           {"underline"};
 const inline static gchar* TAG_STRIKETHROUGH       {"strikethrough"};
 const inline static gchar* TAG_INDENT              {"indent"};
 const inline static gchar* TAG_SCALE               {"scale"};
+const inline static gchar* TAG_INVISIBLE           {"invisible"};
 const inline static gchar* TAG_FAMILY              {"family"};
 const inline static gchar* TAG_JUSTIFICATION       {"justification"};
 const inline static gchar* TAG_LINK                {"link"};
@@ -221,7 +222,7 @@ const inline static std::array<std::string_view, 4> WEB_LINK_STARTERS {
 // https://stackoverflow.com/questions/1547899/which-characters-make-a-url-invalid
 const inline static char URL_INVALID_CHARS[]{" \n\r\t\"<>\\^`{}"};
 
-const inline static std::array<std::string_view, 11> TAG_PROPERTIES {
+const inline static std::array<std::string_view, 12> TAG_PROPERTIES {
     TAG_WEIGHT,
     TAG_FOREGROUND,
     TAG_BACKGROUND,
@@ -229,6 +230,7 @@ const inline static std::array<std::string_view, 11> TAG_PROPERTIES {
     TAG_UNDERLINE,
     TAG_STRIKETHROUGH,
     TAG_SCALE,
+    TAG_INVISIBLE,
     TAG_FAMILY,
     TAG_JUSTIFICATION,
     TAG_LINK,
@@ -517,6 +519,8 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_zebra",             // 244
     "ct_postman",           // 245
     "ct_sk",                // 246
+    "ct_visible",           // 247
+    "ct_invisible",         // 248
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -526,7 +530,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     231/*monkey*/, 233/*owl*/, 234/*panda*/, 235/*pig*/, 237/*rabbit*/, 240/*rooster*/, 244/*zebra*/,
     5/*add*/, 6/*remove*/, 7/*done*/, 8/*cancel*/, 9/*delete*/, 10/*warning*/, 43/*urgent*/, 113/*no access*/, 11/*star*/, 12/*info*/,
     13/*help*/, 171/*lifebuoy*/, 14/*home*/, 15/*index*/, 16/*mail*/, 18/*notes*/, 142/*chat*/, 19/*timestamp*/, 20/*calendar*/,
-    204/*alarm_clock*/, 208/*bell*/,
+    204/*alarm_clock*/, 208/*bell*/, 247/*visible*/, 248/*invisible*/,
     39/*find*/, 40/*locked*/, 41/*unlocked*/, 45/*leaf*/,
     50/*pin*/, 51/*anchor*/, 52/*edit*/, 53/*save*/, 54/*execute*/, 55/*preferences*/, 56/*clear*/, 57/*stop*/, 58/*close*/, 59/*quit app*/,
     60/*file*/, 141/*7zip*/, 44/*folder*/,

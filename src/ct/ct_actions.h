@@ -371,6 +371,7 @@ public:
                           const Glib::ustring& image_justification);
     void image_insert_anchor(Gtk::TextIter iter_insert,
                              const Glib::ustring& name,
+                             const CtAnchorExpCollState expCollState,
                              const Glib::ustring& image_justification);
     void image_insert_latex(Gtk::TextIter iter_insert,
                             const Glib::ustring& latex_text,

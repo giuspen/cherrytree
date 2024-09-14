@@ -119,7 +119,7 @@ public:
     int                                         textMarginLeft{7};
     int                                         textMarginRight{7};
     int                                         tabsWidth{4};
-    int                                         anchorSize{16};
+    int                                         anchorSize{20};
     int                                         latexSizeDpi{140};
     int                                         embfileIconSize{48};
     bool                                        embfileShowFileName{true};
