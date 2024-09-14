@@ -519,6 +519,8 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_zebra",             // 244
     "ct_postman",           // 245
     "ct_sk",                // 246
+    "ct_visible",           // 247
+    "ct_invisible",         // 248
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -528,7 +530,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     231/*monkey*/, 233/*owl*/, 234/*panda*/, 235/*pig*/, 237/*rabbit*/, 240/*rooster*/, 244/*zebra*/,
     5/*add*/, 6/*remove*/, 7/*done*/, 8/*cancel*/, 9/*delete*/, 10/*warning*/, 43/*urgent*/, 113/*no access*/, 11/*star*/, 12/*info*/,
     13/*help*/, 171/*lifebuoy*/, 14/*home*/, 15/*index*/, 16/*mail*/, 18/*notes*/, 142/*chat*/, 19/*timestamp*/, 20/*calendar*/,
-    204/*alarm_clock*/, 208/*bell*/,
+    204/*alarm_clock*/, 208/*bell*/, 247/*visible*/, 248/*invisible*/,
     39/*find*/, 40/*locked*/, 41/*unlocked*/, 45/*leaf*/,
     50/*pin*/, 51/*anchor*/, 52/*edit*/, 53/*save*/, 54/*execute*/, 55/*preferences*/, 56/*clear*/, 57/*stop*/, 58/*close*/, 59/*quit app*/,
     60/*file*/, 141/*7zip*/, 44/*folder*/,
