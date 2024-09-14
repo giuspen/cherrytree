@@ -297,8 +297,10 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
                 if (CtAnchorExpCollState::Expanded == _expCollState) {
                     spdlog::debug("exp2coll {}", headerNum);
                     (void)textIterAnchor.forward_to_line_end();
+                    (void)textIterAnchor.forward_char();
                     Gtk::TextIter textIterEnd{textIterAnchor};
                     (void)textIterEnd.forward_to_tag_toggle(pTextTag);
+                    (void)textIterEnd.backward_char();
                     spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
                 }
                 else {
