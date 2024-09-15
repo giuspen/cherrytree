@@ -183,6 +183,22 @@ void CtTextView::set_selection_at_offset_n_delta(const int offset, const int del
     if (invisibleStart or invisibleEnd) {
         const int hNum = (invisibleStart ? invisibleStart.value().at(invisibleStart.value().size()-1) : invisibleEnd.value().at(invisibleEnd.value().size()-1)) - '0';
         spdlog::debug("collapsed h{}", hNum);
+        Gtk::TextIter iterAnchor = invisibleStart ? iterStart : iterEnd;
+        CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+        while (iterAnchor.backward_char()) {
+            std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(iterAnchor.get_offset(), iterAnchor.get_offset());
+            if (not widgets.empty()) {
+                if (auto pAnchor = dynamic_cast<CtImageAnchor*>(widgets.front())) {
+                    const Glib::ustring& anchorName = pAnchor->get_anchor_name();
+                    const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+                    if (hNum == headerNum and CtAnchorExpCollState::Collapsed == pAnchor->get_exp_coll_state()) {
+                        spdlog::debug("found {}", anchorName.c_str());
+                        pAnchor->toggle_exp_coll_state();
+                        break;
+                    }
+                }
+            }
+        }
     }
     pTextBuffer->place_cursor(iterStart);
     pTextBuffer->move_mark(pTextBuffer->get_selection_bound(), iterEnd);
@@ -656,9 +672,10 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         }
         if (not find_link) {
             Gtk::TextIter iter_anchor = text_iter;
+            CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
             for (int i : {0, 1}) {
                 if (i == 1) iter_anchor.backward_char();
-                auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_anchor.get_offset(), iter_anchor.get_offset());
+                std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(iter_anchor.get_offset(), iter_anchor.get_offset());
                 if (not widgets.empty()) {
                     if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
                         if (not image->get_link().empty()) {

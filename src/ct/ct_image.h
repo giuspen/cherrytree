@@ -108,6 +108,7 @@ public:
 
     const Glib::ustring& get_anchor_name() const { return _anchorName; }
     CtAnchorExpCollState get_exp_coll_state() const { return _expCollState; }
+    void toggle_exp_coll_state();
 
     void update_tooltip();
 

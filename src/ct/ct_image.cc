@@ -290,6 +290,44 @@ void CtImageAnchor::update_tooltip()
     set_tooltip_text(_anchorName);
 }
 
+void CtImageAnchor::toggle_exp_coll_state()
+{
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->curr_buffer();
+    Gtk::TextIter textIterAnchor = pTextBuffer->get_iter_at_child_anchor(getTextChildAnchor());
+    const Glib::ustring& anchorName = get_anchor_name();
+    const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+    if (0 == headerNum) {
+        spdlog::warn("!! unexp {} expCollState {}", anchorName.c_str(), CtAnchorExpCollState::Collapsed == _expCollState ? "coll" : "exp");
+    }
+    else {
+        const std::string tagPropVal{"h" + std::to_string(headerNum)};
+        const std::string tagNameH = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, tagPropVal);
+        const std::string tagNameInvis = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
+        Glib::RefPtr<Gtk::TextTag> pTextTagH = _pCtMainWin->get_text_tag_table()->lookup(tagNameH);
+        if (CtAnchorExpCollState::Expanded == _expCollState) {
+            spdlog::debug("exp2coll {}", headerNum);
+            (void)textIterAnchor.forward_to_line_end();
+            (void)textIterAnchor.forward_char();
+            Gtk::TextIter textIterEnd{textIterAnchor};
+            (void)textIterEnd.forward_to_tag_toggle(pTextTagH);
+            //(void)textIterEnd.backward_char();
+            //spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
+            pTextBuffer->apply_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
+            _set_exp_coll_state(CtAnchorExpCollState::Collapsed);
+        }
+        else {
+            spdlog::debug("coll2exp {}", headerNum);
+            Glib::RefPtr<Gtk::TextTag> pTextTagInvis = _pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
+            (void)textIterAnchor.forward_to_tag_toggle(pTextTagInvis);
+            Gtk::TextIter textIterEnd{textIterAnchor};
+            (void)textIterEnd.forward_to_tag_toggle(pTextTagInvis);
+            pTextBuffer->remove_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
+            _set_exp_coll_state(CtAnchorExpCollState::Expanded);
+        }
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+    }
+}
+
 bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
@@ -302,40 +340,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
             _pCtMainWin->get_ct_actions()->anchor_edit();
         }
         else if (CtAnchorExpCollState::None != _expCollState) {
-            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->curr_buffer();
-            Gtk::TextIter textIterAnchor = pTextBuffer->get_iter_at_child_anchor(getTextChildAnchor());
-            const Glib::ustring& anchorName = get_anchor_name();
-            const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
-            if (0 == headerNum) {
-                spdlog::warn("!! unexp {} expCollState {}", anchorName.c_str(), CtAnchorExpCollState::Collapsed == _expCollState ? "coll" : "exp");
-            }
-            else {
-                const std::string tagPropVal{"h" + std::to_string(headerNum)};
-                const std::string tagNameH = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, tagPropVal);
-                const std::string tagNameInvis = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
-                Glib::RefPtr<Gtk::TextTag> pTextTagH = _pCtMainWin->get_text_tag_table()->lookup(tagNameH);
-                if (CtAnchorExpCollState::Expanded == _expCollState) {
-                    spdlog::debug("exp2coll {}", headerNum);
-                    (void)textIterAnchor.forward_to_line_end();
-                    (void)textIterAnchor.forward_char();
-                    Gtk::TextIter textIterEnd{textIterAnchor};
-                    (void)textIterEnd.forward_to_tag_toggle(pTextTagH);
-                    //(void)textIterEnd.backward_char();
-                    //spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
-                    pTextBuffer->apply_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
-                    _set_exp_coll_state(CtAnchorExpCollState::Collapsed);
-                }
-                else {
-                    spdlog::debug("coll2exp {}", headerNum);
-                    Glib::RefPtr<Gtk::TextTag> pTextTagInvis = _pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
-                    (void)textIterAnchor.forward_to_tag_toggle(pTextTagInvis);
-                    Gtk::TextIter textIterEnd{textIterAnchor};
-                    (void)textIterEnd.forward_to_tag_toggle(pTextTagInvis);
-                    pTextBuffer->remove_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
-                    _set_exp_coll_state(CtAnchorExpCollState::Expanded);
-                }
-                _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
-            }
+            toggle_exp_coll_state();
         }
     }
     return true; // do not propagate the event

@@ -341,7 +341,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                     CtAnchoredWidget* pCtAnchoredWidget = node.get_anchored_widget(rChildAnchor);
                     if (pCtAnchoredWidget) {
                         auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
-                        if (pCtImageAnchor and CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {
+                        if (pCtImageAnchor and 0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {
                             if (CtAnchorExpCollState::None != pCtImageAnchor->get_exp_coll_state()) {
                                 expCollState = pCtImageAnchor->get_exp_coll_state();
                             }

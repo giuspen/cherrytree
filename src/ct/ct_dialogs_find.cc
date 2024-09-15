@@ -583,8 +583,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
 
         const int start_offset = list_iter->get_value(s_state.match_store->columns.start_offset);
         const int end_offset = list_iter->get_value(s_state.match_store->columns.end_offset);
-        rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(start_offset),
-                                  rCurrBuffer->get_iter_at_offset(end_offset));
+        ct_text_view.set_selection_at_offset_n_delta(start_offset, end_offset - start_offset, rCurrBuffer);
         ct_text_view.mm().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 
         const CtAnchWidgType anch_type = list_iter->get_value(s_state.match_store->columns.anch_type);
