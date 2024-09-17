@@ -314,6 +314,11 @@ void CtImageAnchor::toggle_exp_coll_state()
             //spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
             pTextBuffer->apply_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
             _set_exp_coll_state(CtAnchorExpCollState::Collapsed);
+            std::list<CtAnchoredWidget*> anchoredWidgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(
+                textIterAnchor.get_offset(), textIterEnd.get_offset());
+            for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgets) {
+                pCtAnchoredWidget->hide();
+            }
         }
         else {
             spdlog::debug("coll2exp {}", headerNum);
@@ -323,6 +328,11 @@ void CtImageAnchor::toggle_exp_coll_state()
             (void)textIterEnd.forward_to_tag_toggle(pTextTagInvis);
             pTextBuffer->remove_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
             _set_exp_coll_state(CtAnchorExpCollState::Expanded);
+            std::list<CtAnchoredWidget*> anchoredWidgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(
+                textIterAnchor.get_offset(), textIterEnd.get_offset());
+            for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgets) {
+                pCtAnchoredWidget->show();
+            }
         }
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
