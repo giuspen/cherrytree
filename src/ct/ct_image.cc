@@ -317,7 +317,7 @@ void CtImageAnchor::toggle_exp_coll_state()
             std::list<CtAnchoredWidget*> anchoredWidgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(
                 textIterAnchor.get_offset(), textIterEnd.get_offset());
             for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgets) {
-                pCtAnchoredWidget->hide();
+                pCtAnchoredWidget->set_hidden(true);
             }
         }
         else {
@@ -331,7 +331,7 @@ void CtImageAnchor::toggle_exp_coll_state()
             std::list<CtAnchoredWidget*> anchoredWidgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(
                 textIterAnchor.get_offset(), textIterEnd.get_offset());
             for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgets) {
-                pCtAnchoredWidget->show();
+                pCtAnchoredWidget->set_hidden(false);
             }
         }
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);

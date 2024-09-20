@@ -98,6 +98,12 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> rTextBuf
         textIterEnd.forward_char();
         Glib::ustring tagName = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_JUSTIFICATION, _justification);
         rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
+        static const std::string invisible_tag{"invisible_"};
+        std::optional<Glib::ustring> optTag = CtTextIterUtil::iter_get_tag_startingwith(textIterStart, invisible_tag);
+        if (optTag.has_value()) {
+            //spdlog::debug("{}", optTag.value().c_str());
+            set_hidden(true);
+        }
     }
 }
 

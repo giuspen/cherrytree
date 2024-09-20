@@ -75,6 +75,13 @@ public:
     int getOffset() const { return _charOffset; }
     const std::string& getJustification() const { return _justification; }
 
+    bool get_hidden() const { return _hidden; }
+    void set_hidden(const bool hidden) {
+        _hidden = hidden;
+        if (hidden) hide();
+        else show();
+    }
+
     bool operator<(const CtAnchoredWidget &other) { return getOffset() < other.getOffset(); }
     bool operator>(const CtAnchoredWidget &other) { return getOffset() > other.getOffset(); }
 
@@ -89,6 +96,7 @@ protected:
     Gtk::Label _labelWidget;
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
     Gtk::Allocation _lastAllocation;
+    bool _hidden{false};
 };
 
 class CtTreeView : public Gtk::TreeView

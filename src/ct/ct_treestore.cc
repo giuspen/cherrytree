@@ -879,6 +879,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     textView.set_editable(not treeIter.get_node_read_only());
     pCtTextView->cursor_and_tooltips_reset();
 
+    std::list<CtAnchoredWidget*> anchored_widgets_to_hide;
     for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor) {
@@ -892,15 +893,22 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
                 // this happens if we click on a node that is already selected, not an issue
                 // we simply must not add the same widget to the anchor again
             }
+            if (pCtAnchoredWidget->get_hidden()) {
+                anchored_widgets_to_hide.push_back(pCtAnchoredWidget);
+            }
         }
         else {
-            spdlog::error("!! rChildAnchor");
+            spdlog::error("!! {} rChildAnchor", __FUNCTION__);
         }
     }
 
     textView.show_all();
     // we shouldn't lose focus from TREE because TREE shortcuts/arrays movement stop working
     // pTextView->grab_focus();
+
+    for (CtAnchoredWidget* pCtAnchoredWidget : anchored_widgets_to_hide) {
+        pCtAnchoredWidget->hide();
+    }
 
     // connect signals
     _curr_node_sigc_conn.push_back(
@@ -1187,6 +1195,13 @@ void CtTreeStore::addAnchoredWidgets(CtTreeIter ctTreeIter,
                 pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
                 pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
             }
+            if (pCtAnchoredWidget->get_hidden()) {
+                spdlog::debug("{} hide", __FUNCTION__);
+                pCtAnchoredWidget->hide();
+            }
+        }
+        else {
+            spdlog::error("!! {} rChildAnchor", __FUNCTION__);
         }
     }
 }
