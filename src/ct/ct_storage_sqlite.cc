@@ -207,7 +207,7 @@ void CtStorageSqlite::test_connection()
     }
     catch(std::exception& e) {
         spdlog::debug("{} {}", __FUNCTION__, e.what());
-        throw std::runtime_error(str::format(_("%s write failed - file is missing. Reattach USB drive or shared resource!"), _file_path.string()));
+        throw std::runtime_error(str::format(_("%s write failed - file is missing. Reattach USB drive or shared resource."), _file_path.string()));
     }
     if (not test_readwrite())
         throw std::runtime_error(str::format(_("%s write failed - is file blocked by a sync program?"), _file_path.string()));
@@ -223,7 +223,7 @@ void CtStorageSqlite::try_reopen()
     }
     catch(std::exception& e) {
         spdlog::debug("{} {}", __FUNCTION__, e.what());
-        throw std::runtime_error(str::format(_("%s reopen failed - file is missing. Reattach USB drive or shared resource!"), _file_path.string()));
+        throw std::runtime_error(str::format(_("%s reopen failed - file is missing. Reattach USB drive or shared resource."), _file_path.string()));
     }
     (void)_check_database_integrity();
 }
