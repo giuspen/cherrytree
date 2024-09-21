@@ -291,7 +291,6 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='repl_tabs_spaces'/>
     <separator/>
     <menuitem action='command_palette'/>
-    <menuitem action='select_node'/>
   </menu>
 
   <menu action='TreeMenu'>
@@ -340,9 +339,10 @@ const char* CtMenu::_get_ui_str_menu()
   </menu>
 
   <menu action='SearchMenu'>
+    <menuitem action='select_node'/>
+    <menuitem action='find_in_node_names'/>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
-    <menuitem action='find_in_node_names'/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
     <separator/>
