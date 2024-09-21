@@ -123,7 +123,7 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Insert a Link/Edit the Underlying Link"), sigc::mem_fun(*pActions, &CtActions::apply_tag_link)});
         _actions.push_back(CtMenuAction{editor_cat, "handle_anchor", "ct_anchor_insert", _("Insert _Anchor..."), KB_SHIFT+KB_ALT+"a",
             _("Insert an Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_handle)});
-        _actions.push_back(CtMenuAction{editor_cat, "insert_toc", "ct_index", _("Insert T_OC/Headers Collapsers..."), None,
+        _actions.push_back(CtMenuAction{editor_cat, "insert_toc", "ct_index", _("Insert T_OC and Headers Collapsers..."), None,
             _("Insert Table of Contents and Headers Collapsers/Expanders"), sigc::mem_fun(*pActions, &CtActions::toc_insert)});
         _actions.push_back(CtMenuAction{editor_cat, "insert_timestamp", "ct_timestamp", _("Insert Timestam_p"), KB_SHIFT+KB_ALT+"m",
             _("Insert Timestamp"), sigc::mem_fun(*pActions, &CtActions::timestamp_insert)});
