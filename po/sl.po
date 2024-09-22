@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 22:06+0000\n"
-"PO-Revision-Date: 2024-02-28 19:25+0100\n"
+"POT-Creation-Date: 2024-09-21 15:41+0100\n"
+"PO-Revision-Date: 2024-09-22 14:35+0200\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
@@ -17,14 +17,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
+
+msgid "CherryTree File"
+msgstr "CherryTree datoteka"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"Datoteka/Mapa v uporabi ne mora biti prepisana!\n"
+"Prosim uporabi drugo ime ali lokacijo."
 
 #, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "Ni uspelo pridobiti vsebine vozlišča '%s'"
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Mapa '%s' že obstaja v '%s'.\n"
+"<b> Ali jo želite odstraniti?</b>"
 
-msgid "Index"
-msgstr "Indeks"
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Datoteka '%s' že obstaja v '%s'.\n"
+"<b> Ali jo želite odstraniti?</b>"
+
+msgid "PDF File"
+msgstr "PDF datoteka"
+
+msgid "Plain Text Document"
+msgstr "Dokument z golim besedilom"
 
 msgid "Add"
 msgstr "Dodaj"
@@ -43,6 +68,1409 @@ msgstr "Odpri CherryTree datoteko"
 
 msgid "Select Element to Add"
 msgstr "Izberi element za dodajanje"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Pot %s ne obstaja"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "Odpri nedavni CherryTree dokument"
+
+msgid "_Hide"
+msgstr "S_krij"
+
+msgid "_Quit"
+msgstr "_Izhod"
+
+msgid "Hide the Window"
+msgstr "Skrij okno"
+
+msgid "Quit the Application"
+msgstr "Izhod iz aplikacijo"
+
+msgid "No Node is Selected"
+msgstr "Ni izbranega vozlišča"
+
+msgid "Node Type"
+msgstr "Vrsta vozlišča"
+
+msgid ": "
+msgstr ": "
+
+msgid "Rich Text"
+msgstr "Bogato besedilo"
+
+msgid "Plain Text"
+msgstr "Golo besedilo"
+
+msgid "Tags"
+msgstr "Oznake"
+
+msgid "Spell Check"
+msgstr "Preverjanje črkovanja"
+
+msgid "Word Count"
+msgstr "Število besed"
+
+msgid "Date Created"
+msgstr "Datum ustvaritve"
+
+msgid "Date Modified"
+msgstr "Datum spremembe"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Med trenutno sejo ni bilo kopiranih preteklih vozlišč ali izvorno drevo ni "
+"več na voljo."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Izvorno drevo ni več na voljo."
+
+msgid "Image Format Not Recognized"
+msgstr "Oblika slike ni prepoznana"
+
+msgid "Insert Table"
+msgstr "Vstavi tabelo"
+
+msgid "CSV File"
+msgstr "CSV datoteka"
+
+msgid "Insert a CodeBox"
+msgstr "Vstavi kodno polje"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Največja velikost za vgrajeno datoteko je %s MB."
+
+msgid "Do you want to Continue?"
+msgstr "Ali želite nadaljevati?"
+
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Ni uspelo pridobiti vsebine vozlišča '%s'"
+
+msgid "Special Characters"
+msgstr "Posebni znaki"
+
+msgid "Tabs Replaced"
+msgstr "Zamenjih tabulatorjev"
+
+msgid "Lines Stripped"
+msgstr "Vrstic odstranjenih"
+
+msgid "No Text is Selected."
+msgstr "Ni izbranega besedila."
+
+msgid "Checking for Newer Version..."
+msgstr "Preveri za posodobitve..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Ni bilo mogoče pridobiti zadnjo različico - poskusite znova kasneje."
+
+msgid "A Newer Version Is Available!"
+msgstr "Posodobitev je na voljo!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Uporabljate zadnjo različico."
+
+msgid "You Are Using a Development Version."
+msgstr "Uporabljate razvojno različico."
+
+msgid "Execute Code"
+msgstr "Izvedi kodo"
+
+msgid "Change CodeBox Properties"
+msgstr "Spremeni lastnosti kodnega polja"
+
+msgid "Show Menubar:"
+msgstr "Prikaži vrstico menija:"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" ni CherryTree datoteka"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Napaka pri razčlenjevanju CherryTree datoteke:\n"
+"\"%s\""
+
+msgid "Do you want to Open the Last Backup?"
+msgstr "Ali želite odpreti zadnjo varnostno kopijo?"
+
+msgid "Failed to Load from Backup Data"
+msgstr "Neuspešno nalaganje iz varnostnih kopij podatkov"
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Ni najdenega vozlišča z imenom '%s'."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Začasne datoteke so bile ustvarjene in odprte z zunanjo aplikacijo."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Zaprite zunanjo aplikacijo pred zaprtjem CherryTree."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Ali ste zaprli zunanjo aplikacijo?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Dokument je bil osvežen po zunanji posodobitvi CT* datoteke."
+
+msgid "Change Selected"
+msgstr "Spremeni izbrano"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "Tipka za bližnjico '%s' je že v rabi."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Trenutno povezano dejanje je '%s'"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Ali želite prevzeti bližnjico?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Uredi tipko kot bližnjica"
+
+msgid "No Keyboard Shortcut"
+msgstr "Brez tipke za bližnjico"
+
+msgid "Chars for Bulleted List"
+msgstr "Znaki za seznam z oznakami"
+
+msgid "Chars for Todo List"
+msgstr "Znaki za seznam opravil"
+
+msgid "Chars for Table Of Content"
+msgstr "Znaki za kazalo"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Znaki za pametne dvojne narekovaje"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Znaki za pametne enojne narekovaje"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Omogoči samodejno zamenjavo pametnih navednic"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Omogoči samodejno zamenjavo simbolov"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Podprti simboli samodejne zamenjave"
+
+msgid "Text Editor"
+msgstr "Urejevalnik besedila"
+
+msgid "Only at the Start of the Line"
+msgstr "Samo na začetku vrstice"
+
+msgid "To WebSite"
+msgstr "Na spletno stran"
+
+msgid "To File"
+msgstr "V datoteko"
+
+msgid "To Folder"
+msgstr "V mapo"
+
+msgid "To Node"
+msgstr "V vozlišče"
+
+msgid "Anchor Name (optional)"
+msgstr "Ime sidra (neobvezno)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Ni sider v izbranem vozlišču."
+
+msgid "Choose Existing Anchor"
+msgstr "Izberi obstoječe sidro"
+
+msgid "Anchor Name"
+msgstr "Ime sidra"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Iskani vzorec %s ni bil najden"
+
+msgid "Preferences"
+msgstr "Nastavitve"
+
+msgid "Arabic"
+msgstr "Arabščina"
+
+msgid "Armenian"
+msgstr "Armenščina"
+
+msgid "Bulgarian"
+msgstr "Bolgarščina"
+
+msgid "Chinese Simplified"
+msgstr "Poenostavljena Kitajščina"
+
+msgid "Chinese Traditional"
+msgstr "Tradicionalna Kitajščina"
+
+msgid "Croatian"
+msgstr "Hrvaščina"
+
+msgid "Czech"
+msgstr "Češčina"
+
+msgid "Dutch"
+msgstr "Nizozemščina"
+
+msgid "English"
+msgstr "Angleščina"
+
+msgid "Persian"
+msgstr "Perzijščina"
+
+msgid "Finnish"
+msgstr "Finščina"
+
+msgid "French"
+msgstr "Francoščina"
+
+msgid "German"
+msgstr "Nemščina"
+
+msgid "Greek"
+msgstr "Grščina"
+
+msgid "Hindi India"
+msgstr "Hindijščina"
+
+msgid "Hungarian"
+msgstr "Madžarščina"
+
+msgid "Italian"
+msgstr "Italijanščina"
+
+msgid "Japanese"
+msgstr "Japonščina"
+
+msgid "Kazakh"
+msgstr "Kazaščina"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazaščina (Latinica)"
+
+msgid "Korean"
+msgstr "Korejščina"
+
+msgid "Lithuanian"
+msgstr "Litovščina"
+
+msgid "Polish"
+msgstr "Poljščina"
+
+msgid "Portuguese"
+msgstr "Portugalščina"
+
+msgid "Portuguese Brazil"
+msgstr "Brazilska Portugalščina"
+
+msgid "Romanian"
+msgstr "Romunščina"
+
+msgid "Russian"
+msgstr "Ruščina"
+
+msgid "Slovak"
+msgstr "Slovaščina"
+
+msgid "Slovenian"
+msgstr "Slovenščina"
+
+msgid "Spanish"
+msgstr "Španščina"
+
+msgid "Swedish"
+msgstr "Švedščina"
+
+msgid "Turkish"
+msgstr "Turščina"
+
+msgid "Ukrainian"
+msgstr "Ukrajinščina"
+
+msgid "Text and Code"
+msgstr "Besedilo in koda"
+
+msgid "Format"
+msgstr "Oblika"
+
+msgid "Plain Text and Code"
+msgstr "Golo besedilo in koda"
+
+msgid "Tree Explorer"
+msgstr "Raziskovalec drevesne strukture"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Interface"
+msgstr "Vmesnik"
+
+msgid "Links"
+msgstr "Povezave"
+
+msgid "Toolbar"
+msgstr "Orodna vrstica"
+
+msgid "Keyboard Shortcuts"
+msgstr "Bližnjice"
+
+msgid "Miscellaneous"
+msgstr "Razno"
+
+msgid "Monospace"
+msgstr "Enoširinske pisava"
+
+msgid "Code Font"
+msgstr "Pisava kode"
+
+msgid "Terminal Font"
+msgstr "Font iz terminala"
+
+msgid "Tree Font"
+msgstr "Pisava drevesa"
+
+msgid "Fonts"
+msgstr "Pisave"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Omogoči štetje besed v statusni vrstici"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Prikaži mapo dokumenta v naslovnem oknu"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Prikaži polno ime v glavi vozlišča"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Namenski meni z zaznamki v vrstici menija"
+
+msgid "Menubar in Titlebar"
+msgstr "Vrstica menija v naslovni vrstici"
+
+msgid "Toolbar Icons Size"
+msgstr "Velikost ikon v orodni vrstici"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Minimalna velikost drsnika (0 = sistemsko privzeto)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Drsnik prekriva urejevalnik besedila"
+
+msgid "System Default"
+msgstr "Sistemsko privzeto"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Omogoči opise orodij pri lebdenju"
+
+msgid "Tree"
+msgstr "Drevo"
+
+msgid "Menus"
+msgstr "Meniji"
+
+msgid "Max Search Results per Page"
+msgstr "Največje število rezultatov iskanja na strani"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Omogoči dejanje po meri ob kliku na spletno povezavo"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Omogoči dejanje po meri ob kliku na datotečno povezavo"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Omogoči dejanje po meri ob kliku na povezavo z mapo"
+
+msgid "Custom Actions"
+msgstr "Dejanje po meri"
+
+msgid "Colors"
+msgstr "Barve"
+
+msgid "Underline Links"
+msgstr "Podčrtaj povezave"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Uporabi relativne poti za datoteke in mape"
+
+msgid "Anchor Size"
+msgstr "Velikost sidra"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Sprememba se bo uveljavila šele po ponovnem zagonu CherryTree."
+
+msgid "The new parent can't be one of his children!"
+msgstr "Novi nadrejeni ne mora biti eno izmed podrejenih vozlišč!"
+
+msgid "Light Background, Dark Text"
+msgstr "Svetlo ozadje, temno besedilo"
+
+msgid "Dark Background, Light Text"
+msgstr "Temno ozadje, svetlo besedilo"
+
+msgid "Custom Background"
+msgstr "Ozadje po meri"
+
+msgid "Text"
+msgstr "Besedilo"
+
+msgid "Selection Background"
+msgstr "Ozadje izbora"
+
+msgid "Table"
+msgstr "Tabela"
+
+msgid "Code"
+msgstr "Koda"
+
+msgid "Style Schemes"
+msgstr "Slog sheme"
+
+msgid "Text Foreground"
+msgstr "Ospredje besedila"
+
+msgid "Text Background"
+msgstr "Ozadje besedila"
+
+msgid "Selection Foreground"
+msgstr "Ospredje izbora"
+
+msgid "Cursor"
+msgstr "Kazalec"
+
+msgid "Current Line Background"
+msgstr "Ozadje trenutne vrstice"
+
+msgid "Line Numbers Foreground"
+msgstr "Ospredje oštevilčenja vrstice"
+
+msgid "Line Numbers Background"
+msgstr "Ozadje oštevilčenja vrstice"
+
+msgid "Style Scheme Editor"
+msgstr "Urejevalni sloga sheme"
+
+msgid "Set Dark Theme Icons"
+msgstr "Nastavi ikone za temno temo"
+
+msgid "Set Light Theme Icons"
+msgstr "Nastavi ikone za svetlo temo"
+
+msgid "Set Default Icons"
+msgstr "Nastavi privzete ikone"
+
+msgid "Icon Theme"
+msgstr "Tema ikone"
+
+msgid "Search for"
+msgstr "Iskanje v"
+
+msgid "Replace with"
+msgstr "Zamenjaj z"
+
+msgid "Match Case"
+msgstr "Ujemanje velikosti pisave"
+
+msgid "Regular Expression"
+msgstr "Regularni izraz"
+
+msgid "Online Manual"
+msgstr "Spletna navodila"
+
+msgid "Accent Insensitive"
+msgstr "Neobčutljivost na poudarke"
+
+msgid "Override Exclusions"
+msgstr "Preglasi izključitve"
+
+msgid "Whole Word"
+msgstr "Cela beseda"
+
+msgid "Start Word"
+msgstr "Začetna beseda"
+
+msgid "Forward"
+msgstr "Naprej"
+
+msgid "Backward"
+msgstr "Nazaj"
+
+msgid "All, List Matches"
+msgstr "Vse, prikaži ujemajoče"
+
+msgid "First From Selection"
+msgstr "Prvi iz izbora"
+
+msgid "First in All Range"
+msgstr "Prvi v vsem območju"
+
+msgid "Node Created After"
+msgstr "Vozlišče ustvarjeno po"
+
+msgid "Node Created Before"
+msgstr "Vozlišče ustvarjeno pred"
+
+msgid "Node Modified After"
+msgstr "Vozlišče spremenjeno po"
+
+msgid "Node Modified Before"
+msgstr "Vozlišče spremenjeno pred"
+
+msgid "Time filter"
+msgstr "Časovni filter"
+
+msgid "Node Content"
+msgstr "Vsebina vozlišča"
+
+msgid "Node Name and Tags"
+msgstr "Ime in oznaka vozlišča"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Samo izbrano vozlišče in podrejena vozlišča"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Prikaži ponovljena najdi/zamenjaj okna"
+
+msgid "Search options"
+msgstr "Možnosti iskanja"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Vsaj eno vozlišče je bilo preskočeno zaradi izključitev nastavljenih v "
+"lastnostih vozlišča.\n"
+"Če želite odstraniti vse izključitve, uporabite meni:\n"
+"Iskanje -> Počisti vse izključitve iz iskanja"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Skrij (Obnovi z '%s')"
+
+msgid "Node Name"
+msgstr "Ime vozlišča"
+
+msgid "Line"
+msgstr "Vrstica"
+
+msgid "Line Content"
+msgstr "Vsebina vrstice"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Povezava se sklicuje na vozlišče, ki ne obstaja (Id = %s)"
+
+msgid "Matches"
+msgstr "Ustreza"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Ponovi zadnji najdi/zamenjaj"
+
+msgid "Close"
+msgstr "Zapri"
+
+msgid "Find Previous"
+msgstr "Najdi prejšnje"
+
+msgid "Find Next"
+msgstr "Najdi naslednje"
+
+msgid "Replace"
+msgstr "Zamenjaj"
+
+msgid "Undo"
+msgstr "Razveljavi"
+
+msgid "Handle the Bookmarks List"
+msgstr "Vzdržuj seznam zaznamkov"
+
+msgid "Move the Selected Bookmark Up"
+msgstr "Premakni izbrani zaznamek navzgor"
+
+msgid "Move the Selected Bookmark Down"
+msgstr "Premakni izbrano zaznamek navzdol"
+
+msgid "Remove the Selected Bookmark"
+msgstr "Odstrani izbrani zaznamek"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "Razvrsti zaznamke padajoče"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "Razvrsti zaznamke naraščajoče"
+
+msgid "Choose Storage Type"
+msgstr "Izberite vrsto shrambe"
+
+msgid "Storage Type"
+msgstr "Vrsta shrambe"
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT shrani dokument v kriptiranem 7zip arhivu. Med listanjem in urejanjem "
+"dokumenta, CT razširi kriptirani arhiv v začasno mapo in dela na "
+"dekriptirani kopiji. Ob zaprtju se dekriptirana kopija izbriše iz začasne "
+"mape. V primeru sesutja aplikacije ali sistema bo dekriptiran dokument ostal "
+"v začasni mapi."
+
+msgid "Enter the New Password Twice"
+msgstr "Vnesite novo geslo dvakrat"
+
+msgid "Autosave Every"
+msgstr "Samodejno shrani vsakih"
+
+msgid "Minutes"
+msgstr "Minut"
+
+msgid "The Password Fields Must be Filled."
+msgstr "Polja Geslo morata biti izpolnjena."
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "Vpisana gesla se ne ujemata."
+
+msgid "Warning"
+msgstr "Pozor"
+
+msgid "The Current Document was Updated."
+msgstr "Trenutni dokument je bil posodobljen."
+
+msgid "Do you want to Save the Changes?"
+msgstr "Ali želite shraniti spremembe?"
+
+msgid "Do you want to Execute the Code?"
+msgstr "Ali želite izvsti kodo?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Pred izvajanjem kode vprašajte za potrditev"
+
+msgid "Use Internal Terminal"
+msgstr "Uporabi notranji terminal"
+
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Hierarhična beležka, s podporo za bogato besedilo in obarvanje sintakse"
+
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Ta program je prosto dostopen; Lahko ga razširjate in/ali spreminjate\n"
+"pod pogoji GNU Splošne Javne Licence, kakor objavljeno s strani\n"
+"Free Software Foundation; bodisi 3. različica licence, ali (po vaši\n"
+"izbiri) katerokoli kasnejšo različico.\n"
+" \n"
+"Program je razdeljen z upanjem da bo koristen, vendar BREZ VSAKRŠNEGA "
+"JAMSTVA;\n"
+"Tudi brez privzetega jamstva za PRODAJO ali PRIMERNOST ZA DOLOČEN NAMEN.  "
+"Glejte\n"
+"GNU Splošno Javno Licenco za podrobnosti.\n"
+"  \n"
+"S tem programom bi bili morali prejeti kopijo GNU General Public License\n"
+";Če licence niste prejeli, pišite Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
+
+msgid "About CherryTree"
+msgstr "O CherryTree aplikaciji"
+
+msgid "Tree Summary Information"
+msgstr "Povzetek informacij o drevesu"
+
+msgid "Number of Rich Text Nodes"
+msgstr "Število vozlišč z bogatim besedilom"
+
+msgid "Number of Plain Text Nodes"
+msgstr "Število vozlišč z golim besedilom"
+
+msgid "Number of Code Nodes"
+msgstr "Število vozlišč s kodo"
+
+msgid "Number of Images"
+msgstr "Število slik"
+
+msgid "Number of LatexBoxes"
+msgstr "Število Latex polj"
+
+msgid "Number of Embedded Files"
+msgstr "Število vgrajenih datotek"
+
+msgid "Number of Tables"
+msgstr "Število tabel"
+
+msgid "Number of CodeBoxes"
+msgstr "Število kodnih polj"
+
+msgid "Number of Anchors"
+msgstr "Število sider"
+
+msgid "Number of Shared Nodes / Groups"
+msgstr "Število deljenih vozlišč / skupin"
+
+msgid "Preferences File"
+msgstr "Datoteka z nastavitvami"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Ali se je orodna vrstica prikazala na panelu?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Vaš operacijski sistem ne podpira orodne vrstice"
+
+msgid "Bold"
+msgstr "Krepko"
+
+msgid "Use Selected Color"
+msgstr "Uporabi izbrano barvo"
+
+msgid "Use Selected Icon"
+msgstr "Uporabi izbrano ikono"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Samodejno obarvanje sintakse"
+
+msgid "Tags for Searching"
+msgstr "Oznake za iskanje"
+
+msgid "Exclude from Searches"
+msgstr "Izpusti iz iskanj"
+
+msgid "This Node"
+msgstr "Trenutno vozlišče"
+
+msgid "The Subnodes"
+msgstr "Podrejena vozlišča"
+
+msgid "Read Only"
+msgstr "Le za branje"
+
+msgid "Unique Id"
+msgstr "Enolični identifikator"
+
+msgid "Shared Nodes Group"
+msgstr "Skupina deljenih vozlišč"
+
+msgid "Choose Existing Tag"
+msgstr "Izberi obstoječo oznako"
+
+msgid "Tag Name"
+msgstr "Ime oznake"
+
+msgid "Pick a Color"
+msgstr "Izberi barvo"
+
+msgid "Select Node Icon"
+msgstr "Izberi ikono vozlišča"
+
+msgid "Involved Nodes"
+msgstr "Vključena vozlišča"
+
+msgid "Selected Text Only"
+msgstr "Le izbrano besedilo"
+
+msgid "Selected Node Only"
+msgstr "Le izbrano vozlišče"
+
+msgid "Selected Node and Subnodes"
+msgstr "Izbrano vozlišče in podrejena vozlišča"
+
+msgid "All the Tree"
+msgstr "Vse drevo"
+
+msgid "Include Node Name"
+msgstr "Vključi ime vozlišča"
+
+msgid "Links Tree in Every Page"
+msgstr "Drevo povezav na vsaki strani"
+
+msgid "New Node in New Page"
+msgstr "Novo vozlišče na novi strani"
+
+msgid "Single File"
+msgstr "Posamezna datoteka"
+
+msgid "Latex Text"
+msgstr "Latex besedilo"
+
+msgid "Image Size dpi"
+msgstr "Velikost slike dpi"
+
+msgid "Tutorial"
+msgstr "Vodič"
+
+msgid "Reference"
+msgstr "Referenca"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX matematika in vodič enačb"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX referenca matematičnih simbolov"
+
+msgid "Image Properties"
+msgstr "Lastnosti slike"
+
+msgid "Width"
+msgstr "Širina"
+
+msgid "Height"
+msgstr "Višina"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "pixels"
+msgstr "pikslov"
+
+msgid "Size"
+msgstr "Velikost"
+
+msgid "Show Line Numbers"
+msgstr "Prikaži številko vrstice"
+
+msgid "Highlight Matching Brackets"
+msgstr "Obarvaj pripadajoče oklepaje"
+
+msgid "Options"
+msgstr "Možnosti"
+
+msgid "Rows"
+msgstr "Vrstice"
+
+msgid "Columns"
+msgstr "Stolpci"
+
+msgid "Default Width"
+msgstr "Privzeta širina"
+
+msgid "Table Size"
+msgstr "Velikost tabele"
+
+msgid "Column Properties"
+msgstr "Lastnosti stolpcev"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Lahkoten vmesnik (veliko hitrejši za velike tabele)"
+
+msgid "Import from CSV File"
+msgstr "Uvozi iz CSV datoteke"
+
+msgid "The Tree is Empty!"
+msgstr "Drevo je prazno!"
+
+msgid "The Selected Node is Read Only."
+msgstr "Izbrano vozlišče je le za branje."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Ta možnost je na voljo le v vozliščih z bogatim besedilom."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Ta možnost ni na voljo v vozliščih s samodejnim poudarjanjem sintakse."
+
+msgid "No Table is Selected."
+msgstr "Ni izbranega besedila."
+
+msgid "No CodeBox is Selected."
+msgstr "Ni izbranega kodnega polja."
+
+msgid "New Child Node Properties"
+msgstr "Lastnosti novega podrejenega vozlišča"
+
+msgid "New Node Properties"
+msgstr "Lastnosti novega vozlišča"
+
+msgid "Node Properties"
+msgstr "Lastnosti vozlišča"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Z zamenjavo tipa vozlišča iz vozlišča z bogatim besedilom v drug tip,bo "
+"izgubljena vsa oblika vozlišča. Ali želite nadaljevati?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Ali ste prepričani, da <b>želite izbrisati vozlišče '%s'?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Vozlišče <b>ima podrejene, ki bodo prav tako izbrisani!</b>"
+
+msgid "Select the New Parent"
+msgstr "Izberite novega nadrejenega"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Novi nadrejeni ne mora biti vozlišče, ki se bo premaknilo!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Na novo izbrani nadrejeni je ponovno stari nadrejeni!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s spremenjenih lastnosti vozlišč"
+
+msgid "Copy Selection or All"
+msgstr "Kopiraj izbrano ali vse"
+
+msgid "Paste"
+msgstr "Prilepi"
+
+msgid "Reset"
+msgstr "Ponastavi"
+
+msgid "Downloading"
+msgstr "Prenašanje"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Hierarhično beleženje CherryTree"
+
+msgid "Show/Hide _CherryTree"
+msgstr "Prikaži/Skrij _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Preklopi prikaži/skrij CherryTree"
+
+msgid "_Exit CherryTree"
+msgstr "_Zapri CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Izhod iz CherryTree"
+
+msgid "Index"
+msgstr "Indeks"
+
+msgid "Rename"
+msgstr "Preimenuj"
+
+msgid "PNG Image"
+msgstr "PNG slika"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Pisanje v %s neuspešno"
+
+msgid "Insert/Edit Link"
+msgstr "Vstavi/Uredi povezavo"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Povezava mape '%s' ni veljavna."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Povezava datoteke '%s' ni veljavna."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Povezava mape '%s' ni veljavna"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Ni najdenega sidra z imenom '%s'"
+
+msgid "Edit CodeBox"
+msgstr "Uredi kodno polje"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Prirediti je potrebno ukaz '%s'.\n"
+"To storite v oknu s preferencami."
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Namestite paket 'xterm' ali nastavite različni terminal v oknu s "
+"preferencami."
+
+msgid "Edit Table Properties"
+msgstr "Uredi lastnosti tabele"
+
+msgid "Insert Anchor"
+msgstr "Vstavi sidro"
+
+msgid "Edit Anchor"
+msgstr "Uredi sidro"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Ni mogoče urejati vgrajene datoteke v načinu le za branje."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Vgrajena datoteka je bila avtomatsko posodobljena:"
+
+msgid "Autosave on Quit"
+msgstr "Samodejno shrani ob izhodu"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Napravi varnostno kopijo pred shranjevanjem"
+
+msgid "Number of Backups to Keep"
+msgstr "Število varnostnih kopij"
+
+msgid "Custom Backup Directory"
+msgstr "Mapa varnostne kopije po meri"
+
+msgid "Saving"
+msgstr "Shranjevanje"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Samodejno preveri za posodobitve"
+
+msgid "Reload Document From Last Session"
+msgstr "Naloži dokument iz zadnje seje"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Naloži po zunanji posodobitvi CT* datoteke"
+
+msgid "Enable Debug Log"
+msgstr "Omogoči dnevnik odpravljanja napak"
+
+msgid "Debug Log Directory"
+msgstr "Mapa dnevnika odpravljanja napak"
+
+msgid "Enable System Tray Docking"
+msgstr "Omogoči priklop na sistemsko vrstico"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Začni minimizirano v sistemski vrstici"
+
+msgid "System Tray"
+msgstr "Sistemska vrstica"
+
+msgid "Language"
+msgstr "Jezik"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Med trenutno sejo ni bilo prejšnjih sprememb oblike besedila."
+
+msgid "Link Name"
+msgstr "Ime povezave"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Kazalec ni v odstavku."
+
+msgid "Pick a Foreground Color"
+msgstr "Izberi barvo ospredja"
+
+msgid "Pick a Background Color"
+msgstr "Izberi barvo ozadja"
+
+msgid "Enable Spell Check"
+msgstr "Omogoči preverjanje črkovanja"
+
+msgid "Spell Check Language"
+msgstr "Jezik črkovanja"
+
+msgid "Show White Spaces"
+msgstr "Prikaži presledke"
+
+msgid "Highlight Current Line"
+msgstr "Obarvaj trenutno vrstico"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Avtomatsko razširi kodna polja"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Kodna polja imajo orodno vrstico"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Prag števila celic tabele za lahki vmesnik"
+
+msgid "Embedded File Icon Size"
+msgstr "Velikost ikone vgrajene datoteke"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Omejitev velikosti vgrajene datoteke (MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Prikaži ime datoteke na vrhu ikone vgrajene datoteke"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Omejitev števila razveljavitev na vozlišče"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr ""
+"Samodejno poveži besedilo z velikimi začetnicami (CamelCase) z istoimenskim "
+"vozliščem"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Ob trojnem kliku izberi celoten odstavek"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Omogoči samodejno zamenjavo Markdown (Preizkusno)"
+
+msgid "Scale"
+msgstr "Merilo"
+
+msgid "Italic"
+msgstr "Ležeče"
+
+msgid "Underline"
+msgstr "Podčrtano"
+
+msgid "Text Color Foreground"
+msgstr "Barva besedila"
+
+msgid "Text Color Background"
+msgstr "Barva ozadja besedila"
+
+msgid "Small"
+msgstr "Majhno"
+
+msgid "Scalable Tags"
+msgstr "Prilagodljive oznake"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s' ni veljaven arhiv"
+
+msgid "Writing to Disk..."
+msgstr "Pisanje na disk..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Ni pravice za pisanje v %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Vnesite geslo za %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Neuspešno preverjanje celovitosti shranjenega dokumenta. Poskusite Datoteka--"
+">Shrani kot"
+
+msgid "Failed to encrypt the file"
+msgstr "Datoteko ni bilo mogoče šifrirati"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"Podatkovna datoteka %s je pokvarjena, za več informacij preverite dnevnik."
+
+# I am assuming "usb driver" here means a usb flash drive that was ejected.
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"Pisanje %s neuspešno - datoteka ne obstaja. Znova pripnite USB ključek ali "
+"skupni vir."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"%s pisanje neuspešno - ali je datoteka zaklenjena s strani "
+"sinhronizacijskega programa?"
+
+# I am assuming "usb driver" here means a usb flash drive that was ejected.
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"Ponovno odpiranje %s  neuspešno - datoteka ne obstaja. Znova pripnite USB "
+"ključek ali skupni vir."
+
+msgid "Who is the Parent?"
+msgstr "Kdo je nadrejeni?"
+
+msgid "The Tree Root"
+msgstr "Temelj drevesa"
+
+msgid "The Selected Node"
+msgstr "Izbrano vozlišče"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Ni bilo mogoče dostopiti do 'dvipng' in 'latex' izvršnih datotek"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Na primer, na Ubuntu je potrebno namestiti sledeče pakete:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Na primer, na Mac OS je potrebno namestiti sledeče pakete:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Ni bilo mogoče dostopiti do 'latex' izvršne datoteke"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Ni bilo mogoče dostopiti do 'dvipng' izvršne datoteke"
+
+msgid "Use Different Cherries per Level"
+msgstr "Uporabi različne češnjice na različnih nivojih"
+
+msgid "No Icon"
+msgstr "Brez ikone"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Skrij pomožno ikono na desni"
+
+msgid "Default Text Nodes Icons"
+msgstr "Privzete ikone vozlišč z besedilom"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Obnovi razširjeno/skrčeno vozlišče"
+
+msgid "Expand all Nodes"
+msgstr "Razširi vsa vozlišča"
+
+msgid "Collapse all Nodes"
+msgstr "Skrči vsa vozlišča"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Vozlišča v zaznamkih vedno vidna"
+
+msgid "Nodes Status at Startup"
+msgstr "Stanje vozlišč ob zagonu"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Širina preloma imena vozlišč v drevesu"
+
+msgid "Display Tree on the Right Side"
+msgstr "Prikaži drevo desni strani"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Premakni fokus na besedilo ob kliku miške"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Razšiti vozlišče ob kliku miške"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Zadnje obiskana vozlišča v glavi z imenom vozlišč"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "Obnovitev iz varnostne kopije je bila potrebna za:"
+
+msgid "Replace in Current Node"
+msgstr "Zamenjaj v trenutnem vozlišču"
+
+msgid "Search in Current Node"
+msgstr "Iskanje v trenutnem vozlišču"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Iskani vzorec '%s' ni bil najden<b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Zamenjaj v več vozliščih..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Najdi v več vozliščih..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "V tej seji ni bilo preteklih iskanj."
+
+msgid "Tab Width"
+msgstr "Širina tabulatorja"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Vstavi presledke namesto tabulatorjev"
+
+msgid "Use Line Wrapping"
+msgstr "Uporabi prelom vrstice"
+
+msgid "Line Wrapping Indentation"
+msgstr "Zamik preloma vrstice"
+
+msgid "Enable Automatic Indentation"
+msgstr "Omogoči samodejni zamik"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Pomakni se čez zadnjo vrstico"
+
+msgid "Cursor Blinking"
+msgstr "Utripanje kazalca"
+
+msgid "On"
+msgstr "Vklop"
+
+msgid "Off"
+msgstr "Izklop"
+
+msgid "Text Margin: Left"
+msgstr "Levi rob besedila"
+
+msgid "Right"
+msgstr "Desno"
+
+msgid "Vertical Space Around Lines"
+msgstr "Navpični razmak vrstic"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Navpični razmak v vrsticah s prelomom"
+
+msgid "Timestamp Format"
+msgstr "Oblika časovne oznake"
+
+msgid "Horizontal Rule"
+msgstr "Vodoravna črta"
+
+msgid "Chars to Select at Double Click"
+msgstr "Izbira znakov ob dvojnem kliku"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Velikost ikon v orodni vrstici je že maksimalna."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Velikost ikon v orodni vrstici je že minimalna."
+
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Pozor: ena ali več slik je bilo pomanjšanih ob vstopu na stran!"
+
+msgid "Internal Terminal Shell"
+msgstr "Notranji terminal (lupina)"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Ukaz za vozlišče/Vrsto kodnega polja"
+
+msgid "Terminal Command"
+msgstr "Ukaz iz terminala"
+
+msgid "Code Execution"
+msgstr "Izvajanje kode"
+
+msgid "Remove from list"
+msgstr "Odstrani iz seznama"
 
 msgid "_File"
 msgstr "_Datoteka"
@@ -94,9 +1522,6 @@ msgstr "_Nastavitve"
 
 msgid "_Recent Documents"
 msgstr "N_edavni dokumenti"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "Odpri nedavni CherryTree dokument"
 
 msgid "C_hange Case"
 msgstr "_Spremeni pisavo"
@@ -179,9 +1604,6 @@ msgstr "_Tiskaj..."
 msgid "Print"
 msgstr "Tiskaj"
 
-msgid "Preferences"
-msgstr "Nastavitve"
-
 msgid "_Import Preferences..."
 msgstr "_Uvozi nastavitve..."
 
@@ -197,20 +1619,8 @@ msgstr "Izvozi nastavitve"
 msgid "Tree In_fo"
 msgstr "_Informacije o drevesu"
 
-msgid "Tree Summary Information"
-msgstr "Povzetek informacij o drevesu"
-
-msgid "_Quit"
-msgstr "_Izhod"
-
-msgid "Quit the Application"
-msgstr "Izhod iz aplikacijo"
-
 msgid "E_xit CherryTree"
 msgstr "_Zapri CherryTree"
-
-msgid "Exit from CherryTree"
-msgstr "Izhod iz CherryTree"
 
 msgid "Edit/Insert"
 msgstr "Uredi/Dodaj"
@@ -248,9 +1658,6 @@ msgstr "Vstavi tabelo"
 msgid "Insert _CodeBox..."
 msgstr "Vstavi _kodno polje..."
 
-msgid "Insert a CodeBox"
-msgstr "Vstavi kodno polje"
-
 msgid "Insert _File..."
 msgstr "Vstavi _datoteko..."
 
@@ -269,11 +1676,11 @@ msgstr "Vstavi s_idro..."
 msgid "Insert an Anchor"
 msgstr "Vstavi sidro"
 
-msgid "Insert T_OC..."
-msgstr "Vstavi ka_zalo..."
+msgid "Insert T_OC and Headers Collapsors..."
+msgstr "Vstavi _kazalo z možnostjo skrčitve/razširitve naslovov..."
 
-msgid "Insert Table of Contents"
-msgstr "Vstavi kazalo"
+msgid "Insert Table of Contents and Headers Collapsors/Expanders"
+msgstr "Vstavi kazalo z možnostjo skrčitve/razširitve naslovov"
 
 msgid "Insert Timestam_p"
 msgstr "Vstavi č_asovno oznako"
@@ -554,9 +1961,6 @@ msgstr "Pomanjšaj višino kodnega polja"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Pomanjšaj višino kodnega polja"
 
-msgid "Format"
-msgstr "Oblika"
-
 msgid "Format Clo_ne"
 msgstr "Oblikuj _klon"
 
@@ -764,9 +2168,6 @@ msgstr "Izvedi kodo iz vrstice ali izbora"
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Izvedi kodo iz trenutne vrstice ali izbranega besedila"
 
-msgid "Tree"
-msgstr "Drevo"
-
 msgid "Go _Back"
 msgstr "_Nazaj"
 
@@ -864,16 +2265,13 @@ msgstr ""
 msgid "_Handle Bookmarks..."
 msgstr "_Vzdržuj zaznamke..."
 
-msgid "Handle the Bookmarks List"
-msgstr "Vzdržuj seznam zaznamkov"
-
 msgid "Add to Boo_kmarks"
 msgstr "Dodaj med _zaznamke"
 
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Dodaj trenutno vozlišče med seznam zaznamkov"
 
-msgid "_Remove from Bookmarks"
+msgid "Remove from Boo_kmarks"
 msgstr "_Odstrani iz zaznamkov"
 
 msgid "Remove the Current Node from the Bookmarks List"
@@ -954,6 +2352,18 @@ msgstr "Izbriši izbrano vozlišče"
 msgid "Find/Replace"
 msgstr "Najdi/Zamenjaj"
 
+msgid "_Quick Node Selection..."
+msgstr "_Hitri izbor vozlišča..."
+
+msgid "Quick Node Selection"
+msgstr "Hitri izbor vozlišča"
+
+msgid "Find in _Nodes Names and Tags..."
+msgstr "Najdi v _imenih vozlišč in oznakah..."
+
+msgid "Find in Nodes Names and Tags"
+msgstr "Najdi v imenih vozlišč in oznakah"
+
 msgid "_Find in Node Content..."
 msgstr "Najdi v vsebini _vozlišča..."
 
@@ -965,12 +2375,6 @@ msgstr "Najdi v več vozliščih..."
 
 msgid "Find in Multiple Nodes"
 msgstr "Najdi v več vozliščih"
-
-msgid "Find in _Nodes Names and Tags..."
-msgstr "Najdi v _imenih vozlišč in oznakah..."
-
-msgid "Find in Nodes Names and Tags"
-msgstr "Najdi v imenih vozlišč in oznakah"
 
 msgid "Find _Again"
 msgstr "P_onovno najdi"
@@ -1282,9 +2686,6 @@ msgstr "CherryTree spletna navodila"
 msgid "_About"
 msgstr "_O aplikaciji"
 
-msgid "About CherryTree"
-msgstr "O CherryTree aplikaciji"
-
 msgid "_Open Preferences Directory"
 msgstr "Odpri _mapo z nastavitvami"
 
@@ -1420,12 +2821,6 @@ msgstr "Z_avrzi povezavo"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Zavrzi povezavo o sliki"
 
-msgid "Show/Hide _CherryTree"
-msgstr "Prikaži/Skrij _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Preklopi prikaži/skrij CherryTree"
-
 msgid "Edit the Underlying Link"
 msgstr "Uredi spodnjo povezavo"
 
@@ -1450,755 +2845,6 @@ msgstr "_Izbriši povezavo"
 msgid "Delete the Selected Link"
 msgstr "Izbriši izbrano povezavo"
 
-msgid "Copy Selection or All"
-msgstr "Kopiraj izbrano ali vse"
-
-msgid "Paste"
-msgstr "Prilepi"
-
-msgid "Reset"
-msgstr "Ponastavi"
-
-msgid "Rename"
-msgstr "Preimenuj"
-
-msgid "PNG Image"
-msgstr "PNG slika"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Pisanje v %s neuspešno"
-
-msgid "Insert/Edit Link"
-msgstr "Vstavi/Uredi povezavo"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "Povezava mape '%s' ni veljavna."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Povezava datoteke '%s' ni veljavna."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Povezava mape '%s' ni veljavna"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Povezava se sklicuje na vozlišče, ki ne obstaja (Id = %s)"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Ni najdenega sidra z imenom '%s'"
-
-msgid "Edit CodeBox"
-msgstr "Uredi kodno polje"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Prirediti je potrebno ukaz '%s'.\n"
-"To storite v oknu s preferencami."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Namestite paket 'xterm' ali nastavite različni terminal v oknu s "
-"preferencami."
-
-msgid "Edit Table Properties"
-msgstr "Uredi lastnosti tabele"
-
-msgid "CSV File"
-msgstr "CSV datoteka"
-
-msgid "Insert Anchor"
-msgstr "Vstavi sidro"
-
-msgid "Edit Anchor"
-msgstr "Uredi sidro"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Ni mogoče urejati vgrajene datoteke v načinu le za branje."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "Vgrajena datoteka je bila avtomatsko posodobljena:"
-
-msgid "Change Selected"
-msgstr "Spremeni izbrano"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "Tipka za bližnjico '%s' je že v rabi."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Trenutno povezano dejanje je '%s'"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Ali želite prevzeti bližnjico?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Uredi tipko kot bližnjica"
-
-msgid "No Keyboard Shortcut"
-msgstr "Brez tipke za bližnjico"
-
-msgid "Writing to Disk..."
-msgstr "Pisanje na disk..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Ni pravice za pisanje v %s"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Vnesite geslo za %s"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Neuspešno preverjanje celovitosti shranjenega dokumenta. Poskusite Datoteka--"
-">Shrani kot"
-
-msgid "Failed to encrypt the file"
-msgstr "Datoteko ni bilo mogoče šifrirati"
-
-msgid "Search for"
-msgstr "Iskanje v"
-
-msgid "Replace with"
-msgstr "Zamenjaj z"
-
-msgid "Match Case"
-msgstr "Ujemanje velikosti pisave"
-
-msgid "Regular Expression"
-msgstr "Regularni izraz"
-
-msgid "Online Manual"
-msgstr "Spletna navodila"
-
-msgid "Accent Insensitive"
-msgstr "Neobčutljivost na poudarke"
-
-msgid "Override Exclusions"
-msgstr "Preglasi izključitve"
-
-msgid "Whole Word"
-msgstr "Cela beseda"
-
-msgid "Start Word"
-msgstr "Začetna beseda"
-
-msgid "Forward"
-msgstr "Naprej"
-
-msgid "Backward"
-msgstr "Nazaj"
-
-msgid "All, List Matches"
-msgstr "Vse, prikaži ujemajoče"
-
-msgid "First From Selection"
-msgstr "Prvi iz izbora"
-
-msgid "First in All Range"
-msgstr "Prvi v vsem območju"
-
-msgid "Node Created After"
-msgstr "Vozlišče ustvarjeno po"
-
-msgid "Node Created Before"
-msgstr "Vozlišče ustvarjeno pred"
-
-msgid "Node Modified After"
-msgstr "Vozlišče spremenjeno po"
-
-msgid "Node Modified Before"
-msgstr "Vozlišče spremenjeno pred"
-
-msgid "Time filter"
-msgstr "Časovni filter"
-
-msgid "Node Content"
-msgstr "Vsebina vozlišča"
-
-msgid "Node Name and Tags"
-msgstr "Ime in oznaka vozlišča"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Samo izbrano vozlišče in podrejena vozlišča"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Prikaži ponovljena najdi/zamenjaj okna"
-
-msgid "Search options"
-msgstr "Možnosti iskanja"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Vsaj eno vozlišče je bilo preskočeno zaradi izključitev nastavljenih v "
-"lastnostih vozlišča.\n"
-"Če želite odstraniti vse izključitve, uporabite meni:\n"
-"Iskanje -> Počisti vse izključitve iz iskanja"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Skrij (Obnovi z '%s')"
-
-msgid "Node Name"
-msgstr "Ime vozlišča"
-
-msgid "Line"
-msgstr "Vrstica"
-
-msgid "Line Content"
-msgstr "Vsebina vrstice"
-
-msgid "Matches"
-msgstr "Ustreza"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Ponovi zadnji najdi/zamenjaj"
-
-msgid "Close"
-msgstr "Zapri"
-
-msgid "Find Previous"
-msgstr "Najdi prejšnje"
-
-msgid "Find Next"
-msgstr "Najdi naslednje"
-
-msgid "Replace"
-msgstr "Zamenjaj"
-
-msgid "Undo"
-msgstr "Razveljavi"
-
-msgid "Downloading"
-msgstr "Prenašanje"
-
-msgid "Remove from list"
-msgstr "Odstrani iz seznama"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Novi nadrejeni ne mora biti eno izmed podrejenih vozlišč!"
-
-msgid "Light Background, Dark Text"
-msgstr "Svetlo ozadje, temno besedilo"
-
-msgid "Dark Background, Light Text"
-msgstr "Temno ozadje, svetlo besedilo"
-
-msgid "Custom Background"
-msgstr "Ozadje po meri"
-
-msgid "Text"
-msgstr "Besedilo"
-
-msgid "Selection Background"
-msgstr "Ozadje izbora"
-
-msgid "Tree Explorer"
-msgstr "Raziskovalec drevesne strukture"
-
-msgid "Rich Text"
-msgstr "Bogato besedilo"
-
-msgid "Plain Text"
-msgstr "Golo besedilo"
-
-msgid "Table"
-msgstr "Tabela"
-
-msgid "Code"
-msgstr "Koda"
-
-msgid "Style Schemes"
-msgstr "Slog sheme"
-
-msgid "Text Foreground"
-msgstr "Ospredje besedila"
-
-msgid "Text Background"
-msgstr "Ozadje besedila"
-
-msgid "Selection Foreground"
-msgstr "Ospredje izbora"
-
-msgid "Cursor"
-msgstr "Kazalec"
-
-msgid "Current Line Background"
-msgstr "Ozadje trenutne vrstice"
-
-msgid "Line Numbers Foreground"
-msgstr "Ospredje oštevilčenja vrstice"
-
-msgid "Line Numbers Background"
-msgstr "Ozadje oštevilčenja vrstice"
-
-msgid "Style Scheme Editor"
-msgstr "Urejevalni sloga sheme"
-
-msgid "Set Dark Theme Icons"
-msgstr "Nastavi ikone za temno temo"
-
-msgid "Set Light Theme Icons"
-msgstr "Nastavi ikone za svetlo temo"
-
-msgid "Set Default Icons"
-msgstr "Nastavi privzete ikone"
-
-msgid "Icon Theme"
-msgstr "Tema ikone"
-
-msgid "Move the Selected Bookmark Up"
-msgstr "Premakni izbrani zaznamek navzgor"
-
-msgid "Move the Selected Bookmark Down"
-msgstr "Premakni izbrano zaznamek navzdol"
-
-msgid "Remove the Selected Bookmark"
-msgstr "Odstrani izbrani zaznamek"
-
-msgid "Sort the Bookmarks Descending"
-msgstr "Razvrsti zaznamke padajoče"
-
-msgid "Sort the Bookmarks Ascending"
-msgstr "Razvrsti zaznamke naraščajoče"
-
-msgid "Choose Storage Type"
-msgstr "Izberite vrsto shrambe"
-
-msgid "Storage Type"
-msgstr "Vrsta shrambe"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CT shrani dokument v kriptiranem 7zip arhivu. Med listanjem in urejanjem "
-"dokumenta, CT razširi kriptirani arhiv v začasno mapo in dela na "
-"dekriptirani kopiji. Ob zaprtju se dekriptirana kopija izbriše iz začasne "
-"mape. V primeru sesutja aplikacije ali sistema bo dekriptiran dokument ostal "
-"v začasni mapi."
-
-msgid "Enter the New Password Twice"
-msgstr "Vnesite novo geslo dvakrat"
-
-msgid "Autosave Every"
-msgstr "Samodejno shrani vsakih"
-
-msgid "Minutes"
-msgstr "Minut"
-
-msgid "The Password Fields Must be Filled."
-msgstr "Polja Geslo morata biti izpolnjena."
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "Vpisana gesla se ne ujemata."
-
-msgid "Warning"
-msgstr "Pozor"
-
-msgid "The Current Document was Updated."
-msgstr "Trenutni dokument je bil posodobljen."
-
-msgid "Do you want to Save the Changes?"
-msgstr "Ali želite shraniti spremembe?"
-
-msgid "Do you want to Execute the Code?"
-msgstr "Ali želite izvsti kodo?"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Pred izvajanjem kode vprašajte za potrditev"
-
-msgid "Use Internal Terminal"
-msgstr "Uporabi notranji terminal"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Hierarhična beležka, s podporo za bogato besedilo in obarvanje sintakse"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"Ta program je prosto dostopen; Lahko ga razširjate in/ali spreminjate\n"
-"pod pogoji GNU Splošne Javne Licence, kakor objavljeno s strani\n"
-"Free Software Foundation; bodisi 3. različica licence, ali (po vaši\n"
-"izbiri) katerokoli kasnejšo različico.\n"
-" \n"
-"Program je razdeljen z upanjem da bo koristen, vendar BREZ VSAKRŠNEGA "
-"JAMSTVA;\n"
-"Tudi brez privzetega jamstva za PRODAJO ali PRIMERNOST ZA DOLOČEN NAMEN.  "
-"Glejte\n"
-"GNU Splošno Javno Licenco za podrobnosti.\n"
-"  \n"
-"S tem programom bi bili morali prejeti kopijo GNU General Public License\n"
-";Če licence niste prejeli, pišite Free Software Foundation, Inc.,\n"
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabščina"
-
-msgid "Armenian"
-msgstr "Armenščina"
-
-msgid "Bulgarian"
-msgstr "Bolgarščina"
-
-msgid "Chinese Simplified"
-msgstr "Poenostavljena Kitajščina"
-
-msgid "Chinese Traditional"
-msgstr "Tradicionalna Kitajščina"
-
-msgid "Croatian"
-msgstr "Hrvaščina"
-
-msgid "Czech"
-msgstr "Češčina"
-
-msgid "Dutch"
-msgstr "Nizozemščina"
-
-msgid "Finnish"
-msgstr "Finščina"
-
-msgid "French"
-msgstr "Francoščina"
-
-msgid "German"
-msgstr "Nemščina"
-
-msgid "Greek"
-msgstr "Grščina"
-
-msgid "Hindi India"
-msgstr "Hindijščina"
-
-msgid "Hungarian"
-msgstr "Madžarščina"
-
-msgid "Italian"
-msgstr "Italijanščina"
-
-msgid "Japanese"
-msgstr "Japonščina"
-
-msgid "Kazakh"
-msgstr "Kazaščina"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazaščina (Latinica)"
-
-msgid "Korean"
-msgstr "Korejščina"
-
-msgid "Lithuanian"
-msgstr "Litovščina"
-
-msgid "Persian"
-msgstr "Perzijščina"
-
-msgid "Polish"
-msgstr "Poljščina"
-
-msgid "Portuguese"
-msgstr "Portugalščina"
-
-msgid "Portuguese Brazil"
-msgstr "Brazilska Portugalščina"
-
-msgid "Romanian"
-msgstr "Romunščina"
-
-msgid "Russian"
-msgstr "Ruščina"
-
-msgid "Slovenian"
-msgstr "Slovenščina"
-
-msgid "Spanish"
-msgstr "Španščina"
-
-msgid "Swedish"
-msgstr "Švedščina"
-
-msgid "Turkish"
-msgstr "Turščina"
-
-msgid "Ukrainian"
-msgstr "Ukrajinščina"
-
-msgid "Number of Rich Text Nodes"
-msgstr "Število vozlišč z bogatim besedilom"
-
-msgid "Number of Plain Text Nodes"
-msgstr "Število vozlišč z golim besedilom"
-
-msgid "Number of Code Nodes"
-msgstr "Število vozlišč s kodo"
-
-msgid "Number of Images"
-msgstr "Število slik"
-
-msgid "Number of LatexBoxes"
-msgstr "Število Latex polj"
-
-msgid "Number of Embedded Files"
-msgstr "Število vgrajenih datotek"
-
-msgid "Number of Tables"
-msgstr "Število tabel"
-
-msgid "Number of CodeBoxes"
-msgstr "Število kodnih polj"
-
-msgid "Number of Anchors"
-msgstr "Število sider"
-
-msgid "Number of Shared Nodes / Groups"
-msgstr "Število deljenih vozlišč / skupin"
-
-msgid "Latex Text"
-msgstr "Latex besedilo"
-
-msgid "Image Size dpi"
-msgstr "Velikost slike dpi"
-
-msgid "Tutorial"
-msgstr "Vodič"
-
-msgid "Reference"
-msgstr "Referenca"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX matematika in vodič enačb"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX referenca matematičnih simbolov"
-
-msgid "Image Properties"
-msgstr "Lastnosti slike"
-
-msgid "Width"
-msgstr "Širina"
-
-msgid "Height"
-msgstr "Višina"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Samodejno obarvanje sintakse"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "pixels"
-msgstr "pikslov"
-
-msgid "Size"
-msgstr "Velikost"
-
-msgid "Show Line Numbers"
-msgstr "Prikaži številko vrstice"
-
-msgid "Highlight Matching Brackets"
-msgstr "Obarvaj pripadajoče oklepaje"
-
-msgid "Options"
-msgstr "Možnosti"
-
-msgid "Rows"
-msgstr "Vrstice"
-
-msgid "Columns"
-msgstr "Stolpci"
-
-msgid "Default Width"
-msgstr "Privzeta širina"
-
-msgid "Table Size"
-msgstr "Velikost tabele"
-
-msgid "Column Properties"
-msgstr "Lastnosti stolpcev"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Lahkoten vmesnik (veliko hitrejši za velike tabele)"
-
-msgid "Import from CSV File"
-msgstr "Uvozi iz CSV datoteke"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Ni bilo mogoče dostopiti do 'dvipng' in 'latex' izvršnih datotek"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Na primer, na Ubuntu je potrebno namestiti sledeče pakete:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "Na primer, na Mac OS je potrebno namestiti sledeče pakete:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "Ni bilo mogoče dostopiti do 'latex' izvršne datoteke"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "Ni bilo mogoče dostopiti do 'dvipng' izvršne datoteke"
-
-msgid "Show White Spaces"
-msgstr "Prikaži presledke"
-
-msgid "Highlight Current Line"
-msgstr "Obarvaj trenutno vrstico"
-
-msgid "Text Editor"
-msgstr "Urejevalnik besedila"
-
-msgid "Internal Terminal Shell"
-msgstr "Notranji terminal (lupina)"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Ukaz za vozlišče/Vrsto kodnega polja"
-
-msgid "Terminal Command"
-msgstr "Ukaz iz terminala"
-
-msgid "Code Execution"
-msgstr "Izvajanje kode"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Velikost ikon v orodni vrstici je že maksimalna."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Velikost ikon v orodni vrstici je že minimalna."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Sprememba se bo uveljavila šele po ponovnem zagonu CherryTree."
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr ""
-"Podatkovna datoteka %s je pokvarjena, za več informacij preverite dnevnik."
-
-msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes."
-msgstr ""
-"V isti mapi poškodovanega dokumenta se nahajajo privzeto 3 varnostne kopije, "
-"z istim imenom in tildami (~, ~~, ~~~) na koncu. Najprej poskusite varnostno "
-"kopijo z eno tildo: kopirajte datoteko v drugo map, odstranite zadnjo tildo "
-"in odprite s CherryTree. Če še vedno ne uspe, poskusite tisto z dvema "
-"tildama in če še vedno ne uspe, poskusite s tremi tildami."
-
-# I am assuming "usb driver" here means a usb flash drive that was ejected.
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s pisanje neuspešno - datoteka ne obstaja. Znova pripnite USB ključek ali "
-"skupni vir!"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"%s pisanje neuspešno - ali je datoteka zaklenjena s strani "
-"sinhronizacijskega programa?"
-
-# I am assuming "usb driver" here means a usb flash drive that was ejected.
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s ponovno odpiranje neuspešno - datoteka ne obstaja. Znova pripnite USB "
-"ključek ali skupni vir!"
-
-msgid "Tab Width"
-msgstr "Širina tabulatorja"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Vstavi presledke namesto tabulatorjev"
-
-msgid "Use Line Wrapping"
-msgstr "Uporabi prelom vrstice"
-
-msgid "Line Wrapping Indentation"
-msgstr "Zamik preloma vrstice"
-
-msgid "Enable Automatic Indentation"
-msgstr "Omogoči samodejni zamik"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Pomakni se čez zadnjo vrstico"
-
-msgid "Cursor Blinking"
-msgstr "Utripanje kazalca"
-
-msgid "System Default"
-msgstr "Sistemsko privzeto"
-
-msgid "On"
-msgstr "Vklop"
-
-msgid "Off"
-msgstr "Izklop"
-
-msgid "Text Margin: Left"
-msgstr "Levi rob besedila"
-
-msgid "Right"
-msgstr "Desno"
-
-msgid "Vertical Space Around Lines"
-msgstr "Navpični razmak vrstic"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Navpični razmak v vrsticah s prelomom"
-
-msgid "Timestamp Format"
-msgstr "Oblika časovne oznake"
-
-msgid "Horizontal Rule"
-msgstr "Vodoravna črta"
-
-msgid "Chars to Select at Double Click"
-msgstr "Izbira znakov ob dvojnem kliku"
-
-msgid "Miscellaneous"
-msgstr "Razno"
-
 msgid "Remove Color"
 msgstr "Odstrani barvo"
 
@@ -2222,636 +2868,6 @@ msgstr "Shrani datoteko kot"
 
 msgid "Save To Folder"
 msgstr "Shrani v mapo"
-
-msgid "Use Different Cherries per Level"
-msgstr "Uporabi različne češnjice na različnih nivojih"
-
-msgid "Use Selected Icon"
-msgstr "Uporabi izbrano ikono"
-
-msgid "No Icon"
-msgstr "Brez ikone"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Skrij pomožno ikono na desni"
-
-msgid "Default Text Nodes Icons"
-msgstr "Privzete ikone vozlišč z besedilom"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Obnovi razširjeno/skrčeno vozlišče"
-
-msgid "Expand all Nodes"
-msgstr "Razširi vsa vozlišča"
-
-msgid "Collapse all Nodes"
-msgstr "Skrči vsa vozlišča"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Vozlišča v zaznamkih vedno vidna"
-
-msgid "Nodes Status at Startup"
-msgstr "Stanje vozlišč ob zagonu"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Širina preloma imena vozlišč v drevesu"
-
-msgid "Display Tree on the Right Side"
-msgstr "Prikaži drevo desni strani"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Premakni fokus na besedilo ob kliku miške"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Razšiti vozlišče ob kliku miške"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Zadnje obiskana vozlišča v glavi z imenom vozlišč"
-
-msgid "Select Node Icon"
-msgstr "Izberi ikono vozlišča"
-
-msgid "No Node is Selected"
-msgstr "Ni izbranega vozlišča"
-
-msgid "The Tree is Empty!"
-msgstr "Drevo je prazno!"
-
-msgid "The Selected Node is Read Only."
-msgstr "Izbrano vozlišče je le za branje."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Ta možnost je na voljo le v vozliščih z bogatim besedilom."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Ta možnost ni na voljo v vozliščih s samodejnim poudarjanjem sintakse."
-
-msgid "No Text is Selected."
-msgstr "Ni izbranega besedila."
-
-msgid "No Table is Selected."
-msgstr "Ni izbranega besedila."
-
-msgid "No CodeBox is Selected."
-msgstr "Ni izbranega kodnega polja."
-
-msgid "New Child Node Properties"
-msgstr "Lastnosti novega podrejenega vozlišča"
-
-msgid "New Node Properties"
-msgstr "Lastnosti novega vozlišča"
-
-msgid "Node Properties"
-msgstr "Lastnosti vozlišča"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Z zamenjavo tipa vozlišča iz vozlišča z bogatim besedilom v drug tip,bo "
-"izgubljena vsa oblika vozlišča. Ali želite nadaljevati?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Ali ste prepričani, da <b>želite izbrisati vozlišče '%s'?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Vozlišče <b>ima podrejene, ki bodo prav tako izbrisani!</b>"
-
-msgid "Select the New Parent"
-msgstr "Izberite novega nadrejenega"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Novi nadrejeni ne mora biti vozlišče, ki se bo premaknilo!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Na novo izbrani nadrejeni je ponovno stari nadrejeni!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s spremenjenih lastnosti vozlišč"
-
-msgid "To WebSite"
-msgstr "Na spletno stran"
-
-msgid "To File"
-msgstr "V datoteko"
-
-msgid "To Folder"
-msgstr "V mapo"
-
-msgid "To Node"
-msgstr "V vozlišče"
-
-msgid "Anchor Name (optional)"
-msgstr "Ime sidra (neobvezno)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Ni sider v izbranem vozlišču."
-
-msgid "Choose Existing Anchor"
-msgstr "Izberi obstoječe sidro"
-
-msgid "Anchor Name"
-msgstr "Ime sidra"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Iskani vzorec %s ni bil najden"
-
-msgid "CherryTree File"
-msgstr "CherryTree datoteka"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Mapa '%s' že obstaja v '%s'.\n"
-"<b> Ali jo želite odstraniti?</b>"
-
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Datoteka '%s' že obstaja v '%s'.\n"
-"<b> Ali jo želite odstraniti?</b>"
-
-msgid "Preferences File"
-msgstr "Datoteka z nastavitvami"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Ali se je orodna vrstica prikazala na panelu?"
-
-msgid "Your system does not support the System Tray"
-msgstr "Vaš operacijski sistem ne podpira orodne vrstice"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Hierarhično beleženje CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "_Zapri CherryTree"
-
-msgid "Show Menubar:"
-msgstr "Prikaži vrstico menija:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Pot %s ne obstaja"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" ni CherryTree datoteka"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Napaka pri razčlenjevanju CherryTree datoteke:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Ni najdenega vozlišča z imenom '%s'."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Začasne datoteke so bile ustvarjene in odprte z zunanjo aplikacijo."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Zaprite zunanjo aplikacijo pred zaprtjem CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Ali ste zaprli zunanjo aplikacijo?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Dokument je bil osvežen po zunanji posodobitvi CT* datoteke."
-
-msgid "Autosave on Quit"
-msgstr "Samodejno shrani ob izhodu"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "Napravi varnostno kopijo pred shranjevanjem"
-
-msgid "Number of Backups to Keep"
-msgstr "Število varnostnih kopij"
-
-msgid "Custom Backup Directory"
-msgstr "Mapa varnostne kopije po meri"
-
-msgid "Saving"
-msgstr "Shranjevanje"
-
-msgid "Automatically Check for Newer Version"
-msgstr "Samodejno preveri za posodobitve"
-
-msgid "Reload Document From Last Session"
-msgstr "Naloži dokument iz zadnje seje"
-
-msgid "Reload After External Update to CT* File"
-msgstr "Naloži po zunanji posodobitvi CT* datoteke"
-
-msgid "Enable Debug Log"
-msgstr "Omogoči dnevnik odpravljanja napak"
-
-msgid "Debug Log Directory"
-msgstr "Mapa dnevnika odpravljanja napak"
-
-msgid "Enable System Tray Docking"
-msgstr "Omogoči priklop na sistemsko vrstico"
-
-msgid "Start Minimized in the System Tray"
-msgstr "Začni minimizirano v sistemski vrstici"
-
-msgid "System Tray"
-msgstr "Sistemska vrstica"
-
-msgid "Language"
-msgstr "Jezik"
-
-msgid "_Hide"
-msgstr "S_krij"
-
-msgid "Hide the Window"
-msgstr "Skrij okno"
-
-msgid "Node Type"
-msgstr "Vrsta vozlišča"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "Oznake"
-
-msgid "Spell Check"
-msgstr "Preverjanje črkovanja"
-
-msgid "Word Count"
-msgstr "Število besed"
-
-msgid "Date Created"
-msgstr "Datum ustvaritve"
-
-msgid "Date Modified"
-msgstr "Datum spremembe"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Med trenutno sejo ni bilo kopiranih preteklih vozlišč ali izvorno drevo ni "
-"več na voljo."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Izvorno drevo ni več na voljo."
-
-msgid "English"
-msgstr "Angleščina"
-
-msgid "Text and Code"
-msgstr "Besedilo in koda"
-
-msgid "Plain Text and Code"
-msgstr "Golo besedilo in koda"
-
-msgid "Special Characters"
-msgstr "Posebni znaki"
-
-msgid "Theme"
-msgstr "Tema"
-
-msgid "Interface"
-msgstr "Vmesnik"
-
-msgid "Links"
-msgstr "Povezave"
-
-msgid "Toolbar"
-msgstr "Orodna vrstica"
-
-msgid "Keyboard Shortcuts"
-msgstr "Bližnjice"
-
-msgid "Monospace"
-msgstr "Enoširinske pisava"
-
-msgid "Code Font"
-msgstr "Pisava kode"
-
-msgid "Terminal Font"
-msgstr "Font iz terminala"
-
-msgid "Tree Font"
-msgstr "Pisava drevesa"
-
-msgid "Fonts"
-msgstr "Pisave"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "Omogoči štetje besed v statusni vrstici"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "Prikaži mapo dokumenta v naslovnem oknu"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Prikaži polno ime v glavi vozlišča"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Namenski meni z zaznamki v vrstici menija"
-
-msgid "Menubar in Titlebar"
-msgstr "Vrstica menija v naslovni vrstici"
-
-msgid "Toolbar Icons Size"
-msgstr "Velikost ikon v orodni vrstici"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Minimalna velikost drsnika (0 = sistemsko privzeto)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Drsnik prekriva urejevalnik besedila"
-
-msgid "Yes"
-msgstr "Da"
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Omogoči opise orodij pri lebdenju"
-
-msgid "Menus"
-msgstr "Meniji"
-
-msgid "Max Search Results per Page"
-msgstr "Največje število rezultatov iskanja na strani"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Omogoči dejanje po meri ob kliku na spletno povezavo"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Omogoči dejanje po meri ob kliku na datotečno povezavo"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Omogoči dejanje po meri ob kliku na povezavo z mapo"
-
-msgid "Custom Actions"
-msgstr "Dejanje po meri"
-
-msgid "Colors"
-msgstr "Barve"
-
-msgid "Underline Links"
-msgstr "Podčrtaj povezave"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Uporabi relativne poti za datoteke in mape"
-
-msgid "Anchor Size"
-msgstr "Velikost sidra"
-
-msgid "Replace in Current Node"
-msgstr "Zamenjaj v trenutnem vozlišču"
-
-msgid "Search in Current Node"
-msgstr "Iskanje v trenutnem vozlišču"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Iskani vzorec '%s' ni bil najden<b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Zamenjaj v več vozliščih..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Najdi v več vozliščih..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "V tej seji ni bilo preteklih iskanj."
-
-msgid "PDF File"
-msgstr "PDF datoteka"
-
-msgid "Plain Text Document"
-msgstr "Dokument z golim besedilom"
-
-msgid "Who is the Parent?"
-msgstr "Kdo je nadrejeni?"
-
-msgid "The Tree Root"
-msgstr "Temelj drevesa"
-
-msgid "The Selected Node"
-msgstr "Izbrano vozlišče"
-
-msgid "Enable Spell Check"
-msgstr "Omogoči preverjanje črkovanja"
-
-msgid "Spell Check Language"
-msgstr "Jezik črkovanja"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "Avtomatsko razširi kodna polja"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "Kodna polja imajo orodno vrstico"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Prag števila celic tabele za lahki vmesnik"
-
-msgid "Embedded File Icon Size"
-msgstr "Velikost ikone vgrajene datoteke"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "Omejitev velikosti vgrajene datoteke (MB)"
-
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Prikaži ime datoteke na vrhu ikone vgrajene datoteke"
-
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Omejitev števila razveljavitev na vozlišče"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr ""
-"Samodejno poveži besedilo z velikimi začetnicami (CamelCase) z istoimenskim "
-"vozliščem"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Ob trojnem kliku izberi celoten odstavek"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Omogoči samodejno zamenjavo Markdown (Preizkusno)"
-
-msgid "Scale"
-msgstr "Merilo"
-
-msgid "Bold"
-msgstr "Krepko"
-
-msgid "Italic"
-msgstr "Ležeče"
-
-msgid "Underline"
-msgstr "Podčrtano"
-
-msgid "Text Color Foreground"
-msgstr "Barva besedila"
-
-msgid "Text Color Background"
-msgstr "Barva ozadja besedila"
-
-msgid "Small"
-msgstr "Majhno"
-
-msgid "Scalable Tags"
-msgstr "Prilagodljive oznake"
-
-msgid "Execute Code"
-msgstr "Izvedi kodo"
-
-msgid "Change CodeBox Properties"
-msgstr "Spremeni lastnosti kodnega polja"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Med trenutno sejo ni bilo prejšnjih sprememb oblike besedila."
-
-msgid "Link Name"
-msgstr "Ime povezave"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Kazalec ni v odstavku."
-
-msgid "Pick a Foreground Color"
-msgstr "Izberi barvo ospredja"
-
-msgid "Pick a Background Color"
-msgstr "Izberi barvo ozadja"
-
-msgid "Chars for Bulleted List"
-msgstr "Znaki za seznam z oznakami"
-
-msgid "Chars for Todo List"
-msgstr "Znaki za seznam opravil"
-
-msgid "Chars for Table Of Content"
-msgstr "Znaki za kazalo"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Znaki za pametne dvojne narekovaje"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Znaki za pametne enojne narekovaje"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Omogoči samodejno zamenjavo pametnih navednic"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Omogoči samodejno zamenjavo simbolov"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Podprti simboli samodejne zamenjave"
-
-msgid "Only at the Start of the Line"
-msgstr "Samo na začetku vrstice"
-
-msgid "Use Selected Color"
-msgstr "Uporabi izbrano barvo"
-
-msgid "Tags for Searching"
-msgstr "Oznake za iskanje"
-
-msgid "Exclude from Searches"
-msgstr "Izpusti iz iskanj"
-
-msgid "This Node"
-msgstr "Trenutno vozlišče"
-
-msgid "The Subnodes"
-msgstr "Podrejena vozlišča"
-
-msgid "Read Only"
-msgstr "Le za branje"
-
-msgid "Unique Id"
-msgstr "Enolični identifikator"
-
-msgid "Shared Nodes Group"
-msgstr "Skupina deljenih vozlišč"
-
-msgid "Choose Existing Tag"
-msgstr "Izberi obstoječo oznako"
-
-msgid "Tag Name"
-msgstr "Ime oznake"
-
-msgid "Pick a Color"
-msgstr "Izberi barvo"
-
-msgid "Involved Nodes"
-msgstr "Vključena vozlišča"
-
-msgid "Selected Text Only"
-msgstr "Le izbrano besedilo"
-
-msgid "Selected Node Only"
-msgstr "Le izbrano vozlišče"
-
-msgid "Selected Node and Subnodes"
-msgstr "Izbrano vozlišče in podrejena vozlišča"
-
-msgid "All the Tree"
-msgstr "Vse drevo"
-
-msgid "Include Node Name"
-msgstr "Vključi ime vozlišča"
-
-msgid "Links Tree in Every Page"
-msgstr "Drevo povezav na vsaki strani"
-
-msgid "New Node in New Page"
-msgstr "Novo vozlišče na novi strani"
-
-msgid "Single File"
-msgstr "Posamezna datoteka"
-
-msgid "Checking for Newer Version..."
-msgstr "Preveri za posodobitve..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Ni bilo mogoče pridobiti zadnjo različico - poskusite znova kasneje."
-
-msgid "A Newer Version Is Available!"
-msgstr "Posodobitev je na voljo!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Uporabljate zadnjo različico."
-
-msgid "You Are Using a Development Version."
-msgstr "Uporabljate razvojno različico."
-
-msgid "Image Format Not Recognized"
-msgstr "Oblika slike ni prepoznana"
-
-msgid "Insert Table"
-msgstr "Vstavi tabelo"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Največja velikost za vgrajeno datoteko je %s MB."
-
-msgid "Do you want to Continue?"
-msgstr "Ali želite nadaljevati?"
-
-msgid "Tabs Replaced"
-msgstr "Zamenjih tabulatorjev"
-
-msgid "Lines Stripped"
-msgstr "Vrstic odstranjenih"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Pozor: ena ali več slik je bilo pomanjšanih ob vstopu na stran!"
 
 msgid "Print CherryTree version"
 msgstr "Izpiši CherryTree različico"
@@ -2886,9 +2902,6 @@ msgstr "Ustvari novo okno"
 msgid "Run in secondary session, independent from main session"
 msgstr "Zaženi v drugi seji, neodvisni of glavne seje"
 
-msgid "Are you sure to Reset to Default?"
-msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
-
 msgid "HTML Document"
 msgstr "HTML dokument"
 
@@ -2903,6 +2916,29 @@ msgstr "Treepad dokument"
 
 msgid "Leo Document"
 msgstr "Leo dokument"
+
+msgid "Are you sure to Reset to Default?"
+msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
+
+#~ msgid "Insert T_OC..."
+#~ msgstr "Vstavi ka_zalo..."
+
+#~ msgid "Insert Table of Contents"
+#~ msgstr "Vstavi kazalo"
+
+#~ msgid ""
+#~ "Backup files are by default 3 in the same folder of the corrupted "
+#~ "document, with the same name plus trailing tildes (~, ~~, ~~~). Try first "
+#~ "the backup with one tilde: copy the file to another directory, remove the "
+#~ "trailing tilde and open with cherrytree. If it still fails, try the one "
+#~ "with two tildes and if it still fails try the one with three tildes."
+#~ msgstr ""
+#~ "V isti mapi poškodovanega dokumenta se nahajajo privzeto 3 varnostne "
+#~ "kopije, z istim imenom in tildami (~, ~~, ~~~) na koncu. Najprej "
+#~ "poskusite varnostno kopijo z eno tildo: kopirajte datoteko v drugo map, "
+#~ "odstranite zadnjo tildo in odprite s CherryTree. Če še vedno ne uspe, "
+#~ "poskusite tisto z dvema tildama in če še vedno ne uspe, poskusite s tremi "
+#~ "tildami."
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Spletna navodila aplikacije"

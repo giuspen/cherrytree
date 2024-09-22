@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 22:06+0000\n"
-"PO-Revision-Date: 2024-03-13 00:47+0900\n"
+"POT-Creation-Date: 2024-09-21 15:41+0100\n"
+"PO-Revision-Date: 2024-09-23 01:06+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -18,12 +18,37 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "'%s' 노트의 내용을 가져올수 없습니다"
+msgid "CherryTree File"
+msgstr "CherryTree 파일"
 
-msgid "Index"
-msgstr "목차"
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"사용 중인 파일/폴더는 덮어쓸 수 없습니다!\n"
+"다른 이름이나 위치를 사용하세요."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"폴더 '%s'이(가) 이미 '%s'에 있습니다.\n"
+"<b>제거하시겠습니까?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"파일 '%s'이(가) 이미 '%s'에 있습니다.\n"
+"<b>제거하시겠습니까?</b>"
+
+msgid "PDF File"
+msgstr "PDF 파일"
+
+msgid "Plain Text Document"
+msgstr "텍스트 형식 (확장자 지정)"
 
 msgid "Add"
 msgstr "추가"
@@ -42,6 +67,1401 @@ msgstr "CherryTree 문서 열기"
 
 msgid "Select Element to Add"
 msgstr "추가 요소를 선택"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "%s 경로가 존재하지 않습니다"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "최근 사용한 CherryTree 문서 열기"
+
+msgid "_Hide"
+msgstr "숨기기(_H)"
+
+msgid "_Quit"
+msgstr "닫기(_Q)"
+
+msgid "Hide the Window"
+msgstr "창 숨기기"
+
+msgid "Quit the Application"
+msgstr "응용 프로그램 닫기"
+
+msgid "No Node is Selected"
+msgstr "노트가 선택되어 있지 않습니다"
+
+msgid "Node Type"
+msgstr "노트 유형"
+
+msgid ": "
+msgstr ": "
+
+msgid "Rich Text"
+msgstr "형식이 있는 텍스트"
+
+msgid "Plain Text"
+msgstr "텍스트"
+
+msgid "Tags"
+msgstr "태그"
+
+msgid "Spell Check"
+msgstr "맞춤법 검사"
+
+msgid "Word Count"
+msgstr "단어 개수"
+
+msgid "Date Created"
+msgstr "만든 날짜"
+
+msgid "Date Modified"
+msgstr "수정한 날짜"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"이 세션에서 이전 노트의 복사가 수행되지 않았거나 소스 트리를 더 이상 사용할 "
+"수 없습니다."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "소스 트리를 더 이상 사용할 수 없습니다."
+
+msgid "Image Format Not Recognized"
+msgstr "알 수 없는 이미지 형식입니다"
+
+msgid "Insert Table"
+msgstr "표 삽입"
+
+msgid "CSV File"
+msgstr "CSV 파일"
+
+msgid "Insert a CodeBox"
+msgstr "코드상자 삽입"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "첨부 파일의 최대 용량은 %s MB입니다."
+
+msgid "Do you want to Continue?"
+msgstr "실행 하시겠습니까?"
+
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "'%s' 노트의 내용을 가져올수 없습니다"
+
+msgid "Special Characters"
+msgstr "특수 문자"
+
+msgid "Tabs Replaced"
+msgstr "탭을 변환했습니다"
+
+msgid "Lines Stripped"
+msgstr "행 삭제 작업을 수행"
+
+msgid "No Text is Selected."
+msgstr "텍스트가 선택되어 있지 않습니다."
+
+msgid "Checking for Newer Version..."
+msgstr "새 버전을 확인하고 있습니다 ..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "새로운 버전 정보를 확인할 수 없습니다 - 나중에 다시 확인하십시오."
+
+msgid "A Newer Version Is Available!"
+msgstr "새로운 버전이 있습니다!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "최신 버전을 사용하고 있습니다."
+
+msgid "You Are Using a Development Version."
+msgstr "개발 버전을 사용하고 있습니다."
+
+msgid "Execute Code"
+msgstr "Codebox code 실행"
+
+msgid "Change CodeBox Properties"
+msgstr "코드 상자의 속성을 변경"
+
+msgid "Show Menubar:"
+msgstr "메뉴바 표시:"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\"은(는) CherryTree 문서가 아닙니다"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"CherryTree 문서경로 구문분석 오류:\n"
+"\"%s\""
+
+msgid "Do you want to Open the Last Backup?"
+msgstr "마지막 백업을 열겠습니까?"
+
+msgid "Failed to Load from Backup Data"
+msgstr "백업 데이터에서 불러오지 못했습니다"
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "'%s' 노트 이름을 찾을 수 없습니다."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "임시 파일이 생성되고 외부 응용 프로그램에서 열렸습니다."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "CherryTree를 종료하기 전에 외부 응용프로그램을 종료하십시오."
+
+msgid "Did you Quit the External Applications?"
+msgstr "외부 응용프로그램을 종료했습니까?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "CT* 파일이 외부 업데이트된 후 문서를 다시 읽어 왔습니다."
+
+msgid "Change Selected"
+msgstr "선택 변경"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "키보드 단축키 '%s'는 이미 사용하고 있습니다."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "현재 연관된 작업 '%s'입니다"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "단축키 할당을 변경 하시겠습니까?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "키보드 단축키 편집"
+
+msgid "No Keyboard Shortcut"
+msgstr "바로 가기 없음"
+
+msgid "Chars for Bulleted List"
+msgstr "순서없는 목록 문자"
+
+msgid "Chars for Todo List"
+msgstr "ToDo리스트 캐릭터"
+
+msgid "Chars for Table Of Content"
+msgstr "목차에 문자"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "스마트 더블 쿼트 문자"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "스마트 싱글 쿼트 문자"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "둥근 따옴표 자동 치환를 사용"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "기호의 자동 치환를 사용"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "설정된 기호를 자동으로 치환"
+
+msgid "Text Editor"
+msgstr "텍스트 편집기"
+
+msgid "Only at the Start of the Line"
+msgstr "글머리에만"
+
+msgid "To WebSite"
+msgstr "웹사이트"
+
+msgid "To File"
+msgstr "파일"
+
+msgid "To Folder"
+msgstr "폴더"
+
+msgid "To Node"
+msgstr "노트"
+
+msgid "Anchor Name (optional)"
+msgstr "앵커 이름 (옵션)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "선택 노트에 앵커가 없습니다."
+
+msgid "Choose Existing Anchor"
+msgstr "기존의 앵커 선택"
+
+msgid "Anchor Name"
+msgstr "앵커 이름"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "'%s'를 찾을 수 없습니다"
+
+msgid "Preferences"
+msgstr "설정"
+
+msgid "Arabic"
+msgstr "Arabic"
+
+msgid "Armenian"
+msgstr "Armenian"
+
+msgid "Bulgarian"
+msgstr "Bulgarian"
+
+msgid "Chinese Simplified"
+msgstr "Chinese Simplified"
+
+msgid "Chinese Traditional"
+msgstr "Chinese Traditional"
+
+msgid "Croatian"
+msgstr "Croatian"
+
+msgid "Czech"
+msgstr "Czech"
+
+msgid "Dutch"
+msgstr "Dutch"
+
+msgid "English"
+msgstr "English"
+
+msgid "Persian"
+msgstr "Persian"
+
+msgid "Finnish"
+msgstr "Finnish"
+
+msgid "French"
+msgstr "French"
+
+msgid "German"
+msgstr "German"
+
+msgid "Greek"
+msgstr "Greek"
+
+msgid "Hindi India"
+msgstr "Hindi India"
+
+msgid "Hungarian"
+msgstr "Hungarian"
+
+msgid "Italian"
+msgstr "Italian"
+
+msgid "Japanese"
+msgstr "Japanese"
+
+msgid "Kazakh"
+msgstr "Kazakh"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazakh"
+
+msgid "Korean"
+msgstr "Korean"
+
+msgid "Lithuanian"
+msgstr "Lithuanian"
+
+msgid "Polish"
+msgstr "Polish"
+
+msgid "Portuguese"
+msgstr "Portuguese"
+
+msgid "Portuguese Brazil"
+msgstr "Portuguese Brazil"
+
+msgid "Romanian"
+msgstr "Romanian"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Slovak"
+msgstr "Slovak"
+
+msgid "Slovenian"
+msgstr "Slovenian"
+
+msgid "Spanish"
+msgstr "Spanish"
+
+msgid "Swedish"
+msgstr "Swedish"
+
+msgid "Turkish"
+msgstr "Turkish"
+
+msgid "Ukrainian"
+msgstr "Ukrainian"
+
+msgid "Text and Code"
+msgstr "텍스트와 코드"
+
+msgid "Format"
+msgstr "서식"
+
+msgid "Plain Text and Code"
+msgstr "형식이 있는 텍스트와 코드"
+
+msgid "Tree Explorer"
+msgstr "Tree 탐색기"
+
+msgid "Theme"
+msgstr "테마"
+
+msgid "Interface"
+msgstr "인터페이스"
+
+msgid "Links"
+msgstr "링크"
+
+msgid "Toolbar"
+msgstr "툴바"
+
+msgid "Keyboard Shortcuts"
+msgstr "단축키"
+
+msgid "Miscellaneous"
+msgstr "기타 설정"
+
+msgid "Monospace"
+msgstr "글자폭"
+
+msgid "Code Font"
+msgstr "코드 글꼴"
+
+msgid "Terminal Font"
+msgstr "터미널 글꼴"
+
+msgid "Tree Font"
+msgstr "Tree 글꼴"
+
+msgid "Fonts"
+msgstr "글꼴"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "상태표시줄에 단어 개수를 표시"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "창 제목에 문서 디렉토리 표시"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "노트 이름 헤더에 전체 경로보기"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "메뉴바에 북마크를 별도 표시하기"
+
+msgid "Menubar in Titlebar"
+msgstr "메뉴바를 제목 표시줄에 배치"
+
+msgid "Toolbar Icons Size"
+msgstr "툴바의 아이콘 크기조절"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "스크롤바 슬라이더의 최소 크기 (0 = 기본값)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "스크롤바 오버레이 텍스트 편집기"
+
+msgid "System Default"
+msgstr "시스템 기본값"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "마우스 오버로 툴팁 표시"
+
+msgid "Tree"
+msgstr "Tree"
+
+msgid "Menus"
+msgstr "메뉴"
+
+msgid "Max Search Results per Page"
+msgstr "페이지당 검색결과 최대 표시 수"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "사용자 지정 웹 링크 클릭 동작 활성화"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "사용자 지정 파일 링크 클릭 동작 활성화"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "사용자 지정 폴더 링크 클릭 동작 활성화"
+
+msgid "Custom Actions"
+msgstr "사용자 설정 동작"
+
+msgid "Colors"
+msgstr "색"
+
+msgid "Underline Links"
+msgstr "링크 밑줄 표시"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "파일 및 폴더에 상대 경로 사용"
+
+msgid "Anchor Size"
+msgstr "앵커 이미지의 크기"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "변경 사항은 CherryTree를 재 실행한 후에 적용됩니다."
+
+msgid "The new parent can't be one of his children!"
+msgstr "자신의 하위 노트를 부모 노트로 할 수 없습니다!"
+
+msgid "Light Background, Dark Text"
+msgstr "라이트 (밝은 배경과 어두운 글자 색)"
+
+msgid "Dark Background, Light Text"
+msgstr "다크 (어두운 배경과 밝은 글자 색)"
+
+msgid "Custom Background"
+msgstr "사용자 설정 배경색"
+
+msgid "Text"
+msgstr "텍스트"
+
+msgid "Selection Background"
+msgstr "선택 배경색"
+
+msgid "Table"
+msgstr "표"
+
+msgid "Code"
+msgstr "코드"
+
+msgid "Style Schemes"
+msgstr "스타일 패턴"
+
+msgid "Text Foreground"
+msgstr "글자 색"
+
+msgid "Text Background"
+msgstr "배경색"
+
+msgid "Selection Foreground"
+msgstr "선택 문자색"
+
+msgid "Cursor"
+msgstr "커서"
+
+msgid "Current Line Background"
+msgstr "현재 행의 배경색"
+
+msgid "Line Numbers Foreground"
+msgstr "행 번호의 글자 색"
+
+msgid "Line Numbers Background"
+msgstr "행 번호의 배경색"
+
+msgid "Style Scheme Editor"
+msgstr "스타일 패턴 편집"
+
+msgid "Set Dark Theme Icons"
+msgstr "어두운 테마 아이콘 설정"
+
+msgid "Set Light Theme Icons"
+msgstr "밝은 테마 아이콘 설정"
+
+msgid "Set Default Icons"
+msgstr "기본 아이콘 설정"
+
+msgid "Icon Theme"
+msgstr "아이콘 테마"
+
+msgid "Search for"
+msgstr "검색할 단어"
+
+msgid "Replace with"
+msgstr "변경할 단어"
+
+msgid "Match Case"
+msgstr "대/소문자를 구별"
+
+msgid "Regular Expression"
+msgstr "정규 표현식"
+
+msgid "Online Manual"
+msgstr "온라인 설명서"
+
+msgid "Accent Insensitive"
+msgstr "액센트 구별 안함"
+
+msgid "Override Exclusions"
+msgstr "검색 제외"
+
+msgid "Whole Word"
+msgstr "단어와 일치"
+
+msgid "Start Word"
+msgstr "단어의 시작과 일치"
+
+msgid "Forward"
+msgstr "앞으로 검색"
+
+msgid "Backward"
+msgstr "뒤로 검색"
+
+msgid "All, List Matches"
+msgstr "모든 검색 결과를 나열"
+
+msgid "First From Selection"
+msgstr "현재 위치에서 첫 번째 일치를 표시"
+
+msgid "First in All Range"
+msgstr "모든 범위에서 첫 번째 일치를 표시"
+
+msgid "Node Created After"
+msgstr "만든 날짜가 더 새로운 노트"
+
+msgid "Node Created Before"
+msgstr "만든 날짜가 그 이전 노트"
+
+msgid "Node Modified After"
+msgstr "수정한 날짜가 더 새로운 노트"
+
+msgid "Node Modified Before"
+msgstr "수정한 날짜가 그 이전 노트"
+
+msgid "Time filter"
+msgstr "날짜로 검색"
+
+msgid "Node Content"
+msgstr "줄 내용"
+
+msgid "Node Name and Tags"
+msgstr "노트 이름 및 태그를 검색"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "선택 노트와 하위 노트"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "찾기/바꾸기 반복 작업 대화 상자를 표시하기"
+
+msgid "Search options"
+msgstr "검색"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"노트 속성의 제외 설정으로 인해 하나 이상의 노트를 건너뛰었습니다.\n"
+"모든 제외 항목을 지우려면 다음 메뉴를 사용하십시오.\n"
+"검색 -> 검색에서 모든 제외 항목 지우기"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "숨기기 ( '%s'에서 복원)"
+
+msgid "Node Name"
+msgstr "노트 이름"
+
+msgid "Line"
+msgstr "행"
+
+msgid "Line Content"
+msgstr "줄 내용"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "링크 참조는 이미 존재하지 않는 노트입니다 (Id = %s)"
+
+msgid "Matches"
+msgstr "들 일치"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "마지막 찾기/바꾸기를 반복"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Find Previous"
+msgstr "이전 찾기"
+
+msgid "Find Next"
+msgstr "다음 찾기"
+
+msgid "Replace"
+msgstr "치환"
+
+msgid "Undo"
+msgstr "취소"
+
+msgid "Handle the Bookmarks List"
+msgstr "북마크 관리"
+
+msgid "Move the Selected Bookmark Up"
+msgstr "선택 북마크를 하나에 이동"
+
+msgid "Move the Selected Bookmark Down"
+msgstr "선택 북마크를 한 단계 아래로 이동"
+
+msgid "Remove the Selected Bookmark"
+msgstr "선택 북마크 삭제"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "북마크 내림차순으로 정렬"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "북마크를 오름차순으로 정렬"
+
+msgid "Choose Storage Type"
+msgstr "저장소 유형을 선택"
+
+msgid "Storage Type"
+msgstr "저장소 유형"
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CherryTree 문서를 암호화 된 7zip 압축 저장 기술을 보거나 편집 할 때 "
+"CherryTree 암호화 된 압축 파일을 임시 폴더에 확장하고 암호화되지 않은 복사본"
+"으로 작업합니다. 그리고 종료시에 암호화되지 않은 복사본이 임시 폴더에서 삭제"
+"됩니다. 그러나 응용 프로그램이나 시스템이 충돌 한 경우에는 암호화되지 않은 문"
+"서가 임시 폴더에 남는 것에 주의하십시오."
+
+msgid "Enter the New Password Twice"
+msgstr "새 암호를 두 번 입력하십시오"
+
+msgid "Autosave Every"
+msgstr "자동저장"
+
+msgid "Minutes"
+msgstr "분 단위"
+
+msgid "The Password Fields Must be Filled."
+msgstr "비밀번호가 입력되어 있지 않습니다."
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "입력 한 두 암호가 일치하지 않습니다."
+
+msgid "Warning"
+msgstr "경고"
+
+msgid "The Current Document was Updated."
+msgstr "현재 문서는 변경되어 있습니다."
+
+msgid "Do you want to Save the Changes?"
+msgstr "변경 사항을 저장 하시겠습니까?"
+
+msgid "Do you want to Execute the Code?"
+msgstr "코드를 실행 하시겠습니까?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "코드를 실행하기 전에 확인 요청"
+
+msgid "Use Internal Terminal"
+msgstr "내부 터미널 사용"
+
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+
+msgid "About CherryTree"
+msgstr "CherryTree 소개"
+
+msgid "Tree Summary Information"
+msgstr "Tree 개요 정보"
+
+msgid "Number of Rich Text Nodes"
+msgstr "서식있는 텍스트 노트의 수"
+
+msgid "Number of Plain Text Nodes"
+msgstr "텍스트 노트의 수"
+
+msgid "Number of Code Nodes"
+msgstr "코드 노트의 수"
+
+msgid "Number of Images"
+msgstr "그림의 숫자"
+
+msgid "Number of LatexBoxes"
+msgstr "Latex 상자의 수"
+
+msgid "Number of Embedded Files"
+msgstr "첨부 파일의 수"
+
+msgid "Number of Tables"
+msgstr "테이블 수"
+
+msgid "Number of CodeBoxes"
+msgstr "코드 상자의 숫자"
+
+msgid "Number of Anchors"
+msgstr "앵커의 수"
+
+msgid "Number of Shared Nodes / Groups"
+msgstr "공유 노트/그룹의 수"
+
+msgid "Preferences File"
+msgstr "설정 파일"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "패널에 시스템 트레이가 표시되어 있습니까?"
+
+msgid "Your system does not support the System Tray"
+msgstr "시스템 트레이를 지원하지 않습니다"
+
+msgid "Bold"
+msgstr "굵게"
+
+msgid "Use Selected Color"
+msgstr "선택 색상을 사용"
+
+msgid "Use Selected Icon"
+msgstr "선택 아이콘을 사용"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "자동 구문 강조"
+
+msgid "Tags for Searching"
+msgstr "검색 용 태그 (공백으로 구분)"
+
+msgid "Exclude from Searches"
+msgstr "검색에서 제외"
+
+msgid "This Node"
+msgstr "노트"
+
+msgid "The Subnodes"
+msgstr "하위 노트"
+
+msgid "Read Only"
+msgstr "읽기 전용"
+
+msgid "Unique Id"
+msgstr "고유 ID"
+
+msgid "Shared Nodes Group"
+msgstr "공유 노트 그룹"
+
+msgid "Choose Existing Tag"
+msgstr "기존의 태그를 선택"
+
+msgid "Tag Name"
+msgstr "태그 이름"
+
+msgid "Pick a Color"
+msgstr "색상을 선택"
+
+msgid "Select Node Icon"
+msgstr "노트 아이콘 선택"
+
+msgid "Involved Nodes"
+msgstr "관련 노트"
+
+msgid "Selected Text Only"
+msgstr "선택 텍스트"
+
+msgid "Selected Node Only"
+msgstr "선택 노트만"
+
+msgid "Selected Node and Subnodes"
+msgstr "선택 노트와 하위 노트"
+
+msgid "All the Tree"
+msgstr "Tree"
+
+msgid "Include Node Name"
+msgstr "노트 이름을 포함"
+
+msgid "Links Tree in Every Page"
+msgstr "각 페이지에 링크 Tree 삽입"
+
+msgid "New Node in New Page"
+msgstr "노트마다 페이지 나누기"
+
+msgid "Single File"
+msgstr "단일 파일"
+
+msgid "Latex Text"
+msgstr "Latex 텍스트"
+
+msgid "Image Size dpi"
+msgstr "이미지 크기 DPI"
+
+msgid "Tutorial"
+msgstr "튜토리얼"
+
+msgid "Reference"
+msgstr "레퍼런스"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX 수학 및 방정식 튜토리얼"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX 수학 심볼 레퍼런스"
+
+msgid "Image Properties"
+msgstr "이미지 속성"
+
+msgid "Width"
+msgstr "폭"
+
+msgid "Height"
+msgstr "높이"
+
+msgid "Type"
+msgstr "종류"
+
+msgid "pixels"
+msgstr "px"
+
+msgid "Size"
+msgstr "크기"
+
+msgid "Show Line Numbers"
+msgstr "행 번호를 표시한다"
+
+msgid "Highlight Matching Brackets"
+msgstr "해당 괄호를 강조"
+
+msgid "Options"
+msgstr "옵션"
+
+msgid "Rows"
+msgstr "행"
+
+msgid "Columns"
+msgstr "열"
+
+msgid "Default Width"
+msgstr "기본 폭"
+
+msgid "Table Size"
+msgstr "표 크기"
+
+msgid "Column Properties"
+msgstr "열 속성"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "경량 테이블 (큰 테이블일때 훨씬 빠름)"
+
+msgid "Import from CSV File"
+msgstr "CSV 파일에서 가져 오기"
+
+msgid "The Tree is Empty!"
+msgstr "Tree에 노트가 없습니다!"
+
+msgid "The Selected Node is Read Only."
+msgstr "선택 노트는 읽기 전용입니다."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "이 기능은 서식있는 텍스트 노트에서만 사용할 수 있습니다."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "이 기능은 자동 구문 강조 노트에서는 사용할 수 없습니다."
+
+msgid "No Table is Selected."
+msgstr "텍스트가 선택되어 있지 않습니다."
+
+msgid "No CodeBox is Selected."
+msgstr "코드 상자가 선택되어 있지 않습니다."
+
+msgid "New Child Node Properties"
+msgstr "새 하위 노트의 속성"
+
+msgid "New Node Properties"
+msgstr "새로운 노트의 속성"
+
+msgid "Node Properties"
+msgstr "노트의 속성"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"서식있는 텍스트에서 변경하면 이 노트의 모든 서식을 잃게됩니다. 정말 실행 하시"
+"겠습니까?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "<b> '%s' 노트를 삭제 하시겠습니까? </b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "<b> 하위 노트도 모두 삭제됩니다! </b>"
+
+msgid "Select the New Parent"
+msgstr "새로운 부모 노트를 선택"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "자신을 부모 노트가 될 수 없습니다!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "현재 부모 노트가 선택되었습니다 이동하지 않습니다!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s 노트의 속성이 변경되었습니다"
+
+msgid "Copy Selection or All"
+msgstr "선택 또는 전체 복사"
+
+msgid "Paste"
+msgstr "붙여넣기"
+
+msgid "Reset"
+msgstr "초기화"
+
+msgid "Downloading"
+msgstr "다운로드합니다"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree 계층적 메모 작성"
+
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTree 표시/숨기기(_C)"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTree 창 표시/숨기기"
+
+msgid "_Exit CherryTree"
+msgstr "CherryTree를 종료(_E)"
+
+msgid "Exit from CherryTree"
+msgstr "CherryTree 종료"
+
+msgid "Index"
+msgstr "목차"
+
+msgid "Rename"
+msgstr "이름 변경"
+
+msgid "PNG Image"
+msgstr "PNG 이미지"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "'%s' 로 내보내기에 실패했습니다"
+
+msgid "Insert/Edit Link"
+msgstr "링크를 삽입/편집"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "폴더 '%s' 잘못된 링크입니다."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "파일 '%s' 잘못된 링크입니다."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "폴더 '%s' 잘못된 링크입니다"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "'%s' 앵커 이름은 찾을 수 없습니다"
+
+msgid "Edit CodeBox"
+msgstr "코드 상자를 편집"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"'%s' 명령을 연결하십시오.\n"
+"설정 대화 상자에서 설정할 수 있습니다."
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"'xterm'패키지를 설치하거나 설정 대화 상자에서 다른 터미널을 구성하십시오."
+
+msgid "Edit Table Properties"
+msgstr "표 속성 수정"
+
+msgid "Insert Anchor"
+msgstr "앵커 삽입"
+
+msgid "Edit Anchor"
+msgstr "앵커 편집"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "읽기 전용 노트에서 첨부 파일을 편집 할 수 없습니다."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "첨부 파일은 자동 업데이트되었습니다:"
+
+msgid "Autosave on Quit"
+msgstr "종료시 자동 저장"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "저장하기 전에 백업 복사본을 만듭니다"
+
+msgid "Number of Backups to Keep"
+msgstr "저장 백업의 최대 수"
+
+msgid "Custom Backup Directory"
+msgstr "백업 디렉토리를 지정한다"
+
+msgid "Saving"
+msgstr "저장"
+
+msgid "Automatically Check for Newer Version"
+msgstr "새로운 버전 확인 자동으로 수행"
+
+msgid "Reload Document From Last Session"
+msgstr "시작시 마지막 세션의 문서를 읽어오기"
+
+msgid "Reload After External Update to CT* File"
+msgstr "CT* 파일에 대한 외부 업데이트 후 다시로드"
+
+msgid "Enable Debug Log"
+msgstr "Debug Log 활성화"
+
+msgid "Debug Log Directory"
+msgstr "Debug Log 디렉토리"
+
+msgid "Enable System Tray Docking"
+msgstr "시스템 트레이 도킹 활성화"
+
+msgid "Start Minimized in the System Tray"
+msgstr "시스템 트레이에 최소화 시작"
+
+msgid "System Tray"
+msgstr "시스템 트레이"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "아직이 세션에서 실행 된 서식은 없습니다."
+
+msgid "Link Name"
+msgstr "링크 이름"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "커서가 단락에 없습니다."
+
+msgid "Pick a Foreground Color"
+msgstr "글자 색을 선택"
+
+msgid "Pick a Background Color"
+msgstr "배경색을 선택"
+
+msgid "Enable Spell Check"
+msgstr "맞춤법 활성화"
+
+msgid "Spell Check Language"
+msgstr "맞춤법 검사 언어"
+
+msgid "Show White Spaces"
+msgstr "공백 문자 표시"
+
+msgid "Highlight Current Line"
+msgstr "현재 행을 강조"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "코드 상자를 자동으로 확장"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "코드 상자에 툴바 표시"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "경량 테이블 셀의 한계값"
+
+msgid "Embedded File Icon Size"
+msgstr "첨부 파일 아이콘의 크기"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "첨부 파일 크기 제한 (MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "첨부 파일 아이콘에 파일 이름을 표시하려면"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "노트당 되돌릴 제한 횟수"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "CamelCase 텍스트를 같은 이름의 노드에 자동 링크"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "트리플 클릭시 전체 단락을 선택함"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Markdown의 자동 치환를 적용하기 (실험)"
+
+msgid "Scale"
+msgstr "배율"
+
+msgid "Italic"
+msgstr "기울임"
+
+msgid "Underline"
+msgstr "밑줄"
+
+msgid "Text Color Foreground"
+msgstr "문자색"
+
+msgid "Text Color Background"
+msgstr "문자배경색"
+
+msgid "Small"
+msgstr "작은글꼴"
+
+msgid "Scalable Tags"
+msgstr "제목 태그 설정"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s'은(는) 유효한 압축형태가 아닙니다"
+
+msgid "Writing to Disk..."
+msgstr "디스크에 기록하고 있습니다 ..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "%s 에 쓰기 권한이 없습니다"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "%s 의 암호를 입력하십시오"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"저장된 문서의 무결성 검사에 실패했습니다. 파일-->다른 이름으로 저장 시도"
+
+msgid "Failed to encrypt the file"
+msgstr "파일을 암호화하지 못했습니다"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"데이터베이스 %s 파일이 손상되어 있습니다. 자세한 내용은 로그 파일 참조."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s 쓰기 실패 - 파일이 없습니다. USB 드라이브 또는 공유 리소스를 다시 연결하세"
+"요."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "%s의 쓰기 실패 - 동기화 프로그램 파일이 차단되어 있지 않습니까?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s 다시열기 실패 - 파일이 없습니다 USB 드라이버 또는 공유 리소스를 다시 연결"
+"하세요."
+
+msgid "Who is the Parent?"
+msgstr "부모 노트 어떤것입니까?"
+
+msgid "The Tree Root"
+msgstr "Tree의 루트"
+
+msgid "The Selected Node"
+msgstr "선택된 노트"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "실행파일 latex 와 dvipng 에 액세스 할 수 없습니다"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "예를 들어 우분투에서 설치할 패키지는 다음과 같습니다:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "예를 들어 Mac OS에서 설치할 패키지는 다음과 같습니다:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "실행파일 latex 에 액세스 할 수 없습니다"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "실행파일인 dvipng 에 액세스 할 수 없습니다"
+
+msgid "Use Different Cherries per Level"
+msgstr "레벨마다 다른 체리 이미지를 사용하기"
+
+msgid "No Icon"
+msgstr "아이콘 없음"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "오른쪽의 부속 아이콘 숨기기"
+
+msgid "Default Text Nodes Icons"
+msgstr "기본 텍스트 노트의 아이콘"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "확장/축소 상태 복원"
+
+msgid "Expand all Nodes"
+msgstr "모든 노트 확장"
+
+msgid "Collapse all Nodes"
+msgstr "모든 노트 축소"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "북마크 노트를 항상 표시"
+
+msgid "Nodes Status at Startup"
+msgstr "시작시 노트의 상태"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Tree 노트 이름표기 폭"
+
+msgid "Display Tree on the Right Side"
+msgstr "Tree를 오른쪽에 표시"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "마우스 클릭으로 텍스트 편집기로 창 이동"
+
+msgid "Expand Node at Mouse Click"
+msgstr "마우스 클릭으로 노트 Tree를 확장"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "최근 사용한 노트를 노트 이름 헤더에 표시"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "백업에서 복원이 필요한 경우:"
+
+msgid "Replace in Current Node"
+msgstr "이 노트를 치환"
+
+msgid "Search in Current Node"
+msgstr "이 노트를 검색"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>'%s'을(를) 찾을 수 없습니다</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "모든 노트를 치환..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "모든 노트를 검색..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "아직이 세션에서는 검색이 실행되고 있지 않습니다."
+
+msgid "Tab Width"
+msgstr "탭의 폭"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "탭 대신 공백을 삽입"
+
+msgid "Use Line Wrapping"
+msgstr "줄 바꿈을 사용"
+
+msgid "Line Wrapping Indentation"
+msgstr "줄 바꿈 들여 쓰기 (px)"
+
+msgid "Enable Automatic Indentation"
+msgstr "자동 들여 쓰기를 사용"
+
+msgid "Scroll Beyond Last Line"
+msgstr "마지막 행을 넘어 스크롤"
+
+msgid "Cursor Blinking"
+msgstr "커서 깜박임"
+
+msgid "On"
+msgstr "켜기"
+
+msgid "Off"
+msgstr "끄기"
+
+msgid "Text Margin: Left"
+msgstr "텍스트 여백: 왼쪽"
+
+msgid "Right"
+msgstr "오른쪽"
+
+msgid "Vertical Space Around Lines"
+msgstr "행의 상하 여백 (px)"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "줄 바꿈 행의 상하 여백"
+
+msgid "Timestamp Format"
+msgstr "날짜 형식"
+
+msgid "Horizontal Rule"
+msgstr "구분선"
+
+msgid "Chars to Select at Double Click"
+msgstr "더블 클릭 선택에서 단어의 일부로 취급 문자"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "툴바 아이콘은 이미 최대 크기입니다."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "툴바 아이콘은 이미 최소 크기입니다."
+
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "경고 : 페이지에 맞게 하나 이상의 이미지가 축소되었습니다!"
+
+msgid "Internal Terminal Shell"
+msgstr "내부 터미널 사용"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "노트/코드 상자의 종류별 명령"
+
+msgid "Terminal Command"
+msgstr "터미널 명령"
+
+msgid "Code Execution"
+msgstr "코드의 실행"
+
+msgid "Remove from list"
+msgstr "목록에서 제거"
 
 msgid "_File"
 msgstr "파일(_F)"
@@ -93,9 +1513,6 @@ msgstr "설정(_P)"
 
 msgid "_Recent Documents"
 msgstr "최근 사용한 파일(_R)"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "최근 사용한 CherryTree 문서 열기"
 
 msgid "C_hange Case"
 msgstr "대/소문자 변환(_H)"
@@ -178,9 +1595,6 @@ msgstr "인쇄...(_R)"
 msgid "Print"
 msgstr "인쇄"
 
-msgid "Preferences"
-msgstr "설정"
-
 msgid "_Import Preferences..."
 msgstr "설정 불러오기...(_I)"
 
@@ -196,20 +1610,8 @@ msgstr "설정 내보내기"
 msgid "Tree In_fo"
 msgstr "Tree의 정보(_F)"
 
-msgid "Tree Summary Information"
-msgstr "Tree 개요 정보"
-
-msgid "_Quit"
-msgstr "닫기(_Q)"
-
-msgid "Quit the Application"
-msgstr "응용 프로그램 닫기"
-
 msgid "E_xit CherryTree"
 msgstr "CherryTree를 종료(_X)"
-
-msgid "Exit from CherryTree"
-msgstr "CherryTree 종료"
 
 msgid "Edit/Insert"
 msgstr "편집/삽입"
@@ -247,9 +1649,6 @@ msgstr "표 삽입"
 msgid "Insert _CodeBox..."
 msgstr "코드상자 삽입...(_C)"
 
-msgid "Insert a CodeBox"
-msgstr "코드상자 삽입"
-
 msgid "Insert _File..."
 msgstr "파일 삽입...(_F)"
 
@@ -268,11 +1667,11 @@ msgstr "앵커 삽입...(_A)"
 msgid "Insert an Anchor"
 msgstr "앵커 삽입"
 
-msgid "Insert T_OC..."
-msgstr "목차 삽입...(_O)"
+msgid "Insert T_OC and Headers Collapsors..."
+msgstr "목차 및 제목 축소판 삽입...(_O)"
 
-msgid "Insert Table of Contents"
-msgstr "목차 삽입"
+msgid "Insert Table of Contents and Headers Collapsors/Expanders"
+msgstr "목차 및 제목 축소/확장판을 삽입"
 
 msgid "Insert Timestam_p"
 msgstr "날짜시간 삽입(_P)"
@@ -553,9 +1952,6 @@ msgstr "코드 상자의 높이를 축소"
 msgid "Decrease the Height of the CodeBox"
 msgstr "코드 상자의 높이를 축소"
 
-msgid "Format"
-msgstr "서식"
-
 msgid "Format Clo_ne"
 msgstr "서식 복제(_N)"
 
@@ -763,9 +2159,6 @@ msgstr "라인 또는 선택한 코드 실행(_X)"
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "현재 줄 또는 선택한 텍스트에서 코드 실행"
 
-msgid "Tree"
-msgstr "Tree"
-
 msgid "Go _Back"
 msgstr "이전 열린 노트로 이동(_B)"
 
@@ -861,17 +2254,14 @@ msgstr "선택한 노트의 구문 강조를 하위에 모든 노트로 적용"
 msgid "_Handle Bookmarks..."
 msgstr "북마크 관리...(_H)"
 
-msgid "Handle the Bookmarks List"
-msgstr "북마크 관리"
-
 msgid "Add to Boo_kmarks"
 msgstr "북마크 추가(_K)"
 
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "현재 노트를 북마크 목록에 추가"
 
-msgid "_Remove from Bookmarks"
-msgstr "북마크 삭제(_R)"
+msgid "Remove from Boo_kmarks"
+msgstr "북마크 삭제(_K)"
 
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr "현재 노트를 북마크 목록에서 삭제"
@@ -951,6 +2341,18 @@ msgstr "선택된 노트와 하위 노트 모두 삭제"
 msgid "Find/Replace"
 msgstr "찾기/바꾸기"
 
+msgid "_Quick Node Selection..."
+msgstr "빠른 노트 선택(_Q)"
+
+msgid "Quick Node Selection"
+msgstr "빠른 노트 선택"
+
+msgid "Find in _Nodes Names and Tags..."
+msgstr "노트 이름 및 태그를 검색...(_N)"
+
+msgid "Find in Nodes Names and Tags"
+msgstr "노트 이름 및 태그를 검색"
+
 msgid "_Find in Node Content..."
 msgstr "이 노트의 내용 검색...(_F)"
 
@@ -961,13 +2363,7 @@ msgid "Find _in Multiple Nodes..."
 msgstr "모든 노트를 검색...(_I)"
 
 msgid "Find in Multiple Nodes"
-msgstr "모든 노트를 검색(_S)"
-
-msgid "Find in _Nodes Names and Tags..."
-msgstr "노트 이름 및 태그를 검색...(_N)"
-
-msgid "Find in Nodes Names and Tags"
-msgstr "노트 이름 및 태그를 검색"
+msgstr "모든 노트를 검색"
 
 # 전체에서 검색하는 경우 항상 첫 번째 일치만을 검색하기 때문에 "다음 찾기"는하지 않았다
 msgid "Find _Again"
@@ -1035,7 +2431,7 @@ msgid "Toggle Focus Between Terminal and Text"
 msgstr "터미널/편집기 교대로 전환"
 
 msgid "Show/Hide _Menubar"
-msgstr "메뉴바 표시/숨기기(_B)"
+msgstr "메뉴바 표시/숨기기(_M)"
 
 msgid "Toggle Show/Hide Menubar"
 msgstr "메뉴바 표시/숨기기"
@@ -1047,13 +2443,13 @@ msgid "Toggle Show/Hide Toolbar"
 msgstr "툴바 표시/숨기기"
 
 msgid "Show/Hide _Statusbar"
-msgstr "상태표시줄 표시/숨기기(_B)"
+msgstr "상태표시줄 표시/숨기기(_S)"
 
 msgid "Toggle Show/Hide Statusbar"
 msgstr "상태표시줄 표시/숨기기"
 
 msgid "Show/Hide _Lines Node Parent to Children"
-msgstr "Tree 탐색기 표시/숨기기(_T)"
+msgstr "Tree 탐색기 표시/숨기기(_L)"
 
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
 msgstr "Tree 표시/숨기기"
@@ -1280,9 +2676,6 @@ msgstr "CherryTree의 온라인 매뉴얼"
 msgid "_About"
 msgstr "CherryTree 소개(_A)"
 
-msgid "About CherryTree"
-msgstr "CherryTree 소개"
-
 msgid "_Open Preferences Directory"
 msgstr "설정 디렉토리 열기(_O)"
 
@@ -1418,12 +2811,6 @@ msgstr "링크 해제(_I)"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "이미지에 연결된 링크를 해제"
 
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTree 표시/숨기기(_C)"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "CherryTree 창 표시/숨기기"
-
 msgid "Edit the Underlying Link"
 msgstr "연결 링크 편집"
 
@@ -1448,749 +2835,6 @@ msgstr "링크 삭제(_D)"
 msgid "Delete the Selected Link"
 msgstr "선택 링크 삭제"
 
-msgid "Copy Selection or All"
-msgstr "선택 또는 전체 복사"
-
-msgid "Paste"
-msgstr "붙여넣기"
-
-msgid "Reset"
-msgstr "초기화"
-
-msgid "Rename"
-msgstr "이름 변경"
-
-msgid "PNG Image"
-msgstr "PNG 이미지"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "'%s' 로 내보내기에 실패했습니다"
-
-msgid "Insert/Edit Link"
-msgstr "링크를 삽입/편집"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "폴더 '%s' 잘못된 링크입니다."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "파일 '%s' 잘못된 링크입니다."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "폴더 '%s' 잘못된 링크입니다"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "링크 참조는 이미 존재하지 않는 노트입니다 (Id = %s)"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "'%s' 앵커 이름은 찾을 수 없습니다"
-
-msgid "Edit CodeBox"
-msgstr "코드 상자를 편집"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"'%s' 명령을 연결하십시오.\n"
-"설정 대화 상자에서 설정할 수 있습니다."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"'xterm'패키지를 설치하거나 설정 대화 상자에서 다른 터미널을 구성하십시오."
-
-msgid "Edit Table Properties"
-msgstr "표 속성 수정"
-
-msgid "CSV File"
-msgstr "CSV 파일"
-
-msgid "Insert Anchor"
-msgstr "앵커 삽입"
-
-msgid "Edit Anchor"
-msgstr "앵커 편집"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "읽기 전용 노트에서 첨부 파일을 편집 할 수 없습니다."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "첨부 파일은 자동 업데이트되었습니다:"
-
-msgid "Change Selected"
-msgstr "선택 변경"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "키보드 단축키 '%s'는 이미 사용하고 있습니다."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "현재 연관된 작업 '%s'입니다"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "단축키 할당을 변경 하시겠습니까?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "키보드 단축키 편집"
-
-msgid "No Keyboard Shortcut"
-msgstr "바로 가기 없음"
-
-msgid "Writing to Disk..."
-msgstr "디스크에 기록하고 있습니다 ..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "%s 에 쓰기 권한이 없습니다"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "%s 의 암호를 입력하십시오"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"저장된 문서의 무결성 검사에 실패했습니다. 파일-->다른 이름으로 저장 시도"
-
-msgid "Failed to encrypt the file"
-msgstr "파일을 암호화하지 못했습니다"
-
-msgid "Search for"
-msgstr "검색할 단어"
-
-msgid "Replace with"
-msgstr "변경할 단어"
-
-msgid "Match Case"
-msgstr "대/소문자를 구별"
-
-msgid "Regular Expression"
-msgstr "정규 표현식"
-
-msgid "Online Manual"
-msgstr "온라인 설명서"
-
-msgid "Accent Insensitive"
-msgstr "액센트 구별 안함"
-
-msgid "Override Exclusions"
-msgstr "검색 제외"
-
-msgid "Whole Word"
-msgstr "단어와 일치"
-
-msgid "Start Word"
-msgstr "단어의 시작과 일치"
-
-msgid "Forward"
-msgstr "앞으로 검색"
-
-msgid "Backward"
-msgstr "뒤로 검색"
-
-msgid "All, List Matches"
-msgstr "모든 검색 결과를 나열"
-
-msgid "First From Selection"
-msgstr "현재 위치에서 첫 번째 일치를 표시"
-
-msgid "First in All Range"
-msgstr "모든 범위에서 첫 번째 일치를 표시"
-
-msgid "Node Created After"
-msgstr "만든 날짜가 더 새로운 노트"
-
-msgid "Node Created Before"
-msgstr "만든 날짜가 그 이전 노트"
-
-msgid "Node Modified After"
-msgstr "수정한 날짜가 더 새로운 노트"
-
-msgid "Node Modified Before"
-msgstr "수정한 날짜가 그 이전 노트"
-
-msgid "Time filter"
-msgstr "날짜로 검색"
-
-msgid "Node Content"
-msgstr "줄 내용"
-
-msgid "Node Name and Tags"
-msgstr "노트 이름 및 태그를 검색"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "선택 노트와 하위 노트"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "찾기/바꾸기 반복 작업 대화 상자를 표시하기"
-
-msgid "Search options"
-msgstr "검색"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"노트 속성의 제외 설정으로 인해 하나 이상의 노트를 건너뛰었습니다.\n"
-"모든 제외 항목을 지우려면 다음 메뉴를 사용하십시오.\n"
-"검색 -> 검색에서 모든 제외 항목 지우기"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "숨기기 ( '%s'에서 복원)"
-
-msgid "Node Name"
-msgstr "노트 이름"
-
-msgid "Line"
-msgstr "행"
-
-msgid "Line Content"
-msgstr "줄 내용"
-
-msgid "Matches"
-msgstr "들 일치"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "마지막 찾기/바꾸기를 반복"
-
-msgid "Close"
-msgstr "닫기"
-
-msgid "Find Previous"
-msgstr "이전 찾기"
-
-msgid "Find Next"
-msgstr "다음 찾기"
-
-msgid "Replace"
-msgstr "치환"
-
-msgid "Undo"
-msgstr "취소"
-
-msgid "Downloading"
-msgstr "다운로드합니다"
-
-msgid "Remove from list"
-msgstr "목록에서 제거"
-
-msgid "The new parent can't be one of his children!"
-msgstr "자신의 하위 노트를 부모 노트로 할 수 없습니다!"
-
-msgid "Light Background, Dark Text"
-msgstr "라이트 (밝은 배경과 어두운 글자 색)"
-
-msgid "Dark Background, Light Text"
-msgstr "다크 (어두운 배경과 밝은 글자 색)"
-
-msgid "Custom Background"
-msgstr "사용자 설정 배경색"
-
-msgid "Text"
-msgstr "텍스트"
-
-msgid "Selection Background"
-msgstr "선택 배경색"
-
-msgid "Tree Explorer"
-msgstr "Tree 탐색기"
-
-msgid "Rich Text"
-msgstr "형식이 있는 텍스트"
-
-msgid "Plain Text"
-msgstr "텍스트"
-
-msgid "Table"
-msgstr "표"
-
-msgid "Code"
-msgstr "코드"
-
-msgid "Style Schemes"
-msgstr "스타일 패턴"
-
-msgid "Text Foreground"
-msgstr "글자 색"
-
-msgid "Text Background"
-msgstr "배경색"
-
-msgid "Selection Foreground"
-msgstr "선택 문자색"
-
-msgid "Cursor"
-msgstr "커서"
-
-msgid "Current Line Background"
-msgstr "현재 행의 배경색"
-
-msgid "Line Numbers Foreground"
-msgstr "행 번호의 글자 색"
-
-msgid "Line Numbers Background"
-msgstr "행 번호의 배경색"
-
-msgid "Style Scheme Editor"
-msgstr "스타일 패턴 편집"
-
-msgid "Set Dark Theme Icons"
-msgstr "어두운 테마 아이콘 설정"
-
-msgid "Set Light Theme Icons"
-msgstr "밝은 테마 아이콘 설정"
-
-msgid "Set Default Icons"
-msgstr "기본 아이콘 설정"
-
-msgid "Icon Theme"
-msgstr "아이콘 테마"
-
-msgid "Move the Selected Bookmark Up"
-msgstr "선택 북마크를 하나에 이동"
-
-msgid "Move the Selected Bookmark Down"
-msgstr "선택 북마크를 한 단계 아래로 이동"
-
-msgid "Remove the Selected Bookmark"
-msgstr "선택 북마크 삭제"
-
-msgid "Sort the Bookmarks Descending"
-msgstr "북마크 내림차순으로 정렬"
-
-msgid "Sort the Bookmarks Ascending"
-msgstr "북마크를 오름차순으로 정렬"
-
-msgid "Choose Storage Type"
-msgstr "저장소 유형을 선택"
-
-msgid "Storage Type"
-msgstr "저장소 유형"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CherryTree 문서를 암호화 된 7zip 압축 저장 기술을 보거나 편집 할 때 "
-"CherryTree 암호화 된 압축 파일을 임시 폴더에 확장하고 암호화되지 않은 복사본"
-"으로 작업합니다. 그리고 종료시에 암호화되지 않은 복사본이 임시 폴더에서 삭제"
-"됩니다. 그러나 응용 프로그램이나 시스템이 충돌 한 경우에는 암호화되지 않은 문"
-"서가 임시 폴더에 남는 것에 주의하십시오."
-
-msgid "Enter the New Password Twice"
-msgstr "새 암호를 두 번 입력하십시오"
-
-msgid "Autosave Every"
-msgstr "자동저장"
-
-msgid "Minutes"
-msgstr "분 단위"
-
-msgid "The Password Fields Must be Filled."
-msgstr "비밀번호가 입력되어 있지 않습니다."
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "입력 한 두 암호가 일치하지 않습니다."
-
-msgid "Warning"
-msgstr "경고"
-
-msgid "The Current Document was Updated."
-msgstr "현재 문서는 변경되어 있습니다."
-
-msgid "Do you want to Save the Changes?"
-msgstr "변경 사항을 저장 하시겠습니까?"
-
-msgid "Do you want to Execute the Code?"
-msgstr "코드를 실행 하시겠습니까?"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "코드를 실행하기 전에 확인 요청"
-
-msgid "Use Internal Terminal"
-msgstr "내부 터미널 사용"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Armenian"
-msgstr "Armenian"
-
-msgid "Bulgarian"
-msgstr "Bulgarian"
-
-msgid "Chinese Simplified"
-msgstr "Chinese Simplified"
-
-msgid "Chinese Traditional"
-msgstr "Chinese Traditional"
-
-msgid "Croatian"
-msgstr "Croatian"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "Dutch"
-msgstr "Dutch"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "French"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Hungarian"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japanese"
-
-msgid "Kazakh"
-msgstr "Kazakh"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakh"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Portuguese Brazil"
-msgstr "Portuguese Brazil"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Slovenian"
-msgstr "Slovenian"
-
-msgid "Spanish"
-msgstr "Spanish"
-
-msgid "Swedish"
-msgstr "Swedish"
-
-msgid "Turkish"
-msgstr "Turkish"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Number of Rich Text Nodes"
-msgstr "서식있는 텍스트 노트의 수"
-
-msgid "Number of Plain Text Nodes"
-msgstr "텍스트 노트의 수"
-
-msgid "Number of Code Nodes"
-msgstr "코드 노트의 수"
-
-msgid "Number of Images"
-msgstr "그림의 숫자"
-
-msgid "Number of LatexBoxes"
-msgstr "Latex 상자의 수"
-
-msgid "Number of Embedded Files"
-msgstr "첨부 파일의 수"
-
-msgid "Number of Tables"
-msgstr "테이블 수"
-
-msgid "Number of CodeBoxes"
-msgstr "코드 상자의 숫자"
-
-msgid "Number of Anchors"
-msgstr "앵커의 수"
-
-msgid "Number of Shared Nodes / Groups"
-msgstr "공유 노트/그룹의 수"
-
-msgid "Latex Text"
-msgstr "Latex 텍스트"
-
-msgid "Image Size dpi"
-msgstr "이미지 크기 DPI"
-
-msgid "Tutorial"
-msgstr "튜토리얼"
-
-msgid "Reference"
-msgstr "레퍼런스"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX 수학 및 방정식 튜토리얼"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX 수학 심볼 레퍼런스"
-
-msgid "Image Properties"
-msgstr "이미지 속성"
-
-msgid "Width"
-msgstr "폭"
-
-msgid "Height"
-msgstr "높이"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "자동 구문 강조"
-
-msgid "Type"
-msgstr "종류"
-
-msgid "pixels"
-msgstr "px"
-
-msgid "Size"
-msgstr "크기"
-
-msgid "Show Line Numbers"
-msgstr "행 번호를 표시한다"
-
-msgid "Highlight Matching Brackets"
-msgstr "해당 괄호를 강조"
-
-msgid "Options"
-msgstr "옵션"
-
-msgid "Rows"
-msgstr "행"
-
-msgid "Columns"
-msgstr "열"
-
-msgid "Default Width"
-msgstr "기본 폭"
-
-msgid "Table Size"
-msgstr "표 크기"
-
-msgid "Column Properties"
-msgstr "열 속성"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "경량 테이블 (큰 테이블일때 훨씬 빠름)"
-
-msgid "Import from CSV File"
-msgstr "CSV 파일에서 가져 오기"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "실행파일 latex 와 dvipng 에 액세스 할 수 없습니다"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "예를 들어 우분투에서 설치할 패키지는 다음과 같습니다:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "예를 들어 Mac OS에서 설치할 패키지는 다음과 같습니다:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "실행파일 latex 에 액세스 할 수 없습니다"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "실행파일인 dvipng 에 액세스 할 수 없습니다"
-
-msgid "Show White Spaces"
-msgstr "공백 문자 표시"
-
-msgid "Highlight Current Line"
-msgstr "현재 행을 강조"
-
-msgid "Text Editor"
-msgstr "텍스트 편집기"
-
-msgid "Internal Terminal Shell"
-msgstr "내부 터미널 사용"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "노트/코드 상자의 종류별 명령"
-
-msgid "Terminal Command"
-msgstr "터미널 명령"
-
-msgid "Code Execution"
-msgstr "코드의 실행"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "툴바 아이콘은 이미 최대 크기입니다."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "툴바 아이콘은 이미 최소 크기입니다."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "변경 사항은 CherryTree를 재 실행한 후에 적용됩니다."
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr ""
-"데이터베이스 %s 파일이 손상되어 있습니다. 자세한 내용은 로그 파일 참조."
-
-msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes."
-msgstr ""
-"백업 파일은 기본적으로 동일한 이름과 뒤에 물결표(~, ~~, ~~~)가 붙은 손상된 문"
-"서의 동일한 폴더에 3개 있습니다 먼저 하나의 물결표로 백업을 시도하십시오 파일"
-"을 다른 디렉토리에 복사하고 후행 물결표를 제거하고 cherrytree로 엽니다 그래"
-"도 실패하면 물결표 2개가 있는 것을 시도하고 여전히 실패하면 물결표 3개가 있"
-"는 것을 시도하십시오."
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s의 쓰기 실패 - 파일이 존재하지 않습니다. USB 드라이버/공유 리소스에 다시 연"
-"결하십시오!"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "%s의 쓰기 실패 - 동기화 프로그램 파일이 차단되어 있지 않습니까?"
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s의 다시열기 실패 - 파일이 없습니다 USB 드라이버 또는 공유 리소스에 다시 연"
-"결하십시오!"
-
-msgid "Tab Width"
-msgstr "탭의 폭"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "탭 대신 공백을 삽입"
-
-msgid "Use Line Wrapping"
-msgstr "줄 바꿈을 사용"
-
-msgid "Line Wrapping Indentation"
-msgstr "줄 바꿈 들여 쓰기 (px)"
-
-msgid "Enable Automatic Indentation"
-msgstr "자동 들여 쓰기를 사용"
-
-msgid "Scroll Beyond Last Line"
-msgstr "마지막 행을 넘어 스크롤"
-
-msgid "Cursor Blinking"
-msgstr "커서 깜박임"
-
-msgid "System Default"
-msgstr "시스템 기본값"
-
-msgid "On"
-msgstr "켜기"
-
-msgid "Off"
-msgstr "끄기"
-
-msgid "Text Margin: Left"
-msgstr "텍스트 여백: 왼쪽"
-
-msgid "Right"
-msgstr "오른쪽"
-
-msgid "Vertical Space Around Lines"
-msgstr "행의 상하 여백 (px)"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "줄 바꿈 행의 상하 여백"
-
-msgid "Timestamp Format"
-msgstr "날짜 형식"
-
-msgid "Horizontal Rule"
-msgstr "구분선"
-
-msgid "Chars to Select at Double Click"
-msgstr "더블 클릭 선택에서 단어의 일부로 취급 문자"
-
-msgid "Miscellaneous"
-msgstr "기타 설정"
-
 msgid "Remove Color"
 msgstr "Color 제거"
 
@@ -2214,634 +2858,6 @@ msgstr "다른 이름으로 저장"
 
 msgid "Save To Folder"
 msgstr "폴더로 저장하기"
-
-msgid "Use Different Cherries per Level"
-msgstr "레벨마다 다른 체리 이미지를 사용하기"
-
-msgid "Use Selected Icon"
-msgstr "선택 아이콘을 사용"
-
-msgid "No Icon"
-msgstr "아이콘 없음"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "오른쪽의 부속 아이콘 숨기기"
-
-msgid "Default Text Nodes Icons"
-msgstr "기본 텍스트 노트의 아이콘"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "확장/축소 상태 복원"
-
-msgid "Expand all Nodes"
-msgstr "모든 노트 확장"
-
-msgid "Collapse all Nodes"
-msgstr "모든 노트 축소"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "북마크 노트를 항상 표시"
-
-msgid "Nodes Status at Startup"
-msgstr "시작시 노트의 상태"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Tree 노트 이름표기 폭"
-
-msgid "Display Tree on the Right Side"
-msgstr "Tree를 오른쪽에 표시"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "마우스 클릭으로 텍스트 편집기로 창 이동"
-
-msgid "Expand Node at Mouse Click"
-msgstr "마우스 클릭으로 노트 Tree를 확장"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "최근 사용한 노트를 노트 이름 헤더에 표시"
-
-msgid "Select Node Icon"
-msgstr "노트 아이콘 선택"
-
-msgid "No Node is Selected"
-msgstr "노트가 선택되어 있지 않습니다"
-
-msgid "The Tree is Empty!"
-msgstr "Tree에 노트가 없습니다!"
-
-msgid "The Selected Node is Read Only."
-msgstr "선택 노트는 읽기 전용입니다."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "이 기능은 서식있는 텍스트 노트에서만 사용할 수 있습니다."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "이 기능은 자동 구문 강조 노트에서는 사용할 수 없습니다."
-
-msgid "No Text is Selected."
-msgstr "텍스트가 선택되어 있지 않습니다."
-
-msgid "No Table is Selected."
-msgstr "텍스트가 선택되어 있지 않습니다."
-
-msgid "No CodeBox is Selected."
-msgstr "코드 상자가 선택되어 있지 않습니다."
-
-msgid "New Child Node Properties"
-msgstr "새 하위 노트의 속성"
-
-msgid "New Node Properties"
-msgstr "새로운 노트의 속성"
-
-msgid "Node Properties"
-msgstr "노트의 속성"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"서식있는 텍스트에서 변경하면 이 노트의 모든 서식을 잃게됩니다. 정말 실행 하시"
-"겠습니까?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "<b> '%s' 노트를 삭제 하시겠습니까? </b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> 하위 노트도 모두 삭제됩니다! </b>"
-
-msgid "Select the New Parent"
-msgstr "새로운 부모 노트를 선택"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "자신을 부모 노트가 될 수 없습니다!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "현재 부모 노트가 선택되었습니다 이동하지 않습니다!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s 노트의 속성이 변경되었습니다"
-
-msgid "To WebSite"
-msgstr "웹사이트"
-
-msgid "To File"
-msgstr "파일"
-
-msgid "To Folder"
-msgstr "폴더"
-
-msgid "To Node"
-msgstr "노트"
-
-msgid "Anchor Name (optional)"
-msgstr "앵커 이름 (옵션)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "선택 노트에 앵커가 없습니다."
-
-msgid "Choose Existing Anchor"
-msgstr "기존의 앵커 선택"
-
-msgid "Anchor Name"
-msgstr "앵커 이름"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "'%s'를 찾을 수 없습니다"
-
-msgid "CherryTree File"
-msgstr "CherryTree 파일"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"폴더 '%s'이(가) 이미 '%s'에 있습니다.\n"
-"<b>제거하시겠습니까?</b>"
-
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"파일 '%s'이(가) 이미 '%s'에 있습니다.\n"
-"<b>제거하시겠습니까?</b>"
-
-msgid "Preferences File"
-msgstr "설정 파일"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "패널에 시스템 트레이가 표시되어 있습니까?"
-
-msgid "Your system does not support the System Tray"
-msgstr "시스템 트레이를 지원하지 않습니다"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree 계층적 메모 작성"
-
-msgid "_Exit CherryTree"
-msgstr "CherryTree를 종료(_E)"
-
-msgid "Show Menubar:"
-msgstr "메뉴바 표시:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "%s 경로가 존재하지 않습니다"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\"은(는) CherryTree 문서가 아닙니다"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"CherryTree 문서경로 구문분석 오류:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "'%s' 노트 이름을 찾을 수 없습니다."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "임시 파일이 생성되고 외부 응용 프로그램에서 열렸습니다."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "CherryTree를 종료하기 전에 외부 응용프로그램을 종료하십시오."
-
-msgid "Did you Quit the External Applications?"
-msgstr "외부 응용프로그램을 종료했습니까?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "CT* 파일이 외부 업데이트된 후 문서를 다시 읽어 왔습니다."
-
-msgid "Autosave on Quit"
-msgstr "종료시 자동 저장"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "저장하기 전에 백업 복사본을 만듭니다"
-
-msgid "Number of Backups to Keep"
-msgstr "저장 백업의 최대 수"
-
-msgid "Custom Backup Directory"
-msgstr "백업 디렉토리를 지정한다"
-
-msgid "Saving"
-msgstr "저장"
-
-msgid "Automatically Check for Newer Version"
-msgstr "새로운 버전 확인 자동으로 수행"
-
-msgid "Reload Document From Last Session"
-msgstr "시작시 마지막 세션의 문서를 읽어오기"
-
-msgid "Reload After External Update to CT* File"
-msgstr "CT* 파일에 대한 외부 업데이트 후 다시로드"
-
-msgid "Enable Debug Log"
-msgstr "Debug Log 활성화"
-
-msgid "Debug Log Directory"
-msgstr "Debug Log 디렉토리"
-
-msgid "Enable System Tray Docking"
-msgstr "시스템 트레이 도킹 활성화"
-
-msgid "Start Minimized in the System Tray"
-msgstr "시스템 트레이에 최소화 시작"
-
-msgid "System Tray"
-msgstr "시스템 트레이"
-
-msgid "Language"
-msgstr "언어"
-
-msgid "_Hide"
-msgstr "숨기기(_H)"
-
-msgid "Hide the Window"
-msgstr "창 숨기기"
-
-msgid "Node Type"
-msgstr "노트 유형"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "태그"
-
-msgid "Spell Check"
-msgstr "맞춤법 검사"
-
-msgid "Word Count"
-msgstr "단어 개수"
-
-msgid "Date Created"
-msgstr "만든 날짜"
-
-msgid "Date Modified"
-msgstr "수정한 날짜"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"이 세션에서 이전 노트의 복사가 수행되지 않았거나 소스 트리를 더 이상 사용할 "
-"수 없습니다."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "소스 트리를 더 이상 사용할 수 없습니다."
-
-msgid "English"
-msgstr "English"
-
-msgid "Text and Code"
-msgstr "텍스트와 코드"
-
-msgid "Plain Text and Code"
-msgstr "형식이 있는 텍스트와 코드"
-
-msgid "Special Characters"
-msgstr "특수 문자"
-
-msgid "Theme"
-msgstr "테마"
-
-msgid "Interface"
-msgstr "인터페이스"
-
-msgid "Links"
-msgstr "링크"
-
-msgid "Toolbar"
-msgstr "툴바"
-
-msgid "Keyboard Shortcuts"
-msgstr "단축키"
-
-msgid "Monospace"
-msgstr "글자폭"
-
-msgid "Code Font"
-msgstr "코드 글꼴"
-
-msgid "Terminal Font"
-msgstr "터미널 글꼴"
-
-msgid "Tree Font"
-msgstr "Tree 글꼴"
-
-msgid "Fonts"
-msgstr "글꼴"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "상태표시줄에 단어 개수를 표시"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "창 제목에 문서 디렉토리 표시"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "노트 이름 헤더에 전체 경로보기"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "메뉴바에 북마크를 별도 표시하기"
-
-msgid "Menubar in Titlebar"
-msgstr "메뉴바를 제목 표시줄에 배치"
-
-msgid "Toolbar Icons Size"
-msgstr "툴바의 아이콘 크기조절"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "스크롤바 슬라이더의 최소 크기 (0 = 기본값)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "스크롤바 오버레이 텍스트 편집기"
-
-msgid "Yes"
-msgstr "예"
-
-msgid "No"
-msgstr "아니오"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "마우스 오버로 툴팁 표시"
-
-msgid "Menus"
-msgstr "메뉴"
-
-msgid "Max Search Results per Page"
-msgstr "페이지당 검색결과 최대 표시 수"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "사용자 지정 웹 링크 클릭 동작 활성화"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "사용자 지정 파일 링크 클릭 동작 활성화"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "사용자 지정 폴더 링크 클릭 동작 활성화"
-
-msgid "Custom Actions"
-msgstr "사용자 설정 동작"
-
-msgid "Colors"
-msgstr "색"
-
-msgid "Underline Links"
-msgstr "링크 밑줄 표시"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "파일 및 폴더에 상대 경로 사용"
-
-msgid "Anchor Size"
-msgstr "앵커 이미지의 크기"
-
-msgid "Replace in Current Node"
-msgstr "이 노트를 치환"
-
-msgid "Search in Current Node"
-msgstr "이 노트를 검색"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>'%s'을(를) 찾을 수 없습니다</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "모든 노트를 치환..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "모든 노트를 검색..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "아직이 세션에서는 검색이 실행되고 있지 않습니다."
-
-msgid "PDF File"
-msgstr "PDF 파일"
-
-msgid "Plain Text Document"
-msgstr "텍스트 형식 (확장자 지정)"
-
-msgid "Who is the Parent?"
-msgstr "부모 노트 어떤것입니까?"
-
-msgid "The Tree Root"
-msgstr "Tree의 루트"
-
-msgid "The Selected Node"
-msgstr "선택된 노트"
-
-msgid "Enable Spell Check"
-msgstr "맞춤법 활성화"
-
-msgid "Spell Check Language"
-msgstr "맞춤법 검사 언어"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "코드 상자를 자동으로 확장"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "코드 상자에 툴바 표시"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "경량 테이블 셀의 한계값"
-
-msgid "Embedded File Icon Size"
-msgstr "첨부 파일 아이콘의 크기"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "첨부 파일 크기 제한 (MB)"
-
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "첨부 파일 아이콘에 파일 이름을 표시하려면"
-
-msgid "Limit of Undoable Steps Per Node"
-msgstr "노트당 되돌릴 제한 횟수"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "CamelCase 텍스트를 같은 이름의 노드에 자동 링크"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "트리플 클릭시 전체 단락을 선택함"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Markdown의 자동 치환를 적용하기 (실험)"
-
-msgid "Scale"
-msgstr "배율"
-
-msgid "Bold"
-msgstr "굵게"
-
-msgid "Italic"
-msgstr "기울임"
-
-msgid "Underline"
-msgstr "밑줄"
-
-msgid "Text Color Foreground"
-msgstr "문자색"
-
-msgid "Text Color Background"
-msgstr "문자배경색"
-
-msgid "Small"
-msgstr "작은글꼴"
-
-msgid "Scalable Tags"
-msgstr "제목 태그 설정"
-
-msgid "Execute Code"
-msgstr "Codebox code 실행"
-
-msgid "Change CodeBox Properties"
-msgstr "코드 상자의 속성을 변경"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "아직이 세션에서 실행 된 서식은 없습니다."
-
-msgid "Link Name"
-msgstr "링크 이름"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "커서가 단락에 없습니다."
-
-msgid "Pick a Foreground Color"
-msgstr "글자 색을 선택"
-
-msgid "Pick a Background Color"
-msgstr "배경색을 선택"
-
-msgid "Chars for Bulleted List"
-msgstr "순서없는 목록 문자"
-
-msgid "Chars for Todo List"
-msgstr "ToDo리스트 캐릭터"
-
-msgid "Chars for Table Of Content"
-msgstr "목차에 문자"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "스마트 더블 쿼트 문자"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "스마트 싱글 쿼트 문자"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "둥근 따옴표 자동 치환를 사용"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "기호의 자동 치환를 사용"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "설정된 기호를 자동으로 치환"
-
-msgid "Only at the Start of the Line"
-msgstr "글머리에만"
-
-msgid "Use Selected Color"
-msgstr "선택 색상을 사용"
-
-msgid "Tags for Searching"
-msgstr "검색 용 태그 (공백으로 구분)"
-
-msgid "Exclude from Searches"
-msgstr "검색에서 제외"
-
-msgid "This Node"
-msgstr "노트"
-
-msgid "The Subnodes"
-msgstr "하위 노트"
-
-msgid "Read Only"
-msgstr "읽기 전용"
-
-msgid "Unique Id"
-msgstr "고유 ID"
-
-msgid "Shared Nodes Group"
-msgstr "공유 노트 그룹"
-
-msgid "Choose Existing Tag"
-msgstr "기존의 태그를 선택"
-
-msgid "Tag Name"
-msgstr "태그 이름"
-
-msgid "Pick a Color"
-msgstr "색상을 선택"
-
-msgid "Involved Nodes"
-msgstr "관련 노트"
-
-msgid "Selected Text Only"
-msgstr "선택 텍스트"
-
-msgid "Selected Node Only"
-msgstr "선택 노트만"
-
-msgid "Selected Node and Subnodes"
-msgstr "선택 노트와 하위 노트"
-
-msgid "All the Tree"
-msgstr "Tree"
-
-msgid "Include Node Name"
-msgstr "노트 이름을 포함"
-
-msgid "Links Tree in Every Page"
-msgstr "각 페이지에 링크 Tree 삽입"
-
-msgid "New Node in New Page"
-msgstr "노트마다 페이지 나누기"
-
-msgid "Single File"
-msgstr "단일 파일"
-
-msgid "Checking for Newer Version..."
-msgstr "새 버전을 확인하고 있습니다 ..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "새로운 버전 정보를 확인할 수 없습니다 - 나중에 다시 확인하십시오."
-
-msgid "A Newer Version Is Available!"
-msgstr "새로운 버전이 있습니다!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "최신 버전을 사용하고 있습니다."
-
-msgid "You Are Using a Development Version."
-msgstr "개발 버전을 사용하고 있습니다."
-
-msgid "Image Format Not Recognized"
-msgstr "알 수 없는 이미지 형식입니다"
-
-msgid "Insert Table"
-msgstr "표 삽입"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "첨부 파일의 최대 용량은 %s MB입니다."
-
-msgid "Do you want to Continue?"
-msgstr "실행 하시겠습니까?"
-
-msgid "Tabs Replaced"
-msgstr "탭을 변환했습니다"
-
-msgid "Lines Stripped"
-msgstr "행 삭제 작업을 수행"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "경고 : 페이지에 맞게 하나 이상의 이미지가 축소되었습니다!"
 
 msgid "Print CherryTree version"
 msgstr "CherryTree 버전을 인쇄"
@@ -2876,9 +2892,6 @@ msgstr "새 창을 생성"
 msgid "Run in secondary session, independent from main session"
 msgstr "메인 세션과 분리한 보조 세션에서 실행"
 
-msgid "Are you sure to Reset to Default?"
-msgstr "기본값으로 초기화 하겠습니까?"
-
 msgid "HTML Document"
 msgstr "HTML 문서"
 
@@ -2893,6 +2906,28 @@ msgstr "Treepad 문서"
 
 msgid "Leo Document"
 msgstr "Leo 문서"
+
+msgid "Are you sure to Reset to Default?"
+msgstr "기본값으로 초기화 하겠습니까?"
+
+#~ msgid "Insert T_OC..."
+#~ msgstr "목차 삽입...(_O)"
+
+#~ msgid "Insert Table of Contents"
+#~ msgstr "목차 삽입"
+
+#~ msgid ""
+#~ "Backup files are by default 3 in the same folder of the corrupted "
+#~ "document, with the same name plus trailing tildes (~, ~~, ~~~). Try first "
+#~ "the backup with one tilde: copy the file to another directory, remove the "
+#~ "trailing tilde and open with cherrytree. If it still fails, try the one "
+#~ "with two tildes and if it still fails try the one with three tildes."
+#~ msgstr ""
+#~ "백업 파일은 기본적으로 동일한 이름과 뒤에 물결표(~, ~~, ~~~)가 붙은 손상"
+#~ "된 문서의 동일한 폴더에 3개 있습니다 먼저 하나의 물결표로 백업을 시도하십"
+#~ "시오 파일을 다른 디렉토리에 복사하고 후행 물결표를 제거하고 cherrytree로 "
+#~ "엽니다 그래도 실패하면 물결표 2개가 있는 것을 시도하고 여전히 실패하면 물"
+#~ "결표 3개가 있는 것을 시도하십시오."
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "온라인 설명서를 브라우저에서 열기"
