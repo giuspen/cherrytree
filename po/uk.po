@@ -7,27 +7,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 22:06+0000\n"
-"PO-Revision-Date: 2024-03-02 21:10+0000\n"
+"POT-Creation-Date: 2024-09-21 15:41+0100\n"
+"PO-Revision-Date: 2024-09-22 17:20+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: uk_UA\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.4.2\n"
+
+msgid "CherryTree File"
+msgstr "Файл CherryTree"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"Файл/папка використовується і не може бути перезаписана!\n"
+"Використовуйте інше ім’я або місце розташування."
 
 #, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "Не вдалося отримати вміст гілки '%s'"
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Папка '%s' вже існує в '%s'.\n"
+"<b>Видалити його?</b>"
 
-msgid "Index"
-msgstr "Зміст"
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Файл '%s' вже існує в '%s'.\n"
+"<b>Видалити його?</b>"
+
+msgid "PDF File"
+msgstr "Файл PDF"
+
+msgid "Plain Text Document"
+msgstr "Текстовий документ"
 
 msgid "Add"
 msgstr "Додати"
@@ -46,6 +71,1403 @@ msgstr "Відкрийте файл CherryTree"
 
 msgid "Select Element to Add"
 msgstr "Виберіть елемент для додання"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Шлях %s не існує"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "Відкрити недавній документ CherryTree"
+
+msgid "_Hide"
+msgstr "Сховати"
+
+msgid "_Quit"
+msgstr "Вийти"
+
+msgid "Hide the Window"
+msgstr "Сховати вікно"
+
+msgid "Quit the Application"
+msgstr "Вийти з програми"
+
+msgid "No Node is Selected"
+msgstr "Гілку не виділено"
+
+msgid "Node Type"
+msgstr "Тип гілки"
+
+msgid ": "
+msgstr ": "
+
+msgid "Rich Text"
+msgstr "Форматований текст"
+
+msgid "Plain Text"
+msgstr "Звичайний текст"
+
+msgid "Tags"
+msgstr "Теги"
+
+msgid "Spell Check"
+msgstr "Перевірка орфографії"
+
+msgid "Word Count"
+msgstr "Кількість слів"
+
+msgid "Date Created"
+msgstr "Дата створення"
+
+msgid "Date Modified"
+msgstr "Дата зміни"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "В цій сесії ви не виконували копіювання гілки або дерево недоступне."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Гілка дерева недоступна."
+
+msgid "Image Format Not Recognized"
+msgstr "Формат зображення не розпізнаний"
+
+msgid "Insert Table"
+msgstr "Вставити таблицю"
+
+msgid "CSV File"
+msgstr "Файл CSV"
+
+msgid "Insert a CodeBox"
+msgstr "Вставити блок коду"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Максимальний розмір файлів %s Мб."
+
+msgid "Do you want to Continue?"
+msgstr "Ви хочете продовжувати?"
+
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Не вдалося отримати вміст гілки '%s'"
+
+msgid "Special Characters"
+msgstr "Спеціальні символи"
+
+msgid "Tabs Replaced"
+msgstr "Табуляцію замінено"
+
+msgid "Lines Stripped"
+msgstr "Очищені рядки"
+
+msgid "No Text is Selected."
+msgstr "Текст не виділено."
+
+msgid "Checking for Newer Version..."
+msgstr "Перевірка наявності нових версій..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr "Неможливо перевірити наявність нової версії. Спробуйте пізніше."
+
+msgid "A Newer Version Is Available!"
+msgstr "Доступна нова версія програми!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Встановлена остання версія програми."
+
+msgid "You Are Using a Development Version."
+msgstr "Ви використовуєте версію для розробників."
+
+msgid "Execute Code"
+msgstr "Виконати код"
+
+msgid "Change CodeBox Properties"
+msgstr "Змінити параметри блока коду"
+
+msgid "Show Menubar:"
+msgstr "Показати меню:"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" не є файлом CherryTree"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Помилка відкриття шляху CherryTree:\n"
+"\"%s\""
+
+msgid "Do you want to Open the Last Backup?"
+msgstr "Ви хочете відкрити останню резервну копію?"
+
+msgid "Failed to Load from Backup Data"
+msgstr "Не вдалося завантажити дані з резервної копії"
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Гілка з назвою '%s' не знайдено."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Тимчасові файли були створені чи відкриті зовнішньою програмою."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Завершити зовнішню програму перед виходом з CherryTree."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Ви завершили зовнішню програму?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Документ було перезавантажено після оновлення файла іншою програмою."
+
+msgid "Change Selected"
+msgstr "Змінити виділене"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "Клавіша '%s' вже використовується."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Поточна дія '%s'"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Ви хочете перепризначити клавішу?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Редагувати клавіші"
+
+msgid "No Keyboard Shortcut"
+msgstr "Немає клавіші"
+
+msgid "Chars for Bulleted List"
+msgstr "Символи для маркованого списку"
+
+msgid "Chars for Todo List"
+msgstr "Символи для TODO списку"
+
+msgid "Chars for Table Of Content"
+msgstr "Символи для змісту"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Символи для автозаміни лапок"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Символи для автозаміни лапок"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Ввімкнути автозаміну лапок"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Ввімкнути автозаміну символів"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Символи, що підтримуються для автозаміни"
+
+msgid "Text Editor"
+msgstr "Текстовий редактор"
+
+msgid "Only at the Start of the Line"
+msgstr "Тільки на початку рядка"
+
+msgid "To WebSite"
+msgstr "Вебсайт"
+
+msgid "To File"
+msgstr "Файл"
+
+msgid "To Folder"
+msgstr "Каталог"
+
+msgid "To Node"
+msgstr "Гілка"
+
+msgid "Anchor Name (optional)"
+msgstr "Назва якоря (по бажанню)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "В виділеній гілці немає якорів."
+
+msgid "Choose Existing Anchor"
+msgstr "Виберіть існуючий якір"
+
+msgid "Anchor Name"
+msgstr "Назва якора"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Шаблон '%s' не знайдено"
+
+msgid "Preferences"
+msgstr "Налаштування"
+
+msgid "Arabic"
+msgstr "Арабська"
+
+msgid "Armenian"
+msgstr "Вірменська"
+
+msgid "Bulgarian"
+msgstr "Болгарська"
+
+msgid "Chinese Simplified"
+msgstr "Китайська спрощена"
+
+msgid "Chinese Traditional"
+msgstr "Китайська традиційна"
+
+msgid "Croatian"
+msgstr "Хорватська"
+
+msgid "Czech"
+msgstr "Чеська"
+
+msgid "Dutch"
+msgstr "Голландська"
+
+msgid "English"
+msgstr "Англійська"
+
+msgid "Persian"
+msgstr "Перська"
+
+msgid "Finnish"
+msgstr "Фінський"
+
+msgid "French"
+msgstr "Французька"
+
+msgid "German"
+msgstr "Німецька"
+
+msgid "Greek"
+msgstr "Грецька"
+
+msgid "Hindi India"
+msgstr "Хінді Індія"
+
+msgid "Hungarian"
+msgstr "Угорська"
+
+msgid "Italian"
+msgstr "Італійська"
+
+msgid "Japanese"
+msgstr "Японська"
+
+msgid "Kazakh"
+msgstr "Казахська"
+
+msgid "Kazakh (Latin)"
+msgstr "Казахська (Латинь)"
+
+msgid "Korean"
+msgstr "Корейська"
+
+msgid "Lithuanian"
+msgstr "Литовська"
+
+msgid "Polish"
+msgstr "Польська"
+
+msgid "Portuguese"
+msgstr "Португальська"
+
+msgid "Portuguese Brazil"
+msgstr "Португальська бразильська"
+
+msgid "Romanian"
+msgstr "Румуньска"
+
+msgid "Russian"
+msgstr "Російська"
+
+msgid "Slovak"
+msgstr "Словацька"
+
+msgid "Slovenian"
+msgstr "Словенська"
+
+msgid "Spanish"
+msgstr "Іспанська"
+
+msgid "Swedish"
+msgstr "Шведський"
+
+msgid "Turkish"
+msgstr "Турецька"
+
+msgid "Ukrainian"
+msgstr "Українська"
+
+msgid "Text and Code"
+msgstr "Текст і код"
+
+msgid "Format"
+msgstr "Форматування"
+
+msgid "Plain Text and Code"
+msgstr "Звичайний текст і код"
+
+msgid "Tree Explorer"
+msgstr "Дерево"
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Interface"
+msgstr "Інтерфейс"
+
+msgid "Links"
+msgstr "Посилання"
+
+msgid "Toolbar"
+msgstr "Панель інструментів"
+
+msgid "Keyboard Shortcuts"
+msgstr "Клавіатурні прив'язування"
+
+msgid "Miscellaneous"
+msgstr "Різне"
+
+msgid "Monospace"
+msgstr "Моноширинний шрифт"
+
+msgid "Code Font"
+msgstr "Шрифт коду"
+
+msgid "Terminal Font"
+msgstr "Шрифт терміналу"
+
+msgid "Tree Font"
+msgstr "Шрифт дерева"
+
+msgid "Fonts"
+msgstr "Шрифти"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Ввімкнути лічильник слів в статусному рядку"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Показувати шлях до документу в заголовку"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Показувати повний шлях в заголовці"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Окреме меню для закладок"
+
+msgid "Menubar in Titlebar"
+msgstr "Меню в заголовці"
+
+msgid "Toolbar Icons Size"
+msgstr "Розмір значків панелі інструментів"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Мінімальний розмір прокрутки (0 = Система за замовчуванням)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Прокрутка накладається на текстовий редактор"
+
+msgid "System Default"
+msgstr "Скинути налаштування"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Увімкнути підказки під час наведення"
+
+msgid "Tree"
+msgstr "Дерево"
+
+msgid "Menus"
+msgstr "Меню"
+
+msgid "Max Search Results per Page"
+msgstr "Максимальна кількість результатів на сторінку"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Відкривати веб-посилання"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Відкривати файли"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Відкривати каталоги"
+
+msgid "Custom Actions"
+msgstr "Інші дії"
+
+msgid "Colors"
+msgstr "Кольори"
+
+msgid "Underline Links"
+msgstr "Підкреслювати посилання"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Використовувати відносні шляхи до файлів та каталогів"
+
+msgid "Anchor Size"
+msgstr "Розмір якора"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Зміни набудуть чинності після перезапускання CherryTree."
+
+msgid "The new parent can't be one of his children!"
+msgstr "Нова батьківська гілка не може бути дочірньою!"
+
+msgid "Light Background, Dark Text"
+msgstr "Світлий фон, темний текст"
+
+msgid "Dark Background, Light Text"
+msgstr "Темний фон, світлий текст"
+
+msgid "Custom Background"
+msgstr "Інший колір фону"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Selection Background"
+msgstr "Фон виділення"
+
+msgid "Table"
+msgstr "Таблиця"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Style Schemes"
+msgstr "Схема кольорів"
+
+msgid "Text Foreground"
+msgstr "Колір тексту"
+
+msgid "Text Background"
+msgstr "Колір фону"
+
+msgid "Selection Foreground"
+msgstr "Текст виділення"
+
+msgid "Cursor"
+msgstr "Курсор"
+
+msgid "Current Line Background"
+msgstr "Фон поточного рядка"
+
+msgid "Line Numbers Foreground"
+msgstr "Колір тексту нумерації рядків"
+
+msgid "Line Numbers Background"
+msgstr "Колір фону нумерації рядків"
+
+msgid "Style Scheme Editor"
+msgstr "Редактор схема кольорів"
+
+msgid "Set Dark Theme Icons"
+msgstr "Темна тема іконок"
+
+msgid "Set Light Theme Icons"
+msgstr "Світла тема іконок"
+
+msgid "Set Default Icons"
+msgstr "Іконки по-замовчуванню"
+
+msgid "Icon Theme"
+msgstr "Тема Іконок"
+
+msgid "Search for"
+msgstr "Шукати"
+
+msgid "Replace with"
+msgstr "Замінити"
+
+msgid "Match Case"
+msgstr "Враховувати регістр"
+
+msgid "Regular Expression"
+msgstr "Регулярний вираз"
+
+msgid "Online Manual"
+msgstr "Посібник онлайн"
+
+msgid "Accent Insensitive"
+msgstr "Нечутливий до наголосу"
+
+msgid "Override Exclusions"
+msgstr "Ігнорувати виключення"
+
+msgid "Whole Word"
+msgstr "Ціле слово"
+
+msgid "Start Word"
+msgstr "Початок слова"
+
+msgid "Forward"
+msgstr "Вперед"
+
+msgid "Backward"
+msgstr "Назад"
+
+msgid "All, List Matches"
+msgstr "Весь список співпадань"
+
+msgid "First From Selection"
+msgstr "Перше від виділення"
+
+msgid "First in All Range"
+msgstr "Перше по всьому діапазону"
+
+msgid "Node Created After"
+msgstr "Гілка створена після"
+
+msgid "Node Created Before"
+msgstr "Гілка створена перед"
+
+msgid "Node Modified After"
+msgstr "Гілка змінена після"
+
+msgid "Node Modified Before"
+msgstr "Гілка змінена перед"
+
+msgid "Time filter"
+msgstr "Часовий фільтр"
+
+msgid "Node Content"
+msgstr "Зміст гілки"
+
+msgid "Node Name and Tags"
+msgstr "Назва гілки та теги"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Тільки виділені гілки з дочірніми гілками"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Показати діалог останніх замін"
+
+msgid "Search options"
+msgstr "Налаштування пошуку"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Принаймні один вузол було пропущено через винятки, встановлені у "
+"властивостях вузла.\n"
+"Щоб очистити всі виключення, скористайтеся меню:\n"
+"Пошук -> Очистити всі виключення з пошуку"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Cховати (Відновити з '%s')"
+
+msgid "Node Name"
+msgstr "Назва гілки"
+
+msgid "Line"
+msgstr "Рядок"
+
+msgid "Line Content"
+msgstr "Зміст рядка"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Посилання на неіснуючу гілку (Id = %s)"
+
+msgid "Matches"
+msgstr "Співпадання"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Повторити останню заміну"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Find Previous"
+msgstr "Найти попередній"
+
+msgid "Find Next"
+msgstr "Найти наступний"
+
+msgid "Replace"
+msgstr "Замінити"
+
+msgid "Undo"
+msgstr "Відмінити"
+
+msgid "Handle the Bookmarks List"
+msgstr "Керування списком закладок"
+
+msgid "Move the Selected Bookmark Up"
+msgstr "Пересунути закладку вгору"
+
+msgid "Move the Selected Bookmark Down"
+msgstr "Пересунути закладку вниз"
+
+msgid "Remove the Selected Bookmark"
+msgstr "Видалити закладку"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "Закладки в порядку спадання"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "Закладки в порядку зростання"
+
+msgid "Choose Storage Type"
+msgstr "Виберіть тип сховища"
+
+msgid "Storage Type"
+msgstr "Тип сховища"
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT зберігає документ в зашифрованому 7zip-архіві. Під час відкриття або "
+"редагування документа CT дістає його з зашифрованого файлу в тимчасову папку "
+"і працює з ним як з звичайним документом. Після закриття файлу незашифрована "
+"копія видаляється з тимчасової папки. Під час краху системи або програми "
+"незашифрована копія може залишитись в тимчасовій папці."
+
+msgid "Enter the New Password Twice"
+msgstr "Введіть пароль двічі"
+
+msgid "Autosave Every"
+msgstr "Автоматично зберігати кожні"
+
+msgid "Minutes"
+msgstr "Хвилин"
+
+msgid "The Password Fields Must be Filled."
+msgstr "Пароль повинен бути уведений."
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "Уведені паролі не співпадають."
+
+msgid "Warning"
+msgstr "Попередження"
+
+msgid "The Current Document was Updated."
+msgstr "Поточний документ було оновлено."
+
+msgid "Do you want to Save the Changes?"
+msgstr "Ви хочете зберегти зміни?"
+
+msgid "Do you want to Execute the Code?"
+msgstr "Ви хочете виконати код?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Підтвердити виконання коду"
+
+msgid "Use Internal Terminal"
+msgstr "Використовувати внутрішній термінал"
+
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Записник з ієрархічною структурою, можливістю форматувати текст та "
+"підсвічуванням синтаксису"
+
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Ця програма є вільним програмним забезпеченням;\n"
+"ви можете розповсюджувати та/або змінювати його згідно з умовами\n"
+"Стандартної Громадської Ліцензії GNU,\n"
+"що опублікована Фондом вільного програмного забезпечення,\n"
+"або Ліцензії версії 3, або (на ваш розсуд) \n"
+"будь-якої більш пізньої версії.\n"
+"  \n"
+"Програма поширюється в надії, що вона буде корисною,\n"
+"але БЕЗ БУДЬ ЯКИХ ГАРАНТІЙНИХ ЗОБОВ'ЯЗАНЬ; \n"
+"навіть без  гарантійних зобов'язань, пов'язаних \n"
+"з СПОЖИВЧИМИ ВЛАСТИВОСТЯМИ ТА ПРИДАТНІСТЮ \n"
+"ДЛЯ ПЕВНИХ ЦІЛЕЙ. Для подробиць дивіться\n"
+"Стандартну Громадську Ліцензію GNU.\n"
+"\n"
+"Ви повинні були отримати копію Загальної Громадської\n"
+"Ліцензії GNU разом з цією програмою. Якщо це не так,\n"
+"напишіть у Фундацію Вільного ПЗ (Free Software Foundation, Inc., \n"
+"675 Mass Ave, Cambridge, MA 02139, USA.\n"
+
+msgid "About CherryTree"
+msgstr "Про програму CherryTree"
+
+msgid "Tree Summary Information"
+msgstr "Сумарна інформація про дерево"
+
+msgid "Number of Rich Text Nodes"
+msgstr "Кількість гілок з форматованим текстом"
+
+msgid "Number of Plain Text Nodes"
+msgstr "Кількість гілок з простим текстом"
+
+msgid "Number of Code Nodes"
+msgstr "Кількість гілок з кодом"
+
+msgid "Number of Images"
+msgstr "Кількість зображень"
+
+msgid "Number of LatexBoxes"
+msgstr "Кількість блоків LaTeX"
+
+msgid "Number of Embedded Files"
+msgstr "Кількість вставлених файлів"
+
+msgid "Number of Tables"
+msgstr "Кількість таблиць"
+
+msgid "Number of CodeBoxes"
+msgstr "Кількість блоків коду"
+
+msgid "Number of Anchors"
+msgstr "Кількість якорів"
+
+msgid "Number of Shared Nodes / Groups"
+msgstr "Кількість спільних гілок / групи"
+
+msgid "Preferences File"
+msgstr "Файл налаштувань"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Іконка з'явилась в системній панелі?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Ваша система не підтримує системну панель"
+
+msgid "Bold"
+msgstr "Напівжирний"
+
+msgid "Use Selected Color"
+msgstr "Використовувати вибраний колір"
+
+msgid "Use Selected Icon"
+msgstr "Використовувати іконку"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Автоматичне підсвічування синтаксису"
+
+msgid "Tags for Searching"
+msgstr "Теги для пошуку"
+
+msgid "Exclude from Searches"
+msgstr "Виключити з пошуку"
+
+msgid "This Node"
+msgstr "Ця гілка"
+
+msgid "The Subnodes"
+msgstr "Дочірні гілки"
+
+msgid "Read Only"
+msgstr "Тільки читання"
+
+msgid "Unique Id"
+msgstr "Винятковий ідентифікатор"
+
+msgid "Shared Nodes Group"
+msgstr "Група спільних гілок"
+
+msgid "Choose Existing Tag"
+msgstr "Виберіть існуючий тег"
+
+msgid "Tag Name"
+msgstr "Назва тегу"
+
+msgid "Pick a Color"
+msgstr "Вибор кольору"
+
+msgid "Select Node Icon"
+msgstr "Іконка для гілки"
+
+msgid "Involved Nodes"
+msgstr "Зв'язані гілки"
+
+msgid "Selected Text Only"
+msgstr "Тільки виділений текст"
+
+msgid "Selected Node Only"
+msgstr "Тільки виділена гілка"
+
+msgid "Selected Node and Subnodes"
+msgstr "Виділена гілка з дочірніми гілками"
+
+msgid "All the Tree"
+msgstr "Усе дерево"
+
+msgid "Include Node Name"
+msgstr "Друкувати назву гілки"
+
+msgid "Links Tree in Every Page"
+msgstr "Дерево посилань на кожній сторінці"
+
+msgid "New Node in New Page"
+msgstr "Новугілку з нової сторінки"
+
+msgid "Single File"
+msgstr "Один файл"
+
+msgid "Latex Text"
+msgstr "LaTeX текст"
+
+msgid "Image Size dpi"
+msgstr "Розмір зображення dpi"
+
+msgid "Tutorial"
+msgstr "Підручник"
+
+msgid "Reference"
+msgstr "Довідник"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Підручник з математичних рівнянь LaTeX"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "Довідник математичних символів LaTeX"
+
+msgid "Image Properties"
+msgstr "Параметри зображення"
+
+msgid "Width"
+msgstr "Ширина"
+
+msgid "Height"
+msgstr "Висота"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "pixels"
+msgstr "пікселів"
+
+msgid "Size"
+msgstr "Розмір"
+
+msgid "Show Line Numbers"
+msgstr "Показати номери рядків"
+
+msgid "Highlight Matching Brackets"
+msgstr "Підсвічування відповідних дужок"
+
+msgid "Options"
+msgstr "Налаштування"
+
+msgid "Rows"
+msgstr "Рядки"
+
+msgid "Columns"
+msgstr "Стовпці"
+
+msgid "Default Width"
+msgstr "Ширина по-замовчуванню"
+
+msgid "Table Size"
+msgstr "Розмір таблиці"
+
+msgid "Column Properties"
+msgstr "Параметри стовпців"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Легкий інтерфейс (набагато швидше для великих таблиць)"
+
+msgid "Import from CSV File"
+msgstr "Імпорт з файлу CSV"
+
+msgid "The Tree is Empty!"
+msgstr "Дерево пусте!"
+
+msgid "The Selected Node is Read Only."
+msgstr "Виділена гілка в режимі тільки для читання."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Ця функція доступна лише в режимі форматованого тексту."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Ця функція не доступна в режимі підсвічування синтаксису."
+
+msgid "No Table is Selected."
+msgstr "Таблиця не виділена."
+
+msgid "No CodeBox is Selected."
+msgstr "Блок коду не виділено."
+
+msgid "New Child Node Properties"
+msgstr "Нові параметри дочірньої гілки"
+
+msgid "New Node Properties"
+msgstr "Нові параметри гілки"
+
+msgid "Node Properties"
+msgstr "Параметри гілки"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"При відключенні режиму форматування тексту, буде втрачено форматування для "
+"цієї гілки. Продовжити?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Ви впевнені, що хочете <b>видалити гілку '%s'?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Гілка <b>має дочірні гілки, які теж будуть видалені!</b>"
+
+msgid "Select the New Parent"
+msgstr "Виберіть нову батьківську гілку"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Нову батьківську гілку неможливо пересунути!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Вибрана нова батьківська гілка є старою!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s параметри гілок змінені"
+
+msgid "Copy Selection or All"
+msgstr "Копіювати виділене або все"
+
+msgid "Paste"
+msgstr "Вставити"
+
+msgid "Reset"
+msgstr "Обнулити"
+
+msgid "Downloading"
+msgstr "Завантаження"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Записник CherryTree"
+
+msgid "Show/Hide _CherryTree"
+msgstr "Показати / Сховати _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Показати / Сховати CherryTree"
+
+msgid "_Exit CherryTree"
+msgstr "Вийти з CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Вийти з CherryTree"
+
+msgid "Index"
+msgstr "Зміст"
+
+msgid "Rename"
+msgstr "Перейменувати"
+
+msgid "PNG Image"
+msgstr "Зображення PNG"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Записати в %s не вдалося"
+
+msgid "Insert/Edit Link"
+msgstr "Вставити / Редагувати посилання"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Посилання на каталог '%s' некоректне."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Посилання на файл '%s' некоректне."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Посилання на каталог '%s' некоректне"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Якір з назвою '%s' не знайдено"
+
+msgid "Edit CodeBox"
+msgstr "Редагувати блок коду"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Ви повинні асоціювати команду з '%s'.\n"
+"Це можна зробити в діалозі налаштувань."
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Встановіть пакет 'xterm' або налаштуйте інший термінал в діалозі налаштувань."
+
+msgid "Edit Table Properties"
+msgstr "Редагувати параметри таблиці"
+
+msgid "Insert Anchor"
+msgstr "Вставити якір"
+
+msgid "Edit Anchor"
+msgstr "Редагувати якір"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Неможливо редагувати файли в гілках тільки для читання."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Файл автоматично оновлено:"
+
+msgid "Autosave on Quit"
+msgstr "Збереження при закритті"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Створити резервну копію перед збереженням"
+
+msgid "Number of Backups to Keep"
+msgstr "Кількість резервних копій"
+
+msgid "Custom Backup Directory"
+msgstr "Каталог для резервних копій"
+
+msgid "Saving"
+msgstr "Збереження"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Автоматично перевіряти оновлення"
+
+msgid "Reload Document From Last Session"
+msgstr "Завантажити документ з останньої сесії"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Перезавантажити документ після оновлення файлу іншою програмою"
+
+msgid "Enable Debug Log"
+msgstr "Ввімкнути логування"
+
+msgid "Debug Log Directory"
+msgstr "Каталог для логів"
+
+msgid "Enable System Tray Docking"
+msgstr "Сховати в системний трей"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Звернути в трей після запуску"
+
+msgid "System Tray"
+msgstr "Системний лоток"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "В цій сесії не було операцій форматування тексту."
+
+msgid "Link Name"
+msgstr "Назва посилання"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Курсор за межами абзацу."
+
+msgid "Pick a Foreground Color"
+msgstr "Вибор кольору тексту"
+
+msgid "Pick a Background Color"
+msgstr "Вибор кольору фону"
+
+msgid "Enable Spell Check"
+msgstr "Включити перевірку орфографії"
+
+msgid "Spell Check Language"
+msgstr "Мова перевірки орфографії"
+
+msgid "Show White Spaces"
+msgstr "Відображувати пробільні символи"
+
+msgid "Highlight Current Line"
+msgstr "Підсвічування пробільні символи"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Автоматично розтягувати блоки коду"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "блок коди мають панель інструментів"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Порогова кількість комірок таблиці для полегшеного інтерфейсу"
+
+msgid "Embedded File Icon Size"
+msgstr "Розмір іконки вставленого файлу"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Ліміт для вставки файлів (Мб)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Показувати назву файлу над іконкою"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Ліміт операцій відміни"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Автоматично прикріпляти текст в CamelCase до ноди з такою ж назвою"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Потрійне натискання виділяє параграф"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Ввімкнути автозаміну Markdown (Експерементально)"
+
+msgid "Scale"
+msgstr "Масштабування"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Underline"
+msgstr "Підкреслювання"
+
+msgid "Text Color Foreground"
+msgstr "Колір тексту"
+
+msgid "Text Color Background"
+msgstr "Колір фону"
+
+msgid "Small"
+msgstr "Маленькі"
+
+msgid "Scalable Tags"
+msgstr "Масштабовані теги"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s' не є дійсним архівом"
+
+msgid "Writing to Disk..."
+msgstr "Запис на диск..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Недоступний запис у файл %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Введіть пароль для %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Не вдалося перевірити цілісність збереженого документа. Спробуйте Файл--"
+">Зберегти як"
+
+msgid "Failed to encrypt the file"
+msgstr "Не вдалося зашифрувати файл"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr "Файл бази даних %s пошкоджений, дивіться лог для інформації."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s запис неможливий - файл відсутній. Підключіть USB пристрій повторно."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "%s запис неможливий - можливо файл заблокований іншою програмою?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s не вдалося повторне відкриття - файл відсутній. Підключіть USB пристрій "
+"повторно."
+
+msgid "Who is the Parent?"
+msgstr "Вкажіть батьківську гілку?"
+
+msgid "The Tree Root"
+msgstr "Дерево"
+
+msgid "The Selected Node"
+msgstr "Виділена гілка"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Не вдалося отримати доступ до виконувані файли 'latex' і 'dvipng'"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Наприклад, в Ubuntu пакети для встановлення:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Наприклад, в Mac OS пакети для встановлення:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Не вдалося отримати доступ до виконуваного файлу 'latex'"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Не вдалося отримати доступ до виконуваного файлу 'dvipng'"
+
+msgid "Use Different Cherries per Level"
+msgstr "Різні вишні на кожному рівні"
+
+msgid "No Icon"
+msgstr "Без іконки"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Сховати допоміжну іконку з правої сторони"
+
+msgid "Default Text Nodes Icons"
+msgstr "Іконки для текстових гілок"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Зберігати статус гілок"
+
+msgid "Expand all Nodes"
+msgstr "Розгорнути гілки"
+
+msgid "Collapse all Nodes"
+msgstr "Згорнути гілки"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Завжди видимі гілки в закладках"
+
+msgid "Nodes Status at Startup"
+msgstr "Статус гілок після запуску"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Ширина перенесення назв гілок"
+
+msgid "Display Tree on the Right Side"
+msgstr "Відображати дерево праворуч"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Перенести фокус на текст кліком мишки"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Розгорнути гілку кліком мишки"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Останні відвідані гілки у заголовку"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "Відновлення з резервної копії було необхідне для:"
+
+msgid "Replace in Current Node"
+msgstr "Заміна в поточній гілці"
+
+msgid "Search in Current Node"
+msgstr "Пошук в поточній гілці"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Шаблон '%s' не знайдено</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Заміна в декількох гілках..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Пошук по декількох гілках..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "В цій сесії не було операції пошуку."
+
+msgid "Tab Width"
+msgstr "Ширина табуляції"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Використовувати пробіли замість табуляції"
+
+msgid "Use Line Wrapping"
+msgstr "Ввімкнути режим перенесення тексту"
+
+msgid "Line Wrapping Indentation"
+msgstr "Відступ для перенесення тексту"
+
+msgid "Enable Automatic Indentation"
+msgstr "Ввімкнути автоматичний відступ"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Прокрутка за межі документу"
+
+msgid "Cursor Blinking"
+msgstr "Блимання курсору"
+
+msgid "On"
+msgstr "Увімк"
+
+msgid "Off"
+msgstr "Вимк"
+
+msgid "Text Margin: Left"
+msgstr "Текстове поле: Вліво"
+
+msgid "Right"
+msgstr "Вправо"
+
+msgid "Vertical Space Around Lines"
+msgstr "Вертикальний відступ"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Вертикальний відступ для рядків"
+
+msgid "Timestamp Format"
+msgstr "Формат дати"
+
+msgid "Horizontal Rule"
+msgstr "Горизонтальна лінія"
+
+msgid "Chars to Select at Double Click"
+msgstr "Символи для виділення подвійним нажаттям"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Розмір іконок панелі інструментів максимальний."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Розмір іконок панелі інструментів мінімальний."
+
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Попередження: зображення були зменшені!"
+
+msgid "Internal Terminal Shell"
+msgstr "Shell внутрішнього терміналу"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Команда по типу гілки/блоку коду"
+
+msgid "Terminal Command"
+msgstr "Команда терміналу"
+
+msgid "Code Execution"
+msgstr "Виконання коду"
+
+msgid "Remove from list"
+msgstr "Видалити з списку"
 
 msgid "_File"
 msgstr "Файл"
@@ -97,9 +1519,6 @@ msgstr "Налаштування"
 
 msgid "_Recent Documents"
 msgstr "Недавні документи"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "Відкрити недавній документ CherryTree"
 
 msgid "C_hange Case"
 msgstr "Змінити регістр символів"
@@ -182,9 +1601,6 @@ msgstr "Друк..."
 msgid "Print"
 msgstr "Друк"
 
-msgid "Preferences"
-msgstr "Налаштування"
-
 msgid "_Import Preferences..."
 msgstr "Імпорт налаштувань..."
 
@@ -200,19 +1616,7 @@ msgstr "Експорт налаштувань"
 msgid "Tree In_fo"
 msgstr "Інформація про дерево"
 
-msgid "Tree Summary Information"
-msgstr "Сумарна інформація про дерево"
-
-msgid "_Quit"
-msgstr "Вийти"
-
-msgid "Quit the Application"
-msgstr "Вийти з програми"
-
 msgid "E_xit CherryTree"
-msgstr "Вийти з CherryTree"
-
-msgid "Exit from CherryTree"
 msgstr "Вийти з CherryTree"
 
 msgid "Edit/Insert"
@@ -251,9 +1655,6 @@ msgstr "Вставити таблицю"
 msgid "Insert _CodeBox..."
 msgstr "Вставити блок коду..."
 
-msgid "Insert a CodeBox"
-msgstr "Вставити блок коду"
-
 msgid "Insert _File..."
 msgstr "Вставити файл..."
 
@@ -272,11 +1673,11 @@ msgstr "Вставити якір..."
 msgid "Insert an Anchor"
 msgstr "Вставити якір"
 
-msgid "Insert T_OC..."
-msgstr "Вставити таблицю змісту..."
+msgid "Insert T_OC and Headers Collapsors..."
+msgstr "Вставити таблицю змісту і заголовки колапсори..."
 
-msgid "Insert Table of Contents"
-msgstr "Вставити таблицю змісту"
+msgid "Insert Table of Contents and Headers Collapsors/Expanders"
+msgstr "Вставити таблицю змісту і заголовки колапсори/еспандери"
 
 msgid "Insert Timestam_p"
 msgstr "Вставити дату"
@@ -557,9 +1958,6 @@ msgstr "Зменшити висоту блока коду"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Зменшити висоту блока коду"
 
-msgid "Format"
-msgstr "Форматування"
-
 msgid "Format Clo_ne"
 msgstr "Скопіювати форматування"
 
@@ -767,9 +2165,6 @@ msgstr "Виконати рядок коду або виділеного тек�
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Виконати код з поточного рядка або виділеного тексту"
 
-msgid "Tree"
-msgstr "Дерево"
-
 msgid "Go _Back"
 msgstr "Назад"
 
@@ -865,16 +2260,13 @@ msgstr "Синхронізувати тип підсвічування синт�
 msgid "_Handle Bookmarks..."
 msgstr "Керування закладками..."
 
-msgid "Handle the Bookmarks List"
-msgstr "Керування списком закладок"
-
 msgid "Add to Boo_kmarks"
 msgstr "Додати в закладки"
 
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Добавити поточну гілку в закладки"
 
-msgid "_Remove from Bookmarks"
+msgid "Remove from Boo_kmarks"
 msgstr "Видалити з закладок"
 
 msgid "Remove the Current Node from the Bookmarks List"
@@ -955,6 +2347,18 @@ msgstr "Видалити гілку"
 msgid "Find/Replace"
 msgstr "Пошук/Заміна"
 
+msgid "_Quick Node Selection..."
+msgstr "Швидкий вибір гілку..."
+
+msgid "Quick Node Selection"
+msgstr "Швидкий вибір гілку"
+
+msgid "Find in _Nodes Names and Tags..."
+msgstr "Пошук по всіх гілках та тегах..."
+
+msgid "Find in Nodes Names and Tags"
+msgstr "Пошук назвах гілок та тегах"
+
 msgid "_Find in Node Content..."
 msgstr "Пошук в гілці..."
 
@@ -966,12 +2370,6 @@ msgstr "Пошук по декількох гілках..."
 
 msgid "Find in Multiple Nodes"
 msgstr "Пошук по декількох гілках"
-
-msgid "Find in _Nodes Names and Tags..."
-msgstr "Пошук по всіх гілках та тегах..."
-
-msgid "Find in Nodes Names and Tags"
-msgstr "Пошук назвах гілок та тегах"
 
 msgid "Find _Again"
 msgstr "Повторити пошук"
@@ -1282,9 +2680,6 @@ msgstr "Посібник онлайн CherryTree"
 msgid "_About"
 msgstr "Про програму"
 
-msgid "About CherryTree"
-msgstr "Про програму CherryTree"
-
 msgid "_Open Preferences Directory"
 msgstr "Відкрити каталог налаштувань"
 
@@ -1420,12 +2815,6 @@ msgstr "Забути посилання"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Забути посилання зв'язане з зображенням"
 
-msgid "Show/Hide _CherryTree"
-msgstr "Показати / Сховати _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Показати / Сховати CherryTree"
-
 msgid "Edit the Underlying Link"
 msgstr "Редагувати посилання"
 
@@ -1450,753 +2839,6 @@ msgstr "Видалити посилання"
 msgid "Delete the Selected Link"
 msgstr "Видалити виділене посилання"
 
-msgid "Copy Selection or All"
-msgstr "Копіювати виділене або все"
-
-msgid "Paste"
-msgstr "Вставити"
-
-msgid "Reset"
-msgstr "Обнулити"
-
-msgid "Rename"
-msgstr "Перейменувати"
-
-msgid "PNG Image"
-msgstr "Зображення PNG"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Записати в %s не вдалося"
-
-msgid "Insert/Edit Link"
-msgstr "Вставити / Редагувати посилання"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "Посилання на каталог '%s' некоректне."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Посилання на файл '%s' некоректне."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Посилання на каталог '%s' некоректне"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Посилання на неіснуючу гілку (Id = %s)"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Якір з назвою '%s' не знайдено"
-
-msgid "Edit CodeBox"
-msgstr "Редагувати блок коду"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Ви повинні асоціювати команду з '%s'.\n"
-"Це можна зробити в діалозі налаштувань."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Встановіть пакет 'xterm' або налаштуйте інший термінал в діалозі налаштувань."
-
-msgid "Edit Table Properties"
-msgstr "Редагувати параметри таблиці"
-
-msgid "CSV File"
-msgstr "Файл CSV"
-
-msgid "Insert Anchor"
-msgstr "Вставити якір"
-
-msgid "Edit Anchor"
-msgstr "Редагувати якір"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Неможливо редагувати файли в гілках тільки для читання."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматично оновлено:"
-
-msgid "Change Selected"
-msgstr "Змінити виділене"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "Клавіша '%s' вже використовується."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Поточна дія '%s'"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Ви хочете перепризначити клавішу?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Редагувати клавіші"
-
-msgid "No Keyboard Shortcut"
-msgstr "Немає клавіші"
-
-msgid "Writing to Disk..."
-msgstr "Запис на диск..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Недоступний запис у файл %s"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Введіть пароль для %s"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Не вдалося перевірити цілісність збереженого документа. Спробуйте Файл--"
-">Зберегти як"
-
-msgid "Failed to encrypt the file"
-msgstr "Не вдалося зашифрувати файл"
-
-msgid "Search for"
-msgstr "Шукати"
-
-msgid "Replace with"
-msgstr "Замінити"
-
-msgid "Match Case"
-msgstr "Враховувати регістр"
-
-msgid "Regular Expression"
-msgstr "Регулярний вираз"
-
-msgid "Online Manual"
-msgstr "Посібник онлайн"
-
-msgid "Accent Insensitive"
-msgstr "Нечутливий до наголосу"
-
-msgid "Override Exclusions"
-msgstr "Ігнорувати виключення"
-
-msgid "Whole Word"
-msgstr "Ціле слово"
-
-msgid "Start Word"
-msgstr "Початок слова"
-
-msgid "Forward"
-msgstr "Вперед"
-
-msgid "Backward"
-msgstr "Назад"
-
-msgid "All, List Matches"
-msgstr "Весь список співпадань"
-
-msgid "First From Selection"
-msgstr "Перше від виділення"
-
-msgid "First in All Range"
-msgstr "Перше по всьому діапазону"
-
-msgid "Node Created After"
-msgstr "Гілка створена після"
-
-msgid "Node Created Before"
-msgstr "Гілка створена перед"
-
-msgid "Node Modified After"
-msgstr "Гілка змінена після"
-
-msgid "Node Modified Before"
-msgstr "Гілка змінена перед"
-
-msgid "Time filter"
-msgstr "Часовий фільтр"
-
-msgid "Node Content"
-msgstr "Зміст гілки"
-
-msgid "Node Name and Tags"
-msgstr "Назва гілки та теги"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Тільки виділені гілки з дочірніми гілками"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Показати діалог останніх замін"
-
-msgid "Search options"
-msgstr "Налаштування пошуку"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Принаймні один вузол було пропущено через винятки, встановлені у "
-"властивостях вузла.\n"
-"Щоб очистити всі виключення, скористайтеся меню:\n"
-"Пошук -> Очистити всі виключення з пошуку"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Cховати (Відновити з '%s')"
-
-msgid "Node Name"
-msgstr "Назва гілки"
-
-msgid "Line"
-msgstr "Рядок"
-
-msgid "Line Content"
-msgstr "Зміст рядка"
-
-msgid "Matches"
-msgstr "Співпадання"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Повторити останню заміну"
-
-msgid "Close"
-msgstr "Закрити"
-
-msgid "Find Previous"
-msgstr "Найти попередній"
-
-msgid "Find Next"
-msgstr "Найти наступний"
-
-msgid "Replace"
-msgstr "Замінити"
-
-msgid "Undo"
-msgstr "Відмінити"
-
-msgid "Downloading"
-msgstr "Завантаження"
-
-msgid "Remove from list"
-msgstr "Видалити з списку"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Нова батьківська гілка не може бути дочірньою!"
-
-msgid "Light Background, Dark Text"
-msgstr "Світлий фон, темний текст"
-
-msgid "Dark Background, Light Text"
-msgstr "Темний фон, світлий текст"
-
-msgid "Custom Background"
-msgstr "Інший колір фону"
-
-msgid "Text"
-msgstr "Текст"
-
-msgid "Selection Background"
-msgstr "Фон виділення"
-
-msgid "Tree Explorer"
-msgstr "Дерево"
-
-msgid "Rich Text"
-msgstr "Форматований текст"
-
-msgid "Plain Text"
-msgstr "Звичайний текст"
-
-msgid "Table"
-msgstr "Таблиця"
-
-msgid "Code"
-msgstr "Код"
-
-msgid "Style Schemes"
-msgstr "Схема кольорів"
-
-msgid "Text Foreground"
-msgstr "Колір тексту"
-
-msgid "Text Background"
-msgstr "Колір фону"
-
-msgid "Selection Foreground"
-msgstr "Текст виділення"
-
-msgid "Cursor"
-msgstr "Курсор"
-
-msgid "Current Line Background"
-msgstr "Фон поточного рядка"
-
-msgid "Line Numbers Foreground"
-msgstr "Колір тексту нумерації рядків"
-
-msgid "Line Numbers Background"
-msgstr "Колір фону нумерації рядків"
-
-msgid "Style Scheme Editor"
-msgstr "Редактор схема кольорів"
-
-msgid "Set Dark Theme Icons"
-msgstr "Темна тема іконок"
-
-msgid "Set Light Theme Icons"
-msgstr "Світла тема іконок"
-
-msgid "Set Default Icons"
-msgstr "Іконки по-замовчуванню"
-
-msgid "Icon Theme"
-msgstr "Тема Іконок"
-
-msgid "Move the Selected Bookmark Up"
-msgstr "Пересунути закладку вгору"
-
-msgid "Move the Selected Bookmark Down"
-msgstr "Пересунути закладку вниз"
-
-msgid "Remove the Selected Bookmark"
-msgstr "Видалити закладку"
-
-msgid "Sort the Bookmarks Descending"
-msgstr "Закладки в порядку спадання"
-
-msgid "Sort the Bookmarks Ascending"
-msgstr "Закладки в порядку зростання"
-
-msgid "Choose Storage Type"
-msgstr "Виберіть тип сховища"
-
-msgid "Storage Type"
-msgstr "Тип сховища"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CT зберігає документ в зашифрованому 7zip-архіві. Під час відкриття або "
-"редагування документа CT дістає його з зашифрованого файлу в тимчасову папку "
-"і працює з ним як з звичайним документом. Після закриття файлу незашифрована "
-"копія видаляється з тимчасової папки. Під час краху системи або програми "
-"незашифрована копія може залишитись в тимчасовій папці."
-
-msgid "Enter the New Password Twice"
-msgstr "Введіть пароль двічі"
-
-msgid "Autosave Every"
-msgstr "Автоматично зберігати кожні"
-
-msgid "Minutes"
-msgstr "Хвилин"
-
-msgid "The Password Fields Must be Filled."
-msgstr "Пароль повинен бути уведений."
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "Уведені паролі не співпадають."
-
-msgid "Warning"
-msgstr "Попередження"
-
-msgid "The Current Document was Updated."
-msgstr "Поточний документ було оновлено."
-
-msgid "Do you want to Save the Changes?"
-msgstr "Ви хочете зберегти зміни?"
-
-msgid "Do you want to Execute the Code?"
-msgstr "Ви хочете виконати код?"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Підтвердити виконання коду"
-
-msgid "Use Internal Terminal"
-msgstr "Використовувати внутрішній термінал"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Записник з ієрархічною структурою, можливістю форматувати текст та "
-"підсвічуванням синтаксису"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"Ця програма є вільним програмним забезпеченням;\n"
-"ви можете розповсюджувати та/або змінювати його згідно з умовами\n"
-"Стандартної Громадської Ліцензії GNU,\n"
-"що опублікована Фондом вільного програмного забезпечення,\n"
-"або Ліцензії версії 3, або (на ваш розсуд) \n"
-"будь-якої більш пізньої версії.\n"
-"  \n"
-"Програма поширюється в надії, що вона буде корисною,\n"
-"але БЕЗ БУДЬ ЯКИХ ГАРАНТІЙНИХ ЗОБОВ'ЯЗАНЬ; \n"
-"навіть без  гарантійних зобов'язань, пов'язаних \n"
-"з СПОЖИВЧИМИ ВЛАСТИВОСТЯМИ ТА ПРИДАТНІСТЮ \n"
-"ДЛЯ ПЕВНИХ ЦІЛЕЙ. Для подробиць дивіться\n"
-"Стандартну Громадську Ліцензію GNU.\n"
-"\n"
-"Ви повинні були отримати копію Загальної Громадської\n"
-"Ліцензії GNU разом з цією програмою. Якщо це не так,\n"
-"напишіть у Фундацію Вільного ПЗ (Free Software Foundation, Inc., \n"
-"675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Арабська"
-
-msgid "Armenian"
-msgstr "Вірменська"
-
-msgid "Bulgarian"
-msgstr "Болгарська"
-
-msgid "Chinese Simplified"
-msgstr "Китайська спрощена"
-
-msgid "Chinese Traditional"
-msgstr "Китайська традиційна"
-
-msgid "Croatian"
-msgstr "Хорватська"
-
-msgid "Czech"
-msgstr "Чеська"
-
-msgid "Dutch"
-msgstr "Голландська"
-
-msgid "Finnish"
-msgstr "Фінський"
-
-msgid "French"
-msgstr "Французька"
-
-msgid "German"
-msgstr "Німецька"
-
-msgid "Greek"
-msgstr "Грецька"
-
-msgid "Hindi India"
-msgstr "Хінді Індія"
-
-msgid "Hungarian"
-msgstr "Угорська"
-
-msgid "Italian"
-msgstr "Італійська"
-
-msgid "Japanese"
-msgstr "Японська"
-
-msgid "Kazakh"
-msgstr "Казахська"
-
-msgid "Kazakh (Latin)"
-msgstr "Казахська (Латинь)"
-
-msgid "Korean"
-msgstr "Корейська"
-
-msgid "Lithuanian"
-msgstr "Литовська"
-
-msgid "Persian"
-msgstr "Перська"
-
-msgid "Polish"
-msgstr "Польська"
-
-msgid "Portuguese"
-msgstr "Португальська"
-
-msgid "Portuguese Brazil"
-msgstr "Португальська бразильська"
-
-msgid "Romanian"
-msgstr "Румуньска"
-
-msgid "Russian"
-msgstr "Російська"
-
-msgid "Slovenian"
-msgstr "Словенська"
-
-msgid "Spanish"
-msgstr "Іспанська"
-
-msgid "Swedish"
-msgstr "Шведський"
-
-msgid "Turkish"
-msgstr "Турецька"
-
-msgid "Ukrainian"
-msgstr "Українська"
-
-msgid "Number of Rich Text Nodes"
-msgstr "Кількість гілок з форматованим текстом"
-
-msgid "Number of Plain Text Nodes"
-msgstr "Кількість гілок з простим текстом"
-
-msgid "Number of Code Nodes"
-msgstr "Кількість гілок з кодом"
-
-msgid "Number of Images"
-msgstr "Кількість зображень"
-
-msgid "Number of LatexBoxes"
-msgstr "Кількість блоків LaTeX"
-
-msgid "Number of Embedded Files"
-msgstr "Кількість вставлених файлів"
-
-msgid "Number of Tables"
-msgstr "Кількість таблиць"
-
-msgid "Number of CodeBoxes"
-msgstr "Кількість блоків коду"
-
-msgid "Number of Anchors"
-msgstr "Кількість якорів"
-
-msgid "Number of Shared Nodes / Groups"
-msgstr "Кількість спільних гілок / групи"
-
-msgid "Latex Text"
-msgstr "LaTeX текст"
-
-msgid "Image Size dpi"
-msgstr "Розмір зображення dpi"
-
-msgid "Tutorial"
-msgstr "Підручник"
-
-msgid "Reference"
-msgstr "Довідник"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "Підручник з математичних рівнянь LaTeX"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "Довідник математичних символів LaTeX"
-
-msgid "Image Properties"
-msgstr "Параметри зображення"
-
-msgid "Width"
-msgstr "Ширина"
-
-msgid "Height"
-msgstr "Висота"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Автоматичне підсвічування синтаксису"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "pixels"
-msgstr "пікселів"
-
-msgid "Size"
-msgstr "Розмір"
-
-msgid "Show Line Numbers"
-msgstr "Показати номери рядків"
-
-msgid "Highlight Matching Brackets"
-msgstr "Підсвічування відповідних дужок"
-
-msgid "Options"
-msgstr "Налаштування"
-
-msgid "Rows"
-msgstr "Рядки"
-
-msgid "Columns"
-msgstr "Стовпці"
-
-msgid "Default Width"
-msgstr "Ширина по-замовчуванню"
-
-msgid "Table Size"
-msgstr "Розмір таблиці"
-
-msgid "Column Properties"
-msgstr "Параметри стовпців"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Легкий інтерфейс (набагато швидше для великих таблиць)"
-
-msgid "Import from CSV File"
-msgstr "Імпорт з файлу CSV"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Не вдалося отримати доступ до виконувані файли 'latex' і 'dvipng'"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Наприклад, в Ubuntu пакети для встановлення:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "Наприклад, в Mac OS пакети для встановлення:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "Не вдалося отримати доступ до виконуваного файлу 'latex'"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "Не вдалося отримати доступ до виконуваного файлу 'dvipng'"
-
-msgid "Show White Spaces"
-msgstr "Відображувати пробільні символи"
-
-msgid "Highlight Current Line"
-msgstr "Підсвічування пробільні символи"
-
-msgid "Text Editor"
-msgstr "Текстовий редактор"
-
-msgid "Internal Terminal Shell"
-msgstr "Shell внутрішнього терміналу"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Команда по типу гілки/блоку коду"
-
-msgid "Terminal Command"
-msgstr "Команда терміналу"
-
-msgid "Code Execution"
-msgstr "Виконання коду"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Розмір іконок панелі інструментів максимальний."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Розмір іконок панелі інструментів мінімальний."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Зміни набудуть чинності після перезапускання CherryTree."
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr "Файл бази даних %s пошкоджений, дивіться лог для інформації."
-
-msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes."
-msgstr ""
-"По-замовчуванню зберігається 3 бекапи в тому ж каталозі що і пошкоджений "
-"документ. Вони мають суфікси (~, ~~, ~~~). Спочатку спробуйте бекап з одною "
-"тільдою. Скопіюйте його в інший каталог, приберить тільду з назви і "
-"відкрийте в CherryTree. Якщо цей бекап теж пошкоджений, спробуйте бекапи з "
-"двома та трьома тільдами."
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s запис неможливий - файл відсутній. Підключіть USB пристрій повторно!"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "%s запис неможливий - можливо файл заблокований іншою програмою?"
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s не вдалося повторне відкриття - файл відсутній. Підключіть USB пристрій "
-"повторно!"
-
-msgid "Tab Width"
-msgstr "Ширина табуляції"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Використовувати пробіли замість табуляції"
-
-msgid "Use Line Wrapping"
-msgstr "Ввімкнути режим перенесення тексту"
-
-msgid "Line Wrapping Indentation"
-msgstr "Відступ для перенесення тексту"
-
-msgid "Enable Automatic Indentation"
-msgstr "Ввімкнути автоматичний відступ"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Прокрутка за межі документу"
-
-msgid "Cursor Blinking"
-msgstr "Блимання курсору"
-
-msgid "System Default"
-msgstr "Скинути налаштування"
-
-msgid "On"
-msgstr "Увімк"
-
-msgid "Off"
-msgstr "Вимк"
-
-msgid "Text Margin: Left"
-msgstr "Текстове поле: Вліво"
-
-msgid "Right"
-msgstr "Вправо"
-
-msgid "Vertical Space Around Lines"
-msgstr "Вертикальний відступ"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Вертикальний відступ для рядків"
-
-msgid "Timestamp Format"
-msgstr "Формат дати"
-
-msgid "Horizontal Rule"
-msgstr "Горизонтальна лінія"
-
-msgid "Chars to Select at Double Click"
-msgstr "Символи для виділення подвійним нажаттям"
-
-msgid "Miscellaneous"
-msgstr "Різне"
-
 msgid "Remove Color"
 msgstr "Видалити колір"
 
@@ -2220,632 +2862,6 @@ msgstr "Зберегти файл як"
 
 msgid "Save To Folder"
 msgstr "Зберегти в папку"
-
-msgid "Use Different Cherries per Level"
-msgstr "Різні вишні на кожному рівні"
-
-msgid "Use Selected Icon"
-msgstr "Використовувати іконку"
-
-msgid "No Icon"
-msgstr "Без іконки"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Сховати допоміжну іконку з правої сторони"
-
-msgid "Default Text Nodes Icons"
-msgstr "Іконки для текстових гілок"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Зберігати статус гілок"
-
-msgid "Expand all Nodes"
-msgstr "Розгорнути гілки"
-
-msgid "Collapse all Nodes"
-msgstr "Згорнути гілки"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Завжди видимі гілки в закладках"
-
-msgid "Nodes Status at Startup"
-msgstr "Статус гілок після запуску"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Ширина перенесення назв гілок"
-
-msgid "Display Tree on the Right Side"
-msgstr "Відображати дерево праворуч"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Перенести фокус на текст кліком мишки"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Розгорнути гілку кліком мишки"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Останні відвідані гілки у заголовку"
-
-msgid "Select Node Icon"
-msgstr "Іконка для гілки"
-
-msgid "No Node is Selected"
-msgstr "Гілку не виділено"
-
-msgid "The Tree is Empty!"
-msgstr "Дерево пусте!"
-
-msgid "The Selected Node is Read Only."
-msgstr "Виділена гілка в режимі тільки для читання."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Ця функція доступна лише в режимі форматованого тексту."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Ця функція не доступна в режимі підсвічування синтаксису."
-
-msgid "No Text is Selected."
-msgstr "Текст не виділено."
-
-msgid "No Table is Selected."
-msgstr "Таблиця не виділена."
-
-msgid "No CodeBox is Selected."
-msgstr "Блок коду не виділено."
-
-msgid "New Child Node Properties"
-msgstr "Нові параметри дочірньої гілки"
-
-msgid "New Node Properties"
-msgstr "Нові параметри гілки"
-
-msgid "Node Properties"
-msgstr "Параметри гілки"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"При відключенні режиму форматування тексту, буде втрачено форматування для "
-"цієї гілки. Продовжити?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Ви впевнені, що хочете <b>видалити гілку '%s'?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Гілка <b>має дочірні гілки, які теж будуть видалені!</b>"
-
-msgid "Select the New Parent"
-msgstr "Виберіть нову батьківську гілку"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Нову батьківську гілку неможливо пересунути!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Вибрана нова батьківська гілка є старою!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s параметри гілок змінені"
-
-msgid "To WebSite"
-msgstr "Вебсайт"
-
-msgid "To File"
-msgstr "Файл"
-
-msgid "To Folder"
-msgstr "Каталог"
-
-msgid "To Node"
-msgstr "Гілка"
-
-msgid "Anchor Name (optional)"
-msgstr "Назва якоря (по бажанню)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "В виділеній гілці немає якорів."
-
-msgid "Choose Existing Anchor"
-msgstr "Виберіть існуючий якір"
-
-msgid "Anchor Name"
-msgstr "Назва якора"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Шаблон '%s' не знайдено"
-
-msgid "CherryTree File"
-msgstr "Файл CherryTree"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Папка '%s' вже існує в '%s'.\n"
-"<b>Видалити його?</b>"
-
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Файл '%s' вже існує в '%s'.\n"
-"<b>Видалити його?</b>"
-
-msgid "Preferences File"
-msgstr "Файл налаштувань"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Іконка з'явилась в системній панелі?"
-
-msgid "Your system does not support the System Tray"
-msgstr "Ваша система не підтримує системну панель"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Записник CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "Вийти з CherryTree"
-
-msgid "Show Menubar:"
-msgstr "Показати меню:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Шлях %s не існує"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" не є файлом CherryTree"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Помилка відкриття шляху CherryTree:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Гілка з назвою '%s' не знайдено."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Тимчасові файли були створені чи відкриті зовнішньою програмою."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Завершити зовнішню програму перед виходом з CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Ви завершили зовнішню програму?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Документ було перезавантажено після оновлення файла іншою програмою."
-
-msgid "Autosave on Quit"
-msgstr "Збереження при закритті"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "Створити резервну копію перед збереженням"
-
-msgid "Number of Backups to Keep"
-msgstr "Кількість резервних копій"
-
-msgid "Custom Backup Directory"
-msgstr "Каталог для резервних копій"
-
-msgid "Saving"
-msgstr "Збереження"
-
-msgid "Automatically Check for Newer Version"
-msgstr "Автоматично перевіряти оновлення"
-
-msgid "Reload Document From Last Session"
-msgstr "Завантажити документ з останньої сесії"
-
-msgid "Reload After External Update to CT* File"
-msgstr "Перезавантажити документ після оновлення файлу іншою програмою"
-
-msgid "Enable Debug Log"
-msgstr "Ввімкнути логування"
-
-msgid "Debug Log Directory"
-msgstr "Каталог для логів"
-
-msgid "Enable System Tray Docking"
-msgstr "Сховати в системний трей"
-
-msgid "Start Minimized in the System Tray"
-msgstr "Звернути в трей після запуску"
-
-msgid "System Tray"
-msgstr "Системний лоток"
-
-msgid "Language"
-msgstr "Мова"
-
-msgid "_Hide"
-msgstr "Сховати"
-
-msgid "Hide the Window"
-msgstr "Сховати вікно"
-
-msgid "Node Type"
-msgstr "Тип гілки"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "Теги"
-
-msgid "Spell Check"
-msgstr "Перевірка орфографії"
-
-msgid "Word Count"
-msgstr "Кількість слів"
-
-msgid "Date Created"
-msgstr "Дата створення"
-
-msgid "Date Modified"
-msgstr "Дата зміни"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr "В цій сесії ви не виконували копіювання гілки або дерево недоступне."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Гілка дерева недоступна."
-
-msgid "English"
-msgstr "Англійська"
-
-msgid "Text and Code"
-msgstr "Текст і код"
-
-msgid "Plain Text and Code"
-msgstr "Звичайний текст і код"
-
-msgid "Special Characters"
-msgstr "Спеціальні символи"
-
-msgid "Theme"
-msgstr "Тема"
-
-msgid "Interface"
-msgstr "Інтерфейс"
-
-msgid "Links"
-msgstr "Посилання"
-
-msgid "Toolbar"
-msgstr "Панель інструментів"
-
-msgid "Keyboard Shortcuts"
-msgstr "Клавіатурні прив'язування"
-
-msgid "Monospace"
-msgstr "Моноширинний шрифт"
-
-msgid "Code Font"
-msgstr "Шрифт коду"
-
-msgid "Terminal Font"
-msgstr "Шрифт терміналу"
-
-msgid "Tree Font"
-msgstr "Шрифт дерева"
-
-msgid "Fonts"
-msgstr "Шрифти"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "Ввімкнути лічильник слів в статусному рядку"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "Показувати шлях до документу в заголовку"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Показувати повний шлях в заголовці"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Окреме меню для закладок"
-
-msgid "Menubar in Titlebar"
-msgstr "Меню в заголовці"
-
-msgid "Toolbar Icons Size"
-msgstr "Розмір значків панелі інструментів"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Мінімальний розмір прокрутки (0 = Система за замовчуванням)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Прокрутка накладається на текстовий редактор"
-
-msgid "Yes"
-msgstr "Так"
-
-msgid "No"
-msgstr "Ні"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Увімкнути підказки під час наведення"
-
-msgid "Menus"
-msgstr "Меню"
-
-msgid "Max Search Results per Page"
-msgstr "Максимальна кількість результатів на сторінку"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Відкривати веб-посилання"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Відкривати файли"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Відкривати каталоги"
-
-msgid "Custom Actions"
-msgstr "Інші дії"
-
-msgid "Colors"
-msgstr "Кольори"
-
-msgid "Underline Links"
-msgstr "Підкреслювати посилання"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Використовувати відносні шляхи до файлів та каталогів"
-
-msgid "Anchor Size"
-msgstr "Розмір якора"
-
-msgid "Replace in Current Node"
-msgstr "Заміна в поточній гілці"
-
-msgid "Search in Current Node"
-msgstr "Пошук в поточній гілці"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Шаблон '%s' не знайдено</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Заміна в декількох гілках..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Пошук по декількох гілках..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "В цій сесії не було операції пошуку."
-
-msgid "PDF File"
-msgstr "Файл PDF"
-
-msgid "Plain Text Document"
-msgstr "Текстовий документ"
-
-msgid "Who is the Parent?"
-msgstr "Вкажіть батьківську гілку?"
-
-msgid "The Tree Root"
-msgstr "Дерево"
-
-msgid "The Selected Node"
-msgstr "Виділена гілка"
-
-msgid "Enable Spell Check"
-msgstr "Включити перевірку орфографії"
-
-msgid "Spell Check Language"
-msgstr "Мова перевірки орфографії"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "Автоматично розтягувати блоки коду"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "блок коди мають панель інструментів"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Порогова кількість комірок таблиці для полегшеного інтерфейсу"
-
-msgid "Embedded File Icon Size"
-msgstr "Розмір іконки вставленого файлу"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "Ліміт для вставки файлів (Мб)"
-
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Показувати назву файлу над іконкою"
-
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Ліміт операцій відміни"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Автоматично прикріпляти текст в CamelCase до ноди з такою ж назвою"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Потрійне натискання виділяє параграф"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Ввімкнути автозаміну Markdown (Експерементально)"
-
-msgid "Scale"
-msgstr "Масштабування"
-
-msgid "Bold"
-msgstr "Напівжирний"
-
-msgid "Italic"
-msgstr "Курсив"
-
-msgid "Underline"
-msgstr "Підкреслювання"
-
-msgid "Text Color Foreground"
-msgstr "Колір тексту"
-
-msgid "Text Color Background"
-msgstr "Колір фону"
-
-msgid "Small"
-msgstr "Маленькі"
-
-msgid "Scalable Tags"
-msgstr "Масштабовані теги"
-
-msgid "Execute Code"
-msgstr "Виконати код"
-
-msgid "Change CodeBox Properties"
-msgstr "Змінити параметри блока коду"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "В цій сесії не було операцій форматування тексту."
-
-msgid "Link Name"
-msgstr "Назва посилання"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Курсор за межами абзацу."
-
-msgid "Pick a Foreground Color"
-msgstr "Вибор кольору тексту"
-
-msgid "Pick a Background Color"
-msgstr "Вибор кольору фону"
-
-msgid "Chars for Bulleted List"
-msgstr "Символи для маркованого списку"
-
-msgid "Chars for Todo List"
-msgstr "Символи для TODO списку"
-
-msgid "Chars for Table Of Content"
-msgstr "Символи для змісту"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Символи для автозаміни лапок"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Символи для автозаміни лапок"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Ввімкнути автозаміну лапок"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Ввімкнути автозаміну символів"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Символи, що підтримуються для автозаміни"
-
-msgid "Only at the Start of the Line"
-msgstr "Тільки на початку рядка"
-
-msgid "Use Selected Color"
-msgstr "Використовувати вибраний колір"
-
-msgid "Tags for Searching"
-msgstr "Теги для пошуку"
-
-msgid "Exclude from Searches"
-msgstr "Виключити з пошуку"
-
-msgid "This Node"
-msgstr "Ця гілка"
-
-msgid "The Subnodes"
-msgstr "Дочірні гілки"
-
-msgid "Read Only"
-msgstr "Тільки читання"
-
-msgid "Unique Id"
-msgstr "Винятковий ідентифікатор"
-
-msgid "Shared Nodes Group"
-msgstr "Група спільних гілок"
-
-msgid "Choose Existing Tag"
-msgstr "Виберіть існуючий тег"
-
-msgid "Tag Name"
-msgstr "Назва тегу"
-
-msgid "Pick a Color"
-msgstr "Вибор кольору"
-
-msgid "Involved Nodes"
-msgstr "Зв'язані гілки"
-
-msgid "Selected Text Only"
-msgstr "Тільки виділений текст"
-
-msgid "Selected Node Only"
-msgstr "Тільки виділена гілка"
-
-msgid "Selected Node and Subnodes"
-msgstr "Виділена гілка з дочірніми гілками"
-
-msgid "All the Tree"
-msgstr "Усе дерево"
-
-msgid "Include Node Name"
-msgstr "Друкувати назву гілки"
-
-msgid "Links Tree in Every Page"
-msgstr "Дерево посилань на кожній сторінці"
-
-msgid "New Node in New Page"
-msgstr "Новугілку з нової сторінки"
-
-msgid "Single File"
-msgstr "Один файл"
-
-msgid "Checking for Newer Version..."
-msgstr "Перевірка наявності нових версій..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr "Неможливо перевірити наявність нової версії. Спробуйте пізніше."
-
-msgid "A Newer Version Is Available!"
-msgstr "Доступна нова версія програми!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Встановлена остання версія програми."
-
-msgid "You Are Using a Development Version."
-msgstr "Ви використовуєте версію для розробників."
-
-msgid "Image Format Not Recognized"
-msgstr "Формат зображення не розпізнаний"
-
-msgid "Insert Table"
-msgstr "Вставити таблицю"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Максимальний розмір файлів %s Мб."
-
-msgid "Do you want to Continue?"
-msgstr "Ви хочете продовжувати?"
-
-msgid "Tabs Replaced"
-msgstr "Табуляцію замінено"
-
-msgid "Lines Stripped"
-msgstr "Очищені рядки"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Попередження: зображення були зменшені!"
 
 msgid "Print CherryTree version"
 msgstr "Показати версію CherryTree"
@@ -2880,9 +2896,6 @@ msgstr "Нове вікно"
 msgid "Run in secondary session, independent from main session"
 msgstr "Запустити другий сеанс"
 
-msgid "Are you sure to Reset to Default?"
-msgstr "Ви впевнені, що хочете скинути налаштування?"
-
 msgid "HTML Document"
 msgstr "HTML документ"
 
@@ -2897,6 +2910,28 @@ msgstr "Документ Treepad"
 
 msgid "Leo Document"
 msgstr "Документ Leo"
+
+msgid "Are you sure to Reset to Default?"
+msgstr "Ви впевнені, що хочете скинути налаштування?"
+
+#~ msgid "Insert T_OC..."
+#~ msgstr "Вставити таблицю змісту..."
+
+#~ msgid "Insert Table of Contents"
+#~ msgstr "Вставити таблицю змісту"
+
+#~ msgid ""
+#~ "Backup files are by default 3 in the same folder of the corrupted "
+#~ "document, with the same name plus trailing tildes (~, ~~, ~~~). Try first "
+#~ "the backup with one tilde: copy the file to another directory, remove the "
+#~ "trailing tilde and open with cherrytree. If it still fails, try the one "
+#~ "with two tildes and if it still fails try the one with three tildes."
+#~ msgstr ""
+#~ "По-замовчуванню зберігається 3 бекапи в тому ж каталозі що і пошкоджений "
+#~ "документ. Вони мають суфікси (~, ~~, ~~~). Спочатку спробуйте бекап з "
+#~ "одною тільдою. Скопіюйте його в інший каталог, приберить тільду з назви і "
+#~ "відкрийте в CherryTree. Якщо цей бекап теж пошкоджений, спробуйте бекапи "
+#~ "з двома та трьома тільдами."
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Посібник онлайн"
