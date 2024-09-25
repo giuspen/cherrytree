@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 22:06+0000\n"
-"PO-Revision-Date: 2024-02-28 07:37+0200\n"
+"POT-Creation-Date: 2024-09-21 15:41+0100\n"
+"PO-Revision-Date: 2024-09-25 21:57+0300\n"
 "Last-Translator: Iliya Nikolaev <iliya.nikolaev@gmail.com>\n"
 "Language-Team: Bulgarian <iliya.nikolaev@gmail.com>\n"
 "Language: bg\n"
@@ -17,12 +17,37 @@ msgstr ""
 "X-Source-Language: C\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "Неуспешно извличане на съдържанието на клон '%s'"
+msgid "CherryTree File"
+msgstr "CherryTree файл"
 
-msgid "Index"
-msgstr "Съдържание"
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"Файл/Папка в употреба не може  да се презаписва! \n"
+"Моля, използвайте различно име или място."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Папка '%s' вече съществува в '%s'.\n"
+"<b>Желаете ли да бъде изтрита?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to remove it?</b>"
+msgstr ""
+"Файлът '%s' вече съществува в '%s'.\n"
+"<b>Желаете ли да бъде изтрит?</b>"
+
+msgid "PDF File"
+msgstr "PDF файл"
+
+msgid "Plain Text Document"
+msgstr "Текстов документ"
 
 msgid "Add"
 msgstr "Добави"
@@ -41,6 +66,1421 @@ msgstr "Отваряне на CherryTree документ"
 
 msgid "Select Element to Add"
 msgstr "Изберете елемент, който да добавите"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Пътят %s  не съществува"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "Отвори скорошен документ на CherryTree"
+
+msgid "_Hide"
+msgstr "Скрий"
+
+msgid "_Quit"
+msgstr "Изход"
+
+msgid "Hide the Window"
+msgstr "Скрий прозореца"
+
+msgid "Quit the Application"
+msgstr "Изход от програмата"
+
+msgid "No Node is Selected"
+msgstr "Няма избран клон"
+
+msgid "Node Type"
+msgstr "Тип клон"
+
+msgid ": "
+msgstr ": "
+
+msgid "Rich Text"
+msgstr "Rich текст"
+
+msgid "Plain Text"
+msgstr "Обикновен текст"
+
+msgid "Tags"
+msgstr "Тагове"
+
+msgid "Spell Check"
+msgstr "Проверка правопис"
+
+msgid "Word Count"
+msgstr "Брой думи"
+
+msgid "Date Created"
+msgstr "Дата на създаване"
+
+msgid "Date Modified"
+msgstr "Дата на промяна"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"По време на тази сесия не е извършено копие на предишен клон или дървото "
+"източник вече не е налично."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Дървото източник вече не е налично."
+
+msgid "Image Format Not Recognized"
+msgstr "Непознат формат на изображение"
+
+msgid "Insert Table"
+msgstr "Вмъкване на таблица"
+
+msgid "CSV File"
+msgstr "CSV файл"
+
+msgid "Insert a CodeBox"
+msgstr "Вмъкване на кодов блок"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Максималният размер за вложени файлове е %s MB."
+
+msgid "Do you want to Continue?"
+msgstr "Желаете ли да продължите?"
+
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Неуспешно извличане на съдържанието на клон '%s'"
+
+msgid "Special Characters"
+msgstr "Специални символи"
+
+msgid "Tabs Replaced"
+msgstr "Заменени табове"
+
+msgid "Lines Stripped"
+msgstr "Изчистени линии"
+
+msgid "No Text is Selected."
+msgstr "Няма избран текст."
+
+msgid "Checking for Newer Version..."
+msgstr "Проверка за нова версия..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"Не може да се провери за нова версия. \n"
+" Моля, опитайте отново по-късно."
+
+msgid "A Newer Version Is Available!"
+msgstr "Има нова версия!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Използвате последната версия на програмата."
+
+msgid "You Are Using a Development Version."
+msgstr "Използвате версия за разработчици."
+
+msgid "Execute Code"
+msgstr "Изпълни код"
+
+msgid "Change CodeBox Properties"
+msgstr "Промяна на свойствата на блока с код"
+
+msgid "Show Menubar:"
+msgstr "Покажи меню бар:"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" не е CherryTree документ"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Грешка при анализ на CherryTree файл:\n"
+"\"%s\""
+
+msgid "Do you want to Open the Last Backup?"
+msgstr "Желаете ли да отворите последния бекъп?"
+
+msgid "Failed to Load from Backup Data"
+msgstr "Невъзможно зареждане на данни от бекъп"
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Не е намерен клон с име '%s'."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Временни файлове бяха създадени или отворени с външно приложение."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Затворете външно приложение, преди да излезете от CherryTree."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Затворихте ли външното приложение?"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Документът е презареден след обновяване с друга програма."
+
+msgid "Change Selected"
+msgstr "Промяна на избраното"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "Тази клавишна комбинация '%s' вече се използва."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Текущо асоциирано действие е '%s '"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Искате ли да откраднете тази клавишна комбинация?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Редактиране на клавишни комбинации"
+
+msgid "No Keyboard Shortcut"
+msgstr "Без клавишна комбинация"
+
+msgid "Chars for Bulleted List"
+msgstr "Символи за списък (bullet)"
+
+msgid "Chars for Todo List"
+msgstr "Символи за списък със задачи(Todo List)"
+
+msgid "Chars for Table Of Content"
+msgstr "Символи за съдържание"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Символи за умни двойни кавички"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Символи за умни единични кавички"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Активиране на автоматичната замяна на умни кавички"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Активиране на автоматично коригиране на символи"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Автоматична корекция /замяна на поддържани символи"
+
+msgid "Text Editor"
+msgstr "Текстов редактор"
+
+msgid "Only at the Start of the Line"
+msgstr "Само в началото на реда"
+
+msgid "To WebSite"
+msgstr "Към Уеб сайт"
+
+msgid "To File"
+msgstr "Към Файл"
+
+msgid "To Folder"
+msgstr "Към папка"
+
+msgid "To Node"
+msgstr "Към клон"
+
+msgid "Anchor Name (optional)"
+msgstr "Име на котвата (по желание)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Избраният клон няма котви."
+
+msgid "Choose Existing Anchor"
+msgstr "Изберете съществуваща котва"
+
+msgid "Anchor Name"
+msgstr "Име на котвата"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Шаблонът  '%s ' не е намерен"
+
+msgid "Preferences"
+msgstr "Настроики"
+
+msgid "Arabic"
+msgstr "Арабски"
+
+msgid "Armenian"
+msgstr "Арменски"
+
+msgid "Bulgarian"
+msgstr "Български"
+
+msgid "Chinese Simplified"
+msgstr "Опростен китайски"
+
+msgid "Chinese Traditional"
+msgstr "Китайски традиционен"
+
+msgid "Croatian"
+msgstr "Хърватски"
+
+msgid "Czech"
+msgstr "Чешки"
+
+msgid "Dutch"
+msgstr "Холандски"
+
+msgid "English"
+msgstr "Английски"
+
+msgid "Persian"
+msgstr "Персийски"
+
+msgid "Finnish"
+msgstr "Финландски"
+
+msgid "French"
+msgstr "Френски"
+
+msgid "German"
+msgstr "Немски"
+
+msgid "Greek"
+msgstr "Гръцки"
+
+msgid "Hindi India"
+msgstr "Хинди"
+
+msgid "Hungarian"
+msgstr "Унгарски"
+
+msgid "Italian"
+msgstr "Италиански"
+
+msgid "Japanese"
+msgstr "Японски"
+
+msgid "Kazakh"
+msgstr "Казашки"
+
+msgid "Kazakh (Latin)"
+msgstr "Казашки(Латиница)"
+
+msgid "Korean"
+msgstr "Корейски"
+
+msgid "Lithuanian"
+msgstr "Литовски"
+
+msgid "Polish"
+msgstr "Полски"
+
+msgid "Portuguese"
+msgstr "Португалски"
+
+msgid "Portuguese Brazil"
+msgstr "Бразилски португалски"
+
+msgid "Romanian"
+msgstr "Румънски"
+
+msgid "Russian"
+msgstr "Руски"
+
+msgid "Slovak"
+msgstr "Словашки"
+
+msgid "Slovenian"
+msgstr "Словенски"
+
+msgid "Spanish"
+msgstr "Испански"
+
+msgid "Swedish"
+msgstr "Шведски"
+
+msgid "Turkish"
+msgstr "Турски"
+
+msgid "Ukrainian"
+msgstr "Украински"
+
+msgid "Text and Code"
+msgstr "Текст и код"
+
+msgid "Format"
+msgstr "Форматиране"
+
+msgid "Plain Text and Code"
+msgstr "Обикновен текст и код"
+
+msgid "Tree Explorer"
+msgstr "Изследовател на дърво"
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Interface"
+msgstr "Интерфейс"
+
+msgid "Links"
+msgstr "Връзки"
+
+msgid "Toolbar"
+msgstr "Панел с инструменти"
+
+msgid "Keyboard Shortcuts"
+msgstr "Клавишни комбинации"
+
+msgid "Miscellaneous"
+msgstr "Разни"
+
+msgid "Monospace"
+msgstr "Цвят на фона на шрифт Monospace"
+
+msgid "Code Font"
+msgstr "Шрифт на кода"
+
+msgid "Terminal Font"
+msgstr "Шрифт на DOS конзолата"
+
+msgid "Tree Font"
+msgstr "Шрифт на дървото"
+
+msgid "Fonts"
+msgstr "Шрифтове"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Включване на броя думи в лентата на състоянието"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Покажи папката на документа в заглавната лента"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Покажи пълния път в заглавката на име на възел"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Специално меню за отметки в горната лента с менюта"
+
+msgid "Menubar in Titlebar"
+msgstr "Позволи менюбара в лентата със заглавието"
+
+msgid "Toolbar Icons Size"
+msgstr "Размер на иконките в лентата с инструменти"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Минимален размер на скрол плъзгача (0 =по подразбиране)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Скрол плъзгача покрива текстовия редактор"
+
+msgid "System Default"
+msgstr "Връщане на настройките на системата по подразбиране"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Покажи подсказки при посочване с мишката"
+
+msgid "Tree"
+msgstr "Дърво"
+
+msgid "Menus"
+msgstr "Менюта"
+
+msgid "Max Search Results per Page"
+msgstr "Максимум резултати на страница"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Отваряне на уеб връзки"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Отваряне на файл"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Отваряне на папка"
+
+msgid "Custom Actions"
+msgstr "Други действия"
+
+msgid "Colors"
+msgstr "Цветове"
+
+msgid "Underline Links"
+msgstr "Подчертани връзки"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Използвай относителен път за файлове и папки"
+
+msgid "Anchor Size"
+msgstr "Размер на котвата"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Промените ще влязат в сила след рестартиране на CherryTree."
+
+msgid "The new parent can't be one of his children!"
+msgstr "Новият клон родител не може да бъде дъщерен клон!"
+
+msgid "Light Background, Dark Text"
+msgstr "Светъл фон, тъмен текст"
+
+msgid "Dark Background, Light Text"
+msgstr "Тъмен фон, светъл текст"
+
+msgid "Custom Background"
+msgstr "Друг цвят на фона"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Selection Background"
+msgstr "Друг цвят на фона"
+
+msgid "Table"
+msgstr "Изрежи таблица"
+
+msgid "Code"
+msgstr "Шрифт на кода"
+
+msgid "Style Schemes"
+msgstr "Стилова схема"
+
+msgid "Text Foreground"
+msgstr "Цвят на текста"
+
+msgid "Text Background"
+msgstr "Цвят на фона"
+
+msgid "Selection Foreground"
+msgstr "Избран цвят на текста"
+
+msgid "Cursor"
+msgstr "Курсор"
+
+msgid "Current Line Background"
+msgstr "Цвят на фона на текущия ред"
+
+msgid "Line Numbers Foreground"
+msgstr "Номера на редове на преден план"
+
+msgid "Line Numbers Background"
+msgstr "Номера на редове на фон"
+
+msgid "Style Scheme Editor"
+msgstr "Редактор на стиловата схема"
+
+msgid "Set Dark Theme Icons"
+msgstr "Икони в тъмна тема"
+
+msgid "Set Light Theme Icons"
+msgstr "Икони в светла тема"
+
+msgid "Set Default Icons"
+msgstr "Настрой икони по подразбиране"
+
+msgid "Icon Theme"
+msgstr "Тема на иконите"
+
+msgid "Search for"
+msgstr "Търсене"
+
+msgid "Replace with"
+msgstr "Замени с"
+
+msgid "Match Case"
+msgstr "Чувствителност към регистъра"
+
+msgid "Regular Expression"
+msgstr "Редовен израз(Regular Expression)"
+
+msgid "Online Manual"
+msgstr "Онлайн ръководство"
+
+msgid "Accent Insensitive"
+msgstr "Нечувствителен към акцента"
+
+msgid "Override Exclusions"
+msgstr "Замяна на изключенията"
+
+msgid "Whole Word"
+msgstr "Цяла дума"
+
+msgid "Start Word"
+msgstr "Начална дума"
+
+msgid "Forward"
+msgstr "Напред"
+
+msgid "Backward"
+msgstr "Назад"
+
+msgid "All, List Matches"
+msgstr "Всички, Списък на съвпаденията"
+
+msgid "First From Selection"
+msgstr "Първото от селекцията"
+
+msgid "First in All Range"
+msgstr "Първото из целия диапазон"
+
+msgid "Node Created After"
+msgstr "Клонът е създаден след"
+
+msgid "Node Created Before"
+msgstr "Клонът е създаден преди"
+
+msgid "Node Modified After"
+msgstr "Клонът е променен след"
+
+msgid "Node Modified Before"
+msgstr "Клонът е променен преди"
+
+msgid "Time filter"
+msgstr "Времеви филтр"
+
+msgid "Node Content"
+msgstr "Съдържание на клона"
+
+msgid "Node Name and Tags"
+msgstr "Имена на клони и етикети"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Само избраният клон с дъщерните клони"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Покажи диалога на последна замяна"
+
+msgid "Search options"
+msgstr "Настройки за търсене"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Поне един клон бе пропуснат поради изключения, зададени в свойствата на "
+"клона.\n"
+"За изчистване всички изключения, използвайте менюто:\n"
+"Търсене -> Изчистване на всички изключения от търсенето"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Скрий (Възстанови с '%s')"
+
+msgid "Node Name"
+msgstr "Име на клон"
+
+msgid "Line"
+msgstr "Ред"
+
+msgid "Line Content"
+msgstr "Съдържание на реда"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Връзката сочи до клон, който вече не съществува (Id = %s)"
+
+msgid "Matches"
+msgstr "Съвпадения"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Възстановяване на последната промяна"
+
+msgid "Close"
+msgstr "Затваряне"
+
+msgid "Find Previous"
+msgstr "Намери предишен"
+
+msgid "Find Next"
+msgstr "Намери следващото"
+
+msgid "Replace"
+msgstr "Замяна"
+
+msgid "Undo"
+msgstr "Отмяна"
+
+msgid "Handle the Bookmarks List"
+msgstr "Управление на списъка с отметки"
+
+msgid "Move the Selected Bookmark Up"
+msgstr "Премести избраната отметка нагоре"
+
+msgid "Move the Selected Bookmark Down"
+msgstr "Премести избраната отметка надолу"
+
+msgid "Remove the Selected Bookmark"
+msgstr "Изтриване на избраната отметка"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "Сортирай отметките по низходящ ред"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "Сортирай отметките по възходящ ред"
+
+msgid "Choose Storage Type"
+msgstr "Изберете тип хранилище"
+
+msgid "Storage Type"
+msgstr "Тип на хранилище"
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT съхранява документа в шифрован  7zip-архив. По време на отваряне или "
+"редактиране CT извлича от шифрования архив във временна папка и работи с "
+"него като с обикновен архви. След затваряне на файла, нешифрованото копие на "
+"документа се изтрива от временната папка. Забележете, че в случай на  "
+"системен срив нешифрования документ може да остане във временната папка."
+
+msgid "Enter the New Password Twice"
+msgstr "Въведете паролата си два пъти"
+
+msgid "Autosave Every"
+msgstr "Автосъхраняване на всеки"
+
+msgid "Minutes"
+msgstr "Минута"
+
+msgid "The Password Fields Must be Filled."
+msgstr "Полето парола задължително трябва да се попълни."
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "Въведените пароли не съвпадат."
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "The Current Document was Updated."
+msgstr "Текущият документ е бил обновен."
+
+msgid "Do you want to Save the Changes?"
+msgstr "Искате ли да запазите промените си?"
+
+msgid "Do you want to Execute the Code?"
+msgstr "Искате ли да изпълните кода?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Потвърждение преди изпълнението на кода"
+
+msgid "Use Internal Terminal"
+msgstr "Ползвай вътрешен терминал"
+
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Бележник с йерархична структура с възможност за формат на текста и "
+"осветяване на синтаксиса"
+
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Тази програма е безплатен софтуер; \n"
+"можете да го разпространявате и / или модифицирате според условията на Общ "
+"публичен \\n\n"
+"Тази програма е безплатен софтуер; \\n\n"
+"можете да го разпространявате и / или модифицирате според условията на Общ "
+"публичен лиценз на GNU (GNU GPL), публикувано от Фондация за свободен "
+"софтуер, Лиценз за версия 3, или (по ваш избор) всяка по-късна версия.\n"
+" Програмата се разпространява с надеждата, че ще бъде полезна, но БЕЗ "
+"ВСЯКАКВА ГАРАНЦИЯ;\n"
+"дори без никакви подразбиращи се гаранции, свързани с ТЪРГОВИЯ или за  "
+"КОНКРЕТНИ ЦЕЛИ. За подробности вижте Общ публичен лиценз на GNU.\n"
+"Би трябвало да сте получили копие на Standard Public GNU лицензите заедно с "
+"тази програма. Ако не, пишете на Фондация за свободен софтуер, (Free "
+"Software Foundation, Inc., \n"
+"675 Mass Ave, Cambridge, MA 02139, USA.\n"
+"лиценз на GNU (GNU GPL), публикувано от Фондация за свободен софтуер, Лиценз "
+"за версия 3, или (по ваш избор) всяка по-късна версия.\n"
+" Програмата се разпространява с надеждата, че ще бъде полезна, но БЕЗ "
+"ВСЯКАКВА ГАРАНЦИЯ;\n"
+"дори без никакви подразбиращи се гаранции, свързани с ТЪРГОВИЯ или за  "
+"КОНКРЕТНИ ЦЕЛИ. За подробности вижте Общ публичен лиценз на GNU.\n"
+"Би трябвало да сте получили копие на Standard Public GNU лицензите заедно с "
+"тази програма. Ако не, пишете на Фондация за свободен софтуер, (Free "
+"Software Foundation, Inc., \n"
+"675 Mass Ave, Cambridge, MA 02139, USA.\n"
+
+msgid "About CherryTree"
+msgstr "За програмата CherryTree"
+
+msgid "Tree Summary Information"
+msgstr "Сумарна информация за дървото"
+
+msgid "Number of Rich Text Nodes"
+msgstr "Брой клони с Rich текст"
+
+msgid "Number of Plain Text Nodes"
+msgstr "Брой клони с обикновен текст"
+
+msgid "Number of Code Nodes"
+msgstr "Брой клони с код"
+
+msgid "Number of Images"
+msgstr "Брой изображения"
+
+msgid "Number of LatexBoxes"
+msgstr "Брой Latex блокове"
+
+msgid "Number of Embedded Files"
+msgstr "Брой вмъкнати файлове"
+
+msgid "Number of Tables"
+msgstr "Брой таблици"
+
+msgid "Number of CodeBoxes"
+msgstr "Брой кодови блокове"
+
+msgid "Number of Anchors"
+msgstr "Брой котви"
+
+msgid "Number of Shared Nodes / Groups"
+msgstr "Брой споделени клони / групи"
+
+msgid "Preferences File"
+msgstr "Файлови настроики"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Появи ли се системният панел?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Вашата система не поддържа системен панел"
+
+msgid "Bold"
+msgstr "Удебелен"
+
+msgid "Use Selected Color"
+msgstr "Използвайте избрания цвят"
+
+msgid "Use Selected Icon"
+msgstr "Използвайте избраната иконка"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Автоматично осветяване на синтаксиса"
+
+msgid "Tags for Searching"
+msgstr "Тагове за търсене"
+
+msgid "Exclude from Searches"
+msgstr "Изключи от търсенето"
+
+msgid "This Node"
+msgstr "Този клон"
+
+msgid "The Subnodes"
+msgstr "Подклон"
+
+msgid "Read Only"
+msgstr "Само за четене"
+
+msgid "Unique Id"
+msgstr "Уникално ID"
+
+msgid "Shared Nodes Group"
+msgstr "Група от споделени клони"
+
+msgid "Choose Existing Tag"
+msgstr "Изберете съществуващ таг"
+
+msgid "Tag Name"
+msgstr "Име на тага"
+
+msgid "Pick a Color"
+msgstr "Избор на цвят"
+
+msgid "Select Node Icon"
+msgstr "Изберете иконка за клона"
+
+msgid "Involved Nodes"
+msgstr "Свързани клони"
+
+msgid "Selected Text Only"
+msgstr "Само избрания текст"
+
+msgid "Selected Node Only"
+msgstr "Само избрания клон"
+
+msgid "Selected Node and Subnodes"
+msgstr "Избраният клон с дъщерните клони"
+
+msgid "All the Tree"
+msgstr "Цялото дърво"
+
+msgid "Include Node Name"
+msgstr "Включи името на клона"
+
+msgid "Links Tree in Every Page"
+msgstr "Дърво с връзки на всяка страница"
+
+msgid "New Node in New Page"
+msgstr "Нов клон от нова страница"
+
+msgid "Single File"
+msgstr "Един файл"
+
+msgid "Latex Text"
+msgstr "Latex текст"
+
+msgid "Image Size dpi"
+msgstr "Размер на изображение в dpi"
+
+msgid "Tutorial"
+msgstr "Обучение"
+
+msgid "Reference"
+msgstr "Справка"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Ръководство за уравнения и Latex"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "Справка за математическите символи на LaTeX"
+
+msgid "Image Properties"
+msgstr "Свойства на изображението"
+
+msgid "Width"
+msgstr "Ширина"
+
+msgid "Height"
+msgstr "Височина"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "pixels"
+msgstr "пиксели"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Show Line Numbers"
+msgstr "Покажи номера на редове"
+
+msgid "Highlight Matching Brackets"
+msgstr "Осветявай съвпадащите скоби"
+
+msgid "Options"
+msgstr "Настройки"
+
+msgid "Rows"
+msgstr "Редове"
+
+msgid "Columns"
+msgstr "Колони"
+
+msgid "Default Width"
+msgstr "Ширина по подразбиране"
+
+msgid "Table Size"
+msgstr "Размер на таблицата"
+
+msgid "Column Properties"
+msgstr "Свойства на колоната"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Лек интерфейс (много по-бърз за големи таблици)"
+
+msgid "Import from CSV File"
+msgstr "Импорт от CSV файл"
+
+msgid "The Tree is Empty!"
+msgstr "Дървото е празно!"
+
+msgid "The Selected Node is Read Only."
+msgstr "Избраният клон е само за четене."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Тази функция е достъпна само в режим на форматиран(Rich) текст."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Тази функция не е налична в режим на осветяване на синтаксиса."
+
+msgid "No Table is Selected."
+msgstr "Няма избрана таблица."
+
+msgid "No CodeBox is Selected."
+msgstr "Няма избран блок от код."
+
+msgid "New Child Node Properties"
+msgstr "Нови свойства на дъщерния клон"
+
+msgid "New Node Properties"
+msgstr "Нови свойства на клона"
+
+msgid "Node Properties"
+msgstr "Свойства на клона"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"При напускане на този клон ще загубите форматирането за него,Желаете ли да "
+"продължите?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Сигурен ли сте че искате да <b>изртиете клон '%s'?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Клонът <b> има дъщерни клони и също ще бъде изтрит! </b>"
+
+msgid "Select the New Parent"
+msgstr "Изберете родителски клон"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Новият клон родител не може да бъде самият клон за преместване!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Избраният нов родителски клон е старият!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "Променени са свойствата на %s клони"
+
+msgid "Copy Selection or All"
+msgstr "Копиране на селекцията или всичко"
+
+msgid "Paste"
+msgstr "_Постави"
+
+msgid "Reset"
+msgstr "Начално състояние"
+
+msgid "Downloading"
+msgstr "Изтегляне"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Йерархичен бележник CherryTree"
+
+msgid "Show/Hide _CherryTree"
+msgstr "Покажи / Скрий _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Покажи / Скрий CherryTree"
+
+msgid "_Exit CherryTree"
+msgstr "Изход от CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Изход от CherryTree"
+
+msgid "Index"
+msgstr "Съдържание"
+
+msgid "Rename"
+msgstr "Преименуване"
+
+msgid "PNG Image"
+msgstr "PNG изображение"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Запис в %s се провали"
+
+msgid "Insert/Edit Link"
+msgstr "Вмъкване / редактиране на връзка"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Линкът за папка '%s' не е валиден..."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Линкът за файл '%s' не е валиден..."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Линкът за папка '%s' не е валиден"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Не е намерена котва с име '%s '"
+
+msgid "Edit CodeBox"
+msgstr "Редактиране на кодов блок"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Трябва да асоциирате команда с '%s'.\n"
+"Това може да се направи в диалога Настройки."
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Инсталирайте пакета 'xterm' или конфигурирайте различен терминал в "
+"диалоговия прозорец Предпочитания."
+
+msgid "Edit Table Properties"
+msgstr "Редактиране на свойствата на таблицата"
+
+msgid "Insert Anchor"
+msgstr "Вмъкване на котва"
+
+msgid "Edit Anchor"
+msgstr "Редактиране на котва"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Не може да се редактира файл в режим само за четене."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Вграденият файл се актуализира автоматично:"
+
+msgid "Autosave on Quit"
+msgstr "Запис при изход"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Съхраняване на архива преди запис"
+
+msgid "Number of Backups to Keep"
+msgstr "Брой архиви"
+
+msgid "Custom Backup Directory"
+msgstr "Друг цвят на фона"
+
+msgid "Saving"
+msgstr "Записвам"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Автоматична проверка за обновление"
+
+msgid "Reload Document From Last Session"
+msgstr "Презаредете документа от последната сесия"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Презареждане на файла след промяна от външни програми"
+
+msgid "Enable Debug Log"
+msgstr "Активиране на дневника за отстраняване на грешки"
+
+msgid "Debug Log Directory"
+msgstr "Папка за дневника за отстртраняване на грешки"
+
+msgid "Enable System Tray Docking"
+msgstr "Скриване в системната област"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Стартирай минимизирано в таскбара"
+
+msgid "System Tray"
+msgstr "Таскбар"
+
+msgid "Language"
+msgstr "Език"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "В тази сесия няма операции за форматиране на текст."
+
+msgid "Link Name"
+msgstr "Име на връзката"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Курсорът не е в абзац."
+
+msgid "Pick a Foreground Color"
+msgstr "Избор на цвят"
+
+msgid "Pick a Background Color"
+msgstr "Избор на цвят"
+
+msgid "Enable Spell Check"
+msgstr "Активиране на проверката на правописа"
+
+msgid "Spell Check Language"
+msgstr "Език за проверка на правописа"
+
+msgid "Show White Spaces"
+msgstr "Покажи интервали"
+
+msgid "Highlight Current Line"
+msgstr "Освети текущия ред"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Автоматично разтягане на кодови блокове"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Лента с инсрументи на блоковете код"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Прагов брой клетки на таблица за олекотен интерфейс"
+
+msgid "Embedded File Icon Size"
+msgstr "Размер на икона на вграден файл"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Лимит на вложения файл(MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Покажи файловото име над иконките"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Лимит за брой отмени за клон"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Автоматично свързване на CamelCase текст към клон със същото име"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "При тройно щракване с мишката избор на цяло изречение"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Активиране на замяна на текст Markdown(експериментално)"
+
+msgid "Scale"
+msgstr "Мащаб"
+
+msgid "Italic"
+msgstr "Наклонен"
+
+msgid "Underline"
+msgstr "Подчертан"
+
+msgid "Text Color Foreground"
+msgstr "Цвят на текста"
+
+msgid "Text Color Background"
+msgstr "Цвят на фона"
+
+msgid "Small"
+msgstr "Малък"
+
+msgid "Scalable Tags"
+msgstr "Мащабируеми етикети"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s' не е валиден архив"
+
+msgid "Writing to Disk..."
+msgstr "Запис на диск..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Невъзможно записване във файл %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Въведете парола за %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Проверката за цялостност на запазения документ се провали. опитай Файл--"
+">Запиши като"
+
+msgid "Failed to encrypt the file"
+msgstr "Не може да се шифрова файла"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"База данни файла %s е повреден, вижте файла дневник за повече подробности."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"Невъзможен запис на %s - Файлът липсва.\n"
+"Свържете отново USB устройството или мрежовия ресурс."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"Записа на файл %s не бе успешен - може би поради заключване от "
+"синхронизираща програма?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"Невъзможно повторно отваряне на %s - Файлът липсва.\n"
+"Свържете отново USB устройството или мрежовия ресурс."
+
+msgid "Who is the Parent?"
+msgstr "Задайте папка източник?"
+
+msgid "The Tree Root"
+msgstr "Коренът на дървото"
+
+msgid "The Selected Node"
+msgstr "Избраният клон"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Няма достъп до изпълними 'latex' и 'dvipng'"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Например, в Ubuntu инсталационните пакети са:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Например, в Mac OS  инсталационните пакети са:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Няма достъп до изпълним 'latex'"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Няма достъп до изпълним 'dvipng'"
+
+msgid "Use Different Cherries per Level"
+msgstr "Използвайте различни череши за всяко ниво"
+
+msgid "No Icon"
+msgstr "Без икона"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Скриване на доп. икона отдясно"
+
+msgid "Default Text Nodes Icons"
+msgstr "Икони за текстови клони"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Превключване на разширено / свито състояние"
+
+msgid "Expand all Nodes"
+msgstr "Разгъване на клони"
+
+msgid "Collapse all Nodes"
+msgstr "Свий клоните"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Винаги видими клони в отметките"
+
+msgid "Nodes Status at Startup"
+msgstr "Състояние на клона след стартиране"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Ширина на пренасянето на имената на клоните"
+
+msgid "Display Tree on the Right Side"
+msgstr "Показване на дървото вдясно"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Преместване на фокуса към текст с щракване с мишката"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Разширяване на клон с щракване с мишката"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Наскоро посетени клони в заглавката"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "Възстановяване от резервно копие беше необходимо за:"
+
+msgid "Replace in Current Node"
+msgstr "Замяна в текущия клон"
+
+msgid "Search in Current Node"
+msgstr "Търсене в текущия клон"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "Шаблонът  '%s ' не е намерен"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Замяна във множество клони.."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Намиране в множество клони..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Нямаше търсения в тази сесия."
+
+msgid "Tab Width"
+msgstr "Ширина на таба"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Вмъкване на интервали вместо табулации"
+
+msgid "Use Line Wrapping"
+msgstr "Използвай пренасяне на текста"
+
+msgid "Line Wrapping Indentation"
+msgstr "Преместване на отстъп на текст"
+
+msgid "Enable Automatic Indentation"
+msgstr "Активиране на автоматичен отстъп"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Превъртане отвъд последния ред"
+
+msgid "Cursor Blinking"
+msgstr "Мигане на курсора"
+
+msgid "On"
+msgstr "Включено"
+
+msgid "Off"
+msgstr "Изключено"
+
+msgid "Text Margin: Left"
+msgstr "Текстово поле: отляво"
+
+msgid "Right"
+msgstr "Дясно"
+
+msgid "Vertical Space Around Lines"
+msgstr "Вертикален отстъп"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Вертикален отстъп в редовете"
+
+msgid "Timestamp Format"
+msgstr "Формат на датата"
+
+msgid "Horizontal Rule"
+msgstr "Хоризонтална линия"
+
+msgid "Chars to Select at Double Click"
+msgstr "Символи за избор при двукратно щракване"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Размерът на иконите на лентите с инструменти е вече максимален."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Размерът на иконите на лентите с инструменти е вече минимален."
+
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr ""
+"Предупреждение: Едно или няколко изображения са намалени, за да се поберат в "
+"страницата!"
+
+msgid "Internal Terminal Shell"
+msgstr "Ползвай вътрешен терминал"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Команда по тип на клон/блок код"
+
+msgid "Terminal Command"
+msgstr "Команда за Dos конзолата"
+
+msgid "Code Execution"
+msgstr "Изпълнение на код"
+
+msgid "Remove from list"
+msgstr "Премахни от списъка"
 
 msgid "_File"
 msgstr "Файл"
@@ -92,9 +1532,6 @@ msgstr "Предпочитания(настройки)"
 
 msgid "_Recent Documents"
 msgstr "Скорошни документи"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "Отвори скорошен документ на CherryTree"
 
 msgid "C_hange Case"
 msgstr "Промяна регистър на символите"
@@ -177,9 +1614,6 @@ msgstr "Печат..."
 msgid "Print"
 msgstr "Печат"
 
-msgid "Preferences"
-msgstr "Настроики"
-
 msgid "_Import Preferences..."
 msgstr "_Импорт на настройки..."
 
@@ -195,19 +1629,7 @@ msgstr "Експорт на настройки"
 msgid "Tree In_fo"
 msgstr "Информация за дървото"
 
-msgid "Tree Summary Information"
-msgstr "Сумарна информация за дървото"
-
-msgid "_Quit"
-msgstr "Изход"
-
-msgid "Quit the Application"
-msgstr "Изход от програмата"
-
 msgid "E_xit CherryTree"
-msgstr "Изход от CherryTree"
-
-msgid "Exit from CherryTree"
 msgstr "Изход от CherryTree"
 
 msgid "Edit/Insert"
@@ -246,9 +1668,6 @@ msgstr "Вмъкване на таблица"
 msgid "Insert _CodeBox..."
 msgstr "Вмъкване на блок с код..."
 
-msgid "Insert a CodeBox"
-msgstr "Вмъкване на кодов блок"
-
 msgid "Insert _File..."
 msgstr "Вмъкване на файл..."
 
@@ -267,11 +1686,11 @@ msgstr "Вмъкване на котва..."
 msgid "Insert an Anchor"
 msgstr "Вмъкване на котва"
 
-msgid "Insert T_OC..."
-msgstr "Вмъкване на заглавия на съдържание..."
+msgid "Insert T_OC and Headers Collapsors..."
+msgstr "Вмъкване на съдържание и свиваеми заглавки..."
 
-msgid "Insert Table of Contents"
-msgstr "Вмъкване на съдържание"
+msgid "Insert Table of Contents and Headers Collapsors/Expanders"
+msgstr "Вмъкване на съдържание и заглавки  колапсори и разширители"
 
 msgid "Insert Timestam_p"
 msgstr "Вмъкване на времеви печат"
@@ -552,9 +1971,6 @@ msgstr "Намаляване на височината на блока код"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Намаляване на височината на блока код"
 
-msgid "Format"
-msgstr "Форматиране"
-
 msgid "Format Clo_ne"
 msgstr "Клонирай форматирането"
 
@@ -762,9 +2178,6 @@ msgstr "Изпълни ред от код или селекция"
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Изпълни код от текущия ред или избран текст"
 
-msgid "Tree"
-msgstr "Дърво"
-
 msgid "Go _Back"
 msgstr "Назад"
 
@@ -862,16 +2275,13 @@ msgstr ""
 msgid "_Handle Bookmarks..."
 msgstr "Управление на отметки..."
 
-msgid "Handle the Bookmarks List"
-msgstr "Управление на списъка с отметки"
-
 msgid "Add to Boo_kmarks"
 msgstr "Добави в отметки"
 
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Добави текущия клон към списъка с отметки"
 
-msgid "_Remove from Bookmarks"
+msgid "Remove from Boo_kmarks"
 msgstr "Изтрий от отметките"
 
 msgid "Remove the Current Node from the Bookmarks List"
@@ -952,6 +2362,18 @@ msgstr "Изтриване на избрания клон"
 msgid "Find/Replace"
 msgstr "Търсене/Заместване"
 
+msgid "_Quick Node Selection..."
+msgstr "Селекция бърз възел..."
+
+msgid "Quick Node Selection"
+msgstr "Селекция бърз възел"
+
+msgid "Find in _Nodes Names and Tags..."
+msgstr "Търсене в Имена на клони и Етикети..."
+
+msgid "Find in Nodes Names and Tags"
+msgstr "Търсене в Имена на клони и Етикети"
+
 msgid "_Find in Node Content..."
 msgstr "Търсене в съдържанието на клона..."
 
@@ -963,12 +2385,6 @@ msgstr "Намиране в множество клони..."
 
 msgid "Find in Multiple Nodes"
 msgstr "Претърсване на съдържанието на всички клони"
-
-msgid "Find in _Nodes Names and Tags..."
-msgstr "Търсене в Имена на клони и Етикети..."
-
-msgid "Find in Nodes Names and Tags"
-msgstr "Търсене в Имена на клони и Етикети"
 
 msgid "Find _Again"
 msgstr "Потърси отново"
@@ -1279,9 +2695,6 @@ msgstr "Онлайн ръководство"
 msgid "_About"
 msgstr "За програмата"
 
-msgid "About CherryTree"
-msgstr "За програмата CherryTree"
-
 msgid "_Open Preferences Directory"
 msgstr "Отваряне на папката с настройки"
 
@@ -1417,12 +2830,6 @@ msgstr "Отхвърляне на връзката"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Отхвърляне на връзката, свързана с изображението"
 
-msgid "Show/Hide _CherryTree"
-msgstr "Покажи / Скрий _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Покажи / Скрий CherryTree"
-
 msgid "Edit the Underlying Link"
 msgstr "Редактиране на основната връзка"
 
@@ -1447,765 +2854,6 @@ msgstr "Изтриване на връзка"
 msgid "Delete the Selected Link"
 msgstr "Премахване на избраната връзка"
 
-msgid "Copy Selection or All"
-msgstr "Копиране на селекцията или всичко"
-
-msgid "Paste"
-msgstr "_Постави"
-
-msgid "Reset"
-msgstr "Начално състояние"
-
-msgid "Rename"
-msgstr "Преименуване"
-
-msgid "PNG Image"
-msgstr "PNG изображение"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Запис в %s се провали"
-
-msgid "Insert/Edit Link"
-msgstr "Вмъкване / редактиране на връзка"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "Линкът за папка '%s' не е валиден..."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Линкът за файл '%s' не е валиден..."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Линкът за папка '%s' не е валиден"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Връзката сочи до клон, който вече не съществува (Id = %s)"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Не е намерена котва с име '%s '"
-
-msgid "Edit CodeBox"
-msgstr "Редактиране на кодов блок"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Трябва да асоциирате команда с '%s'.\n"
-"Това може да се направи в диалога Настройки."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Инсталирайте пакета 'xterm' или конфигурирайте различен терминал в "
-"диалоговия прозорец Предпочитания."
-
-msgid "Edit Table Properties"
-msgstr "Редактиране на свойствата на таблицата"
-
-msgid "CSV File"
-msgstr "CSV файл"
-
-msgid "Insert Anchor"
-msgstr "Вмъкване на котва"
-
-msgid "Edit Anchor"
-msgstr "Редактиране на котва"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Не може да се редактира файл в режим само за четене."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "Вграденият файл се актуализира автоматично:"
-
-msgid "Change Selected"
-msgstr "Промяна на избраното"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "Тази клавишна комбинация '%s' вече се използва."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Текущо асоциирано действие е '%s '"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Искате ли да откраднете тази клавишна комбинация?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Редактиране на клавишни комбинации"
-
-msgid "No Keyboard Shortcut"
-msgstr "Без клавишна комбинация"
-
-msgid "Writing to Disk..."
-msgstr "Запис на диск..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Невъзможно записване във файл %s"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Въведете парола за %s"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Проверката за цялостност на запазения документ се провали. опитай Файл--"
-">Запиши като"
-
-msgid "Failed to encrypt the file"
-msgstr "Не може да се шифрова файла"
-
-msgid "Search for"
-msgstr "Търсене"
-
-msgid "Replace with"
-msgstr "Замени с"
-
-msgid "Match Case"
-msgstr "Чувствителност към регистъра"
-
-msgid "Regular Expression"
-msgstr "Редовен израз(Regular Expression)"
-
-msgid "Online Manual"
-msgstr "Онлайн ръководство"
-
-msgid "Accent Insensitive"
-msgstr "Нечувствителен към акцента"
-
-msgid "Override Exclusions"
-msgstr "Замяна на изключенията"
-
-msgid "Whole Word"
-msgstr "Цяла дума"
-
-msgid "Start Word"
-msgstr "Начална дума"
-
-msgid "Forward"
-msgstr "Напред"
-
-msgid "Backward"
-msgstr "Назад"
-
-msgid "All, List Matches"
-msgstr "Всички, Списък на съвпаденията"
-
-msgid "First From Selection"
-msgstr "Първото от селекцията"
-
-msgid "First in All Range"
-msgstr "Първото из целия диапазон"
-
-msgid "Node Created After"
-msgstr "Клонът е създаден след"
-
-msgid "Node Created Before"
-msgstr "Клонът е създаден преди"
-
-msgid "Node Modified After"
-msgstr "Клонът е променен след"
-
-msgid "Node Modified Before"
-msgstr "Клонът е променен преди"
-
-msgid "Time filter"
-msgstr "Времеви филтр"
-
-msgid "Node Content"
-msgstr "Съдържание на клона"
-
-msgid "Node Name and Tags"
-msgstr "Имена на клони и етикети"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Само избраният клон с дъщерните клони"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Покажи диалога на последна замяна"
-
-msgid "Search options"
-msgstr "Настройки за търсене"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Поне един клон бе пропуснат поради изключения, зададени в свойствата на "
-"клона.\n"
-"За изчистване всички изключения, използвайте менюто:\n"
-"Търсене -> Изчистване на всички изключения от търсенето"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Скрий (Възстанови с '%s')"
-
-msgid "Node Name"
-msgstr "Име на клон"
-
-msgid "Line"
-msgstr "Ред"
-
-msgid "Line Content"
-msgstr "Съдържание на реда"
-
-msgid "Matches"
-msgstr "Съвпадения"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "Възстановяване на последната промяна"
-
-msgid "Close"
-msgstr "Затваряне"
-
-msgid "Find Previous"
-msgstr "Намери предишен"
-
-msgid "Find Next"
-msgstr "Намери следващото"
-
-msgid "Replace"
-msgstr "Замяна"
-
-msgid "Undo"
-msgstr "Отмяна"
-
-msgid "Downloading"
-msgstr "Изтегляне"
-
-msgid "Remove from list"
-msgstr "Премахни от списъка"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Новият клон родител не може да бъде дъщерен клон!"
-
-msgid "Light Background, Dark Text"
-msgstr "Светъл фон, тъмен текст"
-
-msgid "Dark Background, Light Text"
-msgstr "Тъмен фон, светъл текст"
-
-msgid "Custom Background"
-msgstr "Друг цвят на фона"
-
-msgid "Text"
-msgstr "Текст"
-
-msgid "Selection Background"
-msgstr "Друг цвят на фона"
-
-msgid "Tree Explorer"
-msgstr "Изследовател на дърво"
-
-msgid "Rich Text"
-msgstr "Rich текст"
-
-msgid "Plain Text"
-msgstr "Обикновен текст"
-
-msgid "Table"
-msgstr "Изрежи таблица"
-
-msgid "Code"
-msgstr "Шрифт на кода"
-
-msgid "Style Schemes"
-msgstr "Стилова схема"
-
-msgid "Text Foreground"
-msgstr "Цвят на текста"
-
-msgid "Text Background"
-msgstr "Цвят на фона"
-
-msgid "Selection Foreground"
-msgstr "Избран цвят на текста"
-
-msgid "Cursor"
-msgstr "Курсор"
-
-msgid "Current Line Background"
-msgstr "Цвят на фона на текущия ред"
-
-msgid "Line Numbers Foreground"
-msgstr "Номера на редове на преден план"
-
-msgid "Line Numbers Background"
-msgstr "Номера на редове на фон"
-
-msgid "Style Scheme Editor"
-msgstr "Редактор на стиловата схема"
-
-msgid "Set Dark Theme Icons"
-msgstr "Икони в тъмна тема"
-
-msgid "Set Light Theme Icons"
-msgstr "Икони в светла тема"
-
-msgid "Set Default Icons"
-msgstr "Настрой икони по подразбиране"
-
-msgid "Icon Theme"
-msgstr "Тема на иконите"
-
-msgid "Move the Selected Bookmark Up"
-msgstr "Премести избраната отметка нагоре"
-
-msgid "Move the Selected Bookmark Down"
-msgstr "Премести избраната отметка надолу"
-
-msgid "Remove the Selected Bookmark"
-msgstr "Изтриване на избраната отметка"
-
-msgid "Sort the Bookmarks Descending"
-msgstr "Сортирай отметките по низходящ ред"
-
-msgid "Sort the Bookmarks Ascending"
-msgstr "Сортирай отметките по възходящ ред"
-
-msgid "Choose Storage Type"
-msgstr "Изберете тип хранилище"
-
-msgid "Storage Type"
-msgstr "Тип на хранилище"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CT съхранява документа в шифрован  7zip-архив. По време на отваряне или "
-"редактиране CT извлича от шифрования архив във временна папка и работи с "
-"него като с обикновен архви. След затваряне на файла, нешифрованото копие на "
-"документа се изтрива от временната папка. Забележете, че в случай на  "
-"системен срив нешифрования документ може да остане във временната папка."
-
-msgid "Enter the New Password Twice"
-msgstr "Въведете паролата си два пъти"
-
-msgid "Autosave Every"
-msgstr "Автосъхраняване на всеки"
-
-msgid "Minutes"
-msgstr "Минута"
-
-msgid "The Password Fields Must be Filled."
-msgstr "Полето парола задължително трябва да се попълни."
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "Въведените пароли не съвпадат."
-
-msgid "Warning"
-msgstr "Предупреждение"
-
-msgid "The Current Document was Updated."
-msgstr "Текущият документ е бил обновен."
-
-msgid "Do you want to Save the Changes?"
-msgstr "Искате ли да запазите промените си?"
-
-msgid "Do you want to Execute the Code?"
-msgstr "Искате ли да изпълните кода?"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Потвърждение преди изпълнението на кода"
-
-msgid "Use Internal Terminal"
-msgstr "Ползвай вътрешен терминал"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Бележник с йерархична структура с възможност за формат на текста и "
-"осветяване на синтаксиса"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"Тази програма е безплатен софтуер; \n"
-"можете да го разпространявате и / или модифицирате според условията на Общ "
-"публичен \\n\n"
-"Тази програма е безплатен софтуер; \\n\n"
-"можете да го разпространявате и / или модифицирате според условията на Общ "
-"публичен лиценз на GNU (GNU GPL), публикувано от Фондация за свободен "
-"софтуер, Лиценз за версия 3, или (по ваш избор) всяка по-късна версия.\n"
-" Програмата се разпространява с надеждата, че ще бъде полезна, но БЕЗ "
-"ВСЯКАКВА ГАРАНЦИЯ;\n"
-"дори без никакви подразбиращи се гаранции, свързани с ТЪРГОВИЯ или за  "
-"КОНКРЕТНИ ЦЕЛИ. За подробности вижте Общ публичен лиценз на GNU.\n"
-"Би трябвало да сте получили копие на Standard Public GNU лицензите заедно с "
-"тази програма. Ако не, пишете на Фондация за свободен софтуер, (Free "
-"Software Foundation, Inc., \n"
-"675 Mass Ave, Cambridge, MA 02139, USA.\n"
-"лиценз на GNU (GNU GPL), публикувано от Фондация за свободен софтуер, Лиценз "
-"за версия 3, или (по ваш избор) всяка по-късна версия.\n"
-" Програмата се разпространява с надеждата, че ще бъде полезна, но БЕЗ "
-"ВСЯКАКВА ГАРАНЦИЯ;\n"
-"дори без никакви подразбиращи се гаранции, свързани с ТЪРГОВИЯ или за  "
-"КОНКРЕТНИ ЦЕЛИ. За подробности вижте Общ публичен лиценз на GNU.\n"
-"Би трябвало да сте получили копие на Standard Public GNU лицензите заедно с "
-"тази програма. Ако не, пишете на Фондация за свободен софтуер, (Free "
-"Software Foundation, Inc., \n"
-"675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Арабски"
-
-msgid "Armenian"
-msgstr "Арменски"
-
-msgid "Bulgarian"
-msgstr "Български"
-
-msgid "Chinese Simplified"
-msgstr "Опростен китайски"
-
-msgid "Chinese Traditional"
-msgstr "Китайски традиционен"
-
-msgid "Croatian"
-msgstr "Хърватски"
-
-msgid "Czech"
-msgstr "Чешки"
-
-msgid "Dutch"
-msgstr "Холандски"
-
-msgid "Finnish"
-msgstr "Финландски"
-
-msgid "French"
-msgstr "Френски"
-
-msgid "German"
-msgstr "Немски"
-
-msgid "Greek"
-msgstr "Гръцки"
-
-msgid "Hindi India"
-msgstr "Хинди"
-
-msgid "Hungarian"
-msgstr "Унгарски"
-
-msgid "Italian"
-msgstr "Италиански"
-
-msgid "Japanese"
-msgstr "Японски"
-
-msgid "Kazakh"
-msgstr "Казашки"
-
-msgid "Kazakh (Latin)"
-msgstr "Казашки(Латиница)"
-
-msgid "Korean"
-msgstr "Корейски"
-
-msgid "Lithuanian"
-msgstr "Литовски"
-
-msgid "Persian"
-msgstr "Персийски"
-
-msgid "Polish"
-msgstr "Полски"
-
-msgid "Portuguese"
-msgstr "Португалски"
-
-msgid "Portuguese Brazil"
-msgstr "Бразилски португалски"
-
-msgid "Romanian"
-msgstr "Румънски"
-
-msgid "Russian"
-msgstr "Руски"
-
-msgid "Slovenian"
-msgstr "Словенски"
-
-msgid "Spanish"
-msgstr "Испански"
-
-msgid "Swedish"
-msgstr "Шведски"
-
-msgid "Turkish"
-msgstr "Турски"
-
-msgid "Ukrainian"
-msgstr "Украински"
-
-msgid "Number of Rich Text Nodes"
-msgstr "Брой клони с Rich текст"
-
-msgid "Number of Plain Text Nodes"
-msgstr "Брой клони с обикновен текст"
-
-msgid "Number of Code Nodes"
-msgstr "Брой клони с код"
-
-msgid "Number of Images"
-msgstr "Брой изображения"
-
-msgid "Number of LatexBoxes"
-msgstr "Брой Latex блокове"
-
-msgid "Number of Embedded Files"
-msgstr "Брой вмъкнати файлове"
-
-msgid "Number of Tables"
-msgstr "Брой таблици"
-
-msgid "Number of CodeBoxes"
-msgstr "Брой кодови блокове"
-
-msgid "Number of Anchors"
-msgstr "Брой котви"
-
-msgid "Number of Shared Nodes / Groups"
-msgstr "Брой споделени клони / групи"
-
-msgid "Latex Text"
-msgstr "Latex текст"
-
-msgid "Image Size dpi"
-msgstr "Размер на изображение в dpi"
-
-msgid "Tutorial"
-msgstr "Обучение"
-
-msgid "Reference"
-msgstr "Справка"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "Ръководство за уравнения и Latex"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "Справка за математическите символи на LaTeX"
-
-msgid "Image Properties"
-msgstr "Свойства на изображението"
-
-msgid "Width"
-msgstr "Ширина"
-
-msgid "Height"
-msgstr "Височина"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Автоматично осветяване на синтаксиса"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "pixels"
-msgstr "пиксели"
-
-msgid "Size"
-msgstr "Размер"
-
-msgid "Show Line Numbers"
-msgstr "Покажи номера на редове"
-
-msgid "Highlight Matching Brackets"
-msgstr "Осветявай съвпадащите скоби"
-
-msgid "Options"
-msgstr "Настройки"
-
-msgid "Rows"
-msgstr "Редове"
-
-msgid "Columns"
-msgstr "Колони"
-
-msgid "Default Width"
-msgstr "Ширина по подразбиране"
-
-msgid "Table Size"
-msgstr "Размер на таблицата"
-
-msgid "Column Properties"
-msgstr "Свойства на колоната"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Лек интерфейс (много по-бърз за големи таблици)"
-
-msgid "Import from CSV File"
-msgstr "Импорт от CSV файл"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Няма достъп до изпълними 'latex' и 'dvipng'"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Например, в Ubuntu инсталационните пакети са:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "Например, в Mac OS  инсталационните пакети са:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "Няма достъп до изпълним 'latex'"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "Няма достъп до изпълним 'dvipng'"
-
-msgid "Show White Spaces"
-msgstr "Покажи интервали"
-
-msgid "Highlight Current Line"
-msgstr "Освети текущия ред"
-
-msgid "Text Editor"
-msgstr "Текстов редактор"
-
-msgid "Internal Terminal Shell"
-msgstr "Ползвай вътрешен терминал"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Команда по тип на клон/блок код"
-
-msgid "Terminal Command"
-msgstr "Команда за Dos конзолата"
-
-msgid "Code Execution"
-msgstr "Изпълнение на код"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Размерът на иконите на лентите с инструменти е вече максимален."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Размерът на иконите на лентите с инструменти е вече минимален."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Промените ще влязат в сила след рестартиране на CherryTree."
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr ""
-"База данни файла %s е повреден, вижте файла дневник за повече подробности."
-
-msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, "
-"with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
-"with one tilde: copy the file to another directory, remove the trailing "
-"tilde and open with cherrytree. If it still fails, try the one with two "
-"tildes and if it still fails try the one with three tildes."
-msgstr ""
-"Архивните файлове по подразбиране са 3 в същата папка на повредения "
-"документ, със същото име плюс тилди в края (~, ~~, ~~~). Опитайте първо "
-"архивирането с една тилда: копирайте файла в друга директория, премахнете "
-"задната тилда и отворете с Cherrytree. Ако все пак не успеете, опитайте този "
-"с две тилди и ако пак не успеете, опитайте този с три тилди."
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"записа на файл %s не бе успешен - файлът липсва. Поставете отново USB "
-"устройството или споделения ресурс!"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"Записа на файл %s не бе успешен - може би поради заключване от "
-"синхронизираща програма?"
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"Отваряне на %s не бе успешно - файлът липсва. Поставете отново USB "
-"устройството или споделения ресурс!"
-
-msgid "Tab Width"
-msgstr "Ширина на таба"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Вмъкване на интервали вместо табулации"
-
-msgid "Use Line Wrapping"
-msgstr "Използвай пренасяне на текста"
-
-msgid "Line Wrapping Indentation"
-msgstr "Преместване на отстъп на текст"
-
-msgid "Enable Automatic Indentation"
-msgstr "Активиране на автоматичен отстъп"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Превъртане отвъд последния ред"
-
-msgid "Cursor Blinking"
-msgstr "Мигане на курсора"
-
-msgid "System Default"
-msgstr "Връщане на настройките на системата по подразбиране"
-
-msgid "On"
-msgstr "Включено"
-
-msgid "Off"
-msgstr "Изключено"
-
-msgid "Text Margin: Left"
-msgstr "Текстово поле: отляво"
-
-msgid "Right"
-msgstr "Дясно"
-
-msgid "Vertical Space Around Lines"
-msgstr "Вертикален отстъп"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Вертикален отстъп в редовете"
-
-msgid "Timestamp Format"
-msgstr "Формат на датата"
-
-msgid "Horizontal Rule"
-msgstr "Хоризонтална линия"
-
-msgid "Chars to Select at Double Click"
-msgstr "Символи за избор при двукратно щракване"
-
-msgid "Miscellaneous"
-msgstr "Разни"
-
 msgid "Remove Color"
 msgstr "Премахни цвят"
 
@@ -2229,638 +2877,6 @@ msgstr "Запис на файл като"
 
 msgid "Save To Folder"
 msgstr "Запис в папка"
-
-msgid "Use Different Cherries per Level"
-msgstr "Използвайте различни череши за всяко ниво"
-
-msgid "Use Selected Icon"
-msgstr "Използвайте избраната иконка"
-
-msgid "No Icon"
-msgstr "Без икона"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Скриване на доп. икона отдясно"
-
-msgid "Default Text Nodes Icons"
-msgstr "Икони за текстови клони"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Превключване на разширено / свито състояние"
-
-msgid "Expand all Nodes"
-msgstr "Разгъване на клони"
-
-msgid "Collapse all Nodes"
-msgstr "Свий клоните"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Винаги видими клони в отметките"
-
-msgid "Nodes Status at Startup"
-msgstr "Състояние на клона след стартиране"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Ширина на пренасянето на имената на клоните"
-
-msgid "Display Tree on the Right Side"
-msgstr "Показване на дървото вдясно"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Преместване на фокуса към текст с щракване с мишката"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Разширяване на клон с щракване с мишката"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Наскоро посетени клони в заглавката"
-
-msgid "Select Node Icon"
-msgstr "Изберете иконка за клона"
-
-msgid "No Node is Selected"
-msgstr "Няма избран клон"
-
-msgid "The Tree is Empty!"
-msgstr "Дървото е празно!"
-
-msgid "The Selected Node is Read Only."
-msgstr "Избраният клон е само за четене."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Тази функция е достъпна само в режим на форматиран(Rich) текст."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Тази функция не е налична в режим на осветяване на синтаксиса."
-
-msgid "No Text is Selected."
-msgstr "Няма избран текст."
-
-msgid "No Table is Selected."
-msgstr "Няма избрана таблица."
-
-msgid "No CodeBox is Selected."
-msgstr "Няма избран блок от код."
-
-msgid "New Child Node Properties"
-msgstr "Нови свойства на дъщерния клон"
-
-msgid "New Node Properties"
-msgstr "Нови свойства на клона"
-
-msgid "Node Properties"
-msgstr "Свойства на клона"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"При напускане на този клон ще загубите форматирането за него,Желаете ли да "
-"продължите?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Сигурен ли сте че искате да <b>изртиете клон '%s'?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Клонът <b> има дъщерни клони и също ще бъде изтрит! </b>"
-
-msgid "Select the New Parent"
-msgstr "Изберете родителски клон"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Новият клон родител не може да бъде самият клон за преместване!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Избраният нов родителски клон е старият!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "Променени са свойствата на %s клони"
-
-msgid "To WebSite"
-msgstr "Към Уеб сайт"
-
-msgid "To File"
-msgstr "Към Файл"
-
-msgid "To Folder"
-msgstr "Към папка"
-
-msgid "To Node"
-msgstr "Към клон"
-
-msgid "Anchor Name (optional)"
-msgstr "Име на котвата (по желание)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Избраният клон няма котви."
-
-msgid "Choose Existing Anchor"
-msgstr "Изберете съществуваща котва"
-
-msgid "Anchor Name"
-msgstr "Име на котвата"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Шаблонът  '%s ' не е намерен"
-
-msgid "CherryTree File"
-msgstr "CherryTree файл"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Папка '%s' вече съществува в '%s'.\n"
-"<b>Желаете ли да бъде изтрита?</b>"
-
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"Файлът '%s' вече съществува в '%s'.\n"
-"<b>Желаете ли да бъде изтрит?</b>"
-
-msgid "Preferences File"
-msgstr "Файлови настроики"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Появи ли се системният панел?"
-
-msgid "Your system does not support the System Tray"
-msgstr "Вашата система не поддържа системен панел"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Йерархичен бележник CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "Изход от CherryTree"
-
-msgid "Show Menubar:"
-msgstr "Покажи меню бар:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Пътят %s  не съществува"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" не е CherryTree документ"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Грешка при анализ на CherryTree файл:\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Не е намерен клон с име '%s'."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Временни файлове бяха създадени или отворени с външно приложение."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Затворете външно приложение, преди да излезете от CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Затворихте ли външното приложение?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Документът е презареден след обновяване с друга програма."
-
-msgid "Autosave on Quit"
-msgstr "Запис при изход"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "Съхраняване на архива преди запис"
-
-msgid "Number of Backups to Keep"
-msgstr "Брой архиви"
-
-msgid "Custom Backup Directory"
-msgstr "Друг цвят на фона"
-
-msgid "Saving"
-msgstr "Записвам"
-
-msgid "Automatically Check for Newer Version"
-msgstr "Автоматична проверка за обновление"
-
-msgid "Reload Document From Last Session"
-msgstr "Презаредете документа от последната сесия"
-
-msgid "Reload After External Update to CT* File"
-msgstr "Презареждане на файла след промяна от външни програми"
-
-msgid "Enable Debug Log"
-msgstr "Активиране на дневника за отстраняване на грешки"
-
-msgid "Debug Log Directory"
-msgstr "Папка за дневника за отстртраняване на грешки"
-
-msgid "Enable System Tray Docking"
-msgstr "Скриване в системната област"
-
-msgid "Start Minimized in the System Tray"
-msgstr "Стартирай минимизирано в таскбара"
-
-msgid "System Tray"
-msgstr "Таскбар"
-
-msgid "Language"
-msgstr "Език"
-
-msgid "_Hide"
-msgstr "Скрий"
-
-msgid "Hide the Window"
-msgstr "Скрий прозореца"
-
-msgid "Node Type"
-msgstr "Тип клон"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "Тагове"
-
-msgid "Spell Check"
-msgstr "Проверка правопис"
-
-msgid "Word Count"
-msgstr "Брой думи"
-
-msgid "Date Created"
-msgstr "Дата на създаване"
-
-msgid "Date Modified"
-msgstr "Дата на промяна"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"По време на тази сесия не е извършено копие на предишен клон или дървото "
-"източник вече не е налично."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Дървото източник вече не е налично."
-
-msgid "English"
-msgstr "Английски"
-
-msgid "Text and Code"
-msgstr "Текст и код"
-
-msgid "Plain Text and Code"
-msgstr "Обикновен текст и код"
-
-msgid "Special Characters"
-msgstr "Специални символи"
-
-msgid "Theme"
-msgstr "Тема"
-
-msgid "Interface"
-msgstr "Интерфейс"
-
-msgid "Links"
-msgstr "Връзки"
-
-msgid "Toolbar"
-msgstr "Панел с инструменти"
-
-msgid "Keyboard Shortcuts"
-msgstr "Клавишни комбинации"
-
-msgid "Monospace"
-msgstr "Цвят на фона на шрифт Monospace"
-
-msgid "Code Font"
-msgstr "Шрифт на кода"
-
-msgid "Terminal Font"
-msgstr "Шрифт на DOS конзолата"
-
-msgid "Tree Font"
-msgstr "Шрифт на дървото"
-
-msgid "Fonts"
-msgstr "Шрифтове"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "Включване на броя думи в лентата на състоянието"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "Покажи папката на документа в заглавната лента"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Покажи пълния път в заглавката на име на възел"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Специално меню за отметки в горната лента с менюта"
-
-msgid "Menubar in Titlebar"
-msgstr "Позволи менюбара в лентата със заглавието"
-
-msgid "Toolbar Icons Size"
-msgstr "Размер на иконките в лентата с инструменти"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Минимален размер на скрол плъзгача (0 =по подразбиране)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Скрол плъзгача покрива текстовия редактор"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Не"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Покажи подсказки при посочване с мишката"
-
-msgid "Menus"
-msgstr "Менюта"
-
-msgid "Max Search Results per Page"
-msgstr "Максимум резултати на страница"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Отваряне на уеб връзки"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Отваряне на файл"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Отваряне на папка"
-
-msgid "Custom Actions"
-msgstr "Други действия"
-
-msgid "Colors"
-msgstr "Цветове"
-
-msgid "Underline Links"
-msgstr "Подчертани връзки"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Използвай относителен път за файлове и папки"
-
-msgid "Anchor Size"
-msgstr "Размер на котвата"
-
-msgid "Replace in Current Node"
-msgstr "Замяна в текущия клон"
-
-msgid "Search in Current Node"
-msgstr "Търсене в текущия клон"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "Шаблонът  '%s ' не е намерен"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Замяна във множество клони.."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Намиране в множество клони..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Нямаше търсения в тази сесия."
-
-msgid "PDF File"
-msgstr "PDF файл"
-
-msgid "Plain Text Document"
-msgstr "Текстов документ"
-
-msgid "Who is the Parent?"
-msgstr "Задайте папка източник?"
-
-msgid "The Tree Root"
-msgstr "Коренът на дървото"
-
-msgid "The Selected Node"
-msgstr "Избраният клон"
-
-msgid "Enable Spell Check"
-msgstr "Активиране на проверката на правописа"
-
-msgid "Spell Check Language"
-msgstr "Език за проверка на правописа"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "Автоматично разтягане на кодови блокове"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "Лента с инсрументи на блоковете код"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Прагов брой клетки на таблица за олекотен интерфейс"
-
-msgid "Embedded File Icon Size"
-msgstr "Размер на икона на вграден файл"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "Лимит на вложения файл(MB)"
-
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Покажи файловото име над иконките"
-
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Лимит за брой отмени за клон"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Автоматично свързване на CamelCase текст към клон със същото име"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "При тройно щракване с мишката избор на цяло изречение"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Активиране на замяна на текст Markdown(експериментално)"
-
-msgid "Scale"
-msgstr "Мащаб"
-
-msgid "Bold"
-msgstr "Удебелен"
-
-msgid "Italic"
-msgstr "Наклонен"
-
-msgid "Underline"
-msgstr "Подчертан"
-
-msgid "Text Color Foreground"
-msgstr "Цвят на текста"
-
-msgid "Text Color Background"
-msgstr "Цвят на фона"
-
-msgid "Small"
-msgstr "Малък"
-
-msgid "Scalable Tags"
-msgstr "Мащабируеми етикети"
-
-msgid "Execute Code"
-msgstr "Изпълни код"
-
-msgid "Change CodeBox Properties"
-msgstr "Промяна на свойствата на блока с код"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "В тази сесия няма операции за форматиране на текст."
-
-msgid "Link Name"
-msgstr "Име на връзката"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Курсорът не е в абзац."
-
-msgid "Pick a Foreground Color"
-msgstr "Избор на цвят"
-
-msgid "Pick a Background Color"
-msgstr "Избор на цвят"
-
-msgid "Chars for Bulleted List"
-msgstr "Символи за списък (bullet)"
-
-msgid "Chars for Todo List"
-msgstr "Символи за списък със задачи(Todo List)"
-
-msgid "Chars for Table Of Content"
-msgstr "Символи за съдържание"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Символи за умни двойни кавички"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Символи за умни единични кавички"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Активиране на автоматичната замяна на умни кавички"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Активиране на автоматично коригиране на символи"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Автоматична корекция /замяна на поддържани символи"
-
-msgid "Only at the Start of the Line"
-msgstr "Само в началото на реда"
-
-msgid "Use Selected Color"
-msgstr "Използвайте избрания цвят"
-
-msgid "Tags for Searching"
-msgstr "Тагове за търсене"
-
-msgid "Exclude from Searches"
-msgstr "Изключи от търсенето"
-
-msgid "This Node"
-msgstr "Този клон"
-
-msgid "The Subnodes"
-msgstr "Подклон"
-
-msgid "Read Only"
-msgstr "Само за четене"
-
-msgid "Unique Id"
-msgstr "Уникално ID"
-
-msgid "Shared Nodes Group"
-msgstr "Група от споделени клони"
-
-msgid "Choose Existing Tag"
-msgstr "Изберете съществуващ таг"
-
-msgid "Tag Name"
-msgstr "Име на тага"
-
-msgid "Pick a Color"
-msgstr "Избор на цвят"
-
-msgid "Involved Nodes"
-msgstr "Свързани клони"
-
-msgid "Selected Text Only"
-msgstr "Само избрания текст"
-
-msgid "Selected Node Only"
-msgstr "Само избрания клон"
-
-msgid "Selected Node and Subnodes"
-msgstr "Избраният клон с дъщерните клони"
-
-msgid "All the Tree"
-msgstr "Цялото дърво"
-
-msgid "Include Node Name"
-msgstr "Включи името на клона"
-
-msgid "Links Tree in Every Page"
-msgstr "Дърво с връзки на всяка страница"
-
-msgid "New Node in New Page"
-msgstr "Нов клон от нова страница"
-
-msgid "Single File"
-msgstr "Един файл"
-
-msgid "Checking for Newer Version..."
-msgstr "Проверка за нова версия..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"Не може да се провери за нова версия. \n"
-" Моля, опитайте отново по-късно."
-
-msgid "A Newer Version Is Available!"
-msgstr "Има нова версия!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Използвате последната версия на програмата."
-
-msgid "You Are Using a Development Version."
-msgstr "Използвате версия за разработчици."
-
-msgid "Image Format Not Recognized"
-msgstr "Непознат формат на изображение"
-
-msgid "Insert Table"
-msgstr "Вмъкване на таблица"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Максималният размер за вложени файлове е %s MB."
-
-msgid "Do you want to Continue?"
-msgstr "Желаете ли да продължите?"
-
-msgid "Tabs Replaced"
-msgstr "Заменени табове"
-
-msgid "Lines Stripped"
-msgstr "Изчистени линии"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr ""
-"Предупреждение: Едно или няколко изображения са намалени, за да се поберат в "
-"страницата!"
 
 msgid "Print CherryTree version"
 msgstr "Изход от CherryTree"
@@ -2895,10 +2911,6 @@ msgstr "Създай нов прозорец"
 msgid "Run in secondary session, independent from main session"
 msgstr "Пусни във втора сесия, независима от главната"
 
-msgid "Are you sure to Reset to Default?"
-msgstr ""
-"Сигурен ли сте че искате да върнете в начално състояние по подразбиране?"
-
 msgid "HTML Document"
 msgstr "HTML документ"
 
@@ -2913,6 +2925,29 @@ msgstr "Treepad документ"
 
 msgid "Leo Document"
 msgstr "Лео документ"
+
+msgid "Are you sure to Reset to Default?"
+msgstr ""
+"Сигурен ли сте че искате да върнете в начално състояние по подразбиране?"
+
+#~ msgid "Insert T_OC..."
+#~ msgstr "Вмъкване на заглавия на съдържание..."
+
+#~ msgid "Insert Table of Contents"
+#~ msgstr "Вмъкване на съдържание"
+
+#~ msgid ""
+#~ "Backup files are by default 3 in the same folder of the corrupted "
+#~ "document, with the same name plus trailing tildes (~, ~~, ~~~). Try first "
+#~ "the backup with one tilde: copy the file to another directory, remove the "
+#~ "trailing tilde and open with cherrytree. If it still fails, try the one "
+#~ "with two tildes and if it still fails try the one with three tildes."
+#~ msgstr ""
+#~ "Архивните файлове по подразбиране са 3 в същата папка на повредения "
+#~ "документ, със същото име плюс тилди в края (~, ~~, ~~~). Опитайте първо "
+#~ "архивирането с една тилда: копирайте файла в друга директория, премахнете "
+#~ "задната тилда и отворете с Cherrytree. Ако все пак не успеете, опитайте "
+#~ "този с две тилди и ако пак не успеете, опитайте този с три тилди."
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Ръководство онлайн"
