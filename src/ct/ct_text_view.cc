@@ -37,6 +37,10 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
  , _pTextView{Gtk::manage(Glib::wrap(GTK_TEXT_VIEW(_pGtkSourceView)))}
  , _columnEdit{*_pTextView}
 {
+    // Increment Glib's internal refcount to prevent the destruction of the
+    // textview by a parent widget (if any); the textview is owned by us!
+    g_object_ref(G_OBJECT(_pGtkSourceView));
+
     gtk_source_view_set_smart_home_end(_pGtkSourceView, GTK_SOURCE_SMART_HOME_END_AFTER);
     _pTextView->set_left_margin(_pCtConfig->textMarginLeft);
     _pTextView->set_right_margin(_pCtConfig->textMarginRight);
@@ -102,6 +106,11 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     _columnEdit.register_new_cursor_row_col_callback([this](const int r, const int c){
         _pCtStatusBar->new_cursor_pos(r, c);
     });
+}
+
+CtTextView::~CtTextView()
+{
+    g_object_unref(G_OBJECT(_pGtkSourceView));
 }
 
 void CtTextView::_set_highlight_current_line_enabled(const bool enabled)

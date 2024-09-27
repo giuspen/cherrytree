@@ -38,6 +38,7 @@ class CtTextView
 {
 public:
     CtTextView(CtMainWin* pCtMainWin);
+    virtual ~CtTextView();
 
     GtkSourceView* gobj() { return _pGtkSourceView; }
     Gtk::TextView& mm() { return *_pTextView; }
