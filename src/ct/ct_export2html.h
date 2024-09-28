@@ -55,7 +55,8 @@ public:
                                            CtMainWin* const pCtMainWin, // the unit tests may pass nullptr here!
                                            int start_offset,
                                            int end_offset,
-                                           Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
+                                           Glib::RefPtr<Gtk::TextBuffer> curr_buffer,
+                                           const bool single_file);
 
     void          node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end);
     void          nodes_all_export_to_multiple_html(bool all_tree, const CtExportOptions& options);
@@ -68,7 +69,11 @@ public:
 
 private:
     Glib::ustring _get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, fs::path embed_dir);
-    Glib::ustring _get_image_html(CtImage* image, const fs::path& images_dir, int& images_count, CtTreeIter* tree_iter);
+    Glib::ustring _get_image_html(CtImage* image,
+                                  const fs::path& images_dir,
+                                  int& images_count,
+                                  CtTreeIter* tree_iter,
+                                  const bool single_file);
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
     Glib::ustring _get_table_html(CtTableCommon* table);
 
@@ -81,7 +86,8 @@ private:
                                        int sel_start,
                                        int sel_end,
                                        std::vector<Glib::ustring>& out_slots,
-                                       std::vector<CtAnchoredWidget*>& out_widgets);
+                                       std::vector<CtAnchoredWidget*>& out_widgets,
+                                       const bool single_file);
     static int _html_process_list_info_change(Glib::ustring& html,
                                               std::list<CtListType>& nested_list_types,
                                               CtListInfo* pListInfoFrom,
@@ -89,8 +95,11 @@ private:
     static Glib::ustring _html_text_serialize(CtMainWin* const pCtMainWin, // the unit tests may pass nullptr here!
                                               Gtk::TextIter start_iter,
                                               Gtk::TextIter end_iter,
-                                              const CtCurrAttributesMap& curr_attributes);
-    static std::string _get_href_from_link_prop_val(CtMainWin* const pCtMainWin, Glib::ustring link_prop_val);
+                                              const CtCurrAttributesMap& curr_attributes,
+                                              const bool single_file);
+    static std::string _get_href_from_link_prop_val(CtMainWin* const pCtMainWin,
+                                                    const Glib::ustring& link_prop_val,
+                                                    const bool single_file);
     Glib::ustring _get_object_alignment_string(Glib::ustring alignment);
 
     void _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page);

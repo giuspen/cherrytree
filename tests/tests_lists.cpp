@@ -94,7 +94,8 @@ TEST(ListsGroup, CtListInfo_2)
     Glib::ustring out_html = CtExport2Html::html_process_slot(pCtConfig,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_2.size()-1,
-                                                              pTextBuffer);
+                                                              pTextBuffer,
+                                                              false/*single_file*/);
     ASSERT_STREQ("ciao\n<ul><li>primo elemento <strong>con</strong> tag</li><li>secondo elemento</li></ul>", out_html.c_str());
 }
 
@@ -249,6 +250,7 @@ TEST(ListsGroup, CtListInfo_1)
     Glib::ustring out_html = CtExport2Html::html_process_slot(pCtConfig,
                                                               nullptr/*pCtMainWin*/,
                                                               0, bufferContent_1.size()-1,
-                                                              pTextBuffer);
+                                                              pTextBuffer,
+                                                              false/*single_file*/);
     ASSERT_STREQ("<ul><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ul><li>terzo elemento indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2 pi\xC3\xB9 3<ul><li>ancora un livello su pi\xC3\xB9 righe</li><li>stesso livello<ul><li>ancora uno avanti</li></ul></li></ul></li></ul></li></ul>\n<ol><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ol><li>terzo indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2<ol><li>ancora un livello<ol><li>ancora uno avant</li></ol></li></ol></li></ol></li></ol>", out_html.c_str());
 }
