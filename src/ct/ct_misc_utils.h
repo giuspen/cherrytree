@@ -254,7 +254,11 @@ bool is_codeset_not_utf8(const std::string& codeset);
 
 void convert_if_not_utf8(std::string& inOutText, const bool sanitise);
 
+bool string_any_encoding_load_into_source_buffer(const char* pChar, GtkSourceBuffer* pGtkSourceBuffer);
+bool string_any_encoding_to_utf8(const char* pChar, Glib::ustring& utf8_text);
+
 bool file_any_encoding_load_into_source_buffer(const std::string& filepath, GtkSourceBuffer* pGtkSourceBuffer);
+bool file_any_encoding_to_utf8(const std::string& filepath, Glib::ustring& utf8_text);
 
 } // namespace CtStrUtil
 

@@ -1033,9 +1033,8 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
     }
 }
 
-bool CtStrUtil::file_any_encoding_load_into_source_buffer(const std::string& filepath, GtkSourceBuffer* pGtkSourceBuffer)
+static bool _g_file_load_into_source_buffer(GFile* pGFile, GtkSourceBuffer* pGtkSourceBuffer)
 {
-    GFile* pGFile = g_file_new_for_path(filepath.c_str());
     GtkSourceFile* pGtkSourceFile = gtk_source_file_new();
     gtk_source_file_set_location(pGtkSourceFile, pGFile);
     GtkSourceFileLoader* pGtkSourceFileLoader = gtk_source_file_loader_new(pGtkSourceBuffer, pGtkSourceFile);
@@ -1065,8 +1064,57 @@ bool CtStrUtil::file_any_encoding_load_into_source_buffer(const std::string& fil
     }
     g_object_unref(pGtkSourceFileLoader);
     g_object_unref(pGtkSourceFile);
-    g_object_unref(pGFile);
     return operationStatus > 0;
+}
+
+bool CtStrUtil::file_any_encoding_load_into_source_buffer(const std::string& filepath, GtkSourceBuffer* pGtkSourceBuffer)
+{
+    GFile* pGFile = g_file_new_for_path(filepath.c_str());
+    const bool retVal = _g_file_load_into_source_buffer(pGFile, pGtkSourceBuffer);
+    g_object_unref(pGFile);
+    return retVal;
+}
+
+bool CtStrUtil::string_any_encoding_load_into_source_buffer(const char* pChar, GtkSourceBuffer* pGtkSourceBuffer)
+{
+    GFileIOStream* pGFileIOStream{NULL};
+    GFile* pGFile = g_file_new_tmp(NULL/*tmpl*/, &pGFileIOStream, NULL/*GError***/);
+    if (not pGFile or not pGFileIOStream or not g_output_stream_write_all(
+            g_io_stream_get_output_stream(G_IO_STREAM(pGFileIOStream)),
+            pChar,
+            strlen(pChar),
+            NULL/*bytes_written*/,
+            NULL/*cancellable*/,
+            NULL/*GError***/))
+    {
+        return false;
+    }
+    const bool retVal = _g_file_load_into_source_buffer(pGFile, pGtkSourceBuffer);
+    g_object_unref(pGFileIOStream);
+    g_object_unref(pGFile);
+    return retVal;
+}
+
+bool CtStrUtil::string_any_encoding_to_utf8(const char* pChar, Glib::ustring& utf8_text)
+{
+    GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(NULL);
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
+    if (CtStrUtil::string_any_encoding_load_into_source_buffer(pChar, pGtkSourceBuffer)) {
+        utf8_text = pTextBuffer->get_text();
+        return true;
+    }
+    return false;
+}
+
+bool CtStrUtil::file_any_encoding_to_utf8(const std::string& filepath, Glib::ustring& utf8_text)
+{
+    GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(NULL);
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
+    if (CtStrUtil::file_any_encoding_load_into_source_buffer(filepath, pGtkSourceBuffer)) {
+        utf8_text = pTextBuffer->get_text();
+        return true;
+    }
+    return false;
 }
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
