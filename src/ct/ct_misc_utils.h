@@ -123,21 +123,9 @@ std::optional<Glib::ustring> iter_get_tag_startingwith(const Gtk::TextIter& iter
 
 bool get_is_camel_case(Gtk::TextIter iter_start, int num_chars);
 
-inline bool startswith(Gtk::TextIter text_iter, const gchar* str)
-{
-    gunichar ch = g_utf8_get_char(str);
-    while (true)
-    {
-        if (text_iter.get_char() != ch)
-            return false;
-        str = g_utf8_next_char(str);
-        ch = g_utf8_get_char(str);
-        if (ch == 0)
-            return true;
-        if (!text_iter.forward_char())
-            return false;
-    }
-}
+bool startswith(Gtk::TextIter text_iter, const gchar* pChar);
+
+bool startswith_url(Gtk::TextIter text_iter);
 
 Glib::ustring get_selected_text(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer);
 
@@ -305,6 +293,8 @@ std::string rgb_to_string_24(const Gdk::RGBA& color);
 namespace str {
 
 bool startswith(const std::string& str, const std::string& starting);
+
+bool startswith_url(const gchar* pChar);
 
 template<class container>
 bool startswith_any(const Glib::ustring& text, const container& chars_list)

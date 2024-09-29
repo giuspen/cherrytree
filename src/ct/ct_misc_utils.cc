@@ -388,39 +388,109 @@ Glib::ustring CtTextIterUtil::get_selected_text(Glib::RefPtr<Gtk::TextBuffer> pT
     return Glib::ustring{};
 }
 
-// Returns True if the characters compose a camel case word
-bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
+bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter text_iter, int num_chars)
 {
-    Gtk::TextIter text_iter = iter_start;
-    int curr_state = 0;
-    auto re = Glib::Regex::create("\\w");
-    for (int i = 0; i < num_chars; ++i)
-    {
-        auto curr_char = text_iter.get_char();
-        bool alphanumeric = re->match(Glib::ustring(1, curr_char));
-        if (not alphanumeric)
-        {
+    int curr_state{0};
+    for (int i = 0; i < num_chars; ++i) {
+        const gunichar curr_char = text_iter.get_char();
+        if (not g_unichar_isalnum(curr_char)) {
             curr_state = -1;
             break;
         }
-        if (curr_state == 0)
-        {
+        if (curr_state == 0) {
             if (g_unichar_islower(curr_char))
                 curr_state = 1;
         }
-        else if (curr_state == 1)
-        {
+        else if (curr_state == 1) {
             if (g_unichar_isupper(curr_char))
                 curr_state = 2;
         }
-        else if (curr_state == 2)
-        {
+        else if (curr_state == 2) {
             if (g_unichar_islower(curr_char))
                 curr_state = 3;
         }
         text_iter.forward_char();
     }
     return curr_state == 3;
+}
+
+bool CtTextIterUtil::startswith(Gtk::TextIter text_iter, const gchar* pChar)
+{
+    gunichar ch = g_utf8_get_char(pChar);
+    while (true) {
+        if (text_iter.get_char() != ch) {
+            return false;
+        }
+        pChar = g_utf8_next_char(pChar);
+        ch = g_utf8_get_char(pChar);
+        if (0 == ch) {
+            return true;
+        }
+        if (not text_iter.forward_char()) {
+            return false;
+        }
+    }
+}
+
+bool str::startswith_url(const gchar* pChar)
+{
+    // look for alpha://anything
+    int curr_state{0};
+    while (true) {
+        gunichar curr_char = g_utf8_get_char(pChar);
+        if (0 == curr_state) {
+            if (not g_unichar_isalpha(curr_char)) {
+                if (':' == curr_char) {
+                    ++curr_state;
+                }
+                else return false;
+            }
+        }
+        else if (1 == curr_state or 2 == curr_state) {
+            if ('/' == curr_char) {
+                ++curr_state;
+            }
+            else return false;
+        }
+        else if (3 == curr_state) {
+            return true;
+        }
+        pChar = g_utf8_next_char(pChar);
+        if (not pChar) {
+            return false;
+        }
+    }
+    return false;
+}
+
+bool CtTextIterUtil::startswith_url(Gtk::TextIter text_iter)
+{
+    // look for alpha://anything
+    int curr_state{0};
+    while (true) {
+        const gunichar curr_char = text_iter.get_char();
+        if (0 == curr_state) {
+            if (not g_unichar_isalpha(curr_char)) {
+                if (':' == curr_char) {
+                    ++curr_state;
+                }
+                else return false;
+            }
+        }
+        else if (1 == curr_state or 2 == curr_state) {
+            if ('/' == curr_char) {
+                ++curr_state;
+            }
+            else return false;
+        }
+        else if (3 == curr_state) {
+            return true;
+        }
+        if (not text_iter.forward_char()) {
+            return false;
+        }
+    }
+    return false;
 }
 
 bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, const CtCurrAttributesMap& curr_attributes, CtCurrAttributesMap& delta_attributes)
@@ -432,18 +502,18 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
             continue;
         }
-        if (str::startswith(tag_name, "weight_")) delta_attributes[CtConst::TAG_WEIGHT] = "";
-        else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND] = "";
-        else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND] = "";
-        else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE] = "";
-        else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE] = "";
-        else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH] = "";
-        else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT] = "";
-        else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = "";
-        else if (str::startswith(tag_name, "invisible_")) delta_attributes[CtConst::TAG_INVISIBLE] = "";
-        else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = "";
-        else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK] = "";
-        else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY] = "";
+        if (str::startswith(tag_name, "weight_")) delta_attributes[CtConst::TAG_WEIGHT].clear();
+        else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND].clear();
+        else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND].clear();
+        else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE].clear();
+        else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE].clear();
+        else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH].clear();
+        else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT].clear();
+        else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE].clear();
+        else if (str::startswith(tag_name, "invisible_")) delta_attributes[CtConst::TAG_INVISIBLE].clear();
+        else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION].clear();
+        else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK].clear();
+        else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY].clear();
     }
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
     for (const auto& r_curr_tag : toggled_on) {
@@ -1196,7 +1266,7 @@ std::string str::xml_escape(const Glib::ustring& text)
 Glib::ustring str::sanitize_bad_symbols(const Glib::ustring& xml_content)
 {
     // remove everything forbidden by XML 1.0 specifications
-    Glib::RefPtr<Glib::Regex> re_pattern = Glib::Regex::create("[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]");
+    static Glib::RefPtr<Glib::Regex> re_pattern = Glib::Regex::create("[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]");
     return re_pattern->replace(xml_content, 0/*start_position*/, "", static_cast<Glib::RegexMatchFlags>(0u));
 }
 

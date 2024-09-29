@@ -386,32 +386,31 @@ bool CtMainWin::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> tex
                                                Gtk::TextIter iter_start)
 {
     Gtk::TextIter iter_end = iter_start;
-    auto curr_char = iter_end.get_char();
-    auto re = Glib::Regex::create("\\w");
+    gunichar curr_char = iter_end.get_char();
     // 1) select alphanumeric + special
-    bool match = re->match(Glib::ustring(1, curr_char));
-    if (not match and _pCtConfig->selwordChars.item().find(curr_char) == Glib::ustring::npos) {
+    bool is_alphanum = g_unichar_isalnum(curr_char);
+    if (not is_alphanum and _pCtConfig->selwordChars.item().find(curr_char) == Glib::ustring::npos) {
         iter_start.backward_char();
         iter_end.backward_char();
         curr_char = iter_end.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-        if (not match and _pCtConfig->selwordChars.item().find(curr_char) == Glib::ustring::npos)
+        is_alphanum = g_unichar_isalnum(curr_char);
+        if (not is_alphanum and _pCtConfig->selwordChars.item().find(curr_char) == Glib::ustring::npos)
             return false;
     }
-    while (match or _pCtConfig->selwordChars.item().find(curr_char) != Glib::ustring::npos) {
+    while (is_alphanum or _pCtConfig->selwordChars.item().find(curr_char) != Glib::ustring::npos) {
         if (not iter_end.forward_char()) break; // end of buffer
         curr_char = iter_end.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
+        is_alphanum = g_unichar_isalnum(curr_char);
     }
     iter_start.backward_char();
     curr_char = iter_start.get_char();
-    match = re->match(Glib::ustring(1, curr_char));
-    while (match or _pCtConfig->selwordChars.item().find(curr_char) != Glib::ustring::npos) {
+    is_alphanum = g_unichar_isalnum(curr_char);
+    while (is_alphanum or _pCtConfig->selwordChars.item().find(curr_char) != Glib::ustring::npos) {
         if (not iter_start.backward_char()) break; // start of buffer
         curr_char = iter_start.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
+        is_alphanum = g_unichar_isalnum(curr_char);
     }
-    if (not match and _pCtConfig->selwordChars.item().find(curr_char) == Glib::ustring::npos)
+    if (not is_alphanum and _pCtConfig->selwordChars.item().find(curr_char) == Glib::ustring::npos)
         iter_start.forward_char();
     // 2) remove non alphanumeric from borders
     iter_end.backward_char();

@@ -179,6 +179,68 @@ TEST(MiscUtilsGroup, iter_util__startswith_any)
     ASSERT_TRUE(not CtTextIterUtil::startswith_any(pTextBuffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "123"}));
 }
 
+TEST(MiscUtilsGroup, iter_util__startswith_url)
+{
+    Glib::init();
+    // I'm struggling to Glib::wrap the GtkSourceBuffer from here, this is otherwise incorrect and should
+    // never be used in application code as all text buffers must be source buffers
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    {
+        Glib::ustring curr_text{"http://ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_TRUE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_TRUE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"https://ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_TRUE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_TRUE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ftp://ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_TRUE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_TRUE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ciaociao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ciao:ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ciao/ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ciao:/ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ciao/:ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"ciao\nciao://ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
+    }
+}
+
 TEST(MiscUtilsGroup, contains)
 {
     ASSERT_TRUE(CtStrUtil::contains(CtConst::TAG_PROPERTIES, CtConst::TAG_STRIKETHROUGH));

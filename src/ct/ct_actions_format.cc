@@ -510,7 +510,7 @@ Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
         std::string link_url = link_entry.webs;
         if (not link_url.empty()) {
             if (link_url.size() < 8 or
-                (not str::startswith(link_url, "http://") and not str::startswith(link_url, "https://")))
+                (not str::startswith(link_url, "http://") and not str::startswith(link_url, "https://") and not str::startswith_url(link_url.c_str())))
             {
                 link_url = "http://" + link_url;
             }
