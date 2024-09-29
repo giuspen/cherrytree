@@ -14,12 +14,12 @@ ROOT_CMAKELISTS_PATH = os.path.join(ROOT_DIR, "CMakeLists.txt")
 DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
 DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
-#     package_num:  serie,    control, SHARED_FMT_SPDLOG, ninja
-CONTROL_DICT = {1: ("bionic", "18.04", False,             False),
-                2: ("focal",  "20.04", True,              True),
-                3: ("jammy",  "20.04", True,              True),
-                4: ("mantic", "22.10", True,              True),
-                5: ("noble",  "24.04", True,              True)}
+#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja
+CONTROL_DICT = {1: ("bionic",   "18.04", False,             False),
+                2: ("focal",    "20.04", True,              True),
+                3: ("jammy",    "20.04", True,              True),
+                4: ("noble",    "24.04", True,              True),
+                5: ("oracular", "24.04", True,              True)}
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
