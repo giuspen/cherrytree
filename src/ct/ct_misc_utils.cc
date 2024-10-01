@@ -1098,10 +1098,16 @@ bool CtStrUtil::string_any_encoding_load_into_source_buffer(const char* pChar, G
 bool CtStrUtil::string_any_encoding_to_utf8(const char* pChar, Glib::ustring& utf8_text)
 {
     GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(NULL);
-    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
     if (CtStrUtil::string_any_encoding_load_into_source_buffer(pChar, pGtkSourceBuffer)) {
-        utf8_text = pTextBuffer->get_text();
-        return true;
+        auto pGtkTextBuffer = GTK_TEXT_BUFFER(pGtkSourceBuffer);
+        GtkTextIter start, end;
+        gtk_text_buffer_get_start_iter(pGtkTextBuffer, &start);
+        gtk_text_buffer_get_end_iter(pGtkTextBuffer, &end);
+        g_autofree gchar* pText = gtk_text_buffer_get_text(pGtkTextBuffer, &start, &end, false/*include_hidden_chars*/);
+        if (pText) {
+            utf8_text = pText;
+            return true;
+        }
     }
     return false;
 }
@@ -1109,10 +1115,22 @@ bool CtStrUtil::string_any_encoding_to_utf8(const char* pChar, Glib::ustring& ut
 bool CtStrUtil::file_any_encoding_to_utf8(const std::string& filepath, Glib::ustring& utf8_text)
 {
     GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(NULL);
-    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
     if (CtStrUtil::file_any_encoding_load_into_source_buffer(filepath, pGtkSourceBuffer)) {
-        utf8_text = pTextBuffer->get_text();
-        return true;
+        auto pGtkTextBuffer = GTK_TEXT_BUFFER(pGtkSourceBuffer);
+        GtkTextIter start, end;
+        gtk_text_buffer_get_start_iter(pGtkTextBuffer, &start);
+        gtk_text_buffer_get_end_iter(pGtkTextBuffer, &end);
+        g_autofree gchar* pText = gtk_text_buffer_get_text(pGtkTextBuffer, &start, &end, false/*include_hidden_chars*/);
+        if (pText) {
+            if (g_str_has_prefix(pText, "\xEF\xBB\xBF")) {
+                // remove UTF-8 BOM
+                utf8_text = pText+3;
+            }
+            else {
+                utf8_text = pText;
+            }
+            return true;
+        }
     }
     return false;
 }

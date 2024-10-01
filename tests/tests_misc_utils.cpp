@@ -48,11 +48,24 @@ TEST(MiscUtilsGroup, convert_if_not_utf8)
         CtStrUtil::convert_if_not_utf8(ioString, true/*sanitise*/);
         return ioString;
     };
-    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf8Path).c_str());
+    Glib::ustring utf8_text;
+    {
+        ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf8Path).c_str());
+        ASSERT_TRUE(CtStrUtil::file_any_encoding_to_utf8(UT::testBomUtf8Path, utf8_text));
+        ASSERT_STREQ("Привет", utf8_text.c_str());
+    }
     ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf32BEPath).c_str());
     ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf32LEPath).c_str());
-    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf16BEPath).c_str());
-    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf16LEPath).c_str());
+    {
+        ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf16BEPath).c_str());
+        ASSERT_TRUE(CtStrUtil::file_any_encoding_to_utf8(UT::testBomUtf16BEPath, utf8_text));
+        ASSERT_STREQ("Привет", utf8_text.c_str());
+    }
+    {
+        ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf16LEPath).c_str());
+        ASSERT_TRUE(CtStrUtil::file_any_encoding_to_utf8(UT::testBomUtf16LEPath, utf8_text));
+        ASSERT_STREQ("Привет", utf8_text.c_str());
+    }
 }
 
 TEST(MiscUtilsGroup, is_str_true)
