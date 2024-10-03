@@ -141,7 +141,9 @@ void CtTableLight::_on_cell_renderer_editing_started(Gtk::CellEditable* editable
 
 bool CtTableLight::_on_entry_focus_out_event(GdkEventFocus*/*gdk_event*/, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column)
 {
-    _on_cell_renderer_text_edited(path, pEntry->get_text(), column);
+    if (_pCtMainWin->user_active()) {
+        _on_cell_renderer_text_edited(path, pEntry->get_text(), column);
+    }
     _pEditingCellEntry = nullptr;
     return false;
 }
