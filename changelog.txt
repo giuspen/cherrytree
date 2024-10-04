@@ -1,3 +1,16 @@
+1.2.0 (October 4th, 2024)
+  * dropped unmaintained and outdated libgtksourceviewmm3 for libgtksourceview4 (direct access to C API, #2562)
+  * implemented quick node selection typing part of the node name, default keyboard shortcut to Ctrl+Shift+G (#2552, work of @ericguin)
+  * implemented collapsible headers support when TOC is generated (#2389)
+  * fixed links to nodes not working when exporting to html, single file (#2570)
+  * fixed properties of fonts selected in the preferences dialog not enforced: bold, italic, stretch, variant (#2533)
+  * hyperlinks: do not automatically add the prefix http:// when a URL-like prefix already exists (#2570)
+  * fixed crash pressing Ctrl+Z while editing table light cell
+  * changed default keyboard shortcut to open codebox properties dialog to Shift+Alt+U as the previous shortcut was causing problems to german layout keyboards (#2549)
+  * fixed formatting issues with fmt 11 (#2548, #2560)
+  * added support for new language Slovak (work of Michal Fusatý)
+  * incomplete languages: ar, el, fa, fi, hi_IN, hr, kk_KZ, kk_LA, pt_BR, ru, zh_CN
+
 1.1.4 (June 30th, 2024)
   * implemented reset of zoom with Ctrl+0 (#1835)
   * fixed syntax error in latex box wrongly detected as a failure to access latex executable (#2534)

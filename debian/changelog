@@ -1,12 +1,16 @@
-cherrytree (1.1.4-2) focal; urgency=low
+cherrytree (1.2.0-2) focal; urgency=low
 
-  * implemented reset of zoom with Ctrl+0 (#1835)
-  * fixed syntax error in latex box wrongly detected as a failure to access latex executable (#2534)
-  * copy link to node and copy anchor link to include absolute path to the cherrytree document and hierarchical path to node (#2452)
-  * added auto recovery from a backup (after asking the user) in case of corrupted cherrytree single file document (.ctd, .ctz, .ctb, .ctx)
-  * added warning message in case an automatic restore from backup was necessary for the new multifile data storage document
-  * fixed regression with locale in some linux systems (#2529)
-  * incomplete languages: fi, hi_IN, hu
+  * dropped unmaintained and outdated libgtksourceviewmm3 for libgtksourceview4 (direct access to C API, #2562)
+  * implemented quick node selection typing part of the node name, default keyboard shortcut to Ctrl+Shift+G (#2552, work of @ericguin)
+  * implemented collapsible headers support when TOC is generated (#2389)
+  * fixed links to nodes not working when exporting to html, single file (#2570)
+  * fixed properties of fonts selected in the preferences dialog not enforced: bold, italic, stretch, variant (#2533)
+  * hyperlinks: do not automatically add the prefix http:// when a URL-like prefix already exists (#2570)
+  * fixed crash pressing Ctrl+Z while editing table light cell
+  * changed default keyboard shortcut to open codebox properties dialog to Shift+Alt+U as the previous shortcut was causing problems to german layout keyboards (#2549)
+  * fixed formatting issues with fmt 11 (#2548, #2560)
+  * added support for new language Slovak (work of Michal Fusatý)
+  * incomplete languages: ar, el, fa, fi, hi_IN, hr, kk_KZ, kk_LA, pt_BR, ru, zh_CN
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 30 Jun 2024 15:13:02 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Fri, 04 Oct 2024 16:24:58 +0100
