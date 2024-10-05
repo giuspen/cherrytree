@@ -25,7 +25,7 @@ Written by Giuseppe Penone (aka giuspen) and Evgenii Gurianov (aka txe).
 - Print & save as pdf file of a selection / node / node and subnodes / the whole tree
 - Export to html of a selection / node / node and subnodes / the whole tree
 - Export to plain text of a selection / node / node and subnodes / the whole tree
-- Toc generation for a node / node and subnodes / the whole tree, based on headers h1, h2 and h3
+- Toc generation for a node / node and subnodes / the whole tree, based on headers h1, h2, h3, h4, h5, h6 and text sections between headers collapsible
 - Find a node, find in selected node, find in selected node and subnodes, find in all nodes
 - Replace in nodes names, replace in selected node, replace in selected node and subnodes, replace in all nodes
 - Iteration of the latest find, iteration of the latest replace, iteration of the latest applied text formatting
@@ -47,39 +47,39 @@ In order to build from the source code, please read [BUILDING.md](BUILDING.md).
 ## Localization
 The following languages are supported (If you want to help translating to your language write me):
 
-- Arabic (Abdulrahman Karajeh, up to date)
-- Armenian (Seda Stamboltsyan, up to date)
-- Bulgarian (Iliya Nikolaev, up to date)
-- Chinese Simplified (Wang Yu, up to date)
-- Chinese Traditional (Emer Chen, up to date)
-- Croatian (Filip Bakula, up to date)
-- Czech (Pavel Fric, up to date)
-- Dutch (up to date)
-- English (default)
-- French (Francis Gernet, up to date)
-- Finnish (Henri Kaustinen, TO BE UPDATED)
-- German (Matthias Hoffmann, up to date)
-- Greek (Asterios Siomos, up to date)
-- Hindi India (TO BE UPDATED)
-- Hungarian (Stiener Norbert, TO BE UPDATED)
-- Italian (Vincenzo Reale, up to date)
-- Japanese (Piyo, up to date)
-- Kazakh (Viktor Polyanskiy, up to date)
-- Kazakh (Latin) (Viktor Polyanskiy, up to date)
-- Korean (Sean Lee, up to date)
-- Lithuanian (up to date)
-- Persian (Majid Abri, up to date)
-- Polish (Mariusz Gasperaniec, up to date)
-- Portuguese (Rui Santos, up to date)
-- Portuguese Brazil (Raysa Dutra, up to date)
-- Romanian (Tudor Sprinceana, up to date)
-- Russian (Viktor Polyanskiy, up to date)
-- Slovak (Michal Fusatý, up to date)
-- Slovenian (Erik Lovrič, up to date)
-- Spanish (up to date)
-- Swedish (Åke Engelbrektson, up to date)
-- Turkish (Ferhat Aydin, up to date)
-- Ukrainian (Giuseppe Penone, up to date)
+- Arabic (ar, Abdulrahman Karajeh, TO BE UPDATED)
+- Armenian (hy, Seda Stamboltsyan, up to date)
+- Bulgarian (bg, Iliya Nikolaev, up to date)
+- Chinese Simplified (zh_CN, Wang Yu, TO BE UPDATED)
+- Chinese Traditional (zh_TW, Emer Chen, up to date)
+- Croatian (hr, Filip Bakula, TO BE UPDATED)
+- Czech (cs, Pavel Fric, up to date)
+- Dutch (nl, up to date)
+- English (en, default)
+- French (fr, Francis Gernet, up to date)
+- Finnish (fi, Henri Kaustinen, TO BE UPDATED)
+- German (de, Matthias Hoffmann, up to date)
+- Greek (el, Asterios Siomos, TO BE UPDATED)
+- Hindi India (hi_IN, TO BE UPDATED)
+- Hungarian (hu, Stiener Norbert, up to date)
+- Italian (it, Vincenzo Reale, up to date)
+- Japanese (ja, Piyo, up to date)
+- Kazakh (kk_KZ, Viktor Polyanskiy, TO BE UPDATED)
+- Kazakh (kk_LA, Latin, Viktor Polyanskiy, TO BE UPDATED)
+- Korean (ko, Sean Lee, up to date)
+- Lithuanian (lt, up to date)
+- Persian (fa, Majid Abri, TO BE UPDATED)
+- Polish (pl, Mariusz Gasperaniec, up to date)
+- Portuguese (pt, Rui Santos, TO BE UPDATED)
+- Portuguese Brazil (pt_BR, Raysa Dutra, up to date)
+- Romanian (ro, Tudor Sprinceana, up to date)
+- Russian (ru, Viktor Polyanskiy, TO BE UPDATED)
+- Slovak (sk, Michal Fusatý, up to date)
+- Slovenian (sl, Erik Lovrič, up to date)
+- Spanish (es, up to date)
+- Swedish (sv, Åke Engelbrektson, up to date)
+- Turkish (tr, Ferhat Aydin, up to date)
+- Ukrainian (uk, Giuseppe Penone, up to date)
 
 ## Programming with GTKmm3
 https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.8.0/en/
