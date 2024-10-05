@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 name: cherrytree
-version: "1.1.1"
+version: "1.2.0"
 summary: Hierarchical note taking application
 description: |
   A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in either a single file (xml or sqlite) or multiple files and directories. The project home page is giuspen.net/cherrytree.
 
 grade: stable
 confinement: strict
-base: core22
+base: core24
 compression: lzo
 
 slots:
@@ -24,7 +24,7 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/giuspen/cherrytree.git
-    source-commit: v1.1.1
+    source-commit: v1.2.0
     source-depth: 0
     cmake-parameters:
       - '-DCMAKE_INSTALL_PREFIX='
@@ -34,6 +34,7 @@ parts:
       - libcurl4-openssl-dev
       - libfmt-dev
       - libgtksourceview-4-dev
+      - libgtkmm-3.0-dev
       - libgspell-1-dev
       - libsqlite3-dev
       - libspdlog-dev
@@ -45,7 +46,8 @@ parts:
       - libcurl4
       - libfribidi0
       - libgtksourceview-4-0
-      - libspdlog1
+      - libgtkmm-3.0-1v5
+      - libspdlog1.12
       - libuchardet0
       - libxml++2.6-2v5
     prime:
