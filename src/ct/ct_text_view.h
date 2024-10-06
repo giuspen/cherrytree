@@ -32,7 +32,7 @@
 #include <unordered_map>
 
 class CtMainWin;
-class CtStatusBar;
+struct CtStatusBar;
 
 class CtTextView
 {
