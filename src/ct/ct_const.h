@@ -87,7 +87,7 @@ const inline static Glib::ustring SPECIAL_CHAR_ARROW_DOUBLE2 {"⇔"};
 const inline static Glib::ustring SPECIAL_CHAR_COPYRIGHT     {"©"};
 const inline static Glib::ustring SPECIAL_CHAR_UNREGISTERED_TRADEMARK {"™"};
 const inline static Glib::ustring SPECIAL_CHAR_REGISTERED_TRADEMARK   {"®"};
-const inline static Glib::ustring SELWORD_CHARS_DEFAULT      {".-@"};
+const inline static Glib::ustring SELWORD_CHARS_DEFAULT      {"_.-@"};
 const inline static Glib::ustring CHARS_LISTBUL_DEFAULT      {"•◇▪-→⇒"};
 const inline static Glib::ustring CHARS_TOC_DEFAULT          {"▸•◇▪"};
 const inline static Glib::ustring CHARS_TODO_DEFAULT         {"☐☑☒"};
