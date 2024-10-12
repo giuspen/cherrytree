@@ -70,6 +70,7 @@ const inline static gchar* VTE_SHELL_DEFAULT        {"/bin/bash"};
 const inline static gchar* STYLE_SCHEME_LIGHT       {"classic"};
 const inline static gchar* STYLE_SCHEME_DARK        {"cobalt"};
 const inline static gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};
+const inline static gchar* HORIZONTAL_RULE_DEFAULT  {"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
 const inline static gchar* FONT_RT_DEFAULT          {"Sans 11"};
 const inline static gchar* FONT_PT_DEFAULT          {"Sans 11"};
 const inline static gchar* FONT_TREE_DEFAULT        {"Sans 10"};

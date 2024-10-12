@@ -125,16 +125,24 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     auto button_strftime_help = Gtk::manage(new Gtk::Button{});
     button_strftime_help->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
     button_strftime_help->set_tooltip_text(_("Online Manual"));
+    auto button_reset_timestamp_format = Gtk::manage(new Gtk::Button{});
+    button_reset_timestamp_format->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_timestamp_format->set_tooltip_text(_("Reset to Default"));
     hbox_timestamp->pack_start(*label_timestamp, false, false);
-    hbox_timestamp->pack_start(*entry_timestamp_format, false, false);
+    hbox_timestamp->pack_start(*entry_timestamp_format, true, true);
     hbox_timestamp->pack_start(*button_strftime_help, false, false);
+    hbox_timestamp->pack_start(*button_reset_timestamp_format, false, false);
     auto hbox_horizontal_rule = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_horizontal_rule = Gtk::manage(new Gtk::Label{_("Horizontal Rule")});
     gtk_label_set_xalign(label_horizontal_rule->gobj(), 0.0);
     auto entry_horizontal_rule = Gtk::manage(new Gtk::Entry{});
     entry_horizontal_rule->set_text(_pConfig->hRule);
+    auto button_reset_horizontal_rule = Gtk::manage(new Gtk::Button{});
+    button_reset_horizontal_rule->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_horizontal_rule->set_tooltip_text(_("Reset to Default"));
     hbox_horizontal_rule->pack_start(*label_horizontal_rule, false, false);
-    hbox_horizontal_rule->pack_start(*entry_horizontal_rule);
+    hbox_horizontal_rule->pack_start(*entry_horizontal_rule, true, true);
+    hbox_horizontal_rule->pack_start(*button_reset_horizontal_rule, false, false);
 
     auto size_group_2 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
     size_group_2->add_widget(*label_timestamp);
@@ -144,8 +152,12 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     auto label_selword_chars = Gtk::manage(new Gtk::Label{_("Chars to Select at Double Click")});
     auto entry_selword_chars = Gtk::manage(new Gtk::Entry{});
     entry_selword_chars->set_text(_pConfig->selwordChars.item());
+    auto button_reset_selword_chars = Gtk::manage(new Gtk::Button{});
+    button_reset_selword_chars->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_selword_chars->set_tooltip_text(_("Reset to Default"));
     hbox_selword_chars->pack_start(*label_selword_chars, false, false);
-    hbox_selword_chars->pack_start(*entry_selword_chars);
+    hbox_selword_chars->pack_start(*entry_selword_chars, true, true);
+    hbox_selword_chars->pack_start(*button_reset_selword_chars, false, false);
 
     auto vbox_misc_all = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 2/*spacing*/});
     vbox_misc_all->pack_start(*hbox_timestamp);
@@ -218,11 +230,26 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     button_strftime_help->signal_clicked().connect([](){
         fs::open_weblink("https://linux.die.net/man/3/strftime");
     });
+    button_reset_timestamp_format->signal_clicked().connect([this, entry_timestamp_format](){
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
+            entry_timestamp_format->set_text(CtConst::TIMESTAMP_FORMAT_DEFAULT);
+        }
+    });
     entry_horizontal_rule->signal_changed().connect([this, entry_horizontal_rule](){
         _pConfig->hRule = entry_horizontal_rule->get_text();
     });
+    button_reset_horizontal_rule->signal_clicked().connect([this, entry_horizontal_rule](){
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
+            entry_horizontal_rule->set_text(CtConst::HORIZONTAL_RULE_DEFAULT);
+        }
+    });
     entry_selword_chars->signal_changed().connect([this, entry_selword_chars](){
         _pConfig->selwordChars = entry_selword_chars->get_text();
+    });
+    button_reset_selword_chars->signal_clicked().connect([this, entry_selword_chars](){
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
+            entry_selword_chars->set_text(CtConst::SELWORD_CHARS_DEFAULT);
+        }
     });
 
     radiobutton_cursor_blink_default->signal_toggled().connect([this, radiobutton_cursor_blink_default](){

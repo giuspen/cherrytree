@@ -146,7 +146,7 @@ public:
     bool                                        ptHighlMatchBra{true};
     int                                         spaceAroundLines{0};
     int                                         relativeWrappedSpace{50};
-    Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+    Glib::ustring                               hRule{CtConst::HORIZONTAL_RULE_DEFAULT};
     CtStringSplittable                          specialChars{CtConst::SPECIAL_CHARS_DEFAULT};
     Glib::ustring                               lastSpecialChar{};
     CtStringSplittable                          selwordChars{CtConst::SELWORD_CHARS_DEFAULT};
