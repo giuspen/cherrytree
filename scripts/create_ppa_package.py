@@ -94,7 +94,7 @@ def f_setup_for(package_num):
     if not f_rules_setup_for(package_num): return -3
     try: shutil.copy(os.path.join(SCRIPTS_DIR, CONTROL_DICT[package_num][1], "control"), DEBIAN_CONTROL_PATH)
     except: return -4
-    if 0 != subprocess.call(["debuild", "-S", "-sa", "-i", "-I"], cwd=ROOT_DIR): return -5
+    if 0 != subprocess.call(["debuild", "-S", "-sa", "-i", "-I", "-d"], cwd=ROOT_DIR): return -5
     if 0 != subprocess.call(["dput", "ppa:giuspen/ppa", changes_filename], cwd=os.path.dirname(ROOT_DIR)): return -6
     return 0
 
