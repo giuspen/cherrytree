@@ -33,7 +33,9 @@ CtApp::CtApp(const Glib::ustring application_id_postfix)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
  , _pCtConfig{CtConfig::GetCtConfig()}
 {
+#if GTK_SOURCE_MAJOR_VERSION >= 4
     gtk_source_init();
+#endif
 
     // action to call from second instance
     // user wanted to create a new window from command line
@@ -52,7 +54,6 @@ CtApp::CtApp(const Glib::ustring application_id_postfix)
 
 CtApp::~CtApp()
 {
-    gtk_source_finalize();
 }
 
 /*static*/Glib::RefPtr<CtApp> CtApp::create(const Glib::ustring application_id_postfix)

@@ -14,12 +14,12 @@ ROOT_CMAKELISTS_PATH = os.path.join(ROOT_DIR, "CMakeLists.txt")
 DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
 DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
-#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja
-CONTROL_DICT = {1: ("bionic",   "18.04", False,             False),
-                2: ("focal",    "20.04", True,              True),
-                3: ("jammy",    "20.04", True,              True),
-                4: ("noble",    "24.04", True,              True),
-                5: ("oracular", "24.04", True,              True)}
+#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview
+CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3),
+                2: ("focal",    "20.04", True,              True,  4),
+                3: ("jammy",    "20.04", True,              True,  4),
+                4: ("noble",    "24.04", True,              True,  4),
+                5: ("oracular", "24.04", True,              True,  4)}
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
@@ -54,6 +54,15 @@ def f_cmakelists_setup_for(package_num):
             break
     else:
         print("!! cmakelists option USE_SHARED_FMT_SPDLOG not found")
+        return False
+
+    for i in range(len(cmakelists_lines)):
+        # pkg_check_modules(GTKSV gtksourceview-4 REQUIRED)
+        if cmakelists_lines[i].find("pkg_check_modules(GTKSV gtksourceview-") >= 0:
+            cmakelists_lines[i] = "pkg_check_modules(GTKSV gtksourceview-{} REQUIRED)\n".format("3.0" if 3 == CONTROL_DICT[package_num][4] else "4")
+            break
+    else:
+        print("!! cmakelists 'pkg_check_modules(GTKSV gtksourceview-' not found")
         return False
 
     with open(ROOT_CMAKELISTS_PATH, "w") as fd:
