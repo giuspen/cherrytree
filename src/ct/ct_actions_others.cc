@@ -700,6 +700,40 @@ void CtActions::table_column_add()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
+void CtActions::table_column_cut()
+{
+    if (not _is_there_anch_widg_selection_or_error('t')) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    table_column_copy();
+    table_column_delete();
+}
+
+void CtActions::table_column_copy()
+{
+    if (not _is_there_anch_widg_selection_or_error('t')) return;
+    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_TableCommon>(curr_table_anchor->get_state());
+    std::vector<std::vector<Glib::ustring>> new_rows;
+    const size_t num_rows = curr_table_anchor->get_num_rows();
+    const size_t curr_col = curr_table_anchor->current_column();
+    for (size_t r = 0u; r < num_rows; ++r) {
+        new_rows.push_back(std::vector<Glib::ustring>{});
+        new_rows.back().push_back(table_state->rows.at(r).at(curr_col));
+    }
+    table_state->rows = std::move(new_rows);
+    auto new_table = dynamic_cast<CtTableCommon*>(table_state->to_widget(_pCtMainWin));
+    CtClipboard{_pCtMainWin}.table_column_to_clipboard(new_table);
+    delete new_table;
+}
+
+void CtActions::table_column_paste()
+{
+    if (not _is_there_anch_widg_selection_or_error('t')) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->exit_cell_edit();
+    CtClipboard{_pCtMainWin}.table_column_paste(curr_table_anchor);
+    curr_table_anchor->grab_focus();
+}
+
 void CtActions::table_column_delete()
 {
     if (not _is_there_anch_widg_selection_or_error('t')) return;
@@ -765,7 +799,7 @@ void CtActions::table_row_copy()
     // remove rows after current
     while (table_state->rows.size() > curr_table_anchor->current_row() + 1)
         table_state->rows.pop_back();
-    // remove rows between current and header
+    // remove rows before current but after header
     while (table_state->rows.size() > 2)
         table_state->rows.erase(table_state->rows.begin() + 1);
     auto new_table = dynamic_cast<CtTableCommon*>(table_state->to_widget(_pCtMainWin));

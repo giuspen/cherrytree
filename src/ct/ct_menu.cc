@@ -289,6 +289,9 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu,
     _add_menu_item(pMenu, find_action("table_delete"));
     _add_menu_separator(pMenu);
     _add_menu_item(pMenu, find_action("table_column_add"));
+    _add_menu_item(pMenu, find_action("table_column_cut"));
+    _add_menu_item(pMenu, find_action("table_column_copy"));
+    _add_menu_item(pMenu, find_action("table_column_paste"));
     _add_menu_item(pMenu, find_action("table_column_delete"));
     _add_menu_separator(pMenu);
     if (not first_col) _add_menu_item(pMenu, find_action("table_column_left"));
@@ -297,10 +300,10 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu,
     _add_menu_item(pMenu, find_action("table_column_increase_width"));
     _add_menu_item(pMenu, find_action("table_column_decrease_width"));
     _add_menu_separator(pMenu);
+    _add_menu_item(pMenu, find_action("table_row_add"));
     _add_menu_item(pMenu, find_action("table_row_cut"));
     _add_menu_item(pMenu, find_action("table_row_copy"));
     _add_menu_item(pMenu, find_action("table_row_paste"));
-    _add_menu_item(pMenu, find_action("table_row_add"));
     _add_menu_item(pMenu, find_action("table_row_delete"));
     _add_menu_separator(pMenu);
     if (not first_row) _add_menu_item(pMenu, find_action("table_row_up"));

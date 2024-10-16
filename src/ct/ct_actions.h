@@ -474,6 +474,9 @@ public:
     void table_copy();
     void table_delete();
     void table_column_add();
+    void table_column_cut();
+    void table_column_copy();
+    void table_column_paste();
     void table_column_delete();
     void table_column_left();
     void table_column_right();
