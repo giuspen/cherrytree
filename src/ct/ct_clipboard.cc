@@ -643,6 +643,8 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
         //if (tableFromClipboardMatrix.size() == num_rows and 1 == tableFromClipboardMatrix.at(0).size()) {
         if (is_column) {
             // column paste
+            int insert_after = static_cast<int>(parentTable->current_column()) - 1;
+            if (insert_after < 0) insert_after = 0;
             
         }
         else {

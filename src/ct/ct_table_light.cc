@@ -306,7 +306,7 @@ bool CtTableLight::_row_sort(const bool sortAsc)
     return retVal;
 }
 
-void CtTableLight::column_add(const size_t afterColIdx)
+void CtTableLight::column_add(const size_t afterColIdx, const std::vector<Glib::ustring>* pNewColumn/*= nullptr*/)
 {
     const size_t currNumCol = get_num_columns();
     CtTableMatrix tableMatrix;
