@@ -471,7 +471,7 @@ void CtTableHeavy::column_add(const size_t afterColIdx, const std::vector<Glib::
     const Glib::ustring emptyCell;
     const size_t num_rows = get_num_rows();
     for (size_t rowIdx = 0u; rowIdx < num_rows; ++rowIdx) {
-        const Glib::ustring* pStr = not pNewRow or pNewRow->size() <= colIdx ? &emptyCell : &pNewRow->at(colIdx);
+        const Glib::ustring* pStr = not pNewColumn or pNewColumn->size() <= rowIdx ? &emptyCell : &pNewColumn->at(rowIdx);
         auto pTextCell = new CtTextCell{_pCtMainWin, *pStr, CtConst::TABLE_CELL_TEXT_ID};
         _tableMatrix.at(rowIdx).insert(_tableMatrix.at(rowIdx).begin()+newColIdx, pTextCell);
         _new_text_cell_attach(rowIdx, newColIdx, pTextCell);

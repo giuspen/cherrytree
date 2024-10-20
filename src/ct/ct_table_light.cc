@@ -319,7 +319,11 @@ void CtTableLight::column_add(const size_t afterColIdx, const std::vector<Glib::
         for (size_t c = 0u; c < currNumCol; ++c) {
             tableMatrix.back().push_back(new Glib::ustring{treeRow.get_value(cols.columnsText.at(c))});
             if (afterColIdx == c) {
-                tableMatrix.back().push_back(new Glib::ustring{});
+                auto pStr = new Glib::ustring{};
+                if (pNewColumn and pNewColumn->size() > c) {
+                    *pStr = pNewColumn->at(c);
+                }
+                tableMatrix.back().push_back(pStr);
             }
         }
         return false; /* to continue */
