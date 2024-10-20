@@ -638,14 +638,24 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
             tableColWidths,
             is_light);
 
+        auto f_cellToString = [is_light](void* cell){
+            if (is_light) {
+                return *static_cast<Glib::ustring*>(cell);
+            }
+            return static_cast<CtTextCell*>(cell)->get_text_content();
+        };
+
         const size_t num_columns = parentTable->get_num_columns();
         const size_t num_rows = parentTable->get_num_rows();
-        //if (tableFromClipboardMatrix.size() == num_rows and 1 == tableFromClipboardMatrix.at(0).size()) {
         if (is_column) {
             // column paste
             int insert_after = static_cast<int>(parentTable->current_column()) - 1;
             if (insert_after < 0) insert_after = 0;
-            
+            std::vector<Glib::ustring> new_column;
+            for (size_t row = 0u; row < num_rows; ++row) {
+                new_column.push_back(f_cellToString(tableFromClipboardMatrix[row][0]));
+            }
+            parentTable->column_add(insert_after, &new_column);
         }
         else {
             // row paste
@@ -656,14 +666,7 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
                 std::transform(tableFromClipboardMatrix[row].begin(),
                                tableFromClipboardMatrix[row].end(),
                                std::back_inserter(new_row),
-                               [is_light](void* cell) {
-                                    if (is_light) {
-                                        return *static_cast<Glib::ustring*>(cell);
-                                    }
-                                    return static_cast<CtTextCell*>(cell)->get_text_content();
-                               });
-                while (new_row.size() > num_columns) new_row.pop_back();
-                while (new_row.size() < num_columns) new_row.push_back("");
+                               f_cellToString);
                 parentTable->row_add(insert_after + (row - 1u), &new_row);
             }
         }
