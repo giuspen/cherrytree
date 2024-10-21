@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2024
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -59,6 +59,8 @@ private:
 public:
     void          table_row_to_clipboard(CtTableCommon* pTable);
     void          table_row_paste(CtTableCommon* pTable);
+    void          table_column_to_clipboard(CtTableCommon* pTable);
+    void          table_column_paste(CtTableCommon* pTable);
     void          node_link_to_clipboard(CtTreeIter node);
     void          anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring& anchor_name);
     Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
@@ -84,7 +86,7 @@ public:
     void on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
     void on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
-    void on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTableCommon* parentTable);
+    void on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool is_column, CtTableCommon* parentTable);
     void on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);

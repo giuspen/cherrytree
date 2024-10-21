@@ -463,13 +463,16 @@ void CtTableHeavy::set_modified_false()
     }
 }
 
-void CtTableHeavy::column_add(const size_t afterColIdx)
+void CtTableHeavy::column_add(const size_t afterColIdx, const std::vector<Glib::ustring>* pNewColumn/*= nullptr*/)
 {
     const size_t newColIdx = afterColIdx + 1;
     _grid.insert_column(newColIdx);
     _colWidths.insert(_colWidths.begin()+newColIdx, 0);
-    for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
-        auto pTextCell = new CtTextCell{_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID};
+    const Glib::ustring emptyCell;
+    const size_t num_rows = get_num_rows();
+    for (size_t rowIdx = 0u; rowIdx < num_rows; ++rowIdx) {
+        const Glib::ustring* pStr = not pNewColumn or pNewColumn->size() <= rowIdx ? &emptyCell : &pNewColumn->at(rowIdx);
+        auto pTextCell = new CtTextCell{_pCtMainWin, *pStr, CtConst::TABLE_CELL_TEXT_ID};
         _tableMatrix.at(rowIdx).insert(_tableMatrix.at(rowIdx).begin()+newColIdx, pTextCell);
         _new_text_cell_attach(rowIdx, newColIdx, pTextCell);
     }
@@ -494,14 +497,15 @@ void CtTableHeavy::column_delete(const size_t colIdx)
 
 void CtTableHeavy::column_move_left(const size_t colIdx, const bool/*from_move_right*/)
 {
-    if (0 == colIdx) {
+    if (0u == colIdx) {
         return;
     }
-    const size_t colIdxLeft = colIdx - 1;
+    const size_t colIdxLeft = colIdx - 1u;
     std::swap(_colWidths[colIdxLeft], _colWidths[colIdx]);
     _grid.remove_column(colIdxLeft);
     _grid.insert_column(colIdx);
-    for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
+    const size_t num_rows = get_num_rows();
+    for (size_t rowIdx = 0u; rowIdx < num_rows; ++rowIdx) {
         std::swap(_tableMatrix[rowIdx][colIdxLeft], _tableMatrix[rowIdx][colIdx]);
         CtTextView& ctTextView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
         _grid.attach(ctTextView.mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
@@ -526,7 +530,8 @@ void CtTableHeavy::row_add(const size_t afterRowIdx, const std::vector<Glib::ust
     _tableMatrix.insert(_tableMatrix.begin()+newRowIdx, CtTableRow{});
     _grid.insert_row(newRowIdx);
     const Glib::ustring emptyCell;
-    for (size_t colIdx = 0; colIdx < get_num_columns(); ++colIdx) {
+    const size_t num_columns = get_num_columns();
+    for (size_t colIdx = 0u; colIdx < num_columns; ++colIdx) {
         const Glib::ustring* pStr = not pNewRow or pNewRow->size() <= colIdx ? &emptyCell : &pNewRow->at(colIdx);
         auto pTextCell = new CtTextCell{_pCtMainWin, *pStr, CtConst::TABLE_CELL_TEXT_ID};
         _tableMatrix.at(newRowIdx).push_back(pTextCell);
@@ -578,7 +583,8 @@ void CtTableHeavy::row_move_up(const size_t rowIdx, const bool/*from_move_down*/
     _grid.remove_row(rowIdxUp);
     _grid.insert_row(rowIdx);
     std::swap(_tableMatrix[rowIdxUp], _tableMatrix[rowIdx]);
-    for (size_t colIdx = 0; colIdx < get_num_columns(); ++colIdx) {
+    const size_t num_rows = get_num_rows();
+    for (size_t colIdx = 0u; colIdx < num_rows; ++colIdx) {
         CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
         _grid.attach(textView.mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
         if (0 == rowIdxUp) {
@@ -608,7 +614,8 @@ bool CtTableHeavy::_row_sort(const bool sortAsc)
     std::sort(_tableMatrix.begin()+1, _tableMatrix.end(), f_need_swap);
     auto pCurrState = std::static_pointer_cast<CtAnchoredWidgetState_TableHeavy>(get_state());
     std::list<size_t> changed;
-    for (size_t rowIdx = 1; rowIdx < get_num_rows(); ++rowIdx) {
+    const size_t num_rows = get_num_rows();
+    for (size_t rowIdx = 1; rowIdx < num_rows; ++rowIdx) {
         if (pPrevState->rows.at(rowIdx) != pCurrState->rows.at(rowIdx)) {
             changed.push_back(rowIdx);
             _grid.remove_row(rowIdx);
@@ -720,7 +727,8 @@ Glib::ustring CtTableHeavy::get_line_content(size_t rowIdx, size_t colIdx, int m
 
 void CtTableHeavy::_on_grid_set_focus_child(Gtk::Widget* pWidget)
 {
-    for (size_t rowIdx = 0; rowIdx < get_num_rows(); ++rowIdx) {
+    const size_t num_rows = get_num_rows();
+    for (size_t rowIdx = 0u; rowIdx < num_rows; ++rowIdx) {
         for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
             if (pWidget == &static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view().mm()) {
                 _currentRow = rowIdx;

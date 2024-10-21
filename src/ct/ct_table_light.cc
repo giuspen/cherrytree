@@ -306,12 +306,13 @@ bool CtTableLight::_row_sort(const bool sortAsc)
     return retVal;
 }
 
-void CtTableLight::column_add(const size_t afterColIdx)
+void CtTableLight::column_add(const size_t afterColIdx, const std::vector<Glib::ustring>* pNewColumn/*= nullptr*/)
 {
     const size_t currNumCol = get_num_columns();
     CtTableMatrix tableMatrix;
     tableMatrix.reserve(get_num_rows());
     const CtTableLightColumns& cols = get_columns();
+    size_t rowIdx{0u};
     auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
         Gtk::TreeRow treeRow = *treeIter;
         tableMatrix.push_back(CtTableRow{});
@@ -319,7 +320,12 @@ void CtTableLight::column_add(const size_t afterColIdx)
         for (size_t c = 0u; c < currNumCol; ++c) {
             tableMatrix.back().push_back(new Glib::ustring{treeRow.get_value(cols.columnsText.at(c))});
             if (afterColIdx == c) {
-                tableMatrix.back().push_back(new Glib::ustring{});
+                auto pStr = new Glib::ustring{};
+                if (pNewColumn and pNewColumn->size() > rowIdx) {
+                    *pStr = pNewColumn->at(rowIdx);
+                }
+                ++rowIdx;
+                tableMatrix.back().push_back(pStr);
             }
         }
         return false; /* to continue */

@@ -83,7 +83,7 @@ public:
     void set_current_row_column(const size_t rowIdx, const size_t colIdx);
     std::pair<size_t, size_t> get_row_idx_col_idx(const size_t cell_idx) const;
 
-    virtual void column_add(const size_t afterColIdx) = 0;
+    virtual void column_add(const size_t afterColIdx, const std::vector<Glib::ustring>* pNewColumn = nullptr) = 0;
     virtual void column_delete(const size_t colIdx) = 0;
     virtual void column_move_left(const size_t colIdx, const bool from_move_right) = 0;
     virtual void column_move_right(const size_t colIdx) = 0;
@@ -159,7 +159,7 @@ public:
     size_t get_num_rows() const override { return _pListStore->children().size(); }
     size_t get_num_columns() const override { return _pColumns->columnsText.size(); }
 
-    void column_add(const size_t afterColIdx) override;
+    void column_add(const size_t afterColIdx, const std::vector<Glib::ustring>* pNewColumn = nullptr) override;
     void column_delete(const size_t colIdx) override;
     void column_move_left(const size_t colIdx, const bool from_move_right) override;
     void column_move_right(const size_t colIdx) override;
@@ -225,7 +225,7 @@ public:
     size_t get_num_rows() const override { return _tableMatrix.size(); }
     size_t get_num_columns() const override { return _tableMatrix.front().size(); }
 
-    void column_add(const size_t afterColIdx) override;
+    void column_add(const size_t afterColIdx, const std::vector<Glib::ustring>* pNewColumn = nullptr) override;
     void column_delete(const size_t colIdx) override;
     void column_move_left(const size_t colIdx, const bool from_move_right) override;
     void column_move_right(const size_t colIdx) override;

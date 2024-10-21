@@ -164,6 +164,12 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Delete the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_delete)});
         _actions.push_back(CtMenuAction{editor_cat, "table_column_add", "ct_add", _("_Add Column"), None,
             _("Add a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_add)});
+        _actions.push_back(CtMenuAction{editor_cat, "table_column_cut", "ct_edit_cut", _("Cu_t Column"), None,
+            _("Cut a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_cut)});
+        _actions.push_back(CtMenuAction{editor_cat, "table_column_copy", "ct_edit_copy", _("_Copy Column"), None,
+            _("Copy a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_copy)});
+        _actions.push_back(CtMenuAction{editor_cat, "table_column_paste", "ct_edit_paste", _("_Paste Column"), None,
+            _("Paste a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_paste)});
         _actions.push_back(CtMenuAction{editor_cat, "table_column_delete", "ct_edit_delete", _("De_lete Column"), None,
             _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
         _actions.push_back(CtMenuAction{editor_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), KB_CONTROL+KB_SHIFT+"b",

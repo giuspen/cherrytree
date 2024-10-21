@@ -187,6 +187,9 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='table_copy'/>
       <menuitem action='table_delete'/>
       <menuitem action='table_column_add'/>
+      <menuitem action='table_column_cut'/>
+      <menuitem action='table_column_copy'/>
+      <menuitem action='table_column_paste'/>
       <menuitem action='table_column_delete'/>
       <menuitem action='table_column_left'/>
       <menuitem action='table_column_right'/>

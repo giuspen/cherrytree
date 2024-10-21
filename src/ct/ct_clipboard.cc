@@ -151,7 +151,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
         auto received_plain_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_plain_text(s, v, force); };
         auto received_rich_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_rich_text(s, v, force); };
         auto received_codebox = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_codebox(s, v, force); };
-        auto received_table = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_table(s, v, force, nullptr); };
+        auto received_table = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool/*force*/) { CtClipboard{win}.on_received_to_table(s, v, false/*is_column*/, nullptr); };
         auto received_html = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_html(s, v, force); };
         auto received_image = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_image(s, v, force); };
         auto received_uri = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_uri_list(s, v, force); };
@@ -225,7 +225,29 @@ void CtClipboard::table_row_paste(CtTableCommon* pTable)
         auto win = _pCtMainWin;
         Gtk::TextView* view = &_pCtMainWin->get_text_view().mm();
         auto received_table = [win, view, pTable](const Gtk::SelectionData& s) {
-            CtClipboard{win}.on_received_to_table(s, view, false, pTable);
+            CtClipboard{win}.on_received_to_table(s, view, false/*is_column*/, pTable);
+        };
+        Gtk::Clipboard::get()->request_contents(CtConst::TARGET_CTD_TABLE, received_table);
+    }
+}
+
+void CtClipboard::table_column_to_clipboard(CtTableCommon* pTable)
+{
+    CtClipboardData* clip_data = new CtClipboardData{};
+    pTable->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr, std::string{});
+    clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(pTable);
+
+    _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0]}, clip_data);
+}
+
+void CtClipboard::table_column_paste(CtTableCommon* pTable)
+{
+    std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
+    if (vec::exists(targets, CtConst::TARGET_CTD_TABLE)) {
+        auto win = _pCtMainWin;
+        Gtk::TextView* view = &_pCtMainWin->get_text_view().mm();
+        auto received_table = [win, view, pTable](const Gtk::SelectionData& s) {
+            CtClipboard{win}.on_received_to_table(s, view, true/*is_column*/, pTable);
         };
         Gtk::Clipboard::get()->request_contents(CtConst::TARGET_CTD_TABLE, received_table);
     }
@@ -584,7 +606,7 @@ void CtClipboard::on_received_to_codebox(const Gtk::SelectionData& selection_dat
 // From Clipboard to Table
 void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
                                        Gtk::TextView* pTextView,
-                                       bool,
+                                       const bool is_column,
                                        CtTableCommon* parentTable)
 {
 #ifdef __APPLE__
@@ -616,23 +638,34 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
             tableColWidths,
             is_light);
 
-        int col_num = (int)parentTable->get_num_columns();
-        int insert_after = parentTable->current_row() - 1;
-        if (insert_after < 0) insert_after = 0;
-        for (int row = 1/*skip header*/; row < (int)tableFromClipboardMatrix.size(); ++row) {
-            std::vector<Glib::ustring> new_row;
-            std::transform(tableFromClipboardMatrix[row].begin(),
-                           tableFromClipboardMatrix[row].end(),
-                           std::back_inserter(new_row),
-                           [is_light](void* cell) {
-                                if (is_light) {
-                                    return *static_cast<Glib::ustring*>(cell);
-                                }
-                                return static_cast<CtTextCell*>(cell)->get_text_content();
-                           });
-            while ((int)new_row.size() > col_num) new_row.pop_back();
-            while ((int)new_row.size() < col_num) new_row.push_back("");
-            parentTable->row_add(insert_after + (row-1), &new_row);
+        auto f_cellToString = [is_light](void* cell){
+            if (is_light) {
+                return *static_cast<Glib::ustring*>(cell);
+            }
+            return static_cast<CtTextCell*>(cell)->get_text_content();
+        };
+
+        if (is_column) {
+            // column paste
+            const size_t insert_after = parentTable->current_column();
+            std::vector<Glib::ustring> new_column;
+            const size_t num_rows = tableFromClipboardMatrix.size();
+            for (size_t row = 0u; row < num_rows; ++row) {
+                new_column.push_back(f_cellToString(tableFromClipboardMatrix[row][0]));
+            }
+            parentTable->column_add(insert_after, &new_column);
+        }
+        else {
+            // row paste
+            const size_t insert_after = parentTable->current_row();
+            for (size_t row = 1u/*skip header*/; row < tableFromClipboardMatrix.size(); ++row) {
+                std::vector<Glib::ustring> new_row;
+                std::transform(tableFromClipboardMatrix[row].begin(),
+                               tableFromClipboardMatrix[row].end(),
+                               std::back_inserter(new_row),
+                               f_cellToString);
+                parentTable->row_add(insert_after + (row - 1u), &new_row);
+            }
         }
         for (auto& row : tableFromClipboardMatrix) {
             for (void* cell : row) {
