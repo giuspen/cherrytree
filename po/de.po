@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-24 21:44+0100\n"
+"PO-Revision-Date: 2024-10-21 22:00+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -25,7 +25,7 @@ msgid ""
 "The file/folder in use cannot be overwritten!\n"
 "Please use a different name or location."
 msgstr ""
-"Geöffnete Dateien/Ordner sind nicht überschreibbar.\n"
+"Geöffnete Dateien/Ordner sind nicht überschreibbar!\n"
 "Bitte anderen Namen oder Ort benutzen."
 
 #, c-format
@@ -88,7 +88,7 @@ msgid "Quit the Application"
 msgstr "Programm beenden"
 
 msgid "No Node is Selected"
-msgstr "Es ist kein Knoten ausgewählt"
+msgstr "Es ist kein Knoten ausgewählt."
 
 msgid "Node Type"
 msgstr "Knotentyp"
@@ -183,7 +183,7 @@ msgid "Execute Code"
 msgstr "Code ausführen"
 
 msgid "Change CodeBox Properties"
-msgstr "CodeBox-Eigenschaften _ändern"
+msgstr "CodeBox-Eigenschaften ändern"
 
 msgid "Show Menubar:"
 msgstr "Menüleiste anzeigen:"
@@ -201,10 +201,10 @@ msgstr ""
 "\"%s\""
 
 msgid "Do you want to Open the Last Backup?"
-msgstr "Wollen Sie das letzte Sicherungskopie öffnen?"
+msgstr "Wollen Sie die letzte Sicherungskopie öffnen?"
 
 msgid "Failed to Load from Backup Data"
-msgstr "Laden aus Sicherung gescheitert"
+msgstr "Laden von Sicherungsdaten gescheitert"
 
 #, c-format
 msgid "No node named '%s' found."
@@ -251,7 +251,7 @@ msgid "Chars for Bulleted List"
 msgstr "Zeichen für Aufzählung"
 
 msgid "Chars for Todo List"
-msgstr "Zeichen für To-do-Liste"
+msgstr "Zeichen für Aufgabenliste"
 
 msgid "Chars for Table Of Content"
 msgstr "Zeichen für Inhaltsverzeichnis"
@@ -465,16 +465,16 @@ msgid "Dedicated Bookmarks Menu in Menubar"
 msgstr "Extra Lesezeichen-Menü in Menüleiste"
 
 msgid "Menubar in Titlebar"
-msgstr "Menüleiste in _Titelleiste anschalten"
+msgstr "Menüleiste in Titelleiste anzeigen"
 
 msgid "Toolbar Icons Size"
-msgstr "Toolbar Icon Größe"
+msgstr "Icongröße in Symbolleiste"
 
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Scrollbalken Minimale Breite (0 = System Vorgabe)"
+msgstr "Minimale Breite für Scrollbalken (0 = Systemstandard)"
 
 msgid "Scrollbar Overlays Text Editor"
-msgstr "Scrollbalken überlappt Text Editor"
+msgstr "Scrollbalken überlappt Texteditor"
 
 msgid "System Default"
 msgstr "Systemstandard"
@@ -486,7 +486,7 @@ msgid "No"
 msgstr "Nein"
 
 msgid "Enable Tooltips When Hovering"
-msgstr "Tooltips beim Überstreichen einschalten"
+msgstr "Tooltipps beim Überstreichen einschalten"
 
 msgid "Tree"
 msgstr "Baumstruktur"
@@ -846,7 +846,7 @@ msgid "Number of Images"
 msgstr "Anzahl der Bilder"
 
 msgid "Number of LatexBoxes"
-msgstr "Anzahl LaTeX-Boxen"
+msgstr "Anzahl der LaTeX-Boxen"
 
 msgid "Number of Embedded Files"
 msgstr "Anzahl der eingebetteten Dateien"
@@ -861,7 +861,7 @@ msgid "Number of Anchors"
 msgstr "Anzahl der Anker"
 
 msgid "Number of Shared Nodes / Groups"
-msgstr "Anzahl der Gemeinsamen Knoten / Gruppen"
+msgstr "Anzahl der gemeinsamen Knoten / Gruppen"
 
 msgid "Preferences File"
 msgstr "Einstellungsdatei"
@@ -957,10 +957,10 @@ msgid "Reference"
 msgstr "Referenz"
 
 msgid "LaTeX Math and Equations Tutorial"
-msgstr "Tutorial LaTeX Mathematik und Gleichungen"
+msgstr "LaTeX-Tutorial Mathematik und Gleichungen"
 
 msgid "LaTeX Math Symbols Reference"
-msgstr "Referenz Mathematische Symbole"
+msgstr "LaTeX-Referenz Mathematische Symbole"
 
 msgid "Image Properties"
 msgstr "Bildeigenschaften"
@@ -1186,10 +1186,10 @@ msgid "Reload After External Update to CT* File"
 msgstr "CT*-Datei nach externer Aktualisierung neu laden"
 
 msgid "Enable Debug Log"
-msgstr "Debuglog anschalten"
+msgstr "Debug-Protokoll anschalten"
 
 msgid "Debug Log Directory"
-msgstr "Debuglog-Verzeichnis"
+msgstr "Debug-Protokollverzeichnis"
 
 msgid "Enable System Tray Docking"
 msgstr "Systemtray-Icon verwenden"
@@ -1225,7 +1225,7 @@ msgid "Spell Check Language"
 msgstr "Sprache der Rechtschreibprüfung"
 
 msgid "Show White Spaces"
-msgstr "Leerzeichen (Whitespace) anzeigen"
+msgstr "Leerzeichen (Whitespaces) anzeigen"
 
 msgid "Highlight Current Line"
 msgstr "Aktuelle Zeile markieren"
@@ -1234,7 +1234,7 @@ msgid "Expand CodeBoxes Automatically"
 msgstr "CodeBoxen automatisch erweitern"
 
 msgid "CodeBoxes Have Toolbar"
-msgstr "Codeboxen mit Scrollbalken"
+msgstr "CodeBoxen mit Scrollbalken"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "Grenzwert für die Anzahl der Tabellenzellen für kompakte Schnittstelle"
@@ -1300,7 +1300,7 @@ msgstr "Passwort für %s eingeben"
 msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
 "Integritätsprüfung des gesicherten Dokuments fehlgeschlagen. Versuchen Sie "
-"es mit Datei --> Speichern unter"
+"es mit Datei → Speichern unter"
 
 msgid "Failed to encrypt the file"
 msgstr "Verschlüsselung der Datei fehlgeschlagen"
@@ -1343,7 +1343,7 @@ msgid "For example, on Ubuntu the packages to install are:"
 msgstr "Unter Ubuntu sind zum Beispiel folgende Pakete zu installieren:"
 
 msgid "For example, on macOS the packages to install are:"
-msgstr "Unter Mac OS sind zum Beispiel folgende Pakete zu installieren:"
+msgstr "Unter macOS sind zum Beispiel folgende Pakete zu installieren:"
 
 msgid "Could not access the executable 'latex'"
 msgstr "Kein Zugriff auf das Programm 'latex'"
@@ -1443,7 +1443,7 @@ msgid "Off"
 msgstr "Aus"
 
 msgid "Text Margin: Left"
-msgstr "Text-Rand links"
+msgstr "Textrand links"
 
 msgid "Right"
 msgstr "Rechts"
@@ -1520,7 +1520,7 @@ msgid "_Help"
 msgstr "_Hilfe"
 
 msgid "Node _Move"
-msgstr "Knoten _bewegen"
+msgstr "Knoten _verschieben"
 
 msgid "Nod_es Sort"
 msgstr "Knoten _sortieren"
@@ -1586,7 +1586,7 @@ msgid "_Open File..."
 msgstr "Datei _öffnen..."
 
 msgid "Open Fo_lder..."
-msgstr "Ordner _öffnen..."
+msgstr "_Ordner öffnen..."
 
 msgid "Open a CherryTree Folder"
 msgstr "CherryTree-Ordner öffnen"
@@ -1694,10 +1694,10 @@ msgid "Insert an Anchor"
 msgstr "Anker einfügen"
 
 msgid "Insert T_OC and Headers Collapsors..."
-msgstr "Inhaltverzeichnis und Kopfzeilen Kompressor einfügen..."
+msgstr "_Inhaltverzeichnis und Kopfzeilen-Kompressor einfügen..."
 
 msgid "Insert Table of Contents and Headers Collapsors/Expanders"
-msgstr "Inhaltsverzeichnis und Kopfzeilen Kompressor/Expander einfügen"
+msgstr "Inhaltsverzeichnis und Kopfzeilen-Kompressor/-Expander einfügen"
 
 msgid "Insert Timestam_p"
 msgstr "_Zeitstempel einfügen"
@@ -1730,26 +1730,26 @@ msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Auswahl/aktuelles Wort in Großbuchstaben wandeln"
 
 msgid "_Toggle Case of Selection/Word"
-msgstr "Groß-/Kleinbuchstaben _invertieren in Auswahl/Wort"
+msgstr "Groß-/Kleinbuchstaben in Auswahl/Wort _invertieren"
 
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "Groß-/Kleinbuchstaben invertieren in Auswahl/Wort"
+msgstr "Groß-/Kleinbuchstaben in Auswahl/Wort invertieren"
 
 msgid "Cu_t as Plain Text"
-msgstr "_Text ohne Formatierung ausschneiden"
+msgstr "Text ohne Formatierung _ausschneiden"
 
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Text ohne Formatierung ausschneiden, die Rich-Text-Formatierung verwerfen"
 
 msgid "_Copy as Plain Text"
-msgstr "Te_xt ohne Formatierung kopieren"
+msgstr "Text ohne Formatierung _kopieren"
 
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr "Text ohne Formatierung kopieren, die Rich-Text-Formatierung verwerfen"
 
 msgid "_Paste as Plain Text"
-msgstr "Text o_hne Formatierung einfügen"
+msgstr "Text ohne Formatierung _einfügen"
 
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Text ohne Formatierung einfügen, die Rich-Text-Formatierung verwerfen"
@@ -1914,31 +1914,31 @@ msgid "Edit the Properties of the CodeBox"
 msgstr "Eigenschaften der CodeBox bearbeiten"
 
 msgid "CodeBox _Load From Text File..."
-msgstr "CodeBox aus Textdatei erstellen..."
+msgstr "CodeBox aus Textdatei _erstellen..."
 
 msgid "Load the CodeBox Content From a Text File"
 msgstr "CodeBox aus Textdatei erstellen"
 
 msgid "CodeBox _Save To Text File..."
-msgstr "CodeBox in Textdatei speichern..."
+msgstr "CodeBox in Textdatei _speichern..."
 
 msgid "Save the CodeBox Content To a Text File"
 msgstr "CodeBox in Textdatei speichern"
 
 msgid "C_ut CodeBox"
-msgstr "CodeBox ausschneiden"
+msgstr "_CodeBox ausschneiden"
 
 msgid "Cut the Selected CodeBox"
 msgstr "Ausgewählte CodeBox ausschneiden"
 
 msgid "_Copy CodeBox"
-msgstr "CodeBox kopieren"
+msgstr "C_odeBox kopieren"
 
 msgid "Copy the Selected CodeBox"
 msgstr "Ausgewählte CodeBox kopieren"
 
 msgid "_Copy CodeBox Content"
-msgstr "CodeBox-Inhalt kopieren"
+msgstr "CodeBox-_Inhalt kopieren"
 
 msgid "Copy the Content of the Selected CodeBox"
 msgstr "Inhalt der ausgewählten CodeBox kopieren"
@@ -1956,25 +1956,25 @@ msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "Ausgewählte CodeBox löschen, Text behalten"
 
 msgid "Increase CodeBox Width"
-msgstr "Breite der CodeBox vergrößern"
+msgstr "Breite der CodeBox ver_größern"
 
 msgid "Increase the Width of the CodeBox"
 msgstr "Die Breite der CodeBox vergrößern"
 
 msgid "Decrease CodeBox Width"
-msgstr "Breite der CodeBox verkleinern"
+msgstr "Breite der CodeBox ver_kleinern"
 
 msgid "Decrease the Width of the CodeBox"
 msgstr "Die Breite der CodeBox verkleinern"
 
 msgid "Increase CodeBox Height"
-msgstr "Höhe der CodeBox vergrößern"
+msgstr "_Höhe der CodeBox vergrößern"
 
 msgid "Increase the Height of the CodeBox"
 msgstr "Die Höhe der CodeBox vergrößern"
 
 msgid "Decrease CodeBox Height"
-msgstr "Höhe der CodeBox verkleinern"
+msgstr "H_öhe der CodeBox verkleinern"
 
 msgid "Decrease the Height of the CodeBox"
 msgstr "Die Höhe der CodeBox verkleinern"
@@ -1986,13 +1986,13 @@ msgid "Clone the Text Format Type at Cursor"
 msgstr "Textformat an der Cursorposition übertragen"
 
 msgid "Format _Latest"
-msgstr "Formatierung _anwenden"
+msgstr "Formatierung an_wenden"
 
 msgid "Memory of Latest Text Format Type"
 msgstr "Letzte Textformatierung anwenden"
 
 msgid "_Remove Formatting"
-msgstr "Formatierung _entfernen"
+msgstr "Formatierung ent_fernen"
 
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Formatierung im markierten Text entfernen"
@@ -2163,7 +2163,7 @@ msgid "Strip Trailing Spaces"
 msgstr "Leerzeichen am Zeilenende löschen"
 
 msgid "_Replace Tabs with Spaces"
-msgstr "Tabs durch Leerzeichen ersetzen"
+msgstr "_Tabs durch Leerzeichen ersetzen"
 
 msgid "Replace Tabs with Spaces"
 msgstr "Tabs durch Leerzeichen ersetzen"
@@ -2175,13 +2175,13 @@ msgid "Command Palette"
 msgstr "Befehlspalette"
 
 msgid "_Execute Code All"
-msgstr "Gesamten Code ausführen"
+msgstr "_Gesamten Code ausführen"
 
 msgid "Execute All Code in CodeBox or Node"
 msgstr "Gesamten Code in CodeBox oder Knoten ausführen"
 
 msgid "E_xecute Code Line or Selection"
-msgstr "Codezeile oder Auswahl ausführen"
+msgstr "_Codezeile oder Auswahl ausführen"
 
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Code aus aktueller Zeile oder markiertem Text ausführen"
@@ -2217,17 +2217,17 @@ msgid "Duplicate the Selected Node"
 msgstr "Markierten Knoten duplizieren"
 
 msgid "Duplicate Node _and Subnodes"
-msgstr "Kno_ten und Unterknoten duplizieren"
+msgstr "Kn_oten und Unterknoten duplizieren"
 
 msgid "Duplicate the Selected Node and the Subnodes"
 msgstr "Markierten Knoten und Unterknoten duplizieren"
 
 msgid "_Create Shared Node"
-msgstr "Erzeuge gemeinsamen Knoten"
+msgstr "Geme_insamen Knoten erzeugen"
 
 msgid "Create a New Node Sharing the Same Data of the Selected Node"
 msgstr ""
-"Neuen Knoten erzeugen, der die selben Daten des selektierten Knotens nutzt"
+"Neuen Knoten mit denselben Daten wie die des ausgewählten Knotens erzeugen"
 
 msgid "Copy Node and S_ubnodes"
 msgstr "Kno_ten und Unterknoten kopieren"
@@ -2236,20 +2236,20 @@ msgid "Copy the Selected Node and the Subnodes"
 msgstr "Markierten Knoten und Unterknoten kopieren"
 
 msgid "_Paste Node and Subnodes"
-msgstr "Kno_ten und Unterknoten einfügen"
+msgstr "Knoten und Unterknoten einfü_gen"
 
 msgid "Paste the Copied Node and Subnodes"
 msgstr "Kopierte Knoten und Unterknoten einfügen"
 
 msgid "Insert _Today's Node Under Tree Root"
-msgstr "Knoten mit heuti_gem Datum einfügen"
+msgstr "Knoten mit heutigem Datum ein_fügen"
 
 msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
 msgstr ""
 "Knoten mit der Hierarchie Jahr/Monat/Tag am Anfang der Baumstruktur einfügen"
 
 msgid "Insert Toda_y's Node Under Selected Node"
-msgstr "Knoten mit heuti_gem Datum unter dem markierten Knoten einfügen"
+msgstr "Knoten mit heutigem Datum unter dem markierten Knoten einf_ügen"
 
 msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
 msgstr ""
@@ -2274,7 +2274,7 @@ msgid "Copy Link to the Selected Node to Clipboard"
 msgstr "Verknüpfung zum ausgewählten Knoten in die Zwischenablage kopieren"
 
 msgid "Children _Inherit Syntax"
-msgstr "Syntax an Unterknoten _vererben"
+msgstr "S_yntax an Unterknoten vererben"
 
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
@@ -2372,10 +2372,10 @@ msgid "Find/Replace"
 msgstr "Suchen/Ersetzen"
 
 msgid "_Quick Node Selection..."
-msgstr "_Quick Node Auswahl..."
+msgstr "_Schnelle Knotenauswahl..."
 
 msgid "Quick Node Selection"
-msgstr "Quicknode Auswahl"
+msgstr "Schnelle Knotenauswahl"
 
 msgid "Find in _Nodes Names and Tags..."
 msgstr "In Knotennamen und _Tags suchen..."
@@ -2679,19 +2679,19 @@ msgid "Check for a Newer Version Available Online"
 msgstr "Online prüfen, ob neuere Version verfügbar ist"
 
 msgid "_Website"
-msgstr "Webseite"
+msgstr "_Webseite"
 
 msgid "Visit CherryTree's Website"
 msgstr "CherryTree-Webseite besuchen"
 
 msgid "_Source Code"
-msgstr "Quellcode"
+msgstr "_Quellcode"
 
 msgid "Browse CherryTree's Source Code Online"
 msgstr "CherryTree-Quellcode online ansehen"
 
 msgid "_Report a Bug"
-msgstr "Einen Fehler melden"
+msgstr "Einen _Fehler melden"
 
 msgid "Report a Bug in CherryTree"
 msgstr "Fehler in CherryTree melden"
@@ -2895,7 +2895,7 @@ msgid "Node name to focus"
 msgstr "Knotennamen fokussieren"
 
 msgid "Anchor name to scroll to in node"
-msgstr "Ankers im Knoten, zu dem positioniert werden soll"
+msgstr "Anker im Knoten, zu dem positioniert werden soll"
 
 msgid "Export to HTML at specified directory path"
 msgstr "HTML-Export in angegebenen Pfad"
