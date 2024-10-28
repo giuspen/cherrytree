@@ -134,12 +134,12 @@ void CtActions::export_to_ct()
             if (CtDocType::MultiFile != storageSelArgs.ctDocType or
                 fs::get_dir_entries(new_filepath).size())
             {
-                message = str::format(_("A folder '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
+                message = str::format(_("A folder '%s' already exists in '%s'.\n<b>Do you want to replace it?</b>"),
                     str::xml_escape(Glib::path_get_basename(new_filepath)), str::xml_escape(Glib::path_get_dirname(new_filepath)));
             }
         }
         else {
-            message = str::format(_("A file '%s' already exists in '%s'.\n<b>Do you want to remove it?</b>"),
+            message = str::format(_("A file '%s' already exists in '%s'.\n<b>Do you want to replace it?</b>"),
                 str::xml_escape(Glib::path_get_basename(new_filepath)), str::xml_escape(Glib::path_get_dirname(new_filepath)));
         }
         if (message.size()) {
