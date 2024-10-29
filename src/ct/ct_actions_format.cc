@@ -59,7 +59,6 @@ void CtActions::_save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTe
             tagProperties.push_back(tagPropNVal.first);
             tagValues.push_back(tagPropNVal.second);
         }
-        
     }
     if (not tagProperties.empty()) {
         _pCtConfig->latestTagProp = str::join(tagProperties, ",");
@@ -78,8 +77,9 @@ void CtActions::apply_tags_latest()
     if (not _is_there_selected_node_or_error()) return;
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    if (_pCtConfig->latestTagProp.empty())
+    if (_pCtConfig->latestTagProp.empty()) {
         CtDialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session."), *_pCtMainWin);
+    }
     else {
         remove_text_formatting();
         std::vector<std::string> tagProperties = str::split(_pCtConfig->latestTagProp, ",");
@@ -97,14 +97,38 @@ void CtActions::remove_text_formatting()
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
     auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
-    if (not curr_buffer->get_has_selection() and !_pCtMainWin->apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
+    if (not curr_buffer->get_has_selection() and not _pCtMainWin->apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
         CtDialogs::warning_dialog(_("No Text is Selected."), *_pCtMainWin);
         return;
     }
     Gtk::TextIter iter_sel_start, iter_sel_end;
     curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
-    curr_buffer->remove_all_tags(iter_sel_start, iter_sel_end);
 
+    const int sel_start_offset = iter_sel_start.get_offset();
+    const int sel_end_offset = iter_sel_end.get_offset();
+
+    for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
+        Gtk::TextIter it_sel_start = curr_buffer->get_iter_at_offset(offset);
+        std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = it_sel_start.get_tags();
+        for (auto& curr_tag : curr_tags) {
+            const Glib::ustring tag_name = curr_tag->property_name();
+            if (str::startswith(tag_name, "weight_") or
+                str::startswith(tag_name, "foreground_") or
+                str::startswith(tag_name, "background_") or
+                str::startswith(tag_name, "style_") or
+                str::startswith(tag_name, "underline_") or
+                str::startswith(tag_name, "strikethrough_") or
+                str::startswith(tag_name, "indent_") or
+                str::startswith(tag_name, "scale_") or
+                str::startswith(tag_name, "invisible_") or
+                str::startswith(tag_name, "justification_") or
+                str::startswith(tag_name, "family_"))
+            {
+                Gtk::TextIter it_sel_end = curr_buffer->get_iter_at_offset(offset+1);
+                curr_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
+            }
+        }
+    }
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
@@ -379,8 +403,8 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             }
         }
     }
-    int sel_start_offset = iter_sel_start->get_offset();
-    int sel_end_offset = iter_sel_end->get_offset();
+    const int sel_start_offset = iter_sel_start->get_offset();
+    const int sel_end_offset = iter_sel_end->get_offset();
     // if there's already a tag about this property, we remove it before apply the new one
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
         Gtk::TextIter it_sel_start = text_buffer->get_iter_at_offset(offset);
@@ -397,31 +421,34 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, "family_")))
             {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
-                property_value = ""; // just tag removal
+                property_value.clear(); // just tag removal
             }
             else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, "indent_")){
                 //Remove old tag but don't reset the value (since we're increasing previous indent to a new value, not toggling it off)
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
             }
-            else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, "scale_"))
-            {
+            else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, "scale_")) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
                 // #print property_value, tag_name[6:]
-                if (property_value == curr_tag_name.substr(6))
-                    property_value = ""; // just tag removal
+                if (property_value == curr_tag_name.substr(6)) {
+                    property_value.clear(); // just tag removal
+                }
             }
-            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, "justification_"))
+            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, "justification_")) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
+            }
             else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(curr_tag_name, "foreground_"))
-               or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(curr_tag_name, "background_"))
-               or (tag_property == CtConst::TAG_LINK and str::startswith(curr_tag_name, "link_")))
+                  or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(curr_tag_name, "background_"))
+                  or (tag_property == CtConst::TAG_LINK and str::startswith(curr_tag_name, "link_")))
+            {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
+            }
         }
     }
     // avoid adding invalid color
-    if (tag_property == CtConst::TAG_FOREGROUND || tag_property == CtConst::TAG_BACKGROUND) {
+    if (tag_property == CtConst::TAG_FOREGROUND or tag_property == CtConst::TAG_BACKGROUND) {
         if (property_value == "-") {
-            property_value = "";
+            property_value.clear();
         }
     }
 
