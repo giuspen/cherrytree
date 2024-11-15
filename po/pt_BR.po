@@ -1577,7 +1577,7 @@ msgid "_Open File..."
 msgstr "Abrir arquivo..."
 
 msgid "Open Fo_lder..."
-msgstr "Abrir Arquivo..."
+msgstr "Abrir pasta..."
 
 msgid "Open a CherryTree Folder"
 msgstr "Abrir uma pasta do CherryTree"
