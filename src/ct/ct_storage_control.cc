@@ -124,7 +124,7 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
 {
     // backups with tildas can either be in the same directory where the db is or in a custom backup dir
     // main_backup is always in the same directory of the main db
-    auto get_custom_backup_file_or_dir = [&]()->std::string {
+    auto get_custom_backup_dir = [&]()->std::string {
         // backup path in custom dir: /custom_dir/full_file_path/filename.ext~
         std::string hash_dir = file_or_dir_path;
         for (auto str : {"\\", "/", ":", "?"}) {
@@ -137,20 +137,30 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
                 spdlog::error("failed to create backup directory: {}", first_backup_dir);
                 return "";
             }
-            return Glib::build_filename(first_backup_dir, CtConst::CHAR_DOT + Glib::path_get_basename(file_or_dir_path)) + CtConst::CHAR_TILDE;
+            return first_backup_dir;
         }
         catch (Glib::Error& ex) {
             spdlog::error("failed to create backup directory: {}, \n{}", first_backup_dir, ex.what().raw());
             return "";
         }
     };
-
+    std::string backup_dirname;
     if (pCtConfig->customBackupDirOn and not pCtConfig->customBackupDir.empty()) {
-        out_first_backup_file_or_dir = get_custom_backup_file_or_dir();
+        backup_dirname = get_custom_backup_dir();
     }
-    if (out_first_backup_file_or_dir.empty()) {
-        out_first_backup_file_or_dir = Glib::build_filename(Glib::path_get_dirname(file_or_dir_path),
-            CtConst::CHAR_DOT + Glib::path_get_basename(file_or_dir_path) + CtConst::CHAR_TILDE);
+    if (backup_dirname.empty()) {
+        backup_dirname = Glib::path_get_dirname(file_or_dir_path);
+    }
+#if defined(_SNAP_BUILD)
+    if (fs_canonicalize_filename(backup_dirname) == fs_canonicalize_filename(Glib::get_home_dir())) {
+        out_first_backup_file_or_dir =
+            Glib::build_filename(backup_dirname, CtConst::CHAR_USCORE + Glib::path_get_basename(file_or_dir_path) + CtConst::CHAR_TILDE);
+    }
+    else
+#endif /*_SNAP_BUILD*/
+    {
+        out_first_backup_file_or_dir =
+            Glib::build_filename(backup_dirname, CtConst::CHAR_DOT + Glib::path_get_basename(file_or_dir_path) + CtConst::CHAR_TILDE);
     }
 }
 
