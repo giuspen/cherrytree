@@ -152,7 +152,7 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
         backup_dirname = Glib::path_get_dirname(file_or_dir_path);
     }
 #if defined(_SNAP_BUILD)
-    if (fs_canonicalize_filename(backup_dirname) == fs_canonicalize_filename(Glib::get_home_dir())) {
+    if (fs_canonicalize_filename(backup_dirname) == fs_canonicalize_filename(Glib::getenv("SNAP_REAL_HOME"))) {
         out_first_backup_file_or_dir =
             Glib::build_filename(backup_dirname, CtConst::CHAR_USCORE + Glib::path_get_basename(file_or_dir_path) + CtConst::CHAR_TILDE);
     }
