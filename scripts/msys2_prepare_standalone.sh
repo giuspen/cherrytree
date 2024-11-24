@@ -258,7 +258,8 @@ for element_rel in dvipng.exe \
                    libSvtAv1Enc-2.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
-                   libopenjph-0.17.dll \
+                   libopenjph-0.18.dll \
+                   libopenh264-7.dll \
                    libkvazaar-7.dll \
                    libcryptopp.dll
 do
