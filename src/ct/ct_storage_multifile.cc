@@ -239,11 +239,12 @@ void CtStorageMultiFile::_remove_disk_node_with_children(const gint64 node_id)
             f_iterative_queue_nodes_for_removal(node_dirpath);
         }
         // eventually process myself
-        std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
+        auto pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
         pBackupEncryptData->backupType = CtBackupType::MultiFile;
         pBackupEncryptData->needEncrypt = false;
         pBackupEncryptData->file_path = _dir_path.string();
         pBackupEncryptData->main_backup = curr_node_dirpath.string();
+        pBackupEncryptData->p_mod_time = nullptr;
         _pCtMainWin->get_ct_storage()->backupEncryptDEQueue.push_back(pBackupEncryptData);
         _already_queued_for_removal.insert(curr_node_id);
     };
@@ -374,11 +375,12 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
             }
         }
         if (CtExporting::NONESAVE == export_type) {
-            std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
+            auto pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
             pBackupEncryptData->backupType = CtBackupType::MultiFile;
             pBackupEncryptData->needEncrypt = false;
             pBackupEncryptData->file_path = _dir_path.string();
             pBackupEncryptData->main_backup = dir_before_save.string();
+            pBackupEncryptData->p_mod_time = nullptr;
             _pCtMainWin->get_ct_storage()->backupEncryptDEQueue.push_back(pBackupEncryptData);
         }
     }

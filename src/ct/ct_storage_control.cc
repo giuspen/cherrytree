@@ -308,13 +308,9 @@ bool CtStorageControl::try_reopen(Glib::ustring& error)
     }
 }
 
-bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
+bool CtStorageControl::save(bool need_vacuum, Glib::ustring& error)
 {
     _mod_time = 0;
-    auto on_scope_exit = scope_guard([&](void*) {
-        _pCtMainWin->get_status_bar().pop();
-        _mod_time = fs::getmtime(_file_path);
-    });
     _pCtMainWin->get_status_bar().push(_("Writing to Disk..."));
     while (gtk_events_pending()) gtk_main_iteration();
 
@@ -330,6 +326,14 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
     // CtDocType::MultiFile backups are elsewhere, at node (folder) level rather than whole tree level (file)
     const bool need_main_backup = CtDocType::MultiFile != doc_type and _pCtConfig->backupCopy and _pCtConfig->backupNum > 0;
     const bool need_encrypt = _file_path != _extracted_file_path;
+
+    auto on_scope_exit = scope_guard([this, need_encrypt](void*) {
+        _pCtMainWin->get_status_bar().pop();
+        if (not need_encrypt) {
+            _mod_time = fs::getmtime(_file_path);
+        }
+    });
+
     try {
         if (_file_path.empty()) {
             throw std::runtime_error("storage not initialized");
@@ -373,7 +377,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
             _storage->vacuum();
         }
         if (need_main_backup or need_encrypt) {
-            std::shared_ptr<CtBackupEncryptData> pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
+            auto pBackupEncryptData = std::make_shared<CtBackupEncryptData>();
             pBackupEncryptData->backupType = need_main_backup ? CtBackupType::SingleFile : CtBackupType::None;
             pBackupEncryptData->needEncrypt = need_encrypt;
             pBackupEncryptData->file_path = _file_path.string();
@@ -390,6 +394,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
                 _storage->reopen_connect();
                 pBackupEncryptData->password = _password;
             }
+            pBackupEncryptData->p_mod_time = &_mod_time;
             backupEncryptDEQueue.push_back(pBackupEncryptData);
         }
         _syncPending.fix_db_tables = false;
@@ -541,13 +546,20 @@ void CtStorageControl::_backupEncryptThread()
             }
             if (not retValEncrypt) {
                 // move back the latest file version
-                (void)fs::move_file(pBackupEncryptData->main_backup, pBackupEncryptData->file_path);
+                if (fs::move_file(pBackupEncryptData->main_backup, pBackupEncryptData->file_path)) {
+                    if (pBackupEncryptData->p_mod_time) {
+                        *pBackupEncryptData->p_mod_time = fs::getmtime(pBackupEncryptData->file_path);
+                    }
 #if defined(DEBUG_BACKUP_ENCRYPT)
-                spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, pBackupEncryptData->file_path.string());
+                    spdlog::debug("{} -> {}", pBackupEncryptData->main_backup, pBackupEncryptData->file_path.string());
 #endif // DEBUG_BACKUP_ENCRYPT
+                }
                 _pCtMainWin->errorsDEQueue.push_back(_("Failed to encrypt the file"));
                 _pCtMainWin->dispatcherErrorMsg.emit();
                 continue;
+            }
+            if (pBackupEncryptData->p_mod_time) {
+                *pBackupEncryptData->p_mod_time = fs::getmtime(pBackupEncryptData->file_path);
             }
 #if defined(DEBUG_BACKUP_ENCRYPT)
             spdlog::debug("{} => {}", pBackupEncryptData->extracted_copy, pBackupEncryptData->file_path.string());

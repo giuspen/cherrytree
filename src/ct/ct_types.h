@@ -283,6 +283,7 @@ struct CtBackupEncryptData
     std::string file_path;
     std::string password;
     std::string extracted_copy;
+    time_t* p_mod_time;
 };
 
 struct CtNodeData;
