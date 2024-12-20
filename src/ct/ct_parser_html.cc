@@ -166,6 +166,8 @@ void CtHtml2Xml::feed(const std::string& html)
     _slot_style_id = -1;
     _slot_styles_cache.clear();
 
+    //spdlog::debug("{}", html.c_str());
+
     const Glib::ustring doctype = "<!DOCTYPE HTML";
     if (str::startswith(html, doctype) or str::startswith(html, doctype.lowercase())) {
         CtHtmlParser::feed(html);
@@ -176,7 +178,6 @@ void CtHtml2Xml::feed(const std::string& html)
                 + html + "</body></html>";
         CtHtmlParser::feed(fixed_html);
     }
-
 
     _rich_text_save_pending();
 }
@@ -260,22 +261,21 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "u") _add_tag_style(CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE);
         else if (tag == "s") _add_tag_style(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
         else if (tag == CtConst::TAG_STYLE) _state = ParserState::WAIT_BODY;
-        else if (tag == "span")
-        {
-            for (auto& tag_attr: char2list_attrs(atts))
-            {
+        else if (tag == "span") {
+            for (const auto& tag_attr : char2list_attrs(atts)) {
                 if (tag_attr.name == CtConst::TAG_STYLE)
                     parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
             }
         }
-        else if (tag == "font")
-        {
-            for (auto& tag_attr: char2list_attrs(atts)) {
+        else if (tag == "font") {
+            for (const auto& tag_attr : char2list_attrs(atts)) {
                 if (tag_attr.name == "color") {
-                    auto color = _convert_html_color(str::trim(Glib::ustring(tag_attr.value.begin())));
-                    if (color != "")
+                    const std::string color = _convert_html_color(str::trim(Glib::ustring(tag_attr.value.begin())));
+                    if (not color.empty())
                         _add_tag_style(CtConst::TAG_FOREGROUND, color);
                 }
+                else if (tag_attr.name == CtConst::TAG_STYLE)
+                    parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
             }
         }
         else if (tag == "p")
