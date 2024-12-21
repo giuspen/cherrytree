@@ -123,6 +123,7 @@ public:
     int                                         latexSizeDpi{140};
     int                                         embfileIconSize{48};
     bool                                        embfileShowFileName{true};
+    bool                                        embfileMFNameOnDisk{false};
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
     bool                                        autoSmartQuotes{true};

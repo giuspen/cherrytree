@@ -228,6 +228,7 @@ void CtActions::preferences_import()
     _pCtConfig->latexSizeDpi = ctConfigImported.latexSizeDpi;
     _pCtConfig->embfileIconSize = ctConfigImported.embfileIconSize;
     _pCtConfig->embfileShowFileName = ctConfigImported.embfileShowFileName;
+    _pCtConfig->embfileMFNameOnDisk = ctConfigImported.embfileMFNameOnDisk;
     _pCtConfig->embfileMaxSize = ctConfigImported.embfileMaxSize;
     _pCtConfig->lineWrapping = ctConfigImported.lineWrapping;
     _pCtConfig->autoSmartQuotes = ctConfigImported.autoSmartQuotes;

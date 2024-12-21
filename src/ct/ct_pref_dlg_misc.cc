@@ -46,6 +46,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton{_("Custom Backup Directory")});
     auto file_chooser_button_backup_dir = Gtk::manage(new Gtk::FileChooserButton{_("Custom Backup Directory"),
                                                                                  Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SELECT_FOLDER});
+    auto checkbutton_mfname_on_disk = Gtk::manage(new Gtk::CheckButton{_("Multiple Files Storage, Embedded File Name Use On Disk")});
     auto hbox_custom_backup_dir = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
 
     hbox_num_backups->pack_start(*label_num_backups, false, false);
