@@ -583,8 +583,8 @@ void CtTableHeavy::row_move_up(const size_t rowIdx, const bool/*from_move_down*/
     _grid.remove_row(rowIdxUp);
     _grid.insert_row(rowIdx);
     std::swap(_tableMatrix[rowIdxUp], _tableMatrix[rowIdx]);
-    const size_t num_rows = get_num_rows();
-    for (size_t colIdx = 0u; colIdx < num_rows; ++colIdx) {
+    const size_t num_cols = get_num_columns();
+    for (size_t colIdx = 0u; colIdx < num_cols; ++colIdx) {
         CtTextView& textView = static_cast<CtTextCell*>(_tableMatrix.at(rowIdx).at(colIdx))->get_text_view();
         _grid.attach(textView.mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
         if (0 == rowIdxUp) {
