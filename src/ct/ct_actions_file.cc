@@ -60,7 +60,7 @@ void CtActions::file_save_as()
     }
     CtDialogs::CtStorageSelectArgs storageSelArgs{};
     storageSelArgs.showAutosaveOptions = true;
-    const fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
+    const fs::path& currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     if (not currDocFilepath.empty()) {
         storageSelArgs.ctDocType = fs::get_doc_type_from_file_ext(currDocFilepath);
         storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt_from_file_ext(currDocFilepath);

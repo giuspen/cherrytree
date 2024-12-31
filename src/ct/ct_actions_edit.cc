@@ -212,21 +212,29 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
-        bool is_sqlite = fs::get_doc_type_from_file_ext(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
-        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
-        if (is_sqlite) {
-            if (not CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
+    std::string blob;
+    const bool embfileMFNameOnDisk = _pCtConfig->embfileMFNameOnDisk and fs::is_directory(_pCtMainWin->get_ct_storage()->get_file_path());
+
+    if (embfileMFNameOnDisk) {
+        
+    }
+    else {
+        if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
+            bool is_sqlite = fs::get_doc_type_from_file_ext(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
+            auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
+            if (is_sqlite) {
+                if (not CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
+                    return;
+            }
+            else {
+                CtDialogs::error_dialog(message, *_pCtMainWin);
                 return;
+            }
         }
-        else {
-            CtDialogs::error_dialog(message, *_pCtMainWin);
-            return;
-        }
+        blob = Glib::file_get_contents(filepath);
     }
 
-    std::string blob = Glib::file_get_contents(filepath);
-    std::string name = Glib::path_get_basename(filepath);
+    const std::string name = Glib::path_get_basename(filepath);
     CtAnchoredWidget* pAnchoredWidget = new CtImageEmbFile{_pCtMainWin,
                                                            name,
                                                            blob,

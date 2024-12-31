@@ -82,7 +82,7 @@ void CtActions::export_to_ct()
         start_offset = iter_sel_start.get_offset();
         end_offset = iter_sel_end.get_offset();
     }
-    const fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
+    const fs::path& currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     CtDialogs::CtStorageSelectArgs storageSelArgs{};
     if (not currDocFilepath.empty()) {
         storageSelArgs.ctDocType = fs::get_doc_type_from_file_ext(currDocFilepath);
