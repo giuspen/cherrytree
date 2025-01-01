@@ -63,6 +63,9 @@ public:
     Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
                                                           const std::string& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets) const override;
+
+    fs::path get_embedded_filepath(const CtTreeIter&/*ct_tree_iter*/, const std::string&/*filename*/) const override { return ""; }
+
 private:
     void _open_db(const fs::path& path);
     void _close_db();

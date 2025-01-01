@@ -76,6 +76,8 @@ public:
                                                           const std::string& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets) const override;
 
+    fs::path get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const override;
+
 private:
     CtMainWin* const _pCtMainWin;
     fs::path         _dir_path;

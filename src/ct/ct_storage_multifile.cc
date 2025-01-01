@@ -223,6 +223,11 @@ fs::path CtStorageMultiFile::_get_node_dirpath(const CtTreeIter& ct_tree_iter) c
     return _dir_path / hierarchical_path;
 }
 
+fs::path CtStorageMultiFile::get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const
+{
+    return _get_node_dirpath(ct_tree_iter) / filename;
+}
+
 void CtStorageMultiFile::_remove_disk_node_with_children(const gint64 node_id)
 {
     // the nodes must be passed to the BackupEncrypt thread from the leaves towards the root

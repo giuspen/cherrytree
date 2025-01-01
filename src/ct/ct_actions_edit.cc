@@ -215,8 +215,16 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     std::string blob;
     const bool embfileMFNameOnDisk = _pCtConfig->embfileMFNameOnDisk and fs::is_directory(_pCtMainWin->get_ct_storage()->get_file_path());
 
+    const std::string name = Glib::path_get_basename(filepath);
     if (embfileMFNameOnDisk) {
-        
+        const fs::path embfilePath = _pCtMainWin->get_ct_storage()->get_embedded_filepath(_pCtMainWin->curr_tree_iter(), name);
+        if (not fs::exists(embfilePath)) {
+            const bool copyRes = fs::copy_file(filepath, embfilePath);
+            spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
+        }
+        else {
+            spdlog::debug("{} ?? {} exists", __FUNCTION__, embfilePath.c_str());
+        }
     }
     else {
         if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
@@ -234,7 +242,6 @@ void CtActions::embfile_insert_path(const std::string& filepath)
         blob = Glib::file_get_contents(filepath);
     }
 
-    const std::string name = Glib::path_get_basename(filepath);
     CtAnchoredWidget* pAnchoredWidget = new CtImageEmbFile{_pCtMainWin,
                                                            name,
                                                            blob,
