@@ -181,19 +181,25 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
             return std::make_tuple(CtConst::TARGET_WINDOWS_FILE_NAME, received_uri, false);
 #endif // _WIN32
 #ifdef __APPLE__
-        if (vec::exists(targets, "NSFilenamesPboardType"))
+        if (vec::exists(targets, "NSFilenamesPboardType")) {
             return std::make_tuple("NSFilenamesPboardType", received_uri, false);
+        }
 #endif // __APPLE__
-        if (vec::exists(targets, CtConst::TARGET_URI_LIST))
+        if (vec::exists(targets, CtConst::TARGET_URI_LIST)) {
             return std::make_tuple(CtConst::TARGET_URI_LIST, received_uri, false);
-        for (auto& target : CtConst::TARGETS_PLAIN_TEXT)
-            if (vec::exists(targets, target))
-                return std::make_tuple(target, received_plain_text, false);
+        }
+        for (auto& target : CtConst::TARGETS_PLAIN_TEXT) {
+            if (vec::exists(targets, target)) {
+                return std::make_tuple(target, received_plain_text, not is_rich_text/*force_plain_text*/);
+            }
+        }
         if (is_rich_text) {
             // images at very last because of mac os target of mime type icon
-            for (auto& target : CtConst::TARGETS_IMAGES)
-                if (vec::exists(targets, target))
+            for (auto& target : CtConst::TARGETS_IMAGES) {
+                if (vec::exists(targets, target)) {
                     return std::make_tuple(target, received_image, false);
+                }
+            }
         }
         return std::make_tuple(Glib::ustring(), received_plain_text, false);
     };
@@ -520,7 +526,7 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
             return;
         }
     }
-    const bool is_rich_text = CtConst::RICH_TEXT_ID == _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+    const bool is_rich_text = not force_plain_text and CtConst::RICH_TEXT_ID == _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
     if (is_rich_text) {
         if (str::startswith(plain_text, "- codebox:")) {
             _yaml_to_codebox(plain_text, pTextView);
@@ -531,7 +537,7 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
     Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
     const int start_offset = iter_insert.get_offset();
     curr_buffer->insert(iter_insert, plain_text);
-    if (is_rich_text and !force_plain_text) {
+    if (is_rich_text) {
         auto web_links_offsets = CtImports::get_web_links_offsets_from_plain_text(plain_text);
         if (web_links_offsets.size()) {
             for (auto& offset : web_links_offsets) {
