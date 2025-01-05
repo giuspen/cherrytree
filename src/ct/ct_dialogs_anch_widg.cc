@@ -97,6 +97,146 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
     return Gtk::RESPONSE_ACCEPT == dialog.run() ? rBuffer->get_text() : "";
 }
 
+class CropImage : public Gtk::Image {
+
+public:
+    CropImage(Glib::RefPtr<Gdk::Pixbuf> pixbuf) :
+            Gtk::Image(pixbuf) {
+
+        x = 0;
+        y = 0;
+        w = pixbuf->get_width();
+        h = pixbuf->get_height();
+        moved = false;
+
+        set_has_window(true);
+
+        add_events(Gdk::BUTTON_PRESS_MASK | Gdk::BUTTON_RELEASE_MASK |
+            Gdk::POINTER_MOTION_MASK);
+
+    }
+
+    void set(Glib::RefPtr<Gdk::Pixbuf> pixbuf) {
+
+        int old_width = get_pixbuf()->get_width();
+        int old_height = get_pixbuf()->get_height();
+        int new_width = pixbuf->get_width();
+        int new_height = pixbuf->get_height();
+
+        Gtk::Image::set(pixbuf);
+
+        x *= (double) new_width / old_width;
+        w *= (double) new_width / old_width;
+        y *= (double) new_height / old_height;
+        h *= (double) new_height / old_height;
+
+    }
+
+    /* Get result x/y/w/h given that actual image dimensions are
+     * width × height */
+    void get_crop(int width, int height,
+                  double* rx, double* ry, double* rw, double* rh) {
+
+        if (w < 0) {
+            x += w;
+            w *= -1;
+        }
+        if (h < 0) {
+            y += h;
+            h *= -1;
+        }
+
+        double wscale = (double) width / get_pixbuf()->get_width();
+        double hscale = (double) height / get_pixbuf()->get_height();
+
+        if (rx) *rx = x * wscale;
+        if (rw) *rw = w * wscale;
+        if (ry) *ry = y * hscale;
+        if (rh) *rh = h * hscale;
+
+    }
+
+protected:
+
+    bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override {
+
+        cr->save();
+        Gdk::Cairo::set_source_pixbuf( cr, get_pixbuf(), 0, 0 );
+        cr->paint();
+        cr->restore();
+
+        int img_w = get_pixbuf()->get_width();
+        int img_h = get_pixbuf()->get_height();
+
+        cr->save();
+        cr->set_source_rgba(0, 0, 0, 0.25);
+        cr->set_fill_rule(Cairo::FILL_RULE_EVEN_ODD);
+        cr->rectangle(0, 0, img_w, img_h);
+        cr->rectangle(x, y, w, h);
+        cr->fill();
+        cr->restore();
+
+        return false;
+
+    }
+
+    bool on_motion_notify_event(GdkEventMotion* event) override {
+
+        if (event->state & GDK_BUTTON1_MASK) {
+
+            moved = true;
+            w = event->x - x;
+            h = event->y - y;
+            queue_draw();
+
+        }
+
+        return true;
+
+    }
+
+    bool on_button_press_event(GdkEventButton* event) override {
+
+        if (GDK_BUTTON_PRIMARY == event->button) {
+            x = event->x;
+            y = event->y;
+            w = 0;
+            h = 0;
+            moved = false;
+        }
+        else if (GDK_BUTTON_SECONDARY == event->button) {
+            x = 0;
+            y = 0;
+            w = get_pixbuf()->get_width();
+            h = get_pixbuf()->get_height();
+        }
+
+        queue_draw();
+
+        return true;
+
+    }
+
+    bool on_button_release_event(GdkEventButton* event) override {
+
+        if (GDK_BUTTON_PRIMARY == event->button && !moved) {
+            x = 0;
+            y = 0;
+            w = get_pixbuf()->get_width();
+            h = get_pixbuf()->get_height();
+            queue_draw();
+        }
+
+        return true;
+
+    }
+
+private:
+    int x, y, w, h;
+    bool moved;
+
+};
+
 Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win,
                                                          Glib::RefPtr<Gdk::Pixbuf> rOriginalPixbuf)
 {
@@ -121,7 +261,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     Glib::RefPtr<Gtk::Adjustment> rHAdj = Gtk::Adjustment::create(width, 1, height, 1);
     Glib::RefPtr<Gtk::Adjustment> rVAdj = Gtk::Adjustment::create(width, 1, width, 1);
     Gtk::Viewport viewport(rHAdj, rVAdj);
-    Gtk::Image image{rOriginalPixbuf};
+    CropImage image{rOriginalPixbuf};
     scrolledwindow.add(viewport);
     viewport.add(image);
     Gtk::Box hbox_1{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
@@ -228,7 +368,25 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
     image_load_into_dialog();
     pContentArea->show_all();
-    return Gtk::RESPONSE_ACCEPT == dialog.run() ? rOriginalPixbuf->scale_simple(width, height, Gdk::INTERP_BILINEAR) : Glib::RefPtr<Gdk::Pixbuf>{};
+    if ( Gtk::RESPONSE_ACCEPT == dialog.run() ) {
+        double x, y, w, h;
+        image.get_crop( width, height, &x, &y, &w, &h );
+        Glib::RefPtr<Gdk::Pixbuf> rPixbuf = Gdk::Pixbuf::create(
+            rOriginalPixbuf->get_colorspace(),
+            rOriginalPixbuf->get_has_alpha(),
+            rOriginalPixbuf->get_bits_per_sample(),
+            w, h );
+        rOriginalPixbuf->scale( rPixbuf,
+            0, 0, /* Top left X & Y on dest pixbuf */
+            w, h, /* Width & height of destination image */
+            - x, - y, /* Top left on src, after scaling */
+            (double) width / rOriginalPixbuf->get_width(), /* Scale */
+            (double) height / rOriginalPixbuf->get_height(),
+            Gdk::INTERP_BILINEAR );
+        return rPixbuf;
+    } else {
+        return Glib::RefPtr<Gdk::Pixbuf>{};
+    }
 }
 
 bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
