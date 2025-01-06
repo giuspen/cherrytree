@@ -254,8 +254,10 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     dialog.set_default_size(600, 500);
     Gtk::Button button_rotate_90_ccw;
     button_rotate_90_ccw.set_image_from_icon_name("ct_rotate-left", Gtk::ICON_SIZE_DND);
+    button_rotate_90_ccw.set_tooltip_text(_("Rotate Left"));
     Gtk::Button button_rotate_90_cw;
     button_rotate_90_cw.set_image_from_icon_name("ct_rotate-right", Gtk::ICON_SIZE_DND);
+    button_rotate_90_cw.set_tooltip_text(_("Rotate Right"));
     Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     Glib::RefPtr<Gtk::Adjustment> rHAdj = Gtk::Adjustment::create(width, 1, height, 1);
@@ -268,12 +270,18 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     hbox_1.pack_start(button_rotate_90_ccw, false, false);
     hbox_1.pack_start(scrolledwindow);
     hbox_1.pack_start(button_rotate_90_cw, false, false);
+    Gtk::Button button_crop;
+    button_crop.set_image_from_icon_name("ct_edit_cut", Gtk::ICON_SIZE_DND);
+    button_crop.set_tooltip_text(_("In order to crop the image, select the area with the mouse before clicking OK"));
     Gtk::Button button_flip_horizontal;
     button_flip_horizontal.set_image_from_icon_name("ct_flip-horizontal", Gtk::ICON_SIZE_DND);
+    button_flip_horizontal.set_tooltip_text(_("Flip Horizontally"));
     Gtk::Button button_flip_vertical;
     button_flip_vertical.set_image_from_icon_name("ct_flip-vertical", Gtk::ICON_SIZE_DND);
+    button_flip_vertical.set_tooltip_text(_("Flip Vertically"));
     Gtk::Box hbox_2{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
     hbox_2.pack_start(button_flip_horizontal, true, true);
+    hbox_2.pack_start(button_crop, true, true);
     hbox_2.pack_start(button_flip_vertical, true, true);
     Gtk::Label label_width{_("Width")};
     Glib::RefPtr<Gtk::Adjustment> rAdj_width = Gtk::Adjustment::create(width, 1, 10000, 1);
@@ -333,6 +341,9 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     button_flip_horizontal.signal_clicked().connect([&](){
         rOriginalPixbuf = rOriginalPixbuf->flip(true);
         image_load_into_dialog();
+    });
+    button_crop.signal_clicked().connect([&](){
+        CtDialogs::info_dialog(_("In order to crop the image, select the area with the mouse before clicking OK"), dialog);
     });
     button_flip_vertical.signal_clicked().connect([&](){
         rOriginalPixbuf = rOriginalPixbuf->flip(false);
