@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -532,13 +532,11 @@ bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLink
 // Read Global Links Variables from Dialog
 Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
 {
-    Glib::ustring property_value = "";
+    Glib::ustring property_value;
     if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
         std::string link_url = link_entry.webs;
         if (not link_url.empty()) {
-            if (link_url.size() < 8 or
-                (not str::startswith(link_url, "http://") and not str::startswith(link_url, "https://") and not str::startswith_url(link_url.c_str())))
-            {
+            if (not str::startswith_url(link_url.c_str())) {
                 link_url = "http://" + link_url;
             }
             property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;

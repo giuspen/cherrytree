@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -434,7 +434,10 @@ bool CtTextIterUtil::startswith(Gtk::TextIter text_iter, const gchar* pChar)
 
 bool str::startswith_url(const gchar* pChar)
 {
-    // look for alpha://anything
+    // look for mailto:anything or alpha://anything
+    if (g_str_has_prefix(pChar, "mailto:")) {
+        return true;
+    }
     int curr_state{0};
     while (true) {
         gunichar curr_char = g_utf8_get_char(pChar);
@@ -465,7 +468,10 @@ bool str::startswith_url(const gchar* pChar)
 
 bool CtTextIterUtil::startswith_url(Gtk::TextIter text_iter)
 {
-    // look for alpha://anything
+    // look for mailto:anything or alpha://anything
+    if (CtTextIterUtil::startswith(text_iter, "mailto:")) {
+        return true;
+    }
     int curr_state{0};
     while (true) {
         const gunichar curr_char = text_iter.get_char();
@@ -962,7 +968,7 @@ Glib::ustring CtStrUtil::get_accelerator_label(const std::string& accelerator)
 
 std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
 {
-    if (str::startswith(link_url, "http"))          return "webs " + link_url;
+    if (str::startswith_url(link_url.c_str()))      return "webs " + link_url;
     else if (str::startswith(link_url, "file://"))  return "file " + Glib::Base64::encode(link_url.substr(7));
     else                                            return "webs http://" + link_url;
 }

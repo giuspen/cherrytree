@@ -1,7 +1,7 @@
 /*
  * ct_text_view.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -951,7 +951,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
         if (_pCtConfig->urlAutoLink and num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS)) {
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
-            if (not str::startswith(link_url, "htt") and not str::startswith(link_url, "ftp") and not str::startswith_url(link_url.c_str())) {
+            if (not str::startswith_url(link_url.c_str())) {
                 link_url = "http://" + link_url;
             }
             Glib::ustring property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
