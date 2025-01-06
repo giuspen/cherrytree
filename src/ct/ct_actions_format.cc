@@ -91,7 +91,7 @@ void CtActions::apply_tags_latest()
 }
 
 // Cleans the Selected Text from All Formatting Tags
-void CtActions::remove_text_formatting()
+void CtActions::_remove_text_formatting(const bool dismiss_link)
 {
     if (not _is_there_selected_node_or_error()) return;
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
@@ -112,17 +112,20 @@ void CtActions::remove_text_formatting()
         std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = it_sel_start.get_tags();
         for (auto& curr_tag : curr_tags) {
             const Glib::ustring tag_name = curr_tag->property_name();
-            if (str::startswith(tag_name, "weight_") or
-                str::startswith(tag_name, "foreground_") or
-                str::startswith(tag_name, "background_") or
-                str::startswith(tag_name, "style_") or
-                str::startswith(tag_name, "underline_") or
-                str::startswith(tag_name, "strikethrough_") or
-                str::startswith(tag_name, "indent_") or
-                str::startswith(tag_name, "scale_") or
-                str::startswith(tag_name, "invisible_") or
-                str::startswith(tag_name, "justification_") or
-                str::startswith(tag_name, "family_"))
+            if ( (not dismiss_link and
+                   (str::startswith(tag_name, "weight_") or
+                    str::startswith(tag_name, "foreground_") or
+                    str::startswith(tag_name, "background_") or
+                    str::startswith(tag_name, "style_") or
+                    str::startswith(tag_name, "underline_") or
+                    str::startswith(tag_name, "strikethrough_") or
+                    str::startswith(tag_name, "indent_") or
+                    str::startswith(tag_name, "scale_") or
+                    str::startswith(tag_name, "invisible_") or
+                    str::startswith(tag_name, "justification_") or
+                    str::startswith(tag_name, "family_")))
+                or
+                 (dismiss_link and str::startswith(tag_name, "link_")) )
             {
                 Gtk::TextIter it_sel_end = curr_buffer->get_iter_at_offset(offset+1);
                 curr_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
