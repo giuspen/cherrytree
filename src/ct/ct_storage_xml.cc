@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -634,8 +634,14 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
     }
     else {
         const std::string sha256sum = xml_element->get_attribute_value("sha256sum");
-        if (not CtStorageMultiFile::read_blob(multifile_dir, sha256sum, rawBlob)) {
-            spdlog::warn("!! unexp not found {} in {}", sha256sum, multifile_dir);
+        if (sha256sum.empty()) {
+            if (file_name.empty()) {
+                spdlog::warn("!! {} unexp in {} image witho empty sha256sum", __FUNCTION__, multifile_dir);
+                return nullptr;
+            }
+        }
+        else if (not CtStorageMultiFile::read_blob(multifile_dir, sha256sum, rawBlob)) {
+            spdlog::warn("!! {} unexp not found {} in {}", __FUNCTION__, sha256sum, multifile_dir);
             return nullptr;
         }
     }

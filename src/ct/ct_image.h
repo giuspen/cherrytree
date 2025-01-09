@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -204,6 +204,7 @@ private:
 
 protected:
     fs::path      _fileName;
+    fs::path      _dirFromMultiFile;
     std::string   _rawBlob;      // raw data, not a string
     time_t        _timeSeconds;
     const size_t  _uniqueId;
