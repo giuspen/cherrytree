@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -325,7 +325,7 @@ public:
     // format actions
     void save_tags_at_cursor_as_latest();
     void apply_tags_latest();
-    void remove_text_formatting();
+    void remove_text_formatting() { _remove_text_formatting(false/*dismiss_link*/); }
     void apply_tag_foreground();
     void apply_tag_background();
     void apply_tag_bold();
@@ -363,6 +363,7 @@ private:
     void _text_selection_change_case(gchar change_type);
     int  _find_previous_indent_margin();
     void _apply_tag_hN(const char* tagPropScaleVal);
+    void _remove_text_formatting(const bool dismiss_link);
 
 public:
     void image_insert_png(Gtk::TextIter iter_insert,

@@ -1,7 +1,7 @@
 /*
  * tests_misc_utils.cpp
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -212,6 +212,12 @@ TEST(MiscUtilsGroup, iter_util__startswith_url)
     }
     {
         Glib::ustring curr_text{"ftp://ciao"};
+        pTextBuffer->set_text(curr_text);
+        ASSERT_TRUE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
+        ASSERT_TRUE(str::startswith_url(curr_text.c_str()));
+    }
+    {
+        Glib::ustring curr_text{"mailto:ciao"};
         pTextBuffer->set_text(curr_text);
         ASSERT_TRUE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
         ASSERT_TRUE(str::startswith_url(curr_text.c_str()));

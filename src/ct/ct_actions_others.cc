@@ -1,7 +1,7 @@
 /*
  * ct_actions_others.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -68,7 +68,7 @@ void CtActions::link_dismiss()
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
     if (not _link_check_around_cursor().empty()) {
-        remove_text_formatting();
+        _remove_text_formatting(true/*dismiss_link*/);
     }
 }
 

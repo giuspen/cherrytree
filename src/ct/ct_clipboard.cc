@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -544,7 +544,7 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
                 Gtk::TextIter iter_sel_start = curr_buffer->get_iter_at_offset(start_offset + offset.first);
                 Gtk::TextIter iter_sel_end = curr_buffer->get_iter_at_offset(start_offset + offset.second);
                 Glib::ustring link_url = iter_sel_start.get_text(iter_sel_end);
-                if (not str::startswith(link_url, "htt") and not str::startswith(link_url, "ftp") and not str::startswith_url(link_url.c_str())) {
+                if (not str::startswith_url(link_url.c_str())) {
                     link_url = "http://" + link_url;
                 }
                 Glib::ustring property_value = "webs " + link_url;
