@@ -604,6 +604,11 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
     update_label_widget();
 }
 
+void CtImageEmbFile::_checkRawBlobNonEmpty()
+{
+    
+}
+
 void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
                             const int offset_adjustment,
                             CtStorageCache*,
@@ -631,6 +636,8 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
             if (not fs::exists(embfilePath)) {
                 if (not _rawBlob.empty()) {
                     Glib::file_set_contents(embfilePath.string(), _rawBlob);
+                    spdlog::debug("{} multifile sha256 TO constant name {}", __FUNCTION__, embfilePath.string());
+                    _rawBlob.clear();
                 }
                 else if (not _dirFromMultiFile.empty()) {
                     const fs::path embfilePathFrom = _dirFromMultiFile / _fileName;
@@ -639,11 +646,11 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
                         spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
                     }
                     else {
-                        spdlog::debug("!! {} missing {}", __FUNCTION__, embfilePathFrom.c_str());
+                        spdlog::warn("!! {} missing {}", __FUNCTION__, embfilePathFrom.c_str());
                     }
                 }
                 else {
-                    spdlog::debug("!! {} {} empty _dirFromMultiFile", __FUNCTION__, _fileName.c_str());
+                    spdlog::warn("!! {} {} empty _dirFromMultiFile", __FUNCTION__, _fileName.c_str());
                 }
             }
         }
@@ -652,9 +659,10 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
             if (_rawBlob.empty()) {
                 if (fs::exists(embfilePath)) {
                     _rawBlob = Glib::file_get_contents(embfilePath.string());
+                    spdlog::debug("{} multifile constant TO sha256 name {}", __FUNCTION__, embfilePath.string());
                 }
                 else {
-                    spdlog::debug("!! {} missing {}", __FUNCTION__, embfilePath.c_str());
+                    spdlog::warn("!! {} missing {}", __FUNCTION__, embfilePath.c_str());
                 }
             }
             const std::string sha256sum = CtStorageMultiFile::save_blob(_rawBlob, multifile_dir, _fileName.extension());
