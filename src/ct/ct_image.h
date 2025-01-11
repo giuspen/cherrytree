@@ -204,7 +204,7 @@ private:
 
 protected:
     fs::path      _fileName;
-    fs::path      _dirFromMultiFile;
+    fs::path      _dirForeignMultiFile;
     std::string   _rawBlob;      // raw data, not a string
     time_t        _timeSeconds;
     const size_t  _uniqueId;

@@ -604,9 +604,37 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
     update_label_widget();
 }
 
-void CtImageEmbFile::_checkRawBlobNonEmpty()
+void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
 {
-    
+    if (not _rawBlob.empty()) {
+        return;
+    }
+    if (multifile_dir) {
+        const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
+        if (fs::exists(embfilePath)) {
+            _rawBlob = Glib::file_get_contents(embfilePath.string());
+            spdlog::debug("{} FROM multifile constant {}", __FUNCTION__, embfilePath.c_str());
+        }
+        else {
+            spdlog::warn("?? {} missing {}", __FUNCTION__, embfilePath.c_str());
+        }
+    }
+    if (not _rawBlob.empty()) {
+        return;
+    }
+    if (not _dirForeignMultiFile.empty()) {
+        const fs::path embfilePathForeign = _dirForeignMultiFile / _fileName;
+        if (fs::exists(embfilePathForeign)) {
+            _rawBlob = Glib::file_get_contents(embfilePathForeign.string());
+            spdlog::debug("{} FROM multifile constant foreign {}", __FUNCTION__, embfilePathForeign.string());
+        }
+        else {
+            spdlog::warn("?? missing foreign {}", __FUNCTION__, embfilePathForeign.c_str());
+        }
+    }
+    else {
+        spdlog::warn("?? {} {} empty _dirForeignMultiFile", __FUNCTION__, _fileName.c_str());
+    }
 }
 
 void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
@@ -621,10 +649,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
     if (multifile_dir.empty()) {
         // target is not multifile
-        if (_rawBlob.empty()) {
-            // if we run an export or save-as and the document from is multifile with constant name on disk
-            
-        }
+        _checkNonEmptyRawBlob(nullptr/*multifile_dir*/);
         const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
         p_image_node->add_child_text(encodedBlob);
     }
@@ -632,39 +657,19 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
         // target is multifile
         const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
         if (_pCtConfig->embfileMFNameOnDisk) {
-            // save as multifile constant name on disk
+            // save as multifile constant name on disk - we are not touching the file if it already exists!
             if (not fs::exists(embfilePath)) {
+                _checkNonEmptyRawBlob(multifile_dir.c_str());
                 if (not _rawBlob.empty()) {
                     Glib::file_set_contents(embfilePath.string(), _rawBlob);
-                    spdlog::debug("{} multifile sha256 TO constant name {}", __FUNCTION__, embfilePath.string());
+                    spdlog::debug("{} written multifile constant name {}, cleared _rawBlob", __FUNCTION__, embfilePath.string());
                     _rawBlob.clear();
-                }
-                else if (not _dirFromMultiFile.empty()) {
-                    const fs::path embfilePathFrom = _dirFromMultiFile / _fileName;
-                    if (fs::exists(embfilePathFrom)) {
-                        const bool copyRes = fs::copy_file(embfilePathFrom, embfilePath);
-                        spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
-                    }
-                    else {
-                        spdlog::warn("!! {} missing {}", __FUNCTION__, embfilePathFrom.c_str());
-                    }
-                }
-                else {
-                    spdlog::warn("!! {} {} empty _dirFromMultiFile", __FUNCTION__, _fileName.c_str());
                 }
             }
         }
         else {
             // save as multifile with sha256 as name
-            if (_rawBlob.empty()) {
-                if (fs::exists(embfilePath)) {
-                    _rawBlob = Glib::file_get_contents(embfilePath.string());
-                    spdlog::debug("{} multifile constant TO sha256 name {}", __FUNCTION__, embfilePath.string());
-                }
-                else {
-                    spdlog::warn("!! {} missing {}", __FUNCTION__, embfilePath.c_str());
-                }
-            }
+            _checkNonEmptyRawBlob(multifile_dir.c_str());
             const std::string sha256sum = CtStorageMultiFile::save_blob(_rawBlob, multifile_dir, _fileName.extension());
             p_image_node->set_attribute("sha256sum", sha256sum);
         }
@@ -683,7 +688,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
         const std::string file_name = _fileName.string();
          if (_rawBlob.empty()) {
             // if we run an export or save-as and the document from is multifile with constant name on disk
-            
+            _rescueEmptyRawBlob(nullptr/*multifile_dir*/);
         }
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
