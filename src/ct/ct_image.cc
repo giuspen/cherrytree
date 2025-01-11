@@ -609,7 +609,9 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
     if (not _rawBlob.empty()) {
         return;
     }
-    if (multifile_dir) {
+    // an embedded file can potentially be empty, but if that is the case, we will check if a constant file name exists
+    if (multifile_dir and multifile_dir[0]) {
+        // the current data format is multifile, let's check in the current multifile directory
         const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
         if (fs::exists(embfilePath)) {
             _rawBlob = Glib::file_get_contents(embfilePath.string());
@@ -622,6 +624,7 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
     if (not _rawBlob.empty()) {
         return;
     }
+    // let's check also if the embedded file was copied/moved and the original file is still in the old directory
     if (not _dirForeignMultiFile.empty()) {
         const fs::path embfilePathForeign = _dirForeignMultiFile / _fileName;
         if (fs::exists(embfilePathForeign)) {
@@ -655,15 +658,18 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
     }
     else {
         // target is multifile
-        const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
         if (_pCtConfig->embfileMFNameOnDisk) {
             // save as multifile constant name on disk - we are not touching the file if it already exists!
+            const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
             if (not fs::exists(embfilePath)) {
                 _checkNonEmptyRawBlob(multifile_dir.c_str());
-                if (not _rawBlob.empty()) {
-                    Glib::file_set_contents(embfilePath.string(), _rawBlob);
-                    spdlog::debug("{} written multifile constant name {}, cleared _rawBlob", __FUNCTION__, embfilePath.string());
+                Glib::file_set_contents(embfilePath.string(), _rawBlob);
+                if (fs::exists(embfilePath)) {
+                    spdlog::debug("{} written multifile constant name {}, cleared _rawBlob", __FUNCTION__, embfilePath.c_str());
                     _rawBlob.clear();
+                }
+                else {
+                    spdlog::warn("!! {} multifile constant name {} could not write", __FUNCTION__, embfilePath.c_str());
                 }
             }
         }
@@ -686,14 +692,11 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     }
     else {
         const std::string file_name = _fileName.string();
-         if (_rawBlob.empty()) {
-            // if we run an export or save-as and the document from is multifile with constant name on disk
-            _rescueEmptyRawBlob(nullptr/*multifile_dir*/);
-        }
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
+        _checkNonEmptyRawBlob(nullptr/*multifile_dir*/);
         sqlite3_bind_blob(p_stmt, 5, _rawBlob.c_str(), _rawBlob.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, file_name.c_str(), file_name.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
@@ -772,10 +775,11 @@ bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 3)
+    if (event->button == 3) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
-    else if (event->type == GDK_2BUTTON_PRESS)
+    }
+    else if (event->type == GDK_2BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->embfile_open();
-
+    }
     return true; // do not propagate the event
 }
