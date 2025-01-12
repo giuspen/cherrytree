@@ -151,6 +151,14 @@ void CtActions::embfile_save()
 
 void CtActions::embfile_open()
 {
+    if (curr_file_anchor->get_raw_blob().empty() and not _dirLastMultiFile.empty()) {
+        const fs::path embfilePathLast = _dirLastMultiFile / _fileName;
+        if (fs::exists(embfilePathLast)) {
+            fs::open_filepath(embfilePathLast.c_str(), false, _pCtConfig);
+            return;
+        }
+    }
+
     const size_t open_id = curr_file_anchor->get_unique_id();
     auto mapIter = _embfiles_opened.find(open_id);
     fs::path tmp_filepath;

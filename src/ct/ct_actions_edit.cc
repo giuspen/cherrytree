@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -216,8 +216,9 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     const bool embfileMFNameOnDisk = _pCtConfig->embfileMFNameOnDisk and fs::is_directory(_pCtMainWin->get_ct_storage()->get_file_path());
 
     const std::string name = Glib::path_get_basename(filepath);
+    fs::path embfilePath;
     if (embfileMFNameOnDisk) {
-        const fs::path embfilePath = _pCtMainWin->get_ct_storage()->get_embedded_filepath(_pCtMainWin->curr_tree_iter(), name);
+        embfilePath = _pCtMainWin->get_ct_storage()->get_embedded_filepath(_pCtMainWin->curr_tree_iter(), name);
         if (not fs::exists(embfilePath)) {
             const bool copyRes = fs::copy_file(filepath, embfilePath);
             spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
@@ -248,7 +249,8 @@ void CtActions::embfile_insert_path(const std::string& filepath)
                                                            std::time(nullptr),
                                                            _curr_buffer()->get_insert()->get_iter().get_offset(),
                                                            "",
-                                                           CtImageEmbFile::get_next_unique_id()};
+                                                           CtImageEmbFile::get_next_unique_id(),
+                                                           embfilePath.empty ? embfilePath : embfilePath.parent_path()};
     pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
