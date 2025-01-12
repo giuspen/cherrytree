@@ -668,6 +668,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
                 Glib::file_set_contents(embfilePath.string(), _rawBlob);
                 if (fs::exists(embfilePath)) {
                     spdlog::debug("{} written multifile constant name {}, cleared _rawBlob", __FUNCTION__, embfilePath.c_str());
+                    _dirLastMultiFile = multifile_dir;
                     _rawBlob.clear();
                 }
                 else {
