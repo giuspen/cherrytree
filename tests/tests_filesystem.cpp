@@ -1,7 +1,7 @@
 /*
  * tests_filesystem.cpp
  *
- * Copyright 2009-2023
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -67,6 +67,7 @@ TEST(FileSystemGroup, get_cherrytree_localedir)
 
 TEST(FileSystemGroup, is_regular_file)
 {
+    ASSERT_FALSE(fs::is_regular_file(""));
     ASSERT_TRUE(fs::is_regular_file(UT::testCtdDocPath));
     ASSERT_TRUE(fs::is_regular_file(UT::testCtbDocPath));
     ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/md_testfile.md"));
@@ -77,6 +78,7 @@ TEST(FileSystemGroup, is_regular_file)
 
 TEST(FileSystemGroup, is_directory)
 {
+    ASSERT_FALSE(fs::is_directory(""));
     ASSERT_TRUE(fs::is_directory(UT::unitTestsDataDir));
     ASSERT_FALSE(fs::is_directory(UT::testCtdDocPath));
     ASSERT_TRUE(fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path()));

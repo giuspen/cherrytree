@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -566,7 +566,8 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
                                                                  timeSeconds,
                                                                  charOffset,
                                                                  justification,
-                                                                 CtImageEmbFile::get_next_unique_id()});
+                                                                 CtImageEmbFile::get_next_unique_id(),
+                                                                 ""});
                 }
             }
             else {

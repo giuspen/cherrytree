@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -630,12 +630,26 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
     }
     std::string rawBlob;
     if (multifile_dir.empty()) {
-        rawBlob = Glib::Base64::decode(encodedBlob);
+        // type is single file
+        if (encodedBlob.empty()) {
+            spdlog::warn("!! {} unexp image with empty encodedBlob (filename {})", __FUNCTION__, file_name.string());
+        }
+        else {
+            rawBlob = Glib::Base64::decode(encodedBlob);
+        }
     }
     else {
+        // type multifile
         const std::string sha256sum = xml_element->get_attribute_value("sha256sum");
-        if (not CtStorageMultiFile::read_blob(multifile_dir, sha256sum, rawBlob)) {
-            spdlog::warn("!! unexp not found {} in {}", sha256sum, multifile_dir);
+        if (sha256sum.empty()) {
+            if (file_name.empty()) {
+                spdlog::warn("!! {} unexp in {} image with empty sha256sum", __FUNCTION__, multifile_dir);
+                return nullptr;
+            }
+            // if file name is non empty, it is ok since this is a multifile type and it means file name is constant on disk
+        }
+        else if (not CtStorageMultiFile::read_blob(multifile_dir, sha256sum, rawBlob)) {
+            spdlog::warn("!! {} unexp not found {} in {}", __FUNCTION__, sha256sum, multifile_dir);
             return nullptr;
         }
     }
@@ -645,7 +659,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
             timeStr = "0";
         }
         const time_t timeInt = std::stoll(timeStr);
-        return new CtImageEmbFile{_pCtMainWin, file_name, rawBlob, timeInt, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
+        return new CtImageEmbFile{_pCtMainWin, file_name, rawBlob, timeInt, charOffset, justification, CtImageEmbFile::get_next_unique_id(), multifile_dir};
     }
     const Glib::ustring link = xml_element->get_attribute_value("link");
     return new CtImagePng{_pCtMainWin, rawBlob, link, charOffset, justification};

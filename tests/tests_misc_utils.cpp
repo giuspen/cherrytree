@@ -95,6 +95,16 @@ TEST(MiscUtilsGroup, is_header_anchor_name)
     ASSERT_EQ(6, CtStrUtil::is_header_anchor_name("h6-50"));
 }
 
+TEST(MiscUtilsGroup, is_256sum)
+{
+    ASSERT_TRUE( CtStrUtil::is_256sum("5fca3acaf280d30c46d74bf1a281324ceda43272ddad16942010a1cbfcda3107"));
+    ASSERT_TRUE( CtStrUtil::is_256sum("e3e7946d63c8627b1d0633cd03b18493166ddd2c0fa1b8b17bc7c590abaa8bcb"));
+    ASSERT_FALSE(CtStrUtil::is_256sum("e3e7946d63c8627b1d0633cd03b18493166ddd2c0fa1b8b17bc7c590abaa8bcG"));
+    ASSERT_FALSE(CtStrUtil::is_256sum("G3e7946d63c8627b1d0633cd03b18493166ddd2c0fa1b8b17bc7c590abaa8bcb"));
+    ASSERT_FALSE(CtStrUtil::is_256sum("e3e7946d63c8627b1d0633cd03b18493166ddd2c0fa1b8b17bc7c590abaa8bc"));
+    ASSERT_FALSE(CtStrUtil::is_256sum("e3e7946d63c8627b1d0633cd03b18493166ddd2c0fa1b8b17bc7c590abaa8bcbb"));
+}
+
 TEST(MiscUtilsGroup, str__replace)
 {
     {

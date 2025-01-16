@@ -1,7 +1,7 @@
 /*
  * ct_storage_multifile.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -32,6 +32,11 @@
 /*static*/const std::string CtStorageMultiFile::BOOKMARKS_LST{"bookmarks.lst"};
 /*static*/const std::string CtStorageMultiFile::NODE_XML{"node.xml"};
 /*static*/const std::string CtStorageMultiFile::BEFORE_SAVE{".before"};
+
+CtStorageMultiFile::CtStorageMultiFile(CtMainWin* pCtMainWin)
+ : _pCtMainWin{pCtMainWin}
+ , _pCtConfig{pCtMainWin->get_ct_config()}
+{}
 
 bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                                         const CtStorageSyncPending& syncPending,
@@ -223,6 +228,11 @@ fs::path CtStorageMultiFile::_get_node_dirpath(const CtTreeIter& ct_tree_iter) c
     return _dir_path / hierarchical_path;
 }
 
+fs::path CtStorageMultiFile::get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const
+{
+    return _get_node_dirpath(ct_tree_iter) / filename;
+}
+
 void CtStorageMultiFile::_remove_disk_node_with_children(const gint64 node_id)
 {
     // the nodes must be passed to the BackupEncrypt thread from the leaves towards the root
@@ -264,7 +274,7 @@ void CtStorageMultiFile::_write_bookmarks_to_disk(const std::list<gint64>& bookm
     }
 }
 
-void CtStorageMultiFile::_hier_try_move_node(const fs::path& dir_path_to)
+void CtStorageMultiFile::_hier_try_move_existing_node_to_path(const fs::path& dir_path_to)
 {
     const fs::path dir_name = dir_path_to.filename();
     fs::path dir_path_from;
@@ -305,7 +315,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
         node_state.is_update_of_existing and
         not fs::is_directory(dir_path))
     {
-        _hier_try_move_node(dir_path);
+        _hier_try_move_existing_node_to_path(dir_path);
     }
     if (not fs::is_directory(dir_path) and
         g_mkdir(dir_path.c_str(), 0755) < 0)
@@ -316,8 +326,8 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
     if (node_state.buff or node_state.prop) {
         fs::path dir_before_save;
         if (CtExporting::NONESAVE == export_type) {
-            // create folder of previous node.xml and widgets
-            // (if binaries not changed, won't re-save but move over)
+            // create folder of previous node.xml and 256sum named widgets
+            // (if 256sum not changed, won't re-save but move over)
             dir_before_save = dir_path / BEFORE_SAVE;
             if (fs::is_directory(dir_before_save)) {
                 (void)fs::remove_all(dir_before_save);
@@ -329,7 +339,9 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
             for (const fs::path& file_from : fs::get_dir_entries(dir_path)) {
                 if (fs::is_regular_file(file_from)) {
                     const fs::path name_from = file_from.filename();
-                    if (name_from != SUBNODES_LST) {
+                    const bool do_move = _pCtConfig->embfileMFNameOnDisk ?
+                        (name_from == NODE_XML or CtStrUtil::is_256sum(name_from.stem().c_str())) : (name_from != SUBNODES_LST);
+                    if (do_move) {
                         const fs::path file_to = dir_before_save / name_from;
                         fs::move_file(file_from, file_to);
                     }

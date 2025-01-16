@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -66,7 +66,7 @@ public:
     Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
                                                           const std::string& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets) const;
-
+    fs::path get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const;
     const fs::path& get_file_path() { return _file_path; }
     time_t get_mod_time() { return _mod_time; }
     fs::path get_file_name() { return _file_path.empty() ? "" : _file_path.filename(); }

@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -424,10 +424,19 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageControl::get_delayed_text_buffer(const gi
                                                                         std::list<CtAnchoredWidget*>& widgets) const
 {
     if (not _storage) {
-        spdlog::error("!! storage is not initialized");
+        spdlog::error("!! {} storage is not initialized", __FUNCTION__);
         return Glib::RefPtr<Gtk::TextBuffer>{};
     }
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);
+}
+
+fs::path CtStorageControl::get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const
+{
+    if (not _storage) {
+        spdlog::error("!! {} storage is not initialized", __FUNCTION__);
+        return "";
+    }
+    return _storage->get_embedded_filepath(ct_tree_iter, filename);
 }
 
 /*static*/fs::path CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password)

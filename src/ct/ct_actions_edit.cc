@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -212,28 +212,45 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
-        bool is_sqlite = fs::get_doc_type_from_file_ext(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
-        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
-        if (is_sqlite) {
-            if (not CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
-                return;
+    std::string blob;
+    const bool embfileMFNameOnDisk = _pCtConfig->embfileMFNameOnDisk and fs::is_directory(_pCtMainWin->get_ct_storage()->get_file_path());
+
+    const std::string name = Glib::path_get_basename(filepath);
+    fs::path embfilePath;
+    if (embfileMFNameOnDisk) {
+        embfilePath = _pCtMainWin->get_ct_storage()->get_embedded_filepath(_pCtMainWin->curr_tree_iter(), name);
+        if (not fs::exists(embfilePath)) {
+            const bool copyRes = fs::copy_file(filepath, embfilePath);
+            spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
         }
         else {
-            CtDialogs::error_dialog(message, *_pCtMainWin);
-            return;
+            spdlog::debug("{} ?? {} exists", __FUNCTION__, embfilePath.c_str());
         }
     }
+    else {
+        if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
+            bool is_sqlite = fs::get_doc_type_from_file_ext(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
+            auto message = str::format(_("The Maximum Size for Embedded Files is %s MB."), _pCtConfig->embfileMaxSize);
+            if (is_sqlite) {
+                if (not CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
+                    return;
+            }
+            else {
+                CtDialogs::error_dialog(message, *_pCtMainWin);
+                return;
+            }
+        }
+        blob = Glib::file_get_contents(filepath);
+    }
 
-    std::string blob = Glib::file_get_contents(filepath);
-    std::string name = Glib::path_get_basename(filepath);
     CtAnchoredWidget* pAnchoredWidget = new CtImageEmbFile{_pCtMainWin,
                                                            name,
                                                            blob,
                                                            std::time(nullptr),
                                                            _curr_buffer()->get_insert()->get_iter().get_offset(),
                                                            "",
-                                                           CtImageEmbFile::get_next_unique_id()};
+                                                           CtImageEmbFile::get_next_unique_id(),
+                                                           embfilePath.empty() ? embfilePath : embfilePath.parent_path()};
     pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),

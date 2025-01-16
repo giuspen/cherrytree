@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_misc.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -47,6 +47,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto file_chooser_button_backup_dir = Gtk::manage(new Gtk::FileChooserButton{_("Custom Backup Directory"),
                                                                                  Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SELECT_FOLDER});
     auto hbox_custom_backup_dir = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto checkbutton_mfname_on_disk = Gtk::manage(new Gtk::CheckButton{_("Multiple Files Storage, Use Embedded File Name On Disk")});
 
     hbox_num_backups->pack_start(*label_num_backups, false, false);
     hbox_num_backups->pack_start(*spinbutton_num_backups, false, false);
@@ -57,6 +58,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     vbox_saving->pack_start(*checkbutton_backup_before_saving, false, false);
     vbox_saving->pack_start(*hbox_num_backups, false, false);
     vbox_saving->pack_start(*hbox_custom_backup_dir, false, false);
+    vbox_saving->pack_start(*checkbutton_mfname_on_disk, false, false);
 
     checkbutton_autosave->set_active(_pConfig->autosaveOn);
     spinbutton_autosave->set_value(_pConfig->autosaveMinutes);
@@ -67,6 +69,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_custom_backup_dir->set_active(_pConfig->customBackupDirOn);
     file_chooser_button_backup_dir->set_filename(_pConfig->customBackupDir);
     file_chooser_button_backup_dir->set_sensitive(_pConfig->backupCopy and _pConfig->customBackupDirOn);
+    checkbutton_mfname_on_disk->set_active(_pConfig->embfileMFNameOnDisk);
 
     Gtk::Frame* frame_saving = new_managed_frame_with_align(_("Saving"), vbox_saving);
 
@@ -151,7 +154,11 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_autosave_on_quit->signal_toggled().connect([this, checkbutton_autosave_on_quit](){
         _pConfig->autosaveOnQuit = checkbutton_autosave_on_quit->get_active();
     });
-    checkbutton_backup_before_saving->signal_toggled().connect([this, checkbutton_backup_before_saving, spinbutton_num_backups, checkbutton_custom_backup_dir, file_chooser_button_backup_dir](){
+    checkbutton_backup_before_saving->signal_toggled().connect([this,
+                                                                checkbutton_backup_before_saving,
+                                                                spinbutton_num_backups,
+                                                                checkbutton_custom_backup_dir,
+                                                                file_chooser_button_backup_dir](){
         _pConfig->backupCopy = checkbutton_backup_before_saving->get_active();
         spinbutton_num_backups->set_sensitive(_pConfig->backupCopy);
         checkbutton_custom_backup_dir->set_sensitive(_pConfig->backupCopy);
@@ -181,6 +188,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         Glib::file_set_contents(fs::get_cherrytree_logcfg_filepath().string(),
                                 file_chooser_button_debug_log_dir->get_filename());
         need_restart(RESTART_REASON::DEBUG_LOG);
+    });
+    checkbutton_mfname_on_disk->signal_toggled().connect([this, checkbutton_mfname_on_disk](){
+        _pConfig->embfileMFNameOnDisk = checkbutton_mfname_on_disk->get_active();
     });
     checkbutton_reload_doc_last->signal_toggled().connect([this, checkbutton_reload_doc_last](){
         _pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();

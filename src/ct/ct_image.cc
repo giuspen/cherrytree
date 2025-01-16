@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -592,16 +592,54 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const time_t timeSeconds,
                                const int charOffset,
                                const std::string& justification,
-                               const size_t uniqueId)
+                               const size_t uniqueId,
+                               const fs::path& dirLastMultiFile)
  : CtImage{pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification}
  , _fileName{fileName}
  , _rawBlob{rawBlob}
  , _timeSeconds{timeSeconds}
  , _uniqueId{uniqueId}
+ , _dirLastMultiFile{dirLastMultiFile}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
     update_tooltip();
     update_label_widget();
+}
+
+void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
+{
+    if (not _rawBlob.empty()) {
+        return;
+    }
+    // an embedded file can potentially be empty, but if that is the case, we will check if a constant file name exists
+    if (multifile_dir and multifile_dir[0]) {
+        // the current data format is multifile, let's check in the current multifile directory
+        const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
+        if (fs::exists(embfilePath)) {
+            _rawBlob = Glib::file_get_contents(embfilePath.string());
+            spdlog::debug("{} FROM multifile constant {}", __FUNCTION__, embfilePath.c_str());
+        }
+        else {
+            spdlog::warn("?? {} missing {}", __FUNCTION__, embfilePath.c_str());
+        }
+    }
+    if (not _rawBlob.empty()) {
+        return;
+    }
+    // let's check also if the embedded file was copied/moved and the original file is still in the old directory
+    if (not _dirLastMultiFile.empty()) {
+        const fs::path embfilePathLast = _dirLastMultiFile / _fileName;
+        if (fs::exists(embfilePathLast)) {
+            _rawBlob = Glib::file_get_contents(embfilePathLast.string());
+            spdlog::debug("{} FROM multifile constant foreign {}", __FUNCTION__, embfilePathLast.string());
+        }
+        else {
+            spdlog::warn("?? missing foreign {}", __FUNCTION__, embfilePathLast.c_str());
+        }
+    }
+    else {
+        spdlog::warn("?? {} {} empty _dirLastMultiFile", __FUNCTION__, _fileName.c_str());
+    }
 }
 
 void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
@@ -615,12 +653,35 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
     p_image_node->set_attribute("filename", _fileName.string());
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
     if (multifile_dir.empty()) {
+        // target is not multifile
+        _checkNonEmptyRawBlob(nullptr/*multifile_dir*/);
         const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
         p_image_node->add_child_text(encodedBlob);
     }
     else {
-        const std::string sha256sum = CtStorageMultiFile::save_blob(_rawBlob, multifile_dir, _fileName.extension());
-        p_image_node->set_attribute("sha256sum", sha256sum);
+        // target is multifile
+        if (_pCtMainWin->get_ct_config()->embfileMFNameOnDisk) {
+            // save as multifile constant name on disk - we are not touching the file if it already exists!
+            const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
+            if (not fs::exists(embfilePath)) {
+                _checkNonEmptyRawBlob(multifile_dir.c_str());
+                Glib::file_set_contents(embfilePath.string(), _rawBlob);
+                if (fs::exists(embfilePath)) {
+                    spdlog::debug("{} written multifile constant name {}, cleared _rawBlob", __FUNCTION__, embfilePath.c_str());
+                    _dirLastMultiFile = multifile_dir;
+                    _rawBlob.clear();
+                }
+                else {
+                    spdlog::warn("!! {} multifile constant name {} could not write", __FUNCTION__, embfilePath.c_str());
+                }
+            }
+        }
+        else {
+            // save as multifile with sha256 as name
+            _checkNonEmptyRawBlob(multifile_dir.c_str());
+            const std::string sha256sum = CtStorageMultiFile::save_blob(_rawBlob, multifile_dir, _fileName.extension());
+            p_image_node->set_attribute("sha256sum", sha256sum);
+        }
     }
 }
 
@@ -638,6 +699,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
+        _checkNonEmptyRawBlob(nullptr/*multifile_dir*/);
         sqlite3_bind_blob(p_stmt, 5, _rawBlob.c_str(), _rawBlob.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, file_name.c_str(), file_name.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
@@ -670,21 +732,26 @@ void CtImageEmbFile::update_label_widget()
 
 void CtImageEmbFile::update_tooltip()
 {
-    char humanReadableSize[16];
     const size_t embfileBytes{_rawBlob.size()};
-    const double embfileKbytes{static_cast<double>(embfileBytes)/1024};
-    const double embfileMbytes{embfileKbytes/1024};
-    if (embfileMbytes > 1) {
-        snprintf(humanReadableSize, 16, "%.1f MB", embfileMbytes);
+    if (embfileBytes > 0u) {
+        const double embfileKbytes{static_cast<double>(embfileBytes)/1024};
+        const double embfileMbytes{embfileKbytes/1024};
+        char humanReadableSize[16];
+        if (embfileMbytes > 1) {
+            snprintf(humanReadableSize, 16, "%.1f MB", embfileMbytes);
+        }
+        else {
+            snprintf(humanReadableSize, 16, "%.1f KB", embfileKbytes);
+        }
+        const Glib::DateTime dateTime{Glib::DateTime::create_now_local(static_cast<gint64>(_timeSeconds))};
+        const Glib::ustring strDateTime = dateTime.format(_pCtMainWin->get_ct_config()->timestampFormat);
+        char buffTooltip[128];
+        snprintf(buffTooltip, 128, "%s\n%s (%zu Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
+        set_tooltip_text(buffTooltip);
     }
     else {
-        snprintf(humanReadableSize, 16, "%.1f KB", embfileKbytes);
+        set_tooltip_text(_fileName.string());
     }
-    const Glib::DateTime dateTime{Glib::DateTime::create_now_local(static_cast<gint64>(_timeSeconds))};
-    const Glib::ustring strDateTime = dateTime.format(_pCtMainWin->get_ct_config()->timestampFormat);
-    char buffTooltip[128];
-    snprintf(buffTooltip, 128, "%s\n%s (%zu Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
-    set_tooltip_text(buffTooltip);
 }
 
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageEmbFile::_get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName)
@@ -711,10 +778,11 @@ bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 3)
+    if (event->button == 3) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
-    else if (event->type == GDK_2BUTTON_PRESS)
+    }
+    else if (event->type == GDK_2BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->embfile_open();
-
+    }
     return true; // do not propagate the event
 }

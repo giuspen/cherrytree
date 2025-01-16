@@ -1,7 +1,7 @@
 /*
  * tests_read_write.cpp
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -647,9 +647,20 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
                     ASSERT_TRUE(pImageEmbFile);
                     ASSERT_STREQ("йцукенгшщз.txt", pImageEmbFile->get_file_name().c_str());
                     static const std::string embedded_file = Glib::Base64::decode("0LnRhtGD0LrQtdC90LPRiNGJ0LcK");
-                    ASSERT_EQ(embedded_file.size(), pImageEmbFile->get_raw_blob().size());
-                    ASSERT_EQ(embedded_file, pImageEmbFile->get_raw_blob());
-                    ASSERT_EQ(1565442560, pImageEmbFile->get_time());
+                    const auto rawBlobSize = pImageEmbFile->get_raw_blob().size();
+                    if (0 == rawBlobSize) {
+                        const fs::path& dirLastMultiFile = pImageEmbFile->get_dirLastMultiFile();
+                        const fs::path embFilePath = dirLastMultiFile / pImageEmbFile->get_file_name();
+                        ASSERT_TRUE(fs::is_regular_file(embFilePath));
+                        std::string embFileContent = Glib::file_get_contents(embFilePath.string());
+                        ASSERT_EQ(embedded_file.size(), embFileContent.size());
+                        ASSERT_EQ(embedded_file, embFileContent);
+                    }
+                    else {
+                        ASSERT_EQ(embedded_file.size(), pImageEmbFile->get_raw_blob().size());
+                        ASSERT_EQ(embedded_file, pImageEmbFile->get_raw_blob());
+                        ASSERT_EQ(1565442560, pImageEmbFile->get_time());
+                    }
                 } break;
                 case CtAnchWidgType::ImageLatex: {
                     ASSERT_EQ(98, pAnchWidget->getOffset());

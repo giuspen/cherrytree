@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -190,6 +190,8 @@ std::vector<bool> get_rtl_for_lines(const Glib::ustring& text);
 bool is_str_true(const Glib::ustring& inStr);
 
 int is_header_anchor_name(const Glib::ustring& anchorName);
+
+bool is_256sum(const char* in_string);
 
 gint64 gint64_from_gstring(const gchar* inGstring, bool hexPrefix=false);
 

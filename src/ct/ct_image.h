@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -175,7 +175,8 @@ public:
                    const time_t timeSeconds,
                    const int charOffset,
                    const std::string& justification,
-                   const size_t uniqueId);
+                   const size_t uniqueId,
+                   const fs::path& dirLastMultiFile);
     ~CtImageEmbFile() override {}
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
@@ -190,6 +191,7 @@ public:
     time_t               get_time() { return _timeSeconds; }
     void                 set_time(const time_t time) { _timeSeconds = time; }
     size_t               get_unique_id() { return _uniqueId; }
+    const fs::path&      get_dirLastMultiFile() { return _dirLastMultiFile; }
 
     static size_t        get_next_unique_id();
 
@@ -201,10 +203,12 @@ private:
 
 private:
     bool _on_button_press_event(GdkEventButton* event);
+    void _checkNonEmptyRawBlob(const char* multifile_dir);
 
 protected:
     fs::path      _fileName;
     std::string   _rawBlob;      // raw data, not a string
     time_t        _timeSeconds;
     const size_t  _uniqueId;
+    fs::path      _dirLastMultiFile;
 };

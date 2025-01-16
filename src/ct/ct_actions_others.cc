@@ -146,11 +146,27 @@ void CtActions::embfile_save()
     if (filepath.empty()) return;
 
     _pCtConfig->pickDirFile = Glib::path_get_dirname(filepath);
+
+    if (curr_file_anchor->get_raw_blob().empty() and not curr_file_anchor->get_dirLastMultiFile().empty()) {
+        const fs::path embfilePathLast = curr_file_anchor->get_dirLastMultiFile() / curr_file_anchor->get_file_name();
+        if (fs::exists(embfilePathLast) and fs::copy_file(embfilePathLast, filepath.c_str())) {
+            return;
+        }
+    }
+
     g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
 }
 
 void CtActions::embfile_open()
 {
+    if (curr_file_anchor->get_raw_blob().empty() and not curr_file_anchor->get_dirLastMultiFile().empty()) {
+        const fs::path embfilePathLast = curr_file_anchor->get_dirLastMultiFile() / curr_file_anchor->get_file_name();
+        if (fs::exists(embfilePathLast)) {
+            fs::open_filepath(embfilePathLast, false/*open_folder_if_file_not_exists*/, _pCtConfig);
+            return;
+        }
+    }
+
     const size_t open_id = curr_file_anchor->get_unique_id();
     auto mapIter = _embfiles_opened.find(open_id);
     fs::path tmp_filepath;

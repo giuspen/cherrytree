@@ -812,6 +812,15 @@ int CtStrUtil::is_header_anchor_name(const Glib::ustring& anchorName)
     return 0;
 }
 
+bool CtStrUtil::is_256sum(const char* in_string)
+{
+    if (64 == strlen(in_string)) {
+        static Glib::RefPtr<Glib::Regex> pRegExp256sum = Glib::Regex::create("^[0-9a-f]+$");
+        return pRegExp256sum->match(in_string);
+    }
+    return false;
+}
+
 gint64 CtStrUtil::gint64_from_gstring(const gchar* inGstring, bool hexPrefix)
 {
     gint64 retVal;

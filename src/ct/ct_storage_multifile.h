@@ -1,7 +1,7 @@
 /*
  * ct_storage_multifile.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -52,9 +52,7 @@ public:
 
     static std::list<fs::path> get_child_nodes_dirs(const fs::path& dir_path);
 
-    CtStorageMultiFile(CtMainWin* pCtMainWin)
-     : _pCtMainWin{pCtMainWin}
-    {}
+    CtStorageMultiFile(CtMainWin* pCtMainWin);
 
     void close_connect() override {}
     void reopen_connect() override {}
@@ -76,8 +74,11 @@ public:
                                                           const std::string& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets) const override;
 
+    fs::path get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const override;
+
 private:
     CtMainWin* const _pCtMainWin;
+    CtConfig*  const _pCtConfig;
     fs::path         _dir_path;
     mutable CtDelayedTextBufferMap _delayed_text_buffers;
     std::unordered_set<gint64> _already_queued_for_removal;
@@ -86,7 +87,7 @@ private:
     bool _found_node_dirpath(const fs::path& node_id, const fs::path parent_path, fs::path& hierarchical_path) const;
     void _remove_disk_node_with_children(const gint64 node_id);
     void _verify_update_hierarchy(const CtTreeIter* ct_tree_iter_parent, const fs::path& dir_path);
-    void _hier_try_move_node(const fs::path& dir_path);
+    void _hier_try_move_existing_node_to_path(const fs::path& dir_path);
     void _write_bookmarks_to_disk(const std::list<gint64>& bookmarks_list);
     bool _nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                              const fs::path& parent_dir_path,

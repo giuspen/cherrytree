@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -70,6 +70,9 @@ public:
     Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
                                                           const std::string& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets) const override;
+
+    fs::path get_embedded_filepath(const CtTreeIter&/*ct_tree_iter*/, const std::string&/*filename*/) const override { return ""; }
+
 private:
     void _nodes_to_xml(CtTreeIter* ct_tree_iter,
                        xmlpp::Element* p_node_parent,

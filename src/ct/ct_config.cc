@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -293,6 +293,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "latex_size_dpi", latexSizeDpi);
     _uKeyFile->set_integer(_currentGroup, "embfile_icon_size", embfileIconSize);
     _uKeyFile->set_boolean(_currentGroup, "embfile_show_filename", embfileShowFileName);
+    _uKeyFile->set_boolean(_currentGroup, "embfile_mfname_ondisk", embfileMFNameOnDisk);
     _uKeyFile->set_integer(_currentGroup, "embfile_max_size", embfileMaxSize);
     _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
     _uKeyFile->set_boolean(_currentGroup, "auto_smart_quotes", autoSmartQuotes);
@@ -606,6 +607,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("latex_size_dpi", &latexSizeDpi);
     _populate_int_from_keyfile("embfile_icon_size", &embfileIconSize);
     _populate_bool_from_keyfile("embfile_show_filename", &embfileShowFileName);
+    _populate_bool_from_keyfile("embfile_mfname_ondisk", &embfileMFNameOnDisk);
     _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);
     _populate_bool_from_keyfile("auto_smart_quotes", &autoSmartQuotes);

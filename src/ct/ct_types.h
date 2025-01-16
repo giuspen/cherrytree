@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -288,6 +288,7 @@ struct CtBackupEncryptData
 
 struct CtNodeData;
 class CtAnchoredWidget;
+class CtTreeIter;
 namespace Gtk { class TreeIter; }
 class CtStorageEntity
 {
@@ -314,6 +315,7 @@ public:
     virtual Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
                                                                   const std::string& syntax,
                                                                   std::list<CtAnchoredWidget*>& widgets) const = 0;
+    virtual fs::path get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const = 0;
 
     void set_is_dry_run() { _isDryRun = true; }
 

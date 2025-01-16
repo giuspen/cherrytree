@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -103,6 +103,7 @@ public:
     std::string   rawBlob;      // raw data, not a string
     time_t        timeSeconds;
     const size_t  uniqueId;
+    fs::path      dirLastMultiFile;
 };
 
 class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
