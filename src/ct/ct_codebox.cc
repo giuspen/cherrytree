@@ -202,6 +202,24 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), _uCtPairCodeboxMainWin.get());
+    _toolButtonPlay.signal_clicked().connect([this](){
+        CtActions* pCtActions = _pCtMainWin->get_ct_actions();
+        pCtActions->curr_codebox_anchor = this;
+        pCtActions->object_set_selection(this);
+        pCtActions->exec_code_all();
+    });
+    _toolButtonCopy.signal_clicked().connect([this](){
+        CtActions* pCtActions = _pCtMainWin->get_ct_actions();
+        pCtActions->curr_codebox_anchor = this;
+        pCtActions->object_set_selection(this);
+        pCtActions->codebox_copy_content();
+    });
+    _toolButtonProp.signal_clicked().connect([this](){
+        CtActions* pCtActions = _pCtMainWin->get_ct_actions();
+        pCtActions->curr_codebox_anchor = this;
+        pCtActions->object_set_selection(this);
+        pCtActions->codebox_change_properties();
+    });
 }
 
 void CtCodebox::update_toolbar_buttons()
@@ -214,31 +232,16 @@ void CtCodebox::update_toolbar_buttons()
             _toolButtonPlay.set_icon_name("ct_play");
             _toolButtonPlay.set_label(label_n_tooltip);
             _toolButtonPlay.set_tooltip_text(label_n_tooltip);
-            _toolbar.append(_toolButtonPlay, [this](){
-                CtActions* pCtActions = _pCtMainWin->get_ct_actions();
-                pCtActions->curr_codebox_anchor = this;
-                pCtActions->object_set_selection(this);
-                pCtActions->exec_code_all();
-            });
+            _toolbar.insert(_toolButtonPlay, -1);
         }
         _toolButtonCopy.set_icon_name("ct_edit_copy");
         _toolButtonCopy.set_label("Copy Code");
         _toolButtonCopy.set_tooltip_text("Copy Code");
-        _toolbar.append(_toolButtonCopy, [this](){
-            CtActions* pCtActions = _pCtMainWin->get_ct_actions();
-            pCtActions->curr_codebox_anchor = this;
-            pCtActions->object_set_selection(this);
-            pCtActions->codebox_copy_content();
-        });
+        _toolbar.insert(_toolButtonCopy, -1);
         _toolButtonProp.set_icon_name("ct_codebox_edit");
         _toolButtonProp.set_label(_("Change CodeBox Properties"));
         _toolButtonProp.set_tooltip_text(_("Change CodeBox Properties"));
-        _toolbar.append(_toolButtonProp, [this](){
-            CtActions* pCtActions = _pCtMainWin->get_ct_actions();
-            pCtActions->curr_codebox_anchor = this;
-            pCtActions->object_set_selection(this);
-            pCtActions->codebox_change_properties();
-        });
+        _toolbar.insert(_toolButtonProp, -1);
     }
 }
 
