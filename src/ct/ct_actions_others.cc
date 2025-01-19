@@ -147,8 +147,8 @@ void CtActions::embfile_save()
 
     _pCtConfig->pickDirFile = Glib::path_get_dirname(filepath);
 
-    if (curr_file_anchor->get_raw_blob().empty() and not curr_file_anchor->get_dirLastMultiFile().empty()) {
-        const fs::path embfilePathLast = curr_file_anchor->get_dirLastMultiFile() / curr_file_anchor->get_file_name();
+    if (curr_file_anchor->get_raw_blob().empty()) {
+        const fs::path& embfilePathLast = curr_file_anchor->get_pathLastMultiFile();
         if (fs::exists(embfilePathLast) and fs::copy_file(embfilePathLast, filepath.c_str())) {
             return;
         }
@@ -159,8 +159,8 @@ void CtActions::embfile_save()
 
 void CtActions::embfile_open()
 {
-    if (curr_file_anchor->get_raw_blob().empty() and not curr_file_anchor->get_dirLastMultiFile().empty()) {
-        const fs::path embfilePathLast = curr_file_anchor->get_dirLastMultiFile() / curr_file_anchor->get_file_name();
+    if (curr_file_anchor->get_raw_blob().empty()) {
+        const fs::path& embfilePathLast = curr_file_anchor->get_pathLastMultiFile();
         if (fs::exists(embfilePathLast)) {
             fs::open_filepath(embfilePathLast, false/*open_folder_if_file_not_exists*/, _pCtConfig);
             return;

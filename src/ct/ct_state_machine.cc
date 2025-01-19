@@ -102,7 +102,7 @@ CtAnchoredWidgetState_EmbFile::CtAnchoredWidgetState_EmbFile(CtImageEmbFile* emb
  , rawBlob{embFile->get_raw_blob()}
  , timeSeconds{embFile->get_time()}
  , uniqueId{embFile->get_unique_id()}
- , dirLastMultiFile{embFile->get_dirLastMultiFile()}
+ , pathLastMultiFile{embFile->get_pathLastMultiFile()}
 {
 }
 
@@ -116,12 +116,12 @@ bool CtAnchoredWidgetState_EmbFile::equal(std::shared_ptr<CtAnchoredWidgetState>
            rawBlob == other_state->rawBlob and
            timeSeconds == other_state->timeSeconds and
            uniqueId == other_state->uniqueId and
-           dirLastMultiFile == other_state->dirLastMultiFile;
+           pathLastMultiFile == other_state->pathLastMultiFile;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_EmbFile::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImageEmbFile{pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification, uniqueId, dirLastMultiFile};
+    return new CtImageEmbFile{pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification, uniqueId, pathLastMultiFile};
 }
 
 // Codebox

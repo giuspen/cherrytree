@@ -659,7 +659,14 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
             timeStr = "0";
         }
         const time_t timeInt = std::stoll(timeStr);
-        return new CtImageEmbFile{_pCtMainWin, file_name, rawBlob, timeInt, charOffset, justification, CtImageEmbFile::get_next_unique_id(), multifile_dir};
+        return new CtImageEmbFile{_pCtMainWin,
+                                  file_name,
+                                  rawBlob,
+                                  timeInt,
+                                  charOffset,
+                                  justification,
+                                  CtImageEmbFile::get_next_unique_id(),
+                                  fs::path{multifile_dir} / file_name};
     }
     const Glib::ustring link = xml_element->get_attribute_value("link");
     return new CtImagePng{_pCtMainWin, rawBlob, link, charOffset, justification};

@@ -593,13 +593,13 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const int charOffset,
                                const std::string& justification,
                                const size_t uniqueId,
-                               const fs::path& dirLastMultiFile)
+                               const fs::path& pathLastMultiFile)
  : CtImage{pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification}
  , _fileName{fileName}
  , _rawBlob{rawBlob}
  , _timeSeconds{timeSeconds}
  , _uniqueId{uniqueId}
- , _dirLastMultiFile{dirLastMultiFile}
+ , _pathLastMultiFile{pathLastMultiFile}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
     update_tooltip();
@@ -627,18 +627,12 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
         return;
     }
     // let's check also if the embedded file was copied/moved and the original file is still in the old directory
-    if (not _dirLastMultiFile.empty()) {
-        const fs::path embfilePathLast = _dirLastMultiFile / _fileName;
-        if (fs::exists(embfilePathLast)) {
-            _rawBlob = Glib::file_get_contents(embfilePathLast.string());
-            spdlog::debug("{} FROM multifile constant foreign {}", __FUNCTION__, embfilePathLast.string());
-        }
-        else {
-            spdlog::warn("?? missing foreign {}", __FUNCTION__, embfilePathLast.c_str());
-        }
+    if (fs::exists(_pathLastMultiFile)) {
+        _rawBlob = Glib::file_get_contents(_pathLastMultiFile.string());
+        spdlog::debug("{} FROM multifile constant last {}", __FUNCTION__, _pathLastMultiFile.string());
     }
     else {
-        spdlog::warn("?? {} {} empty _dirLastMultiFile", __FUNCTION__, _fileName.c_str());
+        spdlog::warn("?? missing multifile constant last {}", __FUNCTION__, _pathLastMultiFile.c_str());
     }
 }
 
@@ -668,7 +662,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
                 Glib::file_set_contents(embfilePath.string(), _rawBlob);
                 if (fs::exists(embfilePath)) {
                     spdlog::debug("{} written multifile constant name {}, cleared _rawBlob", __FUNCTION__, embfilePath.c_str());
-                    _dirLastMultiFile = multifile_dir;
+                    _pathLastMultiFile = embfilePath;
                     _rawBlob.clear();
                 }
                 else {

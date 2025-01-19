@@ -649,8 +649,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin, const bool after_mods)
                     static const std::string embedded_file = Glib::Base64::decode("0LnRhtGD0LrQtdC90LPRiNGJ0LcK");
                     const auto rawBlobSize = pImageEmbFile->get_raw_blob().size();
                     if (0 == rawBlobSize) {
-                        const fs::path& dirLastMultiFile = pImageEmbFile->get_dirLastMultiFile();
-                        const fs::path embFilePath = dirLastMultiFile / pImageEmbFile->get_file_name();
+                        const fs::path& embFilePath = pImageEmbFile->get_pathLastMultiFile();
                         ASSERT_TRUE(fs::is_regular_file(embFilePath));
                         std::string embFileContent = Glib::file_get_contents(embFilePath.string());
                         ASSERT_EQ(embedded_file.size(), embFileContent.size());

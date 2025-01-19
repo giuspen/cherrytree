@@ -250,7 +250,7 @@ void CtActions::embfile_insert_path(const std::string& filepath)
                                                            _curr_buffer()->get_insert()->get_iter().get_offset(),
                                                            "",
                                                            CtImageEmbFile::get_next_unique_id(),
-                                                           embfilePath.empty() ? embfilePath : embfilePath.parent_path()};
+                                                           embfilePath};
     pAnchoredWidget->insertInTextBuffer(_curr_buffer());
 
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),

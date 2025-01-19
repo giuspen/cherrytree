@@ -103,7 +103,7 @@ public:
     std::string   rawBlob;      // raw data, not a string
     time_t        timeSeconds;
     const size_t  uniqueId;
-    fs::path      dirLastMultiFile;
+    fs::path      pathLastMultiFile;
 };
 
 class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
