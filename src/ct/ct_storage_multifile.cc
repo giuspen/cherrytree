@@ -114,7 +114,7 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                 }
             }
 
-            // save subnodes
+            // save list of subnodes
             Glib::file_set_contents(Glib::build_filename(dir_path.string(), SUBNODES_LST),
                                     str::join_numbers(subnodes_list, ","));
         }
@@ -130,13 +130,19 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
             // update changed nodes
             const std::list<std::pair<CtTreeIter, CtStorageNodeState>> nodes_to_write = CtStorageControl::get_sorted_by_level_nodes_to_write(
                 &_pCtMainWin->get_tree_store(), syncPending.nodes_to_write_dict);
+            // at the time of saving, an embedded file could be cut and pasted from one node text buffer to another
+            // so only after all the nodes are saved we can remove the files that belong to a node and are no longer referenced
+            std::list<fs::path> embFiles_referenced;
             bool any_hier{false};
-            for (const auto& node_pair : nodes_to_write) {
-                if (not _nodes_to_multifile(&node_pair.first,
-                                            _get_node_dirpath(node_pair.first),
+            for (const std::pair<CtTreeIter, CtStorageNodeState>& node_pair : nodes_to_write) {
+                const CtTreeIter& ct_tree_iter = node_pair.first;
+                const CtStorageNodeState& node_state = node_pair.second;
+                const fs::path curr_node_dirpath = _get_node_dirpath(ct_tree_iter);
+                if (not _nodes_to_multifile(&ct_tree_iter,
+                                            curr_node_dirpath,
                                             error,
                                             &storage_cache,
-                                            node_pair.second,
+                                            node_state,
                                             export_type,
                                             pExpoMasterReassign,
                                             0,
@@ -144,8 +150,17 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                 {
                     return false;
                 }
-                if (not any_hier and node_pair.second.hier) {
+                if (not any_hier and node_state.hier) {
                     any_hier = true;
+                }
+                if (_pCtConfig->embfileMFNameOnDisk) {
+                    for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_anchored_widgets_fast()) {
+                        if (CtAnchWidgType::ImageEmbFile == pAnchoredWidget->get_type()) {
+                            auto pCtImageEmbFile = dynamic_cast<CtImageEmbFile*>(pAnchoredWidget);
+                            embFiles_referenced.push_back(curr_node_dirpath / pCtImageEmbFile->get_file_name());
+                            //spdlog::debug("++ referenced {}/{}", curr_node_dirpath.c_str(), pCtImageEmbFile->get_file_name().c_str());
+                        }
+                    }
                 }
             }
             if (not syncPending.nodes_to_rm_set.empty()) {
@@ -156,6 +171,24 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                 }
                 if (not any_hier) {
                     any_hier = true;
+                }
+            }
+            // remove no longer referenced embedded files
+            for (const std::pair<CtTreeIter, CtStorageNodeState>& node_pair : nodes_to_write) {
+                const CtTreeIter& ct_tree_iter = node_pair.first;
+                const fs::path curr_node_dirpath = _get_node_dirpath(ct_tree_iter);
+                for (const fs::path& filepath : fs::get_dir_entries(curr_node_dirpath)) {
+                    if (fs::is_regular_file(filepath)) {
+                        const fs::path filename = filepath.filename();
+                        if (filename != NODE_XML and
+                            filename != SUBNODES_LST and
+                            not CtStrUtil::is_256sum(filename.stem().c_str()) and
+                            embFiles_referenced.end() == std::find(embFiles_referenced.begin(), embFiles_referenced.end(), filepath))
+                        {
+                            spdlog::debug("-- rm {} as not referenced", filepath.c_str());
+                            fs::remove(filepath);
+                        }
+                    }
                 }
             }
             if (any_hier) {
@@ -427,7 +460,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                 }
             }
 
-            // save subnodes
+            // save list of subnodes
             Glib::file_set_contents(Glib::build_filename(dir_path.string(), SUBNODES_LST),
                                     str::join_numbers(subnodes_list, ","));
         }
