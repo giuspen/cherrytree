@@ -39,6 +39,41 @@ NEW_HUNSPELL_FOLDER="${NEW_MINGW64_FOLDER}/share/hunspell"
 NEW_CHERRYTREE_SHARE="${NEW_MINGW64_FOLDER}/usr/share/cherrytree"
 
 
+# latex.exe and dvipng.exe ensure the list of files to copy from is available
+for element_rel in latex.exe \
+                   libkpathsea-6.dll \
+                   mktexfmt.exe \
+                   runscript.dll \
+                   runscript.tlu
+do
+  ls -la ${OLD_MINGW64_FOLDER}/bin/${element_rel}
+done
+ls -la ${OLD_MINGW64_FOLDER}/var/lib/texmf/web2c/pdftex/latex.fmt
+ls -la ${OLD_MINGW64_FOLDER}/share/texmf-dist
+for element_rel in dvipng.exe \
+                   libgd.dll \
+                   libheif.dll \
+                   libavif-16.dll \
+                   imagequant.dll \
+                   libXpm-noX4.dll \
+                   libaom.dll \
+                   libdav1d-7.dll \
+                   rav1e.dll \
+                   libde265-0.dll \
+                   libx265-215.dll \
+                   libSvtAv1Enc-2.dll \
+                   libyuv.dll \
+                   libopenjp2-7.dll \
+                   libopenjph-0.18.dll \
+                   libopenh264-7.dll \
+                   libkvazaar-7.dll \
+                   libcryptopp.dll
+do
+  ls -la ${OLD_MINGW64_FOLDER}/bin/${element_rel}
+done
+ls -la ${OLD_MINGW64_FOLDER}/var/lib/texmf/fonts/map/dvips/updmap/ps2pk.map
+
+
 echo "cleanup old runs..."
 for folderpath in ${NEW_MSYS2_FOLDER} ${NEW_ROOT_FOLDER}
 do
@@ -254,7 +289,7 @@ for element_rel in dvipng.exe \
                    libdav1d-7.dll \
                    rav1e.dll \
                    libde265-0.dll \
-                   libx265-209.dll \
+                   libx265-215.dll \
                    libSvtAv1Enc-2.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
