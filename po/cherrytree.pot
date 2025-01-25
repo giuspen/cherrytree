@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,13 +28,13 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 
 msgid "PDF File"
@@ -912,6 +912,22 @@ msgstr ""
 msgid "Image Properties"
 msgstr ""
 
+msgid "Rotate Left"
+msgstr ""
+
+msgid "Rotate Right"
+msgstr ""
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+
+msgid "Flip Horizontally"
+msgstr ""
+
+msgid "Flip Vertically"
+msgstr ""
+
 msgid "Width"
 msgstr ""
 
@@ -1107,6 +1123,9 @@ msgid "Number of Backups to Keep"
 msgstr ""
 
 msgid "Custom Backup Directory"
+msgstr ""
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr ""
 
 msgid "Saving"
@@ -1738,6 +1757,24 @@ msgid "_Add Column"
 msgstr ""
 
 msgid "Add a Table Column"
+msgstr ""
+
+msgid "Cu_t Column"
+msgstr ""
+
+msgid "Cut a Table Column"
+msgstr ""
+
+msgid "_Copy Column"
+msgstr ""
+
+msgid "Copy a Table Column"
+msgstr ""
+
+msgid "_Paste Column"
+msgstr ""
+
+msgid "Paste a Table Column"
 msgstr ""
 
 msgid "De_lete Column"

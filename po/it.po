@@ -1,10 +1,10 @@
-# SPDX-FileCopyrightText: 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Vincenzo Reale <smart2128vr@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-21 17:09+0200\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-25 15:11+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 msgid "CherryTree File"
 msgstr "File di CherryTree"
@@ -27,18 +27,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Una cartella '%s' esiste già in '%s'.\n"
-"<b>Vuoi rimuoverla?</b>"
+"<b>Vuoi sostituirla?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Una file '%s' esiste già in '%s'.\n"
-"<b>Vuoi rimuoverlo?</b>"
+"<b>Vuoi sostituirlo?</b>"
 
 msgid "PDF File"
 msgstr "File PDF"
@@ -951,6 +951,24 @@ msgstr "Guida ai simboli matematici di LaTeX"
 msgid "Image Properties"
 msgstr "Proprietà immagine"
 
+msgid "Rotate Left"
+msgstr "Ruota a sinistra"
+
+msgid "Rotate Right"
+msgstr "Ruota a destra"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Per ritagliare l'immagine, seleziona l'area con il mouse prima di fare clic su"
+" OK"
+
+msgid "Flip Horizontally"
+msgstr "Ribalta orizzontalmente"
+
+msgid "Flip Vertically"
+msgstr "Ribalta verticalmente"
+
 msgid "Width"
 msgstr "Larghezza"
 
@@ -1155,6 +1173,9 @@ msgstr "Numero di copie di sicurezza da conservare"
 msgid "Custom Backup Directory"
 msgstr "Cartella di backup personalizzata"
 
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Archiviazione di più file, utilizza il nome file incorporato sul disco"
+
 msgid "Saving"
 msgstr "Salvataggio"
 
@@ -1299,8 +1320,8 @@ msgstr ""
 msgid ""
 "%s write failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"%s scrittura non riuscita - file mancante. Ricollega l'unità USB o la risorsa "
-"condivisa."
+"%s scrittura non riuscita - file mancante. Ricollega l'unità USB o la "
+"risorsa condivisa."
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
@@ -1312,8 +1333,8 @@ msgstr ""
 msgid ""
 "%s reopen failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"Riapertura di %s non riuscita: file mancante. Ricollega l'unità USB o la risor"
-"sa condivisa!"
+"Riapertura di %s non riuscita: file mancante. Ricollega l'unità USB o la "
+"risorsa condivisa!"
 
 msgid "Who is the Parent?"
 msgstr "Chi è il padre?"
@@ -1800,6 +1821,24 @@ msgstr "_Aggiungi colonna"
 
 msgid "Add a Table Column"
 msgstr "Aggiungi una colonna alla tabella"
+
+msgid "Cu_t Column"
+msgstr "_Taglia colonna"
+
+msgid "Cut a Table Column"
+msgstr "Taglia la colonna di una tabella"
+
+msgid "_Copy Column"
+msgstr "_Copia colonna"
+
+msgid "Copy a Table Column"
+msgstr "Copia la colonna di una tabella"
+
+msgid "_Paste Column"
+msgstr "_Incolla colonna"
+
+msgid "Paste a Table Column"
+msgstr "Incolla la colonna di una tabella"
 
 msgid "De_lete Column"
 msgstr "E_limina colonna"

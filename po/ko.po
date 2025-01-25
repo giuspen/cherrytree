@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-23 01:06+0900\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-25 10:58+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"폴더 '%s'이(가) 이미 '%s'에 있습니다.\n"
-"<b>제거하시겠습니까?</b>"
+"'%s' 폴더가 '%s'에 이미 존재합니다.\n"
+"<b>교체하시겠습니까?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"파일 '%s'이(가) 이미 '%s'에 있습니다.\n"
-"<b>제거하시겠습니까?</b>"
+"'%s' 파일이 '%s'에 이미 존재합니다.\n"
+"<b>교체하시겠습니까?</b>"
 
 msgid "PDF File"
 msgstr "PDF 파일"
@@ -948,6 +948,22 @@ msgstr "LaTeX 수학 심볼 레퍼런스"
 msgid "Image Properties"
 msgstr "이미지 속성"
 
+msgid "Rotate Left"
+msgstr "왼쪽으로 회전"
+
+msgid "Rotate Right"
+msgstr "오른쪽으로 회전"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "이미지를 자르려면 마우스로 영역을 선택한 후 확인을 클릭하세요"
+
+msgid "Flip Horizontally"
+msgstr "좌우 뒤집기"
+
+msgid "Flip Vertically"
+msgstr "상하 뒤집기"
+
 msgid "Width"
 msgstr "폭"
 
@@ -1149,6 +1165,9 @@ msgstr "저장 백업의 최대 수"
 
 msgid "Custom Backup Directory"
 msgstr "백업 디렉토리를 지정한다"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "다중 파일 저장, 디스크에 임베디드 파일 이름 사용"
 
 msgid "Saving"
 msgstr "저장"
@@ -1786,6 +1805,24 @@ msgstr "열 추가(_A)"
 
 msgid "Add a Table Column"
 msgstr "테이블에 컬럼을 추가"
+
+msgid "Cu_t Column"
+msgstr "열 자르기(_T)"
+
+msgid "Cut a Table Column"
+msgstr "테이블 열 자르기"
+
+msgid "_Copy Column"
+msgstr "열 복사(_C)"
+
+msgid "Copy a Table Column"
+msgstr "테이블 열 복사하기"
+
+msgid "_Paste Column"
+msgstr "열 붙어넣기(_P)"
+
+msgid "Paste a Table Column"
+msgstr "테이블에 행 붙여넣기"
 
 msgid "De_lete Column"
 msgstr "열 제거(_L)"

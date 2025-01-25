@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-25 21:57+0300\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-25 00:00+0200\n"
 "Last-Translator: Iliya Nikolaev <iliya.nikolaev@gmail.com>\n"
 "Language-Team: Bulgarian <iliya.nikolaev@gmail.com>\n"
 "Language: bg\n"
@@ -30,18 +30,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Папка '%s' вече съществува в '%s'.\n"
-"<b>Желаете ли да бъде изтрита?</b>"
+"<b>Желаете ли да бъде заменена?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Файлът '%s' вече съществува в '%s'.\n"
-"<b>Желаете ли да бъде изтрит?</b>"
+"<b>Желаете ли да бъде презаписан?</b>"
 
 msgid "PDF File"
 msgstr "PDF файл"
@@ -845,7 +845,7 @@ msgid "Number of LatexBoxes"
 msgstr "Брой Latex блокове"
 
 msgid "Number of Embedded Files"
-msgstr "Брой вмъкнати файлове"
+msgstr "Брой вложени файлове"
 
 msgid "Number of Tables"
 msgstr "Брой таблици"
@@ -960,6 +960,23 @@ msgstr "Справка за математическите символи на L
 
 msgid "Image Properties"
 msgstr "Свойства на изображението"
+
+msgid "Rotate Left"
+msgstr "Завъртане наляво"
+
+msgid "Rotate Right"
+msgstr "Завъртане надясно"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"За да изрежете изображението, изберете област с мишката преди дащракнете ОК"
+
+msgid "Flip Horizontally"
+msgstr "Хоризонтално обръщане"
+
+msgid "Flip Vertically"
+msgstr "Вертикално обръщане"
 
 msgid "Width"
 msgstr "Ширина"
@@ -1147,7 +1164,7 @@ msgid "Edit Anchor"
 msgstr "Редактиране на котва"
 
 msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Не може да се редактира файл в режим само за четене."
+msgstr "Не може да се редактира вложен файл в режим само за четене."
 
 msgid "Embedded File Automatically Updated:"
 msgstr "Вграденият файл се актуализира автоматично:"
@@ -1163,6 +1180,9 @@ msgstr "Брой архиви"
 
 msgid "Custom Backup Directory"
 msgstr "Друг цвят на фона"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Склад за множествофайлове, Използвайте вложеното файлово име на диска"
 
 msgid "Saving"
 msgstr "Записвам"
@@ -1805,6 +1825,24 @@ msgstr "Добави колона"
 
 msgid "Add a Table Column"
 msgstr "Добави таблична колона"
+
+msgid "Cu_t Column"
+msgstr "Изрежи колона"
+
+msgid "Cut a Table Column"
+msgstr "Изрежи таблична колона"
+
+msgid "_Copy Column"
+msgstr "Копирай колона"
+
+msgid "Copy a Table Column"
+msgstr "Копирай таблична колона"
+
+msgid "_Paste Column"
+msgstr "Постави колона"
+
+msgid "Paste a Table Column"
+msgstr "Вмъкване колона"
 
 msgid "De_lete Column"
 msgstr "Изтрий колона"
@@ -2756,7 +2794,7 @@ msgid "_Rename"
 msgstr "Преименуване"
 
 msgid "Rename Embedded File"
-msgstr "Преименуване на вмъкнатия файл"
+msgstr "Преименуване на вложения  файл"
 
 msgid "_Save LatexBox as PNG..."
 msgstr "Съхрани блока с Latex в PNG формат..."

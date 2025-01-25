@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-21 19:22+0400\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-24 22:22+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -30,18 +30,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"«%s» անունով պանակ արդեն կա «%s»-ում։\n"
-"<b>Հեռացնե՞լ այն։</b>"
+"«%s» պանակ արդեն կա «%s»-ում։\n"
+"<b>Փոխարինե՞լ այն։</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"«%s» անունով նիշք արդեն կա «%s»-ում։\n"
-"<b>Հեռացնե՞լ այն։</b>"
+"«%s» նիշք արդեն կա «%s»-ում։\n"
+"<b>Փոխարինե՞լ այն։</b>"
 
 msgid "PDF File"
 msgstr "PDF նիշք"
@@ -954,6 +954,22 @@ msgstr "LaTeX մաթ․ նշանների ուղեցույց"
 msgid "Image Properties"
 msgstr "Նկարի հատկություններ"
 
+msgid "Rotate Left"
+msgstr "Պտտել ձախ"
+
+msgid "Rotate Right"
+msgstr "Պտտել աջ"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "Նկարը եզրատելու համար մկնիկով ընտրեք անհրաժեշտ մասը և սեղմեք OK"
+
+msgid "Flip Horizontally"
+msgstr "Հորիզոնական շրջում"
+
+msgid "Flip Vertically"
+msgstr "Ուղղահայաց շրջում"
+
 msgid "Width"
 msgstr "Լայնք"
 
@@ -1156,6 +1172,9 @@ msgstr "Պահուստային նիշքերի քանակը"
 
 msgid "Custom Backup Directory"
 msgstr "Պահուստի այլ պանակ"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Շատ նիշքերով պահեստարան, գործածել ներկառուցված նիշքի անունը"
 
 msgid "Saving"
 msgstr "Պահպանում"
@@ -1793,6 +1812,24 @@ msgstr "_Ավելացնել սյունակ"
 
 msgid "Add a Table Column"
 msgstr "Ավելացնել աղյուսակի սյունակ"
+
+msgid "Cu_t Column"
+msgstr "Կտրել սյունակը"
+
+msgid "Cut a Table Column"
+msgstr "Կտրել աղյուսակի սյունակը"
+
+msgid "_Copy Column"
+msgstr "Պատճենել սյունակը"
+
+msgid "Copy a Table Column"
+msgstr "Պատճենել աղյուսակի սյունակը"
+
+msgid "_Paste Column"
+msgstr "Փակցնել սյունակը"
+
+msgid "Paste a Table Column"
+msgstr "Փակցնել աղյուսակի սյունակը"
 
 msgid "De_lete Column"
 msgstr "Ջն_ջել սյունակը"
