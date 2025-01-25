@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-22 17:20+0100\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-25 22:00+0000\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 "
+"&& (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: uk_UA\n"
 "X-Source-Language: C\n"
@@ -35,18 +35,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Папка '%s' вже існує в '%s'.\n"
-"<b>Видалити його?</b>"
+"Каталог '%s' вже існує в '%s'.\n"
+"<b>Замінити його?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Файл '%s' вже існує в '%s'.\n"
-"<b>Видалити його?</b>"
+"<b>Замінити його?</b>"
 
 msgid "PDF File"
 msgstr "Файл PDF"
@@ -122,8 +122,8 @@ msgid "Date Modified"
 msgstr "Дата зміни"
 
 msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
+"No Previous Node Copy Was Performed During This Session or the Source Tree is No "
+"Longer Available."
 msgstr "В цій сесії ви не виконували копіювання гілки або дерево недоступне."
 
 msgid "The Source Tree Node is No Longer Available."
@@ -143,7 +143,7 @@ msgstr "Вставити блок коду"
 
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Максимальний розмір файлів %s Мб."
+msgstr "Максимальний розмір вбудованого файлу %s Мб."
 
 msgid "Do you want to Continue?"
 msgstr "Ви хочете продовжувати?"
@@ -655,13 +655,12 @@ msgid "Search options"
 msgstr "Налаштування пошуку"
 
 msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
+"At least one node was skipped because of exclusions set in the node properties.\n"
 "In order to clear all the exclusions, use the menu:\n"
 "Search -> Clear All Exclusions From Search"
 msgstr ""
-"Принаймні один вузол було пропущено через винятки, встановлені у "
-"властивостях вузла.\n"
+"Принаймні один вузол було пропущено через винятки, встановлені у властивостях "
+"вузла.\n"
 "Щоб очистити всі виключення, скористайтеся меню:\n"
 "Пошук -> Очистити всі виключення з пошуку"
 
@@ -728,17 +727,17 @@ msgid "Storage Type"
 msgstr "Тип сховища"
 
 msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
+"CT saves the document in an encrypted 7zip archive. When viewing or editing the "
+"document, CT extracts the encrypted archive to a temporary folder, and works on "
+"the unencrypted copy. When closing, the unencrypted copy is deleted from the "
+"temporary directory. Note that in the case of application or system crash, the "
+"unencrypted document will remain in the temporary folder."
 msgstr ""
 "CT зберігає документ в зашифрованому 7zip-архіві. Під час відкриття або "
-"редагування документа CT дістає його з зашифрованого файлу в тимчасову папку "
-"і працює з ним як з звичайним документом. Після закриття файлу незашифрована "
-"копія видаляється з тимчасової папки. Під час краху системи або програми "
-"незашифрована копія може залишитись в тимчасовій папці."
+"редагування документа CT дістає його з зашифрованого файлу в тимчасову папку і "
+"працює з ним як з звичайним документом. Після закриття файлу незашифрована копія "
+"видаляється з тимчасової папки. Під час краху системи або програми незашифрована "
+"копія може залишитись в тимчасовій папці."
 
 msgid "Enter the New Password Twice"
 msgstr "Введіть пароль двічі"
@@ -839,7 +838,7 @@ msgid "Number of LatexBoxes"
 msgstr "Кількість блоків LaTeX"
 
 msgid "Number of Embedded Files"
-msgstr "Кількість вставлених файлів"
+msgstr "Кількість вбудованих файлів"
 
 msgid "Number of Tables"
 msgstr "Кількість таблиць"
@@ -955,6 +954,23 @@ msgstr "Довідник математичних символів LaTeX"
 msgid "Image Properties"
 msgstr "Параметри зображення"
 
+msgid "Rotate Left"
+msgstr "Обертати ліворуч"
+
+msgid "Rotate Right"
+msgstr "Обертати праворуч"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Щоб обрізати зображення, виділіть область мишкою перед тим, як натиснути ОК"
+
+msgid "Flip Horizontally"
+msgstr "Перевернути горизонтально"
+
+msgid "Flip Vertically"
+msgstr "Перевернути вертикально"
+
 msgid "Width"
 msgstr "Ширина"
 
@@ -1028,11 +1044,11 @@ msgid "Node Properties"
 msgstr "Параметри гілки"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do "
+"you want to Continue?"
 msgstr ""
-"При відключенні режиму форматування тексту, буде втрачено форматування для "
-"цієї гілки. Продовжити?"
+"При відключенні режиму форматування тексту, буде втрачено форматування для цієї "
+"гілки. Продовжити?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1125,8 +1141,8 @@ msgstr ""
 "Це можна зробити в діалозі налаштувань."
 
 msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
+"Install the package 'xterm' or configure a different terminal in the Preferences "
+"Dialog."
 msgstr ""
 "Встановіть пакет 'xterm' або налаштуйте інший термінал в діалозі налаштувань."
 
@@ -1140,10 +1156,10 @@ msgid "Edit Anchor"
 msgstr "Редагувати якір"
 
 msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Неможливо редагувати файли в гілках тільки для читання."
+msgstr "Неможливо редагувати вбудований файл в гілках тільки для читання."
 
 msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматично оновлено:"
+msgstr "Вбудований файл автоматично оновлено:"
 
 msgid "Autosave on Quit"
 msgstr "Збереження при закритті"
@@ -1156,6 +1172,9 @@ msgstr "Кількість резервних копій"
 
 msgid "Custom Backup Directory"
 msgstr "Каталог для резервних копій"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Сховище для множинних файлів, використовуйте вбудоване ім'я файлу на диску"
 
 msgid "Saving"
 msgstr "Збереження"
@@ -1218,19 +1237,19 @@ msgid "Expand CodeBoxes Automatically"
 msgstr "Автоматично розтягувати блоки коду"
 
 msgid "CodeBoxes Have Toolbar"
-msgstr "блок коди мають панель інструментів"
+msgstr "Блок коди мають панель інструментів"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "Порогова кількість комірок таблиці для полегшеного інтерфейсу"
 
 msgid "Embedded File Icon Size"
-msgstr "Розмір іконки вставленого файлу"
+msgstr "Розмір іконки вбудованого файлу"
 
 msgid "Embedded File Size Limit (MB)"
-msgstr "Ліміт для вставки файлів (Мб)"
+msgstr "Ліміт для вбудованого файлу (Мб)"
 
 msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Показувати назву файлу над іконкою"
+msgstr "Показувати назву над іконою вбудованого файлу"
 
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Ліміт операцій відміни"
@@ -1293,18 +1312,15 @@ msgid "The database file %s is corrupt, see log for more details."
 msgstr "Файл бази даних %s пошкоджений, дивіться лог для інформації."
 
 #, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s запис неможливий - файл відсутній. Підключіть USB пристрій повторно."
+msgid "%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr "%s запис неможливий - файл відсутній. Підключіть USB пристрій повторно."
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr "%s запис неможливий - можливо файл заблокований іншою програмою?"
 
 #, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgid "%s reopen failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
 "%s не вдалося повторне відкриття - файл відсутній. Підключіть USB пристрій "
 "повторно."
@@ -1793,6 +1809,24 @@ msgstr "Додати стовпець"
 msgid "Add a Table Column"
 msgstr "Додати рядок таблиці"
 
+msgid "Cu_t Column"
+msgstr "Вирізати стовпець"
+
+msgid "Cut a Table Column"
+msgstr "Вирізати стовпець таблиці"
+
+msgid "_Copy Column"
+msgstr "Скопіювати стовпець"
+
+msgid "Copy a Table Column"
+msgstr "Скопіювати стовпець таблиці"
+
+msgid "_Paste Column"
+msgstr "Вставити стовпець"
+
+msgid "Paste a Table Column"
+msgstr "Вставити стовпець таблиці"
+
 msgid "De_lete Column"
 msgstr "Видалити стовпець"
 
@@ -2253,8 +2287,8 @@ msgid "Children _Inherit Syntax"
 msgstr "Наслідувати синтаксис"
 
 msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Parent's "
-"Syntax Highlighting"
+"Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax "
+"Highlighting"
 msgstr "Синхронізувати тип підсвічування синтаксису з батьківською гілкою"
 
 msgid "_Handle Bookmarks..."
@@ -2717,31 +2751,31 @@ msgid "Copy Link to the Underlying Anchor to Clipboard"
 msgstr "Редагувати посилання якора в буфер обміну"
 
 msgid "C_ut Embedded File"
-msgstr "Вирізати файл"
+msgstr "Вирізати вбудований файл"
 
 msgid "Cut the Selected Embedded File"
-msgstr "Вирізати виділений файл"
+msgstr "Вирізати виділений вбудований файл"
 
 msgid "_Copy Embedded File"
-msgstr "Копіювати файл"
+msgstr "Копіювати вбудований файл"
 
 msgid "Copy the Selected Embedded File"
-msgstr "Копіювати виділений файл"
+msgstr "Копіювати виділений вбудований файл"
 
 msgid "_Delete Embedded File"
-msgstr "Видалити файл"
+msgstr "Видалити вбудований файл"
 
 msgid "Delete the Selected Embedded File"
-msgstr "Видалити виділений файл"
+msgstr "Видалити виділений вбудований файл"
 
 msgid "Open Embedded File"
-msgstr "Відкрити файл"
+msgstr "Відкрити вбудований файл"
 
 msgid "_Rename"
 msgstr "Перейменувати"
 
 msgid "Rename Embedded File"
-msgstr "Перейменувати вставлений файл"
+msgstr "Перейменувати вбудований файл"
 
 msgid "_Save LatexBox as PNG..."
 msgstr "Зберегти блок LaTeX в формат PNG..."
@@ -2921,17 +2955,17 @@ msgstr "Ви впевнені, що хочете скинути налаштув
 #~ msgstr "Вставити таблицю змісту"
 
 #~ msgid ""
-#~ "Backup files are by default 3 in the same folder of the corrupted "
-#~ "document, with the same name plus trailing tildes (~, ~~, ~~~). Try first "
-#~ "the backup with one tilde: copy the file to another directory, remove the "
-#~ "trailing tilde and open with cherrytree. If it still fails, try the one "
-#~ "with two tildes and if it still fails try the one with three tildes."
+#~ "Backup files are by default 3 in the same folder of the corrupted document, "
+#~ "with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup "
+#~ "with one tilde: copy the file to another directory, remove the trailing tilde "
+#~ "and open with cherrytree. If it still fails, try the one with two tildes and "
+#~ "if it still fails try the one with three tildes."
 #~ msgstr ""
 #~ "По-замовчуванню зберігається 3 бекапи в тому ж каталозі що і пошкоджений "
-#~ "документ. Вони мають суфікси (~, ~~, ~~~). Спочатку спробуйте бекап з "
-#~ "одною тільдою. Скопіюйте його в інший каталог, приберить тільду з назви і "
-#~ "відкрийте в CherryTree. Якщо цей бекап теж пошкоджений, спробуйте бекапи "
-#~ "з двома та трьома тільдами."
+#~ "документ. Вони мають суфікси (~, ~~, ~~~). Спочатку спробуйте бекап з одною "
+#~ "тільдою. Скопіюйте його в інший каталог, приберить тільду з назви і відкрийте "
+#~ "в CherryTree. Якщо цей бекап теж пошкоджений, спробуйте бекапи з двома та "
+#~ "трьома тільдами."
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "Посібник онлайн"
@@ -2954,8 +2988,7 @@ msgstr "Ви впевнені, що хочете скинути налаштув
 #~ msgid "Replace in _Multiple Nodes"
 #~ msgstr "Заміна в декількох гілках"
 
-#~ msgid ""
-#~ "Pandoc executable could not be found, please ensure it is in your path"
+#~ msgid "Pandoc executable could not be found, please ensure it is in your path"
 #~ msgstr ""
 #~ "Виконавчий файл Pandadoc не знайдено. Будь ласка перевірте його наявність"
 
@@ -3106,8 +3139,7 @@ msgstr "Ви впевнені, що хочете скинути налаштув
 #~ msgid ""
 #~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 #~ "Installed Properly"
-#~ msgstr ""
-#~ "Файл '7za' не знайдений. Перевірте, чи встановлений пакет 'p7zip-full'"
+#~ msgstr "Файл '7za' не знайдений. Перевірте, чи встановлений пакет 'p7zip-full'"
 
 #~ msgid "Wrong Password"
 #~ msgstr "Невірний пароль"
@@ -3234,7 +3266,7 @@ msgstr "Ви впевнені, що хочете скинути налаштув
 #~ msgstr "Сортувати за допомогою Drag and Drop, видаляти клавішею Delete"
 
 #~ msgid "Updated Embedded File"
-#~ msgstr "Кількість вставлених файлів"
+#~ msgstr "Кількість вбудованого файлу"
 
 #~ msgid "Find a Node from its Name"
 #~ msgstr "Пошук гілки по назві"

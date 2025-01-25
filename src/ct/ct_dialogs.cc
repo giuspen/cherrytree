@@ -212,12 +212,12 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
     dialog.set_default_size(350, -1);
     dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 
-    Gtk::RadioButton radiobutton_sqlite_not_protected(Glib::ustring{"Single SQLite File"} + " (.ctb)");
+    Gtk::RadioButton radiobutton_sqlite_not_protected(Glib::ustring{_("Single SQLite File")} + " (.ctb)");
     Gtk::RadioButton::Group rbGroup = radiobutton_sqlite_not_protected.get_group();
-    Gtk::RadioButton radiobutton_sqlite_pass_protected(rbGroup, Glib::ustring{"Single SQLite File, 7-zip Encrypted and Password Protected"} + " (.ctx)");
-    Gtk::RadioButton radiobutton_xml_not_protected(rbGroup, Glib::ustring{"Single XML File"}  + " (.ctd)");
-    Gtk::RadioButton radiobutton_xml_pass_protected(rbGroup, Glib::ustring{"Single XML File, 7-zip Encrypted and Password Protected"} + " (.ctz)");
-    Gtk::RadioButton radiobutton_multifile(rbGroup, Glib::ustring{"Multiple Files in Hierarchical Folder Structure"});
+    Gtk::RadioButton radiobutton_sqlite_pass_protected(rbGroup, Glib::ustring{_("Single SQLite File, 7-zip Encrypted and Password Protected")} + " (.ctx)");
+    Gtk::RadioButton radiobutton_xml_not_protected(rbGroup, Glib::ustring{_("Single XML File")}  + " (.ctd)");
+    Gtk::RadioButton radiobutton_xml_pass_protected(rbGroup, Glib::ustring{_("Single XML File, 7-zip Encrypted and Password Protected")} + " (.ctz)");
+    Gtk::RadioButton radiobutton_multifile(rbGroup, Glib::ustring{_("Multiple Files in Hierarchical Folder Structure")});
 
     Gtk::Image* image_sqlite_not_protected = pCtMainWin->new_managed_image_from_stock("ct_db", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_sqlite_pass_protected = pCtMainWin->new_managed_image_from_stock("ct_7zip", Gtk::ICON_SIZE_MENU);
