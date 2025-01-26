@@ -4,13 +4,13 @@
 #
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
-# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-23 19:57+0200\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-26 16:53+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -33,18 +33,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Složka '%s' již existuje v '%s'.\n"
-"<b>Chcete ji odstranit?</b>"
+"<b>Chcete ji nahradit?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Soubor '%s' již existuje v '%s'.\n"
-"<b>Chcete jej odstranit?</b>"
+"<b>Chcete jej nahradit?</b>"
 
 msgid "PDF File"
 msgstr "Soubor PDF"
@@ -725,6 +725,21 @@ msgstr "Řadit záložky vzestupně"
 msgid "Choose Storage Type"
 msgstr "Vyberte typ úložiště"
 
+msgid "Single SQLite File"
+msgstr "Jeden soubor SQLite"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Jeden soubor SQLite, šifrovaný 7-zip a chráněný heslem"
+
+msgid "Single XML File"
+msgstr "Jeden soubor XML"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Jeden soubor XML, šifrovaný 7-zip a chráněný heslem"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Více souborů v hierarchické struktuře složek"
+
 msgid "Storage Type"
 msgstr "Typ úložiště"
 
@@ -950,6 +965,22 @@ msgstr "Náhled na matematické symboly v LaTeXu"
 msgid "Image Properties"
 msgstr "Vlastnosti obrázku"
 
+msgid "Rotate Left"
+msgstr "Otočit doleva"
+
+msgid "Rotate Right"
+msgstr "Otočit doprava"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "Pro oříznutí obrázku vyberte oblast pomocí myši a klepněte na OK."
+
+msgid "Flip Horizontally"
+msgstr "Převrátit vodorovně"
+
+msgid "Flip Vertically"
+msgstr "Převrátit svisle"
+
 msgid "Width"
 msgstr "Šířka"
 
@@ -1152,6 +1183,9 @@ msgstr "Počet záloh k zachování"
 
 msgid "Custom Backup Directory"
 msgstr "Adresář s vlastní zálohou"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Ukládání více souborů, použití názvu vloženého souboru na disku"
 
 msgid "Saving"
 msgstr "Ukládání"
@@ -1793,6 +1827,24 @@ msgstr "_Přidat sloupec"
 
 msgid "Add a Table Column"
 msgstr "Přidat sloupec tabulky"
+
+msgid "Cu_t Column"
+msgstr "Vyjmou_t sloupec"
+
+msgid "Cut a Table Column"
+msgstr "Vyjmout sloupec tabulky"
+
+msgid "_Copy Column"
+msgstr "__Kopírovat sloupec"
+
+msgid "Copy a Table Column"
+msgstr "Kopírovat sloupec tabulky"
+
+msgid "_Paste Column"
+msgstr "_Vložit sloupec"
+
+msgid "Paste a Table Column"
+msgstr "Vložit sloupec tabulky"
 
 msgid "De_lete Column"
 msgstr "_Smazat sloupec"

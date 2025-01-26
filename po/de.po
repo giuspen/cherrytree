@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
-"PO-Revision-Date: 2025-01-25 12:55+0100\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-26 17:37+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -731,6 +731,21 @@ msgstr "Lesezeichen aufsteigend sortieren"
 
 msgid "Choose Storage Type"
 msgstr "Speichertyp auswählen"
+
+msgid "Single SQLite File"
+msgstr "Einzelne SQLite-Datei"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Eine SQLite-Datei, 7-Zip verschlüsselt und Kennwortgeschützt"
+
+msgid "Single XML File"
+msgstr "Einzelne XML-Datei"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Einzelne XML-Datei., 7-Zip verschlüsselt und Kennwortgeschützt"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Einzeldateien in Hierarchischer Ordner-Struktur"
 
 msgid "Storage Type"
 msgstr "Speichertyp"
