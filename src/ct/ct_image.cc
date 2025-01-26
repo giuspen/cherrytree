@@ -222,8 +222,8 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
 /*static*/const char* CtImageAnchor::_get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState)
 {
     if (CtAnchorExpCollState::None == expCollState) return "ct_anchor";
-    if (CtAnchorExpCollState::Collapsed == expCollState) return "ct_invisible";
-    return "ct_visible";
+    if (CtAnchorExpCollState::Collapsed == expCollState) return "ct_zoom-in";
+    return "ct_zoom-out";
 }
 
 void CtImageAnchor::_set_exp_coll_state(const CtAnchorExpCollState expCollState)
