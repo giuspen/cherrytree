@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
-"PO-Revision-Date: 2025-01-26 14:03+0100\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-26 20:26+0100\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
@@ -722,6 +722,23 @@ msgstr "Razvrsti zaznamke naraščajoče"
 
 msgid "Choose Storage Type"
 msgstr "Izberite vrsto shrambe"
+
+msgid "Single SQLite File"
+msgstr "Posamezna SQLite datoteka"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr ""
+"Posamezna SQLite datoteka, šifrirana s programom 7-zip in zaščitena z geslom"
+
+msgid "Single XML File"
+msgstr "Posamezna XML datoteka"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr ""
+"Posamezna XML datoteka, šifrirana s programom 7-zip in zaščitena z geslom"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Več datotek v hierarhični strukturi map"
 
 msgid "Storage Type"
 msgstr "Vrsta shrambe"
