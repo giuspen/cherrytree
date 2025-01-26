@@ -686,10 +686,18 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
                 if (i == 1) iter_anchor.backward_char();
                 std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(iter_anchor.get_offset(), iter_anchor.get_offset());
                 if (not widgets.empty()) {
-                    if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
-                        if (not image->get_link().empty()) {
+                    const CtAnchoredWidget* pCtAnchoredWidget = widgets.front();
+                    if (auto pImage = dynamic_cast<const CtImagePng*>(pCtAnchoredWidget)) {
+                        if (not pImage->get_link().empty()) {
                             hovering_link_iter_offset = text_iter.get_offset();
-                            tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(image->get_link());
+                            tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(pImage->get_link());
+                            break;
+                        }
+                    }
+                    else if (auto pImage = dynamic_cast<const CtImageAnchor*>(pCtAnchoredWidget)) {
+                        if (0 != CtStrUtil::is_header_anchor_name(pImage->get_anchor_name())) {
+                            hovering_link_iter_offset = text_iter.get_offset();
+                            tooltip = pImage->get_anchor_name();
                             break;
                         }
                     }

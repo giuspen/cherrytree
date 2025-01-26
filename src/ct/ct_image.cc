@@ -217,7 +217,6 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
  , _expCollState{expCollState}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
-    update_tooltip();
 }
 
 /*static*/const char* CtImageAnchor::_get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState)
@@ -283,11 +282,6 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
 std::shared_ptr<CtAnchoredWidgetState> CtImageAnchor::get_state()
 {
     return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Anchor{this});
-}
-
-void CtImageAnchor::update_tooltip()
-{
-    set_tooltip_text(_anchorName);
 }
 
 void CtImageAnchor::toggle_exp_coll_state()

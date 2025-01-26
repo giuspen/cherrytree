@@ -81,7 +81,7 @@ public:
 
     const std::string get_raw_blob();
     void update_label_widget();
-    const Glib::ustring& get_link() { return _link; }
+    const Glib::ustring& get_link() const { return _link; }
     void set_link(const Glib::ustring& link) { _link = link; }
 
 private:
@@ -109,8 +109,6 @@ public:
     const Glib::ustring& get_anchor_name() const { return _anchorName; }
     CtAnchorExpCollState get_exp_coll_state() const { return _expCollState; }
     void toggle_exp_coll_state();
-
-    void update_tooltip();
 
 private:
     bool _on_button_press_event(GdkEventButton* event);
