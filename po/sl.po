@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-22 14:35+0200\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-26 14:03+0100\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
@@ -32,18 +32,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Mapa '%s' že obstaja v '%s'.\n"
-"<b> Ali jo želite odstraniti?</b>"
+"<b> Ali jo želite prepisati?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Datoteka '%s' že obstaja v '%s'.\n"
-"<b> Ali jo želite odstraniti?</b>"
+"<b> Ali jo želite prepisati?</b>"
 
 msgid "PDF File"
 msgstr "PDF datoteka"
@@ -949,6 +949,22 @@ msgstr "LaTeX referenca matematičnih simbolov"
 msgid "Image Properties"
 msgstr "Lastnosti slike"
 
+msgid "Rotate Left"
+msgstr "Zasukaj v levo"
+
+msgid "Rotate Right"
+msgstr "Zasukaj v desno"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "Pri obrezovanju slike, z miško izberi območje, preden klikneš OK"
+
+msgid "Flip Horizontally"
+msgstr "Obrni vodoravno"
+
+msgid "Flip Vertically"
+msgstr "Obrni navpično"
+
 msgid "Width"
 msgstr "Širina"
 
@@ -1151,6 +1167,9 @@ msgstr "Število varnostnih kopij"
 
 msgid "Custom Backup Directory"
 msgstr "Mapa varnostne kopije po meri"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Shramba več datotek, uporabi vgrajeno ime datoteke na disku"
 
 msgid "Saving"
 msgstr "Shranjevanje"
@@ -1795,6 +1814,24 @@ msgstr "_Dodaj stolpec"
 
 msgid "Add a Table Column"
 msgstr "Dodaj stolpec tabeli"
+
+msgid "Cu_t Column"
+msgstr "_Izreži stolpec"
+
+msgid "Cut a Table Column"
+msgstr "Izreži stolpec tabele"
+
+msgid "_Copy Column"
+msgstr "_Kopiraj stolpec"
+
+msgid "Copy a Table Column"
+msgstr "Kopiraj stolpec tabele"
+
+msgid "_Paste Column"
+msgstr "_Prilepi stolpec"
+
+msgid "Paste a Table Column"
+msgstr "Prilepi stolpec tabele"
 
 msgid "De_lete Column"
 msgstr "I_zbriši stolpec"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38-rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-22 20:41+0200\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-26 15:13+0100\n"
 "Last-Translator: Luuk Geurts\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -32,7 +32,7 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Map '%s' bestaat al in '%s'.\n"
 "<b>Verwijderen?</b>"
@@ -40,7 +40,7 @@ msgstr ""
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Een bestand '%s' bestaat al in '%s'.\n"
 "<b>Verwijderen?</b>"
@@ -958,6 +958,24 @@ msgstr "LaTeX wiskunde symbolen referentie"
 msgid "Image Properties"
 msgstr "Afbeelding eigenschappen"
 
+msgid "Rotate Left"
+msgstr "Knoop links"
+
+msgid "Rotate Right"
+msgstr "Knoop _rechts"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Om de afbeelding bij te snijden, selecteert het gebied met de muis en klik "
+"dan OK"
+
+msgid "Flip Horizontally"
+msgstr "Horizontale lijn"
+
+msgid "Flip Vertically"
+msgstr "Keer om Vertikaal"
+
 msgid "Width"
 msgstr "Breedte"
 
@@ -1162,6 +1180,9 @@ msgstr "Aantal bewaarde backups"
 
 msgid "Custom Backup Directory"
 msgstr "Aangepaste backup map"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Meervoudig Bestand Opslag, Gebruik Ingesloten Bestand Naam op Schijf"
 
 msgid "Saving"
 msgstr "Opslaan"
@@ -1802,6 +1823,24 @@ msgstr "Kolom toevoegen"
 
 msgid "Add a Table Column"
 msgstr "Tabel kolom toevoegen"
+
+msgid "Cu_t Column"
+msgstr "Kolom toevoegen"
+
+msgid "Cut a Table Column"
+msgstr "Tabel kolom toevoegen"
+
+msgid "_Copy Column"
+msgstr "Kolom toevoegen"
+
+msgid "Copy a Table Column"
+msgstr "Tabel kolom toevoegen"
+
+msgid "_Paste Column"
+msgstr "Ko_lom verwijderen"
+
+msgid "Paste a Table Column"
+msgstr "Tabel rij plakken"
 
 msgid "De_lete Column"
 msgstr "Ko_lom verwijderen"

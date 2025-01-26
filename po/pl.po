@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-23 13:27+0200\n"
+"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"PO-Revision-Date: 2025-01-26 12:25+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 msgid "CherryTree File"
 msgstr "Plik CherryTree"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Folder '%s' już istnieje w '%s'.\n"
-"<b>Czy chcesz go usunąć?</b>"
+"<b>Czy chcesz go zamienić?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Plik '%s' już istnieje w '%s'.\n"
-"<b>Czy chcesz go usunąć?</b>"
+"<b>Czy chcesz go zamienić?</b>"
 
 msgid "PDF File"
 msgstr "Plik PDF"
@@ -949,6 +949,22 @@ msgstr "Objaśnienia symboli matematycznych LaTeX"
 msgid "Image Properties"
 msgstr "Właściwości obrazka"
 
+msgid "Rotate Left"
+msgstr "Obróć w lewo"
+
+msgid "Rotate Right"
+msgstr "Obróć w prawo"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "Aby przyciąć obrazek zaznacz obszar myszką przed kliknięciem OK"
+
+msgid "Flip Horizontally"
+msgstr "Odwróć poziomo"
+
+msgid "Flip Vertically"
+msgstr "Odwróć pionowo"
+
 msgid "Width"
 msgstr "Długość"
 
@@ -1149,6 +1165,9 @@ msgstr "Ilość kopii zapasowych do pozostawienia"
 
 msgid "Custom Backup Directory"
 msgstr "Własny katalog kopii zapasowych"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Zapis w wielu plikach, utrzymaj stałą nazwę pliku na dysku"
 
 msgid "Saving"
 msgstr "Zapisywanie"
@@ -1790,6 +1809,24 @@ msgstr "Dodaj kolumnę"
 
 msgid "Add a Table Column"
 msgstr "Dodaj kolumnę tabeli"
+
+msgid "Cu_t Column"
+msgstr "Wytnij kolumnę"
+
+msgid "Cut a Table Column"
+msgstr "Wytnij kolumnę tabeli"
+
+msgid "_Copy Column"
+msgstr "Kopiuj kolumnę"
+
+msgid "Copy a Table Column"
+msgstr "Kopiuj kolumnę tabeli"
+
+msgid "_Paste Column"
+msgstr "Wklej kolumnę"
+
+msgid "Paste a Table Column"
+msgstr "Wklej kolumnę tabeli"
 
 msgid "De_lete Column"
 msgstr "Usuń kolumnę"
