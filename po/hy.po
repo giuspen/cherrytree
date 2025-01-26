@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
-"PO-Revision-Date: 2025-01-24 22:22+0400\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-26 19:31+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -721,6 +721,21 @@ msgstr "Դասավորել էջանիշներն ըստ աճման կարգի"
 
 msgid "Choose Storage Type"
 msgstr "Ընտրեք պահեստարանի տեսակը"
+
+msgid "Single SQLite File"
+msgstr "Մեկ SQLite նիշք"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Մեկ SQLite նիշք՝ 7-zip-ով գաղտնագրված ու գաղտնաբառով պաշտպանված"
+
+msgid "Single XML File"
+msgstr "Մեկ XML նիշք"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Մեկ XML նիշք՝ 7-zip-ով գաղտնագրված ու գաղտնաբառով պաշտպանված"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Շատ նիշքեր՝ աստիճանակարգված պանակներում"
 
 msgid "Storage Type"
 msgstr "Պահեստարանի տեսակ"

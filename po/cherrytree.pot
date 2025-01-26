@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -705,6 +705,21 @@ msgid "Sort the Bookmarks Ascending"
 msgstr ""
 
 msgid "Choose Storage Type"
+msgstr ""
+
+msgid "Single SQLite File"
+msgstr ""
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr ""
+
+msgid "Single XML File"
+msgstr ""
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr ""
+
+msgid "Multiple Files in Hierarchical Folder Structure"
 msgstr ""
 
 msgid "Storage Type"
