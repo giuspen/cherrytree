@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-25 01:39+0200\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-27 03:40+0100\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "A(z) \"%s\" mappa már létezik a(z) \"%s\" elérési úton.\n"
-"<b>Biztosan törlöd?</b>"
+"<b>Biztosan lecseréled?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "A(z) \"%s\" fájl már létezik a(z) \"%s\" elérési úton.\n"
-"<b>Biztosan törlöd?</b>"
+"<b>Biztosan lecseréled?</b>"
 
 msgid "PDF File"
 msgstr "PDF fájl"
@@ -725,6 +725,21 @@ msgstr "Könyvjelzők rendezése növekvő sorrendbe"
 msgid "Choose Storage Type"
 msgstr "Válassz mentési formátumot"
 
+msgid "Single SQLite File"
+msgstr "Egy SQLite fájl"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Egy SQLite fájl, 7-zip jelszóval titkosított"
+
+msgid "Single XML File"
+msgstr "Egy XML fájl"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Egy XML fájl, 7-zip jelszóval titkosított"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Több fájl, hierarchia szerint mappákba rendezve"
+
 msgid "Storage Type"
 msgstr "Mentés formátuma"
 
@@ -735,7 +750,7 @@ msgid ""
 "from the temporary directory. Note that in the case of application or system "
 "crash, the unencrypted document will remain in the temporary folder."
 msgstr ""
-"A CherryTree a dokumentumot egy titkosított 7zip archívumba menti. "
+"A CherryTree a dokumentumot egy titkosított 7-zip archívumba menti. "
 "Megnyitáskor vagy szerkesztéskor kibontja az archívumot egy ideiglenes "
 "mappába és oda menti a változtatásokat. Bezáráskor a titkosítatlan másolat "
 "törlődik az ideiglenes mappából. Az applikáció vagy a rendszer összeomlása "
@@ -952,6 +967,23 @@ msgstr "LaTeX matematikai szimbólumok hivatkozása"
 msgid "Image Properties"
 msgstr "Kép tulajdonságai"
 
+msgid "Rotate Left"
+msgstr "Forgatás balra"
+
+msgid "Rotate Right"
+msgstr "Forgatás jobbra"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"A kép körbevágásához jelöld ki a területet egérrel, majd kattints az OK-ra"
+
+msgid "Flip Horizontally"
+msgstr "Vízszintes tükrözés"
+
+msgid "Flip Vertically"
+msgstr "Függőleges tükrözés"
+
 msgid "Width"
 msgstr "Szélesség"
 
@@ -1154,6 +1186,9 @@ msgstr "Megtartandó másolatok száma"
 
 msgid "Custom Backup Directory"
 msgstr "Másolatok mentése ide"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Többfájlos mentés esetén beágyazott fájlnév használata a lemezen"
 
 msgid "Saving"
 msgstr "Mentés"
@@ -1795,6 +1830,24 @@ msgstr "Oszlop _hozzáadása"
 
 msgid "Add a Table Column"
 msgstr "Oszlop hozzáadása a táblához"
+
+msgid "Cu_t Column"
+msgstr "Oszlop _kivágása"
+
+msgid "Cut a Table Column"
+msgstr "Kijelölt oszlop kivágása"
+
+msgid "_Copy Column"
+msgstr "Oszlop _másolása"
+
+msgid "Copy a Table Column"
+msgstr "Kijelölt oszlop másolása"
+
+msgid "_Paste Column"
+msgstr "Oszlop _beillesztése"
+
+msgid "Paste a Table Column"
+msgstr "Kijelölt oszlop beillesztése"
 
 msgid "De_lete Column"
 msgstr "Oszlop _törlése"

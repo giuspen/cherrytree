@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
-"PO-Revision-Date: 2025-01-26 12:25+0100\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-27 16:07+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -722,6 +722,21 @@ msgstr "Posortuj zakładki rosnąco"
 msgid "Choose Storage Type"
 msgstr "Wybierz typ magazynu"
 
+msgid "Single SQLite File"
+msgstr "Pojedynczy plik SQLite"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Pojedynczy plik SQLite zaszyfrowany poprzez 7-zip i z hasłem"
+
+msgid "Single XML File"
+msgstr "Pojedynczy plik XML"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Pojedynczy plik XML zaszyfrowany poprzez 7-zip i z hasłem"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Zapis wieloplikowy z hierarchiczną strukturą folderów"
+
 msgid "Storage Type"
 msgstr "Typ magazynu"
 
@@ -1167,7 +1182,7 @@ msgid "Custom Backup Directory"
 msgstr "Własny katalog kopii zapasowych"
 
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Zapis w wielu plikach, utrzymaj stałą nazwę pliku na dysku"
+msgstr "Zapis wieloplikowy, używaj na dysku nazw dołączonych plików"
 
 msgid "Saving"
 msgstr "Zapisywanie"

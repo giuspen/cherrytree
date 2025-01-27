@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-21 20:20+0200\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-27 17:00+0100\n"
 "Last-Translator: Michal Fusatý <fusaty@proton.me>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
@@ -31,17 +31,17 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Priečinok '%s' už existuje '%s'.\n"
+"Priečinok '%s' už existuje v '%s'.\n"
 "<b>Chcete ho odstrániť?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Súbor '%s' už existuje '%s'.\n"
+"Súbor '%s' už existuje v '%s'.\n"
 "<b>Chcete ho odstrániť?</b>"
 
 msgid "PDF File"
@@ -723,6 +723,21 @@ msgstr "Zoradiť záložky vzostupne"
 msgid "Choose Storage Type"
 msgstr "Vybrať typ úložiska"
 
+msgid "Single SQLite File"
+msgstr "Jeden SQLite súbor"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Jeden súbor SQLite, zašifrovaný so 7-zip a chránený heslom"
+
+msgid "Single XML File"
+msgstr "Jeden XML súbor"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Jeden súbor XML, zašifrovaný so 7-zip a chránený heslom"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Viacero súborov v hierarchickej štruktúre priečinkov"
+
 msgid "Storage Type"
 msgstr "Typ úložiska"
 
@@ -948,6 +963,24 @@ msgstr "Odkaz matematických symbolov LaTeXu"
 msgid "Image Properties"
 msgstr "Vlastnosti obrázka"
 
+msgid "Rotate Left"
+msgstr "Otočiť doľava"
+
+msgid "Rotate Right"
+msgstr "Otočiť doprava"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Ak chcete obrázok orezať, pred kliknutím na tlačidlo OK vyberte oblasť "
+"pomocou myši."
+
+msgid "Flip Horizontally"
+msgstr "Horizontálne preklopenie"
+
+msgid "Flip Vertically"
+msgstr "Vertikálne preklopenie"
+
 msgid "Width"
 msgstr "Šírka"
 
@@ -1151,6 +1184,9 @@ msgstr "Počet záloh, ktoré sa majú zachovať"
 
 msgid "Custom Backup Directory"
 msgstr "Vlastný adresár zálohovania"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Ukladanie viacerých súborov, použite vložený názov súboru na disku"
 
 msgid "Saving"
 msgstr "Ukladanie"
@@ -1792,6 +1828,24 @@ msgstr "Pridať stĺpec"
 
 msgid "Add a Table Column"
 msgstr "Pridať stĺpec tabuľky"
+
+msgid "Cu_t Column"
+msgstr "Vystrihnúť stĺpec"
+
+msgid "Cut a Table Column"
+msgstr "Vystrihnúť stĺpec tabuľky"
+
+msgid "_Copy Column"
+msgstr "Kopírovať stĺpec"
+
+msgid "Copy a Table Column"
+msgstr "Kopírovať stĺpec tabuľky"
+
+msgid "_Paste Column"
+msgstr "Prilepiť stĺpec"
+
+msgid "Paste a Table Column"
+msgstr "Prilepiť stĺpec tabuľky"
 
 msgid "De_lete Column"
 msgstr "Vymazať stĺpec"

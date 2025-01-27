@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-24 18:33+0200\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-27 18:13+0100\n"
 "Last-Translator: Francis Gernet <fgernet@concretx.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -32,19 +32,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Un dossier '%s' existe dans '%s'.\n"
-"<b>Voulez-vous l'enlever ?</b>"
+"<b>Voulez-vous le remplacer ?</b>"
 
-# REMOVE or REPLACE ?
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Un fichier '%s' existe dans '%s'.\n"
-"<b>Voulez-vous l'enlever ?</b>"
+"<b>Voulez-vous le remplacer ?</b>"
 
 msgid "PDF File"
 msgstr "Fichier PDF"
@@ -77,8 +76,9 @@ msgstr "Le chemin %s n'existe pas"
 msgid "Open a Recent CherryTree Document"
 msgstr "Ouvrir un document CherryTree récent"
 
+# where to place the underscore?
 msgid "_Hide"
-msgstr "Cac_her"
+msgstr "Fermer l'instance"
 
 msgid "_Quit"
 msgstr "_Quitter"
@@ -326,8 +326,9 @@ msgstr "Chinois simplifié"
 msgid "Chinese Traditional"
 msgstr "Chinois traditionnel"
 
+# Croatian (en) -> Croate (fr). Réf. : deepl.com
 msgid "Croatian"
-msgstr "Cratien"
+msgstr "Croate"
 
 msgid "Czech"
 msgstr "Tchèque"
@@ -476,9 +477,7 @@ msgstr "Taille des icônes de la Barre d'Icônes"
 
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr ""
-"Taille minimale du curseur de la barre de défilement (0 = système par "
-"défaut)Taille minimale du curseur de la barre de défilement (0 = système par "
-"défaut)"
+"Taille minimale du curseur de la barre de défilement (0 = système par défaut)"
 
 msgid "Scrollbar Overlays Text Editor"
 msgstr "La barre de défilement se superpose à l'éditeur de texte"
@@ -736,6 +735,21 @@ msgstr "Trier les signets par ordre  croissant"
 msgid "Choose Storage Type"
 msgstr "Choisir un mode de stockage"
 
+msgid "Single SQLite File"
+msgstr "Fichier SQLite"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Fichier SQLite, 7-zip, encrypté et protégé par un mot de passe"
+
+msgid "Single XML File"
+msgstr "Fichier XML unique"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Fichier XML unique, 7-zip, encrypté et protégé par un mot de passe"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Multiples fichiers dans une arborescence de dossiers"
+
 msgid "Storage Type"
 msgstr "Type de stockage"
 
@@ -968,6 +982,26 @@ msgstr "Référence des symboles mathématiques LaTeX"
 msgid "Image Properties"
 msgstr "Propriétés de l'Image"
 
+# where to place the underscore?
+msgid "Rotate Left"
+msgstr "Tourner à gauche"
+
+# move node to the right ?
+msgid "Rotate Right"
+msgstr "Tourner à droite"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Pour détourer l'image, sélectionner la zone avec la souris avant de cliquer "
+"sur OK"
+
+msgid "Flip Horizontally"
+msgstr "Basculement horizontal"
+
+msgid "Flip Vertically"
+msgstr "Basculement vertical"
+
 msgid "Width"
 msgstr "Largeur"
 
@@ -1175,6 +1209,10 @@ msgstr "Nombre de sauvegardes à conserver"
 
 msgid "Custom Backup Directory"
 msgstr "Dossier des sauvegardes"
+
+# À vérifier à l'usage
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Stockage dans plusieurs fichiers, utilisez un nom de fichier global"
 
 msgid "Saving"
 msgstr "Enregistrer"
@@ -1839,6 +1877,26 @@ msgstr "_Ajouter une colonne"
 
 msgid "Add a Table Column"
 msgstr "Ajouter une colonne au tableau"
+
+# where to place the underscore?
+msgid "Cu_t Column"
+msgstr "Couper la colonne"
+
+msgid "Cut a Table Column"
+msgstr "Couper la colonne du tableau"
+
+msgid "_Copy Column"
+msgstr "_Copier la  colonne"
+
+msgid "Copy a Table Column"
+msgstr "Copier la colonne du tableau"
+
+# where to place the underscore?
+msgid "_Paste Column"
+msgstr "Coller la colonne"
+
+msgid "Paste a Table Column"
+msgstr "Coller une ligne au tableau"
 
 msgid "De_lete Column"
 msgstr "Supprimer la Co_lonne"
