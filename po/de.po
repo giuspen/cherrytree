@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-26 15:17+0000\n"
-"PO-Revision-Date: 2025-01-26 17:37+0100\n"
+"PO-Revision-Date: 2025-01-27 18:37+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -66,7 +66,7 @@ msgid "Open a CherryTree File"
 msgstr "CherryTree-Datei öffnen"
 
 msgid "Select Element to Add"
-msgstr "Element zum Hinzufügen wählen"
+msgstr "Element zum Hinzufügen auswählen"
 
 #, c-format
 msgid "The Path %s does Not Exist"
@@ -296,7 +296,7 @@ msgid "There are No Anchors in the Selected Node."
 msgstr "Keine Anker im ausgewählten Knoten vorhanden."
 
 msgid "Choose Existing Anchor"
-msgstr "Vorhandenen Anker wählen"
+msgstr "Vorhandenen Anker auswählen"
 
 msgid "Anchor Name"
 msgstr "Ankername"
@@ -736,16 +736,16 @@ msgid "Single SQLite File"
 msgstr "Einzelne SQLite-Datei"
 
 msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
-msgstr "Eine SQLite-Datei, 7-Zip verschlüsselt und Kennwortgeschützt"
+msgstr "Einzelne SQLite-Datei, 7-Zip-verschlüsselt und passwortgeschützt"
 
 msgid "Single XML File"
 msgstr "Einzelne XML-Datei"
 
 msgid "Single XML File, 7-zip Encrypted and Password Protected"
-msgstr "Einzelne XML-Datei., 7-Zip verschlüsselt und Kennwortgeschützt"
+msgstr "Einzelne XML-Datei, 7-Zip-verschlüsselt und passwortgeschützt"
 
 msgid "Multiple Files in Hierarchical Folder Structure"
-msgstr "Einzeldateien in Hierarchischer Ordner-Struktur"
+msgstr "Mehrere Dateien in hierarchischer Ordnerstruktur"
 
 msgid "Storage Type"
 msgstr "Speichertyp"
@@ -921,7 +921,7 @@ msgid "Shared Nodes Group"
 msgstr "Gruppe gemeinsamer Knoten"
 
 msgid "Choose Existing Tag"
-msgstr "Vorhandenen Tag wählen"
+msgstr "Vorhandenen Tag auswählen"
 
 msgid "Tag Name"
 msgstr "Tag-Name"
@@ -981,15 +981,15 @@ msgid "Image Properties"
 msgstr "Bildeigenschaften"
 
 msgid "Rotate Left"
-msgstr "Links herum drehen"
+msgstr "Linksherum drehen"
 
 msgid "Rotate Right"
-msgstr "Rechts herum drehen"
+msgstr "Rechtsherum drehen"
 
 msgid ""
 "In order to crop the image, select the area with the mouse before clicking OK"
 msgstr ""
-"Um das Bild zuzuschneiden, Bereich mit der Maus wählen, dann auf OK klicken"
+"Um das Bild zuzuschneiden, Bereich mit der Maus auswählen, dann auf OK klicken"
 
 msgid "Flip Horizontally"
 msgstr "Horizontal spiegeln"
@@ -1205,7 +1205,9 @@ msgid "Custom Backup Directory"
 msgstr "Benutzerdefinierter Ordner für Sicherungskopien"
 
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Speicherung in Einzeldateien, benutze eingebetteten Namen auf Disk"
+msgstr ""
+"Speicherung mehrerer Dateien, Verwendung eingebetteter Dateinamen auf der "
+"Festplatte"
 
 msgid "Saving"
 msgstr "Speichern"
