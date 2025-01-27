@@ -1,7 +1,7 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -235,8 +235,8 @@ void CtCodebox::update_toolbar_buttons()
             _toolbar.insert(_toolButtonPlay, -1);
         }
         _toolButtonCopy.set_icon_name("ct_edit_copy");
-        _toolButtonCopy.set_label("Copy Code");
-        _toolButtonCopy.set_tooltip_text("Copy Code");
+        _toolButtonCopy.set_label(_("Copy Code"));
+        _toolButtonCopy.set_tooltip_text(_("Copy Code"));
         _toolbar.insert(_toolButtonCopy, -1);
         _toolButtonProp.set_icon_name("ct_codebox_edit");
         _toolButtonProp.set_label(_("Change CodeBox Properties"));
