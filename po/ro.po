@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-25 18:13+0300\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-28 17:34+0200\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
 "Language: ro\n"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Un director '%s' există deja în '%s'.\n"
-"<b>Doriți să îl eliminați?</b>"
+"<b>Doriți să îl înlocuiți?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Un director '%s' există deja în '%s'.\n"
-"<b>Doriți să îl eliminați?</b>"
+"<b>Doriți să îl înlocuiți?</b>"
 
 msgid "PDF File"
 msgstr "Fișier PDF"
@@ -724,6 +724,21 @@ msgstr "Sortează marcajele crescător"
 msgid "Choose Storage Type"
 msgstr "Alege tipul de stocare"
 
+msgid "Single SQLite File"
+msgstr "Fișier SQLite singular"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Fișier SQLite singular, criptat cu 7-zip și protejat de o parolă"
+
+msgid "Single XML File"
+msgstr "Fișier XML singular"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Fișier XML singular, criptat cu 7-zip și protejat de o parolă"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Fișiere multiple în structură de directoare ierarhică"
+
 msgid "Storage Type"
 msgstr "Tip de stocare"
 
@@ -943,6 +958,24 @@ msgstr "Referințe simboluri matematice LaTeX"
 msgid "Image Properties"
 msgstr "Proprietăți imagine"
 
+msgid "Rotate Left"
+msgstr "Rotește stânga"
+
+msgid "Rotate Right"
+msgstr "Rotește dreapta"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Pentru a tăia imaginea, selectează zona folosind cursorul înainte de a apăsa "
+"OK"
+
+msgid "Flip Horizontally"
+msgstr "Mută pe orizontală"
+
+msgid "Flip Vertically"
+msgstr "Rotește pe verticală"
+
 msgid "Width"
 msgstr "Lățime"
 
@@ -1147,6 +1180,9 @@ msgstr "Număr de copii backup pentru păstrat"
 
 msgid "Custom Backup Directory"
 msgstr "Director pentru backup ajustabil"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Locație stocare multiplă, Utilizează numele integrat de pe disk"
 
 msgid "Saving"
 msgstr "Salvează"
@@ -1636,7 +1672,7 @@ msgid "_Redo"
 msgstr "_Refă"
 
 msgid "Redo Previously Discarded Operation"
-msgstr "Refă comanda eliminată anterior"
+msgstr "Refaceți operațiunea respinsă anterior"
 
 msgid "Insert I_mage..."
 msgstr "Inserează _imagine..."
@@ -1792,13 +1828,31 @@ msgid "Delete the Selected Table"
 msgstr "Șterge tabelul selectat"
 
 msgid "_Add Column"
-msgstr "_Adaugă coloană"
+msgstr "_Adaugă coloana"
 
 msgid "Add a Table Column"
-msgstr "Adaugă o coloana de tabel"
+msgstr "Adaugă o coloană de tabel"
+
+msgid "Cu_t Column"
+msgstr "_Taie coloana"
+
+msgid "Cut a Table Column"
+msgstr "Taie o coloană de tabel"
+
+msgid "_Copy Column"
+msgstr "_Copiază coloana"
+
+msgid "Copy a Table Column"
+msgstr "Copiază o coloană de tabel"
+
+msgid "_Paste Column"
+msgstr "_Lipește coloana"
+
+msgid "Paste a Table Column"
+msgstr "Lipește un rând din tabel"
 
 msgid "De_lete Column"
-msgstr "_Șterge coloană"
+msgstr "_Șterge coloana"
 
 msgid "Delete the Selected Table Column"
 msgstr "Șterge coloana de tabel selectată"

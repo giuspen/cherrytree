@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
-"PO-Revision-Date: 2025-01-25 00:00+0200\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-28 09:46+0200\n"
 "Last-Translator: Iliya Nikolaev <iliya.nikolaev@gmail.com>\n"
 "Language-Team: Bulgarian <iliya.nikolaev@gmail.com>\n"
 "Language: bg\n"
@@ -723,6 +723,21 @@ msgstr "Сортирай отметките по възходящ ред"
 msgid "Choose Storage Type"
 msgstr "Изберете тип хранилище"
 
+msgid "Single SQLite File"
+msgstr "Един SQL файл"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Един SQL файл, 7 zip шифрован и защитен с парола"
+
+msgid "Single XML File"
+msgstr "Един XML файл"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Един XML файл, 7 zip шифрован и защитен с парола"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Множество файлове в йерархична структура на папка"
+
 msgid "Storage Type"
 msgstr "Тип на хранилище"
 
@@ -1380,10 +1395,10 @@ msgid "Restore Expanded/Collapsed Status"
 msgstr "Превключване на разширено / свито състояние"
 
 msgid "Expand all Nodes"
-msgstr "Разгъване на клони"
+msgstr "Разгъни всички клони"
 
 msgid "Collapse all Nodes"
-msgstr "Свий клоните"
+msgstr "Свий всички клони"
 
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Винаги видими клони в отметките"
