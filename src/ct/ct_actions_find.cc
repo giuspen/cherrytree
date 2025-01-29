@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -533,6 +533,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
     }
     else {
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
+        //spdlog::debug("fw={} nosel m={} M={} -> s={}", forward, text_buffer->begin().get_offset(), text_buffer->end().get_offset(), start_iter.get_offset());
         if (all_matches) _s_state.all_matches_first_in_node = false;
     }
     //spdlog::debug("parsing {} content from {} ffs={} 1st={}", tree_iter.get_node_id(), start_iter.get_offset(), first_fromsel, first_node);
@@ -647,9 +648,10 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                 match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
                 _s_state.latest_node_offset_match_end = match_offsets.second;
-                //spdlog::debug("{}->{}", curr_pair.first, curr_pair.second);
+                //spdlog::debug("OK {}->{}", curr_pair.first, curr_pair.second);
                 break;
             }
+            //spdlog::debug("NOK {}->{}", curr_pair.first, curr_pair.second);
             match_info.next();
         }
     }
@@ -733,8 +735,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     if (match_offsets.first == -1) return false;
 
     // match found!
+    const int num_objs = _get_num_objs_before_offset(text_buffer, match_offsets.first);
     if (0u == anchMatchList.size()) {
-        const int num_objs = _get_num_objs_before_offset(text_buffer, match_offsets.first);
         _s_state.latest_match_offsets.first = match_offsets.first + num_objs;
         _s_state.latest_match_offsets.second = match_offsets.second + num_objs;
     }
@@ -742,6 +744,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         // the match offset comes from the anchored widget
         _s_state.latest_match_offsets.first = match_offsets.first;
         _s_state.latest_match_offsets.second = match_offsets.second;
+        _s_state.latest_node_offset_match_start = match_offsets.first - num_objs;
+        _s_state.latest_node_offset_match_end = match_offsets.second - num_objs;
     }
     auto f_match_replace_light_table = [this, &tree_iter, &re_pattern](CtTableLight* pTableLight,
                                                                        const int cellIdx,
