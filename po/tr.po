@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-22 09:24+0300\n"
-"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-30 23:30+0300\n"
+"Last-Translator: Ferhat AYDIN <ferhataydin44@gmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "'%s' klasörü '%s' klasörünün içinde zaten mevcut.\n"
-"<b>Silmek ister misiniz?</b>"
+"<b>Değiştirmek ister misiniz?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "'%s' dosyası '%s' klasörünün içinde zaten mevcut.\n"
-"<b>Silmek ister misiniz?</b>"
+"<b>Değiştirmek ister misiniz?</b>"
 
 msgid "PDF File"
 msgstr "PDF Dosyası"
@@ -725,6 +725,21 @@ msgstr "Yer İmlerini Alfabetik Sırala (A-Z)"
 msgid "Choose Storage Type"
 msgstr "Kayıt Türünü Seçin"
 
+msgid "Single SQLite File"
+msgstr "Tekli SQLite dosyası"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Tekli SQLite Dosyası, 7-zip Şifrelenmiş ve Parola Korumalı"
+
+msgid "Single XML File"
+msgstr "Tekli XML dosyası"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Tekli XML Dosyası, 7-zip Şifrelenmiş ve Parola Korumalı"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Hiyerarşik Klasör Yapısında Birden Fazla Dosya"
+
 msgid "Storage Type"
 msgstr "Kayıt Türü"
 
@@ -951,6 +966,23 @@ msgstr "Latex Matematik Referansı"
 msgid "Image Properties"
 msgstr "Resim Özellikleri"
 
+msgid "Rotate Left"
+msgstr "Sola Döndür"
+
+msgid "Rotate Right"
+msgstr "Sağa Döndür"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Görüntüyü kırpmak için, TAMAM (OK)'a tıklamadan önce fareyle alanı seçin"
+
+msgid "Flip Horizontally"
+msgstr "Yatay Çevir"
+
+msgid "Flip Vertically"
+msgstr "Dikey Çevir"
+
 msgid "Width"
 msgstr "Genişlik"
 
@@ -1153,6 +1185,9 @@ msgstr "Saklamak İçin Yedekleri Numaralandır"
 
 msgid "Custom Backup Directory"
 msgstr "Özel Yedek Klasörü"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Çoklu Dosya Depolama, Diskte Gömülü Dosya Adı Kullan"
 
 msgid "Saving"
 msgstr "Kaydediliyor"
@@ -1791,6 +1826,24 @@ msgstr "_Sütun Ekle"
 
 msgid "Add a Table Column"
 msgstr "Tabloya Bir Sütun Ekle"
+
+msgid "Cu_t Column"
+msgstr "_Sütun Kes"
+
+msgid "Cut a Table Column"
+msgstr "Bir Tablo Bir Sütununu Kes"
+
+msgid "_Copy Column"
+msgstr "_Sütun Kopyala"
+
+msgid "Copy a Table Column"
+msgstr "Bir Tablo Bir Sütununu Kopyala"
+
+msgid "_Paste Column"
+msgstr "Sütun Yapıştır"
+
+msgid "Paste a Table Column"
+msgstr "Bir Tablo Bir Sütununu Yapıştır"
 
 msgid "De_lete Column"
 msgstr "Sütunu Sil"
