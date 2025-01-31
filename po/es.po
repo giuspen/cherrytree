@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-23 21:47+0100\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-01-31 12:46+1100\n"
 "Last-Translator: User Fav <userfav.post@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 msgid "CherryTree File"
 msgstr "Archivo CherryTree"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Una carpeta '%s' existe en '%s'.\n"
-"<b>Desea Eliminarla?</b>"
+"<b>Desea Reemplazarla?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "Un archivo '%s' existe en '%s'.\n"
-"<b>Desea Eliminarlo?</b>"
+"<b>Desea reemplazarlo?</b>"
 
 msgid "PDF File"
 msgstr "Archivo PDF"
@@ -73,7 +73,7 @@ msgid "The Path %s does Not Exist"
 msgstr "El destino %s no Existe"
 
 msgid "Open a Recent CherryTree Document"
-msgstr "Abrir reciente documento de CherryTree"
+msgstr "Abrir Reciente documento de CherryTree"
 
 msgid "_Hide"
 msgstr "Ocultar"
@@ -726,6 +726,21 @@ msgstr "Ordenar marcadores de forma ascendente"
 msgid "Choose Storage Type"
 msgstr "Elige tipo de almacenamiento"
 
+msgid "Single SQLite File"
+msgstr "Archivo de SQLite"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Archivo de SQLite, Encriptado y Protegido con clave en 7-zip"
+
+msgid "Single XML File"
+msgstr "Archivo tipo XML"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Archivo tipo XML, Encriptado y Protegido con clave en 7-zip"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Multiples archivos en Estructura Jerarquica de Carpetas"
+
 msgid "Storage Type"
 msgstr "Tipo de almacenamiento"
 
@@ -952,6 +967,23 @@ msgstr "Referencias de LaTeX para Símbolos Matemáticos"
 msgid "Image Properties"
 msgstr "Propiedades de imagen"
 
+msgid "Rotate Left"
+msgstr "Rotar a la _izquierda"
+
+msgid "Rotate Right"
+msgstr "Rotar a la derecha"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Para recortar la imagen, seleccione el area usando el mouse y presione OK"
+
+msgid "Flip Horizontally"
+msgstr "Invertír horizontalmente"
+
+msgid "Flip Vertically"
+msgstr "Invertír Verticalmente"
+
 msgid "Width"
 msgstr "Ancho"
 
@@ -1157,6 +1189,11 @@ msgstr "Cantidad de copias de seguridad a mantener"
 
 msgid "Custom Backup Directory"
 msgstr "Directorio de Copia de Seguridad Personalizado"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr ""
+"Almacenamiento de Múltiples Archivos, Usar Nombre de Archivo Inserto en el "
+"Disco"
 
 msgid "Saving"
 msgstr "Guardado"
@@ -1677,7 +1714,7 @@ msgid "Insert an Anchor"
 msgstr "Insertar ancla"
 
 msgid "Insert T_OC and Headers Collapsors..."
-msgstr "Inserte T_OC y Colapsadores de Encabezados"
+msgstr "Inserte T_OC y Colapsadores de Encabezados."
 
 msgid "Insert Table of Contents and Headers Collapsors/Expanders"
 msgstr "Inserte Table de Contenidos y Colapsadores de Encabezados/ Expansores"
@@ -1796,11 +1833,29 @@ msgstr "Añadir columna"
 msgid "Add a Table Column"
 msgstr "Añadir una columna de tabla"
 
+msgid "Cu_t Column"
+msgstr "Eliminar Columna"
+
+msgid "Cut a Table Column"
+msgstr "Eliminar Columna de tabla"
+
+msgid "_Copy Column"
+msgstr "_Copiar columna"
+
+msgid "Copy a Table Column"
+msgstr "Copiar una columna de tabla"
+
+msgid "_Paste Column"
+msgstr "_Pegar columna"
+
+msgid "Paste a Table Column"
+msgstr "Pegar una columna de la tabla"
+
 msgid "De_lete Column"
 msgstr "E_liminar columna"
 
 msgid "Delete the Selected Table Column"
-msgstr "Eliminar la columna de tabla seleccionada"
+msgstr "Eliminar de tabla la columna seleccionada"
 
 msgid "Move Column _Left"
 msgstr "Mover columna a la izquierda"
