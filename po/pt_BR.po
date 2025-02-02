@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-29 13:54-0300\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-02-02 10:30-0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Já existe a pasta '%s' em '%s'.\n"
-"<b>Deseja removê-la?</b>"
+"A pasta '%s' já existe em '%s'.\n"
+"<b>Deseja substitui-la?</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Já existe o arquivo '%s' em '%s'.\n"
-"<b>Deseja removê-la?</b>"
+"O arquivo '%s' já existe em '%s'.\n"
+"<b>Deseja substitui-lo?</b>"
 
 msgid "PDF File"
 msgstr "Arquivo PDF"
@@ -727,6 +727,24 @@ msgstr "Ordenar os marcadores de forma descendente"
 msgid "Choose Storage Type"
 msgstr "Escolha o tipo de armazenamento"
 
+msgid "Single SQLite File"
+msgstr "Arquivo SQLLite único"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr ""
+"Arquivo SQLite único, compactado em 7-Zip, criptografado e protegido por "
+"senha"
+
+msgid "Single XML File"
+msgstr "Arquivo XML único"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr ""
+"Arquivo XML único, compactado em 7-Zip, criptografado e protegido por senha"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Múltiplos arquivos em estrutura de pastas hierárquica"
+
 msgid "Storage Type"
 msgstr "Tipo de Armazenamento"
 
@@ -959,6 +977,23 @@ msgstr "Referencia LaTeX Math Symbols"
 msgid "Image Properties"
 msgstr "Propriedades da imagem"
 
+msgid "Rotate Left"
+msgstr "Girar para a esquerda"
+
+msgid "Rotate Right"
+msgstr "Girar para a direita"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Para recortar a imagem, selecione a área com o mouse antes de clicar em OK"
+
+msgid "Flip Horizontally"
+msgstr "Inverter Horizontalmente"
+
+msgid "Flip Vertically"
+msgstr "Inverter verticalmente"
+
 msgid "Width"
 msgstr "Largura"
 
@@ -1162,6 +1197,11 @@ msgstr "Número de cópias de segurança para manter"
 
 msgid "Custom Backup Directory"
 msgstr "Configurar Diretório do Backup"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr ""
+"Armazenamento de múltiplos arquivos, usando o nome de arquivo incorporado no "
+"disco"
 
 msgid "Saving"
 msgstr "Salvando"
@@ -1803,6 +1843,24 @@ msgstr "_Adicionar coluna"
 
 msgid "Add a Table Column"
 msgstr "Adiciona uma coluna à tabela"
+
+msgid "Cu_t Column"
+msgstr "Cortar coluna"
+
+msgid "Cut a Table Column"
+msgstr "Cortar uma coluna da tabela"
+
+msgid "_Copy Column"
+msgstr "_Copiar coluna"
+
+msgid "Copy a Table Column"
+msgstr "Copiar uma coluna da tabela"
+
+msgid "_Paste Column"
+msgstr "Colar uma coluna"
+
+msgid "Paste a Table Column"
+msgstr "Colar uma coluna da tabela"
 
 msgid "De_lete Column"
 msgstr "De_letar coluna"
