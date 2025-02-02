@@ -10,7 +10,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
       cmake \
       gettext \
       ninja-build \
-      libcpputest-dev \
       libcurl4-openssl-dev \
       libgspell-1-dev \
       libgtkmm-3.0-dev \
