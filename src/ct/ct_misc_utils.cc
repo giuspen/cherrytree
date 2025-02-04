@@ -105,10 +105,11 @@ std::string CtCSV::table_to_csv(const CtStringTable& table)
 {
     std::string ret_str;
     for (const auto& row : table) {
-        for (const auto& cell : row) {
-            ret_str += fmt::format("\"{}\"", str::replace(cell, std::string{"\""}, std::string{"\\\""}));
+        const size_t numCols = row.size();
+        for (size_t i = 0u; i < numCols; ++i) {
+            ret_str += fmt::format("\"{}\"", str::replace(row.at(i), std::string{"\""}, std::string{"\\\""}));
 
-            if (cell != row.back()) ret_str += ",";
+            if (i < (numCols - 1u)) ret_str += ",";
         }
         ret_str += "\n";
     }
