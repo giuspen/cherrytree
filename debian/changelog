@@ -1,16 +1,23 @@
-cherrytree (1.2.0-2) focal; urgency=low
+cherrytree (1.3.0-2) focal; urgency=low
 
-  * dropped unmaintained and outdated libgtksourceviewmm3 for libgtksourceview4 (direct access to C API, #2562)
-  * implemented quick node selection typing part of the node name, default keyboard shortcut to Ctrl+Shift+G (#2552, work of @ericguin)
-  * implemented collapsible headers support when TOC is generated (#2389)
-  * fixed links to nodes not working when exporting to html, single file (#2570)
-  * fixed properties of fonts selected in the preferences dialog not enforced: bold, italic, stretch, variant (#2533)
-  * hyperlinks: do not automatically add the prefix http:// when a URL-like prefix already exists (#2570)
-  * fixed crash pressing Ctrl+Z while editing table light cell
-  * changed default keyboard shortcut to open codebox properties dialog to Shift+Alt+U as the previous shortcut was causing problems to german layout keyboards (#2549)
-  * fixed formatting issues with fmt 11 (#2548, #2560)
-  * added support for new language Slovak (work of Michal Fusatý)
-  * incomplete languages: ar, el, fa, fi, hi_IN, hr, kk_KZ, kk_LA, pt_BR, ru, zh_CN
+  * insert image dialog, added support for cropping (#2626, work of @Uks2)
+  * implemented table column cut/copy/paste (#2542)
+  * fixed crash at table row move up, so called heavy version
+  * fixed table export to csv with empty cells (#2028)
+  * improved html parsing (rich text from clipboard / import from html) - added support for <font style="color: rgb(255, 0, 0);">
+  * fixed issue with reloading document after external edit and encrypted documeents (#2612)
+  * fixed search missing first match after a codebox (#2631)
+  * fixed duplication of codebox toolbar callbacks after changing codebox properties (#2635, work of @Uks2)
+  * fixed issues pasting a codebox into a codebox (#2625)
+  * change cursor when hovering collapsible headers to indicate that it is clickable (#2389)
+  * collapsible headers use same icon of expand/collapse tree node (#2389)
+  * improved action that clears the formatting to retain the links (#2389)
+  * multiple files storage, added configurable option to use for the embedded files a constant name (#2354)
+  * do not add 'http://' in front of a link of type 'mailto:'
+  * preferences dialog, added buttons to reset to default to: timestamp formatting, chars to select at double click, horizontal rule
+  * chars to select at double click default, added underscore (#2581)
+  * restored support for building on ubuntu 18.04 where gtksourceview4 is not available, gtksourceview3 must be used instead (#2583)
+  * do not use a leading dot for backups inside of the home directory if snap package (#2507)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Fri, 04 Oct 2024 16:24:58 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 06 Feb 2025 19:07:15 +0000
