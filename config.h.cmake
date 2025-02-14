@@ -10,7 +10,7 @@
 /* Version of package */
 #define PACKAGE_VERSION "${CT_VERSION}"
 #define PACKAGE_VERSION_WINDOWS ${CT_VERSION_WINDOWS}
-#define PACKAGE_VERSION_WINDOWS_STR "${CT_VERSION}.0"
+#define PACKAGE_VERSION_WINDOWS_STR "${CT_VERSION}.1"
 
 /* The domain to use with gettext */
 #define GETTEXT_PACKAGE "${PROJECT_NAME}"
