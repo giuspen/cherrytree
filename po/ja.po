@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 15:41+0100\n"
-"PO-Revision-Date: 2024-09-23 06:54+0900\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-02-14 15:47+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -31,18 +31,18 @@ msgstr ""
 #, c-format
 msgid ""
 "A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "フォルダー '%s' はすでに '%s' に存在します。\n"
-"<b>これを削除しますか？</b>"
+"<b>これを置換しますか？</b>"
 
 #, c-format
 msgid ""
 "A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
+"<b>Do you want to replace it?</b>"
 msgstr ""
 "ファイル '%s' はすでに '%s' に存在します。\n"
-"<b>これを削除しますか？</b>"
+"<b>これを置換しますか？</b>"
 
 msgid "PDF File"
 msgstr "PDF ファイル"
@@ -723,6 +723,21 @@ msgstr "ブックマークを昇順に並び替え"
 msgid "Choose Storage Type"
 msgstr "記憶域の種類を選択"
 
+msgid "Single SQLite File"
+msgstr "単一SQLファイル"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "単一SQLファイル、パスワード付き7zip"
+
+msgid "Single XML File"
+msgstr "単一XMLファイル"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "単一XMLファイル、パスワード付き7zip"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "階層フォルダ構造の複数ファイル"
+
 msgid "Storage Type"
 msgstr "記憶域の種類"
 
@@ -951,6 +966,22 @@ msgstr "LaTeX 記号リファレンス"
 msgid "Image Properties"
 msgstr "画像のプロパティ"
 
+msgid "Rotate Left"
+msgstr "左に回転"
+
+msgid "Rotate Right"
+msgstr "右に回転"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "切り抜く領域をマウスで選択してから、OKをクリックしてください"
+
+msgid "Flip Horizontally"
+msgstr "左右反転"
+
+msgid "Flip Vertically"
+msgstr "上下反転"
+
 msgid "Width"
 msgstr "幅"
 
@@ -1153,6 +1184,9 @@ msgstr "保存するバックアップの最大数"
 
 msgid "Custom Backup Directory"
 msgstr "バックアップディレクトリを指定する"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "複数ファイルの保存時、ドライブ上で添付ファイル名を使用"
 
 msgid "Saving"
 msgstr "保存"
@@ -1791,6 +1825,24 @@ msgstr "列を追加(_A)"
 
 msgid "Add a Table Column"
 msgstr "表に列を追加"
+
+msgid "Cu_t Column"
+msgstr "列を切り取り(_T)"
+
+msgid "Cut a Table Column"
+msgstr "表の列を削除"
+
+msgid "_Copy Column"
+msgstr "列をコピー追加(_C)"
+
+msgid "Copy a Table Column"
+msgstr "表の列をコピー"
+
+msgid "_Paste Column"
+msgstr "列を貼り付け(_P)"
+
+msgid "Paste a Table Column"
+msgstr "表に列を貼り付け"
 
 msgid "De_lete Column"
 msgstr "列を削除(_L)"
