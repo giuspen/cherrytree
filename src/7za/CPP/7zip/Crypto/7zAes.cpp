@@ -6,14 +6,18 @@
 
 #include "../../Common/ComTry.h"
 
+#ifndef _7ZIP_ST
 #include "../../Windows/Synchronization.h"
+#endif
 
 #include "../Common/StreamUtils.h"
 
 #include "7zAes.h"
 #include "MyAes.h"
 
+#ifndef EXTRACT_ONLY
 #include "RandGen.h"
+#endif
 
 namespace NCrypto {
 namespace N7z {
@@ -113,8 +117,12 @@ void CKeyInfoCache::Add(const CKeyInfo &key)
 
 static CKeyInfoCache g_GlobalKeyCache(32);
 
-static NWindows::NSynchronization::CCriticalSection g_GlobalKeyCacheCriticalSection;
-#define MT_LOCK NWindows::NSynchronization::CCriticalSectionLock lock(g_GlobalKeyCacheCriticalSection);
+#ifndef _7ZIP_ST
+  static NWindows::NSynchronization::CCriticalSection g_GlobalKeyCacheCriticalSection;
+  #define MT_LOCK NWindows::NSynchronization::CCriticalSectionLock lock(g_GlobalKeyCacheCriticalSection);
+#else
+  #define MT_LOCK
+#endif
 
 CBase::CBase():
   _cachedKeys(16),
@@ -141,12 +149,23 @@ void CBase::PrepareKey()
     g_GlobalKeyCache.FindAndAdd(_key);
 }
 
+#ifndef EXTRACT_ONLY
+
+/*
+STDMETHODIMP CEncoder::ResetSalt()
+{
+  _key.SaltSize = 4;
+  g_RandomGenerator.Generate(_key.Salt, _key.SaltSize);
+  return S_OK;
+}
+*/
+
 STDMETHODIMP CEncoder::ResetInitVector()
 {
   for (unsigned i = 0; i < sizeof(_iv); i++)
     _iv[i] = 0;
-  _ivSize = 8;
-  g_RandomGenerator.Generate(_iv, _ivSize);
+  _ivSize = 16;
+  MY_RAND_GEN(_iv, _ivSize);
   return S_OK;
 }
 
@@ -178,6 +197,8 @@ CEncoder::CEncoder()
   _key.NumCyclesPower = 19;
   _aesFilter = new CAesCbcEncoder(kKeySize);
 }
+
+#endif
 
 CDecoder::CDecoder()
 {
