@@ -36,7 +36,7 @@ class CtMainWin;
 class CtApp : public Gtk::Application
 {
 protected:
-    CtApp(const Glib::ustring application_id_postfix = Glib::ustring{});
+    CtApp(const Glib::ustring application_id_postfix = Glib::ustring{}, Gio::ApplicationFlags flags = Gio::APPLICATION_FLAGS_NONE);
     ~CtApp() override;
 
 public:

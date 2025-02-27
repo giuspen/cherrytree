@@ -29,8 +29,8 @@
 #include "ct_logging.h"
 #include <iostream>
 
-CtApp::CtApp(const Glib::ustring application_id_postfix)
- : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
+CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::ApplicationFlags flags)
+ : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN | flags}
  , _pCtConfig{CtConfig::GetCtConfig()}
 {
 #if GTK_SOURCE_MAJOR_VERSION >= 4
