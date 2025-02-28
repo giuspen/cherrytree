@@ -29,7 +29,7 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp()
-     : CtApp{"_test_exports"}
+     : CtApp{"_test_exports", Gio::APPLICATION_NON_UNIQUE}
     {
         _no_gui = true;
         _on_startup(); // so that _uCtTmp is ready straight away
