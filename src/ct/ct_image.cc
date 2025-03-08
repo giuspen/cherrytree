@@ -304,6 +304,17 @@ void CtImageAnchor::toggle_exp_coll_state()
             (void)textIterAnchor.forward_char();
             Gtk::TextIter textIterEnd{textIterAnchor};
             (void)textIterEnd.forward_to_tag_toggle(pTextTagH);
+            // we need to check if a lower header type is in the way / we don't want to include that in the collapsing section
+            for (int hTmp = headerNum - 1; hTmp > 0; --hTmp) {
+                const std::string tagPropValTmp{"h" + std::to_string(hTmp)};
+                const std::string tagNameHTmp = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_SCALE, tagPropValTmp);
+                Glib::RefPtr<Gtk::TextTag> pTextTagHTmp = _pCtMainWin->get_text_tag_table()->lookup(tagNameHTmp);
+                Gtk::TextIter textIterEndTmp{textIterAnchor};
+                (void)textIterEndTmp.forward_to_tag_toggle(pTextTagHTmp);
+                if (textIterEndTmp.get_offset() < textIterEnd.get_offset()) {
+                    textIterEnd = textIterEndTmp;
+                }
+            }
             //(void)textIterEnd.backward_char();
             //spdlog::debug("'{}'", pTextBuffer->get_text(textIterAnchor, textIterEnd).c_str());
             pTextBuffer->apply_tag_by_name(tagNameInvis, textIterAnchor, textIterEnd);
