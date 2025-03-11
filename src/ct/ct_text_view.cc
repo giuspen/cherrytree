@@ -175,40 +175,63 @@ void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wra
     _pTextView->set_pixels_inside_wrap(pixels_around_wrap);
 }
 
-void CtTextView::set_selection_at_offset_n_delta(const int offset, const int delta, Glib::RefPtr<Gtk::TextBuffer> pTextBuffer/*= Glib::RefPtr<Gtk::TextBuffer>{}*/)
+int CtTextView::expand_collapsed_anchors(const int offset,
+                                         const int delta,
+                                         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer/*= Glib::RefPtr<Gtk::TextBuffer>{}*/)
 {
     if (not pTextBuffer) {
         pTextBuffer = get_buffer();
     }
+    Gtk::TextIter iterCurr = pTextBuffer->get_iter_at_offset(offset + delta);
+    if (not iterCurr) {
+        return false;
+    }
+    static const std::string invisible_tag{"invisible_"};
+    int expandedHeaders{0};
+    while (iterCurr.get_offset() >= offset) {
+        const std::optional<Glib::ustring> invisibleCurr = CtTextIterUtil::iter_get_tag_startingwith(iterCurr, invisible_tag);
+        if (invisibleCurr) {
+            const char hNChar = invisibleCurr.value().at(invisibleCurr.value().size()-1);
+            const int hNum = hNChar - '0';
+            spdlog::debug("found collapsed h{}", hNum);
+            CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+            while (iterCurr.backward_char()) {
+                std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(iterCurr.get_offset(), iterCurr.get_offset());
+                if (not widgets.empty()) {
+                    if (auto pAnchor = dynamic_cast<CtImageAnchor*>(widgets.front())) {
+                        const Glib::ustring& anchorName = pAnchor->get_anchor_name();
+                        const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+                        if (hNum == headerNum and CtAnchorExpCollState::Collapsed == pAnchor->get_exp_coll_state()) {
+                            spdlog::debug("--> anchor {}", anchorName.c_str());
+                            ++expandedHeaders;
+                            pAnchor->toggle_exp_coll_state();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (not iterCurr.backward_char()) {
+            break;
+        }
+    }
+    return expandedHeaders;
+}
+
+void CtTextView::set_selection_at_offset_n_delta(const int offset,
+                                                 const int delta,
+                                                 Glib::RefPtr<Gtk::TextBuffer> pTextBuffer/*= Glib::RefPtr<Gtk::TextBuffer>{}*/)
+{
+    if (not pTextBuffer) {
+        pTextBuffer = get_buffer();
+    }
+    (void)expand_collapsed_anchors(offset, delta, pTextBuffer);
     const Gtk::TextIter iterStart = pTextBuffer->get_iter_at_offset(offset);
     if (not iterStart) {
         return;
     }
     Gtk::TextIter iterEnd{iterStart};
     (void)iterEnd.forward_chars(delta);
-    const std::string invisible_tag{"invisible_"};
-    const std::optional<Glib::ustring> invisibleStart = CtTextIterUtil::iter_get_tag_startingwith(iterStart, invisible_tag);
-    const std::optional<Glib::ustring> invisibleEnd = CtTextIterUtil::iter_get_tag_startingwith(iterEnd, invisible_tag);
-    if (invisibleStart or invisibleEnd) {
-        const int hNum = (invisibleStart ? invisibleStart.value().at(invisibleStart.value().size()-1) : invisibleEnd.value().at(invisibleEnd.value().size()-1)) - '0';
-        spdlog::debug("collapsed h{}", hNum);
-        Gtk::TextIter iterAnchor = invisibleStart ? iterStart : iterEnd;
-        CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
-        while (iterAnchor.backward_char()) {
-            std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(iterAnchor.get_offset(), iterAnchor.get_offset());
-            if (not widgets.empty()) {
-                if (auto pAnchor = dynamic_cast<CtImageAnchor*>(widgets.front())) {
-                    const Glib::ustring& anchorName = pAnchor->get_anchor_name();
-                    const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
-                    if (hNum == headerNum and CtAnchorExpCollState::Collapsed == pAnchor->get_exp_coll_state()) {
-                        spdlog::debug("found {}", anchorName.c_str());
-                        pAnchor->toggle_exp_coll_state();
-                        break;
-                    }
-                }
-            }
-        }
-    }
     pTextBuffer->place_cursor(iterStart);
     pTextBuffer->move_mark(pTextBuffer->get_selection_bound(), iterEnd);
 }

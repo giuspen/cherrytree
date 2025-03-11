@@ -1,7 +1,7 @@
 /*
  * ct_text_view.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -51,6 +51,9 @@ public:
     void set_selection_at_offset_n_delta(const int offset,
                                          const int delta,
                                          Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::RefPtr<Gtk::TextBuffer>{});
+    int expand_collapsed_anchors(const int offset,
+                                 const int delta,
+                                 Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Glib::RefPtr<Gtk::TextBuffer>{});
     void list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase);
     void replace_text(const Glib::ustring& text, int start_offset, int end_offset);
 
