@@ -1,7 +1,7 @@
 /*
  * ct_const.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -522,6 +522,10 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_sk",                // 246
     "ct_visible",           // 247
     "ct_invisible",         // 248
+    "ct_arrow-left",        // 249
+    "ct_arrow-right",       // 250
+    "ct_arrow-down",        // 251
+    "ct_arrow-up",          // 252
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -536,7 +540,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     50/*pin*/, 51/*anchor*/, 52/*edit*/, 53/*save*/, 54/*execute*/, 55/*preferences*/, 56/*clear*/, 57/*stop*/, 58/*close*/, 59/*quit app*/,
     60/*file*/, 141/*7zip*/, 44/*folder*/,
     61/*print*/, 62/*attachment*/, 63/*link*/, 64/*linkweb*/, 65/*network*/,
-    66/*back*/, 67/*down*/, 68/*forward*/, 69/*up*/, 70/*jump to*/, 71/*zoom out*/, 72/*zoom in*/,
+    66/*back*/, 67/*down*/, 68/*forward*/, 69/*up*/, 70/*jump to*/, 71/*zoom out*/, 72/*zoom in*/, 249/*left*/, 250/*right*/, 251/*down*/, 252/*up*/,
     95/*sports*/, 96/*briefcase*/, 159/*building*/, 98/*chart*/, 145/*invest*/, 104/*money*/,
     97/*camera*/, 99/*clapperboard*/, 100/*maths*/, 101/*games*/, 144/*dictionary*/,
     157/*bike*/, 161/*car*/, 160/*bus*/, 242/*ship*/, 203/*airplane*/, 239/*rocket*/,
