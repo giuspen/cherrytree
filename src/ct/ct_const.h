@@ -142,6 +142,7 @@ const inline static gchar* TAG_STRIKETHROUGH       {"strikethrough"};
 const inline static gchar* TAG_INDENT              {"indent"};
 const inline static gchar* TAG_SCALE               {"scale"};
 const inline static gchar* TAG_INVISIBLE           {"invisible"};
+const inline static Glib::ustring TAG_INVISIBLE_PREFIX{"invisible_"};
 const inline static gchar* TAG_FAMILY              {"family"};
 const inline static gchar* TAG_JUSTIFICATION       {"justification"};
 const inline static gchar* TAG_LINK                {"link"};

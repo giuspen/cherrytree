@@ -186,10 +186,9 @@ int CtTextView::expand_collapsed_anchors(const int offset,
     if (not iterCurr) {
         return false;
     }
-    static const std::string invisible_tag{"invisible_"};
     int expandedHeaders{0};
     while (iterCurr.get_offset() >= offset) {
-        const std::optional<Glib::ustring> invisibleCurr = CtTextIterUtil::iter_get_tag_startingwith(iterCurr, invisible_tag);
+        const std::optional<Glib::ustring> invisibleCurr = CtTextIterUtil::iter_get_tag_startingwith(iterCurr, CtConst::TAG_INVISIBLE_PREFIX);
         if (invisibleCurr) {
             const char hNChar = invisibleCurr.value().at(invisibleCurr.value().size()-1);
             const int hNum = hNChar - '0';

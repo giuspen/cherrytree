@@ -327,11 +327,11 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     TocEntry entry{fmt::format("node {}", node_id), true/*is_node*/, node.get_node_name(), depth};
     const std::string scale_tag{"scale_"};
     std::unordered_map<int, int> encountered_headers;
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = node.get_node_text_buffer();
-    if (not rTextBuffer) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = node.get_node_text_buffer();
+    if (not pTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw()));
     }
-    Gtk::TextIter text_iter = rTextBuffer->begin();
+    Gtk::TextIter text_iter = pTextBuffer->begin();
 
     do {
         std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(text_iter, scale_tag);
@@ -354,12 +354,12 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 Glib::ustring txt{start_iter, end_iter};
                 spdlog::debug("{} - {}", txt.raw(), txt.size());
 
-                auto mark = rTextBuffer->create_mark(end_iter, false);
+                auto mark = pTextBuffer->create_mark(end_iter, false);
 
                 CtAnchorExpCollState expCollState{CtAnchorExpCollState::Expanded};
-                Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = end_iter.get_child_anchor();
-                if (rChildAnchor) {
-                    CtAnchoredWidget* pCtAnchoredWidget = node.get_anchored_widget(rChildAnchor);
+                Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = end_iter.get_child_anchor();
+                if (pChildAnchor) {
+                    CtAnchoredWidget* pCtAnchoredWidget = node.get_anchored_widget(pChildAnchor);
                     if (pCtAnchoredWidget) {
                         auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
                         if (pCtImageAnchor and 0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {
@@ -369,8 +369,8 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                             const int endOffset = end_iter.get_offset();
                             auto iter_bound = end_iter;
                             iter_bound.forward_char();
-                            rTextBuffer->erase(end_iter, iter_bound);
-                            end_iter = rTextBuffer->get_iter_at_offset(endOffset);
+                            pTextBuffer->erase(end_iter, iter_bound);
+                            end_iter = pTextBuffer->get_iter_at_offset(endOffset);
                         }
                     }
                 }
@@ -378,7 +378,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
                 actions.image_insert_anchor(end_iter, anchor_txt, expCollState, CtConst::TAG_PROP_VAL_RIGHT);
 
                 text_iter = mark->get_iter();
-                rTextBuffer->delete_mark(mark);
+                pTextBuffer->delete_mark(mark);
                 //spdlog::debug("INSERT DONE");
                 entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false/*is_node*/, txt, depth + 1, h_lvl);
             }

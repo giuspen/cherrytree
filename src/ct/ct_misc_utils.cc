@@ -517,7 +517,7 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH].clear();
         else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT].clear();
         else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE].clear();
-        else if (str::startswith(tag_name, "invisible_")) delta_attributes[CtConst::TAG_INVISIBLE].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_INVISIBLE_PREFIX)) delta_attributes[CtConst::TAG_INVISIBLE].clear();
         else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION].clear();
         else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK].clear();
         else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY].clear();
@@ -532,7 +532,7 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
         else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
         else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
-        else if (str::startswith(tag_name, "invisible_")) delta_attributes[CtConst::TAG_INVISIBLE] = tag_name.substr(10);
+        else if (str::startswith(tag_name, CtConst::TAG_INVISIBLE_PREFIX)) delta_attributes[CtConst::TAG_INVISIBLE] = tag_name.substr(10);
         else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
         else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
         else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);

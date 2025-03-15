@@ -96,19 +96,20 @@ void CtActions::_remove_text_formatting(const bool dismiss_link)
     if (not _is_there_selected_node_or_error()) return;
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
-    if (not curr_buffer->get_has_selection() and not _pCtMainWin->apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->get_text_view().get_buffer();
+    if (not pTextBuffer->get_has_selection() and not _pCtMainWin->apply_tag_try_automatic_bounds(pTextBuffer, pTextBuffer->get_insert()->get_iter())) {
         CtDialogs::warning_dialog(_("No Text is Selected."), *_pCtMainWin);
         return;
     }
+    CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
     Gtk::TextIter iter_sel_start, iter_sel_end;
-    curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
+    pTextBuffer->get_selection_bounds(iter_sel_start, iter_sel_end);
 
     const int sel_start_offset = iter_sel_start.get_offset();
     const int sel_end_offset = iter_sel_end.get_offset();
 
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
-        Gtk::TextIter it_sel_start = curr_buffer->get_iter_at_offset(offset);
+        Gtk::TextIter it_sel_start = pTextBuffer->get_iter_at_offset(offset);
         std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = it_sel_start.get_tags();
         for (auto& curr_tag : curr_tags) {
             const Glib::ustring tag_name = curr_tag->property_name();
@@ -121,14 +122,26 @@ void CtActions::_remove_text_formatting(const bool dismiss_link)
                     str::startswith(tag_name, "strikethrough_") or
                     str::startswith(tag_name, "indent_") or
                     str::startswith(tag_name, "scale_") or
-                    str::startswith(tag_name, "invisible_") or
+                    str::startswith(tag_name, CtConst::TAG_INVISIBLE_PREFIX) or
                     str::startswith(tag_name, "justification_") or
                     str::startswith(tag_name, "family_")))
                 or
                  (dismiss_link and str::startswith(tag_name, "link_")) )
             {
-                Gtk::TextIter it_sel_end = curr_buffer->get_iter_at_offset(offset+1);
-                curr_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
+                Gtk::TextIter it_sel_end = pTextBuffer->get_iter_at_offset(offset+1);
+                pTextBuffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
+            }
+        }
+        Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = it_sel_start.get_child_anchor();
+        if (pChildAnchor) {
+            CtAnchoredWidget* pCtAnchoredWidget = treeIter.get_anchored_widget(pChildAnchor);
+            if (pCtAnchoredWidget) {
+                auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
+                if (pCtImageAnchor and 0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {
+                    Gtk::TextIter iter_bound = it_sel_start;
+                    iter_bound.forward_char();
+                    pTextBuffer->erase(it_sel_start, iter_bound);
+                }
             }
         }
     }
