@@ -325,7 +325,6 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
 {
     const int node_id = node.get_node_id();
     TocEntry entry{fmt::format("node {}", node_id), true/*is_node*/, node.get_node_name(), depth};
-    const std::string scale_tag{"scale_"};
     std::unordered_map<int, int> encountered_headers;
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = node.get_node_text_buffer();
     if (not pTextBuffer) {
@@ -334,9 +333,9 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     Gtk::TextIter text_iter = pTextBuffer->begin();
 
     do {
-        std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(text_iter, scale_tag);
+        std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(text_iter, CtConst::TAG_SCALE_PREFIX);
         if (tag_name and not Glib::str_has_suffix(tag_name.value(), CtConst::TAG_PROP_VAL_SMALL)) {
-            const Glib::ustring h_level_str = tag_name.value().substr(scale_tag.length() + 1);
+            const Glib::ustring h_level_str = tag_name.value().substr(CtConst::TAG_SCALE_PREFIX.length() + 1);
             try {
                 const int h_lvl = std::stoi(h_level_str);
                 ++encountered_headers[h_lvl];

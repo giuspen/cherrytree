@@ -1,7 +1,7 @@
 /*
  * ct_export2txt.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -170,7 +170,7 @@ Glib::ustring CtExport2Txt::_plain_process_slot(int start_offset, int end_offset
 Glib::ustring CtExport2Txt::_tag_link_in_given_iter(Gtk::TextIter iter)
 {
     for (auto tag: iter.get_tags())
-        if (str::startswith(tag->property_name().get_value(), "link_"))
+        if (str::startswith(tag->property_name().get_value(), CtConst::TAG_LINK_PREFIX))
             return tag->property_name().get_value().substr(5);
     return "";
 }

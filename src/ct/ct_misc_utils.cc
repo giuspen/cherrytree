@@ -509,18 +509,18 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
             continue;
         }
-        if (str::startswith(tag_name, "weight_")) delta_attributes[CtConst::TAG_WEIGHT].clear();
-        else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND].clear();
-        else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND].clear();
-        else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE].clear();
-        else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE].clear();
-        else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH].clear();
-        else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT].clear();
-        else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE].clear();
+        if (str::startswith(tag_name, CtConst::TAG_WEIGHT_PREFIX)) delta_attributes[CtConst::TAG_WEIGHT].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_FOREGROUND_PREFIX)) delta_attributes[CtConst::TAG_FOREGROUND].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_BACKGROUND_PREFIX)) delta_attributes[CtConst::TAG_BACKGROUND].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_STYLE_PREFIX)) delta_attributes[CtConst::TAG_STYLE].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_UNDERLINE_PREFIX)) delta_attributes[CtConst::TAG_UNDERLINE].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_STRIKETHROUGH_PREFIX)) delta_attributes[CtConst::TAG_STRIKETHROUGH].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_INDENT_PREFIX)) delta_attributes[CtConst::TAG_INDENT].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_SCALE_PREFIX)) delta_attributes[CtConst::TAG_SCALE].clear();
         else if (str::startswith(tag_name, CtConst::TAG_INVISIBLE_PREFIX)) delta_attributes[CtConst::TAG_INVISIBLE].clear();
-        else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION].clear();
-        else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK].clear();
-        else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_JUSTIFICATION_PREFIX)) delta_attributes[CtConst::TAG_JUSTIFICATION].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_LINK_PREFIX)) delta_attributes[CtConst::TAG_LINK].clear();
+        else if (str::startswith(tag_name, CtConst::TAG_FAMILY_PREFIX)) delta_attributes[CtConst::TAG_FAMILY].clear();
     }
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
     for (const auto& r_curr_tag : toggled_on) {
@@ -528,18 +528,18 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
             continue;
         }
-        if (str::startswith(tag_name, "weight_")) delta_attributes[CtConst::TAG_WEIGHT] = tag_name.substr(7);
-        else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
-        else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
-        else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
+        if (str::startswith(tag_name, CtConst::TAG_WEIGHT_PREFIX)) delta_attributes[CtConst::TAG_WEIGHT] = tag_name.substr(7);
+        else if (str::startswith(tag_name, CtConst::TAG_FOREGROUND_PREFIX)) delta_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
+        else if (str::startswith(tag_name, CtConst::TAG_BACKGROUND_PREFIX)) delta_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
+        else if (str::startswith(tag_name, CtConst::TAG_SCALE_PREFIX)) delta_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
         else if (str::startswith(tag_name, CtConst::TAG_INVISIBLE_PREFIX)) delta_attributes[CtConst::TAG_INVISIBLE] = tag_name.substr(10);
-        else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
-        else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
-        else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
-        else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
-        else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT] = tag_name.substr(7);
-        else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
-        else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
+        else if (str::startswith(tag_name, CtConst::TAG_JUSTIFICATION_PREFIX)) delta_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
+        else if (str::startswith(tag_name, CtConst::TAG_STYLE_PREFIX)) delta_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
+        else if (str::startswith(tag_name, CtConst::TAG_UNDERLINE_PREFIX)) delta_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
+        else if (str::startswith(tag_name, CtConst::TAG_STRIKETHROUGH_PREFIX)) delta_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
+        else if (str::startswith(tag_name, CtConst::TAG_INDENT_PREFIX)) delta_attributes[CtConst::TAG_INDENT] = tag_name.substr(7);
+        else if (str::startswith(tag_name, CtConst::TAG_LINK_PREFIX)) delta_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
+        else if (str::startswith(tag_name, CtConst::TAG_FAMILY_PREFIX)) delta_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
     }
     bool anyDelta{false};
     for (const auto& currDelta : delta_attributes) {

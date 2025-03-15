@@ -44,17 +44,17 @@ void CtActions::_save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTe
             continue;
         }
         std::pair<std::string, std::string> tagPropNVal;
-        if (str::startswith(tag_name, "weight_")) tagPropNVal = std::make_pair(CtConst::TAG_WEIGHT, tag_name.substr(7));
-        else if (str::startswith(tag_name, "foreground_")) tagPropNVal = std::make_pair(CtConst::TAG_FOREGROUND, tag_name.substr(11));
-        else if (str::startswith(tag_name, "background_")) tagPropNVal = std::make_pair(CtConst::TAG_BACKGROUND, tag_name.substr(11));
-        else if (str::startswith(tag_name, "scale_")) tagPropNVal = std::make_pair(CtConst::TAG_SCALE, tag_name.substr(6));
-        else if (str::startswith(tag_name, "justification_")) tagPropNVal = std::make_pair(CtConst::TAG_JUSTIFICATION, tag_name.substr(14));
-        else if (str::startswith(tag_name, "style_")) tagPropNVal = std::make_pair(CtConst::TAG_STYLE, tag_name.substr(6));
-        else if (str::startswith(tag_name, "underline_")) tagPropNVal = std::make_pair(CtConst::TAG_UNDERLINE, tag_name.substr(10));
-        else if (str::startswith(tag_name, "strikethrough_")) tagPropNVal = std::make_pair(CtConst::TAG_STRIKETHROUGH, tag_name.substr(14));
-        else if (str::startswith(tag_name, "indent_")) tagPropNVal = std::make_pair(CtConst::TAG_INDENT, tag_name.substr(7));
-        //else if (str::startswith(tag_name, "link_")) tagPropNVal = std::make_pair(CtConst::TAG_LINK], tag_name.substr(5));
-        else if (str::startswith(tag_name, "family_")) tagPropNVal = std::make_pair(CtConst::TAG_FAMILY, tag_name.substr(7));
+        if (str::startswith(tag_name, CtConst::TAG_WEIGHT_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_WEIGHT, tag_name.substr(7));
+        else if (str::startswith(tag_name, CtConst::TAG_FOREGROUND_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_FOREGROUND, tag_name.substr(11));
+        else if (str::startswith(tag_name, CtConst::TAG_BACKGROUND_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_BACKGROUND, tag_name.substr(11));
+        else if (str::startswith(tag_name, CtConst::TAG_SCALE_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_SCALE, tag_name.substr(6));
+        else if (str::startswith(tag_name, CtConst::TAG_JUSTIFICATION_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_JUSTIFICATION, tag_name.substr(14));
+        else if (str::startswith(tag_name, CtConst::TAG_STYLE_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_STYLE, tag_name.substr(6));
+        else if (str::startswith(tag_name, CtConst::TAG_UNDERLINE_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_UNDERLINE, tag_name.substr(10));
+        else if (str::startswith(tag_name, CtConst::TAG_STRIKETHROUGH_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_STRIKETHROUGH, tag_name.substr(14));
+        else if (str::startswith(tag_name, CtConst::TAG_INDENT_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_INDENT, tag_name.substr(7));
+        //else if (str::startswith(tag_name, CtConst::TAG_LINK_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_LINK], tag_name.substr(5));
+        else if (str::startswith(tag_name, CtConst::TAG_FAMILY_PREFIX)) tagPropNVal = std::make_pair(CtConst::TAG_FAMILY, tag_name.substr(7));
         if (not tagPropNVal.first.empty()) {
             tagProperties.push_back(tagPropNVal.first);
             tagValues.push_back(tagPropNVal.second);
@@ -114,19 +114,19 @@ void CtActions::_remove_text_formatting(const bool dismiss_link)
         for (auto& curr_tag : curr_tags) {
             const Glib::ustring tag_name = curr_tag->property_name();
             if ( (not dismiss_link and
-                   (str::startswith(tag_name, "weight_") or
-                    str::startswith(tag_name, "foreground_") or
-                    str::startswith(tag_name, "background_") or
-                    str::startswith(tag_name, "style_") or
-                    str::startswith(tag_name, "underline_") or
-                    str::startswith(tag_name, "strikethrough_") or
-                    str::startswith(tag_name, "indent_") or
-                    str::startswith(tag_name, "scale_") or
+                   (str::startswith(tag_name, CtConst::TAG_WEIGHT_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_FOREGROUND_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_BACKGROUND_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_STYLE_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_UNDERLINE_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_STRIKETHROUGH_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_INDENT_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_SCALE_PREFIX) or
                     str::startswith(tag_name, CtConst::TAG_INVISIBLE_PREFIX) or
-                    str::startswith(tag_name, "justification_") or
-                    str::startswith(tag_name, "family_")))
+                    str::startswith(tag_name, CtConst::TAG_JUSTIFICATION_PREFIX) or
+                    str::startswith(tag_name, CtConst::TAG_FAMILY_PREFIX)))
                 or
-                 (dismiss_link and str::startswith(tag_name, "link_")) )
+                 (dismiss_link and str::startswith(tag_name, CtConst::TAG_LINK_PREFIX)) )
             {
                 Gtk::TextIter it_sel_end = pTextBuffer->get_iter_at_offset(offset+1);
                 pTextBuffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
@@ -227,7 +227,7 @@ int CtActions::_find_previous_indent_margin()
     std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = range.iter_start.get_tags();
     for (auto& curr_tag : curr_tags) {
         Glib::ustring curr_tag_name = curr_tag->property_name();
-        if(str::startswith(curr_tag_name, "indent_")) {
+        if(str::startswith(curr_tag_name, CtConst::TAG_INDENT_PREFIX)) {
             return std::stoi(curr_tag_name.substr(7, std::string::npos));
         }
     }
@@ -430,32 +430,31 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             //#print tag_name
             if (curr_tag_name.empty()) continue;
             Gtk::TextIter it_sel_end = text_buffer->get_iter_at_offset(offset+1);
-            if ((tag_property == CtConst::TAG_WEIGHT and str::startswith(curr_tag_name, "weight_"))
-               or (tag_property == CtConst::TAG_STYLE and str::startswith(curr_tag_name, "style_"))
-               or (tag_property == CtConst::TAG_UNDERLINE and str::startswith(curr_tag_name, "underline_"))
-               or (tag_property == CtConst::TAG_STRIKETHROUGH and str::startswith(curr_tag_name, "strikethrough_"))
-               or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, "family_")))
+            if ((tag_property == CtConst::TAG_WEIGHT and str::startswith(curr_tag_name, CtConst::TAG_WEIGHT_PREFIX))
+               or (tag_property == CtConst::TAG_STYLE and str::startswith(curr_tag_name, CtConst::TAG_STYLE_PREFIX))
+               or (tag_property == CtConst::TAG_UNDERLINE and str::startswith(curr_tag_name, CtConst::TAG_UNDERLINE_PREFIX))
+               or (tag_property == CtConst::TAG_STRIKETHROUGH and str::startswith(curr_tag_name, CtConst::TAG_STRIKETHROUGH_PREFIX))
+               or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, CtConst::TAG_FAMILY_PREFIX)))
             {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
                 property_value.clear(); // just tag removal
             }
-            else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, "indent_")){
+            else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, CtConst::TAG_INDENT_PREFIX)){
                 //Remove old tag but don't reset the value (since we're increasing previous indent to a new value, not toggling it off)
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
             }
-            else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, "scale_")) {
+            else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, CtConst::TAG_SCALE_PREFIX)) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
-                // #print property_value, tag_name[6:]
                 if (property_value == curr_tag_name.substr(6)) {
                     property_value.clear(); // just tag removal
                 }
             }
-            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, "justification_")) {
+            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, CtConst::TAG_JUSTIFICATION_PREFIX)) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
             }
-            else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(curr_tag_name, "foreground_"))
-                  or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(curr_tag_name, "background_"))
-                  or (tag_property == CtConst::TAG_LINK and str::startswith(curr_tag_name, "link_")))
+            else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(curr_tag_name, CtConst::TAG_FOREGROUND_PREFIX))
+                  or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(curr_tag_name, CtConst::TAG_BACKGROUND_PREFIX))
+                  or (tag_property == CtConst::TAG_LINK and str::startswith(curr_tag_name, CtConst::TAG_LINK_PREFIX)))
             {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
             }

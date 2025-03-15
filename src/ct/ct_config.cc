@@ -387,14 +387,14 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "col_link_fold", colLinkFold);
     for (unsigned n = 1; n <= CtConst::NUM_USER_STYLES; ++n) {
         const unsigned i = n-1;
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_text_fg", userStyleTextFg[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_text_bg", userStyleTextBg[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_sel_fg", userStyleSelectionFg[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_sel_bg", userStyleSelectionBg[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_cusor", userStyleCursor[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_curr_line_bg", userStyleCurrentLineBg[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_linenum_fg", userStyleLineNumbersFg[i]);
-        _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_linenum_bg", userStyleLineNumbersBg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_text_fg", userStyleTextFg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_text_bg", userStyleTextBg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_sel_fg", userStyleSelectionFg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_sel_bg", userStyleSelectionBg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_cusor", userStyleCursor[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_curr_line_bg", userStyleCurrentLineBg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_linenum_fg", userStyleLineNumbersFg[i]);
+        _uKeyFile->set_string(_currentGroup, CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_linenum_bg", userStyleLineNumbersBg[i]);
     }
 
     // [misc]
@@ -724,14 +724,14 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("col_link_fold", &colLinkFold);
     for (unsigned n = 1; n <= CtConst::NUM_USER_STYLES; ++n) {
         const unsigned i = n-1;
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_text_fg", &userStyleTextFg[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_text_bg", &userStyleTextBg[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_sel_fg", &userStyleSelectionFg[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_sel_bg", &userStyleSelectionBg[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_cusor", &userStyleCursor[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_curr_line_bg", &userStyleCurrentLineBg[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_linenum_fg", &userStyleLineNumbersFg[i]);
-        _populate_string_from_keyfile("style_"+std::to_string(n)+"_linenum_bg", &userStyleLineNumbersBg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_text_fg", &userStyleTextFg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_text_bg", &userStyleTextBg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_sel_fg", &userStyleSelectionFg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_sel_bg", &userStyleSelectionBg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_cusor", &userStyleCursor[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_curr_line_bg", &userStyleCurrentLineBg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_linenum_fg", &userStyleLineNumbersFg[i]);
+        _populate_string_from_keyfile(CtConst::TAG_STYLE_PREFIX+std::to_string(n)+"_linenum_bg", &userStyleLineNumbersBg[i]);
     }
 
     // [misc]

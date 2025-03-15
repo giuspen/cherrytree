@@ -134,18 +134,29 @@ const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_LINE_NUMB
 
 const inline static gchar* GTKSPELLCHECK_TAG_NAME  {"gtkspellchecker-misspelled"};
 const inline static gchar* TAG_WEIGHT              {"weight"};
+const inline static Glib::ustring TAG_WEIGHT_PREFIX         {"weight_"};
 const inline static gchar* TAG_FOREGROUND          {"foreground"};
+const inline static Glib::ustring TAG_FOREGROUND_PREFIX     {"foreground_"};
 const inline static gchar* TAG_BACKGROUND          {"background"};
+const inline static Glib::ustring TAG_BACKGROUND_PREFIX     {"background_"};
 const inline static gchar* TAG_STYLE               {"style"};
+const inline static Glib::ustring TAG_STYLE_PREFIX          {"style_"};
 const inline static gchar* TAG_UNDERLINE           {"underline"};
+const inline static Glib::ustring TAG_UNDERLINE_PREFIX      {"underline_"};
 const inline static gchar* TAG_STRIKETHROUGH       {"strikethrough"};
+const inline static Glib::ustring TAG_STRIKETHROUGH_PREFIX  {"strikethrough_"};
 const inline static gchar* TAG_INDENT              {"indent"};
+const inline static Glib::ustring TAG_INDENT_PREFIX         {"indent_"};
 const inline static gchar* TAG_SCALE               {"scale"};
+const inline static Glib::ustring TAG_SCALE_PREFIX          {"scale_"};
 const inline static gchar* TAG_INVISIBLE           {"invisible"};
-const inline static Glib::ustring TAG_INVISIBLE_PREFIX{"invisible_"};
+const inline static Glib::ustring TAG_INVISIBLE_PREFIX      {"invisible_"};
 const inline static gchar* TAG_FAMILY              {"family"};
+const inline static Glib::ustring TAG_FAMILY_PREFIX         {"family_"};
 const inline static gchar* TAG_JUSTIFICATION       {"justification"};
+const inline static Glib::ustring TAG_JUSTIFICATION_PREFIX  {"justification_"};
 const inline static gchar* TAG_LINK                {"link"};
+const inline static Glib::ustring TAG_LINK_PREFIX           {"link_"};
 const inline static gchar* TAG_SEPARATOR           {"separator"};
 const inline static gchar* TAG_SEPARATOR_ANSI_REPR {"---------"};
 
