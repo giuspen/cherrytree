@@ -73,14 +73,47 @@ void CtClipboard::_cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
     if (text_buffer->get_has_selection()) {
         Gtk::TextIter iter_sel_start, iter_sel_end;
         text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
-        int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
-        if ((pCodebox or _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) and
-            num_chars > 30000)
-        {
+        const int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
+        const CtTreeIter ctTreeIter = _pCtMainWin->curr_tree_iter();
+        const bool isRichText = ctTreeIter.get_node_is_rich_text();
+        if ((pCodebox or not isRichText) and num_chars > 30000) {
             spdlog::warn("cut-clipboard not overridden for num_chars {}", num_chars);
         }
         else {
             g_signal_stop_emission_by_name(G_OBJECT(pTextView->gobj()), "cut-clipboard");
+            if (isRichText and '\n' == iter_sel_end.get_char()) {
+                Gtk::TextIter iter_tmp = iter_sel_end;
+                if (iter_tmp.backward_char()) {
+                    Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = iter_tmp.get_child_anchor();
+                    if (pChildAnchor) {
+                        CtAnchoredWidget* pCtAnchoredWidget = ctTreeIter.get_anchored_widget(pChildAnchor);
+                        if (pCtAnchoredWidget) {
+                            auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
+                            if (pCtImageAnchor and
+                                0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name()) and
+                                CtAnchorExpCollState::Collapsed == pCtImageAnchor->get_exp_coll_state())
+                            {
+                                // we must include the hidden collapsed text in the copy
+                                const std::string tagPropVal{"h" + std::to_string(CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name()))};
+                                const std::string tagNameInvis = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
+                                Glib::RefPtr<Gtk::TextTag> pTextTagInvis = _pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
+                                if (iter_tmp.forward_to_tag_toggle(pTextTagInvis)) {
+                                    auto toggled_on = iter_tmp.get_toggled_tags(true/*toggled_on*/);
+                                    for (const auto& pCurrTag : toggled_on) {
+                                        if (pCurrTag->property_name() == tagNameInvis) {
+                                            // found the start as expected, now we need to move to the end
+                                            (void)iter_tmp.forward_to_tag_toggle(pTextTagInvis);
+                                            iter_sel_end = iter_tmp;
+                                            spdlog::debug("forwarded selection end to include collapsed section");
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             _selection_to_clipboard(text_buffer, pTextView, iter_sel_start, iter_sel_end, num_chars, pCodebox);
             if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error()) {
                 text_buffer->erase_selection(true, pTextView->get_editable());
@@ -108,14 +141,47 @@ void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
     if (text_buffer->get_has_selection()) {
         Gtk::TextIter iter_sel_start, iter_sel_end;
         text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
-        int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
-        if ((pCodebox or _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) and
-            num_chars > 30000)
-        {
+        const int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
+        const CtTreeIter ctTreeIter = _pCtMainWin->curr_tree_iter();
+        const bool isRichText = ctTreeIter.get_node_is_rich_text();
+        if ((pCodebox or not isRichText) and num_chars > 30000) {
             spdlog::warn("copy-clipboard not overridden for num_chars {}", num_chars);
         }
         else {
             g_signal_stop_emission_by_name(G_OBJECT(pTextView->gobj()), "copy-clipboard");
+            if (isRichText and '\n' == iter_sel_end.get_char()) {
+                Gtk::TextIter iter_tmp = iter_sel_end;
+                if (iter_tmp.backward_char()) {
+                    Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = iter_tmp.get_child_anchor();
+                    if (pChildAnchor) {
+                        CtAnchoredWidget* pCtAnchoredWidget = ctTreeIter.get_anchored_widget(pChildAnchor);
+                        if (pCtAnchoredWidget) {
+                            auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
+                            if (pCtImageAnchor and
+                                0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name()) and
+                                CtAnchorExpCollState::Collapsed == pCtImageAnchor->get_exp_coll_state())
+                            {
+                                // we must include the hidden collapsed text in the copy
+                                const std::string tagPropVal{"h" + std::to_string(CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name()))};
+                                const std::string tagNameInvis = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
+                                Glib::RefPtr<Gtk::TextTag> pTextTagInvis = _pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
+                                if (iter_tmp.forward_to_tag_toggle(pTextTagInvis)) {
+                                    auto toggled_on = iter_tmp.get_toggled_tags(true/*toggled_on*/);
+                                    for (const auto& pCurrTag : toggled_on) {
+                                        if (pCurrTag->property_name() == tagNameInvis) {
+                                            // found the start as expected, now we need to move to the end
+                                            (void)iter_tmp.forward_to_tag_toggle(pTextTagInvis);
+                                            iter_sel_end = iter_tmp;
+                                            spdlog::debug("forwarded selection end to include collapsed section");
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             _selection_to_clipboard(text_buffer, pTextView, iter_sel_start, iter_sel_end, num_chars, pCodebox);
         }
     }
