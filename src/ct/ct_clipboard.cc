@@ -265,7 +265,7 @@ void CtClipboard::table_row_to_clipboard(CtTableCommon* pTable)
     pTable->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr, std::string{});
     clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(pTable);
 
-    _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0]}, clip_data);
+    _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0], CtConst::TARGETS_HTML[1]}, clip_data);
 }
 
 void CtClipboard::table_row_paste(CtTableCommon* pTable)
@@ -287,7 +287,7 @@ void CtClipboard::table_column_to_clipboard(CtTableCommon* pTable)
     pTable->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr, std::string{});
     clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(pTable);
 
-    _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0]}, clip_data);
+    _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0], CtConst::TARGETS_HTML[1]}, clip_data);
 }
 
 void CtClipboard::table_column_paste(CtTableCommon* pTable)
@@ -440,7 +440,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 clip_data->html_text = CtExport2Html{_pCtMainWin}.table_export_to_html(table);
                 clip_data->plain_text = CtExport2Txt{_pCtMainWin}.get_table_plain(table);
 
-                _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
+                _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0], CtConst::TARGETS_HTML[1], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
             else if (auto codebox = dynamic_cast<CtCodebox*>(widget_vector.front())) {
@@ -453,7 +453,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 else {
                     clip_data->plain_text = CtExport2Txt{_pCtMainWin}.get_codebox_plain(codebox);
                 }
-                _set_clipboard_data({CtConst::TARGET_CTD_CODEBOX, CtConst::TARGETS_HTML[0], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
+                _set_clipboard_data({CtConst::TARGET_CTD_CODEBOX, CtConst::TARGETS_HTML[0], CtConst::TARGETS_HTML[1], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
         }
