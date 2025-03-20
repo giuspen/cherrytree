@@ -275,7 +275,8 @@ void CtActions::preferences_import()
     _pCtConfig->codeboxLineNum = ctConfigImported.codeboxLineNum;
     _pCtConfig->codeboxMatchBra = ctConfigImported.codeboxMatchBra;
     _pCtConfig->codeboxSynHighl = ctConfigImported.codeboxSynHighl;
-    _pCtConfig->codeboxAutoResize = ctConfigImported.codeboxAutoResize;
+    _pCtConfig->codeboxAutoResizeH = ctConfigImported.codeboxAutoResizeH;
+    _pCtConfig->codeboxAutoResizeW = ctConfigImported.codeboxAutoResizeW;
     _pCtConfig->codeboxWithToolbar = ctConfigImported.codeboxWithToolbar;
     _pCtConfig->tableRows = ctConfigImported.tableRows;
     _pCtConfig->tableColumns = ctConfigImported.tableColumns;

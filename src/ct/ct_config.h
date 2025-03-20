@@ -184,7 +184,8 @@ public:
     bool                                        codeboxLineNum{false};
     bool                                        codeboxMatchBra{true};
     std::string                                 codeboxSynHighl{CtConst::PLAIN_TEXT_ID};
-    bool                                        codeboxAutoResize{true};
+    bool                                        codeboxAutoResizeH{true};
+    bool                                        codeboxAutoResizeW{false};
     bool                                        codeboxWithToolbar{true};
 
     // [table]

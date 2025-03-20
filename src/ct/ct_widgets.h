@@ -90,6 +90,7 @@ protected:
 
 protected:
     CtMainWin* _pCtMainWin;
+    CtConfig* _pCtConfig;
     int _charOffset;
     std::string _justification;
     Gtk::Frame _frame;

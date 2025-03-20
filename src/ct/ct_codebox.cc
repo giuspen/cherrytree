@@ -140,20 +140,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
 {
     _ctTextview.mm().get_style_context()->add_class("ct-codebox");
     _ctTextview.mm().set_border_width(1);
-
-    if (not _pCtMainWin->get_ct_config()->codeboxAutoResize) {
-        if (_frameHeight < MIN_SCROLL_HEIGHT) { /* overwise not possible to have 20 px height*/
-            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
-        }
-        else {
-            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-        }
-    }
-    else {
-        _scrolledwindow.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
-        _ctTextview.mm().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
-    }
-
+    _set_scrollbars_policies();
     _scrolledwindow.add(_ctTextview.mm());
     _hbox.pack_start(_scrolledwindow, true/*expand*/, true/*fill*/);
     _toolbar.get_style_context()->add_class("ct-cboxtoolbar");
@@ -189,12 +176,12 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         return false;
     });
     _scrolledwindow.get_vscrollbar()->signal_value_changed().connect([this](){
-        if (_pCtMainWin->get_ct_config()->codeboxAutoResize) {
+        if (_pCtConfig->codeboxAutoResizeH) {
             _scrolledwindow.get_vscrollbar()->set_value(0);
         }
     });
     _scrolledwindow.get_hscrollbar()->signal_value_changed().connect([this](){
-        if (_pCtMainWin->get_ct_config()->codeboxAutoResize) {
+        if (_pCtConfig->codeboxAutoResizeW) {
             _scrolledwindow.get_hscrollbar()->set_value(0);
         }
     });
@@ -222,10 +209,23 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     });
 }
 
+void CtCodebox::_set_scrollbars_policies()
+{
+    const Gtk::PolicyType hscrollbar_policy = _pCtConfig->codeboxAutoResizeW ? Gtk::POLICY_NEVER :
+        Gtk::POLICY_AUTOMATIC;
+    const Gtk::PolicyType vscrollbar_policy = _pCtConfig->codeboxAutoResizeH ? Gtk::POLICY_NEVER :
+        /* overwise not possible to have 20 px height*/
+        (_frameHeight < MIN_SCROLL_HEIGHT ? Gtk::POLICY_EXTERNAL : Gtk::POLICY_AUTOMATIC);
+    _scrolledwindow.set_policy(hscrollbar_policy, vscrollbar_policy);
+    const Gtk::WrapMode wrap_mode = _pCtConfig->codeboxAutoResizeW or not _pCtConfig->lineWrapping ?
+        Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR;
+    _ctTextview.mm().set_wrap_mode(wrap_mode);
+}
+
 void CtCodebox::update_toolbar_buttons()
 {
     _toolbar.foreach([this](Gtk::Widget& widget){ _toolbar.remove(widget); });
-    if (_pCtMainWin->get_ct_config()->codeboxWithToolbar) {
+    if (_pCtConfig->codeboxWithToolbar) {
         _toolbar.set_tooltip_text(_syntaxHighlighting);
         if (CtConst::PLAIN_TEXT_ID != _syntaxHighlighting) {
             const std::string label_n_tooltip = fmt::format("[{}] - {}", _syntaxHighlighting, _("Execute Code"));
@@ -320,11 +320,8 @@ void CtCodebox::set_width_height(int newWidth, int newHeight)
     }
     if (newHeight) {
         _frameHeight = newHeight;
-        if (!_pCtMainWin->get_ct_config()->codeboxAutoResize) {
-            if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
-                _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
-            else
-                _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+        if (not _pCtConfig->codeboxAutoResizeH) {
+            _set_scrollbars_policies();
         }
     }
     apply_width_height(_pCtMainWin->get_text_view().mm().get_allocation().get_width());
@@ -377,7 +374,7 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
         auto text_buffer = _ctTextview.get_buffer();
         if (not text_buffer->get_has_selection()) {
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
-            CtListInfo list_info = CtList{_pCtMainWin->get_ct_config(), text_buffer}.get_paragraph_list_info(iter_insert);
+            CtListInfo list_info = CtList{_pCtConfig, text_buffer}.get_paragraph_list_info(iter_insert);
             bool backward = event->state & Gdk::SHIFT_MASK;
             if (list_info) {
                 if (backward and list_info.level) {

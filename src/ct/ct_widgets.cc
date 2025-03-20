@@ -73,6 +73,7 @@ const double CtTextView::TEXT_SCROLL_MARGIN{0.1}; // margin as a [0.0,0.5] fract
 
 CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification)
  : _pCtMainWin{pCtMainWin}
+ , _pCtConfig{pCtMainWin->get_ct_config()}
  , _charOffset{charOffset}
  , _justification{justification}
 {

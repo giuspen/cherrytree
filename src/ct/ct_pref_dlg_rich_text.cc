@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_rich_text.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -53,8 +53,17 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_rt_highl_curr_line->set_active(_pConfig->rtHighlCurrLine);
     auto checkbutton_rt_highl_match_bra = Gtk::manage(new Gtk::CheckButton{_("Highlight Matching Brackets")});
     checkbutton_rt_highl_match_bra->set_active(_pConfig->rtHighlMatchBra);
-    auto checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton{_("Expand CodeBoxes Automatically")});
-    checkbutton_codebox_auto_resize->set_active(_pConfig->codeboxAutoResize);
+
+    auto hbox_codeboxes_auto_resize = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_codeboxes_auto_resize = Gtk::manage(new Gtk::Label{_("Expand CodeBoxes Automatically")});
+    auto checkbutton_codebox_auto_resize_W = Gtk::manage(new Gtk::CheckButton{_("Width")});
+    checkbutton_codebox_auto_resize_W->set_active(_pConfig->codeboxAutoResizeW);
+    auto checkbutton_codebox_auto_resize_H = Gtk::manage(new Gtk::CheckButton{_("Height")});
+    checkbutton_codebox_auto_resize_H->set_active(_pConfig->codeboxAutoResizeH);
+    hbox_codeboxes_auto_resize->pack_start(*label_codeboxes_auto_resize, false, false);
+    hbox_codeboxes_auto_resize->pack_start(*checkbutton_codebox_auto_resize_W, false, false);
+    hbox_codeboxes_auto_resize->pack_start(*checkbutton_codebox_auto_resize_H, false, false);
+
     auto checkbutton_codebox_with_toolbar = Gtk::manage(new Gtk::CheckButton{_("CodeBoxes Have Toolbar")});
     checkbutton_codebox_with_toolbar->set_active(_pConfig->codeboxWithToolbar);
 
@@ -99,7 +108,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
-    vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
+    vbox_misc_text->pack_start(*hbox_codeboxes_auto_resize, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_with_toolbar, false, false);
     vbox_misc_text->pack_start(*hbox_table_cells_to_light, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
@@ -153,8 +162,12 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
             win->reapply_syntax_highlighting('t'/*Table*/);
         });
     });
-    checkbutton_codebox_auto_resize->signal_toggled().connect([this, checkbutton_codebox_auto_resize](){
-        _pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
+    checkbutton_codebox_auto_resize_W->signal_toggled().connect([this, checkbutton_codebox_auto_resize_W](){
+        _pConfig->codeboxAutoResizeW = checkbutton_codebox_auto_resize_W->get_active();
+        need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
+    });
+    checkbutton_codebox_auto_resize_H->signal_toggled().connect([this, checkbutton_codebox_auto_resize_H](){
+        _pConfig->codeboxAutoResizeH = checkbutton_codebox_auto_resize_H->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
     });
     checkbutton_codebox_with_toolbar->signal_toggled().connect([this, checkbutton_codebox_with_toolbar](){

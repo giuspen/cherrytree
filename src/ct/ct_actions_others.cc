@@ -631,7 +631,7 @@ void CtActions::codebox_increase_width()
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameWidth = curr_codebox_anchor->get_frame_width();
     if (curr_codebox_anchor->get_width_in_pixels()) {
-        if (_pCtConfig->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().mm().get_allocated_width() ) {
+        if (_pCtConfig->codeboxAutoResizeW and prevFrameWidth < curr_codebox_anchor->get_text_view().mm().get_allocated_width() ) {
             prevFrameWidth = curr_codebox_anchor->get_text_view().mm().get_allocated_width();
         }
         curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
@@ -668,7 +668,7 @@ void CtActions::codebox_increase_height()
     if (not _is_there_anch_widg_selection_or_error('c')) return;
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameHeight = curr_codebox_anchor->get_frame_height();
-    if (_pCtConfig->codeboxAutoResize and prevFrameHeight < curr_codebox_anchor->get_text_view().mm().get_allocated_height() ) {
+    if (_pCtConfig->codeboxAutoResizeH and prevFrameHeight < curr_codebox_anchor->get_text_view().mm().get_allocated_height() ) {
         prevFrameHeight = curr_codebox_anchor->get_text_view().mm().get_allocated_height();
     }
     curr_codebox_anchor->set_width_height(0, prevFrameHeight + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);

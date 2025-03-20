@@ -1,7 +1,7 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -100,6 +100,7 @@ public:
 
 private:
     bool _on_key_press_event(GdkEventKey* event);
+    void _set_scrollbars_policies();
 
 private:
     int _frameWidth;
