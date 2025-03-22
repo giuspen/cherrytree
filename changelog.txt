@@ -1,3 +1,16 @@
+1.4.0 (March 22nd, 2025)
+  * password protected archives, enhanced encryption strength (7zip AES, work of @vitusb, from original report/patch to 7zip of @3lbios, #2211)
+  * collapsible headers, the collapsible section must not contain a bigger header, only smaller headers (#2389)
+  * collapsible headers, expand automatically when moving a row of text up/down into a collapsed secion (#2389)
+  * collapsible headers, changed expanded/collapsed icon to arrows (#2389)
+  * collapsible headers, when copy/cut a collapsed header ensure that the hidden section is also set in the clipboard (#2389)
+  * remove text formtting to also remove TOC anchors (#2389)
+  * fixed on windows copy table and paste into microsoft word results in plain text paste
+  * settings to expand codeboxes automatically now separated for width and height
+  * increased default height of the dialogs to select an element from a list
+  * updated languages ja, kk_KZ, kk_LA, ru, zh_TW
+  * incomplete languages: ar, fa, fi, hi_IN, hr, ko, lt, nl, pt, sv, zh_CN (want to help and update one? write me https://www.giuspen.net/feedback/)
+
 1.3.0 (February 6th, 2025)
   * insert image dialog, added support for cropping (#2626, work of @Uks2)
   * implemented table column cut/copy/paste (#2542)
