@@ -259,7 +259,8 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
                                                           _("Language"),
                                                           rItemStore,
                                                           nullptr/*single_column_name*/,
-                                                          std::to_string(pathSelectIdx));
+                                                          std::to_string(pathSelectIdx),
+                                                          std::make_pair(200, _pConfig->winRect[3]));
         if (res) {
             const Glib::ustring selLangId = res->get_value(rItemStore->columns.key);
             button_country_language->set_label(f_getButtonLabel(selLangId));

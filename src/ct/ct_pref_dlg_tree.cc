@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_tree.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -166,8 +166,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
         auto res = CtDialogs::choose_item_dialog(*this,
                                                  _("Select Node Icon"),
                                                  itemStore,
-                                                 nullptr,
-                                                 std::to_string(pathSelectIdx));
+                                                 nullptr/*single_column_name*/,
+                                                 std::to_string(pathSelectIdx),
+                                                 std::make_pair(200, _pConfig->winRect[3]));
         if (res) {
             _pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
             c_icon_button->set_image(*_pCtMainWin->new_managed_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));

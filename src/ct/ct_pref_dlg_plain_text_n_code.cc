@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_plain_text_n_code.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -284,7 +284,12 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
             itemStore->add_row(_pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
         }
     }
-    const Gtk::TreeIter treeIterChosen = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
+    const Gtk::TreeIter treeIterChosen = CtDialogs::choose_item_dialog(*this,
+                                                                       _("Select Element to Add"),
+                                                                       itemStore,
+                                                                       nullptr/*single_column_name*/,
+                                                                       "0",
+                                                                       std::make_pair(200, _pConfig->winRect[3]));
     if (treeIterChosen) {
         const auto code_type = treeIterChosen->get_value(itemStore->columns.desc);
         Gtk::TreeIter newTreeIter;

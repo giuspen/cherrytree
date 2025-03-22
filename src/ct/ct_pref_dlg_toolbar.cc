@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_toolbar.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -157,7 +157,12 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
         itemStore->add_row(action.image, id, action.desc);
     }
 
-    auto chosen_row = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
+    auto chosen_row = CtDialogs::choose_item_dialog(*this,
+                                                    _("Select Element to Add"),
+                                                    itemStore,
+                                                    nullptr/*single_column_name*/,
+                                                    "0",
+                                                    std::make_pair(500, _pConfig->winRect[3]));
     if (chosen_row) {
         auto selected_row = treeview->get_selection()->get_selected();
         auto new_row = selected_row ? model->insert_after(*selected_row) : model->append();

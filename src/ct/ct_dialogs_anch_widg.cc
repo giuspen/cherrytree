@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_anch_widg.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -497,7 +497,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     pContentArea->pack_start(options_frame);
     pContentArea->show_all();
 
-    button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog, pCtMainWin](){
+    button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog, pCtMainWin, pConfig](){
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
         unsigned pathSelectIdx{0};
         unsigned pathCurrIdx{0};
@@ -514,7 +514,8 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
                                                           _("Automatic Syntax Highlighting"),
                                                           rItemStore,
                                                           nullptr/*single_column_name*/,
-                                                          std::to_string(pathSelectIdx));
+                                                          std::to_string(pathSelectIdx),
+                                                          std::make_pair(200, pConfig->winRect[3]));
         if (res) {
             const Glib::ustring syntax_hl_id = res->get_value(rItemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);

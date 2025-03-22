@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_gen_purp.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -74,7 +74,8 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
                                             const Glib::ustring& title,
                                             Glib::RefPtr<CtChooseDialogListStore> rModel,
                                             const gchar* single_column_name/*= nullptr*/,
-                                            const std::string& pathToSelect/*= "0"*/)
+                                            const std::string& pathToSelect/*= "0"*/,
+                                            std::optional<std::pair<int,int>> use_size/*= std::nullopt*/)
 {
     Gtk::Dialog dialog{title,
                        parent,
@@ -84,7 +85,16 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(400, 300);
+    int use_width, use_height;
+    if (use_size.has_value()) {
+        use_width = use_size.value().first;
+        use_height = use_size.value().second;
+    }
+    else {
+        parent.get_size(use_width, use_height);
+        use_width = 200;
+    }
+    dialog.set_default_size(use_width, use_height);
     auto pScrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
     pScrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     auto pElementsTreeview = Gtk::manage(new Gtk::TreeView{rModel});

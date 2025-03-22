@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_tree.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -185,7 +185,8 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                                                      _("Automatic Syntax Highlighting"),
                                                                      rItemStore,
                                                                      nullptr/*single_column_name*/,
-                                                                     std::to_string(pathSelectIdx));
+                                                                     std::to_string(pathSelectIdx),
+                                                                     std::make_pair(200, pCtMainWin->get_ct_config()->winRect[3]));
         if (treeIter) {
             const Glib::ustring syntax_hl_id = treeIter->get_value(rItemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
@@ -249,7 +250,8 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                                                      _("Select Node Icon"),
                                                                      itemStore,
                                                                      nullptr/*single_column_name*/,
-                                                                     std::to_string(pathSelectIdx));
+                                                                     std::to_string(pathSelectIdx),
+                                                                     std::make_pair(200, pCtMainWin->get_ct_config()->winRect[3]));
         if (treeIter) {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
             currCustomIconId = nodeData.customIconId;
