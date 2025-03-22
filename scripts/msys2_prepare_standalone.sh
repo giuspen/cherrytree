@@ -16,7 +16,7 @@ GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
 OLD_MINGW64_FOLDER="/mingw64"
 DOWNGRADE_PACKAGE_LOCATION="http://repo.msys2.org/mingw/x86_64"
-DOWNGRADE_PACKAGE_NAME="mingw-w64-x86_64-gtk3-3.24.43-1-any.pkg.tar.zst"
+DOWNGRADE_PACKAGE_NAME=""
 
 if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
 then
@@ -61,7 +61,7 @@ for element_rel in dvipng.exe \
                    librav1e.dll \
                    libde265-0.dll \
                    libx265-215.dll \
-                   libSvtAv1Enc-2.dll \
+                   libSvtAv1Enc-3.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
                    libopenjph-0.21.dll \
@@ -290,7 +290,7 @@ for element_rel in dvipng.exe \
                    librav1e.dll \
                    libde265-0.dll \
                    libx265-215.dll \
-                   libSvtAv1Enc-2.dll \
+                   libSvtAv1Enc-3.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
                    libopenjph-0.21.dll \
