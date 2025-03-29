@@ -538,6 +538,9 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_arrow-right",       // 250
     "ct_arrow-down",        // 251
     "ct_arrow-up",          // 252
+    "ct_jenkins",           // 253
+    "ct_postgresql",        // 254
+    "ct_spring-boot",       // 255
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -558,15 +561,15 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     157/*bike*/, 161/*car*/, 160/*bus*/, 242/*ship*/, 203/*airplane*/, 239/*rocket*/,
     169/*food*/, 170/*hamburger*/, 174/*pizza*/, 232/*mushroom*/, 223/*green_apple*/, 213/*coffee beans*/, 226/*hot_drink*/,
     162/*cellphone*/, 175/*telephone*/,
-    102/*globe*/, 230/*map_marker*/, 103/*server*/, 163/*cloud*/, 216/*download*/, 143/*db*/, 146/*keys*/, 241/*shield*/,
+    102/*globe*/, 230/*map_marker*/, 103/*server*/, 163/*cloud*/, 216/*download*/, 143/*db*/, 254/*postgresql*/, 146/*keys*/, 241/*shield*/,
     202/*bulb*/, 176/*wifi*/, 177/*antenna*/, 158/*bluetooth*/,
     105/*painting*/, 106/*puzzle*/, 107/*shopping*/, 108/*heart*/,
     168/*female*/, 173/*male*/, 42/*people*/, 109/*smile*/, 110/*smile cool*/, 111/*smile surpr*/, 112/*skull*/, 126/*ghost*/,
     /*os start*/115, 116, 117, 118, 172/*linuxmint*/, 218/*fedora*/, 119/*freebsd*/, 205/*android*/, 120, 121, 156/*os end*/,
     133/*microchip*/, 164/*computer*/, 165/*display*/, 166/*drive hd*/, 167/*drive usb*/,
-    /*coding start*/222/*git*/, 243/*stackoverflow*/, 181, 17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114,
+    /*coding start*/222/*git*/, 243/*stackoverflow*/, 181/*bug*/, 255/*spring-boot*/, 17, 21, 22, 23, 24, 178, 180, 38, 46, 47, 48, 49, 140, 114,
     184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201/*coding end*/,
-    /*devops start*/134, 135, 136, 137, 138, 139, 182, 183, 245/*devops end*/,
+    /*devops start*/134, 135, 136, 137, 138, 139, 182, 183, 245, 253/*devops end*/,
     /*weather start*/147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
     25/*bullet*/, 26/*noicon*/, 209/*bullseye*/, 220/*four_leaf_clover*/, 236/*pool_8_ball*/,
