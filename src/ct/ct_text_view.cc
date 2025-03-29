@@ -182,9 +182,13 @@ int CtTextView::expand_collapsed_anchors(const int offset,
     if (not pTextBuffer) {
         pTextBuffer = get_buffer();
     }
-    Gtk::TextIter iterCurr = pTextBuffer->get_iter_at_offset(offset + delta);
-    if (not iterCurr) {
-        return false;
+    int curr_offset = offset + delta;
+    Gtk::TextIter iterCurr;
+    while (not (iterCurr = pTextBuffer->get_iter_at_offset(curr_offset))) {
+        --curr_offset;
+        if (curr_offset < offset) {
+            return 0;
+        }
     }
     int expandedHeaders{0};
     while (iterCurr.get_offset() >= offset) {

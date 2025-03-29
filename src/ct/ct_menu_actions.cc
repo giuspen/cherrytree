@@ -1,7 +1,7 @@
 /*
  * ct_menu_actions.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -292,6 +292,10 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Indent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_indent)});
         _actions.push_back(CtMenuAction{fmt_cat, "fmt_unindent", "ct_fmt-unindent", _("_Unindent Paragraph"), KB_CONTROL+"less",
             _("Unindent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::reduce_tag_indent)});
+        _actions.push_back(CtMenuAction{fmt_cat, "head_expand", "ct_arrow-down", _("_Expand TOC Headers"), None,
+            _("Expand TOC Headers"), sigc::mem_fun(*pActions, &CtActions::headers_toc_expand)});
+        _actions.push_back(CtMenuAction{fmt_cat, "head_collapse", "ct_arrow-left", _("_Collapse TOC Headers"), None,
+            _("Collapse TOC Headers"), sigc::mem_fun(*pActions, &CtActions::headers_toc_collapse)});
     }
     {
         const char* tools_cat = _("Tools");

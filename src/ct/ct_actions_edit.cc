@@ -710,6 +710,50 @@ void CtActions::text_row_selection_duplicate()
     _pCtMainWin->get_state_machine().update_state();
 }
 
+void CtActions::headers_toc_expand()
+{
+    auto pTextBuffer = _curr_buffer();
+    if (not pTextBuffer) return;
+    CtTextRange range = CtList{_pCtConfig, pTextBuffer}.get_paragraph_iters();
+    const int start_offset = range.iter_start.get_offset();
+    const int end_offset = range.iter_end.get_offset();
+    //spdlog::debug("{}->{}", start_offset, end_offset);
+    CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+    std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(start_offset, end_offset);
+    for (CtAnchoredWidget* pWidget : widgets) {
+        if (auto pAnchor = dynamic_cast<CtImageAnchor*>(pWidget)) {
+            const Glib::ustring& anchorName = pAnchor->get_anchor_name();
+            const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+            if (0 != headerNum and CtAnchorExpCollState::Collapsed == pAnchor->get_exp_coll_state()) {
+                spdlog::debug("--> anchor {}", anchorName.c_str());
+                pAnchor->toggle_exp_coll_state();
+            }
+        }
+    }
+}
+
+void CtActions::headers_toc_collapse()
+{
+    auto pTextBuffer = _curr_buffer();
+    if (not pTextBuffer) return;
+    CtTextRange range = CtList{_pCtConfig, pTextBuffer}.get_paragraph_iters();
+    const int start_offset = range.iter_start.get_offset();
+    const int end_offset = range.iter_end.get_offset();
+    //spdlog::debug("{}->{}", start_offset, end_offset);
+    CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+    std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets(start_offset, end_offset);
+    for (CtAnchoredWidget* pWidget : widgets) {
+        if (auto pAnchor = dynamic_cast<CtImageAnchor*>(pWidget)) {
+            const Glib::ustring& anchorName = pAnchor->get_anchor_name();
+            const int headerNum = CtStrUtil::is_header_anchor_name(anchorName);
+            if (0 != headerNum and CtAnchorExpCollState::Expanded == pAnchor->get_exp_coll_state()) {
+                spdlog::debug("--> anchor {}", anchorName.c_str());
+                pAnchor->toggle_exp_coll_state();
+            }
+        }
+    }
+}
+
 // Moves Up the Current Row/Selected Rows
 void CtActions::text_row_up()
 {

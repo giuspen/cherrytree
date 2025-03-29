@@ -334,6 +334,8 @@ public:
     void apply_tag_strikethrough();
     void apply_tag_indent();
     void reduce_tag_indent();
+    void headers_toc_expand();
+    void headers_toc_collapse();
     void apply_tag_h1() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H1); }
     void apply_tag_h2() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H2); }
     void apply_tag_h3() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H3); }

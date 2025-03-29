@@ -277,6 +277,9 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='fmt_indent'/>
     <menuitem action='fmt_unindent'/>
     <separator/>
+    <menuitem action='head_expand'/>
+    <menuitem action='head_collapse'/>
+    <separator/>
     <menu action='JustifySubMenu'>
       <menuitem action='fmt_justify_left'/>
       <menuitem action='fmt_justify_center'/>
@@ -447,6 +450,9 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <separator/>
     <menuitem action='fmt_indent'/>
     <menuitem action='fmt_unindent'/>
+    <separator/>
+    <menuitem action='head_expand'/>
+    <menuitem action='head_collapse'/>
     <separator/>
     <menu action='JustifySubMenu'>
       <menuitem action='fmt_justify_left'/>
