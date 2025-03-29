@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_sel_node.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -32,7 +32,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
     struct CtPaletteColumns : public Gtk::TreeModelColumnRecord
     {
         Gtk::TreeModelColumn<int>           order;
-        Gtk::TreeModelColumn<gint64> id;
+        Gtk::TreeModelColumn<gint64>        id;
         Gtk::TreeModelColumn<Glib::ustring> path;
         Gtk::TreeModelColumn<Glib::ustring> label;
         CtPaletteColumns() { add(order); add(id); add(path); add(label); }
@@ -51,12 +51,12 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         score++;
         if (CtStrUtil::contains_words(label, filter_words)) return score;
         score++;
-        if (CtStrUtil::contains_words(label, filter_words, false)) return score;
+        if (CtStrUtil::contains_words(label, filter_words, false/*require_all*/)) return score;
         score++;
         if (CtStrUtil::contains_words(path, filter_words)) return score;
         score++;
-        if (CtStrUtil::contains_words(path, filter_words, false)) return score;
-         return -1;
+        if (CtStrUtil::contains_words(path, filter_words, false/*require_all*/)) return score;
+        return -1;
     };
 
     auto list_store = Gtk::ListStore::create(columns);

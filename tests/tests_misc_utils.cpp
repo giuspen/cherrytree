@@ -640,3 +640,11 @@ TEST(MiscUtilsGroup, gtk_pango_find_start_of_dir)
     ASSERT_EQ(8, CtStrUtil::gtk_pango_find_start_of_dir("Test 123" "עִבְרִית", PANGO_DIRECTION_RTL));
     ASSERT_EQ(16, CtStrUtil::gtk_pango_find_start_of_dir("עִבְרִית" "Test 123", PANGO_DIRECTION_LTR));
 }
+
+TEST(MiscUtilsGroup, contains_words)
+{
+    ASSERT_TRUE(CtStrUtil::contains_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"due"}, Glib::ustring{"tre"}}));
+    ASSERT_FALSE(CtStrUtil::contains_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"tre"}, Glib::ustring{"quattro"}}));
+    ASSERT_TRUE(CtStrUtil::contains_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"tre"}, Glib::ustring{"quattro"}}, false/*require_all*/));
+    ASSERT_FALSE(CtStrUtil::contains_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"quattro"}, Glib::ustring{"cinque"}}, false/*require_all*/));
+}

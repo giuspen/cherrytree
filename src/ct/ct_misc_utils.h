@@ -206,13 +206,13 @@ gchar** vector_to_array(const std::vector<std::string>& inVec);
 template<class type>
 int custom_compare(const type& str, const gchar* el)
 {
-   return g_strcmp0(str, el);
+    return g_strcmp0(str, el);
 }
 
 template<>
 inline int custom_compare<std::string_view>(const std::string_view& str, const gchar* el)
 {
-   return g_strcmp0(str.data(), el);
+    return g_strcmp0(str.data(), el);
 }
 
 template<class container>
@@ -227,16 +227,17 @@ bool contains(const container& array, const gchar* el)
 template<class String>
 bool contains_words(const String& text, const std::vector<String>& words, bool require_all = true)
 {
-    for (auto& word: words) {
+    for (auto& word : words) {
         if (text.find(word) != String::npos) {
-            if (!require_all)
+            if (not require_all) {
                 return true;
-            } else if (require_all) {
-                return false;
             }
         }
-
-  return require_all;
+        else if (require_all) {
+            return false;
+        }
+    }
+    return require_all;
 }
 
 // https://stackoverflow.com/questions/642213/how-to-implement-a-natural-sort-algorithm-in-c
