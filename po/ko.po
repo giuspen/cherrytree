@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
-"PO-Revision-Date: 2025-01-25 10:58+0900\n"
+"POT-Creation-Date: 2025-01-26 15:17+0000\n"
+"PO-Revision-Date: 2025-03-28 20:16+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.5\n"
 
 msgid "CherryTree File"
 msgstr "CherryTree 파일"
@@ -720,6 +720,21 @@ msgstr "북마크를 오름차순으로 정렬"
 
 msgid "Choose Storage Type"
 msgstr "저장소 유형을 선택"
+
+msgid "Single SQLite File"
+msgstr "단일 SQLite 파일"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "단일 SQLite 파일, 7-zip 암호화 및 비밀번호 설정"
+
+msgid "Single XML File"
+msgstr "단일 XML 파일"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "단일 XML 파일, 7-zip 암호화 및 비밀번호 설정"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "로컬에 직접 폴더와 파일 형태로 구성"
 
 msgid "Storage Type"
 msgstr "저장소 유형"

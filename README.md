@@ -66,7 +66,7 @@ The following languages are supported (If you want to help translating to your l
 – Japanese (ja, Piyo, up to date)
 – Kazakh (kk_KZ, Viktor Polyanskiy, up to date)
 – Kazakh (kk_LA, Latin, Viktor Polyanskiy, up to date)
-– Korean (ko, Sean Lee, TO BE UPDATED)
+– Korean (ko, Sean Lee, up to date)
 – Lithuanian (lt, TO BE UPDATED)
 – Persian (fa, Majid Abri, TO BE UPDATED)
 – Polish (pl, Mariusz Gasperaniec, up to date)
