@@ -933,12 +933,17 @@ int CtStrUtil::natural_compare(const Glib::ustring& left, const Glib::ustring& r
     return 0;
 }
 
-Glib::ustring CtStrUtil::highlight_words(const Glib::ustring& text, std::vector<Glib::ustring> words, const Glib::ustring& markup_tag /* = "b" */)
+Glib::ustring CtStrUtil::highlight_words(const Glib::ustring& text,
+                                         std::vector<Glib::ustring> words,
+                                         const Glib::ustring& markup_tag/*= "b"*/)
 {
-    if (words.empty())
+    if (words.empty()) {
         return str::xml_escape(text);
-    for (auto& word: words)
+    }
+
+    for (auto& word : words) {
         word = str::re_escape(word);
+    }
 
     // Build a regular expression of the form "(word1|word2|...)", matching any of the words.
     // The outer parentheses also define a capturing group, which is important (see below).
@@ -949,7 +954,7 @@ Glib::ustring CtStrUtil::highlight_words(const Glib::ustring& text, std::vector<
     // Regex.split also returns capturing group matches from the "delimiter",
     // and since the entire pattern is a capturing group, the result is all of the text,
     // split into matches and non-matches of words
-    for (auto part: regex->split(text)) {
+    for (auto part : regex->split(text)) {
         auto part_markup = str::xml_escape(part);
 
         // Note that while Regex.match looks for matches anywhere within a string,

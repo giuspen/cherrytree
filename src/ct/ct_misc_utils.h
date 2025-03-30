@@ -245,7 +245,9 @@ int natural_compare(const Glib::ustring& left, const Glib::ustring& right);
 
 // Returns a version of text in which all occurrences of words
 // are highlighted using Pango markup
-Glib::ustring highlight_words(const Glib::ustring& text, std::vector<Glib::ustring> words, const Glib::ustring& markup_tag = "b");
+Glib::ustring highlight_words(const Glib::ustring& text,
+                              std::vector<Glib::ustring> words,
+                              const Glib::ustring& markup_tag = "b");
 
 Glib::ustring get_accelerator_label(const std::string& accelerator);
 

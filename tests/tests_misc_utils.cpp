@@ -648,3 +648,10 @@ TEST(MiscUtilsGroup, contains_words)
     ASSERT_TRUE(CtStrUtil::contains_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"tre"}, Glib::ustring{"quattro"}}, false/*require_all*/));
     ASSERT_FALSE(CtStrUtil::contains_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"quattro"}, Glib::ustring{"cinque"}}, false/*require_all*/));
 }
+
+TEST(MiscUtilsGroup, highlight_words)
+{
+    ASSERT_STREQ("uno <b>due</b> <b>tre</b>", CtStrUtil::highlight_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"due"}, Glib::ustring{"tre"}}).c_str());
+    ASSERT_STREQ("uno <u>due</u> <u>tre</u>", CtStrUtil::highlight_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"due"}, Glib::ustring{"tre"}}, "u").c_str());
+    ASSERT_STREQ("uno <b>due</b> <b>tre</b>", CtStrUtil::highlight_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"tre"}, Glib::ustring{"due"}}).c_str());
+}

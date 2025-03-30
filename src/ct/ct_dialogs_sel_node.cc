@@ -93,24 +93,29 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         auto selection_color = style_context->get_background_color(Gtk::StateFlags::STATE_FLAG_SELECTED | Gtk::StateFlags::STATE_FLAG_FOCUSED);
         text_color.set_alpha(0.4);
 
-        auto append_column = [&](std::function<Glib::ustring(const Gtk::TreeIter& iter)> markup_function, bool align_right, Gdk::RGBA* text_color, double font_scale = 1) {
+        auto append_column = [&](std::function<Glib::ustring(const Gtk::TreeIter& iter)> markup_function,
+                                 bool align_right,
+                                 Gdk::RGBA* text_color,
+                                 double font_scale = 1.0)
+        {
             auto cell_renderer = Gtk::manage(new Gtk::CellRendererText());
             if (align_right) cell_renderer->property_xalign() = 1;
             if (text_color != nullptr) cell_renderer->property_foreground_rgba() = *text_color;
             cell_renderer->property_scale() = font_scale;
             auto column = Gtk::manage(new Gtk::TreeViewColumn());
             column->pack_start(*cell_renderer, true);
-            column->set_cell_data_func(*cell_renderer, [markup_function](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
+            column->set_cell_data_func(*cell_renderer,
+                                       [markup_function](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
                 ((Gtk::CellRendererText*)cell)->property_markup() = markup_function(iter);
             });
             tree_view.append_column(*column);
         };
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return "  " + CtStrUtil::highlight_words(iter->get_value(columns.path), filter_words) + "  ";
-        }, true, &text_color);
+        }, true/*align_right*/, &text_color);
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return CtStrUtil::highlight_words(iter->get_value(columns.label), filter_words);
-        }, false, nullptr, 1.4);
+        }, false/*align_right*/, nullptr, 1.4);
     });
 
     auto set_filter = [&] (const Glib::ustring& raw_filter) {
