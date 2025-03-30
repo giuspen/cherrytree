@@ -86,6 +86,10 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
     tree_view.set_model(tree_model_sort);
     tree_view.set_headers_visible(false);
 
+    int root_x, root_y, width_win, height_win;
+    pCtMainWin->get_position(root_x, root_y);
+    pCtMainWin->get_size(width_win, height_win);
+
     // The theme's style context is reliably available only after the widget has been realized
     tree_view.signal_realize().connect([&](){
         auto style_context = tree_view.get_style_context();
@@ -102,6 +106,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
             if (align_right) cell_renderer->property_xalign() = 1;
             if (text_color != nullptr) cell_renderer->property_foreground_rgba() = *text_color;
             cell_renderer->property_scale() = font_scale;
+            cell_renderer->property_wrap_width().set_value(width_win/2);
             auto column = Gtk::manage(new Gtk::TreeViewColumn());
             column->pack_start(*cell_renderer, true);
             column->set_cell_data_func(*cell_renderer,
@@ -118,22 +123,23 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         }, false/*align_right*/, nullptr, 1.4);
     });
 
-    auto set_filter = [&] (const Glib::ustring& raw_filter) {
-        filter = Glib::Regex::create("/\\s{2,}/")->replace(raw_filter.c_str(), -1, 0, " ");
+    auto set_filter = [&](const Glib::ustring& raw_filter) {
+        // replace 2+ spaces with 1 space, then split
+        filter = Glib::Regex::create("/\\s{2,}/")->replace(raw_filter.c_str(), -1/*string_len*/, 0/*start_position*/, " ");
         filter = str::trim(filter).lowercase();
         filter_words = str::split(filter, " ");
 
         tree_model_filter->refilter();
 
-        // TreeModelSort has no "resort" method, but reassigning the comparison function forces a resort
+        // TreeModelSort has no "re-sort" method, but reassigning the comparison function forces a re-sort
         tree_model_sort->set_default_sort_func([&](const Gtk::TreeIter& iter_a, const Gtk::TreeIter& iter_b) {
-          // "The sort function used by TreeModelSort is not guaranteed to be stable" (GTK+ documentation),
-          // so the original order of commands is needed as a tie-breaker
-          int id_difference = iter_a->get_value(columns.order) - iter_b->get_value(columns.order);
-          if (filter.empty()) return id_difference;
+            // "The sort function used by TreeModelSort is not guaranteed to be stable" (GTK+ documentation),
+            // so the original order of commands is needed as a tie-breaker
+            int id_difference = iter_a->get_value(columns.order) - iter_b->get_value(columns.order);
+            if (filter.empty()) return id_difference;
 
-          int score_difference = get_command_score(iter_a) - get_command_score(iter_b);
-          return (score_difference != 0) ? score_difference : id_difference;
+            int score_difference = get_command_score(iter_a) - get_command_score(iter_b);
+            return (score_difference != 0) ? score_difference : id_difference;
         });
     };
     auto scroll_to_selected_item = [&]() {
@@ -197,6 +203,10 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         select_first_item();
     });
 
+    popup_dialog.signal_size_allocate().connect([&](Gtk::Allocation& allocation){
+        popup_dialog.move(root_x + (width_win - allocation.get_width()) / 2, root_y + (height_win - allocation.get_height())/2 - 50);
+    });
+
     Gtk::TreeIter resulted_iter;
     auto run_command = [&] () {
         if (Gtk::TreeIter iter = tree_view.get_selection()->get_selected()) {
@@ -230,13 +240,6 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         return false;
     }, false);
     popup_dialog.show_all();
-
-    // WIN_POS_CENTER_ON_PARENT works badly, so
-    int root_x, root_y, height_1, width_1, height_2, width_2;
-    pCtMainWin->get_position(root_x, root_y);
-    pCtMainWin->get_size(width_1, height_1);
-    popup_dialog.get_size(width_2, height_2);
-    popup_dialog.move(root_x + (width_1 - width_2) / 2 - 150, root_y + (height_1 - height_2)/2 - 50);
 
     popup_dialog.run();
 
