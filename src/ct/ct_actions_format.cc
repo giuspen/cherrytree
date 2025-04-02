@@ -101,9 +101,10 @@ void CtActions::_remove_text_formatting(const bool dismiss_link)
         CtDialogs::warning_dialog(_("No Text is Selected."), *_pCtMainWin);
         return;
     }
-    CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+    CtTreeIter ctTreeIter = _pCtMainWin->curr_tree_iter();
     Gtk::TextIter iter_sel_start, iter_sel_end;
     pTextBuffer->get_selection_bounds(iter_sel_start, iter_sel_end);
+    (void)CtTextIterUtil::extend_selection_if_collapsed_text(iter_sel_end, ctTreeIter, _pCtMainWin);
 
     const int sel_start_offset = iter_sel_start.get_offset();
     const int sel_end_offset = iter_sel_end.get_offset();
@@ -134,7 +135,7 @@ void CtActions::_remove_text_formatting(const bool dismiss_link)
         }
         Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = it_sel_start.get_child_anchor();
         if (pChildAnchor) {
-            CtAnchoredWidget* pCtAnchoredWidget = treeIter.get_anchored_widget(pChildAnchor);
+            CtAnchoredWidget* pCtAnchoredWidget = ctTreeIter.get_anchored_widget(pChildAnchor);
             if (pCtAnchoredWidget) {
                 auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
                 if (pCtImageAnchor and 0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name())) {

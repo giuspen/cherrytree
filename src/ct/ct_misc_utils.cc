@@ -500,7 +500,9 @@ bool CtTextIterUtil::startswith_url(Gtk::TextIter text_iter)
     return false;
 }
 
-bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, const CtCurrAttributesMap& curr_attributes, CtCurrAttributesMap& delta_attributes)
+bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
+                                                 const CtCurrAttributesMap& curr_attributes,
+                                                 CtCurrAttributesMap& delta_attributes)
 {
     delta_attributes.clear();
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
@@ -607,6 +609,44 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
     if (curr_start_iter.compare(real_end_iter) < 0) {
         f_serialize_func(curr_start_iter, real_end_iter, curr_attributes, &curr_list_info);
     }
+}
+
+bool CtTextIterUtil::extend_selection_if_collapsed_text(Gtk::TextIter& iter_sel_end, const CtTreeIter& ctTreeIter, CtMainWin* pCtMainWin)
+{
+    if ('\n' == iter_sel_end.get_char()) {
+        Gtk::TextIter iter_tmp = iter_sel_end;
+        if (iter_tmp.backward_char()) {
+            Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = iter_tmp.get_child_anchor();
+            if (pChildAnchor) {
+                CtAnchoredWidget* pCtAnchoredWidget = ctTreeIter.get_anchored_widget(pChildAnchor);
+                if (pCtAnchoredWidget) {
+                    auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
+                    if (pCtImageAnchor and
+                        0 != CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name()) and
+                        CtAnchorExpCollState::Collapsed == pCtImageAnchor->get_exp_coll_state())
+                    {
+                        // we must include the hidden collapsed text in the copy
+                        const std::string tagPropVal{"h" + std::to_string(CtStrUtil::is_header_anchor_name(pCtImageAnchor->get_anchor_name()))};
+                        const std::string tagNameInvis = pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_INVISIBLE, tagPropVal);
+                        Glib::RefPtr<Gtk::TextTag> pTextTagInvis = pCtMainWin->get_text_tag_table()->lookup(tagNameInvis);
+                        if (iter_tmp.forward_to_tag_toggle(pTextTagInvis)) {
+                            const auto toggled_on = iter_tmp.get_toggled_tags(true/*toggled_on*/);
+                            for (const auto& pCurrTag : toggled_on) {
+                                if (pCurrTag->property_name() == tagNameInvis) {
+                                    // found the start as expected, now we need to move to the end
+                                    (void)iter_tmp.forward_to_tag_toggle(pTextTagInvis);
+                                    iter_sel_end = iter_tmp;
+                                    spdlog::debug("forwarded selection end to include collapsed section");
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }
 
 const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin)

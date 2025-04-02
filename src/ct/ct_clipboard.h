@@ -52,7 +52,6 @@ public:
     static void force_plain_text() { _static_force_plain_text = true; }
 
 private:
-    bool _extend_selection_if_collapsed_text(Gtk::TextIter& iter_sel_end, const CtTreeIter& ctTreeIter);
     void _cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
     void _copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
     void _paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
