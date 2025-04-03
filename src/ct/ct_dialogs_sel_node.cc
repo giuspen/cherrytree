@@ -34,8 +34,9 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         Gtk::TreeModelColumn<int>           order;
         Gtk::TreeModelColumn<gint64>        id;
         Gtk::TreeModelColumn<Glib::ustring> path;
+        Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>> pixbuf;
         Gtk::TreeModelColumn<Glib::ustring> label;
-        CtPaletteColumns() { add(order); add(id); add(path); add(label); }
+        CtPaletteColumns() { add(order); add(id); add(path); add(pixbuf); add(label); }
     } columns;
 
     Glib::ustring filter;
@@ -72,6 +73,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         listIter[columns.order] = ++order_cnt;
         listIter[columns.id] = ctit.get_node_id();
         listIter[columns.path] = full_path;
+        listIter[columns.pixbuf] = ctit.get_node_icon();
         listIter[columns.label] = ctit.get_node_name();
         return false;
     });
@@ -118,6 +120,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return "  " + CtStrUtil::highlight_words(iter->get_value(columns.path), filter_words) + "  ";
         }, true/*align_right*/, &text_color);
+        tree_view.append_column("", columns.pixbuf);
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return CtStrUtil::highlight_words(iter->get_value(columns.label), filter_words);
         }, false/*align_right*/, nullptr, 1.4);

@@ -1,7 +1,7 @@
 /*
  * ct_treestore.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -249,6 +249,15 @@ void CtTreeIter::set_node_children_are_excluded_from_search(const bool val)
     else {
         spdlog::error("!! {}", __FUNCTION__);
     }
+}
+
+Glib::RefPtr<Gdk::Pixbuf> CtTreeIter::get_node_icon() const
+{
+    if (*this) {
+        return (*this)->get_value(_pColumns->rColPixbuf);
+    }
+    spdlog::error("!! {}", __FUNCTION__);
+    return Glib::RefPtr<Gdk::Pixbuf>{};
 }
 
 guint16 CtTreeIter::get_node_custom_icon_id() const

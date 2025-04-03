@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -108,6 +108,7 @@ public:
     gint64        get_node_id_data_holder() const;
     std::vector<gint64> get_children_node_ids() const;
     guint16       get_node_custom_icon_id() const;
+    Glib::RefPtr<Gdk::Pixbuf> get_node_icon() const;
     Glib::ustring get_node_name() const;
     void          set_node_name(const Glib::ustring& node_name);
     Glib::ustring get_node_tags() const;
