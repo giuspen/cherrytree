@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_cmd_palette.cc
  *
- * Copyright 2009-2022
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -32,9 +32,10 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
         Gtk::TreeModelColumn<int>           order;
         Gtk::TreeModelColumn<Glib::ustring> id;
         Gtk::TreeModelColumn<Glib::ustring> path;
+        Gtk::TreeModelColumn<Glib::ustring> icon;
         Gtk::TreeModelColumn<Glib::ustring> label;
         Gtk::TreeModelColumn<Glib::ustring> accelerator;
-        CtPaletteColumns() { add(order); add(id); add(path); add(label); add(accelerator); }
+        CtPaletteColumns() { add(order); add(id); add(path); add(icon); add(label); add(accelerator); }
     } columns;
 
     Glib::ustring filter;
@@ -55,18 +56,18 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
         if (CtStrUtil::contains_words(path, filter_words)) return score;
         score++;
         if (CtStrUtil::contains_words(path, filter_words, false)) return score;
-         return -1;
+        return -1;
     };
 
     auto list_store = Gtk::ListStore::create(columns);
     int order_cnt = 0;
-    for (auto& action: pCtMainWin->get_ct_menu().get_actions())
-    {
+    for (auto& action : pCtMainWin->get_ct_menu().get_actions()) {
         if (action.category.empty()) continue;
         auto iter = *list_store->append();
         iter[columns.order] = ++order_cnt;
         iter[columns.id] = action.id;
         iter[columns.path] = action.category;
+        iter[columns.icon] = action.image;
         iter[columns.label] = str::replace(action.name, "_", "");
         iter[columns.accelerator] = action.get_shortcut(pCtMainWin->get_ct_config());
     }
@@ -100,12 +101,20 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
             });
             tree_view.append_column(*column);
         };
+        // path
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return "  " + CtStrUtil::highlight_words(iter->get_value(columns.path), filter_words) + "  ";
         }, true, &text_color);
+        // icon
+        Gtk::CellRendererPixbuf pixbuf_renderer;
+        pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_MENU;
+        const int col_num_pixbuf = tree_view.append_column("", pixbuf_renderer) - 1;
+        tree_view.get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", columns.icon);
+        // label
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return CtStrUtil::highlight_words(iter->get_value(columns.label), filter_words);
         }, false, nullptr, 1.4);
+        // accelerator
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
             return "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(columns.accelerator))) + "  ";
         }, true, &selection_color);
