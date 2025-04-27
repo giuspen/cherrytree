@@ -232,7 +232,7 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
     dialog.property_destroy_with_parent() = true;
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     if (allow_remove_colour) {
-        dialog.add_button(_("Remove Color"), Gtk::RESPONSE_NONE);
+        dialog.add_button(_("Remove"), Gtk::RESPONSE_NONE);
     }
     // from gtk3 branch gtk-3-24 file gtk/gtk/gtkcolorchooserwidget.c function add_default_palette
     const gchar* default_colors[45]{
@@ -278,6 +278,38 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
         return false;
     };
     dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
+
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    std::vector<Gtk::Widget*> content_children = pContentArea->get_children();
+    //spdlog::debug("{} content_children", content_children.size());
+    if (content_children.size() > 0u) {
+        auto pInnerBox = dynamic_cast<Gtk::Box*>(content_children.front());
+        if (pInnerBox) {
+            std::vector<Gtk::Widget*> inner_children = pInnerBox->get_children();
+            //spdlog::debug("{} inner_children", inner_children.size());
+            if (inner_children.size() > 0u) {
+                //inner_children.front()->hide();
+                auto pInner2Box = dynamic_cast<Gtk::Box*>(inner_children.front());
+                if (pInner2Box) {
+                    std::vector<Gtk::Widget*> inner2_children = pInner2Box->get_children();
+                    spdlog::debug("{} inner2_children", inner2_children.size());
+                    if (3u == inner2_children.size()) {
+                        inner2_children.at(1)->hide();
+                        inner2_children.at(2)->hide();
+                        auto hbox_more = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+                        Gtk::Button* button_more = Gtk::manage(new Gtk::Button{});
+                        button_more->set_image(*pCtMainWin->new_managed_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
+                        hbox_more->pack_start(*button_more, false, false);
+                        hbox_more->show_all();
+                        pInner2Box->pack_start(*hbox_more, false, false);
+                        button_more->signal_clicked().connect([&](){
+                            dialog.property_show_editor() = true;
+                        });
+                    }
+                }
+            }
+        }
+    }
 
     const int response = dialog.run();
 
