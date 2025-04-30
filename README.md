@@ -82,7 +82,7 @@ The following languages are supported (If you want to help translating to your l
 – Ukrainian (uk, Giuseppe Penone, up to date)
 
 ## Programming with GTKmm3
-https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.8.0/en/
+https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.17.50/en/
 
 ## Third party Android project SourCherry
 Outstanding third party Android project: https://github.com/FFDA/SourCherry

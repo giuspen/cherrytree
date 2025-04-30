@@ -626,6 +626,15 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
         }
         else {
             spdlog::warn("?? {} missing {}", __FUNCTION__, embfilePath.c_str());
+            // let's check in the cleanup folder .before
+            const fs::path embfileBeforePath = fs::path{multifile_dir} / ".before" / _fileName;
+            if (fs::exists(embfileBeforePath)) {
+                _rawBlob = Glib::file_get_contents(embfileBeforePath.string());
+                spdlog::debug("{} FROM multifile before constant {}", __FUNCTION__, embfileBeforePath.c_str());
+            }
+            else {
+                spdlog::warn("?? {} missing {}", __FUNCTION__, embfileBeforePath.c_str());
+            }
         }
     }
     if (not _rawBlob.empty()) {
@@ -637,7 +646,7 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
         spdlog::debug("{} FROM multifile constant last {}", __FUNCTION__, _pathLastMultiFile.string());
     }
     else {
-        spdlog::warn("?? missing multifile constant last {}", __FUNCTION__, _pathLastMultiFile.c_str());
+        spdlog::warn("?? {} missing multifile constant last {}", __FUNCTION__, _pathLastMultiFile.c_str());
     }
 }
 
