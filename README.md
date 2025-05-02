@@ -18,7 +18,7 @@ Written by Giuseppe Penone (aka giuspen) and Evgenii Gurianov (aka txe).
 - Execution of the code for code nodes and codeboxes; the terminal and the command per syntax highlighting is configurable in the preferences dialog; an embedded terminal is available on linux and mac os
 - Alignment of text, images, tables and codeboxes (left/center/right/fill)
 - Hyperlinks associated to text and images (links to webpages, links to nodes/nodes + anchors, links to files, links to folders)
-- Spell check (using gspell)
+- Spell check (using [gspell](https://gitlab.gnome.org/GNOME/gspell))
 - Intra application copy/paste: supported single images, single codeboxes, single tables and a compound selection of rich text, images, codeboxes and tables
 - Cross application copy/paste (tested with libreoffice and gmail): supported single images, single codeboxes, single tables and a compound selection of rich text, images, codeboxes and tables
 - Copying a list of files from the file manager and pasting in cherrytree will create a list of links to files, images are recognized and inserted in the text
@@ -33,7 +33,7 @@ Written by Giuseppe Penone (aka giuspen) and Evgenii Gurianov (aka txe).
 - Import from plain text file, import from folder of plain text files
 - Import from basket, cherrytree, epim html, gnote, keepnote, keynote, knowit, mempad, notecase, rednotebook, tomboy, treepad lite, tuxcards, zim
 - Export to cherrytree file of a selection / node / node and subnodes / the whole tree
-- Password protection (using http://www.7-zip.org/) available only for storage as single file – NOTE: while a cherrytree password protected document is opened, an unprotected copy is extracted to a temporary -folder of the filesystem; this copy is removed when you close cherrytree
+- Password protection (using https://www.7-zip.org/) available only for storage as single file – NOTE: while a cherrytree password protected document is opened, an unprotected copy is extracted to a temporary -folder of the filesystem; this copy is removed when you close cherrytree
 - Tree nodes drag and drop
 - Automatic link to web page if writing the URL
 - Automatic link to node if writing node name surrounded by [[node name]]
@@ -42,44 +42,44 @@ Written by Giuseppe Penone (aka giuspen) and Evgenii Gurianov (aka txe).
 Prebuilt binaries can be found on [github.com/giuspen/cherrytree/releases](https://github.com/giuspen/cherrytree/releases) and [giuspen.net/cherrytree/#downl](https://www.giuspen.net/cherrytree/#downl).
 
 ## How to build from source code
-In order to build from the source code, please read [BUILDING.md](BUILDING.md).
+To build from the source code, please read [BUILDING.md](BUILDING.md).
 
 ## Localization
-The following languages are supported (If you want to help translating to your language write me):
+The following languages are supported (if you want to help translate to your language, please write me):
 
-– Arabic (ar, Abdulrahman Karajeh, TO BE UPDATED)
-– Armenian (hy, Seda Stamboltsyan, up to date)
-– Bulgarian (bg, Iliya Nikolaev, up to date)
-– Chinese Simplified (zh_CN, Wang Yu, TO BE UPDATED)
-– Chinese Traditional (zh_TW, Emer Chen, up to date)
-– Croatian (hr, Filip Bakula, TO BE UPDATED)
-– Czech (cs, Pavel Fric, up to date)
-– Dutch (nl, TO BE UPDATED)
-– English (en, default)
-– French (fr, Francis Gernet, up to date)
-– Finnish (fi, Henri Kaustinen, TO BE UPDATED)
-– German (de, Matthias Hoffmann, up to date)
-– Greek (el, Asterios Siomos, up to date)
-– Hindi India (hi_IN, TO BE UPDATED)
-– Hungarian (hu, Stiener Norbert, up to date)
-– Italian (it, Vincenzo Reale, up to date)
-– Japanese (ja, Piyo, up to date)
-– Kazakh (kk_KZ, Viktor Polyanskiy, up to date)
-– Kazakh (kk_LA, Latin, Viktor Polyanskiy, up to date)
-– Korean (ko, Sean Lee, up to date)
-– Lithuanian (lt, TO BE UPDATED)
-– Persian (fa, Majid Abri, TO BE UPDATED)
-– Polish (pl, Mariusz Gasperaniec, up to date)
-– Portuguese (pt, Rui Santos, TO BE UPDATED)
-– Portuguese Brazil (pt_BR, Raysa Dutra, up to date)
-– Romanian (ro, Tudor Sprinceana, up to date)
-– Russian (ru, Viktor Polyanskiy, up to date)
-– Slovak (sk, Michal Fusatý, up to date)
-– Slovenian (sl, Erik Lovrič, up to date)
-– Spanish (es, up to date)
-– Swedish (sv, Åke Engelbrektson, TO BE UPDATED)
-– Turkish (tr, Ferhat Aydin, up to date)
-– Ukrainian (uk, Giuseppe Penone, up to date)
+– Arabic (ar, Abdulrahman Karajeh, TO BE UPDATED)  
+– Armenian (hy, Seda Stamboltsyan, up to date)  
+– Bulgarian (bg, Iliya Nikolaev, up to date)  
+– Chinese Simplified (zh_CN, Wang Yu, TO BE UPDATED)  
+– Chinese Traditional (zh_TW, Emer Chen, up to date)  
+– Croatian (hr, Filip Bakula, TO BE UPDATED)  
+– Czech (cs, Pavel Fric, up to date)  
+– Dutch (nl, TO BE UPDATED)  
+– English (en, default)  
+– French (fr, Francis Gernet, up to date)  
+– Finnish (fi, Henri Kaustinen, TO BE UPDATED)  
+– German (de, Matthias Hoffmann, up to date)  
+– Greek (el, Asterios Siomos, up to date)  
+– Hindi India (hi_IN, TO BE UPDATED)  
+– Hungarian (hu, Stiener Norbert, up to date)  
+– Italian (it, Vincenzo Reale, up to date)  
+– Japanese (ja, Piyo, up to date)  
+– Kazakh (kk_KZ, Viktor Polyanskiy, up to date)  
+– Kazakh (kk_LA, Latin, Viktor Polyanskiy, up to date)  
+– Korean (ko, Sean Lee, up to date)  
+– Lithuanian (lt, TO BE UPDATED)  
+– Persian (fa, Majid Abri, TO BE UPDATED)  
+– Polish (pl, Mariusz Gasperaniec, up to date)  
+– Portuguese (pt, Rui Santos, TO BE UPDATED)  
+– Portuguese Brazil (pt_BR, Raysa Dutra, up to date)  
+– Romanian (ro, Tudor Sprinceana, up to date)  
+– Russian (ru, Viktor Polyanskiy, up to date)  
+– Slovak (sk, Michal Fusatý, up to date)  
+– Slovenian (sl, Erik Lovrič, up to date)  
+– Spanish (es, up to date)  
+– Swedish (sv, Åke Engelbrektson, TO BE UPDATED)  
+– Turkish (tr, Ferhat Aydin, up to date)  
+– Ukrainian (uk, Giuseppe Penone, up to date)  
 
 ## Programming with GTKmm3
 https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.17.50/en/
