@@ -207,7 +207,7 @@ static bool originalFilename(const UString & src, AString & res)
 
 // Warning this function cannot update "fileInfo.Name"
 static int fillin_CFileInfo(CFileInfo &fileInfo,const char *filename,bool ignoreLink) {
-  struct stat stat_info;
+  GStatBuf stat_info;
 
   int ret;
 #ifdef ENV_HAVE_LSTAT

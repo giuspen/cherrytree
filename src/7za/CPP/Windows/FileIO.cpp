@@ -171,7 +171,7 @@ bool CFileBase::Close()
 
     /* On some OS (mingwin, MacOSX ...), you must close the file before updating times */
     if ((buf.actime != (time_t)-1) || (buf.modtime != (time_t)-1)) {
-      struct stat    oldbuf;
+      GStatBuf oldbuf;
       int ret = g_stat((const char*)(_unix_filename),&oldbuf);
       if (ret == 0) {
         if (buf.actime  == (time_t)-1) buf.actime  = oldbuf.st_atime;

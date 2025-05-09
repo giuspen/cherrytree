@@ -228,7 +228,7 @@ bool SetDirTime(CFSTR fileName, const FILETIME * /* cTime */ , const FILETIME *a
 
   struct utimbuf buf;
 
-  struct stat    oldbuf;
+  GStatBuf oldbuf;
   int ret = g_stat(unix_filename,&oldbuf);
   if (ret == 0) {
     buf.actime  = oldbuf.st_atime;
@@ -311,7 +311,7 @@ bool SetFileAttrib(CFSTR fileName, DWORD fileAttributes,CObjectVector<CDelayedSy
 #else
   const char * name = nameWindowToUnix(fileName);
 #endif
-  struct stat stat_info;
+  GStatBuf stat_info;
 #ifdef ENV_HAVE_LSTAT
   if (global_use_lstat) {
     if(g_lstat(name,&stat_info)!=0) {
@@ -408,7 +408,7 @@ bool MyMoveFile(CFSTR existFileName, CFSTR newFileName)
       BOOL bret = CopyFile(src,dst);
       if (bret == FALSE) return false;
 
-      struct stat info_file;
+      GStatBuf info_file;
       ret = g_stat(src,&info_file);
       if (ret == 0) {
     TRACEN((printf("##DBG chmod-1(%s,%o)\n",(const char *)dst,(unsigned)info_file.st_mode & gbl_umask.mask)))
@@ -769,7 +769,7 @@ bool CTempDir::Remove()
 CDelayedSymLink::CDelayedSymLink(const char * source)
   : _source(source)
 {
-  struct stat st;
+  GStatBuf st;
 
   if (g_lstat(_source, &st) == 0) {
     _dev = st.st_dev;
@@ -781,7 +781,7 @@ CDelayedSymLink::CDelayedSymLink(const char * source)
 
 bool CDelayedSymLink::Create()
 {
-  struct stat st;
+  GStatBuf st;
 
   if (_dev == 0) {
     errno = EPERM;
