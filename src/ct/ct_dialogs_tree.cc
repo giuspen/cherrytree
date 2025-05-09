@@ -221,7 +221,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     });
     fg_colorbutton->signal_pressed().connect([pCtMainWin, fg_colorbutton](){
         Glib::ustring ret_colour = fg_colorbutton->get_rgba().to_string();
-        if (CtDialogs::colour_pick_dialog(pCtMainWin, _("Pick a Color"), ret_colour, false) == CtPickDlgState::SELECTED) {
+        CtDialogs::CtPickDlgState res{CtDialogs::CtPickDlgState::CALL_AGAIN};
+        while (CtDialogs::CtPickDlgState::CALL_AGAIN == res) {
+            res = CtDialogs::colour_pick_dialog(pCtMainWin, _("Pick a Color"), ret_colour, false/*allow_remove_colour*/);
+        }
+        if (CtPickDlgState::SELECTED == res) {
             fg_colorbutton->set_rgba(Gdk::RGBA{ret_colour});
         }
     });

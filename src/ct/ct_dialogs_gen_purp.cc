@@ -72,10 +72,11 @@ bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey* pEventKey)
 
 Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
                                             const Glib::ustring& title,
-                                            Glib::RefPtr<CtChooseDialogListStore> rModel,
+                                            Glib::RefPtr<CtChooseDialogListStore> pModel,
                                             const gchar* single_column_name/*= nullptr*/,
                                             const std::string& pathToSelect/*= "0"*/,
-                                            std::optional<std::pair<int,int>> use_size/*= std::nullopt*/)
+                                            std::optional<std::pair<int,int>> use_size/*= std::nullopt*/,
+                                            const bool column_is_colour/*= false*/)
 {
     Gtk::Dialog dialog{title,
                        parent,
@@ -97,7 +98,7 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     dialog.set_default_size(use_width, use_height);
     auto pScrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
     pScrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    auto pElementsTreeview = Gtk::manage(new Gtk::TreeView{rModel});
+    auto pElementsTreeview = Gtk::manage(new Gtk::TreeView{pModel});
     pElementsTreeview->set_headers_visible(false);
     const auto treePathToSelect = Gtk::TreePath{pathToSelect};
     pElementsTreeview->get_selection()->select(treePathToSelect);
@@ -110,13 +111,23 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     Gtk::CellRendererPixbuf pixbuf_renderer;
     if (nullptr == single_column_name) {
         pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
-        int col_num = pElementsTreeview->append_column("", pixbuf_renderer) - 1;
-        pElementsTreeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
-        pElementsTreeview->append_column("", rModel->columns.desc);
+        const int col_num = pElementsTreeview->append_column("", pixbuf_renderer) - 1;
+        pElementsTreeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", pModel->columns.stock_id);
+        pElementsTreeview->append_column("", pModel->columns.desc);
         pElementsTreeview->set_search_column(2);
     }
     else {
-        pElementsTreeview->append_column(single_column_name, rModel->columns.desc);
+        const int col_num = pElementsTreeview->append_column(single_column_name, pModel->columns.desc) - 1;
+        if (column_is_colour) {
+            Gtk::TreeViewColumn* pTVCol = pElementsTreeview->get_column(col_num);
+            std::vector<Gtk::CellRenderer*> cellRenderers = pTVCol->get_cells();
+            if (cellRenderers.size() > 0) {
+                auto pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers.front());
+                if (pCellRendererText) {
+                    pTVCol->add_attribute(pCellRendererText->property_foreground(), pModel->columns.desc);
+                }
+            }
+        }
     }
     pScrolledwindow->add(*pElementsTreeview);
     Gtk::Box* pContentArea = dialog.get_content_area();
@@ -246,26 +257,30 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
         "#ffffff", "#f6f5f4", "#deddda", "#c0bfbc", "#9a9996", /* Light */
         "#77767b", "#5e5c64", "#3d3846", "#241f31", "#000000"};/* Dark */
     std::vector<Gdk::RGBA> default_colours;
-    std::vector<Gdk::RGBA> palette_colours;
     auto& coloursUserPalette = pCtMainWin->get_ct_config()->coloursUserPalette;
-    size_t column_idx{0u};
-    for (int i = 0; i < 45; ++i) {
-        const Gdk::RGBA curr_colour{default_colors[i]};
-        default_colours.push_back(curr_colour);
-        palette_colours.push_back(curr_colour);
-        if (coloursUserPalette.size() > 0u) {
-            if (4 == i % 5) {
-                if (coloursUserPalette.size() > column_idx) palette_colours.push_back(*coloursUserPalette.at(column_idx));
-                else palette_colours.push_back(Gdk::RGBA{});
-                if (coloursUserPalette.size() > 9u) {
-                    if (coloursUserPalette.size() > (9+column_idx)) palette_colours.push_back(*coloursUserPalette.at(9+column_idx));
+    auto f_add_palette = [&](){
+        default_colours.clear();
+        std::vector<Gdk::RGBA> palette_colours;
+        size_t column_idx{0u};
+        for (int i = 0; i < 45; ++i) {
+            const Gdk::RGBA curr_colour{default_colors[i]};
+            default_colours.push_back(curr_colour);
+            palette_colours.push_back(curr_colour);
+            if (coloursUserPalette.size() > 0u) {
+                if (4 == i % 5) {
+                    if (coloursUserPalette.size() > column_idx) palette_colours.push_back(*coloursUserPalette.at(column_idx));
                     else palette_colours.push_back(Gdk::RGBA{});
+                    if (coloursUserPalette.size() > 9u) {
+                        if (coloursUserPalette.size() > (9+column_idx)) palette_colours.push_back(*coloursUserPalette.at(9+column_idx));
+                        else palette_colours.push_back(Gdk::RGBA{});
+                    }
+                    ++column_idx;
                 }
-                ++column_idx;
             }
         }
-    }
-    dialog.add_palette(Gtk::Orientation::ORIENTATION_VERTICAL, 5 + (coloursUserPalette.size() + 8)/9, palette_colours);
+        dialog.add_palette(Gtk::Orientation::ORIENTATION_VERTICAL, 5 + (coloursUserPalette.size() + 8)/9, palette_colours);
+    };
+    f_add_palette();
     dialog.set_rgba(Gdk::RGBA{ret_colour});
 
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
@@ -288,7 +303,6 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
             std::vector<Gtk::Widget*> inner_children = pInnerBox->get_children();
             //spdlog::debug("{} inner_children", inner_children.size());
             if (inner_children.size() > 0u) {
-                //inner_children.front()->hide();
                 auto pInner2Box = dynamic_cast<Gtk::Box*>(inner_children.front());
                 if (pInner2Box) {
                     std::vector<Gtk::Widget*> inner2_children = pInner2Box->get_children();
@@ -296,14 +310,41 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
                     if (3u == inner2_children.size()) {
                         inner2_children.at(1)->hide();
                         inner2_children.at(2)->hide();
-                        auto hbox_more = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-                        Gtk::Button* button_more = Gtk::manage(new Gtk::Button{});
+                        auto hbox_more_less = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+                        auto button_more = Gtk::manage(new Gtk::Button{});
                         button_more->set_image(*pCtMainWin->new_managed_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
-                        hbox_more->pack_start(*button_more, false, false);
-                        hbox_more->show_all();
-                        pInner2Box->pack_start(*hbox_more, false, false);
+                        hbox_more_less->pack_start(*button_more, false, false);
+                        auto button_less = Gtk::manage(new Gtk::Button{});
+                        button_less->set_image(*pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+                        button_less->set_sensitive(coloursUserPalette.size() > 0u);
+                        hbox_more_less->pack_start(*button_less, false, false);
+                        hbox_more_less->show_all();
+                        pInner2Box->pack_start(*hbox_more_less, false, false);
                         button_more->signal_clicked().connect([&](){
                             dialog.property_show_editor() = true;
+                        });
+                        button_less->signal_clicked().connect([&](){
+                            auto itemStore = CtChooseDialogListStore::create();
+                            for (const Gdk::RGBA& curr_rgba : coloursUserPalette) {
+                                itemStore->add_row("", "", curr_rgba.to_string());
+                            }
+                            const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
+                                                                                         _("Remove User Colour from Palette"),
+                                                                                         itemStore,
+                                                                                         _("Colour"),
+                                                                                         "0"/*pathToSelect*/,
+                                                                                         std::nullopt/*use_size*/,
+                                                                                         true/*column_is_colour*/);
+                            if (treeIter) {
+                                const Glib::ustring colour_to_rm = treeIter->get_value(itemStore->columns.desc);
+                                for (const Gdk::RGBA& curr_rgba : coloursUserPalette) {
+                                    if (colour_to_rm == curr_rgba.to_string()) {
+                                        coloursUserPalette.remove(curr_rgba);
+                                        break;
+                                    }
+                                }
+                                dialog.response(Gtk::RESPONSE_HELP);
+                            }
                         });
                     }
                 }
@@ -315,6 +356,9 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
 
     if (Gtk::RESPONSE_NONE == response) {
         return CtPickDlgState::REMOVE_COLOR;
+    }
+    if (Gtk::RESPONSE_HELP == response) {
+        return CtPickDlgState::CALL_AGAIN;
     }
     if (Gtk::RESPONSE_OK != response) {
         return CtPickDlgState::CANCEL;

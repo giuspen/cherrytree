@@ -174,7 +174,8 @@ Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
                                  Glib::RefPtr<CtChooseDialogListStore> model,
                                  const gchar* single_column_name = nullptr,
                                  const std::string& pathToSelect = "0",
-                                 std::optional<std::pair<int,int>> use_size = std::nullopt);
+                                 std::optional<std::pair<int,int>> use_size = std::nullopt,
+                                 const bool column_is_colour = false);
 
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
 CtExporting selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
@@ -185,7 +186,7 @@ CtExporting selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                                                  bool* last_single_file);
 
 // Dialog to select a color, featuring a palette
-enum class CtPickDlgState {SELECTED, CANCEL, REMOVE_COLOR };
+enum class CtPickDlgState {SELECTED, CANCEL, REMOVE_COLOR, CALL_AGAIN };
 CtPickDlgState colour_pick_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title,
                                   Glib::ustring& colour, bool allow_remove_colour);
 

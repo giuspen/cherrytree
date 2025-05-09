@@ -408,7 +408,10 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
         else {
             Glib::ustring& ret_colour = 'f' == tag_property[0] ? _pCtConfig->currColour_fg : _pCtConfig->currColour_bg;
             const Glib::ustring title = 'f' == tag_property[0] ? _("Pick a Foreground Color") : _("Pick a Background Color");
-            const CtDialogs::CtPickDlgState res = CtDialogs::colour_pick_dialog(_pCtMainWin, title, ret_colour, true/*allow_remove_colour*/);
+            CtDialogs::CtPickDlgState res{CtDialogs::CtPickDlgState::CALL_AGAIN};
+            while (CtDialogs::CtPickDlgState::CALL_AGAIN == res) {
+                res = CtDialogs::colour_pick_dialog(_pCtMainWin, title, ret_colour, true/*allow_remove_colour*/);
+            }
             if (res == CtDialogs::CtPickDlgState::CANCEL) {
                 return;
             }
