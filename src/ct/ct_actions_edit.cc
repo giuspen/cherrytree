@@ -554,6 +554,10 @@ void CtActions::text_selection_toggle_case()
     _text_selection_change_case('t');
 }
 
+void CtActions::toggle_ena_dis_vim_mode()
+{
+}
+
 void CtActions::toggle_ena_dis_spellcheck()
 {
     _pCtConfig->enableSpellCheck = not _pCtConfig->enableSpellCheck;

@@ -301,6 +301,10 @@ void CtMenu::init_actions(CtActions* pActions)
         const char* tools_cat = _("Tools");
         _actions.push_back(CtMenuAction{tools_cat, "spellcheck_toggle", "ct_spell-check", _("Enable/Disable _Spell Check"), KB_SHIFT+KB_ALT+"s",
             _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
+#if GTK_SOURCE_MAJOR_VERSION > 5 || (GTK_SOURCE_MAJOR_VERSION == 5 && GTK_SOURCE_MINOR_VERSION >= 4)
+        _actions.push_back(CtMenuAction{tools_cat, "vim_mode_toggle", "ct_vim", _("Enable/Disable _VIM Mode"), None,
+            _("Toggle Enable/Disable VIM Mode"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_vim_mode)});
+#endif
         _actions.push_back(CtMenuAction{tools_cat, "strip_trail_spaces", "ct_clear", _("Stri_p Trailing Spaces"), None,
             _("Strip Trailing Spaces"), sigc::mem_fun(*pActions, &CtActions::strip_trailing_spaces)});
         _actions.push_back(CtMenuAction{tools_cat, "repl_tabs_spaces", "ct_find_replace", _("_Replace Tabs with Spaces"), None,
