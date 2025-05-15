@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-26 15:17+0000\n"
-"PO-Revision-Date: 2025-01-27 03:40+0100\n"
+"POT-Creation-Date: 2025-05-15 19:05+0100\n"
+"PO-Revision-Date: 2025-05-15 20:12+0200\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
@@ -16,39 +16,219 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
-msgid "CherryTree File"
-msgstr "_CherryTree fájl"
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Nem sikerült lekérdezni a(z) \"%s\" csomópont tartalmát."
 
-msgid ""
-"The file/folder in use cannot be overwritten!\n"
-"Please use a different name or location."
+msgid "Tab Width"
+msgstr "Tabulátor szélessége"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Szóközök beszúrása tabulátorok helyett"
+
+msgid "Use Line Wrapping"
+msgstr "Hosszú sorok tördelése"
+
+msgid "Line Wrapping Indentation"
+msgstr "Tördelt sorok behúzása"
+
+msgid "Enable Automatic Indentation"
+msgstr "Automatikus behúzás engedélyezése"
+
+msgid "Show Line Numbers"
+msgstr "Sorszámok megjelenítése"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Görgetés az utolsó sornál tovább"
+
+msgid "Cursor Blinking"
+msgstr "Kurzor villogás"
+
+msgid "System Default"
+msgstr "Rendszer alapértelmezett"
+
+msgid "On"
+msgstr "Be"
+
+msgid "Off"
+msgstr "Ki"
+
+msgid "Text Margin: Left"
+msgstr "Szöveg margó: Bal"
+
+msgid "Right"
+msgstr "Jobb"
+
+msgid "Vertical Space Around Lines"
+msgstr "Sorköz"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Tördelt sorköz"
+
+msgid "Text Editor"
+msgstr "Szövegszerkesztő"
+
+msgid "Timestamp Format"
+msgstr "Időbélyeg formátuma"
+
+msgid "Online Manual"
+msgstr "Online súgó"
+
+msgid "Reset to Default"
+msgstr "Alapértelmezés visszaállítása"
+
+msgid "Horizontal Rule"
+msgstr "Vízszintes elválasztó"
+
+msgid "Chars to Select at Double Click"
+msgstr "Karakterek kijelölése dupla kattintásnál"
+
+msgid "Miscellaneous"
+msgstr "Egyéb"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
 msgstr ""
-"A fájl/mappa nem írható!\n"
-"Kérlek adj meg egy másik nevet vagy elérési utat."
+"Az adatbázis fájl \"%s\" megsérült, további részletekért tekintsd meg a "
+"naplófájlt."
 
 #, c-format
 msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
+"%s write failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"A(z) \"%s\" mappa már létezik a(z) \"%s\" elérési úton.\n"
-"<b>Biztosan lecseréled?</b>"
+"\"%s\" írása sikertelen - a fájl nem található. Csatlakoztasd újra az USB "
+"meghajtót vagy megosztott erőforrást."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "\"%s\" írása sikertelen - a fájl blokkolva van."
 
 #, c-format
 msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"A(z) \"%s\" fájl már létezik a(z) \"%s\" elérési úton.\n"
-"<b>Biztosan lecseréled?</b>"
+"\"%s\" olvasása sikertelen - a fájl nem található. Csatlakoztasd újra az USB "
+"meghajtót vagy megosztott erőforrást."
 
-msgid "PDF File"
-msgstr "PDF fájl"
+msgid "Rename"
+msgstr "Átnevezés"
 
-msgid "Plain Text Document"
-msgstr "Egyszerű szöveges dokumentum"
+msgid "PNG Image"
+msgstr "PNG kép"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Sikertelen írás a következőre: \"%s\"."
+
+msgid "Insert/Edit Link"
+msgstr "Hivatkozás beszúrása/szerkesztése"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "A hivatkozás \"%s\" nem létező mappára mutat."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "A hivatkozás \"%s\" nem létező fájlra mutat."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "A hivatkozás \"%s\" nem létező mappára mutat."
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "A hivatkozott csomópont már nem létezik (id = %s)"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Nem található horgony \"%s\" néven."
+
+msgid "Edit CodeBox"
+msgstr "CodeBox szerkesztése"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Társítanod kell a parancsot a következőhöz: \"%s\".\n"
+"Ezt a beállításokban teheted meg."
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Telepítsd az \"xterm\" csomagot vagy állíts be másik terminál parancsot a "
+"beállításokban."
+
+msgid "Edit Table Properties"
+msgstr "Táblázat tulajdonságainak szerkesztése"
+
+msgid "CSV File"
+msgstr "CSV fájl"
+
+msgid "Insert Anchor"
+msgstr "Horgony beszúrása"
+
+msgid "Edit Anchor"
+msgstr "Horgony szerkesztése"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "A beágyazott fájl nem szerkeszthető írásvédett módban."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Beágyazott fájl automatikusan frissítve:"
+
+msgid "To WebSite"
+msgstr "Weboldalra"
+
+msgid "To File"
+msgstr "Fájlra"
+
+msgid "To Folder"
+msgstr "Mappára"
+
+msgid "To Node"
+msgstr "Csomópontra"
+
+msgid "Anchor Name (optional)"
+msgstr "Horgony neve (nem kötelező)"
+
+msgid "No Node is Selected"
+msgstr "Nincs kielölt csomópont."
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "A kijelölt csomópont nem tartalmaz horgonyokat."
+
+msgid "Choose Existing Anchor"
+msgstr "Létező horgony választása"
+
+msgid "Anchor Name"
+msgstr "Horgony neve"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "A(z) \"%s\" kifejezés nem található."
+
+msgid "Show White Spaces"
+msgstr "Szóközök és tabulátorok megjelenítése"
+
+msgid "Highlight Current Line"
+msgstr "Aktív sor kiemelése"
+
+msgid "Highlight Matching Brackets"
+msgstr "Zárójelek párjának kiemelése"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Kérjen megerősítést a kód végrehajtása előtt"
+
+msgid "Use Internal Terminal"
+msgstr "Belső parancssor használata"
+
+msgid "Internal Terminal Shell"
+msgstr "Belső parancssor"
 
 msgid "Add"
 msgstr "Hozzáadás"
@@ -56,136 +236,60 @@ msgstr "Hozzáadás"
 msgid "Remove Selected"
 msgstr "Kijelölt törlése"
 
-msgid "Reset to Default"
-msgstr "Alapértelmezés visszaállítása"
+msgid "Command per Node/CodeBox Type"
+msgstr "Parancsok CodeBox típusok szerint"
 
-msgid "Split Toolbar"
-msgstr "Eszköztársáv-elválasztó"
+msgid "Terminal Command"
+msgstr "Terminál parancs"
 
-msgid "Open a CherryTree File"
-msgstr "CherryTree fájl megnyitása"
+msgid "Code Execution"
+msgstr "Kód futtatása"
 
 msgid "Select Element to Add"
 msgstr "Elem hozzáadása"
 
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "A(z) \"%s\" útvonal nem létezik."
+msgid "Remove"
+msgstr "Eltávolítás"
 
-msgid "Open a Recent CherryTree Document"
-msgstr "Mostanában használt CherryTree dokumentum megnyitása"
+msgid "Remove User Colour from Palette"
+msgstr "Egyéni szín eltávolítása a palettáról"
 
-msgid "_Hide"
-msgstr "_Elrejtés"
+msgid "Colour"
+msgstr "Szín"
 
-msgid "_Quit"
-msgstr "_Kilépés"
+msgid "Question"
+msgstr "Kérdés"
 
-msgid "Hide the Window"
-msgstr "Ablak elrejtése"
+msgid "Info"
+msgstr "Információ"
 
-msgid "Quit the Application"
-msgstr "Kilépés az alkalmazásból"
+msgid "Warning"
+msgstr "Figyelmeztetés"
 
-msgid "No Node is Selected"
-msgstr "Nincs kielölt csomópont."
+msgid "Error"
+msgstr "Hiba"
 
-msgid "Node Type"
-msgstr "Csomópont típusa"
+msgid "Select File"
+msgstr "Fájl megnyitása"
 
-msgid ": "
-msgstr ": "
+msgid "Select Folder"
+msgstr "Mappa megnyitása"
 
-msgid "Rich Text"
-msgstr "Rich Text"
+msgid "Save File as"
+msgstr "Mentés másként"
 
-msgid "Plain Text"
-msgstr "Egyszerű szöveg"
+msgid "Save To Folder"
+msgstr "Mentés mappába"
 
-msgid "Tags"
-msgstr "Kulcsszavak"
-
-msgid "Spell Check"
-msgstr "Helyesírás-ellenőrzés"
-
-msgid "Word Count"
-msgstr "Szavak száma"
-
-msgid "Date Created"
-msgstr "Létrehozás dátuma"
-
-msgid "Date Modified"
-msgstr "Módosítás dátuma"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Ebben a munkamenetben még nem történt másolás vagy a kimásolt csomópont már "
-"nem elérhető."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "A kimásolt csomópont már nem elérhető!"
-
-msgid "Image Format Not Recognized"
-msgstr "A fájl nem ismerhető fel képként."
-
-msgid "Insert Table"
-msgstr "Táblázat beszúrása"
-
-msgid "CSV File"
-msgstr "CSV fájl"
-
-msgid "Insert a CodeBox"
-msgstr "CodeBox beszúrása"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "A beállított maximális fájlméret %s MB."
-
-msgid "Do you want to Continue?"
-msgstr "Biztosan folytatod?"
-
-#, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "Nem sikerült lekérdezni a(z) \"%s\" csomópont tartalmát."
-
-msgid "Special Characters"
-msgstr "Speciális karakterek"
-
-msgid "Tabs Replaced"
-msgstr "tabulátor lecserélve."
-
-msgid "Lines Stripped"
-msgstr "sor megtisztítva."
-
-msgid "No Text is Selected."
-msgstr "Nincs kijelölt szöveg."
-
-msgid "Checking for Newer Version..."
-msgstr "Frissítés keresése..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"Nem sikerült a frissítési információkat lekérdezni - Próbáld újra később."
-
-msgid "A Newer Version Is Available!"
-msgstr "Új verzió elérhető!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Ez a legfrissebb verzió."
-
-msgid "You Are Using a Development Version."
-msgstr "Ez egy fejlesztői verzió."
-
-msgid "Execute Code"
-msgstr "Kód futtatása"
-
-msgid "Change CodeBox Properties"
-msgstr "CodeBox tulajdonságok módosítása"
+msgid "Downloading"
+msgstr "Letöltés"
 
 msgid "Show Menubar:"
 msgstr "_Menüsáv mutatása/elrejtése:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "A(z) \"%s\" útvonal nem létezik."
 
 #, c-format
 msgid "\"%s\" is Not a CherryTree File"
@@ -223,365 +327,14 @@ msgstr "Bezártad a külső alkalmazásokat?"
 msgid "The Document was Reloaded After External Update to CT* File."
 msgstr "A dokumentum újra lett töltve külső módosítás végett."
 
-msgid "Change Selected"
-msgstr "Szerkesztés"
+msgid "Execute Code"
+msgstr "Kód futtatása"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "A billentyűparancs \"%s\" már használatban van."
+msgid "Copy Code"
+msgstr "Kód másolása"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "A következő paranccsal ütközik: \"%s\"."
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Szeretnéd felülírni?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Billentyűparancs szerkesztése"
-
-msgid "No Keyboard Shortcut"
-msgstr "Nincs billentyűparancs"
-
-msgid "Chars for Bulleted List"
-msgstr "Felsorolás karakterei"
-
-msgid "Chars for Todo List"
-msgstr "Feladatlista karakterei"
-
-msgid "Chars for Table Of Content"
-msgstr "Tartalomjegyzék karakterei"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Idézőjel karakterei"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Aposztróf karakterei"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Idézőjelek automatikus cseréje"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Szimbólumok automatikus cseréje"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Támogatott szimbólumpárok"
-
-msgid "Text Editor"
-msgstr "Szövegszerkesztő"
-
-msgid "Only at the Start of the Line"
-msgstr "Sor eleji szimbólumok"
-
-msgid "To WebSite"
-msgstr "Weboldalra"
-
-msgid "To File"
-msgstr "Fájlra"
-
-msgid "To Folder"
-msgstr "Mappára"
-
-msgid "To Node"
-msgstr "Csomópontra"
-
-msgid "Anchor Name (optional)"
-msgstr "Horgony neve (nem kötelező)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "A kijelölt csomópont nem tartalmaz horgonyokat."
-
-msgid "Choose Existing Anchor"
-msgstr "Létező horgony választása"
-
-msgid "Anchor Name"
-msgstr "Horgony neve"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "A(z) \"%s\" kifejezés nem található."
-
-msgid "Preferences"
-msgstr "Beállítások"
-
-msgid "Arabic"
-msgstr "Arab"
-
-msgid "Armenian"
-msgstr "Örmény"
-
-msgid "Bulgarian"
-msgstr "Bolgár"
-
-msgid "Chinese Simplified"
-msgstr "Kínai (egyszerűsített)"
-
-msgid "Chinese Traditional"
-msgstr "Kínai (hagyományos)"
-
-msgid "Croatian"
-msgstr "Horvát"
-
-msgid "Czech"
-msgstr "Cseh"
-
-msgid "Dutch"
-msgstr "Holland"
-
-msgid "English"
-msgstr "Angol"
-
-msgid "Persian"
-msgstr "Perzsa"
-
-msgid "Finnish"
-msgstr "Finn"
-
-msgid "French"
-msgstr "Francia"
-
-msgid "German"
-msgstr "Német"
-
-msgid "Greek"
-msgstr "Görög"
-
-msgid "Hindi India"
-msgstr "Hindi"
-
-msgid "Hungarian"
-msgstr "Magyar"
-
-msgid "Italian"
-msgstr "Olasz"
-
-msgid "Japanese"
-msgstr "Japán"
-
-msgid "Kazakh"
-msgstr "Kazak"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazak (latin betűs)"
-
-msgid "Korean"
-msgstr "Kóreai"
-
-msgid "Lithuanian"
-msgstr "Litván"
-
-msgid "Polish"
-msgstr "Lengyel"
-
-msgid "Portuguese"
-msgstr "Portugál"
-
-msgid "Portuguese Brazil"
-msgstr "Barzil portugál"
-
-msgid "Romanian"
-msgstr "Román"
-
-msgid "Russian"
-msgstr "Orosz"
-
-msgid "Slovak"
-msgstr "Szlovák"
-
-msgid "Slovenian"
-msgstr "Szlovén"
-
-msgid "Spanish"
-msgstr "Spanyol"
-
-msgid "Swedish"
-msgstr "Svéd"
-
-msgid "Turkish"
-msgstr "Török"
-
-msgid "Ukrainian"
-msgstr "Ukrán"
-
-msgid "Text and Code"
-msgstr "Szöveg és kód"
-
-msgid "Format"
-msgstr "Formázás"
-
-msgid "Plain Text and Code"
-msgstr "Egyszerű szöveg és kód"
-
-msgid "Tree Explorer"
-msgstr "Fa nézet"
-
-msgid "Theme"
-msgstr "Megjelenés"
-
-msgid "Interface"
-msgstr "Felület"
-
-msgid "Links"
-msgstr "Hivatkozások"
-
-msgid "Toolbar"
-msgstr "Eszköztár"
-
-msgid "Keyboard Shortcuts"
-msgstr "Billentyűparancsok"
-
-msgid "Miscellaneous"
-msgstr "Egyéb"
-
-msgid "Monospace"
-msgstr "Monospace"
-
-msgid "Code Font"
-msgstr "Kód betűtípusa"
-
-msgid "Terminal Font"
-msgstr "Parancssor betűtípusa"
-
-msgid "Tree Font"
-msgstr "Fa betűtípusa"
-
-msgid "Fonts"
-msgstr "Betűstílusok"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "Szavak számának megjelenítése az állapotsávban"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "Elérési út megjelenítése a címsávban"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Teljes elérési út mutatása a navigációs sávban"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Dedikált Könyvjelzők fül a menüsávban"
-
-msgid "Menubar in Titlebar"
-msgstr "Menüsáv a címsávban"
-
-msgid "Toolbar Icons Size"
-msgstr "Eszköztár ikonok mérete"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Görgetősáv minimális mérete (0 = rendszer alapért.)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Görgetősáv megjelenítése a szövegszerkesztő felett"
-
-msgid "System Default"
-msgstr "Rendszer alapértelmezett"
-
-msgid "Yes"
-msgstr "Igen"
-
-msgid "No"
-msgstr "Nem"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Lebegő súgó megjelenítése a következők felett"
-
-msgid "Tree"
-msgstr "Fa"
-
-msgid "Menus"
-msgstr "Menüpontok"
-
-msgid "Max Search Results per Page"
-msgstr "Keresési találatok megjelenítése oldalanként"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Hivatkozás megnyitása"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Fájl megnyitása"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Mappa megnyitása"
-
-msgid "Custom Actions"
-msgstr "Egyedi parancsok"
-
-msgid "Colors"
-msgstr "Színek"
-
-msgid "Underline Links"
-msgstr "Hivatkozások aláhúzása"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Relatív fájl- és mappaútvonalak használata"
-
-msgid "Anchor Size"
-msgstr "Horgony mérete"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Ez a változtatás a CherryTree újraindításakor lép érvénybe."
-
-msgid "The new parent can't be one of his children!"
-msgstr "A csomópontot nem lehet alárendelni a saját alcsomópontjának!"
-
-msgid "Light Background, Dark Text"
-msgstr "Világos háttér, sötét szöveg"
-
-msgid "Dark Background, Light Text"
-msgstr "Sötét háttér, világos szöveg"
-
-msgid "Custom Background"
-msgstr "Egyéni háttér"
-
-msgid "Text"
-msgstr "Szöveg"
-
-msgid "Selection Background"
-msgstr "Kijelölés háttere"
-
-msgid "Table"
-msgstr "Táblázat"
-
-msgid "Code"
-msgstr "Kód"
-
-msgid "Style Schemes"
-msgstr "Stílusvázlatok"
-
-msgid "Text Foreground"
-msgstr "Szöveg színe"
-
-msgid "Text Background"
-msgstr "Szöveg háttere"
-
-msgid "Selection Foreground"
-msgstr "Kijelölés színe"
-
-msgid "Cursor"
-msgstr "Kurzor"
-
-msgid "Current Line Background"
-msgstr "Aktív sor háttere"
-
-msgid "Line Numbers Foreground"
-msgstr "Sorszámok színe"
-
-msgid "Line Numbers Background"
-msgstr "Sorszámozás háttere"
-
-msgid "Style Scheme Editor"
-msgstr "Stílus szerkesztése"
-
-msgid "Set Dark Theme Icons"
-msgstr "Sötét témájú (fehér) ikonok"
-
-msgid "Set Light Theme Icons"
-msgstr "Világos témájú (fekete) ikonok"
-
-msgid "Set Default Icons"
-msgstr "Alapértelmezett ikonok"
-
-msgid "Icon Theme"
-msgstr "Ikonok témája"
+msgid "Change CodeBox Properties"
+msgstr "CodeBox tulajdonságok módosítása"
 
 msgid "Search for"
 msgstr "Keresendő"
@@ -594,9 +347,6 @@ msgstr "Kis- és nagybetűk"
 
 msgid "Regular Expression"
 msgstr "Reguláris kifejezés"
-
-msgid "Online Manual"
-msgstr "Online súgó"
 
 msgid "Accent Insensitive"
 msgstr "Ékezetek figyelmen kívül hagyása"
@@ -679,10 +429,6 @@ msgstr "Sor"
 msgid "Line Content"
 msgstr "Sor tartalma"
 
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "A hivatkozott csomópont már nem létezik (id = %s)"
-
 msgid "Matches"
 msgstr "találat"
 
@@ -703,6 +449,413 @@ msgstr "Csere"
 
 msgid "Undo"
 msgstr "Visszavonás"
+
+msgid "Print CherryTree version"
+msgstr "CherryTree verzió megjelenítése"
+
+msgid "Node name to focus"
+msgstr "Csomópont kiválasztása"
+
+msgid "Anchor name to scroll to in node"
+msgstr "Horgony neve, melyhez görgetni lehet a csomópontban"
+
+msgid "Export to HTML at specified directory path"
+msgstr "Exportálás HTML-ként elérési útvonal megadásával"
+
+msgid "Export to Text at specified directory path"
+msgstr "Exportálás szövegként elérési útvonal megadásával"
+
+msgid "Export to PDF at specified directory path"
+msgstr "Exportálás PDF-ként elérési útvonal megadásával"
+
+msgid "Overwrite if export path already exists"
+msgstr "Létező exportálási útvonal automatikus felülírása"
+
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Exportálás egyetlen fájlba (HTML vagy TXT esetén)"
+
+msgid "Password to open document"
+msgstr "Jelszó a dokumentum megnyitásához"
+
+msgid "Create a new window"
+msgstr "Megnyitás új ablakban"
+
+msgid "Run in secondary session, independent from main session"
+msgstr "Indítás másodlagos munkamenetben, a jelenlegitől függetlenül"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Nem sikerült elérni a 'latex' és 'dvipng' futtatható állományokat"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Telepítendő csomagok Ubuntu rendszeren:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Telepítendő csomagok MacOS rendszeren:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Nem sikerült elérni a 'latex' futtatható állományt"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Nem sikerült elérni a 'dvipng' futtatható állományt"
+
+msgid "CherryTree File"
+msgstr "_CherryTree fájl"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"A fájl/mappa nem írható!\n"
+"Kérlek adj meg egy másik nevet vagy elérési utat."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"A(z) \"%s\" mappa már létezik a(z) \"%s\" elérési úton.\n"
+"<b>Biztosan lecseréled?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"A(z) \"%s\" fájl már létezik a(z) \"%s\" elérési úton.\n"
+"<b>Biztosan lecseréled?</b>"
+
+msgid "PDF File"
+msgstr "PDF fájl"
+
+msgid "Plain Text Document"
+msgstr "Egyszerű szöveges dokumentum"
+
+msgid "Light Background, Dark Text"
+msgstr "Világos háttér, sötét szöveg"
+
+msgid "Dark Background, Light Text"
+msgstr "Sötét háttér, világos szöveg"
+
+msgid "Custom Background"
+msgstr "Egyéni háttér"
+
+msgid "Text"
+msgstr "Szöveg"
+
+msgid "Selection Background"
+msgstr "Kijelölés háttere"
+
+msgid "Tree Explorer"
+msgstr "Fa nézet"
+
+msgid "Rich Text"
+msgstr "Rich Text"
+
+msgid "Plain Text"
+msgstr "Egyszerű szöveg"
+
+msgid "Table"
+msgstr "Táblázat"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Style Schemes"
+msgstr "Stílusvázlatok"
+
+msgid "Text Foreground"
+msgstr "Szöveg színe"
+
+msgid "Text Background"
+msgstr "Szöveg háttere"
+
+msgid "Selection Foreground"
+msgstr "Kijelölés színe"
+
+msgid "Cursor"
+msgstr "Kurzor"
+
+msgid "Current Line Background"
+msgstr "Aktív sor háttere"
+
+msgid "Line Numbers Foreground"
+msgstr "Sorszámok színe"
+
+msgid "Line Numbers Background"
+msgstr "Sorszámozás háttere"
+
+msgid "Style Scheme Editor"
+msgstr "Stílus szerkesztése"
+
+msgid "Set Dark Theme Icons"
+msgstr "Sötét témájú (fehér) ikonok"
+
+msgid "Set Light Theme Icons"
+msgstr "Világos témájú (fekete) ikonok"
+
+msgid "Set Default Icons"
+msgstr "Alapértelmezett ikonok"
+
+msgid "Icon Theme"
+msgstr "Ikonok témája"
+
+msgid "Autosave Every"
+msgstr "Automatikus mentés"
+
+msgid "Minutes"
+msgstr "percenként"
+
+msgid "Autosave on Quit"
+msgstr "Automatikus mentés kilépéskor"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Biztonsági másolat készítése mentés előtt"
+
+msgid "Number of Backups to Keep"
+msgstr "Megtartandó másolatok száma"
+
+msgid "Custom Backup Directory"
+msgstr "Másolatok mentése ide"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Többfájlos mentés esetén beágyazott fájlnév használata a lemezen"
+
+msgid "Saving"
+msgstr "Mentés"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Frissítések automatikus ellenőrzése"
+
+msgid "Reload Document From Last Session"
+msgstr "Dokumentum betöltése a legutóbbi munkamenetből"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Ablak automatikus újratöltése a fájl külső változtatása esetén"
+
+msgid "Enable Debug Log"
+msgstr "Hibakeresési napló engedélyezése"
+
+msgid "Debug Log Directory"
+msgstr "Hibakeresési napló könyvtára"
+
+msgid "Enable System Tray Docking"
+msgstr "Tálcaikon engedélyezése"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Indítás a háttérben"
+
+msgid "System Tray"
+msgstr "Tálcaikon"
+
+msgid "Language"
+msgstr "Nyelv"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Megjelent a tálcaikon?"
+
+msgid "Your system does not support the System Tray"
+msgstr "A rendszer nem támogatja a tálcaikonokat."
+
+msgid "Latex Text"
+msgstr "Latex szöveg"
+
+msgid "Image Size dpi"
+msgstr "Képméret (dpi)"
+
+msgid "Tutorial"
+msgstr "Útmutató"
+
+msgid "Reference"
+msgstr "Hivatkozás"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX matematikai egyenletek útmutatója"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX matematikai szimbólumok hivatkozása"
+
+msgid "Image Properties"
+msgstr "Kép tulajdonságai"
+
+msgid "Rotate Left"
+msgstr "Forgatás balra"
+
+msgid "Rotate Right"
+msgstr "Forgatás jobbra"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"A kép körbevágásához jelöld ki a területet egérrel, majd kattints az OK-ra"
+
+msgid "Flip Horizontally"
+msgstr "Vízszintes tükrözés"
+
+msgid "Flip Vertically"
+msgstr "Függőleges tükrözés"
+
+msgid "Width"
+msgstr "Szélesség"
+
+msgid "Height"
+msgstr "Magasság"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatikus szintaxiskiemelés"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "pixels"
+msgstr "pixel"
+
+msgid "Size"
+msgstr "Méret"
+
+msgid "Options"
+msgstr "Opciók"
+
+msgid "Rows"
+msgstr "Sorok"
+
+msgid "Columns"
+msgstr "Oszlopok"
+
+msgid "Default Width"
+msgstr "Alapértelmezett szélesség"
+
+msgid "Table Size"
+msgstr "Táblázat mérete"
+
+msgid "Column Properties"
+msgstr "Oszlop tulajdonságai"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Egyszerű felület (sokkal gyorsabb nagy táblázatok esetén)"
+
+msgid "Import from CSV File"
+msgstr "Importálás CSV fájlból"
+
+msgid "Change Selected"
+msgstr "Szerkesztés"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "A billentyűparancs \"%s\" már használatban van."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "A következő paranccsal ütközik: \"%s\"."
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Szeretnéd felülírni?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Billentyűparancs szerkesztése"
+
+msgid "No Keyboard Shortcut"
+msgstr "Nincs billentyűparancs"
+
+msgid "Who is the Parent?"
+msgstr "Importálás helye"
+
+msgid "The Tree Root"
+msgstr "A fa gyökere"
+
+msgid "The Selected Node"
+msgstr "A kiválasztott csomópont"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "Mostanában használt CherryTree dokumentum megnyitása"
+
+msgid "_Hide"
+msgstr "_Elrejtés"
+
+msgid "_Quit"
+msgstr "_Kilépés"
+
+msgid "Hide the Window"
+msgstr "Ablak elrejtése"
+
+msgid "Quit the Application"
+msgstr "Kilépés az alkalmazásból"
+
+msgid "Node Type"
+msgstr "Csomópont típusa"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "Kulcsszavak"
+
+msgid "Spell Check"
+msgstr "Helyesírás-ellenőrzés"
+
+msgid "Word Count"
+msgstr "Szavak száma"
+
+msgid "Date Created"
+msgstr "Létrehozás dátuma"
+
+msgid "Date Modified"
+msgstr "Módosítás dátuma"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Ebben a munkamenetben még nem történt másolás vagy a kimásolt csomópont már "
+"nem elérhető."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "A kimásolt csomópont már nem elérhető!"
+
+msgid "Copy Selection or All"
+msgstr "Kijelölés vagy minden másolása"
+
+msgid "Paste"
+msgstr "Beillesztés"
+
+msgid "Reset"
+msgstr "Alaphelyzet"
+
+msgid "Split Toolbar"
+msgstr "Eszköztársáv-elválasztó"
+
+msgid "Open a CherryTree File"
+msgstr "CherryTree fájl megnyitása"
+
+msgid "Image Format Not Recognized"
+msgstr "A fájl nem ismerhető fel képként."
+
+msgid "Insert Table"
+msgstr "Táblázat beszúrása"
+
+msgid "Insert a CodeBox"
+msgstr "CodeBox beszúrása"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "A beállított maximális fájlméret %s MB."
+
+msgid "Do you want to Continue?"
+msgstr "Biztosan folytatod?"
+
+msgid "Special Characters"
+msgstr "Speciális karakterek"
+
+msgid "Tabs Replaced"
+msgstr "tabulátor lecserélve."
+
+msgid "Lines Stripped"
+msgstr "sor megtisztítva."
+
+msgid "No Text is Selected."
+msgstr "Nincs kijelölt szöveg."
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "A következő elemet biztonsági másolatból kellett helyreállítani:"
 
 msgid "Handle the Bookmarks List"
 msgstr "Könyvjelzők listájának kezelése"
@@ -759,20 +912,11 @@ msgstr ""
 msgid "Enter the New Password Twice"
 msgstr "Add meg az új jelszót kétszer"
 
-msgid "Autosave Every"
-msgstr "Automatikus mentés"
-
-msgid "Minutes"
-msgstr "percenként"
-
 msgid "The Password Fields Must be Filled."
 msgstr "A jelszó mezők nem maradhatnak üresek!"
 
 msgid "The Two Inserted Passwords Do Not Match."
 msgstr "A megadott jelszavak nem egyeznek!"
-
-msgid "Warning"
-msgstr "Figyelmeztetés"
 
 msgid "The Current Document was Updated."
 msgstr "A dokumentumban módosítás történt."
@@ -782,12 +926,6 @@ msgstr "Szeretnéd menteni a változtatásokat?"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Szeretnéd futtatni a kódot?"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Kérjen megerősítést a kód végrehajtása előtt"
-
-msgid "Use Internal Terminal"
-msgstr "Belső parancssor használata"
 
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
@@ -829,6 +967,102 @@ msgstr ""
 "License egy példányát; ha mégsem kapta meg, akkor tekintse meg a\n"
 "<https://www.gnu.org/licenses/> oldalon.\n"
 
+msgid "Arabic"
+msgstr "Arab"
+
+msgid "Armenian"
+msgstr "Örmény"
+
+msgid "Bulgarian"
+msgstr "Bolgár"
+
+msgid "Chinese Simplified"
+msgstr "Kínai (egyszerűsített)"
+
+msgid "Chinese Traditional"
+msgstr "Kínai (hagyományos)"
+
+msgid "Croatian"
+msgstr "Horvát"
+
+msgid "Czech"
+msgstr "Cseh"
+
+msgid "Dutch"
+msgstr "Holland"
+
+msgid "Finnish"
+msgstr "Finn"
+
+msgid "French"
+msgstr "Francia"
+
+msgid "German"
+msgstr "Német"
+
+msgid "Greek"
+msgstr "Görög"
+
+msgid "Hindi India"
+msgstr "Hindi"
+
+msgid "Hungarian"
+msgstr "Magyar"
+
+msgid "Italian"
+msgstr "Olasz"
+
+msgid "Japanese"
+msgstr "Japán"
+
+msgid "Kazakh"
+msgstr "Kazak"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazak (latin betűs)"
+
+msgid "Korean"
+msgstr "Kóreai"
+
+msgid "Lithuanian"
+msgstr "Litván"
+
+msgid "Persian"
+msgstr "Perzsa"
+
+msgid "Polish"
+msgstr "Lengyel"
+
+msgid "Portuguese"
+msgstr "Portugál"
+
+msgid "Portuguese Brazil"
+msgstr "Barzil portugál"
+
+msgid "Romanian"
+msgstr "Román"
+
+msgid "Russian"
+msgstr "Orosz"
+
+msgid "Slovak"
+msgstr "Szlovák"
+
+msgid "Slovenian"
+msgstr "Szlovén"
+
+msgid "Spanish"
+msgstr "Spanyol"
+
+msgid "Swedish"
+msgstr "Svéd"
+
+msgid "Turkish"
+msgstr "Török"
+
+msgid "Ukrainian"
+msgstr "Ukrán"
+
 msgid "About CherryTree"
 msgstr "CherryTree névjegye"
 
@@ -865,14 +1099,185 @@ msgstr "Horgonyok száma"
 msgid "Number of Shared Nodes / Groups"
 msgstr "Megosztott csomópontok / csoportok száma"
 
-msgid "Preferences File"
-msgstr "Beállítások fájl"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr ""
+"Figyelmeztetés: Egy vagy több kép át lett méretezve, hogy elférjen a lapon."
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Megjelent a tálcaikon?"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Az eszköztár ikonjai nem növelhetők tovább."
 
-msgid "Your system does not support the System Tray"
-msgstr "A rendszer nem támogatja a tálcaikonokat."
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Az eszköztár ikonjai nem kicsinyíthetők tovább."
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Ez a változtatás a CherryTree újraindításakor lép érvénybe."
+
+msgid "Remove from list"
+msgstr "Törlés a listából"
+
+msgid "The new parent can't be one of his children!"
+msgstr "A csomópontot nem lehet alárendelni a saját alcsomópontjának!"
+
+msgid "Checking for Newer Version..."
+msgstr "Frissítés keresése..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"Nem sikerült a frissítési információkat lekérdezni - Próbáld újra később."
+
+msgid "A Newer Version Is Available!"
+msgstr "Új verzió elérhető!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Ez a legfrissebb verzió."
+
+msgid "You Are Using a Development Version."
+msgstr "Ez egy fejlesztői verzió."
+
+msgid "Replace in Current Node"
+msgstr "Csere a csomópontban..."
+
+msgid "Search in Current Node"
+msgstr "Keresés a csomópontban..."
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "A(z) \"%s\" kifejezés <b>nem található!</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "Keresés az összes (keresésből nem kizárt) csomópontban..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Ebben a munkamenetben még nem történt keresés."
+
+msgid "Preferences"
+msgstr "Beállítások"
+
+msgid "English"
+msgstr "Angol"
+
+msgid "Text and Code"
+msgstr "Szöveg és kód"
+
+msgid "Format"
+msgstr "Formázás"
+
+msgid "Plain Text and Code"
+msgstr "Egyszerű szöveg és kód"
+
+msgid "Theme"
+msgstr "Megjelenés"
+
+msgid "Interface"
+msgstr "Felület"
+
+msgid "Links"
+msgstr "Hivatkozások"
+
+msgid "Toolbar"
+msgstr "Eszköztár"
+
+msgid "Keyboard Shortcuts"
+msgstr "Billentyűparancsok"
+
+msgid "Monospace"
+msgstr "Monospace"
+
+msgid "Code Font"
+msgstr "Kód betűtípusa"
+
+msgid "Terminal Font"
+msgstr "Parancssor betűtípusa"
+
+msgid "Tree Font"
+msgstr "Fa betűtípusa"
+
+msgid "Fonts"
+msgstr "Betűstílusok"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Szavak számának megjelenítése az állapotsávban"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Elérési út megjelenítése a címsávban"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Teljes elérési út mutatása a navigációs sávban"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Dedikált Könyvjelzők fül a menüsávban"
+
+msgid "Menubar in Titlebar"
+msgstr "Menüsáv a címsávban"
+
+msgid "Toolbar Icons Size"
+msgstr "Eszköztár ikonok mérete"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Görgetősáv minimális mérete (0 = rendszer alapért.)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Görgetősáv megjelenítése a szövegszerkesztő felett"
+
+msgid "Yes"
+msgstr "Igen"
+
+msgid "No"
+msgstr "Nem"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Lebegő súgó megjelenítése a következők felett"
+
+msgid "Tree"
+msgstr "Fa"
+
+msgid "Menus"
+msgstr "Menüpontok"
+
+msgid "Max Search Results per Page"
+msgstr "Keresési találatok megjelenítése oldalanként"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Hivatkozás megnyitása"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Fájl megnyitása"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Mappa megnyitása"
+
+msgid "Custom Actions"
+msgstr "Egyedi parancsok"
+
+msgid "Colors"
+msgstr "Színek"
+
+msgid "Underline Links"
+msgstr "Hivatkozások aláhúzása"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Relatív fájl- és mappaútvonalak használata"
+
+msgid "Anchor Size"
+msgstr "Horgony mérete"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree Hierarchikus jegyzetkészítő"
+
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTree _mutatása/elrejtése"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTree mutatása/elrejtése"
+
+msgid "_Exit CherryTree"
+msgstr "_Kilépés"
+
+msgid "Exit from CherryTree"
+msgstr "CherryTree bezárása"
 
 msgid "Bold"
 msgstr "Félkövér"
@@ -882,9 +1287,6 @@ msgstr "Kiválasztott szín"
 
 msgid "Use Selected Icon"
 msgstr "Kiválasztott ikon"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Automatikus szintaxiskiemelés"
 
 msgid "Tags for Searching"
 msgstr "Keresési kulcsszavak"
@@ -946,88 +1348,8 @@ msgstr "Minden csomópont külön lapon"
 msgid "Single File"
 msgstr "Egy fájl"
 
-msgid "Latex Text"
-msgstr "Latex szöveg"
-
-msgid "Image Size dpi"
-msgstr "Képméret (dpi)"
-
-msgid "Tutorial"
-msgstr "Útmutató"
-
-msgid "Reference"
-msgstr "Hivatkozás"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX matematikai egyenletek útmutatója"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX matematikai szimbólumok hivatkozása"
-
-msgid "Image Properties"
-msgstr "Kép tulajdonságai"
-
-msgid "Rotate Left"
-msgstr "Forgatás balra"
-
-msgid "Rotate Right"
-msgstr "Forgatás jobbra"
-
-msgid ""
-"In order to crop the image, select the area with the mouse before clicking OK"
-msgstr ""
-"A kép körbevágásához jelöld ki a területet egérrel, majd kattints az OK-ra"
-
-msgid "Flip Horizontally"
-msgstr "Vízszintes tükrözés"
-
-msgid "Flip Vertically"
-msgstr "Függőleges tükrözés"
-
-msgid "Width"
-msgstr "Szélesség"
-
-msgid "Height"
-msgstr "Magasság"
-
-msgid "Type"
-msgstr "Típus"
-
-msgid "pixels"
-msgstr "pixel"
-
-msgid "Size"
-msgstr "Méret"
-
-msgid "Show Line Numbers"
-msgstr "Sorszámok megjelenítése"
-
-msgid "Highlight Matching Brackets"
-msgstr "Zárójelek párjának kiemelése"
-
-msgid "Options"
-msgstr "Opciók"
-
-msgid "Rows"
-msgstr "Sorok"
-
-msgid "Columns"
-msgstr "Oszlopok"
-
-msgid "Default Width"
-msgstr "Alapértelmezett szélesség"
-
-msgid "Table Size"
-msgstr "Táblázat mérete"
-
-msgid "Column Properties"
-msgstr "Oszlop tulajdonságai"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Egyszerű felület (sokkal gyorsabb nagy táblázatok esetén)"
-
-msgid "Import from CSV File"
-msgstr "Importálás CSV fájlból"
+msgid "Index"
+msgstr "Index"
 
 msgid "The Tree is Empty!"
 msgstr "A fa üres!"
@@ -1083,169 +1405,103 @@ msgstr "A választott csomópont a régi szülő!"
 msgid "%s Nodes Properties Changed"
 msgstr "%s csomópont tulajdonságai változtak meg."
 
-msgid "Copy Selection or All"
-msgstr "Kijelölés vagy minden másolása"
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "Érvénytelen archívum: %s"
 
-msgid "Paste"
-msgstr "Beillesztés"
-
-msgid "Reset"
-msgstr "Alaphelyzet"
-
-msgid "Downloading"
-msgstr "Letöltés"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree Hierarchikus jegyzetkészítő"
-
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTree _mutatása/elrejtése"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "CherryTree mutatása/elrejtése"
-
-msgid "_Exit CherryTree"
-msgstr "_Kilépés"
-
-msgid "Exit from CherryTree"
-msgstr "CherryTree bezárása"
-
-msgid "Index"
-msgstr "Index"
-
-msgid "Rename"
-msgstr "Átnevezés"
-
-msgid "PNG Image"
-msgstr "PNG kép"
+msgid "Writing to Disk..."
+msgstr "Mentés folyamatban..."
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "Sikertelen írás a következőre: \"%s\"."
-
-msgid "Insert/Edit Link"
-msgstr "Hivatkozás beszúrása/szerkesztése"
+msgid "You Have No Write Access to %s"
+msgstr "Nincs írási jogosultságod a következőhöz: \"%s\"."
 
 #, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "A hivatkozás \"%s\" nem létező mappára mutat."
+msgid "Enter Password for %s"
+msgstr "Jelszó megadása: %s"
 
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "A hivatkozás \"%s\" nem létező fájlra mutat."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "A hivatkozás \"%s\" nem létező mappára mutat."
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Nem található horgony \"%s\" néven."
-
-msgid "Edit CodeBox"
-msgstr "CodeBox szerkesztése"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
+msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
-"Társítanod kell a parancsot a következőhöz: \"%s\".\n"
-"Ezt a beállításokban teheted meg."
+"Nem sikerült ellenőrizni a dokumentum integritását. Próbáld a Fájl -> Mentés "
+"másként opciót."
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Telepítsd az \"xterm\" csomagot vagy állíts be másik terminál parancsot a "
-"beállításokban."
+msgid "Failed to encrypt the file"
+msgstr "Nem sikerült titkosítani a fájlt"
 
-msgid "Edit Table Properties"
-msgstr "Táblázat tulajdonságainak szerkesztése"
+msgid "Chars for Bulleted List"
+msgstr "Felsorolás karakterei"
 
-msgid "Insert Anchor"
-msgstr "Horgony beszúrása"
+msgid "Chars for Todo List"
+msgstr "Feladatlista karakterei"
 
-msgid "Edit Anchor"
-msgstr "Horgony szerkesztése"
+msgid "Chars for Table Of Content"
+msgstr "Tartalomjegyzék karakterei"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "A beágyazott fájl nem szerkeszthető írásvédett módban."
+msgid "Chars for Smart Double Quotes"
+msgstr "Idézőjel karakterei"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "Beágyazott fájl automatikusan frissítve:"
+msgid "Chars for Smart Single Quotes"
+msgstr "Aposztróf karakterei"
 
-msgid "Autosave on Quit"
-msgstr "Automatikus mentés kilépéskor"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Idézőjelek automatikus cseréje"
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Biztonsági másolat készítése mentés előtt"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Szimbólumok automatikus cseréje"
 
-msgid "Number of Backups to Keep"
-msgstr "Megtartandó másolatok száma"
+msgid "Supported Symbols Auto Replacements"
+msgstr "Támogatott szimbólumpárok"
 
-msgid "Custom Backup Directory"
-msgstr "Másolatok mentése ide"
+msgid "Only at the Start of the Line"
+msgstr "Sor eleji szimbólumok"
 
-msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Többfájlos mentés esetén beágyazott fájlnév használata a lemezen"
+msgid "Use Different Cherries per Level"
+msgstr "Eltérő színű cseresznyék szintenként"
 
-msgid "Saving"
-msgstr "Mentés"
+msgid "No Icon"
+msgstr "Nincs ikon"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Frissítések automatikus ellenőrzése"
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Kiegészítő ikonok elrejtése"
 
-msgid "Reload Document From Last Session"
-msgstr "Dokumentum betöltése a legutóbbi munkamenetből"
+msgid "Default Text Nodes Icons"
+msgstr "Csomópontok alapértelmezett ikonja"
 
-msgid "Reload After External Update to CT* File"
-msgstr "Ablak automatikus újratöltése a fájl külső változtatása esetén"
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Előző állapot helyreállítása"
 
-msgid "Enable Debug Log"
-msgstr "Hibakeresési napló engedélyezése"
+msgid "Expand all Nodes"
+msgstr "Összes csomópont kibontása"
 
-msgid "Debug Log Directory"
-msgstr "Hibakeresési napló könyvtára"
+msgid "Collapse all Nodes"
+msgstr "Összes csomópont összecsukása"
 
-msgid "Enable System Tray Docking"
-msgstr "Tálcaikon engedélyezése"
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Könyvjelzőzött csomópontok mindig láthatóak"
 
-msgid "Start Minimized in the System Tray"
-msgstr "Indítás a háttérben"
+msgid "Nodes Status at Startup"
+msgstr "Csomópontok állapota indításkor"
 
-msgid "System Tray"
-msgstr "Tálcaikon"
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Csomópontok neveinek tördelése, ezen szélességen túl"
 
-msgid "Language"
-msgstr "Nyelv"
+msgid "Display Tree on the Right Side"
+msgstr "Fa nézet megjelenítése a jobb oldalon"
 
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Ebben a munkamenetben még nem történt szövegformázás."
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Csomópontra kattintáskor a fókusz áthelyezése a szövegszerkesztőre"
 
-msgid "Link Name"
-msgstr "Hivatkozás neve"
+msgid "Expand Node at Mouse Click"
+msgstr "Csomópont kibontása kattintásra"
 
-msgid "The Cursor is Not into a Paragraph."
-msgstr "A kurzor nincs egy bekezdésben sem."
-
-msgid "Pick a Foreground Color"
-msgstr "Válassz betűszínt"
-
-msgid "Pick a Background Color"
-msgstr "Válassz háttérszínt"
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Csomópont előzmények száma a navigációs sávban"
 
 msgid "Enable Spell Check"
 msgstr "Helyesírás-ellenőrzés engedélyezése"
 
 msgid "Spell Check Language"
 msgstr "Helyesírás-ellenőrzés nyelve"
-
-msgid "Show White Spaces"
-msgstr "Szóközök és tabulátorok megjelenítése"
-
-msgid "Highlight Current Line"
-msgstr "Aktív sor kiemelése"
 
 msgid "Expand CodeBoxes Automatically"
 msgstr "CodeBox-ok automatikus kiterjesztése"
@@ -1299,213 +1555,23 @@ msgstr "Apró"
 msgid "Scalable Tags"
 msgstr "Méretezhető bekezdések"
 
-#, c-format
-msgid "'%s' is Not a Valid Archive"
-msgstr "Érvénytelen archívum: %s"
+msgid "Preferences File"
+msgstr "Beállítások fájl"
 
-msgid "Writing to Disk..."
-msgstr "Mentés folyamatban..."
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Ebben a munkamenetben még nem történt szövegformázás."
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Nincs írási jogosultságod a következőhöz: \"%s\"."
+msgid "Link Name"
+msgstr "Hivatkozás neve"
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Jelszó megadása: %s"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "A kurzor nincs egy bekezdésben sem."
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Nem sikerült ellenőrizni a dokumentum integritását. Próbáld a Fájl -> Mentés "
-"másként opciót."
+msgid "Pick a Foreground Color"
+msgstr "Válassz betűszínt"
 
-msgid "Failed to encrypt the file"
-msgstr "Nem sikerült titkosítani a fájlt"
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr ""
-"Az adatbázis fájl \"%s\" megsérült, további részletekért tekintsd meg a "
-"naplófájlt."
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"\"%s\" írása sikertelen - a fájl nem található. Csatlakoztasd újra az USB "
-"meghajtót vagy megosztott erőforrást."
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "\"%s\" írása sikertelen - a fájl blokkolva van."
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"\"%s\" olvasása sikertelen - a fájl nem található. Csatlakoztasd újra az USB "
-"meghajtót vagy megosztott erőforrást."
-
-msgid "Who is the Parent?"
-msgstr "Importálás helye"
-
-msgid "The Tree Root"
-msgstr "A fa gyökere"
-
-msgid "The Selected Node"
-msgstr "A kiválasztott csomópont"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Nem sikerült elérni a 'latex' és 'dvipng' futtatható állományokat"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Telepítendő csomagok Ubuntu rendszeren:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "Telepítendő csomagok MacOS rendszeren:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "Nem sikerült elérni a 'latex' futtatható állományt"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "Nem sikerült elérni a 'dvipng' futtatható állományt"
-
-msgid "Use Different Cherries per Level"
-msgstr "Eltérő színű cseresznyék szintenként"
-
-msgid "No Icon"
-msgstr "Nincs ikon"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Kiegészítő ikonok elrejtése"
-
-msgid "Default Text Nodes Icons"
-msgstr "Csomópontok alapértelmezett ikonja"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Előző állapot helyreállítása"
-
-msgid "Expand all Nodes"
-msgstr "Összes csomópont kibontása"
-
-msgid "Collapse all Nodes"
-msgstr "Összes csomópont összecsukása"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Könyvjelzőzött csomópontok mindig láthatóak"
-
-msgid "Nodes Status at Startup"
-msgstr "Csomópontok állapota indításkor"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Csomópontok neveinek tördelése, ezen szélességen túl"
-
-msgid "Display Tree on the Right Side"
-msgstr "Fa nézet megjelenítése a jobb oldalon"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Csomópontra kattintáskor a fókusz áthelyezése a szövegszerkesztőre"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Csomópont kibontása kattintásra"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Csomópont előzmények száma a navigációs sávban"
-
-msgid "A Restore From Backup Was Necessary For:"
-msgstr "A következő elemet biztonsági másolatból kellett helyreállítani:"
-
-msgid "Replace in Current Node"
-msgstr "Csere a csomópontban..."
-
-msgid "Search in Current Node"
-msgstr "Keresés a csomópontban..."
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "A(z) \"%s\" kifejezés <b>nem található!</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "Keresés az összes (keresésből nem kizárt) csomópontban..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Ebben a munkamenetben még nem történt keresés."
-
-msgid "Tab Width"
-msgstr "Tabulátor szélessége"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Szóközök beszúrása tabulátorok helyett"
-
-msgid "Use Line Wrapping"
-msgstr "Hosszú sorok tördelése"
-
-msgid "Line Wrapping Indentation"
-msgstr "Tördelt sorok behúzása"
-
-msgid "Enable Automatic Indentation"
-msgstr "Automatikus behúzás engedélyezése"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Görgetés az utolsó sornál tovább"
-
-msgid "Cursor Blinking"
-msgstr "Kurzor villogás"
-
-msgid "On"
-msgstr "Be"
-
-msgid "Off"
-msgstr "Ki"
-
-msgid "Text Margin: Left"
-msgstr "Szöveg margó: Bal"
-
-msgid "Right"
-msgstr "Jobb"
-
-msgid "Vertical Space Around Lines"
-msgstr "Sorköz"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Tördelt sorköz"
-
-msgid "Timestamp Format"
-msgstr "Időbélyeg formátuma"
-
-msgid "Horizontal Rule"
-msgstr "Vízszintes elválasztó"
-
-msgid "Chars to Select at Double Click"
-msgstr "Karakterek kijelölése dupla kattintásnál"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Az eszköztár ikonjai nem növelhetők tovább."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Az eszköztár ikonjai nem kicsinyíthetők tovább."
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr ""
-"Figyelmeztetés: Egy vagy több kép át lett méretezve, hogy elférjen a lapon."
-
-msgid "Internal Terminal Shell"
-msgstr "Belső parancssor"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Parancsok CodeBox típusok szerint"
-
-msgid "Terminal Command"
-msgstr "Terminál parancs"
-
-msgid "Code Execution"
-msgstr "Kód futtatása"
-
-msgid "Remove from list"
-msgstr "Törlés a listából"
+msgid "Pick a Background Color"
+msgstr "Válassz háttérszínt"
 
 msgid "_File"
 msgstr "_Fájl"
@@ -2182,6 +2248,18 @@ msgstr "Behúzás _csökkentése"
 msgid "Unindent the Current Paragraph"
 msgstr "Bekezdés behúzásának csökkentése (Tabulátor törlése)"
 
+msgid "_Expand TOC Headers"
+msgstr "Tartalomjegyzék _kibontása"
+
+msgid "Expand TOC Headers"
+msgstr "Tartalomjegyzék fejléceinek kibontása"
+
+msgid "_Collapse TOC Headers"
+msgstr "Tartalomjegyzék _összecsukása"
+
+msgid "Collapse TOC Headers"
+msgstr "Tartalomjegyzék fejléceinek összecsukása"
+
 msgid "Tools"
 msgstr "Eszközök"
 
@@ -2190,6 +2268,12 @@ msgstr "_Helyesírás-ellenőrzés ki/be"
 
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Helyesírás-ellenőrzés ki/be kapcsolása"
+
+msgid "Enable/Disable _VIM Mode"
+msgstr "_VIM mód ki/be"
+
+msgid "Toggle Enable/Disable VIM Mode"
+msgstr "VIM mód ki/be kapcsolása"
 
 msgid "Stri_p Trailing Spaces"
 msgstr "_Sorvégi szóközök törlése"
@@ -2898,63 +2982,6 @@ msgstr "Hivatkozás _törlése"
 
 msgid "Delete the Selected Link"
 msgstr "Kijelölt hivatkozás törlése"
-
-msgid "Remove Color"
-msgstr "Szín törlése"
-
-msgid "Question"
-msgstr "Kérdés"
-
-msgid "Info"
-msgstr "Információ"
-
-msgid "Error"
-msgstr "Hiba"
-
-msgid "Select File"
-msgstr "Fájl megnyitása"
-
-msgid "Select Folder"
-msgstr "Mappa megnyitása"
-
-msgid "Save File as"
-msgstr "Mentés másként"
-
-msgid "Save To Folder"
-msgstr "Mentés mappába"
-
-msgid "Print CherryTree version"
-msgstr "CherryTree verzió megjelenítése"
-
-msgid "Node name to focus"
-msgstr "Csomópont kiválasztása"
-
-msgid "Anchor name to scroll to in node"
-msgstr "Horgony neve, melyhez görgetni lehet a csomópontban"
-
-msgid "Export to HTML at specified directory path"
-msgstr "Exportálás HTML-ként elérési útvonal megadásával"
-
-msgid "Export to Text at specified directory path"
-msgstr "Exportálás szövegként elérési útvonal megadásával"
-
-msgid "Export to PDF at specified directory path"
-msgstr "Exportálás PDF-ként elérési útvonal megadásával"
-
-msgid "Overwrite if export path already exists"
-msgstr "Létező exportálási útvonal automatikus felülírása"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Exportálás egyetlen fájlba (HTML vagy TXT esetén)"
-
-msgid "Password to open document"
-msgstr "Jelszó a dokumentum megnyitásához"
-
-msgid "Create a new window"
-msgstr "Megnyitás új ablakban"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Indítás másodlagos munkamenetben, a jelenlegitől függetlenül"
 
 msgid "HTML Document"
 msgstr "HTML dokumentum"

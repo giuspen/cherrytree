@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-26 15:17+0000\n"
-"PO-Revision-Date: 2025-01-26 19:31+0400\n"
+"POT-Creation-Date: 2025-05-15 19:05+0100\n"
+"PO-Revision-Date: 2025-05-14 12:30+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -17,37 +17,214 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-msgid "CherryTree File"
-msgstr "CherryTree նիշք"
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "Չհաջողվեց առբերել «%s» ճյուղի պարունակությունը"
 
-msgid ""
-"The file/folder in use cannot be overwritten!\n"
-"Please use a different name or location."
-msgstr ""
-"Բացված նիշքը/պանակը չի կարող վերագրանցվել։\n"
-"Այլ անուն կամ պանակ ընտրեք։"
+msgid "Tab Width"
+msgstr "Սյունատի լայնք"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Սյունանշանի փոխարեն բացատներ դնել"
+
+msgid "Use Line Wrapping"
+msgstr "Գործածել տողանցում"
+
+msgid "Line Wrapping Indentation"
+msgstr "Տողանցում՝ ներքաշված տողագլխով"
+
+msgid "Enable Automatic Indentation"
+msgstr "Տողագլխի ինքնաշխատ ներքաշում"
+
+msgid "Show Line Numbers"
+msgstr "Ցուցադրել տողերի համարակալումը"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Ոլորել վերջին տողից անդին"
+
+msgid "Cursor Blinking"
+msgstr "Նշորդի թարթում"
+
+msgid "System Default"
+msgstr "Սկզբնադիր տարբերակ"
+
+msgid "On"
+msgstr "Միացված"
+
+msgid "Off"
+msgstr "Անջատված"
+
+msgid "Text Margin: Left"
+msgstr "Տեքստի լուսանցք՝ ձախ"
+
+msgid "Right"
+msgstr "Աջ"
+
+msgid "Vertical Space Around Lines"
+msgstr "Միջպարբերութային տարածք"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Միջտողային տարածք"
+
+msgid "Text Editor"
+msgstr "Տեքստային խմբագրիչ"
+
+msgid "Timestamp Format"
+msgstr "Ամսաթվի կնիքի ձևաչափ"
+
+msgid "Online Manual"
+msgstr "Առցանց ուղեցույց"
+
+msgid "Reset to Default"
+msgstr "Վերականգնել սկզբնադիր տարբերակը"
+
+msgid "Horizontal Rule"
+msgstr "Հորիզոնական գիծ"
+
+msgid "Chars to Select at Double Click"
+msgstr "Կրկնակի կտտացմամբ ընտրվող գրանշաններ"
+
+msgid "Miscellaneous"
+msgstr "Զանազան"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr "Տվյալաշտեմարանի %s նիշքը փչացած է, մանրամասները տես մատենանիշքում"
 
 #, c-format
 msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
+"%s write failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"«%s» պանակ արդեն կա «%s»-ում։\n"
-"<b>Փոխարինե՞լ այն։</b>"
+"%s գրումը ձախողվեց. նիշքը չկա։ Նորից մտցրեք USB հիշասարքը կամ համօգտագործվող "
+"աղբյուրը։"
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "%s գրումը ձախողվեց․ նիշքն արգելափակվա՞ծ է համաժամեցման ծրագրով։"
 
 #, c-format
 msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"«%s» նիշք արդեն կա «%s»-ում։\n"
-"<b>Փոխարինե՞լ այն։</b>"
+"%s վերաբացումը ձախողվեց. նիշքը չկա։ Նորից մտցրեք USB հիշասարքը կամ "
+"համօգտագործվող աղբյուրը։"
 
-msgid "PDF File"
-msgstr "PDF նիշք"
+msgid "Rename"
+msgstr "Վերանվանել"
 
-msgid "Plain Text Document"
-msgstr "Հասարակ տեքստային փաստաթուղթ"
+msgid "PNG Image"
+msgstr "PNG նկար"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "%s նիշքին գրանցումը չհաջողվեց"
+
+msgid "Insert/Edit Link"
+msgstr "Դնել/խմբագրել հղում"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "Պանակի '%s' հղումը ճիշտ չէ։"
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "Նիշքի '%s' հղումը ճիշտ չէ։"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Պանակի '%s' հղումը ճիշտ չէ"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Հղումը տանում է այլևս գոյություն չունեցող ճյուղի (Id = %s)"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "«%s» անունով խարիսխ չգտնվեց"
+
+msgid "Edit CodeBox"
+msgstr "Խմբագրել այլագրատուփը"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Պետք է '%s'-ի համար հրաման ընտրել։\n"
+"Սա արեք ընտրանքների բաժնում։"
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Տեղակայեք  'xterm'  փաթեթը կամ ընտրանքների բաժնում ընտրեք մեկ այլ տերմինալ։"
+
+msgid "Edit Table Properties"
+msgstr "Խմբագրել աղյուսակի հատկությունները"
+
+msgid "CSV File"
+msgstr "CSV նիշք"
+
+msgid "Insert Anchor"
+msgstr "Դնել խարիսխ"
+
+msgid "Edit Anchor"
+msgstr "Խմբագրել խարիսխը"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Միայն ընթերցվող ճյուղում հնարավոր չէ խմբագրել ներդրված նիշքը։"
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Ներդրված նիշքը լռելյայն թարմացվել է"
+
+msgid "To WebSite"
+msgstr "Դեպի կայք"
+
+msgid "To File"
+msgstr "Դեպի նիշք"
+
+msgid "To Folder"
+msgstr "Դեպի պանակ"
+
+msgid "To Node"
+msgstr "Դեպի ճյուղ"
+
+msgid "Anchor Name (optional)"
+msgstr "Խարսխի անուն (ըստ ցանկության)"
+
+msgid "No Node is Selected"
+msgstr "Որևէ ճյուղ չի ընտրված"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Ընտրված ճյուղում խարիսխներ չկան։"
+
+msgid "Choose Existing Anchor"
+msgstr "Ընտրել գոյություն ունեցող խարիսխ"
+
+msgid "Anchor Name"
+msgstr "Խարսխի անուն"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "«%s» ձևը չի գտնվել"
+
+msgid "Show White Spaces"
+msgstr "Ցուցադրել բացատների նիշերը"
+
+msgid "Highlight Current Line"
+msgstr "Գունանշել ընթացիկ տողը"
+
+msgid "Highlight Matching Brackets"
+msgstr "Գունանշել լծորդ փակագծերը"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Հաստատել նախքան այլագրի գործարկումը"
+
+msgid "Use Internal Terminal"
+msgstr "Գործածել ներքին տերմինալ"
+
+msgid "Internal Terminal Shell"
+msgstr "Ներքին տերմինալի խեցի"
 
 msgid "Add"
 msgstr "Ավելացնել"
@@ -55,136 +232,60 @@ msgstr "Ավելացնել"
 msgid "Remove Selected"
 msgstr "Վերացնել ընտրվածը։"
 
-msgid "Reset to Default"
-msgstr "Վերականգնել սկզբնադիր տարբերակը"
+msgid "Command per Node/CodeBox Type"
+msgstr "Հրաման ամեն ճյուղի/այլագրատուփի տեսակի համար"
 
-msgid "Split Toolbar"
-msgstr "Տրոհել գործիքագոտին"
+msgid "Terminal Command"
+msgstr "Տերմինալային հրաման"
 
-msgid "Open a CherryTree File"
-msgstr "Բացել CherryTree նիշք"
+msgid "Code Execution"
+msgstr "Այլագրի գործարկում"
 
 msgid "Select Element to Add"
 msgstr "Ընտրեք ցանկից՝ ավելացնելու համար'"
 
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "%s ուղին գոյություն չունի"
+msgid "Remove"
+msgstr "Հեռացնել"
 
-msgid "Open a Recent CherryTree Document"
-msgstr "Բացել վերջին CherryTree փաստաթղթերից մեկը"
+msgid "Remove User Colour from Palette"
+msgstr "Հեռացնել գույնը գունապնակից"
 
-msgid "_Hide"
-msgstr "_Թաքցնել"
+msgid "Colour"
+msgstr "Գույն"
 
-msgid "_Quit"
-msgstr "_Դուրս գալ"
+msgid "Question"
+msgstr "Հարց"
 
-msgid "Hide the Window"
-msgstr "Թաքցնել պատուհանը"
+msgid "Info"
+msgstr "Տեղեկանք"
 
-msgid "Quit the Application"
-msgstr "Ծրագրից դուրս գալ"
+msgid "Warning"
+msgstr "Զգուշացում"
 
-msgid "No Node is Selected"
-msgstr "Որևէ ճյուղ չի ընտրված"
+msgid "Error"
+msgstr "Սխալ"
 
-msgid "Node Type"
-msgstr "Ճյուղի տեսակ"
+msgid "Select File"
+msgstr "Ընտրել նիշք"
 
-msgid ": "
-msgstr "՝ "
+msgid "Select Folder"
+msgstr "Ընտրել պանակ"
 
-msgid "Rich Text"
-msgstr "Ձևաչափված տեքստ"
+msgid "Save File as"
+msgstr "Պահպանել նիշքը որպես"
 
-msgid "Plain Text"
-msgstr "Հասարակ տեքստ"
+msgid "Save To Folder"
+msgstr "Պահպանել պանակում"
 
-msgid "Tags"
-msgstr "Պիտակներ"
-
-msgid "Spell Check"
-msgstr "Ուղղագրության ստուգում"
-
-msgid "Word Count"
-msgstr "Բառերի քանակ"
-
-msgid "Date Created"
-msgstr "Ստեղծման ժամանակ"
-
-msgid "Date Modified"
-msgstr "Փոփոխման ժամանակ"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Այս գործաժամում ճյուղ չի պատճենվել, կամ աղբյուր ծառն այլևս հասանելի չէ։"
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Աղբյուր ճյուղն այլևս հասանելի չէ։"
-
-msgid "Image Format Not Recognized"
-msgstr "Չհաջողվեց ճանաչել նկարի ձևաչափը։"
-
-msgid "Insert Table"
-msgstr "Դնել աղյուսակ"
-
-msgid "CSV File"
-msgstr "CSV նիշք"
-
-msgid "Insert a CodeBox"
-msgstr "Դնել այլագրատուփ"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Ներդրված նիշքերի առավելագույն չափը %s ՄԲ է։"
-
-msgid "Do you want to Continue?"
-msgstr "Շարունակե՞լ։"
-
-#, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "Չհաջողվեց առբերել «%s» ճյուղի պարունակությունը"
-
-msgid "Special Characters"
-msgstr "Հատուկ գրանշաններ"
-
-msgid "Tabs Replaced"
-msgstr "Սյունատները փոխարինված են"
-
-msgid "Lines Stripped"
-msgstr "Մաքրված տողեր"
-
-msgid "No Text is Selected."
-msgstr "Որևէ տեքստ չի ընտրված։"
-
-msgid "Checking for Newer Version..."
-msgstr "Ստուգվում են թարմացումները..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց "
-"փորձեք։"
-
-msgid "A Newer Version Is Available!"
-msgstr "Առկա է նոր տարբերակ։"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Դուք գործածում եք առկա վերջին տարբերակը։"
-
-msgid "You Are Using a Development Version."
-msgstr "Դուք գործածում եք դեռ մշակվող տարբերակ։"
-
-msgid "Execute Code"
-msgstr "Գործարկել այլագիրը"
-
-msgid "Change CodeBox Properties"
-msgstr "Փոխել այլագրատուփի հատկությունները"
+msgid "Downloading"
+msgstr "Բեռնում"
 
 msgid "Show Menubar:"
 msgstr "Ցուցադրել ընտրացանկի գոտին"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "%s ուղին գոյություն չունի"
 
 #, c-format
 msgid "\"%s\" is Not a CherryTree File"
@@ -220,365 +321,14 @@ msgstr "Արդյոք փակե՞լ եք արտաքին ծրագրերը։"
 msgid "The Document was Reloaded After External Update to CT* File."
 msgstr "Փաստաթուղթը բեռնվել է արտաքին թարմացումից հետո։"
 
-msgid "Change Selected"
-msgstr "Փոխել ընտրվածը"
+msgid "Execute Code"
+msgstr "Գործարկել այլագիրը"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr " '%s' ստեղնային կարճատն արդեն կա"
+msgid "Copy Code"
+msgstr "Պատճենել այլագիրը"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Ներկա գործողությունը  '%s' -ն է։"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Կամենո՞ւմ եք «գողանալ» կարճատը։"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Խմբագրել ստեղնային կարճատը"
-
-msgid "No Keyboard Shortcut"
-msgstr "Ստեղնային կարճատ պետք չէ"
-
-msgid "Chars for Bulleted List"
-msgstr "Նշանակալված ցանկի նշաններ"
-
-msgid "Chars for Todo List"
-msgstr "Անելիքի ցանկի նշաններ"
-
-msgid "Chars for Table Of Content"
-msgstr "Բովանդակացանկի նշաններ"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Կրկնակի չակերտների նշաններ"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Կրկնակի չակերտների նշաններ"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Չակերտների ինքնաշխատ փոփոխում"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Նշանների ինքնաշխատ փոփոխում"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Աջակցվող նշանների ինքնափոխարինում"
-
-msgid "Text Editor"
-msgstr "Տեքստային խմբագրիչ"
-
-msgid "Only at the Start of the Line"
-msgstr "Միայն տողի սկզբում"
-
-msgid "To WebSite"
-msgstr "Դեպի կայք"
-
-msgid "To File"
-msgstr "Դեպի նիշք"
-
-msgid "To Folder"
-msgstr "Դեպի պանակ"
-
-msgid "To Node"
-msgstr "Դեպի ճյուղ"
-
-msgid "Anchor Name (optional)"
-msgstr "Խարսխի անուն (ըստ ցանկության)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Ընտրված ճյուղում խարիսխներ չկան։"
-
-msgid "Choose Existing Anchor"
-msgstr "Ընտրել գոյություն ունեցող խարիսխ"
-
-msgid "Anchor Name"
-msgstr "Խարսխի անուն"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "«%s» ձևը չի գտնվել"
-
-msgid "Preferences"
-msgstr "Ընտրանքներ"
-
-msgid "Arabic"
-msgstr "Արաբերեն"
-
-msgid "Armenian"
-msgstr "Հայերեն"
-
-msgid "Bulgarian"
-msgstr "Բուլղարերեն"
-
-msgid "Chinese Simplified"
-msgstr "Պարզեցված չինարեն"
-
-msgid "Chinese Traditional"
-msgstr "Չինարեն, ավանդական"
-
-msgid "Croatian"
-msgstr "Խորվաթերեն"
-
-msgid "Czech"
-msgstr "Չեխերեն"
-
-msgid "Dutch"
-msgstr "Հոլանդերեն"
-
-msgid "English"
-msgstr "Անգլերեն"
-
-msgid "Persian"
-msgstr "Պարսկերեն"
-
-msgid "Finnish"
-msgstr "Ֆիններեն"
-
-msgid "French"
-msgstr "Ֆրանսերեն"
-
-msgid "German"
-msgstr "Գերմաներեն"
-
-msgid "Greek"
-msgstr "Հունարեն"
-
-msgid "Hindi India"
-msgstr "Հինդի, Հնդկաստան"
-
-msgid "Hungarian"
-msgstr "Հունգարերեն"
-
-msgid "Italian"
-msgstr "Իտալերեն"
-
-msgid "Japanese"
-msgstr "Ճապոներեն"
-
-msgid "Kazakh"
-msgstr "Ղազախերեն"
-
-msgid "Kazakh (Latin)"
-msgstr "Ղազախերեն (լատինատառ)"
-
-msgid "Korean"
-msgstr "Կորեերեն"
-
-msgid "Lithuanian"
-msgstr "Լիտվերեն"
-
-msgid "Polish"
-msgstr "Լեհերեն"
-
-msgid "Portuguese"
-msgstr "Պորտուգալերեն"
-
-msgid "Portuguese Brazil"
-msgstr "Բրազիլական պորտուգալերեն"
-
-msgid "Romanian"
-msgstr "Ռումիներեն"
-
-msgid "Russian"
-msgstr "Ռուսերեն"
-
-msgid "Slovak"
-msgstr "Սլովակերեն"
-
-msgid "Slovenian"
-msgstr "Սլովեներեն"
-
-msgid "Spanish"
-msgstr "Իսպաներեն"
-
-msgid "Swedish"
-msgstr "Շվեդերեն"
-
-msgid "Turkish"
-msgstr "Թուրքերեն"
-
-msgid "Ukrainian"
-msgstr "Ուկրաիներեն"
-
-msgid "Text and Code"
-msgstr "Տեքստ և այլագիր"
-
-msgid "Format"
-msgstr "Ձևաչափում"
-
-msgid "Plain Text and Code"
-msgstr "Հասարակ տեքստ և այլագիր"
-
-msgid "Tree Explorer"
-msgstr "Ծառի հետախույզ"
-
-msgid "Theme"
-msgstr "Թեմա"
-
-msgid "Interface"
-msgstr "Միջերես"
-
-msgid "Links"
-msgstr "Հղումներ"
-
-msgid "Toolbar"
-msgstr "Գործիքագոտի"
-
-msgid "Keyboard Shortcuts"
-msgstr "Ստեղնային կարճատներ"
-
-msgid "Miscellaneous"
-msgstr "Զանազան"
-
-msgid "Monospace"
-msgstr "Նույնալայնք"
-
-msgid "Code Font"
-msgstr "Այլագրի տառատեսակ"
-
-msgid "Terminal Font"
-msgstr "Տերմինալի տառատեսակ"
-
-msgid "Tree Font"
-msgstr "Ծառի տառատեսակ"
-
-msgid "Fonts"
-msgstr "Տառատեսակներ"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "Ցույց տալ բառերի քանակը վիճակագոտում"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "Ցույց տալ փաստաթղթերի պանակը պատուհանի անվանման մեջ"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Ցուցադրել լրիվ ուղին ճյուղի վերնագրի գլխամասում"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Էջանշացանկ ընտրացանկի գոտում"
-
-msgid "Menubar in Titlebar"
-msgstr "Ընտրացանկի գոտին վերնագրի գոտում"
-
-msgid "Toolbar Icons Size"
-msgstr "Գործիքագոտու պատկերակների չափ"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Ոլորագոտու նվազագույն չափ (0-ն համակարգի սկզբնադիրն է)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Ոլորագոտին վերածածկում է տեքստային խմբագրիչը"
-
-msgid "System Default"
-msgstr "Սկզբնադիր տարբերակ"
-
-msgid "Yes"
-msgstr "Այո"
-
-msgid "No"
-msgstr "Ոչ"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Նշորդը վրան պահելիս տեսնել հուշումներ"
-
-msgid "Tree"
-msgstr "Ծառ"
-
-msgid "Menus"
-msgstr "Ընտրացանկեր"
-
-msgid "Max Search Results per Page"
-msgstr "Որոնման առավելագույն արդյունքներն ըստ էջի"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Դեպի կայք հղման համար գործածել հետևյալը"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Դեպի նիշք հղման համար գործածել հետևյալը"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Դեպի պանակ հղման համար գործածել հետևյալը"
-
-msgid "Custom Actions"
-msgstr "Այլ գործողություններ"
-
-msgid "Colors"
-msgstr "Գույներ"
-
-msgid "Underline Links"
-msgstr "Ընդգծել հղումները"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Նիշքերի և պանակների համար գործածել հարաբերական ուղիներ"
-
-msgid "Anchor Size"
-msgstr "Խարսխի չափ"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Փոփոխությունը կկատարվի CherryTree-ի վերագործարկումից հետո։"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Ծնողական նոր ճյուղը չի կարող նույնանալ դուստր ճյուղի հետ"
-
-msgid "Light Background, Dark Text"
-msgstr "Բաց գույնի խորք, մուգ տեքստ"
-
-msgid "Dark Background, Light Text"
-msgstr "Մուգ խորք, բաց գույնի տեքստ"
-
-msgid "Custom Background"
-msgstr "Այլ գույնի խորք"
-
-msgid "Text"
-msgstr "Տեքստ"
-
-msgid "Selection Background"
-msgstr "Ընտրվածքի խորք"
-
-msgid "Table"
-msgstr "Աղյուսակ"
-
-msgid "Code"
-msgstr "Այլագիր"
-
-msgid "Style Schemes"
-msgstr "Ոճեր"
-
-msgid "Text Foreground"
-msgstr "Տեքստի առջևք"
-
-msgid "Text Background"
-msgstr "Տեքստի խորք"
-
-msgid "Selection Foreground"
-msgstr "Ընտրվածքի առջևք"
-
-msgid "Cursor"
-msgstr "Նշորդ"
-
-msgid "Current Line Background"
-msgstr "Ընթացիկ տողի խորք"
-
-msgid "Line Numbers Foreground"
-msgstr "Տողահամարների առջևք"
-
-msgid "Line Numbers Background"
-msgstr "Տողահամարների խորք"
-
-msgid "Style Scheme Editor"
-msgstr "Ոճի խմբագրիչ"
-
-msgid "Set Dark Theme Icons"
-msgstr "Մուգ պատկերակներ"
-
-msgid "Set Light Theme Icons"
-msgstr "Բաց գույնի պատկերակներ"
-
-msgid "Set Default Icons"
-msgstr "Սկզբնադիր պատկերակներ"
-
-msgid "Icon Theme"
-msgstr "Պատկերակների թեմա"
+msgid "Change CodeBox Properties"
+msgstr "Փոխել այլագրատուփի հատկությունները"
 
 msgid "Search for"
 msgstr "Փնտրել"
@@ -591,9 +341,6 @@ msgstr "Մեծատառն ու փոքրատառը տարբերակել"
 
 msgid "Regular Expression"
 msgstr "Կանոնավոր արտահայտություն"
-
-msgid "Online Manual"
-msgstr "Առցանց ուղեցույց"
 
 msgid "Accent Insensitive"
 msgstr "Շեշտի անտեսում"
@@ -676,10 +423,6 @@ msgstr "Տող"
 msgid "Line Content"
 msgstr "Տողի պարունակություն"
 
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Հղումը տանում է այլևս գոյություն չունեցող ճյուղի (Id = %s)"
-
 msgid "Matches"
 msgstr "համընկում"
 
@@ -700,6 +443,411 @@ msgstr "Փոխարինել"
 
 msgid "Undo"
 msgstr "Հետարկել"
+
+msgid "Print CherryTree version"
+msgstr "Տպել CherryTree-ի տարբերակը"
+
+msgid "Node name to focus"
+msgstr "Ճյուղի անունը՝ կիզակետված"
+
+msgid "Anchor name to scroll to in node"
+msgstr "Խարսխի անունը՝ ճյուղում ոլորմամբ գտնելու"
+
+msgid "Export to HTML at specified directory path"
+msgstr "Արտահանել որպես HTML պանակի ընտրված ուղով"
+
+msgid "Export to Text at specified directory path"
+msgstr "Արտահանել որպես Text պանակի ընտրված ուղով"
+
+msgid "Export to PDF at specified directory path"
+msgstr "Արտահանել որպես PDF պանակի ընտրված ուղով"
+
+msgid "Overwrite if export path already exists"
+msgstr "Վրագրել, եթե արտահանման ուղին արդեն կա"
+
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Արտահանել մեկ նիշքով (HTML կամ TXT)"
+
+msgid "Password to open document"
+msgstr "Գաղտնաբառ՝ փաստաթուղթը բացելու"
+
+msgid "Create a new window"
+msgstr "Ստեղծել նոր պատուհան"
+
+msgid "Run in secondary session, independent from main session"
+msgstr "Աշխատեցնել երկրորդական գործաժամում՝ հիմնականից անկախ"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Չհաջողվեց մատչել գործարկելի latex-ին և dvipng-ին"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Օր․՝ Ուբունտուում տեղակայելի փաթեթներն են՝"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Օր․՝ Mac ՕՀ-ում տեղակայելի փաթեթներն են՝"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Չհաջողվեց մատչել գործարկելի latex-ին"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Չհաջողվեց մատչել գործարկելի dvipng-ին"
+
+msgid "CherryTree File"
+msgstr "CherryTree նիշք"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"Բացված նիշքը/պանակը չի կարող վերագրանցվել։\n"
+"Այլ անուն կամ պանակ ընտրեք։"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"«%s» պանակ արդեն կա «%s»-ում։\n"
+"<b>Փոխարինե՞լ այն։</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"«%s» նիշք արդեն կա «%s»-ում։\n"
+"<b>Փոխարինե՞լ այն։</b>"
+
+msgid "PDF File"
+msgstr "PDF նիշք"
+
+msgid "Plain Text Document"
+msgstr "Հասարակ տեքստային փաստաթուղթ"
+
+msgid "Light Background, Dark Text"
+msgstr "Բաց գույնի խորք, մուգ տեքստ"
+
+msgid "Dark Background, Light Text"
+msgstr "Մուգ խորք, բաց գույնի տեքստ"
+
+msgid "Custom Background"
+msgstr "Այլ գույնի խորք"
+
+msgid "Text"
+msgstr "Տեքստ"
+
+msgid "Selection Background"
+msgstr "Ընտրվածքի խորք"
+
+msgid "Tree Explorer"
+msgstr "Ծառի հետախույզ"
+
+msgid "Rich Text"
+msgstr "Ձևաչափված տեքստ"
+
+msgid "Plain Text"
+msgstr "Հասարակ տեքստ"
+
+msgid "Table"
+msgstr "Աղյուսակ"
+
+msgid "Code"
+msgstr "Այլագիր"
+
+msgid "Style Schemes"
+msgstr "Ոճեր"
+
+msgid "Text Foreground"
+msgstr "Տեքստի առջևք"
+
+msgid "Text Background"
+msgstr "Տեքստի խորք"
+
+msgid "Selection Foreground"
+msgstr "Ընտրվածքի առջևք"
+
+msgid "Cursor"
+msgstr "Նշորդ"
+
+msgid "Current Line Background"
+msgstr "Ընթացիկ տողի խորք"
+
+msgid "Line Numbers Foreground"
+msgstr "Տողահամարների առջևք"
+
+msgid "Line Numbers Background"
+msgstr "Տողահամարների խորք"
+
+msgid "Style Scheme Editor"
+msgstr "Ոճի խմբագրիչ"
+
+msgid "Set Dark Theme Icons"
+msgstr "Մուգ պատկերակներ"
+
+msgid "Set Light Theme Icons"
+msgstr "Բաց գույնի պատկերակներ"
+
+msgid "Set Default Icons"
+msgstr "Սկզբնադիր պատկերակներ"
+
+msgid "Icon Theme"
+msgstr "Պատկերակների թեմա"
+
+msgid "Autosave Every"
+msgstr "Ինքնապահում ամեն"
+
+msgid "Minutes"
+msgstr "րոպեն մեկ"
+
+msgid "Autosave on Quit"
+msgstr "Ինքնապահում դուրս գալիս"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Նախքան պահպանումը պահուստային օրինակ ստեղծել"
+
+msgid "Number of Backups to Keep"
+msgstr "Պահուստային նիշքերի քանակը"
+
+msgid "Custom Backup Directory"
+msgstr "Պահուստի այլ պանակ"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Շատ նիշքերով պահեստարան, գործածել ներկառուցված նիշքի անունը"
+
+msgid "Saving"
+msgstr "Պահպանում"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Լռելյայն ստուգել թարմացումները"
+
+msgid "Reload Document From Last Session"
+msgstr "Բեռնել փաստաթուղթը վերջին գործաժամից"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Բեռնել նիշքն արտաքին թարմացումից հետո"
+
+msgid "Enable Debug Log"
+msgstr "Վրիպազերծման գրանցում"
+
+msgid "Debug Log Directory"
+msgstr "Վրիպազերծման գրանցման պանակը"
+
+msgid "Enable System Tray Docking"
+msgstr "Միացնել համակարգի դարակին հարակցումը"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Սկսել համակարգի դարակում հարակցված"
+
+msgid "System Tray"
+msgstr "Համակարգի դարակ"
+
+msgid "Language"
+msgstr "Ծրագրի լեզուն"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Համակարգի դարակը հայտնվե՞ց վահանակում։"
+
+msgid "Your system does not support the System Tray"
+msgstr "Համակարգի դարակը չի աջակցվում Ձեր համակարգում"
+
+msgid "Latex Text"
+msgstr "Latex տեքստ"
+
+msgid "Image Size dpi"
+msgstr "Նկարի չափը dpi"
+
+msgid "Tutorial"
+msgstr "Ուսուցանյութ"
+
+msgid "Reference"
+msgstr "Ուղեցույց"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX մաթ. և հավասարումների ուսուցանյութ"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX մաթ․ նշանների ուղեցույց"
+
+msgid "Image Properties"
+msgstr "Նկարի հատկություններ"
+
+msgid "Rotate Left"
+msgstr "Պտտել ձախ"
+
+msgid "Rotate Right"
+msgstr "Պտտել աջ"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "Նկարը եզրատելու համար մկնիկով ընտրեք անհրաժեշտ մասը և սեղմեք OK"
+
+msgid "Flip Horizontally"
+msgstr "Հորիզոնական շրջում"
+
+msgid "Flip Vertically"
+msgstr "Ուղղահայաց շրջում"
+
+msgid "Width"
+msgstr "Լայնք"
+
+msgid "Height"
+msgstr "Բարձրություն"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Շարահյուսության ինքնաշխատ գունանշում"
+
+msgid "Type"
+msgstr "Տեսակ"
+
+msgid "pixels"
+msgstr "պիքսել"
+
+msgid "Size"
+msgstr "Չափ"
+
+msgid "Options"
+msgstr "Ընտրանքներ"
+
+msgid "Rows"
+msgstr "Տողեր"
+
+msgid "Columns"
+msgstr "Սյունակներ"
+
+msgid "Default Width"
+msgstr "Սկզբնադիր լայնք"
+
+msgid "Table Size"
+msgstr "Աղյուսակի չափեր"
+
+msgid "Column Properties"
+msgstr "Սյունակի հատկություններ"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Թեթև միջերես (մեծ աղյուսակի համար ավելի արագագործ)"
+
+msgid "Import from CSV File"
+msgstr "Ներմուծել CSV նիշքից"
+
+msgid "Change Selected"
+msgstr "Փոխել ընտրվածը"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr " '%s' ստեղնային կարճատն արդեն կա"
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Ներկա գործողությունը  '%s' -ն է։"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Կամենո՞ւմ եք «գողանալ» կարճատը։"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Խմբագրել ստեղնային կարճատը"
+
+msgid "No Keyboard Shortcut"
+msgstr "Ստեղնային կարճատ պետք չէ"
+
+msgid "Who is the Parent?"
+msgstr "Ո՞րն է ծնողը"
+
+msgid "The Tree Root"
+msgstr "Ծառարմատը"
+
+msgid "The Selected Node"
+msgstr "Ընտրված ճյուղը"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "Բացել վերջին CherryTree փաստաթղթերից մեկը"
+
+msgid "_Hide"
+msgstr "_Թաքցնել"
+
+msgid "_Quit"
+msgstr "_Դուրս գալ"
+
+msgid "Hide the Window"
+msgstr "Թաքցնել պատուհանը"
+
+msgid "Quit the Application"
+msgstr "Ծրագրից դուրս գալ"
+
+msgid "Node Type"
+msgstr "Ճյուղի տեսակ"
+
+msgid ": "
+msgstr "՝ "
+
+msgid "Tags"
+msgstr "Պիտակներ"
+
+msgid "Spell Check"
+msgstr "Ուղղագրության ստուգում"
+
+msgid "Word Count"
+msgstr "Բառերի քանակ"
+
+msgid "Date Created"
+msgstr "Ստեղծման ժամանակ"
+
+msgid "Date Modified"
+msgstr "Փոփոխման ժամանակ"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Այս գործաժամում ճյուղ չի պատճենվել, կամ աղբյուր ծառն այլևս հասանելի չէ։"
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Աղբյուր ճյուղն այլևս հասանելի չէ։"
+
+msgid "Copy Selection or All"
+msgstr "Պատճենել ընտրվածքը կամ ամբողջը"
+
+msgid "Paste"
+msgstr "Փակցնել"
+
+msgid "Reset"
+msgstr "Վերականգնել"
+
+msgid "Split Toolbar"
+msgstr "Տրոհել գործիքագոտին"
+
+msgid "Open a CherryTree File"
+msgstr "Բացել CherryTree նիշք"
+
+msgid "Image Format Not Recognized"
+msgstr "Չհաջողվեց ճանաչել նկարի ձևաչափը։"
+
+msgid "Insert Table"
+msgstr "Դնել աղյուսակ"
+
+msgid "Insert a CodeBox"
+msgstr "Դնել այլագրատուփ"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Ներդրված նիշքերի առավելագույն չափը %s ՄԲ է։"
+
+msgid "Do you want to Continue?"
+msgstr "Շարունակե՞լ։"
+
+msgid "Special Characters"
+msgstr "Հատուկ գրանշաններ"
+
+msgid "Tabs Replaced"
+msgstr "Սյունատները փոխարինված են"
+
+msgid "Lines Stripped"
+msgstr "Մաքրված տողեր"
+
+msgid "No Text is Selected."
+msgstr "Որևէ տեքստ չի ընտրված։"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "Պահուստից վերականգնումը պետք էր այս նպատակով․"
 
 msgid "Handle the Bookmarks List"
 msgstr "Կարգավորել էջանիշների ցանկը"
@@ -757,20 +905,11 @@ msgstr ""
 msgid "Enter the New Password Twice"
 msgstr "Նոր գաղտնաբառը մուտքագրեք երկիցս"
 
-msgid "Autosave Every"
-msgstr "Ինքնապահում ամեն"
-
-msgid "Minutes"
-msgstr "րոպեն մեկ"
-
 msgid "The Password Fields Must be Filled."
 msgstr "Գաղտնաբառի դաշտերը պիտի լրացվեն։"
 
 msgid "The Two Inserted Passwords Do Not Match."
 msgstr "Մուտքագրված երկու գաղտնաբառերը չեն համընկնում։"
-
-msgid "Warning"
-msgstr "Զգուշացում"
 
 msgid "The Current Document was Updated."
 msgstr "Փաստաթուղթը թարմացվել է։"
@@ -780,12 +919,6 @@ msgstr "Կամենո՞ւմ եք պահպանել փոփոխություններ�
 
 msgid "Do you want to Execute the Code?"
 msgstr "Կամենո՞ւմ եք այլագիրը գործարկել։"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Հաստատել նախքան այլագրի գործարկումը"
-
-msgid "Use Internal Terminal"
-msgstr "Գործածել ներքին տերմինալ"
 
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
@@ -831,6 +964,102 @@ msgstr ""
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
+msgid "Arabic"
+msgstr "Արաբերեն"
+
+msgid "Armenian"
+msgstr "Հայերեն"
+
+msgid "Bulgarian"
+msgstr "Բուլղարերեն"
+
+msgid "Chinese Simplified"
+msgstr "Պարզեցված չինարեն"
+
+msgid "Chinese Traditional"
+msgstr "Չինարեն, ավանդական"
+
+msgid "Croatian"
+msgstr "Խորվաթերեն"
+
+msgid "Czech"
+msgstr "Չեխերեն"
+
+msgid "Dutch"
+msgstr "Հոլանդերեն"
+
+msgid "Finnish"
+msgstr "Ֆիններեն"
+
+msgid "French"
+msgstr "Ֆրանսերեն"
+
+msgid "German"
+msgstr "Գերմաներեն"
+
+msgid "Greek"
+msgstr "Հունարեն"
+
+msgid "Hindi India"
+msgstr "Հինդի, Հնդկաստան"
+
+msgid "Hungarian"
+msgstr "Հունգարերեն"
+
+msgid "Italian"
+msgstr "Իտալերեն"
+
+msgid "Japanese"
+msgstr "Ճապոներեն"
+
+msgid "Kazakh"
+msgstr "Ղազախերեն"
+
+msgid "Kazakh (Latin)"
+msgstr "Ղազախերեն (լատինատառ)"
+
+msgid "Korean"
+msgstr "Կորեերեն"
+
+msgid "Lithuanian"
+msgstr "Լիտվերեն"
+
+msgid "Persian"
+msgstr "Պարսկերեն"
+
+msgid "Polish"
+msgstr "Լեհերեն"
+
+msgid "Portuguese"
+msgstr "Պորտուգալերեն"
+
+msgid "Portuguese Brazil"
+msgstr "Բրազիլական պորտուգալերեն"
+
+msgid "Romanian"
+msgstr "Ռումիներեն"
+
+msgid "Russian"
+msgstr "Ռուսերեն"
+
+msgid "Slovak"
+msgstr "Սլովակերեն"
+
+msgid "Slovenian"
+msgstr "Սլովեներեն"
+
+msgid "Spanish"
+msgstr "Իսպաներեն"
+
+msgid "Swedish"
+msgstr "Շվեդերեն"
+
+msgid "Turkish"
+msgstr "Թուրքերեն"
+
+msgid "Ukrainian"
+msgstr "Ուկրաիներեն"
+
 msgid "About CherryTree"
 msgstr "CherryTree-ի մասին"
 
@@ -867,14 +1096,185 @@ msgstr "Խարիսխների քանակը"
 msgid "Number of Shared Nodes / Groups"
 msgstr "Համօգտագործվող ճյուղերի/խմբերի քանակը"
 
-msgid "Preferences File"
-msgstr "Ընտրանքների նիշք"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Զգուշացում։ Մեկ կամ մի քանի նկար փոքրացվել է էջում տեղավորվելու համար։"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Համակարգի դարակը հայտնվե՞ց վահանակում։"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Գործիքագոտու պատկերակներն արդեն իսկ առավելագույն չափն ունեն։"
 
-msgid "Your system does not support the System Tray"
-msgstr "Համակարգի դարակը չի աջակցվում Ձեր համակարգում"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Գործիքագոտու պատկերակներն արդեն իսկ նվազագույն չափն ունեն։"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Փոփոխությունը կկատարվի CherryTree-ի վերագործարկումից հետո։"
+
+msgid "Remove from list"
+msgstr "Հեռացնել ցանկից"
+
+msgid "The new parent can't be one of his children!"
+msgstr "Ծնողական նոր ճյուղը չի կարող նույնանալ դուստր ճյուղի հետ"
+
+msgid "Checking for Newer Version..."
+msgstr "Ստուգվում են թարմացումները..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց "
+"փորձեք։"
+
+msgid "A Newer Version Is Available!"
+msgstr "Առկա է նոր տարբերակ։"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Դուք գործածում եք առկա վերջին տարբերակը։"
+
+msgid "You Are Using a Development Version."
+msgstr "Դուք գործածում եք դեռ մշակվող տարբերակ։"
+
+msgid "Replace in Current Node"
+msgstr "Փոխարինել ընթացիկ ճյուղում"
+
+msgid "Search in Current Node"
+msgstr "Փնտրել ընթացիկ ճյուղում"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>«%s» ձևը չի գտնվել</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "Փոխարինել շատ ճյուղերում․․․"
+
+msgid "Find in Multiple Nodes..."
+msgstr "Գտնել շատ ճյուղերում․․․"
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Որոնում չի կատարվել այս գործաժամի ընթացքում։"
+
+msgid "Preferences"
+msgstr "Ընտրանքներ"
+
+msgid "English"
+msgstr "Անգլերեն"
+
+msgid "Text and Code"
+msgstr "Տեքստ և այլագիր"
+
+msgid "Format"
+msgstr "Ձևաչափում"
+
+msgid "Plain Text and Code"
+msgstr "Հասարակ տեքստ և այլագիր"
+
+msgid "Theme"
+msgstr "Թեմա"
+
+msgid "Interface"
+msgstr "Միջերես"
+
+msgid "Links"
+msgstr "Հղումներ"
+
+msgid "Toolbar"
+msgstr "Գործիքագոտի"
+
+msgid "Keyboard Shortcuts"
+msgstr "Ստեղնային կարճատներ"
+
+msgid "Monospace"
+msgstr "Նույնալայնք"
+
+msgid "Code Font"
+msgstr "Այլագրի տառատեսակ"
+
+msgid "Terminal Font"
+msgstr "Տերմինալի տառատեսակ"
+
+msgid "Tree Font"
+msgstr "Ծառի տառատեսակ"
+
+msgid "Fonts"
+msgstr "Տառատեսակներ"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Ցույց տալ բառերի քանակը վիճակագոտում"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Ցույց տալ փաստաթղթերի պանակը պատուհանի անվանման մեջ"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Ցուցադրել լրիվ ուղին ճյուղի վերնագրի գլխամասում"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Էջանշացանկ ընտրացանկի գոտում"
+
+msgid "Menubar in Titlebar"
+msgstr "Ընտրացանկի գոտին վերնագրի գոտում"
+
+msgid "Toolbar Icons Size"
+msgstr "Գործիքագոտու պատկերակների չափ"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Ոլորագոտու նվազագույն չափ (0-ն համակարգի սկզբնադիրն է)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Ոլորագոտին վերածածկում է տեքստային խմբագրիչը"
+
+msgid "Yes"
+msgstr "Այո"
+
+msgid "No"
+msgstr "Ոչ"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Նշորդը վրան պահելիս տեսնել հուշումներ"
+
+msgid "Tree"
+msgstr "Ծառ"
+
+msgid "Menus"
+msgstr "Ընտրացանկեր"
+
+msgid "Max Search Results per Page"
+msgstr "Որոնման առավելագույն արդյունքներն ըստ էջի"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Դեպի կայք հղման համար գործածել հետևյալը"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Դեպի նիշք հղման համար գործածել հետևյալը"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Դեպի պանակ հղման համար գործածել հետևյալը"
+
+msgid "Custom Actions"
+msgstr "Այլ գործողություններ"
+
+msgid "Colors"
+msgstr "Գույներ"
+
+msgid "Underline Links"
+msgstr "Ընդգծել հղումները"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Նիշքերի և պանակների համար գործածել հարաբերական ուղիներ"
+
+msgid "Anchor Size"
+msgstr "Խարսխի չափ"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Աստիճանակարգային կառուցվածքով նշատետր CherryTree"
+
+msgid "Show/Hide _CherryTree"
+msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
+
+msgid "_Exit CherryTree"
+msgstr "_Փակել CherryTree-ն"
+
+msgid "Exit from CherryTree"
+msgstr "Փակել CherryTree-ն"
 
 msgid "Bold"
 msgstr "Թավատառ"
@@ -884,9 +1284,6 @@ msgstr "Ընտրել գույն"
 
 msgid "Use Selected Icon"
 msgstr "Ընտրել պատկերակ"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Շարահյուսության ինքնաշխատ գունանշում"
 
 msgid "Tags for Searching"
 msgstr "Պիտակներ՝ որոնման համար"
@@ -948,87 +1345,8 @@ msgstr "Նոր ճյուղը՝ նոր էջից"
 msgid "Single File"
 msgstr "Մեկ նիշքով"
 
-msgid "Latex Text"
-msgstr "Latex տեքստ"
-
-msgid "Image Size dpi"
-msgstr "Նկարի չափը dpi"
-
-msgid "Tutorial"
-msgstr "Ուսուցանյութ"
-
-msgid "Reference"
-msgstr "Ուղեցույց"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX մաթ. և հավասարումների ուսուցանյութ"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX մաթ․ նշանների ուղեցույց"
-
-msgid "Image Properties"
-msgstr "Նկարի հատկություններ"
-
-msgid "Rotate Left"
-msgstr "Պտտել ձախ"
-
-msgid "Rotate Right"
-msgstr "Պտտել աջ"
-
-msgid ""
-"In order to crop the image, select the area with the mouse before clicking OK"
-msgstr "Նկարը եզրատելու համար մկնիկով ընտրեք անհրաժեշտ մասը և սեղմեք OK"
-
-msgid "Flip Horizontally"
-msgstr "Հորիզոնական շրջում"
-
-msgid "Flip Vertically"
-msgstr "Ուղղահայաց շրջում"
-
-msgid "Width"
-msgstr "Լայնք"
-
-msgid "Height"
-msgstr "Բարձրություն"
-
-msgid "Type"
-msgstr "Տեսակ"
-
-msgid "pixels"
-msgstr "պիքսել"
-
-msgid "Size"
-msgstr "Չափ"
-
-msgid "Show Line Numbers"
-msgstr "Ցուցադրել տողերի համարակալումը"
-
-msgid "Highlight Matching Brackets"
-msgstr "Գունանշել լծորդ փակագծերը"
-
-msgid "Options"
-msgstr "Ընտրանքներ"
-
-msgid "Rows"
-msgstr "Տողեր"
-
-msgid "Columns"
-msgstr "Սյունակներ"
-
-msgid "Default Width"
-msgstr "Սկզբնադիր լայնք"
-
-msgid "Table Size"
-msgstr "Աղյուսակի չափեր"
-
-msgid "Column Properties"
-msgstr "Սյունակի հատկություններ"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Թեթև միջերես (մեծ աղյուսակի համար ավելի արագագործ)"
-
-msgid "Import from CSV File"
-msgstr "Ներմուծել CSV նիշքից"
+msgid "Index"
+msgstr "Ցանկ"
 
 msgid "The Tree is Empty!"
 msgstr "Ծառը դատարկ է"
@@ -1085,168 +1403,103 @@ msgstr "Ընտրված նոր ծնողը դարձյալ հինն է"
 msgid "%s Nodes Properties Changed"
 msgstr "%s ճյուղերի հատկություններ փոխվել են"
 
-msgid "Copy Selection or All"
-msgstr "Պատճենել ընտրվածքը կամ ամբողջը"
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "«%s»-ն ընդունելի սեղմանիշք չէ"
 
-msgid "Paste"
-msgstr "Փակցնել"
-
-msgid "Reset"
-msgstr "Վերականգնել"
-
-msgid "Downloading"
-msgstr "Բեռնում"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Աստիճանակարգային կառուցվածքով նշատետր CherryTree"
-
-msgid "Show/Hide _CherryTree"
-msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
-
-msgid "_Exit CherryTree"
-msgstr "_Փակել CherryTree-ն"
-
-msgid "Exit from CherryTree"
-msgstr "Փակել CherryTree-ն"
-
-msgid "Index"
-msgstr "Ցանկ"
-
-msgid "Rename"
-msgstr "Վերանվանել"
-
-msgid "PNG Image"
-msgstr "PNG նկար"
+msgid "Writing to Disk..."
+msgstr "Գրանցվում է սկավառակի վրա..."
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "%s նիշքին գրանցումը չհաջողվեց"
-
-msgid "Insert/Edit Link"
-msgstr "Դնել/խմբագրել հղում"
+msgid "You Have No Write Access to %s"
+msgstr "%s նիշքին գրանցումը հասանելի չէ"
 
 #, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "Պանակի '%s' հղումը ճիշտ չէ։"
+msgid "Enter Password for %s"
+msgstr "Մուտքագրեք %s օգտվողի գաղտնաբառը"
 
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Նիշքի '%s' հղումը ճիշտ չէ։"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Պանակի '%s' հղումը ճիշտ չէ"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "«%s» անունով խարիսխ չգտնվեց"
-
-msgid "Edit CodeBox"
-msgstr "Խմբագրել այլագրատուփը"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
+msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
-"Պետք է '%s'-ի համար հրաման ընտրել։\n"
-"Սա արեք ընտրանքների բաժնում։"
+"Չհաջողվեց ստուգել պահպանված փաստաթղթի ամբողջականությունը։ Փորձեք Նիշք--"
+">Պահպանել որպես"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"Տեղակայեք  'xterm'  փաթեթը կամ ընտրանքների բաժնում ընտրեք մեկ այլ տերմինալ։"
+msgid "Failed to encrypt the file"
+msgstr "Չհաջողվեց գաղտնագրել նիշքը"
 
-msgid "Edit Table Properties"
-msgstr "Խմբագրել աղյուսակի հատկությունները"
+msgid "Chars for Bulleted List"
+msgstr "Նշանակալված ցանկի նշաններ"
 
-msgid "Insert Anchor"
-msgstr "Դնել խարիսխ"
+msgid "Chars for Todo List"
+msgstr "Անելիքի ցանկի նշաններ"
 
-msgid "Edit Anchor"
-msgstr "Խմբագրել խարիսխը"
+msgid "Chars for Table Of Content"
+msgstr "Բովանդակացանկի նշաններ"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Միայն ընթերցվող ճյուղում հնարավոր չէ խմբագրել ներդրված նիշքը։"
+msgid "Chars for Smart Double Quotes"
+msgstr "Կրկնակի չակերտների նշաններ"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "Ներդրված նիշքը լռելյայն թարմացվել է"
+msgid "Chars for Smart Single Quotes"
+msgstr "Կրկնակի չակերտների նշաններ"
 
-msgid "Autosave on Quit"
-msgstr "Ինքնապահում դուրս գալիս"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Չակերտների ինքնաշխատ փոփոխում"
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "Նախքան պահպանումը պահուստային օրինակ ստեղծել"
+msgid "Enable Symbol Auto Replacement"
+msgstr "Նշանների ինքնաշխատ փոփոխում"
 
-msgid "Number of Backups to Keep"
-msgstr "Պահուստային նիշքերի քանակը"
+msgid "Supported Symbols Auto Replacements"
+msgstr "Աջակցվող նշանների ինքնափոխարինում"
 
-msgid "Custom Backup Directory"
-msgstr "Պահուստի այլ պանակ"
+msgid "Only at the Start of the Line"
+msgstr "Միայն տողի սկզբում"
 
-msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Շատ նիշքերով պահեստարան, գործածել ներկառուցված նիշքի անունը"
+msgid "Use Different Cherries per Level"
+msgstr "Տարբեր բալեր՝ ըստ մակարդակի"
 
-msgid "Saving"
-msgstr "Պահպանում"
+msgid "No Icon"
+msgstr "Պատկերակ պետք չէ"
 
-msgid "Automatically Check for Newer Version"
-msgstr "Լռելյայն ստուգել թարմացումները"
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Թաքցնել աջ կողմի լրացուցիչ պատկերակը"
 
-msgid "Reload Document From Last Session"
-msgstr "Բեռնել փաստաթուղթը վերջին գործաժամից"
+msgid "Default Text Nodes Icons"
+msgstr "Ճյուղերի սկզբնադիր պատկերակները"
 
-msgid "Reload After External Update to CT* File"
-msgstr "Բեռնել նիշքն արտաքին թարմացումից հետո"
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Վերականգնել ընդարձակված/ամփոփված տեսքը"
 
-msgid "Enable Debug Log"
-msgstr "Վրիպազերծման գրանցում"
+msgid "Expand all Nodes"
+msgstr "Ընդարձակել բոլոր ճյուղերը"
 
-msgid "Debug Log Directory"
-msgstr "Վրիպազերծման գրանցման պանակը"
+msgid "Collapse all Nodes"
+msgstr "Ամփոփել բոլոր ճյուղերը"
 
-msgid "Enable System Tray Docking"
-msgstr "Միացնել համակարգի դարակին հարակցումը"
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Էջանշված ճյուղերը՝ միշտ տեսանելի"
 
-msgid "Start Minimized in the System Tray"
-msgstr "Սկսել համակարգի դարակում հարակցված"
+msgid "Nodes Status at Startup"
+msgstr "Ճյուղերի տեսքը ծրագրի գործարկման ժամանակ"
 
-msgid "System Tray"
-msgstr "Համակարգի դարակ"
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Ճյուղի անվան երկարությունը տողանցումից առաջ"
 
-msgid "Language"
-msgstr "Ծրագրի լեզուն"
+msgid "Display Tree on the Right Side"
+msgstr "Ծառը ցուցադրել աջ կողմում"
 
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Այս գործաժամի ընթացքում տեքստի ձևաչափում չի կատարվել։"
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Մկնիկի մեկ կտտոցով անցնել տեքստի հատված"
 
-msgid "Link Name"
-msgstr "Հղման անուն"
+msgid "Expand Node at Mouse Click"
+msgstr "Ընդարձակել ճյուղը մկնիկի մեկ կտտոցով"
 
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Նշորդը պարբերությունից դուրս է։"
-
-msgid "Pick a Foreground Color"
-msgstr "Ընտրել խորքի գույն"
-
-msgid "Pick a Background Color"
-msgstr "Ընտրել խորքի գույն"
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Գործածված վերջին ճյուղերը՝ ճյուղի էջագլխում"
 
 msgid "Enable Spell Check"
 msgstr "Կատարել ուղղագրության ստուգում"
 
 msgid "Spell Check Language"
 msgstr "Ուղղագրության ստուգման լեզուն"
-
-msgid "Show White Spaces"
-msgstr "Ցուցադրել բացատների նիշերը"
-
-msgid "Highlight Current Line"
-msgstr "Գունանշել ընթացիկ տողը"
 
 msgid "Expand CodeBoxes Automatically"
 msgstr "Այլագրատուփի ինքնաշխատ ընդարձակում"
@@ -1299,210 +1552,23 @@ msgstr "Փոքր"
 msgid "Scalable Tags"
 msgstr "Չափափոխվող պիտակներ"
 
-#, c-format
-msgid "'%s' is Not a Valid Archive"
-msgstr "«%s»-ն ընդունելի սեղմանիշք չէ"
+msgid "Preferences File"
+msgstr "Ընտրանքների նիշք"
 
-msgid "Writing to Disk..."
-msgstr "Գրանցվում է սկավառակի վրա..."
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Այս գործաժամի ընթացքում տեքստի ձևաչափում չի կատարվել։"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "%s նիշքին գրանցումը հասանելի չէ"
+msgid "Link Name"
+msgstr "Հղման անուն"
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Մուտքագրեք %s օգտվողի գաղտնաբառը"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Նշորդը պարբերությունից դուրս է։"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Չհաջողվեց ստուգել պահպանված փաստաթղթի ամբողջականությունը։ Փորձեք Նիշք--"
-">Պահպանել որպես"
+msgid "Pick a Foreground Color"
+msgstr "Ընտրել խորքի գույն"
 
-msgid "Failed to encrypt the file"
-msgstr "Չհաջողվեց գաղտնագրել նիշքը"
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr "Տվյալաշտեմարանի %s նիշքը փչացած է, մանրամասները տես մատենանիշքում"
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s գրումը ձախողվեց. նիշքը չկա։ Նորից մտցրեք USB հիշասարքը կամ համօգտագործվող "
-"աղբյուրը։"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "%s գրումը ձախողվեց․ նիշքն արգելափակվա՞ծ է համաժամեցման ծրագրով։"
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s վերաբացումը ձախողվեց. նիշքը չկա։ Նորից մտցրեք USB հիշասարքը կամ "
-"համօգտագործվող աղբյուրը։"
-
-msgid "Who is the Parent?"
-msgstr "Ո՞րն է ծնողը"
-
-msgid "The Tree Root"
-msgstr "Ծառարմատը"
-
-msgid "The Selected Node"
-msgstr "Ընտրված ճյուղը"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Չհաջողվեց մատչել գործարկելի latex-ին և dvipng-ին"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Օր․՝ Ուբունտուում տեղակայելի փաթեթներն են՝"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "Օր․՝ Mac ՕՀ-ում տեղակայելի փաթեթներն են՝"
-
-msgid "Could not access the executable 'latex'"
-msgstr "Չհաջողվեց մատչել գործարկելի latex-ին"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "Չհաջողվեց մատչել գործարկելի dvipng-ին"
-
-msgid "Use Different Cherries per Level"
-msgstr "Տարբեր բալեր՝ ըստ մակարդակի"
-
-msgid "No Icon"
-msgstr "Պատկերակ պետք չէ"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Թաքցնել աջ կողմի լրացուցիչ պատկերակը"
-
-msgid "Default Text Nodes Icons"
-msgstr "Ճյուղերի սկզբնադիր պատկերակները"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Վերականգնել ընդարձակված/ամփոփված տեսքը"
-
-msgid "Expand all Nodes"
-msgstr "Ընդարձակել բոլոր ճյուղերը"
-
-msgid "Collapse all Nodes"
-msgstr "Ամփոփել բոլոր ճյուղերը"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Էջանշված ճյուղերը՝ միշտ տեսանելի"
-
-msgid "Nodes Status at Startup"
-msgstr "Ճյուղերի տեսքը ծրագրի գործարկման ժամանակ"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Ճյուղի անվան երկարությունը տողանցումից առաջ"
-
-msgid "Display Tree on the Right Side"
-msgstr "Ծառը ցուցադրել աջ կողմում"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Մկնիկի մեկ կտտոցով անցնել տեքստի հատված"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Ընդարձակել ճյուղը մկնիկի մեկ կտտոցով"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Գործածված վերջին ճյուղերը՝ ճյուղի էջագլխում"
-
-msgid "A Restore From Backup Was Necessary For:"
-msgstr "Պահուստից վերականգնումը պետք էր այս նպատակով․"
-
-msgid "Replace in Current Node"
-msgstr "Փոխարինել ընթացիկ ճյուղում"
-
-msgid "Search in Current Node"
-msgstr "Փնտրել ընթացիկ ճյուղում"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>«%s» ձևը չի գտնվել</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "Փոխարինել շատ ճյուղերում․․․"
-
-msgid "Find in Multiple Nodes..."
-msgstr "Գտնել շատ ճյուղերում․․․"
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Որոնում չի կատարվել այս գործաժամի ընթացքում։"
-
-msgid "Tab Width"
-msgstr "Սյունատի լայնք"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Սյունանշանի փոխարեն բացատներ դնել"
-
-msgid "Use Line Wrapping"
-msgstr "Գործածել տողանցում"
-
-msgid "Line Wrapping Indentation"
-msgstr "Տողանցում՝ ներքաշված տողագլխով"
-
-msgid "Enable Automatic Indentation"
-msgstr "Տողագլխի ինքնաշխատ ներքաշում"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Ոլորել վերջին տողից անդին"
-
-msgid "Cursor Blinking"
-msgstr "Նշորդի թարթում"
-
-msgid "On"
-msgstr "Միացված"
-
-msgid "Off"
-msgstr "Անջատված"
-
-msgid "Text Margin: Left"
-msgstr "Տեքստի լուսանցք՝ ձախ"
-
-msgid "Right"
-msgstr "Աջ"
-
-msgid "Vertical Space Around Lines"
-msgstr "Միջպարբերութային տարածք"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Միջտողային տարածք"
-
-msgid "Timestamp Format"
-msgstr "Ամսաթվի կնիքի ձևաչափ"
-
-msgid "Horizontal Rule"
-msgstr "Հորիզոնական գիծ"
-
-msgid "Chars to Select at Double Click"
-msgstr "Կրկնակի կտտացմամբ ընտրվող գրանշաններ"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Գործիքագոտու պատկերակներն արդեն իսկ առավելագույն չափն ունեն։"
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Գործիքագոտու պատկերակներն արդեն իսկ նվազագույն չափն ունեն։"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Զգուշացում։ Մեկ կամ մի քանի նկար փոքրացվել է էջում տեղավորվելու համար։"
-
-msgid "Internal Terminal Shell"
-msgstr "Ներքին տերմինալի խեցի"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Հրաման ամեն ճյուղի/այլագրատուփի տեսակի համար"
-
-msgid "Terminal Command"
-msgstr "Տերմինալային հրաման"
-
-msgid "Code Execution"
-msgstr "Այլագրի գործարկում"
-
-msgid "Remove from list"
-msgstr "Հեռացնել ցանկից"
+msgid "Pick a Background Color"
+msgstr "Ընտրել խորքի գույն"
 
 msgid "_File"
 msgstr "_Նիշք"
@@ -1709,10 +1775,10 @@ msgid "Insert an Anchor"
 msgstr "Դնել խարիսխ"
 
 msgid "Insert T_OC and Headers Collapsors..."
-msgstr "Դնել բովանդակացանկ և գլխագրերի ամփոփիչներ..."
+msgstr "Դնել ԲՑ և էջագլուխների ամփոփիչներ..."
 
 msgid "Insert Table of Contents and Headers Collapsors/Expanders"
-msgstr "Դնել բովանդակացանկ և գլխագրերի ամփոփիչներ"
+msgstr "Դնել բովանդակացանկ և էջագլուխների ամփոփիչներ"
 
 msgid "Insert Timestam_p"
 msgstr "Դնել ամսա_թվի կնիք"
@@ -2179,6 +2245,18 @@ msgstr "Առան_ց նահանջի պարբերություն"
 msgid "Unindent the Current Paragraph"
 msgstr "Պարբերությունը՝ առանց նահանջի"
 
+msgid "_Expand TOC Headers"
+msgstr "_Բացել ԲՑ-ի էջագլուխները"
+
+msgid "Expand TOC Headers"
+msgstr "Բացել բովանդակացանկի էջագլուխները"
+
+msgid "_Collapse TOC Headers"
+msgstr "_Ամփոփել ԲՑ-ի էջագլուխները"
+
+msgid "Collapse TOC Headers"
+msgstr "Ամփոփել բովանդակացանկի էջագլուխները"
+
 msgid "Tools"
 msgstr "Գործիքներ"
 
@@ -2187,6 +2265,12 @@ msgstr "Ուղղագրության ստուգում"
 
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Ստուգել ուղղագրությունը"
+
+msgid "Enable/Disable _VIM Mode"
+msgstr "VIM-ի խմբագրաձև"
+
+msgid "Toggle Enable/Disable VIM Mode"
+msgstr "Միացնել/անջատել VIM-ի խմբագրաձևը"
 
 msgid "Stri_p Trailing Spaces"
 msgstr "Վերացնել տողավեր_ջի բացատները"
@@ -2893,63 +2977,6 @@ msgstr "Ջնջել հղումը"
 
 msgid "Delete the Selected Link"
 msgstr "Ջնջել ընտրված հղումը"
-
-msgid "Remove Color"
-msgstr "Հեռացնել գույնը"
-
-msgid "Question"
-msgstr "Հարց"
-
-msgid "Info"
-msgstr "Տեղեկանք"
-
-msgid "Error"
-msgstr "Սխալ"
-
-msgid "Select File"
-msgstr "Ընտրել նիշք"
-
-msgid "Select Folder"
-msgstr "Ընտրել պանակ"
-
-msgid "Save File as"
-msgstr "Պահպանել նիշքը որպես"
-
-msgid "Save To Folder"
-msgstr "Պահպանել պանակում"
-
-msgid "Print CherryTree version"
-msgstr "Տպել CherryTree-ի տարբերակը"
-
-msgid "Node name to focus"
-msgstr "Ճյուղի անունը՝ կիզակետված"
-
-msgid "Anchor name to scroll to in node"
-msgstr "Խարսխի անունը՝ ճյուղում ոլորմամբ գտնելու"
-
-msgid "Export to HTML at specified directory path"
-msgstr "Արտահանել որպես HTML պանակի ընտրված ուղով"
-
-msgid "Export to Text at specified directory path"
-msgstr "Արտահանել որպես Text պանակի ընտրված ուղով"
-
-msgid "Export to PDF at specified directory path"
-msgstr "Արտահանել որպես PDF պանակի ընտրված ուղով"
-
-msgid "Overwrite if export path already exists"
-msgstr "Վրագրել, եթե արտահանման ուղին արդեն կա"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Արտահանել մեկ նիշքով (HTML կամ TXT)"
-
-msgid "Password to open document"
-msgstr "Գաղտնաբառ՝ փաստաթուղթը բացելու"
-
-msgid "Create a new window"
-msgstr "Ստեղծել նոր պատուհան"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "Աշխատեցնել երկրորդական գործաժամում՝ հիմնականից անկախ"
 
 msgid "HTML Document"
 msgstr "HTML փաստաթուղթ"

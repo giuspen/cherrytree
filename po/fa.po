@@ -7,22 +7,226 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 22:06+0000\n"
-"PO-Revision-Date: 2024-03-05 21:02+0000\n"
+"POT-Creation-Date: 2025-05-15 19:05+0100\n"
+"PO-Revision-Date: 2025-05-14 11:02+0330\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Persian <translation-team-fa@lists.sourceforge.net>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.6\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
 msgstr "فراخوانی محتوا با مشکل مواجه شد\"%s\""
 
-msgid "Index"
-msgstr "اندیس"
+msgid "Tab Width"
+msgstr "عرض تب"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "درج فضای خالی معمولی بجای تب"
+
+msgid "Use Line Wrapping"
+msgstr "استفاده از دسته بندی خط"
+
+msgid "Line Wrapping Indentation"
+msgstr "تو رفتگی دسته بندی خط"
+
+msgid "Enable Automatic Indentation"
+msgstr "فعال سازی تو رفتگی خودکار"
+
+msgid "Show Line Numbers"
+msgstr "نمایش اعداد خط"
+
+msgid "Scroll Beyond Last Line"
+msgstr "حرکت قیل از آخرین خط"
+
+msgid "Cursor Blinking"
+msgstr "نشانگر چشمک زن"
+
+msgid "System Default"
+msgstr "پیشفرض سیستم"
+
+msgid "On"
+msgstr "خاموش"
+
+msgid "Off"
+msgstr "روشن"
+
+msgid "Text Margin: Left"
+msgstr "حاشیه  چپ متن"
+
+msgid "Right"
+msgstr "راست"
+
+msgid "Vertical Space Around Lines"
+msgstr "فضای عمودی در اطراف خطوط"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "فضای عمودی در خطوط دسته بندی شده"
+
+msgid "Text Editor"
+msgstr "ویرایشگر متن"
+
+msgid "Timestamp Format"
+msgstr "قالب مهر زمانی"
+
+msgid "Online Manual"
+msgstr "کتابچه راهنمای آنلاین"
+
+msgid "Reset to Default"
+msgstr "بازنشانی به حالت پیشفرض"
+
+msgid "Horizontal Rule"
+msgstr "قانون افقی"
+
+msgid "Chars to Select at Double Click"
+msgstr "انتخاب کاراکترها با دابل کلیک"
+
+msgid "Miscellaneous"
+msgstr "متفرقه"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr "فایل پایگاه داده %s خراب است،لطفا به تاریخچه مراجعه فرمایید."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s نوشتن با مشکل مواجه شد - فایل گمشده است. درایو USB یا منبع اشتراکی را "
+"مجددا متصل فرمایید."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"%s نوشتن با مشکل مواجه شد - آیا توسط یک نرم افزار همگام سازی مسدود شده است؟"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s باز نمودن مجدد با مشکل مواجه شد - فایل گمشده است. درایو USB یا منبع "
+"اشتراکی را مجددا متصل فرمایید."
+
+msgid "Rename"
+msgstr "تغییر نام"
+
+msgid "PNG Image"
+msgstr "تصویرPNG"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "نوشتن در %s باخطا مواجه شد"
+
+msgid "Insert/Edit Link"
+msgstr "درج/ویرایش پیوند"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "پیوند پوشه '%s' معتبر نیست."
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "پیوند فایل '%s' معتبر نیست."
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "پیوند پوشه '%s' معتبر نیست"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "پیوند به گره اشاره می کند که که دیگر موجود نیست (شناسه =  %s)"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "هیچ لنگری با نام '%s' یافت نشد"
+
+msgid "Edit CodeBox"
+msgstr "ویرایش جعبه کد"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"یاد دستوری را به '%s'تخصیص دهید.\n"
+"این کار را در صفحه تنظبمات انجام دهید."
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"پکیج 'xterm' را نصب کنید با ترمینال دیگری را از طریق صفحه تنظیمات پیاده سازی "
+"کنید."
+
+msgid "Edit Table Properties"
+msgstr "ویرایش مشخصات جدول"
+
+msgid "CSV File"
+msgstr "فایلCSV"
+
+msgid "Insert Anchor"
+msgstr "درج لنگر"
+
+msgid "Edit Anchor"
+msgstr "ویرایش لنگر"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "نمی توان فایل تعبیه شده را در حالت فقط خواندنی ویرایش نمود."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "فابل تعبیه شده به صورت خودکار به رو رسانی شد:"
+
+msgid "To WebSite"
+msgstr "به وبسایت"
+
+msgid "To File"
+msgstr "به فایل"
+
+msgid "To Folder"
+msgstr "به پوشه"
+
+msgid "To Node"
+msgstr "به گره"
+
+msgid "Anchor Name (optional)"
+msgstr "نام لنگر (اختیاری)"
+
+msgid "No Node is Selected"
+msgstr "هیچ گره ای انتخاب نشده است"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "هیچ لنگر در گره انتخاب شده وجود ندارد."
+
+msgid "Choose Existing Anchor"
+msgstr "انتخاب لنگر(های) موجود"
+
+msgid "Anchor Name"
+msgstr "نام لنگر"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "الگو '%s' پیدا نشد"
+
+msgid "Show White Spaces"
+msgstr "نمایش فضا های سفید"
+
+msgid "Highlight Current Line"
+msgstr "علامت گذاری خط فعلی"
+
+msgid "Highlight Matching Brackets"
+msgstr "علامت گذاری براکت ها منطبق"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "قبل از اجرای کد در خواست تایید گرفته شود"
+
+msgid "Use Internal Terminal"
+msgstr "استفاده از ترمینال داخلی"
+
+msgid "Internal Terminal Shell"
+msgstr "پوسته ترمینالی اینترنت"
 
 msgid "Add"
 msgstr "اضافه"
@@ -30,8 +234,583 @@ msgstr "اضافه"
 msgid "Remove Selected"
 msgstr "حذف انتخاب شده"
 
-msgid "Reset to Default"
-msgstr "بازنشانی به حالت پیشفرض"
+msgid "Command per Node/CodeBox Type"
+msgstr "دستور به ازای نوع جعبه کد/گره"
+
+msgid "Terminal Command"
+msgstr "دستو ترمینال"
+
+msgid "Code Execution"
+msgstr "اجرای کد"
+
+msgid "Select Element to Add"
+msgstr "انتخاب عنصر برای اضافه کردن"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Remove User Colour from Palette"
+msgstr "حذف رنگ کاربر از پالت"
+
+msgid "Colour"
+msgstr "رنگ"
+
+msgid "Question"
+msgstr "سوال"
+
+msgid "Info"
+msgstr "اطلاعات"
+
+msgid "Warning"
+msgstr "هشدار"
+
+msgid "Error"
+msgstr "خطا"
+
+msgid "Select File"
+msgstr "انتخاب فایل"
+
+msgid "Select Folder"
+msgstr "انتخاب پوشه"
+
+msgid "Save File as"
+msgstr "ذخیره فایل به عنوان"
+
+msgid "Save To Folder"
+msgstr "ذخیره در پوشه"
+
+msgid "Downloading"
+msgstr "در حال دانلود"
+
+msgid "Show Menubar:"
+msgstr "نمایش نوار منو:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "مسیر  %s موجود نیست"
+
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" فایل 'درخت گیلاس' نمی باشد"
+
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"خطا در پردازش مسیر 'درخت گیلاس'.\n"
+"\"%s\""
+
+msgid "Do you want to Open the Last Backup?"
+msgstr "آیا می خواهید آخرین نسخه پشتیبان را باز کنید؟"
+
+msgid "Failed to Load from Backup Data"
+msgstr "خطا در بارگذاری نسخه پشتیبان"
+
+#, c-format
+msgid "No node named '%s' found."
+msgstr "هیچ گره ای با نام  '%s' یافت نشد."
+
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "فایل های موقت ساخته شده و با برنامه خارجی باز شده اند."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "قبل از خروج از 'درخت گیلاس' از برنامه خارجی خارج شوید."
+
+msgid "Did you Quit the External Applications?"
+msgstr "آیا از برنامه خارجی خارج شده اید؟"
+
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "بارگذاری مجدد سند بعد از به روز رسانی فایل خارجی *CT."
+
+msgid "Execute Code"
+msgstr "اجرای کد"
+
+msgid "Copy Code"
+msgstr "کپی کد"
+
+msgid "Change CodeBox Properties"
+msgstr "تغییر مشخصات جعبه کد"
+
+msgid "Search for"
+msgstr "جستجو برای"
+
+msgid "Replace with"
+msgstr "جایگزینی با"
+
+msgid "Match Case"
+msgstr "تطبیق مورد"
+
+msgid "Regular Expression"
+msgstr "عبارات منظم(Regex)"
+
+msgid "Accent Insensitive"
+msgstr "لهجه غیر حساس"
+
+msgid "Override Exclusions"
+msgstr "لغو استثناها"
+
+msgid "Whole Word"
+msgstr "تمام کلمه"
+
+msgid "Start Word"
+msgstr "کلمه آغازین"
+
+msgid "Forward"
+msgstr "به جلو"
+
+msgid "Backward"
+msgstr "به عقب"
+
+msgid "All, List Matches"
+msgstr "همه، تطابق های لیست"
+
+msgid "First From Selection"
+msgstr "اولین مورد انتخابی"
+
+msgid "First in All Range"
+msgstr "اولین در تمام بازه"
+
+msgid "Node Created After"
+msgstr "گره ساخت شده بعد از"
+
+msgid "Node Created Before"
+msgstr "گره ساخته شده قبل از"
+
+msgid "Node Modified After"
+msgstr "گره تغییر یافته بعد از"
+
+msgid "Node Modified Before"
+msgstr "گره تغییر یافته قبل از"
+
+msgid "Time filter"
+msgstr "فیلتر زمان"
+
+msgid "Node Content"
+msgstr "محتوا گره"
+
+msgid "Node Name and Tags"
+msgstr "نام و تگ گره"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "فقط گره انتخاب شده و زیر گره ها"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "نمایش جستجو/یافتن های تکرارشده"
+
+msgid "Search options"
+msgstr "گزینه های جستجو"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"حداقل یک گره به دلیل استثناهای تعیین شده در ویژگی های گره نادیده گرفته شد..\n"
+"برای پاک کردن همه موارد استثنا، از منو استفاده کنید:\n"
+"جستجو -> پاک کردن همه موارد استثنا از جستجو"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "مخفی (بازگردانی با  '%s')"
+
+msgid "Node Name"
+msgstr "نام گره"
+
+msgid "Line"
+msgstr "خط"
+
+msgid "Line Content"
+msgstr "محتوای خط"
+
+msgid "Matches"
+msgstr "تطبیق یافته ها"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "جستجو / یافتن های تکراری اخیر"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Find Previous"
+msgstr "یافتن قبلی"
+
+msgid "Find Next"
+msgstr "یافتن بعدی"
+
+msgid "Replace"
+msgstr "جایگزینی"
+
+msgid "Undo"
+msgstr "لغو عملی"
+
+msgid "Print CherryTree version"
+msgstr "چاپ ورژن 'درخت گیلاس'"
+
+msgid "Node name to focus"
+msgstr "نام گره برای تمرکز"
+
+msgid "Anchor name to scroll to in node"
+msgstr "نام لنگر برای رفتن به داخل گره"
+
+msgid "Export to HTML at specified directory path"
+msgstr "خروجی به عنوان HTML در مسیر دلخواه"
+
+msgid "Export to Text at specified directory path"
+msgstr "خروجی به عنوان متن در مسیر دلخواه"
+
+msgid "Export to PDF at specified directory path"
+msgstr "خروجی به عنوان PDF در مسیر دلخواه"
+
+msgid "Overwrite if export path already exists"
+msgstr "بازنویسی در صورتی که مسیر خروجی در حال حاضر وجود دارد"
+
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "خروجی به عنوان فایل تکی (برای HTML یا TXT)"
+
+msgid "Password to open document"
+msgstr "کلمه عبور برای باز کردن سند"
+
+msgid "Create a new window"
+msgstr "ساخت پنجره جدید"
+
+msgid "Run in secondary session, independent from main session"
+msgstr "اجرا در نشست ثانویه، مستقل از نشست اصلی"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "نمی توان به فایل های اجرایی 'latex' و 'dvipng'دسترسی یافت"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "برای مثال:اینها بسته های نصب برای اوبونتو هستند:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "برای مثال:اینها بسته های نصب برای سیستم عامل مک هستند:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "نمی توان به فایل های اجرایی 'latex' دسترسی یافت"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "نمی توان به فایل های اجرایی 'dvipng'دسترسی یافت"
+
+msgid "CherryTree File"
+msgstr "فایل درخت گیلاس"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"پوشه/فایل در حال استفاده می باشدو نمیتوان بازنویسی نمود!لطفا مسیر یا نام "
+"دیگری انتخاب کنید."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"پوشه  '%s' در این آدرس موجود است '%s'.\n"
+"<b>آیا از حذف این مورد اطمینان دارید؟</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"فایلی '%s' در این آدرس موجود است '%s'.\n"
+"<b>آیا از حذف این مورد اطمینان دارید؟</b>"
+
+msgid "PDF File"
+msgstr "فایلPDF"
+
+msgid "Plain Text Document"
+msgstr "سند متنی ساده"
+
+msgid "Light Background, Dark Text"
+msgstr "زمینه روشن ،متن تیره"
+
+msgid "Dark Background, Light Text"
+msgstr "زمینه تیره ،متن روشن"
+
+msgid "Custom Background"
+msgstr "زمینه دلخواه"
+
+msgid "Text"
+msgstr "متن"
+
+msgid "Selection Background"
+msgstr "زمینه انتخابی"
+
+msgid "Tree Explorer"
+msgstr "کاوشگر درخت"
+
+msgid "Rich Text"
+msgstr "متن غنی"
+
+msgid "Plain Text"
+msgstr "متن ساده"
+
+msgid "Table"
+msgstr "جدول"
+
+msgid "Code"
+msgstr "کد"
+
+msgid "Style Schemes"
+msgstr "حالت طرح ها"
+
+msgid "Text Foreground"
+msgstr "پیش زمینه متن"
+
+msgid "Text Background"
+msgstr "پس زمینه متن"
+
+msgid "Selection Foreground"
+msgstr "پیش زمینه انتخابی"
+
+msgid "Cursor"
+msgstr "نشانگر"
+
+msgid "Current Line Background"
+msgstr "زمینه خط فعلی"
+
+msgid "Line Numbers Foreground"
+msgstr "پیش زمینه اعداد خط"
+
+msgid "Line Numbers Background"
+msgstr "پس زمینه اعداد خط"
+
+msgid "Style Scheme Editor"
+msgstr "ویرایش حالت طرح"
+
+msgid "Set Dark Theme Icons"
+msgstr "تنظیم تم تیره برای نمادها"
+
+msgid "Set Light Theme Icons"
+msgstr "تنظیم تم روشن برای نمادها"
+
+msgid "Set Default Icons"
+msgstr "تنظیم نمادهای پیشفرض"
+
+msgid "Icon Theme"
+msgstr "تم نماد"
+
+msgid "Autosave Every"
+msgstr "ذخیره خودکار در هر"
+
+msgid "Minutes"
+msgstr "دقیقه"
+
+msgid "Autosave on Quit"
+msgstr "ذخیره خودکار هنگام خروج"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "ساخت کپی نسخه پشتیبان قبل از ذخیره سازی"
+
+msgid "Number of Backups to Keep"
+msgstr "تعداد نسخ  پشتیبان برای نگهداری"
+
+msgid "Custom Backup Directory"
+msgstr "پوشه دلخواه نسخه پشتیبان"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "فضای ذخیره سازی چندین فایل، از نام فایل جاسازی شده استفاده کنید"
+
+msgid "Saving"
+msgstr "در حال ذخیره سازی"
+
+msgid "Automatically Check for Newer Version"
+msgstr "بررسی خودکار برای ورژن جدیدتر"
+
+msgid "Reload Document From Last Session"
+msgstr "بارگذاری مجدد سند از نشست قبلی"
+
+msgid "Reload After External Update to CT* File"
+msgstr "باگذاری مجدد بعد از به روز رسانی خارجی در فایل *CT"
+
+msgid "Enable Debug Log"
+msgstr "فعال سازی تاریخچه رفع خطا"
+
+msgid "Debug Log Directory"
+msgstr "پوشه تاریخچه رفع خطا"
+
+msgid "Enable System Tray Docking"
+msgstr "فعال سازی در لیست نرم افزار ها(سینی سیستم)"
+
+msgid "Start Minimized in the System Tray"
+msgstr "شروع با حداقل اندازه در لیست نرم افزارها(سینی سیستم)"
+
+msgid "System Tray"
+msgstr "لیست نرم افزار ها(سینی سیستم)"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "آیا لیست نرم افزار ها(سینی سیستم) روی صفحه ظاهر شد؟"
+
+msgid "Your system does not support the System Tray"
+msgstr "سیستم شما از لیست نرم افزارها(سینی سیستم) پشتیبانی نمی کند"
+
+msgid "Latex Text"
+msgstr "متن لاتکس"
+
+msgid "Image Size dpi"
+msgstr "DPI اندازه تصویر"
+
+msgid "Tutorial"
+msgstr "آموزش"
+
+msgid "Reference"
+msgstr "ارجاع"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "آموزش ریاضی لاتکس و معادلات"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "ارجاع به سمبل ها ی ریاضی لاتکس"
+
+msgid "Image Properties"
+msgstr "مشخصات تصویر"
+
+msgid "Rotate Left"
+msgstr "چرخاندن به چپ"
+
+msgid "Rotate Right"
+msgstr "چرخاندن به راست"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "قبل از برش تصویر لطفا قابل از تایید ناحیه ای را انتخاب کنید"
+
+msgid "Flip Horizontally"
+msgstr "چرخاندن افقی"
+
+msgid "Flip Vertically"
+msgstr "چرخاندن عمودی"
+
+msgid "Width"
+msgstr "عرض"
+
+msgid "Height"
+msgstr "ارتفاع"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "رنگ آمیختگی خودکار نوشتار"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "pixels"
+msgstr "پیکسل ها"
+
+msgid "Size"
+msgstr "اندازه"
+
+msgid "Options"
+msgstr "گزینه ها"
+
+msgid "Rows"
+msgstr "ردیف ها"
+
+msgid "Columns"
+msgstr "ستون ها"
+
+msgid "Default Width"
+msgstr "عرض پیشفرض"
+
+msgid "Table Size"
+msgstr "اندازه جدول"
+
+msgid "Column Properties"
+msgstr "مشخصات ستون"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "رابط کم وزن (بسیار سریعتر برای جداول بزرگ)"
+
+msgid "Import from CSV File"
+msgstr "ورودی از فایل CSV"
+
+msgid "Change Selected"
+msgstr "تغییر انتخاب شده"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "کلید میانبر '%s'در حال استفاده است."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "اقدام مرتیط فعلی '%s' است"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "آیا میخواهید این میانبر را تصاحب کنید؟"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "ویرایش کلید میانبر"
+
+msgid "No Keyboard Shortcut"
+msgstr "بدون کلید میانبر"
+
+msgid "Who is the Parent?"
+msgstr "والد کدام است؟"
+
+msgid "The Tree Root"
+msgstr "ریشه درخت"
+
+msgid "The Selected Node"
+msgstr "گره انتخاب شده"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "باز کردن یک سند  اخیرا استفاده شده 'درخت گیلاس'"
+
+msgid "_Hide"
+msgstr "مخفی"
+
+msgid "_Quit"
+msgstr "خروج"
+
+msgid "Hide the Window"
+msgstr "مخفی نمودن پنجره"
+
+msgid "Quit the Application"
+msgstr "خروج از برنامه"
+
+msgid "Node Type"
+msgstr "نوع گره"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "تگ ها"
+
+msgid "Spell Check"
+msgstr "بررسی املا"
+
+msgid "Word Count"
+msgstr "تعداد کلمات"
+
+msgid "Date Created"
+msgstr "تاریخ ایجاد"
+
+msgid "Date Modified"
+msgstr "تاریخ تغییر"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr "کپی گره قبلی در نشست فعلی اعمال نشد یا درخت منبع دیگر در دسترس نیست."
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "گره درخت منبع دیگر در دسترس نیست."
+
+msgid "Copy Selection or All"
+msgstr "کپی همه یا بخش انتخاب شده"
+
+msgid "Paste"
+msgstr "جای گذاری"
+
+msgid "Reset"
+msgstr "بازنشانی"
 
 msgid "Split Toolbar"
 msgstr "تقسیم نوار ابزار"
@@ -39,8 +818,749 @@ msgstr "تقسیم نوار ابزار"
 msgid "Open a CherryTree File"
 msgstr "باز کردن فایل 'درخت گیلاس'"
 
-msgid "Select Element to Add"
-msgstr "انتخاب عنصر برای اضافه کردن"
+msgid "Image Format Not Recognized"
+msgstr "قالب تصویر تشخیص داده نشد"
+
+msgid "Insert Table"
+msgstr "درج جدول"
+
+msgid "Insert a CodeBox"
+msgstr "درج یک جعبه کد"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "حداکثر حجم برای فایل تعبیه شده  %s  مگابایت است."
+
+msgid "Do you want to Continue?"
+msgstr "آیا مایل به ادامه هستید؟"
+
+msgid "Special Characters"
+msgstr "کاراکتر های خاص"
+
+msgid "Tabs Replaced"
+msgstr "تب ها جایگزین شدند"
+
+msgid "Lines Stripped"
+msgstr "خط راه راه"
+
+msgid "No Text is Selected."
+msgstr "هیچ متنی انتخاب نشده است."
+
+# no need for ":"
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "برای این مورد نیاز به بازیابی از فایل نسخه پشتیبان"
+
+msgid "Handle the Bookmarks List"
+msgstr "کنترل لیست نشان ها"
+
+msgid "Move the Selected Bookmark Up"
+msgstr "جابجایی نشان انتخاب شده به بالا"
+
+msgid "Move the Selected Bookmark Down"
+msgstr "جابجایی نشان انتخاب شده به پایین"
+
+msgid "Remove the Selected Bookmark"
+msgstr "حذف نشان انتخاب شده"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "مرتب سازی نزولی نشان ها"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "مرتب سازی صعودی نشان ها"
+
+msgid "Choose Storage Type"
+msgstr "انتخاب نوع ذخیره ساز"
+
+msgid "Single SQLite File"
+msgstr "فایل SQLite تک"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "فایل SQLite تک، توسط7-zip کد شده و دارای رمز عبور است"
+
+msgid "Single XML File"
+msgstr "فایل XML تک"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "فایل XML تک، توسط7-zip کد شده و دارای رمز عبور است"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "چندین فایل در ساختار سلسله مراتبی پوشه"
+
+msgid "Storage Type"
+msgstr "نوع ذخیره ساز"
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT سند را در یک آرشیو رمزنگاری شده با فرمت 7zip ذخیره می‌کند. هنگام مشاهده یا "
+"ویرایش سند، CT فایل فشرده را به پوشه موقتی استخراج می‌کند و روی نسخه‌ بدون رمز "
+"آن کار می‌کند. در هنگام بستن، نسخه‌ی بدون رمز از پوشه موقتی حذف می‌شود. لطفا "
+"توجه داشته باشید که در صورتی که برنامه یا سیستم خراب شود، نسخه‌ی بدون رمز سند "
+"همچنان در پوشه موقتی باقی خواهد ماند."
+
+msgid "Enter the New Password Twice"
+msgstr "رمز عبور جدید را دو بار وارد نمایید"
+
+msgid "The Password Fields Must be Filled."
+msgstr "فیلد رمز عبور می بایست پر شود."
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr "رمز های عبور وارد شده یکسان نیستند."
+
+msgid "The Current Document was Updated."
+msgstr "سندی فعلی به روز رسانی شد."
+
+msgid "Do you want to Save the Changes?"
+msgstr "آیا مایل به ذخیره تغییرات هستید؟"
+
+msgid "Do you want to Execute the Code?"
+msgstr "آیا مایل به اجرای کد هستید؟"
+
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"نرم افزار یادداشت برداری سلسله مراتبی ، شامل متن غنی و رنگ آمیختگی نوشتاری"
+
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"این برنامه نرم‌افزاری رایگان است؛ شما می توانید آن را با رعایت شرایط مجوز "
+"عمومی GNU که توسط بنیاد نرم‌افزار آزاد منتشر شده‌است، توزیع و/یا تغییر دهید. "
+"این شرایط شامل نسخه 3 مجوز یا (به اختیار خودتان) هر نسخه بعدی آن است.\n"
+"\n"
+"این برنامه با هدف کاربردی بودن توزیع شده است، اما بدون هیچ گونه ضمانتی؛ حتی "
+"بدون ضمانت صریح قابلیت فروش پذیری یا مطابقت با هدف خاص. برای اطلاعات بیشتر، "
+"لطفاً مجوز  GNU را ملاحظه فرمایید.\n"
+"\n"
+"شما باید یک نسخه از مجوز عمومی GNU را در کنار این برنامه دریافت کرده‌باشید؛ "
+"اگر نه، می‌توانید به آدرس زیر برای  بنیاد نرم‌افزار آزاد  نامه بنویسید: \n"
+"Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+
+msgid "Arabic"
+msgstr "عربی"
+
+msgid "Armenian"
+msgstr "ارمنی"
+
+msgid "Bulgarian"
+msgstr "بلغاری"
+
+msgid "Chinese Simplified"
+msgstr "چینی مدرن"
+
+msgid "Chinese Traditional"
+msgstr "چینی سنتی"
+
+msgid "Croatian"
+msgstr "کرواتی"
+
+msgid "Czech"
+msgstr "چکی"
+
+msgid "Dutch"
+msgstr "هلندی"
+
+msgid "Finnish"
+msgstr "فنلاندی"
+
+msgid "French"
+msgstr "فرانسوی"
+
+msgid "German"
+msgstr "آلمانی"
+
+msgid "Greek"
+msgstr "یونانی"
+
+msgid "Hindi India"
+msgstr "هندی"
+
+msgid "Hungarian"
+msgstr "مجارستانی"
+
+msgid "Italian"
+msgstr "ایتالیایی"
+
+msgid "Japanese"
+msgstr "ژاپنی"
+
+msgid "Kazakh"
+msgstr "قزاقی"
+
+msgid "Kazakh (Latin)"
+msgstr "قزاقی(لاتین)"
+
+msgid "Korean"
+msgstr "کره ای"
+
+msgid "Lithuanian"
+msgstr "لیتوانیایی"
+
+msgid "Persian"
+msgstr "فارسی"
+
+msgid "Polish"
+msgstr "لهستانی"
+
+msgid "Portuguese"
+msgstr "پرتغالی"
+
+msgid "Portuguese Brazil"
+msgstr "پرتغالی برزیل"
+
+msgid "Romanian"
+msgstr "رومانیایی"
+
+msgid "Russian"
+msgstr "روسی"
+
+msgid "Slovak"
+msgstr "اسلواکیایی"
+
+msgid "Slovenian"
+msgstr "اسلوونیایی"
+
+msgid "Spanish"
+msgstr "اسپانیایی"
+
+msgid "Swedish"
+msgstr "سوئدی"
+
+msgid "Turkish"
+msgstr "ترکی"
+
+msgid "Ukrainian"
+msgstr "اوکراینی"
+
+msgid "About CherryTree"
+msgstr "درباره 'درخت گیلاس'"
+
+msgid "Tree Summary Information"
+msgstr "خلاصه اطلاعات درخت"
+
+msgid "Number of Rich Text Nodes"
+msgstr "تعداد گره های متن غنی"
+
+msgid "Number of Plain Text Nodes"
+msgstr "تعداد گره های متن ساده"
+
+msgid "Number of Code Nodes"
+msgstr "تعداد گره های کد"
+
+msgid "Number of Images"
+msgstr "تعداد تصاویر"
+
+msgid "Number of LatexBoxes"
+msgstr "تعداد جعبه های لاتکس"
+
+msgid "Number of Embedded Files"
+msgstr "تعداد فایل های تعبیه شده"
+
+msgid "Number of Tables"
+msgstr "تعداد جداول"
+
+msgid "Number of CodeBoxes"
+msgstr "تعداد جعبه های کد"
+
+msgid "Number of Anchors"
+msgstr "تعداد لنگر ها"
+
+msgid "Number of Shared Nodes / Groups"
+msgstr "تعداد گره های مشترک /گروه ها"
+
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "هشدار: یک یا چند تصویر برای ورود به صفحه کاهش یافتند!"
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "اندازه نمادهای نوار ابزار در حداکثر اندازه قرار دارند."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "اندازه نمادهای نوار ابزار در حداقل اندازه قرار دارند."
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "این تغییر فقط بعد از اجرا مجدد 'درخت گیلاس' اعمال می گردد."
+
+msgid "Remove from list"
+msgstr "حذف از لیست"
+
+msgid "The new parent can't be one of his children!"
+msgstr "والد جدید نمی تواند فرزند خود باشد!"
+
+msgid "Checking for Newer Version..."
+msgstr "درحال بررسی برای نسخه جدید..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"مشکلی در دریافت اطلاعات  آخرین نسخه  رخ داده است - لطفا بعدا مجددا تلاش "
+"بفرمایید."
+
+msgid "A Newer Version Is Available!"
+msgstr "نسخه جدید در دسترس است!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "شما در حال حاضر از جدیدترین نسخه نرم افزار استفاده می فرمایید."
+
+msgid "You Are Using a Development Version."
+msgstr "شما از  از نسخه توسعه دهنده استفاده می کنید."
+
+msgid "Replace in Current Node"
+msgstr "جایگزینی در گره فعلی"
+
+msgid "Search in Current Node"
+msgstr "جستجو در گره فعلی"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>یافت نشد '%s'  الگوی </b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "جایگزینی در چندین گره..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "یافتن در چندین گره..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "جستجوی قبلی در این نشست اعمال نشده است."
+
+msgid "Preferences"
+msgstr "تنظیمات"
+
+msgid "English"
+msgstr "انگلیسی"
+
+msgid "Text and Code"
+msgstr "متن و کد"
+
+msgid "Format"
+msgstr "قالب بندی"
+
+msgid "Plain Text and Code"
+msgstr "متن ساده و کد"
+
+msgid "Theme"
+msgstr "تم"
+
+msgid "Interface"
+msgstr "رابط"
+
+msgid "Links"
+msgstr "پیوند ها"
+
+msgid "Toolbar"
+msgstr "نوار ابزار"
+
+msgid "Keyboard Shortcuts"
+msgstr "کلید های میانبر"
+
+msgid "Monospace"
+msgstr "فضای یکنواخت"
+
+msgid "Code Font"
+msgstr "قلم کد"
+
+msgid "Terminal Font"
+msgstr "قلم ترمینال"
+
+msgid "Tree Font"
+msgstr "قلم درخت"
+
+msgid "Fonts"
+msgstr "قلم ها"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "فعال سازی کلمه شمار در نوار وضعیت"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "نمایش پوشه سند در عنوان پنجره"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "نمایش مسیر کامل در نام سر صفحه گره"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "منو نشان ها مجزا از نوار منو"
+
+msgid "Menubar in Titlebar"
+msgstr "نوار منو در نوار عنوان"
+
+msgid "Toolbar Icons Size"
+msgstr "سایز نمادهای نوار ابزار"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "حداقل سایز اسلایدر نوار پیمایش (0=پیشفرض)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "نوار پیمایش بر روی ویرایشگر متن"
+
+msgid "Yes"
+msgstr "بله"
+
+msgid "No"
+msgstr "خیر"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "فعالسازی نمایش نکات هنگام نگه داشت موس"
+
+msgid "Tree"
+msgstr "درخت"
+
+msgid "Menus"
+msgstr "منو ها"
+
+msgid "Max Search Results per Page"
+msgstr "حداکثر نتایج در هر صفحه"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "فعالسازی عملکرد دلخواه با کلیک روی پیوند وب"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "فعالسازی عملکرد دلخواه با کلیک روی پیوند فایل"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "فعالسازی عملکرد دلخواه با کلیک روی پیوند پوشه"
+
+msgid "Custom Actions"
+msgstr "عملکرد دلخواه"
+
+msgid "Colors"
+msgstr "رنگ ها"
+
+msgid "Underline Links"
+msgstr "پیوند های زیر خط دار"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "استفاده از مسیر های مشابه برای فایل ها و پوشه ها"
+
+msgid "Anchor Size"
+msgstr "اندازه لنگر"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "یادداشت برداری سلسله مراتبی 'درخت گیلاس'"
+
+msgid "Show/Hide _CherryTree"
+msgstr "نمایش/مخفی  'درخت گیلاس'"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "تغییر وضعیت نمایش/مخفی  'درخت گیلاس'"
+
+msgid "_Exit CherryTree"
+msgstr "خروج از  'درخت گیلاس'"
+
+msgid "Exit from CherryTree"
+msgstr "خروج از  'درخت گیلاس'"
+
+msgid "Bold"
+msgstr "درشت"
+
+msgid "Use Selected Color"
+msgstr "استفاده از رنگ انتخاب شده"
+
+msgid "Use Selected Icon"
+msgstr "استفاده از نماد انتخاب شده"
+
+msgid "Tags for Searching"
+msgstr "تگ ها برای جستجو"
+
+msgid "Exclude from Searches"
+msgstr "شامل جستجوها نشود"
+
+msgid "This Node"
+msgstr "این گره"
+
+msgid "The Subnodes"
+msgstr "زیرگره ها"
+
+msgid "Read Only"
+msgstr "فقط خواندنی"
+
+msgid "Unique Id"
+msgstr "شناسه منحصر به فرد"
+
+msgid "Shared Nodes Group"
+msgstr "گروه گره های مشترک"
+
+msgid "Choose Existing Tag"
+msgstr "انتخاب تگ های موجود"
+
+msgid "Tag Name"
+msgstr "نام تگ"
+
+msgid "Pick a Color"
+msgstr "رنگی را انتخاب فرمایید"
+
+msgid "Select Node Icon"
+msgstr "انتخاب نماد گره"
+
+msgid "Involved Nodes"
+msgstr "گره های درگیر"
+
+msgid "Selected Text Only"
+msgstr "فقط متن انتخاب شده"
+
+msgid "Selected Node Only"
+msgstr "فقط گره انتخاب شده"
+
+msgid "Selected Node and Subnodes"
+msgstr "گره و زیرگره های انتخابی"
+
+msgid "All the Tree"
+msgstr "تمام درخت"
+
+msgid "Include Node Name"
+msgstr "شامل نام گره"
+
+msgid "Links Tree in Every Page"
+msgstr "درخت را در هر صفحه ای پیوند می دهد"
+
+msgid "New Node in New Page"
+msgstr "گره جدید در صفحه جدید"
+
+msgid "Single File"
+msgstr "فایل تک"
+
+msgid "Index"
+msgstr "اندیس"
+
+msgid "The Tree is Empty!"
+msgstr "درخت خالی است!"
+
+msgid "The Selected Node is Read Only."
+msgstr "گره انتخاب شده فقط خواندنی است."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "این قابلیت فقط در گره های متن غنی وجود دارد."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "این قابلیت در گره های رنگ آمیخته نوشتاری خودکار وجود ندارد."
+
+msgid "No Table is Selected."
+msgstr "جدولی انتخاب نشده است."
+
+msgid "No CodeBox is Selected."
+msgstr "جعبه کدی انتخاب نشده است."
+
+msgid "New Child Node Properties"
+msgstr "مشخصات گره فرزند جدید"
+
+msgid "New Node Properties"
+msgstr "مشخصات گره جدید"
+
+msgid "Node Properties"
+msgstr "مشخصات گره"
+
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"با قرار دادن نوع گره به متن غنی تمام قالب بند ها را از بین می رود.آیا مایل "
+"به ادامه هستید؟"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "آیا از حذف گره <b>اطمینان دارید '%s'؟</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "این گره <b>دارای فرزند می باشد، آنها نیز حذف خواهند شد!</b>"
+
+msgid "Select the New Parent"
+msgstr "والد جدید را انتخاب کنید"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "والد جدید نمی تواند جابجا شود!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "والد انتخاب شده جدید همچنان والد قدیمی است!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s مشخصات گره تغییر نمود"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s'  آرشیو معتبری نیست"
+
+msgid "Writing to Disk..."
+msgstr "در حال نوشتن به روی دیسک..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "شما دستسی نوشتن در  %s را ندارید"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "رمز عبور برای %s را واررد بفرمایید"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"خطا در بررسی سلامت فایل ذخیره شده.از روش رو به رو استفاده بفرمایید. فایل--> "
+"ذخیره به عنوان"
+
+msgid "Failed to encrypt the file"
+msgstr "خطا در رمزنگاری فایل"
+
+msgid "Chars for Bulleted List"
+msgstr "کاراکتر ها برای لیست گلوله ای"
+
+msgid "Chars for Todo List"
+msgstr "کاراکتر ها برای لیست 'برای انجام'"
+
+msgid "Chars for Table Of Content"
+msgstr "کاراکتر ها برای جدول محتوا"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "کاراکتر ها برای نقل قول های دوگانه هوشمند"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "کاراکتر ها برای"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "فعالسازی  جایگزینی خودکار نقل قول های هوشمند"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "فعالسازی جایگزینی خودکار سمبل ها"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "جایگزینی هوشمند سمیل های پشتیبانی شده"
+
+msgid "Only at the Start of the Line"
+msgstr "فقط در شروع خط"
+
+msgid "Use Different Cherries per Level"
+msgstr "استفاده از گیلاس های مختلف به ازای هر سطح"
+
+msgid "No Icon"
+msgstr "بدون نماد"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "مخفی کردن نماد کمکی کناری"
+
+msgid "Default Text Nodes Icons"
+msgstr "متن پیشفرض نمادهای گره ها"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "بازگردانی وضعیت بسط شده/جمع شده"
+
+msgid "Expand all Nodes"
+msgstr "بسط دادن تمام گره ها"
+
+msgid "Collapse all Nodes"
+msgstr "جمع کردن تمام گره ها"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "گره های درون نشان ها همیشه ظاهر باشند"
+
+msgid "Nodes Status at Startup"
+msgstr "وضعیت گره ها هنگام شروع"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "عرض نام دسته بندی درخت"
+
+msgid "Display Tree on the Right Side"
+msgstr "نمایش درخت در سمت راست"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "ایجاد تمرکز بروی متن هنگام کلیک"
+
+msgid "Expand Node at Mouse Click"
+msgstr "بسط گره با کلیک"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "آخرین گره مشاهده شده به روی سرصفحه گره"
+
+msgid "Enable Spell Check"
+msgstr "فعالسازی بررسی املا"
+
+msgid "Spell Check Language"
+msgstr "زبان بررسی املا"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "بسط خودکار جعبه های کد"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "جعبه های کد دارای نوار ابزار"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "آستانه تعداد سلول های جدول برای رابط سبک"
+
+msgid "Embedded File Icon Size"
+msgstr "اندازه نماد فایل تعبیه شده"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "محدودیت حجم فایل تعبیه شده(مگابایت)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "نمایش نام فایل در بالای نماد فایل تعبیه شده"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "محدودیت گام های غیر قابل انجام به ازای هر گره"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "خودکارسازی پیوند متن چسبیده به گره با نام یکسان"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "انتخاب همه پاراگراف با کلیک سه گانه"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "فعال سازی تعویض خودکار نشانه گذاری(تجربی)"
+
+msgid "Scale"
+msgstr "مقیاس"
+
+msgid "Italic"
+msgstr "مورب"
+
+msgid "Underline"
+msgstr "زیرخط"
+
+msgid "Text Color Foreground"
+msgstr "رنگ پیش زمینه متن"
+
+msgid "Text Color Background"
+msgstr "رنگ پس زمینه متن"
+
+msgid "Small"
+msgstr "کوچک"
+
+msgid "Scalable Tags"
+msgstr "تگ های قابل مقیاس دهی"
+
+msgid "Preferences File"
+msgstr "تنظیمات فایل"
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "هیچ قالب متنی قبلی ای در این نشست اعمال نشد."
+
+msgid "Link Name"
+msgstr "نام پیوند"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "نشانگر درون هیچ پاراگرافی قرار ندارد."
+
+msgid "Pick a Foreground Color"
+msgstr "انتخاب رنگ پیش زمینه"
+
+msgid "Pick a Background Color"
+msgstr "انتخاب رنگ پس زمینه"
 
 msgid "_File"
 msgstr "فایل"
@@ -92,9 +1612,6 @@ msgstr "تنظیمات"
 
 msgid "_Recent Documents"
 msgstr "اسناد اخیر"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "باز کردن یک سند  اخیرا استفاده شده 'درخت گیلاس'"
 
 msgid "C_hange Case"
 msgstr "تغییر مورد"
@@ -177,9 +1694,6 @@ msgstr "چاپ..."
 msgid "Print"
 msgstr "چاپ"
 
-msgid "Preferences"
-msgstr "تنظیمات"
-
 msgid "_Import Preferences..."
 msgstr "ورودی تنظیمات..."
 
@@ -195,20 +1709,8 @@ msgstr "خروجی تنظیمات"
 msgid "Tree In_fo"
 msgstr "اطلاعات درخت"
 
-msgid "Tree Summary Information"
-msgstr "خلاصه اطلاعات درخت"
-
-msgid "_Quit"
-msgstr "خروج"
-
-msgid "Quit the Application"
-msgstr "خروج از برنامه"
-
 msgid "E_xit CherryTree"
 msgstr "خروج از 'درخت گیلاس'"
-
-msgid "Exit from CherryTree"
-msgstr "خروج از  'درخت گیلاس'"
 
 msgid "Edit/Insert"
 msgstr "ویرایش/درج"
@@ -246,9 +1748,6 @@ msgstr "درج یک جدول"
 msgid "Insert _CodeBox..."
 msgstr "درج جعبه کد..."
 
-msgid "Insert a CodeBox"
-msgstr "درج یک جعبه کد"
-
 msgid "Insert _File..."
 msgstr "درج فایل..."
 
@@ -267,11 +1766,11 @@ msgstr "درج لنگر..."
 msgid "Insert an Anchor"
 msgstr "درج یک لنگر"
 
-msgid "Insert T_OC..."
-msgstr "درج TOC..."
+msgid "Insert T_OC and Headers Collapsors..."
+msgstr "T_OC و سربرگ های جمع شونده را وارد نمایید..."
 
-msgid "Insert Table of Contents"
-msgstr "درج جدول محتوا ها"
+msgid "Insert Table of Contents and Headers Collapsors/Expanders"
+msgstr "جدول محتوا و سربرگهای جمع شونده/بسط شونده را وارد کنید"
 
 msgid "Insert Timestam_p"
 msgstr "درج زمان نگار"
@@ -386,6 +1885,24 @@ msgstr "اضافه کردن ستون"
 
 msgid "Add a Table Column"
 msgstr "اضافه کردن ستون جدول"
+
+msgid "Cu_t Column"
+msgstr "برش ستون"
+
+msgid "Cut a Table Column"
+msgstr "برش یک ستون جدول"
+
+msgid "_Copy Column"
+msgstr "کپی ستون"
+
+msgid "Copy a Table Column"
+msgstr "کپی یک ستون جدول"
+
+msgid "_Paste Column"
+msgstr "جای گذاری  ستون"
+
+msgid "Paste a Table Column"
+msgstr "جای گذاری یک ستون جدول"
 
 msgid "De_lete Column"
 msgstr "حذف ستون"
@@ -551,9 +2068,6 @@ msgstr "کاهش ارتفاع جعبه کد"
 
 msgid "Decrease the Height of the CodeBox"
 msgstr "کاهش ارتفاع جعبه کد"
-
-msgid "Format"
-msgstr "قالب بندی"
 
 msgid "Format Clo_ne"
 msgstr "قالب بندی مشابه"
@@ -723,6 +2237,18 @@ msgstr "تراز سازی خط اول پاراگراف"
 msgid "Unindent the Current Paragraph"
 msgstr "تراز سازی خط اول پاراگراف فعلی"
 
+msgid "_Expand TOC Headers"
+msgstr "بسط دادن سربرگ های TOC"
+
+msgid "Expand TOC Headers"
+msgstr "بسط دادن سربرگ های TOC"
+
+msgid "_Collapse TOC Headers"
+msgstr "جمع کردن سربرگ های TOC"
+
+msgid "Collapse TOC Headers"
+msgstr "جمع کردن سربرگ های TOC"
+
 msgid "Tools"
 msgstr "ابزار ها"
 
@@ -731,6 +2257,12 @@ msgstr "فعال/غیرفعال بررسی غلط املایی"
 
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "تغییر وضعیت فعال/غیرفعال بررسی غلط املایی"
+
+msgid "Enable/Disable _VIM Mode"
+msgstr "فعال/غیرفعال نمودن حالت VIM"
+
+msgid "Toggle Enable/Disable VIM Mode"
+msgstr "تغییر وضعیت فعال/غیرفعال حالت VIM"
 
 msgid "Stri_p Trailing Spaces"
 msgstr "فضاهای دنباله دار نواری"
@@ -761,9 +2293,6 @@ msgstr "اجرای خط کد یا انتخاب شده"
 
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "اجرای کد از خط فعلی یا متن انتخاب شده"
-
-msgid "Tree"
-msgstr "درخت"
 
 msgid "Go _Back"
 msgstr "رفتن به عقب"
@@ -853,16 +2382,13 @@ msgid "Children _Inherit Syntax"
 msgstr "نوشتار وراثتی فرزندان"
 
 msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax "
-"Highlighting"
+"Change the Selected Node's Children Syntax Highlighting to the Parent's "
+"Syntax Highlighting"
 msgstr ""
 "تغییر رنگ آمیخته‌های نوشتار گره‌های انتخاب شده به رنگ آمیخته‌های نوشتار گره والد"
 
 msgid "_Handle Bookmarks..."
 msgstr "کنترل نشان ها..."
-
-msgid "Handle the Bookmarks List"
-msgstr "کنترل لیست نشان ها"
 
 msgid "Add to Boo_kmarks"
 msgstr "اضافه کردن به نشان ها"
@@ -870,7 +2396,7 @@ msgstr "اضافه کردن به نشان ها"
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "اضفه کردن گره فعلی به لیست نشان ها"
 
-msgid "_Remove from Bookmarks"
+msgid "Remove from Boo_kmarks"
 msgstr "حذف از نشان ها"
 
 msgid "Remove the Current Node from the Bookmarks List"
@@ -951,6 +2477,18 @@ msgstr "حذذف گره انتخاب شده"
 msgid "Find/Replace"
 msgstr "یافتن/جاگزینی"
 
+msgid "_Quick Node Selection..."
+msgstr "انتخاب سریع گره..."
+
+msgid "Quick Node Selection"
+msgstr "انتخاب سریع گره"
+
+msgid "Find in _Nodes Names and Tags..."
+msgstr "یافتن در نام و برچسب گره ها..."
+
+msgid "Find in Nodes Names and Tags"
+msgstr "یافتن در نام و برچسب گره ها"
+
 msgid "_Find in Node Content..."
 msgstr "یافتن در محتوا گره..."
 
@@ -962,12 +2500,6 @@ msgstr "یافتن در چند گره..."
 
 msgid "Find in Multiple Nodes"
 msgstr "یافتن در چند گره"
-
-msgid "Find in _Nodes Names and Tags..."
-msgstr "یافتن در نام و برچسب گره ها..."
-
-msgid "Find in Nodes Names and Tags"
-msgstr "یافتن در نام و برچسب گره ها"
 
 msgid "Find _Again"
 msgstr "یافتن مجدد"
@@ -1278,9 +2810,6 @@ msgstr "کتابچه راهنمای آنلاین"
 msgid "_About"
 msgstr "درباره"
 
-msgid "About CherryTree"
-msgstr "درباره 'درخت گیلاس'"
-
 msgid "_Open Preferences Directory"
 msgstr "باز کردن پوشه تنظیمات"
 
@@ -1416,12 +2945,6 @@ msgstr "رد کردن پیوند"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "رد کردن پیوند مرتبط با تصویر"
 
-msgid "Show/Hide _CherryTree"
-msgstr "نمایش/مخفی  'درخت گیلاس'"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "تغییر وضعیت نمایش/مخفی  'درخت گیلاس'"
-
 msgid "Edit the Underlying Link"
 msgstr "ویرایش پیوند پایه"
 
@@ -1446,1429 +2969,6 @@ msgstr "حذف پیوند"
 msgid "Delete the Selected Link"
 msgstr "حذف پیوند انتخاب شده"
 
-msgid "Copy Selection or All"
-msgstr "کپی همه یا بخش انتخاب شده"
-
-msgid "Paste"
-msgstr "جای گذاری"
-
-msgid "Reset"
-msgstr "بازنشانی"
-
-msgid "Rename"
-msgstr "تغییر نام"
-
-msgid "PNG Image"
-msgstr "تصویرPNG"
-
-#, c-format
-msgid "Write to %s Failed"
-msgstr "نوشتن در %s باخطا مواجه شد"
-
-msgid "Insert/Edit Link"
-msgstr "درج/ویرایش پیوند"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "پیوند پوشه '%s' معتبر نیست."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "پیوند فایل '%s' معتبر نیست."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "پیوند پوشه '%s' معتبر نیست"
-
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "پیوند به گره اشاره می کند که که دیگر موجود نیست (شناسه =  %s)"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "هیچ لنگری با نام '%s' یافت نشد"
-
-msgid "Edit CodeBox"
-msgstr "ویرایش جعبه کد"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"یاد دستوری را به '%s'تخصیص دهید.\n"
-"این کار را در صفحه تنظبمات انجام دهید."
-
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the Preferences "
-"Dialog."
-msgstr ""
-"پکیج 'xterm' را نصب کنید با ترمینال دیگری را از طریق صفحه تنظیمات پیاده سازی کنید."
-
-msgid "Edit Table Properties"
-msgstr "ویرایش مشخصات جدول"
-
-msgid "CSV File"
-msgstr "فایلCSV"
-
-msgid "Insert Anchor"
-msgstr "درج لنگر"
-
-msgid "Edit Anchor"
-msgstr "ویرایش لنگر"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "نمی توان فایل تعبیه شده را در حالت فقط خواندنی ویرایش نمود."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "فابل تعبیه شده به صورت خودکار به رو رسانی شد:"
-
-msgid "Change Selected"
-msgstr "تغییر انتخاب شده"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "کلید میانبر '%s'در حال استفاده است."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "اقدام مرتیط فعلی '%s' است"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "آیا میخواهید این میانبر را تصاحب کنید؟"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "ویرایش کلید میانبر"
-
-msgid "No Keyboard Shortcut"
-msgstr "بدون کلید میانبر"
-
-msgid "Writing to Disk..."
-msgstr "در حال نوشتن به روی دیسک..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "شما دستسی نوشتن در  %s را ندارید"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "رمز عبور برای %s را واررد بفرمایید"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"خطا در بررسی سلامت فایل ذخیره شده.از روش رو به رو استفاده بفرمایید. فایل--> ذخیره "
-"به عنوان"
-
-msgid "Failed to encrypt the file"
-msgstr "خطا در رمزنگاری فایل"
-
-msgid "Search for"
-msgstr "جستجو برای"
-
-msgid "Replace with"
-msgstr "جایگزینی با"
-
-msgid "Match Case"
-msgstr "تطبیق مورد"
-
-msgid "Regular Expression"
-msgstr "عبارات منظم(Regex)"
-
-msgid "Online Manual"
-msgstr "کتابچه راهنمای آنلاین"
-
-msgid "Accent Insensitive"
-msgstr "لهجه غیر حساس"
-
-msgid "Override Exclusions"
-msgstr "لغو استثناها"
-
-msgid "Whole Word"
-msgstr "تمام کلمه"
-
-msgid "Start Word"
-msgstr "کلمه آغازین"
-
-msgid "Forward"
-msgstr "به جلو"
-
-msgid "Backward"
-msgstr "به عقب"
-
-msgid "All, List Matches"
-msgstr "همه، تطابق های لیست"
-
-msgid "First From Selection"
-msgstr "اولین مورد انتخابی"
-
-msgid "First in All Range"
-msgstr "اولین در تمام بازه"
-
-msgid "Node Created After"
-msgstr "گره ساخت شده بعد از"
-
-msgid "Node Created Before"
-msgstr "گره ساخته شده قبل از"
-
-msgid "Node Modified After"
-msgstr "گره تغییر یافته بعد از"
-
-msgid "Node Modified Before"
-msgstr "گره تغییر یافته قبل از"
-
-msgid "Time filter"
-msgstr "فیلتر زمان"
-
-msgid "Node Content"
-msgstr "محتوا گره"
-
-msgid "Node Name and Tags"
-msgstr "نام و تگ گره"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "فقط گره انتخاب شده و زیر گره ها"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "نمایش جستجو/یافتن های تکرارشده"
-
-msgid "Search options"
-msgstr "گزینه های جستجو"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"حداقل یک گره به دلیل استثناهای تعیین شده در ویژگی های گره نادیده گرفته شد..\n"
-"برای پاک کردن همه موارد استثنا، از منو استفاده کنید:\n"
-"جستجو -> پاک کردن همه موارد استثنا از جستجو"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "مخفی (بازگردانی با  '%s')"
-
-msgid "Node Name"
-msgstr "نام گره"
-
-msgid "Line"
-msgstr "خط"
-
-msgid "Line Content"
-msgstr "محتوای خط"
-
-msgid "Matches"
-msgstr "تطبیق یافته ها"
-
-msgid "Iterate Latest Find/Replace"
-msgstr "جستجو / یافتن های تکراری اخیر"
-
-msgid "Close"
-msgstr "بستن"
-
-msgid "Find Previous"
-msgstr "یافتن قبلی"
-
-msgid "Find Next"
-msgstr "یافتن بعدی"
-
-msgid "Replace"
-msgstr "جایگزینی"
-
-msgid "Undo"
-msgstr "لغو عملی"
-
-msgid "Downloading"
-msgstr "در حال دانلود"
-
-msgid "Remove from list"
-msgstr "حذف از لیست"
-
-msgid "The new parent can't be one of his children!"
-msgstr "والد جدید نمی تواند فرزند خود باشد!"
-
-msgid "Light Background, Dark Text"
-msgstr "زمینه روشن ،متن تیره"
-
-msgid "Dark Background, Light Text"
-msgstr "زمینه تیره ،متن روشن"
-
-msgid "Custom Background"
-msgstr "زمینه دلخواه"
-
-msgid "Text"
-msgstr "متن"
-
-msgid "Selection Background"
-msgstr "زمینه انتخابی"
-
-msgid "Tree Explorer"
-msgstr "کاوشگر درخت"
-
-msgid "Rich Text"
-msgstr "متن غنی"
-
-msgid "Plain Text"
-msgstr "متن ساده"
-
-msgid "Table"
-msgstr "جدول"
-
-msgid "Code"
-msgstr "کد"
-
-msgid "Style Schemes"
-msgstr "حالت طرح ها"
-
-msgid "Text Foreground"
-msgstr "پیش زمینه متن"
-
-msgid "Text Background"
-msgstr "پس زمینه متن"
-
-msgid "Selection Foreground"
-msgstr "پیش زمینه انتخابی"
-
-msgid "Cursor"
-msgstr "نشانگر"
-
-msgid "Current Line Background"
-msgstr "زمینه خط فعلی"
-
-msgid "Line Numbers Foreground"
-msgstr "پیش زمینه اعداد خط"
-
-msgid "Line Numbers Background"
-msgstr "پس زمینه اعداد خط"
-
-msgid "Style Scheme Editor"
-msgstr "ویرایش حالت طرح"
-
-msgid "Set Dark Theme Icons"
-msgstr "تنظیم تم تیره برای نمادها"
-
-msgid "Set Light Theme Icons"
-msgstr "تنظیم تم روشن برای نمادها"
-
-msgid "Set Default Icons"
-msgstr "تنظیم نمادهای پیشفرض"
-
-msgid "Icon Theme"
-msgstr "تم نماد"
-
-msgid "Move the Selected Bookmark Up"
-msgstr "جابجایی نشان انتخاب شده به بالا"
-
-msgid "Move the Selected Bookmark Down"
-msgstr "جابجایی نشان انتخاب شده به پایین"
-
-msgid "Remove the Selected Bookmark"
-msgstr "حذف نشان انتخاب شده"
-
-msgid "Sort the Bookmarks Descending"
-msgstr "مرتب سازی نزولی نشان ها"
-
-msgid "Sort the Bookmarks Ascending"
-msgstr "مرتب سازی صعودی نشان ها"
-
-msgid "Choose Storage Type"
-msgstr "انتخاب نوع ذخیره ساز"
-
-msgid "Storage Type"
-msgstr "نوع ذخیره ساز"
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing the "
-"document, CT extracts the encrypted archive to a temporary folder, and works on "
-"the unencrypted copy. When closing, the unencrypted copy is deleted from the "
-"temporary directory. Note that in the case of application or system crash, the "
-"unencrypted document will remain in the temporary folder."
-msgstr ""
-"CT سند را در یک آرشیو رمزنگاری شده با فرمت 7zip ذخیره می‌کند. هنگام مشاهده یا "
-"ویرایش سند، CT فایل فشرده را به پوشه موقتی استخراج می‌کند و روی نسخه‌ بدون رمز آن "
-"کار می‌کند. در هنگام بستن، نسخه‌ی بدون رمز از پوشه موقتی حذف می‌شود. لطفا توجه داشته "
-"باشید که در صورتی که برنامه یا سیستم خراب شود، نسخه‌ی بدون رمز سند همچنان در پوشه "
-"موقتی باقی خواهد ماند."
-
-msgid "Enter the New Password Twice"
-msgstr "رمز عبور جدید را دو بار وارد نمایید"
-
-msgid "Autosave Every"
-msgstr "ذخیره خودکار در هر"
-
-msgid "Minutes"
-msgstr "دقیقه"
-
-msgid "The Password Fields Must be Filled."
-msgstr "فیلد رمز عبور می بایست پر شود."
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr "رمز های عبور وارد شده یکسان نیستند."
-
-msgid "Warning"
-msgstr "هشدار"
-
-msgid "The Current Document was Updated."
-msgstr "سندی فعلی به روز رسانی شد."
-
-msgid "Do you want to Save the Changes?"
-msgstr "آیا مایل به ذخیره تغییرات هستید؟"
-
-msgid "Do you want to Execute the Code?"
-msgstr "آیا مایل به اجرای کد هستید؟"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "قبل از اجرای کد در خواست تایید گرفته شود"
-
-msgid "Use Internal Terminal"
-msgstr "استفاده از ترمینال داخلی"
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr "نرم افزار یادداشت برداری سلسله مراتبی ، شامل متن غنی و رنگ آمیختگی نوشتاری"
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"این برنامه نرم‌افزاری رایگان است؛ شما می توانید آن را با رعایت شرایط مجوز عمومی "
-"GNU که توسط بنیاد نرم‌افزار آزاد منتشر شده‌است، توزیع و/یا تغییر دهید. این شرایط "
-"شامل نسخه 3 مجوز یا (به اختیار خودتان) هر نسخه بعدی آن است.\n"
-"\n"
-"این برنامه با هدف کاربردی بودن توزیع شده است، اما بدون هیچ گونه ضمانتی؛ حتی بدون "
-"ضمانت صریح قابلیت فروش پذیری یا مطابقت با هدف خاص. برای اطلاعات بیشتر، لطفاً مجوز  "
-"GNU را ملاحظه فرمایید.\n"
-"\n"
-"شما باید یک نسخه از مجوز عمومی GNU را در کنار این برنامه دریافت کرده‌باشید؛ اگر "
-"نه، می‌توانید به آدرس زیر برای  بنیاد نرم‌افزار آزاد  نامه بنویسید: \n"
-"Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "عربی"
-
-msgid "Armenian"
-msgstr "ارمنی"
-
-msgid "Bulgarian"
-msgstr "بلغاری"
-
-msgid "Chinese Simplified"
-msgstr "چینی مدرن"
-
-msgid "Chinese Traditional"
-msgstr "چینی سنتی"
-
-msgid "Croatian"
-msgstr "کرواتی"
-
-msgid "Czech"
-msgstr "چکی"
-
-msgid "Dutch"
-msgstr "هلندی"
-
-msgid "Finnish"
-msgstr "فنلاندی"
-
-msgid "French"
-msgstr "فرانسوی"
-
-msgid "German"
-msgstr "آلمانی"
-
-msgid "Greek"
-msgstr "یونانی"
-
-msgid "Hindi India"
-msgstr "هندی"
-
-msgid "Hungarian"
-msgstr "مجارستانی"
-
-msgid "Italian"
-msgstr "ایتالیایی"
-
-msgid "Japanese"
-msgstr "ژاپنی"
-
-msgid "Kazakh"
-msgstr "قزاقی"
-
-msgid "Kazakh (Latin)"
-msgstr "قزاقی(لاتین)"
-
-msgid "Korean"
-msgstr "کره ای"
-
-msgid "Lithuanian"
-msgstr "لیتوانیایی"
-
-msgid "Persian"
-msgstr "فارسی"
-
-msgid "Polish"
-msgstr "لهستانی"
-
-msgid "Portuguese"
-msgstr "پرتغالی"
-
-msgid "Portuguese Brazil"
-msgstr "پرتغالی برزیل"
-
-msgid "Romanian"
-msgstr "رومانیایی"
-
-msgid "Russian"
-msgstr "روسی"
-
-msgid "Slovenian"
-msgstr "اسلوونیایی"
-
-msgid "Spanish"
-msgstr "اسپانیایی"
-
-msgid "Swedish"
-msgstr "سوئدی"
-
-msgid "Turkish"
-msgstr "ترکی"
-
-msgid "Ukrainian"
-msgstr "اوکراینی"
-
-msgid "Number of Rich Text Nodes"
-msgstr "تعداد گره های متن غنی"
-
-msgid "Number of Plain Text Nodes"
-msgstr "تعداد گره های متن ساده"
-
-msgid "Number of Code Nodes"
-msgstr "تعداد گره های کد"
-
-msgid "Number of Images"
-msgstr "تعداد تصاویر"
-
-msgid "Number of LatexBoxes"
-msgstr "تعداد جعبه های لاتکس"
-
-msgid "Number of Embedded Files"
-msgstr "تعداد فایل های تعبیه شده"
-
-msgid "Number of Tables"
-msgstr "تعداد جداول"
-
-msgid "Number of CodeBoxes"
-msgstr "تعداد جعبه های کد"
-
-msgid "Number of Anchors"
-msgstr "تعداد لنگر ها"
-
-msgid "Number of Shared Nodes / Groups"
-msgstr "تعداد گره های مشترک /گروه ها"
-
-msgid "Latex Text"
-msgstr "متن لاتکس"
-
-msgid "Image Size dpi"
-msgstr "DPI اندازه تصویر"
-
-msgid "Tutorial"
-msgstr "آموزش"
-
-msgid "Reference"
-msgstr "ارجاع"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "آموزش ریاضی لاتکس و معادلات"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "ارجاع به سمبل ها ی ریاضی لاتکس"
-
-msgid "Image Properties"
-msgstr "مشخصات تصویر"
-
-msgid "Width"
-msgstr "عرض"
-
-msgid "Height"
-msgstr "ارتفاع"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "رنگ آمیختگی خودکار نوشتار"
-
-msgid "Type"
-msgstr "نوع"
-
-msgid "pixels"
-msgstr "پیکسل ها"
-
-msgid "Size"
-msgstr "اندازه"
-
-msgid "Show Line Numbers"
-msgstr "نمایش اعداد خط"
-
-msgid "Highlight Matching Brackets"
-msgstr "علامت گذاری براکت ها منطبق"
-
-msgid "Options"
-msgstr "گزینه ها"
-
-msgid "Rows"
-msgstr "ردیف ها"
-
-msgid "Columns"
-msgstr "ستون ها"
-
-msgid "Default Width"
-msgstr "عرض پیشفرض"
-
-msgid "Table Size"
-msgstr "اندازه جدول"
-
-msgid "Column Properties"
-msgstr "مشخصات ستون"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "رابط کم وزن (بسیار سریعتر برای جداول بزرگ)"
-
-msgid "Import from CSV File"
-msgstr "ورودی از فایل CSV"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "نمی توان به فایل های اجرایی 'latex' و 'dvipng'دسترسی یافت"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "برای مثال:اینها بسته های نصب برای اوبونتو هستند:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "برای مثال:اینها بسته های نصب برای سیستم عامل مک هستند:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "نمی توان به فایل های اجرایی 'latex' دسترسی یافت"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "نمی توان به فایل های اجرایی 'dvipng'دسترسی یافت"
-
-msgid "Show White Spaces"
-msgstr "نمایش فضا های سفید"
-
-msgid "Highlight Current Line"
-msgstr "علامت گذاری خط فعلی"
-
-msgid "Text Editor"
-msgstr "ویرایشگر متن"
-
-msgid "Internal Terminal Shell"
-msgstr "پوسته ترمینالی اینترنت"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "دستور به ازای نوع جعبه کد/گره"
-
-msgid "Terminal Command"
-msgstr "دستو ترمینال"
-
-msgid "Code Execution"
-msgstr "اجرای کد"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "اندازه نمادهای نوار ابزار در حداکثر اندازه قرار دارند."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "اندازه نمادهای نوار ابزار در حداقل اندازه قرار دارند."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "این تغییر فقط بعد از اجرا مجدد 'درخت گیلاس' اعمال می گردد."
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr "فایل پایگاه داده %s خراب است،لطفا به تاریخچه مراجعه فرمایید."
-
-msgid ""
-"Backup files are by default 3 in the same folder of the corrupted document, with "
-"the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one "
-"tilde: copy the file to another directory, remove the trailing tilde and open "
-"with cherrytree. If it still fails, try the one with two tildes and if it still "
-"fails try the one with three tildes."
-msgstr ""
-"به طور پیش فرض سه فایل پشتیبان در همان پوشه سند خراب موجد است،با همان نام بعلاوه "
-"علامت تیلدا(~, ~~, ~~~). در اولین تلاش از فایل پشتیبانی که یک تیلدا دارد استفاده "
-"نمایید،فایل را به پوشه دیگری انتقال دهید وعلامت تیلدا را از نام فایل حذف بفرمایید "
-"و با 'درخت گیلاس' فایل را باز کنید. اگر موفقیت آمیز نبود با فایل دو تیلدا دار "
-"امتحان کنید و اگر باز هم نشد از فایل با دنباله سه تیلدا(~) استفاده فرمایید."
-
-#, c-format
-msgid "%s write failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s نوشتن با مشکل مواجه شد - فایل گمشده است. درایو USB یا منبع اشتراکی را مجددا "
-"متصل فرمایید.!"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "%s نوشتن با مشکل مواجه شد - آیا توسط یک نرم افزار همگام سازی مسدود شده است؟"
-
-#, c-format
-msgid "%s reopen failed - file is missing. Reattach USB drive or shared resource!"
-msgstr ""
-"%s باز نمودن مجدد با مشکل مواجه شد - فایل گمشده است. درایو USB یا منبع اشتراکی را "
-"مجددا متصل فرمایید!"
-
-msgid "Tab Width"
-msgstr "عرض تب"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "درج فضای خالی معمولی بجای تب"
-
-msgid "Use Line Wrapping"
-msgstr "استفاده از دسته بندی خط"
-
-msgid "Line Wrapping Indentation"
-msgstr "تو رفتگی دسته بندی خط"
-
-msgid "Enable Automatic Indentation"
-msgstr "فعال سازی تو رفتگی خودکار"
-
-msgid "Scroll Beyond Last Line"
-msgstr "حرکت قیل از آخرین خط"
-
-msgid "Cursor Blinking"
-msgstr "نشانگر چشمک زن"
-
-msgid "System Default"
-msgstr "پیشفرض سیستم"
-
-msgid "On"
-msgstr "خاموش"
-
-msgid "Off"
-msgstr "روشن"
-
-msgid "Text Margin: Left"
-msgstr "حاشیه  چپ متن"
-
-msgid "Right"
-msgstr "راست"
-
-msgid "Vertical Space Around Lines"
-msgstr "فضای عمودی در اطراف خطوط"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "فضای عمودی در خطوط دسته بندی شده"
-
-msgid "Timestamp Format"
-msgstr "قالب مهر زمانی"
-
-msgid "Horizontal Rule"
-msgstr "قانون افقی"
-
-msgid "Chars to Select at Double Click"
-msgstr "انتخاب کاراکترها با دابل کلیک"
-
-msgid "Miscellaneous"
-msgstr "متفرقه"
-
-msgid "Remove Color"
-msgstr "حذف رنگ"
-
-msgid "Question"
-msgstr "سوال"
-
-msgid "Info"
-msgstr "اطلاعات"
-
-msgid "Error"
-msgstr "خطا"
-
-msgid "Select File"
-msgstr "انتخاب فایل"
-
-msgid "Select Folder"
-msgstr "انتخاب پوشه"
-
-msgid "Save File as"
-msgstr "ذخیره فایل به عنوان"
-
-msgid "Save To Folder"
-msgstr "ذخیره در پوشه"
-
-msgid "Use Different Cherries per Level"
-msgstr "استفاده از گیلاس های مختلف به ازای هر سطح"
-
-msgid "Use Selected Icon"
-msgstr "استفاده از نماد انتخاب شده"
-
-msgid "No Icon"
-msgstr "بدون نماد"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "مخفی کردن نماد کمکی کناری"
-
-msgid "Default Text Nodes Icons"
-msgstr "متن پیشفرض نمادهای گره ها"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "بازگردانی وضعیت بسط شده/جمع شده"
-
-msgid "Expand all Nodes"
-msgstr "بسط دادن تمام گره ها"
-
-msgid "Collapse all Nodes"
-msgstr "جمع کردن تمام گره ها"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "گره های درون نشان ها همیشه ظاهر باشند"
-
-msgid "Nodes Status at Startup"
-msgstr "وضعیت گره ها هنگام شروع"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "عرض نام دسته بندی درخت"
-
-msgid "Display Tree on the Right Side"
-msgstr "نمایش درخت در سمت راست"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "ایجاد تمرکز بروی متن هنگام کلیک"
-
-msgid "Expand Node at Mouse Click"
-msgstr "بسط گره با کلیک"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "آخرین گره مشاهده شده به روی سرصفحه گره"
-
-msgid "Select Node Icon"
-msgstr "انتخاب نماد گره"
-
-msgid "No Node is Selected"
-msgstr "هیچ گره ای انتخاب نشده است"
-
-msgid "The Tree is Empty!"
-msgstr "درخت خالی است!"
-
-msgid "The Selected Node is Read Only."
-msgstr "گره انتخاب شده فقط خواندنی است."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "این قابلیت فقط در گره های متن غنی وجود دارد."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "این قابلیت در گره های رنگ آمیخته نوشتاری خودکار وجود ندارد."
-
-msgid "No Text is Selected."
-msgstr "هیچ متنی انتخاب نشده است."
-
-msgid "No Table is Selected."
-msgstr "جدولی انتخاب نشده است."
-
-msgid "No CodeBox is Selected."
-msgstr "جعبه کدی انتخاب نشده است."
-
-msgid "New Child Node Properties"
-msgstr "مشخصات گره فرزند جدید"
-
-msgid "New Node Properties"
-msgstr "مشخصات گره جدید"
-
-msgid "Node Properties"
-msgstr "مشخصات گره"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do "
-"you want to Continue?"
-msgstr ""
-"با قرار دادن نوع گره به متن غنی تمام قالب بند ها را از بین می رود.آیا مایل به "
-"ادامه هستید؟"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "آیا از حذف گره <b>اطمینان دارید '%s'؟</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "این گره <b>دارای فرزند می باشد، آنها نیز حذف خواهند شد!</b>"
-
-msgid "Select the New Parent"
-msgstr "والد جدید را انتخاب کنید"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "والد جدید نمی تواند جابجا شود!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "والد انتخاب شده جدید همچنان والد قدیمی است!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s مشخصات گره تغییر نمود"
-
-msgid "To WebSite"
-msgstr "به وبسایت"
-
-msgid "To File"
-msgstr "به فایل"
-
-msgid "To Folder"
-msgstr "به پوشه"
-
-msgid "To Node"
-msgstr "به گره"
-
-msgid "Anchor Name (optional)"
-msgstr "نام لنگر (اختیاری)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "هیچ لنگر در گره انتخاب شده وجود ندارد."
-
-msgid "Choose Existing Anchor"
-msgstr "انتخاب لنگر(های) موجود"
-
-msgid "Anchor Name"
-msgstr "نام لنگر"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "الگو '%s' پیدا نشد"
-
-msgid "CherryTree File"
-msgstr "فایل درخت گیلاس"
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"پوشه '%s' در این آدرس موجود است '%s'.\n"
-"<b>آیا از حذف این مورد اطمینان دارید؟</b>"
-
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to remove it?</b>"
-msgstr ""
-"فایلی '%s' در این آدرس موجود است '%s'.\n"
-"<b>آیا از حذف این مورد اطمینان دارید؟</b>"
-
-msgid "Preferences File"
-msgstr "تنظیمات فایل"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "آیا لیست نرم افزار ها(سینی سیستم) روی صفحه ظاهر شد؟"
-
-msgid "Your system does not support the System Tray"
-msgstr "سیستم شما از لیست نرم افزارها(سینی سیستم) پشتیبانی نمی کند"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "یادداشت برداری سلسله مراتبی 'درخت گیلاس'"
-
-msgid "_Exit CherryTree"
-msgstr "خروج از  'درخت گیلاس'"
-
-msgid "Show Menubar:"
-msgstr "نمایش نوار منو:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "مسیر  %s موجود نیست"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" فایل 'درخت گیلاس' نمی باشد"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"خطا در پردازش مسیر 'درخت گیلاس'.\n"
-"\"%s\""
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "هیچ گره ای با نام  '%s' یافت نشد."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "فایل های موقت ساخته شده و با برنامه خارجی باز شده اند."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "قبل از خروج از 'درخت گیلاس' از برنامه خارجی خارج شوید."
-
-msgid "Did you Quit the External Applications?"
-msgstr "آیا از برنامه خارجی خارج شده اید؟"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "بارگذاری مجدد سند بعد از به روز رسانی فایل خارجی *CT."
-
-msgid "Autosave on Quit"
-msgstr "ذخیره خودکار هنگام خروج"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "ساخت کپی نسخه پشتیبان قبل از ذخیره سازی"
-
-msgid "Number of Backups to Keep"
-msgstr "تعداد نسخ  پشتیبان برای نگهداری"
-
-msgid "Custom Backup Directory"
-msgstr "پوشه دلخواه نسخه پشتیبان"
-
-msgid "Saving"
-msgstr "در حال ذخیره سازی"
-
-msgid "Automatically Check for Newer Version"
-msgstr "بررسی خودکار برای ورژن جدیدتر"
-
-msgid "Reload Document From Last Session"
-msgstr "بارگذاری مجدد سند از نشست قبلی"
-
-msgid "Reload After External Update to CT* File"
-msgstr "باگذاری مجدد بعد از به روز رسانی خارجی در فایل *CT"
-
-msgid "Enable Debug Log"
-msgstr "فعال سازی تاریخچه رفع خطا"
-
-msgid "Debug Log Directory"
-msgstr "پوشه تاریخچه رفع خطا"
-
-msgid "Enable System Tray Docking"
-msgstr "فعال سازی در لیست نرم افزار ها(سینی سیستم)"
-
-msgid "Start Minimized in the System Tray"
-msgstr "شروع با حداقل اندازه در لیست نرم افزارها(سینی سیستم)"
-
-msgid "System Tray"
-msgstr "لیست نرم افزار ها(سینی سیستم)"
-
-msgid "Language"
-msgstr "زبان"
-
-msgid "_Hide"
-msgstr "مخفی"
-
-msgid "Hide the Window"
-msgstr "مخفی نمودن پنجره"
-
-msgid "Node Type"
-msgstr "نوع گره"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "تگ ها"
-
-msgid "Spell Check"
-msgstr "بررسی املا"
-
-msgid "Word Count"
-msgstr "تعداد کلمات"
-
-msgid "Date Created"
-msgstr "تاریخ ایجاد"
-
-msgid "Date Modified"
-msgstr "تاریخ تغییر"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree is No "
-"Longer Available."
-msgstr "کپی گره قبلی در نشست فعلی اعمال نشد یا درخت منبع دیگر در دسترس نیست."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "گره درخت منبع دیگر در دسترس نیست."
-
-msgid "English"
-msgstr "انگلیسی"
-
-msgid "Text and Code"
-msgstr "متن و کد"
-
-msgid "Plain Text and Code"
-msgstr "متن ساده و کد"
-
-msgid "Special Characters"
-msgstr "کاراکتر های خاص"
-
-msgid "Theme"
-msgstr "تم"
-
-msgid "Interface"
-msgstr "رابط"
-
-msgid "Links"
-msgstr "پیوند ها"
-
-msgid "Toolbar"
-msgstr "نوار ابزار"
-
-msgid "Keyboard Shortcuts"
-msgstr "کلید های میانبر"
-
-msgid "Monospace"
-msgstr "فضای یکنواخت"
-
-msgid "Code Font"
-msgstr "قلم کد"
-
-msgid "Terminal Font"
-msgstr "قلم ترمینال"
-
-msgid "Tree Font"
-msgstr "قلم درخت"
-
-msgid "Fonts"
-msgstr "قلم ها"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "فعال سازی کلمه شمار در نوار وضعیت"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "نمایش پوشه سند در عنوان پنجره"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "نمایش مسیر کامل در نام سر صفحه گره"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "منو نشان ها مجزا از نوار منو"
-
-msgid "Menubar in Titlebar"
-msgstr "نوار منو در نوار عنوان"
-
-msgid "Toolbar Icons Size"
-msgstr "سایز نمادهای نوار ابزار"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "حداقل سایز اسلایدر نوار پیمایش (0=پیشفرض)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "نوار پیمایش بر روی ویرایشگر متن"
-
-msgid "Yes"
-msgstr "بله"
-
-msgid "No"
-msgstr "خیر"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "فعالسازی نمایش نکات هنگام نگه داشت موس"
-
-msgid "Menus"
-msgstr "منو ها"
-
-msgid "Max Search Results per Page"
-msgstr "حداکثر نتایج در هر صفحه"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "فعالسازی عملکرد دلخواه با کلیک روی پیوند وب"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "فعالسازی عملکرد دلخواه با کلیک روی پیوند فایل"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "فعالسازی عملکرد دلخواه با کلیک روی پیوند پوشه"
-
-msgid "Custom Actions"
-msgstr "عملکرد دلخواه"
-
-msgid "Colors"
-msgstr "رنگ ها"
-
-msgid "Underline Links"
-msgstr "پیوند های زیر خط دار"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "استفاده از مسیر های مشابه برای فایل ها و پوشه ها"
-
-msgid "Anchor Size"
-msgstr "اندازه لنگر"
-
-msgid "Replace in Current Node"
-msgstr "جایگزینی در گره فعلی"
-
-msgid "Search in Current Node"
-msgstr "جستجو در گره فعلی"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>یافت نشد '%s'  الگوی </b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "جایگزینی در چندین گره..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "یافتن در چندین گره..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "جستجوی قبلی در این نشست اعمال نشده است."
-
-msgid "PDF File"
-msgstr "فایلPDF"
-
-msgid "Plain Text Document"
-msgstr "سند متنی ساده"
-
-msgid "Who is the Parent?"
-msgstr "والد کدام است؟"
-
-msgid "The Tree Root"
-msgstr "ریشه درخت"
-
-msgid "The Selected Node"
-msgstr "گره انتخاب شده"
-
-msgid "Enable Spell Check"
-msgstr "فعالسازی بررسی املا"
-
-msgid "Spell Check Language"
-msgstr "زبان بررسی املا"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "بسط خودکار جعبه های کد"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "جعبه های کد دارای نوار ابزار"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "آستانه تعداد سلول های جدول برای رابط سبک"
-
-msgid "Embedded File Icon Size"
-msgstr "اندازه نماد فایل تعبیه شده"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "محدودیت حجم فایل تعبیه شده(مگابایت)"
-
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "نمایش نام فایل در بالای نماد فایل تعبیه شده"
-
-msgid "Limit of Undoable Steps Per Node"
-msgstr "محدودیت گام های غیر قابل انجام به ازای هر گره"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "خودکارسازی پیوند متن چسبیده به گره با نام یکسان"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "انتخاب همه پاراگراف با کلیک سه گانه"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "فعال سازی تعویض خودکار نشانه گذاری(تجربی)"
-
-msgid "Scale"
-msgstr "مقیاس"
-
-msgid "Bold"
-msgstr "درشت"
-
-msgid "Italic"
-msgstr "مورب"
-
-msgid "Underline"
-msgstr "زیرخط"
-
-msgid "Text Color Foreground"
-msgstr "رنگ پیش زمینه متن"
-
-msgid "Text Color Background"
-msgstr "رنگ پس زمینه متن"
-
-msgid "Small"
-msgstr "کوچک"
-
-msgid "Scalable Tags"
-msgstr "تگ های قابل مقیاس دهی"
-
-msgid "Execute Code"
-msgstr "اجرای کد"
-
-msgid "Change CodeBox Properties"
-msgstr "تغییر مشخصات جعبه کد"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "هیچ قالب متنی قبلی ای در این نشست اعمال نشد."
-
-msgid "Link Name"
-msgstr "نام پیوند"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "نشانگر درون هیچ پاراگرافی قرار ندارد."
-
-msgid "Pick a Foreground Color"
-msgstr "انتخاب رنگ پیش زمینه"
-
-msgid "Pick a Background Color"
-msgstr "انتخاب رنگ پس زمینه"
-
-msgid "Chars for Bulleted List"
-msgstr "کاراکتر ها برای لیست گلوله ای"
-
-msgid "Chars for Todo List"
-msgstr "کاراکتر ها برای لیست 'برای انجام'"
-
-msgid "Chars for Table Of Content"
-msgstr "کاراکتر ها برای جدول محتوا"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "کاراکتر ها برای نقل قول های دوگانه هوشمند"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "کاراکتر ها برای"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "فعالسازی  جایگزینی خودکار نقل قول های هوشمند"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "فعالسازی جایگزینی خودکار سمبل ها"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "جایگزینی هوشمند سمیل های پشتیبانی شده"
-
-msgid "Only at the Start of the Line"
-msgstr "فقط در شروع خط"
-
-msgid "Use Selected Color"
-msgstr "استفاده از رنگ انتخاب شده"
-
-msgid "Tags for Searching"
-msgstr "تگ ها برای جستجو"
-
-msgid "Exclude from Searches"
-msgstr "شامل جستجوها نشود"
-
-msgid "This Node"
-msgstr "این گره"
-
-msgid "The Subnodes"
-msgstr "زیرگره ها"
-
-msgid "Read Only"
-msgstr "فقط خواندنی"
-
-msgid "Unique Id"
-msgstr "شناسه منحصر به فرد"
-
-msgid "Shared Nodes Group"
-msgstr "گروه گره های مشترک"
-
-msgid "Choose Existing Tag"
-msgstr "انتخاب تگ های موجود"
-
-msgid "Tag Name"
-msgstr "نام تگ"
-
-msgid "Pick a Color"
-msgstr "رنگی را انتخاب فرمایید"
-
-msgid "Involved Nodes"
-msgstr "گره های درگیر"
-
-msgid "Selected Text Only"
-msgstr "فقط متن انتخاب شده"
-
-msgid "Selected Node Only"
-msgstr "فقط گره انتخاب شده"
-
-msgid "Selected Node and Subnodes"
-msgstr "گره و زیرگره های انتخابی"
-
-msgid "All the Tree"
-msgstr "تمام درخت"
-
-msgid "Include Node Name"
-msgstr "شامل نام گره"
-
-msgid "Links Tree in Every Page"
-msgstr "درخت را در هر صفحه ای پیوند می دهد"
-
-msgid "New Node in New Page"
-msgstr "گره جدید در صفحه جدید"
-
-msgid "Single File"
-msgstr "فایل تک"
-
-msgid "Checking for Newer Version..."
-msgstr "درحال بررسی برای نسخه جدید..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"مشکلی در دریافت اطلاعات  آخرین نسخه  رخ داده است - لطفا بعدا مجددا تلاش بفرمایید."
-
-msgid "A Newer Version Is Available!"
-msgstr "نسخه جدید در دسترس است!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "شما در حال حاضر از جدیدترین نسخه نرم افزار استفاده می فرمایید."
-
-msgid "You Are Using a Development Version."
-msgstr "شما از  از نسخه توسعه دهنده استفاده می کنید."
-
-msgid "Image Format Not Recognized"
-msgstr "قالب تصویر تشخیص داده نشد"
-
-msgid "Insert Table"
-msgstr "درج جدول"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "حداکثر حجم برای فایل تعبیه شده  %s  مگابایت است."
-
-msgid "Do you want to Continue?"
-msgstr "آیا مایل به ادامه هستید؟"
-
-msgid "Tabs Replaced"
-msgstr "تب ها جایگزین شدند"
-
-msgid "Lines Stripped"
-msgstr "خط راه راه"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "هشدار: یک یا چند تصویر برای ورود به صفحه کاهش یافتند!"
-
-msgid "Print CherryTree version"
-msgstr "چاپ ورژن 'درخت گیلاس'"
-
-msgid "Node name to focus"
-msgstr "نام گره برای تمرکز"
-
-msgid "Anchor name to scroll to in node"
-msgstr "نام لنگر برای رفتن به داخل گره"
-
-msgid "Export to HTML at specified directory path"
-msgstr "خروجی به عنوان HTML در مسیر دلخواه"
-
-msgid "Export to Text at specified directory path"
-msgstr "خروجی به عنوان متن در مسیر دلخواه"
-
-msgid "Export to PDF at specified directory path"
-msgstr "خروجی به عنوان PDF در مسیر دلخواه"
-
-msgid "Overwrite if export path already exists"
-msgstr "بازنویسی در صورتی که مسیر خروجی در حال حاضر وجود دارد"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "خروجی به عنوان فایل تکی (برای HTML یا TXT)"
-
-msgid "Password to open document"
-msgstr "کلمه عبور برای باز کردن سند"
-
-msgid "Create a new window"
-msgstr "ساخت پنجره جدید"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "اجرا در نشست ثانویه، مستقل از نشست اصلی"
-
-msgid "Are you sure to Reset to Default?"
-msgstr "آیا از بازگرداندن به حالت پیش فرض اطمینان دارید؟"
-
 msgid "HTML Document"
 msgstr "سند HTML"
 
@@ -2883,6 +2983,29 @@ msgstr "سند Treepad"
 
 msgid "Leo Document"
 msgstr "سند Leo"
+
+msgid "Are you sure to Reset to Default?"
+msgstr "آیا از بازگرداندن به حالت پیش فرض اطمینان دارید؟"
+
+#~ msgid "Insert T_OC..."
+#~ msgstr "درج TOC..."
+
+#~ msgid "Insert Table of Contents"
+#~ msgstr "درج جدول محتوا ها"
+
+#~ msgid ""
+#~ "Backup files are by default 3 in the same folder of the corrupted "
+#~ "document, with the same name plus trailing tildes (~, ~~, ~~~). Try first "
+#~ "the backup with one tilde: copy the file to another directory, remove the "
+#~ "trailing tilde and open with cherrytree. If it still fails, try the one "
+#~ "with two tildes and if it still fails try the one with three tildes."
+#~ msgstr ""
+#~ "به طور پیش فرض سه فایل پشتیبان در همان پوشه سند خراب موجد است،با همان نام "
+#~ "بعلاوه علامت تیلدا(~, ~~, ~~~). در اولین تلاش از فایل پشتیبانی که یک "
+#~ "تیلدا دارد استفاده نمایید،فایل را به پوشه دیگری انتقال دهید وعلامت تیلدا "
+#~ "را از نام فایل حذف بفرمایید و با 'درخت گیلاس' فایل را باز کنید. اگر "
+#~ "موفقیت آمیز نبود با فایل دو تیلدا دار امتحان کنید و اگر باز هم نشد از "
+#~ "فایل با دنباله سه تیلدا(~) استفاده فرمایید."
 
 #~ msgid "Application's Online Manual"
 #~ msgstr "دستورالعمل برخط برنامه های کاربردی"

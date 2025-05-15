@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-26 15:17+0000\n"
-"PO-Revision-Date: 2025-02-14 15:47+0900\n"
+"POT-Creation-Date: 2025-05-15 19:05+0100\n"
+"PO-Revision-Date: 2025-05-14 22:29+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -18,37 +18,216 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.3.1\n"
 
-msgid "CherryTree File"
-msgstr "CherryTree ファイル"
+#, c-format
+msgid "Failed to retrieve the content of the node '%s'"
+msgstr "ノード  '%s' の内容を取得できません"
 
-msgid ""
-"The file/folder in use cannot be overwritten!\n"
-"Please use a different name or location."
-msgstr ""
-"使用中のファイル/フォルダーは上書きできません。別の名前か別の場所を使用してく"
-"ださい。"
+msgid "Tab Width"
+msgstr "タブの幅"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "タブの代わりにスペースを挿入する"
+
+msgid "Use Line Wrapping"
+msgstr "行の折り返しを有効にする"
+
+msgid "Line Wrapping Indentation"
+msgstr "行の折り返しのインデント幅(px)"
+
+msgid "Enable Automatic Indentation"
+msgstr "自動インデントを有効にする"
+
+msgid "Show Line Numbers"
+msgstr "行番号を表示する"
+
+msgid "Scroll Beyond Last Line"
+msgstr "最終行を超えてスクロール"
+
+msgid "Cursor Blinking"
+msgstr "カーソル点滅"
+
+msgid "System Default"
+msgstr "システムの既定値"
+
+msgid "On"
+msgstr "オン"
+
+msgid "Off"
+msgstr "オフ"
+
+msgid "Text Margin: Left"
+msgstr "テキストマージン: 左"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Vertical Space Around Lines"
+msgstr "行内の上下の余白 (px)"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "折り返し行の上下の余白"
+
+msgid "Text Editor"
+msgstr "テキストエディタ"
+
+msgid "Timestamp Format"
+msgstr "日時の書式"
+
+msgid "Online Manual"
+msgstr "オンライン マニュアル"
+
+msgid "Reset to Default"
+msgstr "既定に初期化"
+
+msgid "Horizontal Rule"
+msgstr "区切り線"
+
+msgid "Chars to Select at Double Click"
+msgstr "ダブルクリック選択で、単語の一部として扱う文字"
+
+msgid "Miscellaneous"
+msgstr "その他"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr "データベースファイル %s が破損しています。 詳細はログファイル参照。"
 
 #, c-format
 msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
+"%s write failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"フォルダー '%s' はすでに '%s' に存在します。\n"
-"<b>これを置換しますか？</b>"
+"%s の書き込み失敗 - ファイルが存在しません。 USBドライブ/共有リソースに再接続"
+"してください。"
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"%s の書き込み失敗 - 同期プログラムにファイルがブロックされていませんか？"
 
 #, c-format
 msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"ファイル '%s' はすでに '%s' に存在します。\n"
-"<b>これを置換しますか？</b>"
+"%s の再オープンに失敗 - ファイルが存在しません。 USBドライブ/共有リソースに再"
+"接続してください。"
 
-msgid "PDF File"
-msgstr "PDF ファイル"
+msgid "Rename"
+msgstr "名前変更"
 
-msgid "Plain Text Document"
-msgstr "テキスト形式 （拡張子指定）"
+msgid "PNG Image"
+msgstr "PNG 画像"
+
+#, c-format
+msgid "Write to %s Failed"
+msgstr "'%s' への書き出しに失敗しました"
+
+msgid "Insert/Edit Link"
+msgstr "リンクを挿入/編集"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "フォルダー '%s' は無効なリンクです。"
+
+#, c-format
+msgid "The File Link '%s' is Not Valid."
+msgstr "ファイル '%s' は無効なリンクです。"
+
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "フォルダー '%s' は無効なリンクです"
+
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "リンクの参照先は、すでに存在しないノードです (Id = %s)"
+
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "'%s' というアンカー名は見つかりません"
+
+msgid "Edit CodeBox"
+msgstr "コード ボックスを編集"
+
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"'%s' にコマンドを関連付けてください。\n"
+"設定ダイアログで設定できます。"
+
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"'xterm' パッケージをインストールするか、設定ダイアログで別のターミナルを構成"
+"してください。"
+
+msgid "Edit Table Properties"
+msgstr "表のプロパティを編集"
+
+msgid "CSV File"
+msgstr "CSVファイル"
+
+msgid "Insert Anchor"
+msgstr "アンカーを挿入"
+
+msgid "Edit Anchor"
+msgstr "アンカーを編集"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "編集禁止ノードでは添付ファイルを編集できません。"
+
+msgid "Embedded File Automatically Updated:"
+msgstr "添付ファイルは自動更新されました:"
+
+msgid "To WebSite"
+msgstr "Webサイト"
+
+msgid "To File"
+msgstr "ファイル"
+
+msgid "To Folder"
+msgstr "フォルダー"
+
+msgid "To Node"
+msgstr "ノード"
+
+msgid "Anchor Name (optional)"
+msgstr "アンカー名（オプション）"
+
+msgid "No Node is Selected"
+msgstr "ノードが選択されていません"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "選択ノードにはアンカーがありません。"
+
+msgid "Choose Existing Anchor"
+msgstr "既存のアンカーを選択"
+
+msgid "Anchor Name"
+msgstr "アンカー名"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "'%s' が見つかりません"
+
+msgid "Show White Spaces"
+msgstr "空白文字を表示する"
+
+msgid "Highlight Current Line"
+msgstr "現在行を強調する"
+
+msgid "Highlight Matching Brackets"
+msgstr "対応する括弧を強調する"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "コードを実行する前に確認する"
+
+msgid "Use Internal Terminal"
+msgstr "内部ターミナルを使用する"
+
+msgid "Internal Terminal Shell"
+msgstr "内部ターミナルシェルを使用する"
 
 msgid "Add"
 msgstr "追加"
@@ -56,136 +235,60 @@ msgstr "追加"
 msgid "Remove Selected"
 msgstr "選択項目の削除"
 
-msgid "Reset to Default"
-msgstr "既定に初期化"
+msgid "Command per Node/CodeBox Type"
+msgstr "ノード/コード ボックスの種類別コマンド"
 
-msgid "Split Toolbar"
-msgstr "ツールバーを分割"
+msgid "Terminal Command"
+msgstr "ターミナル コマンド"
 
-msgid "Open a CherryTree File"
-msgstr "CherryTreeファイルを開く"
+msgid "Code Execution"
+msgstr "コードの実行"
 
 msgid "Select Element to Add"
 msgstr "追加する要素を選択"
 
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "パス %s は存在しません"
+msgid "Remove"
+msgstr "削除"
 
-msgid "Open a Recent CherryTree Document"
-msgstr "最近使ったCherryTreeドキュメントを開く"
+msgid "Remove User Colour from Palette"
+msgstr "カスタム色の削除"
 
-msgid "_Hide"
-msgstr "隠す(_H)"
+msgid "Colour"
+msgstr "色"
 
-msgid "_Quit"
-msgstr "閉じる(_Q)"
+msgid "Question"
+msgstr "質問"
 
-msgid "Hide the Window"
-msgstr "ウィンドウを隠す"
+msgid "Info"
+msgstr "情報"
 
-msgid "Quit the Application"
-msgstr "アプリケーションを閉じる"
+msgid "Warning"
+msgstr "警告"
 
-msgid "No Node is Selected"
-msgstr "ノードが選択されていません"
+msgid "Error"
+msgstr "エラー"
 
-msgid "Node Type"
-msgstr "ノードの種類"
+msgid "Select File"
+msgstr "ファイルの選択"
 
-msgid ": "
-msgstr ": "
+msgid "Select Folder"
+msgstr "フォルダーの選択"
 
-msgid "Rich Text"
-msgstr "リッチテキスト"
+msgid "Save File as"
+msgstr "名前を付けて保存"
 
-msgid "Plain Text"
-msgstr "テキスト形式"
+msgid "Save To Folder"
+msgstr "フォルダーに保存"
 
-msgid "Tags"
-msgstr "タグ"
-
-msgid "Spell Check"
-msgstr "スペルチェック"
-
-msgid "Word Count"
-msgstr "ワード数"
-
-msgid "Date Created"
-msgstr "作成日時"
-
-msgid "Date Modified"
-msgstr "更新日時"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"このセッションでノードがコピーされていないか、コピー元のツリーがもはや存在し"
-"ません。"
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "コピー元のツリーノードはもはや存在しません。"
-
-msgid "Image Format Not Recognized"
-msgstr "認識できない画像形式です"
-
-msgid "Insert Table"
-msgstr "表を挿入"
-
-msgid "CSV File"
-msgstr "CSVファイル"
-
-msgid "Insert a CodeBox"
-msgstr "コード ボックスを挿入"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "添付ファイルの最大容量は %s MBです。"
-
-msgid "Do you want to Continue?"
-msgstr "実行しますか？"
-
-#, c-format
-msgid "Failed to retrieve the content of the node '%s'"
-msgstr "ノード  '%s' の内容を取得できません"
-
-msgid "Special Characters"
-msgstr "特殊文字"
-
-msgid "Tabs Replaced"
-msgstr "タブを変換しました"
-
-msgid "Lines Stripped"
-msgstr "行の削除処理を実行"
-
-msgid "No Text is Selected."
-msgstr "テキストが選択されていません。"
-
-msgid "Checking for Newer Version..."
-msgstr "新しいバージョンを確認しています..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"新しいバージョンの情報を確認できませんでした - 後でもう一度確認してください。"
-
-msgid "A Newer Version Is Available!"
-msgstr "新しいバージョンがあります！"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "最新のバージョンを使用しています。"
-
-msgid "You Are Using a Development Version."
-msgstr "開発バージョンを使用しています。"
-
-msgid "Execute Code"
-msgstr "コードを実行"
-
-msgid "Change CodeBox Properties"
-msgstr "コード ボックスのプロパティを変更"
+msgid "Downloading"
+msgstr "ダウンロードしています"
 
 msgid "Show Menubar:"
 msgstr "メニューバーを表示:"
+
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "パス %s は存在しません"
 
 #, c-format
 msgid "\"%s\" is Not a CherryTree File"
@@ -221,365 +324,14 @@ msgstr "外部アプリケーションを終了しましたか？"
 msgid "The Document was Reloaded After External Update to CT* File."
 msgstr "外部でCT* ファイルが更新されたため、ドキュメントを再読み込みしました。"
 
-msgid "Change Selected"
-msgstr "選択項目の変更"
+msgid "Execute Code"
+msgstr "コードを実行"
 
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "キーボード ショートカット '%s' はすでに使用しています。"
+msgid "Copy Code"
+msgstr "コード をコピー"
 
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "現在関連付けられている操作は '%s' です"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "ショートカットの割り当てを変更しますか？"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "キーボード ショートカットの編集"
-
-msgid "No Keyboard Shortcut"
-msgstr "キーボード ショートカットなし"
-
-msgid "Chars for Bulleted List"
-msgstr "順序なしリスト文字"
-
-msgid "Chars for Todo List"
-msgstr "ToDo リスト文字"
-
-msgid "Chars for Table Of Content"
-msgstr "目次用文字"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "スマート ダブル クォート文字"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "スマート シングル クォート文字"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "スマート クォートの自動置換を有効にする"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "記号の自動置換を有効にする"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "対応する記号の自動置換"
-
-msgid "Text Editor"
-msgstr "テキストエディタ"
-
-msgid "Only at the Start of the Line"
-msgstr "行頭のみ"
-
-msgid "To WebSite"
-msgstr "Webサイト"
-
-msgid "To File"
-msgstr "ファイル"
-
-msgid "To Folder"
-msgstr "フォルダー"
-
-msgid "To Node"
-msgstr "ノード"
-
-msgid "Anchor Name (optional)"
-msgstr "アンカー名（オプション）"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "選択ノードにはアンカーがありません。"
-
-msgid "Choose Existing Anchor"
-msgstr "既存のアンカーを選択"
-
-msgid "Anchor Name"
-msgstr "アンカー名"
-
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "'%s' が見つかりません"
-
-msgid "Preferences"
-msgstr "設定"
-
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Armenian"
-msgstr "Armenian"
-
-msgid "Bulgarian"
-msgstr "Bulgarian"
-
-msgid "Chinese Simplified"
-msgstr "Chinese Simplified"
-
-msgid "Chinese Traditional"
-msgstr "Chinese Traditional"
-
-msgid "Croatian"
-msgstr "Croatian"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "Dutch"
-msgstr "Dutch"
-
-msgid "English"
-msgstr "English"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "French"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Hungarian"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japanese"
-
-msgid "Kazakh"
-msgstr "Kazakh"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakh (Latin)"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Portuguese Brazil"
-msgstr "Portuguese Brazil"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Slovenian"
-msgstr "Slovenian"
-
-msgid "Spanish"
-msgstr "Spanish"
-
-msgid "Swedish"
-msgstr "Swedish"
-
-msgid "Turkish"
-msgstr "Turkish"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Text and Code"
-msgstr "テキストとコード"
-
-msgid "Format"
-msgstr "書式"
-
-msgid "Plain Text and Code"
-msgstr "プレーンテキストとコード"
-
-msgid "Tree Explorer"
-msgstr "ツリー"
-
-msgid "Theme"
-msgstr "テーマ"
-
-msgid "Interface"
-msgstr "インターフェース"
-
-msgid "Links"
-msgstr "リンク"
-
-msgid "Toolbar"
-msgstr "ツールバー"
-
-msgid "Keyboard Shortcuts"
-msgstr "キーボード ショートカット"
-
-msgid "Miscellaneous"
-msgstr "その他"
-
-msgid "Monospace"
-msgstr "等幅"
-
-msgid "Code Font"
-msgstr "コードのフォント"
-
-msgid "Terminal Font"
-msgstr "ターミナル フォント"
-
-msgid "Tree Font"
-msgstr "ツリーのフォント"
-
-msgid "Fonts"
-msgstr "フォント"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "ステータスバーにワード数を表示する"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "ドキュメント ディレクトリ名をウィンドウ タイトルに表示"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "ノード名のヘッダに完全なパスを表示する"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "メニューバーにブックマーク専用メニューを表示する"
-
-msgid "Menubar in Titlebar"
-msgstr "メニューバーをタイトルバーに配置"
-
-msgid "Toolbar Icons Size"
-msgstr "ツールバーのアイコンサイズ"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "スクロールバースライダーの最小サイズ (0 = システム標準)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "スクロールバーオーバーレイ テキストエディタ"
-
-msgid "System Default"
-msgstr "システムの既定値"
-
-msgid "Yes"
-msgstr "はい"
-
-msgid "No"
-msgstr "いいえ"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "マウスオーバーでツールチップを表示する"
-
-msgid "Tree"
-msgstr "ツリー"
-
-msgid "Menus"
-msgstr "メニュー"
-
-msgid "Max Search Results per Page"
-msgstr "ページごとの検索結果表示の最大数"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Webへのリンクをクリックしたときの動作を指定する"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "ファイルへのリンクをクリックしたときの動作を指定する"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "フォルダーへのリンクをクリックしたときの動作を指定する"
-
-msgid "Custom Actions"
-msgstr "ユーザー設定の動作"
-
-msgid "Colors"
-msgstr "色"
-
-msgid "Underline Links"
-msgstr "リンクに下線を表示する"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "ファイルとフォルダーへのリンクに相対パスを使用する"
-
-msgid "Anchor Size"
-msgstr "アンカー画像の大きさ"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "この変更はCherryTreeの再起動後に有効になります。"
-
-msgid "The new parent can't be one of his children!"
-msgstr "自分の子ノードを親ノードにすることはできません！"
-
-msgid "Light Background, Dark Text"
-msgstr "ライト（明るい背景色と暗い文字色）"
-
-msgid "Dark Background, Light Text"
-msgstr "ダーク（暗い背景色と明るい文字色）"
-
-msgid "Custom Background"
-msgstr "ユーザー設定の背景色"
-
-msgid "Text"
-msgstr "テキスト"
-
-msgid "Selection Background"
-msgstr "選択背景色"
-
-msgid "Table"
-msgstr "表"
-
-msgid "Code"
-msgstr "コード"
-
-msgid "Style Schemes"
-msgstr "スタイルパターン"
-
-msgid "Text Foreground"
-msgstr "文字色"
-
-msgid "Text Background"
-msgstr "背景色"
-
-msgid "Selection Foreground"
-msgstr "選択文字色"
-
-msgid "Cursor"
-msgstr "カーソル"
-
-msgid "Current Line Background"
-msgstr "現在行の背景色"
-
-msgid "Line Numbers Foreground"
-msgstr "行番号の文字色"
-
-msgid "Line Numbers Background"
-msgstr "行番号の背景色"
-
-msgid "Style Scheme Editor"
-msgstr "スタイルパターンの編集"
-
-msgid "Set Dark Theme Icons"
-msgstr "ダークテーマアイコンの設定"
-
-msgid "Set Light Theme Icons"
-msgstr "ライトテーマアイコンの設定"
-
-msgid "Set Default Icons"
-msgstr "既定のアイコンの設定"
-
-msgid "Icon Theme"
-msgstr "アイコンのテーマ"
+msgid "Change CodeBox Properties"
+msgstr "コード ボックスのプロパティを変更"
 
 msgid "Search for"
 msgstr "検索語"
@@ -592,9 +344,6 @@ msgstr "大文字/小文字を区別する"
 
 msgid "Regular Expression"
 msgstr "正規表現"
-
-msgid "Online Manual"
-msgstr "オンライン マニュアル"
 
 msgid "Accent Insensitive"
 msgstr "アクセントを区別しない"
@@ -677,10 +426,6 @@ msgstr "行"
 msgid "Line Content"
 msgstr "行の内容"
 
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "リンクの参照先は、すでに存在しないノードです (Id = %s)"
-
 msgid "Matches"
 msgstr "件の一致"
 
@@ -701,6 +446,412 @@ msgstr "置換"
 
 msgid "Undo"
 msgstr "元に戻す"
+
+msgid "Print CherryTree version"
+msgstr "CherryTreeのバージョンを印刷"
+
+msgid "Node name to focus"
+msgstr "ノード名のフォーカス"
+
+msgid "Anchor name to scroll to in node"
+msgstr "ノード内でスクロールするアンカー名"
+
+msgid "Export to HTML at specified directory path"
+msgstr "HTMLにエクスポート (指定の場所)"
+
+msgid "Export to Text at specified directory path"
+msgstr "テキスト形式ファイルにエクスポート (指定の場所)"
+
+msgid "Export to PDF at specified directory path"
+msgstr "PDFにエクスポート (指定の場所)"
+
+msgid "Overwrite if export path already exists"
+msgstr "エクスポート パスが存在する場合に上書き"
+
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "単一ファイルにエクスポート(HTMLとテキスト形式)"
+
+msgid "Password to open document"
+msgstr "ドキュメントを開くパスワード"
+
+msgid "Create a new window"
+msgstr "新しいウィンドウを作成"
+
+msgid "Run in secondary session, independent from main session"
+msgstr "メインセッションから独立したセカンダリセッションで実行"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "latex と dvipng の実行ファイルにアクセスできません"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Ubuntu でのパッケージのインストール例:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "Mac OS でのパッケージのインストール例:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "latex の実行ファイルにアクセスできません"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "dvipng の実行ファイルにアクセスできません"
+
+msgid "CherryTree File"
+msgstr "CherryTree ファイル"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"使用中のファイル/フォルダーは上書きできません。別の名前か別の場所を使用してく"
+"ださい。"
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"フォルダー '%s' はすでに '%s' に存在します。\n"
+"<b>これを置換しますか？</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"ファイル '%s' はすでに '%s' に存在します。\n"
+"<b>これを置換しますか？</b>"
+
+msgid "PDF File"
+msgstr "PDF ファイル"
+
+msgid "Plain Text Document"
+msgstr "テキスト形式 （拡張子指定）"
+
+msgid "Light Background, Dark Text"
+msgstr "ライト（明るい背景色と暗い文字色）"
+
+msgid "Dark Background, Light Text"
+msgstr "ダーク（暗い背景色と明るい文字色）"
+
+msgid "Custom Background"
+msgstr "ユーザー設定の背景色"
+
+msgid "Text"
+msgstr "テキスト"
+
+msgid "Selection Background"
+msgstr "選択背景色"
+
+msgid "Tree Explorer"
+msgstr "ツリー"
+
+msgid "Rich Text"
+msgstr "リッチテキスト"
+
+msgid "Plain Text"
+msgstr "テキスト形式"
+
+msgid "Table"
+msgstr "表"
+
+msgid "Code"
+msgstr "コード"
+
+msgid "Style Schemes"
+msgstr "スタイルパターン"
+
+msgid "Text Foreground"
+msgstr "文字色"
+
+msgid "Text Background"
+msgstr "背景色"
+
+msgid "Selection Foreground"
+msgstr "選択文字色"
+
+msgid "Cursor"
+msgstr "カーソル"
+
+msgid "Current Line Background"
+msgstr "現在行の背景色"
+
+msgid "Line Numbers Foreground"
+msgstr "行番号の文字色"
+
+msgid "Line Numbers Background"
+msgstr "行番号の背景色"
+
+msgid "Style Scheme Editor"
+msgstr "スタイルパターンの編集"
+
+msgid "Set Dark Theme Icons"
+msgstr "ダークテーマアイコンの設定"
+
+msgid "Set Light Theme Icons"
+msgstr "ライトテーマアイコンの設定"
+
+msgid "Set Default Icons"
+msgstr "既定のアイコンの設定"
+
+msgid "Icon Theme"
+msgstr "アイコンのテーマ"
+
+msgid "Autosave Every"
+msgstr "自動保存を"
+
+msgid "Minutes"
+msgstr "分ごとにする"
+
+msgid "Autosave on Quit"
+msgstr "終了時に自動保存する"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "保存する前にバックアップの複製を作成する"
+
+msgid "Number of Backups to Keep"
+msgstr "保存するバックアップの最大数"
+
+msgid "Custom Backup Directory"
+msgstr "バックアップディレクトリを指定する"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "複数ファイルの保存時、ドライブ上で添付ファイル名を使用"
+
+msgid "Saving"
+msgstr "保存"
+
+msgid "Automatically Check for Newer Version"
+msgstr "新バージョンの確認を自動的に行う"
+
+msgid "Reload Document From Last Session"
+msgstr "起動時に最後のセッションのドキュメントを読み込む"
+
+msgid "Reload After External Update to CT* File"
+msgstr "CT* ファイルが外部で更新された場合、再読み込みする"
+
+msgid "Enable Debug Log"
+msgstr "デバッグログを有効にする"
+
+msgid "Debug Log Directory"
+msgstr "デバッグログのディレクトリ"
+
+msgid "Enable System Tray Docking"
+msgstr "閉じるでシステムトレイに入れる"
+
+msgid "Start Minimized in the System Tray"
+msgstr "起動時にシステムトレイに最小化する"
+
+msgid "System Tray"
+msgstr "システムトレイ"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "システムトレイがパネルに表示されていますか？"
+
+msgid "Your system does not support the System Tray"
+msgstr "システムがシステムトレイに対応していません"
+
+msgid "Latex Text"
+msgstr "Latex テキスト"
+
+msgid "Image Size dpi"
+msgstr "画像サイズ (dpi)"
+
+msgid "Tutorial"
+msgstr "チュートリアル"
+
+msgid "Reference"
+msgstr "リファレンス"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTeX 数式チュートリアル"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX 記号リファレンス"
+
+msgid "Image Properties"
+msgstr "画像のプロパティ"
+
+msgid "Rotate Left"
+msgstr "左に回転"
+
+msgid "Rotate Right"
+msgstr "右に回転"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "切り抜く領域をマウスで選択してから、OKをクリックしてください"
+
+msgid "Flip Horizontally"
+msgstr "左右反転"
+
+msgid "Flip Vertically"
+msgstr "上下反転"
+
+msgid "Width"
+msgstr "幅"
+
+msgid "Height"
+msgstr "高さ"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "自動構文ハイライト"
+
+msgid "Type"
+msgstr "種類"
+
+msgid "pixels"
+msgstr "px"
+
+msgid "Size"
+msgstr "大きさ"
+
+msgid "Options"
+msgstr "オプション"
+
+msgid "Rows"
+msgstr "行"
+
+msgid "Columns"
+msgstr "列"
+
+msgid "Default Width"
+msgstr "既定の幅"
+
+msgid "Table Size"
+msgstr "表の大きさ"
+
+msgid "Column Properties"
+msgstr "列のプロパティ"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "軽量インターフェイス  (大きな表で高速)"
+
+msgid "Import from CSV File"
+msgstr "CSVファイルからインポート"
+
+msgid "Change Selected"
+msgstr "選択項目の変更"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "キーボード ショートカット '%s' はすでに使用しています。"
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "現在関連付けられている操作は '%s' です"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "ショートカットの割り当てを変更しますか？"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "キーボード ショートカットの編集"
+
+msgid "No Keyboard Shortcut"
+msgstr "キーボード ショートカットなし"
+
+msgid "Who is the Parent?"
+msgstr "親ノードを選択"
+
+msgid "The Tree Root"
+msgstr "ツリーのルート"
+
+msgid "The Selected Node"
+msgstr "選択しているノード"
+
+msgid "Open a Recent CherryTree Document"
+msgstr "最近使ったCherryTreeドキュメントを開く"
+
+msgid "_Hide"
+msgstr "隠す(_H)"
+
+msgid "_Quit"
+msgstr "閉じる(_Q)"
+
+msgid "Hide the Window"
+msgstr "ウィンドウを隠す"
+
+msgid "Quit the Application"
+msgstr "アプリケーションを閉じる"
+
+msgid "Node Type"
+msgstr "ノードの種類"
+
+msgid ": "
+msgstr ": "
+
+msgid "Tags"
+msgstr "タグ"
+
+msgid "Spell Check"
+msgstr "スペルチェック"
+
+msgid "Word Count"
+msgstr "ワード数"
+
+msgid "Date Created"
+msgstr "作成日時"
+
+msgid "Date Modified"
+msgstr "更新日時"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"このセッションでノードがコピーされていないか、コピー元のツリーがもはや存在し"
+"ません。"
+
+msgid "The Source Tree Node is No Longer Available."
+msgstr "コピー元のツリーノードはもはや存在しません。"
+
+msgid "Copy Selection or All"
+msgstr "選択範囲またはすべてをコピー"
+
+msgid "Paste"
+msgstr "貼り付け"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Split Toolbar"
+msgstr "ツールバーを分割"
+
+msgid "Open a CherryTree File"
+msgstr "CherryTreeファイルを開く"
+
+msgid "Image Format Not Recognized"
+msgstr "認識できない画像形式です"
+
+msgid "Insert Table"
+msgstr "表を挿入"
+
+msgid "Insert a CodeBox"
+msgstr "コード ボックスを挿入"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "添付ファイルの最大容量は %s MBです。"
+
+msgid "Do you want to Continue?"
+msgstr "実行しますか？"
+
+msgid "Special Characters"
+msgstr "特殊文字"
+
+msgid "Tabs Replaced"
+msgstr "タブを変換しました"
+
+msgid "Lines Stripped"
+msgstr "行の削除処理を実行"
+
+msgid "No Text is Selected."
+msgstr "テキストが選択されていません。"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "バックアップからの復元が必要:"
 
 msgid "Handle the Bookmarks List"
 msgstr "ブックマークの管理"
@@ -758,20 +909,11 @@ msgstr ""
 msgid "Enter the New Password Twice"
 msgstr "新しいパスワードを２回入力してください"
 
-msgid "Autosave Every"
-msgstr "自動保存を"
-
-msgid "Minutes"
-msgstr "分ごとにする"
-
 msgid "The Password Fields Must be Filled."
 msgstr "パスワードが入力されていません。"
 
 msgid "The Two Inserted Passwords Do Not Match."
 msgstr "入力した２回のパスワードが一致しません。"
-
-msgid "Warning"
-msgstr "警告"
 
 msgid "The Current Document was Updated."
 msgstr "現在のドキュメントは変更されています。"
@@ -782,12 +924,6 @@ msgstr "変更を保存しますか？"
 msgid "Do you want to Execute the Code?"
 msgstr "コードを実行しますか？"
 
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "コードを実行する前に確認する"
-
-msgid "Use Internal Terminal"
-msgstr "内部ターミナルを使用する"
-
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -827,6 +963,102 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
+
+msgid "Arabic"
+msgstr "Arabic"
+
+msgid "Armenian"
+msgstr "Armenian"
+
+msgid "Bulgarian"
+msgstr "Bulgarian"
+
+msgid "Chinese Simplified"
+msgstr "Chinese Simplified"
+
+msgid "Chinese Traditional"
+msgstr "Chinese Traditional"
+
+msgid "Croatian"
+msgstr "Croatian"
+
+msgid "Czech"
+msgstr "Czech"
+
+msgid "Dutch"
+msgstr "Dutch"
+
+msgid "Finnish"
+msgstr "Finnish"
+
+msgid "French"
+msgstr "French"
+
+msgid "German"
+msgstr "German"
+
+msgid "Greek"
+msgstr "Greek"
+
+msgid "Hindi India"
+msgstr "Hindi India"
+
+msgid "Hungarian"
+msgstr "Hungarian"
+
+msgid "Italian"
+msgstr "Italian"
+
+msgid "Japanese"
+msgstr "Japanese"
+
+msgid "Kazakh"
+msgstr "Kazakh"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazakh (Latin)"
+
+msgid "Korean"
+msgstr "Korean"
+
+msgid "Lithuanian"
+msgstr "Lithuanian"
+
+msgid "Persian"
+msgstr "Persian"
+
+msgid "Polish"
+msgstr "Polish"
+
+msgid "Portuguese"
+msgstr "Portuguese"
+
+msgid "Portuguese Brazil"
+msgstr "Portuguese Brazil"
+
+msgid "Romanian"
+msgstr "Romanian"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Slovak"
+msgstr "Slovak"
+
+msgid "Slovenian"
+msgstr "Slovenian"
+
+msgid "Spanish"
+msgstr "Spanish"
+
+msgid "Swedish"
+msgstr "Swedish"
+
+msgid "Turkish"
+msgstr "Turkish"
+
+msgid "Ukrainian"
+msgstr "Ukrainian"
 
 msgid "About CherryTree"
 msgstr "CherryTree について"
@@ -864,14 +1096,184 @@ msgstr "アンカーの数"
 msgid "Number of Shared Nodes / Groups"
 msgstr "共有ノード / グループの数"
 
-msgid "Preferences File"
-msgstr "設定ファイル"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "警告: ページに収まるように、一つ以上の画像が縮小されました。"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "システムトレイがパネルに表示されていますか？"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "ツールバー アイコンはすでに最大の大きさです。"
 
-msgid "Your system does not support the System Tray"
-msgstr "システムがシステムトレイに対応していません"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "ツールバー アイコンはすでに最小の大きさです。"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "この変更はCherryTreeの再起動後に有効になります。"
+
+msgid "Remove from list"
+msgstr "一覧から削除"
+
+msgid "The new parent can't be one of his children!"
+msgstr "自分の子ノードを親ノードにすることはできません！"
+
+msgid "Checking for Newer Version..."
+msgstr "新しいバージョンを確認しています..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"新しいバージョンの情報を確認できませんでした - 後でもう一度確認してください。"
+
+msgid "A Newer Version Is Available!"
+msgstr "新しいバージョンがあります！"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "最新のバージョンを使用しています。"
+
+msgid "You Are Using a Development Version."
+msgstr "開発バージョンを使用しています。"
+
+msgid "Replace in Current Node"
+msgstr "このノード内を置換"
+
+msgid "Search in Current Node"
+msgstr "このノード内を検索"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>'%s' が見つかりません</b>"
+
+msgid "Replace in Multiple Nodes..."
+msgstr "複数のノードを置換..."
+
+msgid "Find in Multiple Nodes..."
+msgstr "複数のノードを検索..."
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "まだこのセッションでは検索が実行されていません。"
+
+msgid "Preferences"
+msgstr "設定"
+
+msgid "English"
+msgstr "English"
+
+msgid "Text and Code"
+msgstr "テキストとコード"
+
+msgid "Format"
+msgstr "書式"
+
+msgid "Plain Text and Code"
+msgstr "プレーンテキストとコード"
+
+msgid "Theme"
+msgstr "テーマ"
+
+msgid "Interface"
+msgstr "インターフェース"
+
+msgid "Links"
+msgstr "リンク"
+
+msgid "Toolbar"
+msgstr "ツールバー"
+
+msgid "Keyboard Shortcuts"
+msgstr "キーボード ショートカット"
+
+msgid "Monospace"
+msgstr "等幅"
+
+msgid "Code Font"
+msgstr "コードのフォント"
+
+msgid "Terminal Font"
+msgstr "ターミナル フォント"
+
+msgid "Tree Font"
+msgstr "ツリーのフォント"
+
+msgid "Fonts"
+msgstr "フォント"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "ステータスバーにワード数を表示する"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "ドキュメント ディレクトリ名をウィンドウ タイトルに表示"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "ノード名のヘッダに完全なパスを表示する"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "メニューバーにブックマーク専用メニューを表示する"
+
+msgid "Menubar in Titlebar"
+msgstr "メニューバーをタイトルバーに配置"
+
+msgid "Toolbar Icons Size"
+msgstr "ツールバーのアイコンサイズ"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "スクロールバースライダーの最小サイズ (0 = システム標準)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "スクロールバーオーバーレイ テキストエディタ"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "No"
+msgstr "いいえ"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "マウスオーバーでツールチップを表示する"
+
+msgid "Tree"
+msgstr "ツリー"
+
+msgid "Menus"
+msgstr "メニュー"
+
+msgid "Max Search Results per Page"
+msgstr "ページごとの検索結果表示の最大数"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Webへのリンクをクリックしたときの動作を指定する"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "ファイルへのリンクをクリックしたときの動作を指定する"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "フォルダーへのリンクをクリックしたときの動作を指定する"
+
+msgid "Custom Actions"
+msgstr "ユーザー設定の動作"
+
+msgid "Colors"
+msgstr "色"
+
+msgid "Underline Links"
+msgstr "リンクに下線を表示する"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "ファイルとフォルダーへのリンクに相対パスを使用する"
+
+msgid "Anchor Size"
+msgstr "アンカー画像の大きさ"
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree Hierarchical Note Taking"
+
+msgid "Show/Hide _CherryTree"
+msgstr "CherryTreeを表示/隠す(_C)"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTreeウィンドウを表示/隠す"
+
+msgid "_Exit CherryTree"
+msgstr "CherryTreeを終了(_E)"
+
+msgid "Exit from CherryTree"
+msgstr "CherryTreeを終了する"
 
 msgid "Bold"
 msgstr "太字"
@@ -881,9 +1283,6 @@ msgstr "選択色を使用"
 
 msgid "Use Selected Icon"
 msgstr "選択アイコンを使用する"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "自動構文ハイライト"
 
 msgid "Tags for Searching"
 msgstr "検索用タグ　（スペース区切り）"
@@ -945,87 +1344,8 @@ msgstr "ノードごとに改ページ"
 msgid "Single File"
 msgstr "単一ファイル"
 
-msgid "Latex Text"
-msgstr "Latex テキスト"
-
-msgid "Image Size dpi"
-msgstr "画像サイズ (dpi)"
-
-msgid "Tutorial"
-msgstr "チュートリアル"
-
-msgid "Reference"
-msgstr "リファレンス"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTeX 数式チュートリアル"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX 記号リファレンス"
-
-msgid "Image Properties"
-msgstr "画像のプロパティ"
-
-msgid "Rotate Left"
-msgstr "左に回転"
-
-msgid "Rotate Right"
-msgstr "右に回転"
-
-msgid ""
-"In order to crop the image, select the area with the mouse before clicking OK"
-msgstr "切り抜く領域をマウスで選択してから、OKをクリックしてください"
-
-msgid "Flip Horizontally"
-msgstr "左右反転"
-
-msgid "Flip Vertically"
-msgstr "上下反転"
-
-msgid "Width"
-msgstr "幅"
-
-msgid "Height"
-msgstr "高さ"
-
-msgid "Type"
-msgstr "種類"
-
-msgid "pixels"
-msgstr "px"
-
-msgid "Size"
-msgstr "大きさ"
-
-msgid "Show Line Numbers"
-msgstr "行番号を表示する"
-
-msgid "Highlight Matching Brackets"
-msgstr "対応する括弧を強調する"
-
-msgid "Options"
-msgstr "オプション"
-
-msgid "Rows"
-msgstr "行"
-
-msgid "Columns"
-msgstr "列"
-
-msgid "Default Width"
-msgstr "既定の幅"
-
-msgid "Table Size"
-msgstr "表の大きさ"
-
-msgid "Column Properties"
-msgstr "列のプロパティ"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "軽量インターフェイス  (大きな表で高速)"
-
-msgid "Import from CSV File"
-msgstr "CSVファイルからインポート"
+msgid "Index"
+msgstr "目次"
 
 msgid "The Tree is Empty!"
 msgstr "ツリーにノードがありません！"
@@ -1081,169 +1401,103 @@ msgstr "現在の親ノードが選択されました、移動しません！"
 msgid "%s Nodes Properties Changed"
 msgstr "%s 個のノードのプロパティを変更"
 
-msgid "Copy Selection or All"
-msgstr "選択範囲またはすべてをコピー"
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s' は無効なアーカイブです"
 
-msgid "Paste"
-msgstr "貼り付け"
-
-msgid "Reset"
-msgstr "リセット"
-
-msgid "Downloading"
-msgstr "ダウンロードしています"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree Hierarchical Note Taking"
-
-msgid "Show/Hide _CherryTree"
-msgstr "CherryTreeを表示/隠す(_C)"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "CherryTreeウィンドウを表示/隠す"
-
-msgid "_Exit CherryTree"
-msgstr "CherryTreeを終了(_E)"
-
-msgid "Exit from CherryTree"
-msgstr "CherryTreeを終了する"
-
-msgid "Index"
-msgstr "目次"
-
-msgid "Rename"
-msgstr "名前変更"
-
-msgid "PNG Image"
-msgstr "PNG 画像"
+msgid "Writing to Disk..."
+msgstr "ディスクに書き込みしています..."
 
 #, c-format
-msgid "Write to %s Failed"
-msgstr "'%s' への書き出しに失敗しました"
-
-msgid "Insert/Edit Link"
-msgstr "リンクを挿入/編集"
+msgid "You Have No Write Access to %s"
+msgstr "%s への書き込み権限がありません"
 
 #, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "フォルダー '%s' は無効なリンクです。"
+msgid "Enter Password for %s"
+msgstr "%s のパスワードを入力してください"
 
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "ファイル '%s' は無効なリンクです。"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "フォルダー '%s' は無効なリンクです"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "'%s' というアンカー名は見つかりません"
-
-msgid "Edit CodeBox"
-msgstr "コード ボックスを編集"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
+msgid "Failed integrity check of the saved document. Try File-->Save As"
 msgstr ""
-"'%s' にコマンドを関連付けてください。\n"
-"設定ダイアログで設定できます。"
+"保存ドキュメントの整合性チェックに失敗しました。[名前を付けて保存]を試してく"
+"ださい"
 
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
-msgstr ""
-"'xterm' パッケージをインストールするか、設定ダイアログで別のターミナルを構成"
-"してください。"
+msgid "Failed to encrypt the file"
+msgstr "ファイルの暗号化に失敗しました"
 
-msgid "Edit Table Properties"
-msgstr "表のプロパティを編集"
+msgid "Chars for Bulleted List"
+msgstr "順序なしリスト文字"
 
-msgid "Insert Anchor"
-msgstr "アンカーを挿入"
+msgid "Chars for Todo List"
+msgstr "ToDo リスト文字"
 
-msgid "Edit Anchor"
-msgstr "アンカーを編集"
+msgid "Chars for Table Of Content"
+msgstr "目次用文字"
 
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "編集禁止ノードでは添付ファイルを編集できません。"
+msgid "Chars for Smart Double Quotes"
+msgstr "スマート ダブル クォート文字"
 
-msgid "Embedded File Automatically Updated:"
-msgstr "添付ファイルは自動更新されました:"
+msgid "Chars for Smart Single Quotes"
+msgstr "スマート シングル クォート文字"
 
-msgid "Autosave on Quit"
-msgstr "終了時に自動保存する"
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "スマート クォートの自動置換を有効にする"
 
-msgid "Create a Backup Copy Before Saving"
-msgstr "保存する前にバックアップの複製を作成する"
+msgid "Enable Symbol Auto Replacement"
+msgstr "記号の自動置換を有効にする"
 
-msgid "Number of Backups to Keep"
-msgstr "保存するバックアップの最大数"
+msgid "Supported Symbols Auto Replacements"
+msgstr "対応する記号の自動置換"
 
-msgid "Custom Backup Directory"
-msgstr "バックアップディレクトリを指定する"
+msgid "Only at the Start of the Line"
+msgstr "行頭のみ"
 
-msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "複数ファイルの保存時、ドライブ上で添付ファイル名を使用"
+msgid "Use Different Cherries per Level"
+msgstr "レベルごとに異なるチェリー画像を使用する"
 
-msgid "Saving"
-msgstr "保存"
+msgid "No Icon"
+msgstr "アイコンなし"
 
-msgid "Automatically Check for Newer Version"
-msgstr "新バージョンの確認を自動的に行う"
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "右端の付属アイコンを隠す"
 
-msgid "Reload Document From Last Session"
-msgstr "起動時に最後のセッションのドキュメントを読み込む"
+msgid "Default Text Nodes Icons"
+msgstr "既定のテキスト ノードのアイコン"
 
-msgid "Reload After External Update to CT* File"
-msgstr "CT* ファイルが外部で更新された場合、再読み込みする"
+msgid "Restore Expanded/Collapsed Status"
+msgstr "ノードの開閉状態を再現する"
 
-msgid "Enable Debug Log"
-msgstr "デバッグログを有効にする"
+msgid "Expand all Nodes"
+msgstr "すべてのノードを開く"
 
-msgid "Debug Log Directory"
-msgstr "デバッグログのディレクトリ"
+msgid "Collapse all Nodes"
+msgstr "すべてのノードを閉じる"
 
-msgid "Enable System Tray Docking"
-msgstr "閉じるでシステムトレイに入れる"
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "ブックマーク ノードを常に表示"
 
-msgid "Start Minimized in the System Tray"
-msgstr "起動時にシステムトレイに最小化する"
+msgid "Nodes Status at Startup"
+msgstr "起動時のノードの状態"
 
-msgid "System Tray"
-msgstr "システムトレイ"
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "ツリーノード名の折り返し幅"
 
-msgid "Language"
-msgstr "言語"
+msgid "Display Tree on the Right Side"
+msgstr "ツリーを右側に表示する"
 
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "まだこのセッションで実行された書式はありません。"
+msgid "Move Focus to Text at Mouse Click"
+msgstr "マウスクリックで、テキストエディタにフォーカスを移動する"
 
-msgid "Link Name"
-msgstr "リンク名"
+msgid "Expand Node at Mouse Click"
+msgstr "マウスクリックでノードのツリーを開く"
 
-msgid "The Cursor is Not into a Paragraph."
-msgstr "カーソルが段落内にありません。"
-
-msgid "Pick a Foreground Color"
-msgstr "文字色を選択"
-
-msgid "Pick a Background Color"
-msgstr "背景色を選択"
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "最近表示したノードをノード名ヘッダに表示する数"
 
 msgid "Enable Spell Check"
 msgstr "スペルチェックを有効にする"
 
 msgid "Spell Check Language"
 msgstr "スペルチェックの言語"
-
-msgid "Show White Spaces"
-msgstr "空白文字を表示する"
-
-msgid "Highlight Current Line"
-msgstr "現在行を強調する"
 
 msgid "Expand CodeBoxes Automatically"
 msgstr "コード ボックスを自動的に拡げる"
@@ -1296,211 +1550,23 @@ msgstr "小さい"
 msgid "Scalable Tags"
 msgstr "拡大縮小可能なタグ"
 
-#, c-format
-msgid "'%s' is Not a Valid Archive"
-msgstr "'%s' は無効なアーカイブです"
+msgid "Preferences File"
+msgstr "設定ファイル"
 
-msgid "Writing to Disk..."
-msgstr "ディスクに書き込みしています..."
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "まだこのセッションで実行された書式はありません。"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "%s への書き込み権限がありません"
+msgid "Link Name"
+msgstr "リンク名"
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "%s のパスワードを入力してください"
+msgid "The Cursor is Not into a Paragraph."
+msgstr "カーソルが段落内にありません。"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"保存ドキュメントの整合性チェックに失敗しました。[名前を付けて保存]を試してく"
-"ださい"
+msgid "Pick a Foreground Color"
+msgstr "文字色を選択"
 
-msgid "Failed to encrypt the file"
-msgstr "ファイルの暗号化に失敗しました"
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr "データベースファイル %s が破損しています。 詳細はログファイル参照。"
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s の書き込み失敗 - ファイルが存在しません。 USBドライブ/共有リソースに再接続"
-"してください。"
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"%s の書き込み失敗 - 同期プログラムにファイルがブロックされていませんか？"
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s の再オープンに失敗 - ファイルが存在しません。 USBドライブ/共有リソースに再"
-"接続してください。"
-
-msgid "Who is the Parent?"
-msgstr "親ノードを選択"
-
-msgid "The Tree Root"
-msgstr "ツリーのルート"
-
-msgid "The Selected Node"
-msgstr "選択しているノード"
-
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "latex と dvipng の実行ファイルにアクセスできません"
-
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Ubuntu でのパッケージのインストール例:"
-
-msgid "For example, on macOS the packages to install are:"
-msgstr "Mac OS でのパッケージのインストール例:"
-
-msgid "Could not access the executable 'latex'"
-msgstr "latex の実行ファイルにアクセスできません"
-
-msgid "Could not access the executable 'dvipng'"
-msgstr "dvipng の実行ファイルにアクセスできません"
-
-msgid "Use Different Cherries per Level"
-msgstr "レベルごとに異なるチェリー画像を使用する"
-
-msgid "No Icon"
-msgstr "アイコンなし"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "右端の付属アイコンを隠す"
-
-msgid "Default Text Nodes Icons"
-msgstr "既定のテキスト ノードのアイコン"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "ノードの開閉状態を再現する"
-
-msgid "Expand all Nodes"
-msgstr "すべてのノードを開く"
-
-msgid "Collapse all Nodes"
-msgstr "すべてのノードを閉じる"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "ブックマーク ノードを常に表示"
-
-msgid "Nodes Status at Startup"
-msgstr "起動時のノードの状態"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "ツリーノード名の折り返し幅"
-
-msgid "Display Tree on the Right Side"
-msgstr "ツリーを右側に表示する"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "マウスクリックで、テキストエディタにフォーカスを移動する"
-
-msgid "Expand Node at Mouse Click"
-msgstr "マウスクリックでノードのツリーを開く"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "最近表示したノードをノード名ヘッダに表示する数"
-
-msgid "A Restore From Backup Was Necessary For:"
-msgstr "バックアップからの復元が必要:"
-
-msgid "Replace in Current Node"
-msgstr "このノード内を置換"
-
-msgid "Search in Current Node"
-msgstr "このノード内を検索"
-
-#, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>'%s' が見つかりません</b>"
-
-msgid "Replace in Multiple Nodes..."
-msgstr "複数のノードを置換..."
-
-msgid "Find in Multiple Nodes..."
-msgstr "複数のノードを検索..."
-
-msgid "No Previous Search Was Performed During This Session."
-msgstr "まだこのセッションでは検索が実行されていません。"
-
-msgid "Tab Width"
-msgstr "タブの幅"
-
-msgid "Insert Spaces Instead of Tabs"
-msgstr "タブの代わりにスペースを挿入する"
-
-msgid "Use Line Wrapping"
-msgstr "行の折り返しを有効にする"
-
-msgid "Line Wrapping Indentation"
-msgstr "行の折り返しのインデント幅(px)"
-
-msgid "Enable Automatic Indentation"
-msgstr "自動インデントを有効にする"
-
-msgid "Scroll Beyond Last Line"
-msgstr "最終行を超えてスクロール"
-
-msgid "Cursor Blinking"
-msgstr "カーソル点滅"
-
-msgid "On"
-msgstr "オン"
-
-msgid "Off"
-msgstr "オフ"
-
-msgid "Text Margin: Left"
-msgstr "テキストマージン: 左"
-
-msgid "Right"
-msgstr "右"
-
-msgid "Vertical Space Around Lines"
-msgstr "行内の上下の余白 (px)"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "折り返し行の上下の余白"
-
-msgid "Timestamp Format"
-msgstr "日時の書式"
-
-msgid "Horizontal Rule"
-msgstr "区切り線"
-
-msgid "Chars to Select at Double Click"
-msgstr "ダブルクリック選択で、単語の一部として扱う文字"
-
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "ツールバー アイコンはすでに最大の大きさです。"
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "ツールバー アイコンはすでに最小の大きさです。"
-
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "警告: ページに収まるように、一つ以上の画像が縮小されました。"
-
-msgid "Internal Terminal Shell"
-msgstr "内部ターミナルシェルを使用する"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "ノード/コード ボックスの種類別コマンド"
-
-msgid "Terminal Command"
-msgstr "ターミナル コマンド"
-
-msgid "Code Execution"
-msgstr "コードの実行"
-
-msgid "Remove from list"
-msgstr "一覧から削除"
+msgid "Pick a Background Color"
+msgstr "背景色を選択"
 
 msgid "_File"
 msgstr "ファイル(_F)"
@@ -1707,10 +1773,10 @@ msgid "Insert an Anchor"
 msgstr "アンカーを挿入"
 
 msgid "Insert T_OC and Headers Collapsors..."
-msgstr "目次とヘッダの開閉を挿入(_O)..."
+msgstr "目次と見出しの開閉を挿入(_O)..."
 
 msgid "Insert Table of Contents and Headers Collapsors/Expanders"
-msgstr "目次とヘッダの開閉を挿入"
+msgstr "目次と見出しの開閉を挿入"
 
 msgid "Insert Timestam_p"
 msgstr "日時を挿入(_P)"
@@ -2177,6 +2243,18 @@ msgstr "段落を逆インデント(_U)"
 msgid "Unindent the Current Paragraph"
 msgstr "現在の段落を逆インデント"
 
+msgid "_Expand TOC Headers"
+msgstr "見出しを展開(_E)"
+
+msgid "Expand TOC Headers"
+msgstr "見出しを展開"
+
+msgid "_Collapse TOC Headers"
+msgstr "見出しを折りたたむ(_C)"
+
+msgid "Collapse TOC Headers"
+msgstr "見出しを折りたたむ"
+
 msgid "Tools"
 msgstr "ツール"
 
@@ -2185,6 +2263,12 @@ msgstr "スペルチェックの有効/無効(_S)"
 
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "スペルチェックの有効/無効"
+
+msgid "Enable/Disable _VIM Mode"
+msgstr "VIMモードの有効/無効(_V)"
+
+msgid "Toggle Enable/Disable VIM Mode"
+msgstr "VIMモードの有効/無効"
 
 msgid "Stri_p Trailing Spaces"
 msgstr "行末の空白文字を削除(_P)"
@@ -2893,63 +2977,6 @@ msgstr "リンクを削除(_D)"
 
 msgid "Delete the Selected Link"
 msgstr "選択リンクを削除"
-
-msgid "Remove Color"
-msgstr "色を削除"
-
-msgid "Question"
-msgstr "質問"
-
-msgid "Info"
-msgstr "情報"
-
-msgid "Error"
-msgstr "エラー"
-
-msgid "Select File"
-msgstr "ファイルの選択"
-
-msgid "Select Folder"
-msgstr "フォルダーの選択"
-
-msgid "Save File as"
-msgstr "名前を付けて保存"
-
-msgid "Save To Folder"
-msgstr "フォルダーに保存"
-
-msgid "Print CherryTree version"
-msgstr "CherryTreeのバージョンを印刷"
-
-msgid "Node name to focus"
-msgstr "ノード名のフォーカス"
-
-msgid "Anchor name to scroll to in node"
-msgstr "ノード内でスクロールするアンカー名"
-
-msgid "Export to HTML at specified directory path"
-msgstr "HTMLにエクスポート (指定の場所)"
-
-msgid "Export to Text at specified directory path"
-msgstr "テキスト形式ファイルにエクスポート (指定の場所)"
-
-msgid "Export to PDF at specified directory path"
-msgstr "PDFにエクスポート (指定の場所)"
-
-msgid "Overwrite if export path already exists"
-msgstr "エクスポート パスが存在する場合に上書き"
-
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "単一ファイルにエクスポート(HTMLとテキスト形式)"
-
-msgid "Password to open document"
-msgstr "ドキュメントを開くパスワード"
-
-msgid "Create a new window"
-msgstr "新しいウィンドウを作成"
-
-msgid "Run in secondary session, independent from main session"
-msgstr "メインセッションから独立したセカンダリセッションで実行"
 
 msgid "HTML Document"
 msgstr "HTML ドキュメント"
