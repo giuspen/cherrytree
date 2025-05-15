@@ -88,7 +88,7 @@ xdg-open /usr/share/doc/libgspell-1-dev/html/index.html
 ## Building Cherrytree on Arch Linux (+Manjaro Linux)
 Install dependencies:
 ```sh
-sudo pacman -S gtkmm3 gtksourceview4 libxml++2.6 gspell uchardet fmt spdlog
+sudo pacman -S gtkmm3 gtksourceview4 libxml++2.6 vte3 gspell uchardet fmt spdlog
 ```
 
 Get cherrytree source, compile and run:
