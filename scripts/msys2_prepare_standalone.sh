@@ -15,7 +15,7 @@ GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
 OLD_UCRT64_FOLDER="/ucrt64"
-DOWNGRADE_PACKAGE_LOCATION="http://repo.msys2.org/mingw/x86_64"
+DOWNGRADE_PACKAGE_LOCATION="https://repo.msys2.org/mingw/ucrt64"
 DOWNGRADE_PACKAGE_NAME=""
 
 if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
