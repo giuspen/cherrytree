@@ -190,7 +190,7 @@ export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
 ## Building Cherrytree on Windows
 Install MSYS2: https://www.msys2.org/ (we cover here the packages for 64 bit installation)
 
-Launch 'MSYS2 MinGW 64-bit' terminal (there are 3 different terminals, make sure it is 64-bit otherwise it will cause issues)
+Launch 'MSYS2 UCRT64' terminal
 
 Run the following command multiple times there until there are no more updates:
 ```sh
@@ -200,13 +200,13 @@ pacman -Syuu
 Install required packages to build cherrytree:
 ```sh
 # toolchain, cmake, ninja
-pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja
 # gtkmm3, gtksourceview4, libxml++2.6, sqlite3
-pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceview4 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gtkmm3 mingw-w64-ucrt-x86_64-gtksourceview4 mingw-w64-ucrt-x86_64-libxml++2.6 mingw-w64-ucrt-x86_64-sqlite3
 # gspell, curl, uchardet, fribidi, fmt, spdlog
-pacman -S --needed --noconfirm mingw-w64-x86_64-gspell mingw-w64-x86_64-curl mingw-w64-x86_64-uchardet mingw-w64-x86_64-fribidi mingw-w64-x86_64-fmt mingw-w64-x86_64-spdlog
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gspell mingw-w64-ucrt-x86_64-curl mingw-w64-ucrt-x86_64-uchardet mingw-w64-ucrt-x86_64-fribidi mingw-w64-ucrt-x86_64-fmt mingw-w64-ucrt-x86_64-spdlog
 # latex, dvipng, gettext, git, nano
-pacman -S --needed --noconfirm mingw-w64-x86_64-texlive-core mingw-w64-x86_64-gettext git nano
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-texlive-core mingw-w64-ucrt-x86_64-gettext git nano
 ```
 
 use native windows theme
@@ -243,4 +243,4 @@ git submodule update --init
 Troubleshooting:
 - Cannot build: make sure to start 64-bit terminal
 - Cannot build: remove `cherrytree/build` folder and start `build.sh` script again
-- Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99.X_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fulfilled
+- Cannot start cherrytree: you either have to run cherrytree from the msys2 ucrt64 terminal or copy and replace cherrytree in `cherrytree_0.99.X_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fulfilled

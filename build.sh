@@ -35,8 +35,6 @@ then
   exit 0
 fi
 
-[[ "${MSYSTEM}" =~ "MINGW" ]] && IS_MSYS2_BUILD="Y"
-
 f_any_argument_matches "notests" "notest"
 [ -n "${RET_VAL}" ] && NO_TESTS="Y"
 
