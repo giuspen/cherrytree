@@ -111,6 +111,7 @@ else
   EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING='ON' -DINSTALL_GTEST=''"
 fi
 
+git submodule update --init --recursive
 cd ${BUILD_DIR}
 cmake .. -DCMAKE_C_COMPILER=gcc \
          -DCMAKE_CXX_COMPILER=g++ \

@@ -32,6 +32,7 @@ jobs:
             mingw-w64-ucrt-x86_64-texlive-core
             mingw-w64-ucrt-x86_64-gettext
             p7zip
+            git
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
