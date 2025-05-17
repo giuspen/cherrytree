@@ -1,0 +1,46 @@
+name: Windows/MSYS2 Build
+on: [workflow_dispatch]
+
+jobs:
+  msys2-ucrt64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: |
+            mingw-w64-ucrt-x86_64-toolchain
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-gtkmm3
+            mingw-w64-ucrt-x86_64-gtksourceview4
+            mingw-w64-ucrt-x86_64-libxml++2.6
+            mingw-w64-ucrt-x86_64-sqlite3
+            mingw-w64-ucrt-x86_64-gspell
+            mingw-w64-ucrt-x86_64-curl
+            mingw-w64-ucrt-x86_64-uchardet
+            mingw-w64-ucrt-x86_64-fribidi
+            mingw-w64-ucrt-x86_64-fmt
+            mingw-w64-ucrt-x86_64-spdlog
+            mingw-w64-ucrt-x86_64-texlive-core
+            mingw-w64-ucrt-x86_64-gettext
+            p7zip
+      - name: CI-Build
+        run: |
+          echo 'Running in MSYS2!'
+          ./scripts/msys2_prepare_standalone.sh
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            build/*.7z
+          retention-days: 3
+          overwrite: true
+          if-no-files-found: error
