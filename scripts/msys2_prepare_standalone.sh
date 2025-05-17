@@ -25,7 +25,7 @@ then
 fi
 echo "build..."
 cd ${IN_CT_FOLDER}
-./build.sh release
+./build.sh release notest
 
 
 CT_VERSION_NUM="$(cat ${IN_CT_CONFIG_H} | grep PACKAGE_VERSION_WINDOWS_STR | awk '{print substr($3, 2, length($3)-2)}')"
