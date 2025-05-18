@@ -5,8 +5,7 @@
 #define MyAppPublisher "Giuseppe Penone"
 #define MyAppURL "https://www.giuspen.net/cherrytree/"
 #define MyAppExeName "cherrytree.exe"
-#define Username "penoneg"
-#define MyAppVersion GetFileVersion('C:\msys64\home\penoneg\git\cherrytree\build\cherrytree.exe')
+#define MyAppVersion GetFileVersion('C:\msys64\home\PenoneG\git\cherrytree\build\cherrytree.exe')
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -21,14 +20,14 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-OutputDir=C:\Users\{#Username}\Desktop
+OutputDir=C:\msys64\home\PenoneG\git\cherrytree\build
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
-LicenseFile=C:\Users\{#Username}\Desktop\cherrytree_{#MyAppVersion}_win64_portable\license.txt
+LicenseFile=C:\msys64\home\PenoneG\git\cherrytree\build\cherrytree_{#MyAppVersion}_win64_portable\license.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=cherrytree_{#MyAppVersion}_win64_setup
-SetupIconFile=C:\msys64\home\{#Username}\git\cherrytree\icons\cherrytree.ico
+SetupIconFile=C:\msys64\home\PenoneG\git\cherrytree\icons\cherrytree.ico
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -82,7 +81,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\{#Username}\Desktop\cherrytree_{#MyAppVersion}_win64_portable\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\msys64\home\PenoneG\git\cherrytree\build\cherrytree_{#MyAppVersion}_win64_portable\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
