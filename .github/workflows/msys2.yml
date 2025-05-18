@@ -37,11 +37,22 @@ jobs:
         run: |
           echo 'Running in MSYS2!'
           ./scripts/msys2_prepare_standalone.sh
+      - name: Compile .ISS to .EXE Installer (FULL)
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
+        with:
+          path: scripts/cherrytree.iss
+          options: /O+
+      - name: Compile .ISS to .EXE Installer (NOLATEX)
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
+        with:
+          path: scripts/cherrytree_nolatex.iss
+          options: /O+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           path: |
             build/*.7z
+            build/cherrytree_*.exe
           retention-days: 3
           overwrite: true
           if-no-files-found: error

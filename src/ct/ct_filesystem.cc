@@ -139,10 +139,11 @@ void register_exe_path_detect_if_portable(const char* exe_path)
     // spdlog is not up yet here!
     //printf("exePath: %s\nAPPIMAGE=%s\n", _exePath.c_str(), Glib::getenv("APPIMAGE").c_str());
 #if defined(_WIN32)
-    // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
-    //      cherrytree_0.99.9_win64_portable\config.cfg
+    // e.g. cherrytree_1.5.0.0_win64_portable\ucrt64\bin\cherrytree.exe
+    //      cherrytree_1.5.0.0_win64_portable\config.cfg
     _mingw64Dir = _exePath.parent_path().parent_path();
-    if (_mingw64Dir.filename() != "mingw64") {
+    const fs::path dirname = _mingw64Dir.filename();
+    if (dirname != "ucrt64" and dirname != "mingw64") {
         _mingw64Dir.clear();
     }
     const fs::path portableConfigDir = _mingw64Dir.parent_path();
@@ -407,11 +408,11 @@ fs::path get_cherrytree_datadir()
         return _CMAKE_SOURCE_DIR;
     }
 #ifdef _WIN32
-    // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
-    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\language-specs
-    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\styles
-    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\data
-    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\icons
+    // e.g. cherrytree_1.5.0.0_win64_portable\ucrt64\bin\cherrytree.exe
+    //      cherrytree_1.5.0.0_win64_portable\ucrt64\usr\share\cherrytree\language-specs
+    //      cherrytree_1.5.0.0_win64_portable\ucrt64\usr\share\cherrytree\styles
+    //      cherrytree_1.5.0.0_win64_portable\ucrt64\usr\share\cherrytree\data
+    //      cherrytree_1.5.0.0_win64_portable\ucrt64\usr\share\cherrytree\icons
     return _mingw64Dir / "usr" / "share" / "cherrytree";
 #else
     if (not _AppImageUsrDir.empty()) {
@@ -428,8 +429,8 @@ fs::path get_cherrytree_localedir()
         return fs_canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
     }
 #if defined(_WIN32)
-    // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
-    //      cherrytree_0.99.9_win64_portable\mingw64\share\locale
+    // e.g. cherrytree_1.5.0.0_win64_portable\ucrt64\bin\cherrytree.exe
+    //      cherrytree_1.5.0.0_win64_portable\ucrt64\share\locale
     return _mingw64Dir / "share" / "locale";
 #elif defined(_FLATPAK_BUILD)
    return CHERRYTREE_DATADIR "/locale";
