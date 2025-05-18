@@ -33,10 +33,13 @@ jobs:
             mingw-w64-ucrt-x86_64-gettext
             p7zip
             git
+            sed
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
           ./scripts/msys2_prepare_standalone.sh
+          sed -i 's/C:\\msys64\\home\\PenoneG\\git\\cherrytree\\//g' scripts/cherrytree.iss
+          sed -i 's/C:\\msys64\\home\\PenoneG\\git\\cherrytree\\//g' scripts/cherrytree_nolatex.iss
       - name: Compile .ISS to .EXE Installer (FULL)
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
         with:
