@@ -43,10 +43,12 @@ jobs:
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
         with:
           path: scripts/cherrytree_nolatex.iss
+          options: /Q
       - name: Compile .ISS to .EXE Installer (FULL)
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
         with:
           path: scripts/cherrytree.iss
+          options: /Q
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
