@@ -31,7 +31,7 @@ jobs:
             mingw-w64-ucrt-x86_64-spdlog
             mingw-w64-ucrt-x86_64-texlive-core
             mingw-w64-ucrt-x86_64-gettext
-            p7zip
+            zip
             git
             sed
       - name: CI-Build
@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
-            build/*.7z
+            build/cherrytree_*.zip
             build/cherrytree_*.exe
           retention-days: 3
           overwrite: true
