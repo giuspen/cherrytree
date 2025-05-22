@@ -49,7 +49,7 @@ jobs:
         with:
           path: scripts/cherrytree.iss
           options: /Q
-      - name: upload-unsigned-artifact
+      - name: Upload Unsigned Artifact
         id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
         with:
@@ -59,13 +59,21 @@ jobs:
           retention-days: 3
           overwrite: true
           if-no-files-found: error
-      - id: optional_step_id
+      - name: SignPath Signing
         uses: signpath/github-action-submit-signing-request@v1.2
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-          organization-id: 'bc94d0c0-3708-4973-9e7e-33df9a35494a'
+          organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
           project-slug: 'cherrytree'
           signing-policy-slug: 'test-signing'
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
           wait-for-completion: true
-          output-artifact-directory: '.'
+          output-artifact-directory: ct-signed
+      - name: Upload Signed Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ct-signed
+          path: ct-signed
+          retention-days: 3
+          overwrite: true
+          if-no-files-found: error
