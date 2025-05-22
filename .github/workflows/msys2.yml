@@ -49,7 +49,7 @@ jobs:
         with:
           path: scripts/cherrytree.iss
           options: /Q
-      - name: Upload Unsigned Artifact
+      - name: upload-unsigned-artifact
         id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
         with:
@@ -59,8 +59,8 @@ jobs:
           retention-days: 3
           overwrite: true
           if-no-files-found: error
-      - name: SignPath Signature
-        uses: signpath/github-action-submit-signing-request@v1.1
+      - id: optional_step_id
+        uses: signpath/github-action-submit-signing-request@v1.2
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: 'bc94d0c0-3708-4973-9e7e-33df9a35494a'
@@ -68,3 +68,4 @@ jobs:
           signing-policy-slug: 'test-signing'
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
           wait-for-completion: true
+          output-artifact-directory: '.'
