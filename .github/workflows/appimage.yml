@@ -1,0 +1,44 @@
+name: Linux/AppImage
+on: [workflow_dispatch]
+
+jobs:
+  linux-appimage:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update -qq
+          sudo apt install --assume-yes --no-install-recommends \
+            desktop-file-utils \
+            gettext \
+            cmake \
+            ninja-build \
+            libgtkmm-3.0-dev \
+            libgtksourceview-4-dev \
+            libxml++2.6-dev \
+            libsqlite3-dev \
+            libgspell-1-dev \
+            libcurl4-openssl-dev \
+            libuchardet-dev \
+            libfribidi-dev \
+            libvte-2.91-dev \
+            libfmt-dev \
+            libspdlog-dev \
+            file \
+            libxml2-utils
+      - name: CI-Build
+        run: |
+          ./build.sh appimg
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            build/CherryTree-*.AppImage
+          retention-days: 3
+          overwrite: true
+          if-no-files-found: error
