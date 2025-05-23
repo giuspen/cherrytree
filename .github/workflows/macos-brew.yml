@@ -1,0 +1,22 @@
+name: MacOS/Brew
+on: [workflow_dispatch]
+
+jobs:
+  macos-brew:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - name: Update Homebrew
+        run: |
+          brew update
+      - name: Install Dependencies
+        run: |
+          brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3
+          brew link icu4c --force
+      - name: CI-Build
+        run: |
+          ./build.sh notest
