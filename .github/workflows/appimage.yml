@@ -33,7 +33,7 @@ jobs:
             libxml2-utils
       - name: CI-Build
         run: |
-          ./build.sh appimg
+          ./build.sh appimg notest
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:

@@ -157,4 +157,7 @@ then
         --output appimage \
         --icon-file ../icons/cherrytree.svg \
         --desktop-file ../data/cherrytree.desktop
+  PACKAGE_VERSION="$(grep 'PACKAGE_VERSION ' ../config.h | awk -F\" '{print $2}')"
+  TARGET_PACKAGE_NAME="CherryTree-${PACKAGE_VERSION}-x86_64.AppImage"
+  mv -v CherryTree-x86_64.AppImage ${TARGET_PACKAGE_NAME}
 fi
