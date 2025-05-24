@@ -31,7 +31,9 @@ jobs:
           brew link icu4c --force
       - name: CI-Build
         run: |
+          pkg-config gtkmm-3.0 --cflags --libs
           cmake -S . -B build \
+                -DCMAKE_FIND_FRAMEWORK=LAST \
                 -DBUILD_TESTING=''
           cmake --build build
           cmake --install build
