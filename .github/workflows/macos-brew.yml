@@ -31,10 +31,9 @@ jobs:
           brew link icu4c --force
       - name: CI-Build
         run: |
-          rm -rf build
-          mkdir build
-          cd build
-          cmake .. -DCMAKE_C_COMPILER=gcc \
-                   -DCMAKE_CXX_COMPILER=g++ \
-                   -DBUILD_TESTING=''
-          make -j
+          cmake -S . -B build \
+                -DCMAKE_C_COMPILER=gcc \
+                -DCMAKE_CXX_COMPILER=g++ \
+                -DBUILD_TESTING=''
+          cmake --build build
+          cmake --install build
