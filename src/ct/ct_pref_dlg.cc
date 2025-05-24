@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -375,7 +375,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     });
     spinbutton_scrollbar_min_size->signal_value_changed().connect([this, spinbutton_scrollbar_min_size](){
         _pConfig->scrollSliderMin = spinbutton_scrollbar_min_size->get_value_as_int();
-        apply_for_each_window([this](CtMainWin* win) { win->update_theme(); });
+        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     });
     radiobutton_scrollbar_overlay_default->signal_toggled().connect([this, radiobutton_scrollbar_overlay_default](){
         if (not radiobutton_scrollbar_overlay_default->get_active()) return;

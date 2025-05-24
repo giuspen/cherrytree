@@ -23,6 +23,7 @@ jobs:
                        fmt \
                        gspell \
                        gtkmm3 \
+                       gettext \
                        gtksourceview4 \
                        libxml++ \
                        spdlog \
