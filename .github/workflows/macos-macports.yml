@@ -33,6 +33,8 @@ jobs:
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs
+          ls -la /opt/local/lib | grep fmt
+          export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/opt/local/lib/libfmt9/pkgconfig"
           cmake -S . -B build \
                 -DBUILD_TESTING=''
           cmake --build build
