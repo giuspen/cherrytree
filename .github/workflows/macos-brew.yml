@@ -16,7 +16,6 @@ jobs:
       - name: Install Dependencies
         run: |
           brew install cmake \
-                       ninja \
                        gettext \
                        pkgconf \
                        adwaita-icon-theme \
@@ -32,4 +31,10 @@ jobs:
           brew link icu4c --force
       - name: CI-Build
         run: |
-          ./build.sh notest
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_C_COMPILER=gcc \
+                   -DCMAKE_CXX_COMPILER=g++ \
+                   -DBUILD_TESTING=''
+          make -j
