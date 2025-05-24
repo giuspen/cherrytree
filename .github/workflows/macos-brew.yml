@@ -32,8 +32,6 @@ jobs:
       - name: CI-Build
         run: |
           cmake -S . -B build \
-                -DCMAKE_C_COMPILER=gcc \
-                -DCMAKE_CXX_COMPILER=g++ \
                 -DBUILD_TESTING=''
           cmake --build build
           cmake --install build
