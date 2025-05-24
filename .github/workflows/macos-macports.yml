@@ -22,7 +22,7 @@ jobs:
                             gspell \
                             gtkmm3 \
                             gtksourceview4 \
-                            vte3 \
+                            vte \
                             libxmlxx2 \
                             libfmt9 \
                             spdlog \

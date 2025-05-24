@@ -1,4 +1,4 @@
-name: Windows/MSYS2 Build
+name: Windows/MSYS2
 on: [workflow_dispatch]
 
 jobs:
