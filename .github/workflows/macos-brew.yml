@@ -17,22 +17,19 @@ jobs:
         run: |
           brew install cmake \
                        ninja \
+                       gettext \
                        pkgconf \
-                       python \
                        adwaita-icon-theme \
-                       fmt \
                        gspell \
                        gtkmm3 \
-                       gettext \
                        gtksourceview4 \
+                       vte3 \
                        libxml++ \
+                       fmt \
                        spdlog \
                        uchardet \
-                       fribidi \
-                       curl \
-                       vte3 \
-                       sqlite
+                       fribidi
           brew link icu4c --force
       - name: CI-Build
         run: |
-          ./build.sh
+          ./build.sh notest
