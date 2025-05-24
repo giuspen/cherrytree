@@ -31,6 +31,7 @@ jobs:
                        curl \
                        vte3 \
                        sqlite
+          brew link icu4c --force
       - name: CI-Build
         run: |
           ./build.sh
