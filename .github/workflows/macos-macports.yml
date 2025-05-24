@@ -1,0 +1,39 @@
+name: MacOS/MacPorts
+on: [workflow_dispatch]
+
+jobs:
+  macos-macports:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up MacPorts
+        uses: melusina-org/setup-macports@v1.1.4
+      - name: Install Dependencies
+        run: |
+          port -v selfupdate
+          port install cmake \
+                       clang-17 \
+                       gettext \
+                       makeicns  \
+                       pkgconfig  \
+                       python313 \
+                       adwaita-icon-theme \
+                       gspell \
+                       gtkmm3 \
+                       gtksourceview4 \
+                       vte3 \
+                       libxmlxx2 \
+                       libfmt9 \
+                       spdlog \
+                       uchardet \
+                       fribidi \
+                       sqlite3 \
+                       curl
+      - name: CI-Build
+        run: |
+          pkg-config gtkmm-3.0 --cflags --libs
+          cmake -S . -B build \
+                -DBUILD_TESTING=''
+          cmake --build build
+          cmake --install build
