@@ -104,15 +104,6 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR)
 endif()
 
-if(APPLE)
-  link_directories(/usr/local/lib /usr/local/opt/gettext/lib)
-  include_directories(/usr/local/opt/gettext/include)
-  set(CMAKE_MACOSX_RPATH 1)
-  set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig:/usr/local/opt/libxml++/lib/pkgconfig")
-  # to fix libxml++2.6 compilation
-  add_compile_options(-D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR)
-endif()
-
 add_compile_options(-Wno-deprecated -Wno-deprecated-declarations)
 if(CMAKE_BUILD_TYPE STREQUAL "")
   add_compile_options(-O2)
