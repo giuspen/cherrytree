@@ -15,8 +15,22 @@ jobs:
           brew update
       - name: Install Dependencies
         run: |
-          brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3
-          brew link icu4c --force
+          brew install cmake \
+                       ninja \
+                       pkgconf \
+                       python \
+                       adwaita-icon-theme \
+                       fmt \
+                       gspell \
+                       gtkmm3 \
+                       gtksourceview4 \
+                       libxml++ \
+                       spdlog \
+                       uchardet \
+                       fribidi \
+                       curl \
+                       vte3 \
+                       sqlite
       - name: CI-Build
         run: |
-          ./build.sh notest
+          ./build.sh
