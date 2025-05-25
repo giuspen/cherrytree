@@ -32,6 +32,7 @@ jobs:
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs
+          ls -la /opt/homebrew/Cellar/gtkmm3/3.24.10/lib
           cmake -S . -B build \
                 -DCMAKE_FIND_FRAMEWORK=LAST \
                 -DBUILD_TESTING=''
