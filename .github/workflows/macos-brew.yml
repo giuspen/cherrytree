@@ -35,6 +35,6 @@ jobs:
           ls -la /opt/homebrew/Cellar/gtkmm3/3.24.10/lib
           cmake -S . -B build \
                 -DCMAKE_FIND_FRAMEWORK=LAST \
-                -DBUILD_TESTING=''
-          cmake --build build
+                -DBUILD_TESTING='' -DCMAKE_VERBOSE_MAKEFILE=ON
+          VERBOSE=1 cmake --build build
           cmake --install build

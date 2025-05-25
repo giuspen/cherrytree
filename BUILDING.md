@@ -165,12 +165,13 @@ sudo zypper install rpm-build
 
 ## Building Cherrytree on MacOS
 NOTE: Cherrytree is available as an [Installer](https://gitlab.com/dehesselle/cherrytree_macos/-/releases) or in [Homebrew](https://formulae.brew.sh/formula/cherrytree) or [Mac Ports](https://ports.macports.org/port/cherrytree)
+[Homebrew formula code](https://github.com/Homebrew/homebrew-core/blob/master/Formula/c/cherrytree.rb)
 
 In order build it yourself in [Homebrew](https://brew.sh/):
 
 Install dependencies:
 ```sh
-brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3
+brew install cmake ninja pkg-config python adwaita-icon-theme fmt gspell gtkmm3 gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3
 brew link icu4c --force
 brew install --cask basictex
 sudo tlmgr update --self
