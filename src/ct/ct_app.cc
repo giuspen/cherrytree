@@ -379,7 +379,19 @@ void CtApp::systray_show_hide_windows()
     for (Gtk::Window* pWin : get_windows()) {
         // if any window is visible, we will hide
 #ifdef _WIN32
-        if (pWin->get_visible()) {
+        if (pWin->get_visible() and not static_cast<bool>(pWin->get_window()->get_state() & Gdk::WindowState::WINDOW_STATE_ICONIFIED)) {
+#if 0
+            Glib::RefPtr<Gdk::Window> pGdkWin = pWin->get_window();
+            Gdk::WindowState gdkWinState = pGdkWin->get_state();
+            spdlog::debug("WINDOW_STATE_WITHDRAWN {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_WITHDRAWN));
+            spdlog::debug("WINDOW_STATE_ICONIFIED {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_ICONIFIED));
+            spdlog::debug("WINDOW_STATE_MAXIMIZED {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_MAXIMIZED));
+            spdlog::debug("WINDOW_STATE_STICKY {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_STICKY));
+            spdlog::debug("WINDOW_STATE_FULLSCREEN {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_FULLSCREEN));
+            spdlog::debug("WINDOW_STATE_ABOVE {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_ABOVE));
+            spdlog::debug("WINDOW_STATE_BELOW {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_BELOW));
+            spdlog::debug("WINDOW_STATE_FOCUSED {}", static_cast<bool>(gdkWinState & Gdk::WindowState::WINDOW_STATE_FOCUSED));
+#endif /*0*/
 #else
         if (pWin->has_toplevel_focus()) {
 #endif
