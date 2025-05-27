@@ -475,6 +475,7 @@ void CtActions::toc_insert()
             return;
         }
         _insert_toc_at_pos(curr_node.get_node_text_buffer(), entries);
+        curr_node.pending_edit_db_node_buff();
     }
     catch (std::exception& e) {
         spdlog::error(e.what());
