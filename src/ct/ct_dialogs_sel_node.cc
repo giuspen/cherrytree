@@ -26,7 +26,7 @@
 #include "spdlog/spdlog.h"
 #include <glibconfig.h>
 
-gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
+gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& entryStr)
 {
     // based on plotinus
     struct CtPaletteColumns : public Gtk::TreeModelColumnRecord
@@ -192,7 +192,8 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
     header_bar.property_spacing() = 0;
     popup_dialog.set_titlebar(header_bar);
 
-    auto search_entry = Gtk::SearchEntry();
+    auto search_entry = Gtk::SearchEntry{};
+    search_entry.set_text(entryStr);
     search_entry.property_hexpand() = true;
     //if (Gtk.get_major_version() == 3 && Gtk.get_minor_version() < 22) {
       // GTK+ < 3.22 does not support expanding packed widgets
@@ -225,6 +226,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin)
     });
     popup_dialog.signal_show().connect([&]() {
         search_entry.grab_focus();
+        search_entry.set_position(search_entry.get_text().size());
     });
     popup_dialog.signal_key_press_event().connect([&](GdkEventKey* key)->bool {
         if (key->keyval == GDK_KEY_Escape) {

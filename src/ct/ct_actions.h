@@ -115,7 +115,8 @@ public:
     void dialog_preferences();
     void preferences_import();
     void preferences_export();
-    void command_selnode();
+    void command_selnode() { command_selnode_str(Glib::ustring{}); }
+    void command_selnode_str(const Glib::ustring& entryStr);
     void command_palette();
 
 private:

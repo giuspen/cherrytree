@@ -1,7 +1,7 @@
 /*
  * ct_main_win_events.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -261,6 +261,14 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
         if (GDK_KEY_Delete == event->keyval) {
             _uCtActions->node_delete();
             return true;
+        }
+        {
+            const gunichar unicode_char = gdk_keyval_to_unicode(event->keyval);
+            if (unicode_char != 0 && g_unichar_isalnum(unicode_char)) {
+                Glib::ustring entryStr{1, unicode_char};
+                _uCtActions->command_selnode_str(entryStr);
+                return true;
+            }
         }
     }
     return false;

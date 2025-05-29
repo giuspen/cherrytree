@@ -1,7 +1,7 @@
 /*
  * ct_widgets.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -128,6 +128,7 @@ CtTreeView::CtTreeView(CtConfig* pCtConfig)
  : _pCtConfig{pCtConfig}
 {
     set_headers_visible(false);
+    set_enable_search(false);
     if (_pCtConfig->treeTooltips) {
         set_tooltips_enable(true/*on*/);
     }

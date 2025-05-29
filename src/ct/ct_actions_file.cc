@@ -389,11 +389,10 @@ void CtActions::preferences_export()
     _pCtConfig->write_to_file(filepath);
 }
 
-void CtActions::command_selnode()
+void CtActions::command_selnode_str(const Glib::ustring& entryStr)
 {
-    auto id = CtDialogs::dialog_selnode(_pCtMainWin);
-    if (id != -1)
-    {
+    auto id = CtDialogs::dialog_selnode(_pCtMainWin, entryStr);
+    if (id != -1) {
         auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(id);
         _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
         _pCtMainWin->get_text_view().mm().grab_focus();
