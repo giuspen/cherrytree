@@ -86,3 +86,8 @@ https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.17.50/en/
 
 ## Third party Android project SourCherry
 Outstanding third party Android project: https://github.com/FFDA/SourCherry
+
+## Code Signing Policy
+- Free code signing for the Windows binaries provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
+- This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it
+- Approver: [Giuseppe Penone](https://github.com/giuspen)
