@@ -543,6 +543,7 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_spring-boot",       // 255
     "ct_snowflake",         // 256
     "ct_vim",               // 257
+    "ct_locale",            // 258
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
@@ -574,7 +575,7 @@ const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {
     /*devops start*/134, 135, 136, 137, 138, 139, 182, 183, 245, 253/*devops end*/,
     /*weather start*/256, 147, 148, 149, 150, 151, 152, 153, 154, 155/*weather end*/,
     /*cherries start*/27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37/*cherries end*/,
-    25/*bullet*/, 26/*noicon*/, 209/*bullseye*/, 220/*four_leaf_clover*/, 236/*pool_8_ball*/,
+    25/*bullet*/, 26/*noicon*/, 209/*bullseye*/, 220/*four_leaf_clover*/, 236/*pool_8_ball*/, 258/*locale*/,
     /*flags start*/73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 246, 91, 92, 93, 94, 122, 123, 124, 125, 127, 128, 129, 130, 131, 179/*flags end*/
 };
 
