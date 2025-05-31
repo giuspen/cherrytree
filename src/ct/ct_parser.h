@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -313,10 +313,9 @@ public:
 
     virtual void feed(const std::string& html);
 
-    virtual void handle_starttag(std::string_view tag, const char** atts);
-    virtual void handle_endtag(std::string_view tag);
-    virtual void handle_data(std::string_view text);
-    virtual void handle_charref(std::string_view name);
+    virtual void handle_starttag(std::string_view tag, const char** atts) = 0;
+    virtual void handle_endtag(std::string_view tag) = 0;
+    virtual void handle_data(const Glib::ustring& text) = 0;
 
 public:
     static std::list<html_attr> char2list_attrs(const char** atts);
@@ -350,11 +349,10 @@ public:
 
 public:
     // virtuals of CtHtmlParser
-    virtual void feed(const std::string& html);
-    virtual void handle_starttag(std::string_view tag, const char** atts);
-    virtual void handle_endtag(std::string_view tag);
-    virtual void handle_data(std::string_view text);
-    virtual void handle_charref(std::string_view name);
+    void feed(const std::string& html) override;
+    void handle_starttag(std::string_view tag, const char** atts) override;
+    void handle_endtag(std::string_view tag) override;
+    void handle_data(const Glib::ustring& text) override;
 
 public:
     void set_local_dir(const std::string& dir)    { _local_dir = dir; }
@@ -365,6 +363,7 @@ public:
     const xmlpp::Document& doc() const { return *_xml_doc; }
 
 private:
+    void _parse_style_attribute(const Glib::ustring& style_data);
     void _start_adding_tag_styles();
     void _add_tag_style(const std::string& style, const std::string& value);
     void _end_adding_tag_styles();
@@ -376,7 +375,7 @@ private:
     void        _insert_image(std::string img_path, std::string trailing_chars);
     void        _insert_table();
     void        _insert_codebox();
-    void        _rich_text_serialize(std::string text);
+    void        _rich_text_serialize(const std::string& text);
     void        _rich_text_save_pending();
 
 private:
