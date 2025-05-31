@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,8 +28,7 @@
 #include <list>
 #include <set>
 #include <glibmm/ustring.h>
-#include <libxml2/libxml/HTMLparser.h>
-#include <libxml++/libxml++.h>
+#include <libxml++/parsers/saxparser.h>
 #include <gtkmm.h>
 #include <unordered_set>
 #include <unordered_map>
@@ -298,63 +297,37 @@ private:
     void _reset_and_refeed();
 };
 
-class CtHtmlParser
-{
-public:
-    struct html_attr
-    {
-        std::string_view name;
-        std::string_view value;
-    };
-
-public:
-    CtHtmlParser() = default;
-    virtual ~CtHtmlParser() = default;
-
-    virtual void feed(const std::string& html);
-
-    virtual void handle_starttag(std::string_view tag, const char** atts);
-    virtual void handle_endtag(std::string_view tag);
-    virtual void handle_data(std::string_view text);
-    virtual void handle_charref(std::string_view name);
-
-public:
-    static std::list<html_attr> char2list_attrs(const char** atts);
-};
-
-class CtHtml2Xml : public CtHtmlParser
+class CtHtml2Xml : public xmlpp::SaxParser
 {
 private:
     enum class ParserState {WAIT_BODY, PARSING_BODY, PARSING_TABLE};
-    struct tag_style
-    {
+    struct tag_style {
         int         tag_id;
         std::string style;
         std::string value;
     };
-    struct table_cell
-    {
+    struct table_cell {
         int         rowspan;
         std::string text;
     };
-    struct slot_styles
-    {
+    struct slot_styles {
         int slot_style_id;
         std::map<std::string, std::string> styles;
     };
 
-    static const std::set<std::string> HTML_A_TAGS;
+    static const std::set<Glib::ustring> HTML_A_TAGS;
 
 public:
     CtHtml2Xml(CtConfig* config);
+    void feed(const std::string& html);
 
 public:
-    // virtuals of CtHtmlParser
-    virtual void feed(const std::string& html);
-    virtual void handle_starttag(std::string_view tag, const char** atts);
-    virtual void handle_endtag(std::string_view tag);
-    virtual void handle_data(std::string_view text);
-    virtual void handle_charref(std::string_view name);
+    void on_cdata_block(const Glib::ustring& text) override;
+    void on_start_element(const Glib::ustring& tag, const xmlpp::SaxParser::AttributeList& atts) override;
+    void on_end_element(const Glib::ustring& tag) override;
+    void on_characters(const Glib::ustring& name) override;
+    void on_error(const Glib::ustring& text) override;
+    void on_fatal_error(const Glib::ustring& text) override;
 
 public:
     void set_local_dir(const std::string& dir)    { _local_dir = dir; }
@@ -366,13 +339,13 @@ public:
 
 private:
     void _start_adding_tag_styles();
-    void _add_tag_style(const std::string& style, const std::string& value);
+    void _add_tag_style(const Glib::ustring& style, const Glib::ustring& value);
     void _end_adding_tag_styles();
     void _pop_tag_styles();
     int  _get_tag_style_id();
     void _put_tag_styles_on_top_cache();
 
-    std::string _convert_html_color(const std::string& html_color);
+    Glib::ustring _convert_html_color(const Glib::ustring& html_color);
     void        _insert_image(std::string img_path, std::string trailing_chars);
     void        _insert_table();
     void        _insert_codebox();

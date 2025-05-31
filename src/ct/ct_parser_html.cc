@@ -1,7 +1,7 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -30,6 +30,7 @@
 #include <cassert>
 
 namespace {
+
 std::vector<std::string> split_rednotebook_html_nodes(const std::string& input)
 {
     static const auto reg = Glib::Regex::create("<p>[\\S\\s]<span id=\"(?:[12]\\d{3}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))\"></span>[\\S\\s]</p>");
@@ -49,10 +50,6 @@ std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input
     return std::nullopt;
 }
 
-
-
-
-
 std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, CtConfig* config)
 {
     CtHtml2Xml parser{config};
@@ -63,84 +60,16 @@ std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, Ct
     return doc;
 }
 
-}
+} // namespace (anonymous)
 
-void CtHtmlParser::feed(const std::string& html)
-{
-    struct helper_function
-    {
-        static void start_element(void *ctx, const xmlChar *name, const xmlChar **atts)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_starttag((const char*)name, (const char**)atts);
-        }
-        static void end_element(void* ctx, const xmlChar* name)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_endtag((const char*)name);
-        }
-        static void characters(void *ctx, const xmlChar *ch, int len)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_data(std::string_view((const char*)ch, len));
-        }
-        static void reference(void *ctx, const xmlChar *name)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_charref((const char*)name);
-        }
-    };
-
-    htmlSAXHandler sax2Handler;
-    memset(&sax2Handler, 0, sizeof(sax2Handler));
-    sax2Handler.initialized = XML_SAX2_MAGIC;
-    sax2Handler.startElement = helper_function::start_element;
-    sax2Handler.endElement = helper_function::end_element;
-    sax2Handler.characters = helper_function::characters;
-    sax2Handler.reference = helper_function::reference;
-
-    htmlSAXParseDoc((xmlChar*)html.c_str(), "UTF-8", &sax2Handler, this);
-}
-
-void CtHtmlParser::handle_starttag(std::string_view /*tag*/, const char **/*atts*/)
-{
-    // spdlog::debug("SAX tag: {}", tag);
-}
-
-void CtHtmlParser::handle_endtag(std::string_view /*tag*/)
-{
-    // spdlog::debug("SAX endtag: {}", tag);
-}
-
-void CtHtmlParser::handle_data(std::string_view /*tag*/)
-{
-    // spdlog::debug("SAX data: {}", text);
-}
-
-void CtHtmlParser::handle_charref(std::string_view /*tag*/)
-{
-    // spdlog::debug("SAX ref: {}", name);
-}
-
-/*static*/ std::list<CtHtmlParser::html_attr> CtHtmlParser::char2list_attrs(const char** atts)
-{
-    std::list<html_attr> attr_list;
-    if (atts == nullptr)  return attr_list;
-    while (*atts != nullptr)
-    {
-        html_attr attr;
-        attr.name = *(atts++);
-        if (*atts != nullptr) {
-            attr.value = *(atts++);
-        }
-        attr_list.push_back(attr);
-    }
-    return attr_list;
-}
-
-const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{
+const std::set<Glib::ustring> CtHtml2Xml::HTML_A_TAGS{
     "p", "b", "i", "u", "s",
     CtConst::TAG_PROP_VAL_H1, CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3,
     CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6,
     "span", "font"};
 
-CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _pCtConfig{config}
+CtHtml2Xml::CtHtml2Xml(CtConfig* config)
+ : _pCtConfig{config}
 {
 }
 
@@ -170,19 +99,21 @@ void CtHtml2Xml::feed(const std::string& html)
 
     const Glib::ustring doctype = "<!DOCTYPE HTML";
     if (str::startswith(html, doctype) or str::startswith(html, doctype.lowercase())) {
-        CtHtmlParser::feed(html);
+        try { parse_memory(html); }
+        catch (std::exception& e) { spdlog::debug("{} {}", __FUNCTION__, e.what()); }
     }
     else {
         // if not fixed, we can skip some items
         std::string fixed_html = "<!doctype html><html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"</head><body>"
                 + html + "</body></html>";
-        CtHtmlParser::feed(fixed_html);
+        try { parse_memory(fixed_html); }
+        catch (std::exception& e) { spdlog::debug("{} {}", __FUNCTION__, e.what()); }
     }
 
     _rich_text_save_pending();
 }
 
-void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
+void CtHtml2Xml::on_start_element(const Glib::ustring& tag, const xmlpp::SaxParser::AttributeList& atts)
 {
     auto parse_style_attribute = [&](const Glib::ustring& style_data){
         for (Glib::ustring& style_attribute: str::split(style_data, ";"))
@@ -239,7 +170,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
     }
     _parsing_valid_tag = true;
 
-    if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
+    if (HTML_A_TAGS.count(tag)) ++_html_a_tag_counter;
     if (_state == ParserState::WAIT_BODY)
     {
         if (tag == "body") {
@@ -262,50 +193,50 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "s") _add_tag_style(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
         else if (tag == CtConst::TAG_STYLE) _state = ParserState::WAIT_BODY;
         else if (tag == "span") {
-            for (const auto& tag_attr : char2list_attrs(atts)) {
+            for (const auto& tag_attr : atts) {
                 if (tag_attr.name == CtConst::TAG_STYLE)
-                    parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
+                    parse_style_attribute(tag_attr.value);
             }
         }
         else if (tag == "font") {
-            for (const auto& tag_attr : char2list_attrs(atts)) {
+            for (const auto& tag_attr : atts) {
                 if (tag_attr.name == "color") {
-                    const std::string color = _convert_html_color(str::trim(Glib::ustring(tag_attr.value.begin())));
+                    const std::string color = _convert_html_color(str::trim(tag_attr.value));
                     if (not color.empty())
                         _add_tag_style(CtConst::TAG_FOREGROUND, color);
                 }
                 else if (tag_attr.name == CtConst::TAG_STYLE)
-                    parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
+                    parse_style_attribute(tag_attr.value);
             }
         }
         else if (tag == "p")
         {
-            for (auto& tag_attr: char2list_attrs(atts)) {
+            for (auto& tag_attr : atts) {
                 if (tag_attr.name == "align")
-                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring{tag_attr.value.begin()}.lowercase()));
+                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(tag_attr.value).lowercase());
                 else if (tag_attr.name == CtConst::TAG_STYLE)
-                    parse_style_attribute(Glib::ustring{tag_attr.value.begin()});
+                    parse_style_attribute(tag_attr.value);
             }
         }
         else if (tag == CtConst::TAG_PROP_VAL_SUP || tag == CtConst::TAG_PROP_VAL_SUB)
         {
-            _add_tag_style(CtConst::TAG_SCALE, tag.begin());
+            _add_tag_style(CtConst::TAG_SCALE, tag);
         }
         else if (tag == CtConst::TAG_PROP_VAL_H1 or tag == CtConst::TAG_PROP_VAL_H2 or tag == CtConst::TAG_PROP_VAL_H3 or
                  tag == CtConst::TAG_PROP_VAL_H4 or tag == CtConst::TAG_PROP_VAL_H5 or tag == CtConst::TAG_PROP_VAL_H6)
         {
             _rich_text_serialize(CtConst::CHAR_NEWLINE);
-            _add_tag_style(CtConst::TAG_SCALE, tag.begin());
-            for (auto& tag_attr : char2list_attrs(atts)) {
+            _add_tag_style(CtConst::TAG_SCALE, tag);
+            for (auto& tag_attr : atts) {
                 if (tag_attr.name == "align")
-                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring{tag_attr.value.begin()}.lowercase()));
+                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(tag_attr.value.lowercase()));
             }
         }
         else if (tag == "a")
         {
-            for (auto& tag_attr: char2list_attrs(atts)) {
+            for (auto& tag_attr : atts) {
                 if (tag_attr.name == "href" && tag_attr.value.size() > 7)
-                    _add_tag_style(CtConst::TAG_LINK, CtStrUtil::get_internal_link_from_http_url(tag_attr.value.begin()));
+                    _add_tag_style(CtConst::TAG_LINK, CtStrUtil::get_internal_link_from_http_url(tag_attr.value));
             }
         }
         else if (tag == "br") _rich_text_serialize(CtConst::CHAR_NEWLINE);
@@ -332,9 +263,9 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
             }
         }
         else if (tag  == "img" || tag == "v:imagedata") {
-            for (auto& tag_attr: char2list_attrs(atts))
+            for (auto& tag_attr : atts)
                 if (tag_attr.name == "src")
-                    _insert_image(tag_attr.value.begin(), "");
+                    _insert_image(tag_attr.value, "");
         }
         else if (tag == "pre") _html_pre_tag_open = true;
         else if (tag == "code") _add_tag_style(CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE);
@@ -363,15 +294,15 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
             if (_table.empty()) // case of first missing <tr>, this is the header even if <td>
                 _table.push_back(std::list<table_cell>());
             int rowspan = 1;
-            for (auto& tag_attr: char2list_attrs(atts))
+            for (auto& tag_attr : atts)
                 if (tag_attr.name == "rowspan")
-                    rowspan = std::atoi(tag_attr.value.begin());
+                    rowspan = std::stoi(tag_attr.value);
             _table.back().push_back(table_cell{rowspan, ""});
         }
         else if (tag == "img" || tag == "v:imagedata") {
-            for (auto& tag_attr: char2list_attrs(atts))
+            for (auto& tag_attr : atts)
                 if (tag_attr.name == "src")
-                    _insert_image(tag_attr.value.begin(), str::repeat(CtConst::CHAR_NEWLINE, 2));
+                    _insert_image(tag_attr.value, str::repeat(CtConst::CHAR_NEWLINE, 2));
         }
         else if (tag == "br" && _html_td_tag_open) _table.back().back().text += CtConst::CHAR_NEWLINE;
         else if (tag == "ol" && _html_td_tag_open) { _list_type = 'o'; _list_num = 1; }
@@ -387,10 +318,10 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
     _end_adding_tag_styles();
 }
 
-void CtHtml2Xml::handle_endtag(std::string_view tag)
+void CtHtml2Xml::on_end_element(const Glib::ustring& tag)
 {
     _pop_tag_styles();
-    if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter -= 1;
+    if (HTML_A_TAGS.count(tag)) --_html_a_tag_counter;
     if (_state == ParserState::WAIT_BODY)
     {
         if (tag == CtConst::TAG_STYLE)
@@ -438,17 +369,17 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
     }
 }
 
-void CtHtml2Xml::handle_data(std::string_view text)
+void CtHtml2Xml::on_cdata_block(const Glib::ustring& text)
 {
     if (_state == ParserState::WAIT_BODY || !_parsing_valid_tag)
         return;
     if (_html_pre_tag_open) {
-         _rich_text_serialize(text.begin());
-         return;
+        _rich_text_serialize(text);
+        return;
     }
-    Glib::ustring clean_data(text.begin());
-    if (_html_a_tag_counter > 0) clean_data = str::replace(clean_data, CtConst::CHAR_NEWLINE, CtConst::CHAR_SPACE);
-    else                         clean_data = str::replace(clean_data, CtConst::CHAR_NEWLINE, "");
+    Glib::ustring clean_data;
+    if (_html_a_tag_counter > 0) clean_data = str::replace(text, CtConst::CHAR_NEWLINE, CtConst::CHAR_SPACE);
+    else                         clean_data = str::replace(text, CtConst::CHAR_NEWLINE, "");
     if (clean_data.empty() || clean_data == CtConst::CHAR_TAB)
         return;
     clean_data = str::replace(clean_data, "\x20", CtConst::CHAR_SPACE); // replace non-breaking space
@@ -464,13 +395,20 @@ void CtHtml2Xml::handle_data(std::string_view text)
     }
 }
 
-
-
-
 // Found Entity Reference like &name;
-void CtHtml2Xml::handle_charref(std::string_view /*name*/)
+void CtHtml2Xml::on_characters(const Glib::ustring& name)
 {
-    // todo: test it
+    spdlog::debug("{} '{}'", __FUNCTION__, name.c_str());
+}
+
+void CtHtml2Xml::on_error(const Glib::ustring& text)
+{
+    spdlog::debug("{} '{}'", __FUNCTION__, text.c_str());
+}
+
+void CtHtml2Xml::on_fatal_error(const Glib::ustring& text)
+{
+    spdlog::debug("{} '{}'", __FUNCTION__, text.c_str());
 }
 
 void CtHtml2Xml::set_status_bar(CtStatusBar* status_bar)
@@ -484,7 +422,7 @@ void CtHtml2Xml::_start_adding_tag_styles()
     _tag_styles.push_back(tag_style{++_tag_id_generator, "", ""});
 }
 
-void CtHtml2Xml::_add_tag_style(const std::string& style, const std::string& value)
+void CtHtml2Xml::_add_tag_style(const Glib::ustring& style, const Glib::ustring& value)
 {
     auto& current = _tag_styles.back();
     if (current.style.empty()) {
@@ -549,7 +487,7 @@ void CtHtml2Xml::_put_tag_styles_on_top_cache()
         _slot_styles_cache.pop_back();
 }
 
-std::string CtHtml2Xml::_convert_html_color(const std::string& html_color)
+Glib::ustring CtHtml2Xml::_convert_html_color(const Glib::ustring& html_color)
 {
     Gdk::RGBA rgba;
     if (!rgba.set(html_color))

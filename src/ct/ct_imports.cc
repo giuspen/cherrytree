@@ -1,7 +1,7 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -27,7 +27,6 @@
 #include "ct_main_win.h"
 #include "ct_export2html.h"
 #include "ct_logging.h"
-#include <libxml2/libxml/SAX.h>
 
 namespace {
 

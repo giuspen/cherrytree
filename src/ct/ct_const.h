@@ -672,7 +672,7 @@ const inline static std::unordered_map<std::string, std::string> CODE_EXEC_TERM_
     {"win",   std::string("start cmd /k \"") + CODE_EXEC_COMMAND + "\""}
 };
 
-const inline static std::array<std::string_view, 4>  INVALID_HTML_TAGS = {
+const inline static std::array<Glib::ustring, 4> INVALID_HTML_TAGS = {
     "script", "title", "head", "html"
 };
 
