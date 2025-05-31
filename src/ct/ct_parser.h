@@ -315,7 +315,7 @@ public:
 
     virtual void handle_starttag(std::string_view tag, const char** atts) = 0;
     virtual void handle_endtag(std::string_view tag) = 0;
-    virtual void handle_data(const Glib::ustring& text) = 0;
+    virtual void handle_data(const std::string& text) = 0;
 
 public:
     static std::list<html_attr> char2list_attrs(const char** atts);
@@ -352,7 +352,7 @@ public:
     void feed(const std::string& html) override;
     void handle_starttag(std::string_view tag, const char** atts) override;
     void handle_endtag(std::string_view tag) override;
-    void handle_data(const Glib::ustring& text) override;
+    void handle_data(const std::string& text) override;
 
 public:
     void set_local_dir(const std::string& dir)    { _local_dir = dir; }

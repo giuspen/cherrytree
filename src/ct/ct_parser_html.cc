@@ -65,17 +65,23 @@ void CtHtmlParser::feed(const std::string& html)
 {
     struct HelperFunction {
         static void start_element(void* ctx, const xmlChar* name, const xmlChar** atts) {
-            //spdlog::debug("handle_starttag '{}'", (const char*)name);
+#if defined(DEBUG_HTML_PARSING)
+            spdlog::debug("handle_starttag '{}'", (const char*)name);
+#endif /*DEBUG_HTML_PARSING*/
             reinterpret_cast<CtHtmlParser*>(ctx)->handle_starttag((const char*)name, (const char**)atts);
         }
         static void end_element(void* ctx, const xmlChar* name) {
-            //spdlog::debug("handle_endtag '{}'", (const char*)name);
+#if defined(DEBUG_HTML_PARSING)
+            spdlog::debug("handle_endtag '{}'", (const char*)name);
+#endif /*DEBUG_HTML_PARSING*/
             reinterpret_cast<CtHtmlParser*>(ctx)->handle_endtag((const char*)name);
         }
         static void characters(void* ctx, const xmlChar* ch, int len) {
-            Glib::ustring ustr{(const char*)ch, (long unsigned)len};
-            //spdlog::debug("handle_data '{}'", ustr.c_str());
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_data(ustr);
+            std::string chars{(const char*)ch, (long unsigned)len};
+#if defined(DEBUG_HTML_PARSING)
+            spdlog::debug("handle_data '{}'", chars.c_str());
+#endif /*DEBUG_HTML_PARSING*/
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_data(chars);
         }
         static void warning_cb(void*/*ctx*/, const char *msg, ...) {
             va_list args;
@@ -160,7 +166,7 @@ void CtHtml2Xml::feed(const std::string& html)
     _slot_style_id = -1;
     _slot_styles_cache.clear();
 
-    //spdlog::debug("{}", html.c_str());
+    spdlog::debug("{}", html.c_str());
 
     const Glib::ustring doctype = "<!DOCTYPE HTML";
     if (str::startswith(html, doctype) or str::startswith(html, doctype.lowercase())) {
@@ -419,7 +425,7 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
     }
 }
 
-void CtHtml2Xml::handle_data(const Glib::ustring& text)
+void CtHtml2Xml::handle_data(const std::string& text)
 {
     if (_state == ParserState::WAIT_BODY || !_parsing_valid_tag)
         return;
@@ -685,7 +691,9 @@ void CtHtml2Xml::_insert_codebox()
 void CtHtml2Xml::_rich_text_serialize(const std::string& text)
 {
     if (text.empty()) return;
-    //spdlog::debug("{}('{}')", __FUNCTION__, text);
+#if defined(DEBUG_HTML_PARSING)
+    spdlog::debug("{}('{}')", __FUNCTION__, text);
+#endif /*DEBUG_HTML_PARSING*/
     int current_tag_style_id = _get_tag_style_id();
 
     // fist time -> put styles on cache top
@@ -718,7 +726,9 @@ void CtHtml2Xml::_rich_text_save_pending()
             s->set_attribute(attr.first, attr.second);
         }
         s->set_child_text(_slot_text);
-        //spdlog::debug("set_child_text('{}')", _slot_text.c_str());
+#if defined(DEBUG_HTML_PARSING)
+        spdlog::debug("set_child_text('{}')", _slot_text.c_str());
+#endif /*DEBUG_HTML_PARSING*/
         _char_offset += _slot_text.size();
     }
 
