@@ -28,6 +28,8 @@
 #include "ct_storage_xml.h"
 #include <cassert>
 
+//#define DEBUG_HTML_PARSING
+
 namespace {
 
 std::vector<std::string> split_rednotebook_html_nodes(const std::string& input)
@@ -725,7 +727,7 @@ void CtHtml2Xml::_rich_text_save_pending()
         for (auto& attr : s_style.styles) {
             s->set_attribute(attr.first, attr.second);
         }
-        s->set_child_text(_slot_text);
+        s->set_child_text(str::replace(_slot_text, "\xC2\xA0"/*utf8 nbsp*/, " "));
 #if defined(DEBUG_HTML_PARSING)
         spdlog::debug("set_child_text('{}')", _slot_text.c_str());
 #endif /*DEBUG_HTML_PARSING*/
