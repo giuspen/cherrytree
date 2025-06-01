@@ -1,7 +1,7 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -341,9 +341,11 @@ void CtMainWin::config_apply()
     _ctTextview.set_pixels_inside_wrap(_pCtConfig->spaceAroundLines, _pCtConfig->relativeWrappedSpace);
     textView.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
 
+    Glib::RefPtr<Gtk::Settings> pSettings = Gtk::Settings::get_default();
     if (2 != _pCtConfig->cursorBlink) {
-        Gtk::Settings::get_default()->property_gtk_cursor_blink() = _pCtConfig->cursorBlink;
+        pSettings->property_gtk_cursor_blink() = _pCtConfig->cursorBlink;
     }
+    pSettings->property_gtk_cursor_blink_timeout() = INT_MAX; /*otherwise the cursor stops blinking after 10 sec of inactivity*/
     if (2 != _pCtConfig->overlayScroll) {
 //        Gtk::Settings::get_default()->property_gtk_overlay_scrolling() = _pCtConfig->overlayScroll;
         _scrolledwindowText.set_overlay_scrolling(static_cast<bool>(_pCtConfig->overlayScroll));

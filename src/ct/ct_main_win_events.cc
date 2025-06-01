@@ -336,16 +336,18 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
 // Update the cursor image if the pointer moved
 bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 {
-    if (not _ctTextview.mm().get_cursor_visible())
-        _ctTextview.mm().set_cursor_visible(true);
-    if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID
-        and curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
-    {
-        _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+    Gtk::TextView& textView = _ctTextview.mm();
+    if (not textView.get_cursor_visible()) {
+        textView.set_cursor_visible(true);
+    }
+    //textView.reset_cursor_blink();
+    CtTreeIter ctTreeIter = curr_tree_iter();
+    if (ctTreeIter.get_node_is_code()) {
+        textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }
     int x, y;
-    _ctTextview.mm().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
+    textView.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
     _ctTextview.cursor_and_tooltips_handler(x, y);
     return false;
 }
