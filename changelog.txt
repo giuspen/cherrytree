@@ -1,3 +1,21 @@
+1.5.0 (June 3rd, 2025)
+  * fixed Ctrl+V issues on ArchLinux (#2705)
+  * fixed data loss in multifile data storage when disabling option to use embedded file name on disk (#2695)
+  * fixed issue with system tray docking on windows causing unwanted auto-resize of the tree pane (#2699)
+  * fixed insert TOC not marking the text buffer for update if empty (#1484)
+  * fixed cursor stops blinking after a timeout (#2714)
+  * improved colour chooser dialog, now also supporting remove a user colour
+  * replace html non breaking spaces characters with normal spaces when the target is xml (e.g. paste from clipboard)
+  * explorer tree search by typing to use the quick node selection dialog (#1974)
+  * quick node selection dialog, added nodes icons (#2683)
+  * fixed quick node selection dialog can get too wide (#2683)
+  * added right click menu items to expand/collapse all TOC headers (#2389)
+  * fixed clear formatting can remove a collapsed anchor without expanding the hidden text (#2389)
+  * added new icons for jenkins, postgresql, spring-boot (#2677)
+  * added new icons for snowflake, vim, locale/languages (#2686)
+  * command palette, added actions icons
+  * incomplete languages: ar, el, fi, hi_IN, hr, kk_KZ, kk_LA, lt, nl, ru, sk, sv, zh_CN (want to help and update one? write me https://www.giuspen.net/feedback/)
+
 1.4.0 (March 22nd, 2025)
   * password protected archives, enhanced encryption strength (7zip AES, work of @vitusb, from original report/patch to 7zip of @3lbios, #2211)
   * collapsible headers, the collapsible section must not contain a bigger header, only smaller headers (#2389)
