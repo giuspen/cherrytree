@@ -340,10 +340,10 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
             }
             gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
             pTextBuffer->set_modified(false);
-            node_data.rTextBuffer = pTextBuffer;
+            node_data.pTextBuffer = pTextBuffer;
         }
         else {
-            node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+            node_data.pTextBuffer = _pCtMainWin->get_new_text_buffer();
         }
 
         Gtk::TreeIter node_iter;

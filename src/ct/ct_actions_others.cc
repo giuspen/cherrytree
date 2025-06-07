@@ -313,7 +313,7 @@ void CtActions::image_link_edit()
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_entry = CtLinkEntry();
     if (curr_image_anchor->get_link().empty()) {
-        _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
+        _link_entry.type = CtLinkType::Webs; // default value
     }
     else if (not _links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry)) {
         return;
@@ -346,7 +346,7 @@ void CtActions::toggle_show_hide_main_window()
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
-    if (link_entry.type == CtConst::LINK_TYPE_WEBS) { // link to webpage
+    if (CtLinkType::Webs == link_entry.type) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
         if (_pCtConfig->weblinkCustomOn) {
             std::string cmd = fmt::sprintf(_pCtConfig->weblinkCustomAct, clean_weblink.raw());
@@ -361,7 +361,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
             fs::open_weblink(clean_weblink);
         }
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE) { // link to file
+    else if (CtLinkType::File == link_entry.type) { // link to file
         fs::path filepath = fs::path{link_entry.file}.string_native();
         if (filepath.is_relative()) filepath = fs::canonical(filepath, _pCtMainWin->get_ct_storage()->get_file_path().parent_path());
         if (from_wheel) {
@@ -380,7 +380,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
             fs::open_filepath(filepath, true, _pCtConfig);
         }
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD) { // link to folder
+    else if (CtLinkType::Fold == link_entry.type) { // link to folder
         fs::path folderpath = fs::path{link_entry.fold}.string_native();
         if (folderpath.is_relative()) folderpath = fs::canonical(folderpath, _pCtMainWin->get_ct_storage()->get_file_path().parent_path());
         if (from_wheel) {
@@ -392,7 +392,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         }
         fs::open_folderpath(folderpath, _pCtConfig);
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) { // link to a tree node
+    else if (CtLinkType::Node == link_entry.type) { // link to a tree node
         CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
         if (not tree_iter) {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::to_string(link_entry.node_id)), *_pCtMainWin);

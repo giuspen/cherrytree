@@ -90,15 +90,15 @@ void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
     updateJustification(CtTextIterUtil::get_text_iter_alignment(textIter, _pCtMainWin));
 }
 
-void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer)
+void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer)
 {
-    _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(_charOffset));
+    _rTextChildAnchor = pTextBuffer->create_child_anchor(pTextBuffer->get_iter_at_offset(_charOffset));
     if (not _justification.empty()) {
-        Gtk::TextIter textIterStart = rTextBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
+        Gtk::TextIter textIterStart = pTextBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
         Gtk::TextIter textIterEnd = textIterStart;
         textIterEnd.forward_char();
         Glib::ustring tagName = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_JUSTIFICATION, _justification);
-        rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
+        pTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
         std::optional<Glib::ustring> optTag = CtTextIterUtil::iter_get_tag_startingwith(textIterStart, CtConst::TAG_INVISIBLE_PREFIX);
         if (optTag.has_value()) {
             //spdlog::debug("{}", optTag.value().c_str());

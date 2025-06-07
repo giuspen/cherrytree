@@ -77,8 +77,8 @@ void CtMainWin::update_window_save_not_needed()
     _fileSaveNeeded = false;
     CtTreeIter treeIter = curr_tree_iter();
     if (treeIter) {
-        Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
-        rTextBuffer->set_modified(false);
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = treeIter.get_node_text_buffer();
+        pTextBuffer->set_modified(false);
         std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_anchored_widgets_fast();
         for (CtAnchoredWidget* pAnchoredWidget : anchoredWidgets) {
             pAnchoredWidget->set_modified_false();
@@ -472,8 +472,8 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
         const CtTreeIter prevTreeIter = curr_tree_iter();
         if (prevTreeIter) {
             prevDocRestore.node_path = _uCtTreestore->get_path(prevTreeIter).to_string();
-            const Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
-            prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
+            const Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = prevTreeIter.get_node_text_buffer();
+            prevDocRestore.cursor_pos = pTextBuffer->property_cursor_position();
             prevDocRestore.v_adj_val = round(_scrolledwindowText.get_vadjustment()->get_value());
         }
         _pCtConfig->recentDocsRestore[currDocFilePath.string()] = prevDocRestore;

@@ -161,7 +161,7 @@ using SerializeFunc = std::function<void(Gtk::TextIter& start_iter,
 void generic_process_slot(const CtConfig* const pCtConfig,
                           const int start_offset,
                           const int end_offset,
-                          const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
+                          const Glib::RefPtr<Gtk::TextBuffer>& pTextBuffer,
                           SerializeFunc serialize_func,
                           const bool list_info = false);
 

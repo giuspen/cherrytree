@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_link.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,10 +28,10 @@
 bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
                                    const Glib::ustring& title,
                                    Gtk::TreeIter sel_tree_iter,
-                                   CtLinkEntry& link_entries)
+                                   CtLinkEntry& link_entry)
 {
-    if (link_entries.type == "") {
-        link_entries.type = CtConst::LINK_TYPE_WEBS;
+    if (CtLinkType::None == link_entry.type) {
+        link_entry.type = CtLinkType::Webs;
     }
     CtTreeStore& ctTreestore = ctMainWin.get_tree_store();
     Gtk::Dialog dialog{title,
@@ -48,7 +48,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     image_webs.set_from_icon_name("ct_link_website", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_webs{_("To WebSite")};
     Gtk::Entry entry_webs;
-    entry_webs.set_text(link_entries.webs);
+    entry_webs.set_text(link_entry.webs);
     hbox_webs.pack_start(image_webs, false, false);
     hbox_webs.pack_start(radiobutton_webs, false, false);
     hbox_webs.pack_start(entry_webs);
@@ -60,7 +60,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::RadioButton radiobutton_file{_("To File")};
     radiobutton_file.join_group(radiobutton_webs);
     Gtk::Entry entry_file;
-    entry_file.set_text(link_entries.file);
+    entry_file.set_text(link_entry.file);
     Gtk::Button button_browse_file;
     button_browse_file.set_image_from_icon_name("ct_find", Gtk::ICON_SIZE_BUTTON);
     hbox_file.pack_start(image_file, false, false);
@@ -75,7 +75,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::RadioButton radiobutton_folder{_("To Folder")};
     radiobutton_folder.join_group(radiobutton_webs);
     Gtk::Entry entry_folder;
-    entry_folder.set_text(link_entries.fold);
+    entry_folder.set_text(link_entry.fold);
     Gtk::Button button_browse_folder;
     button_browse_folder.set_image_from_icon_name("ct_find", Gtk::ICON_SIZE_BUTTON);
     hbox_folder.pack_start(image_folder, false, false);
@@ -113,11 +113,11 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_anchor;
     Gtk::Entry entry_anchor;
-    entry_anchor.set_text(link_entries.anch);
+    entry_anchor.set_text(link_entry.anch);
     Gtk::Button button_browse_anchor;
     button_browse_anchor.set_image_from_icon_name("ct_anchor", Gtk::ICON_SIZE_BUTTON);
     Gtk::Button button_search_anchor;
-    button_search_anchor.set_sensitive(not link_entries.anch.empty());
+    button_search_anchor.set_sensitive(not link_entry.anch.empty());
     button_search_anchor.set_image_from_icon_name("ct_find", Gtk::ICON_SIZE_BUTTON);
     hbox_anchor.pack_start(entry_anchor);
     hbox_anchor.pack_start(button_browse_anchor, false, false);
@@ -143,22 +143,22 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     pContentArea->pack_start(hbox_detail);
     pContentArea->set_spacing(5);
 
-    radiobutton_webs.set_active(link_entries.type == CtConst::LINK_TYPE_WEBS);
-    radiobutton_node.set_active(link_entries.type == CtConst::LINK_TYPE_NODE);
-    radiobutton_file.set_active(link_entries.type == CtConst::LINK_TYPE_FILE);
-    radiobutton_folder.set_active(link_entries.type == CtConst::LINK_TYPE_FOLD);
+    radiobutton_webs.set_active(CtLinkType::Webs == link_entry.type);
+    radiobutton_node.set_active(CtLinkType::Node == link_entry.type);
+    radiobutton_file.set_active(CtLinkType::File == link_entry.type);
+    radiobutton_folder.set_active(CtLinkType::Fold == link_entry.type);
 
     bool first_in{true};
 
     auto link_type_changed_on_dialog = [&](){
-        entry_webs.set_sensitive(link_entries.type == CtConst::LINK_TYPE_WEBS);
-        hbox_detail.set_sensitive(link_entries.type == CtConst::LINK_TYPE_NODE);
-        entry_file.set_sensitive(link_entries.type == CtConst::LINK_TYPE_FILE);
-        entry_folder.set_sensitive(link_entries.type == CtConst::LINK_TYPE_FOLD);
-        if (link_entries.type == CtConst::LINK_TYPE_WEBS) {
+        entry_webs.set_sensitive(CtLinkType::Webs == link_entry.type);
+        hbox_detail.set_sensitive(CtLinkType::Node == link_entry.type);
+        entry_file.set_sensitive(CtLinkType::File == link_entry.type);
+        entry_folder.set_sensitive(CtLinkType::Fold == link_entry.type);
+        if (CtLinkType::Webs == link_entry.type) {
             entry_webs.grab_focus();
         }
-        else if (link_entries.type == CtConst::LINK_TYPE_NODE) {
+        else if (CtLinkType::Node == link_entry.type) {
             treeview_2.grab_focus();
             if (first_in) {
                 first_in = false;
@@ -173,7 +173,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             treeview_2.set_cursor(sel_path);
             treeview_2.scroll_to_row(sel_path);
         }
-        else if (link_entries.type == CtConst::LINK_TYPE_FILE) {
+        else if (CtLinkType::File == link_entry.type) {
             entry_file.grab_focus();
         }
         else {
@@ -183,7 +183,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     radiobutton_webs.signal_toggled().connect([&](){
         if (radiobutton_webs.get_active()){
-            link_entries.type = CtConst::LINK_TYPE_WEBS;
+            link_entry.type = CtLinkType::Webs;
         }
         link_type_changed_on_dialog();
     });
@@ -193,13 +193,13 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     });
     radiobutton_node.signal_toggled().connect([&](){
         if (radiobutton_node.get_active()) {
-            link_entries.type = CtConst::LINK_TYPE_NODE;
+            link_entry.type = CtLinkType::Node;
         }
         link_type_changed_on_dialog();
     });
     radiobutton_file.signal_toggled().connect([&](){
         if (radiobutton_file.get_active()) {
-            link_entries.type = CtConst::LINK_TYPE_FILE;
+            link_entry.type = CtLinkType::File;
         }
         link_type_changed_on_dialog();
     });
@@ -209,7 +209,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     });
     radiobutton_folder.signal_toggled().connect([&](){
         if (radiobutton_folder.get_active()) {
-            link_entries.type = CtConst::LINK_TYPE_FOLD;
+            link_entry.type = CtLinkType::Fold;
         }
         link_type_changed_on_dialog();
     });
@@ -358,9 +358,9 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     });
     dialog.signal_key_press_event().connect([&](GdkEventKey* event) {
         if (GDK_KEY_Tab == event->keyval or GDK_KEY_ISO_Left_Tab == event->keyval) {
-            if (link_entries.type == CtConst::LINK_TYPE_WEBS) radiobutton_file.set_active(true);
-            else if (link_entries.type == CtConst::LINK_TYPE_FILE) radiobutton_folder.set_active(true);
-            else if (link_entries.type == CtConst::LINK_TYPE_FOLD) radiobutton_node.set_active(true);
+            if (CtLinkType::Webs == link_entry.type) radiobutton_file.set_active(true);
+            else if (CtLinkType::File == link_entry.type) radiobutton_folder.set_active(true);
+            else if (CtLinkType::Fold == link_entry.type) radiobutton_node.set_active(true);
             else radiobutton_webs.set_active(true);
             return true;
         }
@@ -374,10 +374,10 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         return false;
     }
 
-    link_entries.webs = str::trim(entry_webs.get_text());
-    link_entries.file = str::trim(entry_file.get_text());
-    link_entries.fold = str::trim(entry_folder.get_text());
-    link_entries.anch = str::trim(entry_anchor.get_text());
-    link_entries.node_id = ctTreestore.to_ct_tree_iter(sel_tree_iter).get_node_id();
+    link_entry.webs = str::trim(entry_webs.get_text());
+    link_entry.file = str::trim(entry_file.get_text());
+    link_entry.fold = str::trim(entry_folder.get_text());
+    link_entry.anch = str::trim(entry_anchor.get_text());
+    link_entry.node_id = ctTreestore.to_ct_tree_iter(sel_tree_iter).get_node_id();
     return true;
 }

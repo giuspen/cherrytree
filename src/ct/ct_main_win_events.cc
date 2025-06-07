@@ -41,21 +41,21 @@ void CtMainWin::_on_treeview_cursor_changed()
             return;
         }
         const gint64 prevNodeIdDataHolder = _prevTreeIter.get_node_id_data_holder();
-        Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
-        if (rTextBuffer->get_modified()) {
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _prevTreeIter.get_node_text_buffer();
+        if (pTextBuffer->get_modified()) {
             _fileSaveNeeded = true;
-            rTextBuffer->set_modified(false);
+            pTextBuffer->set_modified(false);
             _ctStateMachine.update_state(_prevTreeIter);
         }
         const int scr = round(_scrolledwindowText.get_vadjustment()->get_value());
-        const int cur = rTextBuffer->property_cursor_position();
+        const int cur = pTextBuffer->property_cursor_position();
         _nodesVScrollPos[prevNodeIdDataHolder] = scr;
         _nodesCursorPos[prevNodeIdDataHolder] = cur;
         //spdlog::debug("W[{}] scr={}, cur={}", prevNodeIdDataHolder, scr, cur);
     }
 
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
-    if (not rTextBuffer) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = treeIter.get_node_text_buffer();
+    if (not pTextBuffer) {
         CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), treeIter.get_node_name().raw()), *this);
         if (_prevTreeIter) {
             _uCtTreeview->set_cursor_safe(_prevTreeIter);

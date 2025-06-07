@@ -216,8 +216,8 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         _s_state.all_matches_first_in_node = true;
         CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(node_iter);
         if (_s_options.node_content) {
-            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
-            if (not rTextBuffer) {
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ct_node_iter.get_node_text_buffer();
+            if (not pTextBuffer) {
                 CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name().raw()), *_pCtMainWin);
                 break;
             }
@@ -438,8 +438,8 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                 _s_state.all_matches_first_in_node = true;
                 CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(child_iter);
                 if (_s_options.node_content) {
-                    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_node_iter.get_node_text_buffer();
-                    if (not rTextBuffer) {
+                    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ct_node_iter.get_node_text_buffer();
+                    if (not pTextBuffer) {
                         CtDialogs::error_dialog(str::format(_("Failed to retrieve the content of the node '%s'"), ct_node_iter.get_node_name().raw()), *_pCtMainWin);
                         break;
                     }
@@ -688,7 +688,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     if (not forward) {
         std::swap(obj_search_start_offs, obj_search_end_offs);
     }
-    if (_check_pattern_in_object_between(tree_iter,
+    if (tree_iter.get_node_is_rich_text() and
+        _check_pattern_in_object_between(tree_iter,
                                          re_pattern,
                                          obj_search_start_offs,
                                          obj_search_end_offs,
@@ -1172,7 +1173,7 @@ bool CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
                                                  CtAnchMatchList& anchMatchList)
 {
     bool retVal{false};
-    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset);
+    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset, true/*also_links*/);
     if (not forward) {
         std::reverse(obj_vec.begin(), obj_vec.end());
     }

@@ -591,8 +591,8 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char do
         std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
         bool resave_widgets{false};
         for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets)) {
-            Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
-            if (rChildAnchor and not rChildAnchor->get_deleted()) {
+            Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+            if (pChildAnchor and not pChildAnchor->get_deleted()) {
                 retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
             }
             else {
@@ -629,7 +629,9 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char do
     return std::list<CtAnchoredWidget*>{};
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_offset/*= -1*/, const int end_offset/*= -1*/) const
+std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_offset/*= -1*/,
+                                                              const int end_offset/*= -1*/,
+                                                              const bool also_links/*= false*/) const
 {
     if (*this) {
         const gint64 masterId = (*this)->get_value(_pColumns->colSharedNodesMasterId);
@@ -641,22 +643,31 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
             (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
-        (void)get_node_text_buffer(); // ensure buffer/widgets loaded
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = get_node_text_buffer(); // ensure buffer/widgets loaded
         std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
-        if ((*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0) {
-            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = get_node_text_buffer();
-            Gtk::TextIter curr_iter = start_offset >= 0 ? rTextBuffer->get_iter_at_offset(start_offset) : rTextBuffer->begin();
+        if ((*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0 or also_links) {
+            Gtk::TextIter curr_iter = start_offset >= 0 ? pTextBuffer->get_iter_at_offset(start_offset) : pTextBuffer->begin();
+            Glib::ustring lastLinkTagName;
+            int lastLinkTagStart{-1};
             do {
                 if (end_offset >= 0 and curr_iter.get_offset() > end_offset) {
                     break;
                 }
-                Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = curr_iter.get_child_anchor();
-                if (rChildAnchor) {
-                    CtAnchoredWidget* pCtAnchoredWidget = get_anchored_widget(rChildAnchor);
+                Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = curr_iter.get_child_anchor();
+                if (pChildAnchor) {
+                    CtAnchoredWidget* pCtAnchoredWidget = get_anchored_widget(pChildAnchor);
                     if (pCtAnchoredWidget) {
                         pCtAnchoredWidget->updateOffset(curr_iter.get_offset());
                         pCtAnchoredWidget->updateJustification(curr_iter);
                         retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
+                    }
+                }
+                else if (also_links) {
+                    std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(curr_iter, CtConst::TAG_LINK_PREFIX);
+                    if (tag_name.has_value() and tag_name.value() != lastLinkTagName) {
+                        lastLinkTagName = tag_name.value();
+                        CtLinkEntry link_entry = CtMiscUtil::get_link_entry(lastLinkTagName.substr(5));
+                        spdlog::debug("{} +{}", __FUNCTION__, link_entry.get_target_searchable().c_str());
                     }
                 }
             }
@@ -668,20 +679,20 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
     return std::list<CtAnchoredWidget*>{};
 }
 
-CtAnchoredWidget* CtTreeIter::get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor) const
+CtAnchoredWidget* CtTreeIter::get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor) const
 {
     if (*this) {
         const gint64 masterId = (*this)->get_value(_pColumns->colSharedNodesMasterId);
         if (masterId > 0) {
             CtTreeIter masterIter = _pCtMainWin->get_tree_store().get_node_from_node_id(masterId);
             if (masterIter) {
-                return masterIter.get_anchored_widget(rChildAnchor);
+                return masterIter.get_anchored_widget(pChildAnchor);
             }
             spdlog::error("!! {} master {}", __FUNCTION__, masterId);
             (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets)) {
-            if (rChildAnchor == pCtAnchoredWidget->getTextChildAnchor()) {
+            if (pChildAnchor == pCtAnchoredWidget->getTextChildAnchor()) {
                 return pCtAnchoredWidget;
             }
         }
@@ -879,10 +890,10 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     if (nodeMasterId <= 0) spdlog::debug("Node {} > {}", nodeId, nodeName.raw());
     else spdlog::debug("Node {}[{}] > {}", nodeId, nodeMasterId, nodeName.raw());
 
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
-    _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = treeIter.get_node_text_buffer();
+    _pCtMainWin->apply_syntax_highlighting(pTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
     pCtTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
-    pCtTextView->set_buffer(rTextBuffer);
+    pCtTextView->set_buffer(pTextBuffer);
     pCtTextView->set_spell_check(treeIter.get_node_is_text());
     textView.set_sensitive(true);
     textView.set_editable(not treeIter.get_node_read_only());
@@ -890,11 +901,11 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 
     std::list<CtAnchoredWidget*> anchored_widgets_to_hide;
     for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
-        Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
-        if (rChildAnchor) {
-            if (0 == rChildAnchor->get_widgets().size()) {
-                // Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
-                textView.add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+        Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+        if (pChildAnchor) {
+            if (0 == pChildAnchor->get_widgets().size()) {
+                // Gtk::TextIter textIter = pTextBuffer->get_iter_at_child_anchor(pChildAnchor);
+                textView.add_child_at_anchor(*pCtAnchoredWidget, pChildAnchor);
                 pCtAnchoredWidget->apply_width_height(textView.get_allocation().get_width());
                 pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
             }
@@ -907,7 +918,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
             }
         }
         else {
-            spdlog::error("!! {} rChildAnchor", __FUNCTION__);
+            spdlog::error("!! {} pChildAnchor", __FUNCTION__);
         }
     }
 
@@ -921,18 +932,18 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 
     // connect signals
     _curr_node_sigc_conn.push_back(
-        rTextBuffer->signal_modified_changed().connect(sigc::bind<Glib::RefPtr<Gtk::TextBuffer>>(
-            sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_modified_changed), rTextBuffer
+        pTextBuffer->signal_modified_changed().connect(sigc::bind<Glib::RefPtr<Gtk::TextBuffer>>(
+            sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_modified_changed), pTextBuffer
         ))
     );
     _curr_node_sigc_conn.push_back(
-        rTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert), false)
+        pTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert), false)
     );
     _curr_node_sigc_conn.push_back(
-        rTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase), false)
+        pTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase), false)
     );
     _curr_node_sigc_conn.push_back(
-        rTextBuffer->signal_mark_set().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_mark_set), false)
+        pTextBuffer->signal_mark_set().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_mark_set), false)
     );
     if (treeIter.get_node_is_rich_text()) {
         const auto nodeIdDataHolder = treeIter.get_node_id_data_holder();
@@ -999,7 +1010,7 @@ void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeD
     }
 
     if (loadTextBuffer) {
-        nodeData.rTextBuffer = ctTreeIter.get_node_text_buffer(); // ensure buffer/widgets loaded
+        nodeData.pTextBuffer = ctTreeIter.get_node_text_buffer(); // ensure buffer/widgets loaded
         nodeData.anchoredWidgets = row[_columns.colAnchoredWidgets];
     }
     nodeData.name =  row[_columns.colNodeName];
@@ -1025,7 +1036,7 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
 
     row[_columns.rColPixbuf] = _get_node_icon(_rTreeStore->iter_depth(treeIter), nodeData.syntax, nodeData.customIconId);
     row[_columns.colNodeName] = nodeData.name;
-    row[_columns.rColTextBuffer] = nodeData.rTextBuffer;
+    row[_columns.rColTextBuffer] = nodeData.pTextBuffer;
     row[_columns.colSyntaxHighlighting] = nodeData.syntax;
     row[_columns.colNodeTags] = nodeData.tags;
     row[_columns.colNodeIsReadOnly] = nodeData.isReadOnly;
@@ -1133,9 +1144,9 @@ Gtk::TreeIter CtTreeStore::insert_node(CtNodeData* pNodeData, const Gtk::TreeIte
     return newIter;
 }
 
-void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer)
+void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer)
 {
-    if (_pCtMainWin->user_active() and rTextBuffer->get_modified()) {
+    if (_pCtMainWin->user_active() and pTextBuffer->get_modified()) {
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
     }
 }
@@ -1197,10 +1208,10 @@ void CtTreeStore::addAnchoredWidgets(CtTreeIter ctTreeIter,
     }
 
     for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgetList) {
-        Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
-        if (rChildAnchor) {
-            if (0 == rChildAnchor->get_widgets().size()) {
-                pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+        Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+        if (pChildAnchor) {
+            if (0 == pChildAnchor->get_widgets().size()) {
+                pTextView->add_child_at_anchor(*pCtAnchoredWidget, pChildAnchor);
                 pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
                 pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
             }
@@ -1210,7 +1221,7 @@ void CtTreeStore::addAnchoredWidgets(CtTreeIter ctTreeIter,
             }
         }
         else {
-            spdlog::error("!! {} rChildAnchor", __FUNCTION__);
+            spdlog::error("!! {} pChildAnchor", __FUNCTION__);
         }
     }
 }
@@ -1439,8 +1450,8 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                 ++summaryInfo.nodes_code_num;
             }
             // ensure the node content is populated
-            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
-            if (not rTextBuffer) {
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ctTreeIter.get_node_text_buffer();
+            if (not pTextBuffer) {
                 error = str::format(_("Failed to retrieve the content of the node '%s'"), ctTreeIter.get_node_name().raw());
                 return true; /* true for stop */
             }

@@ -76,14 +76,29 @@ using CtDelayedTextBufferMap = std::unordered_map<gint64, std::shared_ptr<xmlpp:
 using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
 using CtSharedNodesMap = std::map<gint64, std::set<gint64>>;
 
+enum class CtLinkType { None, Webs, File, Fold, Node };
+
 struct CtLinkEntry
 {
-    Glib::ustring type;
+    CtLinkType    type{CtLinkType::None};
     gint64        node_id{-1};
     Glib::ustring webs;
     Glib::ustring file;
     Glib::ustring fold;
     Glib::ustring anch;
+    const Glib::ustring& get_target_searchable() const {
+        if (CtLinkType::Webs == type) return webs;
+        if (CtLinkType::File == type) return file;
+        if (CtLinkType::Fold == type) return fold;
+        return anch;
+    }
+    const char* get_type_str() const {
+        if (CtLinkType::Webs == type) return "webs";
+        if (CtLinkType::File == type) return "file";
+        if (CtLinkType::Fold == type) return "fold";
+        if (CtLinkType::Node == type) return "node";
+        return "none";
+    }
 };
 
 struct CtListInfo

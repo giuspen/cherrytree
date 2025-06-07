@@ -1,7 +1,7 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -83,8 +83,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter,
                                         int sel_start,
                                         int sel_end)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
-    if (not rTextBuffer) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
+    if (not pTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name().raw());
@@ -130,8 +130,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter,
                 }
             }
         }
-        Gtk::TextIter start_iter = rTextBuffer->get_iter_at_offset(sel_start == -1 ? 0 : sel_start);
-        Gtk::TextIter end_iter = sel_end == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(sel_end);
+        Gtk::TextIter start_iter = pTextBuffer->get_iter_at_offset(sel_start == -1 ? 0 : sel_start);
+        Gtk::TextIter end_iter = sel_end == -1 ? pTextBuffer->end() : pTextBuffer->get_iter_at_offset(sel_end);
         std::vector<Glib::ustring> node_lines = str::split(node_html_text, "\n");
         if (node_lines.size() > 0) {
             std::vector<bool> rtl_for_lines = CtStrUtil::get_rtl_for_lines(start_iter.get_text(end_iter));
@@ -146,7 +146,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter,
         }
     }
     else {
-        html_text += _html_get_from_code_buffer(rTextBuffer, sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
+        html_text += _html_get_from_code_buffer(pTextBuffer, sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
     }
     if (not index.empty() and not options.index_in_page) {
         html_text += Glib::ustring("<p align=\"center\">") + "<img src=\"" + Glib::build_filename("images", "home.svg") + "\" height=\"22\" width=\"22\">" +
@@ -270,11 +270,11 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
             }
         }
         else {
-            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
-            if (not rTextBuffer) {
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
+            if (not pTextBuffer) {
                 throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
             }
-            html_text += _html_get_from_code_buffer(rTextBuffer, -1, -1, tree_iter.get_node_syntax_highlighting());
+            html_text += _html_get_from_code_buffer(pTextBuffer, -1, -1, tree_iter.get_node_syntax_highlighting());
         }
         html_text += "</div>"; // div class='page'
         rFileStream->write(html_text.c_str(), html_text.bytes());
@@ -536,8 +536,8 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
                                                   std::vector<CtAnchoredWidget*>& out_widgets,
                                                   const bool single_file)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
-    if (not rTextBuffer) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
+    if (not pTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
     auto widgets = tree_iter.get_anchored_widgets(sel_start, sel_end);
@@ -547,14 +547,14 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
     int start_offset = sel_start == -1 ? 0 : sel_start;
     for (auto widget : out_widgets) {
         int end_offset = widget->getOffset();
-        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, end_offset, rTextBuffer, single_file));
+        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, end_offset, pTextBuffer, single_file));
         start_offset = end_offset;
     }
     if (sel_end == -1) {
-        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, -1, rTextBuffer, single_file));
+        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, -1, pTextBuffer, single_file));
     }
     else {
-        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, sel_end, rTextBuffer, single_file));
+        out_slots.push_back(html_process_slot(_pCtConfig, _pCtMainWin, start_offset, sel_end, pTextBuffer, single_file));
     }
 }
 
@@ -886,21 +886,21 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
                                                                   const bool single_file)
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link_prop_val);
-    if (link_entry.type.empty()) {
+    if (CtLinkType::None == link_entry.type) {
         return "";
     }
 
     std::string href;
-    if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
+    if (CtLinkType::Webs == link_entry.type) {
         href = link_entry.webs;
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
+    else if (CtLinkType::File == link_entry.type) {
         href = "file://" + link_process_filepath(link_entry.file, pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), true/*forHtml*/);
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
+    else if (CtLinkType::Fold == link_entry.type) {
         href = "file://" + link_process_folderpath(link_entry.fold, pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), true/*forHtml*/);
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
+    else if (CtLinkType::Node == link_entry.type) {
         CtTreeIter node = pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
         if (node) {
             href = _get_html_filename(node);

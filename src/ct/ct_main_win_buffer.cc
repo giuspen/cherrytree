@@ -142,12 +142,12 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
         switch (target) {
             case 'r': {
                 if (node.get_node_is_rich_text()) {
-                    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = node.get_node_text_buffer();
-                    if (not rTextBuffer) {
+                    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = node.get_node_text_buffer();
+                    if (not pTextBuffer) {
                         error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw());
                         return true; /* true for stop */
                     }
-                    apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
+                    apply_syntax_highlighting(pTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
                 }
             } break;
             case 'p': {
@@ -161,12 +161,12 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                     }
                 }
                 else {
-                    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = node.get_node_text_buffer();
-                    if (not rTextBuffer) {
+                    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = node.get_node_text_buffer();
+                    if (not pTextBuffer) {
                         error = str::format(_("Failed to retrieve the content of the node '%s'"), node.get_node_name().raw());
                         return true; /* true for stop */
                     }
-                    apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
+                    apply_syntax_highlighting(pTextBuffer, node.get_node_syntax_highlighting(), true/*forceReApply*/);
                 }
             } break;
             case 't': {
@@ -361,19 +361,19 @@ Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustrin
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
     Glib::ustring tooltip;
-    if (link_entry.type == "") { // case when link has wrong format
+    if (CtLinkType::None == link_entry.type) { // case when link has wrong format
         tooltip = str::replace(link, "amp;", "");
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
+    else if (CtLinkType::Webs == link_entry.type) {
         tooltip = str::replace(link_entry.webs, "amp;", "");
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
+    else if (CtLinkType::File == link_entry.type) {
         tooltip = link_entry.file;
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
+    else if (CtLinkType::Fold == link_entry.type) {
         tooltip = link_entry.fold;
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
+    else if (CtLinkType::Node == link_entry.type) {
         tooltip = _uCtTreestore->get_node_name_from_node_id(link_entry.node_id);
         if (!link_entry.anch.empty())
             tooltip += "#" + link_entry.anch;
@@ -554,11 +554,11 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gtk::TextBuffer> pTextBuf
 
 void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos, const int v_adj_val)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = treeIter.get_node_text_buffer();
-    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = treeIter.get_node_text_buffer();
+    Gtk::TextIter textIter = pTextBuffer->get_iter_at_offset(cursor_pos);
     // if (static_cast<bool>(textIter)) <- don't check because iter at the end returns false
 
-    rTextBuffer->place_cursor(textIter);
+    pTextBuffer->place_cursor(textIter);
 
     while (gtk_events_pending()) gtk_main_iteration();
     _scrolledwindowText.get_vadjustment()->set_value(v_adj_val);

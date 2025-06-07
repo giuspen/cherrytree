@@ -247,8 +247,8 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
                                  const int start_offset/*= 0*/,
                                  const int end_offset/*= -1*/)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_tree_iter->get_node_text_buffer();
-    if (not rTextBuffer) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ct_tree_iter->get_node_text_buffer();
+    if (not pTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter->get_node_name().raw()));
     }
     xmlpp::Element* p_node_node =  CtStorageXmlHelper{_pCtMainWin}.node_to_xml(
@@ -417,7 +417,7 @@ Gtk::TreeIter CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_elemen
             if (pHasDuplicatedId) *pHasDuplicatedId = true;
             // create buffer now because we cannot put a duplicate id in _delayed_text_buffers
             // the id will be fixed on top level code
-            node_data.rTextBuffer = create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1, multifile_dir);
+            node_data.pTextBuffer = create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1, multifile_dir);
         }
         else {
             // because of widgets which are slow to insert for now, delay creating buffers
@@ -430,7 +430,7 @@ Gtk::TreeIter CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_elemen
     else {
         // (use the passed new_id)
         // create buffer now because imported document will be closed
-        node_data.rTextBuffer = create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1, multifile_dir);
+        node_data.pTextBuffer = create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1, multifile_dir);
     }
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }

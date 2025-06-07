@@ -29,14 +29,14 @@
 #include "ct_list.h"
 #include <optional>
 
-void CtActions::_save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer, int cursorOffset)
+void CtActions::_save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer, int cursorOffset)
 {
     std::list<std::string> tagProperties;
     std::list<std::string> tagValues;
     if (cursorOffset < 0) {
-        cursorOffset = rTextBuffer->property_cursor_position();
+        cursorOffset = pTextBuffer->property_cursor_position();
     }
-    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursorOffset);
+    Gtk::TextIter textIter = pTextBuffer->get_iter_at_offset(cursorOffset);
     std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = textIter.get_tags();
     for (auto& curr_tag : curr_tags) {
         Glib::ustring tag_name = curr_tag->property_name();
@@ -391,7 +391,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
     if (property_value.empty()) {
         if (tag_property == CtConst::TAG_LINK) {
             if (CtTextIterUtil::startswith_any(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
-                _link_entry.type = CtConst::LINK_TYPE_WEBS;
+                _link_entry.type = CtLinkType::Webs;
                 _link_entry.webs = text_buffer->get_text(*iter_sel_start, *iter_sel_end);
             }
             int insert_offset = iter_sel_start->get_offset();
@@ -539,9 +539,9 @@ CtTableCommon* CtActions::_table_in_use()
 bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry)
 {
     const CtLinkEntry new_entry = CtMiscUtil::get_link_entry(curr_link);
-    if (new_entry.type.empty()) {
+    if (CtLinkType::None == new_entry.type) {
         CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", str::xml_escape(curr_link)), *_pCtMainWin);
-        link_entry.type = CtConst::LINK_TYPE_WEBS;
+        link_entry.type = CtLinkType::Webs;
         return false;
     }
     link_entry = new_entry;
@@ -552,7 +552,7 @@ bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLink
 Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
 {
     Glib::ustring property_value;
-    if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
+    if (CtLinkType::Webs == link_entry.type) {
         std::string link_url = link_entry.webs;
         if (not link_url.empty()) {
             if (not str::startswith_url(link_url.c_str())) {
@@ -561,14 +561,14 @@ Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
             property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
         }
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE or link_entry.type == CtConst::LINK_TYPE_FOLD) {
-        Glib::ustring link_uri = link_entry.type == CtConst::LINK_TYPE_FILE ? link_entry.file : link_entry.fold;
+    else if (CtLinkType::File == link_entry.type or CtLinkType::Fold == link_entry.type) {
+        Glib::ustring link_uri = CtLinkType::File == link_entry.type ? link_entry.file : link_entry.fold;
         if (not link_uri.empty()) {
             link_uri = Glib::Base64::encode(link_uri);
-            property_value = link_entry.type + CtConst::CHAR_SPACE + link_uri;
+            property_value = link_entry.get_type_str() + CtConst::CHAR_SPACE + link_uri;
         }
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
+    else if (CtLinkType::Node == link_entry.type) {
         gint64 node_id = link_entry.node_id;
         if (node_id != -1) {
             auto link_anchor = link_entry.anch;

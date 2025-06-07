@@ -226,21 +226,28 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
 
 CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
 {
-    CtLinkEntry link_entry;
-    auto vec = str::split(link, " ");
-    if (vec.empty()) return CtLinkEntry();
-    link_entry.type = vec[0];
-    if (link_entry.type == CtConst::LINK_TYPE_WEBS)        link_entry.webs = vec[1];
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE)   link_entry.file = Glib::Base64::decode(vec[1]);
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD)   link_entry.fold = Glib::Base64::decode(vec[1]);
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
-        link_entry.node_id = std::stol(vec[1]);
-        if (vec.size() >= 3) {
-            if (vec.size() == 3) link_entry.anch = vec[2];
-            else                 link_entry.anch = link.substr(vec[0].size() + vec[1].size() + 2);
+    CtLinkEntry link_entry{};
+    std::vector<Glib::ustring> link_vec = str::split(link, " ");
+    if (link_vec.empty()) return link_entry;
+    if (CtConst::LINK_TYPE_WEBS == link_vec[0]) {
+        link_entry.type = CtLinkType::Webs;
+        link_entry.webs = link_vec[1];
+    }
+    else if (CtConst::LINK_TYPE_FILE == link_vec[0]) {
+        link_entry.type = CtLinkType::File;
+        link_entry.file = Glib::Base64::decode(link_vec[1]);
+    }
+    else if (CtConst::LINK_TYPE_FOLD == link_vec[0]) {
+        link_entry.type = CtLinkType::Fold;
+        link_entry.fold = Glib::Base64::decode(link_vec[1]);
+    }
+    else if (CtConst::LINK_TYPE_NODE == link_vec[0]) {
+        link_entry.type = CtLinkType::Node;
+        link_entry.node_id = std::stol(link_vec[1]);
+        if (link_vec.size() >= 3) {
+            if (link_vec.size() == 3) link_entry.anch = link_vec[2];
+            else link_entry.anch = link.substr(link_vec[0].size() + link_vec[1].size() + 2);
         }
-    } else {
-        return CtLinkEntry();
     }
     return link_entry;
 }
@@ -557,7 +564,7 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
 void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
                                           const int start_offset,
                                           const int end_offset,
-                                          const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
+                                          const Glib::RefPtr<Gtk::TextBuffer>& pTextBuffer,
                                           SerializeFunc f_serialize_func,
                                           const bool list_info/*= false*/)
 {
@@ -566,9 +573,9 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
     for (const auto& tag_property : CtConst::TAG_PROPERTIES) {
         curr_attributes[tag_property].clear();
     }
-    Gtk::TextIter curr_start_iter = rTextBuffer->get_iter_at_offset(start_offset);
+    Gtk::TextIter curr_start_iter = pTextBuffer->get_iter_at_offset(start_offset);
     Gtk::TextIter curr_end_iter = curr_start_iter;
-    Gtk::TextIter real_end_iter = end_offset == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(end_offset);
+    Gtk::TextIter real_end_iter = end_offset == -1 ? pTextBuffer->end() : pTextBuffer->get_iter_at_offset(end_offset);
 
     if (CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes)) {
         for (auto& currDelta : delta_attributes) {
@@ -592,7 +599,7 @@ void CtTextIterUtil::generic_process_slot(const CtConfig* const pCtConfig,
         }
 
         if (list_info and last_was_newline) {
-            curr_list_info = CtList{pCtConfig, rTextBuffer}.get_paragraph_list_info(curr_end_iter);
+            curr_list_info = CtList{pCtConfig, pTextBuffer}.get_paragraph_list_info(curr_end_iter);
         }
 
         last_was_newline = '\n' == curr_end_iter.get_char();

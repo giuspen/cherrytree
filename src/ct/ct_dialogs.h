@@ -249,7 +249,7 @@ Glib::ustring img_n_entry_dialog(Gtk::Window& parent,
 bool link_handle_dialog(CtMainWin& ctMainWin,
                         const Glib::ustring& title,
                         Gtk::TreeIter sel_tree_iter,
-                        CtLinkEntry& link_entries);
+                        CtLinkEntry& link_entry);
 
 struct CtFileSelectArgs
 {

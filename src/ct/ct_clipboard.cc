@@ -757,9 +757,9 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
 
     auto pCtTextView = dynamic_cast<CtTextView*>(pTextView);
     const std::string syntax_highlighting = pCtTextView ? pCtTextView->get_syntax_highlighting() : _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = pTextView->get_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = pTextView->get_buffer();
     if (syntax_highlighting != CtConst::RICH_TEXT_ID) {
-        rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), uri_content);
+        pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), uri_content);
     }
     else {
         std::vector<Glib::ustring> uri_list = selection_data.get_uris();
@@ -804,9 +804,9 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                 if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
                     try {
                         auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
-                        _pCtMainWin->get_ct_actions()->image_insert_png(rTextBuffer->get_insert()->get_iter(), pixbuf, "", "");
+                        _pCtMainWin->get_ct_actions()->image_insert_png(pTextBuffer->get_insert()->get_iter(), pixbuf, "", "");
                         for (int i = 0; i < 3; ++i) {
-                            rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_SPACE);
+                            pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_SPACE);
                         }
                         continue;
                     }
@@ -817,7 +817,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                 }
                 else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
                     if (subsequent_insert) {
-                        rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                        pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
                     }
                     _pCtMainWin->get_ct_actions()->embfile_insert_path(file_path);
                 }
@@ -831,7 +831,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                 }
                 else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR)) {
                     if (subsequent_insert) {
-                        rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                        pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
                     }
                     _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
                 }
@@ -841,19 +841,19 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
             }
             if (not property_value.empty()) {
                 if (subsequent_insert) {
-                    rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                    pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
                 }
-                const int start_offset = rTextBuffer->get_insert()->get_iter().get_offset();
-                rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), element);
-                Gtk::TextIter iter_sel_start = rTextBuffer->get_iter_at_offset(start_offset);
-                Gtk::TextIter iter_sel_end = rTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
-                rTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
+                const int start_offset = pTextBuffer->get_insert()->get_iter().get_offset();
+                pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), element);
+                Gtk::TextIter iter_sel_start = pTextBuffer->get_iter_at_offset(start_offset);
+                Gtk::TextIter iter_sel_end = pTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
+                pTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
                                                iter_sel_start, iter_sel_end);
             }
             subsequent_insert = true;
         }
     }
-    pTextView->scroll_to(rTextBuffer->get_insert());
+    pTextView->scroll_to(pTextBuffer->get_insert());
 }
 
 Glib::ustring CtClipboard::_codebox_to_yaml(CtCodebox *codebox)

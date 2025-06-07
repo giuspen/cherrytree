@@ -168,7 +168,7 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
         std::shared_ptr<CtNodeState> node_state;
         pWinToCopyFrom->get_tree_store().get_node_data(old_iter, node_data, true/*loadTextBuffer*/);
         if (node_data.syntax != CtConst::RICH_TEXT_ID) {
-            node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer(node_data.rTextBuffer->get_text());
+            node_data.pTextBuffer = _pCtMainWin->get_new_text_buffer(node_data.pTextBuffer->get_text());
             node_data.anchoredWidgets.clear();
         }
         else {
@@ -176,7 +176,7 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
             state_machine_from.update_state(old_iter);
             node_state = state_machine_from.requested_state_current(old_iter.get_node_id_data_holder());
             node_data.anchoredWidgets.clear();                          // node_state will be used instead
-            node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
+            node_data.pTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
         }
         node_data.tsCreation = std::time(nullptr);
         node_data.tsLastSave = node_data.tsCreation;
@@ -235,7 +235,7 @@ void CtActions::_node_add(const CtDuplicateShared duplicate_shared,
         pWinToCopyFrom->get_tree_store().get_node_data(*pCtTreeIterFrom, nodeData, true/*loadTextBuffer*/);
         if (CtDuplicateShared::Duplicate == duplicate_shared) {
             if (CtConst::RICH_TEXT_ID != nodeData.syntax) {
-                nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.rTextBuffer->get_text());
+                nodeData.pTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.pTextBuffer->get_text());
                 nodeData.anchoredWidgets.clear();
             }
             else {
@@ -243,7 +243,7 @@ void CtActions::_node_add(const CtDuplicateShared duplicate_shared,
                 state_machine_from.update_state(*pCtTreeIterFrom);
                 node_state = state_machine_from.requested_state_current(pCtTreeIterFrom->get_node_id_data_holder());
                 nodeData.anchoredWidgets.clear();                          // node_state will be used instead
-                nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
+                nodeData.pTextBuffer = _pCtMainWin->get_new_text_buffer(); // node_state will be used instead
             }
             nodeData.sharedNodesMasterId = 0;
         }
@@ -268,8 +268,8 @@ Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter,
 {
     if (nodeData.sharedNodesMasterId <= 0) {
         // not a shared node
-        if (not nodeData.rTextBuffer) {
-            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+        if (not nodeData.pTextBuffer) {
+            nodeData.pTextBuffer = _pCtMainWin->get_new_text_buffer();
         }
         nodeData.tsCreation = std::time(nullptr);
         nodeData.tsLastSave = nodeData.tsCreation;

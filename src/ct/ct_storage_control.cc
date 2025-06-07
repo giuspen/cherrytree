@@ -807,8 +807,8 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
         std::string error;
         store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool{
             CtTreeIter ct_tree_iter = store.to_ct_tree_iter(iter);
-            Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
-            if (not rTextBuffer) {
+            Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ct_tree_iter.get_node_text_buffer();
+            if (not pTextBuffer) {
                 error = str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name().raw());
                 return true; /* true for stop */
             }
@@ -824,8 +824,8 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
         for (const auto& node_pair : pending->nodes_to_write_dict) {
             CtTreeIter ct_tree_iter = store.get_node_from_node_id(node_pair.first);
             if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text()) {
-                Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
-                if (not rTextBuffer) {
+                Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ct_tree_iter.get_node_text_buffer();
+                if (not pTextBuffer) {
                     throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), ct_tree_iter.get_node_name().raw()));
                 }
                 for (auto widget : ct_tree_iter.get_anchored_widgets_fast())

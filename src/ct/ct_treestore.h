@@ -49,7 +49,7 @@ struct CtNodeData
     std::string    foregroundRgb24;
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer;
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer;
     std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
@@ -129,7 +129,9 @@ public:
 
     void                         remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_anchored_widgets_fast(const char doSort = 'n') const;
-    std::list<CtAnchoredWidget*> get_anchored_widgets(const int start_offset = -1, const int end_offset = -1) const;
+    std::list<CtAnchoredWidget*> get_anchored_widgets(const int start_offset = -1,
+                                                      const int end_offset = -1,
+                                                      const bool also_links = false) const;
     CtAnchoredWidget*            get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor) const;
 
     void pending_edit_db_node_prop();
@@ -219,7 +221,7 @@ protected:
     Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
     void                      _iter_delete_anchored_widgets(const Gtk::TreeModel::Children& children);
 
-    void _on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer);
+    void _on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer);
     void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes);
     void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end);
     void _on_textbuffer_mark_set(const Gtk::TextIter& iter, const Glib::RefPtr<Gtk::TextMark>& rMark);

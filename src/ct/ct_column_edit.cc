@@ -52,18 +52,18 @@ Gdk::Point CtColumnEdit::_get_cursor_column_mode_place()
 
 Gdk::Point CtColumnEdit::_get_cursor_place()
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
-    Gtk::TextIter iterInsert = rTextBuffer->get_insert()->get_iter();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
+    Gtk::TextIter iterInsert = pTextBuffer->get_insert()->get_iter();
     return _get_point(iterInsert);
 }
 
 bool CtColumnEdit::_enforce_cursor_column_mode_place()
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
     Gdk::Point cursorPlace = _get_cursor_column_mode_place();
-    Gtk::TextIter currIter = rTextBuffer->get_iter_at_line_offset(cursorPlace.get_y(), cursorPlace.get_x());
+    Gtk::TextIter currIter = pTextBuffer->get_iter_at_line_offset(cursorPlace.get_y(), cursorPlace.get_x());
     if (currIter) {
-        rTextBuffer->place_cursor(currIter);
+        pTextBuffer->place_cursor(currIter);
         return true;
     }
     return false;
@@ -71,16 +71,16 @@ bool CtColumnEdit::_enforce_cursor_column_mode_place()
 
 void CtColumnEdit::_clear_marks(const bool alsoStart)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
     while (not _marksEnd.empty()) {
         _marksEnd.back()->set_visible(false);
-        rTextBuffer->delete_mark(_marksEnd.back());
+        pTextBuffer->delete_mark(_marksEnd.back());
         _marksEnd.pop_back();
     }
     if (alsoStart) {
         while (not _marksStart.empty()) {
             _marksStart.back()->set_visible(false);
-            rTextBuffer->delete_mark(_marksStart.back());
+            pTextBuffer->delete_mark(_marksStart.back());
             _marksStart.pop_back();
         }
     }
@@ -88,7 +88,7 @@ void CtColumnEdit::_clear_marks(const bool alsoStart)
 
 void CtColumnEdit::_predit_to_edit_iter(Gtk::TextIter& iterStart, Gtk::TextIter& iterEnd, bool& firstLine)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
     if (firstLine) {
         firstLine = false;
         const unsigned delta_x = abs(iterEnd.get_line_offset() - iterStart.get_line_offset());
@@ -96,7 +96,7 @@ void CtColumnEdit::_predit_to_edit_iter(Gtk::TextIter& iterStart, Gtk::TextIter&
         _lastRemovedPoint.set_x(_lastRemovedPoint.get_x() - delta_x);
     }
     _myOwnInsertDelete = true;
-    rTextBuffer->erase(iterStart, iterEnd);
+    pTextBuffer->erase(iterStart, iterEnd);
     _myOwnInsertDelete = false;
 }
 
@@ -193,8 +193,8 @@ Glib::ustring CtColumnEdit::cut()
 void CtColumnEdit::paste(const std::string& column_txt)
 {
     const std::vector<std::string> vec_col_rows = str::split(column_txt, "\n");
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
-    Gtk::TextIter iterInsert = rTextBuffer->get_insert()->get_iter();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
+    Gtk::TextIter iterInsert = pTextBuffer->get_insert()->get_iter();
     const int insert_x{iterInsert.get_line_offset()};
     int insert_y{iterInsert.get_line()};
     for (const std::string& col_row : vec_col_rows) {
@@ -202,12 +202,12 @@ void CtColumnEdit::paste(const std::string& column_txt)
             break;
         }
         //spdlog::debug("{}", col_row);
-        iterInsert = rTextBuffer->get_iter_at_line_offset(insert_y, insert_x);
+        iterInsert = pTextBuffer->get_iter_at_line_offset(insert_y, insert_x);
         if (not iterInsert or iterInsert.get_line_offset() != insert_x or iterInsert.get_line() != insert_y) {
-            Gtk::TextIter iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, 0);
+            Gtk::TextIter iterLineCurrX = pTextBuffer->get_iter_at_line_offset(insert_y, 0);
             if (not iterLineCurrX or iterLineCurrX.get_line() != insert_y) {
-                rTextBuffer->insert(rTextBuffer->end(), CtConst::CHAR_NEWLINE);
-                iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, 0);
+                pTextBuffer->insert(pTextBuffer->end(), CtConst::CHAR_NEWLINE);
+                iterLineCurrX = pTextBuffer->get_iter_at_line_offset(insert_y, 0);
                 if (not iterLineCurrX or iterLineCurrX.get_line() != insert_y) {
                     spdlog::error("!! iter ({},0)", insert_y);
                     return;
@@ -216,10 +216,10 @@ void CtColumnEdit::paste(const std::string& column_txt)
             int curr_x{0};
             while (curr_x < insert_x) {
                 ++curr_x;
-                iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, curr_x);
+                iterLineCurrX = pTextBuffer->get_iter_at_line_offset(insert_y, curr_x);
                 if (not iterLineCurrX or iterLineCurrX.get_line_offset() != curr_x) {
-                    rTextBuffer->insert(rTextBuffer->get_iter_at_line_offset(insert_y, 0), CtConst::CHAR_SPACE);
-                    iterLineCurrX = rTextBuffer->get_iter_at_line_offset(insert_y, curr_x);
+                    pTextBuffer->insert(pTextBuffer->get_iter_at_line_offset(insert_y, 0), CtConst::CHAR_SPACE);
+                    iterLineCurrX = pTextBuffer->get_iter_at_line_offset(insert_y, curr_x);
                     if (not iterLineCurrX or iterLineCurrX.get_line_offset() != curr_x) {
                         spdlog::error("!! iter ({},{})", insert_y, curr_x);
                         return;
@@ -228,7 +228,7 @@ void CtColumnEdit::paste(const std::string& column_txt)
             }
             iterInsert = iterLineCurrX;
         }
-        rTextBuffer->insert(iterInsert, col_row);
+        pTextBuffer->insert(iterInsert, col_row);
         ++insert_y;
     }
 }
@@ -238,7 +238,7 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
     bool unexpected{false};
     if (CtColEditState::Edit == _state) {
         bool firstLine{true};
-        Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
         for (Glib::RefPtr<Gtk::TextMark>& rMarkStart : _marksStart) {
             if (rMarkStart) {
                 Gtk::TextIter iterStart = rMarkStart->get_iter();
@@ -263,7 +263,7 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                                     expCursor.get_x(), expCursor.get_y());
                             }
                             else if (iterStart.forward_chars(_lastInsertedText.size())) {
-                                rTextBuffer->move_mark(rMarkStart, iterStart);
+                                pTextBuffer->move_mark(rMarkStart, iterStart);
                             }
                             else {
                                 unexpected = true;
@@ -283,12 +283,12 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                             }
                             else if (_lastRemovedText.find("\n") != Glib::ustring::npos) {
                                 _myOwnInsertDelete = true;
-                                rTextBuffer->insert_at_cursor(_lastRemovedText);
+                                pTextBuffer->insert_at_cursor(_lastRemovedText);
                                 _myOwnInsertDelete = false;
                                 if (_lastRemovedDeltaOffset > 0) {
                                     iterStart = rMarkStart->get_iter();
                                     if (iterStart and iterStart.forward_char()) {
-                                        rTextBuffer->move_mark(rMarkStart, iterStart);
+                                        pTextBuffer->move_mark(rMarkStart, iterStart);
                                     }
                                 }
                                 if (not _enforce_cursor_column_mode_place()) {
@@ -300,11 +300,11 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                     else {
                         if (isInsert) {
                             _myOwnInsertDelete = true;
-                            rTextBuffer->insert(iterStart, _lastInsertedText);
+                            pTextBuffer->insert(iterStart, _lastInsertedText);
                             _myOwnInsertDelete = false;
                             iterStart = rMarkStart->get_iter();
                             if (iterStart and iterStart.forward_chars(_lastInsertedText.size())) {
-                                rTextBuffer->move_mark(rMarkStart, iterStart);
+                                pTextBuffer->move_mark(rMarkStart, iterStart);
                             }
                             else {
                                 unexpected = true;
@@ -322,7 +322,7 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                             }
                             if (iterStart.get_text(iterEnd).find("\n") == Glib::ustring::npos) {
                                 _myOwnInsertDelete = true;
-                                rTextBuffer->erase(iterStart, iterEnd);
+                                pTextBuffer->erase(iterStart, iterEnd);
                                 _myOwnInsertDelete = false;
                             }
                         }
@@ -455,9 +455,9 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
             _predit_to_edit();
             std::lock_guard<std::mutex> lock(_mutexLastInOut);
             if (_lastRemovedDeltaOffset < 0) {
-                Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+                Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
                 _myOwnInsertDelete = true;
-                rTextBuffer->insert_at_cursor(_lastRemovedText);
+                pTextBuffer->insert_at_cursor(_lastRemovedText);
                 _myOwnInsertDelete = false;
                 if (not _enforce_cursor_column_mode_place()) {
                     column_mode_off();
@@ -527,8 +527,8 @@ void CtColumnEdit::selection_update()
             spdlog::debug("{} {},{}", __FUNCTION__, cursorPlace.get_y()+1, cursorPlace.get_x());
         }
     }
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
-    if (not rTextBuffer->get_has_selection()) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _textView.get_buffer();
+    if (not pTextBuffer->get_has_selection()) {
         if ( CtColEditState::Off != _state and
              cursorPlace != _get_cursor_column_mode_place() )
         {
@@ -537,7 +537,7 @@ void CtColumnEdit::selection_update()
         return;
     }
     Gtk::TextIter startIter, endIter;
-    rTextBuffer->get_selection_bounds(startIter, endIter);
+    pTextBuffer->get_selection_bounds(startIter, endIter);
     if ( _get_point(startIter) != _pointStart or
          _get_point(endIter) != _pointEnd )
     {
@@ -554,12 +554,12 @@ void CtColumnEdit::selection_update()
                 std::vector<Glib::RefPtr<Gtk::TextMark>>* pMarksVec = &_marksStart;
                 for (const int x : {_pointStart.get_x(), _pointEnd.get_x()}) {
                     for (int y = _pointStart.get_y(); y <= _pointEnd.get_y(); ++y) {
-                        Gtk::TextIter currIter = rTextBuffer->get_iter_at_line_offset(y, x);
+                        Gtk::TextIter currIter = pTextBuffer->get_iter_at_line_offset(y, x);
                         if ( currIter and
                              currIter.get_line_offset() == x and
                              currIter.get_line() == y )
                         {
-                            Glib::RefPtr<Gtk::TextMark> rMark = rTextBuffer->create_mark(currIter);
+                            Glib::RefPtr<Gtk::TextMark> rMark = pTextBuffer->create_mark(currIter);
                             rMark->set_visible(true);
                             pMarksVec->push_back(rMark);
                         }

@@ -315,7 +315,7 @@ private:
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
     CtTableCommon* _table_in_use();
-    void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer,
+    void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
                                         int cursorOffset);
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link,
                                    CtLinkEntry& link_entry);

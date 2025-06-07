@@ -471,7 +471,7 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(const gint64 node_id,
 
     // buffer for imported node should be loaded now because file will be closed
     if (new_id != -1 and master_id <= 0/*no need for shared non master*/) {
-        nodeData.rTextBuffer = get_delayed_text_buffer(node_id, nodeData.syntax, nodeData.anchoredWidgets);
+        nodeData.pTextBuffer = get_delayed_text_buffer(node_id, nodeData.syntax, nodeData.anchoredWidgets);
     }
 
     return _pCtMainWin->get_tree_store().append_node(&nodeData, &parent_iter);

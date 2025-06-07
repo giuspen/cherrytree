@@ -32,8 +32,8 @@ CtExport2Txt::CtExport2Txt(CtMainWin* pCtMainWin)
 // Export the Selected Node To Txt
 Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path filepath, CtExportOptions export_options, int sel_start, int sel_end)
 {
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = tree_iter.get_node_text_buffer();
-    if (not rTextBuffer) {
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
+    if (not pTextBuffer) {
         throw std::runtime_error(str::format(_("Failed to retrieve the content of the node '%s'"), tree_iter.get_node_name().raw()));
     }
     Glib::ustring plain_text;
@@ -43,7 +43,7 @@ Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path fi
         }
         plain_text += CtConst::CHAR_SPACE + tree_iter.get_node_name() + CtConst::CHAR_NEWLINE;
     }
-    plain_text += selection_export_to_txt(tree_iter, rTextBuffer, sel_start, sel_end, false);
+    plain_text += selection_export_to_txt(tree_iter, pTextBuffer, sel_start, sel_end, false);
     plain_text += str::repeat(CtConst::CHAR_NEWLINE, 2);
     if (not filepath.empty()) {
         CtMiscUtil::text_file_set_contents_add_cr_on_win(filepath.string(), plain_text);
