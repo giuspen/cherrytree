@@ -100,6 +100,54 @@ protected:
     bool _hidden{false};
 };
 
+class CtAnchWidgLink : public CtAnchoredWidget
+{
+public:
+    CtAnchWidgLink(CtMainWin* pCtMainWin,
+                   const int charOffset,
+                   CtLinkEntry& ctLinkEntry,
+                   const std::string& justification)
+     : CtAnchoredWidget{pCtMainWin, charOffset, justification}
+     , _ctLinkEntry{ctLinkEntry}
+    {}
+
+    void apply_width_height(const int/*parentTextWidth*/) override {
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+    }
+    void apply_syntax_highlighting(const bool/*forceReApply*/) override {
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+    }
+    void to_xml(xmlpp::Element*/*p_node_parent*/, const int/*offset_adjustment*/, CtStorageCache*/*cache*/, const std::string&/*multifile_dir*/) override {
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+    }
+    bool to_sqlite(sqlite3*/*pDb*/, const gint64/*node_id*/, const int/*offset_adjustment*/, CtStorageCache*/*cache*/) override {
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+        return false;
+    }
+    void set_modified_false() override {
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+    }
+    CtAnchWidgType get_type() const override {
+        if (CtLinkType::Webs == _ctLinkEntry.type) return CtAnchWidgType::LinkWebs;
+        if (CtLinkType::File == _ctLinkEntry.type) return CtAnchWidgType::LinkFile;
+        if (CtLinkType::Fold == _ctLinkEntry.type) return CtAnchWidgType::LinkFold;
+        if (CtLinkType::Node == _ctLinkEntry.type) return CtAnchWidgType::LinkNode;
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+        return CtAnchWidgType::None;
+    }
+    std::shared_ptr<CtAnchoredWidgetState> get_state() override {
+        spdlog::warn("!! {} UNEXP", __FUNCTION__);
+        return std::shared_ptr<CtAnchoredWidgetState>{};
+    }
+
+    const Glib::ustring& get_target_searchable() const {
+        return _ctLinkEntry.get_target_searchable();
+    }
+
+protected:
+    CtLinkEntry _ctLinkEntry;
+};
+
 class CtTreeView : public Gtk::TreeView
 {
 public:

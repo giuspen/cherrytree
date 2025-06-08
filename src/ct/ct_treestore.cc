@@ -667,7 +667,9 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
                     if (tag_name.has_value() and tag_name.value() != lastLinkTagName) {
                         lastLinkTagName = tag_name.value();
                         CtLinkEntry link_entry = CtMiscUtil::get_link_entry(lastLinkTagName.substr(5));
-                        spdlog::debug("{} +{}", __FUNCTION__, link_entry.get_target_searchable().c_str());
+                        if (CtLinkType::None != link_entry.type) {
+                            spdlog::debug("{} +{}", __FUNCTION__, link_entry.get_target_searchable().c_str());
+                        }
                     }
                 }
             }

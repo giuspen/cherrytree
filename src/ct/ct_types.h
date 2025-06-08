@@ -46,7 +46,7 @@ enum class CtDocType { None, XML, SQLite, MultiFile };
 
 enum class CtDocEncrypt { None, True, False };
 
-enum class CtAnchWidgType { None, CodeBox, TableHeavy, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
+enum class CtAnchWidgType { None, CodeBox, TableHeavy, TableLight, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile, LinkWebs, LinkFile, LinkFold, LinkNode };
 
 enum class CtAnchorExpCollState { None, Expanded, Collapsed };
 
