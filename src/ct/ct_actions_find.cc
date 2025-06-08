@@ -990,9 +990,21 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
 {
     //spdlog::debug("{} obj={} cell={} {}->{}", __FUNCTION__, obj_offset, anch_cell_idx, anch_offs_start, anch_offs_end);
     Gtk::TextIter anchor_iter = pTextBuffer->get_iter_at_offset(obj_offset);
-    Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = anchor_iter.get_child_anchor();
-    if (rChildAnchor) {
-        CtAnchoredWidget* pCtAnchoredWidget = tree_iter.get_anchored_widget(rChildAnchor);
+    if (CtAnchWidgType::Link == anch_type) {
+        std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(anchor_iter, CtConst::TAG_LINK_PREFIX);
+        if (tag_name.has_value()) {
+            //Glib::RefPtr<Gtk::TextTag> pTextTagHTmp = _pCtMainWin->get_text_tag_table()->lookup(tagNameHTmp);
+            //Gtk::TextIter textIterEndTmp{textIterAnchor};
+            //(void)textIterEndTmp.forward_to_tag_toggle(pTextTagHTmp);
+        }
+        else {
+            spdlog::debug("? {} !tag_name", __FUNCTION__);
+        }
+        return;
+    }
+    Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = anchor_iter.get_child_anchor();
+    if (pChildAnchor) {
+        CtAnchoredWidget* pCtAnchoredWidget = tree_iter.get_anchored_widget(pChildAnchor);
         if (pCtAnchoredWidget) {
             switch (anch_type) {
                 case CtAnchWidgType::CodeBox: {
@@ -1027,7 +1039,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         }
     }
     else {
-        spdlog::debug("? {} !rChildAnchor", __FUNCTION__);
+        spdlog::debug("? {} !pChildAnchor", __FUNCTION__);
     }
 }
 
@@ -1159,6 +1171,26 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                 spdlog::warn("!! {} unexp no CtTableCommon", __FUNCTION__);
             }
         } break;
+        case CtAnchWidgType::Link: {
+            if (CtAnchWidgLink* pAnchWidgLink = dynamic_cast<CtAnchWidgLink*>(pAnchWidg)) {
+                Glib::ustring text = pAnchWidgLink->get_target_searchable();
+                if (_s_options.accent_insensitive) {
+                    text = str::diacritical_to_ascii(text);
+                }
+                if (re_pattern->match(text)) {
+                    auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                    pAnchMatch->start_offset = pAnchWidg->getOffset();
+                    pAnchMatch->line_content = text;
+                    pAnchMatch->anch_type = anchWidgType;
+                    pAnchMatch->pAnchWidg = pAnchWidg;
+                    anchMatchList.push_back(pAnchMatch);
+                    retVal = true;
+                }
+            }
+            else {
+                spdlog::warn("!! unexp no CtAnchWidgLink");
+            }
+        } break;
         default: break;
     }
     return retVal;
@@ -1185,6 +1217,12 @@ bool CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
             if (not all_matches) {
                 break;
             }
+        }
+    }
+    // cleanup for get_anchored_widgets with also_links!
+    for (CtAnchoredWidget* pAnchWidg : obj_vec) {
+        if (CtAnchWidgType::Link == pAnchWidg->get_type()) {
+            delete pAnchWidg;
         }
     }
     return retVal;

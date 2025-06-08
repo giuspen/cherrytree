@@ -648,7 +648,6 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
         if ((*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0 or also_links) {
             Gtk::TextIter curr_iter = start_offset >= 0 ? pTextBuffer->get_iter_at_offset(start_offset) : pTextBuffer->begin();
             Glib::ustring lastLinkTagName;
-            int lastLinkTagStart{-1};
             do {
                 if (end_offset >= 0 and curr_iter.get_offset() > end_offset) {
                     break;
@@ -663,12 +662,16 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
                     }
                 }
                 else if (also_links) {
+                    // CAREFUL, also_links OPTION NEEDS MANUAL CLEANUP!
                     std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(curr_iter, CtConst::TAG_LINK_PREFIX);
                     if (tag_name.has_value() and tag_name.value() != lastLinkTagName) {
                         lastLinkTagName = tag_name.value();
                         CtLinkEntry link_entry = CtMiscUtil::get_link_entry(lastLinkTagName.substr(5));
                         if (CtLinkType::None != link_entry.type) {
-                            spdlog::debug("{} +{}", __FUNCTION__, link_entry.get_target_searchable().c_str());
+                            auto pCtAnchoredWidget = new CtAnchWidgLink{_pCtMainWin, curr_iter.get_offset(), link_entry,
+                                                                        CtTextIterUtil::get_text_iter_alignment(curr_iter, _pCtMainWin)};
+                            retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
+                            //spdlog::debug("{} +{}", __FUNCTION__, link_entry.get_target_searchable().c_str());
                         }
                     }
                 }

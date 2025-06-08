@@ -127,14 +127,7 @@ public:
     void set_modified_false() override {
         spdlog::warn("!! {} UNEXP", __FUNCTION__);
     }
-    CtAnchWidgType get_type() const override {
-        if (CtLinkType::Webs == _ctLinkEntry.type) return CtAnchWidgType::LinkWebs;
-        if (CtLinkType::File == _ctLinkEntry.type) return CtAnchWidgType::LinkFile;
-        if (CtLinkType::Fold == _ctLinkEntry.type) return CtAnchWidgType::LinkFold;
-        if (CtLinkType::Node == _ctLinkEntry.type) return CtAnchWidgType::LinkNode;
-        spdlog::warn("!! {} UNEXP", __FUNCTION__);
-        return CtAnchWidgType::None;
-    }
+    CtAnchWidgType get_type() const override { return CtAnchWidgType::Link; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override {
         spdlog::warn("!! {} UNEXP", __FUNCTION__);
         return std::shared_ptr<CtAnchoredWidgetState>{};
