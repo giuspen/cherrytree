@@ -960,6 +960,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             }
             CtActions::find_match_in_obj_focus(_s_state.latest_match_offsets.first,
                                                text_buffer,
+                                               _pCtMainWin,
                                                tree_iter,
                                                pAnchMatch->anch_type,
                                                pAnchMatch->anch_cell_idx,
@@ -973,7 +974,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             {
                 return false;
             }
-            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
+            ct_text_view.set_selection_at_offset_n_delta(_s_state.latest_match_offsets.first,
                 _s_state.latest_match_offsets.second - _s_state.latest_match_offsets.first);
         }
     }
@@ -982,6 +983,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
 
 /*static*/void CtActions::find_match_in_obj_focus(const int obj_offset,
                                                   Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
+                                                  CtMainWin* pCtMainWin,
                                                   const CtTreeIter& tree_iter,
                                                   const CtAnchWidgType anch_type,
                                                   const size_t anch_cell_idx,
@@ -993,9 +995,14 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
     if (CtAnchWidgType::Link == anch_type) {
         std::optional<Glib::ustring> tag_name = CtTextIterUtil::iter_get_tag_startingwith(anchor_iter, CtConst::TAG_LINK_PREFIX);
         if (tag_name.has_value()) {
-            //Glib::RefPtr<Gtk::TextTag> pTextTagHTmp = _pCtMainWin->get_text_tag_table()->lookup(tagNameHTmp);
-            //Gtk::TextIter textIterEndTmp{textIterAnchor};
-            //(void)textIterEndTmp.forward_to_tag_toggle(pTextTagHTmp);
+            Glib::RefPtr<Gtk::TextTag> pTextTag = pCtMainWin->get_text_tag_table()->lookup(tag_name.value());
+            Gtk::TextIter textIterEndTmp{anchor_iter};
+            (void)textIterEndTmp.forward_to_tag_toggle(pTextTag);
+            Gtk::TextIter textIterStartTmp{anchor_iter};
+            (void)textIterStartTmp.backward_to_tag_toggle(pTextTag);
+            const int start_offset = textIterStartTmp.get_offset();
+            const int end_offset = textIterEndTmp.get_offset();
+            pCtMainWin->get_text_view().set_selection_at_offset_n_delta(start_offset, end_offset - start_offset, pTextBuffer);
         }
         else {
             spdlog::debug("? {} !tag_name", __FUNCTION__);

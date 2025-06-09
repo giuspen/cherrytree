@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_find.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -594,6 +594,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
             const int anch_offs_end = list_iter->get_value(s_state.match_store->columns.anch_offs_end);
             CtActions::find_match_in_obj_focus(start_offset,
                                                rCurrBuffer,
+                                               pCtMainWin,
                                                tree_iter,
                                                anch_type,
                                                anch_cell_idx,

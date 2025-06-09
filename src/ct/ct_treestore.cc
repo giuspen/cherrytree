@@ -668,6 +668,9 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(const int start_of
                         lastLinkTagName = tag_name.value();
                         CtLinkEntry link_entry = CtMiscUtil::get_link_entry(lastLinkTagName.substr(5));
                         if (CtLinkType::None != link_entry.type) {
+                            Glib::RefPtr<Gtk::TextTag> pTextTag = _pCtMainWin->get_text_tag_table()->lookup(lastLinkTagName);
+                            (void)curr_iter.forward_to_tag_toggle(pTextTag);
+                            (void)curr_iter.backward_char();
                             auto pCtAnchoredWidget = new CtAnchWidgLink{_pCtMainWin, curr_iter.get_offset(), link_entry,
                                                                         CtTextIterUtil::get_text_iter_alignment(curr_iter, _pCtMainWin)};
                             retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
