@@ -336,7 +336,7 @@ msgid "Execute Code"
 msgstr "Code ausführen"
 
 msgid "Copy Code"
-msgstr "C_ode kopieren"
+msgstr "Code kopieren"
 
 msgid "Change CodeBox Properties"
 msgstr "CodeBox-Eigenschaften ändern"
