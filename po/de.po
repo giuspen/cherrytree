@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-15 20:08+0100\n"
+"PO-Revision-Date: 2025-06-10 20:00+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -2270,16 +2270,16 @@ msgid "Unindent the Current Paragraph"
 msgstr "Aktuellen Absatz ausrücken"
 
 msgid "_Expand TOC Headers"
-msgstr "TOC Header aufklappen"
+msgstr "TOC-Header aufklappen"
 
 msgid "Expand TOC Headers"
-msgstr "TOC Header aufklappen"
+msgstr "TOC-Header aufklappen"
 
 msgid "_Collapse TOC Headers"
-msgstr "TOC Header einklappen"
+msgstr "TOC-Header zuklappen"
 
 msgid "Collapse TOC Headers"
-msgstr "TOC Header einklappen"
+msgstr "TOC-Header zuklappen"
 
 msgid "Tools"
 msgstr "Werkzeuge"
@@ -2291,10 +2291,10 @@ msgid "Toggle Enable/Disable Spell Check"
 msgstr "Rechtschreibprüfung ein/aus umschalten"
 
 msgid "Enable/Disable _VIM Mode"
-msgstr "VIM Modus an/aus"
+msgstr "VIM-Modus ein/aus"
 
 msgid "Toggle Enable/Disable VIM Mode"
-msgstr "VIM Modus umschalten"
+msgstr "VIM-Modus ein/aus umschalten"
 
 msgid "Stri_p Trailing Spaces"
 msgstr "_Leerzeichen am Zeilenende löschen"
