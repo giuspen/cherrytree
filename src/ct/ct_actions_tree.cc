@@ -403,7 +403,7 @@ void CtActions::node_edit()
     // leaving rich text ?
     if (nodeData.syntax != newData.syntax and
         CtConst::RICH_TEXT_ID == nodeData.syntax and
-        not CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
+        not CtDialogs::question_dialog(_("Changing the node type to Automatic Syntax Highlighting removes all rich text formatting in this node. Do you want to Continue?"), *_pCtMainWin))
     {
         return;
     }
