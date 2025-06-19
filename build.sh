@@ -10,6 +10,7 @@ MAKE_RPM=""
 MAKE_APPIMAGE=""
 BUNDLED_SPDLOG_FMT=""
 NO_TESTS=""
+WITH_GTK4=""
 RET_VAL=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
@@ -43,6 +44,9 @@ f_any_argument_matches "deb" "debian"
 
 f_any_argument_matches "rpm"
 [ -n "${RET_VAL}" ] && MAKE_RPM="Y"
+
+f_any_argument_matches "gtk4" "gtkmm4"
+[ -n "${RET_VAL}" ] && WITH_GTK4="Y"
 
 f_any_argument_matches "appimage" "appimg"
 [ -n "${RET_VAL}" ] && MAKE_APPIMAGE="Y"
@@ -109,6 +113,11 @@ then
   EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
 else
   EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING='ON' -DINSTALL_GTEST=''"
+fi
+
+if [ -n "${WITH_GTK4}" ]
+then
+  EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DWITH_GTK4='ON'"
 fi
 
 git submodule update --init --recursive
