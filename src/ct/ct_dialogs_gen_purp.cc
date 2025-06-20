@@ -197,7 +197,7 @@ std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
     Glib::RefPtr<Gtk::Adjustment> rAdj_m = Gtk::Adjustment::create(struct_time.tm_min, 0, 59, 1);
     Gtk::SpinButton spinbutton_m{rAdj_m};
     spinbutton_m.set_value(struct_time.tm_min);
-    Gtk::HBox hbox;
+    Gtk::Box hbox{Gtk::ORIENTATION_HORIZONTAL};
     hbox.pack_start(spinbutton_h);
     hbox.pack_start(spinbutton_m);
     pContentArea->pack_start(calendar);

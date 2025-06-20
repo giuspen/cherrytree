@@ -43,7 +43,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(700, 500);
 
-    Gtk::HBox hbox_webs;
+    Gtk::Box hbox_webs{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     Gtk::Image image_webs;
     image_webs.set_from_icon_name("ct_link_website", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_webs{_("To WebSite")};
@@ -52,9 +52,8 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     hbox_webs.pack_start(image_webs, false, false);
     hbox_webs.pack_start(radiobutton_webs, false, false);
     hbox_webs.pack_start(entry_webs);
-    hbox_webs.set_spacing(5);
 
-    Gtk::HBox hbox_file;
+    Gtk::Box hbox_file{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     Gtk::Image image_file;
     image_file.set_from_icon_name("ct_file", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_file{_("To File")};
@@ -67,9 +66,8 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     hbox_file.pack_start(radiobutton_file, false, false);
     hbox_file.pack_start(entry_file);
     hbox_file.pack_start(button_browse_file, false, false);
-    hbox_file.set_spacing(5);
 
-    Gtk::HBox hbox_folder;
+    Gtk::Box hbox_folder{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     Gtk::Image image_folder;
     image_folder.set_from_icon_name("ct_directory", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_folder{_("To Folder")};
@@ -82,18 +80,16 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     hbox_folder.pack_start(radiobutton_folder, false, false);
     hbox_folder.pack_start(entry_folder);
     hbox_folder.pack_start(button_browse_folder, false, false);
-    hbox_folder.set_spacing(5);
 
-    Gtk::HBox hbox_node;
+    Gtk::Box hbox_node{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     Gtk::Image image_node;
     image_node.set_from_icon_name("cherrytree", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_node{_("To Node")};
     radiobutton_node.join_group(radiobutton_webs);
     hbox_node.pack_start(image_node, false, false);
     hbox_node.pack_start(radiobutton_node);
-    hbox_node.set_spacing(5);
 
-    Gtk::HBox hbox_detail;
+    Gtk::Box hbox_detail{Gtk::ORIENTATION_HORIZONTAL};
 
     Gtk::TreeView treeview_2(ctMainWin.get_tree_store().get_store());
     treeview_2.set_headers_visible(false);
@@ -107,11 +103,11 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview_2);
 
-    Gtk::VBox vbox_anchor;
+    Gtk::Box vbox_anchor{Gtk::ORIENTATION_VERTICAL};
     Gtk::Label label_over;
     Gtk::Label label_below;
 
-    Gtk::HBox hbox_anchor;
+    Gtk::Box hbox_anchor{Gtk::ORIENTATION_HORIZONTAL};
     Gtk::Entry entry_anchor;
     entry_anchor.set_text(link_entry.anch);
     Gtk::Button button_browse_anchor;

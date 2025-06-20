@@ -449,7 +449,7 @@ void CtMainWin::update_theme()
     get_style_context()->add_provider_for_screen(get_screen(), _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
-Gtk::HBox& CtMainWin::_init_status_bar()
+Gtk::Box& CtMainWin::_init_status_bar()
 {
     _ctStatusBar.statusId = _ctStatusBar.statusBar.get_context_id("");
     _ctStatusBar.frame.set_shadow_type(Gtk::SHADOW_NONE);

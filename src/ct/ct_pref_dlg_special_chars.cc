@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_special_chars.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,11 +26,10 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_special_characters()
 {
-    Gtk::HBox* hbox_special_chars = Gtk::manage(new Gtk::HBox());
-    hbox_special_chars->set_spacing(4);
-    Gtk::VBox* vbox_special_chars = Gtk::manage(new Gtk::VBox());
+    auto hbox_special_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto vbox_special_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
-    Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
+    auto hbox_reset = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
     button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
@@ -54,8 +53,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     hbox_special_chars->pack_start(*vbox_special_chars, false, false);
     hbox_special_chars->pack_start(*frame_special_chars);
 
-    Gtk::HBox* hbox_bullist_chars = Gtk::manage(new Gtk::HBox());
-    hbox_bullist_chars->set_spacing(4);
+    auto hbox_bullist_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::Label* label_bullist_chars = Gtk::manage(new Gtk::Label(_("Chars for Bulleted List")));
     Gtk::Entry* entry_bullist_chars = Gtk::manage(new Gtk::Entry());
     entry_bullist_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
@@ -63,8 +61,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     hbox_bullist_chars->pack_start(*label_bullist_chars, false, false);
     hbox_bullist_chars->pack_start(*entry_bullist_chars);
 
-    Gtk::HBox* hbox_todolist_chars = Gtk::manage(new Gtk::HBox());
-    hbox_todolist_chars->set_spacing(4);
+    auto hbox_todolist_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::Label* label_todolist_chars = Gtk::manage(new Gtk::Label(_("Chars for Todo List")));
     Gtk::Entry* entry_todolist_chars = Gtk::manage(new Gtk::Entry());
     entry_todolist_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
@@ -72,8 +69,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     hbox_todolist_chars->pack_start(*label_todolist_chars, false, false);
     hbox_todolist_chars->pack_start(*entry_todolist_chars);
 
-    Gtk::HBox* hbox_toc_chars = Gtk::manage(new Gtk::HBox());
-    hbox_toc_chars->set_spacing(4);
+    auto hbox_toc_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::Label* label_toc_chars = Gtk::manage(new Gtk::Label(_("Chars for Table Of Content")));
     Gtk::Entry* entry_toc_chars = Gtk::manage(new Gtk::Entry());
     entry_toc_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
@@ -81,8 +77,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     hbox_toc_chars->pack_start(*label_toc_chars, false, false);
     hbox_toc_chars->pack_start(*entry_toc_chars);
 
-    Gtk::HBox* hbox_dquote_chars = Gtk::manage(new Gtk::HBox());
-    hbox_dquote_chars->set_spacing(4);
+    auto hbox_dquote_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::Label* label_dquote_chars = Gtk::manage(new Gtk::Label(_("Chars for Smart Double Quotes")));
     Gtk::Entry* entry_dquote_chars = Gtk::manage(new Gtk::Entry());
     entry_dquote_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
@@ -90,8 +85,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     hbox_dquote_chars->pack_start(*label_dquote_chars, false, false);
     hbox_dquote_chars->pack_start(*entry_dquote_chars);
 
-    Gtk::HBox* hbox_squote_chars = Gtk::manage(new Gtk::HBox());
-    hbox_squote_chars->set_spacing(4);
+    auto hbox_squote_chars = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::Label* label_squote_chars = Gtk::manage(new Gtk::Label(_("Chars for Smart Single Quotes")));
     Gtk::Entry* entry_squote_chars = Gtk::manage(new Gtk::Entry());
     entry_squote_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
@@ -122,8 +116,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
 
     Gtk::Frame* frame_editor = new_managed_frame_with_align(_("Text Editor"), vbox_editor);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_editor, false, false);

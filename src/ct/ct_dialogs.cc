@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -73,9 +73,8 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     button_sort_asc.set_tooltip_text(_("Sort the Bookmarks Ascending"));
     Gtk::Label label1;
     Gtk::Label label2;
-    Gtk::HBox hbox;
-    Gtk::VBox vbox;
-    vbox.set_spacing(1);
+    Gtk::Box hbox{Gtk::ORIENTATION_HORIZONTAL};
+    Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/};
     vbox.pack_start(button_move_up, false, false);
     vbox.pack_start(button_move_down, false, false);
     vbox.pack_start(button_delete, false, false);
@@ -254,7 +253,7 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
     Gtk::Label label_passwd(_("CT saves the document in an encrypted 7zip archive. When viewing or editing the document, CT extracts the encrypted archive to a temporary folder, and works on the unencrypted copy. When closing, the unencrypted copy is deleted from the temporary directory. Note that in the case of application or system crash, the unencrypted document will remain in the temporary folder."));
     label_passwd.set_width_chars(70);
     label_passwd.set_line_wrap(true);
-    Gtk::VBox vbox_passw;
+    Gtk::Box vbox_passw{Gtk::ORIENTATION_VERTICAL};
     vbox_passw.pack_start(entry_passw_1);
     vbox_passw.pack_start(entry_passw_2);
     vbox_passw.pack_start(label_passwd);
@@ -402,10 +401,9 @@ CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
     image.set_from_icon_name("ct_warning", Gtk::ICON_SIZE_DIALOG);
     Gtk::Label label(Glib::ustring("<b>")+_("The Current Document was Updated.")+"</b>\n\n<b>"+_("Do you want to Save the Changes?")+"</b>");
     label.set_use_markup(true);
-    Gtk::HBox hbox;
+    Gtk::Box hbox{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     hbox.pack_start(image);
     hbox.pack_start(label);
-    hbox.set_spacing(5);
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(hbox);
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
@@ -452,10 +450,9 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
     Gtk::Label label{Glib::ustring{"<b>"}+_("Do you want to Execute the Code?")+"</b>"};
     label.set_use_markup(true);
     Gtk::Label label_separator{" "};
-    Gtk::HBox hbox;
+    Gtk::Box hbox{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     hbox.pack_start(image);
     hbox.pack_start(label);
-    hbox.set_spacing(5);
     Gtk::Label code_preview;
     if (code_txt.size() < 200) {
         code_preview.set_markup(Glib::ustring{"<tt>"} + code_txt + "</tt>");

@@ -10,6 +10,7 @@ MAKE_RPM=""
 MAKE_APPIMAGE=""
 BUNDLED_SPDLOG_FMT=""
 NO_TESTS=""
+NO_DEPRECATED=""
 WITH_GTK4=""
 RET_VAL=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
@@ -38,6 +39,9 @@ fi
 
 f_any_argument_matches "notests" "notest"
 [ -n "${RET_VAL}" ] && NO_TESTS="Y"
+
+f_any_argument_matches "nodeprecated" "nodeprec"
+[ -n "${RET_VAL}" ] && NO_DEPRECATED="Y"
 
 f_any_argument_matches "deb" "debian"
 [ -n "${RET_VAL}" ] && MAKE_DEB="Y"
@@ -113,6 +117,11 @@ then
   EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING=''"
 else
   EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DBUILD_TESTING='ON' -DINSTALL_GTEST=''"
+fi
+
+if [ -n "${NO_DEPRECATED}" ]
+then
+  EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DNO_DEPRECATED='ON'"
 fi
 
 if [ -n "${WITH_GTK4}" ]

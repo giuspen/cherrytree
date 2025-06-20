@@ -53,8 +53,8 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
 
-    Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());
-    Gtk::VBox* vbox = Gtk::manage(new Gtk::VBox());
+    auto hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    auto vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     vbox->pack_start(*button_add, false, false);
     vbox->pack_start(*button_remove, false, false);
     vbox->pack_start(*Gtk::manage(new Gtk::Label()), true, true);
@@ -62,8 +62,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     hbox->pack_start(*scrolledwindow, true, true);
     hbox->pack_start(*vbox, false, false);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->pack_start(*hbox);
 
     button_add->signal_clicked().connect([this, treeview, liststore](){

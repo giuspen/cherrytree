@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -47,7 +47,7 @@ struct CtStatusBar
     Gtk::ProgressBar progressBar;
     Gtk::Button      stopButton;
     Gtk::Frame       frame;
-    Gtk::HBox        hbox;
+    Gtk::Box         hbox{Gtk::ORIENTATION_HORIZONTAL};
 
     void set_progress_stop(bool stop) { _progress_stop = stop; }
     bool is_progress_stop()           { return _progress_stop; }
@@ -64,8 +64,8 @@ private:
 
 struct CtWinHeader
 {
-    Gtk::HBox        headerBox;
-    Gtk::HButtonBox  buttonBox;
+    Gtk::Box         headerBox{Gtk::ORIENTATION_HORIZONTAL};
+    Gtk::ButtonBox   buttonBox{Gtk::ORIENTATION_HORIZONTAL};
     Gtk::Label       nameLabel;
     Gtk::Image       lockIcon;
     Gtk::Image       bookmarkIcon;
@@ -171,7 +171,7 @@ public:
     void                      apply_tag_try_automatic_bounds_paragraph(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
 
 private:
-    Gtk::HBox&     _init_status_bar();
+    Gtk::Box&      _init_status_bar();
     Gtk::EventBox& _init_window_header();
 
 public:
@@ -281,11 +281,11 @@ private:
     std::unique_ptr<CtPrint>          _uCtPrint;
     std::unique_ptr<CtStorageControl> _uCtStorage;
 
-    Gtk::VBox                    _vboxMain;
-    Gtk::VBox                    _vboxText;
-    Gtk::HBox                    _hBoxVte;
-    Gtk::HPaned                  _hPaned;
-    Gtk::VPaned                  _vPaned;
+    Gtk::Box                     _vboxMain{Gtk::ORIENTATION_VERTICAL};
+    Gtk::Box                     _vboxText{Gtk::ORIENTATION_VERTICAL};
+    Gtk::Box                     _hBoxVte{Gtk::ORIENTATION_HORIZONTAL};
+    Gtk::Paned                   _hPaned{Gtk::ORIENTATION_HORIZONTAL};
+    Gtk::Paned                   _vPaned{Gtk::ORIENTATION_VERTICAL};
     Gtk::HeaderBar*              _pHeaderBar{nullptr};
     Gtk::MenuBar*                _pMenuBar{nullptr};
     Gtk::ScrolledWindow*         _pScrolledWindowMenuBar{nullptr};

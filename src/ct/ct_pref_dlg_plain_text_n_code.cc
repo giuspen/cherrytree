@@ -83,7 +83,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     auto button_reset_cmds = Gtk::manage(new Gtk::Button{});
     button_reset_cmds->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
-    Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
+    auto vbox_buttons = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     vbox_buttons->pack_start(*button_add, false, false);
     vbox_buttons->pack_start(*button_remove, false, false);
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
