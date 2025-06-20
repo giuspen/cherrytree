@@ -92,7 +92,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     {
         if (key->keyval == GDK_KEY_Delete)
         {
-            Gtk::TreeIter tree_iter = treeview.get_selection()->get_selected();
+            Gtk::TreeModel::iterator tree_iter = treeview.get_selection()->get_selected();
             if (tree_iter)
             {
                 rModel->erase(tree_iter);
@@ -112,16 +112,16 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         {
             return false; // propagate event
         }
-        Gtk::TreeIter clicked_iter = rModel->get_iter(clicked_path);
+        Gtk::TreeModel::iterator clicked_iter = rModel->get_iter(clicked_path);
         gint64 node_id = clicked_iter->get_value(rModel->columns.node_id);
-        Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
+        Gtk::TreeModel::iterator tree_iter = ctTreestore.get_node_from_node_id(node_id);
         pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         return true; // stop event
     });
     button_move_up.signal_clicked().connect([&treeview, &rModel]()
     {
-        Gtk::TreeIter curr_iter = treeview.get_selection()->get_selected();
-        Gtk::TreeIter prev_iter = --treeview.get_selection()->get_selected();
+        Gtk::TreeModel::iterator curr_iter = treeview.get_selection()->get_selected();
+        Gtk::TreeModel::iterator prev_iter = --treeview.get_selection()->get_selected();
         if (curr_iter && prev_iter)
         {
             rModel->iter_swap(curr_iter, prev_iter);
@@ -129,8 +129,8 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     });
     button_move_down.signal_clicked().connect([&treeview, &rModel]()
     {
-        Gtk::TreeIter curr_iter = treeview.get_selection()->get_selected();
-        Gtk::TreeIter next_iter = ++treeview.get_selection()->get_selected();
+        Gtk::TreeModel::iterator curr_iter = treeview.get_selection()->get_selected();
+        Gtk::TreeModel::iterator next_iter = ++treeview.get_selection()->get_selected();
         if (curr_iter && next_iter)
         {
             rModel->iter_swap(curr_iter, next_iter);
@@ -138,7 +138,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     });
     button_delete.signal_clicked().connect([&treeview, &rModel]()
     {
-        Gtk::TreeIter tree_iter = treeview.get_selection()->get_selected();
+        Gtk::TreeModel::iterator tree_iter = treeview.get_selection()->get_selected();
         if (tree_iter)
         {
             rModel->erase(tree_iter);
@@ -146,7 +146,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     });
     button_sort_asc.signal_clicked().connect([&rModel]()
     {
-        auto need_swap = [&rModel](Gtk::TreeIter& l, Gtk::TreeIter& r)
+        auto need_swap = [&rModel](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)
         {
             int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
             return (cmp > 0);
@@ -155,7 +155,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     });
     button_sort_desc.signal_clicked().connect([&rModel]()
     {
-        auto need_swap = [&rModel](Gtk::TreeIter& l, Gtk::TreeIter& r)
+        auto need_swap = [&rModel](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)
         {
             int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
             return (cmp < 0);
@@ -169,7 +169,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 
     std::set<gint64> temp_bookmarks;
     std::list<gint64> temp_bookmarks_order;
-    rModel->foreach_iter([&temp_bookmarks, &temp_bookmarks_order, &rModel](const Gtk::TreeIter& iter)
+    rModel->foreach_iter([&temp_bookmarks, &temp_bookmarks_order, &rModel](const Gtk::TreeModel::iterator& iter)
     {
         gint64 node_id = iter->get_value(rModel->columns.node_id);
         temp_bookmarks.insert(node_id);

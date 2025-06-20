@@ -284,7 +284,7 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
             itemStore->add_row(_pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
         }
     }
-    const Gtk::TreeIter treeIterChosen = CtDialogs::choose_item_dialog(*this,
+    const Gtk::TreeModel::iterator treeIterChosen = CtDialogs::choose_item_dialog(*this,
                                                                        _("Select Element to Add"),
                                                                        itemStore,
                                                                        nullptr/*single_column_name*/,
@@ -292,8 +292,8 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
                                                                        std::make_pair(200, _pConfig->winRect[3]));
     if (treeIterChosen) {
         const auto code_type = treeIterChosen->get_value(itemStore->columns.desc);
-        Gtk::TreeIter newTreeIter;
-        Gtk::TreeIter loopPrevTreeIter;
+        Gtk::TreeModel::iterator newTreeIter;
+        Gtk::TreeModel::iterator loopPrevTreeIter;
         for (const auto& currTreeIter : rModel->children()) {
             const int result = currTreeIter->get_value(_commandModelColumns.key).compare(code_type);
             if (result > 0) {
@@ -316,7 +316,7 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
 
 void CtPrefDlg::_remove_command_from_model(Gtk::TreeView* pTreeview, Glib::RefPtr<Gtk::ListStore> rModel)
 {
-    Gtk::TreeIter sel_iter = pTreeview->get_selection()->get_selected();
+    Gtk::TreeModel::iterator sel_iter = pTreeview->get_selection()->get_selected();
     if (sel_iter) {
         const auto code_type = sel_iter->get_value(_commandModelColumns.key);
         auto& customCodexecType = _pCtMainWin->get_ct_config()->customCodexecType;

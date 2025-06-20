@@ -24,6 +24,7 @@
 #pragma once
 
 #include "ct_types.h"
+#include "ct_widgets.h"
 #include "ct_filesystem.h"
 #include <sqlite3.h>
 #include <glibmm/refptr.h>
@@ -58,7 +59,7 @@ public:
                         const int start_offset = 0,
                         const int end_offset = -1) override;
     void vacuum() override;
-    void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
+    void import_nodes(const fs::path& path, const Gtk::TreeModel::iterator& parent_iter) override;
 
     Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
                                                           const std::string& syntax,
@@ -71,10 +72,10 @@ private:
     void _close_db();
     bool _check_database_integrity();
 
-    Gtk::TreeIter _node_from_db(const gint64 node_id,
+    Gtk::TreeModel::iterator _node_from_db(const gint64 node_id,
                                 const gint64 master_id,
                                 const gint64 sequence,
-                                Gtk::TreeIter parent_iter,
+                                Gtk::TreeModel::iterator parent_iter,
                                 const gint64 new_id);
 
     /**

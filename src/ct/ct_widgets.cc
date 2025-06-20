@@ -140,10 +140,10 @@ void CtTreeView::set_tooltips_enable(const bool on)
     else set_tooltip_column(-1);
 }
 
-void CtTreeView::set_cursor_safe(const Gtk::TreeIter& treeIter)
+void CtTreeView::set_cursor_safe(const Gtk::TreeModel::iterator& treeIter)
 {
     Gtk::TreeRow row = *treeIter;
-    Gtk::TreeIter iterParent = row.parent();
+    Gtk::TreeModel::iterator iterParent = row.parent();
     if (iterParent) {
         expand_to_path(get_model()->get_path(iterParent));
     }

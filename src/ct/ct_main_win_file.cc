@@ -450,7 +450,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
         Glib::ustring utf8_text;
         if (CtStrUtil::file_any_encoding_to_utf8(filepath.string(), utf8_text)) {
             const std::string name = filepath.filename().string();
-            _uCtActions->node_child_exist_or_create(Gtk::TreeIter{}, name);
+            _uCtActions->node_child_exist_or_create(Gtk::TreeModel::iterator{}, name);
             _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), utf8_text);
             return true;
         }

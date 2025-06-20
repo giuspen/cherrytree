@@ -255,7 +255,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
             }
             ++pathCurrIdx;
         }
-        Gtk::TreeIter res = CtDialogs::choose_item_dialog(*this,
+        Gtk::TreeModel::iterator res = CtDialogs::choose_item_dialog(*this,
                                                           _("Language"),
                                                           rItemStore,
                                                           nullptr/*single_column_name*/,

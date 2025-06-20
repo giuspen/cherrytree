@@ -196,12 +196,12 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
         // not exporting a master while exporting non masters of the same group
         CtSharedNodesMap shared_nodes_map;
         if (ctTreeStore.populate_shared_nodes_map(shared_nodes_map) > 0u) {
-            std::function<void(Gtk::TreeIter)> f_collect_ids_to_export;
+            std::function<void(Gtk::TreeModel::iterator)> f_collect_ids_to_export;
             std::list<gint64> nodeIdsToExport;
-            f_collect_ids_to_export = [&ctTreeStore, &nodeIdsToExport, &f_collect_ids_to_export](Gtk::TreeIter iter) {
+            f_collect_ids_to_export = [&ctTreeStore, &nodeIdsToExport, &f_collect_ids_to_export](Gtk::TreeModel::iterator iter) {
                 CtTreeIter ctTreeIter = ctTreeStore.to_ct_tree_iter(iter);
                 nodeIdsToExport.push_back(ctTreeIter.get_node_id());
-                for (Gtk::TreeIter child : iter->children()) {
+                for (Gtk::TreeModel::iterator child : iter->children()) {
                     f_collect_ids_to_export(child);
                 }
             };
@@ -755,7 +755,7 @@ void CtStorageControl::pending_edit_db_bookmarks()
 }
 
 void CtStorageControl::add_nodes_from_storage(const fs::path& file_path,
-                                              Gtk::TreeIter parent_iter,
+                                              Gtk::TreeModel::iterator parent_iter,
                                               const bool is_folder)
 {
     if (is_folder) {
@@ -805,7 +805,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
     if (not pending) {
         // all nodes
         std::string error;
-        store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool{
+        store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeModel::iterator& iter)->bool{
             CtTreeIter ct_tree_iter = store.to_ct_tree_iter(iter);
             Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = ct_tree_iter.get_node_text_buffer();
             if (not pTextBuffer) {

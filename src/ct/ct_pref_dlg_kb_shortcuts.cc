@@ -46,7 +46,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     shortcut_cell_renderer->property_xalign() = 1;
     auto shortcut_column = Gtk::manage(new Gtk::TreeViewColumn{});
     shortcut_column->pack_start(*shortcut_cell_renderer, true);
-    shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
+    shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeModel::iterator& iter){
         ((Gtk::CellRendererText*)cell)->property_markup() = "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(_shortcutModelColumns.shortcut))) + "  ";
     });
     shortcut_column->add_attribute(shortcut_cell_renderer->property_weight(), _shortcutModelColumns.colWeight);

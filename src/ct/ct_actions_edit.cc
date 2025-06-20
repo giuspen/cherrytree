@@ -516,7 +516,7 @@ void CtActions::special_char_insert()
         }
         ++pathCurrIdx;
     }
-    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin,
+    const Gtk::TreeModel::iterator treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin,
                                                                  _("Special Characters"),
                                                                  itemStore,
                                                                  nullptr/*single_column_name*/,

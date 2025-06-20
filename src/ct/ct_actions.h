@@ -125,23 +125,23 @@ private:
                    const bool add_as_child,
                    const CtTreeIter* pCtTreeIterFrom = nullptr,
                    CtMainWin* pWinToCopyFrom = nullptr);
-    Gtk::TreeIter _node_add_with_data(Gtk::TreeIter curr_iter,
+    Gtk::TreeModel::iterator _node_add_with_data(Gtk::TreeModel::iterator curr_iter,
                                       CtNodeData& nodeData,
                                       const bool add_as_child,
                                       std::shared_ptr<CtNodeState> node_state);
 
 public:
-    Gtk::TreeIter node_child_exist_or_create(Gtk::TreeIter parentIter,
+    Gtk::TreeModel::iterator node_child_exist_or_create(Gtk::TreeModel::iterator parentIter,
                                              const std::string& nodeName,
                                              const bool focusIfExisting = true);
-    void node_move_after(Gtk::TreeIter iter_to_move,
-                         Gtk::TreeIter father_iter,
-                         Gtk::TreeIter brother_iter = Gtk::TreeIter{},
+    void node_move_after(Gtk::TreeModel::iterator iter_to_move,
+                         Gtk::TreeModel::iterator father_iter,
+                         Gtk::TreeModel::iterator brother_iter = Gtk::TreeModel::iterator{},
                          bool set_first = false);
 
 private:
-    bool _need_node_swap(Gtk::TreeIter& leftIter,
-                         Gtk::TreeIter& rightIter,
+    bool _need_node_swap(Gtk::TreeModel::iterator& leftIter,
+                         Gtk::TreeModel::iterator& rightIter,
                          bool ascendings);
     bool _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children,
                                         bool ascending);

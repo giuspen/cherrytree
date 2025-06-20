@@ -27,7 +27,6 @@
 #include "ct_clipboard.h"
 #include "ct_storage_control.h"
 #include <gtkmm/dialog.h>
-#include <gtkmm/stock.h>
 #include <cstdlib>
 #include "ct_logging.h"
 #include "ct_list.h"

@@ -89,7 +89,7 @@ void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTex
             _ctTextview.setup_for_syntax(treeIter.get_node_syntax_highlighting());
         }
         // we need also to reapply to all codeboxes that were already loaded
-        get_tree_store().get_store()->foreach([&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeIter& treeIter)->bool
+        get_tree_store().get_store()->foreach([&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool
         {
             CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
             if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
@@ -114,7 +114,7 @@ void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTex
 
 void CtMainWin::codeboxes_reload_toolbar()
 {
-    get_tree_store().get_store()->foreach([&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeIter& treeIter)->bool
+    get_tree_store().get_store()->foreach([&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool
     {
         CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
         if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
@@ -136,7 +136,7 @@ void CtMainWin::codeboxes_reload_toolbar()
 void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/)
 {
     std::string error;
-    get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
+    get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool
     {
         CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
         switch (target) {

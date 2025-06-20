@@ -24,6 +24,7 @@
 #pragma once
 
 #include "ct_types.h"
+#include "ct_widgets.h"
 #include "ct_filesystem.h"
 #include <glibmm/refptr.h>
 #include <gtkmm/textbuffer.h>
@@ -68,7 +69,7 @@ public:
                         const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                         const int start_offset = 0,
                         const int end_offset = -1) override;
-    void import_nodes(const fs::path& file_path, const Gtk::TreeIter& parent_iter) override;
+    void import_nodes(const fs::path& file_path, const Gtk::TreeModel::iterator& parent_iter) override;
 
     Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
                                                           const std::string& syntax,

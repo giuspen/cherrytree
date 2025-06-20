@@ -1,7 +1,7 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -150,7 +150,7 @@ public:
     CtTreeView(CtConfig* pCtConfig);
     virtual ~CtTreeView() {}
 
-    void set_cursor_safe(const Gtk::TreeIter& iter);
+    void set_cursor_safe(const Gtk::TreeModel::iterator& iter);
     void set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width);
     void set_tooltips_enable(const bool on);
 
@@ -173,4 +173,38 @@ private:
     CtConfig* const _pCtConfig;
     Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
     std::unique_ptr<Gtk::Menu> _uStatusIconMenu;
+};
+
+class CtTreeIter;
+class CtStorageEntity
+{
+public:
+    CtStorageEntity() = default;
+    virtual ~CtStorageEntity() = default;
+
+    virtual void close_connect() = 0;
+    virtual void reopen_connect() = 0;
+    virtual void test_connection() = 0;
+    virtual void try_reopen() = 0;
+
+    virtual bool populate_treestore(const fs::path& file_path, Glib::ustring& error) = 0;
+    virtual bool save_treestore(const fs::path& file_path,
+                                const CtStorageSyncPending& syncPending,
+                                Glib::ustring& error,
+                                const CtExporting exporting,
+                                const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
+                                const int start_offset = 0,
+                                const int end_offset = -1) = 0;
+    virtual void vacuum() = 0;
+    virtual void import_nodes(const fs::path& path, const Gtk::TreeModel::iterator& parent_iter) = 0;
+
+    virtual Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
+                                                                  const std::string& syntax,
+                                                                  std::list<CtAnchoredWidget*>& widgets) const = 0;
+    virtual fs::path get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const = 0;
+
+    void set_is_dry_run() { _isDryRun = true; }
+
+protected:
+    bool _isDryRun{false};
 };

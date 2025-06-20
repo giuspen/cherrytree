@@ -187,32 +187,32 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
     if (event->state & GDK_MOD1_MASK) {
     }
     else if (event->state & GDK_CONTROL_MASK) {
-        auto reduce = [](Gtk::TreeIter first, std::function<Gtk::TreeIter(Gtk::TreeIter)> operatr)->Gtk::TreeIter{
-            Gtk::TreeIter result;
+        auto reduce = [](Gtk::TreeModel::iterator first, std::function<Gtk::TreeModel::iterator(Gtk::TreeModel::iterator)> operatr)->Gtk::TreeModel::iterator{
+            Gtk::TreeModel::iterator result;
             for (auto next = operatr(first); next; next = operatr(next))
                 result = next;
             return result;
         };
         if (GDK_KEY_Up == event->keyval) {
-            auto fist_sibling = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return --iter;});
+            auto fist_sibling = reduce(curr_tree_iter(), [](Gtk::TreeModel::iterator iter) { return --iter;});
             if (fist_sibling)
                 get_tree_view().set_cursor_safe(fist_sibling);
             return true;
         }
         if (GDK_KEY_Down == event->keyval) {
-            auto last_sibling = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return ++iter;});
+            auto last_sibling = reduce(curr_tree_iter(), [](Gtk::TreeModel::iterator iter) { return ++iter;});
             if (last_sibling)
                 get_tree_view().set_cursor_safe(last_sibling);
             return true;
         }
         if (GDK_KEY_Left == event->keyval) {
-            auto fist_parent = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return iter->parent();});
+            auto fist_parent = reduce(curr_tree_iter(), [](Gtk::TreeModel::iterator iter) { return iter->parent();});
             if (fist_parent)
                 get_tree_view().set_cursor_safe(fist_parent);
             return true;
         }
         if (GDK_KEY_Right == event->keyval) {
-            auto last_child = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return iter->children().begin();});
+            auto last_child = reduce(curr_tree_iter(), [](Gtk::TreeModel::iterator iter) { return iter->children().begin();});
             if (last_child)
                 get_tree_view().set_cursor_safe(last_child);
             return true;
@@ -639,7 +639,7 @@ void CtMainWin::_on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>&
                                            guint /*info*/,
                                            guint /*time*/)
 {
-    Gtk::TreeIter sel_iter = _uCtTreeview->get_selection()->get_selected();
+    Gtk::TreeModel::iterator sel_iter = _uCtTreeview->get_selection()->get_selected();
     if (sel_iter) {
         const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(sel_iter).to_string();
         selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());

@@ -510,7 +510,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
             }
             ++pathCurrIdx;
         }
-        Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog,
+        Gtk::TreeModel::iterator res = CtDialogs::choose_item_dialog(dialog,
                                                           _("Automatic Syntax Highlighting"),
                                                           rItemStore,
                                                           nullptr/*single_column_name*/,

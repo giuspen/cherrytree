@@ -116,7 +116,7 @@ void CtTableLight::_reset(CtTableMatrix& tableMatrix)
 
 void CtTableLight::_on_cell_renderer_text_edited(const Glib::ustring& path, const Glib::ustring& new_text, const size_t column)
 {
-    Gtk::TreeIter treeIter{_pListStore->get_iter(path)};
+    Gtk::TreeModel::iterator treeIter{_pListStore->get_iter(path)};
     if (treeIter) {
         Gtk::TreeRow treeRow{*treeIter};
         if (treeRow[_pColumns->columnsText.at(column)] != new_text) {
@@ -151,7 +151,7 @@ bool CtTableLight::_on_entry_focus_out_event(GdkEventFocus*/*gdk_event*/, Gtk::E
 void CtTableLight::write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const
 {
     rows.reserve(get_num_rows());
-    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+    auto f_action = [&](const Gtk::TreeModel::iterator& treeIter)->bool{
         Gtk::TreeRow treeRow = *treeIter;
         rows.push_back(std::vector<Glib::ustring>{});
         const size_t numCols = get_num_columns();
@@ -168,9 +168,9 @@ void CtTableLight::write_strings_matrix(std::vector<std::vector<Glib::ustring>>&
 void CtTableLight::_populate_xml_rows_cells(xmlpp::Element* p_table_node) const
 {
     // put header at the end
-    Gtk::TreeIter headerIter;
+    Gtk::TreeModel::iterator headerIter;
     bool is_header{true};
-    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+    auto f_action = [&](const Gtk::TreeModel::iterator& treeIter)->bool{
         if (is_header) {
             is_header = false;
             headerIter = treeIter;
@@ -198,8 +198,8 @@ std::shared_ptr<CtAnchoredWidgetState> CtTableLight::get_state()
 
 void CtTableLight::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
 {
-    Gtk::TreeIter afterIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(afterRowIdx)});
-    Gtk::TreeIter newIter;
+    Gtk::TreeModel::iterator afterIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(afterRowIdx)});
+    Gtk::TreeModel::iterator newIter;
     if (afterIter) {
         newIter = _pListStore->insert_after(afterIter);
     }
@@ -224,7 +224,7 @@ void CtTableLight::row_delete(const size_t rowIdx)
         return;
     }
     Gtk::TreePath treePath{std::to_string(rowIdx)};
-    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
+    Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
     if (not treeIter) {
         return;
     }
@@ -241,7 +241,7 @@ void CtTableLight::row_delete(const size_t rowIdx)
     }
     if (0u == rowIdx) {
         // we deleted the header
-        Gtk::TreeIter treeIterHeader = _pListStore->get_iter(treePath);
+        Gtk::TreeModel::iterator treeIterHeader = _pListStore->get_iter(treePath);
         if (treeIterHeader) {
             (*treeIterHeader)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
         }
@@ -256,8 +256,8 @@ void CtTableLight::row_move_up(const size_t rowIdx, const bool from_move_down)
     }
     const size_t rowIdxUp = rowIdx - 1u;
     Gtk::TreePath treePath{std::to_string(rowIdx)};
-    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
-    Gtk::TreeIter treeIterUp = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdxUp)});
+    Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
+    Gtk::TreeModel::iterator treeIterUp = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdxUp)});
     if (not treeIter or not treeIterUp) {
         return;
     }
@@ -287,7 +287,7 @@ bool CtTableLight::_on_cell_key_press_alt_or_ctrl_enter()
 
 bool CtTableLight::_row_sort(const bool sortAsc)
 {
-    auto f_need_swap = [sortAsc, this](Gtk::TreeIter& l, Gtk::TreeIter& r)->bool{
+    auto f_need_swap = [sortAsc, this](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)->bool{
         const size_t minCols = get_num_columns();
         for (size_t c = 0; c < minCols; ++c) {
             const int cmpResult = CtStrUtil::natural_compare((*l)[_pColumns->columnsText.at(c)],
@@ -313,7 +313,7 @@ void CtTableLight::column_add(const size_t afterColIdx, const std::vector<Glib::
     tableMatrix.reserve(get_num_rows());
     const CtTableLightColumns& cols = get_columns();
     size_t rowIdx{0u};
-    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+    auto f_action = [&](const Gtk::TreeModel::iterator& treeIter)->bool{
         Gtk::TreeRow treeRow = *treeIter;
         tableMatrix.push_back(CtTableRow{});
         tableMatrix.back().reserve(currNumCol+1u);
@@ -345,7 +345,7 @@ void CtTableLight::column_delete(const size_t colIdx)
     CtTableMatrix tableMatrix;
     tableMatrix.reserve(get_num_rows());
     const CtTableLightColumns& cols = get_columns();
-    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+    auto f_action = [&](const Gtk::TreeModel::iterator& treeIter)->bool{
         Gtk::TreeRow treeRow = *treeIter;
         tableMatrix.push_back(CtTableRow{});
         tableMatrix.back().reserve(currNumCol-1u);
@@ -373,7 +373,7 @@ void CtTableLight::column_move_left(const size_t colIdx, const bool from_move_ri
     }
     const size_t colIdxLeft{colIdx - 1u};
     const CtTableLightColumns& cols = get_columns();
-    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+    auto f_action = [&](const Gtk::TreeModel::iterator& treeIter)->bool{
         Gtk::TreeRow treeRow = *treeIter;
         const Glib::ustring tmpCell = treeRow[cols.columnsText.at(colIdx)];
         treeRow[cols.columnsText.at(colIdx)] = treeRow.get_value(cols.columnsText.at(colIdxLeft));
@@ -436,7 +436,7 @@ std::string CtTableLight::to_csv() const
     tbl.reserve(get_num_rows());
     const size_t numColumns = get_num_columns();
     const CtTableLightColumns& cols = get_columns();
-    auto f_action = [&](const Gtk::TreeIter& treeIter)->bool{
+    auto f_action = [&](const Gtk::TreeModel::iterator& treeIter)->bool{
         Gtk::TreeRow treeRow = *treeIter;
         std::vector<std::string> row;
         row.reserve(numColumns);
@@ -513,7 +513,7 @@ int CtTableLight::get_curr_cell_max_offset() const
 Glib::ustring CtTableLight::get_cell_text(const size_t rowIdx, const size_t colIdx) const
 {
     Gtk::TreePath treePath{std::to_string(rowIdx)};
-    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
+    Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
     if (not treeIter) {
         spdlog::warn("!! {} row {}", __FUNCTION__, rowIdx);
         return "!?";
@@ -530,7 +530,7 @@ Glib::ustring CtTableLight::get_cell_text(const size_t rowIdx, const size_t colI
 void CtTableLight::set_cell_text(const size_t rowIdx, const size_t colIdx, const Glib::ustring& cell_text)
 {
     Gtk::TreePath treePath{std::to_string(rowIdx)};
-    Gtk::TreeIter treeIter = _pListStore->get_iter(treePath);
+    Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
     if (not treeIter) {
         spdlog::warn("!! {} row {}", __FUNCTION__, rowIdx);
         return;

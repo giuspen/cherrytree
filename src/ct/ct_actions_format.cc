@@ -23,7 +23,6 @@
 
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
-#include <gtkmm/stock.h>
 #include <glibmm/base64.h>
 #include "ct_dialogs.h"
 #include "ct_list.h"
@@ -396,7 +395,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             }
             int insert_offset = iter_sel_start->get_offset();
             int bound_offset = iter_sel_end->get_offset();
-            Gtk::TreeIter sel_tree_iter;
+            Gtk::TreeModel::iterator sel_tree_iter;
             if (_link_entry.node_id != -1)
                 sel_tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(_link_entry.node_id);
             if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))

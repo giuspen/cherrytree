@@ -55,14 +55,14 @@ void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocE
 template<class TreeOrListStore>
 bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
                         const Gtk::TreeNodeChildren& children,
-                        std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> f_need_swap,
+                        std::function<bool(Gtk::TreeModel::iterator&, Gtk::TreeModel::iterator&)> f_need_swap,
                         const size_t start_offset = 0u)
 {
     if (children.size() <= start_offset) {
         return false;
     }
-    auto next_iter = [](Gtk::TreeIter iter) { return ++iter; };
-    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeIter curr_sibling, size_t offset)->bool{
+    auto next_iter = [](Gtk::TreeModel::iterator iter) { return ++iter; };
+    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeModel::iterator curr_sibling, size_t offset)->bool{
         bool swap_executed{false};
         while (offset-- > 0) {
             ++curr_sibling;
@@ -70,7 +70,7 @@ bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
                 return false;
             }
         }
-        Gtk::TreeIter next_sibling{next_iter(curr_sibling)};
+        Gtk::TreeModel::iterator next_sibling{next_iter(curr_sibling)};
         while (next_sibling) {
             if (f_need_swap(curr_sibling, next_sibling)) {
                 model->iter_swap(curr_sibling, next_sibling);

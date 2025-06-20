@@ -27,7 +27,7 @@
 
 bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
                                    const Glib::ustring& title,
-                                   Gtk::TreeIter sel_tree_iter,
+                                   Gtk::TreeModel::iterator sel_tree_iter,
                                    CtLinkEntry& link_entry)
 {
     if (CtLinkType::None == link_entry.type) {
@@ -261,7 +261,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             for (const Glib::ustring& anchName : anchors_list) {
                 rItemStore->add_row("", "", anchName);
             }
-            Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Anchor"), rItemStore, _("Anchor Name"));
+            Gtk::TreeModel::iterator res = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Anchor"), rItemStore, _("Anchor Name"));
             if (res) {
                 Glib::ustring anchName = res->get_value(rItemStore->columns.desc);
                 entry_anchor.set_text(anchName);
@@ -278,13 +278,13 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         }
         return false;
     }, false);
-    Gtk::TreeIter lastAnchorSearch;
+    Gtk::TreeModel::iterator lastAnchorSearch;
     button_search_anchor.signal_clicked().connect([&](){
         bool pastPrevSearch{not static_cast<bool>(lastAnchorSearch)};
         const auto anchorName = entry_anchor.get_text();
         bool foundIt{false};
         for (unsigned i = 0; i < 2; ++i) {
-            ctTreestore.get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool{
+            ctTreestore.get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool{
                 if (not pastPrevSearch) {
                     if (treeIter == lastAnchorSearch) {
                         pastPrevSearch = true;
@@ -311,7 +311,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             if (foundIt or not static_cast<bool>(lastAnchorSearch)) {
                 break;
             }
-            lastAnchorSearch = Gtk::TreeIter{};
+            lastAnchorSearch = Gtk::TreeModel::iterator{};
         }
         if (not foundIt) {
             CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(anchorName)), dialog);

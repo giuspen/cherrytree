@@ -82,7 +82,11 @@ set(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/debian/posti
 
 include(CPack)
 
-set(CMAKE_CXX_STANDARD 17)
+if(WITH_GTK4)
+  set(CMAKE_CXX_STANDARD 23)
+else()
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 if(USE_SHARED_FMT_SPDLOG)
   add_definitions(-DSHARED_FMT_SPDLOG)
@@ -156,7 +160,11 @@ else()
   add_subdirectory(src/spdlog)
 endif()
 if(USE_VTE)
-  pkg_check_modules(VTE vte-2.91 REQUIRED)
+  if(WITH_GTK4)
+    pkg_check_modules(VTE vte-2.91-gtk4 REQUIRED)
+  else()
+    pkg_check_modules(VTE vte-2.91 REQUIRED)
+  endif()
 endif()
 
 add_subdirectory(src/7za)

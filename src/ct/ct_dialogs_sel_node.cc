@@ -42,7 +42,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
     Glib::ustring filter;
     std::vector<Glib::ustring> filter_words;
 
-    auto get_command_score = [&](const Gtk::TreeIter& iter) -> int {
+    auto get_command_score = [&](const Gtk::TreeModel::iterator& iter) -> int {
         auto label = iter->get_value(columns.label).lowercase();
         auto path = iter->get_value(columns.path).lowercase();
         int score = 0;
@@ -79,7 +79,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
     });
 
     auto tree_model_filter = Gtk::TreeModelFilter::create(list_store);
-    tree_model_filter->set_visible_func([&](const Gtk::TreeIter& iter) -> bool {
+    tree_model_filter->set_visible_func([&](const Gtk::TreeModel::iterator& iter) -> bool {
         if (filter.empty()) return true;
         return get_command_score(iter) >= 0;
     });
@@ -99,7 +99,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
         auto selection_color = style_context->get_background_color(Gtk::StateFlags::STATE_FLAG_SELECTED | Gtk::StateFlags::STATE_FLAG_FOCUSED);
         text_color.set_alpha(0.4);
 
-        auto append_column = [&](std::function<Glib::ustring(const Gtk::TreeIter& iter)> markup_function,
+        auto append_column = [&](std::function<Glib::ustring(const Gtk::TreeModel::iterator& iter)> markup_function,
                                  bool align_right,
                                  Gdk::RGBA* text_color,
                                  double font_scale = 1.0)
@@ -112,16 +112,16 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
             auto column = Gtk::manage(new Gtk::TreeViewColumn());
             column->pack_start(*cell_renderer, true);
             column->set_cell_data_func(*cell_renderer,
-                                       [markup_function](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
+                                       [markup_function](Gtk::CellRenderer* cell, const Gtk::TreeModel::iterator& iter){
                 ((Gtk::CellRendererText*)cell)->property_markup() = markup_function(iter);
             });
             tree_view.append_column(*column);
         };
-        append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
+        append_column([&](const Gtk::TreeModel::iterator& iter) -> Glib::ustring {
             return "  " + CtStrUtil::highlight_words(iter->get_value(columns.path), filter_words) + "  ";
         }, true/*align_right*/, &text_color);
         tree_view.append_column("", columns.pixbuf);
-        append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
+        append_column([&](const Gtk::TreeModel::iterator& iter) -> Glib::ustring {
             return CtStrUtil::highlight_words(iter->get_value(columns.label), filter_words);
         }, false/*align_right*/, nullptr, 1.4);
     });
@@ -135,7 +135,7 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
         tree_model_filter->refilter();
 
         // TreeModelSort has no "re-sort" method, but reassigning the comparison function forces a re-sort
-        tree_model_sort->set_default_sort_func([&](const Gtk::TreeIter& iter_a, const Gtk::TreeIter& iter_b) {
+        tree_model_sort->set_default_sort_func([&](const Gtk::TreeModel::iterator& iter_a, const Gtk::TreeModel::iterator& iter_b) {
             // "The sort function used by TreeModelSort is not guaranteed to be stable" (GTK+ documentation),
             // so the original order of commands is needed as a tie-breaker
             int id_difference = iter_a->get_value(columns.order) - iter_b->get_value(columns.order);
@@ -146,26 +146,26 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
         });
     };
     auto scroll_to_selected_item = [&]() {
-        if (Gtk::TreeIter selected_iter = tree_view.get_selection()->get_selected()) {
+        if (Gtk::TreeModel::iterator selected_iter = tree_view.get_selection()->get_selected()) {
             auto selected_path = tree_view.get_model()->get_path(selected_iter);
             tree_view.scroll_to_row(selected_path);
         }
     };
     auto select_first_item = [&]() {
-        if (Gtk::TreeIter iter = tree_view.get_model()->get_iter("0")) {
+        if (Gtk::TreeModel::iterator iter = tree_view.get_model()->get_iter("0")) {
             tree_view.get_selection()->select(iter);
             scroll_to_selected_item();
         }
     };
     auto select_previous_item = [&]() {
-        if (Gtk::TreeIter selected_iter = tree_view.get_selection()->get_selected())
+        if (Gtk::TreeModel::iterator selected_iter = tree_view.get_selection()->get_selected())
             if (--selected_iter) {
                 tree_view.get_selection()->select(selected_iter);
                 scroll_to_selected_item();
             }
     };
     auto select_next_item = [&]() {
-        if (Gtk::TreeIter selected_iter = tree_view.get_selection()->get_selected())
+        if (Gtk::TreeModel::iterator selected_iter = tree_view.get_selection()->get_selected())
             if (++selected_iter) {
                 tree_view.get_selection()->select(selected_iter);
                 scroll_to_selected_item();
@@ -211,9 +211,9 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
         popup_dialog.move(root_x + (width_win - allocation.get_width()) / 2, root_y + (height_win - allocation.get_height())/2 - 50);
     });
 
-    Gtk::TreeIter resulted_iter;
+    Gtk::TreeModel::iterator resulted_iter;
     auto run_command = [&] () {
-        if (Gtk::TreeIter iter = tree_view.get_selection()->get_selected()) {
+        if (Gtk::TreeModel::iterator iter = tree_view.get_selection()->get_selected()) {
             resulted_iter = iter;
             popup_dialog.close();
         }

@@ -30,10 +30,10 @@
 #include "ct_logging.h"
 #include <optional>
 
-static std::optional<Gtk::TreeIter> select_parent_dialog(CtMainWin* pCtMainWin)
+static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* pCtMainWin)
 {
     if (!pCtMainWin->curr_tree_iter()) {
-        return Gtk::TreeIter{};
+        return Gtk::TreeModel::iterator{};
     }
     Gtk::Dialog dialog{_("Who is the Parent?"),
                        *pCtMainWin,
@@ -74,7 +74,7 @@ static std::optional<Gtk::TreeIter> select_parent_dialog(CtMainWin* pCtMainWin)
         if (radiobutton_curr_node.get_active()) {
             return pCtMainWin->curr_tree_iter();
         }
-        return Gtk::TreeIter{};
+        return Gtk::TreeModel::iterator{};
     }
     return std::nullopt;
 }
@@ -100,7 +100,7 @@ void CtActions::import_nodes_from_ct_folder()
         if (folder_path.empty()) return; // No folder selected
         _pCtConfig->pickDirImport = Glib::path_get_dirname(folder_path);
 
-        std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
+        std::optional<Gtk::TreeModel::iterator> parent_iter = select_parent_dialog(_pCtMainWin);
         if (not parent_iter.has_value()) {
             return;
         }
@@ -128,7 +128,7 @@ void CtActions::import_nodes_from_ct_file()
         if (file_path.empty()) return; // No file selected
         _pCtConfig->pickDirImport = Glib::path_get_dirname(file_path);
 
-        std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
+        std::optional<Gtk::TreeModel::iterator> parent_iter = select_parent_dialog(_pCtMainWin);
         if (not parent_iter.has_value()) {
             return;
         }
@@ -320,7 +320,7 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
                     link_el->set_attribute(CtConst::TAG_LINK, "node " + std::to_string(node_ids[broken_link.first]));
     });
 
-    auto f_create_node = [&](CtImportedNode* imported_node, Gtk::TreeIter curr_iter, bool is_child) {
+    auto f_create_node = [&](CtImportedNode* imported_node, Gtk::TreeModel::iterator curr_iter, bool is_child) {
         CtNodeData node_data{};
         node_data.name = imported_node->node_name;
         node_data.nodeId = imported_node->node_id;
@@ -346,7 +346,7 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
             node_data.pTextBuffer = _pCtMainWin->get_new_text_buffer();
         }
 
-        Gtk::TreeIter node_iter;
+        Gtk::TreeModel::iterator node_iter;
         if (is_child and curr_iter)
             node_iter = ct_treestore.append_node(&node_data, &curr_iter /* as parent */);
         else if (curr_iter)
@@ -361,14 +361,14 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
     };
 
     // just create nodes
-    std::function<void(Gtk::TreeIter, CtImportedNode*)> f_create_nodes;
-    f_create_nodes = [&](Gtk::TreeIter curr_iter, CtImportedNode* imported_node) {
+    std::function<void(Gtk::TreeModel::iterator, CtImportedNode*)> f_create_nodes;
+    f_create_nodes = [&](Gtk::TreeModel::iterator curr_iter, CtImportedNode* imported_node) {
         auto iter = f_create_node(imported_node, curr_iter, true);
         for (auto& child : imported_node->children)
             f_create_nodes(iter, child.get());
     };
 
-    std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
+    std::optional<Gtk::TreeModel::iterator> parent_iter = select_parent_dialog(_pCtMainWin);
     if (not parent_iter.has_value()) {
         return;
     }

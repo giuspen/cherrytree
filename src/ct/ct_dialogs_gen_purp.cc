@@ -70,7 +70,7 @@ bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey* pEventKey)
     return false;
 }
 
-Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
+Gtk::TreeModel::iterator CtDialogs::choose_item_dialog(Gtk::Window& parent,
                                             const Glib::ustring& title,
                                             Glib::RefPtr<CtChooseDialogListStore> pModel,
                                             const gchar* single_column_name/*= nullptr*/,
@@ -103,7 +103,7 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     const auto treePathToSelect = Gtk::TreePath{pathToSelect};
     pElementsTreeview->get_selection()->select(treePathToSelect);
     pElementsTreeview->signal_row_activated().connect([&](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*) {
-        if (Gtk::TreeIter iter = pElementsTreeview->get_selection()->get_selected()) {
+        if (Gtk::TreeModel::iterator iter = pElementsTreeview->get_selection()->get_selected()) {
             static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT))->clicked();
         }
     });
@@ -136,7 +136,7 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     pElementsTreeview->grab_focus();
     pElementsTreeview->scroll_to_row(treePathToSelect, 0.5);
 
-    return Gtk::RESPONSE_ACCEPT == dialog.run() ? pElementsTreeview->get_selection()->get_selected() : Gtk::TreeIter{};
+    return Gtk::RESPONSE_ACCEPT == dialog.run() ? pElementsTreeview->get_selection()->get_selected() : Gtk::TreeModel::iterator{};
 }
 
 Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
@@ -328,7 +328,7 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
                             for (const Gdk::RGBA& curr_rgba : coloursUserPalette) {
                                 itemStore->add_row("", "", curr_rgba.to_string());
                             }
-                            const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
+                            const Gtk::TreeModel::iterator treeIter = CtDialogs::choose_item_dialog(dialog,
                                                                                          _("Remove User Colour from Palette"),
                                                                                          itemStore,
                                                                                          _("Colour"),

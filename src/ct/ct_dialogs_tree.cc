@@ -23,6 +23,7 @@
 
 #include "ct_dialogs.h"
 #include "ct_main_win.h"
+#include "ct_treestore.h"
 
 bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                  CtMainWin* pCtMainWin,
@@ -181,7 +182,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             }
             ++pathCurrIdx;
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
+        const Gtk::TreeModel::iterator treeIter = CtDialogs::choose_item_dialog(dialog,
                                                                      _("Automatic Syntax Highlighting"),
                                                                      rItemStore,
                                                                      nullptr/*single_column_name*/,
@@ -202,7 +203,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         for (const auto& tag : tags_set) {
             itemStore->add_row("", "", tag);
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Tag"), itemStore, _("Tag Name"));
+        const Gtk::TreeModel::iterator treeIter = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Tag"), itemStore, _("Tag Name"));
         if (treeIter) {
             std::string cur_tag = tags_entry->get_text();
             if  (str::endswith(cur_tag, CtConst::CHAR_SPACE)) {
@@ -250,7 +251,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             }
             ++pathCurrIdx;
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
+        const Gtk::TreeModel::iterator treeIter = CtDialogs::choose_item_dialog(dialog,
                                                                      _("Select Node Icon"),
                                                                      itemStore,
                                                                      nullptr/*single_column_name*/,
@@ -321,11 +322,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     return true;
 }
 
-Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
+Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
                                             Gtk::TreeView& parentTreeView,
                                             const Glib::ustring& title,
                                             CtTreeStore* pCtTreeStore,
-                                            Gtk::TreeIter sel_tree_iter)
+                                            Gtk::TreeModel::iterator sel_tree_iter)
 {
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
@@ -405,7 +406,7 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
         treeview_2.scroll_to_row(sel_path);
     }
 
-    return dialog.run() == Gtk::RESPONSE_ACCEPT ? treeview_2.get_selection()->get_selected() : Gtk::TreeIter{};
+    return dialog.run() == Gtk::RESPONSE_ACCEPT ? treeview_2.get_selection()->get_selected() : Gtk::TreeModel::iterator{};
 }
 
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree

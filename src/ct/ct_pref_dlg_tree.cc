@@ -140,17 +140,17 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     radiobutton_node_icon_cherry->signal_toggled().connect([this, radiobutton_node_icon_cherry](){
         if (!radiobutton_node_icon_cherry->get_active()) return;
         _pConfig->nodesIcons = "c";
-        apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false); });
+        apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator(), false); });
     });
     radiobutton_node_icon_custom->signal_toggled().connect([this, radiobutton_node_icon_custom](){
         if (!radiobutton_node_icon_custom->get_active()) return;
         _pConfig->nodesIcons = "b";
-        apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false); });
+        apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator(), false); });
     });
     radiobutton_node_icon_none->signal_toggled().connect([this, radiobutton_node_icon_none](){
         if (!radiobutton_node_icon_none->get_active()) return;
         _pConfig->nodesIcons = "n";
-        apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false); });
+        apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator(), false); });
     });
     c_icon_button->signal_clicked().connect([this, c_icon_button](){
         auto itemStore = CtChooseDialogListStore::create();
@@ -172,7 +172,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
         if (res) {
             _pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
             c_icon_button->set_image(*_pCtMainWin->new_managed_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
-            apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);});
+            apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator(), false);});
         }
     });
     radiobutton_nodes_startup_restore->signal_toggled().connect([this, radiobutton_nodes_startup_restore, checkbutton_nodes_bookm_exp](){

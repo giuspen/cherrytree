@@ -23,7 +23,6 @@
 
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
-#include <gtkmm/stock.h>
 #include "ct_dialogs.h"
 
 void CtActions::toggle_show_hide_vte()

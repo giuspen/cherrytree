@@ -24,6 +24,7 @@
 #pragma once
 
 #include "ct_types.h"
+#include "ct_widgets.h"
 #include <glibmm/miscutils.h>
 #include <thread>
 
@@ -87,7 +88,7 @@ public:
      * encrypted files
      * @param path: The path to the external CT file
      */
-    void add_nodes_from_storage(const fs::path& fpath, Gtk::TreeIter parent_iter, const bool is_folder);
+    void add_nodes_from_storage(const fs::path& fpath, Gtk::TreeModel::iterator parent_iter, const bool is_folder);
 
 private:
     static std::unique_ptr<CtStorageEntity> _get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type);

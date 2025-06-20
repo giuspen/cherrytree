@@ -113,7 +113,7 @@ void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
     }
 }
 
-void CtPrefDlg::populate_row_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key)
+void CtPrefDlg::populate_row_in_toolbar_model(Gtk::TreeModel::iterator row, const Glib::ustring& key)
 {
     Glib::ustring icon, desc;
     if (key == CtConst::TAG_SEPARATOR) {

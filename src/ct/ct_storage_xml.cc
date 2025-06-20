@@ -55,11 +55,11 @@ bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& 
         // load node tree
         std::list<CtTreeIter> nodes_with_duplicated_id;
         std::list<CtTreeIter> nodes_shared_non_master;
-        std::function<void(xmlpp::Element*, const gint64, Gtk::TreeIter)> f_nodes_from_xml;
-        f_nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
+        std::function<void(xmlpp::Element*, const gint64, Gtk::TreeModel::iterator)> f_nodes_from_xml;
+        f_nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeModel::iterator parent_iter) {
             bool has_duplicated_id{false};
             bool is_shared_non_master{false};
-            Gtk::TreeIter new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
+            Gtk::TreeModel::iterator new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
                 xml_element,
                 sequence,
                 parent_iter,
@@ -83,7 +83,7 @@ bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& 
         };
         gint64 sequence{0};
         for (xmlpp::Node* xml_node : parser->get_document()->get_root_node()->get_children("node")) {
-            f_nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++sequence, Gtk::TreeIter{});
+            f_nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++sequence, Gtk::TreeModel::iterator{});
         }
         // fix duplicated ids by allocating new ids
         // new ids can be allocated only after the whole tree is parsed
@@ -168,7 +168,7 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
     }
 }
 
-void CtStorageXml::import_nodes(const fs::path& filepath, const Gtk::TreeIter& parent_iter)
+void CtStorageXml::import_nodes(const fs::path& filepath, const Gtk::TreeModel::iterator& parent_iter)
 {
     std::unique_ptr<xmlpp::DomParser> parser = CtStorageXml::get_parser(filepath);
 
@@ -176,10 +176,10 @@ void CtStorageXml::import_nodes(const fs::path& filepath, const Gtk::TreeIter& p
 
     std::list<CtTreeIter> nodes_shared_non_master;
     std::map<gint64,gint64> imported_ids_remap;
-    std::function<void(xmlpp::Element*, const gint64 sequence, Gtk::TreeIter)> f_nodes_from_xml;
-    f_nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
+    std::function<void(xmlpp::Element*, const gint64 sequence, Gtk::TreeModel::iterator)> f_nodes_from_xml;
+    f_nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeModel::iterator parent_iter) {
         bool is_shared_non_master{false};
-        Gtk::TreeIter new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
+        Gtk::TreeModel::iterator new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
             xml_element,
             sequence,
             parent_iter,
@@ -365,9 +365,9 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(const CtTreeIter* ct_tree_iter,
     return p_node_node;
 }
 
-Gtk::TreeIter CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_element,
+Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_element,
                                                 const gint64 sequence,
-                                                const Gtk::TreeIter parent_iter,
+                                                const Gtk::TreeModel::iterator parent_iter,
                                                 const gint64 new_id,
                                                 bool* pHasDuplicatedId,
                                                 bool* pIsSharedNonMaster,
@@ -407,7 +407,7 @@ Gtk::TreeIter CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_elemen
     }
 
     if (isDryRun) {
-        return Gtk::TreeIter{};
+        return Gtk::TreeModel::iterator{};
     }
 
     if (-1 == new_id) {

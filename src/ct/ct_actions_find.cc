@@ -23,7 +23,6 @@
 
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
-#include <gtkmm/stock.h>
 #include <glibmm/regex.h>
 #include <regex>
 #include "ct_image.h"
@@ -176,7 +175,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
     CtStatusBar& ctStatusBar = _pCtMainWin->get_status_bar();
     CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
 
-    Gtk::TreeIter node_iter;
+    Gtk::TreeModel::iterator node_iter;
     bool forward = _s_options.direction_fw;
     if (_s_state.from_find_back) {
         forward = not forward;
@@ -234,7 +233,7 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         ++_s_state.processed_nodes;
         if (_s_state.matches_num > 0 and not all_matches) break;
         if (_s_options.only_sel_n_subnodes and not _s_state.from_find_iterated) break;
-        Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
+        Gtk::TreeModel::iterator last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) { ++node_iter; }
         else         { --node_iter; }
         if (not node_iter and _s_options.only_sel_n_subnodes) break;
@@ -433,7 +432,7 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
     if (not node_iter.get_node_children_are_excluded_from_search() or _s_options.override_exclusions) {
         // check for children
         if (not node_iter->children().empty()) {
-            Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
+            Gtk::TreeModel::iterator child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
             while (child_iter and not _pCtMainWin->get_status_bar().is_progress_stop()) {
                 _s_state.all_matches_first_in_node = true;
                 CtTreeIter ct_node_iter = ctTreeStore.to_ct_tree_iter(child_iter);

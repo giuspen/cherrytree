@@ -301,43 +301,6 @@ struct CtBackupEncryptData
     time_t* p_mod_time;
 };
 
-struct CtNodeData;
-class CtAnchoredWidget;
-class CtTreeIter;
-namespace Gtk { class TreeIter; }
-class CtStorageEntity
-{
-public:
-    CtStorageEntity() = default;
-    virtual ~CtStorageEntity() = default;
-
-    virtual void close_connect() = 0;
-    virtual void reopen_connect() = 0;
-    virtual void test_connection() = 0;
-    virtual void try_reopen() = 0;
-
-    virtual bool populate_treestore(const fs::path& file_path, Glib::ustring& error) = 0;
-    virtual bool save_treestore(const fs::path& file_path,
-                                const CtStorageSyncPending& syncPending,
-                                Glib::ustring& error,
-                                const CtExporting exporting,
-                                const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
-                                const int start_offset = 0,
-                                const int end_offset = -1) = 0;
-    virtual void vacuum() = 0;
-    virtual void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) = 0;
-
-    virtual Glib::RefPtr<Gtk::TextBuffer> get_delayed_text_buffer(const gint64 node_id,
-                                                                  const std::string& syntax,
-                                                                  std::list<CtAnchoredWidget*>& widgets) const = 0;
-    virtual fs::path get_embedded_filepath(const CtTreeIter& ct_tree_iter, const std::string& filename) const = 0;
-
-    void set_is_dry_run() { _isDryRun = true; }
-
-protected:
-    bool _isDryRun{false};
-};
-
 struct CtStockIcon
 {
     static const gchar* at(const size_t i) {
@@ -493,6 +456,7 @@ struct CtSearchState {
     bool                             in_loading{false};
 };
 
+class CtAnchoredWidget;
 struct CtAnchMatch {
     int               start_offset;
     Glib::ustring     line_content;

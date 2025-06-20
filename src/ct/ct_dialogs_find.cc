@@ -482,8 +482,8 @@ std::string CtMatchDialogStore::get_prev_page_range()
     return fmt::format("{}..{}", match_idx_start + 1, match_idx_end + 1);
 }
 
-Gtk::TreeIter CtMatchDialogStore::_add_row(const CtMatchRowData& row_data) {
-    Gtk::TreeIter retIter = append();
+Gtk::TreeModel::iterator CtMatchDialogStore::_add_row(const CtMatchRowData& row_data) {
+    Gtk::TreeModel::iterator retIter = append();
     Gtk::TreeRow row = *retIter;
     row[columns.node_id] = row_data.node_id;
     row[columns.node_name] = row_data.node_name;
@@ -559,7 +559,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
             //spdlog::debug("in_loading");
             return;
         }
-        Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
+        Gtk::TreeModel::iterator list_iter = pTreeview->get_selection()->get_selected();
         if (not list_iter) {
             //spdlog::debug("!get_selected");
             return;
@@ -620,7 +620,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
     auto on_allmatchesdialog_delete_event = [pMatchesDialog, rModel, pTreeview, &s_state](GdkEventAny* /*any_event*/)->bool{
         pMatchesDialog->get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
         pMatchesDialog->get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
-        Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
+        Gtk::TreeModel::iterator list_iter = pTreeview->get_selection()->get_selected();
         rModel->saved_path = list_iter ? pTreeview->get_model()->get_path(list_iter).to_string() : "";
 
         s_state.pMatchStoreDialog = nullptr;

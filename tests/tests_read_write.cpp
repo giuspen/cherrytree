@@ -135,7 +135,7 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
         // move node "py" under "e"
         CtTreeIter ctTreeIter = pWin2->get_tree_store().get_node_from_node_name("py");
         CtTreeIter ctTreeIterNewParent = pWin2->get_tree_store().get_node_from_node_name("e");
-        Gtk::TreeIter new_node_iter = pWin2->get_tree_store().get_store()->append(ctTreeIterNewParent->children());
+        Gtk::TreeModel::iterator new_node_iter = pWin2->get_tree_store().get_store()->append(ctTreeIterNewParent->children());
         CtNodeData node_data;
         pWin2->get_tree_store().get_node_data(ctTreeIter, node_data, true/*loadTextBuffer*/);
         pWin2->get_tree_store().update_node_data(new_node_iter, node_data);

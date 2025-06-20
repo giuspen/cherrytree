@@ -251,9 +251,9 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
         }
 
         // load node tree
-        std::function<void(const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter)> f_nodes_from_db;
-        f_nodes_from_db = [this, &f_nodes_from_db](const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter) {
-            Gtk::TreeIter new_iter = _node_from_db(id_pair.first,
+        std::function<void(const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeModel::iterator parent_iter)> f_nodes_from_db;
+        f_nodes_from_db = [this, &f_nodes_from_db](const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeModel::iterator parent_iter) {
+            Gtk::TreeModel::iterator new_iter = _node_from_db(id_pair.first,
                                                    id_pair.second,
                                                    sequence,
                                                    parent_iter,
@@ -265,7 +265,7 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
         };
         gint64 sequence{0};
         for (const std::pair<gint64,gint64>& top_id_pair : _get_children_node_ids_from_db(0)) {
-            f_nodes_from_db(top_id_pair, ++sequence, Gtk::TreeIter{});
+            f_nodes_from_db(top_id_pair, ++sequence, Gtk::TreeModel::iterator{});
         }
 
         // keep db open for lazy node buffer loading
@@ -416,10 +416,10 @@ void CtStorageSqlite::_close_db()
     //_file_path = ""; we need file_path for reconnection
 }
 
-Gtk::TreeIter CtStorageSqlite::_node_from_db(const gint64 node_id,
+Gtk::TreeModel::iterator CtStorageSqlite::_node_from_db(const gint64 node_id,
                                              const gint64 master_id,
                                              const gint64 sequence,
-                                             Gtk::TreeIter parent_iter,
+                                             Gtk::TreeModel::iterator parent_iter,
                                              const gint64 new_id)
 {
     auto uStmt = std::make_unique<Sqlite3StmtAuto>(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, level, ts_creation, ts_lastsave FROM node WHERE node_id=?");
@@ -466,7 +466,7 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(const gint64 node_id,
     nodeData.tsLastSave = sqlite3_column_int64(*uStmt, 7);
 
     if (_isDryRun) {
-        return Gtk::TreeIter{};
+        return Gtk::TreeModel::iterator{};
     }
 
     // buffer for imported node should be loaded now because file will be closed
@@ -925,7 +925,7 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
     }
 }
 
-void CtStorageSqlite::import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter)
+void CtStorageSqlite::import_nodes(const fs::path& path, const Gtk::TreeModel::iterator& parent_iter)
 {
     _open_db(path); // storage is temp so can just open db
     if (not _check_database_integrity()) return;
@@ -933,10 +933,10 @@ void CtStorageSqlite::import_nodes(const fs::path& path, const Gtk::TreeIter& pa
     std::map<gint64,gint64> imported_ids_remap;
     std::list<CtTreeIter> nodes_shared_non_master;
     CtTreeStore& ct_tree_store = _pCtMainWin->get_tree_store();
-    std::function<void(const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter)> f_nodes_from_db;
-    f_nodes_from_db = [&](const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeIter parent_iter) {
+    std::function<void(const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeModel::iterator parent_iter)> f_nodes_from_db;
+    f_nodes_from_db = [&](const std::pair<gint64,gint64>& id_pair, const gint64 sequence, Gtk::TreeModel::iterator parent_iter) {
         const gint64 new_id = ct_tree_store.node_id_get();
-        Gtk::TreeIter new_iter = _node_from_db(id_pair.first,
+        Gtk::TreeModel::iterator new_iter = _node_from_db(id_pair.first,
                                                id_pair.second,
                                                sequence,
                                                parent_iter,

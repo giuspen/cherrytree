@@ -31,6 +31,7 @@
 
 class CtMainWin;
 class CtTreeStore;
+class CtNodeData;
 
 class CtDialogTextEntry : public Gtk::Dialog
 {
@@ -161,7 +162,7 @@ private:
     CtMatchDialogStore(const size_t maxMatchesInPage)
      : cMaxMatchesInPage{maxMatchesInPage}
     {}
-    Gtk::TreeIter _add_row(const CtMatchRowData& row_data);
+    Gtk::TreeModel::iterator _add_row(const CtMatchRowData& row_data);
 
     int                         _page_idx{0};
     std::vector<CtMatchRowData> _all_matches;
@@ -169,7 +170,7 @@ private:
 
 namespace CtDialogs {
 
-Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
+Gtk::TreeModel::iterator choose_item_dialog(Gtk::Window& parent,
                                  const Glib::ustring& title,
                                  Glib::RefPtr<CtChooseDialogListStore> model,
                                  const gchar* single_column_name = nullptr,
@@ -207,11 +208,11 @@ void error_dialog(const Glib::ustring& message,
                   Gtk::Window& parent);
 
 // Dialog to Select a Node
-Gtk::TreeIter choose_node_dialog(CtMainWin* pCtMainWin,
+Gtk::TreeModel::iterator choose_node_dialog(CtMainWin* pCtMainWin,
                                  Gtk::TreeView& parentTreeView,
                                  const Glib::ustring& title,
                                  CtTreeStore* treestore,
-                                 Gtk::TreeIter sel_tree_iter);
+                                 Gtk::TreeModel::iterator sel_tree_iter);
 
 // Handle the Bookmarks List
 void bookmarks_handle_dialog(CtMainWin* pCtMainWin);
@@ -248,7 +249,7 @@ Glib::ustring img_n_entry_dialog(Gtk::Window& parent,
 // Dialog to Insert/Edit Links
 bool link_handle_dialog(CtMainWin& ctMainWin,
                         const Glib::ustring& title,
-                        Gtk::TreeIter sel_tree_iter,
+                        Gtk::TreeModel::iterator sel_tree_iter,
                         CtLinkEntry& link_entry);
 
 struct CtFileSelectArgs

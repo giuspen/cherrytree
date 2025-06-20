@@ -84,10 +84,10 @@ struct CtTreeModelColumns : public Gtk::TreeModelColumnRecord
 
 class CtMainWin;
 
-class CtTreeIter : public Gtk::TreeIter
+class CtTreeIter : public Gtk::TreeModel::iterator
 {
 public:
-    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, CtMainWin* pCtMainWin);
+    CtTreeIter(Gtk::TreeModel::iterator iter, const CtTreeModelColumns* _columns, CtMainWin* pCtMainWin);
     CtTreeIter() {} // invalid, casting to bool will give false
 
     CtTreeIter  parent() const;
@@ -165,18 +165,18 @@ public:
     void          tree_view_connect(Gtk::TreeView* pTreeView);
     void          text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView);
 
-    void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData, const bool loadTextBuffer);
+    void          get_node_data(const Gtk::TreeModel::iterator& treeIter, CtNodeData& nodeData, const bool loadTextBuffer);
     bool          populate_summary_info(CtSummaryInfo& summaryInfo);
     unsigned      tree_clear_property_exclude_from_search();
     unsigned      populate_shared_nodes_map(CtSharedNodesMap& sharedNodesMap) const;
 
-    void          update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData);
-    void          update_node_icon(const Gtk::TreeIter& treeIter);
-    void          update_nodes_icon(Gtk::TreeIter father_iter,  bool cherry_only);
-    void          update_node_aux_icon(const Gtk::TreeIter& treeIter);
+    void          update_node_data(const Gtk::TreeModel::iterator& treeIter, const CtNodeData& nodeData);
+    void          update_node_icon(const Gtk::TreeModel::iterator& treeIter);
+    void          update_nodes_icon(Gtk::TreeModel::iterator father_iter,  bool cherry_only);
+    void          update_node_aux_icon(const Gtk::TreeModel::iterator& treeIter);
 
-    Gtk::TreeIter append_node(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
-    Gtk::TreeIter insert_node(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
+    Gtk::TreeModel::iterator append_node(CtNodeData* pNodeData, const Gtk::TreeModel::iterator* pParentIter=nullptr);
+    Gtk::TreeModel::iterator insert_node(CtNodeData* pNodeData, const Gtk::TreeModel::iterator& afterIter);
 
     void addAnchoredWidgets(CtTreeIter ctTreeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
 
@@ -202,14 +202,14 @@ public:
     void                           bookmarks_set(const std::list<gint64>& bookmarks);
 
     Glib::RefPtr<Gtk::TreeStore>    get_store() { return _rTreeStore; }
-    Gtk::TreeIter                   get_iter_first();
+    Gtk::TreeModel::iterator                   get_iter_first();
     CtTreeIter                      get_ct_iter_first();
-    Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
-    Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
+    Gtk::TreeModel::iterator                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
+    Gtk::TreePath                   get_path(Gtk::TreeModel::iterator tree_iter);
     CtTreeIter                      get_iter(Gtk::TreePath& path);
-    CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter) const;
+    CtTreeIter                      to_ct_tree_iter(Gtk::TreeModel::iterator tree_iter) const;
 
-    void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children);
+    void nodes_sequences_fix(Gtk::TreeModel::iterator father_iter, bool process_children);
 
     const CtTreeModelColumns& get_columns() const { return _columns; }
 

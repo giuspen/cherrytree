@@ -31,8 +31,8 @@
 
 /*static*/bool CtTreeIter::_hitExclusionFromSearch{false};
 
-CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, CtMainWin* pCtMainWin)
- : Gtk::TreeIter{iter}
+CtTreeIter::CtTreeIter(Gtk::TreeModel::iterator iter, const CtTreeModelColumns* pColumns, CtMainWin* pCtMainWin)
+ : Gtk::TreeModel::iterator{iter}
  , _pColumns{pColumns}
  , _pCtMainWin{pCtMainWin}
 {
@@ -489,7 +489,7 @@ Glib::RefPtr<Gtk::TextBuffer> CtTreeIter::get_node_text_buffer() const
             (*this)->set_value(_pColumns->colSharedNodesMasterId, static_cast<gint64>(0));
         }
         Glib::RefPtr<Gtk::TextBuffer> rRetTextBuffer;
-        const Gtk::TreeIter& self = *this;
+        const Gtk::TreeModel::iterator& self = *this;
         if (static_cast<bool>(self)) {
             Gtk::TreeRow row = *self;
             rRetTextBuffer = row.get_value(_pColumns->rColTextBuffer);
@@ -762,7 +762,7 @@ void CtTreeStore::pending_edit_db_bookmarks()
 
 void CtTreeStore::_iter_delete_anchored_widgets(const Gtk::TreeModel::Children& children)
 {
-    for (Gtk::TreeIter treeIter = children.begin(); treeIter != children.end(); ++treeIter) {
+    for (Gtk::TreeModel::iterator treeIter = children.begin(); treeIter != children.end(); ++treeIter) {
         Gtk::TreeRow row = *treeIter;
         // only the master deletes the widgets
         if (row.get_value(_columns.colSharedNodesMasterId) <= 0) {
@@ -784,7 +784,7 @@ void CtTreeStore::treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
 {
     bool treeSelFromConfig{false};
     if (not node_path.empty()) {
-        Gtk::TreeIter treeIter = _rTreeStore->get_iter(node_path);
+        Gtk::TreeModel::iterator treeIter = _rTreeStore->get_iter(node_path);
         if (static_cast<bool>(treeIter)) {
             pTreeView->set_cursor_safe(treeIter);
             treeSelFromConfig = true;
@@ -796,7 +796,7 @@ void CtTreeStore::treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
         }
     }
     if (not treeSelFromConfig) {
-        const Gtk::TreeIter treeIter = get_iter_first();
+        const Gtk::TreeModel::iterator treeIter = get_iter_first();
         if (static_cast<bool>(treeIter)) {
             pTreeView->set_cursor(_rTreeStore->get_path(treeIter));
         }
@@ -807,7 +807,7 @@ std::string CtTreeStore::treeview_get_tree_expanded_collapsed_string(Gtk::TreeVi
 {
     std::vector<std::string> expanded_collapsed_vec;
     _rTreeStore->foreach(
-        [this, &treeView, &expanded_collapsed_vec](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool{
+        [this, &treeView, &expanded_collapsed_vec](const Gtk::TreePath& path, const Gtk::TreeModel::iterator& iter)->bool{
             expanded_collapsed_vec.push_back(std::to_string(iter->get_value(_columns.colNodeUniqueId))
                                              + ","
                                              + (treeView.row_expanded(path) ? "True" : "False"));
@@ -829,7 +829,7 @@ void CtTreeStore::treeview_set_tree_expanded_collapsed_string(const std::string&
     }
     treeView.collapse_all();
     _rTreeStore->foreach(
-        [this, &treeView, &expanded_collapsed_dict, &nodes_bookm_exp](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool{
+        [this, &treeView, &expanded_collapsed_dict, &nodes_bookm_exp](const Gtk::TreePath& path, const Gtk::TreeModel::iterator& iter)->bool{
             gint64 node_id = iter->get_value(_columns.colNodeUniqueId);
             if (map::exists(expanded_collapsed_dict, node_id) and expanded_collapsed_dict.at(node_id)) {
                 treeView.expand_row(path, false);
@@ -862,7 +862,7 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
             pTVCol0->add_attribute(pCellRendererText->property_weight(), _columns.colWeight);
             pTVCol0->set_cell_data_func(
                 *pCellRendererText,
-                [this](Gtk::CellRenderer* pCell, const Gtk::TreeIter& treeIter){
+                [this](Gtk::CellRenderer* pCell, const Gtk::TreeModel::iterator& treeIter){
                     Gtk::TreeRow row = *treeIter;
                     if (row.get_value(_columns.colForeground).empty()) {
                         dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = _pCtMainWin->get_ct_config()->ttDefFg;
@@ -994,7 +994,7 @@ const char* CtTreeStore::get_node_icon(int nodeDepth, const std::string &syntax,
     return _pCtMainWin->get_code_icon_name(syntax);
 }
 
-void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData, const bool loadTextBuffer)
+void CtTreeStore::get_node_data(const Gtk::TreeModel::iterator& treeIter, CtNodeData& nodeData, const bool loadTextBuffer)
 {
     Gtk::TreeRow row = *treeIter;
 
@@ -1034,7 +1034,7 @@ void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeD
     nodeData.tsLastSave = row[_columns.colTsLastSave];
 }
 
-void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData)
+void CtTreeStore::update_node_data(const Gtk::TreeModel::iterator& treeIter, const CtNodeData& nodeData)
 {
     Gtk::TreeRow row = *treeIter;
 
@@ -1062,7 +1062,7 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     _nodes_names_dict[nodeData.nodeId] = nodeData.name;
 }
 
-void CtTreeStore::update_node_icon(const Gtk::TreeIter& treeIter)
+void CtTreeStore::update_node_icon(const Gtk::TreeModel::iterator& treeIter)
 {
     CtTreeIter ctTreeIter = to_ct_tree_iter(treeIter);
     auto icon = _get_node_icon(_rTreeStore->iter_depth(treeIter),
@@ -1071,7 +1071,7 @@ void CtTreeStore::update_node_icon(const Gtk::TreeIter& treeIter)
     treeIter->set_value(_columns.rColPixbuf, icon);
 }
 
-void CtTreeStore::update_nodes_icon(Gtk::TreeIter father_iter, bool cherry_only)
+void CtTreeStore::update_nodes_icon(Gtk::TreeModel::iterator father_iter, bool cherry_only)
 {
     if (cherry_only and
         CtConst::NODE_ICON_TYPE_CHERRY != _pCtMainWin->get_ct_config()->nodesIcons)
@@ -1086,7 +1086,7 @@ void CtTreeStore::update_nodes_icon(Gtk::TreeIter father_iter, bool cherry_only)
     }
 }
 
-void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
+void CtTreeStore::update_node_aux_icon(const Gtk::TreeModel::iterator& treeIter)
 {
     // use low level treeIter here, only data local to the id
     // no magic to try and fetch the master as this data is anyway
@@ -1130,9 +1130,9 @@ void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
     }
 }
 
-Gtk::TreeIter CtTreeStore::append_node(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter)
+Gtk::TreeModel::iterator CtTreeStore::append_node(CtNodeData* pNodeData, const Gtk::TreeModel::iterator* pParentIter)
 {
-    Gtk::TreeIter newIter;
+    Gtk::TreeModel::iterator newIter;
     //std::cout << pNodeData->name << std::endl;
 
     if (nullptr == pParentIter) {
@@ -1145,9 +1145,9 @@ Gtk::TreeIter CtTreeStore::append_node(CtNodeData* pNodeData, const Gtk::TreeIte
     return newIter;
 }
 
-Gtk::TreeIter CtTreeStore::insert_node(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter)
+Gtk::TreeModel::iterator CtTreeStore::insert_node(CtNodeData* pNodeData, const Gtk::TreeModel::iterator& afterIter)
 {
-    Gtk::TreeIter newIter = _rTreeStore->insert_after(afterIter);
+    Gtk::TreeModel::iterator newIter = _rTreeStore->insert_after(afterIter);
     update_node_data(newIter, *pNodeData);
     return newIter;
 }
@@ -1252,7 +1252,7 @@ gint64 CtTreeStore::node_id_get(gint64 original_id/*=-1*/,
     // (@txe) this function works differently from python code
     // it's easer to find max than check every id is not used through all tree
     gint64 max_node_id{0};
-    _rTreeStore->foreach_iter([&max_node_id, this](const Gtk::TreeIter& iter){
+    _rTreeStore->foreach_iter([&max_node_id, this](const Gtk::TreeModel::iterator& iter){
         if (iter->get_value(_columns.colNodeUniqueId) > max_node_id) {
             max_node_id = iter->get_value(_columns.colNodeUniqueId);
         }
@@ -1304,8 +1304,8 @@ std::string CtTreeStore::get_node_name_from_node_id(const gint64 node_id)
 
 CtTreeIter CtTreeStore::get_node_from_node_id(const gint64 node_id)
 {
-    Gtk::TreeIter find_iter;
-    _rTreeStore->foreach_iter([&node_id, &find_iter, this](const Gtk::TreeIter& iter) {
+    Gtk::TreeModel::iterator find_iter;
+    _rTreeStore->foreach_iter([&node_id, &find_iter, this](const Gtk::TreeModel::iterator& iter) {
         if (iter->get_value(_columns.colNodeUniqueId) != node_id) return false; /* continue */
         find_iter = iter;
         return true;
@@ -1315,8 +1315,8 @@ CtTreeIter CtTreeStore::get_node_from_node_id(const gint64 node_id)
 
 CtTreeIter CtTreeStore::get_node_from_node_name(const Glib::ustring& node_name)
 {
-    Gtk::TreeIter find_iter;
-    _rTreeStore->foreach_iter([&node_name, &find_iter, this](const Gtk::TreeIter& iter) {
+    Gtk::TreeModel::iterator find_iter;
+    _rTreeStore->foreach_iter([&node_name, &find_iter, this](const Gtk::TreeModel::iterator& iter) {
         if (iter->get_value(_columns.colNodeName) != node_name) return false; /* continue */
         find_iter = iter;
         return true;
@@ -1352,7 +1352,7 @@ void CtTreeStore::bookmarks_set(const std::list<gint64>& bookmarks)
     _bookmarks = bookmarks;
 }
 
-Gtk::TreeIter CtTreeStore::get_iter_first()
+Gtk::TreeModel::iterator CtTreeStore::get_iter_first()
 {
     return _rTreeStore->get_iter("0");
 }
@@ -1362,15 +1362,15 @@ CtTreeIter CtTreeStore::get_ct_iter_first()
     return to_ct_tree_iter(get_iter_first());
 }
 
-Gtk::TreeIter CtTreeStore::get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children)
+Gtk::TreeModel::iterator CtTreeStore::get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children)
 {
     if (children.empty()) {
-        return Gtk::TreeIter{};
+        return Gtk::TreeModel::iterator{};
     }
     return --children.end();
 }
 
-Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
+Gtk::TreePath CtTreeStore::get_path(Gtk::TreeModel::iterator tree_iter)
 {
     return _rTreeStore->get_path(tree_iter);
 }
@@ -1380,12 +1380,12 @@ CtTreeIter CtTreeStore::get_iter(Gtk::TreePath& path)
     return to_ct_tree_iter(_rTreeStore->get_iter(path));
 }
 
-CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter) const
+CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeModel::iterator tree_iter) const
 {
     return CtTreeIter{tree_iter, &get_columns(), _pCtMainWin};
 }
 
-void CtTreeStore::nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children)
+void CtTreeStore::nodes_sequences_fix(Gtk::TreeModel::iterator father_iter,  bool process_children)
 {
     auto children = father_iter ? father_iter->children() : _rTreeStore->children();
     gint64 node_sequence = 0;
@@ -1406,7 +1406,7 @@ unsigned CtTreeStore::tree_clear_property_exclude_from_search()
 {
     unsigned nodes_properties_changed{0u};
     _rTreeStore->foreach(
-        [&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeIter& treeIter)->bool{
+        [&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool{
             CtTreeIter ctTreeIter = to_ct_tree_iter(treeIter);
             if (ctTreeIter.get_node_is_excluded_from_search() or
                 ctTreeIter.get_node_children_are_excluded_from_search())
@@ -1427,7 +1427,7 @@ unsigned CtTreeStore::populate_shared_nodes_map(CtSharedNodesMap& sharedNodesMap
 {
     unsigned count_shared_nodes{0u};
     _rTreeStore->foreach(
-        [&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeIter& treeIter)->bool{
+        [&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool{
             CtTreeIter ctTreeIter = to_ct_tree_iter(treeIter);
             const gint64 shared_master_id = ctTreeIter.get_node_shared_master_id();
             if (shared_master_id > 0) {
@@ -1445,7 +1445,7 @@ bool CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
     std::string error;
     CtSharedNodesMap sharedNodesMap;
     _rTreeStore->foreach(
-        [&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeIter& treeIter)->bool{
+        [&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool{
             auto ctTreeIter = to_ct_tree_iter(treeIter);
             const auto nodeSyntax = ctTreeIter.get_node_syntax_highlighting();
             if (nodeSyntax == CtConst::RICH_TEXT_ID) {
