@@ -13,7 +13,7 @@
 AppId={{DBA7384C-E1C6-44B5-A3B4-C94F2F0B8C0C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -90,3 +90,61 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\ucrt64\bin\{#MyAppExeName}"
 
 [Run]
 Filename: "{app}\ucrt64\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+// This function is called when setup is initialized.
+// It checks if a previous version of the application is installed.
+// If so, it offers to uninstall it before proceeding.
+function InitializeSetup(): Boolean;
+var
+  UninstPath: string;
+  UninstRegKey: string;
+  ResultCode: Integer;
+begin
+  // Set the default result to success
+  Result := True;
+
+  // Define the registry key where the uninstaller information is stored.
+  // Inno Setup creates a key with "_is1" appended to the AppId.
+  UninstRegKey := 'Software\Microsoft\Windows\CurrentVersion\Uninstall\' +
+                  '{#SetupSetting("AppId")}_is1';
+
+  // Check both HKEY_LOCAL_MACHINE and HKEY_CURRENT_USER for the uninstaller path.
+  // This covers both admin and non-admin installations.
+  if not RegQueryStringValue(HKA, UninstRegKey, 'UninstallString', UninstPath) then
+    RegQueryStringValue(HKCU, UninstRegKey, 'UninstallString', UninstPath);
+
+  // If UninstPath is not empty, a previous version was found.
+  if UninstPath <> '' then
+  begin
+    // Ask the user for confirmation to uninstall the old version.
+    if MsgBox('An older version of {#MyAppName} is already installed. ' +
+              'Would you like to remove the previous version before installing this one?',
+              mbConfirmation, MB_YESNO) = IDYES then
+    begin
+      // Execute the old uninstaller silently and wait for it to finish.
+      // Use '/VERYSILENT' to prevent any user interface from the uninstaller.
+      if Exec(AddQuotes(UninstPath), '/VERYSILENT', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+      begin
+        // Uninstaller ran. The result code is not always reliable,
+        // so we'll just log it and proceed.
+        Log(Format('The previous version uninstaller finished with exit code: %d', [ResultCode]));
+        Result := True;
+      end
+      else
+      begin
+        // The uninstaller failed to execute.
+        MsgBox('The uninstaller for the previous version could not be started. ' +
+               'Setup will now exit.', mbError, MB_OK);
+        Result := False; // Abort the new installation
+      end;
+    end
+    else
+    begin
+      // The user chose not to uninstall the old version.
+      MsgBox('Setup cannot continue because the previous version was not uninstalled. ' +
+             'Setup will now exit.', mbInformation, MB_OK);
+      Result := False; // Abort the new installation
+    end;
+  end;
+end;
