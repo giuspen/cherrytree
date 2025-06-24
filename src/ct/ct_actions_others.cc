@@ -431,8 +431,7 @@ void CtActions::current_node_scroll_to_anchor(Glib::ustring anchor_name)
     }
     else {
         Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
-        _curr_buffer()->place_cursor(iter_anchor);
-        _pCtMainWin->get_text_view().mm().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(iter_anchor.get_offset(), 1);
     }
 }
 
