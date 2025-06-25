@@ -72,11 +72,28 @@ var
   OldUninstallerPath: String;
   ShouldUninstall: Boolean;
 
+// Custom function to find the uninstaller path, compatible with Inno Setup 5.
+function GetUninstallString_IS5(): String;
+var
+  UninstallKey: string;
+  UninstallPath: string;
+begin
+  Result := '';
+  // The uninstall key is based on the AppId, with "_is1" appended.
+  UninstallKey := 'Software\Microsoft\Windows\CurrentVersion\Uninstall\' + '{#SetupSetting("AppId")}' + '_is1';
+  
+  // Check both HKEY_CURRENT_USER and HKEY_LOCAL_MACHINE to find the "UninstallString" value.
+  // This covers both non-admin and admin installations.
+  if not RegQueryStringValue(HKCU, UninstallKey, 'UninstallString', UninstallPath) then
+    RegQueryStringValue(HKLM, UninstallKey, 'UninstallString', UninstallPath);
+  
+  Result := UninstallPath;
+end;
+
 function InitializeSetup(): Boolean;
 begin
-  // Use the built-in function to find the uninstall string.
-  // This correctly handles HKLM/HKCU and 32/64-bit registry views.
-  OldUninstallerPath := GetUninstallString('{#SetupSetting("AppId")}');
+  // Use our custom IS5-compatible function to find the uninstall string.
+  OldUninstallerPath := GetUninstallString_IS5();
 
   if OldUninstallerPath <> '' then
   begin
@@ -105,8 +122,6 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var
   ResultCode: Integer;
 begin
-  // Run the uninstaller only if the step is the installation itself
-  // and the user has previously agreed to it.
   if (CurStep = ssInstall) and ShouldUninstall then
   begin
     Log('Executing previous version uninstaller.');
@@ -117,8 +132,6 @@ begin
     else
     begin
       Log(Format('The previous version uninstaller failed to run. Exit code: %d', [ResultCode]));
-      // You might want to inform the user, but for a smoother experience, we'll just log it.
-      // MsgBox('The uninstaller for the previous version could not be started. The installation might not work correctly.', mbError, MB_OK);
     end;
   end;
 end;
