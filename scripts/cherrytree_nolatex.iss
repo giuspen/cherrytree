@@ -5,7 +5,6 @@
 #define MyAppPublisher "Giuseppe Penone"
 #define MyAppURL "https://www.giuspen.net/cherrytree/"
 #define MyAppExeName "cherrytree.exe"
-// Ensure this path is correct on the machine building the installer
 #define MyAppVersion GetFileVersion('C:\msys64\home\PenoneG\git\cherrytree\build\cherrytree.exe')
 
 [Setup]
@@ -31,7 +30,6 @@ Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
 ChangesAssociations=yes
-// This setting is crucial for the uninstaller
 UninstallDisplayIcon={app}\ucrt64\bin\{#MyAppExeName}
 
 [Registry]
@@ -71,54 +69,56 @@ Filename: "{app}\ucrt64\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#
 
 [Code]
 var
-  UninstallOldVersion: Boolean;
+  OldUninstallerPath: String;
+  ShouldUninstall: Boolean;
 
 function InitializeSetup(): Boolean;
-var
-  UninstPath: String;
 begin
-  // Default to proceeding with the installation
-  Result := True;
-  UninstallOldVersion := False;
+  // Use the built-in function to find the uninstall string.
+  // This correctly handles HKLM/HKCU and 32/64-bit registry views.
+  OldUninstallerPath := GetUninstallString('{#SetupSetting("AppId")}');
 
-  // Correctly locate the UninstallString in both HKLM and HKCU based on AppName
-  if RegQueryStringValue(HKA, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}_is1', 'UninstallString', UninstPath) or
-     RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}_is1', 'UninstallString', UninstPath) then
+  if OldUninstallerPath <> '' then
   begin
-    if MsgBox('An older version of {#MyAppName} is already installed. Would you like to remove it before installing the new version?', mbConfirmation, MB_YESNO) = IDYES then
+    Log(Format('Found previous version uninstaller: %s', [OldUninstallerPath]));
+    ShouldUninstall := (MsgBox('An older version of {#MyAppName} is already installed. Would you like to remove it before installing the new version?', mbConfirmation, MB_YESNO) = IDYES);
+    
+    if not ShouldUninstall then
     begin
-      UninstallOldVersion := True;
-      // The actual uninstallation will be handled in CurStepChanged(ssInstall)
+      MsgBox('Setup cannot continue because the previous version was not uninstalled. Setup will now exit.', mbInformation, MB_OK);
+      Result := False; // Abort setup if user selects No
     end
     else
     begin
-      MsgBox('Setup cannot continue because the previous version was not uninstalled. Setup will now exit.', mbInformation, MB_OK);
-      Result := False; // Abort the installation
+      Result := True; // Proceed with setup
     end;
+  end
+  else
+  begin
+    Log('No previous version found.');
+    ShouldUninstall := False;
+    Result := True; // No old version found, proceed as normal
   end;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 var
-  UninstPath: String;
   ResultCode: Integer;
 begin
-  if (CurStep = ssInstall) and UninstallOldVersion then
+  // Run the uninstaller only if the step is the installation itself
+  // and the user has previously agreed to it.
+  if (CurStep = ssInstall) and ShouldUninstall then
   begin
-    Log('Current step is ssInstall, proceeding with uninstallation.');
-    // Re-check the path to be safe
-    if RegQueryStringValue(HKA, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}_is1', 'UninstallString', UninstPath) or
-       RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}_is1', 'UninstallString', UninstPath) then
+    Log('Executing previous version uninstaller.');
+    if Exec(OldUninstallerPath, '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
     begin
-      // Execute the uninstaller silently and suppress any messages
-      if Exec(UninstPath, '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
-      begin
-        Log(Format('The previous version uninstaller finished with exit code: %d', [ResultCode]));
-      end
-      else
-      begin
-        MsgBox('The uninstaller for the previous version could not be started. The installation might not work correctly.', mbError, MB_OK);
-      end;
+      Log(Format('The previous version uninstaller finished with exit code: %d', [ResultCode]));
+    end
+    else
+    begin
+      Log(Format('The previous version uninstaller failed to run. Exit code: %d', [ResultCode]));
+      // You might want to inform the user, but for a smoother experience, we'll just log it.
+      // MsgBox('The uninstaller for the previous version could not be started. The installation might not work correctly.', mbError, MB_OK);
     end;
   end;
 end;
