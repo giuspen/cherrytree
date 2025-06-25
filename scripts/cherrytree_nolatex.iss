@@ -72,32 +72,44 @@ var
   OldUninstallerPath: String;
   ShouldUninstall: Boolean;
 
-// Custom function to find the uninstaller path, compatible with Inno Setup 5.
-function GetUninstallString_IS5(): String;
+// Final function to find the uninstaller path, compatible with Inno Setup 5
+// and aware of 32/64-bit registry redirection.
+function GetUninstallString_Final(): String;
 var
   UninstallKey: string;
   UninstallPath: string;
 begin
   Result := '';
-  // The uninstall key is based on the AppId, with "_is1" appended.
+  
+  // --- Check 1: The most common location for a 32-bit app on a 64-bit system ---
+  UninstallKey := 'Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\' + '{#SetupSetting("AppId")}' + '_is1';
+  if RegQueryStringValue(HKLM, UninstallKey, 'UninstallString', UninstallPath) then
+  begin
+    Result := UninstallPath;
+    exit;
+  end;
+
+  // --- Check 2: The standard 64-bit and user-specific locations ---
   UninstallKey := 'Software\Microsoft\Windows\CurrentVersion\Uninstall\' + '{#SetupSetting("AppId")}' + '_is1';
+  if RegQueryStringValue(HKLM, UninstallKey, 'UninstallString', UninstallPath) then
+  begin
+    Result := UninstallPath;
+    exit;
+  end;
   
-  // Check both HKEY_CURRENT_USER and HKEY_LOCAL_MACHINE to find the "UninstallString" value.
-  // This covers both non-admin and admin installations.
-  if not RegQueryStringValue(HKCU, UninstallKey, 'UninstallString', UninstallPath) then
-    RegQueryStringValue(HKLM, UninstallKey, 'UninstallString', UninstallPath);
-  
-  Result := UninstallPath;
+  if RegQueryStringValue(HKCU, UninstallKey, 'UninstallString', UninstallPath) then
+  begin
+    Result := UninstallPath;
+    exit;
+  end;
 end;
 
 function InitializeSetup(): Boolean;
 begin
-  // Use our custom IS5-compatible function to find the uninstall string.
-  OldUninstallerPath := GetUninstallString_IS5();
+  OldUninstallerPath := GetUninstallString_Final();
 
   if OldUninstallerPath <> '' then
   begin
-    Log(Format('Found previous version uninstaller: %s', [OldUninstallerPath]));
     ShouldUninstall := (MsgBox('An older version of {#MyAppName} is already installed. Would you like to remove it before installing the new version?', mbConfirmation, MB_YESNO) = IDYES);
     
     if not ShouldUninstall then
@@ -112,7 +124,6 @@ begin
   end
   else
   begin
-    Log('No previous version found.');
     ShouldUninstall := False;
     Result := True; // No old version found, proceed as normal
   end;
@@ -124,7 +135,6 @@ var
 begin
   if (CurStep = ssInstall) and ShouldUninstall then
   begin
-    Log('Executing previous version uninstaller.');
     if Exec(OldUninstallerPath, '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
     begin
       Log(Format('The previous version uninstaller finished with exit code: %d', [ResultCode]));
