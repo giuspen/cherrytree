@@ -90,3 +90,109 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\ucrt64\bin\{#MyAppExeName}"
 
 [Run]
 Filename: "{app}\ucrt64\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+// This helper function searches all common registry locations for an app whose name begins with AppName.
+function GetUninstallStringByName(const AppName: string; var UninstallString: string): Boolean;
+var
+  UninstallRegKey: string;
+  SubKeyNames: TArrayOfString;
+  I: Integer;
+  DisplayName: string;
+begin
+  Result := False;
+  UninstallString := '';
+  UninstallRegKey := 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+
+  // This function will now search all three main registry locations.
+  // We will check HKCU, then HKLM64, then HKLM32.
+
+  // --- Search 1: Current User (HKCU) ---
+  if RegGetSubkeyNames(HKCU, UninstallRegKey, SubKeyNames) then
+  begin
+    for I := 0 to GetArrayLength(SubKeyNames) - 1 do
+    begin
+      if RegQueryStringValue(HKCU, UninstallRegKey + '\' + SubKeyNames[I], 'DisplayName', DisplayName) then
+      begin
+        // *** THE FIX IS HERE: We check if DisplayName STARTS WITH AppName ***
+        if Pos(AppName, DisplayName) = 1 then
+        begin
+          if RegQueryStringValue(HKCU, UninstallRegKey + '\' + SubKeyNames[I], 'UninstallString', UninstallString) then
+          begin
+            Result := True;
+            Exit; // Found it!
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  // --- Search 2: All Users - 64-bit (HKLM64) ---
+  if RegGetSubkeyNames(HKLM64, UninstallRegKey, SubKeyNames) then
+  begin
+    for I := 0 to GetArrayLength(SubKeyNames) - 1 do
+    begin
+      if RegQueryStringValue(HKLM64, UninstallRegKey + '\' + SubKeyNames[I], 'DisplayName', DisplayName) then
+      begin
+        // *** THE FIX IS HERE: We check if DisplayName STARTS WITH AppName ***
+        if Pos(AppName, DisplayName) = 1 then
+        begin
+          if RegQueryStringValue(HKLM64, UninstallRegKey + '\' + SubKeyNames[I], 'UninstallString', UninstallString) then
+          begin
+            Result := True;
+            Exit; // Found it!
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  // --- Search 3: All Users - 32-bit (HKLM32) ---
+  if RegGetSubkeyNames(HKLM32, UninstallRegKey, SubKeyNames) then
+  begin
+    for I := 0 to GetArrayLength(SubKeyNames) - 1 do
+    begin
+      if RegQueryStringValue(HKLM32, UninstallRegKey + '\' + SubKeyNames[I], 'DisplayName', DisplayName) then
+      begin
+        // *** THE FIX IS HERE: We check if DisplayName STARTS WITH AppName ***
+        if Pos(AppName, DisplayName) = 1 then
+        begin
+          if RegQueryStringValue(HKLM32, UninstallRegKey + '\' + SubKeyNames[I], 'UninstallString', UninstallString) then
+          begin
+            Result := True;
+            Exit; // Found it!
+          end;
+        end;
+      end;
+    end;
+  end;
+end;
+
+// This is the main function that runs when setup starts.
+function InitializeSetup(): Boolean;
+var
+  UninstallString: string;
+  ResultCode: Integer;
+begin
+  // Use our robust search function to find the uninstaller.
+  if GetUninstallStringByName('{#MyAppName}', UninstallString) then
+  begin
+    // If found, show the confirmation message and run the uninstaller.
+    MsgBox('A previous version of {#MyAppName} was found.'#13#10#13#10'The uninstaller will now run.', mbInformation, MB_OK);
+    
+    if Exec(RemoveQuotes(UninstallString), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+    begin
+      // Uninstaller finished.
+    end
+    else
+    begin
+      // If the uninstaller fails to start, abort the setup.
+      MsgBox('The previous version''s uninstaller failed to start.'#13#10'Setup will now exit.', mbError, MB_OK);
+      Result := False;
+      Exit;
+    end;
+  end;
+  
+  // Allow the setup to continue.
+  Result := True; 
+end;
