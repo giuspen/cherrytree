@@ -37,6 +37,7 @@ jobs:
       - name: CI-Build
         run: |
           scripts/msys2_prepare_standalone.sh
+          scripts/generate_nolatex_iss.sh
           sed -i 's/C:\\msys64\\home\\PenoneG\\git/D:\\a\\cherrytree/g' scripts/cherrytree.iss
           sed -i 's/C:\\msys64\\home\\PenoneG\\git/D:\\a\\cherrytree/g' scripts/cherrytree_nolatex.iss
       - name: Compile .ISS to .EXE Installer (NOLATEX)

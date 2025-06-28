@@ -3,6 +3,7 @@ config.h
 *.gresource.*
 data/cherrytree.1.gz
 data/net.giuspen.cherrytree.metainfo.xml
+scripts/cherrytree_nolatex.iss
 obj-x86_64-linux-gnu
 debian/autoreconf.after
 debian/autoreconf.before
