@@ -1096,6 +1096,49 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                 spdlog::warn("!! unexp no CtImageAnchor");
             }
         } break;
+        case CtAnchWidgType::ImagePng: {
+            if (CtImagePng* pCtImagePng = dynamic_cast<CtImagePng*>(pAnchWidg)) {
+                CtLinkEntry link_entry = CtMiscUtil::get_link_entry(pCtImagePng->get_link());
+                if (CtLinkType::None != link_entry.type) {
+                    Glib::ustring text = link_entry.get_target_searchable();
+                    if (_s_options.accent_insensitive) {
+                        text = str::diacritical_to_ascii(text);
+                    }
+                    if (re_pattern->match(text)) {
+                        auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                        pAnchMatch->start_offset = pAnchWidg->getOffset();
+                        pAnchMatch->line_content = text;
+                        pAnchMatch->anch_type = anchWidgType;
+                        pAnchMatch->pAnchWidg = pAnchWidg;
+                        anchMatchList.push_back(pAnchMatch);
+                        retVal = true;
+                    }
+                }
+            }
+            else {
+                spdlog::warn("!! unexp no CtImagePng");
+            }
+        } break;
+        case CtAnchWidgType::Link: {
+            if (CtAnchWidgLink* pAnchWidgLink = dynamic_cast<CtAnchWidgLink*>(pAnchWidg)) {
+                Glib::ustring text = pAnchWidgLink->get_target_searchable();
+                if (_s_options.accent_insensitive) {
+                    text = str::diacritical_to_ascii(text);
+                }
+                if (re_pattern->match(text)) {
+                    auto pAnchMatch = std::make_shared<CtAnchMatch>();
+                    pAnchMatch->start_offset = pAnchWidg->getOffset();
+                    pAnchMatch->line_content = text;
+                    pAnchMatch->anch_type = anchWidgType;
+                    pAnchMatch->pAnchWidg = pAnchWidg;
+                    anchMatchList.push_back(pAnchMatch);
+                    retVal = true;
+                }
+            }
+            else {
+                spdlog::warn("!! unexp no CtAnchWidgLink");
+            }
+        } break;
         case CtAnchWidgType::CodeBox: {
             if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchWidg)) {
                 Glib::ustring text = pCodebox->get_text_content();
@@ -1175,26 +1218,6 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
             }
             else {
                 spdlog::warn("!! {} unexp no CtTableCommon", __FUNCTION__);
-            }
-        } break;
-        case CtAnchWidgType::Link: {
-            if (CtAnchWidgLink* pAnchWidgLink = dynamic_cast<CtAnchWidgLink*>(pAnchWidg)) {
-                Glib::ustring text = pAnchWidgLink->get_target_searchable();
-                if (_s_options.accent_insensitive) {
-                    text = str::diacritical_to_ascii(text);
-                }
-                if (re_pattern->match(text)) {
-                    auto pAnchMatch = std::make_shared<CtAnchMatch>();
-                    pAnchMatch->start_offset = pAnchWidg->getOffset();
-                    pAnchMatch->line_content = text;
-                    pAnchMatch->anch_type = anchWidgType;
-                    pAnchMatch->pAnchWidg = pAnchWidg;
-                    anchMatchList.push_back(pAnchMatch);
-                    retVal = true;
-                }
-            }
-            else {
-                spdlog::warn("!! unexp no CtAnchWidgLink");
             }
         } break;
         default: break;
