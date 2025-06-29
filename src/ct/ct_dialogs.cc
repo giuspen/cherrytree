@@ -38,19 +38,23 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(500, 400);
 
-    Glib::RefPtr<CtChooseDialogTreeStore> rModel = CtChooseDialogTreeStore::create();
-    for (const gint64& node_id : bookmarks)
-    {
-        rModel->add_row("ct_pin", "", ctTreestore.get_node_name_from_node_id(node_id), node_id);
+    Glib::RefPtr<CtChooseDialogTreeStore> pModel = CtChooseDialogTreeStore::create();
+    for (const gint64 node_id : bookmarks) {
+        CtTreeIter ct_tree_iter = ctTreestore.get_node_from_node_id(node_id);
+        const char* node_icon = ctTreestore.get_node_icon(
+            ctTreestore.get_store()->iter_depth(ct_tree_iter),
+            ct_tree_iter.get_node_syntax_highlighting(),
+            ct_tree_iter.get_node_custom_icon_id());
+        pModel->add_row(node_icon, "", ctTreestore.get_node_name_from_node_id(node_id), node_id);
     }
 
-    Gtk::TreeView treeview(rModel);
+    Gtk::TreeView treeview(pModel);
     treeview.set_headers_visible(false);
     treeview.set_reorderable(true);
     Gtk::CellRendererPixbuf pixbuf_renderer;
     int col_num = treeview.append_column("", pixbuf_renderer) - 1;
-    treeview.get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
-    treeview.append_column("", rModel->columns.desc);
+    treeview.get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", pModel->columns.stock_id);
+    treeview.append_column("", pModel->columns.desc);
     Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview);
@@ -87,20 +91,20 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     pContentArea->pack_start(hbox);
     pContentArea->show_all();
 
-    treeview.signal_key_press_event().connect([&rModel, &treeview](GdkEventKey* key)->bool
+    treeview.signal_key_press_event().connect([&pModel, &treeview](GdkEventKey* key)->bool
     {
         if (key->keyval == GDK_KEY_Delete)
         {
             Gtk::TreeModel::iterator tree_iter = treeview.get_selection()->get_selected();
             if (tree_iter)
             {
-                rModel->erase(tree_iter);
+                pModel->erase(tree_iter);
             }
             return true; // stop event
         }
         return false; // propagate event
     });
-    treeview.signal_button_press_event().connect([&treeview, &rModel, &pCtMainWin, &ctTreestore](GdkEventButton* event)->bool
+    treeview.signal_button_press_event().connect([&treeview, &pModel, &pCtMainWin, &ctTreestore](GdkEventButton* event)->bool
     {
         if (event->button != 1 || event->type != GDK_2BUTTON_PRESS)
         {
@@ -111,55 +115,55 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         {
             return false; // propagate event
         }
-        Gtk::TreeModel::iterator clicked_iter = rModel->get_iter(clicked_path);
-        gint64 node_id = clicked_iter->get_value(rModel->columns.node_id);
+        Gtk::TreeModel::iterator clicked_iter = pModel->get_iter(clicked_path);
+        gint64 node_id = clicked_iter->get_value(pModel->columns.node_id);
         Gtk::TreeModel::iterator tree_iter = ctTreestore.get_node_from_node_id(node_id);
         pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         return true; // stop event
     });
-    button_move_up.signal_clicked().connect([&treeview, &rModel]()
+    button_move_up.signal_clicked().connect([&treeview, &pModel]()
     {
         Gtk::TreeModel::iterator curr_iter = treeview.get_selection()->get_selected();
         Gtk::TreeModel::iterator prev_iter = --treeview.get_selection()->get_selected();
         if (curr_iter && prev_iter)
         {
-            rModel->iter_swap(curr_iter, prev_iter);
+            pModel->iter_swap(curr_iter, prev_iter);
         }
     });
-    button_move_down.signal_clicked().connect([&treeview, &rModel]()
+    button_move_down.signal_clicked().connect([&treeview, &pModel]()
     {
         Gtk::TreeModel::iterator curr_iter = treeview.get_selection()->get_selected();
         Gtk::TreeModel::iterator next_iter = ++treeview.get_selection()->get_selected();
         if (curr_iter && next_iter)
         {
-            rModel->iter_swap(curr_iter, next_iter);
+            pModel->iter_swap(curr_iter, next_iter);
         }
     });
-    button_delete.signal_clicked().connect([&treeview, &rModel]()
+    button_delete.signal_clicked().connect([&treeview, &pModel]()
     {
         Gtk::TreeModel::iterator tree_iter = treeview.get_selection()->get_selected();
         if (tree_iter)
         {
-            rModel->erase(tree_iter);
+            pModel->erase(tree_iter);
         }
     });
-    button_sort_asc.signal_clicked().connect([&rModel]()
+    button_sort_asc.signal_clicked().connect([&pModel]()
     {
-        auto need_swap = [&rModel](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)
+        auto need_swap = [&pModel](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)
         {
-            int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
+            int cmp = l->get_value(pModel->columns.desc).compare(r->get_value(pModel->columns.desc));
             return (cmp > 0);
         };
-        CtMiscUtil::node_siblings_sort(rModel, rModel->children(), need_swap);
+        CtMiscUtil::node_siblings_sort(pModel, pModel->children(), need_swap);
     });
-    button_sort_desc.signal_clicked().connect([&rModel]()
+    button_sort_desc.signal_clicked().connect([&pModel]()
     {
-        auto need_swap = [&rModel](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)
+        auto need_swap = [&pModel](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r)
         {
-            int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
+            int cmp = l->get_value(pModel->columns.desc).compare(r->get_value(pModel->columns.desc));
             return (cmp < 0);
         };
-        CtMiscUtil::node_siblings_sort(rModel, rModel->children(), need_swap);
+        CtMiscUtil::node_siblings_sort(pModel, pModel->children(), need_swap);
     });
 
     if (dialog.run() != Gtk::RESPONSE_ACCEPT) {
@@ -168,9 +172,9 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 
     std::set<gint64> temp_bookmarks;
     std::list<gint64> temp_bookmarks_order;
-    rModel->foreach_iter([&temp_bookmarks, &temp_bookmarks_order, &rModel](const Gtk::TreeModel::iterator& iter)
+    pModel->foreach_iter([&temp_bookmarks, &temp_bookmarks_order, &pModel](const Gtk::TreeModel::iterator& iter)
     {
-        gint64 node_id = iter->get_value(rModel->columns.node_id);
+        gint64 node_id = iter->get_value(pModel->columns.node_id);
         temp_bookmarks.insert(node_id);
         temp_bookmarks_order.push_back(node_id);
         return false; /* to continue */
