@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="gkeyfile" _name="GKeyFile" version="2.0" _section="Configuration">
+  <metadata>
+    <property name="globs">*.desktop;*.directory;*.theme;*.keyfile;*.service</property>
+    <property name="line-comment-character">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="group" _name="Group" map-to="def:keyword"/>
+    <style id="key" _name="Key" map-to="def:type"/>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="boolean" _name="Boolean" map-to="def:boolean"/>
+    <style id="number" _name="Number" map-to="def:number"/>
+    <style id="list-separator" _name="List Separator" map-to="def:preprocessor"/>
+    <style id="operator" _name="Operator" map-to="def:operator"/>
+  </styles>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>#</start>
+    </context>
+
+    <context id="group" style-ref="group">
+      <start>^\[</start>
+      <end>\]$</end>
+    </context>
+
+    <context id="key" style-ref="key">
+      <match>^[A-Za-z0-9\._-]+(?=\s*=)</match>
+    </context>
+
+    <context id="operator" style-ref="operator">
+        <match>=</match>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="false">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+      </include>
+    </context>
+
+    <context id="number" style-ref="number">
+      <match>\b-?[0-9]+(\.[0-9]+)?\b</match>
+    </context>
+    
+    <context id="list-separator" style-ref="list-separator">
+        <match>;</match>
+    </context>
+
+    <context id="gkeyfile" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="group"/>
+        <context ref="key"/>
+        <context ref="operator"/>
+        <context ref="boolean"/>
+        <context ref="string"/>
+        <context ref="number"/>
+        <context ref="list-separator"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>
