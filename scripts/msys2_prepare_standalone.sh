@@ -16,7 +16,7 @@ IN_CT_HUNSPELL="${IN_CT_FOLDER}/hunspell"
 IN_CT_CONFIG_H="${IN_CT_FOLDER}/config.h"
 OLD_UCRT64_FOLDER="/ucrt64"
 DOWNGRADE_PACKAGE_LOCATION="https://repo.msys2.org/mingw/ucrt64"
-DOWNGRADE_PACKAGE_NAME=""
+DOWNGRADE_PACKAGE_NAME="mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst"
 
 if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
 then
