@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -1028,13 +1028,15 @@ void CtPrint::_codebox_split_content(const CtCodebox* codebox,
                                      const int codebox_width)
 {
     std::vector<Glib::ustring> original_splitted_pango = str::split(original_content, "\n");
-    // fix for not-closed span, I suppose
-    for (size_t i = 0; i < original_splitted_pango.size(); ++i) {
-        auto& element = original_splitted_pango[i];
+    // fix for not-closed span
+    const size_t original_splitted_pango_size = original_splitted_pango.size();
+    for (size_t i = 0u; i < original_splitted_pango_size; ++i) {
+        Glib::ustring& element = original_splitted_pango[i];
+        //if (0u == i) spdlog::debug("{}", element.c_str());
         Glib::ustring::size_type last_close = element.rfind("</span");
         Glib::ustring::size_type last_open = element.rfind("<span");
         if (last_close < element.size() and last_open < element.size() and last_close < last_open) {
-            auto non_closed_span = element.substr(last_open);
+            Glib::ustring non_closed_span = element.substr(last_open);
             Glib::ustring::size_type end_non_closed_span_idx = non_closed_span.find(">");
             if (end_non_closed_span_idx < non_closed_span.size()) {
                 non_closed_span = non_closed_span.substr(0, end_non_closed_span_idx+1);
@@ -1045,20 +1047,20 @@ void CtPrint::_codebox_split_content(const CtCodebox* codebox,
     }
 
     std::vector<Glib::ustring> splitted_pango;
-    while (splitted_pango.size() < original_splitted_pango.size()) {
+    while (splitted_pango.size() < original_splitted_pango_size) {
         splitted_pango.push_back(original_splitted_pango[splitted_pango.size()]);
         Glib::ustring new_content = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
-        auto codebox_layout = _codebox_get_layout(codebox, new_content, context, codebox_width);
-        double codebox_height = _get_height_from_layout(codebox_layout);
-        if (codebox_height + BOX_OFFSET > check_height) {
-            if (splitted_pango.size() == 1) {
+        Glib::RefPtr<Pango::Layout> codebox_layout = _codebox_get_layout(codebox, new_content, context, codebox_width);
+        const double codebox_height = _get_height_from_layout(codebox_layout);
+        if ((codebox_height + BOX_OFFSET) > check_height) {
+            if (1u == splitted_pango.size()) {
                 // check_height is not enough, so we need a new page
-                first_split = "";
+                first_split.clear();
                 second_split = original_content;
                 return;
             }
 
-            splitted_pango.erase(splitted_pango.end());
+            splitted_pango.pop_back();
             original_splitted_pango.erase(original_splitted_pango.begin(), original_splitted_pango.begin() + splitted_pango.size());
             first_split = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
             second_split = str::join(original_splitted_pango, CtConst::CHAR_NEWLINE);
