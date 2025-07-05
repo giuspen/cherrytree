@@ -15,14 +15,18 @@ IN_CT_LICENSE="${IN_CT_FOLDER}/license.txt"
 IN_CT_HUNSPELL="${IN_CT_FOLDER}/hunspell"
 IN_CT_CONFIG_H="${IN_CT_FOLDER}/config.h"
 OLD_UCRT64_FOLDER="/ucrt64"
-DOWNGRADE_PACKAGE_LOCATION="https://repo.msys2.org/mingw/ucrt64"
-DOWNGRADE_PACKAGE_NAME="mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst"
+DOWNGRADE_PACKAGES_FOLDER_URL="https://repo.msys2.org/mingw/ucrt64"
+DOWNGRADE_PACKAGES_FILENAMES=("mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst" "mingw-w64-x86_64-pango-1.56.3-2-any.pkg.tar.zst")
 
-if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
-then
-  wget "${DOWNGRADE_PACKAGE_LOCATION}/${DOWNGRADE_PACKAGE_NAME}"
-  pacman -U --noconfirm ${DOWNGRADE_PACKAGE_NAME}
-fi
+for package_name in ${DOWNGRADE_PACKAGES_FILENAMES[@]}; do
+  wget ${DOWNGRADE_PACKAGES_FOLDER_URL}/${package_name}
+  pacman -U --noconfirm ${package_name}
+  _result=$?
+  if [ "$_result" -ne "0" ]; then
+    echo "failed to downgrade package"
+    exit 1
+  fi
+done
 echo "build..."
 cd ${IN_CT_FOLDER}
 ./build.sh release notest
@@ -107,16 +111,15 @@ if [ "$_result" -ne "0" ]; then
   echo "failed to create base data via command 'pacman -S <packages names list> --noconfirm --root ${OUT_MSYS2_FOLDER}'"
   exit 1
 fi
-if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
-then
-  wget "${DOWNGRADE_PACKAGE_LOCATION}/${DOWNGRADE_PACKAGE_NAME}"
-  pacman -U --noconfirm --root ${OUT_MSYS2_FOLDER} ${DOWNGRADE_PACKAGE_NAME}
+for package_name in ${DOWNGRADE_PACKAGES_FILENAMES[@]}; do
+  wget ${DOWNGRADE_PACKAGES_FOLDER_URL}/${package_name}
+  pacman -U --noconfirm --root ${OUT_MSYS2_FOLDER} ${package_name}
   _result=$?
   if [ "$_result" -ne "0" ]; then
     echo "failed to downgrade package"
     exit 1
   fi
-fi
+done
 
 popd > /dev/null
 
