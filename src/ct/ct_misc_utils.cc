@@ -224,7 +224,7 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
-CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
+CtLinkEntry CtMiscUtil::get_link_entry_from_property(const Glib::ustring& link)
 {
     CtLinkEntry link_entry{};
     std::vector<Glib::ustring> link_vec = str::split(link, " ");
@@ -250,6 +250,36 @@ CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
         }
     }
     return link_entry;
+}
+
+Glib::ustring CtMiscUtil::get_link_property_from_entry(const CtLinkEntry& link_entry)
+{
+    Glib::ustring property_value;
+    if (CtLinkType::Webs == link_entry.type) {
+        std::string link_url = link_entry.webs;
+        if (not link_url.empty()) {
+            if (not str::startswith_url(link_url.c_str())) {
+                link_url = "http://" + link_url;
+            }
+            property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
+        }
+    }
+    else if (CtLinkType::File == link_entry.type or CtLinkType::Fold == link_entry.type) {
+        Glib::ustring link_uri = CtLinkType::File == link_entry.type ? link_entry.file : link_entry.fold;
+        if (not link_uri.empty()) {
+            link_uri = Glib::Base64::encode(link_uri);
+            property_value = link_entry.get_type_str() + CtConst::CHAR_SPACE + link_uri;
+        }
+    }
+    else if (CtLinkType::Node == link_entry.type) {
+        gint64 node_id = link_entry.node_id;
+        if (node_id != -1) {
+            auto link_anchor = link_entry.anch;
+            property_value = CtConst::LINK_TYPE_NODE + CtConst::CHAR_SPACE + std::to_string(node_id);
+            if (not link_anchor.empty()) property_value += CtConst::CHAR_SPACE + link_anchor;
+        }
+    }
+    return property_value;
 }
 
 bool CtMiscUtil::mime_type_contains(const std::string &filepath, const char* type)

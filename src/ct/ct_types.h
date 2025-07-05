@@ -92,6 +92,12 @@ struct CtLinkEntry
         if (CtLinkType::Fold == type) return fold;
         return anch;
     }
+    void set_target_searchable(const Glib::ustring& target_searchable) {
+        if (CtLinkType::Webs == type) webs = target_searchable;
+        else if (CtLinkType::File == type) file = target_searchable;
+        else if (CtLinkType::Fold == type) fold = target_searchable;
+        else anch = target_searchable;
+    }
     const char* get_type_str() const {
         if (CtLinkType::Webs == type) return "webs";
         if (CtLinkType::File == type) return "file";

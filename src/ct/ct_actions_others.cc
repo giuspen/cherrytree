@@ -321,7 +321,7 @@ void CtActions::image_link_edit()
     if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry)) {
         return;
     }
-    Glib::ustring property_value = _links_entries_post_dialog(_link_entry);
+    Glib::ustring property_value = CtMiscUtil::get_link_property_from_entry(_link_entry);
     if (not property_value.empty()) {
         curr_image_anchor->set_link(property_value);
         curr_image_anchor->update_label_widget();
@@ -344,7 +344,7 @@ void CtActions::toggle_show_hide_main_window()
 
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
 {
-    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(tag_property_value);
     if (CtLinkType::Webs == link_entry.type) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
         if (_pCtConfig->weblinkCustomOn) {

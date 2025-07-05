@@ -402,7 +402,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                 return;
             iter_sel_start = text_buffer->get_iter_at_offset(insert_offset);
             iter_sel_end = text_buffer->get_iter_at_offset(bound_offset);
-            property_value = _links_entries_post_dialog(_link_entry);
+            property_value = CtMiscUtil::get_link_property_from_entry(_link_entry);
         }
         else {
             Glib::ustring& ret_colour = 'f' == tag_property[0] ? _pCtConfig->currColour_fg : _pCtConfig->currColour_bg;
@@ -537,7 +537,7 @@ CtTableCommon* CtActions::_table_in_use()
 // Prepare Global Links Variables for Dialog
 bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry)
 {
-    const CtLinkEntry new_entry = CtMiscUtil::get_link_entry(curr_link);
+    const CtLinkEntry new_entry = CtMiscUtil::get_link_entry_from_property(curr_link);
     if (CtLinkType::None == new_entry.type) {
         CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", str::xml_escape(curr_link)), *_pCtMainWin);
         link_entry.type = CtLinkType::Webs;
@@ -545,37 +545,6 @@ bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLink
     }
     link_entry = new_entry;
     return true;
-}
-
-// Read Global Links Variables from Dialog
-Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
-{
-    Glib::ustring property_value;
-    if (CtLinkType::Webs == link_entry.type) {
-        std::string link_url = link_entry.webs;
-        if (not link_url.empty()) {
-            if (not str::startswith_url(link_url.c_str())) {
-                link_url = "http://" + link_url;
-            }
-            property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
-        }
-    }
-    else if (CtLinkType::File == link_entry.type or CtLinkType::Fold == link_entry.type) {
-        Glib::ustring link_uri = CtLinkType::File == link_entry.type ? link_entry.file : link_entry.fold;
-        if (not link_uri.empty()) {
-            link_uri = Glib::Base64::encode(link_uri);
-            property_value = link_entry.get_type_str() + CtConst::CHAR_SPACE + link_uri;
-        }
-    }
-    else if (CtLinkType::Node == link_entry.type) {
-        gint64 node_id = link_entry.node_id;
-        if (node_id != -1) {
-            auto link_anchor = link_entry.anch;
-            property_value = CtConst::LINK_TYPE_NODE + CtConst::CHAR_SPACE + std::to_string(node_id);
-            if (not link_anchor.empty()) property_value += CtConst::CHAR_SPACE + link_anchor;
-        }
-    }
-    return property_value;
 }
 
 // Check if the cursor is on a link, in this case select the link and return the tag_property_value

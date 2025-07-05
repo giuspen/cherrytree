@@ -751,7 +751,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                                                                      const int startOffset,
                                                                      int& endOffset)->bool{
         if (tree_iter.get_node_read_only()) return false;
-        CtLinkEntry link_entry = CtMiscUtil::get_link_entry(pImagePng->get_link());
+        CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(pImagePng->get_link());
         Glib::ustring text_searchable = link_entry.get_target_searchable();
         const Glib::ustring pre_text = text_searchable.substr(0, startOffset);
         const Glib::ustring origin_text = text_searchable.substr(startOffset, endOffset - startOffset);
@@ -762,14 +762,14 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
         }
         const Glib::ustring out_text_searchable = pre_text + replacer_text + post_text;
-        
-        
+        link_entry.set_target_searchable(out_text_searchable);
+        pImagePng->set_link(CtMiscUtil::get_link_property_from_entry(link_entry));
         endOffset = startOffset + replacer_text.size();
         _s_state.replace_subsequent = true;
         _pCtMainWin->get_state_machine().update_state(tree_iter);
         tree_iter.pending_edit_db_node_buff();
         return true;
-    }
+    };
     auto f_match_replace_light_table = [this, &tree_iter, &re_pattern](CtTableLight* pTableLight,
                                                                        const int cellIdx,
                                                                        const int startOffset,
@@ -1141,14 +1141,14 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
         } break;
         case CtAnchWidgType::ImagePng: {
             if (CtImagePng* pCtImagePng = dynamic_cast<CtImagePng*>(pAnchWidg)) {
-                CtLinkEntry link_entry = CtMiscUtil::get_link_entry(pCtImagePng->get_link());
+                CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(pCtImagePng->get_link());
                 if (CtLinkType::None != link_entry.type) {
                     Glib::ustring text = link_entry.get_target_searchable();
                     if (_s_options.accent_insensitive) {
                         text = str::diacritical_to_ascii(text);
                     }
                     Glib::MatchInfo match_info;
-                    if (re_pattern->match(text)) {
+                    if (re_pattern->match(text, match_info)) {
                         CtAnchMatchList localAnchMatchList;
                         while (match_info.matches()) {
                             int match_start_offset, match_end_offset;

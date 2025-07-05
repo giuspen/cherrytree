@@ -100,7 +100,8 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 
 Gtk::BuiltinIconSize getIconSize(int size);
 
-CtLinkEntry get_link_entry(const Glib::ustring& link);
+CtLinkEntry get_link_entry_from_property(const Glib::ustring& link);
+Glib::ustring get_link_property_from_entry(const CtLinkEntry& link_entry);
 
 /**
  * @brief Check if the the mime for a file contains a given string

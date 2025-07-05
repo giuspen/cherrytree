@@ -885,7 +885,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter tree_iter,
                                                                   const Glib::ustring& link_prop_val,
                                                                   const bool single_file)
 {
-    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link_prop_val);
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(link_prop_val);
     if (CtLinkType::None == link_entry.type) {
         return "";
     }
