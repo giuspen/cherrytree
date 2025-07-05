@@ -54,6 +54,7 @@ jobs:
         id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
         with:
+          name: cherrytree-unsigned
           path: |
             build/cherrytree*.7z
             build/cherrytree*.exe
@@ -69,12 +70,12 @@ jobs:
           signing-policy-slug: 'release-signing'
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
           wait-for-completion: true
-          output-artifact-directory: ct-signed
+          output-artifact-directory: cherrytree-signed
       - name: Upload Signed Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ct-signed
-          path: ct-signed
+          name: cherrytree-signed
+          path: cherrytree-signed
           retention-days: 3
           overwrite: true
           if-no-files-found: error
