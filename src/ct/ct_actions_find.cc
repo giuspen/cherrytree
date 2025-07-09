@@ -907,7 +907,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                         accumulated_delta_offs = 0;
                     }
                     if (CtAnchWidgType::CodeBox == pAnchMatch->anch_type) {
-                        if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchMatch->pAnchWidg)) {
+                        if (auto pCodebox = dynamic_cast<CtCodebox*>(pAnchMatch->pAnchWidg)) {
                             const int prev_anch_offs_end = pAnchMatch->anch_offs_end;
                             if (not f_match_replace_text_buffer(pCodebox->get_text_view().get_buffer(),
                                                                 pAnchMatch->anch_offs_start,
@@ -954,7 +954,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                         }
                     }
                     else if (CtAnchWidgType::ImagePng == pAnchMatch->anch_type) {
-                        if (CtImagePng* pImagePng = dynamic_cast<CtImagePng*>(pAnchMatch->pAnchWidg)) {
+                        if (auto pImagePng = dynamic_cast<CtImagePng*>(pAnchMatch->pAnchWidg)) {
                             const int prev_anch_offs_end = pAnchMatch->anch_offs_end;
                             if (not f_match_replace_image_png(pImagePng,
                                                               pAnchMatch->anch_offs_start,
@@ -1045,6 +1045,29 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                     }
                     else {
                         spdlog::warn("!! {} unexp no CtTableLight", __FUNCTION__);
+                    }
+                }
+                else if (CtAnchWidgType::ImagePng == pAnchMatch->anch_type) {
+                    if (auto pImagePng = dynamic_cast<CtImagePng*>(pAnchMatch->pAnchWidg)) {
+                        if (not f_match_replace_image_png(pImagePng,
+                                                          pAnchMatch->anch_offs_start,
+                                                          pAnchMatch->anch_offs_end))
+                        {
+                            return false;
+                        }
+                    }
+                    else {
+                        spdlog::warn("!! {} unexp no CtImagePng", __FUNCTION__);
+                    }
+                }
+                else if (CtAnchWidgType::Link == pAnchMatch->anch_type) {
+                    // we cannot rely on pAnchMatch->pAnchWidg as that is immediately freed
+                    if (not f_match_replace_link(text_buffer,
+                                                 pAnchMatch->start_offset,
+                                                 pAnchMatch->anch_offs_start,
+                                                 pAnchMatch->anch_offs_end))
+                    {
+                        return false;
                     }
                 }
             }
