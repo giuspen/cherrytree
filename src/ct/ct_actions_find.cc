@@ -754,17 +754,17 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         if (tree_iter.get_node_read_only()) return false;
         Gtk::TextIter textIter = pTextBuffer->get_iter_at_offset(textIterOffset);
         if (not textIter) {
-            spdlog::warn("!! {} unexp no TextIter offset {}", __FUNCTION__, textIterOffset);
+            spdlog::warn("!! f_match_replace_link unexp no TextIter offset {}", textIterOffset);
             return false;
         }
-        Glib::ustring tag_name = CtMiscUtil::link_check_around_cursor(pTextBuffer, textIter);
-        if (tag_name.empty()) {
-            spdlog::warn("!! {} unexp no link_check_around_cursor offset {}", __FUNCTION__, textIterOffset);
+        Glib::ustring tag_property = CtMiscUtil::link_check_around_cursor(pTextBuffer, textIter);
+        if (tag_property.empty()) {
+            spdlog::warn("!! f_match_replace_link unexp no link_check_around_cursor offset {}", textIterOffset);
             return false;
         }
-        CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(tag_name.substr(5));
+        CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(tag_property);
         if (CtLinkType::None == link_entry.type) {
-            spdlog::warn("!! {} unexp no CtLinkType::None offset {}", __FUNCTION__, textIterOffset);
+            spdlog::warn("!! f_match_replace_link unexp CtLinkType::None tag_property '{}'", tag_property.c_str());
             return false;
         }
         Glib::ustring text_searchable = link_entry.get_target_searchable();
@@ -778,9 +778,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         }
         const Glib::ustring out_text_searchable = pre_text + replacer_text + post_text;
         link_entry.set_target_searchable(out_text_searchable);
-        
-        // CtMiscUtil::get_link_property_from_entry(link_entry)
-        
+        const Glib::ustring property_value = CtMiscUtil::get_link_property_from_entry(link_entry);
+        _pCtMainWin->get_ct_actions()->apply_tag(CtConst::TAG_LINK, property_value);
         endOffset = startOffset + replacer_text.size();
         _s_state.replace_subsequent = true;
         _pCtMainWin->get_state_machine().update_state(tree_iter);
