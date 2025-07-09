@@ -355,8 +355,8 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                     }
                 }
                 else {
-                    Glib::ustring tag_property_value = _link_check_around_cursor();
-                    if (tag_property_value == "") {
+                    Glib::ustring tag_property_value = CtMiscUtil::link_check_around_cursor(text_buffer);
+                    if (tag_property_value.empty()) {
                         if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                             Glib::ustring link_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, _("Link Name"), "", "ct_link_handle");
                             if (link_name.empty()) return;
@@ -547,46 +547,3 @@ bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLink
     return true;
 }
 
-// Check if the cursor is on a link, in this case select the link and return the tag_property_value
-Glib::ustring CtActions::_link_check_around_cursor()
-{
-    auto link_check_around_cursor_iter = [](Gtk::TextIter text_iter)->Glib::ustring{
-        auto tags = text_iter.get_tags();
-        for (auto& tag : tags) {
-            Glib::ustring tag_name = tag->property_name();
-            if (str::startswith(tag_name, CtConst::TAG_LINK)) {
-                return tag_name;
-            }
-        }
-        return "";
-    };
-    auto text_iter = _curr_buffer()->get_insert()->get_iter();
-    Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
-    if (tag_name.empty()) {
-        if (text_iter.get_char() == ' ' and text_iter.backward_char()) {
-            tag_name = link_check_around_cursor_iter(text_iter);
-            if (tag_name.empty()) return "";
-        }
-        else {
-            return "";
-        }
-    }
-    auto iter_end = text_iter;
-    while (iter_end.forward_char()) {
-        Glib::ustring ret_tag_name = link_check_around_cursor_iter(iter_end);
-        if (ret_tag_name != tag_name) {
-            break;
-        }
-    }
-    while (text_iter.backward_char()) {
-        Glib::ustring ret_tag_name = link_check_around_cursor_iter(text_iter);
-        if (ret_tag_name != tag_name) {
-            text_iter.forward_char();
-            break;
-        }
-    }
-    if (text_iter == iter_end) return "";
-    _curr_buffer()->move_mark(_curr_buffer()->get_insert(), iter_end);
-    _curr_buffer()->move_mark(_curr_buffer()->get_selection_bound(), text_iter);
-    return tag_name.substr(5);
-}

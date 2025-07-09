@@ -747,6 +747,46 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         _s_state.latest_node_offset_match_start = match_offsets.first - num_objs;
         _s_state.latest_node_offset_match_end = match_offsets.second - num_objs;
     }
+    auto f_match_replace_link = [this, &tree_iter, &re_pattern](Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
+                                                                const int textIterOffset,
+                                                                const int startOffset,
+                                                                int& endOffset)->bool{
+        if (tree_iter.get_node_read_only()) return false;
+        Gtk::TextIter textIter = pTextBuffer->get_iter_at_offset(textIterOffset);
+        if (not textIter) {
+            spdlog::warn("!! {} unexp no TextIter offset {}", __FUNCTION__, textIterOffset);
+            return false;
+        }
+        Glib::ustring tag_name = CtMiscUtil::link_check_around_cursor(pTextBuffer, textIter);
+        if (tag_name.empty()) {
+            spdlog::warn("!! {} unexp no link_check_around_cursor offset {}", __FUNCTION__, textIterOffset);
+            return false;
+        }
+        CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(tag_name.substr(5));
+        if (CtLinkType::None == link_entry.type) {
+            spdlog::warn("!! {} unexp no CtLinkType::None offset {}", __FUNCTION__, textIterOffset);
+            return false;
+        }
+        Glib::ustring text_searchable = link_entry.get_target_searchable();
+        const Glib::ustring pre_text = text_searchable.substr(0, startOffset);
+        const Glib::ustring origin_text = text_searchable.substr(startOffset, endOffset - startOffset);
+        const Glib::ustring post_text = text_searchable.substr(endOffset);
+        Glib::ustring replacer_text = _s_options.str_replace; /* use Glib::ustring to count symbols */
+        // use re_pattern->replace for the cases with \n, maybe it even helps with groups
+        if (_s_options.reg_exp) {
+            replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+        }
+        const Glib::ustring out_text_searchable = pre_text + replacer_text + post_text;
+        link_entry.set_target_searchable(out_text_searchable);
+        
+        // CtMiscUtil::get_link_property_from_entry(link_entry)
+        
+        endOffset = startOffset + replacer_text.size();
+        _s_state.replace_subsequent = true;
+        _pCtMainWin->get_state_machine().update_state(tree_iter);
+        tree_iter.pending_edit_db_node_buff();
+        return true;
+    };
     auto f_match_replace_image_png = [this, &tree_iter, &re_pattern](CtImagePng* pImagePng,
                                                                      const int startOffset,
                                                                      int& endOffset)->bool{
@@ -930,7 +970,16 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                         }
                     }
                     else if (CtAnchWidgType::Link == pAnchMatch->anch_type) {
-                        
+                        // we cannot rely on pAnchMatch->pAnchWidg as that is immediately freed
+                        const int prev_anch_offs_end = pAnchMatch->anch_offs_end;
+                        if (not f_match_replace_link(text_buffer,
+                                                     pAnchMatch->start_offset,
+                                                     pAnchMatch->anch_offs_start,
+                                                     pAnchMatch->anch_offs_end))
+                        {
+                            return false;
+                        }
+                        accumulated_delta_offs += (pAnchMatch->anch_offs_end - prev_anch_offs_end);
                     }
                 }
                 (void)_s_state.match_store->add_row(node_id,
@@ -1196,7 +1245,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
                         pAnchMatch->anch_type = anchWidgType;
                         pAnchMatch->anch_offs_start = match_start_offset;
                         pAnchMatch->anch_offs_end = match_end_offset;
-                        pAnchMatch->pAnchWidg = pAnchWidg;
+                        //pAnchMatch->pAnchWidg = pAnchWidg; THIS TEMPORARY ANCHOR-LIKE WIDGET WILL BE FREED IMMEDIATELY!
                         localAnchMatchList.push_back(pAnchMatch);
                         match_info.next();
                     }

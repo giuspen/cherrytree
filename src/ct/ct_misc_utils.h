@@ -102,6 +102,7 @@ Gtk::BuiltinIconSize getIconSize(int size);
 
 CtLinkEntry get_link_entry_from_property(const Glib::ustring& link);
 Glib::ustring get_link_property_from_entry(const CtLinkEntry& link_entry);
+Glib::ustring link_check_around_cursor(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer, Gtk::TextIter text_iter = Gtk::TextIter{});
 
 /**
  * @brief Check if the the mime for a file contains a given string

@@ -282,6 +282,52 @@ Glib::ustring CtMiscUtil::get_link_property_from_entry(const CtLinkEntry& link_e
     return property_value;
 }
 
+// Check if the cursor is on a link, in this case select the link and return the tag_property_value
+Glib::ustring CtMiscUtil::link_check_around_cursor(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer, Gtk::TextIter text_iter/*= Gtk::TextIter{}*/)
+{
+    auto link_check_around_cursor_iter = [](Gtk::TextIter text_iter)->Glib::ustring{
+        auto tags = text_iter.get_tags();
+        for (auto& tag : tags) {
+            Glib::ustring tag_name = tag->property_name();
+            if (str::startswith(tag_name, CtConst::TAG_LINK)) {
+                return tag_name;
+            }
+        }
+        return "";
+    };
+    if (not text_iter) {
+        text_iter = pTextBuffer->get_insert()->get_iter();
+    }
+    Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
+    if (tag_name.empty()) {
+        if (text_iter.get_char() == ' ' and text_iter.backward_char()) {
+            tag_name = link_check_around_cursor_iter(text_iter);
+            if (tag_name.empty()) return "";
+        }
+        else {
+            return "";
+        }
+    }
+    auto iter_end = text_iter;
+    while (iter_end.forward_char()) {
+        Glib::ustring ret_tag_name = link_check_around_cursor_iter(iter_end);
+        if (ret_tag_name != tag_name) {
+            break;
+        }
+    }
+    while (text_iter.backward_char()) {
+        Glib::ustring ret_tag_name = link_check_around_cursor_iter(text_iter);
+        if (ret_tag_name != tag_name) {
+            text_iter.forward_char();
+            break;
+        }
+    }
+    if (text_iter == iter_end) return "";
+    pTextBuffer->move_mark(pTextBuffer->get_insert(), iter_end);
+    pTextBuffer->move_mark(pTextBuffer->get_selection_bound(), text_iter);
+    return tag_name.substr(5);
+}
+
 bool CtMiscUtil::mime_type_contains(const std::string &filepath, const char* type)
 {
     GFile* pGFile = g_file_new_for_path(filepath.c_str());

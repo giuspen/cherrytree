@@ -49,7 +49,7 @@ void CtActions::link_cut()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
     }
 }
@@ -57,7 +57,7 @@ void CtActions::link_cut()
 void CtActions::link_copy()
 {
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
     }
 }
@@ -66,7 +66,7 @@ void CtActions::link_dismiss()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         _remove_text_formatting(true/*dismiss_link*/);
     }
 }
@@ -75,7 +75,7 @@ void CtActions::link_delete()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
         _pCtMainWin->get_text_view().mm().grab_focus();
     }
