@@ -49,7 +49,7 @@ void CtActions::link_cut()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
     }
 }
@@ -57,7 +57,7 @@ void CtActions::link_cut()
 void CtActions::link_copy()
 {
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
     }
 }
@@ -66,7 +66,7 @@ void CtActions::link_dismiss()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         _remove_text_formatting(true/*dismiss_link*/);
     }
 }
@@ -75,7 +75,7 @@ void CtActions::link_delete()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_right_click_pre_action();
-    if (not _link_check_around_cursor().empty()) {
+    if (not CtMiscUtil::link_check_around_cursor(_curr_buffer()).empty()) {
         _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
         _pCtMainWin->get_text_view().mm().grab_focus();
     }
@@ -321,7 +321,7 @@ void CtActions::image_link_edit()
     if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry)) {
         return;
     }
-    Glib::ustring property_value = _links_entries_post_dialog(_link_entry);
+    Glib::ustring property_value = CtMiscUtil::get_link_property_from_entry(_link_entry);
     if (not property_value.empty()) {
         curr_image_anchor->set_link(property_value);
         curr_image_anchor->update_label_widget();
@@ -344,7 +344,7 @@ void CtActions::toggle_show_hide_main_window()
 
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
 {
-    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(tag_property_value);
     if (CtLinkType::Webs == link_entry.type) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
         if (_pCtConfig->weblinkCustomOn) {

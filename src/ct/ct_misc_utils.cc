@@ -224,7 +224,7 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
-CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
+CtLinkEntry CtMiscUtil::get_link_entry_from_property(const Glib::ustring& link)
 {
     CtLinkEntry link_entry{};
     std::vector<Glib::ustring> link_vec = str::split(link, " ");
@@ -250,6 +250,82 @@ CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
         }
     }
     return link_entry;
+}
+
+Glib::ustring CtMiscUtil::get_link_property_from_entry(const CtLinkEntry& link_entry)
+{
+    Glib::ustring property_value;
+    if (CtLinkType::Webs == link_entry.type) {
+        std::string link_url = link_entry.webs;
+        if (not link_url.empty()) {
+            if (not str::startswith_url(link_url.c_str())) {
+                link_url = "http://" + link_url;
+            }
+            property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
+        }
+    }
+    else if (CtLinkType::File == link_entry.type or CtLinkType::Fold == link_entry.type) {
+        Glib::ustring link_uri = CtLinkType::File == link_entry.type ? link_entry.file : link_entry.fold;
+        if (not link_uri.empty()) {
+            link_uri = Glib::Base64::encode(link_uri);
+            property_value = link_entry.get_type_str() + CtConst::CHAR_SPACE + link_uri;
+        }
+    }
+    else if (CtLinkType::Node == link_entry.type) {
+        gint64 node_id = link_entry.node_id;
+        if (node_id != -1) {
+            auto link_anchor = link_entry.anch;
+            property_value = CtConst::LINK_TYPE_NODE + CtConst::CHAR_SPACE + std::to_string(node_id);
+            if (not link_anchor.empty()) property_value += CtConst::CHAR_SPACE + link_anchor;
+        }
+    }
+    return property_value;
+}
+
+// Check if the cursor is on a link, in this case select the link and return the tag_property_value
+Glib::ustring CtMiscUtil::link_check_around_cursor(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer, Gtk::TextIter text_iter/*= Gtk::TextIter{}*/)
+{
+    auto link_check_around_cursor_iter = [](Gtk::TextIter text_iter)->Glib::ustring{
+        auto tags = text_iter.get_tags();
+        for (auto& tag : tags) {
+            Glib::ustring tag_name = tag->property_name();
+            if (str::startswith(tag_name, CtConst::TAG_LINK)) {
+                return tag_name;
+            }
+        }
+        return "";
+    };
+    if (not text_iter) {
+        text_iter = pTextBuffer->get_insert()->get_iter();
+    }
+    Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
+    if (tag_name.empty()) {
+        if (text_iter.get_char() == ' ' and text_iter.backward_char()) {
+            tag_name = link_check_around_cursor_iter(text_iter);
+            if (tag_name.empty()) return "";
+        }
+        else {
+            return "";
+        }
+    }
+    auto iter_end = text_iter;
+    while (iter_end.forward_char()) {
+        Glib::ustring ret_tag_name = link_check_around_cursor_iter(iter_end);
+        if (ret_tag_name != tag_name) {
+            break;
+        }
+    }
+    while (text_iter.backward_char()) {
+        Glib::ustring ret_tag_name = link_check_around_cursor_iter(text_iter);
+        if (ret_tag_name != tag_name) {
+            text_iter.forward_char();
+            break;
+        }
+    }
+    if (text_iter == iter_end) return "";
+    pTextBuffer->move_mark(pTextBuffer->get_insert(), iter_end);
+    pTextBuffer->move_mark(pTextBuffer->get_selection_bound(), text_iter);
+    return tag_name.substr(5);
 }
 
 bool CtMiscUtil::mime_type_contains(const std::string &filepath, const char* type)

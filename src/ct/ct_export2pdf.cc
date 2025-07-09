@@ -330,7 +330,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
 
 std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, const int indent, const PangoDirection pango_dir)
 {
-    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(link);
     Glib::ustring uri;
     if (CtLinkType::Node == link_entry.type) {
         uri = "dest='" + generate_tag(link_entry.node_id, link_entry.anch) + "'";

@@ -359,7 +359,7 @@ std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& prop
 // Get the tooltip for the underlying link
 Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustring& link)
 {
-    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(link);
     Glib::ustring tooltip;
     if (CtLinkType::None == link_entry.type) { // case when link has wrong format
         tooltip = str::replace(link, "amp;", "");

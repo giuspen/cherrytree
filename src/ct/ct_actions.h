@@ -320,8 +320,6 @@ private:
                                         int cursorOffset);
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link,
                                    CtLinkEntry& link_entry);
-    Glib::ustring _links_entries_post_dialog(CtLinkEntry& link_entry);
-    Glib::ustring _link_check_around_cursor();
 
 public:
     // format actions
