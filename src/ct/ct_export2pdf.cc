@@ -189,8 +189,6 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                                            std::vector<CtPangoObjectPtr>& out_slots)
 {
     Glib::ustring pango_attrs;
-    bool superscript_active{false};
-    bool subscript_active{false};
     int indent{0};
     std::string link_url;
     for (auto tag_property : CtConst::TAG_PROPERTIES) {
@@ -202,11 +200,11 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
             // tag names fix
             if (tag_property == CtConst::TAG_SCALE) {
                 if (property_value == CtConst::TAG_PROP_VAL_SUP) {
-                    superscript_active = true;
+                    pango_attrs += " size=\"xx-small\" rise=\"5000\"";
                     continue;
                 }
                 if (property_value == CtConst::TAG_PROP_VAL_SUB) {
-                    subscript_active = true;
+                    pango_attrs += " size=\"xx-small\" rise=\"-5000\"";
                     continue;
                 }
                 size_t sIdx;
@@ -293,11 +291,9 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
 
                 auto untagged_slot = -1 == delta_inversion ? lines[i].raw().substr(j) : lines[i].raw().substr(j, static_cast<size_t>(delta_inversion));
                 Glib::ustring tagged_text = str::xml_escape(untagged_slot);
+
                 if (not pango_attrs.empty())
                     tagged_text = "<span" + pango_attrs + ">" + tagged_text + "</span>";
-
-                if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
-                if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
 
                 if (not link_url.empty()) {
                     out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent, pango_dir));
@@ -728,6 +724,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         layout->set_indent(int(pages.last_line().cur_x * Pango::SCALE));
     }
     layout->set_markup(text_slot->text);
+    //spdlog::debug("{}", text_slot->text.c_str());
 
     int layout_count = layout->get_line_count();
     for (int i = 0; i < layout_count; ++i) {
