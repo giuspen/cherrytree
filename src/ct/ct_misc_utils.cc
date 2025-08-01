@@ -283,7 +283,7 @@ Glib::ustring CtMiscUtil::get_link_property_from_entry(const CtLinkEntry& link_e
 }
 
 // Check if the cursor is on a link, in this case select the link and return the tag_property_value
-Glib::ustring CtMiscUtil::link_check_around_cursor(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer, Gtk::TextIter text_iter/*= Gtk::TextIter{}*/)
+Glib::ustring CtMiscUtil::link_check_around_cursor(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer, std::optional<Gtk::TextIter> optTextIter/*= std::nullopt*/)
 {
     auto link_check_around_cursor_iter = [](Gtk::TextIter text_iter)->Glib::ustring{
         auto tags = text_iter.get_tags();
@@ -295,9 +295,7 @@ Glib::ustring CtMiscUtil::link_check_around_cursor(Glib::RefPtr<Gtk::TextBuffer>
         }
         return "";
     };
-    if (not text_iter) {
-        text_iter = pTextBuffer->get_insert()->get_iter();
-    }
+    Gtk::TextIter text_iter = optTextIter.has_value() ? optTextIter.value() : pTextBuffer->get_insert()->get_iter();
     Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
     if (tag_name.empty()) {
         if (text_iter.get_char() == ' ' and text_iter.backward_char()) {
