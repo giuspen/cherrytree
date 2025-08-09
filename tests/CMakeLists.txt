@@ -1,4 +1,3 @@
-
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
 if(USE_SHARED_GTEST_GMOCK)
@@ -35,17 +34,27 @@ else()
 endif()
 
 macro(package_add_test TESTNAME)
-  # create an exectuable in which the tests will be stored
+  # create an executable in which the tests will be stored
   add_executable(${TESTNAME} ${ARGN})
-  # link the Google test infrastructure, mocking library, and a default main fuction to
-  # the test executable.  Remove g_test_main if writing your own main function.
-  target_link_libraries(${TESTNAME} gtest gmock gtest_main cherrytree_shared)
-  # gtest_discover_tests replaces gtest_add_tests,
-  # see https://cmake.org/cmake/help/v3.10/module/GoogleTest.html for more options to pass to it
+
+  if(USE_SHARED_GTEST_GMOCK)
+    target_link_libraries(${TESTNAME}
+      ${GTEST_LIBRARIES}
+      ${GMOCK_LIBRARIES}
+      cherrytree_shared
+    )
+  else()
+    target_link_libraries(${TESTNAME}
+      gtest
+      gmock
+      gtest_main
+      cherrytree_shared
+    )
+  endif()
+
   gtest_discover_tests(${TESTNAME}
-    # set a working directory to your project root so that you can find test data via paths relative to the project root
-    WORKING_DIRECTORY ${PROJECT_DIR}
-    PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_DIR}"
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
   )
   set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
@@ -90,21 +99,6 @@ if(AUTO_RUN_TESTING)
       COMMAND ${CMAKE_BINARY_DIR}/run_tests_with_x_2
     )
   endif()
-endif()
-
-if(USE_SHARED_GTEST_GMOCK)
-  target_link_libraries(run_tests_no_x
-    ${GTEST_LIBRARIES}
-    ${GMOCKLIBRARIES}
-  )
-  target_link_libraries(run_tests_with_x_1
-    ${GTEST_LIBRARIES}
-    ${GMOCKLIBRARIES}
-  )
-  target_link_libraries(run_tests_with_x_2
-    ${GTEST_LIBRARIES}
-    ${GMOCKLIBRARIES}
-  )
 endif()
 
 set_target_properties(run_tests_no_x PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
