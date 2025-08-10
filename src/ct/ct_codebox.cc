@@ -69,8 +69,8 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
 
     _ctTextview.mm().signal_event_after().connect([pCtMainWin, this](GdkEvent* event){
         if (not pCtMainWin->user_active()) return;
-        if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
-            _ctTextview.for_event_after_double_click_button1(event);
+        if (event->type == GDK_2BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button))
+            _ctTextview.for_event_after_double_click_button12(event);
         else if (event->type == GDK_BUTTON_PRESS)
             _ctTextview.for_event_after_button_press(event);
         else if (event->type == GDK_KEY_PRESS)

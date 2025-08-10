@@ -313,14 +313,14 @@ void CtTextView::replace_text(const Glib::ustring& text, int start_offset, int e
     get_buffer()->insert(get_buffer()->get_iter_at_offset(start_offset), text);
 }
 
-// Called after every Double Click with button 1
-void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
+// Called after every Double Click with button 1 or 2
+void CtTextView::for_event_after_double_click_button12(GdkEvent* event)
 {
     auto text_buffer = get_buffer();
     int x, y;
     _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
-    Gtk::TextIter iter_start;
-    _pTextView->get_iter_at_location(iter_start, x, y);
+    Gtk::TextIter text_iter;
+    _pTextView->get_iter_at_location(text_iter, x, y);
     GtkSourceGutter* pGtkSourceGutter = gtk_source_view_get_gutter(_pGtkSourceView, GTK_TEXT_WINDOW_LEFT);
     if (pGtkSourceGutter) {
         GtkSourceView* pGutterGtkSourceView = gtk_source_gutter_get_view(pGtkSourceGutter);
@@ -328,16 +328,36 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
             GdkWindow* pGutterLNWindow = gtk_widget_get_window(GTK_WIDGET(pGutterGtkSourceView));
             if (pGutterLNWindow == event->button.window) {
                 // line number click
-                _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
+                _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, text_iter);
                 return;
             }
         }
     }
-    _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, iter_start);
+    // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
+    Gdk::Rectangle iter_rect;
+    _pTextView->get_iter_location(text_iter, iter_rect);
+    //spdlog::debug("x={} recx={} recw={}", x, iter_rect.get_x(), iter_rect.get_width());
+    if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
+         (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
+    {
+        if (_pCtConfig->doubleClickLink) {
+            auto tags = text_iter.get_tags();
+            // check whether we are hovering a link
+            for (auto& tag : tags) {
+                Glib::ustring tag_name = tag->property_name();
+                if (str::startswith(tag_name, CtConst::TAG_LINK)) {
+                    _pCtMainWin->get_ct_actions()->link_clicked(tag_name.substr(5), event->button.button == 2);
+                    text_buffer->place_cursor(text_iter);
+                    return;
+                }
+            }
+        }
+    }
+    _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_iter);
 }
 
-// Called after every Triple Click with button 1
-void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
+// Called after every Triple Click with button 1 or 2
+void CtTextView::for_event_after_triple_click_button12(GdkEvent* event)
 {
     if (_pCtConfig->tripleClickParagraph and
         _pCtMainWin->curr_tree_iter().get_node_is_rich_text() and
@@ -385,9 +405,6 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
         Gtk::TextIter text_iter;
         _pTextView->get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
-        // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
-        Gdk::Rectangle iter_rect;
-        _pTextView->get_iter_location(text_iter, iter_rect);
         if (1 == event->button.button) {
             GtkSourceGutter* pGtkSourceGutter = gtk_source_view_get_gutter(_pGtkSourceView, GTK_TEXT_WINDOW_LEFT);
             if (pGtkSourceGutter) {
@@ -402,6 +419,9 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
                 }
             }
         }
+        // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
+        Gdk::Rectangle iter_rect;
+        _pTextView->get_iter_location(text_iter, iter_rect);
         //spdlog::debug("x={} recx={} recw={}", x, iter_rect.get_x(), iter_rect.get_width());
         if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
              (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
@@ -411,7 +431,9 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
             for (auto& tag : tags) {
                 Glib::ustring tag_name = tag->property_name();
                 if (str::startswith(tag_name, CtConst::TAG_LINK)) {
-                    _pCtMainWin->get_ct_actions()->link_clicked(tag_name.substr(5), event->button.button == 2);
+                    if (not _pCtConfig->doubleClickLink) {
+                        _pCtMainWin->get_ct_actions()->link_clicked(tag_name.substr(5), event->button.button == 2);
+                    }
                     return;
                 }
             }

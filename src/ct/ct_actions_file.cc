@@ -235,6 +235,7 @@ void CtActions::preferences_import()
     _pCtConfig->urlAutoLink = ctConfigImported.urlAutoLink;
     _pCtConfig->camelCaseAutoLink = ctConfigImported.camelCaseAutoLink;
     _pCtConfig->tripleClickParagraph = ctConfigImported.tripleClickParagraph;
+    _pCtConfig->doubleClickLink = ctConfigImported.doubleClickLink;
     _pCtConfig->enableSymbolAutoreplace = ctConfigImported.enableSymbolAutoreplace;
     _pCtConfig->wrappingIndent = ctConfigImported.wrappingIndent;
     _pCtConfig->autoIndent = ctConfigImported.autoIndent;

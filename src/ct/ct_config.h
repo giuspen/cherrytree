@@ -130,6 +130,7 @@ public:
     bool                                        urlAutoLink{true};
     bool                                        camelCaseAutoLink{true};
     bool                                        tripleClickParagraph{false};
+    bool                                        doubleClickLink{false};
     bool                                        enableSymbolAutoreplace{true};
 #ifdef MD_AUTO_REPLACEMENT
     bool                                        enableMdFormatting{false};

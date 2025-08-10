@@ -190,13 +190,20 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 1 || event->button == 2) {
-        if (event->type == GDK_2BUTTON_PRESS)
-            _pCtMainWin->get_ct_actions()->image_edit();
-        else if(!_link.empty())
+    if (1 == event->button || 2 == event->button) {
+        if (event->type == GDK_2BUTTON_PRESS) {
+            if (_pCtConfig->doubleClickLink and not _link.empty()) {
+                _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
+            }
+            else {
+                _pCtMainWin->get_ct_actions()->image_edit();
+            }
+        }
+        else if (not _pCtConfig->doubleClickLink and not _link.empty()) {
             _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
+        }
     }
-    else if (event->button == 3) {
+    else if (3 == event->button) {
         _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
     }

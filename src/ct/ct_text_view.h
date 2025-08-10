@@ -57,8 +57,8 @@ public:
     void list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase);
     void replace_text(const Glib::ustring& text, int start_offset, int end_offset);
 
-    void for_event_after_double_click_button1(GdkEvent* event);
-    void for_event_after_triple_click_button1(GdkEvent* event);
+    void for_event_after_double_click_button12(GdkEvent* event);
+    void for_event_after_triple_click_button12(GdkEvent* event);
     void for_event_after_button_press(GdkEvent* event);
     void for_event_after_key_press(GdkEvent* event, const Glib::ustring& syntaxHighlighting);
 

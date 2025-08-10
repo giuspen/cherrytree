@@ -526,11 +526,11 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
 // Called after every event on the SourceView
 void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
-    if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1) {
-        _ctTextview.for_event_after_double_click_button1(event);
+    if (event->type == GDK_2BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
+        _ctTextview.for_event_after_double_click_button12(event);
     }
-    if (event->type == GDK_3BUTTON_PRESS and event->button.button == 1) {
-        _ctTextview.for_event_after_triple_click_button1(event);
+    if (event->type == GDK_3BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
+        _ctTextview.for_event_after_triple_click_button12(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS) {
         if (event->type == GDK_BUTTON_PRESS) {
