@@ -469,6 +469,8 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     Gtk::Frame* frame_links_colors = new_managed_frame_with_align(_("Colors"), grid_links_colors);
 
     auto vbox_links_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto checkbutton_links_doubleclick = Gtk::manage(new Gtk::CheckButton{_("Double Click for Link Action")});
+    checkbutton_links_doubleclick->set_active(_pConfig->doubleClickLink);
     auto checkbutton_links_underline = Gtk::manage(new Gtk::CheckButton{_("Underline Links")});
     checkbutton_links_underline->set_active(_pConfig->linksUnderline);
     auto checkbutton_links_relative = Gtk::manage(new Gtk::CheckButton{_("Use Relative Paths for Files And Folders")});
@@ -480,6 +482,7 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     spinbutton_anchor_size->set_value(_pConfig->anchorSize);
     hbox_anchor_size->pack_start(*label_anchor_size, false, false);
     hbox_anchor_size->pack_start(*spinbutton_anchor_size, false, false);
+    vbox_links_misc->pack_start(*checkbutton_links_doubleclick, false, false);
     vbox_links_misc->pack_start(*checkbutton_links_underline, false, false);
     vbox_links_misc->pack_start(*checkbutton_links_relative, false, false);
     vbox_links_misc->pack_start(*hbox_anchor_size, false, false);
@@ -513,6 +516,9 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     });
     entry_custom_folderlink_cmd->signal_changed().connect([this, entry_custom_folderlink_cmd](){
         _pConfig->folderlinkCustomAct = entry_custom_folderlink_cmd->get_text();
+    });
+    checkbutton_links_doubleclick->signal_toggled().connect([this, checkbutton_links_doubleclick](){
+        _pConfig->doubleClickLink = checkbutton_links_doubleclick->get_active();
     });
     checkbutton_links_relative->signal_toggled().connect([this, checkbutton_links_relative](){
         _pConfig->linksRelative = checkbutton_links_relative->get_active();
