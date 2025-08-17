@@ -148,6 +148,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
     if (targets.empty())
         return;
+    spdlog::debug("'{}'", str::join(targets, "' '"));
     auto text_buffer = pTextView->get_buffer();
     text_buffer->erase_selection(true, pTextView->get_editable());
 
@@ -806,8 +807,8 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                     file_path = Glib::filename_from_uri(element);
                 }
                 catch (const Glib::Error& ex) {
-                    spdlog::warn("Error converting URI: {}");
-                    return;
+                    //spdlog::warn("Error converting URI: {}", ex.what().raw());
+                    file_path = element;
                 }
                 g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
                 if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {

@@ -99,7 +99,7 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
         return false; /*propagate event*/
     }, false);
     std::vector<Gtk::TargetEntry> list_targets;
-    list_targets.push_back(Gtk::TargetEntry("text/uri-list"));
+    list_targets.push_back(Gtk::TargetEntry(CtConst::TARGET_URI_LIST));
     _pTextView->drag_dest_set(list_targets);
     _pTextView->signal_drag_drop().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_drop), false); // 'false' ensures we run before default handlers
     _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received));
