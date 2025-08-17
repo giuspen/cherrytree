@@ -797,9 +797,18 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
             if (str::startswith_any(element, CtConst::WEB_LINK_STARTERS)) {
                 property_value = "webs " + element;
             }
-            else if (str::startswith(element, "file://")) {
-                std::string file_path = element.substr(7);
-                file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
+            //else if (str::startswith(element, "file://")) {
+            else {
+                //std::string file_path = element.substr(7);
+                //file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
+                std::string file_path;
+                try {
+                    file_path = Glib::filename_from_uri(element);
+                }
+                catch (const Glib::Error& ex) {
+                    spdlog::warn("Error converting URI: {}");
+                    return;
+                }
                 g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
                 if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
                     try {
@@ -825,6 +834,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                     spdlog::debug("'{}' not dir or file", file_path);
                 }
             }
+#if 0
             else {
                 if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR)) {
                     property_value = "fold " + Glib::Base64::encode(element);
@@ -839,6 +849,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                     spdlog::debug("'{}' not dir or file", element.raw());
                 }
             }
+#endif
             if (not property_value.empty()) {
                 if (subsequent_insert) {
                     pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);

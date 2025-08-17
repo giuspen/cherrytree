@@ -98,7 +98,11 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
         _columnEdit.focus_in();
         return false; /*propagate event*/
     }, false);
-    _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received), false);
+    std::vector<Gtk::TargetEntry> list_targets;
+    list_targets.push_back(Gtk::TargetEntry("text/uri-list"));
+    _pTextView->drag_dest_set(list_targets);
+    _pTextView->signal_drag_drop().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_drop), false); // 'false' ensures we run before default handlers
+    _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received));
     _columnEdit.register_on_off_callback([this](const bool col_edit_on){
         _set_highlight_current_line_enabled(not col_edit_on);
         spdlog::debug("colMode {}", col_edit_on);
@@ -1087,6 +1091,16 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     return gspell_checker;
 }
 
+bool CtTextView::_on_drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int, int, guint time)
+{
+    // Tell GTK that the drop was successful and it can now request the data.
+    context->drop_finish(true, time);
+
+    // IMPORTANT: Return true to indicate that we have accepted the drop.
+    // This will trigger the drag_data_received signal.
+    return true;
+}
+
 void CtTextView::_on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pContext,
                                         int x,
                                         int y,
@@ -1114,7 +1128,7 @@ void CtTextView::_on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pC
     Gtk::TextIter text_iter;
     int trailing;
     _pTextView->get_iter_at_position(text_iter, trailing, xb, yb);
-    //spdlog::debug("targets: {}", str::join(pContext->list_targets(), ", "));
+    spdlog::debug("targets: {}", str::join(pContext->list_targets(), ", "));
     if (vec::exists(pContext->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS) and text_buffer->get_has_selection()) {
         int target_offset = text_iter.get_offset();
         Gtk::TextIter sel_start, sel_end;
