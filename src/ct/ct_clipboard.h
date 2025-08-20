@@ -90,11 +90,15 @@ public:
     void on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);
+    void on_received_to_cf_hdrop(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);
 
 private:
     Glib::ustring _codebox_to_yaml(CtCodebox* codebox);
     void          _yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView* pTextView);
     void          _xml_to_codebox(const Glib::ustring& xml_text, Gtk::TextView* pTextView);
+
+    void _uri_or_filepath_list_into_rich_text(const std::vector<Glib::ustring>& uri_or_file_paths,
+                                              Gtk::TextView* pTextView);
 
 private:
     static bool _static_force_plain_text;

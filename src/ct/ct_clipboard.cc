@@ -148,7 +148,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
     if (targets.empty())
         return;
-    spdlog::debug("'{}'", str::join(targets, "' '"));
+    //spdlog::debug("'{}'", str::join(targets, "' '"));
     auto text_buffer = pTextView->get_buffer();
     text_buffer->erase_selection(true, pTextView->get_editable());
 
@@ -162,6 +162,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
         auto received_html = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_html(s, v, force); };
         auto received_image = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_image(s, v, force); };
         auto received_uri = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_uri_list(s, v, force); };
+        auto received_cf_hdrop = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_cf_hdrop(s, v, force); };
 
         if (CtClipboard::_static_force_plain_text)
             for (auto& target : CtConst::TARGETS_PLAIN_TEXT)
@@ -184,8 +185,8 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
                     return std::make_tuple(target, received_html, false);
         }
 #if defined(_WIN32)
-        if (vec::exists(targets, CtConst::TARGET_WINDOWS_FILE_NAME))
-            return std::make_tuple(CtConst::TARGET_WINDOWS_FILE_NAME, received_uri, false);
+        if (vec::exists(targets, CtConst::TARGET_WINDOWS_URI_LIST_CF_HDROP))
+            return std::make_tuple(CtConst::TARGET_WINDOWS_URI_LIST_CF_HDROP, received_cf_hdrop, false);
 #endif // _WIN32
 #ifdef __APPLE__
         if (vec::exists(targets, "NSFilenamesPboardType")) {
@@ -744,8 +745,158 @@ void CtClipboard::on_received_to_image(const Gtk::SelectionData& selection_data,
     }
 }
 
+void CtClipboard::on_received_to_cf_hdrop(const Gtk::SelectionData& selection_data,
+                                          Gtk::TextView* pTextView,
+                                          const bool/*forcePlain*/,
+                                          const bool/*fromDragNDrop = false*/)
+{
+    if (selection_data.get_length() <= 0) {
+        spdlog::warn("Clipboard provided no data for CF_HDROP.");
+        return;
+    }
+    // Get the raw binary data from the clipboard
+    const guint8* data = selection_data.get_data();
+    int len = selection_data.get_length();
+
+    // The DROPFILES struct header is 20 bytes.
+    // We only need the first member: a 4-byte offset to the file list.
+    if (len < 20) {
+        spdlog::warn("Invalid CF_HDROP data received (too short).");
+        return;
+    }
+    // Read the offset to where the file list begins.
+    // This assumes a little-endian system like Windows.
+    guint32 file_list_offset = *reinterpret_cast<const guint32*>(data);
+
+    // The file list is a sequence of null-terminated UTF-16 strings.
+    // The entire list is terminated by an extra null character.
+    const wchar_t* current_path_ptr = reinterpret_cast<const wchar_t*>(data + file_list_offset);
+
+    std::vector<Glib::ustring> file_paths;
+    // Loop until we hit the double-null terminator at the end of the list.
+    while (*current_path_ptr != L'\0') {
+        // Create a standard wide string from the current pointer.
+        std::wstring wpath(current_path_ptr);
+
+        try {
+            // Convert the UTF-16 wstring to a UTF-8 Glib::ustring.
+            Glib::ustring utf8_path = Glib::convert(
+                std::string(reinterpret_cast<const char*>(wpath.c_str()), wpath.length() * sizeof(wchar_t)),
+                "UTF-8", "UTF-16LE"
+            );
+            file_paths.push_back(utf8_path);
+        }
+        catch(const Glib::Error& ex) {
+            spdlog::error("Failed to convert path from UTF-16: {}", ex.what().raw());
+        }
+
+        // Move the pointer to the start of the next path.
+        current_path_ptr += wpath.length() + 1;
+    }
+
+    std::string syntax_highlighting;
+    if (auto pCtTextView = dynamic_cast<CtTextView*>(pTextView)) {
+        syntax_highlighting = pCtTextView->get_syntax_highlighting();
+    }
+    else {
+        syntax_highlighting = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+    }
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = pTextView->get_buffer();
+    if (syntax_highlighting != CtConst::RICH_TEXT_ID) {
+        for (const Glib::ustring& path : file_paths) {
+            pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), path + CtConst::CHAR_NEWLINE);
+        }
+    }
+    else {
+        _uri_or_filepath_list_into_rich_text(file_paths, pTextView);
+    }
+    pTextView->scroll_to(pTextBuffer->get_insert());
+}
+
+void CtClipboard::_uri_or_filepath_list_into_rich_text(const std::vector<Glib::ustring>& uri_or_file_paths,
+                                                       Gtk::TextView* pTextView)
+{
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = pTextView->get_buffer();
+    bool subsequent_insert{false};
+    for (const Glib::ustring& element : uri_or_file_paths) {
+        if (element.empty()) continue;
+        Glib::ustring property_value;
+        if (str::startswith_any(element, CtConst::WEB_LINK_STARTERS)) {
+            property_value = "webs " + element;
+        }
+        //else if (str::startswith(element, "file://")) {
+        else {
+            //std::string file_path = element.substr(7);
+            //file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
+            std::string file_path;
+            try {
+                file_path = Glib::filename_from_uri(element);
+            }
+            catch (const Glib::Error& ex) {
+                //spdlog::warn("Error converting URI: {}", ex.what().raw());
+                file_path = element;
+            }
+            g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
+            if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
+                try {
+                    auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
+                    _pCtMainWin->get_ct_actions()->image_insert_png(pTextBuffer->get_insert()->get_iter(), pixbuf, "", "");
+                    for (int i = 0; i < 3; ++i) {
+                        pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_SPACE);
+                    }
+                    continue;
+                }
+                catch (...) {}
+            }
+            if (Glib::file_test(file_path, Glib::FILE_TEST_IS_DIR)) {
+                property_value = "fold " + Glib::Base64::encode(file_path);
+            }
+            else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
+                if (subsequent_insert) {
+                    pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                }
+                _pCtMainWin->get_ct_actions()->embfile_insert_path(file_path);
+            }
+            else {
+                spdlog::debug("'{}' not dir or file", file_path);
+            }
+        }
+#if 0
+        else {
+            if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR)) {
+                property_value = "fold " + Glib::Base64::encode(element);
+            }
+            else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR)) {
+                if (subsequent_insert) {
+                    pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                }
+                _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
+            }
+            else {
+                spdlog::debug("'{}' not dir or file", element.raw());
+            }
+        }
+#endif
+        if (not property_value.empty()) {
+            if (subsequent_insert) {
+                pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+            }
+            const int start_offset = pTextBuffer->get_insert()->get_iter().get_offset();
+            pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), element);
+            Gtk::TextIter iter_sel_start = pTextBuffer->get_iter_at_offset(start_offset);
+            Gtk::TextIter iter_sel_end = pTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
+            pTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
+                                           iter_sel_start, iter_sel_end);
+        }
+        subsequent_insert = true;
+    }
+}
+
 // From Clipboard to URI list
-void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool /*forcePlain*/, const bool /*fromDragNDrop = false*/)
+void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_data,
+                                          Gtk::TextView* pTextView,
+                                          const bool/*forcePlain*/,
+                                          const bool/*fromDragNDrop = false*/)
 {
     std::string uri_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     //spdlog::debug("1: '{}'", uri_content);
@@ -756,8 +907,13 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
     }
     uri_content = str::sanitize_bad_symbols(uri_content);
 
-    auto pCtTextView = dynamic_cast<CtTextView*>(pTextView);
-    const std::string syntax_highlighting = pCtTextView ? pCtTextView->get_syntax_highlighting() : _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+    std::string syntax_highlighting;
+    if (auto pCtTextView = dynamic_cast<CtTextView*>(pTextView)) {
+        syntax_highlighting = pCtTextView->get_syntax_highlighting();
+    }
+    else {
+        syntax_highlighting = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+    }
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = pTextView->get_buffer();
     if (syntax_highlighting != CtConst::RICH_TEXT_ID) {
         pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), uri_content);
@@ -791,79 +947,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
             }
 #endif // !__APPLE__
         }
-        bool subsequent_insert{false};
-        for (auto& element : uri_list) {
-            if (element.empty()) continue;
-            Glib::ustring property_value;
-            if (str::startswith_any(element, CtConst::WEB_LINK_STARTERS)) {
-                property_value = "webs " + element;
-            }
-            //else if (str::startswith(element, "file://")) {
-            else {
-                //std::string file_path = element.substr(7);
-                //file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
-                std::string file_path;
-                try {
-                    file_path = Glib::filename_from_uri(element);
-                }
-                catch (const Glib::Error& ex) {
-                    //spdlog::warn("Error converting URI: {}", ex.what().raw());
-                    file_path = element;
-                }
-                g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
-                if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
-                    try {
-                        auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
-                        _pCtMainWin->get_ct_actions()->image_insert_png(pTextBuffer->get_insert()->get_iter(), pixbuf, "", "");
-                        for (int i = 0; i < 3; ++i) {
-                            pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_SPACE);
-                        }
-                        continue;
-                    }
-                    catch (...) {}
-                }
-                if (Glib::file_test(file_path, Glib::FILE_TEST_IS_DIR)) {
-                    property_value = "fold " + Glib::Base64::encode(file_path);
-                }
-                else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
-                    if (subsequent_insert) {
-                        pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
-                    }
-                    _pCtMainWin->get_ct_actions()->embfile_insert_path(file_path);
-                }
-                else {
-                    spdlog::debug("'{}' not dir or file", file_path);
-                }
-            }
-#if 0
-            else {
-                if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR)) {
-                    property_value = "fold " + Glib::Base64::encode(element);
-                }
-                else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR)) {
-                    if (subsequent_insert) {
-                        pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
-                    }
-                    _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
-                }
-                else {
-                    spdlog::debug("'{}' not dir or file", element.raw());
-                }
-            }
-#endif
-            if (not property_value.empty()) {
-                if (subsequent_insert) {
-                    pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
-                }
-                const int start_offset = pTextBuffer->get_insert()->get_iter().get_offset();
-                pTextBuffer->insert(pTextBuffer->get_insert()->get_iter(), element);
-                Gtk::TextIter iter_sel_start = pTextBuffer->get_iter_at_offset(start_offset);
-                Gtk::TextIter iter_sel_end = pTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
-                pTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
-                                               iter_sel_start, iter_sel_end);
-            }
-            subsequent_insert = true;
-        }
+        _uri_or_filepath_list_into_rich_text(uri_list, pTextView);
     }
     pTextView->scroll_to(pTextBuffer->get_insert());
 }
