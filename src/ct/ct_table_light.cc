@@ -131,6 +131,10 @@ void CtTableLight::_on_cell_renderer_editing_started(Gtk::CellEditable* editable
 {
     _pEditingCellEntry = dynamic_cast<Gtk::Entry*>(editable);
     if (_pEditingCellEntry) {
+        CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
+        if (currTreeIter) {
+            _pEditingCellEntry->set_editable(not currTreeIter.get_node_read_only());
+        }
         _currentRow = std::stoi(path.raw());
         _currentColumn = column;
         _pEditingCellEntry->signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
