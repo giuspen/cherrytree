@@ -1,5 +1,12 @@
 name: Windows/MSYS2
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      sign_build:
+        description: 'Set to true to sign the build artifact.'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   msys2-ucrt64:
@@ -9,7 +16,7 @@ jobs:
         shell: msys2 {0}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
@@ -62,7 +69,8 @@ jobs:
           overwrite: true
           if-no-files-found: error
       - name: SignPath Signing
-        uses: signpath/github-action-submit-signing-request@v1.2
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        uses: signpath/github-action-submit-signing-request@v1
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
@@ -72,6 +80,7 @@ jobs:
           wait-for-completion: true
           output-artifact-directory: cherrytree-signed
       - name: Upload Signed Artifact
+        if: ${{ github.event.inputs.sign_build == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: cherrytree-signed
