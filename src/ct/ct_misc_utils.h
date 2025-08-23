@@ -375,15 +375,16 @@ std::string format(const std::string& in_str, const Args&... args)
 }
 
 template<class STRING>
-std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
+std::vector<STRING> split(const STRING& strToSplit, const char* delimiter, const bool compress = false)
 {
     // maybe replace by Glib::Regex::split_simple
-
     std::vector<STRING> vecOfStrings;
     gchar** arrayOfStrings = g_strsplit(strToSplit.c_str(), delimiter, -1);
-    for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
-    {
-        vecOfStrings.push_back(*ptr);
+    for (gchar** ptr = arrayOfStrings; *ptr; ptr++) {
+        STRING curr_str = *ptr;
+        if (not compress or not curr_str.empty()) {
+            vecOfStrings.push_back(curr_str);
+        }
     }
     g_strfreev(arrayOfStrings);
     return vecOfStrings;

@@ -1,7 +1,7 @@
 /*
  * ct_table_light.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *

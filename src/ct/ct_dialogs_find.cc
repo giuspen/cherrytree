@@ -97,6 +97,8 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     whole_word_checkbutton->set_active(s_options.whole_word);
     auto start_word_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Start Word")});
     start_word_checkbutton->set_active(s_options.start_word);
+    auto multiple_words_disregard_order_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Disregard Order When Multiple Words")});
+    multiple_words_disregard_order_checkbutton->set_active(s_options.multiple_words_disregard_order);
     auto fw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Forward")});
     fw_radiobutton->set_active(s_options.direction_fw);
     auto bw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Backward")});
@@ -215,6 +217,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     opt_vbox->pack_start(*four_1_hbox);
     opt_vbox->pack_start(*four_2_hbox);
     opt_vbox->pack_start(*four_3_hbox);
+    opt_vbox->pack_start(*multiple_words_disregard_order_checkbutton);
     opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     opt_vbox->pack_start(*bw_fw_hbox);
     opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
@@ -275,6 +278,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                          override_exclusions_checkbutton,
                                          whole_word_checkbutton,
                                          start_word_checkbutton,
+                                         multiple_words_disregard_order_checkbutton,
                                          fw_radiobutton,
                                          all_radiobutton,
                                          first_from_radiobutton,
@@ -300,6 +304,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         s_options.override_exclusions = override_exclusions_checkbutton->get_active();
         s_options.whole_word = whole_word_checkbutton->get_active();
         s_options.start_word = start_word_checkbutton->get_active();
+        s_options.multiple_words_disregard_order = multiple_words_disregard_order_checkbutton->get_active();
         s_options.direction_fw = fw_radiobutton->get_active();
         if (all_radiobutton->get_active())              s_options.all_firstsel_firstall = 0;
         else if (first_from_radiobutton->get_active())  s_options.all_firstsel_firstall = 1;
