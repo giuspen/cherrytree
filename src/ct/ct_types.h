@@ -413,7 +413,7 @@ struct CtSearchOptions {
     bool        override_exclusions{false};
     bool        whole_word{false};
     bool        start_word{false};
-    bool        multiple_words_disregard_order{true};
+    int         multiple_words_disregard_order{1}; // 0: exact match, 1: disregard order (AND), 2: match any (OR)
     bool        direction_fw{true};
     int         all_firstsel_firstall{0};
     bool        iterative_dialog{true};

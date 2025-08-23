@@ -97,21 +97,30 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     whole_word_checkbutton->set_active(s_options.whole_word);
     auto start_word_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Start Word")});
     start_word_checkbutton->set_active(s_options.start_word);
-    auto multiple_words_disregard_order_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Disregard Order When Multiple Words")});
-    multiple_words_disregard_order_checkbutton->set_active(s_options.multiple_words_disregard_order);
+
+    auto multiple_words_exact_match_radiobutton = Gtk::manage(new Gtk::RadioButton{_("More Words, Exact Match")});
+    auto multiple_words_disregard_order_radiobutton = Gtk::manage(new Gtk::RadioButton{_("More Words, Disregard Order")});
+    auto multiple_words_match_any_radiobutton = Gtk::manage(new Gtk::RadioButton{_("More Words, Match Any")});
+    multiple_words_disregard_order_radiobutton->join_group(*multiple_words_exact_match_radiobutton);
+    multiple_words_match_any_radiobutton->join_group(*multiple_words_exact_match_radiobutton);
+    if (0 == s_options.multiple_words_disregard_order) multiple_words_exact_match_radiobutton->set_active();
+    else if (1 == s_options.multiple_words_disregard_order)  multiple_words_disregard_order_radiobutton->set_active();
+    else multiple_words_match_any_radiobutton->set_active();
+
     auto fw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Forward")});
-    fw_radiobutton->set_active(s_options.direction_fw);
     auto bw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Backward")});
     bw_radiobutton->join_group(*fw_radiobutton);
-    bw_radiobutton->set_active(!s_options.direction_fw);
+    if (s_options.direction_fw) fw_radiobutton->set_active();
+    else bw_radiobutton->set_active();
+
     auto all_radiobutton = Gtk::manage(new Gtk::RadioButton{_("All, List Matches")});
-    all_radiobutton->set_active(s_options.all_firstsel_firstall == 0);
     auto first_from_radiobutton = Gtk::manage(new Gtk::RadioButton{_("First From Selection")});
-    first_from_radiobutton->join_group(*all_radiobutton);
-    first_from_radiobutton->set_active(s_options.all_firstsel_firstall == 1);
     auto first_all_radiobutton = Gtk::manage(new Gtk::RadioButton{_("First in All Range")});
+    first_from_radiobutton->join_group(*all_radiobutton);
     first_all_radiobutton->join_group(*all_radiobutton);
-    first_all_radiobutton->set_active(s_options.all_firstsel_firstall == 2);
+    if (0 == s_options.all_firstsel_firstall) all_radiobutton->set_active();
+    else if (1 == s_options.all_firstsel_firstall) first_from_radiobutton->set_active();
+    else first_all_radiobutton->set_active();
 
     Gtk::Frame* ts_frame{nullptr};
     Gtk::CheckButton* ts_node_created_after_checkbutton{nullptr};
@@ -217,7 +226,15 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     opt_vbox->pack_start(*four_1_hbox);
     opt_vbox->pack_start(*four_2_hbox);
     opt_vbox->pack_start(*four_3_hbox);
-    opt_vbox->pack_start(*multiple_words_disregard_order_checkbutton);
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    auto multiple_words_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    auto multiple_words_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    multiple_words_hbox->set_homogeneous(true);
+    multiple_words_hbox->pack_start(*multiple_words_exact_match_radiobutton);
+    multiple_words_hbox->pack_start(*multiple_words_vbox);
+    multiple_words_vbox->pack_start(*multiple_words_disregard_order_radiobutton);
+    multiple_words_vbox->pack_start(*multiple_words_match_any_radiobutton);
+    opt_vbox->pack_start(*multiple_words_hbox);
     opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     opt_vbox->pack_start(*bw_fw_hbox);
     opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
@@ -278,7 +295,9 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                          override_exclusions_checkbutton,
                                          whole_word_checkbutton,
                                          start_word_checkbutton,
-                                         multiple_words_disregard_order_checkbutton,
+                                         multiple_words_exact_match_radiobutton,
+                                         multiple_words_disregard_order_radiobutton,
+                                         multiple_words_match_any_radiobutton,
                                          fw_radiobutton,
                                          all_radiobutton,
                                          first_from_radiobutton,
@@ -304,7 +323,11 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         s_options.override_exclusions = override_exclusions_checkbutton->get_active();
         s_options.whole_word = whole_word_checkbutton->get_active();
         s_options.start_word = start_word_checkbutton->get_active();
-        s_options.multiple_words_disregard_order = multiple_words_disregard_order_checkbutton->get_active();
+
+        if (multiple_words_exact_match_radiobutton->get_active()) s_options.multiple_words_disregard_order = 0;
+        else if (multiple_words_disregard_order_radiobutton->get_active()) s_options.multiple_words_disregard_order = 1;
+        else s_options.multiple_words_disregard_order = 2;
+
         s_options.direction_fw = fw_radiobutton->get_active();
         if (all_radiobutton->get_active())              s_options.all_firstsel_firstall = 0;
         else if (first_from_radiobutton->get_active())  s_options.all_firstsel_firstall = 1;

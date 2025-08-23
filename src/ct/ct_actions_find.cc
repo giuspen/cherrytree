@@ -597,19 +597,34 @@ Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
     if (_s_options.accent_insensitive) {
         pattern = str::diacritical_to_ascii(pattern);
     }
-    if (not _s_options.reg_exp and _s_options.multiple_words_disregard_order) {
+    bool temp_reg_exp{false};
+    if (not _s_options.reg_exp and 0 != _s_options.multiple_words_disregard_order) {
         const std::vector<Glib::ustring> splitted = str::split(pattern, " ", true/*compress*/);
         if (splitted.size() > 1u) {
-            _s_options.reg_exp = true;
+            temp_reg_exp = true;
             pattern.clear();
-            for (const Glib::ustring& element : splitted) {
-                pattern += "(?=.*" + Glib::Regex::escape_string(element) + ")";
+            if (1 == _s_options.multiple_words_disregard_order) {
+                // 1 = disregard order = AND -> (?=.*Word1)(?=.*Word2).*
+                for (const Glib::ustring& element : splitted) {
+                    pattern += "(?=.*" + Glib::Regex::escape_string(element) + ")";
+                }
+                pattern += ".*";
             }
-            pattern += ".*";
+            else {
+                // 2 = match any = OR -> .*(Word1|Word2).*
+                pattern += ".*(";
+                bool first_loop{true};
+                for (const Glib::ustring& element : splitted) {
+                    if (first_loop) { first_loop = false; }
+                    else { pattern += "|"; }
+                    pattern += Glib::Regex::escape_string(element);
+                }
+                pattern += ").*";
+            }
             spdlog::debug("auto reg_exp {}", pattern.c_str());
         }
     }
-    if (not _s_options.reg_exp) { // NOT REGULAR EXPRESSION
+    if (not _s_options.reg_exp and not temp_reg_exp) { // NOT REGULAR EXPRESSION
         pattern = Glib::Regex::escape_string(pattern);     // backslashes all non alphanum chars => to not spoil re
         if (_s_options.whole_word)      // WHOLE WORD
             pattern = "\\b" + pattern + "\\b";
