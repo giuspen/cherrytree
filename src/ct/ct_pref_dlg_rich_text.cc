@@ -97,6 +97,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
     auto checkbutton_camelcase_autolink = Gtk::manage(new Gtk::CheckButton{_("Auto Link CamelCase Text to Node With Same Name")});
     checkbutton_camelcase_autolink->set_active(_pConfig->camelCaseAutoLink);
+    auto checkbutton_url_autolink = Gtk::manage(new Gtk::CheckButton{_("Auto Link URLs")});
+    checkbutton_url_autolink->set_active(_pConfig->urlAutoLink);
     auto checkbutton_triple_click_sel_paragraph = Gtk::manage(new Gtk::CheckButton{_("At Triple Click Select the Whole Paragraph")});
     checkbutton_triple_click_sel_paragraph->set_active(_pConfig->tripleClickParagraph);
 #ifdef MD_AUTO_REPLACEMENT
@@ -115,6 +117,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
     vbox_misc_text->pack_start(*hbox_misc_text, false, false);
+    vbox_misc_text->pack_start(*checkbutton_url_autolink, false, false);
     vbox_misc_text->pack_start(*checkbutton_camelcase_autolink, false, false);
     vbox_misc_text->pack_start(*checkbutton_triple_click_sel_paragraph, false, false);
 #ifdef MD_AUTO_REPLACEMENT
@@ -195,6 +198,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     });
     checkbutton_camelcase_autolink->signal_toggled().connect([this, checkbutton_camelcase_autolink]{
         _pConfig->camelCaseAutoLink = checkbutton_camelcase_autolink->get_active();
+    });
+    checkbutton_url_autolink->signal_toggled().connect([this, checkbutton_url_autolink]{
+        _pConfig->urlAutoLink = checkbutton_url_autolink->get_active();
     });
     checkbutton_triple_click_sel_paragraph->signal_toggled().connect([this, checkbutton_triple_click_sel_paragraph]{
         _pConfig->tripleClickParagraph = checkbutton_triple_click_sel_paragraph->get_active();
