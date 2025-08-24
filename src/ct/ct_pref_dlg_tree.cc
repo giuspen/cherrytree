@@ -89,19 +89,11 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     checkbutton_tree_click_focus_text->set_active(_pConfig->treeClickFocusText);
     auto checkbutton_tree_click_expand = Gtk::manage(new Gtk::CheckButton{_("Expand Node at Mouse Click")});
     checkbutton_tree_click_expand->set_active(_pConfig->treeClickExpand);
-    auto hbox_nodes_on_node_name_header = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_nodes_on_node_name_header = Gtk::manage(new Gtk::Label{_("Last Visited Nodes on Node Name Header")});
-    Glib::RefPtr<Gtk::Adjustment> adj_nodes_on_node_name_header = Gtk::Adjustment::create(_pConfig->nodesOnNodeNameHeader, 0, 100, 1);
-    auto spinbutton_nodes_on_node_name_header = Gtk::manage(new Gtk::SpinButton{adj_nodes_on_node_name_header});
-    spinbutton_nodes_on_node_name_header->set_value(_pConfig->nodesOnNodeNameHeader);
-    hbox_nodes_on_node_name_header->pack_start(*label_nodes_on_node_name_header, false, false);
-    hbox_nodes_on_node_name_header->pack_start(*spinbutton_nodes_on_node_name_header, false, false);
 
     vbox_misc_tree->pack_start(*hbox_tree_nodes_names_width, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_right_side, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_click_focus_text, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_click_expand, false, false);
-    vbox_misc_tree->pack_start(*hbox_nodes_on_node_name_header, false, false);
     Gtk::Frame* frame_misc_tree = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_tree);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
@@ -131,10 +123,6 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     });
     checkbutton_tree_click_expand->signal_toggled().connect([this, checkbutton_tree_click_expand](){
         _pConfig->treeClickExpand = checkbutton_tree_click_expand->get_active();
-    });
-    spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, spinbutton_nodes_on_node_name_header](){
-        _pConfig->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
-        apply_for_each_window([](CtMainWin* win) { win->window_header_update(); });
     });
 
     radiobutton_node_icon_cherry->signal_toggled().connect([this, radiobutton_node_icon_cherry](){

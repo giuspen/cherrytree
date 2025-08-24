@@ -211,6 +211,14 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     hbox_toolbar_icons_size->pack_start(*label_toolbar_icons_size, false, false);
     hbox_toolbar_icons_size->pack_start(*spinbutton_toolbar_icons_size, false, false);
 
+    auto hbox_nodes_on_node_name_header = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_nodes_on_node_name_header = Gtk::manage(new Gtk::Label{_("Last Visited Nodes on Node Name Header")});
+    Glib::RefPtr<Gtk::Adjustment> adj_nodes_on_node_name_header = Gtk::Adjustment::create(_pConfig->nodesOnNodeNameHeader, 0, 100, 1);
+    auto spinbutton_nodes_on_node_name_header = Gtk::manage(new Gtk::SpinButton{adj_nodes_on_node_name_header});
+    spinbutton_nodes_on_node_name_header->set_value(_pConfig->nodesOnNodeNameHeader);
+    hbox_nodes_on_node_name_header->pack_start(*label_nodes_on_node_name_header, false, false);
+    hbox_nodes_on_node_name_header->pack_start(*spinbutton_nodes_on_node_name_header, false, false);
+
     auto hbox_scrollbar_min_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_scrollbar_min_size = Gtk::manage(new Gtk::Label{_("Scrollbar Slider Minimum Size (0 = System Default)")});
     Glib::RefPtr<Gtk::Adjustment> adjustment_scrollbar_min_size = Gtk::Adjustment::create(_pConfig->scrollSliderMin, 0, 1000, 1);
@@ -260,6 +268,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     vbox_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
     vbox_misc->pack_start(*checkbutton_menubar_in_titlebar, false, false);
     vbox_misc->pack_start(*hbox_toolbar_icons_size, false, false);
+    vbox_misc->pack_start(*hbox_nodes_on_node_name_header, false, false);
     vbox_misc->pack_start(*hbox_scrollbar_min_size, false, false);
     vbox_misc->pack_start(*hbox_scrollbar_overlay, false, false);
     vbox_misc->pack_start(*hbox_tooltips_enable, false, false);
@@ -372,6 +381,10 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     spinbutton_toolbar_icons_size->signal_value_changed().connect([this, spinbutton_toolbar_icons_size](){
         _pConfig->toolbarIconSize = spinbutton_toolbar_icons_size->get_value_as_int();
         apply_for_each_window([this](CtMainWin* win) { win->set_toolbars_icon_size(_pConfig->toolbarIconSize); });
+    });
+    spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, spinbutton_nodes_on_node_name_header](){
+        _pConfig->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
+        apply_for_each_window([](CtMainWin* win) { win->window_header_update(); });
     });
     spinbutton_scrollbar_min_size->signal_value_changed().connect([this, spinbutton_scrollbar_min_size](){
         _pConfig->scrollSliderMin = spinbutton_scrollbar_min_size->get_value_as_int();
