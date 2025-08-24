@@ -510,51 +510,81 @@ void CtMainWin::window_header_update()
         "<span foreground=\"" + foreground + "\" font_desc=\"" + _pCtConfig->treeFont + "\" font_weight=\"bold\">" + str::xml_escape(name) + "</span>");
 
     // update last visited buttons
-    if (_pCtConfig->nodesOnNodeNameHeader == 0) {
-        for (auto button: _ctWinHeader.buttonBox.get_children()) {
-            _ctWinHeader.buttonBox.remove(*button);
+    if (0 == _pCtConfig->nodesOnNodeNameHeader) {
+        for (auto pButton : _ctWinHeader.buttonBox.get_children()) {
+            _ctWinHeader.buttonBox.remove(*pButton);
         }
     }
     else {
         // add more buttons if that is needed
         while ((int)_ctWinHeader.buttonBox.get_children().size() < _pCtConfig->nodesOnNodeNameHeader) {
-            Gtk::Button* button = Gtk::manage(new Gtk::Button(""));
-            auto click = [this](Gtk::Button* button) {
-                auto node_id = _ctWinHeader.button_to_node_id.find(button);
+            auto pButton = Gtk::manage(new Gtk::Button);
+            auto pHBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 1});
+            auto pImage = Gtk::manage(new Gtk::Image);
+            auto pLabel = Gtk::manage(new Gtk::Label);
+            pHBox->pack_start(*pImage);
+            pHBox->pack_start(*pLabel);
+            pButton->add(*pHBox);
+            auto f_on_click = [this](Gtk::Button* pButton) {
+                auto node_id = _ctWinHeader.button_to_node_id.find(pButton);
                 if (node_id != _ctWinHeader.button_to_node_id.end()) {
-                    if (CtTreeIter tree_iter = get_tree_store().get_node_from_node_id(node_id->second))
+                    if (CtTreeIter tree_iter = get_tree_store().get_node_from_node_id(node_id->second)) {
                         _uCtTreeview->set_cursor_safe(tree_iter);
+                    }
                     _ctTextview.mm().grab_focus();
                 }
             };
-            button->signal_clicked().connect(sigc::bind(click, button));
-            _ctWinHeader.buttonBox.add(*button);
+            pButton->signal_clicked().connect(sigc::bind(f_on_click, pButton));
+            _ctWinHeader.buttonBox.add(*pButton);
         }
 
         // update button labels and node_ids
-        gint64 curr_node = curr_tree_iter().get_node_id();
-        int button_idx = 0;
+        CtTreeStore& ctTreestore = get_tree_store();
+        const gint64 curr_node_id = curr_tree_iter().get_node_id();
+        int button_idx{0};
         auto buttons = _ctWinHeader.buttonBox.get_children();
-        auto nodes = _ctStateMachine.get_visited_nodes_list();
+        const std::vector<gint64>& nodes = _ctStateMachine.get_visited_nodes_list();
         _ctWinHeader.button_to_node_id.clear();
         for (auto iter = nodes.rbegin(); iter != nodes.rend(); ++iter) {
-            if (*iter == curr_node) continue;
-            if (CtTreeIter node = get_tree_store().get_node_from_node_id(*iter)) {
-                Glib::ustring name = "<span font_desc=\"" + _pCtConfig->treeFont + "\">" + str::xml_escape(node.get_node_name()) + "</span>";
-                Glib::ustring tooltip = CtMiscUtil::get_node_hierarchical_name(node, "/", false);
-                if (auto button = dynamic_cast<Gtk::Button*>(buttons[button_idx])) {
-                    if (auto label = dynamic_cast<Gtk::Label*>(button->get_child())) {
-                        label->set_label(name);
-                        label->set_use_markup(true);
-                        label->set_ellipsize(Pango::ELLIPSIZE_END);
+            if (*iter == curr_node_id) continue;
+            if (CtTreeIter ct_tree_iter = ctTreestore.get_node_from_node_id(*iter)) {
+                Glib::ustring name = "<span font_desc=\"" + _pCtConfig->treeFont + "\">" + str::xml_escape(ct_tree_iter.get_node_name()) + "</span>";
+                Glib::ustring tooltip = CtMiscUtil::get_node_hierarchical_name(ct_tree_iter, "/", false);
+                if (auto pButton = dynamic_cast<Gtk::Button*>(buttons[button_idx])) {
+                    if (auto pHBox = dynamic_cast<Gtk::Box*>(pButton->get_child())) {
+                        std::vector<Gtk::Widget*> hbox_children = pHBox->get_children();
+                        for (auto pWidget : hbox_children) {
+                            if (auto pLabel = dynamic_cast<Gtk::Label*>(pWidget)) {
+                                pLabel->set_label(name);
+                                pLabel->set_use_markup(true);
+                                pLabel->set_ellipsize(Pango::ELLIPSIZE_END);
+                            }
+                            else if (auto pImage = dynamic_cast<Gtk::Image*>(pWidget)) {
+                                const char* node_icon = ctTreestore.get_node_icon(
+                                    ctTreestore.get_store()->iter_depth(ct_tree_iter),
+                                    ct_tree_iter.get_node_syntax_highlighting(),
+                                    ct_tree_iter.get_node_custom_icon_id());
+                                pImage->set_from_icon_name(node_icon, Gtk::ICON_SIZE_MENU);
+                            }
+                            else {
+                                spdlog::debug("? pLabel pImage");
+                            }
+                        }
                     }
-                    button->set_tooltip_text(tooltip);
-                    button->show();
-                    _ctWinHeader.button_to_node_id[button] = *iter;
+                    else {
+                        spdlog::debug("? pHBox");
+                    }
+                    pButton->set_tooltip_text(tooltip);
+                    pButton->show_all();
+                    _ctWinHeader.button_to_node_id[pButton] = *iter;
+                }
+                else {
+                    spdlog::debug("? pButton");
                 }
                 ++button_idx;
-                if (button_idx == (int)buttons.size())
+                if (button_idx == (int)buttons.size()) {
                     break;
+                }
             }
         }
         for (int i = button_idx; i < (int)buttons.size(); ++i) {
@@ -759,8 +789,8 @@ void CtMainWin::reset()
     _reset_CtTreestore_CtTreeview();
 
     _latestStatusbarUpdateTime.clear();
-    for (auto button: _ctWinHeader.buttonBox.get_children()) {
-        button->hide();
+    for (auto pButton : _ctWinHeader.buttonBox.get_children()) {
+        pButton->hide();
     }
     _ctWinHeader.nameLabel.set_markup("");
     window_header_update_lock_icon(false);
