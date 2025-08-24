@@ -542,7 +542,7 @@ void CtMainWin::window_header_update()
         CtTreeStore& ctTreestore = get_tree_store();
         const gint64 curr_node_id = curr_tree_iter().get_node_id();
         int button_idx{0};
-        auto buttons = _ctWinHeader.buttonBox.get_children();
+        std::vector<Gtk::Widget*> buttons = _ctWinHeader.buttonBox.get_children();
         const std::vector<gint64>& nodes = _ctStateMachine.get_visited_nodes_list();
         _ctWinHeader.button_to_node_id.clear();
         for (auto iter = nodes.rbegin(); iter != nodes.rend(); ++iter) {
@@ -550,7 +550,7 @@ void CtMainWin::window_header_update()
             if (CtTreeIter ct_tree_iter = ctTreestore.get_node_from_node_id(*iter)) {
                 Glib::ustring name = "<span font_desc=\"" + _pCtConfig->treeFont + "\">" + str::xml_escape(ct_tree_iter.get_node_name()) + "</span>";
                 Glib::ustring tooltip = CtMiscUtil::get_node_hierarchical_name(ct_tree_iter, "/", false);
-                if (auto pButton = dynamic_cast<Gtk::Button*>(buttons[button_idx])) {
+                if (auto pButton = dynamic_cast<Gtk::Button*>(buttons[buttons.size() - 1 - button_idx])) {
                     if (auto pHBox = dynamic_cast<Gtk::Box*>(pButton->get_child())) {
                         std::vector<Gtk::Widget*> hbox_children = pHBox->get_children();
                         for (auto pWidget : hbox_children) {
