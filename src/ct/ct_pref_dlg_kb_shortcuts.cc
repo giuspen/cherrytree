@@ -119,14 +119,16 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
 {
     auto tree_iter = treeview->get_selection()->get_selected();
-    if (!tree_iter || tree_iter->get_value(_shortcutModelColumns.key).empty()) return false;
-    std::string shortcut = tree_iter->get_value(_shortcutModelColumns.shortcut);
+    if (not tree_iter or tree_iter->get_value(_shortcutModelColumns.key).empty()) return false;
     std::string id = tree_iter->get_value(_shortcutModelColumns.key);
-    if (edit_shortcut_dialog(shortcut, _pCtMainWin->get_ct_menu().find_action(id)->built_in_shortcut)) {
-        if (shortcut != "") {
-            for (const CtMenuAction& action : _pCtMenu->get_actions())
-                if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
-                    // todo: this is a shorter version from python code
+    std::string shortcut = tree_iter->get_value(_shortcutModelColumns.shortcut);
+    const std::string& default_shortcut = _pCtMainWin->get_ct_menu().find_action(id)->built_in_shortcut;
+    if (edit_shortcut_dialog(shortcut, default_shortcut)) {
+        if (not shortcut.empty()) {
+            for (const CtMenuAction& action : _pCtMenu->get_actions()) {
+                if (action.id != id and
+                    Glib::ustring{action.get_shortcut(_pCtMainWin->get_ct_config())}.lowercase() == Glib::ustring{shortcut}.lowercase())
+                {
                     std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use."), str::xml_escape(CtStrUtil::get_accelerator_label(shortcut))) + "</b>\n\n";
                     message += str::format(_("The current associated action is '%s'"), str::xml_escape(str::replace(action.name, "_", ""))) + "\n\n";
                     message += "<b>" + std::string(_("Do you want to steal the shortcut?")) + "</b>";
@@ -134,6 +136,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
                         return false;
                     _pCtMainWin->get_ct_config()->customKbShortcuts[action.id] = "";
                 }
+            }
         }
         _pCtMainWin->get_ct_config()->customKbShortcuts[id] = shortcut;
         return true;
@@ -190,8 +193,8 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut, const std::string& d
         kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
         kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_META.c_str(), "");
         key_entry->set_text(kb_shortcut_key);
-        radiobutton_kb_none->set_active(kb_shortcut_key.empty());
-        radiobutton_kb_shortcut->set_active(!kb_shortcut_key.empty());
+        if (kb_shortcut_key.empty()) radiobutton_kb_none->set_active();
+        else radiobutton_kb_shortcut->set_active();
         ctrl_toggle->set_active(in_shortcut.find(_pCtMenu->KB_CONTROL) != std::string::npos);
         shift_toggle->set_active(in_shortcut.find(_pCtMenu->KB_SHIFT) != std::string::npos);
         alt_toggle->set_active(in_shortcut.find(_pCtMenu->KB_ALT) != std::string::npos);
@@ -229,8 +232,8 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut, const std::string& d
         return false;
 
     const std::string was_shortcut{shortcut};
-    shortcut = "";
-    if (radiobutton_kb_shortcut->get_active() && !key_entry->get_text().empty()) {
+    shortcut.clear();
+    if (radiobutton_kb_shortcut->get_active() and not key_entry->get_text().empty()) {
         if (ctrl_toggle->get_active()) shortcut += _pCtMenu->KB_CONTROL;
         if (shift_toggle->get_active()) shortcut += _pCtMenu->KB_SHIFT;
         if (alt_toggle->get_active()) shortcut += _pCtMenu->KB_ALT;
