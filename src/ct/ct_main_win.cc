@@ -582,13 +582,13 @@ void CtMainWin::window_header_update()
                     spdlog::debug("? pButton");
                 }
                 ++button_idx;
-                if (button_idx == (int)buttons.size()) {
+                if (button_idx == _pCtConfig->nodesOnNodeNameHeader) {
                     break;
                 }
             }
         }
-        for (int i = button_idx; i < (int)buttons.size(); ++i) {
-            buttons[i]->hide();
+        for (; button_idx < (int)buttons.size(); ++button_idx) {
+            buttons[buttons.size() - 1 - button_idx]->hide();
         }
     }
 }
