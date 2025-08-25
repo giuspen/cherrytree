@@ -117,6 +117,26 @@ void CtActions::nodes_collapse_all()
     _pCtMainWin->get_tree_view().collapse_all();
 }
 
+void CtActions::more_nodes_on_node_name_header()
+{
+    if (_pCtConfig->toolbarIconSize >= 100) {
+        CtDialogs::info_dialog(_("The Number of Last Visited Nodes on Node Name Header is already at the Maximum Value."), *_pCtMainWin);
+        return;
+    }
+    ++_pCtConfig->nodesOnNodeNameHeader;
+    _pCtMainWin->window_header_update();
+}
+
+void CtActions::less_nodes_on_node_name_header()
+{
+    if (_pCtConfig->nodesOnNodeNameHeader <= 0) {
+        CtDialogs::info_dialog(_("The Number of Last Visited Nodes on Node Name Header is already at the Minimum Value."), *_pCtMainWin);
+        return;
+    }
+    --_pCtConfig->nodesOnNodeNameHeader;
+    _pCtMainWin->window_header_update();
+}
+
 void CtActions::toolbar_icons_size_increase()
 {
     if (_pCtConfig->toolbarIconSize >= 5) {

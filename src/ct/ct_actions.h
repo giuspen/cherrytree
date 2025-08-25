@@ -293,6 +293,8 @@ public:
     void nodes_collapse_all();
     void toolbar_icons_size_increase();
     void toolbar_icons_size_decrease();
+    void more_nodes_on_node_name_header();
+    void less_nodes_on_node_name_header();
     void toggle_fullscreen();
     void toggle_always_on_top();
     void disable_menubar_in_titlebar() { _menubar_in_titlebar_set(false); }

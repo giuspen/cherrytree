@@ -379,6 +379,9 @@ const char* CtMenu::_get_ui_str_menu()
     <separator/>
     <menuitem action='toolbar_icons_size_p'/>
     <menuitem action='toolbar_icons_size_m'/>
+    <separator/>
+    <menuitem action='more_visit_nnh'/>
+    <menuitem action='less_visit_nnh'/>
   </menu>
 
   <menu action='BookmarksMenu'>

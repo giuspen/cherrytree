@@ -433,6 +433,10 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Increase the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_increase)});
         _actions.push_back(CtMenuAction{view_cat, "toolbar_icons_size_m", "ct_remove", _("_Decrease Toolbar Icons Size"), None,
             _("Decrease the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_decrease)});
+        _actions.push_back(CtMenuAction{view_cat, "more_visit_nnh", "ct_add", _("_More Last Visited Nodes on Node Name Header"), None,
+            _("Increase the Number of Last Visited Nodes on Node Name Header"), sigc::mem_fun(*pActions, &CtActions::more_nodes_on_node_name_header)});
+        _actions.push_back(CtMenuAction{view_cat, "less_visit_nnh", "ct_remove", _("_Less Last Visited Nodes on Node Name Header"), None,
+            _("Decrease the Number of Last Visited Nodes on Node Name Header"), sigc::mem_fun(*pActions, &CtActions::less_nodes_on_node_name_header)});
         _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("Full Screen _On/Off"), "F11",
             _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::toggle_fullscreen)});
         _actions.push_back(CtMenuAction{view_cat, "toggle_always_on_top", "ct_pin", _("_Always On Top On/Off"), None,
