@@ -265,7 +265,7 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "separator,handle_image,handle_table,handle_codebox,handle_latex,handle_embfile,"
     "handle_link,handle_anchor,separator,fmt_clone,fmt_latest,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
-    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"
+    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_subscript,fmt_superscript,fmt_monospace"
 };
 
 const inline static gchar* LANG_DEFAULT{"default"};

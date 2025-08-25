@@ -1,7 +1,7 @@
 /*
  * ct_menu_ui.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -257,8 +257,8 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='fmt_strikethrough'/>
       <menuitem action='fmt_monospace'/>
       <menuitem action='fmt_small'/>
-      <menuitem action='fmt_superscript'/>
       <menuitem action='fmt_subscript'/>
+      <menuitem action='fmt_superscript'/>
     </menu>
     <menu action='ChangeCaseSubMenu'>
       <menuitem action='case_down'/>
@@ -431,8 +431,8 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
       <menuitem action='fmt_strikethrough'/>
       <menuitem action='fmt_monospace'/>
       <menuitem action='fmt_small'/>
-      <menuitem action='fmt_superscript'/>
       <menuitem action='fmt_subscript'/>
+      <menuitem action='fmt_superscript'/>
     </menu>
       <menu action='ChangeCaseSubMenu'>
       <menuitem action='case_down'/>
