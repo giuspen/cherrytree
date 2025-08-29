@@ -132,6 +132,69 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), button_country_language);
 #endif
 
+    auto hbox_proxy_url_port = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    auto hbox_proxy_user_passwd = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    auto vbox_proxy = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 0/*spacing*/});
+
+    auto label_proxy_url = Gtk::manage(new Gtk::Label{_("URL")});
+    auto entry_proxy_url = Gtk::manage(new Gtk::Entry{});
+    auto label_proxy_port = Gtk::manage(new Gtk::Label{_("Port")});
+    auto entry_proxy_port = Gtk::manage(new Gtk::Entry{});
+    hbox_proxy_url_port->pack_start(*label_proxy_url, false, false);
+    hbox_proxy_url_port->pack_start(*entry_proxy_url, true, true);
+    hbox_proxy_url_port->pack_start(*label_proxy_port, false, false);
+    hbox_proxy_url_port->pack_start(*entry_proxy_port, false, false);
+
+    if (not _pConfig->proxyUrlColonPort.empty()) {
+        std::vector<std::string> proxyUrlAndPort = str::split(_pConfig->proxyUrlColonPort, ":");
+        if (proxyUrlAndPort.size() > 0) {
+            entry_proxy_url->set_text(proxyUrlAndPort[0]);
+            if (proxyUrlAndPort.size() > 1) {
+                entry_proxy_port->set_text(proxyUrlAndPort[1]);
+            }
+        }
+    }
+
+    auto label_proxy_user = Gtk::manage(new Gtk::Label{_("Username")});
+    auto entry_proxy_user = Gtk::manage(new Gtk::Entry{});
+    auto label_proxy_passwd = Gtk::manage(new Gtk::Label{_("Password")});
+    auto entry_proxy_passwd = Gtk::manage(new Gtk::Entry{});
+    entry_proxy_passwd->set_visibility(false);
+    hbox_proxy_user_passwd->pack_start(*label_proxy_user, false, false);
+    hbox_proxy_user_passwd->pack_start(*entry_proxy_user, true, true);
+    hbox_proxy_user_passwd->pack_start(*label_proxy_passwd, false, false);
+    hbox_proxy_user_passwd->pack_start(*entry_proxy_passwd, true, true);
+
+    if (not _pConfig->proxyUsername.empty()) {
+        entry_proxy_user->set_text(_pConfig->proxyUsername);
+    }
+    if (not _pConfig->proxyPassword.empty()) {
+        entry_proxy_passwd->set_text(_pConfig->proxyPassword);
+    }
+
+    auto f_on_proxy_url_port_changed = [this, entry_proxy_url, entry_proxy_port](){
+        const Glib::ustring url = str::trim(entry_proxy_url->get_text());
+        const Glib::ustring port = str::trim(entry_proxy_port->get_text());
+        if (port.empty()) {
+            _pConfig->proxyUrlColonPort = url;
+        }
+        else {
+            _pConfig->proxyUrlColonPort = url + ":" + port;
+        }
+    };
+    entry_proxy_url->signal_changed().connect(f_on_proxy_url_port_changed);
+    entry_proxy_port->signal_changed().connect(f_on_proxy_url_port_changed);
+    entry_proxy_user->signal_changed().connect([this, entry_proxy_user](){
+        _pConfig->proxyUsername = entry_proxy_user->get_text();
+    });
+    entry_proxy_passwd->signal_changed().connect([this, entry_proxy_passwd](){
+        _pConfig->proxyPassword = entry_proxy_passwd->get_text();
+    });
+
+    vbox_proxy->pack_start(*hbox_proxy_url_port);
+    vbox_proxy->pack_start(*hbox_proxy_user_passwd);
+    Gtk::Frame* frame_proxy = new_managed_frame_with_align(_("Proxy"), vbox_proxy);
+
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
@@ -141,6 +204,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 #ifdef HAVE_NLS
     pMainBox->pack_start(*frame_language, false, false);
 #endif
+    pMainBox->pack_start(*frame_proxy, false, false);
 
     checkbutton_autosave->signal_toggled().connect([this, checkbutton_autosave, spinbutton_autosave](){
         _pConfig->autosaveOn = checkbutton_autosave->get_active();
