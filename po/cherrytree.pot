@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -345,6 +345,15 @@ msgstr ""
 msgid "Start Word"
 msgstr ""
 
+msgid "More Words, Exact Match"
+msgstr ""
+
+msgid "More Words, Disregard Order"
+msgstr ""
+
+msgid "More Words, Match Any"
+msgstr ""
+
 msgid "Forward"
 msgstr ""
 
@@ -623,6 +632,21 @@ msgid "System Tray"
 msgstr ""
 
 msgid "Language"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Proxy"
 msgstr ""
 
 msgid "Has the System Tray appeared on the panel?"
@@ -1052,6 +1076,16 @@ msgstr ""
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr ""
 
@@ -1164,6 +1198,9 @@ msgstr ""
 msgid "Toolbar Icons Size"
 msgstr ""
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr ""
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr ""
 
@@ -1201,6 +1238,9 @@ msgid "Custom Actions"
 msgstr ""
 
 msgid "Colors"
+msgstr ""
+
+msgid "Double Click for Link Action"
 msgstr ""
 
 msgid "Underline Links"
@@ -1327,8 +1367,8 @@ msgid "Node Properties"
 msgstr ""
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
 
 #, c-format
@@ -1438,9 +1478,6 @@ msgstr ""
 msgid "Expand Node at Mouse Click"
 msgstr ""
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr ""
-
 msgid "Enable Spell Check"
 msgstr ""
 
@@ -1469,6 +1506,9 @@ msgid "Limit of Undoable Steps Per Node"
 msgstr ""
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr ""
+
+msgid "Auto Link URLs"
 msgstr ""
 
 msgid "At Triple Click Select the Whole Paragraph"
@@ -2119,16 +2159,16 @@ msgstr ""
 msgid "Toggle Small Property of the Selected Text"
 msgstr ""
 
-msgid "Toggle Su_perscript Property"
-msgstr ""
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr ""
-
 msgid "Toggle Su_bscript Property"
 msgstr ""
 
 msgid "Toggle Subscript Property of the Selected Text"
+msgstr ""
+
+msgid "Toggle Su_perscript Property"
+msgstr ""
+
+msgid "Toggle Superscript Property of the Selected Text"
 msgstr ""
 
 msgid "Toggle _Monospace Property"
@@ -2563,6 +2603,18 @@ msgid "_Decrease Toolbar Icons Size"
 msgstr ""
 
 msgid "Decrease the Size of the Toolbar Icons"
+msgstr ""
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr ""
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr ""
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
 msgstr ""
 
 msgid "Full Screen _On/Off"
