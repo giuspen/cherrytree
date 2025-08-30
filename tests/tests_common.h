@@ -1,7 +1,7 @@
 /*
  * tests_common.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -51,5 +51,11 @@ const std::string testBomUtf16BEPath{Glib::build_filename(unitTestsDataDir, "bom
 const std::string testBomUtf16LEPath{Glib::build_filename(unitTestsDataDir, "bom_utf16le.txt")};
 const gchar testPassword[]{"7zr"};
 const gchar testPasswordBis[]{"7zr2"};
+const std::string testImagePng{Glib::build_filename(unitTestsDataDir, "testimage.png")};
+const std::string testImageJpg{Glib::build_filename(unitTestsDataDir, "testimage.jpg")};
+const std::string testImageBmp{Glib::build_filename(unitTestsDataDir, "testimage.bmp")};
+const std::string testImageGif{Glib::build_filename(unitTestsDataDir, "testimage.gif")};
+const std::string testImageWebp{Glib::build_filename(unitTestsDataDir, "testimage.webp")};
+const std::string testImageSvg{Glib::build_filename(_CMAKE_SOURCE_DIR, "icons", "cherrytree.svg")};
 
 } // namespace UT

@@ -836,16 +836,7 @@ void CtClipboard::_uri_or_filepath_list_into_rich_text(const std::vector<Glib::u
                 //spdlog::warn("Error converting URI: {}", ex.what().raw());
                 file_path = element;
             }
-            bool is_image{false};
-#ifndef _WIN32
-            g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
-            is_image = mimetype and str::startswith(mimetype, "image/");
-#else
-            fs::path fs_file_path{Glib::ustring{file_path}.lowercase()};
-            const std::string ext = fs_file_path.extension();
-            is_image = vec::exists(std::vector<std::string>{".png", ".jpg", ".jpeg", ".gif", ".bmp"}, ext);
-#endif
-            if (is_image) {
+            if (fs::is_file_image(file_path)) {
                 try {
                     auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
                     _pCtMainWin->get_ct_actions()->image_insert_png(pTextBuffer->get_insert()->get_iter(), pixbuf, "", "");

@@ -1,7 +1,7 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -64,6 +64,8 @@ bool exists(const path& filepath);
 bool is_regular_file(const path& file);
 
 bool is_directory(const path& p);
+
+bool is_file_image(const path& file);
 
 path absolute(const path& p);
 

@@ -1,7 +1,7 @@
 /*
   ct_filesystem.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -194,6 +194,17 @@ bool is_regular_file(const path& file)
 bool is_directory(const fs::path& p)
 {
     return Glib::file_test(p.string(), Glib::FILE_TEST_IS_DIR);
+}
+
+bool is_file_image(const path& file_path)
+{
+#if defined(_WIN32)
+    const Glib::ustring ext = Glib::ustring{file_path.extension()}.lowercase();
+    return vec::exists(std::vector<Glib::ustring>{".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg"}, ext);
+#else
+    g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
+    return mimetype and str::startswith(mimetype, "image/");
+#endif
 }
 
 bool copy_file(const path& from, const path& to)

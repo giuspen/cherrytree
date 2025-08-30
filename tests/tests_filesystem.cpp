@@ -237,3 +237,15 @@ TEST(FileSystemGroup, canonicalize_filename)
     ASSERT_STREQ("/opt/one/two/three.txt", fs_canonicalize_filename("/opt/one/two/three.txt", "/four/five").c_str());
 #endif
 }
+
+TEST(FileSystemGroup, is_file_image)
+{
+    ASSERT_FALSE(fs::is_file_image(""));
+    ASSERT_FALSE(fs::is_file_image(UT::testCtdDocPath));
+    ASSERT_FALSE(fs::is_file_image(UT::unitTestsDataDir));
+    ASSERT_TRUE(fs::is_file_image(UT::testImagePng));
+    ASSERT_TRUE(fs::is_file_image(UT::testImageJpg));
+    ASSERT_TRUE(fs::is_file_image(UT::testImageBmp));
+    ASSERT_TRUE(fs::is_file_image(UT::testImageGif));
+    ASSERT_TRUE(fs::is_file_image(UT::testImageSvg));
+}
