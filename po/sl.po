@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-14 08:38+0200\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-08-30 15:04+0200\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
@@ -362,6 +362,15 @@ msgstr "Cela beseda"
 msgid "Start Word"
 msgstr "Začetna beseda"
 
+msgid "More Words, Exact Match"
+msgstr "Več besed, natančno ujemanje"
+
+msgid "More Words, Disregard Order"
+msgstr "Več besed, zanemari vrstni red"
+
+msgid "More Words, Match Any"
+msgstr "Več besed, ujema se s katero koli"
+
 msgid "Forward"
 msgstr "Naprej"
 
@@ -651,6 +660,21 @@ msgstr "Sistemska vrstica"
 
 msgid "Language"
 msgstr "Jezik"
+
+msgid "URL"
+msgstr "URL naslov"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Uporabniško ime"
+
+msgid "Password"
+msgstr "Geslo"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Ali se je orodna vrstica prikazala na panelu?"
@@ -1104,6 +1128,20 @@ msgstr "Število deljenih vozlišč / skupin"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Pozor: ena ali več slik je bilo pomanjšanih ob vstopu na stran!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Število nazadnje obiskanih vozlišč v glavi z imenom vozlišča je že doseglo "
+"največjo vrednost."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Število nazadnje obiskanih vozlišč v glavi z imenom vozlišča je že doseglo "
+"najmanjšo vrednost."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Velikost ikon v orodni vrstici je že maksimalna."
 
@@ -1216,6 +1254,9 @@ msgstr "Vrstica menija v naslovni vrstici"
 msgid "Toolbar Icons Size"
 msgstr "Velikost ikon v orodni vrstici"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Zadnje obiskana vozlišča v glavi z imenom vozlišč"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Minimalna velikost drsnika (0 = sistemsko privzeto)"
 
@@ -1254,6 +1295,9 @@ msgstr "Dejanje po meri"
 
 msgid "Colors"
 msgstr "Barve"
+
+msgid "Double Click for Link Action"
+msgstr "Dvojni klik za ustvaritev povezave"
 
 msgid "Underline Links"
 msgstr "Podčrtaj povezave"
@@ -1379,11 +1423,11 @@ msgid "Node Properties"
 msgstr "Lastnosti vozlišča"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Z zamenjavo tipa vozlišča iz vozlišča z bogatim besedilom v drug tip,bo "
-"izgubljena vsa oblika vozlišča. Ali želite nadaljevati?"
+"Če tip vozlišča spremenite v Samodejno poudarjanje sintakse, odstranite vse "
+"oblikovanje bogatega besedila v tem vozlišču. Ali želite nadaljevati?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1494,9 +1538,6 @@ msgstr "Premakni fokus na besedilo ob kliku miške"
 msgid "Expand Node at Mouse Click"
 msgstr "Razšiti vozlišče ob kliku miške"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Zadnje obiskana vozlišča v glavi z imenom vozlišč"
-
 msgid "Enable Spell Check"
 msgstr "Omogoči preverjanje črkovanja"
 
@@ -1528,6 +1569,9 @@ msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr ""
 "Samodejno poveži besedilo z velikimi začetnicami (CamelCase) z istoimenskim "
 "vozliščem"
+
+msgid "Auto Link URLs"
+msgstr "Samodejno povezovanje URL naslovov"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Ob trojnem kliku izberi celoten odstavek"
@@ -2177,17 +2221,17 @@ msgstr "Preklopi _majhno pisavo"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Preklopi majhno pisavo izbranega besedila"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Preklopi _nadpisavo"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Preklopi nadpisavo izbranega besedila"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Preklopi _podpisavo"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Preklopi podpisavo izbranega besedila"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Preklopi _nadpisavo"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Preklopi nadpisavo izbranega besedila"
 
 msgid "Toggle _Monospace Property"
 msgstr "Preklopi _eno-širinsko pisavo"
@@ -2624,6 +2668,18 @@ msgstr "Po_manjšaj velikost ikon v orodni vrstici"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Pomanjšaj velikost ikon v orodni vrstici"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Več nazadnje _obiskanih vozlišč v glavi z imenom vozlišča"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Povečaj število nazadnje obiskanih vozlišč v glavi z imenom vozlišča"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Manj nazadnje _obiskanih vozlišč v glavi z imenom vozlišča"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Zmanjšaj število nazadnje obiskanih vozlišč v glavi z imenom vozlišča"
 
 msgid "Full Screen _On/Off"
 msgstr "_Celozaslonski način omogočeno/onemogočeno"
@@ -3198,9 +3254,6 @@ msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
 #~ msgstr ""
 #~ "Binarno datoteko '7za' ni mogoče najti, preverite ali je paket 'p7zip-"
 #~ "full'pravilno nameščen"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Napačno geslo"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Vtipkajte za iskanje..."

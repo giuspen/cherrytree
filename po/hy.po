@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-14 12:30+0400\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-08-30 16:27+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -354,6 +354,15 @@ msgstr "Միայն ամբողջական բառ"
 msgid "Start Word"
 msgstr "Բառի սկիզբ"
 
+msgid "More Words, Exact Match"
+msgstr "Ավելի շատ բառեր, ճշգրիտ համընկում"
+
+msgid "More Words, Disregard Order"
+msgstr "Ավելի շատ բառեր, դասավորությունն անտեսել"
+
+msgid "More Words, Match Any"
+msgstr "Ավելի շատ բառեր, որևէ համընկում"
+
 msgid "Forward"
 msgstr "Առաջ"
 
@@ -643,6 +652,21 @@ msgstr "Համակարգի դարակ"
 
 msgid "Language"
 msgstr "Ծրագրի լեզուն"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Օգտանուն"
+
+msgid "Password"
+msgstr "Գաղտնաբառ"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Համակարգի դարակը հայտնվե՞ց վահանակում։"
@@ -1099,6 +1123,16 @@ msgstr "Համօգտագործվող ճյուղերի/խմբերի քանակը"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Զգուշացում։ Մեկ կամ մի քանի նկար փոքրացվել է էջում տեղավորվելու համար։"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "Այցելված վերջին ճյուղերի թիվն էջագլխում արդեն իսկ առավելագույնն է։"
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "Այցելված վերջին ճյուղերի թիվն էջագլխում արդեն իսկ նվազագույնն է։"
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Գործիքագոտու պատկերակներն արդեն իսկ առավելագույն չափն ունեն։"
 
@@ -1213,6 +1247,9 @@ msgstr "Ընտրացանկի գոտին վերնագրի գոտում"
 msgid "Toolbar Icons Size"
 msgstr "Գործիքագոտու պատկերակների չափ"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Գործածված վերջին ճյուղերը՝ ճյուղի էջագլխում"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Ոլորագոտու նվազագույն չափ (0-ն համակարգի սկզբնադիրն է)"
 
@@ -1251,6 +1288,9 @@ msgstr "Այլ գործողություններ"
 
 msgid "Colors"
 msgstr "Գույներ"
+
+msgid "Double Click for Link Action"
+msgstr "Կրկնակի կտտացնել հղումը գործածելու համար"
 
 msgid "Underline Links"
 msgstr "Ընդգծել հղումները"
@@ -1377,11 +1417,11 @@ msgid "Node Properties"
 msgstr "Ճյուղի հատկություններ"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Ձևաչափված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևաչափումը։ "
-"Շարունակե՞լ։"
+"Ճյուղի տեսակը շարահյուսական ինքնաշխատ ընդգծմամբ դարձնելը վերացնելու է ճյուղի "
+"ամբողջ ձևավորումը։ Շարունակե՞լ։"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1492,9 +1532,6 @@ msgstr "Մկնիկի մեկ կտտոցով անցնել տեքստի հատվա�
 msgid "Expand Node at Mouse Click"
 msgstr "Ընդարձակել ճյուղը մկնիկի մեկ կտտոցով"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Գործածված վերջին ճյուղերը՝ ճյուղի էջագլխում"
-
 msgid "Enable Spell Check"
 msgstr "Կատարել ուղղագրության ստուգում"
 
@@ -1524,6 +1561,9 @@ msgstr "Հետարկման քայլերի քանակը մեկ ճյուղի հա�
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Ուղտաշարով տեքստը ինքնահղել նույնանուն ճյուղին"
+
+msgid "Auto Link URLs"
+msgstr "URL-ների ինքնահղում"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Եռակի կտտացմամբ ընտրել ամբողջ պարբերությունը"
@@ -2173,17 +2213,17 @@ msgstr "Փոքրացված տառեր"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Ընտրված մասի տառերը փոքրացնել"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Վերտողագիր"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Ընտրված մասը վերտողագրով ներկայացնել"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Ենթատողագիր"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Ընտրված մասը ենթատողագրով ներկայացնել"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Վերտողագիր"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Ընտրված մասը վերտողագրով ներկայացնել"
 
 msgid "Toggle _Monospace Property"
 msgstr "Նույնալայնք տառատեսակ"
@@ -2620,6 +2660,18 @@ msgstr "_Փոքրացնել գործիքագոտու պատկերակները"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Փոքրացնել գործիքագոտու պատկերակները"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Ավելի շատ վերջին ճյուղեր էջագլխում"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Այցելված վերջին ճյուղերի թիվը մեծացնել էջագլխում"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Ավելի քիչ վերջին ճյուղեր էջագլխում"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Այցելված վերջին ճյուղերի թիվը փոքրացնել էջագլխում"
 
 msgid "Full Screen _On/Off"
 msgstr "Ամբ_ողջ էկրանով"
@@ -3189,9 +3241,6 @@ msgstr "Վերականգնե՞լ սկզբնադիր տարբերակը։"
 #~ "Installed Properly"
 #~ msgstr ""
 #~ " '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Սխալ գաղտնաբառ"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Մուտքագրեք ու որոնեք..."

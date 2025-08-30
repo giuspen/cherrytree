@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-15 21:47+0200\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-08-30 11:01+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -359,6 +359,15 @@ msgstr "Celé slovo"
 msgid "Start Word"
 msgstr "Začátek slova"
 
+msgid "More Words, Exact Match"
+msgstr "Více slov, přesná shoda"
+
+msgid "More Words, Disregard Order"
+msgstr "Více slov, bez ohledu na pořadí"
+
+msgid "More Words, Match Any"
+msgstr "Více slov, libovolná shoda"
+
 msgid "Forward"
 msgstr "Vpřed"
 
@@ -649,6 +658,21 @@ msgstr "Oznamovací oblast panelu"
 
 msgid "Language"
 msgstr "Jazyk"
+
+msgid "URL"
+msgstr "Adresa (URL)"
+
+msgid "Port"
+msgstr "Přípojka (port)"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Objevila se oznamovací oblast v panelu?"
@@ -1099,6 +1123,20 @@ msgstr "Počet sdílených uzlů/skupin"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Varování: Pro vstup na stránku byl zmenšen jeden nebo více obrázků!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Počet naposledy navštívených uzlů v záhlaví názvu uzlu již dosáhl "
+"nejvyšší hodnoty."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Počet naposledy navštívených uzlů v záhlaví názvu uzlu již dosáhl "
+"nejnižší hodnoty."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Velikost ikon v pruhu s nástroji je již nastavena na největší hodnotu."
 
@@ -1212,6 +1250,9 @@ msgstr "Hlavní nabídka v titulkovém pruhu"
 msgid "Toolbar Icons Size"
 msgstr "Velikost ikon v nástrojovém pruhu"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Naposledy navštívené uzly na záhlaví názvu uzlu"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Nejmenší velikost posuvníku (0 = výchozí velikost systému)"
 
@@ -1250,6 +1291,9 @@ msgstr "Vlastní činnosti"
 
 msgid "Colors"
 msgstr "Barvy"
+
+msgid "Double Click for Link Action"
+msgstr "Klepnout dvakrát pro spuštění odkazu"
 
 msgid "Underline Links"
 msgstr "Podtrhnout odkazy"
@@ -1375,11 +1419,12 @@ msgid "Node Properties"
 msgstr "Vlastnosti uzlu"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Opuštěním typu uzlu Formátovaný text ztratíte veškeré formátování pro tento "
-"uzel. Chcete pokračovat?"
+"Změna typu uzlu na Automatické zvýraznění skladby odstraní veškeré"
+" formátování "
+"textu v tomto uzlu. Chcete pokračovat?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1490,9 +1535,6 @@ msgstr "Přesunout zaměření na text při klepnutí myší"
 msgid "Expand Node at Mouse Click"
 msgstr "Rozbalit uzel při klepnutí myší"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Naposledy navštívené uzly na záhlaví názvu uzlu"
-
 msgid "Enable Spell Check"
 msgstr "Povolit ověřování pravopisu"
 
@@ -1523,6 +1565,9 @@ msgstr "Počet kroků zpět na uzel"
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Automatické propojení textu CamelCase s uzlem se stejným názvem"
 
+msgid "Auto Link URLs"
+msgstr "Automatické propojení adres (URL)"
+
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Při trojitém klepnutí vybrat celý odstavec"
 
@@ -1548,7 +1593,7 @@ msgid "Small"
 msgstr "Malý"
 
 msgid "Scalable Tags"
-msgstr "Stupňovatelné značky"
+msgstr "Měnitelná velikost značek"
 
 msgid "Preferences File"
 msgstr "Soubor s nastavením"
@@ -2173,17 +2218,17 @@ msgstr "_Malý"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Formátovat vybraný text jako malý"
 
-msgid "Toggle Su_perscript Property"
-msgstr "_Horní index"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Formátovat vybraný text jako horní index"
-
 msgid "Toggle Su_bscript Property"
 msgstr "_Dolní index"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Formátovat vybraný text jako dolní index"
+
+msgid "Toggle Su_perscript Property"
+msgstr "_Horní index"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Formátovat vybraný text jako horní index"
 
 msgid "Toggle _Monospace Property"
 msgstr "_Písmo se stejnou roztečí"
@@ -2623,6 +2668,18 @@ msgstr "Z_menšit velikost ikon v nástrojovém pruhu"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Více naposledy _navštívených uzlů v záhlaví názvu uzlu"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Zvětšit počet naposledy navštívených uzlů v záhlaví názvu uzlu"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "_Méně naposledy navštívených uzlů v záhlaví názvu uzlu"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Zmenšit počet naposledy navštívených uzlů v záhlaví názvu uzlu"
 
 msgid "Full Screen _On/Off"
 msgstr "Zobrazení na _celou obrazovku zapnuto/vypnuto"
@@ -3196,9 +3253,6 @@ msgstr "Opravdu chcete vrátit na výchozí?"
 #~ msgstr ""
 #~ "Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
 #~ "'7za' nainstalován správně"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Chybné heslo"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Pro hledání pište..."

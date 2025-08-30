@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-14 22:29+0900\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-08-30 06:37+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -357,6 +357,15 @@ msgstr "単語に一致"
 msgid "Start Word"
 msgstr "単語の先頭に一致"
 
+msgid "More Words, Exact Match"
+msgstr "複数単語、完全一致"
+
+msgid "More Words, Disregard Order"
+msgstr "複数単語、すべての単語に一致、順不同"
+
+msgid "More Words, Match Any"
+msgstr "複数単語、いずれかの単語に一致"
+
 msgid "Forward"
 msgstr "前方検索"
 
@@ -646,6 +655,21 @@ msgstr "システムトレイ"
 
 msgid "Language"
 msgstr "言語"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "ポート"
+
+msgid "Username"
+msgstr "ユーザー名"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Proxy"
+msgstr "プロキシ"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "システムトレイがパネルに表示されていますか？"
@@ -1099,6 +1123,16 @@ msgstr "共有ノード / グループの数"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "警告: ページに収まるように、一つ以上の画像が縮小されました。"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "ノード名ヘッダに表示する最近表示したノードの数はすでに最大です。"
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "ノード名ヘッダに表示する最近表示したノードの数はすでに最小です。"
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "ツールバー アイコンはすでに最大の大きさです。"
 
@@ -1212,6 +1246,9 @@ msgstr "メニューバーをタイトルバーに配置"
 msgid "Toolbar Icons Size"
 msgstr "ツールバーのアイコンサイズ"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "最近表示したノードをノード名ヘッダに表示する数"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "スクロールバースライダーの最小サイズ (0 = システム標準)"
 
@@ -1250,6 +1287,9 @@ msgstr "ユーザー設定の動作"
 
 msgid "Colors"
 msgstr "色"
+
+msgid "Double Click for Link Action"
+msgstr "リンクを開くにはダブルクリックが必要"
 
 msgid "Underline Links"
 msgstr "リンクに下線を表示する"
@@ -1375,11 +1415,11 @@ msgid "Node Properties"
 msgstr "ノードのプロパティ"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"リッチテキストから変更すると、このノードのすべての書式が失われます。本当に実"
-"行しますか？"
+"ノードの種類を自動構文ハイライトに変更すると、リッチテキスト書式はすべて失わ"
+"れます。本当に実行しますか？"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1490,9 +1530,6 @@ msgstr "マウスクリックで、テキストエディタにフォーカスを
 msgid "Expand Node at Mouse Click"
 msgstr "マウスクリックでノードのツリーを開く"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "最近表示したノードをノード名ヘッダに表示する数"
-
 msgid "Enable Spell Check"
 msgstr "スペルチェックを有効にする"
 
@@ -1522,6 +1559,9 @@ msgstr "ノードごとの元に戻せる制限回数"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "キャメルケースのテキストを自動で同名のノードに自動リンクする"
+
+msgid "Auto Link URLs"
+msgstr "URLを自動リンク"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "3回クリックで段落全体を選択"
@@ -2171,17 +2211,17 @@ msgstr "小さい文字に設定/解除(_S)"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "小さい文字に設定/解除"
 
-msgid "Toggle Su_perscript Property"
-msgstr "上付き文字に設定/解除(_P)"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "上付き文字に設定/解除"
-
 msgid "Toggle Su_bscript Property"
 msgstr "下付き文字に設定/解除(_B)"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "下付き文字に設定/解除"
+
+msgid "Toggle Su_perscript Property"
+msgstr "上付き文字に設定/解除(_P)"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "上付き文字に設定/解除"
 
 msgid "Toggle _Monospace Property"
 msgstr "等幅に設定/解除(_M)"
@@ -2620,6 +2660,18 @@ msgstr "ツールバーのアイコンを縮小(_D)"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "ツールバーのアイコンを縮小"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "最近表示したノードをノード名ヘッダに表示する数を増やす"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "最近表示したノードをノード名ヘッダに表示する数を増やす"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "最近表示したノードをノード名ヘッダに表示する数を減らす"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "最近表示したノードをノード名ヘッダに表示する数を減らす"
 
 msgid "Full Screen _On/Off"
 msgstr "フルスクリーンの切り替え(_O)"
@@ -3179,9 +3231,6 @@ msgstr "既定値に初期化しますか？"
 #~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 #~ "Installed Properly"
 #~ msgstr "実行ファイル '7za' がありません。"
-
-#~ msgid "Wrong Password"
-#~ msgstr "パスワードが違います"
 
 #~ msgid "Type To Search..."
 #~ msgstr "コマンドを検索..."

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-14 14:46+0200\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-08-30 09:16+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -356,6 +356,15 @@ msgstr "Parola intera"
 msgid "Start Word"
 msgstr "Inizio di parola"
 
+msgid "More Words, Exact Match"
+msgstr "Più parole, corrispondenza esatta"
+
+msgid "More Words, Disregard Order"
+msgstr "Più parole, ignora l'ordine"
+
+msgid "More Words, Match Any"
+msgstr "Più parole, verifica qualsiasi parola"
+
 msgid "Forward"
 msgstr "Avanti"
 
@@ -646,6 +655,21 @@ msgstr "Barra di sistema"
 
 msgid "Language"
 msgstr "Lingua"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Porta"
+
+msgid "Username"
+msgstr "Nome utente"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "La barra delle applicazioni è apparsa sul pannello?"
@@ -1104,6 +1128,20 @@ msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
 "Attenzione: una o più immagini è stata ridotta per adattarsi alla pagina!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Il numero di nodi visitati di recente nell'intestazione del nome del nodo è gi"
+"à al valore massimo."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Il numero di nodi visitati di recente nell'intestazione del nome del nodo è gi"
+"à al valore minimo."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "La dimensione della barra degli strumenti è già al valore massimo."
 
@@ -1216,6 +1254,9 @@ msgstr "Barra dei menu nella barra del titolo"
 msgid "Toolbar Icons Size"
 msgstr "Dimensione delle icone della barra degli strumenti"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Nodi visitati di recente nell'intestazione del nome del nodo"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr ""
 "Dimensione minima del cursore della barra di scorrimento (0 = predefinita "
@@ -1257,6 +1298,9 @@ msgstr "Azioni personalizzate"
 
 msgid "Colors"
 msgstr "Colori"
+
+msgid "Double Click for Link Action"
+msgstr "Doppio clic per l'azione del collegamento"
 
 msgid "Underline Links"
 msgstr "Sottolinea i collegamenti"
@@ -1382,11 +1426,11 @@ msgid "Node Properties"
 msgstr "Proprietà del nodo"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Abbandonando il tipo di nodo testo formattato perderai tutta la "
-"formattazione del testo per questo nodo, Vuoi continuare?"
+"Modificando il tipo di nodo in Evidenziazione automatica della sintassi, sarà "
+"rimossa tutta la formattazione in questo nodo. Vuoi continuare?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1497,9 +1541,6 @@ msgstr "Sposta il fuoco sul testo al clic del mouse"
 msgid "Expand Node at Mouse Click"
 msgstr "Espandi nodo al clic del mouse"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Nodi visitati di recente nell'intestazione del nome del nodo"
-
 msgid "Enable Spell Check"
 msgstr "Abilita controllo ortografico"
 
@@ -1531,6 +1572,9 @@ msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr ""
 "Collega automaticamente il testo con le iniziali maiuscole di ogni parola al "
 "nodo con lo stesso nome"
+
+msgid "Auto Link URLs"
+msgstr "URL dei collegamenti automatici"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Un triplo clic seleziona l'intero paragrafo"
@@ -2184,17 +2228,17 @@ msgstr "Inverti proprietà _Piccolo"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Inverti la proprietà Piccolo del testo selezionato"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Inverti proprietà _Apice"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Inverti la proprietà Apice del testo selezionato"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Inverti proprietà _Pedice"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Inverti la proprietà Pedice del testo selezionato"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Inverti proprietà _Apice"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Inverti la proprietà Apice del testo selezionato"
 
 msgid "Toggle _Monospace Property"
 msgstr "Inverti proprietà Spaziatura _fissa"
@@ -2634,6 +2678,22 @@ msgstr "Ri_duci dimensione icone barra degli strumenti"
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Riduci la dimensione delle icone della barra degli strumenti"
 
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Più nodi _visitati di recente nell'intestazione del nome del nodo"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Aumenta il numero di nodi visitati di recente nell'intestazione del nome del n"
+"odo"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "M_eno nodi visitati di recente nell'intestazione del nome del nodo"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Riduci il numero di nodi visitati di recente nell'intestazione del nome del no"
+"do"
+
 msgid "Full Screen _On/Off"
 msgstr "Attiva/Disattiva scherm_o intero"
 
@@ -3038,9 +3098,6 @@ msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
 
 #~ msgid "Not Protected"
 #~ msgstr "Non protetto"
-
-#~ msgid "Password Protected"
-#~ msgstr "Protetto da password"
 
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Il documento %s non è stato trovato"
