@@ -162,8 +162,9 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
         auto received_html = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_html(s, v, force); };
         auto received_image = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_image(s, v, force); };
         auto received_uri = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_uri_list(s, v, force); };
+#if defined(_WIN32)
         auto received_cf_hdrop = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_cf_hdrop(s, v, force); };
-
+#endif // _WIN32
         if (CtClipboard::_static_force_plain_text)
             for (auto& target : CtConst::TARGETS_PLAIN_TEXT)
                 if (vec::exists(targets, target))
