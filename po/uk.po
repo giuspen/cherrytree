@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-17 18:47+0100\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-08-31 11:57+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
 "Language: uk_UA\n"
@@ -358,6 +358,15 @@ msgstr "Ціле слово"
 msgid "Start Word"
 msgstr "Початок слова"
 
+msgid "More Words, Exact Match"
+msgstr "Декілька слів, точна співпадання"
+
+msgid "More Words, Disregard Order"
+msgstr "Декілька слів, ігнорувати порядок"
+
+msgid "More Words, Match Any"
+msgstr "Декілька слів, будь-який співпадання"
+
 msgid "Forward"
 msgstr "Вперед"
 
@@ -648,6 +657,21 @@ msgstr "Системний лоток"
 
 msgid "Language"
 msgstr "Мова"
+
+msgid "URL"
+msgstr "URL-адреса"
+
+msgid "Port"
+msgstr "Порт"
+
+msgid "Username"
+msgstr "Ім'я користувача"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Proxy"
+msgstr "Проксі-сервер"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Іконка з'явилась в системній панелі?"
@@ -1103,6 +1127,16 @@ msgstr "Кількість спільних гілок / групи"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Попередження: зображення були зменшені!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "Останні відвідані гілки у заголовку вже мають максимальну кількість."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "Останні відвідані гілки у заголовку вже мають мінімальну кількість."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Розмір іконок панелі інструментів максимальний."
 
@@ -1215,6 +1249,9 @@ msgstr "Меню в заголовці"
 msgid "Toolbar Icons Size"
 msgstr "Розмір значків панелі інструментів"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Останні відвідані гілки у заголовку"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Мінімальний розмір прокрутки (0 = Система за замовчуванням)"
 
@@ -1253,6 +1290,9 @@ msgstr "Інші дії"
 
 msgid "Colors"
 msgstr "Кольори"
+
+msgid "Double Click for Link Action"
+msgstr "Подвійне клік мишкою для дії з посиланням"
 
 msgid "Underline Links"
 msgstr "Підкреслювати посилання"
@@ -1378,8 +1418,8 @@ msgid "Node Properties"
 msgstr "Параметри гілки"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
 "При відключенні режиму форматування тексту, буде втрачено форматування для "
 "цієї гілки. Продовжити?"
@@ -1493,9 +1533,6 @@ msgstr "Перенести фокус на текст кліком мишки"
 msgid "Expand Node at Mouse Click"
 msgstr "Розгорнути гілку кліком мишки"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Останні відвідані гілки у заголовку"
-
 msgid "Enable Spell Check"
 msgstr "Включити перевірку орфографії"
 
@@ -1525,6 +1562,9 @@ msgstr "Ліміт операцій відміни"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Автоматично прикріпляти текст в CamelCase до ноди з такою ж назвою"
+
+msgid "Auto Link URLs"
+msgstr "URL-адреси автоматичного посилання"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Потрійне натискання виділяє параграф"
@@ -2174,17 +2214,17 @@ msgstr "Зменшений шрифт"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Застосувати зменшений шрифт до тексту"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Верхній індекс"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Застосувати верхній індекс до тексту"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Нижній індекс"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Застосувати нижній індекс до тексту"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Верхній індекс"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Застосувати верхній індекс до тексту"
 
 msgid "Toggle _Monospace Property"
 msgstr "Моноширинний шрифт"
@@ -2619,6 +2659,18 @@ msgstr "Зменшити іконки панелі інструментів"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Зменшити іконки панелі інструментів"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Більше останніх відвіданих гілок у гілки заголовку"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Збільшити кількість останніх відвіданих гілок у гілки заголовку"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Менше останніх відвіданих гілок у гілки заголовку"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Зменшити кількість останніх відвіданих гілок у гілки заголовку"
 
 msgid "Full Screen _On/Off"
 msgstr "Повноекранний режим"
@@ -3189,9 +3241,6 @@ msgstr "Ви впевнені, що хочете скинути налаштув
 #~ "Installed Properly"
 #~ msgstr ""
 #~ "Файл '7za' не знайдений. Перевірте, чи встановлений пакет 'p7zip-full'"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Невірний пароль"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Набирайте для пошуку..."
