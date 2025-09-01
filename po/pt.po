@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-18 19:56+0100\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-01 10:16+0100\n"
 "Last-Translator: Rui Santos <eagle75pt@gmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -98,8 +98,8 @@ msgstr ""
 msgid ""
 "%s write failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"%s falha na gravação - ficheiro ausente. Reinserir o disco USB ou recurso "
-"partilhado!"
+"Falha na gravação %s - ficheiro ausente. Reinserir o disco USB ou recurso "
+"partilhado."
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
@@ -111,8 +111,8 @@ msgstr ""
 msgid ""
 "%s reopen failed - file is missing. Reattach USB drive or shared resource."
 msgstr ""
-"%s falha na leitura - ficheiro ausente. Reinserir o disco USB ou recurso "
-"partilhado!"
+"Falha na leitura %s - ficheiro ausente. Reinserir o disco USB ou recurso "
+"partilhado."
 
 msgid "Rename"
 msgstr "Renomear"
@@ -360,6 +360,15 @@ msgstr "Palavra inteira"
 
 msgid "Start Word"
 msgstr "Palavra inicial"
+
+msgid "More Words, Exact Match"
+msgstr "Mais palavras. Procura exacta."
+
+msgid "More Words, Disregard Order"
+msgstr "Mais palavras. Ignorar ordem."
+
+msgid "More Words, Match Any"
+msgstr "Mais palavras. Encontrar qualquer uma."
 
 msgid "Forward"
 msgstr "Para frente"
@@ -651,6 +660,21 @@ msgstr "Bandeja do Sistema"
 
 msgid "Language"
 msgstr "Idioma"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Porta"
+
+msgid "Username"
+msgstr "Utilizador"
+
+msgid "Password"
+msgstr "Palavra passe"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "A bandeja do sistema apareceu no painel?"
@@ -1113,6 +1137,20 @@ msgstr "Número de Nós/Grupos partilhados"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Aviso: Uma ou mais imagens foram reduzidas para caber na página!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"O número dos últimos nodos visitados no cabeçalho do nome do Nó já está no "
+"valor máximo."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"O número dos últimos nodos visitados no cabeçalho do nome do Nó já está no "
+"valor mínimo."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "O tamanho dos ícones da barra de ferramentas já está no valor máximo."
 
@@ -1227,6 +1265,9 @@ msgstr "Barra de Menu na barra de titulo"
 msgid "Toolbar Icons Size"
 msgstr "Tamanho dos ícones da barra de ferramentas"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Últimos Nós Visitados no cabeçalho"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr ""
 "Tamanho mínimo do controle deslizante da barra de deslocamento (0 = padrão "
@@ -1267,6 +1308,9 @@ msgstr "Ações Personalizadas"
 
 msgid "Colors"
 msgstr "Cores"
+
+msgid "Double Click for Link Action"
+msgstr "Dupli clique para aceder ao link"
 
 msgid "Underline Links"
 msgstr "Sublinhar Ligações"
@@ -1393,11 +1437,11 @@ msgid "Node Properties"
 msgstr "Propriedades do nó"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Ao sair do modo Texto Formatado perderá todas as formatações neste nó. "
-"Deseja continuar?"
+"Ao sair do modo Texto Formatado Automático perderá todas as formatações "
+"neste nó. Deseja continuar?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1508,9 +1552,6 @@ msgstr "Mover foco ao texto ao clicar com o rato"
 msgid "Expand Node at Mouse Click"
 msgstr "Expandir nó ao clicar com o rato"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Últimos Nós Visitados no cabeçalho"
-
 msgid "Enable Spell Check"
 msgstr "Habilitar verificação ortográfica"
 
@@ -1540,6 +1581,9 @@ msgstr "Limite de passos reversíveis por nó"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Ligar automaticamente o texto do CamelCase ao nó com o mesmo nome"
+
+msgid "Auto Link URLs"
+msgstr "Links automáticos"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Clique três vezes para selecionar todo o parágrafo"
@@ -2189,17 +2233,17 @@ msgstr "Alternar Texto _Pequeno"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Alterna o estado de texto pequeno no texto selecionado"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Alternar _Sobrescrito"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Alterna o estado de sobrescrito no texto selecionado"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Alternar _Subscrito"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Alterna o estado de subescrito no texto selecionado"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Alternar _Sobrescrito"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Alterna o estado de sobrescrito no texto selecionado"
 
 msgid "Toggle _Monospace Property"
 msgstr "Alternar _Espaçamento das palavras"
@@ -2637,6 +2681,18 @@ msgstr "_Diminuir o tamanho dos ícones da barra de ferramentas"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Diminui o tamanho dos ícones da barra de ferramentas"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Mais Últimos Nós Visitados no cabeçalho"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Aumentar o número de Últimos Nós Visitados no cabeçalho"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "M_enos Últimos Nós Visitados no cabeçalho"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Diminuir o número de Últimos Nós Visitados no cabeçalho"
 
 msgid "Full Screen _On/Off"
 msgstr "Ecrã _Inteiro"
@@ -3264,9 +3320,6 @@ msgstr "Tem a certeza que quer restaurar os valores padrão?"
 #~ msgstr ""
 #~ "O executável '7za' não foi encontrado, verifique se o pacote 'p7zip-full' "
 #~ "está instalado corretamente"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Palavra passe errada"
 
 #~ msgid "Not Any H1, H2 or H3 Formatting Found"
 #~ msgstr "Nenhuma formatação H1, H2 OU H3 encontrada"

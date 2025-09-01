@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-23 22:16+0900\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-01 01:40+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -356,6 +356,15 @@ msgstr "단어와 일치"
 msgid "Start Word"
 msgstr "단어의 시작과 일치"
 
+msgid "More Words, Exact Match"
+msgstr "여러 단어, 완벽한 일치"
+
+msgid "More Words, Disregard Order"
+msgstr "여러 단어, 순서 상관없이 모든 단어에 일치"
+
+msgid "More Words, Match Any"
+msgstr "여러 단어, 아무 단어 하나라도 일치"
+
 msgid "Forward"
 msgstr "앞으로 검색"
 
@@ -644,6 +653,21 @@ msgstr "시스템 트레이"
 
 msgid "Language"
 msgstr "언어"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "포트"
+
+msgid "Username"
+msgstr "사용자명"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Proxy"
+msgstr "프록시"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "패널에 시스템 트레이가 표시되어 있습니까?"
@@ -1096,6 +1120,16 @@ msgstr "공유 노트/그룹의 수"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "경고 : 페이지에 맞게 하나 이상의 이미지가 축소되었습니다!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "노트 이름 헤더에서 마지막으로 방문한 노트 수는 이미 최대 값입니다."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "노트 이름 헤더에서 마지막으로 방문한 노트 수는 이미 최소 값입니다."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "툴바 아이콘은 이미 최대 크기입니다."
 
@@ -1208,6 +1242,9 @@ msgstr "메뉴바를 제목 표시줄에 배치"
 msgid "Toolbar Icons Size"
 msgstr "툴바의 아이콘 크기조절"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "최근 사용한 노트를 노트 이름 헤더에 표시"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "스크롤바 슬라이더의 최소 크기 (0 = 기본값)"
 
@@ -1246,6 +1283,9 @@ msgstr "사용자 설정 동작"
 
 msgid "Colors"
 msgstr "색"
+
+msgid "Double Click for Link Action"
+msgstr "링크 작업을 위해 더블 클릭"
 
 msgid "Underline Links"
 msgstr "링크 밑줄 표시"
@@ -1371,11 +1411,11 @@ msgid "Node Properties"
 msgstr "노트의 속성"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"서식있는 텍스트에서 변경하면 이 노트의 모든 서식을 잃게됩니다. 정말 실행 하시"
-"겠습니까?"
+"노트를 자동 구문 강조으로 변경하면 이 노트의 모든 형식 있는 텍스트 양식이 제"
+"거됩니다. 계속 하시겠습니까?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1485,9 +1525,6 @@ msgstr "마우스 클릭으로 텍스트 편집기로 창 이동"
 msgid "Expand Node at Mouse Click"
 msgstr "마우스 클릭으로 노트 Tree를 확장"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "최근 사용한 노트를 노트 이름 헤더에 표시"
-
 msgid "Enable Spell Check"
 msgstr "맞춤법 활성화"
 
@@ -1517,6 +1554,9 @@ msgstr "노트당 되돌릴 제한 횟수"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "CamelCase 텍스트를 같은 이름의 노드에 자동 링크"
+
+msgid "Auto Link URLs"
+msgstr "자동 링크 UR"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "트리플 클릭시 전체 단락을 선택함"
@@ -2166,17 +2206,17 @@ msgstr "작은 글자로 설정/해제(_S)"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "작은 글자로 설정/해제"
 
-msgid "Toggle Su_perscript Property"
-msgstr "위 첨자로 설정/해제(_P)"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "위 첨자로 설정/해제"
-
 msgid "Toggle Su_bscript Property"
 msgstr "아래 첨자로 설정/해제(_B)"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "아래 첨자로 설정/해제"
+
+msgid "Toggle Su_perscript Property"
+msgstr "위 첨자로 설정/해제(_P)"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "위 첨자로 설정/해제"
 
 msgid "Toggle _Monospace Property"
 msgstr "글자폭 설정/해제(_M)"
@@ -2613,6 +2653,18 @@ msgstr "툴바의 아이콘을 축소(_D)"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "툴바의 아이콘을 축소"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "노트 이름 헤더에 표시된 최근 노트 수 증가(_V)"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "노트 이름 헤더에 표시된 최근 노트 수 증가"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "노트 이름 헤더에 표시된 최근 노트 수 감소(_E)"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "노트 이름 헤더에 표시된 최근 노트 수 감소"
 
 msgid "Full Screen _On/Off"
 msgstr "전체 화면 전환(_O)"
@@ -3174,9 +3226,6 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr ""
 #~ "실행 파일 형태의 7za을 찾을 수 없습니다 p7zip-full이 설치되었는지 확인해보"
 #~ "세요"
-
-#~ msgid "Wrong Password"
-#~ msgstr "비밀번호가 맞지 않습니다"
 
 #~ msgid "Type To Search..."
 #~ msgstr "명령어찾기…"

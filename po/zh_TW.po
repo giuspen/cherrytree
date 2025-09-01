@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-18 05:51+0800\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-01 06:29+0800\n"
 "Last-Translator: Emer Chen <ldsemerchen@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -344,6 +344,15 @@ msgstr "完整單詞"
 msgid "Start Word"
 msgstr "單詞開始部分"
 
+msgid "More Words, Exact Match"
+msgstr "更多文字，精確匹配"
+
+msgid "More Words, Disregard Order"
+msgstr "更多文字，不照順序"
+
+msgid "More Words, Match Any"
+msgstr "更多文字，符合任一"
+
 msgid "Forward"
 msgstr "向前"
 
@@ -632,6 +641,21 @@ msgstr "系統托盤"
 
 msgid "Language"
 msgstr "語言"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "埠"
+
+msgid "Username"
+msgstr "帳號"
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "系統托盤是否已出現在面板上？"
@@ -1078,6 +1102,16 @@ msgstr "分享之節點/群組數量"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "警告：一張或多張圖片被壓縮並插入到當前頁面!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "節點名稱標頭上的最後訪問節點數已達到最大值."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "節點名稱標頭上的最後訪問節點數已達到最小值."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "工具欄圖示已經最大."
 
@@ -1190,6 +1224,9 @@ msgstr "選單欄在標題欄"
 msgid "Toolbar Icons Size"
 msgstr "工具欄圖示大小"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "節點標題頭上次訪問的節點"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "滾動條浮動塊最小尺寸（0=系統預設）"
 
@@ -1228,6 +1265,9 @@ msgstr "自訂動作"
 
 msgid "Colors"
 msgstr "顏色"
+
+msgid "Double Click for Link Action"
+msgstr "雙擊連結操作"
 
 msgid "Underline Links"
 msgstr "連結底線"
@@ -1353,9 +1393,10 @@ msgid "Node Properties"
 msgstr "節點屬性"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr "脫離豐富文字將遺失此節點的所有格式，繼續嗎？"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
+msgstr ""
+"將節點類型變更為「自動語法高亮」將刪除此節點中的所有富文本格式。是否繼續？"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1464,9 +1505,6 @@ msgstr "點擊滑鼠移動焦點至文字"
 msgid "Expand Node at Mouse Click"
 msgstr "點擊滑鼠展開節點"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "節點標題頭上次訪問的節點"
-
 msgid "Enable Spell Check"
 msgstr "啟用拼寫檢查"
 
@@ -1496,6 +1534,9 @@ msgstr "每個節點撤銷步數限制"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "自動將 CamelCase 文字連接到具有相同名稱的節點"
+
+msgid "Auto Link URLs"
+msgstr "自動連結網址"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "三次點擊選擇整個段落"
@@ -2145,17 +2186,17 @@ msgstr "切換小字(_S)"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "切換已選文字的小字屬性"
 
-msgid "Toggle Su_perscript Property"
-msgstr "切換上標(_P)"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "切換已選文字的上標屬性"
-
 msgid "Toggle Su_bscript Property"
 msgstr "切換下標(_B)"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "切換已選文字的下標屬性"
+
+msgid "Toggle Su_perscript Property"
+msgstr "切換上標(_P)"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "切換已選文字的上標屬性"
 
 msgid "Toggle _Monospace Property"
 msgstr "切換等寬(_M)"
@@ -2591,6 +2632,18 @@ msgstr "減少工具欄圖示大小(_D)"
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "減少工具欄圖示大小"
 
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "增加節點標題頭上次訪問的節點(_V)"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "增加節點標題頭上次訪問的節點"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "減少節點標題頭上次訪問的節點(_E)"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "減少節點標題頭上次訪問的節點"
+
 msgid "Full Screen _On/Off"
 msgstr "切換全螢幕(_O)"
 
@@ -2992,9 +3045,6 @@ msgstr "您確定要重設為預設值嗎？"
 
 #~ msgid "Not Protected"
 #~ msgstr "不保護"
-
-#~ msgid "Password Protected"
-#~ msgstr "密碼保護"
 
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "檔案 %s 未找到"
