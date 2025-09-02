@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-14 14:52+1000\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-02 20:18+0100\n"
 "Last-Translator: User Fav <userfav.post@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -361,6 +361,15 @@ msgstr "Palabra completa"
 msgid "Start Word"
 msgstr "Inicio de palabra"
 
+msgid "More Words, Exact Match"
+msgstr "Más Palabras, Igualdad Exacta"
+
+msgid "More Words, Disregard Order"
+msgstr "Más Palabras, Sin Orden"
+
+msgid "More Words, Match Any"
+msgstr "Más Palabras, Coincidir Cualquier"
+
 msgid "Forward"
 msgstr "Hacia adelante"
 
@@ -377,7 +386,7 @@ msgid "First in All Range"
 msgstr "Primera en el rango"
 
 msgid "Node Created After"
-msgstr "Nodo creado después de"
+msgstr "Nodo creado Posteriormente"
 
 msgid "Node Created Before"
 msgstr "Nodo creado antes de"
@@ -419,7 +428,7 @@ msgstr ""
 
 #, c-format
 msgid "Hide (Restore with '%s')"
-msgstr "Ocultar (restaurar con '%s')"
+msgstr "Ocultar (Restaurar con '%s')"
 
 msgid "Node Name"
 msgstr "Nombre del nodo"
@@ -434,16 +443,16 @@ msgid "Matches"
 msgstr "Coincidencias"
 
 msgid "Iterate Latest Find/Replace"
-msgstr "Repetir la última operación de reemplazar"
+msgstr "Repetir la última operación de Encontrar/Reemplazar"
 
 msgid "Close"
 msgstr "Cerrar"
 
 msgid "Find Previous"
-msgstr "Encontrar anterior"
+msgstr "Encontrar Anterior"
 
 msgid "Find Next"
-msgstr "Encontrar siguiente"
+msgstr "Encontrar Siguiente"
 
 msgid "Replace"
 msgstr "Reemplazar"
@@ -506,7 +515,7 @@ msgid ""
 "The file/folder in use cannot be overwritten!\n"
 "Please use a different name or location."
 msgstr ""
-"El archivo/carpeta en uso no se puede re-escribir\n"
+"El archivo/carpeta en uso no se puede Sobreescribir\n"
 "Por favor use un nombre o ubicación diferente."
 
 #, c-format
@@ -514,7 +523,7 @@ msgid ""
 "A folder '%s' already exists in '%s'.\n"
 "<b>Do you want to replace it?</b>"
 msgstr ""
-"Una carpeta '%s' existe en '%s'.\n"
+"La carpeta '%s' existe en '%s'.\n"
 "<b>Desea Reemplazarla?</b>"
 
 #, c-format
@@ -522,7 +531,7 @@ msgid ""
 "A file '%s' already exists in '%s'.\n"
 "<b>Do you want to replace it?</b>"
 msgstr ""
-"Un archivo '%s' existe en '%s'.\n"
+"El archivo '%s' existe en '%s'.\n"
 "<b>Desea reemplazarlo?</b>"
 
 msgid "PDF File"
@@ -652,6 +661,21 @@ msgstr "Bandeja de sistema"
 
 msgid "Language"
 msgstr "Idioma"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Puerto"
+
+msgid "Username"
+msgstr "Nombre de Usuario"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "¿Ha aparecido la Bandeja del Sistema en el panel?"
@@ -1105,6 +1129,21 @@ msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
 "Advertencia: Una o más imágenes fueron reducidas para entrar en la página!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"El Número de Ultimos Nodos visitados en el Encabezado de Nombre de Nodo ya "
+"se encuentra en el valor máximo."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"El Número de Ultimos Nodos visitados en el Encabezado de Nombre de Nodo ya "
+"se encuentra en el valor mínimo\n"
+"."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Los iconos de la barra de herramientas ya tienen el tamaño máximo."
 
@@ -1218,6 +1257,9 @@ msgstr "Activar Barra de _Menú en barra de Título"
 msgid "Toolbar Icons Size"
 msgstr "Tamaño de Iconos en Barra de Herramien_tas"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Últimos nodos visitados en la cabecera del nombre del nodo"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Tamaño Mínimo de Barra de Desplazamiento (0 = De Facto)"
 
@@ -1256,6 +1298,9 @@ msgstr "Acciones personalizadas"
 
 msgid "Colors"
 msgstr "Colores"
+
+msgid "Double Click for Link Action"
+msgstr "Haga doble clic para la acción del enlace"
 
 msgid "Underline Links"
 msgstr "Subrayar enlaces"
@@ -1384,11 +1429,11 @@ msgid "Node Properties"
 msgstr "Propiedades del nodo"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Al salir del modo de Texto enriquecido perderás el formato para este nodo, "
-"¿quieres continuar?"
+"Cambiar el tipo de nodo a Resaltado Automático de Sintaxis elimina todo el "
+"formato de texto enriquecido en este nodo. ¿Desea continuar?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1497,9 +1542,6 @@ msgstr "Volver foco al texto al hacer clic"
 msgid "Expand Node at Mouse Click"
 msgstr "Expandir el nodo al hacer clic con el ratón"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Últimos nodos visitados en la cabecera del nombre del nodo"
-
 msgid "Enable Spell Check"
 msgstr "Activar corrector ortográfico"
 
@@ -1529,6 +1571,9 @@ msgstr "Límite de pasos a deshacer por nodo"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Vincular automáticamente texto CamelCase al nodo con el mismo nombre"
+
+msgid "Auto Link URLs"
+msgstr "Enlace automático a URLs"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Seleccionar todo el párrafo con Triple Clic"
@@ -2186,17 +2231,17 @@ msgstr ""
 "Activar/Desactivar la propiedad de escritura pequeña para el texto "
 "seleccionado"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Activar su_períndice"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Activar superíndice para el texto seleccionado"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Activar subíndice"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Activar/Desactivar subíndice para el texto seleccionado"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Activar su_períndice"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Activar superíndice para el texto seleccionado"
 
 msgid "Toggle _Monospace Property"
 msgstr "Activar _monoespaciado"
@@ -2635,6 +2680,21 @@ msgstr "Achica_r iconos de la barra de herramientas"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Reducir el tamaño de los iconos de la barra de herramientas"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Mas Últimos_Nodos Visitados en Encabezado de Nombre de Nodo"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Incrementa el Número de Últimos nodos visitados en el Encabezado de Nombre "
+"de Nodo"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Últimos nodos visitados en cabecera del nombre del nodo"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Reduce el número de Últimos nodos visitados en Título de Nombres de Nodo"
 
 msgid "Full Screen _On/Off"
 msgstr "Activar/Desactivar Pantalla completa"
@@ -3202,9 +3262,6 @@ msgstr "¿Seguro que quieres restaurar los valores predeterminados?"
 #~ msgstr ""
 #~ "El ejecutable de \"7za\" no ha sido hallado. Comprueba que el paquete "
 #~ "\"p7zip-full\" ha sido instalado correctamente"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Contraseña incorrecta"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Escribe para buscar..."

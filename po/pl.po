@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-18 19:54+0200\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-02 13:43+0200\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -356,6 +356,15 @@ msgstr "Całe słowo"
 msgid "Start Word"
 msgstr "Początkowe słowo"
 
+msgid "More Words, Exact Match"
+msgstr "Więcej słów, dokładne dopasowanie"
+
+msgid "More Words, Disregard Order"
+msgstr "Więcej słów, zignoruj kolejność"
+
+msgid "More Words, Match Any"
+msgstr "Więcej słów, dopasuj dowolne"
+
 msgid "Forward"
 msgstr "Naprzód"
 
@@ -645,6 +654,21 @@ msgstr "Zasobnik systemowy"
 
 msgid "Language"
 msgstr "Język"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Użytkownik"
+
+msgid "Password"
+msgstr "Hasło"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Czy zasobnik systemowy pojawił się na panelu?"
@@ -1099,6 +1123,20 @@ msgstr ""
 "Ostrzeżenie: Jeden lub wiele obrazków zostały zmniejszone aby pasowały do "
 "strony!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Liczba ostatnio odwiedzonych gałęzi w nagłówku nazwy gałęzi jest już "
+"maksymalna."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Liczba ostatnio odwiedzonych gałęzi w nagłówku nazwy gałęzi jest już "
+"minimalna."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Rozmiar ikon w pasku narzędzi jest już największy."
 
@@ -1211,6 +1249,9 @@ msgstr "Menu w pasku tytułowym"
 msgid "Toolbar Icons Size"
 msgstr "Rozmiar ikon na pasku narzędzi"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Ostatnio wyświetlana gałąź na nagłówku gałęzi"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Rozmiar suwaka (0 = domyślnie dla systemu)"
 
@@ -1249,6 +1290,9 @@ msgstr "Własne akcje"
 
 msgid "Colors"
 msgstr "Kolory"
+
+msgid "Double Click for Link Action"
+msgstr "Kliknij dwa razy by otworzyć link"
 
 msgid "Underline Links"
 msgstr "Podkreśl linki"
@@ -1374,11 +1418,11 @@ msgid "Node Properties"
 msgstr "Właściwości gałęzi"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Zmiana typu gałęzi spowoduje utratę formatowania tej gałęzi, czy chcesz "
-"kontynuować?"
+"Zmiana typu gałęzi na automatyczne kolorowanie składni spowoduje utratę "
+"formatowania. Czy chcesz kontynuować?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1489,9 +1533,6 @@ msgstr "Przenieś aktywność przez kliknięcie myszą"
 msgid "Expand Node at Mouse Click"
 msgstr "Rozwiń gałąź przez kliknięcie myszą"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Ostatnio wyświetlana gałąź na nagłówku gałęzi"
-
 msgid "Enable Spell Check"
 msgstr "Włącz sprawdzanie pisowni"
 
@@ -1521,6 +1562,9 @@ msgstr "Ilość cofnięć dla każdej gałęzi"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Automatycznie linkuj tekst CamelCase do gałęzi o takiej samej nazwie"
+
+msgid "Auto Link URLs"
+msgstr "Automatycznie konwertuj linki"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Przy potrójnym kliknięciu zaznacz cały paragraf"
@@ -2170,17 +2214,17 @@ msgstr "Przełącz pomniejszenie"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Przełącz pomniejszenie dla zaznaczonego tekstu"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Przełącz superskrypt"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Przełącz superskrypt dla zaznaczonego tekstu"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Przełącz subskrypt"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Przełącz subskrypt dla zaznaczonego tekstu"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Przełącz superskrypt"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Przełącz superskrypt dla zaznaczonego tekstu"
 
 msgid "Toggle _Monospace Property"
 msgstr "Przełącz _Monospace"
@@ -2615,6 +2659,18 @@ msgstr "Zmniejsz rozmiar ikon na pasku narzędzi"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmniejsz rozmiar ikon na pasku narzędzi"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Więcej ostatnio odwiedzonych gałęzi w nagłówku nazwy gałęzi"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Zwiększ liczbę ostatnio odwiedzonych gałęzi w nagłówku nazwy gałęzi"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Mniej ostatnio odwiedzonych gałęzi w nagłówku nazwy gałęzi"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Zmniejsz liczbę ostatnio odwiedzonych gałęzi w nagłówku nazwy gałęzi"
 
 msgid "Full Screen _On/Off"
 msgstr "Pełny ekran Włącz/Wyłącz"
@@ -3177,9 +3233,6 @@ msgstr "Jesteś pewien, że chcesz przywrócić ustawienia do wartości domyśln
 #~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 #~ "Installed Properly"
 #~ msgstr "Program '7za' nie został znaleziony, Zainstaluj pakiet 'p7zip-full'"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Złe hasło"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Wprowadź aby wyszukać..."
