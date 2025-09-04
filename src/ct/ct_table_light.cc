@@ -386,6 +386,11 @@ void CtTableLight::column_move_left(const size_t colIdx, const bool from_move_ri
     };
     exit_cell_edit();
     _pListStore->foreach_iter(f_action);
+    std::swap(_colWidths[colIdx], _colWidths[colIdxLeft]);
+    if (0 != _colWidths[colIdx]) set_col_width(_colWidths[colIdx], colIdx);
+    else set_col_width_default(_colWidthDefault);
+    if (0 != _colWidths[colIdxLeft]) set_col_width(_colWidths[colIdxLeft], colIdxLeft);
+    else set_col_width_default(_colWidthDefault);
     _currentColumn = colIdxLeft;
     if (not from_move_right) {
         grab_focus();
