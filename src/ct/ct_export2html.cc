@@ -485,10 +485,24 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gtk::
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
     bool span_opened = false;
     for (;;) {
-        auto curr_tags = curr_iter.get_tags();
+        std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = curr_iter.get_tags();
         if (curr_tags.size() > 0) {
-            Glib::ustring curr_tag_str = curr_tags[0]->property_foreground_gdk().get_value().to_string();
+            Glib::ustring curr_tag_str{CtConst::COLOR_48_BLACK};
             int font_weight = curr_tags[0]->property_weight().get_value();
+            for (auto& curr_tag : curr_tags) {
+                Glib::ustring tmpTagStr = curr_tag->property_foreground_gdk().get_value().to_string();
+                if (tmpTagStr != curr_tag_str) {
+                    curr_tag_str = tmpTagStr;
+                    font_weight = curr_tag->property_weight().get_value();
+                    break;
+                }
+#if 0
+                spdlog::debug("{} TAG FG={} BG={} WEIGHT={}", curr_iter.get_offset(),
+                    curr_tag->property_foreground_gdk().get_value().to_string().c_str(),
+                    curr_tag->property_background_gdk().get_value().to_string().c_str(),
+                    curr_tag->property_weight().get_value());
+#endif
+            }
             if (curr_tag_str == CtConst::COLOR_48_BLACK) {
                 if (former_tag_str != curr_tag_str) {
                     former_tag_str = curr_tag_str;
