@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-06-10 20:00+0100\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-08 16:00+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -365,6 +365,15 @@ msgstr "Ganzes Wort"
 msgid "Start Word"
 msgstr "Wortanfang"
 
+msgid "More Words, Exact Match"
+msgstr "Mehr Wörter, exakte Übereinstimmung"
+
+msgid "More Words, Disregard Order"
+msgstr "Mehr Wörter, Reihenfolge ignorieren"
+
+msgid "More Words, Match Any"
+msgstr "Mehr Wörter, beliebig kombinierbar"
+
 msgid "Forward"
 msgstr "Nach unten (vorwärts)"
 
@@ -658,6 +667,21 @@ msgstr "Systemtray"
 
 msgid "Language"
 msgstr "Sprache"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Wurde der Systemtray angezeigt?"
@@ -1120,6 +1144,20 @@ msgstr ""
 "Warnung: Ein oder mehrere Bilder wurden beim Einfügen in die Seite "
 "verkleinert!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Die Anzahl der zuletzt besuchten Knoten in der Knotennamen-Kopfzeile hat "
+"bereits den Maximalwert erreicht."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Die Anzahl der zuletzt besuchten Knoten in der Knotennamen-Kopfzeile hat "
+"bereits den Minimalwert erreicht."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Maximale Icongröße ist bereits erreicht."
 
@@ -1234,6 +1272,9 @@ msgstr "Menüleiste in Titelleiste anzeigen"
 msgid "Toolbar Icons Size"
 msgstr "Icongröße in Symbolleiste"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Namen zuletzt besuchter Knoten in der Kopfzeile"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Minimale Breite für Scrollbalken (0 = Systemstandard)"
 
@@ -1272,6 +1313,9 @@ msgstr "Benutzerdefinierte Aktionen"
 
 msgid "Colors"
 msgstr "Farben"
+
+msgid "Double Click for Link Action"
+msgstr "Doppelklick für Link-Aktion"
 
 msgid "Underline Links"
 msgstr "Verknüpfungen unterstreichen"
@@ -1399,11 +1443,11 @@ msgid "Node Properties"
 msgstr "Knoteneigenschaften"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Wenn Sie die Formatierung ändern, verlieren Sie alle Rich-Text-Eigenschaften "
-"in diesem Knoten. Weiter?"
+"Durch Ändern des Knotentyps auf \"Automatische Syntaxhervorhebung\" "
+"verlieren Sie alle Rich-Text-Eigenschaften in diesem Knoten. Weiter?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1514,9 +1558,6 @@ msgstr "Bei Mausklick Fokus auf Text setzen"
 msgid "Expand Node at Mouse Click"
 msgstr "Bei Mausklick Knoten aufklappen"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Namen zuletzt besuchter Knoten in Kopfzeile"
-
 msgid "Enable Spell Check"
 msgstr "Rechtschreibprüfung aktivieren"
 
@@ -1547,6 +1588,9 @@ msgstr "Anzahl der Rückgängig-Schritte pro Knoten"
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr ""
 "CamelCase-Text automatisch in Verknüpfungen zu gleichnamigen Knoten umwandeln"
+
+msgid "Auto Link URLs"
+msgstr "URLs automatisch verlinken"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Mit Dreifachklick den ganzen Absatz auswählen"
@@ -2197,17 +2241,17 @@ msgstr "K_lein"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Klein im markierten Text umschalten"
 
-msgid "Toggle Su_perscript Property"
-msgstr "_Hochgestellt"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Hochgestellt im markierten Text umschalten"
-
 msgid "Toggle Su_bscript Property"
 msgstr "_Tiefgestellt"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Tiefgestellt im markierten Text umschalten"
+
+msgid "Toggle Su_perscript Property"
+msgstr "_Hochgestellt"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Hochgestellt im markierten Text umschalten"
 
 msgid "Toggle _Monospace Property"
 msgstr "Feste _Breite"
@@ -2645,6 +2689,22 @@ msgstr "Symbole ver_kleinern"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Icons in der Symbolleiste verkleinern"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Mehr Namen zuletzt besuchter Knoten in der Kopfzeile"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Erhöht die Anzahl der Namen der zuletzt besuchten Knoten in der "
+"Kopfzeile"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Weniger Namen zuletzt besuchter Knoten in der Kopfzeile"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Verringert die Anzahl der Namen der zuletzt besuchten Knoten in der "
+"Kopfzeile"
 
 msgid "Full Screen _On/Off"
 msgstr "_Vollbild ein/aus"
@@ -3207,9 +3267,6 @@ msgstr "Standardeinstellungen wirklich wiederherstellen?"
 #~ msgstr ""
 #~ "7za wurde nicht gefunden. Bitte überprüfen Sie, ob das Paket 'p7zip-full' "
 #~ "korrekt installiert ist."
-
-#~ msgid "Wrong Password"
-#~ msgstr "Falsches Passwort"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Tippen zum Suchen..."
