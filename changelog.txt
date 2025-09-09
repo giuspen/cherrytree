@@ -1,3 +1,25 @@
+1.6.0 (September 9th, 2025)
+ * implemented support for searching for multiple words disregarding the order (aka AND) and matching any (aka OR) (#2674, #2221, #1255, #752)
+ * fixed crash when exporting to pdf (#2735)
+ * added support for search and replace also in links targets (#975, #2719)
+ * fixed issue with microsoft print to pdf causing huge font (pango markup to use <span size= rise=> instead of <sup><sub>) (#2479, #2735)
+ * fixed copy/paste and drag/drop of files from windows file manager into rich text (#2738)
+ * fix paste filepath from clipboard on windows does not recognise an image (#2737)
+ * fixed copying from code and pasting to rich text sometimes not retaining syntax highlighting colours
+ * added syntax highlighting definition for glib's GKeyFile
+ * fixed clicking on a TOC leading to an anchor that is hidden doesn't expand and select the anchor (#2389)
+ * handle bookmarks dialog, use the correct nodes icons rather than generic pin icon
+ * added option to follow links with double click rather than single click (#2736)
+ * fixed table light interface editable in read only mode (#2756)
+ * table light interface, fixed moving a column does not move the column width
+ * added in preferences dialog configurability of whether in rich text nodes to automatically create links for urls
+ * last visited nodes on node name header, added node icon beside node name and inverted order as more intuitive with more recent on the right
+ * moved preferences for 'last visited nodes on node name header' from tab 'tree explorer' to tab 'interface' and added control also in top menu view (#2746)
+ * allocated default keyboard shortcut Ctr+7,8,9 to small,subscript,superscript (#2758)
+ * fixed code that checks if a keyboard shortcut is already in use, issue with case (#2758)
+ * added possibility to configure a proxy in the preferences dialog, tab misc (#2522)
+ * incomplete languages: ar, bg, el, fa, fi, fr, hi_IN, hr, hu, kk_KZ, kk_LA, lt, nl, ru, sk, sv, tr, zh_CN (want to help and update one? write me https://www.giuspen.net/feedback/)
+
 1.5.0 (June 3rd, 2025)
   * fixed Ctrl+V issues on ArchLinux (#2705)
   * fixed data loss in multifile data storage when disabling option to use embedded file name on disk (#2695)

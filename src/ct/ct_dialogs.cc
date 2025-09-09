@@ -548,12 +548,12 @@ MA 02110-1301, USA.
  _("Chinese Traditional")+" (zh_TW) Emer Chen <ldsemerchen@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Croatian")+" (hr) Filip Bakula <filip.test46@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
- _("Dutch")+" (nl) Luuk Geurts"+CtConst::CHAR_NEWLINE+
- _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Dutch")+" (nl) "+CtConst::CHAR_NEWLINE+
+ _("Finnish")+" (fi) "+CtConst::CHAR_NEWLINE+
  _("French")+" (fr) Francis Gernet <fgernet@concretx.com>"+CtConst::CHAR_NEWLINE+
- _("German")+" (de) Matthias Hoffmann <MHoffi@web.de>"+CtConst::CHAR_NEWLINE+
+ _("German")+" (de) Mr.Update"+CtConst::CHAR_NEWLINE+
  _("Greek")+" (el) Asterios Siomos <terry.sio@hotmail.com>"+CtConst::CHAR_NEWLINE+
- _("Hindi India")+" (hi_IN) Paresh Mhatre <pareshmhatrework@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Hindi India")+" (hi_IN) "+CtConst::CHAR_NEWLINE+
  _("Hungarian")+" (hu) Stiener Norbert <stienernorbert@protonmail.com>"+CtConst::CHAR_NEWLINE+
  _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
@@ -569,7 +569,7 @@ MA 02110-1301, USA.
  _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Slovak")+" (sk) Michal Fusatý <fusaty@proton.me>"+CtConst::CHAR_NEWLINE+
  _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Spanish")+" (es) UserFav <userfav.post@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Spanish")+" (es) MP"+CtConst::CHAR_NEWLINE+
  _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
  _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Ukrainian")+" (uk) Giuseppe Penone <giuspen@gmail.com>");
