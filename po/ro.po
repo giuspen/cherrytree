@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-25 11:17+0100\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-09 15:15+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.7\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -256,7 +256,7 @@ msgid "Remove User Colour from Palette"
 msgstr "Elimină culoarea utilizatorului din paletă"
 
 msgid "Colour"
-msgstr "\tCuloare"
+msgstr "Culoare"
 
 msgid "Question"
 msgstr "Întrebare"
@@ -359,6 +359,15 @@ msgstr "Cuvânt complet"
 
 msgid "Start Word"
 msgstr "Cuvânt de început"
+
+msgid "More Words, Exact Match"
+msgstr "Mai multe cuvinte, potrivire exactă"
+
+msgid "More Words, Disregard Order"
+msgstr "Mai multe cuvinte, fără respectarea ordinii"
+
+msgid "More Words, Match Any"
+msgstr "Mai multe cuvinte, potriviți oricare"
 
 msgid "Forward"
 msgstr "Înainte"
@@ -651,6 +660,21 @@ msgstr "System Tray"
 
 msgid "Language"
 msgstr "Limbă"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Utilizator"
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "A apărut tava de sistem pe panou?"
@@ -1099,6 +1123,20 @@ msgstr ""
 "Atenție: Una sau mai multe imagini au fost ajustate pentru a se potrivi pe "
 "pagină!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Numărul nodurilor vizitate ultima dată de pe antetul cu numele nodului se "
+"află deja la valoarea maximă."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Numărul nodurilor vizitate ultima dată de pe antetul cu numele nodului se "
+"află deja la valoarea minimă."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr ""
 "Dimensiunea pictogramelor barei de instrumente este deja la valoarea maximă."
@@ -1215,6 +1253,9 @@ msgstr "Bara de meniu in bara de titlu"
 msgid "Toolbar Icons Size"
 msgstr "Mărimea pictogramelor din bara de unelte"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Ultimele noduri vizitate pe antetul cu nume de noduri"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Mărime minimă slider scrollbar (0 = Valoare implicită)"
 
@@ -1253,6 +1294,9 @@ msgstr "Acțiuni ajustabile"
 
 msgid "Colors"
 msgstr "Culori"
+
+msgid "Double Click for Link Action"
+msgstr "Dublu click pentru acțiune link"
 
 msgid "Underline Links"
 msgstr "Subliniază linkuri"
@@ -1380,11 +1424,11 @@ msgid "Node Properties"
 msgstr "Proprietăți nod"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Abandonând nodul cu text bogat pierzi setările de formatare ale acestui nod, "
-"Dorești să continui?"
+"Schimbarea tipului de not la Subliniere Sintaxă Automată elimină formatarea "
+"RTF din acest nod în întregime. Dorești să continui?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1495,9 +1539,6 @@ msgstr "Mută atenția la text printr-un click"
 msgid "Expand Node at Mouse Click"
 msgstr "Dezvoltă nod printr-un click"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Ultimele noduri vizitate pe antetul cu nume de noduri"
-
 msgid "Enable Spell Check"
 msgstr "Activează verificarea ortografică"
 
@@ -1529,6 +1570,9 @@ msgstr "Limitează numărul pașilor reparabili per nod"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Conectați automat textul CamelCase la nodul cu același nume"
+
+msgid "Auto Link URLs"
+msgstr "URL-uri Auto Link"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "La triplu click selectează întreg apragraful"
@@ -2180,17 +2224,17 @@ msgstr "Activează _caracteristică mic"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Activează caracteristică mic pentru textul selectat"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Comută proprietatea superscript"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Comută proprietatea superscript a textului selectat"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Comută proprietatea subscript"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Comută proprietatea subscript a textului selectat"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Comută proprietatea superscript"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Comută proprietatea superscript a textului selectat"
 
 msgid "Toggle _Monospace Property"
 msgstr "Activează _caracteristică monospațiu"
@@ -2634,6 +2678,19 @@ msgstr "_Micșorează mărimea pictogramelor din bara de unelte"
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Micșorează mărimea pictogramelor din bara de unelte"
 
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Mai multe noduri recent _vizitate pe antetul de nume al nodului."
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Mărește numărul de noduri vizitate recent pe antetul de nume al nodului"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "M_ai puține noduri recent vizitate pe antetul de nume al nodului"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Scade numărul de noduri recent vizitate pe antetul de nume al nodului"
+
 msgid "Full Screen _On/Off"
 msgstr "Tot ecranul _Pornit/Oprit"
 
@@ -3037,9 +3094,6 @@ msgstr "Ești sigur de revenirea la setările originale?"
 
 #~ msgid "Not Protected"
 #~ msgstr "Neprotejat"
-
-#~ msgid "Password Protected"
-#~ msgstr "Protejat cu parolă"
 
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Documentul %s nu a fost găsit"
