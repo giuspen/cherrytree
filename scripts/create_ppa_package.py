@@ -58,8 +58,8 @@ def f_cmakelists_setup_for(package_num):
 
     for i in range(len(cmakelists_lines)):
         # pkg_check_modules(GTKSV gtksourceview-4 REQUIRED)
-        if cmakelists_lines[i].find("pkg_check_modules(GTKSV gtksourceview-") >= 0:
-            cmakelists_lines[i] = "pkg_check_modules(GTKSV gtksourceview-{} REQUIRED)\n".format("3.0" if 3 == CONTROL_DICT[package_num][4] else "4")
+        if cmakelists_lines[i].find("pkg_check_modules(GTKSV gtksourceview-") >= 0 and not "gtksourceview-5" in cmakelists_lines[i]:
+            cmakelists_lines[i] = "  pkg_check_modules(GTKSV gtksourceview-{} REQUIRED)\n".format("3.0" if 3 == CONTROL_DICT[package_num][4] else "4")
             break
     else:
         print("!! cmakelists 'pkg_check_modules(GTKSV gtksourceview-' not found")
