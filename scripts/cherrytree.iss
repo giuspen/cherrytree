@@ -104,9 +104,6 @@ begin
   UninstallString := '';
   UninstallRegKey := 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 
-  // This function will now search all three main registry locations.
-  // We will check HKCU, then HKLM64, then HKLM32.
-
   // --- Search 1: Current User (HKCU) ---
   if RegGetSubkeyNames(HKCU, UninstallRegKey, SubKeyNames) then
   begin
@@ -114,7 +111,6 @@ begin
     begin
       if RegQueryStringValue(HKCU, UninstallRegKey + '\' + SubKeyNames[I], 'DisplayName', DisplayName) then
       begin
-        // *** THE FIX IS HERE: We check if DisplayName STARTS WITH AppName ***
         if Pos(AppName, DisplayName) = 1 then
         begin
           if RegQueryStringValue(HKCU, UninstallRegKey + '\' + SubKeyNames[I], 'UninstallString', UninstallString) then
@@ -134,7 +130,6 @@ begin
     begin
       if RegQueryStringValue(HKLM64, UninstallRegKey + '\' + SubKeyNames[I], 'DisplayName', DisplayName) then
       begin
-        // *** THE FIX IS HERE: We check if DisplayName STARTS WITH AppName ***
         if Pos(AppName, DisplayName) = 1 then
         begin
           if RegQueryStringValue(HKLM64, UninstallRegKey + '\' + SubKeyNames[I], 'UninstallString', UninstallString) then
@@ -154,7 +149,6 @@ begin
     begin
       if RegQueryStringValue(HKLM32, UninstallRegKey + '\' + SubKeyNames[I], 'DisplayName', DisplayName) then
       begin
-        // *** THE FIX IS HERE: We check if DisplayName STARTS WITH AppName ***
         if Pos(AppName, DisplayName) = 1 then
         begin
           if RegQueryStringValue(HKLM32, UninstallRegKey + '\' + SubKeyNames[I], 'UninstallString', UninstallString) then
@@ -174,25 +168,43 @@ var
   UninstallString: string;
   ResultCode: Integer;
 begin
-  // Use our robust search function to find the uninstaller.
+  // Set the default result to True, allowing installation to proceed.
+  Result := True;
+
+  // Use our search function to find the uninstaller.
   if GetUninstallStringByName('{#MyAppName}', UninstallString) then
   begin
-    // If found, show the confirmation message and run the uninstaller.
-    MsgBox('A previous version of {#MyAppName} was found.'#13#10#13#10'The uninstaller will now run.', mbInformation, MB_OK);
-    
-    if Exec(RemoveQuotes(UninstallString), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+    // A previous version was found.
+    if WizardSilent() then
     begin
-      // Uninstaller finished.
+      // SILENT MODE: Uninstall automatically and silently.
+      // We pass '/SILENT' to the uninstaller and use SW_HIDE to keep it hidden.
+      Exec(RemoveQuotes(UninstallString), '/SILENT', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
     end
     else
     begin
-      // If the uninstaller fails to start, abort the setup.
-      MsgBox('The previous version''s uninstaller failed to start.'#13#10'Setup will now exit.', mbError, MB_OK);
-      Result := False;
-      Exit;
+      // INTERACTIVE MODE: Ask the user for permission.
+      if MsgBox('A previous version of {#MyAppName} was found. Would you like to uninstall it first?', mbConfirmation, MB_YESNO) = IDYES then
+      begin
+        // User clicked "Yes". Run the uninstaller normally.
+        if Exec(RemoveQuotes(UninstallString), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+        begin
+          // Uninstall successful. Let setup continue.
+          Result := True;
+        end
+        else
+        begin
+          // The uninstaller failed. Abort the setup.
+          MsgBox('The previous version''s uninstaller failed to run.'#13#10'Setup will now exit.', mbError, MB_OK);
+          Result := False;
+        end;
+      end
+      else
+      begin
+        // User clicked "No". Abort the setup.
+        MsgBox('Setup cannot continue because the previous version was not uninstalled.'#13#10'Setup will now exit.', mbInformation, MB_OK);
+        Result := False;
+      end;
     end;
   end;
-  
-  // Allow the setup to continue.
-  Result := True; 
 end;
