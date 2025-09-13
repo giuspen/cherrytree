@@ -57,27 +57,42 @@ private:
     void _paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
 
 public:
+    void          plain_text_to_clipboard(const char* plain_text);
     void          table_row_to_clipboard(CtTableCommon* pTable);
     void          table_row_paste(CtTableCommon* pTable);
     void          table_column_to_clipboard(CtTableCommon* pTable);
     void          table_column_paste(CtTableCommon* pTable);
     void          node_link_to_clipboard(CtTreeIter node);
     void          anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring& anchor_name);
-    Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                                           Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
-                                                           gchar change_case = 'n', bool exclude_iter_sel_end = false);
+    Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter,
+                                                           Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                                           Gtk::TextIter iter_sel_start,
+                                                           Gtk::TextIter iter_sel_end,
+                                                           gchar change_case = 'n',
+                                                           bool exclude_iter_sel_end = false);
     void from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                    const Glib::ustring& xml_string,
                                    bool* const pPasteHadWidgets = nullptr);
 
 private:
-    void _rich_text_process_slot(xmlpp::Element* root, int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                 CtAnchoredWidget* obj_element, gchar change_case = 'n');
-    void _dom_node_to_rich_text(Glib::RefPtr<Gtk::TextBuffer> text_buffer, xmlpp::Node* dom_node);
+    void _rich_text_process_slot(xmlpp::Element* root,
+                                 int start_offset,
+                                 int end_offset,
+                                 Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                 CtAnchoredWidget* obj_element,
+                                 gchar change_case = 'n');
+    void _dom_node_to_rich_text(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                xmlpp::Node* dom_node);
 
 private:
-    void _selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* sourceview, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox);
-    void _set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data);
+    void _selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                 Gtk::TextView* sourceview,
+                                 Gtk::TextIter iter_sel_start,
+                                 Gtk::TextIter iter_sel_end,
+                                 int num_chars,
+                                 CtCodebox* pCodebox);
+    void _set_clipboard_data(const std::vector<std::string>& targets_list,
+                             CtClipboardData* clip_data);
 
 private:
     void _on_clip_data_get(Gtk::SelectionData& selection_data, CtClipboardData* clip_data);

@@ -24,15 +24,32 @@
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_pref_dlg.h"
+#include "ct_clipboard.h"
+
+void CtActions::doc_path_to_clipboard()
+{
+    if (not _is_tree_not_empty_or_error()) {
+        return;
+    }
+    const fs::path currDocFilePath = _pCtMainWin->get_ct_storage()->get_file_path();
+    if (currDocFilePath.empty()) {
+        spdlog::debug("{} EMPTY", __FUNCTION__);
+        return;
+    }
+    CtClipboard{_pCtMainWin}.plain_text_to_clipboard(currDocFilePath.c_str());
+}
 
 void CtActions::_file_save(bool need_vacuum)
 {
-    if (not _is_tree_not_empty_or_error())
+    if (not _is_tree_not_empty_or_error()) {
         return;
-    if (_pCtMainWin->get_ct_storage()->get_file_path().empty())
+    }
+    if (_pCtMainWin->get_ct_storage()->get_file_path().empty()) {
         file_save_as();
-    else
+    }
+    else {
         _pCtMainWin->file_save(need_vacuum);
+    }
 }
 
 void CtActions::file_new()
