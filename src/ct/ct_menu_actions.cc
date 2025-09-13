@@ -98,6 +98,8 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Export Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_export) });
         _actions.push_back(CtMenuAction{file_cat, "tree_parse_info", "ct_info", _("Tree In_fo"), None,
             _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
+        _actions.push_back(CtMenuAction{file_cat, "doc_path_clip", "ct_edit_copy", _("_Document Path to Clipboard"), None,
+            _("Copy Document Path to Clipboard"), sigc::mem_fun(*pActions, &CtActions::doc_path_to_clipboard)});
         _actions.push_back(CtMenuAction{file_cat, "quit_app", "ct_quit-app", _("_Quit"), KB_CONTROL+"q",
             _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
         _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("E_xit CherryTree"), KB_CONTROL+KB_SHIFT+"q",

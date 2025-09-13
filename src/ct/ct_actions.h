@@ -188,6 +188,7 @@ public:
     void tree_sort_ascending();
     void tree_sort_descending();
     void tree_info();
+    void doc_path_to_clipboard();
     void tree_clear_property_exclude_from_search();
     void node_link_to_clipboard();
     void node_siblings_sort_ascending();

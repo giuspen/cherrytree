@@ -224,6 +224,13 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
     Gtk::Clipboard::get()->request_contents(target, receive_fun);
 }
 
+void CtClipboard::plain_text_to_clipboard(const char* plain_text)
+{
+    CtClipboardData* clip_data = new CtClipboardData{};
+    clip_data->plain_text = plain_text;
+    _set_clipboard_data({CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
+}
+
 void CtClipboard::table_row_to_clipboard(CtTableCommon* pTable)
 {
     CtClipboardData* clip_data = new CtClipboardData{};
@@ -289,8 +296,12 @@ void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring&
 }
 
 // Given text_buffer and selection, returns the rich text xml
-Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
-                                                 gchar change_case /*="n"*/, bool exclude_iter_sel_end /*=false*/)
+Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter node_iter,
+                                                                    Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                                                    Gtk::TextIter iter_sel_start,
+                                                                    Gtk::TextIter iter_sel_end,
+                                                                    gchar change_case/*="n"*/,
+                                                                    bool exclude_iter_sel_end/*=false*/)
 {
     int iter_sel_start_offset = iter_sel_start.get_offset();
     int iter_sel_end_offset = iter_sel_end.get_offset();
@@ -301,8 +312,7 @@ Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter n
     xmlpp::Document doc;
     auto root = doc.create_root_node("root");
     int start_offset = iter_sel_start_offset;
-    for (CtAnchoredWidget* widget: widget_vector)
-    {
+    for (CtAnchoredWidget* widget : widget_vector) {
         int end_offset = widget->getOffset();
         _rich_text_process_slot(root, start_offset, end_offset, text_buffer, widget, change_case);
         start_offset = end_offset;
@@ -312,8 +322,12 @@ Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter n
 }
 
 // Process a Single Pango Slot
-void CtClipboard::_rich_text_process_slot(xmlpp::Element* root, int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
-                                          CtAnchoredWidget* obj_element, gchar change_case /*="n"*/)
+void CtClipboard::_rich_text_process_slot(xmlpp::Element* root,
+                                          int start_offset,
+                                          int end_offset,
+                                          Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                          CtAnchoredWidget* obj_element,
+                                          gchar change_case/*='n'*/)
 {
     xmlpp::Element* dom_iter = root->add_child("slot");
     CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(dom_iter, text_buffer, start_offset, end_offset, change_case);

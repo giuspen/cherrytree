@@ -160,6 +160,7 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='open_cfg_folder'/>
     </menu>
     <menuitem action='tree_parse_info'/>
+    <menuitem action='doc_path_clip'/>
     <separator/>
     <menuitem action='quit_app'/>
     <menuitem action='exit_app'/>
