@@ -491,7 +491,7 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
         if (all_matches) {
             gint64 node_id = node_iter.get_node_id();
             Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, "  /  ", false/*for_filename*/, true/*root_to_leaf*/);
-            Glib::ustring line_content = CtTextIterUtil::get_first_line_content(node_iter.get_node_text_buffer());
+            const Glib::ustring line_content = CtTextIterUtil::get_first_line_content(node_iter.get_node_text_buffer());
             const Glib::ustring text_tags = node_iter.get_node_tags();
             _s_state.match_store->add_row(node_id,
                                           text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
@@ -1008,13 +1008,15 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                         accumulated_delta_offs += (pAnchMatch->anch_offs_end - prev_anch_offs_end);
                     }
                 }
+                const Glib::ustring line_content = pAnchMatch->line_content.size() <= CtTextIterUtil::LINE_CONTENT_LIMIT ?
+                    pAnchMatch->line_content : pAnchMatch->line_content.substr(0u, CtTextIterUtil::LINE_CONTENT_LIMIT) + "...";
                 (void)_s_state.match_store->add_row(node_id,
                                                     node_name_w_tags,
                                                     esc_node_hier_name,
                                                     _s_state.latest_match_offsets.first,
                                                     _s_state.latest_match_offsets.second,
                                                     line_num,
-                                                    pAnchMatch->line_content,
+                                                    line_content,
                                                     pAnchMatch->anch_type,
                                                     pAnchMatch->anch_cell_idx,
                                                     pAnchMatch->anch_offs_start,
