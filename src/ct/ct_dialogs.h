@@ -31,7 +31,7 @@
 
 class CtMainWin;
 class CtTreeStore;
-class CtNodeData;
+struct CtNodeData;
 
 class CtDialogTextEntry : public Gtk::Dialog
 {
