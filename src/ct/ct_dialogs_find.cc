@@ -103,8 +103,8 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     auto multiple_words_match_any_radiobutton = Gtk::manage(new Gtk::RadioButton{_("More Words, Match Any")});
     multiple_words_disregard_order_radiobutton->join_group(*multiple_words_exact_match_radiobutton);
     multiple_words_match_any_radiobutton->join_group(*multiple_words_exact_match_radiobutton);
-    if (0 == s_options.multiple_words_disregard_order) multiple_words_exact_match_radiobutton->set_active();
-    else if (1 == s_options.multiple_words_disregard_order)  multiple_words_disregard_order_radiobutton->set_active();
+    if (0 == *s_options.pMultipleWordsSearchType) multiple_words_exact_match_radiobutton->set_active();
+    else if (1 == *s_options.pMultipleWordsSearchType)  multiple_words_disregard_order_radiobutton->set_active();
     else multiple_words_match_any_radiobutton->set_active();
 
     auto fw_radiobutton = Gtk::manage(new Gtk::RadioButton{_("Forward")});
@@ -324,9 +324,9 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         s_options.whole_word = whole_word_checkbutton->get_active();
         s_options.start_word = start_word_checkbutton->get_active();
 
-        if (multiple_words_exact_match_radiobutton->get_active()) s_options.multiple_words_disregard_order = 0;
-        else if (multiple_words_disregard_order_radiobutton->get_active()) s_options.multiple_words_disregard_order = 1;
-        else s_options.multiple_words_disregard_order = 2;
+        if (multiple_words_exact_match_radiobutton->get_active()) *s_options.pMultipleWordsSearchType = 0;
+        else if (multiple_words_disregard_order_radiobutton->get_active()) *s_options.pMultipleWordsSearchType = 1;
+        else *s_options.pMultipleWordsSearchType = 2;
 
         s_options.direction_fw = fw_radiobutton->get_active();
         if (all_radiobutton->get_active())              s_options.all_firstsel_firstall = 0;

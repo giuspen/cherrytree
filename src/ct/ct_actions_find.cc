@@ -598,12 +598,12 @@ Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
         pattern = str::diacritical_to_ascii(pattern);
     }
     bool temp_reg_exp{false};
-    if (not _s_options.reg_exp and 0 != _s_options.multiple_words_disregard_order) {
+    if (not _s_options.reg_exp and 0 != *_s_options.pMultipleWordsSearchType) {
         const std::vector<Glib::ustring> splitted = str::split(pattern, " ", true/*compress*/);
         if (splitted.size() > 1u) {
             temp_reg_exp = true;
             pattern.clear();
-            if (1 == _s_options.multiple_words_disregard_order) {
+            if (1 == *_s_options.pMultipleWordsSearchType) {
                 // 1 = disregard order = AND -> (?=.*Word1)(?=.*Word2).*
                 for (const Glib::ustring& element : splitted) {
                     pattern += "(?=.*" + Glib::Regex::escape_string(element) + ")";
