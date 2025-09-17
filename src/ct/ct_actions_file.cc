@@ -206,6 +206,7 @@ void CtActions::preferences_import()
     _pCtConfig->nodesOnNodeNameHeader = ctConfigImported.nodesOnNodeNameHeader;
     _pCtConfig->maxMatchesInPage = ctConfigImported.maxMatchesInPage;
     _pCtConfig->toolbarIconSize = ctConfigImported.toolbarIconSize;
+    _pCtConfig->multipleWordsSearchType = ctConfigImported.multipleWordsSearchType;
     _pCtConfig->currColour_fg = ctConfigImported.currColour_fg;
     _pCtConfig->currColour_bg = ctConfigImported.currColour_bg;
     _pCtConfig->currColour_nn = ctConfigImported.currColour_nn;

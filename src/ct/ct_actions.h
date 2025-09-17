@@ -43,6 +43,7 @@ public:
      : _pCtMainWin{pCtMainWin}
      , _pCtConfig{pCtMainWin->get_ct_config()}
     {
+        _s_options.pMultipleWordsSearchType = &_pCtConfig->multipleWordsSearchType;
         _find_init();
         _validate_enable_spell_check();
     }

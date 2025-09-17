@@ -83,6 +83,7 @@ public:
     int                                         nodesOnNodeNameHeader{3};
     int                                         maxMatchesInPage{500};
     int                                         toolbarIconSize{1};
+    int                                         multipleWordsSearchType{0}; // 0: exact match, 1: disregard order (AND), 2: match any (OR)
     Glib::ustring                               currColour_fg;
     Glib::ustring                               currColour_bg;
     Glib::ustring                               currColour_nn;
