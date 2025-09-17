@@ -241,6 +241,7 @@ void CtTextView::set_selection_at_offset_n_delta(const int offset,
     (void)iterEnd.forward_chars(delta);
     pTextBuffer->place_cursor(iterStart);
     pTextBuffer->move_mark(pTextBuffer->get_selection_bound(), iterEnd);
+    mm().scroll_to(pTextBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 }
 
 // Called at list indent/unindent time
