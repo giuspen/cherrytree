@@ -1,3 +1,8 @@
+1.6.2 (September 19th, 2025)
+  * fixed links to TOCs (anchors) no longer scrolling to the target (#2768, #2766, #2389)
+  * default option for searching multiple words is back to 'exact match' as way faster; the last used option is now preserved across sessions (#2767)
+  * incomplete languages: ar, bg, el, fa, fi, fr, hi_IN, hr, hu, kk_KZ, kk_LA, lt, nl, ru, sk, sv, tr, zh_CN (want to help and update one? write me https://www.giuspen.net/feedback/)
+
 1.6.1 (September 14th, 2025)
   * fixed search results reporting link content not limited in size causing crash in all matches dialog
   * incomplete languages: ar, bg, el, fa, fi, fr, hi_IN, hr, hu, kk_KZ, kk_LA, lt, nl, ru, sk, sv, tr, zh_CN (want to help and update one? write me https://www.giuspen.net/feedback/)
