@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-08-02 12:59+0200\n"
-"Last-Translator: Michal Fusatý <fusaty@proton.me>\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-20 11:12+0200\n"
+"Last-Translator: Michal Fusaty <fusaty@proton.me>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -357,6 +357,15 @@ msgstr "Celé slovo"
 msgid "Start Word"
 msgstr "Začiatok slova"
 
+msgid "More Words, Exact Match"
+msgstr "Viac slov, presná zhoda"
+
+msgid "More Words, Disregard Order"
+msgstr "Viac slov, bez ohľadu na poradie"
+
+msgid "More Words, Match Any"
+msgstr "Viac slov, akákoľvek zhoda"
+
 msgid "Forward"
 msgstr "Vpred"
 
@@ -646,6 +655,21 @@ msgstr "Systémová lišta"
 
 msgid "Language"
 msgstr "Jazyk"
+
+msgid "URL"
+msgstr "URL Adresa"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Meno užívateľa"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Objavila sa na paneli systémová lišta?"
@@ -1100,6 +1124,20 @@ msgstr ""
 "Varovanie: Jeden alebo viac obrázkov bolo zmenšených, aby sa dostali na "
 "stránku!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Počet naposledy navštívených uzlov v hlavičke Uzlu je už na maximálnej "
+"hodnote."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Počet naposledy navštívených uzlov v hlavičke Uzlu je už na minimálnej "
+"hodnote."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Veľkosť ikon na paneli nástrojov je už nastavená na maximálnu hodnotu."
 
@@ -1214,6 +1252,9 @@ msgstr "Panel ponúk v paneli názvov"
 msgid "Toolbar Icons Size"
 msgstr "Veľkosť ikon panela nástrojov"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Naposledy navštívené uzly v hlavičke názvu uzla"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Minimálna veľkosť posuvníka (0 = predvolené nastavenie systému)"
 
@@ -1252,6 +1293,9 @@ msgstr "Vlastné akcie"
 
 msgid "Colors"
 msgstr "Farby"
+
+msgid "Double Click for Link Action"
+msgstr "Dvojité ťuknutie na odkaz ho otvorí"
 
 msgid "Underline Links"
 msgstr "Podčiarknuť odkazy"
@@ -1378,11 +1422,11 @@ msgid "Node Properties"
 msgstr "Vlastnosti uzla"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Ak opustíte typ uzla \"Formátovaný text\", stratíte pre tento uzol všetko "
-"formátovanie. Chcete pokračovať?"
+"Zmena typu uzla na Automatické Zvýraznenie Syntaxu odstráni všetky "
+"formátovania textu v tomto uzle. Chcete pokračovať?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1492,9 +1536,6 @@ msgstr "Presunúť zaostrenie na text pri kliknutí myšou"
 msgid "Expand Node at Mouse Click"
 msgstr "Rozbaliť uzol pri kliknutí myšou"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Naposledy navštívené uzly v hlavičke názvu uzla"
-
 msgid "Enable Spell Check"
 msgstr "Povoliť overenie pravopisu"
 
@@ -1524,6 +1565,9 @@ msgstr "Limit zrušiteľných krokov na uzol"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Automatické prepojenie textu CamelCase s uzlom s rovnakým názvom"
+
+msgid "Auto Link URLs"
+msgstr "Automatické prepojenie URL"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Pri trojitom kliknutí vybrať celý odsek"
@@ -2174,17 +2218,17 @@ msgstr "Malé písmo"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Formátovať vybraný text na \"malé písmo\""
 
-msgid "Toggle Su_perscript Property"
-msgstr "Horný index"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Formátovať vybraný text na \"Horný index\""
-
 msgid "Toggle Su_bscript Property"
 msgstr "Dolný index"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Formátovať vybraný text na \"dolný index\""
+
+msgid "Toggle Su_perscript Property"
+msgstr "Horný index"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Formátovať vybraný text na \"Horný index\""
 
 msgid "Toggle _Monospace Property"
 msgstr "Monospace"
@@ -2621,6 +2665,18 @@ msgstr "Zmänšiť veľkosť ikon na paneli nástrojov"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmänšiť veľkosť ikon na paneli nástrojov"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Viac naposledy navštívených uzlov v hlavičke názvu uzla"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Zvýšiť počet naposledy navštívených uzlov v hlavičke názvu uzla"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Menej nedávno navštívených uzlov v hlavičke názvu uzla"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Znížiť počet nedávno navštívených uzlov v hlavičke názvu uzla."
 
 msgid "Full Screen _On/Off"
 msgstr "Zapnúť/Vypnúť zobrazenie na celú obrazovku"
