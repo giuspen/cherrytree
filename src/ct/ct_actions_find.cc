@@ -159,7 +159,7 @@ void CtActions::find_replace_in_multiple_nodes()
         if (not entry_predefined_text.empty()) {
             _s_options.str_find = entry_predefined_text;
         }
-        Glib::ustring title = _s_state.replace_active ? _("Replace in Multiple Nodes...") : _("Find in Multiple Nodes...");
+        Glib::ustring title = _s_state.replace_active ? _("Replace in Multiple Nodes") : _("Search in Multiple Nodes");
         CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state, true/*multiple_nodes*/);
     }
     else {
