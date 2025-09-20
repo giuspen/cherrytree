@@ -343,7 +343,7 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
     //textView.reset_cursor_blink();
     CtTreeIter ctTreeIter = curr_tree_iter();
     if (ctTreeIter.get_node_is_code()) {
-        textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(textView.get_display(), Gdk::XTERM));
         return false;
     }
     int x, y;
@@ -361,7 +361,7 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
     }
     const auto syntax_highl = ct_tree_iter.get_node_syntax_highlighting();
     if (CtConst::RICH_TEXT_ID != syntax_highl and CtConst::PLAIN_TEXT_ID != syntax_highl) {
-        _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_ctTextview.mm().get_display(), Gdk::XTERM));
         return false;
     }
     int x, y, bx, by;

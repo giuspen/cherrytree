@@ -1,7 +1,7 @@
 /*
  * ct_app.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -51,7 +51,9 @@ protected:
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
     GtkSourceLanguageManager* _pGtkSourceLanguageManager{nullptr};
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::unique_ptr<CtStatusIcon> _uCtStatusIcon;
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 protected:
     Glib::ustring _node_to_focus;

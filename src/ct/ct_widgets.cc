@@ -163,12 +163,15 @@ void CtTreeView::set_tree_node_name_wrap_width(const bool wrap_enabled, const in
     }
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 CtStatusIcon::CtStatusIcon(CtApp& ctApp, CtConfig* pCtConfig)
  : _ctApp{ctApp}
  , _pCtConfig{pCtConfig}
 {
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 Gtk::StatusIcon* CtStatusIcon::get()
 {
     if (not _rStatusIcon) {
@@ -199,10 +202,13 @@ Gtk::StatusIcon* CtStatusIcon::get()
     }
     return _rStatusIcon.get();
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtStatusIcon::ensure_menu_hidden()
 {
     if (_uStatusIconMenu) {
         _uStatusIconMenu->hide();
     }
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */

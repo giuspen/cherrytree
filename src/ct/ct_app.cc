@@ -1,7 +1,7 @@
 /*
  * ct_app.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -121,7 +121,9 @@ void CtApp::_on_startup()
 
     _rCssProvider = Gtk::CssProvider::create();
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _uCtStatusIcon.reset(new CtStatusIcon{*this, _pCtConfig});
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
     if (not _no_gui) {
         _pCtApp = this;
@@ -146,14 +148,19 @@ void CtApp::on_activate()
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(_pCtConfig->recentDocsFilepaths.front().string());
             if (r_file->query_exists()) {
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-                if (not pAppWindow->start_on_systray_is_active()) {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+                if (not pAppWindow->start_on_systray_is_active())
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+                {
                     if (not pAppWindow->file_open(canonicalPath, ""/*node*/, ""/*anchor*/, _password)) {
                         spdlog::warn("{} Couldn't open file: {}", __FUNCTION__, canonicalPath);
                     }
                 }
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
                 else {
                     pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, ""/*node*/, ""/*anchor*/);
                 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
             }
             else {
                 const fs::path last_doc_path{_pCtConfig->recentDocsFilepaths.front()};
@@ -237,14 +244,19 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             // there is not a window already running with that document
             pAppWindow = _create_window();
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-            if (not pAppWindow->start_on_systray_is_active()) {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+            if (not pAppWindow->start_on_systray_is_active())
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+            {
                 if (not pAppWindow->file_open(canonicalPath, _node_to_focus, _anchor_to_focus, _password)) {
                     spdlog::warn("{} Couldn't open file: {}", __FUNCTION__, canonicalPath);
                 }
             }
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             else {
                 pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, _node_to_focus, _anchor_to_focus);
             }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
             if (get_windows().size() == 1) {
                 // start of main instance
                 if (_pCtConfig->checkVersion) {
@@ -278,8 +290,10 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                                           _rIcontheme.get(),
                                           _rTextTagTable,
                                           _rCssProvider,
-                                          _pGtkSourceLanguageManager,
-                                          _uCtStatusIcon.get()};
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+                                          _uCtStatusIcon.get(),
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+                                          _pGtkSourceLanguageManager};
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
@@ -371,6 +385,7 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, 
     return true; // keep deleting window
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtApp::systray_show_hide_windows()
 {
     _uCtStatusIcon->ensure_menu_hidden();
@@ -422,6 +437,7 @@ void CtApp::systray_show_hide_windows()
         }
     }
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 void CtApp::close_all_windows(const bool fromKillCallback)
 {

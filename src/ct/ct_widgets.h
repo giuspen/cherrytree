@@ -160,6 +160,7 @@ private:
 
 class CtApp;
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 class CtStatusIcon
 {
 public:
@@ -174,6 +175,7 @@ private:
     Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
     std::unique_ptr<Gtk::Menu> _uStatusIconMenu;
 };
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 class CtTreeIter;
 class CtStorageEntity

@@ -400,7 +400,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         auto& textView = _pCtMainWin->get_text_view().mm();
         textView.grab_focus();
-        textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(textView.get_display(), Gdk::XTERM));
         textView.set_tooltip_text("");
         if (not link_entry.anch.empty()) {
             current_node_scroll_to_anchor(link_entry.anch);

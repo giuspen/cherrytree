@@ -465,14 +465,12 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     Gtk::Box vbox_size{Gtk::ORIENTATION_VERTICAL};
     vbox_size.pack_start(hbox_width);
     vbox_size.pack_start(hbox_height);
-    Gtk::Alignment size_align;
-    size_align.set_padding(0, 6, 6, 6);
-    size_align.add(vbox_size);
+    CtMiscUtil::set_widget_margins(vbox_size, 0, 6, 6, 6);
 
     Gtk::Frame size_frame{Glib::ustring("<b>")+_("Size")+"</b>"};
     dynamic_cast<Gtk::Label*>(size_frame.get_label_widget())->set_use_markup(true);
     size_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    size_frame.add(size_align);
+    size_frame.add(vbox_size);
 
     Gtk::CheckButton checkbutton_codebox_linenumbers{_("Show Line Numbers")};
     checkbutton_codebox_linenumbers.set_active(pConfig->codeboxLineNum);
@@ -481,14 +479,12 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     Gtk::Box vbox_options{Gtk::ORIENTATION_VERTICAL};
     vbox_options.pack_start(checkbutton_codebox_linenumbers);
     vbox_options.pack_start(checkbutton_codebox_matchbrackets);
-    Gtk::Alignment opt_align;
-    opt_align.set_padding(6, 6, 6, 6);
-    opt_align.add(vbox_options);
+    CtMiscUtil::set_widget_margins(vbox_options, 6, 6, 6, 6);
 
     Gtk::Frame options_frame{Glib::ustring("<b>")+_("Options")+"</b>"};
     dynamic_cast<Gtk::Label*>(options_frame.get_label_widget())->set_use_markup(true);
     options_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    options_frame.add(opt_align);
+    options_frame.add(vbox_options);
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);

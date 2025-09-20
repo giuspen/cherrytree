@@ -717,7 +717,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
          (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
     {
         if (CtList{_pCtConfig, get_buffer()}.is_list_todo_beginning(text_iter)) {
-            _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
+            _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
             _pTextView->set_tooltip_text("");
             return;
         }
@@ -763,7 +763,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         _pCtMainWin->hovering_link_iter_offset() = hovering_link_iter_offset;
     }
     if (_pCtMainWin->hovering_link_iter_offset() >= 0) {
-        _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2));
+        _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::HAND2));
         if (tooltip.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
             tooltip = tooltip.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
         }
@@ -777,7 +777,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 void CtTextView::cursor_and_tooltips_reset()
 {
     _pCtMainWin->hovering_link_iter_offset() = -1;
-    _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+    _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::XTERM));
     _pTextView->set_tooltip_text("");
 }
 

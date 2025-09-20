@@ -341,12 +341,17 @@ void CtActions::preferences_import()
     if (ctConfigImported.systrayOn != _pCtConfig->systrayOn) {
         // this we have to apply immediately because it affects the way the app quits
         if (ctConfigImported.systrayOn) {
+
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             _pCtMainWin->get_status_icon()->set_visible(true);
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+
 #if defined(_WIN32)
             _pCtConfig->systrayOn = true; // windows does support the systray
-#else // !_WIN32
+#else /* !defined(_WIN32) */
             _pCtConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *_pCtMainWin);
-#endif // !_WIN32
+#endif /* !defined(_WIN32) */
+
             if (_pCtConfig->systrayOn) {
                 _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
             }
@@ -356,7 +361,11 @@ void CtActions::preferences_import()
         }
         else {
             _pCtConfig->systrayOn = false;
+
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             _pCtMainWin->get_status_icon()->set_visible(false);
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+
             _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
         }
     }

@@ -224,6 +224,14 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
+void CtMiscUtil::set_widget_margins(Gtk::Widget& widget, int top, int bottom, int left, int right)
+{
+    if (top >= 0) widget.set_margin_top(top);
+    if (bottom >= 0) widget.set_margin_bottom(bottom);
+    if (left >= 0) widget.set_margin_left(left);
+    if (right >= 0) widget.set_margin_right(right);
+}
+
 CtLinkEntry CtMiscUtil::get_link_entry_from_property(const Glib::ustring& link)
 {
     CtLinkEntry link_entry{};

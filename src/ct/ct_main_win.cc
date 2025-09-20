@@ -45,8 +45,10 @@ CtMainWin::CtMainWin(bool                            no_gui,
                      Gtk::IconTheme*                 pGtkIconTheme,
                      Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
                      Glib::RefPtr<Gtk::CssProvider>  rGtkCssProvider,
-                     GtkSourceLanguageManager*       pGtkSourceLanguageManager,
-                     CtStatusIcon*                   pCtStatusIcon)
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+                     CtStatusIcon*                   pCtStatusIcon,
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+                     GtkSourceLanguageManager*       pGtkSourceLanguageManager)
  : Gtk::ApplicationWindow{}
  , _no_gui{no_gui}
  , _pCtConfig{pCtConfig}
@@ -173,6 +175,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
         set_visible(false);
     }
     else {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         if (start_on_systray_is_active()) {
             /* Calling the 'present()' function apparently sets up selected
                node visibility within the TreeView panel, whereas this
@@ -187,7 +190,9 @@ CtMainWin::CtMainWin(bool                            no_gui,
             present();
             set_visible(false);
         }
-        else {
+        else
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+        {
             present();
         }
         Glib::signal_idle().connect_once([this](){
@@ -196,10 +201,12 @@ CtMainWin::CtMainWin(bool                            no_gui,
             _ctTextview.mm().signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
             signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             // show status icon if needed
             if (_pCtConfig->systrayOn) {
                 get_status_icon()->set_visible(true);
             }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
         });
     }
 
@@ -219,18 +226,23 @@ void CtMainWin::_on_dispatcher_error_msg()
     CtDialogs::error_dialog(eroor_msg, *this);
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::start_on_systray_is_active() const
 {
     return _pCtConfig->systrayOn and _pCtConfig->startOnSystray;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtMainWin::start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename, const std::string& anchorname)
 {
     _startOnSystray_delayedFilepath = filepath;
     _startOnSystray_delayedNodeName = nodename;
     _startOnSystray_delayedAnchorName = anchorname;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::start_on_systray_delayed_file_open_kick()
 {
     if (not _startOnSystray_delayedFilepath.empty()) {
@@ -247,6 +259,7 @@ bool CtMainWin::start_on_systray_delayed_file_open_kick()
     }
     return false;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 const char* CtMainWin::get_code_icon_name(std::string code_type)
 {

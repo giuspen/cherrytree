@@ -91,8 +91,10 @@ public:
         Gtk::IconTheme*          pGtkIconTheme,
         Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
         Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
-        GtkSourceLanguageManager* pGtkSourceLanguageManager,
-        CtStatusIcon*            pCtStatusIcon
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+        CtStatusIcon*            pCtStatusIcon,
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+        GtkSourceLanguageManager* pGtkSourceLanguageManager
     );
     virtual ~CtMainWin();
 
@@ -147,7 +149,11 @@ public:
     Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
     GtkSourceLanguageManager*         get_language_manager() { return _pGtkSourceLanguageManager; }
+
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     Gtk::StatusIcon*                  get_status_icon() { return _pCtStatusIcon->get(); }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+
     Gtk::ScrolledWindow&              getScrolledwindowText() { return _scrolledwindowText; }
 
     bool&         user_active()      { return _userActive; } // use as a function, because it's easier to put breakpoint
@@ -216,11 +222,14 @@ public:
     void save_position()                    { get_position(_savedXpos, _savedYpos); }
     void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool start_on_systray_is_active() const;
     void start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename, const std::string& anchorname);
     bool start_on_systray_delayed_file_open_kick();
     void set_systray_can_hide(const bool systrayCanHide) { _systrayCanHide = systrayCanHide; }
     bool get_systray_can_hide() const { return _systrayCanHide; }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+
     void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; set_keep_above(_alwaysOnTop); }
     void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
@@ -274,7 +283,10 @@ private:
     Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
     GtkSourceLanguageManager*    const _pGtkSourceLanguageManager;
+
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     CtStatusIcon*                _pCtStatusIcon;
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
     std::unique_ptr<CtActions>        _uCtActions;
     std::unique_ptr<CtMenu>           _uCtMenu;
@@ -324,10 +336,14 @@ private:
     bool                _tree_just_auto_expanded{false};
     std::unordered_map<gint64, int> _nodesCursorPos;
     std::unordered_map<gint64, int> _nodesVScrollPos;
+
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::string         _startOnSystray_delayedFilepath;
     std::string         _startOnSystray_delayedNodeName;
     std::string         _startOnSystray_delayedAnchorName;
     bool                _systrayCanHide{true};
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+
     bool                _alwaysOnTop{false};
 
 public:
