@@ -74,7 +74,7 @@ The following languages are supported (if you want to help translate to your lan
 – Portuguese Brazil (pt_BR, Raysa Dutra, up to date)
 – Romanian (ro, Tudor Sprinceana, up to date)
 – Russian (ru, Viktor Polyanskiy, TO BE UPDATED)
-– Slovak (sk, Michal Fusatý, TO BE UPDATED)
+– Slovak (sk, Michal Fusatý, up to date)
 – Slovenian (sl, Erik Lovrič, up to date)
 – Spanish (es, MP, up to date)
 – Swedish (sv, Åke Engelbrektson, TO BE UPDATED)
