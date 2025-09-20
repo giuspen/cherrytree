@@ -91,10 +91,8 @@ Gtk::Frame* CtPrefDlg::new_managed_frame_with_align(const Glib::ustring& frameLa
     auto pFrame = Gtk::manage(new Gtk::Frame{Glib::ustring{"<b>"}+frameLabel+"</b>"});
     dynamic_cast<Gtk::Label*>(pFrame->get_label_widget())->set_use_markup(true);
     pFrame->set_shadow_type(Gtk::SHADOW_NONE);
-    auto pAlign = Gtk::manage(new Gtk::Alignment());
-    pAlign->set_padding(3, 6, 6, 6);
-    pAlign->add(*pFrameChild);
-    pFrame->add(*pAlign);
+    CtMiscUtil::set_widget_margins(*pFrameChild, 3, 6, 6, 6);
+    pFrame->add(*pFrameChild);
     return pFrame;
 }
 

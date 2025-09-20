@@ -106,7 +106,7 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gtk::TextB
     while (true) {
         auto curr_tags = curr_iter.get_tags();
         if (not curr_tags.empty()) {
-            Glib::ustring curr_tag_str = curr_tags[0]->property_foreground_gdk().get_value().to_string();
+            Glib::ustring curr_tag_str = curr_tags[0]->property_foreground_rgba().get_value().to_string();
             int font_weight = curr_tags[0]->property_weight();
             if (curr_tag_str == CtConst::COLOR_48_BLACK) {
                 if (former_tag_str != curr_tag_str) {

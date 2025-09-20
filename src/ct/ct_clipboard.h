@@ -128,5 +128,5 @@ class Win32HtmlFormat
 {
 public:
     std::string encode(std::string html_in);
-    std::string convert_from_ms_clipboard(std::string html_in);
+    Glib::ustring convert_from_ms_clipboard(const Glib::ustring& html_in);
 };

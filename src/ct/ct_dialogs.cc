@@ -318,8 +318,8 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
-    pContentArea->set_margin_left(5);
-    pContentArea->set_margin_right(5);
+    pContentArea->set_margin_start(5);
+    pContentArea->set_margin_end(5);
     pContentArea->pack_start(type_frame);
     pContentArea->pack_start(passw_frame);
     if (args.showAutosaveOptions) {

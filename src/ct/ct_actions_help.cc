@@ -1,7 +1,7 @@
 /*
  * ct_actions_help.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -67,7 +67,7 @@ void CtActions::check_for_newer_version()
         statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later."));
         return;
     }
-    std::string latest_version_from_server = latest_debian_changelog_from_server.substr(openp + 1, closep - openp - 1);
+    Glib::ustring latest_version_from_server = latest_debian_changelog_from_server.substr(openp + 1, closep - openp - 1);
     auto re = Glib::Regex::create("(\\d+)\\.(\\d+)\\.(\\d+)-\\d+");
     Glib::MatchInfo match;
     if (not re->match(latest_version_from_server, match)) {

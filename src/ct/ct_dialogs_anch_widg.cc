@@ -594,7 +594,7 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     auto pCtConfig = pCtMainWin->get_ct_config();
     auto label_rows = Gtk::Label{_("Rows")};
     label_rows.set_halign(Gtk::Align::ALIGN_START);
-    label_rows.set_margin_left(10);
+    label_rows.set_margin_start(10);
     auto adj_rows = Gtk::Adjustment::create(pCtConfig->tableRows, 1, 10000, 1);
     auto spinbutton_rows = Gtk::SpinButton{adj_rows};
     spinbutton_rows.set_value(pCtConfig->tableRows);

@@ -42,7 +42,7 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
     if (forPassword) {
         _entry.set_visibility(false);
     }
-    get_vbox()->pack_start(_entry, true, true, 0);
+    get_content_area()->pack_start(_entry, true, true, 0);
 
     // Special signals which correspond to the underlying X-Windows events are suffixed by _event.
     // By default, your signal handlers are called after any previously-connected signal handlers. However, this can be a problem with the X Event signals. For instance, the existing signal handlers, or the default signal handler, might return true to stop other signal handlers from being called. To specify that your signal handler should be called before the other signal handlers, so that it will always be called, you can specify false for the optional after parameter
@@ -50,7 +50,7 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
 
     _entry.signal_icon_press().connect(sigc::mem_fun(*this, &CtDialogTextEntry::_on_entry_icon_press));
 
-    get_vbox()->show_all();
+    get_content_area()->show_all();
 }
 
 bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey* pEventKey)

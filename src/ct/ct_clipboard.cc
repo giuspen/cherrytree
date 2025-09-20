@@ -728,7 +728,7 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
 // From Clipboard to HTML Text
 void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    std::string html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
+    Glib::ustring html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (html_content.empty()) {
         html_content = selection_data.get_data_as_string();
 #ifdef _WIN32
@@ -739,7 +739,7 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
     }
     html_content = str::sanitize_bad_symbols(html_content);
 
-    CtHtml2Xml parser(_pCtMainWin->get_ct_config());
+    CtHtml2Xml parser{_pCtMainWin->get_ct_config()};
     parser.feed(html_content);
     bool pasteHadWidgets{false};
     from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string(), &pasteHadWidgets);
@@ -1104,21 +1104,24 @@ std::string Win32HtmlFormat::encode(std::string html_in)
     return prefix + html;
 }
 
-std::string Win32HtmlFormat::convert_from_ms_clipboard(std::string html_in)
+Glib::ustring Win32HtmlFormat::convert_from_ms_clipboard(const Glib::ustring& html_in)
 {
-    auto get_arg_value = [&](std::string arg_name) {
+    auto f_get_arg_value = [&](Glib::ustring arg_name) {
         auto re = Glib::Regex::create(arg_name + "\\s*:\\s*(.*?)$", Glib::RegexCompileFlags::REGEX_CASELESS | Glib::RegexCompileFlags::REGEX_MULTILINE);
         Glib::MatchInfo match;
-        if (!re->match(html_in, match))
+        if (not re->match(html_in, match)) {
             return -1;
+        }
         return std::atoi(match.fetch(1).c_str());
     };
 
-    int start = get_arg_value("StartHTML");
-    int end = get_arg_value("EndHTML");
-    if (start < 0 || end < 0 || end < start)
+    const int start = f_get_arg_value("StartHTML");
+    const int end = f_get_arg_value("EndHTML");
+    if (start < 0 || end < 0 || end < start) {
         return html_in;
-    html_in = html_in.substr(start, end - start);
-    html_in = str::replace(html_in, "\r", "");
-    return html_in;
+    }
+
+    Glib::ustring html_out = html_in.substr(start, end - start);
+    html_out = str::replace(html_out, "\r", "");
+    return html_out;
 }

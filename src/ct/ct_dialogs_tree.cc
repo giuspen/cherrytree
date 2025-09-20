@@ -126,7 +126,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
 
     auto excl_label = Gtk::manage(new Gtk::Label{_("Exclude from Searches")});
     auto excl_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
-    excl_hbox->set_margin_left(5);
+    excl_hbox->set_margin_start(5);
     auto excl_me_checkbutton = Gtk::manage(new Gtk::CheckButton{_("This Node")});
     excl_me_checkbutton->set_active(nodeData.excludeMeFromSearch);
     auto excl_ch_checkbutton = Gtk::manage(new Gtk::CheckButton{_("The Subnodes")});
@@ -156,7 +156,8 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     }
     auto id_label = Gtk::manage(new Gtk::Label{id_str});
     id_label->set_xalign(0.0);
-    id_label->set_padding(3/*xpad*/, 0/*ypad*/);
+    id_label->set_margin_start(3);
+    id_label->set_margin_end(3);
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
@@ -220,7 +221,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     fg_checkbutton->signal_toggled().connect([fg_colorbutton, fg_checkbutton](){
         fg_colorbutton->set_sensitive(fg_checkbutton->get_active());
     });
-    fg_colorbutton->signal_pressed().connect([pCtMainWin, fg_colorbutton](){
+    fg_colorbutton->signal_clicked().connect([pCtMainWin, fg_colorbutton](){
         Glib::ustring ret_colour = fg_colorbutton->get_rgba().to_string();
         CtDialogs::CtPickDlgState res{CtDialogs::CtPickDlgState::CALL_AGAIN};
         while (CtDialogs::CtPickDlgState::CALL_AGAIN == res) {
@@ -313,7 +314,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     }
     nodeData.isBold = is_bold_checkbutton->get_active();
     if (fg_checkbutton->get_active()) {
-        nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton->get_color().to_string());
+        nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton->get_rgba().to_string());
         pCtConfig->currColour_nn = nodeData.foregroundRgb24;
     }
     else {
@@ -442,14 +443,14 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
     content_area->pack_start(radiobutton_selnodeandsub);
     content_area->pack_start(radiobutton_alltree);
 
-    auto separator_item_1 = Gtk::HSeparator();
+    auto separator_item_1 = Gtk::Separator();
     auto checkbutton_node_name = Gtk::CheckButton(_("Include Node Name"));
     if (last_include_node_name != nullptr) {
         checkbutton_node_name.set_active(*last_include_node_name);
         content_area->pack_start(separator_item_1);
         content_area->pack_start(checkbutton_node_name);
     }
-    auto separator_item_2 = Gtk::HSeparator();
+    auto separator_item_2 = Gtk::Separator();
     auto checkbutton_index_in_page = Gtk::CheckButton(_("Links Tree in Every Page"));
     if (last_index_in_page != nullptr) {
         checkbutton_index_in_page.set_active(*last_index_in_page);

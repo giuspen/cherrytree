@@ -36,8 +36,8 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                    Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     s_state.searchfinddialog.reset(pDialog);
 
-    auto button_cancel = pDialog->add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    auto button_ok = pDialog->add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    Gtk::Button* button_cancel = pDialog->add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    Gtk::Button* button_ok = pDialog->add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     pDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     button_cancel->set_always_show_image(true);
     button_ok->set_always_show_image(true);
@@ -164,7 +164,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         auto ts_node_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
         ts_node_vbox->pack_start(*ts_node_created_after_hbox);
         ts_node_vbox->pack_start(*ts_node_created_before_hbox);
-        ts_node_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+        ts_node_vbox->pack_start(*Gtk::manage(new Gtk::Separator{}));
         ts_node_vbox->pack_start(*ts_node_modified_after_hbox);
         ts_node_vbox->pack_start(*ts_node_modified_before_hbox);
 
@@ -226,7 +226,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     opt_vbox->pack_start(*four_1_hbox);
     opt_vbox->pack_start(*four_2_hbox);
     opt_vbox->pack_start(*four_3_hbox);
-    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::Separator{}));
     auto multiple_words_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
     auto multiple_words_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     multiple_words_hbox->set_homogeneous(true);
@@ -235,14 +235,14 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     multiple_words_vbox->pack_start(*multiple_words_disregard_order_radiobutton);
     multiple_words_vbox->pack_start(*multiple_words_match_any_radiobutton);
     opt_vbox->pack_start(*multiple_words_hbox);
-    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::Separator{}));
     opt_vbox->pack_start(*bw_fw_hbox);
-    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::Separator{}));
     opt_vbox->pack_start(*three_hbox);
-    opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+    opt_vbox->pack_start(*Gtk::manage(new Gtk::Separator{}));
     if (multiple_nodes) {
         opt_vbox->pack_start(*ts_frame);
-        opt_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+        opt_vbox->pack_start(*Gtk::manage(new Gtk::Separator{}));
         opt_vbox->pack_start(*hbox_node_content_name_n_tags);
         opt_vbox->pack_start(*only_sel_n_subnodes_checkbutton);
     }
@@ -375,13 +375,17 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     dialog.set_default_size(300, -1);
     Gtk::Label message_label{message};
     message_label.set_use_markup(true);
-    message_label.set_padding(3/*xpad*/, 5/*ypad*/);
+    message_label.set_margin_start(3);
+    message_label.set_margin_end(3);
+    message_label.set_margin_top(5);
+    message_label.set_margin_bottom(5);
     Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 5/*spacing*/};
     vbox.pack_start(message_label);
     if (CtTreeIter::get_hit_exclusion_from_search()) {
         auto pHBoxExclusions = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/});
         Gtk::Image* pImageExclusions = pCtMainWin->new_managed_image_from_stock("ct_ghost", Gtk::ICON_SIZE_BUTTON);
-        pImageExclusions->set_padding(3/*xpad*/, 0/*ypad*/);
+        pImageExclusions->set_margin_start(3);
+        pImageExclusions->set_margin_end(3);
         pHBoxExclusions->pack_start(*pImageExclusions, false, false);
         auto pLabelExclusions = Gtk::manage(new Gtk::Label{_("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search")});
         pLabelExclusions->set_xalign(0.0);
@@ -568,7 +572,8 @@ void CtDialogs::match_dialog(const std::string& str_find,
     if (CtTreeIter::get_hit_exclusion_from_search()) {
         auto pHBoxExclusions = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 3/*spacing*/});
         Gtk::Image* pImageExclusions = pCtMainWin->new_managed_image_from_stock("ct_ghost", Gtk::ICON_SIZE_BUTTON);
-        pImageExclusions->set_padding(3/*xpad*/, 0/*ypad*/);
+        pImageExclusions->set_margin_start(3);
+        pImageExclusions->set_margin_end(3);
         pHBoxExclusions->pack_start(*pImageExclusions, false, false);
         auto pLabelExclusions = Gtk::manage(new Gtk::Label{_("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search")});
         pLabelExclusions->set_xalign(0.0);

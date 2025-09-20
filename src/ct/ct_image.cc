@@ -205,7 +205,7 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
     }
     else if (3 == event->button) {
         _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
-        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup_at_pointer((GdkEvent*)event);
     }
     return true; // do not propagate the event
 }
@@ -355,7 +355,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (3 == event->button) {
-        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup_at_pointer((GdkEvent*)event);
     }
     else if (1 == event->button) {
         if (event->type == GDK_2BUTTON_PRESS) {
@@ -584,11 +584,12 @@ bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_latex_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 3)
-        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Latex)->popup(event->button, event->time);
-    else if (event->type == GDK_2BUTTON_PRESS)
+    if (event->button == 3) {
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Latex)->popup_at_pointer((GdkEvent*)event);
+    }
+    else if (event->type == GDK_2BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->latex_edit();
-
+    }
     return true; // do not propagate the event
 }
 
@@ -794,7 +795,7 @@ bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (event->button == 3) {
-        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup_at_pointer((GdkEvent*)event);
     }
     else if (event->type == GDK_2BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->embfile_open();
