@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-27 16:02+0200\n"
+"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"PO-Revision-Date: 2025-09-24 12:56+0200\n"
 "Last-Translator: Francis Gernet <fgernet@concretx.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -366,6 +366,15 @@ msgstr "Mot entier"
 msgid "Start Word"
 msgstr "Commencer au mot"
 
+msgid "More Words, Exact Match"
+msgstr "Plus de mots, correspondance exacte"
+
+msgid "More Words, Disregard Order"
+msgstr "Plus de mots, sans tenir compte de l'ordre"
+
+msgid "More Words, Match Any"
+msgstr "Plus de mots, correspondance sur n'importe lequel"
+
 msgid "Forward"
 msgstr "Vers l'avant"
 
@@ -657,6 +666,21 @@ msgstr "Zone de notification"
 
 msgid "Language"
 msgstr "Langue"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+msgid "Password"
+msgstr "Mot de Passe"
+
+msgid "Proxy"
+msgstr "Proxy"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Est-ce que la Zone de Notification apparaît ?"
@@ -1125,6 +1149,20 @@ msgstr ""
 "Avertissement : Une ou plusieurs images ont été réduites\n"
 " pour entrer sur la page !"
 
+# à vérifier à l'usage
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Le nombre de nœuds consultés pour cet en-tête a atteint sa valeur maximale."
+
+# à vérifier à l'usage
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Le nombre de nœuds consultés pour cet en-tête a atteint sa valeur minimale."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "La taille des icônes de la barre d'outils est au maximum."
 
@@ -1240,6 +1278,9 @@ msgstr "Activer la Barre des Menus dans la Barre de Titre"
 msgid "Toolbar Icons Size"
 msgstr "Taille des icônes de la Barre d'Icônes"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Afficher le nombre de nœuds consultés dans la barre de nom de nœud"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr ""
 "Taille minimale du curseur de la barre de défilement (0 = système par défaut)"
@@ -1279,6 +1320,9 @@ msgstr "Actions personnalisées"
 
 msgid "Colors"
 msgstr "Couleurs"
+
+msgid "Double Click for Link Action"
+msgstr "Double clic pour suivre le lien"
 
 msgid "Underline Links"
 msgstr "Souligner les liens"
@@ -1408,11 +1452,12 @@ msgid "Node Properties"
 msgstr "Propriétés du nœud"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"En abandonnant le type de nœud <b>Texte Riche</b>, vous perdrez tout "
-"formatage de ce nœud. Voulez-vous tout de même continuer ?"
+"Changer le type de nœud pour mettre en évidence la syntaxe du code va "
+"supprimer tout le formatage du texte enrichi dans ce nœud. Voulez-vous "
+"continuer ?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1523,9 +1568,6 @@ msgstr "Le clic de la souris met le focus sur le texte"
 msgid "Expand Node at Mouse Click"
 msgstr "Développer un nœud avec un clic de la souris"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Afficher le nombre de nœuds visités dans la barre de nom de nœud"
-
 msgid "Enable Spell Check"
 msgstr "Activer la vérification orthographique"
 
@@ -1555,6 +1597,9 @@ msgstr "Limite d'annulations par nœud"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Lien automatique du texte en CamelCase vers le nœud du même nom"
+
+msgid "Auto Link URLs"
+msgstr "Suivre automatiquement les liens"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Cliquer trois fois pour sélectionner le paragraphe entier"
@@ -2232,18 +2277,18 @@ msgstr "Mettre/Enlever la petite taille"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Mettre/Enlever le texte sélectionné en petite taille"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Mettre/Enlever ex_posant"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Mettre/Enlever le texte sélectionné en exposant"
-
 # where to place the underscore?
 msgid "Toggle Su_bscript Property"
 msgstr "Mettre/Enlever indice"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Mettre/Enlever le texte sélectionné en indice"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Mettre/Enlever ex_posant"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Mettre/Enlever le texte sélectionné en exposant"
 
 msgid "Toggle _Monospace Property"
 msgstr "Mettre/Enlever la fonte _monospace"
@@ -2686,10 +2731,10 @@ msgstr "Afficher/Cacher les lignes entre le nœud parent et ses enfants"
 
 # where to place the underscore?
 msgid "Show/Hide Node Name _Header"
-msgstr "Afficher/Masquer la Barre de Titre"
+msgstr "Afficher/Masquer la barre de nom de nœud"
 
 msgid "Toggle Show/Hide Node Name Header"
-msgstr "Afficher/Masquer la Barre de nom du nœud"
+msgstr "Afficher/Masquer la barre de nom du nœud"
 
 msgid "Toggle _Focus Tree/Text"
 msgstr "Basculer le _focus entre l'arborescence et la zone de texte"
@@ -2708,6 +2753,26 @@ msgstr "_Diminuer la taille des icônes de la Barre d'Icônes"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Diminuer la taille des icônes de la Barre d'Outils"
+
+# à vérifier à l'usage
+# Où placer _ ?
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Nombre de derniers nœuds consultés dans la barre de nom de nœud"
+
+# à vérifier à l'usage
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Augmenter le nombre de nœuds consultés dans la barre de nom de nœud"
+
+# à vérifier à l'usage
+# Où placer _ ?
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Moins de derniers nœuds consultés dans dans la barre de nom de nœud"
+
+# à vérifier à l'usage
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"Réduire le nombre de derniers nœuds consultés dans dans la barre de nom de "
+"nœud"
 
 msgid "Full Screen _On/Off"
 msgstr "Plein écran (_Oui/Non)"
@@ -3288,9 +3353,6 @@ msgstr "Êtes-vous sûr de vouloir restaurer les valeurs par défaut ?"
 #~ msgstr ""
 #~ "Le fichier binaire '7za' est introuvable. Vérifiez que le paquet 'p7zip-"
 #~ "full' est correctement installé"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Mauvais Mot de Passe"
 
 # I am not sure. Type of what ?
 #~ msgid "Type To Search..."
