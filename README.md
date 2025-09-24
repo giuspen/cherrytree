@@ -57,7 +57,7 @@ The following languages are supported (if you want to help translate to your lan
 – Dutch (nl, TO BE UPDATED)
 – English (en, default)
 – Finnish (fi, TO BE UPDATED)
-– French (fr, Francis Gernet, TO BE UPDATED)
+– French (fr, Francis Gernet, up to date)
 – German (de, Mr.Update, up to date)
 – Greek (el, Asterios Siomos, TO BE UPDATED)
 – Hindi India (hi_IN, TO BE UPDATED)
