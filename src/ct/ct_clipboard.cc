@@ -728,7 +728,7 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
 // From Clipboard to HTML Text
 void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    Glib::ustring html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
+    std::string html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (html_content.empty()) {
         html_content = selection_data.get_data_as_string();
 #ifdef _WIN32

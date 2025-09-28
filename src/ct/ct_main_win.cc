@@ -57,7 +57,9 @@ CtMainWin::CtMainWin(bool                            no_gui,
  , _rGtkTextTagTable{rGtkTextTagTable}
  , _rGtkCssProvider{rGtkCssProvider}
  , _pGtkSourceLanguageManager{pGtkSourceLanguageManager}
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
  , _pCtStatusIcon{pCtStatusIcon}
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
  , _ctTextview{this}
  , _ctStateMachine{this}
 {
@@ -492,7 +494,8 @@ Gtk::Box& CtMainWin::_init_status_bar()
 
 Gtk::EventBox& CtMainWin::_init_window_header()
 {
-    _ctWinHeader.nameLabel.set_padding(10, 0);
+    _ctWinHeader.nameLabel.set_margin_start(10);
+    _ctWinHeader.nameLabel.set_margin_end(10);
     _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
     _ctWinHeader.lockIcon.set_from_icon_name("ct_locked", Gtk::ICON_SIZE_MENU);
     _ctWinHeader.lockIcon.hide();

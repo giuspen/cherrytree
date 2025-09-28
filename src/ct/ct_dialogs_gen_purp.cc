@@ -33,11 +33,10 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
     property_destroy_with_parent() = true;
     set_modal();
 
-    add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
-    add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-    set_default_response(Gtk::RESPONSE_OK);
+    (void)CtMiscUtil::dialog_add_button(this, _("Cancel"), Gtk::RESPONSE_CANCEL, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(this, _("OK"), Gtk::RESPONSE_OK, "ct_done", true/*isDefault*/);
 
-    _entry.set_icon_from_stock(Gtk::Stock::CLEAR, Gtk::ENTRY_ICON_SECONDARY);
+    _entry.set_icon_from_gicon(Gio::ThemedIcon::create("ct_clear"), Gtk::ENTRY_ICON_SECONDARY);
     _entry.set_size_request(350, -1);
     if (forPassword) {
         _entry.set_visibility(false);
@@ -82,9 +81,10 @@ Gtk::TreeModel::iterator CtDialogs::choose_item_dialog(Gtk::Window& parent,
                        parent,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(parent);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     int use_width, use_height;
     if (use_size.has_value()) {
@@ -147,9 +147,10 @@ Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
     Gtk::Dialog dialog{title,
                        parent,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(300, -1);
     Gtk::Image image;
@@ -180,9 +181,10 @@ std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
                        parent,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(parent);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
 
     std::tm struct_time = *std::localtime(&curr_time);
@@ -520,8 +522,10 @@ std::string CtDialogs::folder_save_as_dialog(Gtk::Window* pParentWin, const CtFi
     auto chooser = Gtk::FileChooserNative::create(_("Save To Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
 #else
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save To Folder"), Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
+
+(void)CtMiscUtil::dialog_add_button(chooser.get(), _("Cancel"), Gtk::RESPONSE_CANCEL, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(chooser.get(), _("Save"), Gtk::RESPONSE_ACCEPT, "ct_save-as");
+
     chooser->property_destroy_with_parent() = true;
 #endif
     //chooser->set_do_overwrite_confirmation(true); unfortunately works only with Gtk::FILE_CHOOSER_ACTION_SAVE

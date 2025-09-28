@@ -36,13 +36,10 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                    Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     s_state.searchfinddialog.reset(pDialog);
 
-    Gtk::Button* button_cancel = pDialog->add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    Gtk::Button* button_ok = pDialog->add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    Gtk::Button* button_cancel = CtMiscUtil::dialog_add_button(pDialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    Gtk::Button* button_ok = CtMiscUtil::dialog_add_button(pDialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     pDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
-    button_cancel->set_always_show_image(true);
-    button_ok->set_always_show_image(true);
-    button_cancel->grab_focus();
-    button_ok->grab_default();
     pDialog->set_default_size(400, -1);
 
     auto search_entry = Gtk::manage(new Gtk::Entry{});
@@ -369,8 +366,9 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    Gtk::Button* button_ok = CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(300, -1);
     Gtk::Label message_label{message};

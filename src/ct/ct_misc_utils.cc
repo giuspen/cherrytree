@@ -232,6 +232,17 @@ void CtMiscUtil::set_widget_margins(Gtk::Widget& widget, int top, int bottom, in
     if (right >= 0) widget.set_margin_right(right);
 }
 
+Gtk::Button* CtMiscUtil::dialog_add_button(Gtk::Dialog* pDialog, const char* text, Gtk::ResponseType responseType, const char* stockId, const bool isDefault/*= false*/)
+{
+    Gtk::Button* retButton = pDialog->add_button(text, responseType);
+    retButton->set_image_from_icon_name(stockId);
+    retButton->set_always_show_image(true);
+    if (isDefault) {
+        retButton->grab_default();
+    }
+    return retButton;
+}
+
 CtLinkEntry CtMiscUtil::get_link_entry_from_property(const Glib::ustring& link)
 {
     CtLinkEntry link_entry{};

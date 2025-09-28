@@ -83,7 +83,7 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
     get_content_area()->pack_start(*pNotebook);
     get_content_area()->show_all();
 
-    add_button(Gtk::Stock::CLOSE, 1);
+    (void)CtMiscUtil::dialog_add_button(this, _("OK"), (Gtk::ResponseType)1, "ct_close");
 }
 
 Gtk::Frame* CtPrefDlg::new_managed_frame_with_align(const Glib::ustring& frameLabel, Gtk::Widget* pFrameChild)

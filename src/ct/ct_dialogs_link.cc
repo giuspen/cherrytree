@@ -37,9 +37,10 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::Dialog dialog{title,
                        ctMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(700, 500);
 

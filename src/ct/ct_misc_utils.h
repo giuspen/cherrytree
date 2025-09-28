@@ -25,8 +25,7 @@
 
 #include "ct_types.h"
 #include "ct_logging.h"
-#include <gtkmm/treeiter.h>
-#include <gtkmm/treestore.h>
+#include <gtkmm.h>
 #include <gtksourceview/gtksource.h>
 
 class CtConfig;
@@ -101,6 +100,7 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 Gtk::BuiltinIconSize getIconSize(int size);
 
 void set_widget_margins(Gtk::Widget& widget, int top, int bottom, int left, int right);
+Gtk::Button* dialog_add_button(Gtk::Dialog* pDialog, const char* text, Gtk::ResponseType response, const char* stock_id, const bool isDefault = false);
 
 CtLinkEntry get_link_entry_from_property(const Glib::ustring& link);
 Glib::ustring get_link_property_from_entry(const CtLinkEntry& link_entry);

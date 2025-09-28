@@ -33,8 +33,10 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     Gtk::Dialog dialog(_("Handle the Bookmarks List"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done");
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(500, 400);
 
@@ -210,8 +212,10 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
     Gtk::Dialog dialog{_("Choose Storage Type"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    Gtk::Button* pButtonOk = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+
+    Gtk::Button* pButtonCancel = CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    Gtk::Button* pButtonOk = CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done");
+
     dialog.set_default_size(350, -1);
     dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 
@@ -394,11 +398,11 @@ CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    Gtk::Button* pButtonDiscard = dialog.add_button(Gtk::Stock::DISCARD, Gtk::RESPONSE_NO);
-    pButtonDiscard->set_image(*ct_main_win.new_managed_image_from_stock("ct_clear", Gtk::ICON_SIZE_BUTTON));
-    Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-    Gtk::Button* pButtonSave = dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_YES);
-    dialog.set_default_response(Gtk::RESPONSE_YES);
+
+    Gtk::Button* pButtonDiscard = CtMiscUtil::dialog_add_button(&dialog, _("Discard"), Gtk::RESPONSE_NO, "ct_clear");
+    Gtk::Button* pButtonCancel = CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_CANCEL, "ct_cancel");
+    Gtk::Button* pButtonSave = CtMiscUtil::dialog_add_button(&dialog, _("Save"), Gtk::RESPONSE_YES, "ct_save", true/*isDefault*/);
+
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Image image;
@@ -443,9 +447,10 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-    Gtk::Button* pButtonExecute = dialog.add_button(Gtk::Stock::EXECUTE, Gtk::RESPONSE_YES);
-    dialog.set_default_response(Gtk::RESPONSE_YES);
+
+Gtk::Button* pButtonCancel = CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_CANCEL, "ct_cancel");
+    Gtk::Button* pButtonExecute = CtMiscUtil::dialog_add_button(&dialog, _("Execute"), Gtk::RESPONSE_YES, "ct_execute", true/*isDefault*/);
+
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Image image;
@@ -593,7 +598,9 @@ void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& 
     Gtk::Dialog dialog = Gtk::Dialog{_("Tree Summary Information"),
                                      *pCtMainWin,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done");
+
     dialog.set_default_size(400, 300);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Grid grid;

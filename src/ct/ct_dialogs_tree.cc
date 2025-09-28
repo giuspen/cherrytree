@@ -34,9 +34,10 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     Gtk::Dialog dialog = Gtk::Dialog{title,
                                      *pCtMainWin,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_default_size(300, -1);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     auto name_entry = Gtk::manage(new Gtk::Entry);
@@ -332,8 +333,10 @@ Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done");
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(600, 500);
     Gtk::TreeView treeview_2{pCtTreeStore->get_store()};
@@ -422,9 +425,10 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                        parent,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(parent);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
 
     auto radiobutton_selection = Gtk::RadioButton{_("Selected Text Only")};

@@ -39,9 +39,10 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
     Gtk::Dialog dialog{_("Latex Text"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(400, 250);
     Gtk::Box* pContentArea = dialog.get_content_area();
@@ -247,9 +248,10 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     Gtk::Dialog dialog{_("Image Properties"),
                        parent_win,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(600, 500);
     Gtk::Button button_rotate_90_ccw;
@@ -406,8 +408,10 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done");
+
     dialog.set_default_size(300, -1);
     dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 
@@ -585,9 +589,10 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(*pCtMainWin);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(300, -1);
 
