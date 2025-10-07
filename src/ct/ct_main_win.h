@@ -262,10 +262,12 @@ private:
 
     void _on_textview_populate_popup(Gtk::Menu* menu);
     bool _on_textview_motion_notify_event(GdkEventMotion* event);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_textview_visibility_notify_event(GdkEventVisibility* event);
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     void _on_textview_size_allocate(Gtk::Allocation& allocation);
-    bool _on_textview_event(GdkEvent* event); // pygtk: on_sourceview_event
-    void _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
+    bool _on_textview_event(GdkEvent* event);
+    void _on_textview_event_after(GdkEvent* event);
     bool _on_textview_scroll_event(GdkEventScroll* event);
 
     void _reset_CtTreestore_CtTreeview();

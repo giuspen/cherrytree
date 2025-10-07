@@ -140,7 +140,9 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
     textView.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     textView.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_visibility_notify_event));
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     textView.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
     textView.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
     textView.signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_scroll_event));

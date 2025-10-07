@@ -352,6 +352,7 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
     return false;
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 // Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)
 bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
 {
@@ -371,6 +372,7 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
     _ctTextview.cursor_and_tooltips_handler(bx, by);
     return false;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/)
 {

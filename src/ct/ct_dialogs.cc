@@ -399,7 +399,7 @@ CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
 
-    Gtk::Button* pButtonDiscard = CtMiscUtil::dialog_add_button(&dialog, _("Discard"), Gtk::RESPONSE_NO, "ct_clear");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Discard"), Gtk::RESPONSE_NO, "ct_clear");
     Gtk::Button* pButtonCancel = CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_CANCEL, "ct_cancel");
     Gtk::Button* pButtonSave = CtMiscUtil::dialog_add_button(&dialog, _("Save"), Gtk::RESPONSE_YES, "ct_save", true/*isDefault*/);
 
