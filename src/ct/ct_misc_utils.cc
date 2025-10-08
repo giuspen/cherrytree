@@ -1347,11 +1347,20 @@ guint32 CtRgbUtil::get_rgb24int_from_rgb24str(const char* rgb24Str)
 
 char* CtRgbUtil::set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24StrOut)
 {
+    if (g_str_has_prefix(rgbStrAny, "rgb")) {
+        Gdk::RGBA rgba{rgbStrAny};
+        guint16 r = rgba.get_red_u();
+        guint16 g = rgba.get_green_u();
+        guint16 b = rgba.get_blue_u();
+        r >>= 8;
+        g >>= 8;
+        b >>= 8;
+        sprintf(rgb24StrOut, "#%.2x%.2x%.2x", r, g, b);
+        return rgb24StrOut;
+    }
     const char* scanStart = g_str_has_prefix(rgbStrAny, "#") ? rgbStrAny + 1 : rgbStrAny;
-    switch(strlen(scanStart))
-    {
-        case 12:
-        {
+    switch (strlen(scanStart)) {
+        case 12: {
             guint16 r = (guint16)CtStrUtil::guint32_from_hex_chars(scanStart, 4);
             guint16 g = (guint16)CtStrUtil::guint32_from_hex_chars(scanStart+4, 4);
             guint16 b = (guint16)CtStrUtil::guint32_from_hex_chars(scanStart+8, 4);
@@ -1359,14 +1368,13 @@ char* CtRgbUtil::set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24Str
             g >>= 8;
             b >>= 8;
             sprintf(rgb24StrOut, "#%.2x%.2x%.2x", r, g, b);
-        }
-        break;
-        case 6:
+        } break;
+        case 6: {
             sprintf(rgb24StrOut, "#%s", scanStart);
-        break;
-        case 3:
+        } break;
+        case 3: {
             sprintf(rgb24StrOut, "#%c%c%c%c%c%c", scanStart[0], scanStart[0], scanStart[1], scanStart[1], scanStart[2], scanStart[2]);
-        break;
+        } break;
         default:
             spdlog::error("!! set_rgb24str_from_str_any {}", rgbStrAny);
             sprintf(rgb24StrOut, "#");

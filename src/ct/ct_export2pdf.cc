@@ -103,11 +103,27 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gtk::TextB
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
     bool span_opened{false};
     bool is_indentation{true};
-    while (true) {
-        auto curr_tags = curr_iter.get_tags();
-        if (not curr_tags.empty()) {
-            Glib::ustring curr_tag_str = curr_tags[0]->property_foreground_rgba().get_value().to_string();
-            int font_weight = curr_tags[0]->property_weight();
+    for (;;) {
+        std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = curr_iter.get_tags();
+        if (curr_tags.size() > 0) {
+            Glib::ustring curr_tag_str{CtConst::COLOR_48_BLACK};
+            int font_weight = curr_tags[0]->property_weight().get_value();
+            for (Glib::RefPtr<Gtk::TextTag>& curr_tag : curr_tags) {
+                if (curr_tag->property_foreground_set()) {
+                    Glib::ustring tmpTagStr = curr_tag->property_foreground_rgba().get_value().to_string();
+                    if (tmpTagStr != curr_tag_str) {
+                        curr_tag_str = tmpTagStr;
+                        font_weight = curr_tag->property_weight().get_value();
+                        break;
+                    }
+#if 0
+                    spdlog::debug("{} TAG FG={} BG={} WEIGHT={}", curr_iter.get_offset(),
+                        curr_tag->property_foreground_rgba().get_value().to_string().c_str(),
+                        curr_tag->property_background_rgba().get_value().to_string().c_str(),
+                        curr_tag->property_weight().get_value());
+#endif
+                }
+            }
             if (curr_tag_str == CtConst::COLOR_48_BLACK) {
                 if (former_tag_str != curr_tag_str) {
                     former_tag_str = curr_tag_str;
@@ -121,8 +137,9 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gtk::TextB
                     former_tag_str = curr_tag_str;
                     if (span_opened) pango_text += "</span>";
                     // start of tag
-                    Glib::ustring color = CtRgbUtil::get_rgb24str_from_str_any(CtRgbUtil::rgb_to_no_white(curr_tag_str));
-                    pango_text += "<span foreground=\"" + curr_tag_str + "\" font_weight=\"" + std::to_string(font_weight) + "\">";
+                    Glib::ustring color = CtRgbUtil::rgb_to_no_white(curr_tag_str);
+                    color = CtRgbUtil::get_rgb24str_from_str_any(color);
+                    pango_text += "<span foreground=\"" + color + "\" font_weight=\"" + std::to_string(font_weight) + "\">";
                     span_opened = true;
                 }
             }

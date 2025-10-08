@@ -313,6 +313,7 @@ TEST(MiscUtilsGroup, set_rgb24str_from_str_any)
     ASSERT_STREQ("#ffaabb", CtRgbUtil::set_rgb24str_from_str_any("#fab", rgb24Str));
     ASSERT_STREQ("#123456", CtRgbUtil::set_rgb24str_from_str_any("#122334455667", rgb24Str));
     ASSERT_STREQ("#123456", CtRgbUtil::set_rgb24str_from_str_any("122334455667", rgb24Str));
+    ASSERT_STREQ("#452acb", CtRgbUtil::set_rgb24str_from_str_any("rgb(69,42,203)", rgb24Str));
 }
 
 TEST(MiscUtilsGroup, get_rgb24int_from_str_any)

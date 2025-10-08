@@ -490,18 +490,20 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gtk::
             Glib::ustring curr_tag_str{CtConst::COLOR_48_BLACK};
             int font_weight = curr_tags[0]->property_weight().get_value();
             for (auto& curr_tag : curr_tags) {
-                Glib::ustring tmpTagStr = curr_tag->property_foreground_rgba().get_value().to_string();
-                if (tmpTagStr != curr_tag_str) {
-                    curr_tag_str = tmpTagStr;
-                    font_weight = curr_tag->property_weight().get_value();
-                    break;
-                }
+                if (curr_tag->property_foreground_set()) {
+                    Glib::ustring tmpTagStr = curr_tag->property_foreground_rgba().get_value().to_string();
+                    if (tmpTagStr != curr_tag_str) {
+                        curr_tag_str = tmpTagStr;
+                        font_weight = curr_tag->property_weight().get_value();
+                        break;
+                    }
 #if 0
-                spdlog::debug("{} TAG FG={} BG={} WEIGHT={}", curr_iter.get_offset(),
-                    curr_tag->property_foreground_rgba().get_value().to_string().c_str(),
-                    curr_tag->property_background_rgba().get_value().to_string().c_str(),
-                    curr_tag->property_weight().get_value());
+                    spdlog::debug("{} TAG FG={} BG={} WEIGHT={}", curr_iter.get_offset(),
+                        curr_tag->property_foreground_rgba().get_value().to_string().c_str(),
+                        curr_tag->property_background_rgba().get_value().to_string().c_str(),
+                        curr_tag->property_weight().get_value());
 #endif
+                }
             }
             if (curr_tag_str == CtConst::COLOR_48_BLACK) {
                 if (former_tag_str != curr_tag_str) {
