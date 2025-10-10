@@ -191,7 +191,9 @@ void CtApp::on_activate()
             else {
                 // all windows are hidden, show them
                 // also it fixes an issue with a missing systray
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
                 systray_show_hide_windows();
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
             }
         }
     }
@@ -318,9 +320,11 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
         win->force_exit() = true;
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     pCtMainWin->signal_app_show_hide_main_win.connect([&]() {
         systray_show_hide_windows();
     });
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     pCtMainWin->signal_app_tree_node_copy.connect([this, pCtMainWin]() {
         _pWinToCopyFrom = pCtMainWin;
         _nodeIdToCopyFrom = pCtMainWin->curr_tree_iter().get_node_id();

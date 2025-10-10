@@ -205,7 +205,7 @@ void CtMDParser::_place_free_text()
     }
 }
 
-void CtMDParser::feed(const std::string& buffer)
+void CtMDParser::feed(const Glib::ustring& buffer)
 {
     try {
         auto tokens_raw = _text_parser->tokenize(buffer);
@@ -244,7 +244,7 @@ void CtMDParser::feed(const std::string& buffer)
         _place_free_text();
     }
     catch (std::exception& e) {
-        spdlog::error("Exception while parsing '{}': {}", buffer, e.what());
+        spdlog::error("Exception while parsing '{}': {}", buffer.c_str(), e.what());
     }
 }
 

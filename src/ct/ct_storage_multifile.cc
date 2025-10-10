@@ -182,7 +182,7 @@ bool CtStorageMultiFile::save_treestore(const fs::path& dir_path,
                         const fs::path filename = filepath.filename();
                         if (filename != NODE_XML and
                             filename != SUBNODES_LST and
-                            not CtStrUtil::is_256sum(filename.stem().c_str()) and
+                            not CtStrUtil::is_256sum(filename.stem()) and
                             embFiles_referenced.end() == std::find(embFiles_referenced.begin(), embFiles_referenced.end(), filepath))
                         {
                             spdlog::debug("-- rm {} as not referenced", filepath.c_str());
@@ -373,7 +373,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                 if (fs::is_regular_file(file_from)) {
                     const fs::path name_from = file_from.filename();
                     const bool do_move = _pCtConfig->embfileMFNameOnDisk ?
-                        (name_from == NODE_XML or CtStrUtil::is_256sum(name_from.stem().c_str())) : (name_from != SUBNODES_LST);
+                        (name_from == NODE_XML or CtStrUtil::is_256sum(name_from.stem())) : (name_from != SUBNODES_LST);
                     if (do_move) {
                         const fs::path file_to = dir_before_save / name_from;
                         fs::move_file(file_from, file_to);

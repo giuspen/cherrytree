@@ -1,7 +1,7 @@
 /*
  * ct_parser.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -474,7 +474,7 @@ std::vector<CtMempadParser::page> parse_mempad_strings(const std::vector<std::st
 
 } // namespace (anonymous)
 
-void CtMempadParser::feed(const std::string& data)
+void CtMempadParser::feed(const Glib::ustring& data)
 {
     /**
      * The mempad data format is pretty simple:
@@ -502,9 +502,9 @@ void CtMempadParser::feed(const std::string& data)
     _parsed_pages.insert(_parsed_pages.cend(), new_pages.begin(), new_pages.end());
 }
 
-void CtIndentedListParser::feed(const std::string& data)
+void CtIndentedListParser::feed(const Glib::ustring& data)
 {
-    std::vector<std::string> list_rows = str::split(str::replace(data, CtConst::CHAR_CR, ""), "\n");
+    std::vector<std::string> list_rows = str::split(str::replace(data.raw(), CtConst::CHAR_CR, ""), "\n");
     int max_lvl{0};
     for (const auto& row : list_rows) {
         int page_lvl{1};
@@ -534,7 +534,7 @@ void CtIndentedListParser::feed(const std::string& data)
     }
 }
 
-void CtTreepadParser::feed(const std::string& data)
+void CtTreepadParser::feed(const Glib::ustring& data)
 {
     Glib::RefPtr<Glib::Regex> rRegExpInteger = Glib::Regex::create("\\d+");
     for (auto& lineStr : str::split(data, "\n")) {
@@ -582,7 +582,7 @@ CtZimParser::CtZimParser(CtConfig* config)
  , _text_parser{std::make_shared<CtTextParser>(_token_schemas())}
 {}
 
-void CtZimParser::feed(const std::string& data)
+void CtZimParser::feed(const Glib::ustring& data)
 {
     bool found_header{false};
     try {
@@ -885,7 +885,7 @@ std::vector<CtLeoParser::leo_node> walk_leo_xml(const xmlpp::Node& root)
 
 } // namespace (anonymous)
 
-void CtLeoParser::feed(const std::string& in)
+void CtLeoParser::feed(const Glib::ustring& in)
 {
     xmlpp::DomParser p;
     p.parse_memory(in);

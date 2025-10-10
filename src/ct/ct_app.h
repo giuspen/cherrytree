@@ -42,7 +42,9 @@ protected:
 public:
     static Glib::RefPtr<CtApp> create(const Glib::ustring application_id_postfix = Glib::ustring{});
     void                       close_all_windows(const bool fromKillCallback);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     void                       systray_show_hide_windows();
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 protected:
     CtConfig* const _pCtConfig;

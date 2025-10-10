@@ -184,7 +184,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         _remove_command_from_model(treeview, liststore);
     });
     auto button_remove_test_sensitive = [button_remove, treeview](){
-        button_remove->set_sensitive(treeview->get_selection()->get_selected());
+        button_remove->set_sensitive(treeview->get_selection()->count_selected_rows() > 0);
     };
     treeview->signal_cursor_changed().connect(button_remove_test_sensitive);
     button_remove_test_sensitive();

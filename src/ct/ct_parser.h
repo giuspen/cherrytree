@@ -54,7 +54,7 @@ public:
 class CtParserInterface
 {
 public:
-    virtual void feed(const std::string&) = 0;
+    virtual void feed(const Glib::ustring&) = 0;
     virtual ~CtParserInterface() = default;
 };
 
@@ -221,7 +221,7 @@ public:
     explicit CtMDParser(CtConfig* config);
     CtMDParser(CtConfig* config, std::shared_ptr<CtTextParser> parser) : CtDocBuildingParser{config} , _text_parser{std::move(parser)}{}
 
-    void feed(const std::string& stream) override;
+    void feed(const Glib::ustring& stream) override;
 
     virtual ~CtMDParser() = default;
 
@@ -311,7 +311,7 @@ public:
     CtHtmlParser() = default;
     virtual ~CtHtmlParser() = default;
 
-    virtual void feed(const std::string& html);
+    virtual void feed(const Glib::ustring& html);
 
     virtual void handle_starttag(std::string_view tag, const char** atts) = 0;
     virtual void handle_endtag(std::string_view tag) = 0;
@@ -349,7 +349,7 @@ public:
 
 public:
     // virtuals of CtHtmlParser
-    void feed(const std::string& html) override;
+    void feed(const Glib::ustring& html) override;
     void handle_starttag(std::string_view tag, const char** atts) override;
     void handle_endtag(std::string_view tag) override;
     void handle_data(const std::string& text) override;
@@ -459,7 +459,7 @@ public:
         std::string contents;
     };
 
-    void feed(const std::string& data) override;
+    void feed(const Glib::ustring& data) override;
 
     const std::vector<page>& parsed_pages() const { return _parsed_pages; }
 
@@ -470,7 +470,7 @@ private:
 class CtIndentedListParser : public CtParserInterface
 {
 public:
-    void feed(const std::string& data) override;
+    void feed(const Glib::ustring& data) override;
     const std::vector<CtMempadParser::page>& parsed_pages() const { return _parsed_pages; }
 
 private:
@@ -480,7 +480,7 @@ private:
 class CtTreepadParser : public CtParserInterface
 {
 public:
-    void feed(const std::string& data) override;
+    void feed(const Glib::ustring& data) override;
     const std::vector<CtMempadParser::page>& parsed_pages() const { return _parsed_pages; }
 
 private:
@@ -499,7 +499,7 @@ class CtZimParser : public CtDocBuildingParser
 public:
     explicit CtZimParser(CtConfig* config);
 
-    void feed(const std::string& in) override;
+    void feed(const Glib::ustring& in) override;
 
 private:
     std::vector<CtTextParser::token_schema> _token_schemas();
@@ -519,7 +519,7 @@ public:
         std::vector<leo_node> children;
     };
 
-    void feed(const std::string& in) override;
+    void feed(const Glib::ustring& in) override;
 
     const std::vector<leo_node>& nodes() const { return _leo_nodes; }
 
@@ -538,7 +538,7 @@ public:
     using node = ct_basic_node;
     explicit CtRedNotebookParser(CtConfig* config) : _ct_config{config} {}
 
-    void feed(const std::string& in) override;
+    void feed(const Glib::ustring& in) override;
 
     const std::vector<node>& nodes() const { return _nodes; }
 
@@ -561,7 +561,7 @@ public:
     using node = ct_basic_node;
     explicit CtNoteCaseHTMLParser(CtConfig* config) : _ct_config{config} {}
 
-    void feed(const std::string& input) override;
+    void feed(const Glib::ustring& input) override;
 
     const std::vector<node>& nodes() const { return _nodes; }
 

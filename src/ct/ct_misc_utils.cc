@@ -953,9 +953,9 @@ int CtStrUtil::is_header_anchor_name(const Glib::ustring& anchorName)
     return 0;
 }
 
-bool CtStrUtil::is_256sum(const char* in_string)
+bool CtStrUtil::is_256sum(const Glib::ustring& in_string)
 {
-    if (64 == strlen(in_string)) {
+    if (64 == in_string.size()) {
         static Glib::RefPtr<Glib::Regex> pRegExp256sum = Glib::Regex::create("^[0-9a-f]+$");
         return pRegExp256sum->match(in_string);
     }

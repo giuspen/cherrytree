@@ -95,7 +95,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
         apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
     });
     auto button_remove_test_sensitive = [button_remove, treeview](){
-        button_remove->set_sensitive(treeview->get_selection()->get_selected());
+        button_remove->set_sensitive(treeview->get_selection()->count_selected_rows() > 0);
     };
     treeview->signal_cursor_changed().connect(button_remove_test_sensitive);
     button_remove_test_sensitive();

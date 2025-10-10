@@ -63,7 +63,7 @@ std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, Ct
 
 } // namespace (anonymous)
 
-void CtHtmlParser::feed(const std::string& html)
+void CtHtmlParser::feed(const Glib::ustring& html)
 {
     struct HelperFunction {
         static void start_element(void* ctx, const xmlChar* name, const xmlChar** atts) {
@@ -146,7 +146,7 @@ CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _pCtConfig{config}
 {
 }
 
-void CtHtml2Xml::feed(const std::string& html)
+void CtHtml2Xml::feed(const Glib::ustring& html)
 {
     _xml_doc = _outter_doc ? _outter_doc : &_temp_doc;
 
@@ -739,7 +739,7 @@ void CtHtml2Xml::_rich_text_save_pending()
 }
 
 
-void CtRedNotebookParser::feed(const std::string& in)
+void CtRedNotebookParser::feed(const Glib::ustring& in)
 {
     _feed_str(in);
 }
@@ -765,7 +765,7 @@ void CtRedNotebookParser::_add_node(std::string&& name, const std::string& conte
     _nodes.emplace_back(std::move(new_node));
 }
 
-void CtNoteCaseHTMLParser::feed(const std::string& input)
+void CtNoteCaseHTMLParser::feed(const Glib::ustring& input)
 {
     _feed_str(input);
 }
