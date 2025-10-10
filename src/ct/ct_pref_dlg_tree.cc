@@ -97,7 +97,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     Gtk::Frame* frame_misc_tree = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_tree);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_nodes_icons, false, false);
     pMainBox->pack_start(*frame_nodes_startup, false, false);

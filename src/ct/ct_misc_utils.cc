@@ -228,8 +228,8 @@ void CtMiscUtil::set_widget_margins(Gtk::Widget& widget, int top, int bottom, in
 {
     if (top >= 0) widget.set_margin_top(top);
     if (bottom >= 0) widget.set_margin_bottom(bottom);
-    if (left >= 0) widget.set_margin_left(left);
-    if (right >= 0) widget.set_margin_right(right);
+    if (left >= 0) widget.set_margin_start(left);
+    if (right >= 0) widget.set_margin_end(right);
 }
 
 Gtk::Button* CtMiscUtil::dialog_add_button(Gtk::Dialog* pDialog, const char* text, Gtk::ResponseType responseType, const char* stockId, const bool isDefault/*= false*/)

@@ -119,7 +119,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::Frame* frame_codexec = new_managed_frame_with_align(_("Code Execution"), vbox_codexec);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, true);

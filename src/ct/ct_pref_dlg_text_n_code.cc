@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_text_n_code.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -166,7 +166,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Frame* frame_misc_all = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_all);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_text_editor, false, false);
     pMainBox->pack_start(*frame_misc_all, false, false);

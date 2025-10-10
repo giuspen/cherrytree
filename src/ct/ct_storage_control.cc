@@ -447,10 +447,12 @@ fs::path CtStorageControl::get_embedded_filepath(const CtTreeIter& ct_tree_iter,
     while (true) {
         if (password.empty()) {
             CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, pCtMainWin);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             auto on_scope_exit = scope_guard([pCtMainWin](void*) {
                 pCtMainWin->set_systray_can_hide(true);
             });
             pCtMainWin->set_systray_can_hide(false);
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
             if (Gtk::RESPONSE_OK != dialogTextEntry.run()) {
                 // no password, user cancels operation, return empty path
                 return fs::path{};

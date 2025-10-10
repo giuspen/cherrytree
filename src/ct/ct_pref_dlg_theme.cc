@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_theme.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -449,7 +449,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Frame* frame_icon_theme = new_managed_frame_with_align(_("Icon Theme"), pVBoxIconTheme);
 
     auto pVBoxMain = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-    pVBoxMain->set_margin_left(6);
+    pVBoxMain->set_margin_start(6);
     pVBoxMain->set_margin_top(6);
     pVBoxMain->pack_start(*frame_tt_theme, false, false);
     pVBoxMain->pack_start(*frame_style_schemes, false, false);

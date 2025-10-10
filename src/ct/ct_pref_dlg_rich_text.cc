@@ -126,7 +126,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::Frame* frame_misc_text = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_text);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_spell_check, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
@@ -217,7 +217,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 Gtk::Widget* CtPrefDlg::build_tab_format()
 {
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
 
     auto pNotebookScalable = Gtk::manage(new Gtk::Notebook{});
@@ -237,7 +237,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         CtScalableTag* pScalableCfg = _pConfig->scalablesTags.at(i);
         const Glib::ustring* pScalableTagId = &scalablesTagId.at(i);
         auto vboxTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-        vboxTab->set_margin_left(6);
+        vboxTab->set_margin_start(6);
         vboxTab->set_margin_top(6);
 
         Gtk::Image* pImageBold = _pCtMainWin->new_managed_image_from_stock("ct_fmt-txt-bold", Gtk::ICON_SIZE_MENU);

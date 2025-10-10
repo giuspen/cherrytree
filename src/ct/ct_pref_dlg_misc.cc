@@ -104,6 +104,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     auto vbox_system_tray = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto checkbutton_systray = Gtk::manage(new Gtk::CheckButton{_("Enable System Tray Docking")});
     auto checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton{_("Start Minimized in the System Tray")});
@@ -115,6 +116,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_systray->set_active(_pConfig->systrayOn);
     checkbutton_start_on_systray->set_active(_pConfig->startOnSystray);
     checkbutton_start_on_systray->set_sensitive(_pConfig->systrayOn);
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 #ifdef HAVE_NLS
     auto f_getButtonLabel = [this](const std::string langCode)->Glib::ustring{
@@ -130,7 +132,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     button_country_language->set_image(*_pCtMainWin->new_managed_image_from_stock(f_getStockId(currLangId), Gtk::ICON_SIZE_MENU));
     button_country_language->set_always_show_image(true);
     Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), button_country_language);
-#endif
+#endif /* HAVE_NLS */
 
     auto hbox_proxy_url_port = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
     auto hbox_proxy_user_passwd = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
@@ -196,14 +198,16 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::Frame* frame_proxy = new_managed_frame_with_align(_("Proxy"), vbox_proxy);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_saving, false, false);
     pMainBox->pack_start(*frame_misc_misc, false, false);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     pMainBox->pack_start(*frame_system_tray, false, false);
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 #ifdef HAVE_NLS
     pMainBox->pack_start(*frame_language, false, false);
-#endif
+#endif /* HAVE_NLS */
     pMainBox->pack_start(*frame_proxy, false, false);
 
     checkbutton_autosave->signal_toggled().connect([this, checkbutton_autosave, spinbutton_autosave](){
@@ -267,6 +271,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         _pConfig->checkVersion = checkbutton_newer_version->get_active();
     });
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     // cannot just turn on systray icon, we have to check if systray exists
     checkbutton_systray->signal_toggled().connect([this, checkbutton_systray, checkbutton_start_on_systray](){
         if (checkbutton_systray->get_active()) {
@@ -296,6 +301,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_start_on_systray->signal_toggled().connect([this, checkbutton_start_on_systray](){
         _pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
     });
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 #ifdef HAVE_NLS
     button_country_language->signal_clicked().connect([this, button_country_language, f_getStockId, f_getButtonLabel](){
@@ -334,7 +340,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
                                 selLangId.c_str(), (gssize)selLangId.bytes(), nullptr);
         }
     });
-#endif
+#endif /* HAVE_NLS */
 
     return pMainBox;
 }

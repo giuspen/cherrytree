@@ -117,7 +117,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Frame* frame_editor = new_managed_frame_with_align(_("Text Editor"), vbox_editor);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_editor, false, false);
 

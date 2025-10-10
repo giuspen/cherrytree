@@ -254,7 +254,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
 
     auto hbox_find_all_max_in_page = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_find_all_max_in_page = Gtk::manage(new Gtk::Label{_("Max Search Results per Page")});
-    label_find_all_max_in_page->set_margin_left(2);
+    label_find_all_max_in_page->set_margin_start(2);
     Glib::RefPtr<Gtk::Adjustment> adjustment_find_all_max_in_page = Gtk::Adjustment::create(_pConfig->maxMatchesInPage, 0, 100000, 1);
     auto spinbutton_find_all_max_in_page = Gtk::manage(new Gtk::SpinButton{adjustment_find_all_max_in_page});
     hbox_find_all_max_in_page->pack_start(*label_find_all_max_in_page, false, false);
@@ -275,7 +275,7 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
     pMainBox->pack_start(*frame_misc, false, false);
@@ -501,7 +501,7 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     Gtk::Frame* frame_links_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_links_misc);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_links_actions, false, false);
     pMainBox->pack_start(*frame_links_colors, false, false);
