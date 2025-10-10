@@ -1,7 +1,7 @@
 /*
  * ct_main_win_vte.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -154,7 +154,7 @@ void CtMainWin::restart_vte(const char* first_cmd_passed)
 
     _pVte->signal_button_press_event().connect([this](GdkEventButton* event){
         if (3 == event->button) {
-            get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Terminal)->popup(event->button, event->time);
+            get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Terminal)->popup_at_pointer((GdkEvent*)event);
             return true; // do not propagate the event
         }
         return false; // propagate the event

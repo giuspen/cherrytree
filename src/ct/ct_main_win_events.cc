@@ -96,7 +96,7 @@ void CtMainWin::_on_treeview_cursor_changed()
 bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
 {
     if (event->button == 3) {
-        _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
+        _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup_at_pointer((GdkEvent*)event);
         return true;
     }
     return false;
@@ -251,7 +251,8 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
             return true;
         }
         if (GDK_KEY_Menu == event->keyval) {
-            _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, event->time);
+            auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node);
+            pMenu->popup_at_widget(_uCtTreeview.get(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
             return true;
         }
         if (GDK_KEY_Tab == event->keyval or GDK_KEY_ISO_Left_Tab == event->keyval) {
@@ -276,7 +277,11 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 
 bool CtMainWin::_on_treeview_popup_menu()
 {
-    _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
+    auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node);
+    g_autoptr(GdkEvent) pEvent = gtk_get_current_event();
+    if (pEvent) {
+        pMenu->popup_at_pointer(pEvent);
+    }
     return true;
 }
 
@@ -453,13 +458,15 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front())) {
                 _uCtActions->curr_anchor_anchor = anchor;
                 _uCtActions->object_set_selection(anchor);
-                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
+                auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor);
+                pMenu->popup_at_widget(&_ctTextview.mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
                 _uCtActions->curr_image_anchor = image;
                 _uCtActions->object_set_selection(image);
                 _uCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
-                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
+                auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image);
+                pMenu->popup_at_widget(&_ctTextview.mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
             }
             return true;
         }
