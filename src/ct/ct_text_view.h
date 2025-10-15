@@ -110,7 +110,6 @@ private:
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _set_highlight_current_line_enabled(const bool enabled);
 
-    bool _on_drag_motion(const Glib::RefPtr<Gdk::DragContext>& pContext, int x, int y, guint time);
     bool _on_drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int, int, guint time);
     void _on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
                                 int x,

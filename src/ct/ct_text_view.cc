@@ -101,7 +101,6 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     std::vector<Gtk::TargetEntry> list_targets;
     list_targets.push_back(Gtk::TargetEntry(CtConst::TARGET_URI_LIST));
     _pTextView->drag_dest_set(list_targets);
-    _pTextView->signal_drag_motion().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_motion));
     _pTextView->signal_drag_drop().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_drop), false); // 'false' ensures we run before default handlers
     _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received));
     _columnEdit.register_on_off_callback([this](const bool col_edit_on){
@@ -1161,44 +1160,4 @@ void CtTextView::_on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pC
         success = true;
     }
     pContext->drag_finish(success, success and Gdk::DragAction::ACTION_MOVE == dragAction/*del*/, time);
-}
-
-bool CtTextView::_on_drag_motion(const Glib::RefPtr<Gdk::DragContext>& pContext, int /*x*/, int /*y*/, guint time)
-{
-    auto window = _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT);
-    Gdk::ModifierType mask{};
-
-    if (window) {
-        auto display = Gdk::Display::get_default();
-        if (display) {
-            auto seat = display->get_default_seat();
-            if (seat) {
-                auto device = seat->get_pointer();
-                if (device) {
-                    int dummy_x, dummy_y;
-                    window->get_device_position(device, dummy_x, dummy_y, mask);
-                }
-            }
-        }
-    }
-
-    const auto possible_actions = pContext->get_actions();
-    Gdk::DragAction chosen_action = Gdk::DragAction(0);
-
-    // Standard behavior: Ctrl key forces a copy.
-    if ((mask & Gdk::ModifierType::CONTROL_MASK) && (possible_actions & Gdk::DragAction::ACTION_COPY)) {
-        chosen_action = Gdk::DragAction::ACTION_COPY;
-    }
-    // Our desired default behavior: move the text.
-    else if (possible_actions & Gdk::DragAction::ACTION_MOVE) {
-        chosen_action = Gdk::DragAction::ACTION_MOVE;
-    }
-    // Fallback to copy if move is not possible.
-    else if (possible_actions & Gdk::DragAction::ACTION_COPY) {
-        chosen_action = Gdk::DragAction::ACTION_COPY;
-    }
-
-    pContext->drag_status(chosen_action, time);
-
-    return true;
 }
