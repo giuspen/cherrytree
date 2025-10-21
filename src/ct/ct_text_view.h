@@ -117,6 +117,12 @@ private:
                                 const Gtk::SelectionData& selection_data,
                                 guint info,
                                 guint time);
+    void _on_drag_begin(const Glib::RefPtr<Gdk::DragContext>& context);
+    void _on_drag_end(const Glib::RefPtr<Gdk::DragContext>& context);
+
+    bool _is_internal_drag{false};
+    int _drag_start_offset;
+    int _drag_end_offset;
 
 #ifdef MD_AUTO_REPLACEMENT
     bool          _markdown_filter_active();

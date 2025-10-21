@@ -98,11 +98,16 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
         _columnEdit.focus_in();
         return false; /*propagate event*/
     }, false);
-    std::vector<Gtk::TargetEntry> list_targets;
-    list_targets.push_back(Gtk::TargetEntry(CtConst::TARGET_URI_LIST));
-    _pTextView->drag_dest_set(list_targets);
+
+    std::vector<Gtk::TargetEntry> dest_targets;
+    dest_targets.push_back(Gtk::TargetEntry(CtConst::TARGET_URI_LIST));
+    dest_targets.push_back(Gtk::TargetEntry(CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS, Gtk::TARGET_SAME_APP, 0));
+    _pTextView->drag_dest_set(dest_targets);
+
     _pTextView->signal_drag_drop().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_drop), false); // 'false' ensures we run before default handlers
-    _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received));
+    _pTextView->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_data_received), false);
+    _pTextView->signal_drag_begin().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_begin), false);
+    _pTextView->signal_drag_end().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_end), false);
     _columnEdit.register_on_off_callback([this](const bool col_edit_on){
         _set_highlight_current_line_enabled(not col_edit_on);
         spdlog::debug("colMode {}", col_edit_on);
@@ -1109,55 +1114,83 @@ void CtTextView::_on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& pC
                                         guint /*info*/,
                                         guint time)
 {
-    bool success{false};
     const Gdk::DragAction dragAction = pContext->get_selected_action();
     auto text_buffer = get_buffer();
 
-    GtkSourceGutter* pGtkSourceGutter = gtk_source_view_get_gutter(_pGtkSourceView, GTK_TEXT_WINDOW_LEFT);
-    if (pGtkSourceGutter) {
-        GtkSourceView* pGutterGtkSourceView = gtk_source_gutter_get_view(pGtkSourceGutter);
-        if (pGutterGtkSourceView) {
-            GdkWindow* pGutterLNWindow = gtk_widget_get_window(GTK_WIDGET(pGutterGtkSourceView));
-            if (pGutterLNWindow) {
-                //spdlog::debug("gutter width {}", gdk_window_get_width(pGutterLNWindow));
-                x -= gdk_window_get_width(pGutterLNWindow);
-            }
-        }
-    }
     int xb, yb;
-    _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
-    Gtk::TextIter text_iter;
+    // Use Gtk::TEXT_WINDOW_WIDGET to convert from widget-relative coordinates (x, y)
+    // to buffer-relative coordinates (xb, yb). This correctly handles gutters.
+    _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_WIDGET, x, y, xb, yb);
+    Gtk::TextIter drop_iter;
     int trailing;
-    _pTextView->get_iter_at_position(text_iter, trailing, xb, yb);
+    _pTextView->get_iter_at_position(drop_iter, trailing, xb, yb);
+    // If the drop position (xb, yb) is on the trailing edge of a character,
+    // we must advance the iterator to the *next* character's position.
+    if (trailing > 0) {
+        drop_iter.forward_char();
+    }
+
     spdlog::debug("targets: {}", str::join(pContext->list_targets(), ", "));
-    if (vec::exists(pContext->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS) and text_buffer->get_has_selection()) {
-        int target_offset = text_iter.get_offset();
-        Gtk::TextIter sel_start, sel_end;
-        text_buffer->get_selection_bounds(sel_start, sel_end);
-        const int start_offset = sel_start.get_offset();
-        const int end_offset = sel_end.get_offset();
-        const int sel_size = end_offset - start_offset;
-        if (Gdk::DragAction::ACTION_MOVE == dragAction) {
-            if (target_offset > start_offset) {
-                target_offset -= sel_size;
+
+    if (_is_internal_drag && vec::exists(pContext->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS)) {
+
+        const bool is_move = (dragAction == Gdk::ACTION_MOVE);
+        CtClipboard clipboard_logic_provider{_pCtMainWin}; // We use it for its logic, not its clipboard access.
+
+        // Get iterators for the original source selection
+        Gtk::TextIter drag_start_iter = text_buffer->get_iter_at_offset(_drag_start_offset);
+        Gtk::TextIter drag_end_iter = text_buffer->get_iter_at_offset(_drag_end_offset);
+
+        // 1. Serialize the selected rich text content directly to an in-memory string.
+        //    This uses your complex logic WITHOUT touching the system clipboard.
+        Glib::ustring serialized_rich_text = clipboard_logic_provider.rich_text_get_from_text_buffer_selection(
+            _pCtMainWin->curr_tree_iter(), text_buffer, drag_start_iter, drag_end_iter);
+
+        // 2. Handle the 'move' case by deleting the source text manually.
+        int drop_offset = drop_iter.get_offset();
+        if (is_move) {
+            if (drop_offset > _drag_start_offset) {
+                drop_offset -= (_drag_end_offset - _drag_start_offset);
             }
-            spdlog::debug("drop move {} from {} to {} [x/xb={}/{}]", sel_size, start_offset, target_offset, x, xb);
-            g_signal_emit_by_name(G_OBJECT(gobj()), "cut-clipboard");
+            text_buffer->erase(drag_start_iter, drag_end_iter);
         }
-        else {
-            spdlog::debug("drop copy {} from {} to {} [x/xb={}/{}]", sel_size, start_offset, target_offset, x, xb);
-            g_signal_emit_by_name(G_OBJECT(gobj()), "copy-clipboard");
-        }
-        text_iter = text_buffer->get_iter_at_offset(target_offset);
-        //if ('\n' != text_iter.get_char()) text_iter.forward_char();
-        text_buffer->place_cursor(text_iter);
-        g_signal_emit_by_name(G_OBJECT(gobj()), "paste-clipboard");
-        success = true;
+
+        // 3. Place the cursor at the final drop location.
+        Gtk::TextIter insert_iter = text_buffer->get_iter_at_offset(drop_offset);
+        text_buffer->place_cursor(insert_iter);
+
+        // 4. Deserialize the in-memory string and insert the rich content at the cursor.
+        //    Again, this uses your logic without involving clipboard signals or async operations.
+        clipboard_logic_provider.from_xml_string_to_buffer(text_buffer, serialized_rich_text, nullptr);
+
+        spdlog::debug("drop {} from {} to {}", is_move ? "move" : "copy", _drag_start_offset, drop_offset);
+
+        // 5. Finish the DND operation successfully. We pass 'false' for delete because we handled it.
+        pContext->drag_finish(true, false, time);
+        g_signal_stop_emission_by_name(G_OBJECT(gobj()), "drag-data-received");
     }
     else if (vec::exists(pContext->list_targets(), CtConst::TARGET_URI_LIST)) {
-        text_buffer->place_cursor(text_iter);
+        text_buffer->place_cursor(drop_iter);
         CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, _pTextView, false/*forcePlain*/, true/*fromDragNDrop*/);
-        success = true;
+        pContext->drag_finish(true, false, time); // Pass false here too for safety
+        g_signal_stop_emission_by_name(G_OBJECT(gobj()), "drag-data-received");
     }
-    pContext->drag_finish(success, success and Gdk::DragAction::ACTION_MOVE == dragAction/*del*/, time);
+}
+
+void CtTextView::_on_drag_begin(const Glib::RefPtr<Gdk::DragContext>& /*context*/)
+{
+    auto text_buffer = get_buffer();
+    if (text_buffer and text_buffer->get_has_selection()) {
+        // The selection is still valid here. Store its bounds.
+        Gtk::TextBuffer::iterator drag_start_iter, drag_end_iter;
+        text_buffer->get_selection_bounds(drag_start_iter, drag_end_iter);
+        _drag_start_offset = drag_start_iter.get_offset();
+        _drag_end_offset = drag_end_iter.get_offset();
+        _is_internal_drag = true;
+    }
+}
+
+void CtTextView::_on_drag_end(const Glib::RefPtr<Gdk::DragContext>& /*context*/)
+{
+    _is_internal_drag = false;
 }
