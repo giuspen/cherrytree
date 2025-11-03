@@ -188,25 +188,37 @@ void CtImagePng::update_label_widget()
 
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
+    spdlog::debug("CtImagePng::_on_button_press_event: enter with button={} type={}", event->button, static_cast<int>(event->type));
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
+    spdlog::debug("CtImagePng::_on_button_press_event: after setting curr_image_anchor");
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    spdlog::debug("CtImagePng::_on_button_press_event: after object_set_selection");
     if (1 == event->button || 2 == event->button) {
+        spdlog::debug("CtImagePng::_on_button_press_event: button 1 or 2");
         if (event->type == GDK_2BUTTON_PRESS) {
+            spdlog::debug("CtImagePng::_on_button_press_event: double click detected");
             if (_pCtConfig->doubleClickLink and not _link.empty()) {
+                spdlog::debug("CtImagePng::_on_button_press_event: about to click link (double click)");
                 _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
             }
             else {
+                spdlog::debug("CtImagePng::_on_button_press_event: about to edit image");
                 _pCtMainWin->get_ct_actions()->image_edit();
             }
         }
         else if (not _pCtConfig->doubleClickLink and not _link.empty()) {
+            spdlog::debug("CtImagePng::_on_button_press_event: about to click link (single click)");
             _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
         }
     }
     else if (3 == event->button) {
+        spdlog::debug("CtImagePng::_on_button_press_event: button 3");
+        spdlog::debug("CtImagePng::_on_button_press_event: about to show popup menu");
         _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup_at_pointer((GdkEvent*)event);
+        spdlog::debug("CtImagePng::_on_button_press_event: after popup menu shown");
     }
+    spdlog::debug("CtImagePng::_on_button_press_event: exit");
     return true; // do not propagate the event
 }
 
