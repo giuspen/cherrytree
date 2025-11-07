@@ -78,14 +78,8 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
  , _justification{justification}
 {
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
-    signal_button_press_event().connect([this](GdkEventButton* pEvent){
-        spdlog::debug("CtAnchoredWidget::button_press_event: enter with button={} type={}", pEvent->button, static_cast<int>(pEvent->type));
-        auto textBuffer = _pCtMainWin->curr_buffer();
-        spdlog::debug("CtAnchoredWidget::button_press_event: got buffer");
-        auto textIter = textBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
-        spdlog::debug("CtAnchoredWidget::button_press_event: got iter at child anchor");
-        textBuffer->place_cursor(textIter);
-        spdlog::debug("CtAnchoredWidget::button_press_event: placed cursor, exiting");
+    signal_button_press_event().connect([this](GdkEventButton* /*pEvent*/){
+        _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor(_rTextChildAnchor));
         return true; // we need to block this or the focus will go to the text buffer below
     });
     add(_frame);
