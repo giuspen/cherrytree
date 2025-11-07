@@ -122,21 +122,13 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 // Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
-    spdlog::debug("CtActions::object_set_selection: enter widget ptr={}", static_cast<void*>(widget));
-    bool is_image = dynamic_cast<CtImage*>(widget) != nullptr;
-    spdlog::debug("CtActions::object_set_selection: is_image={}", is_image);
     Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
-    spdlog::debug("CtActions::object_set_selection: iter_object offset={}", iter_object.get_offset());
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
-    spdlog::debug("CtActions::object_set_selection: iter_bound offset={}", iter_bound.get_offset());
-    if (is_image) {
-        spdlog::debug("CtActions::object_set_selection: grabbing focus on text_view");
+    if (dynamic_cast<CtImage*>(widget)) {
         _pCtMainWin->get_text_view().mm().grab_focus();
-        spdlog::debug("CtActions::object_set_selection: grabbed focus");
     }
     _curr_buffer()->select_range(iter_object, iter_bound);
-    spdlog::debug("CtActions::object_set_selection: select_range done");
 }
 
 // Returns True if there's not a node selected or is not rich text
