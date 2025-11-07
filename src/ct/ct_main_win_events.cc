@@ -424,6 +424,18 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 
 bool CtMainWin::_on_textview_event(GdkEvent* event)
 {
+    spdlog::debug("CtMainWin::_on_textview_event: enter with event type={}", static_cast<int>(event->type));
+    if (event->type != GDK_KEY_PRESS && event->type != GDK_BUTTON_PRESS) {
+        spdlog::debug("CtMainWin::_on_textview_event: exit - not a key or button press");
+        return false;
+    }
+    if (event->type == GDK_BUTTON_PRESS) {
+        auto button_event = (GdkEventButton*)event;
+        spdlog::debug("CtMainWin::_on_textview_event: button={} type={} x={} y={}", 
+                     button_event->button, static_cast<int>(button_event->type),
+                     button_event->x, button_event->y);
+        // Continue with key press handling
+    }
     if (event->type != GDK_KEY_PRESS)
         return false;
 
@@ -535,14 +547,18 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
 // Called after every event on the SourceView
 void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
+    spdlog::debug("CtMainWin::_on_textview_event_after: enter with event type={}", static_cast<int>(event->type));
     if (event->type == GDK_2BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
+        spdlog::debug("CtMainWin::_on_textview_event_after: handling double click");
         _ctTextview.for_event_after_double_click_button12(event);
     }
     if (event->type == GDK_3BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
+        spdlog::debug("CtMainWin::_on_textview_event_after: handling triple click");
         _ctTextview.for_event_after_triple_click_button12(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS) {
         if (event->type == GDK_BUTTON_PRESS) {
+            spdlog::debug("CtMainWin::_on_textview_event_after: handling button press");
             _ctTextview.for_event_after_button_press(event);
         }
         if (event->type == GDK_KEY_PRESS) {

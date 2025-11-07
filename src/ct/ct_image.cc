@@ -212,11 +212,16 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
         }
     }
     else if (3 == event->button) {
-        spdlog::debug("CtImagePng::_on_button_press_event: button 3");
-        spdlog::debug("CtImagePng::_on_button_press_event: about to show popup menu");
-        _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
-        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup_at_pointer((GdkEvent*)event);
-        spdlog::debug("CtImagePng::_on_button_press_event: after popup menu shown");
+        spdlog::debug("CtImagePng::_on_button_press_event: button 3 at x={} y={} window={:x}", 
+                  event->x, event->y, (uintptr_t)event->window);
+        auto* menu_action = _pCtMainWin->get_ct_menu().find_action("img_link_dismiss");
+        spdlog::debug("CtImagePng::_on_button_press_event: got menu action pointer={:x}", (uintptr_t)menu_action);
+        menu_action->signal_set_visible.emit(!_link.empty());
+        spdlog::debug("CtImagePng::_on_button_press_event: emitted signal_set_visible");
+        auto* popup_menu = _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image);
+        spdlog::debug("CtImagePng::_on_button_press_event: got popup menu pointer={:x}", (uintptr_t)popup_menu);
+        popup_menu->popup_at_pointer((GdkEvent*)event);
+        spdlog::debug("CtImagePng::_on_button_press_event: after popup_at_pointer call");
     }
     spdlog::debug("CtImagePng::_on_button_press_event: exit");
     return true; // do not propagate the event

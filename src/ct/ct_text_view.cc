@@ -409,6 +409,8 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
 void CtTextView::for_event_after_button_press(GdkEvent* event)
 {
+    spdlog::debug("CtTextView::for_event_after_button_press: enter with button={} type={} window={:x}", 
+                  event->button.button, static_cast<int>(event->type), (uintptr_t)event->button.window);
     auto text_buffer = get_buffer();
     if (event->button.button == 1 or event->button.button == 2) {
         int x, y, trailing;
