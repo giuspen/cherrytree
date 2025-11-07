@@ -926,10 +926,15 @@ void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
 // Try and apply link to previous word (after space or newline)
 bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
 {
+    char dropped_end_char = '\0';
     if (iter_end.backward_char()) {
         switch (iter_end.get_char()) {
-            case ',': case ';': case '.': case ')': case '}': {
+            case ',': case ';': case '.': {
                 // do not restore/drop latest char
+            } break;
+            case ')': case '}': {
+                // do not restore/drop latest char
+                dropped_end_char = iter_end.get_char();
             } break;
             case ']': {
                 // we can drop only if not two subsequent ]] which is a special case
@@ -939,6 +944,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
                     }
                     else {
                         iter_end.forward_char(); // do not restore/drop latest char
+                        dropped_end_char = ']';
                     }
                 }
             } break;
@@ -1015,6 +1021,31 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
         }
         int num_chars = iter_end.get_offset() - iter_start.get_offset();
         if (_pCtConfig->urlAutoLink and num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS)) {
+            if ('\0' != dropped_end_char) {
+                auto f_moreOpenThanClose = [&](const gunichar openChar, const gunichar closeChar)->bool{
+                    const Glib::ustring linkStr = get_buffer()->get_text(iter_start, iter_end);
+                    int numOpen{0};
+                    for (const auto& currChar : linkStr) {
+                        if (currChar == openChar) ++numOpen;
+                    }
+                    if (numOpen > 0) {
+                        int numClose{0};
+                        for (const auto& currChar : linkStr) {
+                            if (currChar == closeChar) ++numClose;
+                        }
+                        return numOpen > numClose;
+                    }
+                    return false;
+                };
+                bool restoreClose{false};
+                switch (dropped_end_char) {
+                    case ')': restoreClose = f_moreOpenThanClose('(', ')'); break;
+                    case ']': restoreClose = f_moreOpenThanClose('[', ']'); break;
+                    case '}': restoreClose = f_moreOpenThanClose('{', '}'); break;
+                    default: break;
+                }
+                if (restoreClose) iter_end.forward_char(); // last char was not to be dropped
+            }
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
             if (not str::startswith_url(link_url.c_str())) {
