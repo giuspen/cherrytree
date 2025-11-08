@@ -220,7 +220,11 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
         spdlog::debug("CtImagePng::_on_button_press_event: emitted signal_set_visible");
         auto* popup_menu = _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image);
         spdlog::debug("CtImagePng::_on_button_press_event: got popup menu pointer={:x}", (uintptr_t)popup_menu);
-        popup_menu->popup_at_pointer((GdkEvent*)event);
+        
+        // Try a different popup method that might be more stable on KDE 6
+        spdlog::debug("CtImagePng::_on_button_press_event: about to show menu relative to widget");
+        popup_menu->popup_at_widget(this, Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
+        spdlog::debug("CtImagePng::_on_button_press_event: after popup call");
         spdlog::debug("CtImagePng::_on_button_press_event: after popup_at_pointer call");
     }
     spdlog::debug("CtImagePng::_on_button_press_event: exit");
