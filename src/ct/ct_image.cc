@@ -224,14 +224,17 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
         // Try showing the menu from the main loop (idle) to avoid immediate pointer grabs
         // that may confuse the compositor/driver (observed on KDE6 + NVIDIA).
         spdlog::debug("CtImagePng::_on_button_press_event: scheduling popup via idle callback");
-        Glib::signal_idle().connect_once([popup_menu, this]() {
+        // Store event for menu popup
+        GdkEvent* pEvent = gdk_event_copy((GdkEvent*)event);
+        Glib::signal_idle().connect_once([popup_menu, this, pEvent]() {
             try {
-                popup_menu->popup_at_widget(this, Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, nullptr);
+                popup_menu->popup_at_widget(this, Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, pEvent);
                 spdlog::debug("CtImagePng: popup invoked from idle callback");
             }
             catch (const std::exception& e) {
                 spdlog::error("CtImagePng: exception while popping up menu from idle: {}", e.what());
             }
+            gdk_event_free(pEvent);
         });
         spdlog::debug("CtImagePng::_on_button_press_event: idle callback queued");
     }
