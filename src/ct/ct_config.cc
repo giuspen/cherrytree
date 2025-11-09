@@ -217,6 +217,20 @@ void CtConfig::_populate_keyfile_from_data()
             ++i;
         }
     }
+    {
+        guint i{0};
+        for (const Glib::ustring& pattern : latestSearches) {
+            snprintf(_tempKey, _maxTempKeySize, "search_%d", i);
+            _uKeyFile->set_string(_currentGroup, _tempKey, pattern);
+        }
+    }
+    {
+        guint i{0};
+        for (const Glib::ustring& pattern : latestReplaces) {
+            snprintf(_tempKey, _maxTempKeySize, "replace_%d", i);
+            _uKeyFile->set_string(_currentGroup, _tempKey, pattern);
+        }
+    }
     _uKeyFile->set_boolean(_currentGroup, "toolbar_visible", toolbarVisible);
     _uKeyFile->set_boolean(_currentGroup, "statusbar_visible", statusbarVisible);
     _uKeyFile->set_boolean(_currentGroup, "tree_lines_visible", treeLinesVisible);
@@ -488,6 +502,22 @@ void CtConfig::_populate_data_from_keyfile()
                 recentDocsRestore[filepath] = recentDocRestore;
             }
         }
+    }
+    for (int i = 0; i < latestSearches.maxSize; ++i) {
+        snprintf(_tempKey, _maxTempKeySize, "search_%d", i);
+        Glib::ustring pattern;
+        if (not _populate_string_from_keyfile(_tempKey, &pattern)) {
+            break;
+        }
+        latestSearches.push_back(pattern);
+    }
+    for (int i = 0; i < latestReplaces.maxSize; ++i) {
+        snprintf(_tempKey, _maxTempKeySize, "replace_%d", i);
+        Glib::ustring pattern;
+        if (not _populate_string_from_keyfile(_tempKey, &pattern)) {
+            break;
+        }
+        latestReplaces.push_back(pattern);
     }
     _populate_bool_from_keyfile("toolbar_visible", &toolbarVisible);
     _populate_bool_from_keyfile("statusbar_visible", &statusbarVisible);

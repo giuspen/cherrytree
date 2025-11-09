@@ -65,6 +65,8 @@ public:
     bool                                        vteVisible{false};
     bool                                        menubarVisible{true};
     CtRecentDocsFilepaths                       recentDocsFilepaths;
+    CtLatestSearches                            latestSearches;
+    CtLatestSearches                            latestReplaces;
     std::string                                 pickDirImport;
     std::string                                 pickDirExport;
     std::string                                 pickDirFile;

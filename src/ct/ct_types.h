@@ -234,6 +234,11 @@ struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
     CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
 };
 
+struct CtLatestSearches : public CtMaxSizedList<Glib::ustring>
+{
+    CtLatestSearches() : CtMaxSizedList<Glib::ustring>{10} {}
+};
+
 struct CtColoursUserPalette : public CtMaxSizedList<Gdk::RGBA>
 {
     CtColoursUserPalette() : CtMaxSizedList<Gdk::RGBA>{18} {}
