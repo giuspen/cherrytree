@@ -188,7 +188,25 @@ void CtImagePng::update_label_widget()
 
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
-    spdlog::debug("CtImagePng::_on_button_press_event: enter with button={} type={}", event->button, static_cast<int>(event->type));
+    spdlog::debug("CtImagePng::_on_button_press_event: enter with button={} type={} state=0x{:x} window=0x{:x}", 
+                  event->button, static_cast<int>(event->type), event->state, (uintptr_t)event->window);
+    
+    // Store event info for debugging
+    static GdkEventType lastEventType = GDK_NOTHING;
+    static guint lastButton = 0;
+    static guint lastState = 0;
+    
+    // Check if this is a duplicate event
+    if (lastEventType == event->type && lastButton == event->button && lastState == event->state) {
+        spdlog::debug("CtImagePng::_on_button_press_event: duplicate event detected, ignoring");
+        return true;
+    }
+    
+    // Update last event info
+    lastEventType = event->type;
+    lastButton = event->button;
+    lastState = event->state;
+    
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
     spdlog::debug("CtImagePng::_on_button_press_event: after setting curr_image_anchor");
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
@@ -212,30 +230,22 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
         }
     }
     else if (3 == event->button) {
-        spdlog::debug("CtImagePng::_on_button_press_event: button 3 at x={} y={} window={:x}", 
-                  event->x, event->y, (uintptr_t)event->window);
+        spdlog::debug("CtImagePng::_on_button_press_event: button 3 detected at x={} y={} window=0x{:x} state=0x{:x}", 
+                  event->x, event->y, (uintptr_t)event->window, event->state);
+
+        // Try direct menu popup first
         auto* menu_action = _pCtMainWin->get_ct_menu().find_action("img_link_dismiss");
         spdlog::debug("CtImagePng::_on_button_press_event: got menu action pointer={:x}", (uintptr_t)menu_action);
         menu_action->signal_set_visible.emit(!_link.empty());
         spdlog::debug("CtImagePng::_on_button_press_event: emitted signal_set_visible");
+        
         auto* popup_menu = _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image);
         spdlog::debug("CtImagePng::_on_button_press_event: got popup menu pointer={:x}", (uintptr_t)popup_menu);
-        
-        // Try showing the menu from the main loop (idle) to avoid immediate pointer grabs
-        // that may confuse the compositor/driver (observed on KDE6 + NVIDIA).
-        spdlog::debug("CtImagePng::_on_button_press_event: scheduling popup via idle callback");
-        // Store event for menu popup
-        GdkEvent* pEvent = gdk_event_copy((GdkEvent*)event);
-        Glib::signal_idle().connect_once([popup_menu, this, pEvent]() {
-            try {
-                popup_menu->popup_at_widget(this, Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, pEvent);
-                spdlog::debug("CtImagePng: popup invoked from idle callback");
-            }
-            catch (const std::exception& e) {
-                spdlog::error("CtImagePng: exception while popping up menu from idle: {}", e.what());
-            }
-            gdk_event_free(pEvent);
-        });
+
+        // Show menu directly at pointer location
+        spdlog::debug("CtImagePng::_on_button_press_event: showing menu at pointer");
+        popup_menu->popup_at_pointer((GdkEvent*)event);
+        spdlog::debug("CtImagePng::_on_button_press_event: menu shown at pointer");
         spdlog::debug("CtImagePng::_on_button_press_event: idle callback queued");
     }
     spdlog::debug("CtImagePng::_on_button_press_event: exit");
