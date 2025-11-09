@@ -42,8 +42,15 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     pDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     pDialog->set_default_size(400, -1);
 
-    auto search_entry = Gtk::manage(new Gtk::Entry{});
+    auto search_combo = Gtk::manage(new Gtk::ComboBoxText{true/*has_entry*/});
+    auto search_entry = dynamic_cast<Gtk::Entry*>(search_combo->get_entry());
     search_entry->set_text(s_options.str_find);
+
+    // Populate search history dropdown
+    auto& latest_searches = pCtMainWin->get_ct_config()->latestSearches;
+    for (auto it = latest_searches.begin(); it != latest_searches.end(); ++it) {
+        search_combo->prepend(*it); // prepend to show most recent first
+    }
 
     button_ok->set_sensitive(s_options.str_find.length() != 0);
     search_entry->signal_changed().connect([button_ok, search_entry](){
@@ -52,17 +59,26 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     auto search_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Search for")+"</b>"});
     dynamic_cast<Gtk::Label*>(search_frame->get_label_widget())->set_use_markup(true);
     search_frame->set_shadow_type(Gtk::SHADOW_NONE);
-    search_frame->add(*search_entry);
+    search_frame->add(*search_combo);
 
     Gtk::Frame* replace_frame{nullptr};
     Gtk::Entry* replace_entry{nullptr};
+    Gtk::ComboBoxText* replace_combo{nullptr};
     if (s_state.replace_active) {
-        replace_entry = Gtk::manage(new Gtk::Entry{});
+        replace_combo = Gtk::manage(new Gtk::ComboBoxText{true/*has_entry*/});
+        replace_entry = dynamic_cast<Gtk::Entry*>(replace_combo->get_entry());
         replace_entry->set_text(s_options.str_replace);
+
+        // Populate replace history dropdown
+        auto& latest_replaces = pCtMainWin->get_ct_config()->latestReplaces;
+        for (auto it = latest_replaces.begin(); it != latest_replaces.end(); ++it) {
+            replace_combo->prepend(*it); // prepend to show most recent first
+        }
+
         replace_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Replace with")+"</b>"});
         dynamic_cast<Gtk::Label*>(replace_frame->get_label_widget())->set_use_markup(true);
         replace_frame->set_shadow_type(Gtk::SHADOW_NONE);
-        replace_frame->add(*replace_entry);
+        replace_frame->add(*replace_combo);
     }
     auto opt_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/});
     auto reg_exp_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 1/*spacing*/});
@@ -311,8 +327,17 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         pDialog->hide();
 
         s_options.str_find = search_entry->get_text();
+        // Add to search history
+        if (!s_options.str_find.empty()) {
+            pCtMainWin->get_ct_config()->latestSearches.move_or_push_front(s_options.str_find);
+        }
+
         if (replace_entry) {
             s_options.str_replace = replace_entry->get_text();
+            // Add to replace history
+            if (!s_options.str_replace.empty()) {
+                pCtMainWin->get_ct_config()->latestReplaces.move_or_push_front(s_options.str_replace);
+            }
         }
         s_options.match_case = match_case_checkbutton->get_active();
         s_options.reg_exp = reg_exp_checkbutton->get_active();
