@@ -31,6 +31,12 @@ static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
     return pElement->get_attribute(name);
 }
 
+CtMenuAction::CtMenuAction()
+ : run_action(nullptr)
+ , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
+ , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
+{}
+
 static void on_menu_activate(void* /*pObject*/, CtMenuAction* pAction)
 {
     if (pAction) {

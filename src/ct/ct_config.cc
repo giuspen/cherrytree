@@ -87,7 +87,11 @@ bool CtConfig::_load_from_file()
     }
 #endif // _WIN32
     if (fs::exists(_configFilepath)) {
+#if GTKMM_MAJOR_VERSION >= 4
+        _uKeyFile = Glib::RefPtr<Glib::KeyFile>::create();
+#else
         _uKeyFile = std::make_unique<Glib::KeyFile>();
+#endif
         try {
             _uKeyFile->load_from_file(_configFilepath.string());
         }
@@ -96,7 +100,11 @@ bool CtConfig::_load_from_file()
             return false;
         }
         _populate_data_from_keyfile();
+#if GTKMM_MAJOR_VERSION >= 4
+        _uKeyFile.reset();
+#else
         _uKeyFile.reset(nullptr);
+#endif
         spdlog::debug("{} parsed", _configFilepath.string());
         return true;
     }
@@ -106,10 +114,18 @@ bool CtConfig::_load_from_file()
 
 bool CtConfig::write_to_file(const std::string filepath/*= ""*/)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    _uKeyFile = Glib::RefPtr<Glib::KeyFile>::create();
+#else
     _uKeyFile = std::make_unique<Glib::KeyFile>();
+#endif
     _populate_keyfile_from_data();
     const bool writeSucceeded = _uKeyFile->save_to_file(filepath.empty() ? _configFilepathTmp.string() : filepath);
+#if GTKMM_MAJOR_VERSION >= 4
+    _uKeyFile.reset();
+#else
     _uKeyFile.reset(nullptr);
+#endif
     return writeSucceeded;
 }
 

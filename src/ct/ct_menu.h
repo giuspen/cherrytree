@@ -50,11 +50,7 @@ struct CtMenuAction
     std::shared_ptr<sigc::signal<void, bool>> signal_set_sensitive;
     std::shared_ptr<sigc::signal<void, bool>> signal_set_visible;
 
-    CtMenuAction()
-     : run_action(nullptr)
-     , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
-     , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
-    {}
+    CtMenuAction();
 
     // Template constructor accepting const char* or std::string for string parameters
     template<typename RunT>
@@ -66,14 +62,10 @@ struct CtMenuAction
      , name(name_)
      , built_in_shortcut(built_in_shortcut_)
      , desc(desc_)
-     , run_action(nullptr)
-     , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
-     , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
+     , run_action([run]() mutable { run(); })
+     , signal_set_sensitive(new sigc::signal<void, bool>())
+     , signal_set_visible(new sigc::signal<void, bool>())
     {
-         // Wrap the provided callable (sigc::slot, sigc::signal, lambda, etc.)
-         // into a std::function<void()>. Many callables used in the code
-         // implement operator() to invoke the action or emit the signal.
-         run_action = [run]() mutable { run(); };
     }
 
     const std::string& get_shortcut(CtConfig* pCtConfig) const;

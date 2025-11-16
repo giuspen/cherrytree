@@ -128,6 +128,18 @@ void CtActions::find_in_selected_node_ok_clicked()
     }
 }
 
+static int _count_nodes(const Gtk::TreeNodeChildren& children);
+
+#if GTKMM_MAJOR_VERSION >= 4
+// gtkmm4: TreeNodeConstChildren exists and is returned from const node's children()
+static int _count_nodes_const(const Gtk::TreeNodeConstChildren& children)
+{
+    int count{1};
+    for (auto& child : children) { count += _count_nodes_const(child.children()); }
+    return count;
+}
+#endif
+
 static int _count_nodes(const Gtk::TreeNodeChildren& children)
 {
     int count{1};
@@ -208,7 +220,13 @@ void CtActions::find_in_multiple_nodes_ok_clicked()
         ctStatusBar.progressBar.show();
         ctStatusBar.stopButton.show();
         ctStatusBar.set_progress_stop(false);
+#if GTKMM_MAJOR_VERSION < 4
         while (gtk_events_pending()) gtk_main_iteration();
+#else
+        // GTK4 event loop processing
+        auto app_context = Glib::MainContext::get_default();
+        while (app_context->pending()) app_context->iteration(false);
+#endif
     }
     std::time_t search_start_time = std::time(nullptr);
     while (node_iter) {
@@ -1458,5 +1476,11 @@ void CtActions::_update_all_matches_progress()
         _s_state.latest_matches = _s_state.matches_num;
         _pCtMainWin->get_status_bar().progressBar.set_text(std::to_string(_s_state.matches_num));
     }
+#if GTKMM_MAJOR_VERSION < 4
     while (gtk_events_pending()) gtk_main_iteration();
+#else
+    // GTK4 event loop processing
+    auto app_context = Glib::MainContext::get_default();
+    while (app_context->pending()) app_context->iteration(false);
+#endif
 }

@@ -45,7 +45,113 @@ namespace Gtk {
         ICON_SIZE_DIALOG
     };
 }
+
+/*
+ * Compatibility shim: gtkmm4 removed Gdk::Point. Some code uses this for
+ * storing x,y coordinates. We provide a simple struct replacement.
+ */
+namespace Gdk {
+    struct Point {
+        int x;
+        int y;
+        Point() : x(0), y(0) {}
+        Point(int x_, int y_) : x(x_), y(y_) {}
+        bool operator==(const Point& other) const { return x == other.x && y == other.y; }
+        bool operator!=(const Point& other) const { return !(*this == other); }
+    };
+}
+
+/*
+ * Compatibility shim: gtkmm4 changed Gtk::ORIENTATION_HORIZONTAL from an enum
+ * value to Gtk::Orientation::HORIZONTAL. For code compatibility, we provide
+ * global constants with the old-style enum value names.
+ */
+namespace Gtk {
+    // In gtkmm4, use Gtk::Orientation::HORIZONTAL directly.
+    // These inline constants help with porting code that uses Gtk::ORIENTATION_HORIZONTAL syntax.
+    inline constexpr Gtk::Orientation ORIENTATION_HORIZONTAL = Gtk::Orientation::HORIZONTAL;
+    inline constexpr Gtk::Orientation ORIENTATION_VERTICAL = Gtk::Orientation::VERTICAL;
+}
+
+/*
+ * Compatibility shim: gtkmm4 removed Gtk::EventBox. EventBox was used to
+ * catch events for widgets that couldn't normally do so. In gtkmm4, we use
+ * a regular Gtk::Widget or Gtk::Box with an event controller instead.
+ * For header file declarations, we create a type alias.
+ */
+namespace Gtk {
+    using EventBox = Gtk::Box;
+}
+
+/*
+ * Compatibility shim: gtkmm4 removed Gtk::ButtonBox. ButtonBox was a
+ * convenience container for arranging buttons. In gtkmm4, use Gtk::Box with
+ * Gtk::Box::set_spacing() and manual layout instead. For compatibility, alias it.
+ */
+namespace Gtk {
+    using ButtonBox = Gtk::Box;
+}
+
+/*
+ * Compatibility shim: gtkmm4 changed Glib::FILE_TEST_* enum values to
+ * Glib::FileTest::* scoped enum values. Provide compatibility aliases.
+ */
+namespace Glib {
+    inline constexpr Glib::FileTest FILE_TEST_EXISTS = Glib::FileTest::EXISTS;
+    inline constexpr Glib::FileTest FILE_TEST_IS_REGULAR = Glib::FileTest::IS_REGULAR;
+    inline constexpr Glib::FileTest FILE_TEST_IS_SYMLINK = Glib::FileTest::IS_SYMLINK;
+    inline constexpr Glib::FileTest FILE_TEST_IS_DIR = Glib::FileTest::IS_DIR;
+    inline constexpr Glib::FileTest FILE_TEST_IS_EXECUTABLE = Glib::FileTest::IS_EXECUTABLE;
+}
+
+/*
+ * Compatibility shim: gtkmm4 changed Gtk::POLICY_* enum values to
+ * Gtk::PolicyType::* scoped enum values. Provide compatibility aliases.
+ */
+namespace Gtk {
+    inline constexpr Gtk::PolicyType POLICY_ALWAYS = Gtk::PolicyType::ALWAYS;
+    inline constexpr Gtk::PolicyType POLICY_AUTOMATIC = Gtk::PolicyType::AUTOMATIC;
+    inline constexpr Gtk::PolicyType POLICY_NEVER = Gtk::PolicyType::NEVER;
+    inline constexpr Gtk::PolicyType POLICY_EXTERNAL = Gtk::PolicyType::EXTERNAL;
+}
+
+/*
+ * Compatibility shim: gtkmm4 replaced C-style GdkEvent* union types with
+ * proper C++ event classes in the Gdk namespace. We provide typedef aliases
+ * for the old C-style event types.
+ * 
+ * IMPORTANT: In gtkmm4, event handlers receive events by const reference,
+ * not by pointer. This means function signatures using these types need to be
+ * adjusted for gtkmm4. The typedefs below are for declaration purposes only.
+ * Actual implementations will need conditional compilation for proper event handling.
+ */
+#if GTKMM_MAJOR_VERSION >= 4
+// Forward declare as opaque types for gtkmm4 compatibility
+struct GdkEventButton;
+struct GdkEventKey;
+struct GdkEventFocus;
+struct GdkEventConfigure;
+struct GdkEventScroll;
 #endif
+
+/*
+ * Compatibility shim: gtkmm4 moved EntryIconPosition from Gtk namespace.
+ */
+#if GTKMM_MAJOR_VERSION >= 4
+namespace Gtk {
+    using EntryIconPosition = Gtk::Entry::IconPosition;
+}
+
+/*
+ * Compatibility shim: gtkmm4 changed Glib regex flags from global enums to
+ * scoped enums within the Regex class. Provide compatibility type aliases.
+ */
+namespace Glib {
+    using RegexCompileFlags = Glib::Regex::CompileFlags;
+    using RegexMatchFlags = Glib::Regex::MatchFlags;
+}
+#endif
+#endif /*GTKMM_MAJOR_VERSION >= 4*/
 
 class CtConfig;
 class CtTreeIter;

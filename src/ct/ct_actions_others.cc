@@ -21,6 +21,7 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/sigc++.h>
 #include "ct_actions.h"
 #include "ct_export2html.h"
 #include "ct_pref_dlg.h"
@@ -29,7 +30,6 @@
 #include <gtkmm/dialog.h>
 #include <cstdlib>
 #include "ct_logging.h"
-#include <sigc++/sigc++.h>
 #include "ct_list.h"
 #ifndef _WIN32
 #include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)

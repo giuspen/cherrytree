@@ -21,10 +21,10 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/sigc++.h>
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
 #include "ct_dialogs.h"
-#include <sigc++/sigc++.h>
 
 void CtActions::toggle_show_hide_vte()
 {

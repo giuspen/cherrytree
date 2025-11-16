@@ -90,6 +90,12 @@ void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
     updateJustification(CtTextIterUtil::get_text_iter_alignment(textIter, _pCtMainWin));
 }
 
+void CtAnchoredWidget::set_hidden(const bool hidden)
+{
+    _hidden = hidden;
+    set_visible(!hidden);
+}
+
 void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer)
 {
     _rTextChildAnchor = pTextBuffer->create_child_anchor(pTextBuffer->get_iter_at_offset(_charOffset));

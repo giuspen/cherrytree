@@ -21,12 +21,12 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/sigc++.h>
 #include "ct_main_win.h"
 #include "ct_text_view.h"
 #include "ct_actions.h"
 #include "ct_list.h"
 #include "ct_clipboard.h"
-#include <sigc++/sigc++.h>
 
 std::unordered_map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
 

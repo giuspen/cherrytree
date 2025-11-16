@@ -21,10 +21,10 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/sigc++.h>
 #include "ct_pref_dlg.h"
 #include "ct_main_win.h"
 #include "ct_actions.h"
-#include <sigc++/sigc++.h>
 
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
  : Gtk::Dialog{_("Preferences"), *parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT}

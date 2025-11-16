@@ -23,6 +23,7 @@
 
 #pragma once
 
+#include <sigc++/sigc++.h>
 #include <unordered_map>
 #include <optional>
 
@@ -220,8 +221,13 @@ public:
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
 
+#if GTKMM_MAJOR_VERSION < 4
     void save_position()                    { get_position(_savedXpos, _savedYpos); }
     void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
+#else
+    void save_position()                    { /* Position saving not available in gtkmm4 */ }
+    void restore_position()                 { /* Position restoring not available in gtkmm4 */ }
+#endif
 
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool start_on_systray_is_active() const;
@@ -231,7 +237,11 @@ public:
     bool get_systray_can_hide() const { return _systrayCanHide; }
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4
     void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; set_keep_above(_alwaysOnTop); }
+#else
+    void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; Gtk::Window::set_keep_above(_alwaysOnTop); }
+#endif
     void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
 private:

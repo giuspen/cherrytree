@@ -320,7 +320,11 @@ protected:
     static const size_t _maxTempKeySize{20};
 
     gchar _tempKey[_maxTempKeySize];
+#if GTKMM_MAJOR_VERSION >= 4
+    Glib::RefPtr<Glib::KeyFile> _uKeyFile;
+#else
     std::unique_ptr<Glib::KeyFile> _uKeyFile;
+#endif
     std::string _currentGroup;
     bool _initLoadFromFileOk{false};
 

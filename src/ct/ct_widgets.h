@@ -76,11 +76,7 @@ public:
     const std::string& getJustification() const { return _justification; }
 
     bool get_hidden() const { return _hidden; }
-    void set_hidden(const bool hidden) {
-        _hidden = hidden;
-        if (hidden) hide();
-        else show();
-    }
+    void set_hidden(const bool hidden);
 
     bool operator<(const CtAnchoredWidget &other) { return getOffset() < other.getOffset(); }
     bool operator>(const CtAnchoredWidget &other) { return getOffset() > other.getOffset(); }

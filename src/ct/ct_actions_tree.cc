@@ -21,6 +21,7 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/sigc++.h>
 #include "ct_actions.h"
 #include "ct_image.h"
 #include "ct_dialogs.h"
@@ -28,7 +29,6 @@
 #include "ct_treestore.h"
 #include <ctime>
 #include <gtkmm/dialog.h>
-#include <sigc++/sigc++.h>
 
 bool CtActions::_is_there_selected_node_or_error()
 {

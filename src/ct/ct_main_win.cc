@@ -21,11 +21,11 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/sigc++.h>
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_clipboard.h"
-#include <sigc++/sigc++.h>
 
 void CtStatusBar::new_cursor_pos(const int r, const int c)
 {
