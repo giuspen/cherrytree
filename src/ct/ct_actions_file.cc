@@ -25,6 +25,7 @@
 #include "ct_storage_control.h"
 #include "ct_pref_dlg.h"
 #include "ct_clipboard.h"
+#include <sigc++/sigc++.h>
 
 void CtActions::doc_path_to_clipboard()
 {
@@ -54,7 +55,11 @@ void CtActions::_file_save(bool need_vacuum)
 
 void CtActions::file_new()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_new_instance->emit();
+#else
     _pCtMainWin->signal_app_new_instance();
+#endif
 }
 
 // Save the file
@@ -166,12 +171,20 @@ void CtActions::file_open()
 
 void CtActions::quit_or_hide_window()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_quit_or_hide_window->emit(_pCtMainWin);
+#else
     _pCtMainWin->signal_app_quit_or_hide_window(_pCtMainWin);
+#endif
 }
 
 void CtActions::quit_window()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_quit_window->emit(_pCtMainWin);
+#else
     _pCtMainWin->signal_app_quit_window(_pCtMainWin);
+#endif
 }
 
 void CtActions::dialog_preferences()
@@ -353,7 +366,11 @@ void CtActions::preferences_import()
 #endif /* !defined(_WIN32) */
 
             if (_pCtConfig->systrayOn) {
+#if GTKMM_MAJOR_VERSION >= 4
+                _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
+#else
                 _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
+#endif
             }
             else {
                 CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *_pCtMainWin);
@@ -366,7 +383,11 @@ void CtActions::preferences_import()
             _pCtMainWin->get_status_icon()->set_visible(false);
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION >= 4
+            _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
+#else
             _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
+#endif
         }
     }
     _pCtConfig->startOnSystray = ctConfigImported.startOnSystray;

@@ -1,7 +1,7 @@
 /*
  * ct_main_win_file.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -35,12 +35,12 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     }
     if (saveNeeded.value()) {
         title += "*";
-        if (_pSaveToolButton) _pSaveToolButton->set_sensitive(true);
-        if (_pSaveMenuAction) _pSaveMenuAction->signal_set_sensitive.emit(true);
+    if (_pSaveToolButton) _pSaveToolButton->set_sensitive(true);
+    if (_pSaveMenuAction && _pSaveMenuAction->signal_set_sensitive) _pSaveMenuAction->signal_set_sensitive->emit(true);
     }
     else {
-        if (_pSaveToolButton) _pSaveToolButton->set_sensitive(false);
-        if (_pSaveMenuAction) _pSaveMenuAction->signal_set_sensitive.emit(false);
+    if (_pSaveToolButton) _pSaveToolButton->set_sensitive(false);
+    if (_pSaveMenuAction && _pSaveMenuAction->signal_set_sensitive) _pSaveMenuAction->signal_set_sensitive->emit(false);
     }
     if (not _uCtStorage->get_file_path().empty()) {
         title += _uCtStorage->get_file_name().string() + " - ";
@@ -221,7 +221,7 @@ bool CtMainWin::file_open(const fs::path& filepath,
 
     window_title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
-    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(CtDocType::SQLite == doc_type);
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible->emit(CtDocType::SQLite == doc_type);
 
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath.string())};
     switch (_pCtConfig->restoreExpColl) {

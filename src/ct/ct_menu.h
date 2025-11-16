@@ -1,7 +1,7 @@
 /*
  * ct_menu.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -25,7 +25,10 @@
 
 #include <string>
 #include <libxml++/libxml++.h>
+#include <sigc++/sigc++.h>
 #include <gtkmm.h>
+#include <functional>
+#include <memory>
 #include "ct_types.h"
 
 class CtConfig;
@@ -40,10 +43,38 @@ struct CtMenuAction
     std::string name;
     std::string built_in_shortcut;
     std::string desc;
-    sigc::slot<void> run_action;
+    std::function<void()> run_action;
 
-    sigc::signal<void, bool> signal_set_sensitive = sigc::signal<void, bool>();
-    sigc::signal<void, bool> signal_set_visible = sigc::signal<void, bool>();
+    // store signals as shared_ptr so the struct remains copyable/movable and
+    // the actual sigc::signal type may be forward-declared by other headers.
+    std::shared_ptr<sigc::signal<void, bool>> signal_set_sensitive;
+    std::shared_ptr<sigc::signal<void, bool>> signal_set_visible;
+
+    CtMenuAction()
+     : run_action(nullptr)
+     , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
+     , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
+    {}
+
+    // Template constructor accepting const char* or std::string for string parameters
+    template<typename RunT>
+    CtMenuAction(std::string_view category_, std::string_view id_, std::string_view image_, 
+                 std::string_view name_, std::string_view built_in_shortcut_, std::string_view desc_, RunT run)
+     : category(category_)
+     , id(id_)
+     , image(image_)
+     , name(name_)
+     , built_in_shortcut(built_in_shortcut_)
+     , desc(desc_)
+     , run_action(nullptr)
+     , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
+     , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
+    {
+         // Wrap the provided callable (sigc::slot, sigc::signal, lambda, etc.)
+         // into a std::function<void()>. Many callables used in the code
+         // implement operator() to invoke the action or emit the signal.
+         run_action = [run]() mutable { run(); };
+    }
 
     const std::string& get_shortcut(CtConfig* pCtConfig) const;
     bool is_shortcut_overridden(CtConfig* pCtConfig) const;

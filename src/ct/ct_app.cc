@@ -298,38 +298,73 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                                           _pGtkSourceLanguageManager};
     add_window(*pCtMainWin);
 
-    pCtMainWin->signal_app_new_instance.connect([this]() {
+    pCtMainWin->signal_app_new_instance
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([this]() {
+#else
+        .connect([this]() {
+#endif
         auto win = _create_window();
         win->present(); // explicitly show it because it can be hidden by start in systray
     });
-    pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
+    pCtMainWin->signal_app_apply_for_each_window
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([this](std::function<void(CtMainWin*)> callback) {
+#else
+        .connect([this](std::function<void(CtMainWin*)> callback) {
+#endif
         for (Gtk::Window* pWin : get_windows()) {
             if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin)) {
                 callback(pCtMainWin);
             }
         }
     });
-    pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) {
+    pCtMainWin->signal_app_quit_or_hide_window
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([&](CtMainWin* win) {
+#else
+        .connect([&](CtMainWin* win) {
+#endif
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
     pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) {
         bool good = _quit_or_hide_window(pCtMainWin, true/*fromDelete*/, false/*fromKillCallback*/);
         return !good;
     });
-    pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) {
+    pCtMainWin->signal_app_quit_window
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([&](CtMainWin* win) {
+#else
+        .connect([&](CtMainWin* win) {
+#endif
         win->force_exit() = true;
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
-    pCtMainWin->signal_app_show_hide_main_win.connect([&]() {
+    pCtMainWin->signal_app_show_hide_main_win
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([&]() {
+#else
+        .connect([&]() {
+#endif
         systray_show_hide_windows();
     });
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
-    pCtMainWin->signal_app_tree_node_copy.connect([this, pCtMainWin]() {
+    pCtMainWin->signal_app_tree_node_copy
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([this, pCtMainWin]() {
+#else
+        .connect([this, pCtMainWin]() {
+#endif
         _pWinToCopyFrom = pCtMainWin;
         _nodeIdToCopyFrom = pCtMainWin->curr_tree_iter().get_node_id();
     });
-    pCtMainWin->signal_app_tree_node_paste.connect([this, pCtMainWin]() {
+    pCtMainWin->signal_app_tree_node_paste
+#if GTKMM_MAJOR_VERSION >= 4
+        ->connect([this, pCtMainWin]() {
+#else
+        .connect([this, pCtMainWin]() {
+#endif
         Gtk::Window* pWinToCopyFromValidated{nullptr};
         if (_pWinToCopyFrom) {
             for (Gtk::Window* pWin : get_windows()) {

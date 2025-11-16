@@ -29,6 +29,7 @@
 #include <gtkmm/dialog.h>
 #include <cstdlib>
 #include "ct_logging.h"
+#include <sigc++/sigc++.h>
 #include "ct_list.h"
 #ifndef _WIN32
 #include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)
@@ -339,7 +340,11 @@ void CtActions::image_link_dismiss()
 
 void CtActions::toggle_show_hide_main_window()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_show_hide_main_win->emit();
+#else
     _pCtMainWin->signal_app_show_hide_main_win();
+#endif
 }
 
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)

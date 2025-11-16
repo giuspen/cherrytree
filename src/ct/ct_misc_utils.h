@@ -28,6 +28,25 @@
 #include <gtkmm.h>
 #include <gtksourceview/gtksource.h>
 
+/*
+ * Compatibility shim: gtkmm4 removed the BuiltinIconSize enum that existed in
+ * gtkmm3. Multiple places in the codebase use Gtk::BuiltinIconSize. To allow
+ * building the same source against gtkmm4 while keeping gtkmm3 support, we
+ * declare a minimal enum with the same names under the Gtk namespace when
+ * compiling against gtkmm4.
+ */
+#if GTKMM_MAJOR_VERSION >= 4
+namespace Gtk {
+    enum BuiltinIconSize {
+        ICON_SIZE_MENU,
+        ICON_SIZE_SMALL_TOOLBAR,
+        ICON_SIZE_LARGE_TOOLBAR,
+        ICON_SIZE_DND,
+        ICON_SIZE_DIALOG
+    };
+}
+#endif
+
 class CtConfig;
 class CtTreeIter;
 

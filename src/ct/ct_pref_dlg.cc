@@ -24,6 +24,7 @@
 #include "ct_pref_dlg.h"
 #include "ct_main_win.h"
 #include "ct_actions.h"
+#include <sigc++/sigc++.h>
 
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
  : Gtk::Dialog{_("Preferences"), *parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT}
@@ -413,7 +414,11 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     });
     checkbutton_tooltips_enable_toolbar->signal_toggled().connect([this, checkbutton_tooltips_enable_toolbar](){
         _pConfig->toolbarTooltips = checkbutton_tooltips_enable_toolbar->get_active();
+#if GTKMM_MAJOR_VERSION >= 4
+        _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+#else
         _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+#endif
     });
     spinbutton_find_all_max_in_page->signal_value_changed().connect([this, spinbutton_find_all_max_in_page](){
         _pConfig->maxMatchesInPage = spinbutton_find_all_max_in_page->get_value_as_int();
@@ -572,5 +577,9 @@ void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr
 
 void CtPrefDlg::apply_for_each_window(std::function<void(CtMainWin*)> callback)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_apply_for_each_window->emit(callback);
+#else
     _pCtMainWin->signal_app_apply_for_each_window(callback);
+#endif
 }

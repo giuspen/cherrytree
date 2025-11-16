@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,6 +28,7 @@
 #include "ct_treestore.h"
 #include <ctime>
 #include <gtkmm/dialog.h>
+#include <sigc++/sigc++.h>
 
 bool CtActions::_is_there_selected_node_or_error()
 {
@@ -142,7 +143,11 @@ bool CtActions::_node_sel_and_rich_text()
 void CtActions::node_subnodes_copy()
 {
     if (not _is_there_selected_node_or_error()) return;
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_tree_node_copy->emit();
+#else
     _pCtMainWin->signal_app_tree_node_copy();
+#endif
 }
 
 void CtActions::node_subnodes_paste()
@@ -151,7 +156,11 @@ void CtActions::node_subnodes_paste()
     _in_action = true;
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
 
+#if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->signal_app_tree_node_paste->emit();
+#else
     _pCtMainWin->signal_app_tree_node_paste();
+#endif
 }
 
 void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,

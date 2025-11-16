@@ -26,6 +26,7 @@
 #include "ct_actions.h"
 #include "ct_list.h"
 #include "ct_clipboard.h"
+#include <sigc++/sigc++.h>
 
 std::unordered_map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
 
@@ -883,7 +884,11 @@ void CtTextView::zoom_text(const std::optional<bool> is_increase, const std::str
         else {
             _pCtConfig->codeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->codeFont), size_new);
         }
+#if GTKMM_MAJOR_VERSION >= 4
+        _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->update_theme(); });
+#else
         _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+#endif
     }
 }
 

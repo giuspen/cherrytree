@@ -25,6 +25,7 @@
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_clipboard.h"
+#include <sigc++/sigc++.h>
 
 void CtStatusBar::new_cursor_pos(const int r, const int c)
 {
@@ -63,6 +64,17 @@ CtMainWin::CtMainWin(bool                            no_gui,
  , _ctTextview{this}
  , _ctStateMachine{this}
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    // Initialize shared_ptr signals (gtkmm4 only)
+    signal_app_new_instance = std::make_shared<sigc::signal<void>>();
+    signal_app_show_hide_main_win = std::make_shared<sigc::signal<void>>();
+    signal_app_tree_node_copy = std::make_shared<sigc::signal<void>>();
+    signal_app_tree_node_paste = std::make_shared<sigc::signal<void>>();
+    signal_app_apply_for_each_window = std::make_shared<sigc::signal<void, std::function<void(CtMainWin*)>>>();
+    signal_app_quit_or_hide_window = std::make_shared<sigc::signal<void, CtMainWin*>>();
+    signal_app_quit_window = std::make_shared<sigc::signal<void, CtMainWin*>>();
+#endif
+
     get_style_context()->add_class("ct-app-win");
     set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
 
@@ -172,7 +184,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     config_apply();
 
     menu_set_items_recent_documents();
-    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible->emit(false);
     menu_top_optional_bookmarks_enforce();
 
     if (_no_gui) {
@@ -636,8 +648,8 @@ void CtMainWin::menu_top_optional_bookmarks_enforce()
 
 void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
 {
-    _uCtMenu->find_action("node_bookmark")->signal_set_visible.emit(not is_bookmarked);
-    _uCtMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
+    _uCtMenu->find_action("node_bookmark")->signal_set_visible->emit(not is_bookmarked);
+    _uCtMenu->find_action("node_unbookmark")->signal_set_visible->emit(is_bookmarked);
 }
 
 void CtMainWin::menu_set_bookmark_menu_items()
@@ -791,7 +803,11 @@ void CtMainWin::_zoom_tree(const std::optional<bool> is_increase)
     if (size_new > 0) {
         if (size_new < 6) size_new = 6;
         _pCtConfig->treeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->treeFont), size_new);
+#if GTKMM_MAJOR_VERSION >= 4
+        signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+#else
         signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+#endif
     }
 }
 
@@ -815,7 +831,7 @@ void CtMainWin::reset()
     window_header_update_ghost_icon(false);
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
-    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible->emit(false);
     menu_top_optional_bookmarks_enforce();
 
     update_window_save_not_needed();

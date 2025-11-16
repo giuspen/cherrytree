@@ -1,7 +1,7 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -388,8 +388,8 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell,
                                                    _pAccelGroup,
                                                    _pCtConfig->menusTooltips ? pAction->desc.c_str() : nullptr,
                                                    (gpointer)pAction,
-                                                   &pAction->signal_set_sensitive,
-                                                   &pAction->signal_set_visible,
+                                                   pAction->signal_set_sensitive.get(),
+                                                   pAction->signal_set_visible.get(),
                                                    pListConnections);
     pMenuItem->get_child()->set_name(pAction->id); // for find_menu_item();
     return pMenuItem;

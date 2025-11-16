@@ -1,7 +1,7 @@
 /*
  * ct_actions_view.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2025
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -24,6 +24,7 @@
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
 #include "ct_dialogs.h"
+#include <sigc++/sigc++.h>
 
 void CtActions::toggle_show_hide_vte()
 {
@@ -58,7 +59,11 @@ void CtActions::toggle_show_hide_menubar()
     if (not _pCtConfig->menubarVisible and std::string::npos == _pCtConfig->toolbarUiList.find("toggle_show_menubar")) {
         spdlog::debug("toolbar + toggle_show_menubar");
         _pCtConfig->toolbarUiList += ",toggle_show_menubar";
+#if GTKMM_MAJOR_VERSION >= 4
+        _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+#else
         _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+#endif
     }
 }
 

@@ -204,7 +204,7 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
         }
     }
     else if (3 == event->button) {
-        _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
+        _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible->emit(!_link.empty());
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup_at_pointer((GdkEvent*)event);
     }
     return true; // do not propagate the event

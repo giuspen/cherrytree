@@ -27,6 +27,7 @@
 #include <optional>
 
 #include <glibmm/i18n.h>
+#include <memory>
 #include <gtkmm.h>
 #include <gtksourceview/gtksource.h>
 #include "ct_treestore.h"
@@ -349,15 +350,27 @@ private:
     bool                _alwaysOnTop{false};
 
 public:
-    sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();
-    sigc::signal<void>             signal_app_show_hide_main_win = sigc::signal<void>();
-    sigc::signal<void>             signal_app_tree_node_copy = sigc::signal<void>();
-    sigc::signal<void>             signal_app_tree_node_paste = sigc::signal<void>();
+#if GTKMM_MAJOR_VERSION >= 4
+    // gtkmm4: wrap in shared_ptr to avoid incomplete-type errors with forward-declared sigc types
+    std::shared_ptr<sigc::signal<void>>             signal_app_new_instance;
+    std::shared_ptr<sigc::signal<void>>             signal_app_show_hide_main_win;
+    std::shared_ptr<sigc::signal<void>>             signal_app_tree_node_copy;
+    std::shared_ptr<sigc::signal<void>>             signal_app_tree_node_paste;
+    std::shared_ptr<sigc::signal<void, std::function<void(CtMainWin*)>>>
+                                   signal_app_apply_for_each_window;
+    std::shared_ptr<sigc::signal<void, CtMainWin*>> signal_app_quit_or_hide_window;
+    std::shared_ptr<sigc::signal<void, CtMainWin*>> signal_app_quit_window;
+#else
+    // gtkmm3: use direct members (sigc types are fully defined)
+    sigc::signal<void>             signal_app_new_instance;
+    sigc::signal<void>             signal_app_show_hide_main_win;
+    sigc::signal<void>             signal_app_tree_node_copy;
+    sigc::signal<void>             signal_app_tree_node_paste;
     sigc::signal<void, std::function<void(CtMainWin*)>>
-                                   signal_app_apply_for_each_window = sigc::signal<void, std::function<void(CtMainWin*)>>();
-
-    sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window = sigc::signal<void, CtMainWin*>();
-    sigc::signal<void, CtMainWin*> signal_app_quit_window = sigc::signal<void, CtMainWin*>();
+                                   signal_app_apply_for_each_window;
+    sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window;
+    sigc::signal<void, CtMainWin*> signal_app_quit_window;
+#endif
 
 public:
     Glib::Dispatcher dispatcherErrorMsg;

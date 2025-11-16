@@ -464,7 +464,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
                 _uCtActions->curr_image_anchor = image;
                 _uCtActions->object_set_selection(image);
-                _uCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
+                _uCtMenu->find_action("img_link_dismiss")->signal_set_visible->emit(not image->get_link().empty());
                 auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image);
                 pMenu->popup_at_widget(&_ctTextview.mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
             }
