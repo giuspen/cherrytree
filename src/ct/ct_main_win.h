@@ -239,9 +239,8 @@ public:
 
 #if GTKMM_MAJOR_VERSION < 4
     void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; set_keep_above(_alwaysOnTop); }
-#else
-    void toggle_always_on_top() { _alwaysOnTop = not _alwaysOnTop; Gtk::Window::set_keep_above(_alwaysOnTop); }
-#endif
+#endif /* GTKMM_MAJOR_VERSION < 4 */
+
     void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
 private:

@@ -298,7 +298,11 @@ public:
     void more_nodes_on_node_name_header();
     void less_nodes_on_node_name_header();
     void toggle_fullscreen();
+
+#if GTKMM_MAJOR_VERSION < 4
     void toggle_always_on_top();
+#endif /* GTKMM_MAJOR_VERSION < 4 */
+
     void disable_menubar_in_titlebar() { _menubar_in_titlebar_set(false); }
     void enable_menubar_in_titlebar() { _menubar_in_titlebar_set(true); }
 

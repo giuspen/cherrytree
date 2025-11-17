@@ -162,10 +162,12 @@ void CtActions::toolbar_icons_size_decrease()
     _pCtMainWin->set_toolbars_icon_size(_pCtConfig->toolbarIconSize);
 }
 
+#if GTKMM_MAJOR_VERSION < 4
 void CtActions::toggle_always_on_top()
 {
     _pCtMainWin->toggle_always_on_top();
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 */
 
 void CtActions::toggle_fullscreen()
 {

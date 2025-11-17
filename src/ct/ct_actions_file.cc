@@ -22,6 +22,7 @@
  */
 
 #include <sigc++/sigc++.h>
+#include <sigc++/signal.h>
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_pref_dlg.h"

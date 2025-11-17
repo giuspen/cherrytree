@@ -21,6 +21,9 @@
  * MA 02110-1301, USA.
  */
 
+#include <sigc++/signal.h>
+template class sigc::signal<void, bool>;
+
 #include "ct_actions.h"
 #include "ct_menu.h"
 #include "ct_storage_xml.h"

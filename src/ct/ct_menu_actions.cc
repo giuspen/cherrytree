@@ -441,8 +441,10 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Decrease the Number of Last Visited Nodes on Node Name Header"), sigc::mem_fun(*pActions, &CtActions::less_nodes_on_node_name_header)});
         _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("Full Screen _On/Off"), "F11",
             _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::toggle_fullscreen)});
+#if GTKMM_MAJOR_VERSION < 4
         _actions.push_back(CtMenuAction{view_cat, "toggle_always_on_top", "ct_pin", _("_Always On Top On/Off"), None,
             _("Always On Top On/Off"), sigc::mem_fun(*pActions, &CtActions::toggle_always_on_top)});
+#endif /* GTKMM_MAJOR_VERSION < 4 */
         if (_pCtConfig->menubarInTitlebar) {
             _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_no", _("Disable Menubar i_n Titlebar"), None,
                 _("Do Not Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::disable_menubar_in_titlebar)});

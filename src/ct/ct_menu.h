@@ -26,6 +26,7 @@
 #include <string>
 #include <libxml++/libxml++.h>
 #include <sigc++/sigc++.h>
+#include <sigc++/signal.h>
 #include <gtkmm.h>
 #include <functional>
 #include <memory>
@@ -63,8 +64,8 @@ struct CtMenuAction
      , built_in_shortcut(built_in_shortcut_)
      , desc(desc_)
      , run_action([run]() mutable { run(); })
-     , signal_set_sensitive(new sigc::signal<void, bool>())
-     , signal_set_visible(new sigc::signal<void, bool>())
+     , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
+     , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
     {
     }
 
