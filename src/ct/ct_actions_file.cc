@@ -56,11 +56,7 @@ void CtActions::_file_save(bool need_vacuum)
 
 void CtActions::file_new()
 {
-#if GTKMM_MAJOR_VERSION >= 4
-    _pCtMainWin->signal_app_new_instance->emit();
-#else
-    _pCtMainWin->signal_app_new_instance();
-#endif
+    _pCtMainWin->emit_app_new_instance();
 }
 
 // Save the file
@@ -172,20 +168,12 @@ void CtActions::file_open()
 
 void CtActions::quit_or_hide_window()
 {
-#if GTKMM_MAJOR_VERSION >= 4
-    _pCtMainWin->signal_app_quit_or_hide_window->emit(_pCtMainWin);
-#else
-    _pCtMainWin->signal_app_quit_or_hide_window(_pCtMainWin);
-#endif
+    _pCtMainWin->emit_app_quit_or_hide_window(_pCtMainWin);
 }
 
 void CtActions::quit_window()
 {
-#if GTKMM_MAJOR_VERSION >= 4
-    _pCtMainWin->signal_app_quit_window->emit(_pCtMainWin);
-#else
-    _pCtMainWin->signal_app_quit_window(_pCtMainWin);
-#endif
+    _pCtMainWin->emit_app_quit_window(_pCtMainWin);
 }
 
 void CtActions::dialog_preferences()
@@ -193,7 +181,9 @@ void CtActions::dialog_preferences()
     _pCtMainWin->get_text_view().synch_spell_check_change_from_gspell_right_click_menu();
     CtPrefDlg prefDlg(_pCtMainWin);
     prefDlg.show();
+#if GTKMM_MAJOR_VERSION < 4
     prefDlg.run();
+#endif
 }
 
 void CtActions::preferences_import()
@@ -368,7 +358,7 @@ void CtActions::preferences_import()
 
             if (_pCtConfig->systrayOn) {
 #if GTKMM_MAJOR_VERSION >= 4
-                _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
+                _pCtMainWin->emit_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
 #else
                 _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
 #endif
@@ -385,7 +375,7 @@ void CtActions::preferences_import()
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 #if GTKMM_MAJOR_VERSION >= 4
-            _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
+            _pCtMainWin->emit_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
 #else
             _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
 #endif

@@ -229,6 +229,113 @@ CtMainWin::CtMainWin(bool                            no_gui,
     dispatcherErrorMsg.connect(sigc::mem_fun(*this, &CtMainWin::_on_dispatcher_error_msg));
 }
 
+// --- Signal emit/connect wrappers ------------------------------
+void CtMainWin::emit_app_new_instance()
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_new_instance) signal_app_new_instance->emit();
+#else
+    signal_app_new_instance();
+#endif
+}
+
+void CtMainWin::emit_app_show_hide_main_win()
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_show_hide_main_win) signal_app_show_hide_main_win->emit();
+#else
+    signal_app_show_hide_main_win();
+#endif
+}
+
+void CtMainWin::emit_app_tree_node_copy()
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_tree_node_copy) signal_app_tree_node_copy->emit();
+#else
+    signal_app_tree_node_copy();
+#endif
+}
+
+void CtMainWin::emit_app_tree_node_paste()
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_tree_node_paste) signal_app_tree_node_paste->emit();
+#else
+    signal_app_tree_node_paste();
+#endif
+}
+
+void CtMainWin::emit_app_apply_for_each_window(const std::function<void(CtMainWin*)>& cb)
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_apply_for_each_window) signal_app_apply_for_each_window->emit(cb);
+#else
+    signal_app_apply_for_each_window(cb);
+#endif
+}
+
+void CtMainWin::emit_app_quit_or_hide_window(CtMainWin* pWin)
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_quit_or_hide_window) signal_app_quit_or_hide_window->emit(pWin);
+#else
+    signal_app_quit_or_hide_window(pWin);
+#endif
+}
+
+void CtMainWin::emit_app_quit_window(CtMainWin* pWin)
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_quit_window) signal_app_quit_window->emit(pWin);
+#else
+    signal_app_quit_window(pWin);
+#endif
+}
+
+void CtMainWin::connect_app_new_instance(const std::function<void()>& cb)
+{
+    // convert std::function to sigc::slot and connect
+    sigc::slot<void> slot = cb;
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_new_instance) signal_app_new_instance->connect(slot);
+#else
+    signal_app_new_instance.connect(slot);
+#endif
+}
+
+void CtMainWin::connect_app_apply_for_each_window(const std::function<void(std::function<void(CtMainWin*)>)>& cb)
+{
+    // slot type carries a std::function<void(CtMainWin*)>
+    sigc::slot<void, std::function<void(CtMainWin*)>> slot = cb;
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_apply_for_each_window) signal_app_apply_for_each_window->connect(slot);
+#else
+    signal_app_apply_for_each_window.connect(slot);
+#endif
+}
+
+void CtMainWin::connect_app_quit_or_hide_window(const std::function<void(CtMainWin*)>& cb)
+{
+    sigc::slot<void, CtMainWin*> slot = cb;
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_quit_or_hide_window) signal_app_quit_or_hide_window->connect(slot);
+#else
+    signal_app_quit_or_hide_window.connect(slot);
+#endif
+}
+
+void CtMainWin::connect_app_quit_window(const std::function<void(CtMainWin*)>& cb)
+{
+    sigc::slot<void, CtMainWin*> slot = cb;
+#if GTKMM_MAJOR_VERSION >= 4
+    if (signal_app_quit_window) signal_app_quit_window->connect(slot);
+#else
+    signal_app_quit_window.connect(slot);
+#endif
+}
+
+
 CtMainWin::~CtMainWin()
 {
     _autosave_timout_connection.disconnect();

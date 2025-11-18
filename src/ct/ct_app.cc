@@ -298,46 +298,26 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                                           _pGtkSourceLanguageManager};
     add_window(*pCtMainWin);
 
-    pCtMainWin->signal_app_new_instance
-#if GTKMM_MAJOR_VERSION >= 4
-        ->connect([this]() {
-#else
-        .connect([this]() {
-#endif
+    pCtMainWin->connect_app_new_instance([this]() {
         auto win = _create_window();
         win->present(); // explicitly show it because it can be hidden by start in systray
     });
-    pCtMainWin->signal_app_apply_for_each_window
-#if GTKMM_MAJOR_VERSION >= 4
-        ->connect([this](std::function<void(CtMainWin*)> callback) {
-#else
-        .connect([this](std::function<void(CtMainWin*)> callback) {
-#endif
+    pCtMainWin->connect_app_apply_for_each_window([this](std::function<void(CtMainWin*)> callback) {
         for (Gtk::Window* pWin : get_windows()) {
             if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin)) {
                 callback(pCtMainWin);
             }
         }
     });
-    pCtMainWin->signal_app_quit_or_hide_window
-#if GTKMM_MAJOR_VERSION >= 4
-        ->connect([&](CtMainWin* win) {
-#else
-        .connect([&](CtMainWin* win) {
-#endif
+    pCtMainWin->connect_app_quit_or_hide_window([&](CtMainWin* win) {
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
     pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) {
         bool good = _quit_or_hide_window(pCtMainWin, true/*fromDelete*/, false/*fromKillCallback*/);
         return !good;
     });
-    pCtMainWin->signal_app_quit_window
-#if GTKMM_MAJOR_VERSION >= 4
-        ->connect([&](CtMainWin* win) {
-#else
-        .connect([&](CtMainWin* win) {
-#endif
-        win->force_exit() = true;
+    pCtMainWin->connect_app_quit_window([&](CtMainWin* win) {
+    win->force_exit() = true;
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)

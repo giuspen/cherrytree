@@ -498,7 +498,10 @@ inline Glib::ustring trim(Glib::ustring s)
 template<typename ...Args>
 std::string format(const std::string& in_str, const Args&... args)
 {
-    return fmt::format(str::replace(in_str, "%s", "{}").c_str(), args...);
+    // Use fmt::runtime to indicate the format string is not a compile-time constant.
+    // This avoids fmt's consteval/constexpr format-string checks which fail when
+    // passing a non-constexpr c_str() from a temporary std::string.
+    return fmt::format(fmt::runtime(str::replace(in_str, "%s", "{}")), args...);
 }
 
 template<class STRING>

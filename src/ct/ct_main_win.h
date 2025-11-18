@@ -382,6 +382,22 @@ public:
 #endif
 
 public:
+    // Helper wrappers to emit/connect signals from translation units that
+    // don't include the full sigc++ definitions (avoids incomplete-type issues).
+    void emit_app_new_instance();
+    void emit_app_show_hide_main_win();
+    void emit_app_tree_node_copy();
+    void emit_app_tree_node_paste();
+    void emit_app_apply_for_each_window(const std::function<void(CtMainWin*)>& cb);
+    void emit_app_quit_or_hide_window(CtMainWin* pWin);
+    void emit_app_quit_window(CtMainWin* pWin);
+
+    void connect_app_new_instance(const std::function<void()>& cb);
+    void connect_app_apply_for_each_window(const std::function<void(std::function<void(CtMainWin*)>)>& cb);
+    void connect_app_quit_or_hide_window(const std::function<void(CtMainWin*)>& cb);
+    void connect_app_quit_window(const std::function<void(CtMainWin*)>& cb);
+
+public:
     Glib::Dispatcher dispatcherErrorMsg;
     ThreadSafeDEQueue<std::string, 2> errorsDEQueue;
 
