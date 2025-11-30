@@ -25,6 +25,15 @@
 #include "ct_storage_xml.h"
 #include "ct_export2txt.h"
 
+// GtkSourceView 5 removed begin/end_not_undoable_action
+#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
+#else
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) gtk_source_buffer_begin_not_undoable_action(buf)
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   gtk_source_buffer_end_not_undoable_action(buf)
+#endif
+
 void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer,
                                           const std::string& syntax,
                                           const bool forceReApply)
@@ -194,9 +203,9 @@ Glib::RefPtr<Gtk::TextBuffer> CtMainWin::get_new_text_buffer(const Glib::ustring
     gtk_source_buffer_set_max_undo_levels(pGtkSourceBuffer, _pCtConfig->limitUndoableSteps);
 
     if (not textContent.empty()) {
-        gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
+        CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
         rRetTextBuffer->set_text(textContent);
-        gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+        CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
         rRetTextBuffer->set_modified(false);
     }
     return rRetTextBuffer;
@@ -485,7 +494,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
     auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
 
-    gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
+    CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
 
     // erase is slow on empty buffer
     if (pTextBuffer->begin() != pTextBuffer->end()) {
@@ -506,7 +515,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     }
     get_tree_store().addAnchoredWidgets(tree_iter, widgets, &_ctTextview.mm());
 
-    gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+    CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
     pTextBuffer->set_modified(false);
 
     _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
@@ -517,7 +526,11 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     pTextBuffer->place_cursor(pTextBuffer->get_iter_at_offset(state->cursor_pos));
     (void)_try_move_focus_to_anchored_widget_if_on_it();
 
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     while (gtk_events_pending()) gtk_main_iteration();
+    #else
+    while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+    #endif
     _scrolledwindowText.get_vadjustment()->set_value(state->v_adj_val);
 
     user_active() = user_active_restore;
@@ -560,7 +573,11 @@ void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int 
 
     pTextBuffer->place_cursor(textIter);
 
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     while (gtk_events_pending()) gtk_main_iteration();
+    #else
+    while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+    #endif
     _scrolledwindowText.get_vadjustment()->set_value(v_adj_val);
 }
 

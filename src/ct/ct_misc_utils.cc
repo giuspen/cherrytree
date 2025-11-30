@@ -1221,7 +1221,11 @@ static bool _g_file_load_into_source_buffer(GFile* pGFile, GtkSourceBuffer* pGtk
                                       &operationStatus/*user_data*/);
     while (0 == operationStatus) {
         g_usleep(10000); // wait 10 msec
+        #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         while (gtk_events_pending()) gtk_main_iteration();
+        #else
+        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+        #endif
     }
     g_object_unref(pGtkSourceFileLoader);
     g_object_unref(pGtkSourceFile);

@@ -141,14 +141,15 @@ void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 {
     auto on_scope_exit = scope_guard([&](void*) { CtClipboard::_static_force_plain_text = false; });
-
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)pTextView; (void)pCodebox; return;
+#else
     g_signal_stop_emission_by_name(G_OBJECT(pTextView->gobj()), "paste-clipboard");
     if (_pCtMainWin->curr_tree_iter().get_node_read_only())
         return;
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
     if (targets.empty())
         return;
-    //spdlog::debug("'{}'", str::join(targets, "' '"));
     auto text_buffer = pTextView->get_buffer();
     text_buffer->erase_selection(true, pTextView->get_editable());
 
@@ -218,10 +219,9 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox
         spdlog::warn("targets not handled {}", str::join(targets, ", "));
         return;
     };
-    //spdlog::debug("targets: {}", str::join(targets, ", "));
-
     auto receive_fun = sigc::bind(target_fun, _pCtMainWin, pTextView, force_plain_text);
     Gtk::Clipboard::get()->request_contents(target, receive_fun);
+#endif
 }
 
 void CtClipboard::plain_text_to_clipboard(const char* plain_text)
@@ -242,6 +242,7 @@ void CtClipboard::table_row_to_clipboard(CtTableCommon* pTable)
 
 void CtClipboard::table_row_paste(CtTableCommon* pTable)
 {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
     if (vec::exists(targets, CtConst::TARGET_CTD_TABLE)) {
         auto win = _pCtMainWin;
@@ -251,6 +252,9 @@ void CtClipboard::table_row_paste(CtTableCommon* pTable)
         };
         Gtk::Clipboard::get()->request_contents(CtConst::TARGET_CTD_TABLE, received_table);
     }
+#else
+    (void)pTable; // TODO GTK4 table paste
+#endif
 }
 
 void CtClipboard::table_column_to_clipboard(CtTableCommon* pTable)
@@ -264,6 +268,7 @@ void CtClipboard::table_column_to_clipboard(CtTableCommon* pTable)
 
 void CtClipboard::table_column_paste(CtTableCommon* pTable)
 {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
     if (vec::exists(targets, CtConst::TARGET_CTD_TABLE)) {
         auto win = _pCtMainWin;
@@ -273,13 +278,16 @@ void CtClipboard::table_column_paste(CtTableCommon* pTable)
         };
         Gtk::Clipboard::get()->request_contents(CtConst::TARGET_CTD_TABLE, received_table);
     }
+#else
+    (void)pTable; // TODO GTK4 column paste
+#endif
 }
 
 void CtClipboard::node_link_to_clipboard(CtTreeIter node)
 {
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {}">{}</rich_text></slot></root>)XML";
-    clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(node.get_node_name()));
+    clip_data->rich_text = fmt::format(fmt::runtime(tml), node.get_node_id(), str::xml_escape(node.get_node_name()));
     clip_data->plain_text = fmt::format("{} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str());
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
@@ -289,7 +297,7 @@ void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring&
 {
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {} {}">{}</rich_text></slot></root>)XML";
-    clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
+    clip_data->rich_text = fmt::format(fmt::runtime(tml), node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
     clip_data->plain_text = fmt::format("{} - {} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str(), anchor_name.raw());
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
@@ -471,6 +479,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
 
 void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data)
 {
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::vector<Gtk::TargetEntry> target_entries;
     for (const auto& target : targets_list) {
         target_entries.push_back(Gtk::TargetEntry{target});
@@ -483,8 +492,26 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
         delete clip_data;
     };
     Gtk::Clipboard::get()->set(target_entries, clip_data_get, clip_data_clear);
+    #else
+    // GTK4: minimal clipboard support (text only)
+    auto display = Gdk::Display::get_default();
+    if (display) {
+        auto clipboard = display->get_clipboard();
+        if (clipboard) {
+            if (!clip_data->rich_text.empty()) {
+                clipboard->set_text(clip_data->rich_text);
+            } else if (!clip_data->html_text.empty()) {
+                clipboard->set_text(clip_data->html_text);
+            } else {
+                clipboard->set_text(clip_data->plain_text);
+            }
+        }
+    }
+    delete clip_data;
+    #endif
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipboardData* clip_data)
 {
     CtClipboard::_static_from_column_edit = clip_data->from_column_edit;
@@ -527,8 +554,10 @@ void CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipbo
         selection_data.set_pixbuf(clip_data->pix_buf);
     }
 }
+#endif
 
 // From Clipboard to Plain Text
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text)
 {
     std::string plain_text = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
@@ -596,8 +625,55 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
     }
     pTextView->scroll_to(curr_buffer->get_insert());
 }
+#endif
+
+#if GTKMM_MAJOR_VERSION >= 4 || defined(GTKMM_DISABLE_DEPRECATED)
+void CtClipboard::on_received_to_plain_text_gtk4(const Glib::ustring& text, Gtk::TextView* pTextView, bool force_plain_text)
+{
+    if (!pTextView) return;
+    auto buffer = pTextView->get_buffer();
+    if (!buffer) return;
+    if (force_plain_text) {
+        buffer->insert_at_cursor(text);
+        return;
+    }
+    // Plain text path identical currently
+    buffer->insert_at_cursor(text);
+}
+
+void CtClipboard::on_received_to_rich_text_gtk4(const Glib::ustring& rich_text_xml, Gtk::TextView* pTextView)
+{
+    if (!pTextView) return;
+    auto buffer = pTextView->get_buffer();
+    if (!buffer) return;
+    from_xml_string_to_buffer(buffer, rich_text_xml, nullptr);
+}
+
+void CtClipboard::on_received_to_uri_list_gtk4(const Glib::ustring& uri_list, Gtk::TextView* pTextView, const bool forcePlain, const bool /*fromDragNDrop*/)
+{
+    if (!pTextView) return;
+    std::vector<std::string> uris;
+    std::istringstream iss(uri_list);
+    std::string line;
+    while (std::getline(iss, line)) {
+        str::trim(line);
+        if (!line.empty()) uris.push_back(line);
+    }
+    if (uris.empty()) return;
+    for (const auto& u : uris) {
+        // Reuse existing logic: insert as link or plain text
+        if (forcePlain) {
+            pTextView->get_buffer()->insert_at_cursor(u + "\n");
+        } else {
+            // Basic insertion; richer handling can be added later
+            pTextView->get_buffer()->insert_at_cursor(u + "\n");
+        }
+    }
+}
+#endif
 
 // From Clipboard to Rich Text
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
 #ifdef __APPLE__
@@ -614,8 +690,10 @@ void CtClipboard::on_received_to_rich_text(const Gtk::SelectionData& selection_d
     from_xml_string_to_buffer(pTextView->get_buffer(), rich_text, &pasteHadWidgets);
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
+#endif
 
 // From Clipboard to CodeBox
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
 #ifdef __APPLE__
@@ -631,8 +709,10 @@ void CtClipboard::on_received_to_codebox(const Gtk::SelectionData& selection_dat
 
     _xml_to_codebox(xml_text, pTextView);
 }
+#endif
 
 // From Clipboard to Table
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
                                        Gtk::TextView* pTextView,
                                        const bool is_column,
@@ -724,8 +804,10 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
         pTextView->scroll_to(pTextView->get_buffer()->get_insert());
     }
 }
+#endif
 
 // From Clipboard to HTML Text
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     std::string html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
@@ -745,8 +827,10 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
     from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string(), &pasteHadWidgets);
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
+#endif
 
 // From Clipboard to Image
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     Glib::RefPtr<const Gdk::Pixbuf> rPixbuf = selection_data.get_pixbuf();
@@ -759,7 +843,9 @@ void CtClipboard::on_received_to_image(const Gtk::SelectionData& selection_data,
         spdlog::debug("invalid image in clipboard");
     }
 }
+#endif
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_cf_hdrop(const Gtk::SelectionData& selection_data,
                                           Gtk::TextView* pTextView,
                                           const bool/*forcePlain*/,
@@ -827,6 +913,7 @@ void CtClipboard::on_received_to_cf_hdrop(const Gtk::SelectionData& selection_da
     }
     pTextView->scroll_to(pTextBuffer->get_insert());
 }
+#endif
 
 void CtClipboard::_uri_or_filepath_list_into_rich_text(const std::vector<Glib::ustring>& uri_or_file_paths,
                                                        Gtk::TextView* pTextView)
@@ -907,6 +994,7 @@ void CtClipboard::_uri_or_filepath_list_into_rich_text(const std::vector<Glib::u
 }
 
 // From Clipboard to URI list
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_data,
                                           Gtk::TextView* pTextView,
                                           const bool/*forcePlain*/,
@@ -965,6 +1053,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
     }
     pTextView->scroll_to(pTextBuffer->get_insert());
 }
+#endif
 
 Glib::ustring CtClipboard::_codebox_to_yaml(CtCodebox *codebox)
 {
@@ -1088,15 +1177,15 @@ std::string Win32HtmlFormat::encode(std::string html_in)
             "<HTML><HEAD>{}</HEAD><BODY><!--StartFragment-->{}<!--EndFragment--></BODY></HTML>";
 
     std::string head = "", source = CtConst::APP_NAME + std::string(CtConst::CT_VERSION);
-    std::string html = fmt::format(DEFAULT_HTML_BODY, head, html_in);
+    std::string html = fmt::format(fmt::runtime(DEFAULT_HTML_BODY), head, html_in);
     std::string::size_type fragmentStart = html.find(html_in);
     std::string::size_type fragmentEnd = fragmentStart + html_in.size();
 
     // How long is the prefix going to be?
-    std::string dummyPrefix = fmt::format(MARKER_BLOCK_OUTPUT, 0, 0, 0, 0, 0, 0, source);
+    std::string dummyPrefix = fmt::format(fmt::runtime(MARKER_BLOCK_OUTPUT), 0, 0, 0, 0, 0, 0, source);
     std::string::size_type lenPrefix = dummyPrefix.size();
 
-    std::string prefix = fmt::format(MARKER_BLOCK_OUTPUT,
+    std::string prefix = fmt::format(fmt::runtime(MARKER_BLOCK_OUTPUT),
                 lenPrefix, html.size() + lenPrefix,
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
@@ -1107,7 +1196,11 @@ std::string Win32HtmlFormat::encode(std::string html_in)
 Glib::ustring Win32HtmlFormat::convert_from_ms_clipboard(const Glib::ustring& html_in)
 {
     auto f_get_arg_value = [&](Glib::ustring arg_name) {
-        auto re = Glib::Regex::create(arg_name + "\\s*:\\s*(.*?)$", Glib::RegexCompileFlags::REGEX_CASELESS | Glib::RegexCompileFlags::REGEX_MULTILINE);
+#if GTKMM_MAJOR_VERSION < 4
+    auto re = Glib::Regex::create(Glib::ustring{"(?im)"} + arg_name + "\\s*:\\s*(.*?)$");
+#else
+        auto re = Glib::Regex::create(arg_name + "\\s*:\\s*(.*?)$", Glib::Regex::CompileFlags::CASELESS | Glib::Regex::CompileFlags::MULTILINE);
+#endif
         Glib::MatchInfo match;
         if (not re->match(html_in, match)) {
             return -1;

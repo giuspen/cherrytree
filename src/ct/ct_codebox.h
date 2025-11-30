@@ -99,7 +99,9 @@ public:
     bool get_show_line_numbers() const { return _showLineNumbers; }
 
 private:
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_key_press_event(GdkEventKey* event);
+#endif
     void _set_scrollbars_policies();
 
 private:
@@ -109,9 +111,15 @@ private:
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
     Gtk::ScrolledWindow _scrolledwindow;
+#if GTKMM_MAJOR_VERSION >= 4
+    Gtk::Box _hbox{Gtk::Orientation::HORIZONTAL};
+#else
     Gtk::Box _hbox{Gtk::ORIENTATION_HORIZONTAL};
+#endif
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     Gtk::Toolbar _toolbar;
     Gtk::ToolButton _toolButtonPlay;
     Gtk::ToolButton _toolButtonCopy;
     Gtk::ToolButton _toolButtonProp;
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 };

@@ -186,8 +186,16 @@ bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
         return false;
     }
     auto next_iter = [](Gtk::TreeModel::iterator iter) { return ++iter; };
-    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeModel::iterator curr_sibling, size_t offset)->bool{
+    auto sort_iteration = [&f_need_swap, &model, &next_iter, &children](size_t offset)->bool{
         bool swap_executed{false};
+        #if GTKMM_MAJOR_VERSION >= 4
+        // GTK4: children.begin() returns const iterator; get mutable from model via path
+        auto const_iter = children.begin();
+        if (!const_iter) return false;
+        Gtk::TreeModel::iterator curr_sibling = model->get_iter(model->get_path(const_iter));
+        #else
+        Gtk::TreeModel::iterator curr_sibling = children.begin();
+        #endif
         while (offset-- > 0) {
             ++curr_sibling;
             if (not curr_sibling) {
@@ -208,7 +216,7 @@ bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
         return swap_executed;
     };
     bool swap_executed{false};
-    while (sort_iteration(children.begin(), start_offset)) {
+    while (sort_iteration(start_offset)) {
         if (not swap_executed) {
             swap_executed = true;
         }

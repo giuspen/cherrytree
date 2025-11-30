@@ -966,7 +966,11 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)
 {
     const char* stock_id = get_node_icon(nodeDepth, syntax, customIconId);
+    #if GTKMM_MAJOR_VERSION < 4
     return _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE);
+    #else
+    return Glib::RefPtr<Gdk::Pixbuf>{};
+    #endif
 }
 
 const char* CtTreeStore::get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)
@@ -1126,7 +1130,11 @@ void CtTreeStore::update_node_aux_icon(const Gtk::TreeModel::iterator& treeIter)
         treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>{});
     }
     else {
+        #if GTKMM_MAJOR_VERSION < 4
         treeIter->set_value(_columns.rColPixbufAux, _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE));
+        #else
+        treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>{});
+        #endif
     }
 }
 

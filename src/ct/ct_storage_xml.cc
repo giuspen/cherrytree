@@ -34,6 +34,15 @@
 #include "ct_storage_multifile.h"
 #include "ct_logging.h"
 
+// GtkSourceView 5 removed begin/end_not_undoable_action
+#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
+#else
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) gtk_source_buffer_begin_not_undoable_action(buf)
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   gtk_source_buffer_end_not_undoable_action(buf)
+#endif
+
 bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& error)
 {
     try {
@@ -445,14 +454,14 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from
     Glib::RefPtr<Gtk::TextBuffer> pBuffer = _pCtMainWin->get_new_text_buffer();
     bool error{false};
     auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pBuffer->gobj());
-    gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
+    CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
     for (xmlpp::Node* xml_slot : parent_xml_element->get_children()) {
         if (not get_text_buffer_one_slot_from_xml(pBuffer, xml_slot, widgets, text_insert_pos, force_offset, multifile_dir)) {
             error = true;
             break;
         }
     }
-    gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+    CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
     pBuffer->set_modified(false);
     return error ? Glib::RefPtr<Gtk::TextBuffer>{} : pBuffer;
 }

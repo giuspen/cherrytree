@@ -414,6 +414,7 @@ Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
 }
 
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                                                             bool also_selection,
                                                             bool* last_include_node_name,
@@ -485,3 +486,15 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
     if (radiobutton_alltree.get_active()) return CtExporting::ALL_TREE;
     return CtExporting::SELECTED_TEXT;
 }
+#else
+CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
+                                                            bool also_selection,
+                                                            bool* last_include_node_name,
+                                                            bool* last_new_node_page,
+                                                            bool* last_index_in_page,
+                                                            bool* last_single_file)
+{
+    (void)parent; (void)also_selection; (void)last_include_node_name; (void)last_new_node_page; (void)last_index_in_page; (void)last_single_file;
+    return CtExporting::NONESAVE;
+}
+#endif

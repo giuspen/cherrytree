@@ -569,6 +569,8 @@ bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
     return true;
 }
 
+// GTK3 Drag & Drop for TreeView
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::_on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& /*context*/,
                                          int x,
                                          int y,
@@ -632,7 +634,6 @@ void CtMainWin::_on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragCont
     if (treeDropPos == Gtk::TREE_VIEW_DROP_BEFORE) {
         auto prev_iter = drop_iter;
         --prev_iter;
-        // note: prev_iter could be None, use drop_iter to retrieve the parent
         _uCtActions->node_move_after(drag_iter, drop_iter.parent(), prev_iter, true/*set_first*/);
     }
     else if (treeDropPos == Gtk::TREE_VIEW_DROP_AFTER) {
@@ -654,3 +655,29 @@ void CtMainWin::_on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>&
         selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());
     }
 }
+#else
+// GTK4 stubs for future TreeView Drag & Drop migration
+void CtMainWin::_setup_treeview_drag_and_drop_gtk4()
+{
+    // DragSource for moving nodes within tree
+    _treeDragSource4 = Gtk::DragSource::create();
+    _treeDragSource4->set_actions(Gdk::ACTION_MOVE);
+    _treeDragSource4->signal_drag_begin().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drag_source_prepare_gtk4));
+    _uCtTreeview->add_controller(_treeDragSource4);
+
+    // DropTarget for receiving node path strings
+    _treeDropTarget4 = Gtk::DropTarget::create(G_VALUE_TYPE(Glib::Value<Glib::ustring>().gobj()), Gdk::ACTION_MOVE);
+    _treeDropTarget4->signal_drop().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drop_target_drop_gtk4));
+    _uCtTreeview->add_controller(_treeDropTarget4);
+}
+
+void CtMainWin::_on_treeview_drag_source_prepare_gtk4(Gdk::Drag& /*drag*/)
+{
+    // Placeholder: selection path will be provided via content provider in future implementation
+}
+
+void CtMainWin::_on_treeview_drop_target_drop_gtk4(const Glib::ValueBase& /*value*/, double /*x*/, double /*y*/)
+{
+    // Placeholder: implement node move logic using path string extracted from value
+}
+#endif

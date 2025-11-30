@@ -87,7 +87,11 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
         if (tree_iter) tree_path = treestore->get_path(tree_iter);
         fill_shortcut_model(treestore);
         treeview->expand_all();
+        #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         while (gtk_events_pending()) gtk_main_iteration();
+        #else
+        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+        #endif
         scrolledwindow->get_vadjustment()->set_value(vscroll);
         if (tree_path.has_value()) treeview->set_cursor(tree_path.value());
         need_restart(RESTART_REASON::SHORTCUT);

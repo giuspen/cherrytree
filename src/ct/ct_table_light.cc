@@ -202,7 +202,14 @@ std::shared_ptr<CtAnchoredWidgetState> CtTableLight::get_state()
 
 void CtTableLight::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
 {
+    #if GTKMM_MAJOR_VERSION >= 4
+    auto children = _pListStore->children();
+    auto const_iter = children.begin();
+    for (size_t r = 0; r < afterRowIdx && const_iter; ++r) ++const_iter;
+    Gtk::TreeModel::iterator afterIter = const_iter ? _pListStore->get_iter(_pListStore->get_path(const_iter)) : Gtk::TreeModel::iterator{};
+    #else
     Gtk::TreeModel::iterator afterIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(afterRowIdx)});
+    #endif
     Gtk::TreeModel::iterator newIter;
     if (afterIter) {
         newIter = _pListStore->insert_after(afterIter);
@@ -227,8 +234,22 @@ void CtTableLight::row_delete(const size_t rowIdx)
     if (1u == get_num_rows() or rowIdx >= get_num_rows()) {
         return;
     }
+    #if GTKMM_MAJOR_VERSION >= 4
+    auto children = _pListStore->children();
+    auto const_iter = children.begin();
+    for (size_t r = 0; r < rowIdx && const_iter; ++r) ++const_iter;
+    Gtk::TreeModel::iterator treeIter = const_iter ? _pListStore->get_iter(_pListStore->get_path(const_iter)) : Gtk::TreeModel::iterator{};
+    #else
+    #if GTKMM_MAJOR_VERSION >= 4
+    auto children = _pListStore->children();
+    auto const_iter = children.begin();
+    for (size_t r = 0; r < rowIdx && const_iter; ++r) ++const_iter;
+    Gtk::TreeModel::iterator treeIter = const_iter ? _pListStore->get_iter(_pListStore->get_path(const_iter)) : Gtk::TreeModel::iterator{};
+    #else
     Gtk::TreePath treePath{std::to_string(rowIdx)};
     Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
+    #endif
+    #endif
     if (not treeIter) {
         return;
     }
@@ -245,7 +266,14 @@ void CtTableLight::row_delete(const size_t rowIdx)
     }
     if (0u == rowIdx) {
         // we deleted the header
+        #if GTKMM_MAJOR_VERSION >= 4
+        auto children2 = _pListStore->children();
+        auto const_iter2 = children2.begin();
+        // header is first row
+        Gtk::TreeModel::iterator treeIterHeader = const_iter2 ? _pListStore->get_iter(_pListStore->get_path(const_iter2)) : Gtk::TreeModel::iterator{};
+        #else
         Gtk::TreeModel::iterator treeIterHeader = _pListStore->get_iter(treePath);
+        #endif
         if (treeIterHeader) {
             (*treeIterHeader)[_pColumns->columnWeight] = CtTreeIter::get_pango_weight_from_is_bold(true);
         }
@@ -259,9 +287,25 @@ void CtTableLight::row_move_up(const size_t rowIdx, const bool from_move_down)
         return;
     }
     const size_t rowIdxUp = rowIdx - 1u;
+    #if GTKMM_MAJOR_VERSION >= 4
+    auto children = _pListStore->children();
+    auto const_iter = children.begin();
+    for (size_t r = 0; r < rowIdx && const_iter; ++r) ++const_iter;
+    Gtk::TreeModel::iterator treeIter = const_iter ? _pListStore->get_iter(_pListStore->get_path(const_iter)) : Gtk::TreeModel::iterator{};
+    auto const_iter_up = children.begin();
+    for (size_t r = 0; r < rowIdxUp && const_iter_up; ++r) ++const_iter_up;
+    Gtk::TreeModel::iterator treeIterUp = const_iter_up ? _pListStore->get_iter(_pListStore->get_path(const_iter_up)) : Gtk::TreeModel::iterator{};
+    #else
     Gtk::TreePath treePath{std::to_string(rowIdx)};
     Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
+    #endif
+    #if GTKMM_MAJOR_VERSION >= 4
+    auto const_iter_up = children.begin();
+    for (size_t r = 0; r < rowIdxUp && const_iter_up; ++r) ++const_iter_up;
+    Gtk::TreeModel::iterator treeIterUp = const_iter_up ? _pListStore->get_iter(_pListStore->get_path(const_iter_up)) : Gtk::TreeModel::iterator{};
+    #else
     Gtk::TreeModel::iterator treeIterUp = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdxUp)});
+    #endif
     if (not treeIter or not treeIterUp) {
         return;
     }
@@ -466,16 +510,37 @@ void CtTableLight::grab_focus() const
     //spdlog::debug("focus ({},{})", currRow, currCol);
     for (int i = 0; i < 2; ++i) {
         _pCtMainWin->get_text_view().mm().grab_focus();
+        #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         while (gtk_events_pending()) gtk_main_iteration();
         _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)},
                                       *_pManagedTreeView->get_column(currCol),
                                       0 != i/*start_editing*/);
+        #else
+        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+        auto children = _pListStore->children();
+        auto const_iter = children.begin();
+        for (size_t r = 0; r < currRow && const_iter; ++r) ++const_iter;
+        if (const_iter) {
+            auto iter = _pListStore->get_iter(_pListStore->get_path(const_iter));
+            _pManagedTreeView->get_selection()->select(iter);
+        }
+        #endif
     }
 }
 
 void CtTableLight::exit_cell_edit() const
 {
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(current_row())});
+    #else
+    auto children = _pListStore->children();
+    auto const_iter = children.begin();
+    for (size_t r = 0; r < current_row() && const_iter; ++r) ++const_iter;
+    if (const_iter) {
+        auto iter = _pListStore->get_iter(_pListStore->get_path(const_iter));
+        _pManagedTreeView->get_selection()->select(iter);
+    }
+    #endif
 }
 
 void CtTableLight::set_selection_at_offset_n_delta(const int offset, const int delta) const

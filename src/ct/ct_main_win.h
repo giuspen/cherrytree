@@ -197,17 +197,26 @@ public:
     void menu_set_items_recent_documents();
     void menu_set_visible_exit_app(bool visible);
     void menu_rebuild_toolbars(bool new_toolbar);
+#if GTKMM_MAJOR_VERSION >= 4
+    void init_app_actions_gtk4();
+#endif /* GTKMM_MAJOR_VERSION >= 4 */
 
     void config_switch_tree_side();
 
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     void show_hide_toolbars(bool visible)   { for (auto pToolbar : _pToolbars) pToolbar->property_visible() = visible; }
     void show_hide_menubar(bool visible)    {
         if (visible) _pScrolledWindowMenuBar->set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
         else _pScrolledWindowMenuBar->set_policy(Gtk::POLICY_EXTERNAL, Gtk::POLICY_EXTERNAL);
     }
+    void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
+    #else
+    void show_hide_toolbars(bool visible)   { for (auto pToolbar : _gtk4Toolbars) pToolbar->property_visible() = visible; }
+    void show_hide_menubar(bool visible)    { if (_pMenuButton4) _pMenuButton4->property_visible() = visible; }
+    void set_toolbars_icon_size(int /*size*/) { /* GTK4 uses default icon sizes */ }
+    #endif
     void show_hide_statusbar(bool visible)  { _ctStatusBar.hbox.property_visible() = visible; }
     void show_hide_tree_lines(bool visible) { _uCtTreeview->set_enable_tree_lines(visible); }
-    void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
 
     Gtk::Widget* get_vte()        { return _pVte; }
@@ -255,10 +264,11 @@ private:
     bool _on_treeview_key_press_event(GdkEventKey* event);
     bool _on_treeview_popup_menu();
     bool _on_treeview_scroll_event(GdkEventScroll* event);
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
-                                                 int x,
-                                                 int y,
-                                                 guint time);
+                                  int x,
+                                  int y,
+                                  guint time);
     void _on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
                                          int x,
                                          int y,
@@ -269,16 +279,27 @@ private:
                                     Gtk::SelectionData& selection_data,
                                     guint info,
                                     guint time);
+    #else
+    void _setup_treeview_drag_and_drop_gtk4();
+    void _on_treeview_drag_source_prepare_gtk4(Gdk::Drag& drag);
+    void _on_treeview_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y);
+    Glib::RefPtr<Gtk::DragSource> _treeDragSource4;
+    Glib::RefPtr<Gtk::DropTarget> _treeDropTarget4;
+    #endif
 
     void _on_textview_populate_popup(Gtk::Menu* menu);
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_textview_motion_notify_event(GdkEventMotion* event);
+    #endif
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_textview_visibility_notify_event(GdkEventVisibility* event);
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     void _on_textview_size_allocate(Gtk::Allocation& allocation);
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_textview_event(GdkEvent* event);
     void _on_textview_event_after(GdkEvent* event);
     bool _on_textview_scroll_event(GdkEventScroll* event);
+    #endif
 
     void _reset_CtTreestore_CtTreeview();
     void _ensure_curr_doc_in_recent_docs();
@@ -311,15 +332,25 @@ private:
     Gtk::Paned                   _hPaned{Gtk::ORIENTATION_HORIZONTAL};
     Gtk::Paned                   _vPaned{Gtk::ORIENTATION_VERTICAL};
     Gtk::HeaderBar*              _pHeaderBar{nullptr};
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     Gtk::MenuBar*                _pMenuBar{nullptr};
     Gtk::ScrolledWindow*         _pScrolledWindowMenuBar{nullptr};
     std::vector<Gtk::Toolbar*>   _pToolbars;
+    #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     CtStatusBar                  _ctStatusBar;
     CtWinHeader                  _ctWinHeader;
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::array<Gtk::MenuItem*,3> _pBookmarksSubmenus{nullptr,nullptr,nullptr};
     Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ToolButton*             _pSaveToolButton{nullptr};
+    #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+    #if GTKMM_MAJOR_VERSION >= 4
+    Gtk::MenuButton*             _pMenuButton4{nullptr};
+    Gtk::MenuButton*             _pRecentDocsMenuButton4{nullptr};
+    Gtk::MenuButton*             _pBookmarksButton4{nullptr};
+    std::vector<Gtk::Box*>       _gtk4Toolbars; // primary + category toolbars
+    #endif /* GTKMM_MAJOR_VERSION >= 4 */
     CtMenuAction*                _pSaveMenuAction{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
@@ -388,6 +419,8 @@ public:
     void emit_app_show_hide_main_win();
     void emit_app_tree_node_copy();
     void emit_app_tree_node_paste();
+    void connect_app_tree_node_copy(const std::function<void()>& cb);
+    void connect_app_tree_node_paste(const std::function<void()>& cb);
     void emit_app_apply_for_each_window(const std::function<void(CtMainWin*)>& cb);
     void emit_app_quit_or_hide_window(CtMainWin* pWin);
     void emit_app_quit_window(CtMainWin* pWin);

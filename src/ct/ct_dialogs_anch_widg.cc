@@ -25,6 +25,7 @@
 #include "ct_main_win.h"
 #include "ct_text_view.h"
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
                                              const Glib::ustring& latex_text)
 {
@@ -692,3 +693,35 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     }
     return TableHandleResp::Cancel;
 }
+#else
+// GTK4 minimal fallbacks to satisfy build; functionality to be implemented.
+Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
+                                             const Glib::ustring& latex_text)
+{
+    (void)pCtMainWin;
+    return latex_text;
+}
+
+Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win,
+                                                         Glib::RefPtr<Gdk::Pixbuf> rOriginalPixbuf)
+{
+    (void)parent_win;
+    return rOriginalPixbuf;
+}
+
+bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
+                                     const Glib::ustring& title)
+{
+    (void)pCtMainWin; (void)title;
+    return false;
+}
+
+CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
+                                                          const Glib::ustring& title,
+                                                          const bool is_insert,
+                                                          bool& is_light)
+{
+    (void)pCtMainWin; (void)title; (void)is_insert; (void)is_light;
+    return TableHandleResp::Cancel;
+}
+#endif

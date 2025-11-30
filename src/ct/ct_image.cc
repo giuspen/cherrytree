@@ -53,7 +53,11 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& justification)
  : CtAnchoredWidget{pCtMainWin, charOffset, justification}
 {
+    #if GTKMM_MAJOR_VERSION < 4
     _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, size);
+    #else
+    _rPixbuf.reset();
+    #endif
 
     _image.set(_rPixbuf);
     _frame.add(_image);
@@ -238,7 +242,11 @@ void CtImageAnchor::_set_exp_coll_state(const CtAnchorExpCollState expCollState)
     if (expCollState != _expCollState) {
         _expCollState = expCollState;
         const char* stockImage = _get_stock_id_for_exp_coll_state(expCollState);
+        #if GTKMM_MAJOR_VERSION < 4
         _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, _pCtMainWin->get_ct_config()->anchorSize);
+        #else
+        _rPixbuf.reset();
+        #endif
         _image.set(_rPixbuf);
     }
 }
@@ -487,7 +495,11 @@ static const char* get_dvipng_bin_cmd()
     CtImageLatex::ensureRenderingBinariesTested();
     if (not _renderingBinariesLatexOk or not _renderingBinariesDviPngOk) {
         // fallback
+        #if GTKMM_MAJOR_VERSION < 4
         return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+        #else
+        return Glib::RefPtr<Gdk::Pixbuf>{};
+        #endif
     }
     const fs::path filename = std::to_string(uniqueId) +
                               CtConst::CHAR_MINUS + std::to_string(getpid()) +
@@ -508,7 +520,11 @@ static const char* get_dvipng_bin_cmd()
     if (not success or not fs::is_regular_file(tmp_filepath_dvi)) {
         if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_dvi.c_str());
         // fallback
+        #if GTKMM_MAJOR_VERSION < 4
         return pCtMainWin->get_icon_theme()->load_icon("ct_bug", 48);
+        #else
+        return Glib::RefPtr<Gdk::Pixbuf>{};
+        #endif
     }
     const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
     const int latexSizeDpi = zoom * pCtMainWin->get_ct_config()->latexSizeDpi;
@@ -522,7 +538,11 @@ static const char* get_dvipng_bin_cmd()
         if (success) spdlog::debug("!! cmd '{}' ok but missing {}", cmd, tmp_filepath_png.c_str());
         _renderingBinariesDviPngOk = false;
         // fallback
+        #if GTKMM_MAJOR_VERSION < 4
         return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+        #else
+        return Glib::RefPtr<Gdk::Pixbuf>{};
+        #endif
     }
     Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
     try {
@@ -533,7 +553,11 @@ static const char* get_dvipng_bin_cmd()
         spdlog::error("{} {}", __FUNCTION__, error.what().raw());
     }
     // fallback
+    #if GTKMM_MAJOR_VERSION < 4
     return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+    #else
+    return Glib::RefPtr<Gdk::Pixbuf>{};
+    #endif
 }
 
 /*static*/void CtImageLatex::ensureRenderingBinariesTested()
@@ -778,14 +802,22 @@ void CtImageEmbFile::update_tooltip()
     if (ctype && !g_content_type_is_unknown(ctype)) {
         if (GIcon* icon = g_content_type_get_icon(ctype)) { // Glib::wrap will unref object
             Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileIconSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
+            #if GTKMM_MAJOR_VERSION < 4
             result = info.load_icon();
+            #else
+            result.reset();
+            #endif
         }
     }
 #else
     (void)fileName; // silence warning
 #endif // _WIN32
     if (!result)
+        #if GTKMM_MAJOR_VERSION < 4
         result = pCtMainWin->get_icon_theme()->load_icon("ct_file_icon", pCtMainWin->get_ct_config()->embfileIconSize);
+        #else
+        result.reset();
+        #endif
     return result;
 }
 

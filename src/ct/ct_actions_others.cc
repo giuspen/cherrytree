@@ -23,6 +23,9 @@
 
 #include <sigc++/sigc++.h>
 #include "ct_actions.h"
+#if GTKMM_MAJOR_VERSION >= 4
+#include <sigc++/signal.h>
+#endif
 #include "ct_export2html.h"
 #include "ct_pref_dlg.h"
 #include "ct_clipboard.h"
@@ -341,7 +344,7 @@ void CtActions::image_link_dismiss()
 void CtActions::toggle_show_hide_main_window()
 {
 #if GTKMM_MAJOR_VERSION >= 4
-    _pCtMainWin->signal_app_show_hide_main_win->emit();
+    _pCtMainWin->emit_app_show_hide_main_win();
 #else
     _pCtMainWin->signal_app_show_hide_main_win();
 #endif
@@ -405,7 +408,9 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         auto& textView = _pCtMainWin->get_text_view().mm();
         textView.grab_focus();
+        #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         textView.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(textView.get_display(), Gdk::XTERM));
+        #endif
         textView.set_tooltip_text("");
         if (not link_entry.anch.empty()) {
             current_node_scroll_to_anchor(link_entry.anch);
@@ -918,7 +923,7 @@ void CtActions::table_export()
     Glib::ustring filename = CtDialogs::file_save_as_dialog(_pCtMainWin, args);
     if (filename.empty()) return;
     if (!str::endswith(filename, ".csv")) filename += ".csv";
-    _pCtConfig->pickDirCsv = Glib::path_get_dirname(filename);
+    _pCtConfig->pickDirCsv = Glib::path_get_dirname(filename.raw());
 
     try {
         std::string result = curr_table_anchor->to_csv();

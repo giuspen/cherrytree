@@ -95,9 +95,12 @@ private:
                              CtClipboardData* clip_data);
 
 private:
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     void _on_clip_data_get(Gtk::SelectionData& selection_data, CtClipboardData* clip_data);
+    #endif
 
 public:
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     void on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
     void on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
@@ -106,6 +109,12 @@ public:
     void on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);
     void on_received_to_cf_hdrop(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);
+    #else
+    // GTK4 simplified clipboard/DnD ingestion (string-based)
+    void on_received_to_plain_text_gtk4(const Glib::ustring& text, Gtk::TextView* pTextView, bool force_plain_text);
+    void on_received_to_rich_text_gtk4(const Glib::ustring& rich_text_xml, Gtk::TextView* pTextView);
+    void on_received_to_uri_list_gtk4(const Glib::ustring& uri_list, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);
+    #endif
 
 private:
     Glib::ustring _codebox_to_yaml(CtCodebox* codebox);

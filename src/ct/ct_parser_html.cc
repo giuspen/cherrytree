@@ -568,7 +568,11 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
 
     if (_status_bar) {
         _status_bar->update_status(std::string(_("Downloading")) + " " + img_path + " ...");
-       while (gtk_events_pending()) gtk_main_iteration();
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+    while (gtk_events_pending()) gtk_main_iteration();
+    #else
+    while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+    #endif
     }
 
     bool image_good = false;

@@ -23,6 +23,9 @@
 
 #include <sigc++/sigc++.h>
 #include "ct_actions.h"
+#if GTKMM_MAJOR_VERSION >= 4
+#include <sigc++/signal.h>
+#endif
 #include <gtkmm/dialog.h>
 #include "ct_dialogs.h"
 
@@ -59,11 +62,11 @@ void CtActions::toggle_show_hide_menubar()
     if (not _pCtConfig->menubarVisible and std::string::npos == _pCtConfig->toolbarUiList.find("toggle_show_menubar")) {
         spdlog::debug("toolbar + toggle_show_menubar");
         _pCtConfig->toolbarUiList += ",toggle_show_menubar";
-#if GTKMM_MAJOR_VERSION >= 4
-        _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
-#else
-        _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
-#endif
+    #if GTKMM_MAJOR_VERSION >= 4
+    _pCtMainWin->emit_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+    #else
+    _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true/*new_toolbar*/); });
+    #endif
     }
 }
 
@@ -173,7 +176,11 @@ void CtActions::toggle_fullscreen()
 {
     if (_pCtMainWin->get_titlebar()) {
         // unfullscreen doesn't work with the custom titlebar, so we can only maximise
+        #if GTKMM_MAJOR_VERSION >= 4
+        if (_pCtMainWin->property_maximized()) {
+        #else
         if (_pCtMainWin->property_is_maximized()) {
+        #endif
             _pCtMainWin->unmaximize();
         }
         else {
@@ -181,12 +188,21 @@ void CtActions::toggle_fullscreen()
         }
     }
     else {
+        #if GTKMM_MAJOR_VERSION >= 4
+        // GTK4: Gdk::Surface::get_state() not available; use a local toggle state.
+        static bool s_fullscreen = false;
+        if (s_fullscreen) {
+        #else
         if (_pCtMainWin->get_window()->get_state() & GDK_WINDOW_STATE_FULLSCREEN) {
+        #endif
             _pCtMainWin->unfullscreen();
         }
         else {
             _pCtMainWin->fullscreen();
         }
+        #if GTKMM_MAJOR_VERSION >= 4
+        s_fullscreen = !s_fullscreen;
+        #endif
     }
 }
 

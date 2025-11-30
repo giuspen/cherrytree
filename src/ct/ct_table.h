@@ -103,9 +103,11 @@ public:
     virtual int get_curr_cell_curr_offset() const = 0;
     virtual int get_curr_cell_max_offset() const = 0;
 
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool on_table_button_press_event(GdkEventButton* event);
     void on_cell_populate_popup(Gtk::Menu* menu);
     bool on_cell_key_press_event(GdkEventKey* event);
+    #endif
 
 protected:
     virtual void _populate_xml_rows_cells(xmlpp::Element* p_table_node) const = 0;
@@ -187,8 +189,10 @@ protected:
     bool _row_sort(const bool sortAsc) override;
     bool _on_cell_key_press_alt_or_ctrl_enter() override;
 
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     void _on_treeview_event_after(GdkEvent* event);
     bool _on_entry_focus_out_event(GdkEventFocus* gdk_event, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column);
+    #endif
     void _on_cell_renderer_text_edited(const Glib::ustring& path, const Glib::ustring& new_text, const size_t column);
     void _on_cell_renderer_editing_started(Gtk::CellEditable* editable, const Glib::ustring& path, const size_t column);
 

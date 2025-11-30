@@ -143,11 +143,7 @@ bool CtActions::_node_sel_and_rich_text()
 void CtActions::node_subnodes_copy()
 {
     if (not _is_there_selected_node_or_error()) return;
-#if GTKMM_MAJOR_VERSION >= 4
-    _pCtMainWin->signal_app_tree_node_copy->emit();
-#else
-    _pCtMainWin->signal_app_tree_node_copy();
-#endif
+    _pCtMainWin->emit_app_tree_node_copy();
 }
 
 void CtActions::node_subnodes_paste()
@@ -156,11 +152,7 @@ void CtActions::node_subnodes_paste()
     _in_action = true;
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
 
-#if GTKMM_MAJOR_VERSION >= 4
-    _pCtMainWin->signal_app_tree_node_paste->emit();
-#else
-    _pCtMainWin->signal_app_tree_node_paste();
-#endif
+    _pCtMainWin->emit_app_tree_node_paste();
 }
 
 void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
@@ -201,10 +193,17 @@ void CtActions::node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
     // function to duplicate all sub nodes
     std::function<void(Gtk::TreeModel::iterator, Gtk::TreeModel::iterator)> duplicate_subnodes;
     duplicate_subnodes = [&](Gtk::TreeModel::iterator old_parent, Gtk::TreeModel::iterator new_parent) {
-        for (auto child : old_parent->children()) {
+        #if GTKMM_MAJOR_VERSION >= 4
+        for (Gtk::TreeModel::iterator child = old_parent->children().begin(); child; ++child) {
             auto new_child = duplicate_subnode(pWinToCopyFrom->get_tree_store().to_ct_tree_iter(child), new_parent);
             duplicate_subnodes(child, new_child);
         }
+        #else
+        for (Gtk::TreeModel::iterator child : old_parent->children()) {
+            auto new_child = duplicate_subnode(pWinToCopyFrom->get_tree_store().to_ct_tree_iter(child), new_parent);
+            duplicate_subnodes(child, new_child);
+        }
+        #endif
     };
     duplicate_subnodes(other_ct_tree_iter, new_top_iter);
 
@@ -313,9 +312,14 @@ Gtk::TreeModel::iterator CtActions::_node_add_with_data(Gtk::TreeModel::iterator
 
 Gtk::TreeModel::iterator CtActions::node_child_exist_or_create(Gtk::TreeModel::iterator parentIter, const std::string& nodeName, const bool focusIfExisting)
 {
+    #if GTKMM_MAJOR_VERSION >= 4
+    auto children = parentIter ? parentIter->children() : _pCtMainWin->get_tree_store().get_store()->children();
+    Gtk::TreeModel::iterator childIter = children.begin();
+    #else
     Gtk::TreeModel::iterator childIter = parentIter ? parentIter->children().begin() : _pCtMainWin->get_tree_store().get_iter_first();
+    #endif
     for (; childIter; ++childIter) {
-        if (_pCtMainWin->get_tree_store().to_ct_tree_iter(childIter).get_node_name() == nodeName) {
+        if (_pCtMainWin->get_tree_store().to_ct_tree_iter(childIter).get_node_name() == Glib::ustring(nodeName)) {
             if (focusIfExisting) {
                 _pCtMainWin->get_tree_view().set_cursor_safe(childIter);
             }
@@ -347,10 +351,17 @@ void CtActions::node_move_after(Gtk::TreeModel::iterator iter_to_move,
         CtNodeData node_data{};
         ctTreeStore.get_node_data(old_iter, node_data, true/*loadTextBuffer*/);
         ctTreeStore.update_node_data(new_iter, node_data);
+        #if GTKMM_MAJOR_VERSION >= 4
+        for (Gtk::TreeModel::iterator child = old_iter->children().begin(); child; ++child) {
+            Gtk::TreeModel::iterator new_child = pTreeStore->append(new_iter->children());
+            node_move_data_and_children(child, new_child);
+        }
+        #else
         for (Gtk::TreeModel::iterator child : old_iter->children()) {
             Gtk::TreeModel::iterator new_child = pTreeStore->append(new_iter->children());
             node_move_data_and_children(child, new_child);
         }
+        #endif
     };
     node_move_data_and_children(iter_to_move, new_node_iter);
 
@@ -385,12 +396,23 @@ bool CtActions::_need_node_swap(Gtk::TreeModel::iterator& leftIter, Gtk::TreeMod
 
 bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending)
 {
+    #if GTKMM_MAJOR_VERSION >= 4
+    // TODO: implement sibling sorting for GTK4; for now, recurse only.
+    bool swap_excecuted = false;
+    for (auto it = children.begin(); it != children.end(); ++it) {
+        // gtkmm4: child->children() returns const-children; recurse by casting to match signature
+        if (_tree_sort_level_and_sublevels(static_cast<const Gtk::TreeNodeChildren&>(it->children()), ascending))
+            swap_excecuted = true;
+    }
+    return swap_excecuted;
+    #else
     auto need_swap = [this,&ascending](Gtk::TreeModel::iterator& l, Gtk::TreeModel::iterator& r) { return _need_node_swap(l, r, ascending); };
     bool swap_excecuted = CtMiscUtil::node_siblings_sort(_pCtMainWin->get_tree_store().get_store(), children, need_swap);
     for (auto& child: children)
         if (_tree_sort_level_and_sublevels(child.children(), ascending))
             swap_excecuted = true;
     return swap_excecuted;
+    #endif
 }
 
 void CtActions::node_edit()
@@ -492,7 +514,11 @@ void CtActions::node_inherit_syntax()
     const std::string& new_syntax = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
     std::function<void(Gtk::TreeModel::iterator)> f_iterate_childs;
     f_iterate_childs = [&](Gtk::TreeModel::iterator parent){
-        for (auto child : parent->children()) {
+        #if GTKMM_MAJOR_VERSION >= 4
+        for (Gtk::TreeModel::iterator child = parent->children().begin(); child; ++child) {
+        #else
+        for (Gtk::TreeModel::iterator child : parent->children()) {
+        #endif
             CtTreeIter iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(child);
             std::string node_syntax = iter.get_node_syntax_highlighting();
             if (not iter.get_node_read_only() and node_syntax != new_syntax) {
@@ -550,9 +576,15 @@ void CtActions::node_delete()
         else {
             lstNodesWarn.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE + ctTreeIter.get_node_name());
         }
+        #if GTKMM_MAJOR_VERSION >= 4
+        for (auto child_iter = iter->children().begin(); child_iter; ++child_iter) {
+            f_collect_ids_to_rm(child_iter, level + 1);
+        }
+        #else
         for (Gtk::TreeModel::iterator child : iter->children()) {
             f_collect_ids_to_rm(child, level + 1);
         }
+        #endif
     };
     f_collect_ids_to_rm(_pCtMainWin->curr_tree_iter(), 0);
 

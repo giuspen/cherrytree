@@ -304,7 +304,11 @@ bool exec_code_confirm_dialog(CtMainWin& ct_main_win,
                               const Glib::ustring& code_txt);
 
 // Application About Dialog
+#if GTKMM_MAJOR_VERSION >= 4
+void dialog_about(Gtk::Window& parent, Glib::RefPtr<Gtk::IconPaintable> icon);
+#else
 void dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon);
+#endif
 
 std::string dialog_palette(CtMainWin* pCtMainWin);
 gint64 dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& entryStr);

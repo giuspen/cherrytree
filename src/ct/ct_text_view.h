@@ -110,6 +110,7 @@ private:
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _set_highlight_current_line_enabled(const bool enabled);
 
+    #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int, int, guint time);
     void _on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
                                 int x,
@@ -119,6 +120,19 @@ private:
                                 guint time);
     void _on_drag_begin(const Glib::RefPtr<Gdk::DragContext>& context);
     void _on_drag_end(const Glib::RefPtr<Gdk::DragContext>& context);
+    #else
+    // GTK4 drag & drop handled via event controllers (DragSource/DropTarget)
+    void _setup_drag_and_drop_gtk4();
+    void _on_drag_source_prepare_gtk4(Gdk::Drag& drag);
+    void _on_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y);
+    // GTK4 controller refs and state for internal rich text drag
+    Glib::RefPtr<Gtk::DragSource> _dragSource4;
+    Glib::RefPtr<Gtk::DropTarget> _dropTarget4;
+    Glib::ustring _drag_serialized_rich_text4;
+    int _drag_start_offset4{0};
+    int _drag_end_offset4{0};
+    bool _is_internal_drag4{false};
+    #endif
 
     bool _is_internal_drag{false};
     int _drag_start_offset;

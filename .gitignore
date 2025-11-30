@@ -13,3 +13,4 @@ build
 *.mo
 .vscode/settings.json
 .flatpak-builder
+build_output*.txt

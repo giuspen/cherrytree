@@ -77,7 +77,11 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
 
         if (status_bar) {
             status_bar->update_status(std::string(_("Downloading")) + " " + path + " ...");
+            #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             while (gtk_events_pending()) gtk_main_iteration();
+            #else
+            while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+            #endif
         }
 
         // Download

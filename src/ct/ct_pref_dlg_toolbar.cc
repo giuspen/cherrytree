@@ -32,7 +32,15 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     treeview->set_headers_visible(false);
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
+    #if GTKMM_MAJOR_VERSION >= 4
+    {
+        auto const_iter = liststore->children().begin();
+        if (const_iter)
+            treeview->get_selection()->select(liststore->get_iter(liststore->get_path(const_iter)));
+    }
+    #else
     treeview->get_selection()->select(Gtk::TreePath("0"));
+    #endif
 
     Gtk::CellRendererPixbuf pixbuf_renderer;
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;

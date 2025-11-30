@@ -21,6 +21,277 @@
  * MA 02110-1301, USA.
  */
 
+#if GTKMM_MAJOR_VERSION >= 4
+std::vector<Gtk::Box*> CtMenu::build_toolbars4(Gtk::MenuButton*& pRecentDocsMenuButton, Gtk::Button*& pButtonSave)
+{
+    pRecentDocsMenuButton = nullptr;
+    pButtonSave = nullptr;
+    std::vector<Gtk::Box*> toolbars;
+
+    auto* toolbar = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 6}); // primary (File) toolbar
+
+    auto* btnSave = Gtk::manage(new Gtk::Button());
+    btnSave->set_icon_name("document-save");
+    if (auto act = find_action("ct_save")) {
+        btnSave->set_tooltip_text(act->desc.empty() ? _("Save") : act->desc);
+        btnSave->signal_clicked().connect([act]{ if (act->run_action) act->run_action(); });
+        if (auto sc = make_shortcut_controller_for(act)) btnSave->add_controller(*sc);
+        act->signal_set_sensitive->connect([btnSave](bool s){ btnSave->set_sensitive(s); });
+        act->signal_set_visible->connect([btnSave](bool v){ btnSave->set_visible(v); });
+        _gtk4ActionWidgets[act->id] = btnSave;
+    } else {
+        btnSave->set_tooltip_text(_("Save"));
+    }
+    toolbar->append(*btnSave);
+    pButtonSave = btnSave;
+
+    auto* recentBtn = Gtk::manage(new Gtk::MenuButton());
+    recentBtn->set_icon_name("document-open-recent");
+    recentBtn->set_tooltip_text(_("Recent Documents"));
+
+    auto menuModel = Gio::Menu::create();
+    auto section = Gio::Menu::create();
+    section->append(_("No recent documents"), "app.nop");
+    menuModel->append_section("", section);
+    auto popover = Gtk::PopoverMenu::create();
+    popover->set_menu_model(menuModel);
+    recentBtn->set_popover(popover);
+    toolbar->append(*recentBtn);
+    pRecentDocsMenuButton = recentBtn;
+
+    toolbars.push_back(toolbar);
+
+    // Additional toolbars grouped by category (Edit, Insert, Format) showing actions with icons
+    std::vector<std::string> categories = {"Edit","Insert","Format"};
+    for (const auto& cat : categories) {
+        auto* box = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 6});
+        bool added = false;
+        for (const auto& act : _actions) {
+            if (act.category != cat) continue;
+            if (act.image.empty()) continue; // need icon representation
+            auto* btn = Gtk::manage(new Gtk::Button());
+            btn->set_icon_name(act.image);
+            btn->set_tooltip_text(act.desc.empty() ? act.name : act.desc);
+            btn->signal_clicked().connect([&act]{ if (act.run_action) act.run_action(); });
+            if (auto sc = make_shortcut_controller_for(&act)) btn->add_controller(*sc);
+            act.signal_set_sensitive->connect([btn](bool s){ btn->set_sensitive(s); });
+            act.signal_set_visible->connect([btn](bool v){ btn->set_visible(v); });
+            _gtk4ActionWidgets[act.id] = btn;
+            box->append(*btn);
+            added = true;
+        }
+        if (added) toolbars.push_back(box);
+    }
+    return toolbars;
+}
+
+Gtk::MenuButton* CtMenu::build_menubutton4()
+{
+    auto* menuBtn = Gtk::manage(new Gtk::MenuButton());
+    menuBtn->set_icon_name("open-menu-symbolic");
+    menuBtn->set_tooltip_text(_("Menu"));
+
+    auto pop = _build_actions_popover();
+    menuBtn->set_popover(pop);
+    return menuBtn;
+}
+#if GTKMM_MAJOR_VERSION >= 4
+Gtk::MenuButton* CtMenu::build_menubutton_model4()
+{
+    // Hierarchical menu using Gio::MenuModel: categories as submenus
+    auto* menuBtn = Gtk::manage(new Gtk::MenuButton());
+    menuBtn->set_icon_name("open-menu-symbolic");
+    menuBtn->set_tooltip_text(_("Menu"));
+
+    auto root = Gio::Menu::create();
+    // Ordered categories for consistency
+    std::vector<std::string> order = {"File","Edit","View","Insert","Format","Tools","Help"};
+    std::set<std::string> seen;
+    auto add_category = [&](const std::string& cat){
+        auto submenu = Gio::Menu::create();
+        for (const auto& act : _actions) {
+            if (act.category != cat) continue;
+            if (act.id.empty()) continue;
+            std::string label = act.name;
+            const auto& sc = act.get_shortcut(_pCtConfig);
+            if (!sc.empty()) label += " (" + _shortcut_display(sc) + ")";
+            submenu->append(label, "app." + act.id);
+        }
+        if (submenu->get_n_items() > 0) root->append_submenu(_(cat.c_str()), submenu);
+        seen.insert(cat);
+    };
+    for (const auto& cat : order) add_category(cat);
+    // Any remaining categories not in order
+    for (const auto& act : _actions) {
+        if (seen.count(act.category)) continue;
+        add_category(act.category);
+    }
+
+    auto popover = Gtk::PopoverMenu::create(root);
+    menuBtn->set_popover(popover);
+    return menuBtn;
+}
+
+Gtk::Popover* CtMenu::_build_actions_popover()
+{
+    auto pop = Gtk::Popover::create();
+    auto* vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 6});
+
+    // Define an ordering for categories commonly used
+    std::vector<std::string> order = {"File","Edit","View","Insert","Format","Tools","Help"};
+    // Map category -> actions
+    std::map<std::string, std::vector<const CtMenuAction*>> grouped;
+    for (const auto& act : _actions) {
+        grouped[act.category].push_back(&act);
+    }
+
+    auto add_header = [&](const std::string& title){
+        auto* lbl = Gtk::manage(new Gtk::Label{title});
+        lbl->set_xalign(0.0);
+        lbl->get_style_context()->add_class("heading");
+        vbox->append(*lbl);
+    };
+    auto add_action_btn = [&](const CtMenuAction* act){
+        auto* btn = Gtk::manage(new Gtk::Button());
+        btn->set_has_frame(false);
+        std::string label = act->name;
+        const std::string& accel = act->get_shortcut(_pCtConfig);
+        if (!accel.empty()) label += " (" + _shortcut_display(accel) + ")";
+        btn->set_label(label);
+        if (!act->image.empty()) btn->set_icon_name(act->image);
+        if (!act->desc.empty()) btn->set_tooltip_text(act->desc);
+        btn->signal_clicked().connect([act]{ if (act->run_action) act->run_action(); });
+        if (auto sc = make_shortcut_controller_for(act)) btn->add_controller(*sc);
+        act->signal_set_sensitive->connect([btn](bool s){ btn->set_sensitive(s); });
+        act->signal_set_visible->connect([btn](bool v){ btn->set_visible(v); });
+        _gtk4ActionWidgets[act->id] = btn;
+        vbox->append(*btn);
+    };
+
+    bool firstSection = true;
+    auto maybe_separator = [&](){ if (!firstSection) { vbox->append(*Gtk::manage(new Gtk::Separator{})); } firstSection = false; };
+
+    // Add ordered categories first
+    for (const auto& cat : order) {
+        auto it = grouped.find(cat);
+        if (it == grouped.end()) continue;
+        maybe_separator();
+        add_header(_(cat.c_str()));
+        for (const CtMenuAction* act : it->second) add_action_btn(act);
+        grouped.erase(it);
+    }
+    // Add any remaining categories
+    for (auto& kv : grouped) {
+        maybe_separator();
+        add_header(_(kv.first.c_str()));
+        for (const CtMenuAction* act : kv.second) add_action_btn(act);
+    }
+
+    pop->set_child(*vbox);
+    return pop;
+}
+#endif /* GTKMM_MAJOR_VERSION >= 4 */
+
+// Note: Gio::Menu approach kept for future integration with Application actions.
+#endif /* GTKMM_MAJOR_VERSION >= 4 */
+
+#if GTKMM_MAJOR_VERSION >= 4
+std::string CtMenu::_shortcut_display(const std::string& accel)
+{
+    if (accel.empty()) return "";
+    std::string out;
+    std::string token;
+    bool in_angle = false;
+    for (size_t i=0;i<accel.size();++i) {
+        char c = accel[i];
+        if (c=='<') { token.clear(); in_angle=true; continue; }
+        if (c=='>') {
+            std::string lower;
+            lower.reserve(token.size());
+            for (char ch : token) lower += std::tolower(static_cast<unsigned char>(ch));
+            std::string map;
+            if      (lower=="control") map="Ctrl";
+            else if (lower=="shift")   map="Shift";
+            else if (lower=="alt")     map="Alt";
+            else if (lower=="meta")    map="Meta";
+            else map = token;
+            if (!out.empty()) out += "+";
+            out += map;
+            in_angle=false; continue; }
+        if (in_angle) { token += c; continue; }
+        // Outside angle brackets: key symbol(s)
+        std::string key(1,c);
+        if (c=='F') { // function key like F1, F12
+            size_t j=i+1; while (j<accel.size() && std::isdigit(static_cast<unsigned char>(accel[j]))) { key+=accel[j]; ++j; }
+            i = j-1;
+        }
+        if (!out.empty()) out += "+";
+        out += key;
+    }
+    return out;
+}
+
+void CtMenu::refresh_shortcuts_gtk4()
+{
+    for (auto& kv : _gtk4ActionWidgets) {
+        const std::string& id = kv.first;
+        Gtk::Widget* w = kv.second;
+        auto* btn = dynamic_cast<Gtk::Button*>(w);
+        if (!btn) continue;
+        if (auto act = find_action(id)) {
+            std::string label = act->name;
+            const auto& sc = act->get_shortcut(_pCtConfig);
+            if (!sc.empty()) label += " (" + _shortcut_display(sc) + ")";
+            btn->set_label(label);
+        }
+    }
+}
+
+void CtMenu::populate_recent_docs_menu4(Gtk::MenuButton* recentBtn, const CtRecentDocsFilepaths& recentDocsFilepaths)
+{
+    if (!recentBtn) return;
+    auto menuModel = Gio::Menu::create();
+    auto section = Gio::Menu::create();
+    if (recentDocsFilepaths.empty()) {
+        section->append(_("No recent documents"), "app.nop");
+    } else {
+        for (const auto& path : recentDocsFilepaths) {
+            // Action id pattern: recent_open::<index>
+            // Ensure an action exists or create a generic handler via CtMainWin hooking later.
+            // For now append with app.open_recent (needs implementation) passing index via variant is more complex; keep label only.
+            section->append(path.filename().string(), "app.open_recent");
+        }
+    }
+    menuModel->append_section("", section);
+    auto popover = Gtk::PopoverMenu::create(menuModel);
+    recentBtn->set_popover(popover);
+}
+
+Gtk::MenuButton* CtMenu::build_bookmarks_button4(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
+                                                 sigc::slot<void, gint64> bookmark_action,
+                                                 const bool /*isTopMenu*/)
+{
+    auto* btn = Gtk::manage(new Gtk::MenuButton());
+    btn->set_icon_name("bookmark-new");
+    btn->set_tooltip_text(_("Bookmarks"));
+    auto model = Gio::Menu::create();
+    auto section = Gio::Menu::create();
+    int idx = 0;
+    for (auto& bk : bookmarks) {
+        const gint64 id = std::get<0>(bk);
+        Glib::ustring title = std::get<1>(bk);
+        section->append(title, "app.bookmark_" + std::to_string(id));
+        // We rely on external code to register actions for bookmark activation;
+        // Alternatively could connect via a popover of buttons instead of Gio::Menu.
+        ++idx;
+    }
+    if (section->get_n_items()==0) section->append(_("No bookmarks"), "app.nop");
+    model->append_section("", section);
+    auto pop = Gtk::PopoverMenu::create(model);
+    btn->set_popover(pop);
+    return btn;
+}
+#endif /* GTKMM_MAJOR_VERSION >= 4 */
 #include <sigc++/signal.h>
 template class sigc::signal<void, bool>;
 
@@ -70,11 +341,14 @@ CtMenu::CtMenu(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
  , _pCtConfig{pCtMainWin->get_ct_config()}
 {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _pAccelGroup = Gtk::AccelGroup::create();
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     _rGtkBuilder = Gtk::Builder::create();
     init_actions(pCtMainWin->get_ct_actions());
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 /*static*/Gtk::MenuItem* CtMenu::create_menu_item(Gtk::Menu* pMenu, const char* name, const char* image, const char* desc)
 {
     return _add_menu_item_full(pMenu,
@@ -115,6 +389,7 @@ CtMenu::CtMenu(CtMainWin* pCtMainWin)
             return label;
     return nullptr;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton, Gtk::ToolButton*& pToolButtonSave)
 {
@@ -177,6 +452,7 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, Glib::ustri
     return pMenu;
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths,
                                           sigc::slot<void, const std::string&>& recent_doc_open_action,
                                           sigc::slot<void, const std::string&>& recent_doc_rm_action)
@@ -535,4 +811,35 @@ Gtk::SeparatorMenuItem* CtMenu::_add_menu_separator(Gtk::MenuShell* pMenuShell)
     pSeparatorItem->show_all();
     pMenuShell->append(*pSeparatorItem);
     return pSeparatorItem;
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 }
+
+#if GTKMM_MAJOR_VERSION >= 4
+namespace {
+    Gtk::ShortcutController* make_shortcut_controller_for(const CtMenuAction* act)
+    {
+        if (!act) return nullptr;
+        const auto& s = act->built_in_shortcut;
+        if (s.empty()) return nullptr;
+        guint modifiers = 0;
+        Glib::ustring key;
+        Glib::ustring lower = Glib::ustring{s}.lowercase();
+        if (lower.find("<control>") != Glib::ustring::npos) modifiers |= GDK_CONTROL_MASK;
+        if (lower.find("<shift>")   != Glib::ustring::npos) modifiers |= GDK_SHIFT_MASK;
+        if (lower.find("<alt>")     != Glib::ustring::npos) modifiers |= GDK_ALT_MASK;
+        if (lower.find("<meta>")    != Glib::ustring::npos) modifiers |= GDK_META_MASK;
+        for (auto ch : s) {
+            if (std::isalpha(static_cast<unsigned char>(ch))) key += ch;
+        }
+        if (key.empty()) return nullptr;
+        guint keyval = gdk_keyval_from_name(key.c_str());
+        if (keyval == 0) return nullptr;
+
+        auto trigger = Gtk::KeyvalTrigger::create(keyval, static_cast<Gdk::ModifierType>(modifiers));
+        auto action = Gtk::CallbackAction::create([act](const Glib::RefPtr<const Gtk::Shortcut>&){ if (act->run_action) act->run_action(); return true; });
+        auto ctrl = Gtk::ShortcutController::create();
+        ctrl->add_shortcut(Gtk::Shortcut::create(trigger, action));
+        return ctrl.release();
+    }
+}
+#endif /* GTKMM_MAJOR_VERSION >= 4 */

@@ -51,7 +51,11 @@ class CtMainWin;
 class CtAnchoredWidgetState;
 class CtStorageCache;
 
+#if GTKMM_MAJOR_VERSION >= 4
+class CtAnchoredWidget : public Gtk::Frame
+#else
 class CtAnchoredWidget : public Gtk::EventBox
+#endif
 {
 public:
     CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification);

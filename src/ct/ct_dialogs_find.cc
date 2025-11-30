@@ -31,6 +31,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                               CtSearchState& s_state,
                               bool multiple_nodes)
 {
+#if GTKMM_MAJOR_VERSION < 4
     auto pDialog = new Gtk::Dialog{title,
                                    *pCtMainWin,
                                    Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -382,12 +383,42 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     if (s_state.searchDialogPos[0] >= 0) {
         s_state.searchfinddialog->move(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
     }
+#else
+    // GTK4 minimal stub: simple dialog with OK/Cancel and no complex content.
+    auto pDialog = new Gtk::Dialog{title, *pCtMainWin, true /*modal*/, true /*use_header_bar*/};
+    s_state.searchfinddialog.reset(pDialog);
+
+    // Buttons with arbitrary response ids for GTK4
+    auto button_cancel = pDialog->add_button(_("Cancel"), 0);
+    auto button_ok = pDialog->add_button(_("OK"), 1);
+    (void)button_cancel;
+    (void)button_ok;
+
+    // Connect response handler to trigger search actions
+    pDialog->signal_response().connect([pDialog, &s_state, &s_options, multiple_nodes, pCtMainWin](int response_id){
+        if (response_id == 1) {
+            // Proceed with existing options without UI editing
+            s_state.curr_find_pattern = s_options.str_find;
+            if (multiple_nodes) {
+                s_state.curr_find_type = CtCurrFindType::MultipleNodes;
+                pCtMainWin->get_ct_actions()->find_in_multiple_nodes_ok_clicked();
+            } else {
+                s_state.curr_find_type = CtCurrFindType::SingleNode;
+                pCtMainWin->get_ct_actions()->find_in_selected_node_ok_clicked();
+            }
+        }
+        pDialog->close();
+    });
+
+    pDialog->present();
+#endif
 }
 
 void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
                                   const Glib::ustring& title,
                                   const Glib::ustring& message)
 {
+#if GTKMM_MAJOR_VERSION < 4
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -419,6 +450,17 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     pContentArea->pack_start(vbox);
     pContentArea->show_all();
     dialog.run();
+#else
+    // GTK4 minimal: use a simple dialog with a label and OK button.
+    Gtk::Dialog dialog{title, *pCtMainWin, true /*modal*/, true /*use_header_bar*/};
+    dialog.add_button(_("OK"), 1);
+    Gtk::Label* pMessage = Gtk::manage(new Gtk::Label{message});
+    pMessage->set_use_markup(true);
+    auto content = dialog.get_content_area();
+    content->append(*pMessage);
+    dialog.signal_response().connect([&dialog](int){ dialog.close(); });
+    dialog.present();
+#endif
 }
 
 /*static*/Glib::RefPtr<CtMatchDialogStore> CtMatchDialogStore::create(const size_t maxMatchesInPage)
@@ -558,6 +600,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
                              CtMainWin* pCtMainWin,
                              CtSearchState& s_state)
 {
+#if GTKMM_MAJOR_VERSION < 4
     auto rModel = s_state.match_store;
     auto pMatchesDialog = new Gtk::Dialog{"",
                                           *pCtMainWin,
@@ -659,7 +702,11 @@ void CtDialogs::match_dialog(const std::string& str_find,
         }
 
         // pump events so UI's not going to freeze (#835)
+        #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         while (gdk_events_pending()) gtk_main_iteration();
+        #else
+        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+        #endif
     };
 
     if (not rModel->saved_path.empty()) {
@@ -724,11 +771,79 @@ void CtDialogs::match_dialog(const std::string& str_find,
 
     pMatchesDialog->show_all();
     f_reEval_multipage();
+#else
+    auto rModel = s_state.match_store;
+    auto pMatchesDialog = new Gtk::Dialog{"", *pCtMainWin, false /*modal*/, true /*use_header_bar*/};
+    s_state.pMatchStoreDialog = pMatchesDialog;
+    pMatchesDialog->set_default_size(700, 350);
+
+    // Buttons without Gtk::RESPONSE_* enums
+    auto pButtonPrev = pMatchesDialog->add_button("", 10);
+    auto pButtonNext = pMatchesDialog->add_button("", 11);
+    auto pButtonHide = pMatchesDialog->add_button(_("Hide"), 12);
+
+    rModel->load_current_page();
+    auto pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
+    pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
+    pTreeview->append_column(_("Line"), rModel->columns.line_num);
+    pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
+    pTreeview->set_tooltip_column(2/*rModel->columns.node_hier_name*/);
+
+    auto pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow{});
+    pScrolledwindowAllmatches->set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::AUTOMATIC);
+    pScrolledwindowAllmatches->set_child(*pTreeview);
+
+    auto content = pMatchesDialog->get_content_area();
+    content->append(*pScrolledwindowAllmatches);
+
+    auto select_found_line = [pTreeview, &s_state, pCtMainWin](){
+        if (s_state.in_loading) return;
+        auto list_iter = pTreeview->get_selection()->get_selected();
+        if (not list_iter) return;
+        gint64 node_id = list_iter->get_value(s_state.match_store->columns.node_id);
+        CtTreeIter tree_iter = pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
+        if (not tree_iter) {
+            CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), *pCtMainWin);
+            s_state.match_store->erase(list_iter);
+            return;
+        }
+        CtTextView& ct_text_view = pCtMainWin->get_text_view();
+        auto rCurrBuffer = ct_text_view.get_buffer();
+        rCurrBuffer->place_cursor(rCurrBuffer->begin());
+        pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        rCurrBuffer = ct_text_view.get_buffer();
+        const int start_offset = list_iter->get_value(s_state.match_store->columns.start_offset);
+        const int end_offset = list_iter->get_value(s_state.match_store->columns.end_offset);
+        ct_text_view.set_selection_at_offset_n_delta(start_offset, end_offset - start_offset, rCurrBuffer);
+        ct_text_view.mm().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+    };
+
+    pTreeview->signal_cursor_changed().connect(select_found_line);
+
+    // Response handling
+    pMatchesDialog->signal_response().connect([&s_state, rModel, pMatchesDialog, pButtonPrev, pButtonNext](int response_id){
+        if (response_id == 10) { // prev
+            s_state.in_loading = true;
+            rModel->load_prev_page();
+            s_state.in_loading = false;
+        } else if (response_id == 11) { // next
+            s_state.in_loading = true;
+            rModel->load_next_page();
+            s_state.in_loading = false;
+        } else if (response_id == 12) { // hide
+            pMatchesDialog->close();
+        }
+    });
+
+    pMatchesDialog->present();
+#endif
 }
 
 // Iterated Find/Replace Dialog
 void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_state)
 {
+#if GTKMM_MAJOR_VERSION < 4
     if (not s_state.iteratedfinddialog) {
         spdlog::debug("+iteratedfinddialog");
         auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"),
@@ -789,4 +904,36 @@ void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_sta
     if (s_state.iterDialogPos[0] >= 0) {
         s_state.iteratedfinddialog->move(s_state.iterDialogPos[0], s_state.iterDialogPos[1]);
     }
+#else
+    if (not s_state.iteratedfinddialog) {
+        spdlog::debug("+iteratedfinddialog (gtk4 stub)");
+        auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"), *pCtMainWin, false /*modal*/, true /*use_header_bar*/};
+        auto button_close = pDialog->add_button(_("Close"), 0);
+        auto button_find_bw = pDialog->add_button(_("Find Previous"), 4);
+        auto button_find_fw = pDialog->add_button(_("Find Next"), 1);
+        auto button_replace = pDialog->add_button(_("Replace"), 2);
+        auto button_undo = pDialog->add_button(_("Undo"), 3);
+        (void)button_close; (void)button_find_bw; (void)button_find_fw; (void)button_replace; (void)button_undo;
+
+        pDialog->signal_response().connect([pDialog, &s_state, pCtMainWin](int id){
+            if (id == 1) {
+                s_state.replace_active = false;
+                pCtMainWin->get_ct_actions()->find_again_iter(true/*fromIterativeDialog*/);
+            } else if (id == 4) {
+                s_state.replace_active = false;
+                pCtMainWin->get_ct_actions()->find_back_iter(true/*fromIterativeDialog*/);
+            } else if (id == 2) {
+                s_state.replace_active = true;
+                s_state.replace_subsequent = true;
+                pCtMainWin->get_ct_actions()->find_again_iter(true/*fromIterativeDialog*/);
+                s_state.replace_subsequent = false;
+            } else if (id == 3) {
+                pCtMainWin->get_ct_actions()->requested_step_back();
+            }
+            pDialog->close();
+        });
+        s_state.iteratedfinddialog.reset(pDialog);
+    }
+    s_state.iteratedfinddialog->present();
+#endif
 }

@@ -27,6 +27,11 @@
 
 void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)pCtMainWin;
+    // GTK4 stub: dialog not yet ported; no-op for now
+    return;
+#else
     CtTreeStore& ctTreestore = pCtMainWin->get_tree_store();
     const std::list<gint64>& bookmarks = ctTreestore.bookmarks_get();
 
@@ -204,11 +209,16 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     pCtMainWin->menu_set_bookmark_menu_items();
     ctTreestore.pending_edit_db_bookmarks();
     pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
+#endif
 }
 
 // Choose the CherryTree data storage type and protection
 bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelectArgs& args)
 {
+#if GTK_MAJOR_VERSION >= 4
+    (void)pCtMainWin; (void)args;
+    return false;
+#else
     Gtk::Dialog dialog{_("Choose Storage Type"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -391,10 +401,15 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
         }
     }
     return retVal;
+#endif
 }
 
 CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
 {
+#if GTK_MAJOR_VERSION >= 4
+    (void)ct_main_win;
+    return CtYesNoCancel::Cancel;
+#else
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -438,12 +453,17 @@ CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
         return CtYesNoCancel::No;
     }
     return CtYesNoCancel::Cancel;
+#endif
 }
 
 bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
                                          const std::string& syntax_highl,
                                          const Glib::ustring& code_txt)
 {
+#if GTK_MAJOR_VERSION >= 4
+    (void)ct_main_win; (void)syntax_highl; (void)code_txt;
+    return false;
+#else
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -514,10 +534,15 @@ Gtk::Button* pButtonCancel = CtMiscUtil::dialog_add_button(&dialog, _("Cancel"),
         return true;
     }
     return false;
+#endif
 }
 
 // Application About Dialog
+#if GTK_MAJOR_VERSION >= 4
+void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gtk::IconPaintable> icon)
+#else
 void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon)
+#endif
 {
     auto dialog = Gtk::AboutDialog();
     dialog.set_program_name("CherryTree");
@@ -544,6 +569,13 @@ MA 02110-1301, USA.
 )STR"));
     dialog.set_website("https://www.giuspen.net/cherrytree/");
     dialog.set_authors({"Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"});
+#if GTKMM_MAJOR_VERSION >= 4
+    if (icon)
+        dialog.set_logo(icon);
+#else
+    if (icon)
+        dialog.set_logo(icon);
+#endif
     dialog.set_artists({"Ugo Yak <https://www.instagram.com/ugoyak.art/>", "SVG Repo <https://www.svgrepo.com/>", "OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
     dialog.set_translator_credits(Glib::ustring{} +
  _("Arabic")+" (ar) Abdulrahman Karajeh <abdulrahmankarajeh08@gmail.com>"+CtConst::CHAR_NEWLINE+
@@ -587,14 +619,23 @@ MA 02110-1301, USA.
     }, false);
 
     dialog.set_transient_for(parent);
+#if GTK_MAJOR_VERSION < 4
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.property_destroy_with_parent() = true;
     dialog.set_modal(true);
     dialog.run();
+#else
+    dialog.set_modal(true);
+    dialog.present();
+#endif
 }
 
 void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& summaryInfo)
 {
+#if GTK_MAJOR_VERSION >= 4
+    (void)pCtMainWin; (void)summaryInfo;
+    return;
+#else
     Gtk::Dialog dialog = Gtk::Dialog{_("Tree Summary Information"),
                                      *pCtMainWin,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -663,4 +704,5 @@ void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& 
     pContentArea->show_all();
     dialog.run();
     dialog.hide();
+#endif
 }

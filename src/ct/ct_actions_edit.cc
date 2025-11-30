@@ -45,10 +45,15 @@ void CtActions::requested_step_back()
     else {
         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         if (gtk_source_buffer_can_undo(pGtkSourceBuffer)) {
             gtk_source_buffer_undo(pGtkSourceBuffer);
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
+        #else
+        // GtkSourceView 5 removed direct undo/redo - rely on GtkSourceBuffer's internal handling
+        // Ctrl+Z is handled automatically by the widget
+        #endif
     }
 }
 
@@ -68,10 +73,15 @@ void CtActions::requested_step_ahead()
     else {
         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         if (gtk_source_buffer_can_redo(pGtkSourceBuffer)) {
             gtk_source_buffer_redo(pGtkSourceBuffer);
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
+        #else
+        // GtkSourceView 5 removed direct undo/redo - rely on GtkSourceBuffer's internal handling
+        // Ctrl+Shift+Z is handled automatically by the widget
+        #endif
     }
 }
 
@@ -101,7 +111,7 @@ void CtActions::image_insert()
         rPixbuf = Gdk::Pixbuf::create_from_file(filename);
     }
     catch (Glib::Error& error) {
-        spdlog::error("{} {}", __FUNCTION__, error.what().raw());
+        spdlog::error("{} {}", __FUNCTION__, std::string(error.what()));
     }
     if (rPixbuf)
         _image_edit_dialog(rPixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr/*pIterBound*/);

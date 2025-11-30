@@ -30,12 +30,32 @@
 #include "ct_logging.h"
 #include <optional>
 
+// GtkSourceView 5 removed begin/end_not_undoable_action
+#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
+#else
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) gtk_source_buffer_begin_not_undoable_action(buf)
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   gtk_source_buffer_end_not_undoable_action(buf)
+#endif
+
 static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* pCtMainWin)
 {
+    #if GTKMM_MAJOR_VERSION >= 4
+    // GTK4: Legacy dialog APIs (flags, run, responses) are removed.
+    // Provide a simple fallback: use current node if present, else root.
+    Gtk::TreeModel::iterator curr = pCtMainWin->curr_tree_iter();
+    if (curr) return curr;
+    CtTreeStore& ctTreeStore = pCtMainWin->get_tree_store();
+    if (auto first = ctTreeStore.get_iter_first()) {
+        return first;
+    }
+    return std::nullopt;
+    #else
     if (!pCtMainWin->curr_tree_iter()) {
         return Gtk::TreeModel::iterator{};
     }
-    Gtk::Dialog dialog{_("Who is the Parent?"),
+    Gtk::Dialog dialog{"Who is the Parent?",
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(*pCtMainWin);
@@ -46,8 +66,8 @@ static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* p
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(350, -1);
 
-    Gtk::RadioButton radiobutton_root{_("The Tree Root")};
-    Gtk::RadioButton radiobutton_curr_node{_("The Selected Node")};
+    Gtk::RadioButton radiobutton_root{"The Tree Root"};
+    Gtk::RadioButton radiobutton_curr_node{"The Selected Node"};
     radiobutton_curr_node.join_group(radiobutton_root);
     auto pContentArea = dialog.get_content_area();
     pContentArea->pack_start(radiobutton_root);
@@ -78,6 +98,7 @@ static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* p
         return Gtk::TreeModel::iterator{};
     }
     return std::nullopt;
+    #endif
 }
 
 // Import a node from a html file
@@ -331,15 +352,17 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
         node_data.sequence = -1;
         if (imported_node->has_content()) {
             Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _pCtMainWin->get_new_text_buffer();
+            #if GTKMM_MAJOR_VERSION < 4
             auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
-            gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
+            #endif
+            CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
             for (xmlpp::Node* xml_slot : imported_node->xml_content->get_root_node()->get_children("slot")) {
                 for (xmlpp::Node* child: xml_slot->get_children()) {
                     Gtk::TextIter insert_iter = pTextBuffer->get_insert()->get_iter();
                     CtStorageXmlHelper{_pCtMainWin}.get_text_buffer_one_slot_from_xml(pTextBuffer, child, node_data.anchoredWidgets, &insert_iter, -1, "");
                 }
             }
-            gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+            CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
             pTextBuffer->set_modified(false);
             node_data.pTextBuffer = pTextBuffer;
         }

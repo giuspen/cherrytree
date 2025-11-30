@@ -23,7 +23,12 @@
 
 #include "ct_dialogs.h"
 #include "ct_main_win.h"
+#include "ct_logging.h"
 
+#if GTKMM_MAJOR_VERSION >= 4
+// GTK4 fallback: disable command palette dialog for now.
+std::string CtDialogs::dialog_palette(CtMainWin*) { return {}; }
+#else
 std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
 {
     // based on plotinus
@@ -247,3 +252,4 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
         return resulted_iter->get_value(columns.id);
     return "";
 }
+#endif

@@ -26,6 +26,7 @@
 #include "spdlog/spdlog.h"
 #include <glibconfig.h>
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& entryStr)
 {
     // based on plotinus
@@ -253,3 +254,11 @@ gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& ent
         return resulted_iter->get_value(columns.id);
     return -1;
 }
+#else
+gint64 CtDialogs::dialog_selnode(CtMainWin* pCtMainWin, const Glib::ustring& entryStr)
+{
+    (void)pCtMainWin; (void)entryStr;
+    // GTK4 stub: dialog not yet ported
+    return -1;
+}
+#endif

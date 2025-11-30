@@ -29,6 +29,15 @@
 #include <unistd.h>
 #include <optional>
 
+// GtkSourceView 5 removed begin/end_not_undoable_action
+#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
+#else
+#define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) gtk_source_buffer_begin_not_undoable_action(buf)
+#define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   gtk_source_buffer_end_not_undoable_action(buf)
+#endif
+
 const char CtStorageSqlite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 "node_id INTEGER UNIQUE,"
 "name TEXT,"
@@ -510,11 +519,11 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageSqlite::get_delayed_text_buffer(const gin
 
         widgets.sort([](const CtAnchoredWidget* w1, const CtAnchoredWidget* w2) { return w1->getOffset() < w2->getOffset(); });
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(rRetTextBuffer->gobj());
-        gtk_source_buffer_begin_not_undoable_action(pGtkSourceBuffer);
+        CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
         for (auto widget : widgets) {
             widget->insertInTextBuffer(rRetTextBuffer);
         }
-        gtk_source_buffer_end_not_undoable_action(pGtkSourceBuffer);
+        CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
         rRetTextBuffer->set_modified(false);
     }
     return rRetTextBuffer;
