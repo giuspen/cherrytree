@@ -427,13 +427,12 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
 
 std::string CtDialogs::file_select_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
 {
-#if GTK_MAJOR_VERSION < 4
-    auto chooser = Gtk::FileChooserNative::create(_("Select File"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
-#else
+#if GTK_MAJOR_VERSION >= 4
     // GTK4 minimal stub: not implemented
     (void)pParentWin; (void)args;
     return std::string{};
-#endif
+#else
+    auto chooser = Gtk::FileChooserNative::create(_("Select File"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
 #if GTKMM_MAJOR_VERSION < 3
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
@@ -457,18 +456,18 @@ std::string CtDialogs::file_select_dialog(Gtk::Window* pParentWin, const CtFileS
         }
         chooser->add_filter(rFileFilter);
     }
-        return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#endif
 }
 
 std::string CtDialogs::folder_select_dialog(Gtk::Window* pParentWin, const std::string& curr_folder)
 {
-#if GTK_MAJOR_VERSION < 4
-    auto chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
-#else
+#if GTK_MAJOR_VERSION >= 4
     // GTK4 minimal stub: not implemented
     (void)pParentWin; (void)curr_folder;
     return std::string{};
-#endif
+#else
+    auto chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
 #if GTKMM_MAJOR_VERSION < 3
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
@@ -481,18 +480,18 @@ std::string CtDialogs::folder_select_dialog(Gtk::Window* pParentWin, const std::
     else {
         chooser->set_current_folder(curr_folder);
     }
-        return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#endif
 }
 
 std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
 {
-#if GTK_MAJOR_VERSION < 4
-    auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
-#else
+#if GTK_MAJOR_VERSION >= 4
     // GTK4 minimal stub: not implemented
     (void)pParentWin; (void)args;
     return std::string{};
-#endif
+#else
+    auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
 #if GTKMM_MAJOR_VERSION < 3
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
@@ -517,22 +516,22 @@ std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFile
         }
         chooser->add_filter(rFileFilter);
     }
-        return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#endif
 }
 
 std::string CtDialogs::folder_save_as_dialog(Gtk::Window* pParentWin, const CtFileSelectArgs& args)
 {
+#if GTK_MAJOR_VERSION >= 4
+    // GTK4 minimal stub: not implemented
+    (void)pParentWin; (void)args;
+    return std::string{};
+#else
     // GTK4 minimal: use SELECT_FOLDER instead of create folder
-#if GTK_MAJOR_VERSION < 4
     auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save To Folder"), Gtk::FILE_CHOOSER_ACTION_CREATE_FOLDER);
     (void)CtMiscUtil::dialog_add_button(chooser.get(), _("Cancel"), Gtk::RESPONSE_CANCEL, "ct_cancel");
     (void)CtMiscUtil::dialog_add_button(chooser.get(), _("Save"), Gtk::RESPONSE_ACCEPT, "ct_save-as");
     chooser->property_destroy_with_parent() = true;
-#else
-    // GTK4 minimal stub: not implemented
-    (void)pParentWin; (void)args;
-    return std::string{};
-#endif
     //chooser->set_do_overwrite_confirmation(true); unfortunately works only with Gtk::FILE_CHOOSER_ACTION_SAVE
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(g_get_home_dir());
@@ -543,5 +542,6 @@ std::string CtDialogs::folder_save_as_dialog(Gtk::Window* pParentWin, const CtFi
     if (not args.curr_file_name.empty()) {
         chooser->set_current_name(args.curr_file_name.string());
     }
-        return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#endif
 }

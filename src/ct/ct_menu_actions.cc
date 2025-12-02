@@ -38,38 +38,38 @@ CtMenuAction* CtMenu::find_action(const std::string& id)
 void CtMenu::init_actions(CtActions* pActions)
 {
     // stubs for menu bar
-    _actions.push_back(CtMenuAction{"", "FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "EditMenu", None, _("_Edit"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "InsertMenu", None, _("_Insert"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FormatMenu", None, _("F_ormat"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeMenu", None, _("_Tree"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ToolsMenu", None, _("Too_ls"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "BookmarksMenu", None, _("_Bookmarks"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "HelpMenu", None, _("_Help"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FileMenu", None, _("_File"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "EditMenu", None, _("_Edit"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "InsertMenu", None, _("_Insert"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "FormatMenu", None, _("F_ormat"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "TreeMenu", None, _("_Tree"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "ToolsMenu", None, _("Too_ls"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "SearchMenu", None, _("_Search"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "ViewMenu", None, _("_View"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "BookmarksMenu", None, _("_Bookmarks"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "HelpMenu", None, _("_Help"), None, None, [](){}});
 
     // stubs for sumenu bar
-    _actions.push_back(CtMenuAction{"", "TreeMoveSubMenu", "ct_go-jump", _("Node _Move"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeSortSubMenu", "ct_sort-asc", _("Nod_es Sort"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "BookmarksSubMenu", "ct_pin", _("B_ookmarks"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ImportSubMenu", CtConst::STR_STOCK_CT_IMP, _("_Import"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ExportSubMenu", "ct_export_from_cherrytree", _("_Export"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "PrefSubMenu", "ct_preferences", _("_Preferences"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "TreeMoveSubMenu", "ct_go-jump", _("Node _Move"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "TreeSortSubMenu", "ct_sort-asc", _("Nod_es Sort"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "BookmarksSubMenu", "ct_pin", _("B_ookmarks"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "ImportSubMenu", CtConst::STR_STOCK_CT_IMP, _("_Import"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "ExportSubMenu", "ct_export_from_cherrytree", _("_Export"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "PrefSubMenu", "ct_preferences", _("_Preferences"), None, None, [](){}});
     _actions.push_back(CtMenuAction{"", "RecentDocsSubMenu", "ct_open", _("_Recent Documents"), None,
-        _("Open a Recent CherryTree Document"), sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ChangeCaseSubMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("L_ist"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("Toggle _Font Property"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "HeadingSubMenu", "ct_fmt-txt-h1", _("_Toggle Heading Property"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "InsertSubMenu", "ct_insert", _("I_nsert"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("Ro_w"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TableSubMenu", "ct_table_edit", _("_Table"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "CodeBoxSubMenu", "ct_codebox_edit", _("_CodeBox"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("F_ormat"), None, None, sigc::signal<void>()});
+        _("Open a Recent CherryTree Document"), [](){}});
+    _actions.push_back(CtMenuAction{"", "ChangeCaseSubMenu", "ct_case_toggle", _("C_hange Case"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("L_ist"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("Toggle _Font Property"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "HeadingSubMenu", "ct_fmt-txt-h1", _("_Toggle Heading Property"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "InsertSubMenu", "ct_insert", _("I_nsert"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("Ro_w"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "TableSubMenu", "ct_table_edit", _("_Table"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "CodeBoxSubMenu", "ct_codebox_edit", _("_CodeBox"), None, None, [](){}});
+    _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("F_ormat"), None, None, [](){}});
 
     // main actions
     {

@@ -47,10 +47,15 @@ struct CtMenuAction
     std::string desc;
     std::function<void()> run_action;
 
-    // store signals as shared_ptr so the struct remains copyable/movable and
-    // the actual sigc::signal type may be forward-declared by other headers.
+    // Sensitivity/visibility update hooks
+#if GTKMM_MAJOR_VERSION >= 4
+    std::function<void(bool)> signal_set_sensitive;
+    std::function<void(bool)> signal_set_visible;
+#else
+    // GTK3 keeps real signals for menu items/toolbuttons
     std::shared_ptr<sigc::signal<void, bool>> signal_set_sensitive;
     std::shared_ptr<sigc::signal<void, bool>> signal_set_visible;
+#endif
 
     CtMenuAction();
 
@@ -65,9 +70,14 @@ struct CtMenuAction
      , built_in_shortcut(built_in_shortcut_)
      , desc(desc_)
      , run_action([run]() mutable { run(); })
-     , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
-     , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
     {
+#if GTKMM_MAJOR_VERSION >= 4
+        signal_set_sensitive = nullptr;
+        signal_set_visible = nullptr;
+#else
+        signal_set_sensitive = std::make_shared<sigc::signal<void, bool>>();
+        signal_set_visible = std::make_shared<sigc::signal<void, bool>>();
+#endif
     }
 
     const std::string& get_shortcut(CtConfig* pCtConfig) const;
@@ -115,7 +125,7 @@ public:
     void                       refresh_shortcuts_gtk4();
     void                       populate_recent_docs_menu4(Gtk::MenuButton* recentBtn, const CtRecentDocsFilepaths& recentDocsFilepaths);
     Gtk::MenuButton*           build_bookmarks_button4(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
-                                                       sigc::slot<void, gint64> bookmark_action,
+                                                       std::function<void(gint64)> bookmark_action,
                                                        const bool isTopMenu);
 private:
     Gtk::Popover*              _build_actions_popover();

@@ -36,7 +36,11 @@ class CtMainWin;
 class CtApp : public Gtk::Application
 {
 protected:
+#if GTKMM_MAJOR_VERSION >= 4
+    CtApp(const Glib::ustring application_id_postfix = Glib::ustring{}, Gio::Application::Flags flags = Gio::Application::Flags::NONE);
+#else
     CtApp(const Glib::ustring application_id_postfix = Glib::ustring{}, Gio::ApplicationFlags flags = Gio::APPLICATION_FLAGS_NONE);
+#endif
     ~CtApp() override;
 
 public:

@@ -203,8 +203,8 @@ void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree,
     std::function<void(CtTreeIter)> f_traverseFunc;
     f_traverseFunc = [this, &f_traverseFunc, &options, &tree_links_text](CtTreeIter tree_iter) {
         node_export_to_html(tree_iter, options, tree_links_text, -1, -1);
-        for (auto& child : tree_iter->children()) {
-            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
+        for (auto child_iter = tree_iter->children().begin(); child_iter != tree_iter->children().end(); ++child_iter) {
+            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter));
         }
     };
     // start to iterarte nodes
@@ -280,8 +280,8 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
         rFileStream->write(html_text.c_str(), html_text.bytes());
         html_text.clear();
 
-        for (auto& child : tree_iter->children()) {
-            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), node_level + 1);
+        for (auto child_iter = tree_iter->children().begin(); child_iter != tree_iter->children().end(); ++child_iter) {
+            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), node_level + 1);
         }
     };
 
@@ -318,8 +318,8 @@ void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter,
         else
             tree_links_text += "<li><button onclick='toggleSubTree(this)'>-</button> <a href='" + href + "'>" + node_name +"</a></li>";
         tree_links_text += "<ul class='subtree'>\n";
-        for (auto& child : tree_iter->children()) {
-            _tree_links_text_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1, index_in_page);
+        for (auto child_iter = tree_iter->children().begin(); child_iter != tree_iter->children().end(); ++child_iter) {
+            _tree_links_text_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), tree_links_text, tree_count_level + 1, index_in_page);
         }
         tree_links_text += "</ul>\n";
     }

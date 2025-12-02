@@ -66,8 +66,9 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, f
                                                 true/*for_filename*/, true/*root_to_leaf*/, true/*trail_node_id*/, ".txt"/*trailer*/);
             node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
         }
-        for (auto& child: tree_iter->children())
-            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
+        for (auto child_iter = tree_iter->children().begin(); child_iter != tree_iter->children().end(); ++child_iter) {
+            f_traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter));
+        }
     };
     // start to iterarte nodes
     CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();

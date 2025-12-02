@@ -28,14 +28,30 @@
 Gtk::Widget* CtPrefDlg::build_tab_theme()
 {
     // Tree Theme
-    auto vbox_tt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+        auto vbox_tt_theme = Gtk::manage(new Gtk::Box{
+    #if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+    #else
+        Gtk::ORIENTATION_VERTICAL
+    #endif
+        });
 
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    auto radiobutton_tt_col_light = Gtk::manage(new Gtk::CheckButton{_("Light Background, Dark Text")});
+    auto radiobutton_tt_col_dark = Gtk::manage(new Gtk::CheckButton{_("Dark Background, Light Text")});
+    radiobutton_tt_col_dark->set_group(radiobutton_tt_col_light->get_group());
+    auto radiobutton_tt_col_custom = Gtk::manage(new Gtk::CheckButton{_("Custom Background")});
+    radiobutton_tt_col_custom->set_group(radiobutton_tt_col_light->get_group());
+    auto hbox_tt_col_custom = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4/*spacing*/});
+#else
     auto radiobutton_tt_col_light = Gtk::manage(new Gtk::RadioButton{_("Light Background, Dark Text")});
     auto radiobutton_tt_col_dark = Gtk::manage(new Gtk::RadioButton{_("Dark Background, Light Text")});
     radiobutton_tt_col_dark->join_group(*radiobutton_tt_col_light);
     auto radiobutton_tt_col_custom = Gtk::manage(new Gtk::RadioButton{_("Custom Background")});
     radiobutton_tt_col_custom->join_group(*radiobutton_tt_col_light);
     auto hbox_tt_col_custom = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+#endif
     auto colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA{_pConfig->ttDefBg}));
     auto label_tt_col_custom_txt = Gtk::manage(new Gtk::Label{_("Text")});
     auto label_tt_col_custom_sel_bg = Gtk::manage(new Gtk::Label{_("Selection Background")});
@@ -43,6 +59,17 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttDefFg}});
     auto colorbutton_tree_sel_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttSelBg}});
     auto colorbutton_tree_sel_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttSelFg}});
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_tt_col_custom->append(*radiobutton_tt_col_custom);
+    hbox_tt_col_custom->append(*colorbutton_tree_bg);
+    hbox_tt_col_custom->append(*label_tt_col_custom_txt);
+    hbox_tt_col_custom->append(*colorbutton_tree_fg);
+    hbox_tt_col_custom->append(*label_tt_col_custom_sel_bg);
+    hbox_tt_col_custom->append(*colorbutton_tree_sel_bg);
+    hbox_tt_col_custom->append(*label_tt_col_custom_sel_txt);
+    hbox_tt_col_custom->append(*colorbutton_tree_sel_fg);
+#else
     hbox_tt_col_custom->pack_start(*radiobutton_tt_col_custom, false, false);
     hbox_tt_col_custom->pack_start(*colorbutton_tree_bg, false, false);
     hbox_tt_col_custom->pack_start(*label_tt_col_custom_txt, false, false);
@@ -51,10 +78,18 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     hbox_tt_col_custom->pack_start(*colorbutton_tree_sel_bg, false, false);
     hbox_tt_col_custom->pack_start(*label_tt_col_custom_sel_txt, false, false);
     hbox_tt_col_custom->pack_start(*colorbutton_tree_sel_fg, false, false);
+#endif
 
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_tt_theme->append(*radiobutton_tt_col_light);
+    vbox_tt_theme->append(*radiobutton_tt_col_dark);
+    vbox_tt_theme->append(*hbox_tt_col_custom);
+#else
     vbox_tt_theme->pack_start(*radiobutton_tt_col_light, false, false);
     vbox_tt_theme->pack_start(*radiobutton_tt_col_dark, false, false);
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
+#endif
     Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree Explorer"), vbox_tt_theme);
 
     if (_pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG and
@@ -211,13 +246,13 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         _pConfig->update_user_style(num);
         gtk_source_style_scheme_manager_force_rescan(pGtkSourceStyleSchemeManager);
         const std::string styleId = CtConfig::get_user_style_id(num);
-        if (combobox_style_scheme_rt->get_active_text() == styleId) {
+        if (combobox_style_scheme_rt->get_active_text() == Glib::ustring{styleId}) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
         }
-        if (combobox_style_scheme_pt->get_active_text() == styleId) {
+        if (combobox_style_scheme_pt->get_active_text() == Glib::ustring{styleId}) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
         }
-        if (combobox_style_scheme_ta->get_active_text() == styleId) {
+        if (combobox_style_scheme_ta->get_active_text() == Glib::ustring{styleId}) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
         }
     };
@@ -243,11 +278,24 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Box* pVBoxThemeEditor[CtConst::NUM_USER_STYLES];
 
     for (unsigned i = 0; i < CtConst::NUM_USER_STYLES; ++i) {
-        pVBoxThemeEditor[i] = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+        pVBoxThemeEditor[i] = Gtk::manage(new Gtk::Box{
+    #if GTKMM_MAJOR_VERSION >= 4
+            Gtk::Orientation::HORIZONTAL
+    #else
+            Gtk::ORIENTATION_HORIZONTAL
+    #endif
+        });
         pGridThemeEditor[i] = Gtk::manage(new Gtk::Grid{});
         pGridThemeEditor[i]->set_row_homogeneous(true);
         pGridThemeEditor[i]->set_column_spacing(4);
+    #if GTKMM_MAJOR_VERSION >= 4
+        pGridThemeEditor[i]->set_margin_start(4);
+        pGridThemeEditor[i]->set_margin_end(4);
+        pGridThemeEditor[i]->set_margin_top(4);
+        pGridThemeEditor[i]->set_margin_bottom(4);
+    #else
         pGridThemeEditor[i]->set_border_width(4);
+    #endif
 
         pLabelTextFg[i] = Gtk::manage(new Gtk::Label{_("Text Foreground")});
         pColorButtonTextFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleTextFg[i]}});
@@ -266,7 +314,9 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         pLabelLineNumbersBg[i] = Gtk::manage(new Gtk::Label{_("Line Numbers Background")});
         pColorButtonLineNumbersBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleLineNumbersBg[i]}});
         pButtonsResetToDefault[i] = Gtk::manage(new Gtk::Button{});
+    #if GTKMM_MAJOR_VERSION < 4
         pButtonsResetToDefault[i]->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    #endif
         pButtonsResetToDefault[i]->set_tooltip_text(_("Reset to Default"));
 
         pGridThemeEditor[i]->attach(*pLabelTextFg[i],              0, 0, 1, 1);
@@ -286,8 +336,14 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         pGridThemeEditor[i]->attach(*pLabelLineNumbersBg[i],       2, 3, 1, 1);
         pGridThemeEditor[i]->attach(*pColorButtonLineNumbersBg[i], 3, 3, 1, 1);
 
+        
+    #if GTKMM_MAJOR_VERSION >= 4
+        pVBoxThemeEditor[i]->append(*pGridThemeEditor[i]);
+        pVBoxThemeEditor[i]->append(*pButtonsResetToDefault[i]);
+    #else
         pVBoxThemeEditor[i]->pack_start(*pGridThemeEditor[i], false, false);
         pVBoxThemeEditor[i]->pack_start(*pButtonsResetToDefault[i], true, false);
+    #endif
 
         pNotebook->append_page(*(pVBoxThemeEditor[i]), CtConfig::get_user_style_id(i+1));
 
@@ -413,13 +469,25 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pNotebook);
 
     // Icon Theme
-    auto pVBoxIconTheme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+        auto pVBoxIconTheme = Gtk::manage(new Gtk::Box{
+    #if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+    #else
+        Gtk::ORIENTATION_VERTICAL
+    #endif
+        });
     auto pButtonBreezeDarkIcons = Gtk::manage(new Gtk::Button{_("Set Dark Theme Icons")});
     auto pButtonBreezeLightIcons = Gtk::manage(new Gtk::Button{_("Set Light Theme Icons")});
     auto pButtonDefaultIcons = Gtk::manage(new Gtk::Button{_("Set Default Icons")});
+#if GTKMM_MAJOR_VERSION >= 4
+    pVBoxIconTheme->append(*pButtonBreezeDarkIcons);
+    pVBoxIconTheme->append(*pButtonBreezeLightIcons);
+    pVBoxIconTheme->append(*pButtonDefaultIcons);
+#else
     pVBoxIconTheme->pack_start(*pButtonBreezeDarkIcons, false, false);
     pVBoxIconTheme->pack_start(*pButtonBreezeLightIcons, false, false);
     pVBoxIconTheme->pack_start(*pButtonDefaultIcons, false, false);
+#endif
 
     auto f_removeConfigIconsAndCopyFrom = [](const char* folderName){
         fs::path ConfigIcons_dst = fs::get_cherrytree_config_icons_dirpath();
@@ -433,7 +501,12 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                 fs::copy_file(filepath, ConfigIcons_dst / filepath.filename());
             }
         }
+        
+    #if GTKMM_MAJOR_VERSION >= 4
+        // GTK4 icon theme reload happens automatically; no explicit rescan API.
+    #else
         Gtk::IconTheme::get_default()->rescan_if_needed();
+    #endif
     };
 
     pButtonBreezeDarkIcons->signal_clicked().connect([f_removeConfigIconsAndCopyFrom](){
@@ -448,13 +521,26 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     Gtk::Frame* frame_icon_theme = new_managed_frame_with_align(_("Icon Theme"), pVBoxIconTheme);
 
-    auto pVBoxMain = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+        auto pVBoxMain = Gtk::manage(new Gtk::Box{
+    #if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+    #else
+        Gtk::ORIENTATION_VERTICAL
+    #endif
+        });
     pVBoxMain->set_margin_start(6);
     pVBoxMain->set_margin_top(6);
+#if GTKMM_MAJOR_VERSION >= 4
+    pVBoxMain->append(*frame_tt_theme);
+    pVBoxMain->append(*frame_style_schemes);
+    pVBoxMain->append(*frame_theme_editor);
+    pVBoxMain->append(*frame_icon_theme);
+#else
     pVBoxMain->pack_start(*frame_tt_theme, false, false);
     pVBoxMain->pack_start(*frame_style_schemes, false, false);
     pVBoxMain->pack_start(*frame_theme_editor, false, false);
     pVBoxMain->pack_start(*frame_icon_theme, false, false);
+#endif
 
     combobox_style_scheme_rt->signal_changed().connect([this, combobox_style_scheme_rt](){
         _pConfig->rtStyleScheme = combobox_style_scheme_rt->get_active_text();

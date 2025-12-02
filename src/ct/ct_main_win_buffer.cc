@@ -200,7 +200,11 @@ Glib::RefPtr<Gtk::TextBuffer> CtMainWin::get_new_text_buffer(const Glib::ustring
 {
     GtkSourceBuffer* pGtkSourceBuffer = gtk_source_buffer_new(_rGtkTextTagTable->gobj());
     Glib::RefPtr<Gtk::TextBuffer> rRetTextBuffer = Glib::wrap(GTK_TEXT_BUFFER(pGtkSourceBuffer));
+#if GTKMM_MAJOR_VERSION < 4
     gtk_source_buffer_set_max_undo_levels(pGtkSourceBuffer, _pCtConfig->limitUndoableSteps);
+#else
+    // gtkmm4: API removed; rely on default unlimited or future alternative
+#endif
 
     if (not textContent.empty()) {
         CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
@@ -220,6 +224,7 @@ void CtMainWin::apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, C
     if (not pCtScalableTag->background.empty()) {
         rTextTag->property_background() = pCtScalableTag->background;
     }
+    #if GTKMM_MAJOR_VERSION < 4
     if (pCtScalableTag->bold) {
         rTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
     }
@@ -229,6 +234,7 @@ void CtMainWin::apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, C
     if (pCtScalableTag->underline) {
         rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
     }
+    #endif
 }
 
 std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName,
@@ -244,7 +250,9 @@ std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& prop
             rTextTag->property_indent() = 0;
         }
         else if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue) {
+        #if GTKMM_MAJOR_VERSION < 4
             rTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
+        #endif
         }
         else if (CtConst::TAG_FOREGROUND == propertyName) {
             rTextTag->property_foreground() = propertyValue;
@@ -293,12 +301,17 @@ std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& prop
             rTextTag->property_invisible() = true;
         }
         else if (CtConst::TAG_STYLE == propertyName and CtConst::TAG_PROP_VAL_ITALIC == propertyValue) {
+        #if GTKMM_MAJOR_VERSION < 4
             rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
+        #endif
         }
         else if (CtConst::TAG_UNDERLINE == propertyName and CtConst::TAG_PROP_VAL_SINGLE == propertyValue) {
+        #if GTKMM_MAJOR_VERSION < 4
             rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
+        #endif
         }
         else if (CtConst::TAG_JUSTIFICATION == propertyName) {
+#if GTKMM_MAJOR_VERSION < 4
             if (CtConst::TAG_PROP_VAL_LEFT == propertyValue) {
                 rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT; 
             }
@@ -314,6 +327,10 @@ std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& prop
             else {
                 identified = false;
             }
+#else
+            // gtkmm4: justification enum removed; skipping property assignment
+            identified = false;
+#endif
         }
         else if (CtConst::TAG_FAMILY == propertyName and CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue) {
             rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
@@ -335,9 +352,11 @@ std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& prop
         }
         else if (CtConst::TAG_LINK == propertyName and propertyValue.size() > 4) {
             if (_pCtConfig->linksUnderline) {
+            #if GTKMM_MAJOR_VERSION < 4
                 rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
+            #endif
             }
-            Glib::ustring linkType = propertyValue.substr(0, 4);
+            std::string linkType = propertyValue.substr(0, 4);
             if (CtConst::LINK_TYPE_WEBS == linkType) {
                 rTextTag->property_foreground() = _pCtConfig->colLinkWebs;
             }

@@ -236,9 +236,13 @@ Gtk::Button* CtMiscUtil::dialog_add_button(Gtk::Dialog* pDialog, const char* tex
 {
     Gtk::Button* retButton = pDialog->add_button(text, responseType);
     retButton->set_image_from_icon_name(stockId);
+#if GTKMM_MAJOR_VERSION < 4
     retButton->set_always_show_image(true);
+#endif
     if (isDefault) {
+#if GTKMM_MAJOR_VERSION < 4
         retButton->grab_default();
+#endif
     }
     return retButton;
 }
@@ -246,7 +250,11 @@ Gtk::Button* CtMiscUtil::dialog_add_button(Gtk::Dialog* pDialog, const char* tex
 CtLinkEntry CtMiscUtil::get_link_entry_from_property(const Glib::ustring& link)
 {
     CtLinkEntry link_entry{};
+#if GTKMM_MAJOR_VERSION >= 4
+    std::vector<std::string> link_vec = str::split(std::string(link), " ");
+#else
     std::vector<Glib::ustring> link_vec = str::split(link, " ");
+#endif
     if (link_vec.empty()) return link_entry;
     if (CtConst::LINK_TYPE_WEBS == link_vec[0]) {
         link_entry.type = CtLinkType::Webs;
@@ -605,7 +613,11 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
                                                  CtCurrAttributesMap& delta_attributes)
 {
     delta_attributes.clear();
+#if GTKMM_MAJOR_VERSION >= 4
+    auto toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
+#else
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
+#endif
     for (const auto& r_curr_tag : toggled_off) {
         const Glib::ustring tag_name = r_curr_tag->property_name();
         if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
@@ -624,7 +636,11 @@ bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, CtConst::TAG_LINK_PREFIX)) delta_attributes[CtConst::TAG_LINK].clear();
         else if (str::startswith(tag_name, CtConst::TAG_FAMILY_PREFIX)) delta_attributes[CtConst::TAG_FAMILY].clear();
     }
+#if GTKMM_MAJOR_VERSION >= 4
+    auto toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
+#else
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
+#endif
     for (const auto& r_curr_tag : toggled_on) {
         const Glib::ustring tag_name = r_curr_tag->property_name();
         if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
@@ -732,7 +748,17 @@ bool CtTextIterUtil::extend_selection_if_collapsed_text(Gtk::TextIter& iter_sel_
                         if (iter_tmp.forward_to_tag_toggle(pTextTagInvis)) {
                             const auto toggled_on = iter_tmp.get_toggled_tags(true/*toggled_on*/);
                             for (const auto& pCurrTag : toggled_on) {
+#if GTKMM_MAJOR_VERSION >= 4
+                                if (
+#if GTKMM_MAJOR_VERSION >= 4
+                                    pCurrTag->property_name().get_value() == Glib::ustring(tagNameInvis)
+#else
+                                    pCurrTag->property_name() == tagNameInvis
+#endif
+                                ) {
+#else
                                 if (pCurrTag->property_name() == tagNameInvis) {
+#endif
                                     // found the start as expected, now we need to move to the end
                                     (void)iter_tmp.forward_to_tag_toggle(pTextTagInvis);
                                     iter_sel_end = iter_tmp;
@@ -1088,7 +1114,11 @@ Glib::ustring CtStrUtil::highlight_words(const Glib::ustring& text,
     // Build a regular expression of the form "(word1|word2|...)", matching any of the words.
     // The outer parentheses also define a capturing group, which is important (see below).
     Glib::ustring pattern = "(" + str::join(words, "|") + ")";
+#if GTKMM_MAJOR_VERSION >= 4
+    auto regex = Glib::Regex::create(pattern.c_str(), Glib::Regex::CompileFlags::CASELESS);
+#else
     auto regex = Glib::Regex::create(pattern.c_str(), Glib::RegexCompileFlags::REGEX_CASELESS);
+#endif
 
     Glib::ustring builder;
     // Regex.split also returns capturing group matches from the "delimiter",

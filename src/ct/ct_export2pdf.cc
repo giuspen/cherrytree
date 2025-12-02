@@ -448,8 +448,8 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter,
         vec::vector_extend(tree_pango_slots, node_pango_slots);
     }
 
-    for (auto& iter : tree_iter->children()) {
-        _nodes_all_export_print_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(iter), options, tree_pango_slots);
+    for (auto child_iter = tree_iter->children().begin(); child_iter != tree_iter->children().end(); ++child_iter) {
+        _nodes_all_export_print_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), options, tree_pango_slots);
     }
 }
 
@@ -477,6 +477,19 @@ CtPrint::CtPrint(CtMainWin* pCtMainWin)
     const fs::path printPageSetupFilepath = fs::get_cherrytree_print_page_setup_cfg_filepath();
     bool pageSetupLoadFromFile{false};
     if (fs::is_regular_file(printPageSetupFilepath)) {
+#if GTKMM_MAJOR_VERSION >= 4
+        auto keyFile = Glib::KeyFile::create();
+        keyFile->load_from_file(printPageSetupFilepath.string());
+        try {
+            _pPageSetup->load_from_key_file(keyFile);
+            pageSetupLoadFromFile = true;
+        }
+        catch (Glib::KeyFileError& kferror) {}
+        try {
+            _pPrintSettings->load_from_key_file(keyFile);
+        }
+        catch (Glib::KeyFileError& kferror) {}
+#else
         Glib::KeyFile keyFile;
         keyFile.load_from_file(printPageSetupFilepath.string());
         try {
@@ -488,6 +501,7 @@ CtPrint::CtPrint(CtMainWin* pCtMainWin)
             _pPrintSettings->load_from_key_file(keyFile);
         }
         catch (Glib::KeyFileError& kferror) {}
+#endif
     }
     if (not pageSetupLoadFromFile) {
         _pPageSetup->set_paper_size(Gtk::PaperSize("iso_a4"));
@@ -497,10 +511,17 @@ CtPrint::CtPrint(CtMainWin* pCtMainWin)
 void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
 {
     _pPageSetup = Gtk::run_page_setup_dialog(*pWin, _pPageSetup, _pPrintSettings);
+#if GTKMM_MAJOR_VERSION >= 4
+    auto keyFile = Glib::KeyFile::create();
+    _pPageSetup->save_to_key_file(keyFile);
+    _pPrintSettings->save_to_key_file(keyFile);
+    keyFile->save_to_file(fs::get_cherrytree_print_page_setup_cfg_filepath().string());
+#else
     Glib::KeyFile keyFile;
     _pPageSetup->save_to_key_file(keyFile);
     _pPrintSettings->save_to_key_file(keyFile);
     keyFile.save_to_file(fs::get_cherrytree_print_page_setup_cfg_filepath().string());
+#endif
 }
 
 // Start the Print Operations for Text
@@ -509,21 +530,43 @@ void CtPrint::print_text(const fs::path& pdf_filepath, const std::vector<CtPango
     CtPrintData print_data;
     print_data.slots = slots;
 
+#if GTKMM_MAJOR_VERSION >= 4
+    // GTK4: use lambdas directly to avoid incomplete sigc::slot type issues
+    auto f_begin_print_text = [this, &print_data](const Glib::RefPtr<Gtk::PrintContext>& context) {
+        _on_begin_print_text(context, &print_data);
+    };
+    auto f_draw_page_text = [this, &print_data](const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr) {
+        _on_draw_page_text(context, page_nr, &print_data);
+    };
+#else
     sigc::slot<void, const Glib::RefPtr<Gtk::PrintContext>&, CtPrintData*> f_begin_print_text = sigc::mem_fun(*this, &CtPrint::_on_begin_print_text);
     sigc::slot<void,const Glib::RefPtr<Gtk::PrintContext>&, int, CtPrintData*> f_draw_page_text = sigc::mem_fun(*this, &CtPrint::_on_draw_page_text);
+#endif
 
     print_data.operation = Gtk::PrintOperation::create();
     print_data.operation->set_show_progress(true);
     print_data.operation->set_default_page_setup(_pPageSetup);
     print_data.operation->set_print_settings(_pPrintSettings);
+#if GTKMM_MAJOR_VERSION >= 4
+    print_data.operation->signal_begin_print().connect(f_begin_print_text);
+    print_data.operation->signal_draw_page().connect(f_draw_page_text);
+#else
     print_data.operation->signal_begin_print().connect(sigc::bind(f_begin_print_text, &print_data));
     print_data.operation->signal_draw_page().connect(sigc::bind(f_draw_page_text, &print_data));
+#endif
     print_data.operation->set_export_filename(pdf_filepath.string());
     try {
+#if GTKMM_MAJOR_VERSION >= 4
+        auto res = print_data.operation->run(!pdf_filepath.empty() ? Gtk::PrintOperation::Action::EXPORT : Gtk::PrintOperation::Action::PRINT_DIALOG);
+        if (res == Gtk::PrintOperation::Result::ERROR)
+            CtDialogs::error_dialog("Error printing file: (bad res)", *_pCtMainWin);
+        else if (res == Gtk::PrintOperation::Result::APPLY)
+#else
         auto res = print_data.operation->run(!pdf_filepath.empty() ? Gtk::PRINT_OPERATION_ACTION_EXPORT : Gtk::PRINT_OPERATION_ACTION_PRINT_DIALOG);
         if (res == Gtk::PRINT_OPERATION_RESULT_ERROR)
             CtDialogs::error_dialog("Error printing file: (bad res)", *_pCtMainWin);
         else if (res == Gtk::PRINT_OPERATION_RESULT_APPLY)
+#endif
             _pPrintSettings = print_data.operation->get_print_settings();
     }
     catch (Glib::Error& ex) {
@@ -733,11 +776,15 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
     layout->set_font_description(*font);
     const int max_layout_line_width = _page_width - text_slot->indent;
     layout->set_width(max_layout_line_width * Pango::SCALE);
+#if GTKMM_MAJOR_VERSION >= 4
+    layout->set_wrap(Pango::WrapMode::WORD_CHAR);
+#else
     layout->set_wrap(Pango::WRAP_WORD_CHAR);
+#endif
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
     // don't apply paragraph indent because set_indent will work only for the first line
     // also avoid `\n` because new lines also got indent
-    if (PANGO_DIRECTION_RTL != text_slot->pango_dir and CtConst::CHAR_NEWLINE != text_slot->text and -1 != pages.last_line().cur_x) {
+    if (PANGO_DIRECTION_RTL != text_slot->pango_dir and Glib::ustring(CtConst::CHAR_NEWLINE) != text_slot->text and -1 != pages.last_line().cur_x) {
         layout->set_indent(int(pages.last_line().cur_x * Pango::SCALE));
     }
     layout->set_markup(text_slot->text);
@@ -764,7 +811,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
                 pages.last_line().cur_x = text_slot->indent;
             }
         }
-        if (text_slot->text != CtConst::CHAR_NEWLINE) {
+        if (text_slot->text != Glib::ustring(CtConst::CHAR_NEWLINE)) {
             // situation when a bit of space is left but pango cannot wrap the first word
             // make it on a new line
             bool need_new_line{false};
@@ -1027,7 +1074,11 @@ Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(const CtCodebox* codebo
     Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
     layout->set_font_description(codebox->get_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _code_font : _plain_font);
     layout->set_width(int(codebox_width * Pango::SCALE));
+#if GTKMM_MAJOR_VERSION >= 4
+    layout->set_wrap(Pango::WrapMode::WORD_CHAR);
+#else
     layout->set_wrap(Pango::WRAP_WORD_CHAR);
+#endif
     layout->set_markup(content);
     return layout;
 }
@@ -1208,7 +1259,11 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(const CtTableCommon* table
             Glib::RefPtr<Pango::Layout> cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);
             cell_layout->set_width(int((table->get_col_width(c) * _page_dpi_scale) * Pango::SCALE));
+#if GTKMM_MAJOR_VERSION >= 4
+            cell_layout->set_wrap(Pango::WrapMode::WORD_CHAR);
+#else
             cell_layout->set_wrap(Pango::WRAP_WORD_CHAR);
+#endif
             cell_layout->set_markup(text);
             layouts.push_back(cell_layout);
         }

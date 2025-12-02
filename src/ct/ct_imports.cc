@@ -96,7 +96,7 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
             }
         }
         catch (std::exception &e) {
-            spdlog::error("Exception occurred while downloading image at url: '{}'; Message: {}", e.what());
+            spdlog::error("Exception occurred while downloading image at url: '{}'; Message: {}", path, e.what());
             throw;
         }
     } else if (path_type == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH) {

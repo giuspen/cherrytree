@@ -98,31 +98,77 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     button_reset_term->set_tooltip_text(_("Reset to Default"));
     hbox_term_run->pack_start(*entry_term_run, true, true);
     hbox_term_run->pack_start(*button_reset_term, false, false);
-    auto hbox_cmd_per_type = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
+    auto hbox_cmd_per_type = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::HORIZONTAL
+#else
+        Gtk::ORIENTATION_HORIZONTAL
+#endif
+    });
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_cmd_per_type->append(*scrolledwindow);
+    hbox_cmd_per_type->append(*vbox_buttons);
+#else
     hbox_cmd_per_type->pack_start(*scrolledwindow, true, true);
     hbox_cmd_per_type->pack_start(*vbox_buttons, false, false);
+#endif
 
     auto label = Gtk::manage(new Gtk::Label{Glib::ustring{"<b>"}+_("Command per Node/CodeBox Type")+"</b>"});
     label->set_use_markup(true);
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_codexec->append(*checkbutton_code_exec_confirm);
+#else
     vbox_codexec->pack_start(*checkbutton_code_exec_confirm, false, false);
+#endif
 #if defined(HAVE_VTE)
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_codexec->append(*checkbutton_code_exec_vte);
+    vbox_codexec->append(*hbox_vte_shell);
+#else
     vbox_codexec->pack_start(*checkbutton_code_exec_vte, false, false);
     vbox_codexec->pack_start(*hbox_vte_shell, false, false);
+#endif
 #endif // HAVE_VTE
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_codexec->append(*label);
+    vbox_codexec->append(*hbox_cmd_per_type);
+#else
     vbox_codexec->pack_start(*label, false, false);
     vbox_codexec->pack_start(*hbox_cmd_per_type, true, true);
+#endif
     auto label2 = Gtk::manage(new Gtk::Label{Glib::ustring{"<b>"}+_("Terminal Command")+"</b>"});
     label2->set_use_markup(true);
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_codexec->append(*label2);
+    vbox_codexec->append(*hbox_term_run);
+#else
     vbox_codexec->pack_start(*label2, false, false);
     vbox_codexec->pack_start(*hbox_term_run, false, false);
+#endif
 
     Gtk::Frame* frame_codexec = new_managed_frame_with_align(_("Code Execution"), vbox_codexec);
 
-    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
+        auto pMainBox = Gtk::manage(new Gtk::Box{
+    #if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+    #else
+        Gtk::ORIENTATION_VERTICAL
+    #endif
+        , 3/*spacing*/});
     pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    pMainBox->append(*frame_syntax);
+    pMainBox->append(*frame_codexec);
+#else
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, true);
+#endif
 
     checkbutton_pt_show_white_spaces->signal_toggled().connect([this, checkbutton_pt_show_white_spaces](){
         _pConfig->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
@@ -152,13 +198,30 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         fs::path shell_path{entry_vte_shell->get_text()};
         if (fs::exists(fs::canonical(shell_path))) {
             _pConfig->vteShell = entry_vte_shell->get_text();
-            entry_vte_shell->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
+            entry_vte_shell->set_icon_from_icon_name("ct_undo",
+#if GTKMM_MAJOR_VERSION >= 4
+                Gtk::Entry::IconPosition::SECONDARY
+#else
+                Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY
+#endif
+            );
         }
         else {
-            entry_vte_shell->set_icon_from_icon_name("ct_urgent", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
+            entry_vte_shell->set_icon_from_icon_name("ct_urgent",
+#if GTKMM_MAJOR_VERSION >= 4
+                Gtk::Entry::IconPosition::SECONDARY
+#else
+                Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY
+#endif
+            );
         }
     });
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    entry_vte_shell->signal_icon_release().connect([entry_vte_shell](Gtk::Entry::IconPosition /*icon_position*/){
+#else
     entry_vte_shell->signal_icon_release().connect([entry_vte_shell](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
+#endif
         entry_vte_shell->set_text(CtConst::VTE_SHELL_DEFAULT);
     });
 #endif // HAVE_VTE
@@ -294,8 +357,9 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
         const auto code_type = treeIterChosen->get_value(itemStore->columns.desc);
         Gtk::TreeModel::iterator newTreeIter;
         Gtk::TreeModel::iterator loopPrevTreeIter;
-        for (const auto& currTreeIter : rModel->children()) {
-            const int result = currTreeIter->get_value(_commandModelColumns.key).compare(code_type);
+        for (auto currTreeIter = rModel->children().begin(); currTreeIter != rModel->children().end(); ++currTreeIter) {
+            const Glib::ustring curr_key = (*currTreeIter)[_commandModelColumns.key];
+            const int result = CtStrUtil::natural_compare(curr_key, code_type);
             if (result > 0) {
                 newTreeIter = loopPrevTreeIter ? rModel->insert_after(loopPrevTreeIter) : rModel->prepend();
                 break;

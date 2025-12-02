@@ -268,9 +268,10 @@ void CtMenu::populate_recent_docs_menu4(Gtk::MenuButton* recentBtn, const CtRece
 }
 
 Gtk::MenuButton* CtMenu::build_bookmarks_button4(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
-                                                 sigc::slot<void, gint64> bookmark_action,
+                                                 std::function<void(gint64)> bookmark_action,
                                                  const bool /*isTopMenu*/)
 {
+    (void)bookmark_action; // Reserved for future use with button-based popover
     auto* btn = Gtk::manage(new Gtk::MenuButton());
     btn->set_icon_name("bookmark-new");
     btn->set_tooltip_text(_("Bookmarks"));
@@ -292,8 +293,6 @@ Gtk::MenuButton* CtMenu::build_bookmarks_button4(std::list<std::tuple<gint64, Gl
     return btn;
 }
 #endif /* GTKMM_MAJOR_VERSION >= 4 */
-#include <sigc++/signal.h>
-template class sigc::signal<void, bool>;
 
 #include "ct_actions.h"
 #include "ct_menu.h"
@@ -307,8 +306,13 @@ static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 
 CtMenuAction::CtMenuAction()
  : run_action(nullptr)
+#if GTKMM_MAJOR_VERSION >= 4
+ , signal_set_sensitive(nullptr)
+ , signal_set_visible(nullptr)
+#else
  , signal_set_sensitive(std::make_shared<sigc::signal<void, bool>>())
  , signal_set_visible(std::make_shared<sigc::signal<void, bool>>())
+#endif
 {}
 
 static void on_menu_activate(void* /*pObject*/, CtMenuAction* pAction)
@@ -391,6 +395,7 @@ CtMenu::CtMenu(CtMainWin* pCtMainWin)
 }
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton, Gtk::ToolButton*& pToolButtonSave)
 {
     pRecentDocsMenuToolButton = nullptr;
@@ -409,14 +414,18 @@ std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentD
     }
     return toolbars;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 Gtk::MenuBar* CtMenu::build_menubar()
 {
     Gtk::MenuBar* pMenuBar = Gtk::manage(new Gtk::MenuBar());
     _walk_menu_xml(pMenuBar, _get_ui_str_menu(), nullptr);
     return pMenuBar;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
                                         sigc::slot<void, gint64>& bookmark_action,
                                         const bool isTopMenu)
@@ -451,6 +460,7 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, Glib::ustri
     }
     return pMenu;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths,
@@ -836,10 +846,15 @@ namespace {
         if (keyval == 0) return nullptr;
 
         auto trigger = Gtk::KeyvalTrigger::create(keyval, static_cast<Gdk::ModifierType>(modifiers));
-        auto action = Gtk::CallbackAction::create([act](const Glib::RefPtr<const Gtk::Shortcut>&){ if (act->run_action) act->run_action(); return true; });
+        auto action = Gtk::CallbackAction::create([act](const Glib::RefPtr<const Gtk::Shortcut>&){
+            if (act->run_action) act->run_action();
+            return true;
+        });
         auto ctrl = Gtk::ShortcutController::create();
         ctrl->add_shortcut(Gtk::Shortcut::create(trigger, action));
-        return ctrl.release();
+        auto raw_ctrl = ctrl.get();
+        ctrl.release();
+        return raw_ctrl;
     }
 }
 #endif /* GTKMM_MAJOR_VERSION >= 4 */

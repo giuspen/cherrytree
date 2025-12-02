@@ -40,10 +40,17 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
     combobox_spell_check_lang->set_sensitive(_pConfig->enableSpellCheck);
 
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_spell_check_lang->append(*label_spell_check_lang);
+    hbox_spell_check_lang->append(*combobox_spell_check_lang);
+    vbox_spell_check->append(*checkbutton_spell_check);
+    vbox_spell_check->append(*hbox_spell_check_lang);
+#else
     hbox_spell_check_lang->pack_start(*label_spell_check_lang, false, false);
     hbox_spell_check_lang->pack_start(*combobox_spell_check_lang);
     vbox_spell_check->pack_start(*checkbutton_spell_check, false, false);
     vbox_spell_check->pack_start(*hbox_spell_check_lang, false, false);
+#endif
     Gtk::Frame* frame_spell_check = new_managed_frame_with_align(_("Spell Check"), vbox_spell_check);
 
     auto hbox_misc_text = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
@@ -60,9 +67,15 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_codebox_auto_resize_W->set_active(_pConfig->codeboxAutoResizeW);
     auto checkbutton_codebox_auto_resize_H = Gtk::manage(new Gtk::CheckButton{_("Height")});
     checkbutton_codebox_auto_resize_H->set_active(_pConfig->codeboxAutoResizeH);
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_codeboxes_auto_resize->append(*label_codeboxes_auto_resize);
+    hbox_codeboxes_auto_resize->append(*checkbutton_codebox_auto_resize_W);
+    hbox_codeboxes_auto_resize->append(*checkbutton_codebox_auto_resize_H);
+#else
     hbox_codeboxes_auto_resize->pack_start(*label_codeboxes_auto_resize, false, false);
     hbox_codeboxes_auto_resize->pack_start(*checkbutton_codebox_auto_resize_W, false, false);
     hbox_codeboxes_auto_resize->pack_start(*checkbutton_codebox_auto_resize_H, false, false);
+#endif
 
     auto checkbutton_codebox_with_toolbar = Gtk::manage(new Gtk::CheckButton{_("CodeBoxes Have Toolbar")});
     checkbutton_codebox_with_toolbar->set_active(_pConfig->codeboxWithToolbar);
@@ -71,30 +84,50 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     auto label_table_cells_to_light = Gtk::manage(new Gtk::Label{_("Threshold Number of Table Cells for Lightweight Interface")});
     Glib::RefPtr<Gtk::Adjustment> adj_table_cells_to_light = Gtk::Adjustment::create(_pConfig->tableCellsGoLight, 1, 100000, 1);
     auto spinbutton_table_cells_to_light = Gtk::manage(new Gtk::SpinButton{adj_table_cells_to_light});
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_table_cells_to_light->append(*label_table_cells_to_light);
+    hbox_table_cells_to_light->append(*spinbutton_table_cells_to_light);
+#else
     hbox_table_cells_to_light->pack_start(*label_table_cells_to_light, false, false);
     hbox_table_cells_to_light->pack_start(*spinbutton_table_cells_to_light, false, false);
+#endif
 
     auto hbox_embfile_icon_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_embfile_icon_size = Gtk::manage(new Gtk::Label{_("Embedded File Icon Size")});
     Glib::RefPtr<Gtk::Adjustment> adj_embfile_icon_size = Gtk::Adjustment::create(_pConfig->embfileIconSize, 1, 1000, 1);
     auto spinbutton_embfile_icon_size = Gtk::manage(new Gtk::SpinButton{adj_embfile_icon_size});
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_embfile_icon_size->append(*label_embfile_icon_size);
+    hbox_embfile_icon_size->append(*spinbutton_embfile_icon_size);
+#else
     hbox_embfile_icon_size->pack_start(*label_embfile_icon_size, false, false);
     hbox_embfile_icon_size->pack_start(*spinbutton_embfile_icon_size, false, false);
+#endif
 
     auto hbox_embfile_max_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_embfile_max_size = Gtk::manage(new Gtk::Label{_("Embedded File Size Limit (MB)")});
     Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(_pConfig->embfileMaxSize, 1, 1000, 1);
     auto spinbutton_embfile_max_size = Gtk::manage(new Gtk::SpinButton{adj_embfile_max_size});
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_embfile_max_size->append(*label_embfile_max_size);
+    hbox_embfile_max_size->append(*spinbutton_embfile_max_size);
+#else
     hbox_embfile_max_size->pack_start(*label_embfile_max_size, false, false);
     hbox_embfile_max_size->pack_start(*spinbutton_embfile_max_size, false, false);
+#endif
 
     auto checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton{_("Show File Name on Top of Embedded File Icon")});
     checkbutton_embfile_show_filename->set_active(_pConfig->embfileShowFileName);
     auto label_limit_undoable_steps = Gtk::manage(new Gtk::Label{_("Limit of Undoable Steps Per Node")});
     Glib::RefPtr<Gtk::Adjustment> adj_limit_undoable_steps = Gtk::Adjustment::create(_pConfig->limitUndoableSteps, 1, 10000, 1);
     auto spinbutton_limit_undoable_steps = Gtk::manage(new Gtk::SpinButton{adj_limit_undoable_steps});
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_misc_text->append(*label_limit_undoable_steps);
+    hbox_misc_text->append(*spinbutton_limit_undoable_steps);
+#else
     hbox_misc_text->pack_start(*label_limit_undoable_steps, false, false);
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
+#endif
     auto checkbutton_camelcase_autolink = Gtk::manage(new Gtk::CheckButton{_("Auto Link CamelCase Text to Node With Same Name")});
     checkbutton_camelcase_autolink->set_active(_pConfig->camelCaseAutoLink);
     auto checkbutton_url_autolink = Gtk::manage(new Gtk::CheckButton{_("Auto Link URLs")});
@@ -106,7 +139,28 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_md_formatting->set_active(_pConfig->enableMdFormatting);
 #endif // MD_AUTO_REPLACEMENT
 
-    auto vbox_misc_text = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto vbox_misc_text = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+#else
+        Gtk::ORIENTATION_VERTICAL
+#endif
+    });
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_misc_text->append(*checkbutton_rt_show_white_spaces);
+    vbox_misc_text->append(*checkbutton_rt_highl_curr_line);
+    vbox_misc_text->append(*checkbutton_rt_highl_match_bra);
+    vbox_misc_text->append(*hbox_codeboxes_auto_resize);
+    vbox_misc_text->append(*checkbutton_codebox_with_toolbar);
+    vbox_misc_text->append(*hbox_table_cells_to_light);
+    vbox_misc_text->append(*hbox_embfile_icon_size);
+    vbox_misc_text->append(*hbox_embfile_max_size);
+    vbox_misc_text->append(*checkbutton_embfile_show_filename);
+    vbox_misc_text->append(*hbox_misc_text);
+    vbox_misc_text->append(*checkbutton_url_autolink);
+    vbox_misc_text->append(*checkbutton_camelcase_autolink);
+    vbox_misc_text->append(*checkbutton_triple_click_sel_paragraph);
+#else
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
@@ -120,16 +174,28 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_url_autolink, false, false);
     vbox_misc_text->pack_start(*checkbutton_camelcase_autolink, false, false);
     vbox_misc_text->pack_start(*checkbutton_triple_click_sel_paragraph, false, false);
+#endif
 #ifdef MD_AUTO_REPLACEMENT
     vbox_misc_text->pack_start(*checkbutton_md_formatting, false, false);
 #endif // MD_AUTO_REPLACEMENT
     Gtk::Frame* frame_misc_text = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_text);
 
-    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
+        auto pMainBox = Gtk::manage(new Gtk::Box{
+    #if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+    #else
+        Gtk::ORIENTATION_VERTICAL
+    #endif
+        , 3/*spacing*/});
     pMainBox->set_margin_start(6);
     pMainBox->set_margin_top(6);
+#if GTKMM_MAJOR_VERSION >= 4
+    pMainBox->append(*frame_spell_check);
+    pMainBox->append(*frame_misc_text);
+#else
     pMainBox->pack_start(*frame_spell_check, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
+#endif
 
     checkbutton_spell_check->signal_toggled().connect([this, checkbutton_spell_check, combobox_spell_check_lang](){
         _pConfig->enableSpellCheck = checkbutton_spell_check->get_active();
@@ -254,6 +320,18 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         auto pCheckButton_italicTab = Gtk::manage(new Gtk::CheckButton{_("Italic")});
         auto pCheckButton_underlineTab = Gtk::manage(new Gtk::CheckButton{_("Underline")});
         auto hboxScaleBoItUnTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+        
+    #if GTKMM_MAJOR_VERSION >= 4
+        hboxScaleBoItUnTab->append(*pLabel_scaleTab);
+        hboxScaleBoItUnTab->append(*pSpinButton_scaleTab);
+        hboxScaleBoItUnTab->append(*pImageBold);
+        hboxScaleBoItUnTab->append(*pCheckButton_boldTab);
+        hboxScaleBoItUnTab->append(*pImageItalic);
+        hboxScaleBoItUnTab->append(*pCheckButton_italicTab);
+        hboxScaleBoItUnTab->append(*pImageUnderline);
+        hboxScaleBoItUnTab->append(*pCheckButton_underlineTab);
+        vboxTab->append(*hboxScaleBoItUnTab);
+    #else
         hboxScaleBoItUnTab->pack_start(*pLabel_scaleTab, false, false);
         hboxScaleBoItUnTab->pack_start(*pSpinButton_scaleTab, false, false);
         hboxScaleBoItUnTab->pack_start(*pImageBold, false, false);
@@ -263,6 +341,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         hboxScaleBoItUnTab->pack_start(*pImageUnderline, false, false);
         hboxScaleBoItUnTab->pack_start(*pCheckButton_underlineTab, false, false);
         vboxTab->pack_start(*hboxScaleBoItUnTab, false, false);
+    #endif
         pCheckButton_boldTab->set_active(pScalableCfg->bold);
         pCheckButton_italicTab->set_active(pScalableCfg->italic);
         pCheckButton_underlineTab->set_active(pScalableCfg->underline);
@@ -274,6 +353,16 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         std::string bgTab_color = pScalableCfg->background.empty() ? CtConst::COLOR_24_LGRAY : pScalableCfg->background;
         auto pColorButton_bgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{bgTab_color}});
         auto hboxFgBgTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+        
+    #if GTKMM_MAJOR_VERSION >= 4
+        hboxFgBgTab->append(*pImageFg);
+        hboxFgBgTab->append(*pCheckButton_fgTab);
+        hboxFgBgTab->append(*pColorButton_fgTab);
+        hboxFgBgTab->append(*pImageBg);
+        hboxFgBgTab->append(*pCheckButton_bgTab);
+        hboxFgBgTab->append(*pColorButton_bgTab);
+        vboxTab->append(*hboxFgBgTab);
+    #else
         hboxFgBgTab->pack_start(*pImageFg, false, false);
         hboxFgBgTab->pack_start(*pCheckButton_fgTab, false, false);
         hboxFgBgTab->pack_start(*pColorButton_fgTab, false, false);
@@ -281,6 +370,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         hboxFgBgTab->pack_start(*pCheckButton_bgTab, false, false);
         hboxFgBgTab->pack_start(*pColorButton_bgTab, false, false);
         vboxTab->pack_start(*hboxFgBgTab, false, false);
+    #endif
         pCheckButton_fgTab->set_active(not pScalableCfg->foreground.empty());
         pColorButton_fgTab->set_sensitive(not pScalableCfg->foreground.empty());
         pCheckButton_bgTab->set_active(not pScalableCfg->background.empty());
@@ -372,11 +462,24 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     auto checkbutton_monospace_fg = Gtk::manage(new Gtk::CheckButton{_("Text Color Foreground")});
     std::string mono_color_fg = _pConfig->monospaceFg.empty() ? CtConst::DEFAULT_MONOSPACE_FG : _pConfig->monospaceFg;
     auto colorbutton_monospace_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color_fg}});
-    auto hbox_monospace_fg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto hbox_monospace_fg = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::HORIZONTAL
+#else
+        Gtk::ORIENTATION_HORIZONTAL
+#endif
+        , 4/*spacing*/});
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_monospace_fg->append(*pImageMsFg);
+    hbox_monospace_fg->append(*checkbutton_monospace_fg);
+    hbox_monospace_fg->append(*colorbutton_monospace_fg);
+    vbox_misc->append(*hbox_monospace_fg);
+#else
     hbox_monospace_fg->pack_start(*pImageMsFg, false, false);
     hbox_monospace_fg->pack_start(*checkbutton_monospace_fg, false, false);
     hbox_monospace_fg->pack_start(*colorbutton_monospace_fg, false, false);
     vbox_misc->pack_start(*hbox_monospace_fg, false, false);
+#endif
     checkbutton_monospace_fg->set_active(not _pConfig->monospaceFg.empty());
     colorbutton_monospace_fg->set_sensitive(not _pConfig->monospaceFg.empty());
 
@@ -384,11 +487,24 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Text Color Background")});
     std::string mono_color_bg = _pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : _pConfig->monospaceBg;
     auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color_bg}});
-    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::HORIZONTAL
+#else
+        Gtk::ORIENTATION_HORIZONTAL
+#endif
+        , 4/*spacing*/});
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_monospace_bg->append(*pImageMsBg);
+    hbox_monospace_bg->append(*checkbutton_monospace_bg);
+    hbox_monospace_bg->append(*colorbutton_monospace_bg);
+    vbox_misc->append(*hbox_monospace_bg);
+#else
     hbox_monospace_bg->pack_start(*pImageMsBg, false, false);
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
     hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
     vbox_misc->pack_start(*hbox_monospace_bg, false, false);
+#endif
     checkbutton_monospace_bg->set_active(not _pConfig->monospaceBg.empty());
     colorbutton_monospace_bg->set_sensitive(not _pConfig->monospaceBg.empty());
 
@@ -434,8 +550,14 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         }
     });
 
+    
+#if GTKMM_MAJOR_VERSION >= 4
+    pMainBox->append(*pFrameScalable);
+    pMainBox->append(*pFrameMs);
+#else
     pMainBox->pack_start(*pFrameScalable, false, false);
     pMainBox->pack_start(*pFrameMs, false, false);
+#endif
 
     return pMainBox;
 }

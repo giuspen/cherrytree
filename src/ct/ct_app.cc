@@ -29,8 +29,13 @@
 #include "ct_logging.h"
 #include <iostream>
 
+#if GTKMM_MAJOR_VERSION >= 4
+CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::Application::Flags flags)
+ : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::Application::Flags::HANDLES_OPEN | flags}
+#else
 CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::ApplicationFlags flags)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN | flags}
+#endif
  , _pCtConfig{CtConfig::GetCtConfig()}
 {
 #if GTK_SOURCE_MAJOR_VERSION >= 4
@@ -58,7 +63,11 @@ CtApp::~CtApp()
 
 /*static*/Glib::RefPtr<CtApp> CtApp::create(const Glib::ustring application_id_postfix)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    return Glib::make_refptr_for_instance<CtApp>(new CtApp{application_id_postfix});
+#else
     return Glib::RefPtr<CtApp>(new CtApp{application_id_postfix});
+#endif
 }
 
 static CtApp* _pCtApp{nullptr};
@@ -87,8 +96,13 @@ void CtApp::_on_startup()
     }
 
     const fs::path user_dir_icons = config_dir / "icons";
+#if GTKMM_MAJOR_VERSION >= 4
+    _rIcontheme = Gtk::IconTheme::get_for_display(Gdk::Display::get_default());
+    _rIcontheme->add_search_path(user_dir_icons.string());
+#else
     _rIcontheme = Gtk::IconTheme::get_default();
     _rIcontheme->append_search_path(user_dir_icons.string());
+#endif
     _rIcontheme->add_resource_path("/icons/");
     //_print_gresource_icons();
 
@@ -312,39 +326,31 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
     pCtMainWin->connect_app_quit_or_hide_window([&](CtMainWin* win) {
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
-    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) {
-        bool good = _quit_or_hide_window(pCtMainWin, true/*fromDelete*/, false/*fromKillCallback*/);
-        return !good;
-    });
     pCtMainWin->connect_app_quit_window([&](CtMainWin* win) {
     win->force_exit() = true;
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
-#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
-    pCtMainWin->signal_app_show_hide_main_win
 #if GTKMM_MAJOR_VERSION >= 4
-        ->connect([&]() {
+    pCtMainWin->signal_close_request().connect([this, pCtMainWin]() {
+        bool good = _quit_or_hide_window(pCtMainWin, true/*fromDelete*/, false/*fromKillCallback*/);
+        return !good;
+    }, false);
 #else
-        .connect([&]() {
+    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) {
+        bool good = _quit_or_hide_window(pCtMainWin, true/*fromDelete*/, false/*fromKillCallback*/);
+        return !good;
+    });
 #endif
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+    pCtMainWin->signal_app_show_hide_main_win.connect([&]() {
         systray_show_hide_windows();
     });
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
-    pCtMainWin->signal_app_tree_node_copy
-#if GTKMM_MAJOR_VERSION >= 4
-        ->connect([this, pCtMainWin]() {
-#else
-        .connect([this, pCtMainWin]() {
-#endif
+    pCtMainWin->connect_app_tree_node_copy([this, pCtMainWin]() {
         _pWinToCopyFrom = pCtMainWin;
         _nodeIdToCopyFrom = pCtMainWin->curr_tree_iter().get_node_id();
     });
-    pCtMainWin->signal_app_tree_node_paste
-#if GTKMM_MAJOR_VERSION >= 4
-        ->connect([this, pCtMainWin]() {
-#else
-        .connect([this, pCtMainWin]() {
-#endif
+    pCtMainWin->connect_app_tree_node_paste([this, pCtMainWin]() {
         Gtk::Window* pWinToCopyFromValidated{nullptr};
         if (_pWinToCopyFrom) {
             for (Gtk::Window* pWin : get_windows()) {
@@ -480,6 +486,19 @@ void CtApp::close_all_windows(const bool fromKillCallback)
 
 void CtApp::_add_main_option_entries()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    add_main_option_entry(Gio::Application::OptionType::BOOL,     "version",            'V', _("Print CherryTree version"));
+    add_main_option_entry(Gio::Application::OptionType::STRING,   "node",               'n', _("Node name to focus"));
+    add_main_option_entry(Gio::Application::OptionType::STRING,   "anchor",             'a', _("Anchor name to scroll to in node"));
+    add_main_option_entry(Gio::Application::OptionType::FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
+    add_main_option_entry(Gio::Application::OptionType::FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
+    add_main_option_entry(Gio::Application::OptionType::FILENAME, "export_to_pdf_dir",  'p', _("Export to PDF at specified directory path"));
+    add_main_option_entry(Gio::Application::OptionType::BOOL,     "export_overwrite",   'w', _("Overwrite if export path already exists"));
+    add_main_option_entry(Gio::Application::OptionType::BOOL,     "export_single_file", 's', _("Export to a single file (for HTML or TXT)"));
+    add_main_option_entry(Gio::Application::OptionType::STRING,   "password",           'P', _("Password to open document"));
+    add_main_option_entry(Gio::Application::OptionType::BOOL,     "new_window",         'N', _("Create a new window"));
+    add_main_option_entry(Gio::Application::OptionType::BOOL,     "secondary_session",  'S', _("Run in secondary session, independent from main session"));
+#else
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "version",            'V', _("Print CherryTree version"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "anchor",             'a', _("Anchor name to scroll to in node"));
@@ -491,14 +510,22 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "password",           'P', _("Password to open document"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new_window",         'N', _("Create a new window"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "secondary_session",  'S', _("Run in secondary session, independent from main session"));
+#endif
 }
 
 void CtApp::_print_gresource_icons()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    for (const std::string& str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::Resource::LookupFlags::NONE))
+    {
+        spdlog::debug(str_icon);
+    }
+#else
     for (const std::string& str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
     {
         spdlog::debug(str_icon);
     }
+#endif
 }
 
 int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions)

@@ -35,12 +35,24 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     }
     if (saveNeeded.value()) {
         title += "*";
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     if (_pSaveToolButton) _pSaveToolButton->set_sensitive(true);
+#endif
+#if GTKMM_MAJOR_VERSION >= 4
+    if (_pSaveMenuAction && _pSaveMenuAction->signal_set_sensitive) _pSaveMenuAction->signal_set_sensitive(true);
+#else
     if (_pSaveMenuAction && _pSaveMenuAction->signal_set_sensitive) _pSaveMenuAction->signal_set_sensitive->emit(true);
+#endif
     }
     else {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     if (_pSaveToolButton) _pSaveToolButton->set_sensitive(false);
+#endif
+#if GTKMM_MAJOR_VERSION >= 4
+    if (_pSaveMenuAction && _pSaveMenuAction->signal_set_sensitive) _pSaveMenuAction->signal_set_sensitive(false);
+#else
     if (_pSaveMenuAction && _pSaveMenuAction->signal_set_sensitive) _pSaveMenuAction->signal_set_sensitive->emit(false);
+#endif
     }
     if (not _uCtStorage->get_file_path().empty()) {
         title += _uCtStorage->get_file_name().string() + " - ";
@@ -54,6 +66,7 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
         CtMenuAction* pAction = _uCtMenu->find_action("toggle_show_menubar");
         title += Glib::ustring{" - "} + _("Show Menubar:") + " " + (pAction ? pAction->get_shortcut(_pCtConfig) : std::string{"?"});
     }
+#if GTKMM_MAJOR_VERSION < 4
     if (_pHeaderBar) {
         _pHeaderBar->set_title(title); // so it is shown on the taskbar button
         auto pCustomTitle = dynamic_cast<Gtk::Label*>(_pHeaderBar->get_custom_title());
@@ -69,6 +82,22 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     else {
         set_title(title);
     }
+#else
+    // GTK4: use window title and HeaderBar title widget
+    set_title(title);
+    if (_pHeaderBar) {
+        Gtk::Widget* titleWidget = _pHeaderBar->get_title_widget();
+        auto pTitleLabel = dynamic_cast<Gtk::Label*>(titleWidget);
+        if (not pTitleLabel) {
+            pTitleLabel = Gtk::make_managed<Gtk::Label>();
+            _pHeaderBar->set_title_widget(*pTitleLabel);
+            pTitleLabel->property_ellipsize() = Pango::EllipsizeMode::END;
+        }
+        pTitleLabel->set_markup(Glib::ustring{"<b><small>"}+title+"</small></b>");
+        pTitleLabel->set_tooltip_text(title);
+        pTitleLabel->show();
+    }
+#endif
 }
 
 void CtMainWin::update_window_save_not_needed()
@@ -221,7 +250,11 @@ bool CtMainWin::file_open(const fs::path& filepath,
 
     window_title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
+#if GTKMM_MAJOR_VERSION >= 4
+    if (auto a = _uCtMenu->find_action("ct_vacuum")) { if (a->signal_set_visible) a->signal_set_visible(CtDocType::SQLite == doc_type); }
+#else
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible->emit(CtDocType::SQLite == doc_type);
+#endif
 
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath.string())};
     switch (_pCtConfig->restoreExpColl) {

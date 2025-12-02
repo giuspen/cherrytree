@@ -30,6 +30,9 @@
 #include <glibmm/i18n.h>
 #include <memory>
 #include <gtkmm.h>
+#include <sigc++/sigc++.h>
+#include <sigc++/signal.h>
+#include <sigc++/functors/slot.h>
 #include <gtksourceview/gtksource.h>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
@@ -253,17 +256,24 @@ public:
     void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
 private:
+#if GTKMM_MAJOR_VERSION < 4
     bool _on_window_key_press_event(GdkEventKey* event);
     bool _on_window_configure_event(GdkEventConfigure* configure_event);
+#endif
 
     void _on_treeview_cursor_changed(); // pygtk: on_node_changed
+#if GTKMM_MAJOR_VERSION < 4
     bool _on_treeview_button_release_event(GdkEventButton* event);
     void _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
+#endif
     void _on_treeview_row_activated(const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*);
     bool _on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&);
+    
+#if GTKMM_MAJOR_VERSION < 4
     bool _on_treeview_key_press_event(GdkEventKey* event);
     bool _on_treeview_popup_menu();
     bool _on_treeview_scroll_event(GdkEventScroll* event);
+#endif
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
                                   int x,
@@ -281,13 +291,15 @@ private:
                                     guint time);
     #else
     void _setup_treeview_drag_and_drop_gtk4();
-    void _on_treeview_drag_source_prepare_gtk4(Gdk::Drag& drag);
-    void _on_treeview_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y);
+    void _on_treeview_drag_source_prepare_gtk4(const Glib::RefPtr<Gdk::Drag>& drag);
+    bool _on_treeview_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y);
     Glib::RefPtr<Gtk::DragSource> _treeDragSource4;
     Glib::RefPtr<Gtk::DropTarget> _treeDropTarget4;
     #endif
 
+    #if GTKMM_MAJOR_VERSION < 4
     void _on_textview_populate_popup(Gtk::Menu* menu);
+    #endif
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_textview_motion_notify_event(GdkEventMotion* event);
     #endif
@@ -390,26 +402,23 @@ private:
     bool                _alwaysOnTop{false};
 
 public:
-#if GTKMM_MAJOR_VERSION >= 4
-    // gtkmm4: wrap in shared_ptr to avoid incomplete-type errors with forward-declared sigc types
-    std::shared_ptr<sigc::signal<void>>             signal_app_new_instance;
-    std::shared_ptr<sigc::signal<void>>             signal_app_show_hide_main_win;
-    std::shared_ptr<sigc::signal<void>>             signal_app_tree_node_copy;
-    std::shared_ptr<sigc::signal<void>>             signal_app_tree_node_paste;
-    std::shared_ptr<sigc::signal<void, std::function<void(CtMainWin*)>>>
-                                   signal_app_apply_for_each_window;
-    std::shared_ptr<sigc::signal<void, CtMainWin*>> signal_app_quit_or_hide_window;
-    std::shared_ptr<sigc::signal<void, CtMainWin*>> signal_app_quit_window;
-#else
-    // gtkmm3: use direct members (sigc types are fully defined)
+    // Unified signals for GTK3/GTK4
+#if GTKMM_MAJOR_VERSION < 4
     sigc::signal<void>             signal_app_new_instance;
     sigc::signal<void>             signal_app_show_hide_main_win;
     sigc::signal<void>             signal_app_tree_node_copy;
     sigc::signal<void>             signal_app_tree_node_paste;
-    sigc::signal<void, std::function<void(CtMainWin*)>>
-                                   signal_app_apply_for_each_window;
+    sigc::signal<void, std::function<void(CtMainWin*)>> signal_app_apply_for_each_window;
     sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window;
     sigc::signal<void, CtMainWin*> signal_app_quit_window;
+#else
+    std::vector<std::function<void()>>             signal_app_new_instance;
+    std::vector<std::function<void()>>             signal_app_show_hide_main_win;
+    std::vector<std::function<void()>>             signal_app_tree_node_copy;
+    std::vector<std::function<void()>>             signal_app_tree_node_paste;
+    std::vector<std::function<void(std::function<void(CtMainWin*)>)>> signal_app_apply_for_each_window;
+    std::vector<std::function<void()>>             signal_app_quit_or_hide_window;
+    std::vector<std::function<void()>>             signal_app_quit_window;
 #endif
 
 public:

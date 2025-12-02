@@ -42,8 +42,12 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
     _rPixbuf = rPixbufLoader->get_pixbuf();
 
     _image.set(_rPixbuf);
+#if GTKMM_MAJOR_VERSION >= 4
+    _frame.set_child(_image);
+#else
     _frame.add(_image);
     show_all();
+#endif
 }
 
 CtImage::CtImage(CtMainWin* pCtMainWin,
@@ -60,8 +64,12 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
     #endif
 
     _image.set(_rPixbuf);
+#if GTKMM_MAJOR_VERSION >= 4
+    _frame.set_child(_image);
+#else
     _frame.add(_image);
     show_all();
+#endif
 }
 
 CtImage::CtImage(CtMainWin* pCtMainWin,
@@ -73,8 +81,12 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
     _rPixbuf = pixBuf;
 
     _image.set(_rPixbuf);
+#if GTKMM_MAJOR_VERSION >= 4
+    _frame.set_child(_image);
+#else
     _frame.add(_image);
     show_all();
+#endif
 }
 
 void CtImage::save(const fs::path& file_name, const Glib::ustring& type)
@@ -90,7 +102,9 @@ CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
  : CtImage{pCtMainWin, rawBlob, "image/png", charOffset, justification}
  , _link{link}
 {
+#if GTKMM_MAJOR_VERSION < 4
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
+#endif
     update_label_widget();
 }
 
@@ -102,7 +116,9 @@ CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
  : CtImage{pCtMainWin, pixBuf, charOffset, justification}
  , _link{link}
 {
+#if GTKMM_MAJOR_VERSION < 4
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
+#endif
     update_label_widget();
 }
 
@@ -190,6 +206,7 @@ void CtImagePng::update_label_widget()
     }
 }
 
+#if GTKMM_MAJOR_VERSION < 4
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
@@ -213,6 +230,7 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
     }
     return true; // do not propagate the event
 }
+#endif
 
 CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
                              const Glib::ustring& anchorName,
@@ -227,7 +245,9 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
  , _anchorName{anchorName}
  , _expCollState{expCollState}
 {
+#if GTKMM_MAJOR_VERSION < 4
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
+#endif
 }
 
 /*static*/const char* CtImageAnchor::_get_stock_id_for_exp_coll_state(const CtAnchorExpCollState expCollState)
@@ -358,6 +378,7 @@ void CtImageAnchor::toggle_exp_coll_state()
     }
 }
 
+#if GTKMM_MAJOR_VERSION < 4
 bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
@@ -375,6 +396,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     }
     return true; // do not propagate the event
 }
+#endif
 
 /*static*/const int CtImageLatex::PrintZoom{4};
 /*static*/const std::string CtImageLatex::LatexSpecialFilename{"__ct_special.tex"};
@@ -401,7 +423,9 @@ CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
  , _latexText{latexText}
  , _uniqueId{uniqueId}
 {
+#if GTKMM_MAJOR_VERSION < 4
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageLatex::_on_button_press_event), false);
+#endif
     update_tooltip();
 }
 
@@ -550,7 +574,7 @@ static const char* get_dvipng_bin_cmd()
         return rPixbuf;
     }
     catch (Glib::Error& error) {
-        spdlog::error("{} {}", __FUNCTION__, error.what().raw());
+        spdlog::error("{} {}", __FUNCTION__, std::string(error.what()));
     }
     // fallback
     #if GTKMM_MAJOR_VERSION < 4
@@ -604,6 +628,7 @@ static const char* get_dvipng_bin_cmd()
     return "";
 }
 
+#if GTKMM_MAJOR_VERSION < 4
 bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_latex_anchor = this;
@@ -616,6 +641,7 @@ bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
     }
     return true; // do not propagate the event
 }
+#endif
 
 /*static*/size_t CtImageEmbFile::get_next_unique_id()
 {
@@ -638,7 +664,9 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
  , _uniqueId{uniqueId}
  , _pathLastMultiFile{pathLastMultiFile}
 {
+#if GTKMM_MAJOR_VERSION < 4
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
+#endif
     update_tooltip();
     update_label_widget();
 }
@@ -801,12 +829,18 @@ void CtImageEmbFile::update_tooltip()
     g_autofree gchar* ctype = g_content_type_guess(fileName.c_str(), NULL, 0, NULL);
     if (ctype && !g_content_type_is_unknown(ctype)) {
         if (GIcon* icon = g_content_type_get_icon(ctype)) { // Glib::wrap will unref object
+#if GTKMM_MAJOR_VERSION >= 4
+            auto icon_paintable = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileIconSize);
+            if (icon_paintable) {
+                auto icon_file = icon_paintable->get_file();
+                if (icon_file) {
+                    result = Gdk::Pixbuf::create_from_file(icon_file->get_path(), pCtMainWin->get_ct_config()->embfileIconSize, pCtMainWin->get_ct_config()->embfileIconSize);
+                }
+            }
+#else
             Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileIconSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
-            #if GTKMM_MAJOR_VERSION < 4
             result = info.load_icon();
-            #else
-            result.reset();
-            #endif
+#endif
         }
     }
 #else
@@ -822,6 +856,7 @@ void CtImageEmbFile::update_tooltip()
 }
 
 // Catches mouse buttons clicks upon files images
+#if GTKMM_MAJOR_VERSION < 4
 bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
@@ -834,3 +869,4 @@ bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
     }
     return true; // do not propagate the event
 }
+#endif

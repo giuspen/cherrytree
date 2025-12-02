@@ -93,6 +93,8 @@ void CtMainWin::_on_treeview_cursor_changed()
     _prevTreeIter = treeIter;
 }
 
+// GTK3 event handlers (not used in GTK4)
+#if GTKMM_MAJOR_VERSION < 4
 bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
 {
     if (event->button == 3) {
@@ -101,6 +103,10 @@ bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
     }
     return false;
 }
+
+#if GTKMM_MAJOR_VERSION >= 4
+// GTK4: treeview button release handled by controllers; no legacy handler
+#endif
 
 bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 {
@@ -155,6 +161,10 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
         }
     }
 }
+
+#if GTKMM_MAJOR_VERSION >= 4
+// GTK4: treeview event-after moved to controllers; no legacy handler
+#endif
 
 void CtMainWin::_on_treeview_row_activated(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn*)
 {
@@ -295,8 +305,10 @@ bool CtMainWin::_on_treeview_scroll_event(GdkEventScroll* event)
         _zoom_tree(event->delta_y < 0);
     return true;
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 */
 
 // Extend the Default Right-Click Menu
+#if GTKMM_MAJOR_VERSION < 4
 void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
 {
     if (curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID) {
@@ -337,8 +349,10 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
         _uCtActions->getCtMainWin()->get_ct_menu().build_popup_menu(menu, CtMenu::POPUP_MENU_TYPE::Code);
     }
 }
+#endif
 
 // Update the cursor image if the pointer moved
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 {
     Gtk::TextView& textView = _ctTextview.mm();
@@ -356,6 +370,7 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
     _ctTextview.cursor_and_tooltips_handler(x, y);
     return false;
 }
+#endif
 
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 // Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)
@@ -379,6 +394,7 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
 }
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
+#if GTKMM_MAJOR_VERSION < 4
 bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/)
 {
     auto f_update_configs = [this](){
@@ -398,6 +414,7 @@ bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/
     }
     return false;
 }
+#endif
 
 void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 {
@@ -422,6 +439,7 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
     }
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::_on_textview_event(GdkEvent* event)
 {
     if (event->type != GDK_KEY_PRESS)
@@ -531,8 +549,10 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     }
     return false;
 }
+#endif
 
 // Called after every event on the SourceView
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_2BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
@@ -557,7 +577,9 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
         }
     }
 }
+#endif
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
 {
     if (!(event->state & GDK_CONTROL_MASK))
@@ -568,6 +590,7 @@ bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
         _ctTextview.zoom_text(event->delta_y < 0, curr_tree_iter().get_node_syntax_highlighting());
     return true;
 }
+#endif
 
 // GTK3 Drag & Drop for TreeView
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
@@ -661,23 +684,24 @@ void CtMainWin::_setup_treeview_drag_and_drop_gtk4()
 {
     // DragSource for moving nodes within tree
     _treeDragSource4 = Gtk::DragSource::create();
-    _treeDragSource4->set_actions(Gdk::ACTION_MOVE);
+    _treeDragSource4->set_actions(Gdk::DragAction::MOVE);
     _treeDragSource4->signal_drag_begin().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drag_source_prepare_gtk4));
     _uCtTreeview->add_controller(_treeDragSource4);
 
     // DropTarget for receiving node path strings
-    _treeDropTarget4 = Gtk::DropTarget::create(G_VALUE_TYPE(Glib::Value<Glib::ustring>().gobj()), Gdk::ACTION_MOVE);
-    _treeDropTarget4->signal_drop().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drop_target_drop_gtk4));
+    _treeDropTarget4 = Gtk::DropTarget::create(G_VALUE_TYPE(Glib::Value<Glib::ustring>().gobj()), Gdk::DragAction::MOVE);
+    _treeDropTarget4->signal_drop().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drop_target_drop_gtk4), false);
     _uCtTreeview->add_controller(_treeDropTarget4);
 }
 
-void CtMainWin::_on_treeview_drag_source_prepare_gtk4(Gdk::Drag& /*drag*/)
+void CtMainWin::_on_treeview_drag_source_prepare_gtk4(const Glib::RefPtr<Gdk::Drag>& /*drag*/)
 {
     // Placeholder: selection path will be provided via content provider in future implementation
 }
 
-void CtMainWin::_on_treeview_drop_target_drop_gtk4(const Glib::ValueBase& /*value*/, double /*x*/, double /*y*/)
+bool CtMainWin::_on_treeview_drop_target_drop_gtk4(const Glib::ValueBase& /*value*/, double /*x*/, double /*y*/)
 {
     // Placeholder: implement node move logic using path string extracted from value
+    return false;
 }
 #endif

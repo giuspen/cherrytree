@@ -30,6 +30,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                  CtNodeData& nodeData,
                                  const std::set<Glib::ustring>& tags_set)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    // GTK4 stub: not implemented
+    (void)title; (void)pCtMainWin; (void)nodeData; (void)tags_set;
+    return false;
+#else
     CtConfig* pCtConfig = pCtMainWin->get_ct_config();
     Gtk::Dialog dialog = Gtk::Dialog{title,
                                      *pCtMainWin,
@@ -322,6 +327,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         nodeData.foregroundRgb24.clear();
     }
     return true;
+#endif
 }
 
 Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
@@ -330,6 +336,11 @@ Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
                                             CtTreeStore* pCtTreeStore,
                                             Gtk::TreeModel::iterator sel_tree_iter)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    // GTK4 stub: not implemented
+    (void)pCtMainWin; (void)parentTreeView; (void)title; (void)pCtTreeStore; (void)sel_tree_iter;
+    return Gtk::TreeModel::iterator{};
+#else
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -411,6 +422,7 @@ Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
     }
 
     return dialog.run() == Gtk::RESPONSE_ACCEPT ? treeview_2.get_selection()->get_selected() : Gtk::TreeModel::iterator{};
+#endif
 }
 
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
