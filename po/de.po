@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-08 16:00+0100\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-09 00:14+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -1200,11 +1200,11 @@ msgstr "Im aktuellen Knoten suchen"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Suchmuster '%s' nicht gefunden</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "In mehreren Knoten ersetzen..."
+msgid "Replace in Multiple Nodes"
+msgstr "In mehreren Knoten ersetzen"
 
-msgid "Find in Multiple Nodes..."
-msgstr "In mehreren Knoten suchen..."
+msgid "Search in Multiple Nodes"
+msgstr "In mehreren Knoten suchen"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "In dieser Sitzung wurde noch keine Suche durchgeführt."
@@ -1784,6 +1784,12 @@ msgstr "Einstellungen exportieren"
 msgid "Tree In_fo"
 msgstr "Baum-_Info"
 
+msgid "_Document Path to Clipboard"
+msgstr "_Verknüpfung zum ausgewählten Knoten in die Zwischenablage"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Verknüpfung zum ausgewählten Knoten in die Zwischenablage kopieren"
+
 msgid "E_xit CherryTree"
 msgstr "CherryTree _beenden"
 
@@ -1842,10 +1848,10 @@ msgid "Insert an Anchor"
 msgstr "Anker einfügen"
 
 msgid "Insert T_OC and Headers Collapsors..."
-msgstr "_Inhaltverzeichnis und Kopfzeilen-Kompressor einfügen..."
+msgstr "_Inhaltsverzeichnis und Kopfzeilen-Kompressor einfügen..."
 
 msgid "Insert Table of Contents and Headers Collapsors/Expanders"
-msgstr "Inhaltsverzeichnis und Kopfzeilen-Kompressor/-Expander einfügen"
+msgstr "Inhaltsverzeichnis und Kopfzeilen-Kompressor oder -Expander einfügen"
 
 msgid "Insert Timestam_p"
 msgstr "_Zeitstempel einfügen"
@@ -2314,16 +2320,16 @@ msgid "Unindent the Current Paragraph"
 msgstr "Aktuellen Absatz ausrücken"
 
 msgid "_Expand TOC Headers"
-msgstr "TOC-Header aufklappen"
+msgstr "Inhaltsverzeichnis-Kopfzeilen aufklappen"
 
 msgid "Expand TOC Headers"
-msgstr "TOC-Header aufklappen"
+msgstr "Inhaltsverzeichnis-Kopfzeilen aufklappen"
 
 msgid "_Collapse TOC Headers"
-msgstr "TOC-Header zuklappen"
+msgstr "Inhaltsverzeichnis-Kopfzeilen zuklappen"
 
 msgid "Collapse TOC Headers"
-msgstr "TOC-Header zuklappen"
+msgstr "Inhaltsverzeichnis-Kopfzeilen zuklappen"
 
 msgid "Tools"
 msgstr "Werkzeuge"
@@ -2600,9 +2606,6 @@ msgstr "Im aktuellen Knoten ersetzen"
 msgid "Replace in _Multiple Nodes..."
 msgstr "In _mehreren Knoten ersetzen..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "In mehreren Knoten ersetzen"
-
 msgid "Replace A_gain"
 msgstr "_Erneut ersetzen"
 
@@ -2695,16 +2698,14 @@ msgstr "Mehr Namen zuletzt besuchter Knoten in der Kopfzeile"
 
 msgid "Increase the Number of Last Visited Nodes on Node Name Header"
 msgstr ""
-"Erhöht die Anzahl der Namen der zuletzt besuchten Knoten in der "
-"Kopfzeile"
+"Erhöht die Anzahl der Namen der zuletzt besuchten Knoten in der Kopfzeile"
 
 msgid "L_ess Last Visited Nodes on Node Name Header"
 msgstr "Weniger Namen zuletzt besuchter Knoten in der Kopfzeile"
 
 msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
 msgstr ""
-"Verringert die Anzahl der Namen der zuletzt besuchten Knoten in der "
-"Kopfzeile"
+"Verringert die Anzahl der Namen der zuletzt besuchten Knoten in der Kopfzeile"
 
 msgid "Full Screen _On/Off"
 msgstr "_Vollbild ein/aus"
@@ -2846,25 +2847,25 @@ msgid "Export"
 msgstr "Export"
 
 msgid "Export To _PDF"
-msgstr "_PDF-Datei"
+msgstr "In _PDF-Datei"
 
 msgid "Export To PDF"
 msgstr "In PDF-Datei exportieren"
 
 msgid "Export To _HTML"
-msgstr "_HTML-Datei"
+msgstr "In _HTML-Datei"
 
 msgid "Export To HTML"
 msgstr "In HTML-Datei exportieren"
 
 msgid "Export to Plain _Text"
-msgstr "_Textdatei"
+msgstr "In _Textdatei"
 
 msgid "Export to Plain Text"
 msgstr "In Textdatei exportieren"
 
 msgid "_Export To CherryTree"
-msgstr "In _CherryTree exportieren"
+msgstr "In _CherryTree-Datei oder -Ordner"
 
 msgid "Export To CherryTree File or Folder"
 msgstr "In CherryTree-Datei oder -Ordner exportieren"
@@ -3081,6 +3082,12 @@ msgstr "Leo-Dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Standardeinstellungen wirklich wiederherstellen?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "In mehreren Knoten ersetzen..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "In mehreren Knoten suchen..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "_Inhaltsverzeichnis einfügen..."
