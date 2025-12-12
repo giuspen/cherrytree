@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-02 13:43+0200\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-10 12:50+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -1177,11 +1177,11 @@ msgstr "Szukaj w aktualnej gałęzi"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Wyrażenie '%s' nie zostało znalezione</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Zamień we wszystkich gałęziach..."
+msgid "Replace in Multiple Nodes"
+msgstr "Zamień we wszystkich gałęziach"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Znajdź w gałęziach..."
+msgid "Search in Multiple Nodes"
+msgstr "Szukaj w wielu gałęziach"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "Nie wykonywano wcześniej szukania w tej sesji."
@@ -1757,6 +1757,12 @@ msgstr "Eksportuj Ustawienia"
 
 msgid "Tree In_fo"
 msgstr "In_formacje o drzewie"
+
+msgid "_Document Path to Clipboard"
+msgstr "Ścieżka _dokumentu do schowka"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Kopiuj ścieżkę dokumentu do schowka"
 
 msgid "E_xit CherryTree"
 msgstr "Zakończ Ch_erryTree"
@@ -2570,9 +2576,6 @@ msgstr "Zamień w treści zaznaczonej gałęzi"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Zamień w _wielu gałęziach..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Zamień we wszystkich gałęziach"
-
 msgid "Replace A_gain"
 msgstr "Z_amień ponownie"
 
@@ -3046,6 +3049,12 @@ msgstr "Dokument Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Jesteś pewien, że chcesz przywrócić ustawienia do wartości domyślnych?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Zamień we wszystkich gałęziach..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Znajdź w gałęziach..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Dodaj _spis treści..."
