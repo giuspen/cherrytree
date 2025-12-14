@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-08-31 19:20-0300\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-13 00:33-0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -1193,11 +1193,11 @@ msgstr "Pesquisar no Nó Atual"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>O padrão '%s' não foi encontrado</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Substituir em múltiplos nós..."
+msgid "Replace in Multiple Nodes"
+msgstr "Substituir em múltiplos nós"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Procurar em múltiplos nós..."
+msgid "Search in Multiple Nodes"
+msgstr "Pesquisar em vários nós"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "Nenhuma procura foi realizada previamente durante esta sessão."
@@ -1776,6 +1776,12 @@ msgstr "Exporta as Preferências"
 
 msgid "Tree In_fo"
 msgstr "In_formações da árvore"
+
+msgid "_Document Path to Clipboard"
+msgstr "Caminho do documento para a área de transferência"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Copiar caminho do documento para a área de transferência"
 
 msgid "E_xit CherryTree"
 msgstr "Sair do CherryTree"
@@ -2592,9 +2598,6 @@ msgstr "Substitui no conteúdo do nó selecionado"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Substituir em Múltiplos nós..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Substituir em múltiplos nós"
-
 msgid "Replace A_gain"
 msgstr "Substituir novamente"
 
@@ -3069,6 +3072,12 @@ msgstr "Documento Loe"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Você realmente quer restaurar aos valores padrão?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Substituir em múltiplos nós..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Procurar em múltiplos nós..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Inserir Sumário..."
