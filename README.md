@@ -81,8 +81,9 @@ The following languages are supported (if you want to help translate to your lan
 – Turkish (tr, Ferhat Aydin, TO BE UPDATED)
 – Ukrainian (uk, Giuseppe Penone, up to date)
 
-## Programming with GTKmm3
-https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.17.50/en/
+## Programming with GTKmm4
+
+https://gnome.pages.gitlab.gnome.org/gtkmm-documentation/
 
 ## Third party Android project SourCherry
 Outstanding third party Android project: https://github.com/FFDA/SourCherry
