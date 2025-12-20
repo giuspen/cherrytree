@@ -240,8 +240,8 @@ void CtMenu::init_actions(CtActions* pActions)
         const char* fmt_cat = _("Format");
         _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format Clo_ne"), None,
             _("Clone the Text Format Type at Cursor"), sigc::mem_fun(*pActions, &CtActions::save_tags_at_cursor_as_latest)});
-        _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Format _Latest"), "F7",
-            _("Memory of Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tags_latest)});
+        _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Repeat _Last Format"), "F7",
+            _("Repeat Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tags_latest)});
         _actions.push_back(CtMenuAction{fmt_cat, "fmt_rm", "ct_fmt-txt-clear", _("_Remove Formatting"), KB_CONTROL+KB_SHIFT+"r",
             _("Remove the Formatting from the Selected Text"), sigc::mem_fun(*pActions, &CtActions::remove_text_formatting)});
         _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_fg", "ct_color_fg", _("Text _Color Foreground"), KB_SHIFT+KB_ALT+"f",
