@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-08-31 11:57+0100\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-20 19:43+0000\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
 "Language: uk_UA\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: uk_UA\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -1177,11 +1177,11 @@ msgstr "Пошук в поточній гілці"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Шаблон '%s' не знайдено</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Заміна в декількох гілках..."
+msgid "Replace in Multiple Nodes"
+msgstr "Заміна в декількох гілках"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Пошук по декількох гілках..."
+msgid "Search in Multiple Nodes"
+msgstr "Пошук в декількох гілках"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "В цій сесії не було операції пошуку."
@@ -1757,6 +1757,12 @@ msgstr "Експорт налаштувань"
 
 msgid "Tree In_fo"
 msgstr "Інформація про дерево"
+
+msgid "_Document Path to Clipboard"
+msgstr "Шлях до документа в буфер обміну"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Скопіювати шлях до документа в буфер обміну"
 
 msgid "E_xit CherryTree"
 msgstr "Вийти з CherryTree"
@@ -2570,9 +2576,6 @@ msgstr "Замінити у виділеній гілці"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Заміна в декількох гілках..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Заміна в декількох гілках"
-
 msgid "Replace A_gain"
 msgstr "Повторити заміну"
 
@@ -3046,6 +3049,12 @@ msgstr "Документ Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ви впевнені, що хочете скинути налаштування?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Заміна в декількох гілках..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Пошук по декількох гілках..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Вставити таблицю змісту..."
