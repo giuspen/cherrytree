@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1126,10 +1126,10 @@ msgstr ""
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr ""
 
-msgid "Replace in Multiple Nodes..."
+msgid "Replace in Multiple Nodes"
 msgstr ""
 
-msgid "Find in Multiple Nodes..."
+msgid "Search in Multiple Nodes"
 msgstr ""
 
 msgid "No Previous Search Was Performed During This Session."
@@ -1701,6 +1701,12 @@ msgid "Export Preferences"
 msgstr ""
 
 msgid "Tree In_fo"
+msgstr ""
+
+msgid "_Document Path to Clipboard"
+msgstr ""
+
+msgid "Copy Document Path to Clipboard"
 msgstr ""
 
 msgid "E_xit CherryTree"
@@ -2513,9 +2519,6 @@ msgid "Replace into the Selected Node Content"
 msgstr ""
 
 msgid "Replace in _Multiple Nodes..."
-msgstr ""
-
-msgid "Replace in Multiple Nodes"
 msgstr ""
 
 msgid "Replace A_gain"

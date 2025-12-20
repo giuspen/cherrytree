@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-14 20:50+0300\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-09 21:36+0300\n"
 "Last-Translator: Ferhat AYDIN <ferhataydin44@gmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -357,6 +357,15 @@ msgstr "Tam Kelime"
 msgid "Start Word"
 msgstr "Kelime Başlangıcı"
 
+msgid "More Words, Exact Match"
+msgstr "Daha Fazla Kelime, Tam Eşleşme"
+
+msgid "More Words, Disregard Order"
+msgstr "Daha Fazla Kelime, Sırayı Göz Ardı Et"
+
+msgid "More Words, Match Any"
+msgstr "Daha Fazla Kelime, Herhangi Biriyle Eşleş"
+
 msgid "Forward"
 msgstr "İleri"
 
@@ -645,6 +654,21 @@ msgstr "Sistem Çekmecesi"
 
 msgid "Language"
 msgstr "Dil"
+
+msgid "URL"
+msgstr "URL (Link)"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Proxy"
+msgstr "Proksi"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Panelde Sistem Tepsisi göründü mü?"
@@ -1097,6 +1121,18 @@ msgstr "Paylaşılan Notların / Grupların Sayısı"
 msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr "Uyarı: Girilen Sayfada Bir Ya da Daha Fazla Resim Değiştirildi!"
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Not Adı Başlığındaki Son Ziyaret Edilen Not Sayısı Zaten Maksimum Değerde."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Not Adı Başlığındaki Son Ziyaret Edilen Not Sayısı Zaten Minimum Değerde."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Araç Çubuğu Simge Boyutu Zaten En Büyük Değerinde Seçili Durumda."
 
@@ -1141,11 +1177,11 @@ msgstr "Aktif Not İçinde Ara"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Şablon '%s' bulunamadı</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Çoklu Notlarda Değiştir..."
+msgid "Replace in Multiple Nodes"
+msgstr "Çoklu Notlarda Değiştir"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Çoklu Notlarda Bul..."
+msgid "Search in Multiple Nodes"
+msgstr "Çoklu Notlarda Ara"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "Bu Oturumda Gerçekleştirilen Önceki Bir Arama Yok."
@@ -1213,6 +1249,9 @@ msgstr "Başlık Çubuğunda Menü Çubuğu"
 msgid "Toolbar Icons Size"
 msgstr "Araç Çubuğu Simge Boyutu"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Not Adı Başlağında Son Ziyaret Edilen Notlar"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Kaydırma Çubuğu Minimum Boyutu (0 = Sistem Varsayılanı)"
 
@@ -1251,6 +1290,9 @@ msgstr "Özel Hareketler"
 
 msgid "Colors"
 msgstr "Renkler"
+
+msgid "Double Click for Link Action"
+msgstr "Bağlantı Eylemi için Çift Tıklama"
 
 msgid "Underline Links"
 msgstr "Altı Çizili Linkler"
@@ -1376,11 +1418,11 @@ msgid "Node Properties"
 msgstr "Not Özellikleri"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Bu notun, zengin metin belgesi özelliğini değiştirirseniz, pek çok "
-"biçimlendirme özelliği kaybolacak. Yine de devam etmek ister misiniz?"
+"Not türünü Otomatik Sözdizimi Vurgulama olarak değiştirmek, bu nottaki tüm "
+"zengin metin biçimlendirmelerini kaldırır. Devam etmek istiyor musunuz?"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1491,9 +1533,6 @@ msgstr "Fareyle Tıklandığında Yazı Kutusuna Odaklan"
 msgid "Expand Node at Mouse Click"
 msgstr "Fareyle Tıklandığında Notu Genişlet"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Not Adı Başlağında Son Ziyaret Edilen Notlar"
-
 msgid "Enable Spell Check"
 msgstr "Yazım Denetimini Aç"
 
@@ -1523,6 +1562,9 @@ msgstr "Bir Notta Geri Alınabilecek Adım Sayısı Sınırı"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "CamelCase Metnini Aynı İsimle Nota Otomatik Bağla"
+
+msgid "Auto Link URLs"
+msgstr "Otomatik Link URL leri"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Üç Tıklamada Tüm Paragrafı Seçin"
@@ -1715,6 +1757,12 @@ msgstr "Seçenekleri Dışa Aktar"
 
 msgid "Tree In_fo"
 msgstr "Ağaç Bilgisi"
+
+msgid "_Document Path to Clipboard"
+msgstr "Panoya Belge Yolu"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Belge Yolunu Panoya Kopyala"
 
 msgid "E_xit CherryTree"
 msgstr "CherryTreeyi Kapat"
@@ -2172,17 +2220,17 @@ msgstr "Dipnot Metni Ayarı"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Seçili Metnin Dipnot Metni Ayarını Uyarla"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Superscript Ayarı"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Seçili Metnin Superscript Ayarını Uyarla"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Subscript Ayarı"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Seçili Metnin Subscript Ayarını Uyarla"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Superscript Ayarı"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Seçili Metnin Superscript Ayarını Uyarla"
 
 msgid "Toggle _Monospace Property"
 msgstr "Sabit Boşluk Ayarını Uyarla"
@@ -2528,9 +2576,6 @@ msgstr "Seçili Notta İçeriği Değiştir"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Çoklu Notlarda Değiştir..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Çoklu Notlarda Değiştir"
-
 msgid "Replace A_gain"
 msgstr "Tekrar Değiştir"
 
@@ -2617,6 +2662,18 @@ msgstr "Araç Çubuğu Simge Boyutunu Küçült"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Araç Çubuğundaki Simgelerin Boyutunu Küçült"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Not Adı Başlığındaki Son Ziyaret Edilen Notlar"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Not Adı Başlığında Son Ziyaret Edilen Notların Sayısını Artırın"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "Not Adı Başlığındaki Son Ziyaret Edilen Notlar"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Not Adı Başlığında Son Ziyaret Edilen Notların Sayısını Azaltın"
 
 msgid "Full Screen _On/Off"
 msgstr "Tam Ekran Aç/Kapat"
@@ -2993,6 +3050,12 @@ msgstr "Leo Belgesi"
 msgid "Are you sure to Reset to Default?"
 msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Çoklu Notlarda Değiştir..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Çoklu Notlarda Bul..."
+
 #~ msgid "Insert T_OC..."
 #~ msgstr "İçindekiler Tablosu Ekle..."
 
@@ -3190,9 +3253,6 @@ msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 #~ msgstr ""
 #~ "'7za' Çalıştırılabilir Dosyası Bulunamadı, 'p7zip-full' Paketinin Kurulu "
 #~ "Olduğundan Emin Olun"
-
-#~ msgid "Wrong Password"
-#~ msgstr "Hatalı Parola"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Aramak İçin Yazın..."

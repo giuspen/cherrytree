@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-08-30 06:37+0900\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-09 20:16+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -1174,11 +1174,11 @@ msgstr "このノード内を検索"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>'%s' が見つかりません</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "複数のノードを置換..."
+msgid "Replace in Multiple Nodes"
+msgstr "複数のノードを置換"
 
-msgid "Find in Multiple Nodes..."
-msgstr "複数のノードを検索..."
+msgid "Search in Multiple Nodes"
+msgstr "複数のノードを検索"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "まだこのセッションでは検索が実行されていません。"
@@ -1754,6 +1754,12 @@ msgstr "設定のエクスポート"
 
 msgid "Tree In_fo"
 msgstr "ツリーの情報(_F)"
+
+msgid "_Document Path to Clipboard"
+msgstr "ドキュメントのパスをコピー(_D)"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "ドキュメントのパスをクリップボードにコピー"
 
 msgid "E_xit CherryTree"
 msgstr "CherryTreeを終了(_X)"
@@ -2571,9 +2577,6 @@ msgstr "選択ノードの内容を置換"
 msgid "Replace in _Multiple Nodes..."
 msgstr "複数のノードを置換(M)..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "複数のノードを置換"
-
 msgid "Replace A_gain"
 msgstr "最後の置換を繰り返し(_G)"
 
@@ -3047,6 +3050,12 @@ msgstr "Leo ドキュメント"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "既定値に初期化しますか？"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "複数のノードを置換..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "複数のノードを検索..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "目次を挿入(_O)..."

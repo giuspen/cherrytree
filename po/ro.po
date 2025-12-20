@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-09 15:15+0300\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-12 12:45+0200\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -1180,11 +1180,11 @@ msgstr "Căutați în Nodul Curent"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Modelul '%s' nu a fost găsit</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Înlocuiește în mai multe noduri..."
+msgid "Replace in Multiple Nodes"
+msgstr "Înlocuiește în mai multe noduri"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Găsește în mai multe noduri..."
+msgid "Search in Multiple Nodes"
+msgstr "Caută în mai multe noduri"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr ""
@@ -1767,6 +1767,12 @@ msgstr "Exportă preferințe"
 
 msgid "Tree In_fo"
 msgstr "Arbore In_formații"
+
+msgid "_Document Path to Clipboard"
+msgstr "_Locație document către Clipboard"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Copiază locație document către Clipboard"
 
 msgid "E_xit CherryTree"
 msgstr "Ie_șire CherryTree"
@@ -2586,9 +2592,6 @@ msgstr "Înlocuiește în conținutul nodului selectat"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Înlocuiește în mai multe noduri..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Înlocuiește în mai multe noduri"
-
 msgid "Replace A_gain"
 msgstr "Înlocuiește d_in nou"
 
@@ -2679,7 +2682,7 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Micșorează mărimea pictogramelor din bara de unelte"
 
 msgid "More Last _Visited Nodes on Node Name Header"
-msgstr "Mai multe noduri recent _vizitate pe antetul de nume al nodului."
+msgstr "Mai multe noduri recent _vizitate pe antetul de nume al nodului"
 
 msgid "Increase the Number of Last Visited Nodes on Node Name Header"
 msgstr ""
@@ -3065,6 +3068,12 @@ msgstr "Document Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ești sigur de revenirea la setările originale?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Înlocuiește în mai multe noduri..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Găsește în mai multe noduri..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Inserează T_OC..."

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-02 20:18+0100\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-09 13:24+1100\n"
 "Last-Translator: User Fav <userfav.post@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -1185,11 +1185,11 @@ msgstr "Buscar en el nodo actual"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>El patrón de búsqueda '%s' no ha sido hallado</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Reemplazar en Múltiples nodos..."
+msgid "Replace in Multiple Nodes"
+msgstr "Reemplazar en Múltiples nodos"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Buscar en Múltiples Nodos..."
+msgid "Search in Multiple Nodes"
+msgstr "Buscar en Múltiples nodos"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "No hay ninguna búsqueda previa en esta sesión."
@@ -1766,6 +1766,12 @@ msgstr "Exportar Preferencias"
 
 msgid "Tree In_fo"
 msgstr "_Información del árbol"
+
+msgid "_Document Path to Clipboard"
+msgstr "Ruta de Documento al portapapeles"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Copiar Ruta del documento al Portapapeles"
 
 msgid "E_xit CherryTree"
 msgstr "_Salir de CherryTree"
@@ -2589,9 +2595,6 @@ msgstr "Reemplazar en el contenido del nodo seleccionado"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Reemplazar en Múltiples nodos."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Reemplazar en Múltiples nodos"
-
 msgid "Replace A_gain"
 msgstr "Reemplazar otr_a vez"
 
@@ -3072,6 +3075,12 @@ msgstr "Documento de Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "¿Seguro que quieres restaurar los valores predeterminados?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Reemplazar en Múltiples nodos..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Buscar en Múltiples Nodos..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Insertar Tabla de C_ontenidos."

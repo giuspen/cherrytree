@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-08-30 16:27+0400\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-09 10:13+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -1175,11 +1175,11 @@ msgstr "Փնտրել ընթացիկ ճյուղում"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>«%s» ձևը չի գտնվել</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Փոխարինել շատ ճյուղերում․․․"
+msgid "Replace in Multiple Nodes"
+msgstr "Փոխարինել շատ ճյուղերում"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Գտնել շատ ճյուղերում․․․"
+msgid "Search in Multiple Nodes"
+msgstr "Որոնել շատ ճյուղերում"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "Որոնում չի կատարվել այս գործաժամի ընթացքում։"
@@ -1756,6 +1756,12 @@ msgstr "Արտահանել ընտրանքները"
 
 msgid "Tree In_fo"
 msgstr "_Ծառի մասին տեղեկանք"
+
+msgid "_Document Path to Clipboard"
+msgstr "_Նիշքի ուղին դեպի սեղմատախտակ"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Պատճենել նիշքի ուղին սեղմատախտակում"
 
 msgid "E_xit CherryTree"
 msgstr "_Փակել CherryTree-ն"
@@ -2571,9 +2577,6 @@ msgstr "Փոխարինել ընտրված ճյուղի պարունակությ�
 msgid "Replace in _Multiple Nodes..."
 msgstr "Փոխարինել _շատ ճյուղերում․․․"
 
-msgid "Replace in Multiple Nodes"
-msgstr "Փոխարինել շատ ճյուղերում"
-
 msgid "Replace A_gain"
 msgstr "Նորից _փոխարինել"
 
@@ -3047,6 +3050,12 @@ msgstr "Leo փաստաթուղթ"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Վերականգնե՞լ սկզբնադիր տարբերակը։"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Փոխարինել շատ ճյուղերում․․․"
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Գտնել շատ ճյուղերում․․․"
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Դնել _բովանդակության ցանկ..."

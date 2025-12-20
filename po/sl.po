@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-08-30 15:04+0200\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-12 14:30+0100\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -1182,11 +1182,11 @@ msgstr "Iskanje v trenutnem vozlišču"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Iskani vzorec '%s' ni bil najden<b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Zamenjaj v več vozliščih..."
+msgid "Replace in Multiple Nodes"
+msgstr "Zamenjaj v več vozliščih"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Najdi v več vozliščih..."
+msgid "Search in Multiple Nodes"
+msgstr "Išči v več vozliščih"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "V tej seji ni bilo preteklih iskanj."
@@ -1764,6 +1764,12 @@ msgstr "Izvozi nastavitve"
 
 msgid "Tree In_fo"
 msgstr "_Informacije o drevesu"
+
+msgid "_Document Path to Clipboard"
+msgstr "Pot _dokumenta v beležko"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Kopiraj pot do dokumenta v beležko"
 
 msgid "E_xit CherryTree"
 msgstr "_Zapri CherryTree"
@@ -2579,9 +2585,6 @@ msgstr "Zamenjaj v vsebini izbranega vozlišča"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Zamenjaj v več vozliščih..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Zamenjaj v več vozliščih"
-
 msgid "Replace A_gain"
 msgstr "_Ponovno zamenjaj"
 
@@ -3056,6 +3059,12 @@ msgstr "Leo dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Zamenjaj v več vozliščih..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Najdi v več vozliščih..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Vstavi ka_zalo..."
