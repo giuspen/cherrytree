@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-01 01:40+0900\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2025-12-25 19:08+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -1170,11 +1170,11 @@ msgstr "이 노트를 검색"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>'%s'을(를) 찾을 수 없습니다</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "모든 노트를 치환..."
+msgid "Replace in Multiple Nodes"
+msgstr "모든 노트를 치환"
 
-msgid "Find in Multiple Nodes..."
-msgstr "모든 노트를 검색..."
+msgid "Search in Multiple Nodes"
+msgstr "여러 노트에서 검색"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "아직이 세션에서는 검색이 실행되고 있지 않습니다."
@@ -1750,6 +1750,12 @@ msgstr "설정 내보내기"
 msgid "Tree In_fo"
 msgstr "Tree의 정보(_F)"
 
+msgid "_Document Path to Clipboard"
+msgstr "문서 경로 복사(_D)"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "클립 보드에 문서 경로 복사"
+
 msgid "E_xit CherryTree"
 msgstr "CherryTree를 종료(_X)"
 
@@ -1928,10 +1934,10 @@ msgid "Add a Table Column"
 msgstr "테이블에 컬럼을 추가"
 
 msgid "Cu_t Column"
-msgstr "열 자르기(_T)"
+msgstr "열 잘라내기(_T)"
 
 msgid "Cut a Table Column"
-msgstr "테이블 열 자르기"
+msgstr "테이블 열 잘라내기"
 
 msgid "_Copy Column"
 msgstr "열 복사(_C)"
@@ -1976,7 +1982,7 @@ msgid "Decrease the Width of the Column"
 msgstr "열 폭을 축소"
 
 msgid "_Add Row"
-msgstr "열 추가(_A)"
+msgstr "행 추가(_A)"
 
 msgid "Add a Table Row"
 msgstr "테이블의 선택한 행 아래에 행 추가"
@@ -2564,9 +2570,6 @@ msgstr "선택 노트의 내용을 치환"
 msgid "Replace in _Multiple Nodes..."
 msgstr "모든 노트를 치환...(_M)"
 
-msgid "Replace in Multiple Nodes"
-msgstr "모든 노트를 치환"
-
 msgid "Replace A_gain"
 msgstr "마지막 치환을 반복(_G)"
 
@@ -3040,6 +3043,12 @@ msgstr "Leo 문서"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "기본값으로 초기화 하겠습니까?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "모든 노트를 치환..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "모든 노트를 검색..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "목차 삽입...(_O)"
