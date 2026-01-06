@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-01 06:29+0800\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2026-01-06 05:56+0800\n"
 "Last-Translator: Emer Chen <ldsemerchen@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
@@ -1152,11 +1152,11 @@ msgstr "在當前節點中搜尋"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>符合模式 '%s' 未找到<b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "在多個節點中替換..."
+msgid "Replace in Multiple Nodes"
+msgstr "在多個節點中替換"
 
-msgid "Find in Multiple Nodes..."
-msgstr "在所有節點內容中搜尋..."
+msgid "Search in Multiple Nodes"
+msgstr "在多個節點中搜尋"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "當前通信期沒有歷史搜尋."
@@ -1729,6 +1729,12 @@ msgstr "匯出配置"
 
 msgid "Tree In_fo"
 msgstr "樹訊息(_F)"
+
+msgid "_Document Path to Clipboard"
+msgstr "文件路徑到剪貼板(_D)"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "將文件路徑複製到剪貼板"
 
 msgid "E_xit CherryTree"
 msgstr "退出 CherryTree (_X)"
@@ -2542,9 +2548,6 @@ msgstr "在當前已選節點內容中替換"
 msgid "Replace in _Multiple Nodes..."
 msgstr "在多個節點中替換(_M)..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "在多個節點中替換"
-
 msgid "Replace A_gain"
 msgstr "重複上次替換(_G)"
 
@@ -3018,6 +3021,12 @@ msgstr "Leo 檔案"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "您確定要重設為預設值嗎？"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "在多個節點中替換..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "在所有節點內容中搜尋..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "插入檔案目錄(_O)..."
