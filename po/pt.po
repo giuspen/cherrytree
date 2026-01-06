@@ -598,7 +598,7 @@ msgid "Style Scheme Editor"
 msgstr "Editor do Esquema de Estilos"
 
 msgid "Set Dark Theme Icons"
-msgstr "Defenir Icones do Tema Escuro"
+msgstr "Definir Icones do Tema Escuro"
 
 msgid "Set Light Theme Icons"
 msgstr "Definir Icones do Tema Claro"
