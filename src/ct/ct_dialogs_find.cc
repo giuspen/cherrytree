@@ -61,8 +61,8 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     if (!latest_searches.empty()) {
         search_combo->append("__ct_reset_search__", "× " + Glib::ustring{_("Reset")});
     }
-    for (auto it = latest_searches.begin(); it != latest_searches.end(); ++it) {
-        search_combo->prepend(*it); // prepend to show most recent first
+    for (auto it = latest_searches.rbegin(); it != latest_searches.rend(); ++it) {
+        search_combo->prepend(*it); // prepend in reverse to show most recent first
     }
 
     search_combo->signal_changed().connect([search_combo, search_entry, &latest_searches](){
@@ -102,8 +102,8 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         if (!latest_replaces.empty()) {
             replace_combo->append("__ct_reset_replace__", "× " + Glib::ustring{_("Reset")});
         }
-        for (auto it = latest_replaces.begin(); it != latest_replaces.end(); ++it) {
-            replace_combo->prepend(*it); // prepend to show most recent first
+        for (auto it = latest_replaces.rbegin(); it != latest_replaces.rend(); ++it) {
+            replace_combo->prepend(*it); // prepend in reverse to show most recent first
         }
 
         replace_combo->signal_changed().connect([replace_combo, replace_entry, &latest_replaces](){
