@@ -222,6 +222,7 @@ void CtConfig::_populate_keyfile_from_data()
         for (const Glib::ustring& pattern : latestSearches) {
             snprintf(_tempKey, _maxTempKeySize, "search_%d", i);
             _uKeyFile->set_string(_currentGroup, _tempKey, pattern);
+            ++i;
         }
     }
     {
@@ -229,6 +230,7 @@ void CtConfig::_populate_keyfile_from_data()
         for (const Glib::ustring& pattern : latestReplaces) {
             snprintf(_tempKey, _maxTempKeySize, "replace_%d", i);
             _uKeyFile->set_string(_currentGroup, _tempKey, pattern);
+            ++i;
         }
     }
     _uKeyFile->set_boolean(_currentGroup, "toolbar_visible", toolbarVisible);

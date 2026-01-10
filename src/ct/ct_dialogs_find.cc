@@ -48,12 +48,30 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     auto search_combo = Gtk::manage(new Gtk::ComboBoxText{true/*has_entry*/});
     auto search_entry = dynamic_cast<Gtk::Entry*>(search_combo->get_entry());
     search_entry->set_text(s_options.str_find);
+    search_entry->set_icon_from_icon_name("ct_clear", Gtk::ENTRY_ICON_SECONDARY);
+    search_entry->set_icon_tooltip_text(_("Clear"), Gtk::ENTRY_ICON_SECONDARY);
+    search_entry->signal_icon_press().connect([search_entry](Gtk::EntryIconPosition icon_pos, const GdkEventButton* /*event*/){
+        if (icon_pos == Gtk::ENTRY_ICON_SECONDARY) {
+            search_entry->set_text("");
+        }
+    });
 
     // Populate search history dropdown
     auto& latest_searches = pCtMainWin->get_ct_config()->latestSearches;
+    if (!latest_searches.empty()) {
+        search_combo->append("__ct_reset_search__", "× " + Glib::ustring{_("Reset")});
+    }
     for (auto it = latest_searches.begin(); it != latest_searches.end(); ++it) {
         search_combo->prepend(*it); // prepend to show most recent first
     }
+
+    search_combo->signal_changed().connect([search_combo, search_entry, &latest_searches](){
+        if (search_combo->get_active_id() == "__ct_reset_search__") {
+            latest_searches.clear();
+            search_combo->remove_all();
+            search_entry->set_text("");
+        }
+    });
 
     button_ok->set_sensitive(s_options.str_find.length() != 0);
     search_entry->signal_changed().connect([button_ok, search_entry](){
@@ -71,12 +89,30 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         replace_combo = Gtk::manage(new Gtk::ComboBoxText{true/*has_entry*/});
         replace_entry = dynamic_cast<Gtk::Entry*>(replace_combo->get_entry());
         replace_entry->set_text(s_options.str_replace);
+        replace_entry->set_icon_from_icon_name("ct_clear", Gtk::ENTRY_ICON_SECONDARY);
+        replace_entry->set_icon_tooltip_text(_("Clear"), Gtk::ENTRY_ICON_SECONDARY);
+        replace_entry->signal_icon_press().connect([replace_entry](Gtk::EntryIconPosition icon_pos, const GdkEventButton* /*event*/){
+            if (icon_pos == Gtk::ENTRY_ICON_SECONDARY) {
+                replace_entry->set_text("");
+            }
+        });
 
         // Populate replace history dropdown
         auto& latest_replaces = pCtMainWin->get_ct_config()->latestReplaces;
+        if (!latest_replaces.empty()) {
+            replace_combo->append("__ct_reset_replace__", "× " + Glib::ustring{_("Reset")});
+        }
         for (auto it = latest_replaces.begin(); it != latest_replaces.end(); ++it) {
             replace_combo->prepend(*it); // prepend to show most recent first
         }
+
+        replace_combo->signal_changed().connect([replace_combo, replace_entry, &latest_replaces](){
+            if (replace_combo->get_active_id() == "__ct_reset_replace__") {
+                latest_replaces.clear();
+                replace_combo->remove_all();
+                replace_entry->set_text("");
+            }
+        });
 
         replace_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Replace with")+"</b>"});
         dynamic_cast<Gtk::Label*>(replace_frame->get_label_widget())->set_use_markup(true);
