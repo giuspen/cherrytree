@@ -1,3 +1,12 @@
+1.6.3 (January 12th, 2026)
+  * improved search/replace dialog with memory of the latest patterns searched for / replaced with
+  * fixed closing parenthesis not included in automatically created link (#2789)
+  * fix for drag and drop of text on windows behaving as copy, not move (#2786)
+  * added action to copy to clipboard the current document filepath (#2764)
+  * added icons for artificial intelligence chatgpt, gemini, copilot, claude
+  * fixed title of dialog to search/replace in multiple nodes (#2770)
+  * incomplete languages: ar, bg, fa, fi, fr, hi_IN, hr, hu, lt, nl, pt, sk, sv, zh_CN (want to help and update one? write me https://www.giuspen.net/feedback/)
+
 1.6.2 (September 19th, 2025)
   * fixed links to TOCs (anchors) no longer scrolling to the target (#2768, #2766, #2389)
   * default option for searching multiple words is back to 'exact match' as way faster; the last used option is now preserved across sessions (#2767)
