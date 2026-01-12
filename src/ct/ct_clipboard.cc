@@ -231,6 +231,13 @@ void CtClipboard::plain_text_to_clipboard(const char* plain_text)
     _set_clipboard_data({CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
 }
 
+void CtClipboard::plain_text_to_clipboard(const char* plain_text)
+{
+    CtClipboardData* clip_data = new CtClipboardData{};
+    clip_data->plain_text = plain_text;
+    _set_clipboard_data({CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
+}
+
 void CtClipboard::table_row_to_clipboard(CtTableCommon* pTable)
 {
     CtClipboardData* clip_data = new CtClipboardData{};
