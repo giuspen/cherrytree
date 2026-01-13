@@ -66,6 +66,7 @@ for element_rel in dvipng.exe \
                    librav1e.dll \
                    libde265-0.dll \
                    libx265-215.dll \
+                   libx264-165.dll \
                    libSvtAv1Enc-3.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
@@ -294,6 +295,7 @@ for element_rel in dvipng.exe \
                    librav1e.dll \
                    libde265-0.dll \
                    libx265-215.dll \
+                   libx264-165.dll \
                    libSvtAv1Enc-3.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
