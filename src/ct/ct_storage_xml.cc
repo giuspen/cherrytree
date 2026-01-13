@@ -319,6 +319,29 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
     return parser;
 }
 
+
+// Remove the body from the XML file before parsing.
+// Last chance for a node file we definitely can't parse. 
+/* static */ std::unique_ptr<xmlpp::DomParser> CtStorageXml::get_parser_header_only(const fs::path &file_path)
+{
+    auto parser = std::make_unique<xmlpp::DomParser>();
+    parser->set_parser_options(xmlParserOption::XML_PARSE_HUGE);
+
+    std::string buffer = Glib::file_get_contents(file_path.string());
+    CtStrUtil::convert_if_not_utf8(buffer, true /*sanitise*/);
+
+    // Remove the file content, only keeps headers
+    buffer = str::replace_xml_body(buffer, "<rich_text>PARSING ERROR</rich_text>");
+    bool parseOk{false};
+    parseOk = CtXmlHelper::safe_parse_memory(*parser, buffer);
+
+    // Set the node read-only
+    auto this_node = (xmlpp::Element*) parser->get_document()->get_root_node()->get_first_child("node");
+    this_node->set_attribute("readonly", "1");
+
+    return parser;
+}
+
 xmlpp::Element* CtStorageXmlHelper::node_to_xml(const CtTreeIter* ct_tree_iter,
                                                 xmlpp::Element* p_node_parent,
                                                 const std::string& multifile_dir,

@@ -593,6 +593,14 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
                     }
                 }
             }
+
+            // All backups failed to load: skip the node's content and open it in read-only mode
+            if (not parsingOk)
+            {
+                spdlog::error("node_xml_path: {} - Omiting file content", node_xml_path);
+                pParser = CtStorageXml::get_parser_header_only(node_xml_path);
+            }
+
             xmlpp::Node* xml_node = pParser->get_document()->get_root_node()->get_first_child("node");
             auto xml_element = static_cast<xmlpp::Element*>(xml_node);
             Gtk::TreeModel::iterator new_iter = CtStorageXmlHelper{_pCtMainWin}.node_from_xml(
