@@ -16,7 +16,8 @@ IN_CT_HUNSPELL="${IN_CT_FOLDER}/hunspell"
 IN_CT_CONFIG_H="${IN_CT_FOLDER}/config.h"
 OLD_UCRT64_FOLDER="/ucrt64"
 DOWNGRADE_PACKAGES_FOLDER_URL="https://repo.msys2.org/mingw/ucrt64"
-DOWNGRADE_PACKAGES_FILENAMES=("mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst" "mingw-w64-ucrt-x86_64-pango-1.56.3-2-any.pkg.tar.zst")
+#DOWNGRADE_PACKAGES_FILENAMES=("mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst" "mingw-w64-ucrt-x86_64-pango-1.56.3-2-any.pkg.tar.zst")
+DOWNGRADE_PACKAGES_FILENAMES=()
 
 for package_name in ${DOWNGRADE_PACKAGES_FILENAMES[@]}; do
   wget ${DOWNGRADE_PACKAGES_FOLDER_URL}/${package_name}
@@ -65,10 +66,11 @@ for element_rel in dvipng.exe \
                    librav1e.dll \
                    libde265-0.dll \
                    libx265-215.dll \
+                   libx264-165.dll \
                    libSvtAv1Enc-3.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
-                   libopenjph-0.25.dll \
+                   libopenjph-0.26.dll \
                    libopenh264-7.dll \
                    libkvazaar-7.dll \
                    libcryptopp.dll
@@ -293,10 +295,11 @@ for element_rel in dvipng.exe \
                    librav1e.dll \
                    libde265-0.dll \
                    libx265-215.dll \
+                   libx264-165.dll \
                    libSvtAv1Enc-3.dll \
                    libyuv.dll \
                    libopenjp2-7.dll \
-                   libopenjph-0.25.dll \
+                   libopenjph-0.26.dll \
                    libopenh264-7.dll \
                    libkvazaar-7.dll \
                    libcryptopp.dll

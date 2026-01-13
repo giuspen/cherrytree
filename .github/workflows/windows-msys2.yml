@@ -41,6 +41,11 @@ jobs:
             p7zip
             git
             sed
+      - name: Initialize TeX Live
+        run: |
+          mkdir -p /ucrt64/var/lib/texmf/web2c/pdftex
+          cd /ucrt64/var/lib/texmf/web2c/pdftex
+          pdftex -ini -jobname=latex -progname=latex *latex.ini
       - name: CI-Build
         run: |
           scripts/msys2_prepare_standalone.sh
