@@ -37,6 +37,7 @@ jobs:
             mingw-w64-ucrt-x86_64-fmt
             mingw-w64-ucrt-x86_64-spdlog
             mingw-w64-ucrt-x86_64-texlive-core
+            mingw-w64-ucrt-x86_64-texlive-latex-recommended
             mingw-w64-ucrt-x86_64-gettext
             p7zip
             git
