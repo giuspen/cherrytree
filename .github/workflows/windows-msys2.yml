@@ -41,6 +41,9 @@ jobs:
             p7zip
             git
             sed
+      - name: Initialize TeX Live
+        run: |
+          mktexlsr
       - name: CI-Build
         run: |
           scripts/msys2_prepare_standalone.sh
