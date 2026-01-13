@@ -14,7 +14,7 @@ IN_CT_STYLES_FOLDER="${IN_CT_FOLDER}/styles"
 IN_CT_LICENSE="${IN_CT_FOLDER}/license.txt"
 IN_CT_HUNSPELL="${IN_CT_FOLDER}/hunspell"
 IN_CT_CONFIG_H="${IN_CT_FOLDER}/config.h"
-OLD_UCRT64_FOLDER="/ucrt64"
+OLD_UCRT64_FOLDER=""
 DOWNGRADE_PACKAGES_FOLDER_URL="https://repo.msys2.org/mingw/ucrt64"
 DOWNGRADE_PACKAGES_FILENAMES=("mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst" "mingw-w64-ucrt-x86_64-pango-1.56.3-2-any.pkg.tar.zst")
 
