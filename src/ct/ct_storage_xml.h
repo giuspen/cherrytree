@@ -57,6 +57,7 @@ public:
     void vacuum() override {}
 
     static std::unique_ptr<xmlpp::DomParser> get_parser(const fs::path& file_path);
+    static std::unique_ptr<xmlpp::DomParser> get_parser_header_only(const fs::path &file_path);
 
     bool populate_treestore(const fs::path& file_path, Glib::ustring& error) override;
     bool save_treestore(const fs::path& file_path,

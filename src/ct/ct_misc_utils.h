@@ -417,6 +417,8 @@ std::string join_numbers(const Vector& in_numbers_vec, const gchar* delimiter=" 
     return outString;
 }
 
+Glib::ustring replace_xml_body(const Glib::ustring& xml_content, const std::string& replacement_text);
+
 Glib::ustring repeat(const Glib::ustring& input, int num);
 
 } // namespace str
