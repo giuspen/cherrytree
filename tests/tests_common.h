@@ -44,6 +44,7 @@ const std::string testCtdDocPath{Glib::build_filename(unitTestsDataDir, "test_д
 const std::string testCtxDocPath{Glib::build_filename(unitTestsDataDir, "test_документ.ctx")};
 const std::string testCtzDocPath{Glib::build_filename(unitTestsDataDir, "test_документ.ctz")};
 const std::string testMultiFilePath{Glib::build_filename(unitTestsDataDir, "test_папка")};
+const std::string testMultiFileSourCherry{Glib::build_filename(unitTestsDataDir, "SourCherry")};
 const std::string testBomUtf8Path{Glib::build_filename(unitTestsDataDir, "bom_utf8.txt")};
 const std::string testBomUtf32BEPath{Glib::build_filename(unitTestsDataDir, "bom_utf32be.txt")};
 const std::string testBomUtf32LEPath{Glib::build_filename(unitTestsDataDir, "bom_utf32le.txt")};
