@@ -1,7 +1,7 @@
 /*
  * tests_exports.cpp
  *
- * Copyright 2009-2022
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -98,7 +98,7 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
     ASSERT_TRUE(fs::is_regular_file(tmpFilepath));
     if (ExportType::Txt == exportType) {
         std::string expectTxt_path{Glib::build_filename(UT::unitTestsDataDir, "test.export.txt")};
-        std::string expectTxt = Glib::file_get_contents(expectTxt_path);
+        std::string expectTxt = inDocPath == UT::testMultiFileSourCherry ? "# ChatGPT\nPARSING ERROR\n\n" : Glib::file_get_contents(expectTxt_path);
         std::string resultTxt = Glib::file_get_contents(tmpFilepath.string());
         ASSERT_FALSE(resultTxt.empty());
         //g_file_set_contents(Glib::build_filename(UT::unitTestsDataDir, "test.export.txtt").c_str(), resultTxt.c_str(), -1, NULL);
@@ -137,5 +137,6 @@ INSTANTIATE_TEST_CASE_P(
             std::make_tuple(UT::testCtbDocPath, "--export_to_pdf_dir"),
             std::make_tuple(UT::testCtdDocPath, "--export_to_pdf_dir"),
             std::make_tuple(UT::testCtbDocPath, "--export_to_html_dir"),
-            std::make_tuple(UT::testCtdDocPath, "--export_to_html_dir"))
+            std::make_tuple(UT::testCtdDocPath, "--export_to_html_dir"),
+            std::make_tuple(UT::testMultiFileSourCherry, "--export_to_txt_dir"))
 );
