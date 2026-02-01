@@ -71,12 +71,6 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         }
     });
 
-    // Populate search history dropdown
-    auto& latest_searches = pCtMainWin->get_ct_config()->latestSearches;
-    for (auto it = latest_searches.begin(); it != latest_searches.end(); ++it) {
-        search_combo->prepend(*it); // prepend to show most recent first
-    }
-
     button_ok->set_sensitive(s_options.str_find.length() != 0);
     search_entry->signal_changed().connect([button_ok, search_entry](){
         button_ok->set_sensitive(search_entry->get_text().length() != 0);
