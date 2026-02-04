@@ -1,7 +1,7 @@
 /*
  * ct_app.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -180,6 +180,29 @@ void CtApp::on_activate()
             }
             if (any_shown_win) {
                 any_shown_win->present();
+                // Handle node focusing if --node option was provided
+                if (not _node_to_focus.empty()) {
+                    CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(any_shown_win);
+                    if (pCtMainWin) {
+                        // Capture values before clearing them
+                        Glib::ustring node_to_focus = _node_to_focus;
+                        Glib::ustring anchor_to_focus = _anchor_to_focus;
+                        // Use idle_add to ensure the GUI has time to update before focusing
+                        Glib::signal_idle().connect_once([pCtMainWin, node_to_focus, anchor_to_focus]() {
+                            CtTreeIter node = pCtMainWin->get_tree_store().get_node_from_node_name(node_to_focus);
+                            if (node) {
+                                pCtMainWin->get_tree_view().set_cursor_safe(node);
+                                pCtMainWin->get_text_view().mm().grab_focus();
+                                if (not anchor_to_focus.empty()) {
+                                    pCtMainWin->get_ct_actions()->current_node_scroll_to_anchor(anchor_to_focus);
+                                }
+                            }
+                            else {
+                                spdlog::warn("{} No node named '{}' found.", __FUNCTION__, node_to_focus.c_str());
+                            }
+                        });
+                    }
+                }
             }
             else {
                 // all windows are hidden, show them
@@ -189,6 +212,8 @@ void CtApp::on_activate()
         }
     }
     _new_window = false; // reset for future calls
+    _node_to_focus.clear(); // reset for future calls
+    _anchor_to_focus.clear(); // reset for future calls
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
@@ -252,8 +277,29 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
                 }
             }
         }
-        // window can be hidden, so show it
+        // window can be hidden, so show it first
         pAppWindow->present();
+        
+        // Handle node focusing after presenting the window
+        if (not _node_to_focus.empty()) {
+            // Capture values before they might change
+            Glib::ustring node_to_focus = _node_to_focus;
+            Glib::ustring anchor_to_focus = _anchor_to_focus;
+            // Use idle_add to ensure the GUI has time to update before focusing
+            Glib::signal_idle().connect_once([pAppWindow, node_to_focus, anchor_to_focus]() {
+                CtTreeIter node = pAppWindow->get_tree_store().get_node_from_node_name(node_to_focus);
+                if (node) {
+                    pAppWindow->get_tree_view().set_cursor_safe(node);
+                    pAppWindow->get_text_view().mm().grab_focus();
+                    if (not anchor_to_focus.empty()) {
+                        pAppWindow->get_ct_actions()->current_node_scroll_to_anchor(anchor_to_focus);
+                    }
+                }
+                else {
+                    spdlog::warn("{} No node named '{}' found.", __FUNCTION__, node_to_focus.c_str());
+                }
+            });
+        }
     }
     _new_window = false; // reset for future calls
 }
