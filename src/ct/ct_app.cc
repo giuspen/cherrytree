@@ -29,6 +29,29 @@
 #include "ct_logging.h"
 #include <iostream>
 
+namespace {
+void queue_focus_node(CtMainWin* pCtMainWin, const Glib::ustring& node_to_focus, const Glib::ustring& anchor_to_focus)
+{
+    if (not pCtMainWin || node_to_focus.empty()) {
+        return;
+    }
+    // Use idle_add to ensure the GUI has time to update before focusing.
+    Glib::signal_idle().connect_once([pCtMainWin, node_to_focus, anchor_to_focus]() {
+        CtTreeIter node = pCtMainWin->get_tree_store().get_node_from_node_name(node_to_focus);
+        if (node) {
+            pCtMainWin->get_tree_view().set_cursor_safe(node);
+            pCtMainWin->get_text_view().mm().grab_focus();
+            if (not anchor_to_focus.empty()) {
+                pCtMainWin->get_ct_actions()->current_node_scroll_to_anchor(anchor_to_focus);
+            }
+        }
+        else {
+            spdlog::warn("{} No node named '{}' found.", __FUNCTION__, node_to_focus.c_str());
+        }
+    });
+}
+} // namespace
+
 CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::ApplicationFlags flags)
  : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN | flags}
  , _pCtConfig{CtConfig::GetCtConfig()}
@@ -42,6 +65,33 @@ CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::ApplicationFlags f
     add_action("new_window", [&]() {
         _new_window = true;
     });
+
+    auto focus_node_action = Gio::SimpleAction::create("focus_node", Glib::VariantType("as"));
+    focus_node_action->signal_activate().connect([this](const Glib::VariantBase& parameter) {
+        auto args = Glib::VariantBase::cast_dynamic<Glib::Variant<std::vector<Glib::ustring>>>(parameter).get();
+        if (args.empty()) {
+            return;
+        }
+        Glib::ustring node_to_focus = args.at(0);
+        Glib::ustring anchor_to_focus = args.size() > 1 ? args.at(1) : Glib::ustring{};
+        // Delay to let on_open/on_activate present the target window first
+        Glib::signal_idle().connect_once([this, node_to_focus, anchor_to_focus]() {
+            // Find the most recently presented window (last in list or active)
+            CtMainWin* pTargetWin = nullptr;
+            for (Gtk::Window* pWin : get_windows()) {
+                if (pWin->get_visible()) {
+                    if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin)) {
+                        pTargetWin = pCtMainWin; // Keep updating to get the last one
+                        if (pWin->is_active()) break; // Active window takes priority
+                    }
+                }
+            }
+            if (pTargetWin) {
+                queue_focus_node(pTargetWin, node_to_focus, anchor_to_focus);
+            }
+        });
+    });
+    add_action(focus_node_action);
 
     _add_main_option_entries();
     signal_handle_local_options().connect(sigc::mem_fun(*this, &CtApp::_on_handle_local_options), false);
@@ -184,23 +234,7 @@ void CtApp::on_activate()
                 if (not _node_to_focus.empty()) {
                     CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(any_shown_win);
                     if (pCtMainWin) {
-                        // Capture values before clearing them
-                        Glib::ustring node_to_focus = _node_to_focus;
-                        Glib::ustring anchor_to_focus = _anchor_to_focus;
-                        // Use idle_add to ensure the GUI has time to update before focusing
-                        Glib::signal_idle().connect_once([pCtMainWin, node_to_focus, anchor_to_focus]() {
-                            CtTreeIter node = pCtMainWin->get_tree_store().get_node_from_node_name(node_to_focus);
-                            if (node) {
-                                pCtMainWin->get_tree_view().set_cursor_safe(node);
-                                pCtMainWin->get_text_view().mm().grab_focus();
-                                if (not anchor_to_focus.empty()) {
-                                    pCtMainWin->get_ct_actions()->current_node_scroll_to_anchor(anchor_to_focus);
-                                }
-                            }
-                            else {
-                                spdlog::warn("{} No node named '{}' found.", __FUNCTION__, node_to_focus.c_str());
-                            }
-                        });
+                        queue_focus_node(pCtMainWin, _node_to_focus, _anchor_to_focus);
                     }
                 }
             }
@@ -279,29 +313,10 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         }
         // window can be hidden, so show it first
         pAppWindow->present();
-        
-        // Handle node focusing after presenting the window
-        if (not _node_to_focus.empty()) {
-            // Capture values before they might change
-            Glib::ustring node_to_focus = _node_to_focus;
-            Glib::ustring anchor_to_focus = _anchor_to_focus;
-            // Use idle_add to ensure the GUI has time to update before focusing
-            Glib::signal_idle().connect_once([pAppWindow, node_to_focus, anchor_to_focus]() {
-                CtTreeIter node = pAppWindow->get_tree_store().get_node_from_node_name(node_to_focus);
-                if (node) {
-                    pAppWindow->get_tree_view().set_cursor_safe(node);
-                    pAppWindow->get_text_view().mm().grab_focus();
-                    if (not anchor_to_focus.empty()) {
-                        pAppWindow->get_ct_actions()->current_node_scroll_to_anchor(anchor_to_focus);
-                    }
-                }
-                else {
-                    spdlog::warn("{} No node named '{}' found.", __FUNCTION__, node_to_focus.c_str());
-                }
-            });
-        }
     }
     _new_window = false; // reset for future calls
+    _node_to_focus.clear(); // reset for future calls
+    _anchor_to_focus.clear(); // reset for future calls
 }
 
 void CtApp::on_window_removed(Gtk::Window* window)
@@ -526,6 +541,8 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
 
     bool new_window{false};
 
+    _node_to_focus.clear();
+    _anchor_to_focus.clear();
     rOptions->lookup_value("node", _node_to_focus);
     rOptions->lookup_value("anchor", _anchor_to_focus);
     rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
@@ -535,6 +552,12 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
     rOptions->lookup_value("export_single_file", _export_single_file);
     rOptions->lookup_value("password", _password);
     rOptions->lookup_value("new_window", new_window);
+
+    if (is_remote() && (not _node_to_focus.empty() || not _anchor_to_focus.empty())) {
+        // Forward node focus request from remote to primary instance via action
+        std::vector<Glib::ustring> args{_node_to_focus, _anchor_to_focus};
+        activate_action("focus_node", Glib::Variant<std::vector<Glib::ustring>>::create(args));
+    }
 
     if (new_window) {
         activate_action("new_window");
