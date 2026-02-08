@@ -1,7 +1,7 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -167,6 +167,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     menu_set_items_recent_documents();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
+    menu_update_doc_path_menu_item();
     menu_top_optional_bookmarks_enforce();
 
     if (_no_gui) {
@@ -622,6 +623,11 @@ void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
     _uCtMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
 }
 
+void CtMainWin::menu_update_doc_path_menu_item()
+{
+    _uCtMenu->find_action("doc_path_clip")->signal_set_visible.emit(not _uCtStorage->get_file_path().empty());
+}
+
 void CtMainWin::menu_set_bookmark_menu_items()
 {
     std::list<std::tuple<gint64, Glib::ustring, const char*>> bookmarks;
@@ -798,6 +804,7 @@ void CtMainWin::reset()
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
+    menu_update_doc_path_menu_item();
     menu_top_optional_bookmarks_enforce();
 
     update_window_save_not_needed();

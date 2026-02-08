@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -183,6 +183,7 @@ public:
     void window_header_update_bookmark_icon(const bool show);
 
     void menu_update_bookmark_menu_item(bool is_bookmarked);
+    void menu_update_doc_path_menu_item();
     void menu_set_bookmark_menu_items();
     void menu_top_optional_bookmarks_enforce();
 

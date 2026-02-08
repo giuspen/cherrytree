@@ -1,7 +1,7 @@
 /*
  * ct_main_win_file.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -222,6 +222,7 @@ bool CtMainWin::file_open(const fs::path& filepath,
     window_title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(CtDocType::SQLite == doc_type);
+    menu_update_doc_path_menu_item();
 
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath.string())};
     switch (_pCtConfig->restoreExpColl) {
