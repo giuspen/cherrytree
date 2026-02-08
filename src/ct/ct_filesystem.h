@@ -1,7 +1,7 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -212,7 +212,7 @@ template<>
 struct fmt::formatter<fs::path> {
     constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
     template<typename FormatContext>
-    auto format(const fs::path& p, FormatContext& ctx) {
+    auto format(const fs::path& p, FormatContext& ctx) const {
         return format_to(ctx.out(), "{}", p.string());
     }
 };
