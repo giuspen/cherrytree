@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -24,6 +24,136 @@
 #include "ct_dialogs.h"
 #include "ct_treestore.h"
 #include "ct_main_win.h"
+
+namespace {
+struct CtStartDialogColumns : public Gtk::TreeModelColumnRecord
+{
+    Gtk::TreeModelColumn<Glib::ustring> name;
+    Gtk::TreeModelColumn<Glib::ustring> path;
+    CtStartDialogColumns()
+    {
+        add(name);
+        add(path);
+    }
+};
+}
+
+CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
+                                                      const CtRecentDocsFilepaths& recent_docs,
+                                                      bool remember_recent_docs,
+                                                      std::string& recent_filepath,
+                                                      bool& dont_show_again)
+{
+    recent_filepath.clear();
+    dont_show_again = false;
+
+    Gtk::Dialog dialog(_("Start in CherryTree"),
+                       *pCtMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(520, 360);
+
+    constexpr int RESPONSE_NEW_DOC = 1;
+    constexpr int RESPONSE_OPEN_FILE = 2;
+    constexpr int RESPONSE_OPEN_FOLDER = 3;
+    constexpr int RESPONSE_OPEN_RECENT = 4;
+
+    dialog.add_button(_("New Document"), RESPONSE_NEW_DOC);
+    dialog.add_button(_("Open File"), RESPONSE_OPEN_FILE);
+    dialog.add_button(_("Open Folder"), RESPONSE_OPEN_FOLDER);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+
+    Gtk::Box* content = dialog.get_content_area();
+    Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 10};
+    Gtk::Label intro_label;
+    intro_label.set_text(_("Create a new document or open an existing one."));
+    intro_label.set_xalign(0.0);
+    vbox.pack_start(intro_label, false, false);
+
+    Gtk::CheckButton dont_show_check(_("Don't show again"));
+    dont_show_check.set_halign(Gtk::ALIGN_START);
+
+    Gtk::ScrolledWindow scrolled_window;
+    Gtk::TreeView recent_view;
+    Glib::RefPtr<Gtk::ListStore> recent_model;
+    CtStartDialogColumns columns;
+
+    Gtk::Button* open_recent_button = nullptr;
+    if (remember_recent_docs && not recent_docs.empty()) {
+        Gtk::Label recent_label(_("Recent Documents"));
+        recent_label.set_xalign(0.0);
+        vbox.pack_start(recent_label, false, false);
+
+        recent_model = Gtk::ListStore::create(columns);
+        for (const fs::path& filepath : recent_docs) {
+            Gtk::TreeRow row = *recent_model->append();
+            const std::string filepath_str = filepath.string();
+            row[columns.name] = Glib::path_get_basename(filepath_str);
+            row[columns.path] = filepath_str;
+        }
+
+        recent_view.set_model(recent_model);
+        recent_view.set_headers_visible(true);
+        recent_view.append_column(_("Name"), columns.name);
+        recent_view.append_column(_("Path"), columns.path);
+        recent_view.get_selection()->set_mode(Gtk::SELECTION_SINGLE);
+
+        scrolled_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+        scrolled_window.set_size_request(-1, 180);
+        scrolled_window.add(recent_view);
+        vbox.pack_start(scrolled_window, true, true);
+
+        dialog.add_button(_("Open Selected"), RESPONSE_OPEN_RECENT);
+        open_recent_button = dynamic_cast<Gtk::Button*>(dialog.get_widget_for_response(RESPONSE_OPEN_RECENT));
+        if (open_recent_button) {
+            open_recent_button->set_sensitive(false);
+        }
+        recent_view.get_selection()->signal_changed().connect([&]() {
+            if (open_recent_button) {
+                open_recent_button->set_sensitive(recent_view.get_selection()->get_selected());
+            }
+        });
+        recent_view.signal_row_activated().connect([&](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*) {
+            dialog.response(RESPONSE_OPEN_RECENT);
+        });
+    }
+
+    vbox.pack_start(dont_show_check, false, false);
+    content->pack_start(vbox, true, true);
+    content->show_all();
+
+    CtStartDialogAction action = CtStartDialogAction::None;
+    const int response = dialog.run();
+    if (dont_show_check.get_active()) {
+        dont_show_again = true;
+    }
+
+    switch (response) {
+        case RESPONSE_NEW_DOC:
+            action = CtStartDialogAction::NewDoc;
+            break;
+        case RESPONSE_OPEN_FILE:
+            action = CtStartDialogAction::OpenFile;
+            break;
+        case RESPONSE_OPEN_FOLDER:
+            action = CtStartDialogAction::OpenFolder;
+            break;
+        case RESPONSE_OPEN_RECENT: {
+            if (recent_view.get_selection()) {
+                Gtk::TreeModel::iterator iter = recent_view.get_selection()->get_selected();
+                if (iter) {
+                    const Glib::ustring path = (*iter)[columns.path];
+                    recent_filepath = path.raw();
+                    action = CtStartDialogAction::OpenRecent;
+                }
+            }
+        } break;
+        default:
+            break;
+    }
+
+    return action;
+}
 
 void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 {
@@ -547,7 +677,7 @@ void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon
     auto dialog = Gtk::AboutDialog();
     dialog.set_program_name("CherryTree");
     dialog.set_version(CtConst::CT_VERSION);
-    dialog.set_copyright("Copyright © 2009-2025\n"
+    dialog.set_copyright("Copyright © 2009-2026\n"
                          "Giuseppe Penone <giuspen@gmail.com>\n"
                          "Evgenii Gurianov <https://github.com/txe>");
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));

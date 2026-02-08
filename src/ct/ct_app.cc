@@ -236,11 +236,14 @@ void CtApp::on_activate()
         if (_pCtConfig->checkVersion) {
             pAppWindow->get_ct_actions()->check_for_newer_version();
         }
+        pAppWindow->maybe_show_start_dialog();
     }
     else {
         // start of the second instance
         if (_new_window) {
-            _create_window()->present();
+            CtMainWin* new_window = _create_window();
+            new_window->present();
+            new_window->maybe_show_start_dialog();
         }
         else {
             Gtk::Window* any_shown_win = nullptr;
@@ -376,6 +379,7 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
     pCtMainWin->connect_app_new_instance([this]() {
         auto win = _create_window();
         win->present(); // explicitly show it because it can be hidden by start in systray
+        win->maybe_show_start_dialog();
     });
     pCtMainWin->connect_app_apply_for_each_window([this](std::function<void(CtMainWin*)> callback) {
         for (Gtk::Window* pWin : get_windows()) {

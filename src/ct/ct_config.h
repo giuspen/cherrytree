@@ -1,7 +1,7 @@
 /*
  * ct_config.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -254,6 +254,7 @@ public:
     bool                                        wordCountOn{false};
     bool                                        reloadDocLast{true};
     bool                                        rememberRecentDocs{true};
+    bool                                        showStartDialog{true};
     bool                                        winTitleShowDocDir{true};
     bool                                        nodeNameHeaderShowFullPath{true};
     bool                                        modTimeSentinel{false};

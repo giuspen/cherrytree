@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -448,6 +448,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "word_count", wordCountOn);
     _uKeyFile->set_boolean(_currentGroup, "reload_doc_last", reloadDocLast);
     _uKeyFile->set_boolean(_currentGroup, "recent_docs", rememberRecentDocs);
+    _uKeyFile->set_boolean(_currentGroup, "show_start_dialog", showStartDialog);
     _uKeyFile->set_boolean(_currentGroup, "win_title_doc_dir", winTitleShowDocDir);
     _uKeyFile->set_boolean(_currentGroup, "nn_header_full_path", nodeNameHeaderShowFullPath);
     _uKeyFile->set_boolean(_currentGroup, "mod_time_sentinel", modTimeSentinel);
@@ -809,6 +810,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("word_count", &wordCountOn);
     _populate_bool_from_keyfile("reload_doc_last", &reloadDocLast);
     _populate_bool_from_keyfile("recent_docs", &rememberRecentDocs);
+    _populate_bool_from_keyfile("show_start_dialog", &showStartDialog);
     _populate_bool_from_keyfile("win_title_doc_dir", &winTitleShowDocDir);
     _populate_bool_from_keyfile("nn_header_full_path", &nodeNameHeaderShowFullPath);
     _populate_bool_from_keyfile("mod_time_sentinel", &modTimeSentinel);

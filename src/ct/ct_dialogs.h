@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -25,6 +25,7 @@
 
 #include "ct_misc_utils.h"
 #include "ct_filesystem.h"
+#include "ct_types.h"
 #include <glibconfig.h>
 #include <gtkmm.h>
 #include <array>
@@ -169,6 +170,14 @@ private:
 };
 
 namespace CtDialogs {
+
+enum class CtStartDialogAction { None, NewDoc, OpenFile, OpenFolder, OpenRecent };
+
+CtStartDialogAction start_dialog(CtMainWin* pCtMainWin,
+                                 const CtRecentDocsFilepaths& recent_docs,
+                                 bool remember_recent_docs,
+                                 std::string& recent_filepath,
+                                 bool& dont_show_again);
 
 Gtk::TreeModel::iterator choose_item_dialog(Gtk::Window& parent,
                                  const Glib::ustring& title,

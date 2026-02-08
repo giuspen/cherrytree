@@ -36,7 +36,7 @@ void CtMainWin::init_app_actions_gtk4()
 /*
  * ct_main_win.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -67,6 +67,7 @@ void CtMainWin::init_app_actions_gtk4()
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_clipboard.h"
+#include "ct_dialogs.h"
 
 void CtStatusBar::new_cursor_pos(const int r, const int c)
 {
@@ -309,11 +310,20 @@ CtMainWin::CtMainWin(bool                            no_gui,
     config_apply();
 
     menu_set_items_recent_documents();
-    #if GTKMM_MAJOR_VERSION < 4
-    _uCtMenu->find_action("ct_vacuum")->signal_set_visible->emit(false);
+    #if GTKMM_MAJOR_VERSION >= 4
+    if (auto a = _uCtMenu->find_action("ct_vacuum")) {
+        if (a->signal_set_visible) {
+            a->signal_set_visible(false);
+        }
+    }
     #else
-    // GTK4: visibility handled via Gio::Action state elsewhere
+    if (auto a = _uCtMenu->find_action("ct_vacuum")) {
+        if (a->signal_set_visible) {
+            a->signal_set_visible->emit(false);
+        }
+    }
     #endif
+    menu_update_doc_path_menu_item();
     menu_top_optional_bookmarks_enforce();
 
     if (_no_gui) {
@@ -1066,6 +1076,79 @@ void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
 #endif
 }
 
+void CtMainWin::menu_update_doc_path_menu_item()
+{
+    if (auto action = _uCtMenu->find_action("doc_path_clip")) {
+#if GTKMM_MAJOR_VERSION >= 4
+        if (action->signal_set_visible) {
+            action->signal_set_visible(not _uCtStorage->get_file_path().empty());
+        }
+#else
+        if (action->signal_set_visible) {
+            action->signal_set_visible->emit(not _uCtStorage->get_file_path().empty());
+        }
+#endif
+    }
+}
+
+void CtMainWin::maybe_show_start_dialog()
+{
+    if (_startDialogShown || _no_gui || not _pCtConfig->showStartDialog) {
+        return;
+    }
+    if (not get_visible()) {
+        if (not _startDialogShowConn.connected()) {
+            _startDialogShowConn = signal_show().connect([this]() {
+                if (_startDialogShowConn.connected()) {
+                    _startDialogShowConn.disconnect();
+                }
+                maybe_show_start_dialog();
+            });
+        }
+        return;
+    }
+    if (not _uCtStorage->get_file_path().empty()) {
+        return;
+    }
+    if (get_tree_store().get_iter_first()) {
+        return;
+    }
+
+    _startDialogShown = true;
+    Glib::signal_idle().connect_once([this]() {
+        bool dont_show_again{false};
+        std::string recent_filepath;
+        CtDialogs::CtStartDialogAction action = CtDialogs::start_dialog(
+            this,
+            _pCtConfig->recentDocsFilepaths,
+            _pCtConfig->rememberRecentDocs,
+            recent_filepath,
+            dont_show_again);
+        if (dont_show_again) {
+            _pCtConfig->showStartDialog = false;
+        }
+        switch (action) {
+            case CtDialogs::CtStartDialogAction::NewDoc:
+                _uCtActions->node_add();
+                break;
+            case CtDialogs::CtStartDialogAction::OpenFile:
+                _uCtActions->file_open();
+                break;
+            case CtDialogs::CtStartDialogAction::OpenFolder:
+                _uCtActions->folder_open();
+                break;
+            case CtDialogs::CtStartDialogAction::OpenRecent:
+                if (not recent_filepath.empty()) {
+                    file_open(recent_filepath, ""/*node*/, ""/*anchor*/);
+                }
+                break;
+            case CtDialogs::CtStartDialogAction::None:
+            default:
+                break;
+        }
+    });
+}
+
 void CtMainWin::menu_set_bookmark_menu_items()
 {
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
@@ -1318,14 +1401,15 @@ void CtMainWin::reset()
     window_header_update_ghost_icon(false);
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
-        {
+    {
         auto a = _uCtMenu->find_action("ct_vacuum");
     #if GTKMM_MAJOR_VERSION >= 4
         if (a && a->signal_set_visible) a->signal_set_visible(false);
     #else
         if (a && a->signal_set_visible) a->signal_set_visible->emit(false);
     #endif
-        }
+    }
+    menu_update_doc_path_menu_item();
     menu_top_optional_bookmarks_enforce();
 
     update_window_save_not_needed();

@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -194,8 +194,11 @@ public:
     void window_header_update_bookmark_icon(const bool show);
 
     void menu_update_bookmark_menu_item(bool is_bookmarked);
+    void menu_update_doc_path_menu_item();
     void menu_set_bookmark_menu_items();
     void menu_top_optional_bookmarks_enforce();
+
+    void maybe_show_start_dialog();
 
     void menu_set_items_recent_documents();
     void menu_set_visible_exit_app(bool visible);
@@ -388,6 +391,7 @@ private:
     int                 _savedYpos{-1};
     sigc::connection    _autosave_timout_connection;
     sigc::connection    _mod_time_sentinel_timout_connection;
+    sigc::connection    _startDialogShowConn;
     bool                _tree_just_auto_expanded{false};
     std::unordered_map<gint64, int> _nodesCursorPos;
     std::unordered_map<gint64, int> _nodesVScrollPos;
@@ -400,6 +404,7 @@ private:
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 
     bool                _alwaysOnTop{false};
+    bool                _startDialogShown{false};
 
 public:
     // Unified signals for GTK3/GTK4

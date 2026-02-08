@@ -61,7 +61,7 @@ The following languages are supported (if you want to help translate to your lan
 – German (de, Mr.Update, up to date)
 – Greek (el, Asterios Siomos, up to date)
 – Hindi India (hi_IN, TO BE UPDATED)
-– Hungarian (hu, Stiener Norbert, TO BE UPDATED)
+– Hungarian (hu, Stiener Norbert, up to date)
 – Italian (it, Vincenzo Reale, up to date)
 – Japanese (ja, Piyo, up to date)
 – Kazakh (kk_KZ, Viktor Polyanskiy, up to date)

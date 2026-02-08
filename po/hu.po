@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-15 19:05+0100\n"
-"PO-Revision-Date: 2025-05-15 20:12+0200\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2026-02-05 20:45+0100\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -360,6 +360,15 @@ msgstr "Egész szó"
 msgid "Start Word"
 msgstr "Szó eleje"
 
+msgid "More Words, Exact Match"
+msgstr "Több szó, pontos egyezés"
+
+msgid "More Words, Disregard Order"
+msgstr "Több szó, sorrend figyelmen kívül"
+
+msgid "More Words, Match Any"
+msgstr "Több szó, bármely egyezés"
+
 msgid "Forward"
 msgstr "Előre"
 
@@ -650,6 +659,21 @@ msgstr "Tálcaikon"
 msgid "Language"
 msgstr "Nyelv"
 
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Felhasználónév"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "Proxy"
+msgstr "Proxy"
+
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Megjelent a tálcaikon?"
 
@@ -701,7 +725,7 @@ msgid "Height"
 msgstr "Magasság"
 
 msgid "Automatic Syntax Highlighting"
-msgstr "Automatikus szintaxiskiemelés"
+msgstr "Automatikus szintaxis kiemelés"
 
 msgid "Type"
 msgstr "Típus"
@@ -932,7 +956,7 @@ msgid ""
 "Highlighting"
 msgstr ""
 "Egy hierarchikus jegyzetkészítő applikáció Rich Text támogatással és "
-"szintaxiskiemeléssel"
+"szintaxis kiemeléssel"
 
 msgid ""
 "\n"
@@ -1103,6 +1127,16 @@ msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
 "Figyelmeztetés: Egy vagy több kép át lett méretezve, hogy elférjen a lapon."
 
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "A megjeleníthető csomópont előzmények száma nem növelhető tovább."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "A megjeleníthető csomópont előzmények száma nem csökkenthető tovább."
+
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Az eszköztár ikonjai nem növelhetők tovább."
 
@@ -1144,11 +1178,11 @@ msgstr "Keresés a csomópontban..."
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "A(z) \"%s\" kifejezés <b>nem található!</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."
+msgid "Replace in Multiple Nodes"
+msgstr "Csere az összes (keresésből nem kizárt) csomópontban"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Keresés az összes (keresésből nem kizárt) csomópontban..."
+msgid "Search in Multiple Nodes"
+msgstr "Keresés az összes (keresésből nem kizárt) csomópontban"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr "Ebben a munkamenetben még nem történt keresés."
@@ -1216,6 +1250,9 @@ msgstr "Menüsáv a címsávban"
 msgid "Toolbar Icons Size"
 msgstr "Eszköztár ikonok mérete"
 
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Csomópont előzmények száma a navigációs sávban"
+
 msgid "Scrollbar Slider Minimum Size (0 = System Default)"
 msgstr "Görgetősáv minimális mérete (0 = rendszer alapért.)"
 
@@ -1254,6 +1291,9 @@ msgstr "Egyedi parancsok"
 
 msgid "Colors"
 msgstr "Színek"
+
+msgid "Double Click for Link Action"
+msgstr "Hivatkozások megnyitása dupla kattintással"
 
 msgid "Underline Links"
 msgstr "Hivatkozások aláhúzása"
@@ -1379,10 +1419,11 @@ msgid "Node Properties"
 msgstr "Csomópont tulajdonságai"
 
 msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"A Rich Text-ről való átállással minden formázás elveszik.\n"
+"Az automatikus szintaxis kiemelés használatával minden Rich Text formázás "
+"elveszik.\n"
 "Biztosan folytatod?"
 
 #, c-format
@@ -1494,9 +1535,6 @@ msgstr "Csomópontra kattintáskor a fókusz áthelyezése a szövegszerkesztőr
 msgid "Expand Node at Mouse Click"
 msgstr "Csomópont kibontása kattintásra"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Csomópont előzmények száma a navigációs sávban"
-
 msgid "Enable Spell Check"
 msgstr "Helyesírás-ellenőrzés engedélyezése"
 
@@ -1527,6 +1565,9 @@ msgstr "Visszavonható lépések száma csomópontonként"
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr ""
 "CamelCase-ben írt szöveg automatikus hivatkozása az azonos nevű csomópontra"
+
+msgid "Auto Link URLs"
+msgstr "URL-ek automatikus hivatkozása"
 
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Tripla kattintásnál az egész bekezdés kijelölése"
@@ -1719,6 +1760,12 @@ msgstr "Beállítások exportálása"
 
 msgid "Tree In_fo"
 msgstr "Fa _tulajdonságai"
+
+msgid "_Document Path to Clipboard"
+msgstr "Dokumentum útvonal _másolása"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Dokumentum elérési útjának másolása vágólapra"
 
 msgid "E_xit CherryTree"
 msgstr "CherryTree _bezárása"
@@ -2176,17 +2223,17 @@ msgstr "_Apróbetűs"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Kijelölés apróbetűs stílusának változtatása"
 
-msgid "Toggle Su_perscript Property"
-msgstr "_Felső index"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Kijelölés felső indexének változtatása"
-
 msgid "Toggle Su_bscript Property"
 msgstr "_Alsó index"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Kijelölés alsó indexének változtatása"
+
+msgid "Toggle Su_perscript Property"
+msgstr "_Felső index"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Kijelölés felső indexének változtatása"
 
 msgid "Toggle _Monospace Property"
 msgstr "_Monospace"
@@ -2393,12 +2440,13 @@ msgid "Copy Link to the Selected Node to Clipboard"
 msgstr "A kijelölt csomópont hivatkozásának másolása vágólapra"
 
 msgid "Children _Inherit Syntax"
-msgstr "_Szintaxiskiemelés örökítése"
+msgstr "_Szintaxis kiemelés örökítése"
 
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
-msgstr "Az alcsomópontok megkapják a csomópont szintaxiskiemelési beállításait"
+msgstr ""
+"Az alcsomópontok megkapják a csomópont szintaxis kiemelési beállításait"
 
 msgid "_Handle Bookmarks..."
 msgstr "Könyvjelzők k_ezelése..."
@@ -2536,9 +2584,6 @@ msgstr "Csere a kijelölt csomópont tartalmában"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Csere az összes (keresésből nem kizárt) csomópontban"
-
 msgid "Replace A_gain"
 msgstr "Csere _újra"
 
@@ -2625,6 +2670,20 @@ msgstr "Eszköztár ikonok _kicsinyítése"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Eszköztár ikonok méretének csökkentése"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "_Több csomópont előzmény a navigációs sávban"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"A navigációs sávban megjelenített csomópont előzmények számának növelése"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "_Kevesebb csomópont előzmény a navigációs sávban"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr ""
+"A navigációs sávban megjelenített csomópont előzmények számának csökkentése"
 
 msgid "Full Screen _On/Off"
 msgstr "Teljes képernyő ki/be"
@@ -3001,6 +3060,12 @@ msgstr "Leo dokumentum"
 msgid "Are you sure to Reset to Default?"
 msgstr "Biztosan visszaállítod az alapértelmezett beállításokat?"
 
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Keresés az összes (keresésből nem kizárt) csomópontban..."
+
 #~ msgid "Insert T_OC..."
 #~ msgstr "T_artalomjegyzék beszúrása..."
 
@@ -3028,9 +3093,6 @@ msgstr "Biztosan visszaállítod az alapértelmezett beállításokat?"
 
 #~ msgid "Not Protected"
 #~ msgstr "nem titkosított"
-
-#~ msgid "Password Protected"
-#~ msgstr "jelszóval védett"
 
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "A(z) \"%s\" dokumentum nem található"
