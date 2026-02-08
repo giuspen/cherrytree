@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_misc.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -76,6 +76,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto vbox_misc_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton{_("Automatically Check for Newer Version")});
     auto checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton{_("Reload Document From Last Session")});
+    auto checkbutton_start_dialog = Gtk::manage(new Gtk::CheckButton{_("Show Start Dialog When No Document Is Loaded")});
     auto checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
     auto checkbutton_debug_log = Gtk::manage(new Gtk::CheckButton{_("Enable Debug Log")});
     auto file_chooser_button_debug_log_dir = Gtk::manage(new Gtk::FileChooserButton{_("Debug Log Directory"),
@@ -95,11 +96,13 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     hbox_debug_log->pack_start(*file_chooser_button_debug_log_dir);
     vbox_misc_misc->pack_start(*checkbutton_newer_version, false, false);
     vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_start_dialog, false, false);
     vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
     vbox_misc_misc->pack_start(*hbox_debug_log, false, false);
 
     checkbutton_newer_version->set_active(_pConfig->checkVersion);
     checkbutton_reload_doc_last->set_active(_pConfig->reloadDocLast);
+    checkbutton_start_dialog->set_active(_pConfig->showStartDialog);
     checkbutton_mod_time_sentinel->set_active(_pConfig->modTimeSentinel);
 
     Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
@@ -258,6 +261,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     });
     checkbutton_reload_doc_last->signal_toggled().connect([this, checkbutton_reload_doc_last](){
         _pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();
+    });
+    checkbutton_start_dialog->signal_toggled().connect([this, checkbutton_start_dialog](){
+        _pConfig->showStartDialog = checkbutton_start_dialog->get_active();
     });
     checkbutton_mod_time_sentinel->signal_toggled().connect([this, checkbutton_mod_time_sentinel](){
         _pConfig->modTimeSentinel = checkbutton_mod_time_sentinel->get_active();

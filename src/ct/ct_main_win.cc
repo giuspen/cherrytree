@@ -25,6 +25,7 @@
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_clipboard.h"
+#include "ct_dialogs.h"
 
 void CtStatusBar::new_cursor_pos(const int r, const int c)
 {
@@ -626,6 +627,64 @@ void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
 void CtMainWin::menu_update_doc_path_menu_item()
 {
     _uCtMenu->find_action("doc_path_clip")->signal_set_visible.emit(not _uCtStorage->get_file_path().empty());
+}
+
+void CtMainWin::maybe_show_start_dialog()
+{
+    if (_startDialogShown || _no_gui || not _pCtConfig->showStartDialog) {
+        return;
+    }
+    if (not get_visible()) {
+        if (not _startDialogShowConn.connected()) {
+            _startDialogShowConn = signal_show().connect([this]() {
+                if (_startDialogShowConn.connected()) {
+                    _startDialogShowConn.disconnect();
+                }
+                maybe_show_start_dialog();
+            });
+        }
+        return;
+    }
+    if (not _uCtStorage->get_file_path().empty()) {
+        return;
+    }
+    if (get_tree_store().get_iter_first()) {
+        return;
+    }
+
+    _startDialogShown = true;
+    Glib::signal_idle().connect_once([this]() {
+        bool dont_show_again{false};
+        std::string recent_filepath;
+        CtDialogs::CtStartDialogAction action = CtDialogs::start_dialog(
+            this,
+            _pCtConfig->recentDocsFilepaths,
+            _pCtConfig->rememberRecentDocs,
+            recent_filepath,
+            dont_show_again);
+        if (dont_show_again) {
+            _pCtConfig->showStartDialog = false;
+        }
+        switch (action) {
+            case CtDialogs::CtStartDialogAction::NewDoc:
+                _uCtActions->node_add();
+                break;
+            case CtDialogs::CtStartDialogAction::OpenFile:
+                _uCtActions->file_open();
+                break;
+            case CtDialogs::CtStartDialogAction::OpenFolder:
+                _uCtActions->folder_open();
+                break;
+            case CtDialogs::CtStartDialogAction::OpenRecent:
+                if (not recent_filepath.empty()) {
+                    file_open(recent_filepath, ""/*node*/, ""/*anchor*/);
+                }
+                break;
+            case CtDialogs::CtStartDialogAction::None:
+            default:
+                break;
+        }
+    });
 }
 
 void CtMainWin::menu_set_bookmark_menu_items()

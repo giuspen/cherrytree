@@ -187,6 +187,8 @@ public:
     void menu_set_bookmark_menu_items();
     void menu_top_optional_bookmarks_enforce();
 
+    void maybe_show_start_dialog();
+
     void menu_set_items_recent_documents();
     void menu_set_visible_exit_app(bool visible);
     void menu_rebuild_toolbars(bool new_toolbar);
@@ -322,6 +324,7 @@ private:
     int                 _savedYpos{-1};
     sigc::connection    _autosave_timout_connection;
     sigc::connection    _mod_time_sentinel_timout_connection;
+    sigc::connection    _startDialogShowConn;
     bool                _tree_just_auto_expanded{false};
     std::unordered_map<gint64, int> _nodesCursorPos;
     std::unordered_map<gint64, int> _nodesVScrollPos;
@@ -330,6 +333,7 @@ private:
     std::string         _startOnSystray_delayedAnchorName;
     bool                _systrayCanHide{true};
     bool                _alwaysOnTop{false};
+    bool                _startDialogShown{false};
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

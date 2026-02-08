@@ -1,7 +1,7 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -370,6 +370,7 @@ void CtActions::preferences_import()
     _pCtConfig->wordCountOn = ctConfigImported.wordCountOn;
     _pCtConfig->reloadDocLast = ctConfigImported.reloadDocLast;
     _pCtConfig->rememberRecentDocs = ctConfigImported.rememberRecentDocs;
+    _pCtConfig->showStartDialog = ctConfigImported.showStartDialog;
     _pCtConfig->winTitleShowDocDir = ctConfigImported.winTitleShowDocDir;
     _pCtConfig->nodeNameHeaderShowFullPath = ctConfigImported.nodeNameHeaderShowFullPath;
     _pCtConfig->modTimeSentinel = ctConfigImported.modTimeSentinel;
