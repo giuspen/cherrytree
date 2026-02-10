@@ -24,6 +24,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <unordered_set>
 #include <optional>
 
 #include <glibmm/i18n.h>
@@ -235,6 +236,8 @@ private:
     bool _on_treeview_button_release_event(GdkEventButton* event);
     void _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
     void _on_treeview_row_activated(const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*);
+    void _on_treeview_row_expanded(const Gtk::TreeModel::iterator&, const Gtk::TreeModel::Path&);
+    void _on_treeview_row_collapsed(const Gtk::TreeModel::iterator&, const Gtk::TreeModel::Path&);
     bool _on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&);
     bool _on_treeview_key_press_event(GdkEventKey* event);
     bool _on_treeview_popup_menu();
@@ -266,6 +269,7 @@ private:
     void _ensure_curr_doc_in_recent_docs();
     void _zoom_tree(const std::optional<bool> is_increase);
     bool _try_move_focus_to_anchored_widget_if_on_it();
+    void _treeview_restore_expanded_descendants(const Gtk::TreeModel::iterator& iter);
 
 private:
     const bool                   _no_gui;
@@ -326,6 +330,8 @@ private:
     sigc::connection    _mod_time_sentinel_timout_connection;
     sigc::connection    _startDialogShowConn;
     bool                _tree_just_auto_expanded{false};
+    bool                _treeRestoreInProgress{false};
+    std::unordered_set<gint64> _treeExpandedNodeIds;
     std::unordered_map<gint64, int> _nodesCursorPos;
     std::unordered_map<gint64, int> _nodesVScrollPos;
     std::string         _startOnSystray_delayedFilepath;

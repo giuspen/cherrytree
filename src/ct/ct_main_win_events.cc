@@ -1,7 +1,7 @@
 /*
  * ct_main_win_events.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -167,6 +167,49 @@ void CtMainWin::_on_treeview_row_activated(const Gtk::TreeModel::Path& path, Gtk
         _uCtTreeview->collapse_row(path);
     else
         _uCtTreeview->expand_row(path, false);
+}
+
+void CtMainWin::_on_treeview_row_expanded(const Gtk::TreeModel::iterator& iter, const Gtk::TreeModel::Path&)
+{
+    if (not iter) {
+        return;
+    }
+    const gint64 node_id = iter->get_value(_uCtTreestore->get_columns().colNodeUniqueId);
+    _treeExpandedNodeIds.insert(node_id);
+    if (_treeRestoreInProgress) {
+        return;
+    }
+    _treeRestoreInProgress = true;
+    _treeview_restore_expanded_descendants(iter);
+    _treeRestoreInProgress = false;
+}
+
+void CtMainWin::_on_treeview_row_collapsed(const Gtk::TreeModel::iterator& iter, const Gtk::TreeModel::Path&)
+{
+    if (not iter) {
+        return;
+    }
+    const gint64 node_id = iter->get_value(_uCtTreestore->get_columns().colNodeUniqueId);
+    _treeExpandedNodeIds.erase(node_id);
+}
+
+void CtMainWin::_treeview_restore_expanded_descendants(const Gtk::TreeModel::iterator& iter)
+{
+    if (not iter) {
+        return;
+    }
+    const CtTreeModelColumns& columns = _uCtTreestore->get_columns();
+    const Gtk::TreeNodeChildren children = iter->children();
+    for (auto child_iter = children.begin(); child_iter != children.end(); ++child_iter) {
+        const gint64 node_id = child_iter->get_value(columns.colNodeUniqueId);
+        if (_treeExpandedNodeIds.count(node_id) > 0) {
+            Gtk::TreePath path = _uCtTreestore->get_path(child_iter);
+            if (not _uCtTreeview->row_expanded(path)) {
+                _uCtTreeview->expand_row(path, false);
+            }
+        }
+        _treeview_restore_expanded_descendants(child_iter);
+    }
 }
 
 bool CtMainWin::_on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&)

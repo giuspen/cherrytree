@@ -272,6 +272,8 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _prevTreeIter = CtTreeIter{};
     _nodesCursorPos.clear();
     _nodesVScrollPos.clear();
+    _treeExpandedNodeIds.clear();
+    _treeRestoreInProgress = false;
 
     _scrolledwindowTree.remove();
     _uCtTreeview.reset(new CtTreeView{_pCtConfig});
@@ -289,6 +291,8 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
     _uCtTreeview->signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_event_after));
     _uCtTreeview->signal_row_activated().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_row_activated));
+    _uCtTreeview->signal_row_expanded().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_row_expanded));
+    _uCtTreeview->signal_row_collapsed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_row_collapsed));
     _uCtTreeview->signal_test_collapse_row().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_test_collapse_row));
     _uCtTreeview->signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
     _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
