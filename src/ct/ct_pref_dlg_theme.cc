@@ -40,9 +40,9 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 #if GTKMM_MAJOR_VERSION >= 4
     auto radiobutton_tt_col_light = Gtk::manage(new Gtk::CheckButton{_("Light Background, Dark Text")});
     auto radiobutton_tt_col_dark = Gtk::manage(new Gtk::CheckButton{_("Dark Background, Light Text")});
-    radiobutton_tt_col_dark->set_group(radiobutton_tt_col_light->get_group());
+    radiobutton_tt_col_dark->set_group(*radiobutton_tt_col_light);
     auto radiobutton_tt_col_custom = Gtk::manage(new Gtk::CheckButton{_("Custom Background")});
-    radiobutton_tt_col_custom->set_group(radiobutton_tt_col_light->get_group());
+    radiobutton_tt_col_custom->set_group(*radiobutton_tt_col_light);
     auto hbox_tt_col_custom = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4/*spacing*/});
 #else
     auto radiobutton_tt_col_light = Gtk::manage(new Gtk::RadioButton{_("Light Background, Dark Text")});

@@ -1,7 +1,9 @@
-﻿#if GTKMM_MAJOR_VERSION >= 4
+﻿#include "ct_main_win.h"
+
+#if GTKMM_MAJOR_VERSION >= 4
 void CtMainWin::init_app_actions_gtk4()
 {
-    auto app = Glib::RefPtr<Gtk::Application>::cast_dynamic(Gtk::Application::get_default());
+    auto app = std::dynamic_pointer_cast<Gtk::Application>(Gtk::Application::get_default());
     if (!app) return;
 
     // Register application actions and accelerators for all actions

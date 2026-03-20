@@ -26,6 +26,11 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_toolbar()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    auto box = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 6/*spacing*/});
+    box->append(*Gtk::manage(new Gtk::Label{_("Toolbar preferences are temporarily limited in GTK4 build.")}));
+    return box;
+#else
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_toolbarModelColumns);
     fill_toolbar_model(liststore);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
@@ -109,6 +114,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     button_remove_test_sensitive();
 
     return pMainBox;
+#endif
 }
 
 void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
@@ -123,13 +129,13 @@ void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
 void CtPrefDlg::populate_row_in_toolbar_model(Gtk::TreeModel::iterator row, const Glib::ustring& key)
 {
     Glib::ustring icon, desc;
-    if (key == CtConst::TAG_SEPARATOR) {
+    if (key == Glib::ustring{CtConst::TAG_SEPARATOR}) {
         desc = CtConst::TAG_SEPARATOR_ANSI_REPR;
     }
-    else if (key == CtConst::TOOLBAR_SPLIT) {
+    else if (key == Glib::ustring{CtConst::TOOLBAR_SPLIT}) {
         desc = _("Split Toolbar");
     }
-    else if (key == CtConst::CHAR_STAR) {
+    else if (key == Glib::ustring{CtConst::CHAR_STAR}) {
         icon = "ct_open";
         desc = _("Open a CherryTree File");
     }
@@ -144,6 +150,11 @@ void CtPrefDlg::populate_row_in_toolbar_model(Gtk::TreeModel::iterator row, cons
 
 bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)treeview;
+    (void)model;
+    return false;
+#else
     auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
     itemStore->add_row("", CtConst::TOOLBAR_SPLIT, _("Split Toolbar"));
@@ -177,6 +188,7 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
         return true;
     }
     return false;
+#endif
 }
 
 void CtPrefDlg::update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model)

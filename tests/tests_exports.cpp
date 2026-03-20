@@ -29,7 +29,11 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp()
+#if GTKMM_MAJOR_VERSION >= 4
+     : CtApp{"_test_exports", Gio::Application::Flags::NON_UNIQUE}
+#else
      : CtApp{"_test_exports", Gio::APPLICATION_NON_UNIQUE}
+#endif
     {
         _no_gui = true;
         _on_startup(); // so that _uCtTmp is ready straight away

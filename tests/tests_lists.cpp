@@ -67,7 +67,11 @@ TEST(ListsGroup, CtListInfo_2)
     pTextBuffer->set_text(bufferContent_2);
     const std::string tagName{CtConst::TAG_WEIGHT + CtConst::CHAR_USCORE + CtConst::TAG_PROP_VAL_HEAVY};
     auto pTextTag = Gtk::TextTag::create(tagName);
+#if GTKMM_MAJOR_VERSION >= 4
+    pTextTag->property_weight() = Pango::Weight::HEAVY;
+#else
     pTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
+#endif
     pTextTagTable->add(pTextTag);
     pTextBuffer->apply_tag_by_name(tagName,
                                    pTextBuffer->get_iter_at_offset(23),

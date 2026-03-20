@@ -35,7 +35,12 @@ namespace {
 std::vector<std::string> split_rednotebook_html_nodes(const std::string& input)
 {
     static const auto reg = Glib::Regex::create("<p>[\\S\\s]<span id=\"(?:[12]\\d{3}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))\"></span>[\\S\\s]</p>");
-    std::vector<std::string> out = reg->split(input);
+    std::vector<Glib::ustring> split_u = reg->split(Glib::ustring{input});
+    std::vector<std::string> out;
+    out.reserve(split_u.size());
+    for (const auto& part : split_u) {
+        out.emplace_back(part.raw());
+    }
     return out;
 }
 
@@ -438,7 +443,7 @@ void CtHtml2Xml::handle_data(const std::string& text)
     Glib::ustring clean_data;
     if (_html_a_tag_counter > 0) clean_data = str::replace(text, CtConst::CHAR_NEWLINE, CtConst::CHAR_SPACE);
     else                         clean_data = str::replace(text, CtConst::CHAR_NEWLINE, "");
-    if (clean_data.empty() || clean_data == CtConst::CHAR_TAB)
+    if (clean_data.empty() || clean_data == Glib::ustring{CtConst::CHAR_TAB})
         return;
     if (_state == ParserState::PARSING_BODY) {
         clean_data = str::replace(clean_data, CtConst::CHAR_TAB, CtConst::CHAR_SPACE);
@@ -789,7 +794,12 @@ std::vector<CtNoteCaseHTMLParser::notecase_split_output> CtNoteCaseHTMLParser::_
      * as anchor points for links). Links are not handled because they require a pro version.
      */
     static const auto reg = Glib::Regex::create("<DT style=\"font-weight: bold;\"><A name=\"[a-z|A-Z|0-9]{22}\"></A>([\\S\\s]*?)</DT>");
-    std::vector<std::string> split_strs = reg->split(input);
+    std::vector<Glib::ustring> split_u = reg->split(Glib::ustring{input});
+    std::vector<std::string> split_strs;
+    split_strs.reserve(split_u.size());
+    for (const auto& part : split_u) {
+        split_strs.emplace_back(part.raw());
+    }
     return _handle_notecase_split_strings(split_strs.cbegin() + 1, split_strs.cend());
 }
 

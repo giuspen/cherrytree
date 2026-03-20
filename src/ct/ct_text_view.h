@@ -123,8 +123,8 @@ private:
     #else
     // GTK4 drag & drop handled via event controllers (DragSource/DropTarget)
     void _setup_drag_and_drop_gtk4();
-    void _on_drag_source_prepare_gtk4(Gdk::Drag& drag);
-    void _on_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y);
+    void _on_drag_source_prepare_gtk4(const Glib::RefPtr<Gdk::Drag>& drag);
+    bool _on_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y);
     // GTK4 controller refs and state for internal rich text drag
     Glib::RefPtr<Gtk::DragSource> _dragSource4;
     Glib::RefPtr<Gtk::DropTarget> _dropTarget4;

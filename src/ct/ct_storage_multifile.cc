@@ -472,7 +472,11 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                                                     const std::string& dir_path,
                                                     const std::string& file_ext)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    const std::string sha256sum = Glib::Checksum::compute_checksum(Glib::Checksum::Type::SHA256, rawBlob);
+#else
     const std::string sha256sum = Glib::Checksum::compute_checksum(Glib::Checksum::ChecksumType::CHECKSUM_SHA256, rawBlob);
+#endif
     const std::string sha256sum_ext = sha256sum + file_ext;
     const std::string filepath = Glib::build_filename(dir_path, sha256sum_ext);
     if (not Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR)) {
@@ -502,7 +506,7 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
         }
     }
     catch (Glib::Error& error) {
-        spdlog::error("{} {}", __FUNCTION__, error.what().raw());
+        spdlog::error("{} {}", __FUNCTION__, std::string(error.what()));
     }
     return false;
 }

@@ -81,6 +81,7 @@ void CtTableCommon::set_current_row_column(const size_t rowIdx, const size_t col
     }
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtTableCommon::on_table_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
@@ -219,6 +220,7 @@ bool CtTableCommon::on_cell_key_press_event(GdkEventKey* event)
     }
     return false;
 }
+#endif
 
 /*static*/void CtTableCommon::populate_table_matrix_from_csv(const std::string& filepath,
                                                              CtMainWin* main_win,
@@ -350,13 +352,20 @@ CtTableHeavy::CtTableHeavy(CtMainWin* pCtMainWin,
 
     _grid.set_column_spacing(1);
     _grid.set_row_spacing(1);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _grid.signal_button_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_table_button_press_event), false);
     _grid.signal_set_focus_child().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_grid_set_focus_child));
+#endif
 
     _frame.get_style_context()->add_class("ct-table");
+#if GTKMM_MAJOR_VERSION >= 4
+    _frame.set_child(_grid);
+    show();
+#else
     _frame.add(_grid);
     _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtTableHeavy::_on_frame_size_allocate));
     show_all();
+#endif
 }
 
 CtTableHeavy::~CtTableHeavy()
@@ -390,8 +399,10 @@ void CtTableHeavy::_new_text_cell_attach(const size_t rowIdx, const size_t colId
     if (is_header) {
         _apply_remove_header_style(true/*isApply*/, ctTextView);
     }
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
     textView.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_key_press_event), false);
+#endif
 
     _grid.attach(pTextCell->get_text_view().mm(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
 
@@ -562,14 +573,24 @@ void CtTableHeavy::_apply_remove_header_style(const bool isApply, CtTextView& te
     if (isApply) {
         if (not rStyleContext->has_class(headerStyle)) {
             rStyleContext->add_class(headerStyle);
-            textView.mm().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+            textView.mm().set_wrap_mode(
+#if GTKMM_MAJOR_VERSION >= 4
+                Gtk::WrapMode::NONE
+#else
+                Gtk::WrapMode::WRAP_NONE
+#endif
+            );
         }
     }
     else {
         if (rStyleContext->has_class(headerStyle)) {
             rStyleContext->remove_class(headerStyle);
             textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ?
+#if GTKMM_MAJOR_VERSION >= 4
+                                        Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE);
+#else
                                         Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+#endif
         }
     }
 }

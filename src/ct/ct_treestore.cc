@@ -762,7 +762,11 @@ void CtTreeStore::pending_edit_db_bookmarks()
 
 void CtTreeStore::_iter_delete_anchored_widgets(const Gtk::TreeModel::Children& children)
 {
-    for (Gtk::TreeModel::iterator treeIter = children.begin(); treeIter != children.end(); ++treeIter) {
+    for (auto const_iter = children.begin(); const_iter != children.end(); ++const_iter) {
+        Gtk::TreeModel::iterator treeIter = _rTreeStore->get_iter(_rTreeStore->get_path(const_iter));
+        if (not treeIter) {
+            continue;
+        }
         Gtk::TreeRow row = *treeIter;
         // only the master deletes the widgets
         if (row.get_value(_columns.colSharedNodesMasterId) <= 0) {
@@ -862,8 +866,8 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
             pTVCol0->add_attribute(pCellRendererText->property_weight(), _columns.colWeight);
             pTVCol0->set_cell_data_func(
                 *pCellRendererText,
-                [this](Gtk::CellRenderer* pCell, const Gtk::TreeModel::iterator& treeIter){
-                    Gtk::TreeRow row = *treeIter;
+                [this](Gtk::CellRenderer* pCell, const auto& treeIter){
+                    const auto row = *treeIter;
                     if (row.get_value(_columns.colForeground).empty()) {
                         dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = _pCtMainWin->get_ct_config()->ttDefFg;
                     }
@@ -930,7 +934,9 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
         }
     }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     textView.show_all();
+#endif
     // we shouldn't lose focus from TREE because TREE shortcuts/arrays movement stop working
     // pTextView->grab_focus();
 
@@ -940,7 +946,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 
     // connect signals
     _curr_node_sigc_conn.push_back(
-        pTextBuffer->signal_modified_changed().connect(sigc::bind<Glib::RefPtr<Gtk::TextBuffer>>(
+        pTextBuffer->signal_modified_changed().connect(sigc::bind(
             sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_modified_changed), pTextBuffer
         ))
     );
@@ -1085,8 +1091,13 @@ void CtTreeStore::update_nodes_icon(Gtk::TreeModel::iterator father_iter, bool c
     if (father_iter) {
         update_node_icon(father_iter);
     }
-    for (auto& child : father_iter ? father_iter->children() : _rTreeStore->children()) {
-        update_nodes_icon(child, cherry_only);
+    auto children = father_iter ? father_iter->children() : _rTreeStore->children();
+    for (auto child_const_iter = children.begin(); child_const_iter != children.end(); ++child_const_iter)
+    {
+        Gtk::TreeModel::iterator child_iter = _rTreeStore->get_iter(_rTreeStore->get_path(child_const_iter));
+        if (child_iter) {
+            update_nodes_icon(child_iter, cherry_only);
+        }
     }
 }
 
@@ -1375,7 +1386,9 @@ Gtk::TreeModel::iterator CtTreeStore::get_tree_iter_last_sibling(const Gtk::Tree
     if (children.empty()) {
         return Gtk::TreeModel::iterator{};
     }
-    return --children.end();
+    auto const_iter = children.end();
+    --const_iter;
+    return _rTreeStore->get_iter(_rTreeStore->get_path(const_iter));
 }
 
 Gtk::TreePath CtTreeStore::get_path(Gtk::TreeModel::iterator tree_iter)
@@ -1397,7 +1410,11 @@ void CtTreeStore::nodes_sequences_fix(Gtk::TreeModel::iterator father_iter,  boo
 {
     auto children = father_iter ? father_iter->children() : _rTreeStore->children();
     gint64 node_sequence = 0;
-    for (auto& child : children) {
+    for (auto const_iter = children.begin(); const_iter != children.end(); ++const_iter) {
+        Gtk::TreeModel::iterator child = _rTreeStore->get_iter(_rTreeStore->get_path(const_iter));
+        if (not child) {
+            continue;
+        }
         ++node_sequence;
         auto ct_child = to_ct_tree_iter(child);
         if (ct_child.get_node_sequence() != node_sequence) {

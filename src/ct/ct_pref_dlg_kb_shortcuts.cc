@@ -38,7 +38,11 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
     // icon column
     Gtk::CellRendererPixbuf pixbuf_renderer;
+#if GTKMM_MAJOR_VERSION >= 4
+    pixbuf_renderer.property_icon_size() = Gtk::IconSize::LARGE;
+#else
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+#endif
     const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
     treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
     // shortcut column
@@ -139,8 +143,10 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
             f_after_treestore_changes();
         }
     });
-    treeview->signal_row_activated().connect([button_edit](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*){
-        button_edit->clicked();
+    treeview->signal_row_activated().connect([this, treeview, f_after_treestore_changes](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*){
+        if (edit_shortcut(treeview)) {
+            f_after_treestore_changes();
+        }
     });
     auto button_edit_test_sensitive = [this, button_edit, treeview](){
         auto iter_sel = treeview->get_selection()->get_selected();
@@ -191,8 +197,13 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut, const std::string& d
     #endif
         };
 
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::ResponseType::REJECT, "ct_cancel");
+    (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::ResponseType::ACCEPT, "ct_done", true/*isDefault*/);
+#else
     (void)CtMiscUtil::dialog_add_button(&dialog, _("Cancel"), Gtk::RESPONSE_REJECT, "ct_cancel");
     (void)CtMiscUtil::dialog_add_button(&dialog, _("OK"), Gtk::RESPONSE_ACCEPT, "ct_done", true/*isDefault*/);
+#endif
 
     
 #if GTKMM_MAJOR_VERSION >= 4
@@ -320,7 +331,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut, const std::string& d
     // For GTK4, use synchronous wait on response via a local flag.
     bool accepted = false;
     dialog.signal_response().connect([&](int response){
-        accepted = (response == (int)Gtk::ResponseType::OK);
+        accepted = (response == static_cast<int>(Gtk::ResponseType::ACCEPT));
         dialog.hide();
     });
     dialog.present();

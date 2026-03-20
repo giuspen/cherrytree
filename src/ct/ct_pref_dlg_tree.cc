@@ -26,6 +26,11 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_tree()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    auto box = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 6/*spacing*/});
+    box->append(*Gtk::manage(new Gtk::Label{_("Tree preferences are temporarily limited in GTK4 build.")}));
+    return box;
+#else
     auto vbox_nodes_icons = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
     auto radiobutton_node_icon_cherry = Gtk::manage(new Gtk::RadioButton{_("Use Different Cherries per Level")});
@@ -187,4 +192,5 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     });
 
     return pMainBox;
+#endif
 }

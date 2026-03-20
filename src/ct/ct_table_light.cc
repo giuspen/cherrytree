@@ -83,13 +83,19 @@ void CtTableLight::_reset(CtTableMatrix& tableMatrix)
     CtTableLight::_free_matrix(tableMatrix);
 
     if (_pManagedTreeView) {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         _frame.remove();
+#endif
         delete _pManagedTreeView;
     }
     _pManagedTreeView = Gtk::manage(new Gtk::TreeView{_pListStore});
     _pManagedTreeView->set_headers_visible(false);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _pManagedTreeView->set_grid_lines(Gtk::TreeViewGridLines::TREE_VIEW_GRID_LINES_BOTH);
-    _pManagedTreeView->get_selection()->set_mode(Gtk::SelectionMode::SELECTION_NONE);
+    _pManagedTreeView->get_selection()->set_mode(Gtk::SELECTION_NONE);
+#else
+    _pManagedTreeView->get_selection()->set_mode(Gtk::SelectionMode::NONE);
+#endif
     for (size_t c = 0u; c < numColumns; ++c) {
         const int width = get_col_width(c);
         _pManagedTreeView->append_column_editable(""/*header*/, _pColumns->columnsText.at(c));
@@ -98,20 +104,32 @@ void CtTableLight::_reset(CtTableMatrix& tableMatrix)
             auto pCellRendererText = static_cast<Gtk::CellRendererText*>(pTVColumn->get_first_cell());
             pTVColumn->add_attribute(pCellRendererText->property_weight(), _pColumns->columnWeight);
             pCellRendererText->property_wrap_width() = width;
-            pCellRendererText->property_wrap_mode() = Pango::WrapMode::WRAP_WORD_CHAR;
+            pCellRendererText->property_wrap_mode() =
+#if GTKMM_MAJOR_VERSION >= 4
+                Pango::WrapMode::WORD_CHAR;
+#else
+                Pango::WrapMode::WRAP_WORD_CHAR;
             pTVColumn->property_sizing() = Gtk::TREE_VIEW_COLUMN_AUTOSIZE;
+#endif
             pTVColumn->property_min_width() = width/2;
-            pCellRendererText->signal_edited().connect(sigc::bind<size_t>(sigc::mem_fun(*this, &CtTableLight::_on_cell_renderer_text_edited), c), false);
-            pCellRendererText->signal_editing_started().connect(sigc::bind<size_t>(sigc::mem_fun(*this, &CtTableLight::_on_cell_renderer_editing_started), c), false);
+            pCellRendererText->signal_edited().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_cell_renderer_text_edited), c), false);
+            pCellRendererText->signal_editing_started().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_cell_renderer_editing_started), c), false);
         }
     }
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _pManagedTreeView->signal_button_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_table_button_press_event), false);
     _pManagedTreeView->signal_event_after().connect(sigc::mem_fun(*this, &CtTableLight::_on_treeview_event_after));
+#endif
 
     _pManagedTreeView->get_style_context()->add_class("ct-table-light");
 
+#if GTKMM_MAJOR_VERSION >= 4
+    _frame.set_child(*_pManagedTreeView);
+    show();
+#else
     _frame.add(*_pManagedTreeView);
     show_all();
+#endif
 }
 
 void CtTableLight::_on_cell_renderer_text_edited(const Glib::ustring& path, const Glib::ustring& new_text, const size_t column)
@@ -119,7 +137,8 @@ void CtTableLight::_on_cell_renderer_text_edited(const Glib::ustring& path, cons
     Gtk::TreeModel::iterator treeIter{_pListStore->get_iter(path)};
     if (treeIter) {
         Gtk::TreeRow treeRow{*treeIter};
-        if (treeRow[_pColumns->columnsText.at(column)] != new_text) {
+        const Glib::ustring old_text = treeRow.get_value(_pColumns->columnsText.at(column));
+        if (old_text != new_text) {
             treeRow[_pColumns->columnsText.at(column)] = new_text;
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
         }
@@ -137,12 +156,15 @@ void CtTableLight::_on_cell_renderer_editing_started(Gtk::CellEditable* editable
         }
         _currentRow = std::stoi(path.raw());
         _currentColumn = column;
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         _pEditingCellEntry->signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
         _pEditingCellEntry->signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_key_press_event), false);
         _pEditingCellEntry->signal_focus_out_event().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_focus_out_event), _pEditingCellEntry, path, column));
+#endif
     }
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtTableLight::_on_entry_focus_out_event(GdkEventFocus*/*gdk_event*/, Gtk::Entry* pEntry, const Glib::ustring& path, const size_t column)
 {
     if (_pCtMainWin->user_active()) {
@@ -151,6 +173,7 @@ bool CtTableLight::_on_entry_focus_out_event(GdkEventFocus*/*gdk_event*/, Gtk::E
     _pEditingCellEntry = nullptr;
     return false;
 }
+#endif
 
 void CtTableLight::write_strings_matrix(std::vector<std::vector<Glib::ustring>>& rows) const
 {
@@ -240,15 +263,8 @@ void CtTableLight::row_delete(const size_t rowIdx)
     for (size_t r = 0; r < rowIdx && const_iter; ++r) ++const_iter;
     Gtk::TreeModel::iterator treeIter = const_iter ? _pListStore->get_iter(_pListStore->get_path(const_iter)) : Gtk::TreeModel::iterator{};
     #else
-    #if GTKMM_MAJOR_VERSION >= 4
-    auto children = _pListStore->children();
-    auto const_iter = children.begin();
-    for (size_t r = 0; r < rowIdx && const_iter; ++r) ++const_iter;
-    Gtk::TreeModel::iterator treeIter = const_iter ? _pListStore->get_iter(_pListStore->get_path(const_iter)) : Gtk::TreeModel::iterator{};
-    #else
     Gtk::TreePath treePath{std::to_string(rowIdx)};
     Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
-    #endif
     #endif
     if (not treeIter) {
         return;
@@ -296,14 +312,7 @@ void CtTableLight::row_move_up(const size_t rowIdx, const bool from_move_down)
     for (size_t r = 0; r < rowIdxUp && const_iter_up; ++r) ++const_iter_up;
     Gtk::TreeModel::iterator treeIterUp = const_iter_up ? _pListStore->get_iter(_pListStore->get_path(const_iter_up)) : Gtk::TreeModel::iterator{};
     #else
-    Gtk::TreePath treePath{std::to_string(rowIdx)};
-    Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(treePath);
-    #endif
-    #if GTKMM_MAJOR_VERSION >= 4
-    auto const_iter_up = children.begin();
-    for (size_t r = 0; r < rowIdxUp && const_iter_up; ++r) ++const_iter_up;
-    Gtk::TreeModel::iterator treeIterUp = const_iter_up ? _pListStore->get_iter(_pListStore->get_path(const_iter_up)) : Gtk::TreeModel::iterator{};
-    #else
+    Gtk::TreeModel::iterator treeIter = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdx)});
     Gtk::TreeModel::iterator treeIterUp = _pListStore->get_iter(Gtk::TreePath{std::to_string(rowIdxUp)});
     #endif
     if (not treeIter or not treeIterUp) {
@@ -624,6 +633,7 @@ Glib::ustring CtTableLight::get_line_content(const size_t rowIdx, const size_t c
     return CtTextIterUtil::get_line_content(cellText, match_end_offset);
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 void CtTableLight::_on_treeview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_BUTTON_PRESS and event->button.button == 1) {
@@ -653,3 +663,4 @@ void CtTableLight::_on_treeview_event_after(GdkEvent* event)
         }
     }
 }
+#endif

@@ -31,6 +31,8 @@ CtColumnEdit::CtColumnEdit(Gtk::TextView& textView)
 {
 }
 
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+
 Gdk::Point CtColumnEdit::_get_point(const Gtk::TextIter& textIter)
 {
     return Gdk::Point{textIter.get_line_offset(), textIter.get_line()};
@@ -571,3 +573,51 @@ void CtColumnEdit::selection_update()
         }
     }
 }
+
+#else
+
+Glib::ustring CtColumnEdit::copy() const
+{
+    return "";
+}
+
+Glib::ustring CtColumnEdit::cut()
+{
+    return "";
+}
+
+void CtColumnEdit::paste(const std::string& /*column_txt*/)
+{
+}
+
+void CtColumnEdit::button_1_released()
+{
+}
+
+void CtColumnEdit::text_inserted(const Gtk::TextIter& /*pos*/, const Glib::ustring& /*text*/)
+{
+}
+
+void CtColumnEdit::text_removed(const Gtk::TextIter& /*range_start*/, const Gtk::TextIter& /*range_end*/)
+{
+}
+
+void CtColumnEdit::column_mode_off()
+{
+    if (CtColEditState::Off != _state) {
+        _state = CtColEditState::Off;
+        if (_stateOnOffCallback) {
+            _stateOnOffCallback(false);
+        }
+    }
+}
+
+void CtColumnEdit::focus_in()
+{
+}
+
+void CtColumnEdit::selection_update()
+{
+}
+
+#endif

@@ -48,11 +48,21 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     gtk_source_view_set_insert_spaces_instead_of_tabs(_pGtkSourceView, _pCtConfig->spacesInsteadTabs);
     gtk_source_view_set_tab_width(_pGtkSourceView, (guint)_pCtConfig->tabsWidth);
     if (_pCtConfig->lineWrapping) {
+#if GTKMM_MAJOR_VERSION >= 4
+        _pTextView->set_wrap_mode(Gtk::WrapMode::WORD_CHAR);
+#else
         _pTextView->set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
+#endif
     }
     else {
+#if GTKMM_MAJOR_VERSION >= 4
+        _pTextView->set_wrap_mode(Gtk::WrapMode::NONE);
+#else
         _pTextView->set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+#endif
     }
+
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     for (const Gtk::TextWindowType& textWinType : std::list<Gtk::TextWindowType>{Gtk::TEXT_WINDOW_LEFT,
                                                                                  Gtk::TEXT_WINDOW_RIGHT,
                                                                                  Gtk::TEXT_WINDOW_TOP,
@@ -99,6 +109,7 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
         _columnEdit.focus_in();
         return false; /*propagate event*/
     }, false);
+#endif
 
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     std::vector<Gtk::TargetEntry> dest_targets;
@@ -331,6 +342,10 @@ void CtTextView::replace_text(const Glib::ustring& text, int start_offset, int e
 // Called after every Double Click with button 1 or 2
 void CtTextView::for_event_after_double_click_button12(GdkEvent* event)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)event;
+    return;
+#else
     auto text_buffer = get_buffer();
     int x, y;
     _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
@@ -369,11 +384,16 @@ void CtTextView::for_event_after_double_click_button12(GdkEvent* event)
         }
     }
     _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_iter);
+#endif
 }
 
 // Called after every Triple Click with button 1 or 2
 void CtTextView::for_event_after_triple_click_button12(GdkEvent* event)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)event;
+    return;
+#else
     if (_pCtConfig->tripleClickParagraph and
         _pCtMainWin->curr_tree_iter().get_node_is_rich_text() and
         get_todo_rotate_time() != event->button.time)
@@ -385,6 +405,7 @@ void CtTextView::for_event_after_triple_click_button12(GdkEvent* event)
         _pTextView->get_iter_at_location(iter_start, x, y);
         _pCtMainWin->apply_tag_try_automatic_bounds_paragraph(text_buffer, iter_start);
     }
+#endif
 }
 
 #ifdef MD_AUTO_REPLACEMENT
@@ -414,6 +435,10 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
 void CtTextView::for_event_after_button_press(GdkEvent* event)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)event;
+    return;
+#else
     auto text_buffer = get_buffer();
     if (event->button.button == 1 or event->button.button == 2) {
         int x, y, trailing;
@@ -467,11 +492,17 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         _pTextView->get_iter_at_location(text_iter, x, y);
         text_buffer->place_cursor(text_iter);
     }
+#endif
 }
 
 // Called after every gtk.gdk.KEY_PRESS on the SourceView
 void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring& syntaxHighlighting)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)event;
+    (void)syntaxHighlighting;
+    return;
+#else
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) {
         return;
     }
@@ -707,6 +738,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
         }
     }
+#endif
 }
 
 // Looks at all tags covering the position (x, y) in the text view
@@ -727,7 +759,9 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
          (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
     {
         if (CtList{_pCtConfig, get_buffer()}.is_list_todo_beginning(text_iter)) {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
+#endif
             _pTextView->set_tooltip_text("");
             return;
         }
@@ -773,7 +807,9 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         _pCtMainWin->hovering_link_iter_offset() = hovering_link_iter_offset;
     }
     if (_pCtMainWin->hovering_link_iter_offset() >= 0) {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::HAND2));
+#endif
         if (tooltip.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
             tooltip = tooltip.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
         }
@@ -787,13 +823,20 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 void CtTextView::cursor_and_tooltips_reset()
 {
     _pCtMainWin->hovering_link_iter_offset() = -1;
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::XTERM));
+#endif
     _pTextView->set_tooltip_text("");
 }
 
 // Increase or Decrease Text Font
 void CtTextView::zoom_text(const std::optional<bool> is_increase, const std::string& syntaxHighlighting)
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    (void)is_increase;
+    (void)syntaxHighlighting;
+    return;
+#else
     Glib::RefPtr<Gtk::StyleContext> pContext = _pTextView->get_style_context();
     const Pango::FontDescription fontDesc = pContext->get_font(pContext->get_state());
     const int size_pre = fontDesc.get_size() / Pango::SCALE;
@@ -888,12 +931,9 @@ void CtTextView::zoom_text(const std::optional<bool> is_increase, const std::str
         else {
             _pCtConfig->codeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->codeFont), size_new);
         }
-#if GTKMM_MAJOR_VERSION >= 4
-        _pCtMainWin->signal_app_apply_for_each_window->emit([](CtMainWin* win) { win->update_theme(); });
-#else
         _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-#endif
     }
+#endif
 }
 
 void CtTextView::set_spell_check(bool allow_on)
@@ -1217,17 +1257,16 @@ void CtTextView::_setup_drag_and_drop_gtk4()
 {
     // DragSource: allow moving selected rich text within the buffer
     _dragSource4 = Gtk::DragSource::create();
-    _dragSource4->set_actions(Gdk::ACTION_MOVE | Gdk::ACTION_COPY);
+    _dragSource4->set_actions(Gdk::DragAction::MOVE | Gdk::DragAction::COPY);
     _dragSource4->signal_drag_begin().connect(sigc::mem_fun(*this, &CtTextView::_on_drag_source_prepare_gtk4));
-    add_controller(_dragSource4);
+    _pTextView->add_controller(_dragSource4);
 
     // DropTarget: accept plain text and uri list for external drops, plus internal rich text (string)
-    _dropTarget4 = Gtk::DropTarget::create(G_VALUE_TYPE(Glib::Value<Glib::ustring>().gobj()), Gdk::ACTION_MOVE | Gdk::ACTION_COPY);
-    _dropTarget4->signal_drop().connect(sigc::mem_fun(*this, &CtTextView::_on_drop_target_drop_gtk4));
-    add_controller(_dropTarget4);
+    _dropTarget4 = Gtk::DropTarget::create(G_TYPE_STRING, Gdk::DragAction::MOVE | Gdk::DragAction::COPY);
+    _pTextView->add_controller(_dropTarget4);
 }
 
-void CtTextView::_on_drag_source_prepare_gtk4(Gdk::Drag& /*drag*/)
+void CtTextView::_on_drag_source_prepare_gtk4(const Glib::RefPtr<Gdk::Drag>& /*drag*/)
 {
     auto text_buffer = get_buffer();
     if (!(text_buffer && text_buffer->get_has_selection())) {
@@ -1244,14 +1283,14 @@ void CtTextView::_on_drag_source_prepare_gtk4(Gdk::Drag& /*drag*/)
         _pCtMainWin->curr_tree_iter(), text_buffer, drag_start_iter, drag_end_iter);
 }
 
-void CtTextView::_on_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y)
+bool CtTextView::_on_drop_target_drop_gtk4(const Glib::ValueBase& value, double x, double y)
 {
     auto text_buffer = get_buffer();
-    if (!text_buffer) return;
+    if (!text_buffer) return false;
 
-    Gtk::TextIter drop_iter; int trailing; int xb, yb;
-    _pTextView->window_to_buffer_coords(Gtk::TEXT_WINDOW_WIDGET, (int)x, (int)y, xb, yb);
-    _pTextView->get_iter_at_position(drop_iter, trailing, xb, yb);
+    Gtk::TextIter drop_iter;
+    int trailing;
+    _pTextView->get_iter_at_position(drop_iter, trailing, (int)x, (int)y);
     if (trailing > 0) drop_iter.forward_char();
     text_buffer->place_cursor(drop_iter);
 
@@ -1271,16 +1310,13 @@ void CtTextView::_on_drop_target_drop_gtk4(const Glib::ValueBase& value, double 
         clipboard_logic_provider.from_xml_string_to_buffer(text_buffer, _drag_serialized_rich_text4, nullptr);
         _is_internal_drag4 = false;
         _drag_serialized_rich_text4.clear();
-        return;
+        return true;
     }
 
     // External plain text / URI list simplified handling
     if (G_VALUE_HOLDS(value.gobj(), G_TYPE_STRING)) {
-        Glib::ustring data;
-        Glib::Value<Glib::ustring> valStr;
-        valStr.init(value.gobj()->g_type);
-        valStr = value;
-        data = valStr.get();
+        const gchar* p_data = g_value_get_string(value.gobj());
+        const Glib::ustring data = p_data ? p_data : "";
         if (data.find("\n") != Glib::ustring::npos && data.find("://") != Glib::ustring::npos) {
             // Treat as uri-list (newline separated)
             CtClipboard{_pCtMainWin}.on_received_to_uri_list_gtk4(data, _pTextView, false, true);
@@ -1288,5 +1324,6 @@ void CtTextView::_on_drop_target_drop_gtk4(const Glib::ValueBase& value, double 
             text_buffer->insert_at_cursor(data);
         }
     }
+    return true;
 }
 #endif

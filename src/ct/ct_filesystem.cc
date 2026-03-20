@@ -212,10 +212,14 @@ bool copy_file(const path& from, const path& to)
     try {
         Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
         Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
+#if GTKMM_MAJOR_VERSION >= 4
+        return rFileFrom->copy(rFileTo, Gio::File::CopyFlags::OVERWRITE);
+#else
         return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
+#endif
     }
     catch (Gio::Error& error) {
-        spdlog::debug("fs::copy_file, error: {}, from: {}, to: {}", error.what().raw(), from.string(), to.string());
+        spdlog::debug("fs::copy_file, error: {}, from: {}, to: {}", std::string(error.what()), from.string(), to.string());
         return false;
     }
 }
@@ -299,7 +303,11 @@ void open_weblink(const std::string& link)
     }
 #else
     std::vector<std::string> argv = { "xdg-open", link};
+#if GTKMM_MAJOR_VERSION >= 4
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SEARCH_PATH);
+#else
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+#endif
     // g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
 }
@@ -319,11 +327,19 @@ void _open_path_with_default_app(const fs::path& file_or_folder_path)
 #elif defined(__APPLE__)
     Glib::RefPtr<Gio::File> gioFile = Gio::File::create_for_path(file_or_folder_path.string());
     std::vector<std::string> argv = { "open", gioFile->get_uri() };
+#if GTKMM_MAJOR_VERSION >= 4
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SEARCH_PATH);
+#else
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+#endif
 #else
     Glib::RefPtr<Gio::File> gioFile = Gio::File::create_for_path(file_or_folder_path.string());
     std::vector<std::string> argv = { "xdg-open", gioFile->get_uri() };
+#if GTKMM_MAJOR_VERSION >= 4
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SEARCH_PATH);
+#else
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+#endif
     // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
     _locale_env_vars_set_for_external_cmd(false/*isPre*/);

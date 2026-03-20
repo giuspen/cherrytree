@@ -205,7 +205,7 @@ static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
             f_collect_ids_to_export = [&ctTreeStore, &nodeIdsToExport, &f_collect_ids_to_export](Gtk::TreeModel::iterator iter) {
                 CtTreeIter ctTreeIter = ctTreeStore.to_ct_tree_iter(iter);
                 nodeIdsToExport.push_back(ctTreeIter.get_node_id());
-                for (Gtk::TreeModel::iterator child : iter->children()) {
+                for (CtTreeIter child = ctTreeIter.first_child(); child; ++child) {
                     f_collect_ids_to_export(child);
                 }
             };
@@ -461,7 +461,19 @@ fs::path CtStorageControl::get_embedded_filepath(const CtTreeIter& ct_tree_iter,
             });
             pCtMainWin->set_systray_can_hide(false);
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             if (Gtk::RESPONSE_OK != dialogTextEntry.run()) {
+#else
+            int response = -1;
+            auto loop = Glib::MainLoop::create(false);
+            dialogTextEntry.signal_response().connect([&](int resp){
+                response = resp;
+                loop->quit();
+            });
+            dialogTextEntry.present();
+            loop->run();
+            if (1 != response) {
+#endif
                 // no password, user cancels operation, return empty path
                 return fs::path{};
             }

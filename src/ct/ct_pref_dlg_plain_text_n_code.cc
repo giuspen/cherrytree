@@ -35,9 +35,15 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     auto checkbutton_pt_highl_match_bra = Gtk::manage(new Gtk::CheckButton{_("Highlight Matching Brackets")});
     checkbutton_pt_highl_match_bra->set_active(_pConfig->ptHighlMatchBra);
 
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_syntax->append(*checkbutton_pt_show_white_spaces);
+    vbox_syntax->append(*checkbutton_pt_highl_curr_line);
+    vbox_syntax->append(*checkbutton_pt_highl_match_bra);
+#else
     vbox_syntax->pack_start(*checkbutton_pt_show_white_spaces, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_highl_curr_line, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_highl_match_bra, false, false);
+#endif
 
     Gtk::Frame* frame_syntax = new_managed_frame_with_align(_("Text Editor"), vbox_syntax);
 
@@ -50,9 +56,20 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     auto label_vte_shell = Gtk::manage(new Gtk::Label{_("Internal Terminal Shell")});
     auto entry_vte_shell = Gtk::manage(new Gtk::Entry{});
     entry_vte_shell->set_text(_pConfig->vteShell);
-    entry_vte_shell->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
+    entry_vte_shell->set_icon_from_icon_name("ct_undo",
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Entry::IconPosition::SECONDARY
+#else
+        Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY
+#endif
+    );
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_vte_shell->append(*label_vte_shell);
+    hbox_vte_shell->append(*entry_vte_shell);
+#else
     hbox_vte_shell->pack_start(*label_vte_shell, false, false);
     hbox_vte_shell->pack_start(*entry_vte_shell, false, false);
+#endif
     hbox_vte_shell->set_sensitive(_pConfig->codeExecVte);
 #endif // HAVE_VTE
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
@@ -62,7 +79,11 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     treeview->set_size_request(300, 200);
 
     Gtk::CellRendererPixbuf pixbuf_renderer;
+#if GTKMM_MAJOR_VERSION >= 4
+    pixbuf_renderer.property_icon_size() = Gtk::IconSize::LARGE;
+#else
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+#endif
     const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
     treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
 
@@ -72,32 +93,56 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     auto scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
     scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+#if GTKMM_MAJOR_VERSION >= 4
+    scrolledwindow->set_child(*treeview);
+#else
     scrolledwindow->add(*treeview);
+#endif
 
     auto button_add = Gtk::manage(new Gtk::Button{});
+#if GTKMM_MAJOR_VERSION < 4
     button_add->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
+#endif
     button_add->set_tooltip_text(_("Add"));
     auto button_remove = Gtk::manage(new Gtk::Button{});
+#if GTKMM_MAJOR_VERSION < 4
     button_remove->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+#endif
     button_remove->set_tooltip_text(_("Remove Selected"));
     auto button_reset_cmds = Gtk::manage(new Gtk::Button{});
+#if GTKMM_MAJOR_VERSION < 4
     button_reset_cmds->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+#endif
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
     auto vbox_buttons = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox_buttons->append(*button_add);
+    vbox_buttons->append(*button_remove);
+    vbox_buttons->append(*Gtk::manage(new Gtk::Label()));
+    vbox_buttons->append(*button_reset_cmds);
+#else
     vbox_buttons->pack_start(*button_add, false, false);
     vbox_buttons->pack_start(*button_remove, false, false);
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     vbox_buttons->pack_start(*button_reset_cmds, false, false);
+#endif
 
     auto vbox_codexec = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto hbox_term_run = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
     auto entry_term_run = Gtk::manage(new Gtk::Entry{});
     entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
     auto button_reset_term = Gtk::manage(new Gtk::Button{});
+#if GTKMM_MAJOR_VERSION < 4
     button_reset_term->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+#endif
     button_reset_term->set_tooltip_text(_("Reset to Default"));
+#if GTKMM_MAJOR_VERSION >= 4
+    hbox_term_run->append(*entry_term_run);
+    hbox_term_run->append(*button_reset_term);
+#else
     hbox_term_run->pack_start(*entry_term_run, true, true);
     hbox_term_run->pack_start(*button_reset_term, false, false);
+#endif
     auto hbox_cmd_per_type = Gtk::manage(new Gtk::Box{
 #if GTKMM_MAJOR_VERSION >= 4
         Gtk::Orientation::HORIZONTAL

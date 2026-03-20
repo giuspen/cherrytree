@@ -1669,8 +1669,14 @@ Glib::ustring str::swapcase(const Glib::ustring& text)
 Glib::ustring str::replace_xml_body(const Glib::ustring& xml_content, const std::string& replacement_text)
 {
     const auto xmlregex = "(.*?<cherrytree>.*?<node.*?>).*(</node>.*?</cherrytree>.*?)";
+#if GTKMM_MAJOR_VERSION >= 4
+    static Glib::RefPtr<Glib::Regex> re_pattern = Glib::Regex::create(xmlregex, Glib::Regex::CompileFlags::DOTALL);
+    const Glib::ustring replacement = std::string{"\\1"} + replacement_text + "\\2";
+    return re_pattern->replace(xml_content, 0/*start_position*/, replacement, static_cast<Glib::Regex::MatchFlags>(0));
+#else
     static Glib::RefPtr<Glib::Regex> re_pattern = Glib::Regex::create(xmlregex, Glib::REGEX_DOTALL);
     return re_pattern->replace(xml_content, 0/*start_position*/, "\\1" + replacement_text + "\\2", static_cast<Glib::RegexMatchFlags>(0u));
+#endif
 }
 
 Glib::ustring str::repeat(const Glib::ustring& input, int num)

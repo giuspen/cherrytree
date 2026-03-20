@@ -47,10 +47,12 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
     recent_filepath.clear();
     dont_show_again = false;
 
-    Gtk::Dialog dialog(_("Start in CherryTree"),
-                       *pCtMainWin,
-                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(_("Start in CherryTree"), *pCtMainWin);
+#if GTKMM_MAJOR_VERSION < 4
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+#else
+    dialog.set_modal(true);
+#endif
     dialog.set_default_size(520, 360);
 
     constexpr int RESPONSE_NEW_DOC = 1;
@@ -61,17 +63,29 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
     dialog.add_button(_("New Document"), RESPONSE_NEW_DOC);
     dialog.add_button(_("Open File"), RESPONSE_OPEN_FILE);
     dialog.add_button(_("Open Folder"), RESPONSE_OPEN_FOLDER);
+#if GTKMM_MAJOR_VERSION >= 4
+    dialog.add_button(_("Cancel"), Gtk::ResponseType::CANCEL);
+#else
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+#endif
 
     Gtk::Box* content = dialog.get_content_area();
     Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 10};
     Gtk::Label intro_label;
     intro_label.set_text(_("Create a new document or open an existing one."));
     intro_label.set_xalign(0.0);
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox.append(intro_label);
+#else
     vbox.pack_start(intro_label, false, false);
+#endif
 
     Gtk::CheckButton dont_show_check(_("Don't show again"));
+#if GTKMM_MAJOR_VERSION >= 4
+    dont_show_check.set_halign(Gtk::Align::START);
+#else
     dont_show_check.set_halign(Gtk::ALIGN_START);
+#endif
 
     Gtk::ScrolledWindow scrolled_window;
     Gtk::TreeView recent_view;
@@ -82,7 +96,11 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
     if (remember_recent_docs && not recent_docs.empty()) {
         Gtk::Label recent_label(_("Recent Documents"));
         recent_label.set_xalign(0.0);
+    #if GTKMM_MAJOR_VERSION >= 4
+        vbox.append(recent_label);
+    #else
         vbox.pack_start(recent_label, false, false);
+    #endif
 
         recent_model = Gtk::ListStore::create(columns);
         for (const fs::path& filepath : recent_docs) {
@@ -96,12 +114,21 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
         recent_view.set_headers_visible(true);
         recent_view.append_column(_("Name"), columns.name);
         recent_view.append_column(_("Path"), columns.path);
+    #if GTKMM_MAJOR_VERSION >= 4
+        recent_view.get_selection()->set_mode(Gtk::SelectionMode::SINGLE);
+    #else
         recent_view.get_selection()->set_mode(Gtk::SELECTION_SINGLE);
+    #endif
 
         scrolled_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
         scrolled_window.set_size_request(-1, 180);
+    #if GTKMM_MAJOR_VERSION >= 4
+        scrolled_window.set_child(recent_view);
+        vbox.append(scrolled_window);
+    #else
         scrolled_window.add(recent_view);
         vbox.pack_start(scrolled_window, true, true);
+    #endif
 
         dialog.add_button(_("Open Selected"), RESPONSE_OPEN_RECENT);
         open_recent_button = dynamic_cast<Gtk::Button*>(dialog.get_widget_for_response(RESPONSE_OPEN_RECENT));
@@ -110,7 +137,7 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
         }
         recent_view.get_selection()->signal_changed().connect([&]() {
             if (open_recent_button) {
-                open_recent_button->set_sensitive(recent_view.get_selection()->get_selected());
+                open_recent_button->set_sensitive(static_cast<bool>(recent_view.get_selection()->get_selected()));
             }
         });
         recent_view.signal_row_activated().connect([&](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*) {
@@ -118,12 +145,38 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
         });
     }
 
+#if GTKMM_MAJOR_VERSION >= 4
+    vbox.append(dont_show_check);
+    content->append(vbox);
+    dialog.show();
+#else
     vbox.pack_start(dont_show_check, false, false);
     content->pack_start(vbox, true, true);
     content->show_all();
+#endif
 
     CtStartDialogAction action = CtStartDialogAction::None;
-    const int response = dialog.run();
+#if GTKMM_MAJOR_VERSION >= 4
+    int response = Gtk::ResponseType::NONE;
+#else
+    int response = Gtk::RESPONSE_NONE;
+#endif
+#if GTKMM_MAJOR_VERSION >= 4
+    auto loop = Glib::MainLoop::create(false);
+    dialog.signal_response().connect([&](int resp) {
+        response = resp;
+        loop->quit();
+    });
+    dialog.signal_hide().connect([&]() {
+        if (loop->is_running()) {
+            loop->quit();
+        }
+    });
+    dialog.present();
+    loop->run();
+#else
+    response = dialog.run();
+#endif
     if (dont_show_check.get_active()) {
         dont_show_again = true;
     }

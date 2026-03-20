@@ -26,6 +26,11 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    auto box = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 6/*spacing*/});
+    box->append(*Gtk::manage(new Gtk::Label{_("Text/Code preferences are temporarily limited in GTK4 build.")}));
+    return box;
+#else
     auto hbox_tab_width = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_tab_width = Gtk::manage(new Gtk::Label{_("Tab Width")});
     Glib::RefPtr<Gtk::Adjustment> adj_tab_width = Gtk::Adjustment::create(_pConfig->tabsWidth, 1, 10000);
@@ -359,4 +364,5 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
 
     return pMainBox;
+#endif
 }

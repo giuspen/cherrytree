@@ -77,12 +77,21 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
  , _charOffset{charOffset}
  , _justification{justification}
 {
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
     signal_button_press_event().connect([this](GdkEventButton* /*pEvent*/){
         _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor(_rTextChildAnchor));
         return true; // we need to block this or the focus will go to the text buffer below
     });
     add(_frame);
+#else
+    auto click = Gtk::GestureClick::create();
+    click->signal_pressed().connect([this](int /*n_press*/, double /*x*/, double /*y*/){
+        _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor(_rTextChildAnchor));
+    });
+    add_controller(click);
+    set_child(_frame);
+#endif
 }
 
 void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
@@ -125,8 +134,13 @@ void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
     }
     Glib::signal_idle().connect_once([&](){
         CtTextView& textView = _pCtMainWin->get_text_view();
+#if GTKMM_MAJOR_VERSION >= 4
+        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::NONE : Gtk::WrapMode::WORD_CHAR);
+        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE);
+#else
         textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
         textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+#endif
     });
 }
 
@@ -163,7 +177,11 @@ void CtTreeView::set_tree_node_name_wrap_width(const bool wrap_enabled, const in
     if (cellRenderers0.size() > 1) {
         Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]);
         if (pCellRendererText) {
+#if GTKMM_MAJOR_VERSION >= 4
+            pCellRendererText->property_wrap_mode().set_value(Pango::WrapMode::CHAR);
+#else
             pCellRendererText->property_wrap_mode().set_value(Pango::WRAP_CHAR);
+#endif
             pCellRendererText->property_wrap_width().set_value(wrap_enabled ? wrap_width : -1);
         }
     }
