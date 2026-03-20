@@ -30,8 +30,8 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     Glib::ustring title;
     title.reserve(100);
     if (not saveNeeded.has_value()) {
-        const Glib::ustring currTitle = get_title();
-        saveNeeded = not currTitle.empty() and currTitle.at(0) == '*';
+        // Keep UI in sync with the real dirty state, do not infer it from title text.
+        saveNeeded = get_file_save_needed();
     }
     if (saveNeeded.value()) {
         title += "*";
