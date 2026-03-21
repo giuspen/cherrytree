@@ -27,7 +27,9 @@
 #include "ct_column_edit.h"
 
 #include <gtkmm/textview.h>
+#ifdef HAVE_GSPELL
 #include <gspell/gspell.h>
+#endif
 #include <memory>
 #include <unordered_map>
 
@@ -146,8 +148,10 @@ public:
     static const double TEXT_SCROLL_MARGIN;
 
 private:
+#ifdef HAVE_GSPELL
     static std::unordered_map<std::string, GspellChecker*> _static_spell_checkers;
     static GspellChecker* _get_spell_checker(const std::string& lang);
+#endif
 
 private:
 #ifdef MD_AUTO_REPLACEMENT

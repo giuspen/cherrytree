@@ -29,15 +29,22 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     auto vbox_spell_check = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto checkbutton_spell_check = Gtk::manage(new Gtk::CheckButton{_("Enable Spell Check")});
     checkbutton_spell_check->set_active(_pConfig->enableSpellCheck);
+#ifdef HAVE_GSPELL
     checkbutton_spell_check->set_sensitive(gspell_language_get_available());
+#else
+    checkbutton_spell_check->set_sensitive(false);
+    _pConfig->enableSpellCheck = false;
+#endif
     auto hbox_spell_check_lang = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_spell_check_lang = Gtk::manage(new Gtk::Label{_("Spell Check Language")});
     auto combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBoxText{});
+#ifdef HAVE_GSPELL
     for (const GList* l = gspell_language_get_available(); l != NULL; l = l->next) {
         auto pGspellLang = reinterpret_cast<const GspellLanguage*>(l->data);
         combobox_spell_check_lang->append(gspell_language_get_code(pGspellLang), gspell_language_get_name(pGspellLang));
     }
     combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
+#endif
     combobox_spell_check_lang->set_sensitive(_pConfig->enableSpellCheck);
 
 #if GTKMM_MAJOR_VERSION >= 4

@@ -147,14 +147,25 @@ if(WITH_GTK4)
   pkg_check_modules(GTKSV gtksourceview-5 REQUIRED)
   pkg_check_modules(GLIBMM glibmm-2.68 REQUIRED)
   pkg_check_modules(PANGOMM pangomm-2.48 REQUIRED)
+  set(CT_USE_GSPELL OFF)
 else()
   pkg_check_modules(GTKMM gtkmm-3.0 REQUIRED)
   pkg_check_modules(GTKSV gtksourceview-4 REQUIRED)
   pkg_check_modules(GLIBMM glibmm-2.4 REQUIRED)
   pkg_check_modules(PANGOMM pangomm-1.4 REQUIRED)
+  set(CT_USE_GSPELL ON)
 endif()
-pkg_check_modules(GSPELL gspell-1 REQUIRED)
+if(CT_USE_GSPELL)
+  pkg_check_modules(GSPELL gspell-1 REQUIRED)
+  add_compile_definitions(HAVE_GSPELL)
+else()
+  message("GTK4 build: spellcheck backend via gspell disabled (gspell is GTK3-only)")
+endif()
 pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
+set(CT_LIBXML_LIBRARIES ${LIBXML_LIBRARIES})
+if(WITH_GTK4)
+  list(FILTER CT_LIBXML_LIBRARIES EXCLUDE REGEX "glibmm-2\\.4|sigc-2\\.0")
+endif()
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
@@ -185,7 +196,6 @@ include_directories(
   SYSTEM ${GTKSV_INCLUDE_DIRS}
   SYSTEM ${GLIBMM_INCLUDE_DIRS}
   SYSTEM ${PANGOMM_INCLUDE_DIRS}
-  SYSTEM ${GSPELL_INCLUDE_DIRS}
   SYSTEM ${LIBXML_INCLUDE_DIRS}
   SYSTEM ${SQLITE_INCLUDE_DIRS}
   SYSTEM ${CURL_INCLUDE_DIRS}
@@ -193,6 +203,11 @@ include_directories(
   SYSTEM ${FRIBIDI_INCLUDE_DIRS}
   . # config.h
 )
+if(CT_USE_GSPELL)
+  include_directories(
+    SYSTEM ${GSPELL_INCLUDE_DIRS}
+  )
+endif()
 if(USE_SHARED_FMT_SPDLOG)
   include_directories(
     SYSTEM ${FMT_INCLUDE_DIRS}

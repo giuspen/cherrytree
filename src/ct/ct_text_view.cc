@@ -28,7 +28,9 @@
 #include "ct_list.h"
 #include "ct_clipboard.h"
 
+#ifdef HAVE_GSPELL
 std::unordered_map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
+#endif
 
 CtTextView::CtTextView(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
@@ -938,6 +940,7 @@ void CtTextView::zoom_text(const std::optional<bool> is_increase, const std::str
 
 void CtTextView::set_spell_check(bool allow_on)
 {
+#ifdef HAVE_GSPELL
     auto gtk_view = GTK_TEXT_VIEW(gobj());
     auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
     auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer(gtk_buffer);
@@ -951,10 +954,15 @@ void CtTextView::set_spell_check(bool allow_on)
     auto gspell_view = gspell_text_view_get_from_gtk_text_view(gtk_view);
     gspell_text_view_set_inline_spell_checking(gspell_view, allow_on && _pCtConfig->enableSpellCheck);
     gspell_text_view_set_enable_language_menu(gspell_view, allow_on && _pCtConfig->enableSpellCheck);
+#else
+    (void)allow_on;
+    _pCtConfig->enableSpellCheck = false;
+#endif
 }
 
 void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
 {
+#ifdef HAVE_GSPELL
     auto gtk_view = GTK_TEXT_VIEW(gobj());
     auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
     if (not _pCtConfig->enableSpellCheck) {
@@ -970,6 +978,7 @@ void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
     if (currSpellCheckLang != _pCtConfig->spellCheckLang) {
         _pCtConfig->spellCheckLang = currSpellCheckLang;
     }
+#endif
 }
 
 // Try and apply link to previous word (after space or newline)
@@ -1163,6 +1172,7 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     get_buffer()->insert_at_cursor(special_char + CtConst::CHAR_SPACE);
 }
 
+#ifdef HAVE_GSPELL
 /*static*/GspellChecker* CtTextView::_get_spell_checker(const std::string& lang)
 {
     auto it = _static_spell_checkers.find(lang);
@@ -1176,6 +1186,7 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     _static_spell_checkers[lang] = gspell_checker;
     return gspell_checker;
 }
+#endif
 
 // GTK3 Drag & Drop implementation
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)

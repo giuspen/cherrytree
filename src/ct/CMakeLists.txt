@@ -89,8 +89,7 @@ target_link_libraries(cherrytree_shared
   ${GTKSV_LIBRARIES}
   ${GLIBMM_LIBRARIES}
   ${PANGOMM_LIBRARIES}
-  ${GSPELL_LIBRARIES}
-  ${LIBXML_LIBRARIES}
+  ${CT_LIBXML_LIBRARIES}
   ${SQLITE_LIBRARIES}
   ${CURL_LIBRARIES}
   ${UCHARDET_LIBRARIES}
@@ -98,6 +97,11 @@ target_link_libraries(cherrytree_shared
   pthread
   7za_static
 )
+if(CT_USE_GSPELL)
+  target_link_libraries(cherrytree_shared
+    ${GSPELL_LIBRARIES}
+  )
+endif()
 if(USE_SHARED_FMT_SPDLOG)
   target_link_libraries(cherrytree_shared
     ${FMT_LIBRARIES}

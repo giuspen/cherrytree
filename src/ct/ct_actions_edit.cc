@@ -578,10 +578,14 @@ void CtActions::toggle_ena_dis_spellcheck()
 
 void CtActions::_validate_enable_spell_check()
 {
+#ifdef HAVE_GSPELL
     if (_pCtConfig->enableSpellCheck and not gspell_language_get_available()) {
         _pCtConfig->enableSpellCheck = false;
         spdlog::debug("disabled spell check as no languages available");
     }
+#else
+    _pCtConfig->enableSpellCheck = false;
+#endif
 }
 
 // Copy as Plain Text
