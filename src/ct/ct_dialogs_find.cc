@@ -25,6 +25,33 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 
+namespace {
+
+#if GTKMM_MAJOR_VERSION >= 4
+int _run_dialog_blocking(Gtk::Dialog& dialog)
+{
+    int response = Gtk::ResponseType::NONE;
+    auto loop = Glib::MainLoop::create(false);
+    dialog.signal_response().connect([&](int resp) {
+        response = resp;
+        dialog.hide();
+        if (loop->is_running()) {
+            loop->quit();
+        }
+    });
+    dialog.signal_hide().connect([&]() {
+        if (loop->is_running()) {
+            loop->quit();
+        }
+    });
+    dialog.present();
+    loop->run();
+    return response;
+}
+#endif
+
+}
+
 void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                               const Glib::ustring& title,
                               CtSearchOptions& s_options,
@@ -420,20 +447,284 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         s_state.searchfinddialog->move(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
     }
 #else
-    // GTK4 minimal stub: simple dialog with OK/Cancel and no complex content.
-    auto pDialog = new Gtk::Dialog{title, *pCtMainWin, true /*modal*/, true /*use_header_bar*/};
+    auto pDialog = new Gtk::Dialog{title, *pCtMainWin, true/*modal*/, true/*use_header_bar*/};
     s_state.searchfinddialog.reset(pDialog);
 
-    // Buttons with arbitrary response ids for GTK4
-    auto button_cancel = pDialog->add_button(_("Cancel"), 0);
-    auto button_ok = pDialog->add_button(_("OK"), 1);
-    (void)button_cancel;
-    (void)button_ok;
+    pDialog->add_button(_("Cancel"), Gtk::ResponseType::CANCEL);
+    auto button_ok = pDialog->add_button(_("OK"), Gtk::ResponseType::ACCEPT);
+    pDialog->set_default_response(Gtk::ResponseType::ACCEPT);
+    pDialog->set_default_size(520, -1);
 
-    // Connect response handler to trigger search actions
-    pDialog->signal_response().connect([pDialog, &s_state, &s_options, multiple_nodes, pCtMainWin](int response_id){
-        if (response_id == 1) {
-            // Proceed with existing options without UI editing
+    auto search_entry = Gtk::manage(new Gtk::SearchEntry{});
+    search_entry->set_text(s_options.str_find);
+    auto search_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Search for")+"</b>"});
+    dynamic_cast<Gtk::Label*>(search_frame->get_label_widget())->set_use_markup(true);
+    search_frame->set_child(*search_entry);
+
+    Gtk::Frame* replace_frame{nullptr};
+    Gtk::Entry* replace_entry{nullptr};
+    if (s_state.replace_active) {
+        replace_entry = Gtk::manage(new Gtk::Entry{});
+        replace_entry->set_text(s_options.str_replace);
+        replace_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Replace with")+"</b>"});
+        dynamic_cast<Gtk::Label*>(replace_frame->get_label_widget())->set_use_markup(true);
+        replace_frame->set_child(*replace_entry);
+    }
+
+    auto opt_vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 4});
+    auto reg_exp_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    auto four_1_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    four_1_hbox->set_homogeneous(true);
+    auto four_2_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    four_2_hbox->set_homogeneous(true);
+    auto four_3_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    four_3_hbox->set_homogeneous(true);
+    auto bw_fw_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    bw_fw_hbox->set_homogeneous(true);
+    auto three_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    three_hbox->set_homogeneous(true);
+    auto three_vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 4});
+
+    auto match_case_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Match Case")});
+    match_case_checkbutton->set_active(s_options.match_case);
+    auto reg_exp_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Regular Expression")});
+    reg_exp_checkbutton->set_active(s_options.reg_exp);
+    auto reg_exp_help_button = Gtk::manage(new Gtk::Button{});
+    reg_exp_help_button->set_icon_name("ct_help");
+    reg_exp_help_button->set_tooltip_text(_("Online Manual"));
+    reg_exp_hbox->append(*reg_exp_checkbutton);
+    reg_exp_hbox->append(*reg_exp_help_button);
+    auto accent_insensitive_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Accent Insensitive")});
+    accent_insensitive_checkbutton->set_active(s_options.accent_insensitive);
+    auto override_exclusions_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Override Exclusions")});
+    override_exclusions_checkbutton->set_active(s_options.override_exclusions);
+    auto whole_word_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Whole Word")});
+    whole_word_checkbutton->set_active(s_options.whole_word);
+    auto start_word_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Start Word")});
+    start_word_checkbutton->set_active(s_options.start_word);
+
+    auto multiple_words_exact_match_radiobutton = Gtk::manage(new Gtk::CheckButton{_("More Words, Exact Match")});
+    auto multiple_words_disregard_order_radiobutton = Gtk::manage(new Gtk::CheckButton{_("More Words, Disregard Order")});
+    multiple_words_disregard_order_radiobutton->set_group(*multiple_words_exact_match_radiobutton);
+    auto multiple_words_match_any_radiobutton = Gtk::manage(new Gtk::CheckButton{_("More Words, Match Any")});
+    multiple_words_match_any_radiobutton->set_group(*multiple_words_exact_match_radiobutton);
+    if (0 == *s_options.pMultipleWordsSearchType) multiple_words_exact_match_radiobutton->set_active(true);
+    else if (1 == *s_options.pMultipleWordsSearchType) multiple_words_disregard_order_radiobutton->set_active(true);
+    else multiple_words_match_any_radiobutton->set_active(true);
+
+    auto fw_radiobutton = Gtk::manage(new Gtk::CheckButton{_("Forward")});
+    auto bw_radiobutton = Gtk::manage(new Gtk::CheckButton{_("Backward")});
+    bw_radiobutton->set_group(*fw_radiobutton);
+    if (s_options.direction_fw) fw_radiobutton->set_active(true);
+    else bw_radiobutton->set_active(true);
+
+    auto all_radiobutton = Gtk::manage(new Gtk::CheckButton{_("All, List Matches")});
+    auto first_from_radiobutton = Gtk::manage(new Gtk::CheckButton{_("First From Selection")});
+    first_from_radiobutton->set_group(*all_radiobutton);
+    auto first_all_radiobutton = Gtk::manage(new Gtk::CheckButton{_("First in All Range")});
+    first_all_radiobutton->set_group(*all_radiobutton);
+    if (0 == s_options.all_firstsel_firstall) all_radiobutton->set_active(true);
+    else if (1 == s_options.all_firstsel_firstall) first_from_radiobutton->set_active(true);
+    else first_all_radiobutton->set_active(true);
+
+    Gtk::Frame* ts_frame{nullptr};
+    Gtk::CheckButton* ts_node_created_after_checkbutton{nullptr};
+    Gtk::CheckButton* ts_node_created_before_checkbutton{nullptr};
+    Gtk::CheckButton* ts_node_modified_after_checkbutton{nullptr};
+    Gtk::CheckButton* ts_node_modified_before_checkbutton{nullptr};
+    if (multiple_nodes) {
+        const std::string ts_format{"%A, %d %B %Y, %H:%M"};
+        ts_node_created_after_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Created After")});
+        auto ts_node_created_after_button = Gtk::manage(new Gtk::Button{str::time_format(ts_format, s_options.ts_cre_after.time)});
+        auto ts_node_created_after_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+        ts_node_created_after_hbox->set_homogeneous(true);
+        ts_node_created_after_hbox->append(*ts_node_created_after_checkbutton);
+        ts_node_created_after_hbox->append(*ts_node_created_after_button);
+        ts_node_created_before_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Created Before")});
+        auto ts_node_created_before_button = Gtk::manage(new Gtk::Button{str::time_format(ts_format, s_options.ts_cre_before.time)});
+        auto ts_node_created_before_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+        ts_node_created_before_hbox->set_homogeneous(true);
+        ts_node_created_before_hbox->append(*ts_node_created_before_checkbutton);
+        ts_node_created_before_hbox->append(*ts_node_created_before_button);
+        ts_node_modified_after_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Modified After")});
+        auto ts_node_modified_after_button = Gtk::manage(new Gtk::Button{str::time_format(ts_format, s_options.ts_mod_after.time)});
+        auto ts_node_modified_after_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+        ts_node_modified_after_hbox->set_homogeneous(true);
+        ts_node_modified_after_hbox->append(*ts_node_modified_after_checkbutton);
+        ts_node_modified_after_hbox->append(*ts_node_modified_after_button);
+        ts_node_modified_before_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Modified Before")});
+        auto ts_node_modified_before_button = Gtk::manage(new Gtk::Button{str::time_format(ts_format, s_options.ts_mod_before.time)});
+        auto ts_node_modified_before_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+        ts_node_modified_before_hbox->set_homogeneous(true);
+        ts_node_modified_before_hbox->append(*ts_node_modified_before_checkbutton);
+        ts_node_modified_before_hbox->append(*ts_node_modified_before_button);
+        ts_node_created_after_checkbutton->set_active(s_options.ts_cre_after.on);
+        ts_node_created_before_checkbutton->set_active(s_options.ts_cre_before.on);
+        ts_node_modified_after_checkbutton->set_active(s_options.ts_mod_after.on);
+        ts_node_modified_before_checkbutton->set_active(s_options.ts_mod_before.on);
+        auto ts_node_vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 4});
+        ts_node_vbox->append(*ts_node_created_after_hbox);
+        ts_node_vbox->append(*ts_node_created_before_hbox);
+        ts_node_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+        ts_node_vbox->append(*ts_node_modified_after_hbox);
+        ts_node_vbox->append(*ts_node_modified_before_hbox);
+        ts_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Time filter")+"</b>"});
+        dynamic_cast<Gtk::Label*>(ts_frame->get_label_widget())->set_use_markup(true);
+        ts_frame->set_child(*ts_node_vbox);
+        auto on_ts_node_button_clicked = [pDialog, ts_format](Gtk::Button* button, const char* sub_title, std::time_t* ts_value) {
+            std::time_t new_time = CtDialogs::date_select_dialog(*pDialog, sub_title, *ts_value);
+            if (new_time == 0) return;
+            *ts_value = new_time;
+            button->set_label(str::time_format(ts_format, new_time));
+        };
+        ts_node_created_after_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_created_after_button, _("Node Created After"), &s_options.ts_cre_after.time));
+        ts_node_created_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_created_before_button, _("Node Created Before"), &s_options.ts_cre_before.time));
+        ts_node_modified_after_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_after_button, _("Node Modified After"), &s_options.ts_mod_after.time));
+        ts_node_modified_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_before_button, _("Node Modified Before"), &s_options.ts_mod_before.time));
+    }
+
+    auto node_content_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Content")});
+    node_content_checkbutton->set_active(s_options.node_content);
+    auto node_name_n_tags_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Name and Tags")});
+    node_name_n_tags_checkbutton->set_active(s_options.node_name_n_tags);
+    auto hbox_node_content_name_n_tags = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    hbox_node_content_name_n_tags->append(*node_content_checkbutton);
+    hbox_node_content_name_n_tags->append(*node_name_n_tags_checkbutton);
+    auto only_sel_n_subnodes_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Only Selected Node and Subnodes")});
+    only_sel_n_subnodes_checkbutton->set_active(s_options.only_sel_n_subnodes);
+    auto iter_dialog_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Show Iterated Find/Replace Dialog")});
+    iter_dialog_checkbutton->set_active(s_options.iterative_dialog);
+
+    four_1_hbox->append(*match_case_checkbutton);
+    four_1_hbox->append(*reg_exp_hbox);
+    four_2_hbox->append(*whole_word_checkbutton);
+    four_2_hbox->append(*start_word_checkbutton);
+    four_3_hbox->append(*accent_insensitive_checkbutton);
+    four_3_hbox->append(*override_exclusions_checkbutton);
+    bw_fw_hbox->append(*fw_radiobutton);
+    bw_fw_hbox->append(*bw_radiobutton);
+    three_hbox->append(*all_radiobutton);
+    three_vbox->append(*first_from_radiobutton);
+    three_vbox->append(*first_all_radiobutton);
+    three_hbox->append(*three_vbox);
+    opt_vbox->append(*four_1_hbox);
+    opt_vbox->append(*four_2_hbox);
+    opt_vbox->append(*four_3_hbox);
+    opt_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+    auto multiple_words_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 4});
+    auto multiple_words_vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 4});
+    multiple_words_hbox->set_homogeneous(true);
+    multiple_words_hbox->append(*multiple_words_exact_match_radiobutton);
+    multiple_words_hbox->append(*multiple_words_vbox);
+    multiple_words_vbox->append(*multiple_words_disregard_order_radiobutton);
+    multiple_words_vbox->append(*multiple_words_match_any_radiobutton);
+    opt_vbox->append(*multiple_words_hbox);
+    opt_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+    opt_vbox->append(*bw_fw_hbox);
+    opt_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+    opt_vbox->append(*three_hbox);
+    if (multiple_nodes) {
+        opt_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+        opt_vbox->append(*ts_frame);
+        opt_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+        opt_vbox->append(*hbox_node_content_name_n_tags);
+        opt_vbox->append(*only_sel_n_subnodes_checkbutton);
+    }
+    opt_vbox->append(*Gtk::manage(new Gtk::Separator{}));
+    opt_vbox->append(*iter_dialog_checkbutton);
+    auto opt_frame = Gtk::manage(new Gtk::Frame{Glib::ustring("<b>")+_("Search options")+"</b>"});
+    dynamic_cast<Gtk::Label*>(opt_frame->get_label_widget())->set_use_markup(true);
+    opt_frame->set_child(*opt_vbox);
+
+    auto content_area = pDialog->get_content_area();
+    content_area->set_spacing(6);
+    content_area->append(*search_frame);
+    if (replace_frame) content_area->append(*replace_frame);
+    content_area->append(*opt_frame);
+    search_entry->grab_focus();
+
+    button_ok->set_sensitive(not s_options.str_find.empty());
+    search_entry->signal_search_changed().connect([button_ok, search_entry]() {
+        button_ok->set_sensitive(not search_entry->get_text().empty());
+    });
+    search_entry->signal_activate().connect([pDialog, button_ok]() {
+        if (button_ok->get_sensitive()) {
+            pDialog->response(Gtk::ResponseType::ACCEPT);
+        }
+    });
+    if (replace_entry) {
+        replace_entry->signal_activate().connect([pDialog, button_ok]() {
+            if (button_ok->get_sensitive()) {
+                pDialog->response(Gtk::ResponseType::ACCEPT);
+            }
+        });
+    }
+    reg_exp_help_button->signal_clicked().connect([]() {
+        fs::open_weblink("https://www.geany.org/manual/gtk/glib/glib-regex-syntax.html");
+    });
+
+    pDialog->signal_response().connect([pDialog,
+                                        &s_state,
+                                        &s_options,
+                                        multiple_nodes,
+                                        search_entry,
+                                        replace_entry,
+                                        match_case_checkbutton,
+                                        reg_exp_checkbutton,
+                                        accent_insensitive_checkbutton,
+                                        override_exclusions_checkbutton,
+                                        whole_word_checkbutton,
+                                        start_word_checkbutton,
+                                        multiple_words_exact_match_radiobutton,
+                                        multiple_words_disregard_order_radiobutton,
+                                        fw_radiobutton,
+                                        all_radiobutton,
+                                        first_from_radiobutton,
+                                        ts_node_created_after_checkbutton,
+                                        ts_node_created_before_checkbutton,
+                                        ts_node_modified_after_checkbutton,
+                                        ts_node_modified_before_checkbutton,
+                                        node_content_checkbutton,
+                                        node_name_n_tags_checkbutton,
+                                        only_sel_n_subnodes_checkbutton,
+                                        iter_dialog_checkbutton,
+                                        pCtMainWin](int response_id){
+        if (response_id == Gtk::ResponseType::ACCEPT) {
+            s_options.str_find = search_entry->get_text();
+            if (!s_options.str_find.empty()) {
+                pCtMainWin->get_ct_config()->latestSearches.move_or_push_front(s_options.str_find);
+            }
+            if (replace_entry) {
+                s_options.str_replace = replace_entry->get_text();
+                if (!s_options.str_replace.empty()) {
+                    pCtMainWin->get_ct_config()->latestReplaces.move_or_push_front(s_options.str_replace);
+                }
+            }
+            s_options.match_case = match_case_checkbutton->get_active();
+            s_options.reg_exp = reg_exp_checkbutton->get_active();
+            s_options.accent_insensitive = accent_insensitive_checkbutton->get_active();
+            s_options.override_exclusions = override_exclusions_checkbutton->get_active();
+            s_options.whole_word = whole_word_checkbutton->get_active();
+            s_options.start_word = start_word_checkbutton->get_active();
+            if (multiple_words_exact_match_radiobutton->get_active()) *s_options.pMultipleWordsSearchType = 0;
+            else if (multiple_words_disregard_order_radiobutton->get_active()) *s_options.pMultipleWordsSearchType = 1;
+            else *s_options.pMultipleWordsSearchType = 2;
+            s_options.direction_fw = fw_radiobutton->get_active();
+            if (all_radiobutton->get_active()) s_options.all_firstsel_firstall = 0;
+            else if (first_from_radiobutton->get_active()) s_options.all_firstsel_firstall = 1;
+            else s_options.all_firstsel_firstall = 2;
+            s_options.ts_cre_after.on = multiple_nodes ? ts_node_created_after_checkbutton->get_active() : false;
+            s_options.ts_cre_before.on = multiple_nodes ? ts_node_created_before_checkbutton->get_active() : false;
+            s_options.ts_mod_after.on = multiple_nodes ? ts_node_modified_after_checkbutton->get_active() : false;
+            s_options.ts_mod_before.on = multiple_nodes ? ts_node_modified_before_checkbutton->get_active() : false;
+            s_options.node_content = node_content_checkbutton->get_active();
+            s_options.node_name_n_tags = node_name_n_tags_checkbutton->get_active();
+            s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton->get_active();
+            s_options.iterative_dialog = iter_dialog_checkbutton->get_active();
+            if (s_options.reg_exp and s_options.str_find == ".*") {
+                s_options.node_content = false;
+                s_options.node_name_n_tags = true;
+            }
             s_state.curr_find_pattern = s_options.str_find;
             if (multiple_nodes) {
                 s_state.curr_find_type = CtCurrFindType::MultipleNodes;
@@ -487,15 +778,31 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     pContentArea->show_all();
     dialog.run();
 #else
-    // GTK4 minimal: use a simple dialog with a label and OK button.
-    Gtk::Dialog dialog{title, *pCtMainWin, true /*modal*/, true /*use_header_bar*/};
-    dialog.add_button(_("OK"), 1);
-    Gtk::Label* pMessage = Gtk::manage(new Gtk::Label{message});
-    pMessage->set_use_markup(true);
-    auto content = dialog.get_content_area();
-    content->append(*pMessage);
-    dialog.signal_response().connect([&dialog](int){ dialog.close(); });
-    dialog.present();
+    Gtk::Dialog dialog{title, *pCtMainWin, true/*modal*/, true/*use_header_bar*/};
+    dialog.add_button(_("OK"), Gtk::ResponseType::ACCEPT);
+    dialog.set_default_response(Gtk::ResponseType::ACCEPT);
+    dialog.set_default_size(300, -1);
+    Gtk::Label message_label{message};
+    message_label.set_use_markup(true);
+    message_label.set_margin_start(3);
+    message_label.set_margin_end(3);
+    message_label.set_margin_top(5);
+    message_label.set_margin_bottom(5);
+    Gtk::Box vbox{Gtk::Orientation::VERTICAL, 5};
+    vbox.append(message_label);
+    if (CtTreeIter::get_hit_exclusion_from_search()) {
+        Gtk::Box exclusions_hbox{Gtk::Orientation::HORIZONTAL, 3};
+        Gtk::Image image_exclusions{"ct_ghost"};
+        image_exclusions.set_margin_start(3);
+        image_exclusions.set_margin_end(3);
+        exclusions_hbox.append(image_exclusions);
+        Gtk::Label label_exclusions{_("At least one node was skipped because of exclusions set in the node properties.\nIn order to clear all the exclusions, use the menu:\nSearch -> Clear All Exclusions From Search")};
+        label_exclusions.set_xalign(0.0);
+        exclusions_hbox.append(label_exclusions);
+        vbox.append(exclusions_hbox);
+    }
+    dialog.get_content_area()->append(vbox);
+    (void)_run_dialog_blocking(dialog);
 #endif
 }
 
@@ -942,16 +1249,26 @@ void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_sta
     }
 #else
     if (not s_state.iteratedfinddialog) {
-        spdlog::debug("+iteratedfinddialog (gtk4 stub)");
-        auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"), *pCtMainWin, false /*modal*/, true /*use_header_bar*/};
+        spdlog::debug("+iteratedfinddialog");
+        auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"), *pCtMainWin, false/*modal*/, true/*use_header_bar*/};
         auto button_close = pDialog->add_button(_("Close"), 0);
         auto button_find_bw = pDialog->add_button(_("Find Previous"), 4);
         auto button_find_fw = pDialog->add_button(_("Find Next"), 1);
         auto button_replace = pDialog->add_button(_("Replace"), 2);
         auto button_undo = pDialog->add_button(_("Undo"), 3);
-        (void)button_close; (void)button_find_bw; (void)button_find_fw; (void)button_replace; (void)button_undo;
+        button_close->set_icon_name("ct_close");
+        button_find_bw->set_icon_name("ct_find_back");
+        button_find_fw->set_icon_name("ct_find_again");
+        button_replace->set_icon_name("ct_find_replace");
+        button_undo->set_icon_name("ct_undo");
+        button_find_fw->grab_focus();
 
         pDialog->signal_response().connect([pDialog, &s_state, pCtMainWin](int id){
+            if (id == 0) {
+                pDialog->hide();
+                return;
+            }
+            pDialog->hide();
             if (id == 1) {
                 s_state.replace_active = false;
                 pCtMainWin->get_ct_actions()->find_again_iter(true/*fromIterativeDialog*/);
@@ -966,7 +1283,6 @@ void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_sta
             } else if (id == 3) {
                 pCtMainWin->get_ct_actions()->requested_step_back();
             }
-            pDialog->close();
         });
         s_state.iteratedfinddialog.reset(pDialog);
     }
