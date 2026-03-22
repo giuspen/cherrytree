@@ -416,8 +416,17 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 // image target doesn't work on Win32 with other targets, so have to set it directly
                 // then copy/paste into MS Paint will work. Pasting into CT back also will work
                 if (image->get_type() == CtAnchWidgType::ImagePng) {
+#if GTKMM_MAJOR_VERSION >= 4
+                    if (auto display = Gdk::Display::get_default()) {
+                        if (auto clipboard = display->get_clipboard()) {
+                            clipboard->set_texture(Gdk::Texture::create_for_pixbuf(image->get_pixbuf()));
+                            return;
+                        }
+                    }
+#else
                     Gtk::Clipboard::get()->set_image(image->get_pixbuf());
                     return;
+#endif
                 }
 #endif
             }

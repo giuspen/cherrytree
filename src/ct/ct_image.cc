@@ -853,6 +853,7 @@ void CtImageEmbFile::update_tooltip()
         }
     }
 #else
+    (void)pCtMainWin; // unused on Windows GTK4 path
     (void)fileName; // silence warning
 #endif // _WIN32
     if (!result)

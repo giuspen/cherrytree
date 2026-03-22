@@ -24,7 +24,6 @@
 #include <glibmm/miscutils.h>
 #include <giomm/file.h>
 #include <glib/gstdio.h>
-#include <curl/curl.h>
 #include <system_error>
 #include <utility>
 #include <unordered_map>
@@ -34,6 +33,13 @@
 #include "ct_const.h"
 #include "ct_logging.h"
 #include "ct_config.h"
+
+#include <curl/curl.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <shellapi.h>
+#endif
 
 namespace fs {
 
