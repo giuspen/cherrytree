@@ -590,10 +590,17 @@ void CtActions::_validate_enable_spell_check()
     if (_pCtConfig->enableSpellCheck) {
         bool has_langs{false};
         if (SpellingProvider* pProvider = spelling_provider_get_default()) {
-            if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
-                has_langs = pLangs->len > 0;
-                g_ptr_array_unref(pLangs);
-            }
+                #if SPELLING_CHECK_VERSION(0, 4, 0)
+                if (GListModel* pLangs = spelling_provider_list_languages(pProvider)) {
+                    has_langs = g_list_model_get_n_items(pLangs) > 0;
+                    g_object_unref(pLangs);
+                }
+                #else
+                if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
+                    has_langs = pLangs->len > 0;
+                    g_ptr_array_unref(pLangs);
+                }
+                #endif
         }
         if (not has_langs) {
             _pCtConfig->enableSpellCheck = false;

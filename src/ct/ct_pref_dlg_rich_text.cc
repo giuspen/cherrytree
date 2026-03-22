@@ -37,10 +37,17 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 #elif defined(HAVE_LIBSPELLING)
     bool has_libspelling_langs{false};
     if (SpellingProvider* pProvider = spelling_provider_get_default()) {
+        #if SPELLING_CHECK_VERSION(0, 4, 0)
+        if (GListModel* pLangs = spelling_provider_list_languages(pProvider)) {
+            has_libspelling_langs = g_list_model_get_n_items(pLangs) > 0;
+            g_object_unref(pLangs);
+        }
+        #else
         if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
             has_libspelling_langs = pLangs->len > 0;
             g_ptr_array_unref(pLangs);
         }
+        #endif
     }
     checkbutton_spell_check->set_sensitive(has_libspelling_langs);
 #else
@@ -58,6 +65,24 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
 #elif defined(HAVE_LIBSPELLING)
     if (SpellingProvider* pProvider = spelling_provider_get_default()) {
+        #if SPELLING_CHECK_VERSION(0, 4, 0)
+        if (GListModel* pLangs = spelling_provider_list_languages(pProvider)) {
+            const guint num_langs = g_list_model_get_n_items(pLangs);
+            for (guint i = 0; i < num_langs; ++i) {
+                auto pLang = SPELLING_LANGUAGE(g_list_model_get_item(pLangs, i));
+                if (not pLang) {
+                    continue;
+                }
+                const char* pLangCode = spelling_language_get_code(pLang);
+                const char* pLangName = spelling_language_get_name(pLang);
+                if (pLangCode and pLangName) {
+                    combobox_spell_check_lang->append(pLangCode, pLangName);
+                }
+                g_object_unref(pLang);
+            }
+            g_object_unref(pLangs);
+        }
+        #else
         if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
             for (guint i = 0; i < pLangs->len; ++i) {
                 auto pLangInfo = reinterpret_cast<SpellingLanguageInfo*>(g_ptr_array_index(pLangs, i));
@@ -72,6 +97,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
             }
             g_ptr_array_unref(pLangs);
         }
+        #endif
     }
     combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
     if (combobox_spell_check_lang->get_active_id().empty()) {
