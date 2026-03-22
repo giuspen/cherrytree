@@ -102,6 +102,11 @@ if(CT_USE_GSPELL)
     ${GSPELL_LIBRARIES}
   )
 endif()
+if(CT_USE_LIBSPELLING)
+  target_link_libraries(cherrytree_shared
+    ${LIBSPELLING_LIBRARIES}
+  )
+endif()
 if(USE_SHARED_FMT_SPDLOG)
   target_link_libraries(cherrytree_shared
     ${FMT_LIBRARIES}

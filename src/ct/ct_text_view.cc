@@ -137,6 +137,10 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
 
 CtTextView::~CtTextView()
 {
+#ifdef HAVE_LIBSPELLING
+    g_clear_object(&_spellingAdapter);
+    g_clear_object(&_spellingChecker);
+#endif
     g_object_unref(G_OBJECT(_pGtkSourceView));
 }
 
@@ -428,11 +432,50 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
     GtkTextBuffer* pGtkTextBuffer = buffer ? buffer->gobj() : NULL;
     gtk_text_view_set_buffer(GTK_TEXT_VIEW(_pGtkSourceView), pGtkTextBuffer);
 
+#ifdef HAVE_LIBSPELLING
+    _libspelling_rebuild_adapter(pGtkTextBuffer);
+#endif
+
 #ifdef MD_AUTO_REPLACEMENT
     // Setup the markdown filter for a new buffer
     if (_markdown_filter_active()) _md_handler->buffer(get_buffer());
 #endif // MD_AUTO_REPLACEMENT
 }
+
+#ifdef HAVE_LIBSPELLING
+void CtTextView::_libspelling_rebuild_adapter(GtkTextBuffer* pGtkTextBuffer)
+{
+    g_clear_object(&_spellingAdapter);
+    gtk_text_view_set_extra_menu(GTK_TEXT_VIEW(_pGtkSourceView), nullptr);
+    gtk_widget_insert_action_group(GTK_WIDGET(_pGtkSourceView), "spelling", nullptr);
+
+    if (not pGtkTextBuffer or not GTK_SOURCE_IS_BUFFER(pGtkTextBuffer)) {
+        return;
+    }
+
+    if (not _spellingChecker) {
+        _spellingChecker = spelling_checker_get_default();
+        if (_spellingChecker) {
+            g_object_ref(_spellingChecker);
+        }
+    }
+    if (not _spellingChecker) {
+        return;
+    }
+
+    if (not _pCtConfig->spellCheckLang.empty()) {
+        spelling_checker_set_language(_spellingChecker, _pCtConfig->spellCheckLang.c_str());
+    }
+
+    _spellingAdapter = spelling_text_buffer_adapter_new(GTK_SOURCE_BUFFER(pGtkTextBuffer), _spellingChecker);
+    if (not _spellingAdapter) {
+        return;
+    }
+
+    gtk_text_view_set_extra_menu(GTK_TEXT_VIEW(_pGtkSourceView), spelling_text_buffer_adapter_get_menu_model(_spellingAdapter));
+    gtk_widget_insert_action_group(GTK_WIDGET(_pGtkSourceView), "spelling", G_ACTION_GROUP(_spellingAdapter));
+}
+#endif
 
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
 void CtTextView::for_event_after_button_press(GdkEvent* event)
@@ -954,6 +997,20 @@ void CtTextView::set_spell_check(bool allow_on)
     auto gspell_view = gspell_text_view_get_from_gtk_text_view(gtk_view);
     gspell_text_view_set_inline_spell_checking(gspell_view, allow_on && _pCtConfig->enableSpellCheck);
     gspell_text_view_set_enable_language_menu(gspell_view, allow_on && _pCtConfig->enableSpellCheck);
+#elif defined(HAVE_LIBSPELLING)
+    auto gtk_view = GTK_TEXT_VIEW(gobj());
+    auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
+    if (not _spellingAdapter and gtk_buffer) {
+        _libspelling_rebuild_adapter(gtk_buffer);
+    }
+    if (not _spellingAdapter) {
+        _pCtConfig->enableSpellCheck = false;
+        return;
+    }
+    if (not _pCtConfig->spellCheckLang.empty()) {
+        spelling_text_buffer_adapter_set_language(_spellingAdapter, _pCtConfig->spellCheckLang.c_str());
+    }
+    spelling_text_buffer_adapter_set_enabled(_spellingAdapter, allow_on && _pCtConfig->enableSpellCheck);
 #else
     (void)allow_on;
     _pCtConfig->enableSpellCheck = false;
@@ -977,6 +1034,14 @@ void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
     const std::string currSpellCheckLang = gspell_language_get_code(pGspellLang);
     if (currSpellCheckLang != _pCtConfig->spellCheckLang) {
         _pCtConfig->spellCheckLang = currSpellCheckLang;
+    }
+#elif defined(HAVE_LIBSPELLING)
+    if (not _pCtConfig->enableSpellCheck or not _spellingAdapter) {
+        return;
+    }
+    const char* pCurrSpellCheckLang = spelling_text_buffer_adapter_get_language(_spellingAdapter);
+    if (pCurrSpellCheckLang and *pCurrSpellCheckLang and pCurrSpellCheckLang != _pCtConfig->spellCheckLang) {
+        _pCtConfig->spellCheckLang = pCurrSpellCheckLang;
     }
 #endif
 }

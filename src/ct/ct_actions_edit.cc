@@ -28,6 +28,9 @@
 #include "ct_logging.h"
 #include "ct_storage_control.h"
 #include <gtkmm/dialog.h>
+#ifdef HAVE_LIBSPELLING
+#include <libspelling.h>
+#endif
 
 // Step Back for the Current Node, if Possible
 void CtActions::requested_step_back()
@@ -582,6 +585,20 @@ void CtActions::_validate_enable_spell_check()
     if (_pCtConfig->enableSpellCheck and not gspell_language_get_available()) {
         _pCtConfig->enableSpellCheck = false;
         spdlog::debug("disabled spell check as no languages available");
+    }
+#elif defined(HAVE_LIBSPELLING)
+    if (_pCtConfig->enableSpellCheck) {
+        bool has_langs{false};
+        if (SpellingProvider* pProvider = spelling_provider_get_default()) {
+            if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
+                has_langs = pLangs->len > 0;
+                g_ptr_array_unref(pLangs);
+            }
+        }
+        if (not has_langs) {
+            _pCtConfig->enableSpellCheck = false;
+            spdlog::debug("disabled spell check as no languages available");
+        }
     }
 #else
     _pCtConfig->enableSpellCheck = false;

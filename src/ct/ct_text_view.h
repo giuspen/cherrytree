@@ -30,6 +30,9 @@
 #ifdef HAVE_GSPELL
 #include <gspell/gspell.h>
 #endif
+#ifdef HAVE_LIBSPELLING
+#include <libspelling.h>
+#endif
 #include <memory>
 #include <unordered_map>
 
@@ -111,6 +114,9 @@ private:
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _set_highlight_current_line_enabled(const bool enabled);
+#ifdef HAVE_LIBSPELLING
+    void          _libspelling_rebuild_adapter(GtkTextBuffer* pGtkTextBuffer);
+#endif
 
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     bool _on_drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int, int, guint time);
@@ -151,6 +157,10 @@ private:
 #ifdef HAVE_GSPELL
     static std::unordered_map<std::string, GspellChecker*> _static_spell_checkers;
     static GspellChecker* _get_spell_checker(const std::string& lang);
+#endif
+#ifdef HAVE_LIBSPELLING
+    SpellingChecker* _spellingChecker{nullptr};
+    SpellingTextBufferAdapter* _spellingAdapter{nullptr};
 #endif
 
 private:

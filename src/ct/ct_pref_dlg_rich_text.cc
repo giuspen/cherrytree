@@ -23,6 +23,9 @@
 
 #include "ct_pref_dlg.h"
 #include "ct_main_win.h"
+#ifdef HAVE_LIBSPELLING
+#include <libspelling.h>
+#endif
 
 Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 {
@@ -31,6 +34,15 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_spell_check->set_active(_pConfig->enableSpellCheck);
 #ifdef HAVE_GSPELL
     checkbutton_spell_check->set_sensitive(gspell_language_get_available());
+#elif defined(HAVE_LIBSPELLING)
+    bool has_libspelling_langs{false};
+    if (SpellingProvider* pProvider = spelling_provider_get_default()) {
+        if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
+            has_libspelling_langs = pLangs->len > 0;
+            g_ptr_array_unref(pLangs);
+        }
+    }
+    checkbutton_spell_check->set_sensitive(has_libspelling_langs);
 #else
     checkbutton_spell_check->set_sensitive(false);
     _pConfig->enableSpellCheck = false;
@@ -44,6 +56,27 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         combobox_spell_check_lang->append(gspell_language_get_code(pGspellLang), gspell_language_get_name(pGspellLang));
     }
     combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
+#elif defined(HAVE_LIBSPELLING)
+    if (SpellingProvider* pProvider = spelling_provider_get_default()) {
+        if (GPtrArray* pLangs = spelling_provider_list_languages(pProvider)) {
+            for (guint i = 0; i < pLangs->len; ++i) {
+                auto pLangInfo = reinterpret_cast<SpellingLanguageInfo*>(g_ptr_array_index(pLangs, i));
+                if (not pLangInfo) {
+                    continue;
+                }
+                const char* pLangCode = spelling_language_info_get_code(pLangInfo);
+                const char* pLangName = spelling_language_info_get_name(pLangInfo);
+                if (pLangCode and pLangName) {
+                    combobox_spell_check_lang->append(pLangCode, pLangName);
+                }
+            }
+            g_ptr_array_unref(pLangs);
+        }
+    }
+    combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
+    if (combobox_spell_check_lang->get_active_id().empty()) {
+        combobox_spell_check_lang->set_active(0);
+    }
 #endif
     combobox_spell_check_lang->set_sensitive(_pConfig->enableSpellCheck);
 
