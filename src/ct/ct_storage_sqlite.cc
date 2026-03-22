@@ -518,7 +518,9 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageSqlite::get_delayed_text_buffer(const gin
         if (sqlite3_column_int64(stmt, 3)) _image_from_db(node_id, widgets);
 
         widgets.sort([](const CtAnchoredWidget* w1, const CtAnchoredWidget* w2) { return w1->getOffset() < w2->getOffset(); });
+        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(rRetTextBuffer->gobj());
+        #endif
         CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
         for (auto widget : widgets) {
             widget->insertInTextBuffer(rRetTextBuffer);

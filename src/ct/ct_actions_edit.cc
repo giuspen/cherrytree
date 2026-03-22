@@ -43,9 +43,9 @@ void CtActions::requested_step_back()
         }
     }
     else {
+        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
-        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         if (gtk_source_buffer_can_undo(pGtkSourceBuffer)) {
             gtk_source_buffer_undo(pGtkSourceBuffer);
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
@@ -71,9 +71,9 @@ void CtActions::requested_step_ahead()
         }
     }
     else {
+        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
-        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
         if (gtk_source_buffer_can_redo(pGtkSourceBuffer)) {
             gtk_source_buffer_redo(pGtkSourceBuffer);
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);

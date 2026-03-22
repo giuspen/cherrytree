@@ -146,11 +146,13 @@ Gtk::MenuButton* CtMenu::build_bookmarks_button4(std::list<std::tuple<gint64, Gl
 }
 #endif /* GTKMM_MAJOR_VERSION >= 4 */
 
+#if GTKMM_MAJOR_VERSION < 4
 static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 {
     xmlpp::Element* pElement = static_cast<xmlpp::Element*>(pNode);
     return pElement->get_attribute(name);
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 */
 
 CtMenuAction::CtMenuAction()
  : run_action(nullptr)
@@ -163,6 +165,7 @@ CtMenuAction::CtMenuAction()
 #endif
 {}
 
+#if GTKMM_MAJOR_VERSION < 4
 static void on_menu_activate(void* /*pObject*/, CtMenuAction* pAction)
 {
     if (pAction) {
@@ -172,6 +175,7 @@ static void on_menu_activate(void* /*pObject*/, CtMenuAction* pAction)
         });
     }
 }
+#endif /* GTKMM_MAJOR_VERSION < 4 */
 
 const std::string& CtMenuAction::get_shortcut(CtConfig* pCtConfig) const
 {

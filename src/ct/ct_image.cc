@@ -60,7 +60,11 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
     #if GTKMM_MAJOR_VERSION < 4
     _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, size);
     #else
-    _rPixbuf.reset();
+    try {
+        _rPixbuf = Gdk::Pixbuf::create_from_resource(std::string{"/icons/"} + stockImage + ".svg", size, size, false);
+    } catch (...) {
+        _rPixbuf.reset();
+    }
     #endif
 
     _image.set(_rPixbuf);
@@ -265,7 +269,12 @@ void CtImageAnchor::_set_exp_coll_state(const CtAnchorExpCollState expCollState)
         #if GTKMM_MAJOR_VERSION < 4
         _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, _pCtMainWin->get_ct_config()->anchorSize);
         #else
-        _rPixbuf.reset();
+        try {
+            _rPixbuf = Gdk::Pixbuf::create_from_resource(std::string{"/icons/"} + stockImage + ".svg",
+                _pCtMainWin->get_ct_config()->anchorSize, _pCtMainWin->get_ct_config()->anchorSize, false);
+        } catch (...) {
+            _rPixbuf.reset();
+        }
         #endif
         _image.set(_rPixbuf);
     }

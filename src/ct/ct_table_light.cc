@@ -526,12 +526,8 @@ void CtTableLight::grab_focus() const
                                       0 != i/*start_editing*/);
         #else
         while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
-        auto children = _pListStore->children();
-        auto const_iter = children.begin();
-        for (size_t r = 0; r < currRow && const_iter; ++r) ++const_iter;
-        if (const_iter) {
-            auto iter = _pListStore->get_iter(_pListStore->get_path(const_iter));
-            _pManagedTreeView->get_selection()->select(iter);
+        if (auto* pColumn = _pManagedTreeView->get_column(currCol)) {
+            _pManagedTreeView->set_cursor(Gtk::TreePath{std::to_string(currRow)}, *pColumn, 0 != i/*start_editing*/);
         }
         #endif
     }

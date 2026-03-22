@@ -439,6 +439,7 @@ void CtMainWin::emit_app_apply_for_each_window(const std::function<void(CtMainWi
 void CtMainWin::emit_app_quit_or_hide_window(CtMainWin* pWin)
 {
     #if GTKMM_MAJOR_VERSION >= 4
+    (void)pWin;
     for (auto& f : signal_app_quit_or_hide_window) f();
     #else
     signal_app_quit_or_hide_window.emit(pWin);
@@ -448,6 +449,7 @@ void CtMainWin::emit_app_quit_or_hide_window(CtMainWin* pWin)
 void CtMainWin::emit_app_quit_window(CtMainWin* pWin)
 {
     #if GTKMM_MAJOR_VERSION >= 4
+    (void)pWin;
     for (auto& f : signal_app_quit_window) f();
     #else
     signal_app_quit_window.emit(pWin);
@@ -553,6 +555,7 @@ Gtk::Image* CtMainWin::new_managed_image_from_stock(const std::string& stockImag
 {
     auto pImage = Gtk::manage(new Gtk::Image{});
     #if GTKMM_MAJOR_VERSION >= 4
+    (void)size;
     pImage->set_from_icon_name(stockImage);
     #else
     pImage->set_from_icon_name(stockImage, size);
@@ -1256,7 +1259,7 @@ void CtMainWin::menu_set_visible_exit_app(bool visible)
     }
     CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);
 #else
-    // GTK4: menu handling different
+    (void)visible; // systray not supported in GTK4
 #endif
 }
 

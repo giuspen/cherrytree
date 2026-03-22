@@ -494,6 +494,7 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
     Gtk::Clipboard::get()->set(target_entries, clip_data_get, clip_data_clear);
     #else
     // GTK4: minimal clipboard support (text only)
+    (void)targets_list;
     auto display = Gdk::Display::get_default();
     if (display) {
         auto clipboard = display->get_clipboard();

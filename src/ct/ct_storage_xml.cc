@@ -476,7 +476,9 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from
 {
     Glib::RefPtr<Gtk::TextBuffer> pBuffer = _pCtMainWin->get_new_text_buffer();
     bool error{false};
+    #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
     auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pBuffer->gobj());
+    #endif
     CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
     for (xmlpp::Node* xml_slot : parent_xml_element->get_children()) {
         if (not get_text_buffer_one_slot_from_xml(pBuffer, xml_slot, widgets, text_insert_pos, force_offset, multifile_dir)) {

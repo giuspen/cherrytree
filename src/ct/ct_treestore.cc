@@ -975,6 +975,10 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::
     #if GTKMM_MAJOR_VERSION < 4
     return _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE);
     #else
+    try {
+        return Gdk::Pixbuf::create_from_resource(std::string{"/icons/"} + stock_id + ".svg",
+                                                CtConst::NODE_ICON_SIZE, CtConst::NODE_ICON_SIZE, false);
+    } catch (...) {}
     return Glib::RefPtr<Gdk::Pixbuf>{};
     #endif
 }
@@ -1144,7 +1148,12 @@ void CtTreeStore::update_node_aux_icon(const Gtk::TreeModel::iterator& treeIter)
         #if GTKMM_MAJOR_VERSION < 4
         treeIter->set_value(_columns.rColPixbufAux, _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE));
         #else
-        treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>{});
+        try {
+            treeIter->set_value(_columns.rColPixbufAux, Gdk::Pixbuf::create_from_resource(
+                std::string{"/icons/"} + stock_id + ".svg", CtConst::NODE_ICON_SIZE, CtConst::NODE_ICON_SIZE, false));
+        } catch (...) {
+            treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>{});
+        }
         #endif
     }
 }

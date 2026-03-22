@@ -1123,9 +1123,10 @@ void CtDialogs::match_dialog(const std::string& str_find,
     // Buttons without Gtk::RESPONSE_* enums
     auto pButtonPrev = pMatchesDialog->add_button("", 10);
     auto pButtonNext = pMatchesDialog->add_button("", 11);
-    auto pButtonHide = pMatchesDialog->add_button(_("Hide"), 12);
+    pMatchesDialog->add_button(_("Hide"), 12);
 
     rModel->load_current_page();
+    pMatchesDialog->set_title("'" + str_find + "'  -  " + std::to_string(rModel->get_tot_matches()) + CtConst::CHAR_SPACE + _("Matches"));
     auto pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);

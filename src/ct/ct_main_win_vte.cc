@@ -35,7 +35,7 @@ struct CtVteSpawnAsyncData {
     char* pCmd;
 };
 
-#if defined(HAVE_VTE)
+#if defined(HAVE_VTE) && GTKMM_MAJOR_VERSION < 4
 static void _vteTerminalSpawnAsyncCallback(VteTerminal* pVteTerminal,
                                            GPid pid,
                                            GError* error,
@@ -71,7 +71,7 @@ static void _vteTerminalSpawnAsyncCallback(VteTerminal* pVteTerminal,
         g_clear_error(&error);
     }
 }
-#endif // HAVE_VTE
+#endif // HAVE_VTE && GTKMM_MAJOR_VERSION < 4
 
 bool CtMainWin::show_hide_vte_cmd_passed_as_first_in_session(bool visible, const char* first_cmd_passed)
 {

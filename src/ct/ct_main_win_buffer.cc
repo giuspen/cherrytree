@@ -511,7 +511,9 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     user_active() = false;
 
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
+    #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
     auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
+    #endif
 
     CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);
 
