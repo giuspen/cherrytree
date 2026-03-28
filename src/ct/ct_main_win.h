@@ -367,7 +367,6 @@ private:
     #if GTKMM_MAJOR_VERSION >= 4
     Gtk::MenuButton*             _pMenuButton4{nullptr};
     Gtk::MenuButton*             _pRecentDocsMenuButton4{nullptr};
-    Gtk::MenuButton*             _pBookmarksButton4{nullptr};
     std::vector<Gtk::Box*>       _gtk4Toolbars; // primary + category toolbars
     #endif /* GTKMM_MAJOR_VERSION >= 4 */
     CtMenuAction*                _pSaveMenuAction{nullptr};

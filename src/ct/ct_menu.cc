@@ -66,14 +66,55 @@ std::vector<Gtk::Box*> CtMenu::build_toolbars4(Gtk::MenuButton*& pRecentDocsMenu
             continue;
         }
         if (element == CtConst::CHAR_STAR) {
-            auto* recent_btn = Gtk::manage(new Gtk::MenuButton());
-            recent_btn->set_has_frame(false);
-            recent_btn->get_style_context()->add_class("ct-toolbar4-btn");
-            recent_btn->set_icon_name("document-open-recent");
-            recent_btn->set_tooltip_text(_("Open a Recent CherryTree Document"));
-            populate_recent_docs_menu4(recent_btn, _pCtConfig->recentDocsFilepaths);
-            current_toolbar->append(*recent_btn);
-            pRecentDocsMenuButton = recent_btn;
+            // Create a container for the open-file button + dropdown menu button
+            auto* btn_container = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 0});
+            btn_container->get_style_context()->add_class("ct-toolbar4-btn-group");
+            
+            // Main button: open file picker
+            auto* open_btn = Gtk::manage(new Gtk::Button());
+            open_btn->set_has_frame(false);
+            open_btn->get_style_context()->add_class("ct-toolbar4-btn");
+            open_btn->get_style_context()->add_class("ct-toolbar4-btn-left");
+            
+            CtMenuAction* open_file_action = find_action("ct_open_file");
+            if (open_file_action and not open_file_action->image.empty()) {
+                open_btn->set_icon_name(open_file_action->image);
+            } else {
+                open_btn->set_icon_name("document-open");
+            }
+            
+            std::string tooltip = open_file_action ? open_file_action->desc : _("Open File");
+            open_btn->set_tooltip_text(tooltip);
+            
+            if (open_file_action and open_file_action->run_action) {
+                open_btn->signal_clicked().connect([open_file_action](){
+                    open_file_action->run_action();
+                });
+            }
+            btn_container->append(*open_btn);
+            
+            // Dropdown button: recent documents
+            auto* menu_btn = Gtk::manage(new Gtk::MenuButton());
+            menu_btn->set_has_frame(false);
+            menu_btn->get_style_context()->add_class("ct-toolbar4-btn");
+            menu_btn->get_style_context()->add_class("ct-toolbar4-btn-right");
+            menu_btn->set_icon_name("pan-down-symbolic");
+            menu_btn->set_tooltip_text(_("Recent Documents"));
+
+            // In this split-button setup, force click-to-toggle behavior for the menu arrow.
+            auto click = Gtk::GestureClick::create();
+            click->set_button(1);
+            click->signal_pressed().connect([menu_btn, click](int /*n_press*/, double /*x*/, double /*y*/) {
+                click->set_state(Gtk::EventSequenceState::CLAIMED);
+                menu_btn->set_active(not menu_btn->get_active());
+            });
+            menu_btn->add_controller(click);
+            
+            populate_recent_docs_menu4(menu_btn, _pCtConfig->recentDocsFilepaths);
+            btn_container->append(*menu_btn);
+            
+            current_toolbar->append(*btn_container);
+            pRecentDocsMenuButton = menu_btn;
             continue;
         }
 
@@ -173,25 +214,124 @@ void CtMenu::populate_recent_docs_menu4(Gtk::MenuButton* recentBtn, const CtRece
     if (not recentBtn) {
         return;
     }
-    auto* pop = Gtk::manage(new Gtk::Popover());
-    auto* vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 4});
+    
+    auto* vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 0});
+    
+    // Add recent documents
     int idx = 0;
     for (const auto& path : recentDocsFilepaths) {
         if (idx >= 10) {
             break;
         }
-        auto* btn = Gtk::manage(new Gtk::Button(path.filename().string()));
+        auto* hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 8});
+        
+        // Folder icon
+        auto* icon = Gtk::manage(new Gtk::Image());
+        icon->set_from_icon_name("folder");
+        icon->set_icon_size(Gtk::IconSize::NORMAL);
+        hbox->append(*icon);
+        
+        // Document path as label (not button, so it looks like a menu item)
+        auto* lbl = Gtk::manage(new Gtk::Label(path.string()));
+        lbl->set_halign(Gtk::Align::START);
+        lbl->set_hexpand(true);
+        lbl->set_ellipsize(Pango::EllipsizeMode::START);
+        hbox->append(*lbl);
+        
+        // Make the whole row clickable by wrapping it in an event box / button without visual styling
+        auto* btn = Gtk::manage(new Gtk::Button());
+        btn->set_child(*hbox);
+        btn->get_style_context()->add_class("flat");
         btn->set_halign(Gtk::Align::FILL);
-        btn->signal_clicked().connect([this, path]{
+        btn->signal_clicked().connect([this, path, recentBtn]{
+            recentBtn->popdown();
             _pCtMainWin->file_open(path, "", "", "", true);
         });
         vbox->append(*btn);
         ++idx;
     }
-    if (idx == 0) {
-        vbox->append(*Gtk::manage(new Gtk::Label(_("No recent documents"))));
+    
+    if (idx > 0) {
+        // Add separator
+        auto* sep = Gtk::manage(new Gtk::Separator{Gtk::Orientation::HORIZONTAL});
+        vbox->append(*sep);
+        
+        // Add "Remove from list" with submenu
+        
+        // Create a regular button for "Remove from list" label
+        auto* remove_label_btn = Gtk::manage(new Gtk::Button());
+        auto* remove_label_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 8});
+        
+        auto* remove_icon = Gtk::manage(new Gtk::Image());
+        remove_icon->set_from_icon_name("edit-delete");
+        remove_icon->set_icon_size(Gtk::IconSize::NORMAL);
+        remove_label_hbox->append(*remove_icon);
+        
+        auto* remove_lbl = Gtk::manage(new Gtk::Label(_("Remove from list")));
+        remove_lbl->set_halign(Gtk::Align::START);
+        remove_lbl->set_hexpand(true);
+        remove_label_hbox->append(*remove_lbl);
+        
+        remove_label_btn->set_child(*remove_label_hbox);
+        remove_label_btn->get_style_context()->add_class("flat");
+        remove_label_btn->set_halign(Gtk::Align::FILL);
+        
+        // Build the submenu for removing documents
+        auto* remove_pop = Gtk::manage(new Gtk::Popover());
+        auto* remove_vbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 0});
+        
+        for (const auto& path : recentDocsFilepaths) {
+            auto* rem_hbox = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 8});
+            
+            auto* rem_icon = Gtk::manage(new Gtk::Image());
+            rem_icon->set_from_icon_name("folder");
+            rem_icon->set_icon_size(Gtk::IconSize::NORMAL);
+            rem_hbox->append(*rem_icon);
+            
+            auto* rem_lbl = Gtk::manage(new Gtk::Label(path.string()));
+            rem_lbl->set_halign(Gtk::Align::START);
+            rem_lbl->set_hexpand(true);
+            rem_lbl->set_ellipsize(Pango::EllipsizeMode::START);
+            rem_hbox->append(*rem_lbl);
+            
+            auto* rem_btn = Gtk::manage(new Gtk::Button());
+            rem_btn->set_child(*rem_hbox);
+            rem_btn->get_style_context()->add_class("flat");
+            rem_btn->set_halign(Gtk::Align::FILL);
+                            rem_btn->signal_clicked().connect([this, path, recentBtn]{
+                recentBtn->popdown();
+                _pCtConfig->recentDocsFilepaths.remove(path);
+                _pCtMainWin->menu_set_items_recent_documents();
+            });
+            remove_vbox->append(*rem_btn);
+        }
+        remove_pop->set_child(*remove_vbox);
+        remove_pop->set_autohide(true);
+        
+        // Create MenuButton for the "Remove from list" item with submenu
+        auto* remove_menu_btn = Gtk::manage(new Gtk::MenuButton());
+        remove_menu_btn->set_child(*remove_label_btn);
+        remove_menu_btn->set_popover(*remove_pop);
+        remove_menu_btn->set_halign(Gtk::Align::FILL);
+        remove_menu_btn->get_style_context()->add_class("flat");
+        vbox->append(*remove_menu_btn);
+    } else {
+        auto* lbl = Gtk::manage(new Gtk::Label(_("No recent documents")));
+        lbl->set_margin_start(10);
+        lbl->set_margin_end(10);
+        lbl->set_margin_top(10);
+        lbl->set_margin_bottom(10);
+        vbox->append(*lbl);
     }
+    
+    auto* pop = Gtk::manage(new Gtk::Popover());
     pop->set_child(*vbox);
+    pop->set_autohide(true);
+    pop->signal_closed().connect([recentBtn]{
+        if (recentBtn->get_active()) {
+            recentBtn->set_active(false);
+        }
+    });
     recentBtn->set_popover(*pop);
 }
 

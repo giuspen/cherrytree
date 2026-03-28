@@ -252,18 +252,6 @@ CtMainWin::CtMainWin(bool                            no_gui,
     }
     // Initial population of recent docs popover
     _uCtMenu->populate_recent_docs_menu4(_pRecentDocsMenuButton4, _pCtConfig->recentDocsFilepaths);
-    // Create empty bookmarks button in primary toolbar (populated later)
-    if (!_gtk4Toolbars.empty()) {
-        std::list<std::tuple<gint64, Glib::ustring, const char*>> emptyBookmarks;
-        auto bookmark_action_lambda = [this](gint64 node_id){
-            CtTreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
-            if (tree_iter) _uCtTreeview->set_cursor_safe(tree_iter);
-        };
-        // GTK4: use std::function callback directly
-        std::function<void(gint64)> bookmark_action = bookmark_action_lambda;
-        _pBookmarksButton4 = _uCtMenu->build_bookmarks_button4(emptyBookmarks, bookmark_action, true);
-        _gtk4Toolbars[0]->append(*_pBookmarksButton4);
-    }
 #endif
     // Main layout assembly
 #if GTKMM_MAJOR_VERSION >= 4
@@ -795,6 +783,10 @@ void CtMainWin::update_theme()
     css_str += "toolbar button { padding: 0px; } ";
     css_str += ".ct-toolbar4 { border-spacing: 0px; } ";
     css_str += ".ct-toolbar4 .ct-toolbar4-btn { margin: 0px; padding: 0px 2px 0px 2px; min-width: 20px; min-height: 20px; } ";
+    css_str += ".ct-toolbar4 .ct-toolbar4-btn-group { margin: 0px; border-spacing: 0px; } ";
+    css_str += ".ct-toolbar4 .ct-toolbar4-btn-left { border-radius: 3px 0px 0px 3px; padding: 0px 3px 0px 3px; margin-right: -1px; } ";
+    css_str += ".ct-toolbar4 .ct-toolbar4-btn-right { border-radius: 0px 3px 3px 0px; padding: 0px 2px 0px 2px; border-left: 1px solid rgba(0,0,0,0.15); } ";
+    css_str += ".ct-toolbar4 .ct-toolbar4-menu-btn { border-left: 2px solid rgba(0,0,0,0.2); padding: 0px 4px 0px 6px; } ";
     css_str += ".ct-toolbar4 separator.ct-toolbar4-separator { margin: 0px 3px 0px 3px; min-width: 1px; } ";
     css_str += "textview border { background-color: transparent; } "; // Loss of transparency with PNGs (#1402, #2132)
     //printf("css_str_len=%zu\n", css_str.size());
@@ -1194,28 +1186,6 @@ void CtMainWin::menu_set_bookmark_menu_items()
         if (_pBookmarksSubmenus[i]) {
             _pBookmarksSubmenus[i]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action, 2 == i/*isTopMenu*/));
         }
-    }
-    #else
-    if (!_gtk4Toolbars.empty()) {
-        std::list<std::tuple<gint64, Glib::ustring, const char*>> bookmarks;
-        for (const gint64& node_id : _uCtTreestore->bookmarks_get()) {
-            CtTreeIter ct_tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
-            bookmarks.push_back(std::make_tuple(node_id,
-                ct_tree_iter.get_node_name(),
-                _uCtTreestore->get_node_icon(_uCtTreestore->get_store()->iter_depth(ct_tree_iter),
-                    ct_tree_iter.get_node_syntax_highlighting(),
-                    ct_tree_iter.get_node_custom_icon_id())));
-        }
-        std::function<void(gint64)> bookmark_action = [this](gint64 node_id) {
-            CtTreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
-            if (tree_iter) _uCtTreeview->set_cursor_safe(tree_iter);
-        };
-        if (_pBookmarksButton4) {
-            _gtk4Toolbars[0]->remove(*_pBookmarksButton4);
-        }
-        _pBookmarksButton4 = _uCtMenu->build_bookmarks_button4(bookmarks, bookmark_action, true);
-        _gtk4Toolbars[0]->append(*_pBookmarksButton4);
-        _pBookmarksButton4->show();
     }
     #endif
 }
