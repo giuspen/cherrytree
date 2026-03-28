@@ -14,3 +14,4 @@ build
 .vscode/settings.json
 .flatpak-builder
 build_output*.txt
+Screenshot_*.png

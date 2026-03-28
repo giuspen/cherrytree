@@ -463,22 +463,30 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 {
     _pCtConfig->hpanedPos = _hPaned.property_position();
     _pCtConfig->vpanedPos = _vPaned.property_position();
-    if (_prevTextviewWidth == 0) {
-        _prevTextviewWidth = allocation.get_width();
+    if (allocation.get_width() <= 0) {
+        return;
     }
-    else if (_prevTextviewWidth != allocation.get_width()) {
-        _prevTextviewWidth = allocation.get_width();
-        CtTreeIter ct_tree_iter = curr_tree_iter();
-        if (ct_tree_iter) {
-            std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets_fast();
-            for (CtAnchoredWidget* pWidget : widgets) {
-                if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pWidget)) {
-                    if (not pCodebox->get_width_in_pixels()) {
-                        pCodebox->apply_width_height(allocation.get_width());
-                    }
-                }
-            }
+
+    const bool first_allocation = (_prevTextviewWidth == 0);
+    const bool width_changed = (_prevTextviewWidth != allocation.get_width());
+    _prevTextviewWidth = allocation.get_width();
+    if (not first_allocation and not width_changed) {
+        return;
+    }
+
+    CtTreeIter ct_tree_iter = curr_tree_iter();
+    if (ct_tree_iter) {
+        std::list<CtAnchoredWidget*> widgets = ct_tree_iter.get_anchored_widgets_fast();
+        for (CtAnchoredWidget* pWidget : widgets) {
+            pWidget->apply_width_height(allocation.get_width());
+#if GTKMM_MAJOR_VERSION >= 4
+            pWidget->show();
+            pWidget->queue_draw();
+#endif
         }
+#if GTKMM_MAJOR_VERSION >= 4
+        _ctTextview.mm().queue_draw();
+#endif
     }
 }
 

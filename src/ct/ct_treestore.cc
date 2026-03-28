@@ -29,6 +29,50 @@
 #include "ct_actions.h"
 #include "ct_logging.h"
 
+#if GTKMM_MAJOR_VERSION >= 4
+namespace {
+void gtk4_refresh_anchored_widgets(Gtk::TextView& textView,
+                                   const std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                   const char* reason,
+                                   const bool doWrapToggle)
+{
+    const int width = textView.get_allocation().get_width();
+    if (width <= 0) {
+        return;
+    }
+
+    for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgets) {
+        Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+        if (pChildAnchor) {
+            const auto anchorWidgets = pChildAnchor->get_widgets();
+            const bool hasAnyWidget = not anchorWidgets.empty();
+            const bool hasThisWidget = std::find(anchorWidgets.begin(), anchorWidgets.end(), pCtAnchoredWidget) != anchorWidgets.end();
+            if (not hasAnyWidget or not hasThisWidget) {
+                textView.add_child_at_anchor(*pCtAnchoredWidget, pChildAnchor);
+            }
+        }
+        pCtAnchoredWidget->apply_width_height(width);
+        if (not pCtAnchoredWidget->get_hidden()) {
+            pCtAnchoredWidget->show();
+        }
+        pCtAnchoredWidget->queue_draw();
+        if (doWrapToggle) {
+            pCtAnchoredWidget->queue_allocate();
+        }
+    }
+
+    if (doWrapToggle) {
+        const auto current_wrap_mode = textView.get_wrap_mode();
+        const auto alternate_wrap_mode = current_wrap_mode == Gtk::WrapMode::NONE ? Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE;
+        textView.set_wrap_mode(alternate_wrap_mode);
+        textView.set_wrap_mode(current_wrap_mode);
+    }
+    textView.queue_draw();
+
+}
+}
+#endif
+
 /*static*/bool CtTreeIter::_hitExclusionFromSearch{false};
 
 CtTreeIter::CtTreeIter(Gtk::TreeModel::iterator iter, const CtTreeModelColumns* pColumns, CtMainWin* pCtMainWin)
@@ -912,14 +956,24 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     pCtTextView->cursor_and_tooltips_reset();
 
     std::list<CtAnchoredWidget*> anchored_widgets_to_hide;
+#if GTKMM_MAJOR_VERSION >= 4
+    std::list<CtAnchoredWidget*> anchored_widgets_to_relayout;
+#endif
     for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
         Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (pChildAnchor) {
-            if (0 == pChildAnchor->get_widgets().size()) {
+            const auto anchorWidgets = pChildAnchor->get_widgets();
+            const bool hasThisWidget = std::find(anchorWidgets.begin(), anchorWidgets.end(), pCtAnchoredWidget) != anchorWidgets.end();
+            if (not hasThisWidget) {
                 // Gtk::TextIter textIter = pTextBuffer->get_iter_at_child_anchor(pChildAnchor);
                 textView.add_child_at_anchor(*pCtAnchoredWidget, pChildAnchor);
                 pCtAnchoredWidget->apply_width_height(textView.get_allocation().get_width());
                 pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
+    #if GTKMM_MAJOR_VERSION >= 4
+                // GTK4: widgets don't auto-show after add_child_at_anchor
+                pCtAnchoredWidget->show();
+                anchored_widgets_to_relayout.push_back(pCtAnchoredWidget);
+    #endif
             }
             else {
                 // this happens if we click on a node that is already selected, not an issue
@@ -936,6 +990,13 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     textView.show_all();
+#else
+    Glib::signal_idle().connect([pCtTextView, anchored_widgets_to_relayout]() {
+        gtk4_refresh_anchored_widgets(pCtTextView->mm(), anchored_widgets_to_relayout, "post-load-idle", true/*doWrapToggle*/);
+        return false;
+    });
+    // GTK4: queue_draw to ensure proper rendering of text and anchored widgets
+    textView.queue_draw();
 #endif
     // we shouldn't lose focus from TREE because TREE shortcuts/arrays movement stop working
     // pTextView->grab_focus();
@@ -964,6 +1025,12 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
         _curr_node_sigc_conn.push_back(
             _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, nodeIdDataHolder](){
                 _pCtMainWin->get_state_machine().update_curr_state_v_adj_val(nodeIdDataHolder);
+#if GTKMM_MAJOR_VERSION >= 4
+                CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
+                if (currTreeIter && currTreeIter.get_node_id_data_holder() == nodeIdDataHolder) {
+                    _pCtMainWin->get_text_view().mm().queue_draw();
+                }
+#endif
             })
         );
     }
@@ -1246,10 +1313,16 @@ void CtTreeStore::addAnchoredWidgets(CtTreeIter ctTreeIter,
     for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgetList) {
         Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (pChildAnchor) {
-            if (0 == pChildAnchor->get_widgets().size()) {
+            const auto anchorWidgets = pChildAnchor->get_widgets();
+            const bool hasThisWidget = std::find(anchorWidgets.begin(), anchorWidgets.end(), pCtAnchoredWidget) != anchorWidgets.end();
+            if (not hasThisWidget) {
                 pTextView->add_child_at_anchor(*pCtAnchoredWidget, pChildAnchor);
                 pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
                 pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
+    #if GTKMM_MAJOR_VERSION >= 4
+                // GTK4: widgets don't auto-show after add_child_at_anchor
+                pCtAnchoredWidget->show();
+    #endif
             }
             if (pCtAnchoredWidget->get_hidden()) {
                 spdlog::debug("{} hide", __FUNCTION__);
@@ -1260,6 +1333,12 @@ void CtTreeStore::addAnchoredWidgets(CtTreeIter ctTreeIter,
             spdlog::error("!! {} pChildAnchor", __FUNCTION__);
         }
     }
+#if GTKMM_MAJOR_VERSION >= 4
+    Glib::signal_idle().connect([pTextView, anchoredWidgetList]() {
+        gtk4_refresh_anchored_widgets(*pTextView, anchoredWidgetList, "addAnchoredWidgets-idle", true/*doWrapToggle*/);
+        return false;
+    });
+#endif
 }
 
 gint64 CtTreeStore::node_id_get(gint64 original_id/*=-1*/,

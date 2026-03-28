@@ -23,28 +23,104 @@
 
 #include "ct_actions.h"
 #include "ct_menu.h"
+#include "ct_const.h"
+#include "ct_misc_utils.h"
 #include "ct_storage_xml.h"
 
 #if GTKMM_MAJOR_VERSION >= 4
 std::vector<Gtk::Box*> CtMenu::build_toolbars4(Gtk::MenuButton*& pRecentDocsMenuButton, Gtk::Button*& pButtonSave)
 {
-    auto* toolbar = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 6});
-
-    auto* btnSave = Gtk::manage(new Gtk::Button());
-    btnSave->set_icon_name("document-save");
-    if (auto act = find_action("ct_save")) {
-        btnSave->signal_clicked().connect([act]{ if (act->run_action) act->run_action(); });
+    pRecentDocsMenuButton = nullptr;
+    pButtonSave = nullptr;
+    _gtk4ActionWidgets.clear();
+    for (auto& action : _actions) {
+        action.signal_set_sensitive = nullptr;
+        action.signal_set_visible = nullptr;
     }
-    toolbar->append(*btnSave);
-    pButtonSave = btnSave;
 
-    auto* recentBtn = Gtk::manage(new Gtk::MenuButton());
-    recentBtn->set_icon_name("document-open-recent");
-    populate_recent_docs_menu4(recentBtn, _pCtConfig->recentDocsFilepaths);
-    toolbar->append(*recentBtn);
-    pRecentDocsMenuButton = recentBtn;
+    std::vector<Gtk::Box*> toolbars;
+    auto create_toolbar = []() {
+        auto* toolbar = Gtk::manage(new Gtk::Box{Gtk::Orientation::HORIZONTAL, 0});
+        toolbar->get_style_context()->add_class("ct-toolbar4");
+        toolbar->set_margin_start(2);
+        toolbar->set_margin_end(2);
+        toolbar->set_margin_top(2);
+        toolbar->set_margin_bottom(2);
+        return toolbar;
+    };
 
-    return {toolbar};
+    Gtk::Box* current_toolbar = create_toolbar();
+    toolbars.push_back(current_toolbar);
+
+    const std::vector<std::string> toolbar_elements = str::split(_pCtConfig->toolbarUiList, ",");
+    for (const std::string& element : toolbar_elements) {
+        if (element == CtConst::TOOLBAR_SPLIT) {
+            current_toolbar = create_toolbar();
+            toolbars.push_back(current_toolbar);
+            continue;
+        }
+        if (element == CtConst::TAG_SEPARATOR) {
+            auto* separator = Gtk::manage(new Gtk::Separator{Gtk::Orientation::VERTICAL});
+            separator->get_style_context()->add_class("ct-toolbar4-separator");
+            current_toolbar->append(*separator);
+            continue;
+        }
+        if (element == CtConst::CHAR_STAR) {
+            auto* recent_btn = Gtk::manage(new Gtk::MenuButton());
+            recent_btn->set_has_frame(false);
+            recent_btn->get_style_context()->add_class("ct-toolbar4-btn");
+            recent_btn->set_icon_name("document-open-recent");
+            recent_btn->set_tooltip_text(_("Open a Recent CherryTree Document"));
+            populate_recent_docs_menu4(recent_btn, _pCtConfig->recentDocsFilepaths);
+            current_toolbar->append(*recent_btn);
+            pRecentDocsMenuButton = recent_btn;
+            continue;
+        }
+
+        CtMenuAction* action = find_action(element);
+        if (not action) {
+            continue;
+        }
+
+        auto* button = Gtk::manage(new Gtk::Button());
+        button->set_has_frame(false);
+        button->get_style_context()->add_class("ct-toolbar4-btn");
+        if (not action->image.empty()) {
+            button->set_icon_name(action->image);
+        }
+        else {
+            button->set_label(action->name);
+        }
+
+        std::string tooltip = action->desc;
+        const std::string& shortcut = action->get_shortcut(_pCtConfig);
+        if (not shortcut.empty()) {
+            const std::string shortcut_text = _shortcut_display(shortcut);
+            tooltip = tooltip.empty() ? shortcut_text : tooltip + " (" + shortcut_text + ")";
+        }
+        if (not tooltip.empty()) {
+            button->set_tooltip_text(tooltip);
+        }
+
+        button->signal_clicked().connect([action](){
+            if (action->run_action) {
+                action->run_action();
+            }
+        });
+        current_toolbar->append(*button);
+        _gtk4ActionWidgets[action->id] = button;
+        action->signal_set_sensitive = [button](bool sensitive) {
+            button->set_sensitive(sensitive);
+        };
+        action->signal_set_visible = [button](bool visible) {
+            button->set_visible(visible);
+        };
+        if (action->id == "ct_save") {
+            pButtonSave = button;
+        }
+    }
+
+    return toolbars;
 }
 
 Gtk::MenuButton* CtMenu::build_menubutton4()
@@ -124,6 +200,8 @@ Gtk::MenuButton* CtMenu::build_bookmarks_button4(std::list<std::tuple<gint64, Gl
                                                  const bool /*isTopMenu*/)
 {
     auto* btn = Gtk::manage(new Gtk::MenuButton());
+    btn->set_has_frame(false);
+    btn->get_style_context()->add_class("ct-toolbar4-btn");
     btn->set_icon_name("bookmark-new");
     btn->set_tooltip_text(_("Bookmarks"));
 

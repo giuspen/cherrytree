@@ -137,6 +137,11 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _scrolledwindowText.set_child(_ctTextview.mm());
     _vboxText.append(_init_window_header());
     _vboxText.append(_scrolledwindowText);
+    // GTK4: Set expansion properties for scrolledwindowText to fill vboxText
+    _scrolledwindowText.set_expand(true);
+    // GTK4: Set expansion for vboxText in paned
+    _vboxText.set_expand(true);
+    _scrolledwindowTree.set_expand(false);
     if (_pCtConfig->treeRightSide) {
         _hPaned.set_start_child(_vboxText);
         _hPaned.set_end_child(_scrolledwindowTree);
@@ -145,6 +150,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
         _hPaned.set_start_child(_scrolledwindowTree);
         _hPaned.set_end_child(_vboxText);
     }
+    _hPaned.set_expand(true);
     _vPaned.set_start_child(_hPaned);
 #else
     _scrolledwindowText.add(_ctTextview.mm());
@@ -169,6 +175,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _vPaned.pack2(_hBoxVte, Gtk::FILL);
     #else
     _vPaned.set_end_child(_hBoxVte);
+    _vPaned.set_expand(true);
     #endif
     _vPaned.property_wide_handle() = true;
 
@@ -209,6 +216,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
         _pHeaderBar->pack_start(*_pScrolledWindowMenuBar);
 #else
     _pHeaderBar->pack_start(*_pMenuButton4);
+    _pMenuButton4->show();
 #endif
         _pHeaderBar->pack_start(*Gtk::manage(new Gtk::Label{" "}));
         // Ensure full visibility of header bar contents on GTK3
@@ -225,6 +233,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
 #else
 #if GTKMM_MAJOR_VERSION >= 4
     _vboxMain.append(*_pMenuButton4);
+    _pMenuButton4->show();
 #else
     _vboxMain.pack_start(*_pMenuButton4, false, false);
 #endif
@@ -784,6 +793,9 @@ void CtMainWin::update_theme()
     css_str += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
     css_str += "toolbar { padding: 2px 2px 2px 2px; } ";
     css_str += "toolbar button { padding: 0px; } ";
+    css_str += ".ct-toolbar4 { border-spacing: 0px; } ";
+    css_str += ".ct-toolbar4 .ct-toolbar4-btn { margin: 0px; padding: 0px 2px 0px 2px; min-width: 20px; min-height: 20px; } ";
+    css_str += ".ct-toolbar4 separator.ct-toolbar4-separator { margin: 0px 3px 0px 3px; min-width: 1px; } ";
     css_str += "textview border { background-color: transparent; } "; // Loss of transparency with PNGs (#1402, #2132)
     //printf("css_str_len=%zu\n", css_str.size());
 
