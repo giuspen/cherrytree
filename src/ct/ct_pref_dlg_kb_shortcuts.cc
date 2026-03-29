@@ -25,6 +25,33 @@
 #include "ct_main_win.h"
 #include <optional>
 
+namespace {
+
+#if GTKMM_MAJOR_VERSION >= 4
+int _run_dialog_blocking(Gtk::Dialog& dialog)
+{
+    int response = Gtk::ResponseType::NONE;
+    auto loop = Glib::MainLoop::create(false);
+    dialog.signal_response().connect([&](int resp) {
+        response = resp;
+        dialog.hide();
+        if (loop->is_running()) {
+            loop->quit();
+        }
+    });
+    dialog.signal_hide().connect([&]() {
+        if (loop->is_running()) {
+            loop->quit();
+        }
+    });
+    dialog.present();
+    loop->run();
+    return response;
+}
+#endif
+
+}
+
 Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 {
     Glib::RefPtr<Gtk::TreeStore> treestore = Gtk::TreeStore::create(_shortcutModelColumns);
@@ -328,16 +355,8 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut, const std::string& d
     if (dialog.run() != Gtk::RESPONSE_ACCEPT)
         return false;
 #else
-    // For GTK4, use synchronous wait on response via a local flag.
-    bool accepted = false;
-    dialog.signal_response().connect([&](int response){
-        accepted = (response == static_cast<int>(Gtk::ResponseType::ACCEPT));
-        dialog.hide();
-    });
-    dialog.present();
-    while (dialog.get_visible())
-        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, true);
-    if (!accepted) return false;
+    if (_run_dialog_blocking(dialog) != static_cast<int>(Gtk::ResponseType::ACCEPT))
+        return false;
 #endif
 
     const std::string was_shortcut{shortcut};
