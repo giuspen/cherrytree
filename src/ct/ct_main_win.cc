@@ -6,32 +6,54 @@ void CtMainWin::init_app_actions_gtk4()
     auto app = std::dynamic_pointer_cast<Gtk::Application>(Gtk::Application::get_default());
     if (!app) return;
 
-    // Register application actions and accelerators for all actions
-    // that define a shortcut (built-in or custom from settings)
+    // Register all actions so that:
+    //  1. Keyboard shortcuts work globally (never need the menu to be open).
+    //  2. The Gio::Menu / PopoverMenuBar can activate them via "app.<id>".
     for (const auto& act : _uCtMenu->get_actions()) {
         if (act.id.empty()) continue;
-        
-        // Get the effective shortcut (custom from settings or built-in)
-        const std::string& shortcut = act.get_shortcut(_pCtConfig);
-        if (shortcut.empty()) continue;
 
-        // If the action already exists, just refresh accelerators
-        if (app->lookup_action(act.id)) {
-            std::vector<Glib::ustring> accels{shortcut};
-            app->set_accels_for_action(std::string("app.")+act.id, accels);
-            continue;
+        if (not app->lookup_action(act.id)) {
+            auto simple = Gio::SimpleAction::create(act.id);
+            simple->signal_activate().connect([this, action_id = act.id](const Glib::VariantBase&){
+                if (auto a = _uCtMenu->find_action(action_id)) {
+                    if (a->run_action) a->run_action();
+                }
+            });
+            app->add_action(simple);
         }
 
-        auto simple = Gio::SimpleAction::create(act.id);
-        simple->signal_activate().connect([this, action_id = act.id](const Glib::VariantBase&){
-            if (auto a = _uCtMenu->find_action(action_id)) {
-                if (a->run_action) a->run_action();
-            }
-        });
-        app->add_action(simple);
+        // (Re-)apply accelerator – this works even before the menu is opened.
+        const std::string& shortcut = act.get_shortcut(_pCtConfig);
+        std::vector<Glib::ustring> accels;
+        if (not shortcut.empty()) accels.push_back(shortcut);
+        app->set_accels_for_action(std::string("app.") + act.id, accels);
+    }
 
-        std::vector<Glib::ustring> accels{shortcut};
-        app->set_accels_for_action(std::string("app.")+act.id, accels);
+    // Parameterised action: navigate to a bookmarked node.
+    // Used by Gio::Menu bookmark entries (app.goto_bookmark(<node_id>)).
+    if (not app->lookup_action("goto_bookmark")) {
+        auto goto_bm = Gio::SimpleAction::create(
+            "goto_bookmark", Glib::VARIANT_TYPE_INT64);
+        goto_bm->signal_activate().connect([this](const Glib::VariantBase& param){
+            const gint64 node_id =
+                Glib::VariantBase::cast_dynamic<Glib::Variant<gint64>>(param).get();
+            CtTreeIter tree_iter = get_tree_store().get_node_from_node_id(node_id);
+            if (tree_iter) _uCtTreeview->set_cursor_safe(tree_iter);
+        });
+        app->add_action(goto_bm);
+    }
+
+    // Parameterised action: open a recent document.
+    // Used by Gio::Menu recent-docs entries (app.open_recent_doc(<filepath>)).
+    if (not app->lookup_action("open_recent_doc")) {
+        auto open_recent = Gio::SimpleAction::create(
+            "open_recent_doc", Glib::VARIANT_TYPE_STRING);
+        open_recent->signal_activate().connect([this](const Glib::VariantBase& param){
+            const Glib::ustring filepath =
+                Glib::VariantBase::cast_dynamic<Glib::Variant<Glib::ustring>>(param).get();
+            file_open(std::string(filepath), "", "", "", true);
+        });
+        app->add_action(open_recent);
     }
 }
 #endif /* GTKMM_MAJOR_VERSION >= 4 */
@@ -200,8 +222,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
     add_accel_group(_uCtMenu->get_accel_group());
     _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton, _pSaveToolButton);
 #else
-    // GTK4: use hierarchical Gio::MenuModel menubutton
-    _pMenuButton4 = _uCtMenu->build_menubutton_model4();
+    // GTK4: build full menu bar via Gio::Menu + Gtk::PopoverMenuBar
+    _pPopoverMenuBar4 = _uCtMenu->build_popover_menubar4();
 #endif
 
         if (_pCtConfig->menubarInTitlebar) {
@@ -215,8 +237,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         _pHeaderBar->pack_start(*_pScrolledWindowMenuBar);
 #else
-    _pHeaderBar->pack_start(*_pMenuButton4);
-    _pMenuButton4->show();
+    _pHeaderBar->pack_start(*_pPopoverMenuBar4);
+    _pPopoverMenuBar4->show();
 #endif
         _pHeaderBar->pack_start(*Gtk::manage(new Gtk::Label{" "}));
         // Ensure full visibility of header bar contents on GTK3
@@ -231,12 +253,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
         _vboxMain.pack_start(*_pScrolledWindowMenuBar, false, false);
 #else
-#if GTKMM_MAJOR_VERSION >= 4
-    _vboxMain.append(*_pMenuButton4);
-    _pMenuButton4->show();
-#else
-    _vboxMain.pack_start(*_pMenuButton4, false, false);
-#endif
+    _vboxMain.append(*_pPopoverMenuBar4);
+    _pPopoverMenuBar4->show();
 #endif
     }
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
@@ -250,8 +268,9 @@ CtMainWin::CtMainWin(bool                            no_gui,
     for (auto pBox : _gtk4Toolbars) {
         _vboxMain.append(*pBox);
     }
-    // Initial population of recent docs popover
+    // Initial population of recent docs (toolbar dropdown + Gio::Menu recent-docs submenu)
     _uCtMenu->populate_recent_docs_menu4(_pRecentDocsMenuButton4, _pCtConfig->recentDocsFilepaths);
+    _uCtMenu->update_recent_docs_gio_menu4(_pCtConfig->recentDocsFilepaths);
 #endif
     // Main layout assembly
 #if GTKMM_MAJOR_VERSION >= 4
@@ -669,10 +688,11 @@ void CtMainWin::config_apply()
     }
     update_theme();
 #if GTKMM_MAJOR_VERSION >= 4
-    // Refresh displayed shortcut labels (in case of changes)
+    // Refresh shortcuts — works globally, no menu open needed
     _uCtMenu->refresh_shortcuts_gtk4();
-    // Repopulate recent docs and bookmarks after config apply
+    // Repopulate recent docs (toolbar dropdown + Gio::Menu) and bookmarks after config apply
     _uCtMenu->populate_recent_docs_menu4(_pRecentDocsMenuButton4, _pCtConfig->recentDocsFilepaths);
+    _uCtMenu->update_recent_docs_gio_menu4(_pCtConfig->recentDocsFilepaths);
     menu_set_bookmark_menu_items();
 #endif
 }
@@ -1187,6 +1207,19 @@ void CtMainWin::menu_set_bookmark_menu_items()
             _pBookmarksSubmenus[i]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action, 2 == i/*isTopMenu*/));
         }
     }
+    #else
+    // GTK4: update both the top-level Bookmarks menu and the Tree > Bookmarks submenu
+    // via the Gio::Menu references captured during build_popover_menubar4().
+    std::list<std::tuple<gint64, Glib::ustring, const char*>> bookmarks;
+    for (const gint64& node_id : _uCtTreestore->bookmarks_get()) {
+        CtTreeIter ct_tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
+        bookmarks.push_back(std::make_tuple(node_id,
+            ct_tree_iter.get_node_name(),
+            _uCtTreestore->get_node_icon(_uCtTreestore->get_store()->iter_depth(ct_tree_iter),
+                ct_tree_iter.get_node_syntax_highlighting(),
+                ct_tree_iter.get_node_custom_icon_id())));
+    }
+    _uCtMenu->update_bookmarks_gio_menu4(bookmarks);
     #endif
 }
 
@@ -1228,7 +1261,9 @@ void CtMainWin::menu_set_items_recent_documents()
                                                                                recent_doc_rm_action));
     }
     #else
+    // GTK4: update both the toolbar recent-docs dropdown and the Gio::Menu recent-docs submenu.
     _uCtMenu->populate_recent_docs_menu4(_pRecentDocsMenuButton4, _pCtConfig->recentDocsFilepaths);
+    _uCtMenu->update_recent_docs_gio_menu4(_pCtConfig->recentDocsFilepaths);
     #endif
 }
 

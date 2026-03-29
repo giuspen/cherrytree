@@ -178,6 +178,153 @@ Gtk::MenuButton* CtMenu::build_menubutton_model4()
     return build_menubutton4();
 }
 
+// Walk one level of the menu XML, filling `menu` with items/sections.
+// Separators create new sections; <menu> nodes create submenus; <menuitem> nodes create leaf items.
+void CtMenu::_build_gio_menu_section4(Glib::RefPtr<Gio::Menu>& menu, xmlpp::Node* pNode)
+{
+    // Start the first section so items before the first separator have a container
+    auto current_section = Gio::Menu::create();
+    menu->append_section({}, current_section);
+
+    for (xmlpp::Node* pIt = pNode; pIt; pIt = pIt->get_next_sibling()) {
+        const Glib::ustring node_name = pIt->get_name();
+
+        if (node_name == "menu") {
+            auto* el = static_cast<xmlpp::Element*>(pIt);
+            auto* attr = el->get_attribute("action");
+            if (not attr) continue;
+
+            const std::string act_id = attr->get_value();
+            CtMenuAction* action = find_action(act_id);
+            const Glib::ustring label = action ? Glib::ustring(action->name) : Glib::ustring(act_id);
+
+            auto submenu = Gio::Menu::create();
+            if (pIt->get_first_child()) {
+                _build_gio_menu_section4(submenu, pIt->get_first_child());
+            }
+
+            // Save references to the dynamic submenus so they can be updated later
+            if (act_id == "BookmarksMenu")     { _pGioBookmarksMenu4 = submenu; }
+            else if (act_id == "BookmarksSubMenu") { _pGioBookmarksSub4  = submenu; }
+            else if (act_id == "RecentDocsSubMenu"){ _pGioRecentDocsSub4  = submenu; }
+
+            current_section->append_submenu(label, submenu);
+        }
+        else if (node_name == "menuitem") {
+            auto* el = static_cast<xmlpp::Element*>(pIt);
+            auto* attr = el->get_attribute("action");
+            if (not attr) continue;
+
+            CtMenuAction* action = find_action(attr->get_value().raw());
+            if (not action) continue;
+
+            const std::string detailed_action = std::string("app.") + action->id;
+            auto item = Gio::MenuItem::create(action->name, detailed_action);
+            // Keyboard shortcut is registered at app level; display hint inside popover
+            const std::string& shortcut = action->get_shortcut(_pCtConfig);
+            if (not shortcut.empty()) {
+                item->set_attribute_value("accel",
+                    Glib::Variant<Glib::ustring>::create(shortcut));
+            }
+            current_section->append_item(item);
+        }
+        else if (node_name == "separator") {
+            // Start a new section; GTK4 draws a separator between sections automatically
+            current_section = Gio::Menu::create();
+            menu->append_section({}, current_section);
+        }
+    }
+}
+
+Glib::RefPtr<Gio::Menu> CtMenu::_build_gio_menu4()
+{
+    _pGioMenuBar4 = Gio::Menu::create();
+    _pGioBookmarksMenu4.reset();
+    _pGioBookmarksSub4.reset();
+    _pGioRecentDocsSub4.reset();
+
+    xmlpp::DomParser parser;
+    if (not CtXmlHelper::safe_parse_memory(parser, _get_ui_str_menu())) {
+        return _pGioMenuBar4;
+    }
+
+    // The root is <menubar>; its children are the top-level <menu> entries
+    xmlpp::Node* root = parser.get_document()->get_root_node();
+    for (xmlpp::Node* pIt = root->get_first_child(); pIt; pIt = pIt->get_next_sibling()) {
+        if (pIt->get_name() != "menu") continue;
+
+        auto* el     = static_cast<xmlpp::Element*>(pIt);
+        auto* attr   = el->get_attribute("action");
+        if (not attr) continue;
+
+        CtMenuAction* action = find_action(attr->get_value().raw());
+        const Glib::ustring label = action ? Glib::ustring(action->name) : Glib::ustring(attr->get_value());
+
+        auto submenu = Gio::Menu::create();
+        if (pIt->get_first_child()) {
+            _build_gio_menu_section4(submenu, pIt->get_first_child());
+        }
+
+        const std::string act_id = attr->get_value();
+        if (act_id == "BookmarksMenu")     { _pGioBookmarksMenu4 = submenu; }
+        else if (act_id == "BookmarksSubMenu") { _pGioBookmarksSub4  = submenu; }
+        else if (act_id == "RecentDocsSubMenu"){ _pGioRecentDocsSub4  = submenu; }
+
+        _pGioMenuBar4->append_submenu(label, submenu);
+    }
+
+    return _pGioMenuBar4;
+}
+
+Gtk::PopoverMenuBar* CtMenu::build_popover_menubar4()
+{
+    auto menu = _build_gio_menu4();
+    auto* bar = Gtk::manage(new Gtk::PopoverMenuBar(menu));
+    bar->set_name("GioMenuBar");
+    return bar;
+}
+
+void CtMenu::update_bookmarks_gio_menu4(const std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks)
+{
+    // Update both the top-level "Bookmarks" menu and the Tree > Bookmarks submenu
+    for (auto* gioMenu : {_pGioBookmarksMenu4.get(), _pGioBookmarksSub4.get()}) {
+        if (not gioMenu) continue;
+        gioMenu->remove_all();
+        if (bookmarks.empty()) {
+            gioMenu->append(_("No Bookmarks"), {});
+        } else {
+            for (const auto& bk : bookmarks) {
+                const gint64 node_id   = std::get<0>(bk);
+                const Glib::ustring& title = std::get<1>(bk);
+                auto item = Gio::MenuItem::create(title, "app.goto_bookmark");
+                item->set_action_and_target("app.goto_bookmark",
+                    Glib::Variant<gint64>::create(node_id));
+                gioMenu->append_item(item);
+            }
+        }
+    }
+}
+
+void CtMenu::update_recent_docs_gio_menu4(const CtRecentDocsFilepaths& recentDocsFilepaths)
+{
+    if (not _pGioRecentDocsSub4) return;
+    _pGioRecentDocsSub4->remove_all();
+    if (recentDocsFilepaths.empty()) {
+        _pGioRecentDocsSub4->append(_("No Recent Documents"), {});
+    } else {
+        int idx = 0;
+        for (const auto& path : recentDocsFilepaths) {
+            if (idx >= 10) break;
+            const Glib::ustring filepath{path.string()};
+            auto item = Gio::MenuItem::create(filepath, "app.open_recent_doc");
+            item->set_action_and_target("app.open_recent_doc",
+                Glib::Variant<Glib::ustring>::create(filepath));
+            _pGioRecentDocsSub4->append_item(item);
+            ++idx;
+        }
+    }
+}
+
 Gtk::Popover* CtMenu::_build_actions_popover()
 {
     auto* pop = Gtk::manage(new Gtk::Popover());
@@ -207,6 +354,18 @@ std::string CtMenu::_shortcut_display(const std::string& accel)
 
 void CtMenu::refresh_shortcuts_gtk4()
 {
+    auto app = std::dynamic_pointer_cast<Gtk::Application>(Gtk::Application::get_default());
+    if (not app) return;
+    // Re-apply all accelerators so that any customised shortcuts take effect immediately.
+    // Keyboard shortcuts are registered on the application level and therefore work
+    // whether or not any menu is currently open.
+    for (const auto& act : _actions) {
+        if (act.id.empty()) continue;
+        const std::string& shortcut = act.get_shortcut(_pCtConfig);
+        std::vector<Glib::ustring> accels;
+        if (not shortcut.empty()) accels.push_back(shortcut);
+        app->set_accels_for_action(std::string("app.") + act.id, accels);
+    }
 }
 
 void CtMenu::populate_recent_docs_menu4(Gtk::MenuButton* recentBtn, const CtRecentDocsFilepaths& recentDocsFilepaths)

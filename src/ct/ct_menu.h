@@ -127,8 +127,19 @@ public:
     Gtk::MenuButton*           build_bookmarks_button4(std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks,
                                                        std::function<void(gint64)> bookmark_action,
                                                        const bool isTopMenu);
+    // Full menubar via Gio::Menu + Gtk::PopoverMenuBar (GTK4 equivalent of GTK3 menubar-in-titlebar)
+    Gtk::PopoverMenuBar*       build_popover_menubar4();
+    void                       update_bookmarks_gio_menu4(const std::list<std::tuple<gint64, Glib::ustring, const char*>>& bookmarks);
+    void                       update_recent_docs_gio_menu4(const CtRecentDocsFilepaths& recentDocsFilepaths);
 private:
     Gtk::Popover*              _build_actions_popover();
+    Glib::RefPtr<Gio::Menu>    _build_gio_menu4();
+    void                       _build_gio_menu_section4(Glib::RefPtr<Gio::Menu>& menu, xmlpp::Node* pNode);
+    // Dynamic Gio::Menu sections updated at runtime
+    Glib::RefPtr<Gio::Menu>    _pGioMenuBar4;
+    Glib::RefPtr<Gio::Menu>    _pGioBookmarksMenu4;      // top-level Bookmarks menu
+    Glib::RefPtr<Gio::Menu>    _pGioBookmarksSub4;       // Tree > Bookmarks submenu
+    Glib::RefPtr<Gio::Menu>    _pGioRecentDocsSub4;      // File > Recent Documents submenu
     // Map action id -> widget used in GTK4 (button) for sensitivity/visibility updates
     std::unordered_map<std::string, Gtk::Widget*> _gtk4ActionWidgets;
     static std::string         _shortcut_display(const std::string& accel);
@@ -167,7 +178,7 @@ private:
     Gtk::SeparatorMenuItem* _add_menu_separator(Gtk::MenuShell* pMenuShell);
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
 #if GTKMM_MAJOR_VERSION >= 4
-    // Future: Gio::Menu integration with app actions
+    // Future: Gio::Menu integration with app actions — kept for any further private helpers
 #endif /* GTKMM_MAJOR_VERSION >= 4 */
 
     std::vector<std::string> _get_ui_str_toolbars();

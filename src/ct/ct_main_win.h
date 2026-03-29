@@ -219,7 +219,10 @@ public:
     void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     #else
     void show_hide_toolbars(bool visible)   { for (auto pToolbar : _gtk4Toolbars) pToolbar->property_visible() = visible; }
-    void show_hide_menubar(bool visible)    { if (_pMenuButton4) _pMenuButton4->property_visible() = visible; }
+    void show_hide_menubar(bool visible)    {
+        if (_pPopoverMenuBar4) _pPopoverMenuBar4->property_visible() = visible;
+        if (_pMenuButton4)     _pMenuButton4->property_visible() = visible;
+    }
     void set_toolbars_icon_size(int /*size*/) { /* GTK4 uses default icon sizes */ }
     #endif
     void show_hide_statusbar(bool visible)  { _ctStatusBar.hbox.property_visible() = visible; }
@@ -365,7 +368,8 @@ private:
     Gtk::ToolButton*             _pSaveToolButton{nullptr};
     #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
     #if GTKMM_MAJOR_VERSION >= 4
-    Gtk::MenuButton*             _pMenuButton4{nullptr};
+    Gtk::MenuButton*             _pMenuButton4{nullptr};          // fallback hamburger (hidden when PopoverMenuBar active)
+    Gtk::PopoverMenuBar*         _pPopoverMenuBar4{nullptr};      // GTK4 full menubar via Gio::Menu
     Gtk::MenuButton*             _pRecentDocsMenuButton4{nullptr};
     std::vector<Gtk::Box*>       _gtk4Toolbars; // primary + category toolbars
     #endif /* GTKMM_MAJOR_VERSION >= 4 */
