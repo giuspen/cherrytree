@@ -134,7 +134,6 @@ public:
 private:
     Gtk::Popover*              _build_actions_popover();
     Glib::RefPtr<Gio::Menu>    _build_gio_menu4();
-    void                       _build_gio_menu_section4(Glib::RefPtr<Gio::Menu>& menu, xmlpp::Node* pNode);
     // Dynamic Gio::Menu sections updated at runtime
     Glib::RefPtr<Gio::Menu>    _pGioMenuBar4;
     Glib::RefPtr<Gio::Menu>    _pGioBookmarksMenu4;      // top-level Bookmarks menu

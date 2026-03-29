@@ -54,6 +54,15 @@ void glib_log_handler(const gchar*/*log_domain*/, GLogLevelFlags log_level, cons
 
 int main(int argc, char *argv[])
 {
+#if GTKMM_MAJOR_VERSION >= 4
+    // On some X11/EGL stacks (notably when DRI3 is unavailable), opening GTK4 popovers/menus
+    // can corrupt EGL dispatch teardown at process exit. If the user did not choose a renderer,
+    // force cairo to avoid GPU/EGL code paths.
+    if (Glib::getenv("GSK_RENDERER").empty()) {
+        (void)Glib::setenv("GSK_RENDERER", "cairo", true/*overwrite*/);
+    }
+#endif
+
 #if !defined(_WIN32) && !defined(__APPLE__)
     try {
         std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale

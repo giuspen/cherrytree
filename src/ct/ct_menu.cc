@@ -178,64 +178,6 @@ Gtk::MenuButton* CtMenu::build_menubutton_model4()
     return build_menubutton4();
 }
 
-// Walk one level of the menu XML, filling `menu` with items/sections.
-// Separators create new sections; <menu> nodes create submenus; <menuitem> nodes create leaf items.
-void CtMenu::_build_gio_menu_section4(Glib::RefPtr<Gio::Menu>& menu, xmlpp::Node* pNode)
-{
-    // Start the first section so items before the first separator have a container
-    auto current_section = Gio::Menu::create();
-    menu->append_section({}, current_section);
-
-    for (xmlpp::Node* pIt = pNode; pIt; pIt = pIt->get_next_sibling()) {
-        const Glib::ustring node_name = pIt->get_name();
-
-        if (node_name == "menu") {
-            auto* el = static_cast<xmlpp::Element*>(pIt);
-            auto* attr = el->get_attribute("action");
-            if (not attr) continue;
-
-            const std::string act_id = attr->get_value();
-            CtMenuAction* action = find_action(act_id);
-            const Glib::ustring label = action ? Glib::ustring(action->name) : Glib::ustring(act_id);
-
-            auto submenu = Gio::Menu::create();
-            if (pIt->get_first_child()) {
-                _build_gio_menu_section4(submenu, pIt->get_first_child());
-            }
-
-            // Save references to the dynamic submenus so they can be updated later
-            if (act_id == "BookmarksMenu")     { _pGioBookmarksMenu4 = submenu; }
-            else if (act_id == "BookmarksSubMenu") { _pGioBookmarksSub4  = submenu; }
-            else if (act_id == "RecentDocsSubMenu"){ _pGioRecentDocsSub4  = submenu; }
-
-            current_section->append_submenu(label, submenu);
-        }
-        else if (node_name == "menuitem") {
-            auto* el = static_cast<xmlpp::Element*>(pIt);
-            auto* attr = el->get_attribute("action");
-            if (not attr) continue;
-
-            CtMenuAction* action = find_action(attr->get_value().raw());
-            if (not action) continue;
-
-            const std::string detailed_action = std::string("app.") + action->id;
-            auto item = Gio::MenuItem::create(action->name, detailed_action);
-            // Keyboard shortcut is registered at app level; display hint inside popover
-            const std::string& shortcut = action->get_shortcut(_pCtConfig);
-            if (not shortcut.empty()) {
-                item->set_attribute_value("accel",
-                    Glib::Variant<Glib::ustring>::create(shortcut));
-            }
-            current_section->append_item(item);
-        }
-        else if (node_name == "separator") {
-            // Start a new section; GTK4 draws a separator between sections automatically
-            current_section = Gio::Menu::create();
-            menu->append_section({}, current_section);
-        }
-    }
-}
-
 Glib::RefPtr<Gio::Menu> CtMenu::_build_gio_menu4()
 {
     _pGioMenuBar4 = Gio::Menu::create();
@@ -243,34 +185,124 @@ Glib::RefPtr<Gio::Menu> CtMenu::_build_gio_menu4()
     _pGioBookmarksSub4.reset();
     _pGioRecentDocsSub4.reset();
 
-    xmlpp::DomParser parser;
-    if (not CtXmlHelper::safe_parse_memory(parser, _get_ui_str_menu())) {
-        return _pGioMenuBar4;
-    }
+    auto extract_action_attr = [](const std::string& tag) -> std::string {
+        const std::size_t pos = tag.find("action=");
+        if (pos == std::string::npos || pos + 8 >= tag.size()) {
+            return {};
+        }
+        const char quote = tag[pos + 7];
+        if (quote != '\'' && quote != '"') {
+            return {};
+        }
+        const std::size_t value_start = pos + 8;
+        const std::size_t value_end = tag.find(quote, value_start);
+        if (value_end == std::string::npos) {
+            return {};
+        }
+        return tag.substr(value_start, value_end - value_start);
+    };
 
-    // The root is <menubar>; its children are the top-level <menu> entries
-    xmlpp::Node* root = parser.get_document()->get_root_node();
-    for (xmlpp::Node* pIt = root->get_first_child(); pIt; pIt = pIt->get_next_sibling()) {
-        if (pIt->get_name() != "menu") continue;
+    struct MenuFrame {
+        Glib::RefPtr<Gio::Menu> menu;
+        Glib::RefPtr<Gio::Menu> section;
+    };
+    auto ensure_section = [](MenuFrame& frame) {
+        if (not frame.section) {
+            frame.section = Gio::Menu::create();
+            frame.menu->append_section({}, frame.section);
+        }
+    };
 
-        auto* el     = static_cast<xmlpp::Element*>(pIt);
-        auto* attr   = el->get_attribute("action");
-        if (not attr) continue;
+    std::vector<MenuFrame> stack;
+    const std::string markup{_get_ui_str_menu()};
+    std::size_t pos = 0;
+    while (true) {
+        const std::size_t lt = markup.find('<', pos);
+        if (lt == std::string::npos) {
+            break;
+        }
+        const std::size_t gt = markup.find('>', lt + 1);
+        if (gt == std::string::npos) {
+            break;
+        }
+        pos = gt + 1;
 
-        CtMenuAction* action = find_action(attr->get_value().raw());
-        const Glib::ustring label = action ? Glib::ustring(action->name) : Glib::ustring(attr->get_value());
-
-        auto submenu = Gio::Menu::create();
-        if (pIt->get_first_child()) {
-            _build_gio_menu_section4(submenu, pIt->get_first_child());
+        std::string tag = str::trim(markup.substr(lt + 1, gt - lt - 1));
+        if (tag.empty() || tag[0] == '!' || tag[0] == '?') {
+            continue;
         }
 
-        const std::string act_id = attr->get_value();
-        if (act_id == "BookmarksMenu")     { _pGioBookmarksMenu4 = submenu; }
-        else if (act_id == "BookmarksSubMenu") { _pGioBookmarksSub4  = submenu; }
-        else if (act_id == "RecentDocsSubMenu"){ _pGioRecentDocsSub4  = submenu; }
+        const bool is_closing = tag[0] == '/';
+        bool self_closing = false;
+        if (not is_closing && tag.back() == '/') {
+            self_closing = true;
+            tag = str::trim(tag.substr(0, tag.size() - 1));
+        }
 
-        _pGioMenuBar4->append_submenu(label, submenu);
+        if (str::startswith(tag, "menubar") || str::startswith(tag, "/menubar")) {
+            continue;
+        }
+
+        if (str::startswith(tag, "separator")) {
+            if (not stack.empty()) {
+                stack.back().section.reset();
+                ensure_section(stack.back());
+            }
+            continue;
+        }
+
+        if (str::startswith(tag, "menuitem")) {
+            if (stack.empty()) {
+                continue;
+            }
+            const std::string action_id = extract_action_attr(tag);
+            CtMenuAction* action = action_id.empty() ? nullptr : find_action(action_id);
+            if (not action) {
+                continue;
+            }
+            ensure_section(stack.back());
+            stack.back().section->append(action->name, std::string("app.") + action->id);
+            continue;
+        }
+
+        if (str::startswith(tag, "/menu")) {
+            if (not stack.empty()) {
+                stack.pop_back();
+            }
+            continue;
+        }
+
+        if (str::startswith(tag, "menu")) {
+            const std::string action_id = extract_action_attr(tag);
+            if (action_id.empty()) {
+                continue;
+            }
+
+            CtMenuAction* action = find_action(action_id);
+            const Glib::ustring label = action ? Glib::ustring(action->name) : Glib::ustring(action_id);
+            auto submenu = Gio::Menu::create();
+
+            if (stack.empty()) {
+                _pGioMenuBar4->append_submenu(label, submenu);
+            }
+            else {
+                ensure_section(stack.back());
+                stack.back().section->append_submenu(label, submenu);
+            }
+
+            if (action_id == "BookmarksMenu")     { _pGioBookmarksMenu4 = submenu; }
+            else if (action_id == "BookmarksSubMenu") { _pGioBookmarksSub4  = submenu; }
+            else if (action_id == "RecentDocsSubMenu"){ _pGioRecentDocsSub4  = submenu; }
+
+            MenuFrame frame;
+            frame.menu = submenu;
+            ensure_section(frame);
+            stack.push_back(frame);
+
+            if (self_closing) {
+                stack.pop_back();
+            }
+        }
     }
 
     return _pGioMenuBar4;
@@ -290,13 +322,11 @@ void CtMenu::update_bookmarks_gio_menu4(const std::list<std::tuple<gint64, Glib:
     for (auto* gioMenu : {_pGioBookmarksMenu4.get(), _pGioBookmarksSub4.get()}) {
         if (not gioMenu) continue;
         gioMenu->remove_all();
-        if (bookmarks.empty()) {
-            gioMenu->append(_("No Bookmarks"), {});
-        } else {
+        if (not bookmarks.empty()) {
             for (const auto& bk : bookmarks) {
                 const gint64 node_id   = std::get<0>(bk);
                 const Glib::ustring& title = std::get<1>(bk);
-                auto item = Gio::MenuItem::create(title, "app.goto_bookmark");
+                auto item = Gio::MenuItem::create(title, "");
                 item->set_action_and_target("app.goto_bookmark",
                     Glib::Variant<gint64>::create(node_id));
                 gioMenu->append_item(item);
@@ -309,14 +339,13 @@ void CtMenu::update_recent_docs_gio_menu4(const CtRecentDocsFilepaths& recentDoc
 {
     if (not _pGioRecentDocsSub4) return;
     _pGioRecentDocsSub4->remove_all();
-    if (recentDocsFilepaths.empty()) {
-        _pGioRecentDocsSub4->append(_("No Recent Documents"), {});
-    } else {
+    if (not recentDocsFilepaths.empty()) {
         int idx = 0;
         for (const auto& path : recentDocsFilepaths) {
             if (idx >= 10) break;
-            const Glib::ustring filepath{path.string()};
-            auto item = Gio::MenuItem::create(filepath, "app.open_recent_doc");
+            const std::string path_str = path.string();
+            const Glib::ustring filepath{path_str};
+            auto item = Gio::MenuItem::create(filepath, "");
             item->set_action_and_target("app.open_recent_doc",
                 Glib::Variant<Glib::ustring>::create(filepath));
             _pGioRecentDocsSub4->append_item(item);
