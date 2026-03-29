@@ -23,6 +23,10 @@
 
 #include <glib/gstdio.h>
 #include "ct_app.h"
+#if GTKMM_MAJOR_VERSION >= 4 && defined(_WIN32)
+#include <windows.h>
+#include <gdk/win32/gdkwin32.h>
+#endif
 #include "ct_pref_dlg.h"
 #include "ct_storage_control.h"
 #include "config.h"
@@ -50,6 +54,57 @@ void queue_focus_node(CtMainWin* pCtMainWin, const Glib::ustring& node_to_focus,
         }
     });
 }
+
+#if GTKMM_MAJOR_VERSION >= 4 && defined(_WIN32)
+void present_main_window(Gtk::Window* pWindow)
+{
+    if (not pWindow) {
+        return;
+    }
+
+    pWindow->set_visible(true);
+    pWindow->present();
+
+    auto retries = std::make_shared<int>(12);
+    Glib::signal_timeout().connect([pWindow, retries]() {
+        GdkSurface* pSurface = gtk_native_get_surface(GTK_NATIVE(pWindow->gobj()));
+        if (not pSurface || not gdk_surface_get_mapped(pSurface)) {
+            return --(*retries) > 0;
+        }
+        if (not gdk_win32_surface_is_win32(pSurface)) {
+            return false;
+        }
+
+        HWND hwnd = gdk_win32_surface_get_handle(pSurface);
+        if (not hwnd) {
+            return --(*retries) > 0;
+        }
+
+        ShowWindow(hwnd, IsIconic(hwnd) ? SW_RESTORE : SW_SHOWNORMAL);
+        if (not SetForegroundWindow(hwnd)) {
+            HWND fg_hwnd = GetForegroundWindow();
+            DWORD fg_tid = fg_hwnd ? GetWindowThreadProcessId(fg_hwnd, nullptr) : 0;
+            DWORD app_tid = GetCurrentThreadId();
+            if (fg_tid && fg_tid != app_tid) {
+                if (AttachThreadInput(fg_tid, app_tid, TRUE)) {
+                    BringWindowToTop(hwnd);
+                    SetForegroundWindow(hwnd);
+                    AttachThreadInput(fg_tid, app_tid, FALSE);
+                }
+            }
+        }
+        SetActiveWindow(hwnd);
+        return false;
+    }, 50);
+}
+#else
+void present_main_window(Gtk::Window* pWindow)
+{
+    if (pWindow) {
+        pWindow->present();
+    }
+}
+#endif
 } // namespace
 
 #if GTKMM_MAJOR_VERSION >= 4
@@ -237,12 +292,13 @@ void CtApp::on_activate()
             pAppWindow->get_ct_actions()->check_for_newer_version();
         }
         pAppWindow->maybe_show_start_dialog();
+        present_main_window(pAppWindow);
     }
     else {
         // start of the second instance
         if (_new_window) {
             CtMainWin* new_window = _create_window();
-            new_window->present();
+            present_main_window(new_window);
             new_window->maybe_show_start_dialog();
         }
         else {
@@ -253,7 +309,7 @@ void CtApp::on_activate()
                 }
             }
             if (any_shown_win) {
-                any_shown_win->present();
+                present_main_window(any_shown_win);
                 // Handle node focusing if --node option was provided
                 if (not _node_to_focus.empty()) {
                     CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(any_shown_win);
@@ -343,7 +399,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             }
         }
         // window can be hidden, so show it first
-        pAppWindow->present();
+        present_main_window(pAppWindow);
     }
     _new_window = false; // reset for future calls
     _node_to_focus.clear(); // reset for future calls
