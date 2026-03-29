@@ -670,6 +670,7 @@ void CtMainWin::config_apply()
     textView.set_pixels_below_lines(_pCtConfig->spaceAroundLines);
     _ctTextview.set_pixels_inside_wrap(_pCtConfig->spaceAroundLines, _pCtConfig->relativeWrappedSpace);
     #if GTKMM_MAJOR_VERSION >= 4
+    gtk_text_view_set_bottom_margin(GTK_TEXT_VIEW(textView.gobj()), _pCtConfig->scrollBeyondLastLine ? 400 : 0);
     textView.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE);
     #else
     textView.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
