@@ -860,7 +860,15 @@ void CtImageEmbFile::update_tooltip()
         #if GTKMM_MAJOR_VERSION < 4
         result = pCtMainWin->get_icon_theme()->load_icon("ct_file_icon", pCtMainWin->get_ct_config()->embfileIconSize);
         #else
-        result.reset();
+        try {
+            result = Gdk::Pixbuf::create_from_resource(std::string{"/icons/"} + "ct_file_icon.svg",
+                                                       pCtMainWin->get_ct_config()->embfileIconSize,
+                                                       pCtMainWin->get_ct_config()->embfileIconSize,
+                                                       false);
+        }
+        catch (...) {
+            result.reset();
+        }
         #endif
     return result;
 }

@@ -36,6 +36,7 @@ void gtk4_refresh_anchored_widgets(Gtk::TextView& textView,
                                    const char* reason,
                                    const bool doWrapToggle)
 {
+    (void)reason;
     const int width = textView.get_allocation().get_width();
     if (width <= 0) {
         return;

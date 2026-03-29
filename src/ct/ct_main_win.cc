@@ -159,9 +159,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _scrolledwindowText.set_child(_ctTextview.mm());
     _vboxText.append(_init_window_header());
     _vboxText.append(_scrolledwindowText);
-    // GTK4: Set expansion properties for scrolledwindowText to fill vboxText
     _scrolledwindowText.set_expand(true);
-    // GTK4: Set expansion for vboxText in paned
     _vboxText.set_expand(true);
     _scrolledwindowTree.set_expand(false);
     if (_pCtConfig->treeRightSide) {
@@ -775,7 +773,9 @@ void CtMainWin::update_theme()
     css_str += ".ct-view-panel.ct-view-plain-text" + plFont;
     css_str += ".ct-view-panel.ct-view-code" + codeFont;
     if (get_ct_config()->scrollBeyondLastLine) {
-        css_str += ".ct-view-panel { padding-bottom: 400px } ";
+#if GTKMM_MAJOR_VERSION < 4
+        css_str += ".ct-view-panel { padding-bottom: 400px; } ";
+#endif
     }
     css_str += ".ct-cboxtoolbar { background-color: transparent; } ";
     css_str += ".ct-codebox.ct-view-plain-text" + plFont;
