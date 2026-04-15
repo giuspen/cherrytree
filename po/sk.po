@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 16:22+0100\n"
-"PO-Revision-Date: 2025-09-20 11:12+0200\n"
+"POT-Creation-Date: 2025-12-08 21:44+0000\n"
+"PO-Revision-Date: 2026-04-11 22:56+0200\n"
 "Last-Translator: Michal Fusaty <fusaty@proton.me>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
@@ -1179,11 +1179,11 @@ msgstr "Vyhľadávať vo vybranom uzle"
 msgid "<b>The pattern '%s' was not found</b>"
 msgstr "<b>Vzor '%s' nebol nájdený</b>"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Nahradiť vo viacerých uzloch..."
+msgid "Replace in Multiple Nodes"
+msgstr "Nahradiť vo viacerých uzloch"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Nájsť vo viacerých uzloch..."
+msgid "Search in Multiple Nodes"
+msgstr "Vyhľadávať vo viacerých uzloch"
 
 msgid "No Previous Search Was Performed During This Session."
 msgstr ""
@@ -1761,6 +1761,12 @@ msgstr "Exportovať nastavenia"
 
 msgid "Tree In_fo"
 msgstr "Informácie o strome"
+
+msgid "_Document Path to Clipboard"
+msgstr "Cesta k Dokumentu do Schránky"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Kopírovať Cestu k Dokumentu do Schránky"
 
 msgid "E_xit CherryTree"
 msgstr "Ukončiť CherryTree"
@@ -2576,9 +2582,6 @@ msgstr "Nahradiť v obsahu vybraného uzla"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Nahradiť vo viacerých uzloch..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Nahradiť vo viacerých uzloch"
-
 msgid "Replace A_gain"
 msgstr "Nahradiť znovu"
 
@@ -2676,7 +2679,7 @@ msgid "L_ess Last Visited Nodes on Node Name Header"
 msgstr "Menej nedávno navštívených uzlov v hlavičke názvu uzla"
 
 msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
-msgstr "Znížiť počet nedávno navštívených uzlov v hlavičke názvu uzla."
+msgstr "Znížiť počet nedávno navštívených uzlov v hlavičke názvu uzla"
 
 msgid "Full Screen _On/Off"
 msgstr "Zapnúť/Vypnúť zobrazenie na celú obrazovku"
@@ -3052,6 +3055,12 @@ msgstr "Leo dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Určite chcete obnoviť predvolené nastavenia?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Nahradiť vo viacerých uzloch..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Nájsť vo viacerých uzloch..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Vložiť obsah..."
