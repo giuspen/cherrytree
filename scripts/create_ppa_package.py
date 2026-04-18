@@ -13,14 +13,16 @@ SCRIPTS_DIR = os.path.join(ROOT_DIR, "scripts")
 ROOT_CMAKELISTS_PATH = os.path.join(ROOT_DIR, "CMakeLists.txt")
 DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
+DEBIAN_COMPAT_PATH = os.path.join(DEBIAN_DIR, "compat")
 DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
-#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview
-CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3),
-                2: ("focal",    "20.04", True,              True,  4),
-                3: ("jammy",    "20.04", True,              True,  4),
-                4: ("noble",    "24.04", True,              True,  4),
-                5: ("plucky",   "25.04", True,              True,  4),
-                6: ("questing", "25.04", True,              True,  4)}
+#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview, compat
+CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3,             10), # 18.04
+                2: ("focal",    "20.04", True,              True,  4,             10), # 20.04
+                3: ("jammy",    "20.04", True,              True,  4,             10), # 22.04
+                4: ("noble",    "24.04", True,              True,  4,             10), # 24.04
+                5: ("plucky",   "25.04", True,              True,  4,             10), # 25.04
+                6: ("questing", "25.04", True,              True,  4,             10), # 25.10
+                7: ("resolute", "26.04", True,              True,  4,             0)}  # 26.04
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
@@ -95,6 +97,18 @@ def f_setup_for(package_num):
     if not f_rules_setup_for(package_num): return -3
     try: shutil.copy(os.path.join(SCRIPTS_DIR, CONTROL_DICT[package_num][1], "control"), DEBIAN_CONTROL_PATH)
     except: return -4
+    compat_num = CONTROL_DICT[package_num][5]
+    if compat_num > 0:
+        try:
+            with open(DEBIAN_COMPAT_PATH, "w") as fd:
+                fd.write("{}\n".format(compat_num))
+        except:
+            return -4
+    elif os.path.isfile(DEBIAN_COMPAT_PATH):
+        try:
+            os.remove(DEBIAN_COMPAT_PATH)
+        except:
+            return -4
     if 0 != subprocess.call(["debuild", "-S", "-sa", "-i", "-I", "-d"], cwd=ROOT_DIR): return -5
     if 0 != subprocess.call(["dput", "ppa:giuspen/ppa", changes_filename], cwd=os.path.dirname(ROOT_DIR)): return -6
     return 0
