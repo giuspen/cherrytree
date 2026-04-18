@@ -15,12 +15,13 @@ DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
 DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
 #     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview
-CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3),
-                2: ("focal",    "20.04", True,              True,  4),
-                3: ("jammy",    "20.04", True,              True,  4),
-                4: ("noble",    "24.04", True,              True,  4),
-                5: ("plucky",   "25.04", True,              True,  4),
-                6: ("questing", "25.04", True,              True,  4)}
+CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3), # 18.04
+                2: ("focal",    "20.04", True,              True,  4), # 20.04
+                3: ("jammy",    "20.04", True,              True,  4), # 22.04
+                4: ("noble",    "24.04", True,              True,  4), # 24.04
+                5: ("plucky",   "25.04", True,              True,  4), # 25.04
+                6: ("questing", "25.04", True,              True,  4), # 25.10
+                7: ("resolute", "26.04", True,              True,  4)} # 26.04
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
