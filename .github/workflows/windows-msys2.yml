@@ -8,6 +8,9 @@ on:
         default: 'false'
         type: boolean
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   msys2-ucrt64:
     runs-on: windows-latest
@@ -64,7 +67,7 @@ jobs:
           options: /Q
       - name: Upload Unsigned Artifact
         id: upload-unsigned-artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: cherrytree-unsigned
           path: |
@@ -86,7 +89,7 @@ jobs:
           output-artifact-directory: cherrytree-signed
       - name: Upload Signed Artifact
         if: ${{ github.event.inputs.sign_build == 'true' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: cherrytree-signed
           path: cherrytree-signed
