@@ -67,7 +67,7 @@ jobs:
           options: /Q
       - name: Upload Unsigned Artifact
         id: upload-unsigned-artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: cherrytree-unsigned
           path: |
@@ -89,7 +89,7 @@ jobs:
           output-artifact-directory: cherrytree-signed
       - name: Upload Signed Artifact
         if: ${{ github.event.inputs.sign_build == 'true' }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: cherrytree-signed
           path: cherrytree-signed
