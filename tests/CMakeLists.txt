@@ -69,6 +69,7 @@ package_add_test(run_tests_no_x
   tests_clipboard.cpp
   tests_encoding.cpp
   tests_filesystem.cpp
+  tests_imports.cpp
   tests_misc_utils.cpp
   tests_tmp_n_p7zip.cpp
   tests_types.cpp
