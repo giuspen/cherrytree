@@ -294,9 +294,13 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
     Glib::ustring parent_name;
     if (xmlpp::Node* tags_el = note_el->get_first_child("tags")) {
         if (xmlpp::Node* tag_el = tags_el->get_first_child("tag")) {
-            Glib::ustring tag_name = dynamic_cast<xmlpp::Element*>(tag_el)->get_child_text()->get_content();
-            if (tag_name.size() > 16 && str::startswith(tag_name, "system:notebook:"))
-                parent_name = tag_name.substr(16);
+            if (auto* tag_element = dynamic_cast<xmlpp::Element*>(tag_el)) {
+                if (auto* tag_text = tag_element->get_child_text()) {
+                    Glib::ustring tag_name = tag_text->get_content();
+                    if (tag_name.size() > 16 && str::startswith(tag_name, "system:notebook:"))
+                        parent_name = tag_name.substr(16);
+                }
+            }
         }
     }
 
