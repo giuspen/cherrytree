@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -496,7 +496,10 @@ static const char* get_dvipng_bin_cmd()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf("%s --interaction=batchmode -output-directory=%s %s"
+    // https://github.com/giuspen/cherrytree/issues/2846
+    // -no-shell-escape -> disables \write18{...} which would allow arbitrary shell command execution (escalates to RCE if the system has shell_escape = t)
+    // -safer -> restricts file I/O to the working directory, preventing \verbatiminput{/etc/passwd} and similar primitives from reading arbitrary filesystem paths
+    std::string cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape -safer -output-directory=%s %s"
 #ifndef _WIN32
                                    CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
