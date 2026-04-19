@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -139,7 +139,7 @@ public:
     static const int PrintZoom;
 
     static void ensureRenderingBinariesTested();
-    static Glib::ustring getRenderingErrorMessage();
+    static Glib::ustring getRenderingErrorMessage(const Glib::ustring* pLatexText = nullptr);
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache, const std::string& multifile_dir) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
@@ -156,6 +156,7 @@ public:
 
 private:
     static Glib::RefPtr<Gdk::Pixbuf> _get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId, const int zoom = 1);
+    static bool _is_latex_text_safe(const Glib::ustring& latexText);
 
 private:
 #if GTKMM_MAJOR_VERSION < 4

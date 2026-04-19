@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,6 +28,7 @@
 #include "ct_logging.h"
 #include "ct_storage_control.h"
 #include "ct_storage_multifile.h"
+#include <regex>
 
 CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& rawBlob,
@@ -523,6 +524,40 @@ static const char* get_dvipng_bin_cmd()
     return dvipng_bin_cmd;
 }
 
+/*static*/bool CtImageLatex::_is_latex_text_safe(const Glib::ustring& latexText)
+{
+    // https://github.com/giuspen/cherrytree/issues/2846
+    // Block LaTeX commands that allow arbitrary file-system reads/writes.
+    // The -safer flag passed to latex is not reliable across all TeX distributions;
+    // this in-process check is the primary defence.
+
+    // Commands that are always dangerous in this context:
+    //   \verbatiminput  - reads a file verbatim (verbatim package)
+    //   \lstinputlisting - reads a file (listings package)
+    //   \openin         - TeX primitive: opens a file handle for reading
+    //   \openout        - TeX primitive: opens a file handle for writing
+    static const std::regex re_blocked{
+        R"(\\verbatiminput|\\lstinputlisting|\\openin|\\openout)"
+    };
+
+    // \input / \include / \InputIfFileExists with absolute or traversal paths:
+    //   /path, ~path, ../path, ..\ path, C:\path, C:/path
+    static const std::regex re_input_unsafe{
+        R"(\\(?:input|include|InputIfFileExists)\s*\{\s*(?:/|~|\.\.[/\\]|[A-Za-z]:))"
+    };
+
+    const std::string text{latexText};
+    if (std::regex_search(text, re_blocked)) {
+        spdlog::warn("LaTeX content blocked: contains dangerous file I/O command");
+        return false;
+    }
+    if (std::regex_search(text, re_input_unsafe)) {
+        spdlog::warn("LaTeX content blocked: \\input/\\include with absolute or traversal path");
+        return false;
+    }
+    return true;
+}
+
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId, const int zoom)
 {
     CtImageLatex::ensureRenderingBinariesTested();
@@ -534,6 +569,10 @@ static const char* get_dvipng_bin_cmd()
         return Glib::RefPtr<Gdk::Pixbuf>{};
         #endif
     }
+    if (not _is_latex_text_safe(latexText)) {
+        // blocked: dangerous file I/O commands detected
+        return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+    }
     const fs::path filename = std::to_string(uniqueId) +
                               CtConst::CHAR_MINUS + std::to_string(getpid()) +
                               CtConst::CHAR_MINUS + std::to_string(zoom) +
@@ -541,7 +580,10 @@ static const char* get_dvipng_bin_cmd()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf("%s --interaction=batchmode -output-directory=%s %s"
+    // https://github.com/giuspen/cherrytree/issues/2846
+    // -no-shell-escape -> disables \write18{...} which would allow arbitrary shell command execution (escalates to RCE if the system has shell_escape = t)
+    // -safer -> restricts file I/O to the working directory, preventing \verbatiminput{/etc/passwd} and similar primitives from reading arbitrary filesystem paths
+    std::string cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape -safer -output-directory=%s %s"
 #ifndef _WIN32
                                    CONSOLE_SILENCE_OUTPUT
 #endif /* !_WIN32 */
@@ -611,8 +653,18 @@ static const char* get_dvipng_bin_cmd()
                                                                     , get_dvipng_bin_cmd()).c_str(), CONSOLE_BIN_PREFIX);
 }
 
-/*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage()
+/*static*/Glib::ustring CtImageLatex::getRenderingErrorMessage(const Glib::ustring* pLatexText)
 {
+    if (pLatexText and not _is_latex_text_safe(*pLatexText)) {
+        return Glib::ustring{"<b><span foreground=\"red\">"} +
+               _("LaTeX rendering was blocked for security reasons") +
+               Glib::ustring{"</span></b>\n"} +
+               Glib::ustring{"* "} +
+               _("The source contains file I/O commands that can access local files") +
+               Glib::ustring{"\n* "} +
+               _("Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe \\input/\\include paths") +
+               Glib::ustring{"\n"};
+    }
     if (not _renderingBinariesLatexOk and not _renderingBinariesDviPngOk) {
         return Glib::ustring{"<b><span foreground=\"red\">"} + _("Could not access the executables 'latex' and 'dvipng'") + Glib::ustring{"</span></b>\n"} +
                Glib::ustring{"* "} + _("For example, on Ubuntu the packages to install are:") +

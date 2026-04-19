@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -659,7 +659,7 @@ void CtActions::text_row_cut()
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
-    if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
+    if (range.iter_start.get_offset() == range.iter_end.get_offset()) return;
     proof.text_view->get_buffer()->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
@@ -671,7 +671,7 @@ void CtActions::text_row_copy()
     if (not proof.text_view->get_buffer()) return;
 
     CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
-    if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
+    if (range.iter_start.get_offset() == range.iter_end.get_offset()) return;
     proof.text_view->get_buffer()->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
@@ -684,7 +684,7 @@ void CtActions::text_row_delete()
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
-    if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
+    if (range.iter_start.get_offset() == range.iter_end.get_offset()) return;
     proof.text_view->get_buffer()->erase(range.iter_start, range.iter_end);
     _pCtMainWin->get_state_machine().update_state();
 }
