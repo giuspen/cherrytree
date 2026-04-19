@@ -915,6 +915,13 @@ void CtMainWin::update_selected_node_statusbar_info()
             const Glib::ustring timestamp_lastsave = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_modification_time());
             statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave;
         }
+        size_t direct_children_count{0};
+        for (auto child_iter = treeIter->children().begin(); child_iter != treeIter->children().end(); ++child_iter) {
+            ++direct_children_count;
+        }
+        const size_t total_children_count = treeIter.get_children_node_ids().size();
+        statusbar_text += separator_text + "↳ " + std::to_string(direct_children_count) +
+                          " (" + std::to_string(total_children_count) + ")";
     }
     _ctStatusBar.update_status(statusbar_text);
 }
