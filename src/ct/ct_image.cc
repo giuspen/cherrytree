@@ -556,9 +556,29 @@ static const char* get_dvipng_bin_cmd()
         success = CtMiscUtil::system_cmd(cmd.c_str(), "");
     }
     else {
-        // Portable/package builds may prepend a command chain (for example: "cd ... && ./latex").
-        // Extract the bundled latex executable path and run it from the temp directory so
-        // openin_any/openout_any in paranoid mode can still access the source/output files.
+        // Package builds with bundled TinyTeX need explicit execution from the tmp dir,
+        // otherwise openin/openout paranoid mode denies access to the source file in /tmp.
+    #if defined(_FLATPAK_BUILD)
+        const fs::path latex_exe{ "/app/bin/.TinyTeX/bin/x86_64-linux/latex" };
+        g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+        g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+        g_autofree gchar* quoted_latex_exe = g_shell_quote(latex_exe.c_str());
+        cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                   CONSOLE_SILENCE_OUTPUT
+                   , quoted_tmp_dir, quoted_latex_exe, quoted_tex_basename);
+        success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+    #elif defined(_SNAP_BUILD)
+        const fs::path latex_exe{ "/snap/cherrytree/current/TinyTeX/bin/x86_64-linux/latex" };
+        g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+        g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+        g_autofree gchar* quoted_latex_exe = g_shell_quote(latex_exe.c_str());
+        cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                   CONSOLE_SILENCE_OUTPUT
+                   , quoted_tmp_dir, quoted_latex_exe, quoted_tex_basename);
+        success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+    #else
+        // Portable/package builds may prepend a command chain (for example AppImage: "cd ... && ./latex").
+        // Extract the bundled latex executable path and run it from the temp directory.
         static const std::string chain_prefix{"cd "};
         static const std::string chain_suffix{" && ./latex"};
         if (str::startswith(latex_bin_cmd, chain_prefix) and str::endswith(latex_bin_cmd, chain_suffix)) {
@@ -579,6 +599,7 @@ static const char* get_dvipng_bin_cmd()
                                , latex_bin_cmd.c_str(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
             success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
         }
+#endif
     }
 #endif /* _WIN32 */
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
