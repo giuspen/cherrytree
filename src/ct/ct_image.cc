@@ -557,12 +557,28 @@ static const char* get_dvipng_bin_cmd()
     }
     else {
         // Portable/package builds may prepend a command chain (for example: "cd ... && ./latex").
-        // In this case we cannot safely prepend another "cd" without changing behavior, so keep
-        // absolute paths and enforce cnf-line restrictions.
-        cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=%s %s"
-                           CONSOLE_SILENCE_OUTPUT
-                           , latex_bin_cmd.c_str(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
-        success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
+        // Extract the bundled latex executable path and run it from the temp directory so
+        // openin_any/openout_any in paranoid mode can still access the source/output files.
+        static const std::string chain_prefix{"cd "};
+        static const std::string chain_suffix{" && ./latex"};
+        if (str::startswith(latex_bin_cmd, chain_prefix) and str::endswith(latex_bin_cmd, chain_suffix)) {
+            const std::string bin_dir = latex_bin_cmd.substr(chain_prefix.size(), latex_bin_cmd.size() - chain_prefix.size() - chain_suffix.size());
+            const fs::path latex_exe = fs::path{bin_dir} / "latex";
+            g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+            g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+            g_autofree gchar* quoted_latex_exe = g_shell_quote(latex_exe.c_str());
+            cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                               CONSOLE_SILENCE_OUTPUT
+                               , quoted_tmp_dir, quoted_latex_exe, quoted_tex_basename);
+            success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+        }
+        else {
+            // Fallback for unexpected command formats.
+            cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=%s %s"
+                               CONSOLE_SILENCE_OUTPUT
+                               , latex_bin_cmd.c_str(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+            success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
+        }
     }
 #endif /* _WIN32 */
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
