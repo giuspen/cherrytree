@@ -367,7 +367,14 @@ CtMainWin::CtMainWin(bool                            no_gui,
             present();
         }
         Glib::signal_idle().connect_once([this](){
-            _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() + process events pending (#1534, #1918, #2126)
+            // hpanedPos always stores the tree width (Gtk::FILL child).
+            // When treeRightSide=true, pack1 is text (EXPAND), so position = total - tree_width.
+            if (_pCtConfig->treeRightSide) {
+                _hPaned.property_position() = _hPaned.get_allocation().get_width() - _pCtConfig->hpanedPos;
+            }
+            else {
+                _hPaned.property_position() = _pCtConfig->hpanedPos;
+            } // must be after present() + process events pending (#1534, #1918, #2126)
             _vPaned.property_position() = _pCtConfig->vpanedPos;
             #if GTKMM_MAJOR_VERSION < 4
             _ctTextview.mm().signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
@@ -802,13 +809,14 @@ void CtMainWin::update_theme()
     css_str += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
     css_str += "toolbar { padding: 2px 2px 2px 2px; } ";
     css_str += "toolbar button { padding: 0px; } ";
-    css_str += ".ct-toolbar4 { border-spacing: 0px; } ";
+#if GTKMM_MAJOR_VERSION >= 4
     css_str += ".ct-toolbar4 .ct-toolbar4-btn { margin: 0px; padding: 0px 2px 0px 2px; min-width: 20px; min-height: 20px; } ";
-    css_str += ".ct-toolbar4 .ct-toolbar4-btn-group { margin: 0px; border-spacing: 0px; } ";
+    css_str += ".ct-toolbar4 .ct-toolbar4-btn-group { margin: 0px; } ";
     css_str += ".ct-toolbar4 .ct-toolbar4-btn-left { border-radius: 3px 0px 0px 3px; padding: 0px 3px 0px 3px; margin-right: -1px; } ";
     css_str += ".ct-toolbar4 .ct-toolbar4-btn-right { border-radius: 0px 3px 3px 0px; padding: 0px 2px 0px 2px; border-left: 1px solid rgba(0,0,0,0.15); } ";
     css_str += ".ct-toolbar4 .ct-toolbar4-menu-btn { border-left: 2px solid rgba(0,0,0,0.2); padding: 0px 4px 0px 6px; } ";
     css_str += ".ct-toolbar4 separator.ct-toolbar4-separator { margin: 0px 3px 0px 3px; min-width: 1px; } ";
+#endif
     css_str += "textview border { background-color: transparent; } "; // Loss of transparency with PNGs (#1402, #2132)
     //printf("css_str_len=%zu\n", css_str.size());
 
@@ -1365,7 +1373,8 @@ void CtMainWin::config_switch_tree_side()
         _hPaned.property_position() = tree_width;
     }
 #endif
-    _pCtConfig->hpanedPos = _hPaned.property_position();
+    // Always save tree_width so hpanedPos is the stable FILL child width in both configurations.
+    _pCtConfig->hpanedPos = tree_width;
 }
 
 void CtMainWin::_zoom_tree(const std::optional<bool> is_increase)
