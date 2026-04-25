@@ -193,7 +193,14 @@ CtMainWin::CtMainWin(bool                            no_gui,
             present();
         }
         Glib::signal_idle().connect_once([this](){
-            _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() + process events pending (#1534, #1918, #2126)
+            // hpanedPos always stores the tree width (Gtk::FILL child).
+            // When treeRightSide=true, pack1 is text (EXPAND), so position = total - tree_width.
+            if (_pCtConfig->treeRightSide) {
+                _hPaned.property_position() = _hPaned.get_allocation().get_width() - _pCtConfig->hpanedPos;
+            }
+            else {
+                _hPaned.property_position() = _pCtConfig->hpanedPos;
+            } // must be after present() + process events pending (#1534, #1918, #2126)
             _vPaned.property_position() = _pCtConfig->vpanedPos;
             _ctTextview.mm().signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
             signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
@@ -814,7 +821,8 @@ void CtMainWin::config_switch_tree_side()
         _hPaned.pack2(_vboxText, Gtk::EXPAND);
         _hPaned.property_position() = tree_width;
     }
-    _pCtConfig->hpanedPos = _hPaned.property_position();
+    // Always save tree_width so hpanedPos is the stable FILL child width in both configurations
+    _pCtConfig->hpanedPos = tree_width;
 }
 
 void CtMainWin::_zoom_tree(const std::optional<bool> is_increase)
