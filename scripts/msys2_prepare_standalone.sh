@@ -19,6 +19,57 @@ DOWNGRADE_PACKAGES_FOLDER_URL="https://repo.msys2.org/mingw/ucrt64"
 #DOWNGRADE_PACKAGES_FILENAMES=("mingw-w64-ucrt-x86_64-cairo-1.18.4-1-any.pkg.tar.zst" "mingw-w64-ucrt-x86_64-pango-1.56.3-2-any.pkg.tar.zst")
 DOWNGRADE_PACKAGES_FILENAMES=()
 
+LATEX_BIN_ITEMS=(
+  latex.exe
+  "libkpathsea-*.dll"
+  mktexfmt.exe
+  runscript.dll
+)
+
+LATEX_NON_PE_ITEMS=(
+  runscript.tlu
+)
+
+DVIPNG_BIN_ITEMS=(
+  dvipng.exe
+  libgd.dll
+  libheif.dll
+  "libavif-*.dll"
+  libimagequant.dll
+  libXpm-noX4.dll
+  libaom.dll
+  "libdav1d-*.dll"
+  librav1e.dll
+  "libde265-*.dll"
+  "libx265-*.dll"
+  "libx264-*.dll"
+  "libSvtAv1Enc-*.dll"
+  libyuv.dll
+  "libopenjp2-*.dll"
+  "libopenjph-*.dll"
+  "libopenh264-*.dll"
+  "libkvazaar-*.dll"
+  libcryptopp.dll
+)
+
+resolve_single_path() {
+  local base_dir="$1"
+  local file_pattern="$2"
+  local match
+  local -a matches=()
+
+  while IFS= read -r match; do
+    matches+=("${match}")
+  done < <(compgen -G "${base_dir}/${file_pattern}" || true)
+
+  if [ "${#matches[@]}" -eq "0" ]; then
+    echo "missing required file: ${base_dir}/${file_pattern}" >&2
+    return 1
+  fi
+
+  printf '%s\n' "${matches[@]}" | sort -V | tail -n 1
+}
+
 for package_name in ${DOWNGRADE_PACKAGES_FILENAMES[@]}; do
   wget ${DOWNGRADE_PACKAGES_FOLDER_URL}/${package_name}
   pacman -U --noconfirm ${package_name}
@@ -45,43 +96,27 @@ OUT_CHERRYTREE_SHARE="${OUT_UCRT64_FOLDER}/usr/share/cherrytree"
 
 
 # latex.exe and dvipng.exe ensure the list of files to copy from is available
-for element_rel in latex.exe \
-                   libkpathsea-6.dll \
-                   mktexfmt.exe \
-                   runscript.dll \
-                   runscript.tlu
+for element_rel in "${LATEX_BIN_ITEMS[@]}"
+do
+  element_abs="$(resolve_single_path "${OLD_UCRT64_FOLDER}/bin" "${element_rel}")"
+  ls -la "${element_abs}"
+done
+for element_rel in "${LATEX_NON_PE_ITEMS[@]}"
 do
   ls -la ${OLD_UCRT64_FOLDER}/bin/${element_rel}
 done
 ls -la ${OLD_UCRT64_FOLDER}/var/lib/texmf/web2c/pdftex/latex.fmt
 ls -la ${OLD_UCRT64_FOLDER}/share/texmf-dist
-for element_rel in dvipng.exe \
-                   libgd.dll \
-                   libheif.dll \
-                   libavif-16.dll \
-                   libimagequant.dll \
-                   libXpm-noX4.dll \
-                   libaom.dll \
-                   libdav1d-7.dll \
-                   librav1e.dll \
-                   libde265-0.dll \
-                   libx265-215.dll \
-                   libx264-165.dll \
-                   libSvtAv1Enc-3.dll \
-                   libyuv.dll \
-                   libopenjp2-7.dll \
-                   libopenjph-0.26.dll \
-                   libopenh264-7.dll \
-                   libkvazaar-7.dll \
-                   libcryptopp.dll
+for element_rel in "${DVIPNG_BIN_ITEMS[@]}"
 do
-  ls -la ${OLD_UCRT64_FOLDER}/bin/${element_rel}
+  element_abs="$(resolve_single_path "${OLD_UCRT64_FOLDER}/bin" "${element_rel}")"
+  ls -la "${element_abs}"
 done
 ls -la ${OLD_UCRT64_FOLDER}/var/lib/texmf/fonts/map/dvips/updmap/ps2pk.map
 
 
 echo "cleanup old runs..."
-for folderpath in ${OUT_MSYS2_FOLDER} ${OUT_ROOT_FOLDER}
+for folderpath in ${OUT_MSYS2_FOLDER} ${OUT_ROOT_FOLDER} ${OUT_ROOT_FOLDER_NOLATEX}
 do
   [ -d ${folderpath} ] && rm -rfv ${folderpath}
 done
@@ -273,38 +308,22 @@ cp -rv ${OLD_UCRT64_FOLDER}/etc/ssl ${OUT_UCRT64_FOLDER}/etc/
 # nolatex folder
 cp -rv ${OUT_ROOT_FOLDER} ${OUT_ROOT_FOLDER_NOLATEX}
 # latex.exe
-for element_rel in latex.exe \
-                   libkpathsea-6.dll \
-                   mktexfmt.exe \
-                   runscript.dll \
-                   runscript.tlu
+for element_rel in "${LATEX_BIN_ITEMS[@]}"
+do
+  element_abs="$(resolve_single_path "${OLD_UCRT64_FOLDER}/bin" "${element_rel}")"
+  cp -v "${element_abs}" ${OUT_UCRT64_FOLDER}/bin/
+done
+for element_rel in "${LATEX_NON_PE_ITEMS[@]}"
 do
   cp -v ${OLD_UCRT64_FOLDER}/bin/${element_rel} ${OUT_UCRT64_FOLDER}/bin/
 done
 cp -v ${OLD_UCRT64_FOLDER}/var/lib/texmf/web2c/pdftex/latex.fmt ${OUT_UCRT64_FOLDER}/bin/
 cp -rv ${OLD_UCRT64_FOLDER}/share/texmf-dist ${OUT_UCRT64_FOLDER}/share/
 # dvipng.exe
-for element_rel in dvipng.exe \
-                   libgd.dll \
-                   libheif.dll \
-                   libavif-16.dll \
-                   libimagequant.dll \
-                   libXpm-noX4.dll \
-                   libaom.dll \
-                   libdav1d-7.dll \
-                   librav1e.dll \
-                   libde265-0.dll \
-                   libx265-215.dll \
-                   libx264-165.dll \
-                   libSvtAv1Enc-3.dll \
-                   libyuv.dll \
-                   libopenjp2-7.dll \
-                   libopenjph-0.26.dll \
-                   libopenh264-7.dll \
-                   libkvazaar-7.dll \
-                   libcryptopp.dll
+for element_rel in "${DVIPNG_BIN_ITEMS[@]}"
 do
-  cp -v ${OLD_UCRT64_FOLDER}/bin/${element_rel} ${OUT_UCRT64_FOLDER}/bin/
+  element_abs="$(resolve_single_path "${OLD_UCRT64_FOLDER}/bin" "${element_rel}")"
+  cp -v "${element_abs}" ${OUT_UCRT64_FOLDER}/bin/
 done
 cp -v ${OLD_UCRT64_FOLDER}/var/lib/texmf/fonts/map/dvips/updmap/ps2pk.map ${OUT_UCRT64_FOLDER}/bin/
 

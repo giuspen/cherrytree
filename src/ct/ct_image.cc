@@ -580,15 +580,73 @@ static const char* get_dvipng_bin_cmd()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
+    const fs::path tex_basename = tmp_filepath_tex.filename();
     // https://github.com/giuspen/cherrytree/issues/2846
-    // -no-shell-escape -> disables \write18{...} which would allow arbitrary shell command execution (escalates to RCE if the system has shell_escape = t)
-    // -safer -> restricts file I/O to the working directory, preventing \verbatiminput{/etc/passwd} and similar primitives from reading arbitrary filesystem paths
-    std::string cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape -safer -output-directory=%s %s"
-#ifndef _WIN32
-                                   CONSOLE_SILENCE_OUTPUT
-#endif /* !_WIN32 */
-                                   , get_latex_bin_cmd(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
-    bool success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
+    // Enforce TeX-level file access restrictions even if macro-based regex filtering is bypassed.
+    // openin_any/openout_any are set to paranoid mode and shell escape is disabled.
+    std::string cmd;
+    bool success = false;
+#ifdef _WIN32
+    cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=%s %s"
+                       , get_latex_bin_cmd(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+    success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
+#else /* !_WIN32 */
+    const std::string latex_bin_cmd = get_latex_bin_cmd();
+    if (latex_bin_cmd.find("&&") == std::string::npos) {
+        g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+        g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+        cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                           CONSOLE_SILENCE_OUTPUT
+                           , quoted_tmp_dir, latex_bin_cmd.c_str(), quoted_tex_basename);
+        success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+    }
+    else {
+        // Package builds with bundled TinyTeX need explicit execution from the tmp dir,
+        // otherwise openin/openout paranoid mode denies access to the source file in /tmp.
+    #if defined(_FLATPAK_BUILD)
+        const fs::path latex_exe{ "/app/bin/.TinyTeX/bin/x86_64-linux/latex" };
+        g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+        g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+        g_autofree gchar* quoted_latex_exe = g_shell_quote(latex_exe.c_str());
+        cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                   CONSOLE_SILENCE_OUTPUT
+                   , quoted_tmp_dir, quoted_latex_exe, quoted_tex_basename);
+        success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+    #elif defined(_SNAP_BUILD)
+        const fs::path latex_exe{ "/snap/cherrytree/current/TinyTeX/bin/x86_64-linux/latex" };
+        g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+        g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+        g_autofree gchar* quoted_latex_exe = g_shell_quote(latex_exe.c_str());
+        cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                   CONSOLE_SILENCE_OUTPUT
+                   , quoted_tmp_dir, quoted_latex_exe, quoted_tex_basename);
+        success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+    #else
+        // Portable/package builds may prepend a command chain (for example AppImage: "cd ... && ./latex").
+        // Extract the bundled latex executable path and run it from the temp directory.
+        static const std::string chain_prefix{"cd "};
+        static const std::string chain_suffix{" && ./latex"};
+        if (str::startswith(latex_bin_cmd, chain_prefix) and str::endswith(latex_bin_cmd, chain_suffix)) {
+            const std::string bin_dir = latex_bin_cmd.substr(chain_prefix.size(), latex_bin_cmd.size() - chain_prefix.size() - chain_suffix.size());
+            const fs::path latex_exe = fs::path{bin_dir} / "latex";
+            g_autofree gchar* quoted_tmp_dir = g_shell_quote(tmp_dirpath.c_str());
+            g_autofree gchar* quoted_tex_basename = g_shell_quote(tex_basename.c_str());
+            g_autofree gchar* quoted_latex_exe = g_shell_quote(latex_exe.c_str());
+            cmd = fmt::sprintf("cd %s && %s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=. %s"
+                               CONSOLE_SILENCE_OUTPUT
+                               , quoted_tmp_dir, quoted_latex_exe, quoted_tex_basename);
+            success = CtMiscUtil::system_cmd(cmd.c_str(), "");
+        }
+        else {
+            // Fallback for unexpected command formats.
+            cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=%s %s"
+                               CONSOLE_SILENCE_OUTPUT
+                               , latex_bin_cmd.c_str(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+            success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
+        }
+#endif
+    }
+#endif /* _WIN32 */
     std::string tmp_filepath_noext = tmp_filepath_tex.string();
     tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
     const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
