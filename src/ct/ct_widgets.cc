@@ -117,6 +117,7 @@ void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
     if (not needWorkaround) {
         return;
     }
+    spdlog::debug("{} triggering wrap-mode workaround for height change", __FUNCTION__);
     Glib::signal_idle().connect_once([&](){
         CtTextView& textView = _pCtMainWin->get_text_view();
         textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);

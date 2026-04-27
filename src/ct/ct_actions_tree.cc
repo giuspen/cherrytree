@@ -122,11 +122,15 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 // Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
+    spdlog::debug("{} widget_type={}", __FUNCTION__, static_cast<int>(widget->get_type()));
     Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
     if (dynamic_cast<CtImage*>(widget)) {
-        _pCtMainWin->get_text_view().mm().grab_focus();
+        if (not _pCtMainWin->get_text_view().mm().has_focus()) {
+            spdlog::debug("{} grabbing focus for image", __FUNCTION__);
+            _pCtMainWin->get_text_view().mm().grab_focus();
+        }
     }
     _curr_buffer()->select_range(iter_object, iter_bound);
 }

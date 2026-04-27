@@ -190,7 +190,9 @@ void CtImagePng::update_label_widget()
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
-    _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    if (3 != event->button) {
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    }
     if (1 == event->button || 2 == event->button) {
         if (event->type == GDK_2BUTTON_PRESS) {
             if (_pCtConfig->doubleClickLink and not _link.empty()) {
@@ -354,7 +356,9 @@ void CtImageAnchor::toggle_exp_coll_state()
 bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
-    _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    if (3 != event->button) {
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    }
     if (3 == event->button) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
     }
@@ -693,7 +697,9 @@ static const char* get_dvipng_bin_cmd()
 bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_latex_anchor = this;
-    _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    if (3 != event->button) {
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    }
     if (event->button == 3)
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Latex)->popup(event->button, event->time);
     else if (event->type == GDK_2BUTTON_PRESS)
@@ -902,7 +908,9 @@ void CtImageEmbFile::update_tooltip()
 bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
-    _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    if (3 != event->button) {
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    }
     if (event->button == 3) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
     }
