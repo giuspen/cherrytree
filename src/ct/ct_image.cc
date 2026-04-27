@@ -189,10 +189,13 @@ void CtImagePng::update_label_widget()
 
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
+    spdlog::debug("CtImagePng::_on_button_press_event: enter button={} type={} state=0x{:x}",
+                  event->button, (int)event->type, (unsigned)event->state);
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (1 == event->button || 2 == event->button) {
         if (event->type == GDK_2BUTTON_PRESS) {
+            spdlog::debug("CtImagePng::_on_button_press_event: double-click, has_link={}", not _link.empty());
             if (_pCtConfig->doubleClickLink and not _link.empty()) {
                 _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
             }
@@ -205,9 +208,11 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
         }
     }
     else if (3 == event->button) {
+        spdlog::debug("CtImagePng::_on_button_press_event: right-click popup");
         _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
     }
+    spdlog::debug("CtImagePng::_on_button_press_event: exit");
     return true; // do not propagate the event
 }
 

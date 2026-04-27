@@ -122,13 +122,58 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 // Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
-    Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
+    if (not widget) {
+        return;
+    }
+
+    auto target_buffer = _curr_buffer();
+    Gtk::TextIter iter_object = target_buffer->get_iter_at_child_anchor(widget->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
-    if (dynamic_cast<CtImage*>(widget)) {
-        _pCtMainWin->get_text_view().mm().grab_focus();
+    const int object_offset = iter_object.get_offset();
+    const int bound_offset = iter_bound.get_offset();
+    const bool need_focus = dynamic_cast<CtImage*>(widget) != nullptr;
+
+    bool defer_selection{false};
+    GdkEventType current_event_type{GDK_NOTHING};
+    if (GdkEvent* pCurrentEvent = gtk_get_current_event()) {
+        current_event_type = pCurrentEvent->type;
+        defer_selection = current_event_type == GDK_BUTTON_PRESS ||
+                          current_event_type == GDK_2BUTTON_PRESS ||
+                          current_event_type == GDK_3BUTTON_PRESS;
+        gdk_event_free(pCurrentEvent);
     }
-    _curr_buffer()->select_range(iter_object, iter_bound);
+    spdlog::debug("CtActions::object_set_selection: offset={} need_focus={} current_ev_type={} deferred={}",
+                  object_offset, need_focus, (int)current_event_type, defer_selection);
+
+    auto select_widget = [this, target_buffer, object_offset, bound_offset, need_focus]() {
+        spdlog::debug("CtActions::object_set_selection: idle select_widget fired offset={}", object_offset);
+        if (_curr_buffer() != target_buffer) {
+            spdlog::debug("CtActions::object_set_selection: idle select_widget aborted (buffer changed)");
+            return;
+        }
+        Gtk::TextIter sel_object = target_buffer->get_iter_at_offset(object_offset);
+        Gtk::TextIter sel_bound = target_buffer->get_iter_at_offset(bound_offset);
+        if (not sel_object or not sel_bound) {
+            spdlog::debug("CtActions::object_set_selection: idle select_widget aborted (invalid iter)");
+            return;
+        }
+        if (need_focus) {
+            spdlog::debug("CtActions::object_set_selection: grab_focus");
+            _pCtMainWin->get_text_view().mm().grab_focus();
+            spdlog::debug("CtActions::object_set_selection: grab_focus done");
+        }
+        target_buffer->select_range(sel_object, sel_bound);
+        spdlog::debug("CtActions::object_set_selection: select_range done");
+    };
+
+    if (defer_selection) {
+        // Avoid selecting child-anchors while the button-press event is still being processed.
+        Glib::signal_idle().connect_once(select_widget);
+    }
+    else {
+        select_widget();
+    }
 }
 
 // Returns True if there's not a node selected or is not rich text

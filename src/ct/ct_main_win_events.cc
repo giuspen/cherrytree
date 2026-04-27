@@ -502,13 +502,13 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front())) {
                 _uCtActions->curr_anchor_anchor = anchor;
                 _uCtActions->object_set_selection(anchor);
-                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
+                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->key.time);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
                 _uCtActions->curr_image_anchor = image;
                 _uCtActions->object_set_selection(image);
                 _uCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
-                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
+                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->key.time);
             }
             return true;
         }
@@ -577,15 +577,20 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
 // Called after every event on the SourceView
 void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
+    spdlog::debug("CtMainWin::_on_textview_event_after: enter with event type={}", (int)event->type);
     if (event->type == GDK_2BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
+        spdlog::debug("CtMainWin::_on_textview_event_after: double-click button={}", event->button.button);
         _ctTextview.for_event_after_double_click_button12(event);
     }
     if (event->type == GDK_3BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
+        spdlog::debug("CtMainWin::_on_textview_event_after: triple-click button={}", event->button.button);
         _ctTextview.for_event_after_triple_click_button12(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS) {
         if (event->type == GDK_BUTTON_PRESS) {
+            spdlog::debug("CtMainWin::_on_textview_event_after: button_press button={}", event->button.button);
             _ctTextview.for_event_after_button_press(event);
+            spdlog::debug("CtMainWin::_on_textview_event_after: button_press done");
         }
         if (event->type == GDK_KEY_PRESS) {
             _ctTextview.for_event_after_key_press(event, curr_tree_iter().get_node_syntax_highlighting());
@@ -598,6 +603,10 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
             }
         }
     }
+    else if (event->type == GDK_BUTTON_RELEASE) {
+        spdlog::debug("CtMainWin::_on_textview_event_after: button_release button={}", event->button.button);
+    }
+    spdlog::debug("CtMainWin::_on_textview_event_after: exit with event type={}", (int)event->type);
 }
 
 bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
