@@ -126,7 +126,7 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
     if (dynamic_cast<CtImage*>(widget)) {
-        _pCtMainWin->get_text_view().mm().grab_focus();
+        Glib::signal_idle().connect_once([this](){ _pCtMainWin->get_text_view().mm().grab_focus(); });
     }
     _curr_buffer()->select_range(iter_object, iter_bound);
 }

@@ -502,13 +502,13 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front())) {
                 _uCtActions->curr_anchor_anchor = anchor;
                 _uCtActions->object_set_selection(anchor);
-                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
+                gtk_menu_popup_at_pointer(_uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->gobj(), event);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
                 _uCtActions->curr_image_anchor = image;
                 _uCtActions->object_set_selection(image);
                 _uCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
-                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
+                gtk_menu_popup_at_pointer(_uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->gobj(), event);
             }
             return true;
         }

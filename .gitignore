@@ -14,3 +14,4 @@ build
 .vscode/settings.json
 .flatpak-builder
 Screenshot_*.png
+.claude
