@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_find.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -60,9 +60,9 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     auto& latest_searches = pCtMainWin->get_ct_config()->latestSearches;
     if (!latest_searches.empty()) {
         search_combo->append("__ct_reset_search__", "× " + Glib::ustring{_("Reset")});
-    }
-    for (auto it = latest_searches.rbegin(); it != latest_searches.rend(); ++it) {
-        search_combo->prepend(*it); // prepend in reverse to show most recent first
+        for (auto it = latest_searches.rbegin(); it != latest_searches.rend(); ++it) {
+            search_combo->prepend(*it); // prepend in reverse to show most recent first
+        }
     }
 
     search_combo->signal_changed().connect([search_combo, search_entry, &latest_searches](){
@@ -101,9 +101,9 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         auto& latest_replaces = pCtMainWin->get_ct_config()->latestReplaces;
         if (!latest_replaces.empty()) {
             replace_combo->append("__ct_reset_replace__", "× " + Glib::ustring{_("Reset")});
-        }
-        for (auto it = latest_replaces.rbegin(); it != latest_replaces.rend(); ++it) {
-            replace_combo->prepend(*it); // prepend in reverse to show most recent first
+            for (auto it = latest_replaces.rbegin(); it != latest_replaces.rend(); ++it) {
+                replace_combo->prepend(*it); // prepend in reverse to show most recent first
+            }
         }
 
         replace_combo->signal_changed().connect([replace_combo, replace_entry, &latest_replaces](){
@@ -366,14 +366,12 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         pDialog->hide();
 
         s_options.str_find = search_entry->get_text();
-        // Add to search history
         if (!s_options.str_find.empty()) {
             pCtMainWin->get_ct_config()->latestSearches.move_or_push_front(s_options.str_find);
         }
 
         if (replace_entry) {
             s_options.str_replace = replace_entry->get_text();
-            // Add to replace history
             if (!s_options.str_replace.empty()) {
                 pCtMainWin->get_ct_config()->latestReplaces.move_or_push_front(s_options.str_replace);
             }

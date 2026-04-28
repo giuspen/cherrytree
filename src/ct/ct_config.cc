@@ -217,7 +217,8 @@ void CtConfig::_populate_keyfile_from_data()
             ++i;
         }
     }
-    {
+    _uKeyFile->set_boolean(_currentGroup, "store_latest_searches", storeLatestSearches);
+    if (storeLatestSearches) {
         guint i{0};
         for (const Glib::ustring& pattern : latestSearches) {
             snprintf(_tempKey, _maxTempKeySize, "search_%d", i);
@@ -225,7 +226,7 @@ void CtConfig::_populate_keyfile_from_data()
             ++i;
         }
     }
-    {
+    if (storeLatestSearches) {
         guint i{0};
         for (const Glib::ustring& pattern : latestReplaces) {
             snprintf(_tempKey, _maxTempKeySize, "replace_%d", i);
@@ -522,6 +523,7 @@ void CtConfig::_populate_data_from_keyfile()
         }
         latestReplaces.push_back(pattern);
     }
+    _populate_bool_from_keyfile("store_latest_searches", &storeLatestSearches);
     _populate_bool_from_keyfile("toolbar_visible", &toolbarVisible);
     _populate_bool_from_keyfile("statusbar_visible", &statusbarVisible);
     _populate_bool_from_keyfile("tree_lines_visible", &treeLinesVisible);
