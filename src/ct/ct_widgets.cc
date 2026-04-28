@@ -1,7 +1,7 @@
 /*
  * ct_widgets.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -129,6 +129,7 @@ CtTreeView::CtTreeView(CtConfig* pCtConfig)
 {
     set_headers_visible(false);
     set_enable_search(false);
+    signal_query_tooltip().connect(sigc::mem_fun(*this, &CtTreeView::_on_query_tooltip));
     if (_pCtConfig->treeTooltips) {
         set_tooltips_enable(true/*on*/);
     }
@@ -136,8 +137,34 @@ CtTreeView::CtTreeView(CtConfig* pCtConfig)
 
 void CtTreeView::set_tooltips_enable(const bool on)
 {
-    if (on) set_tooltip_column(1); // node name
-    else set_tooltip_column(-1);
+    set_has_tooltip(on);
+}
+
+bool CtTreeView::_on_query_tooltip(int x, int y, bool keyboard_tooltip, const Glib::RefPtr<Gtk::Tooltip>& tooltip)
+{
+    // gtk_tree_view_set_tooltip_context converts widget coords to bin-window coords,
+    // retrieves the path/iter under the pointer and returns FALSE when there is none.
+    GtkTreeModel* pModel = nullptr;
+    GtkTreePath* pPath = nullptr;
+    GtkTreeIter treeIter;
+    if (not gtk_tree_view_get_tooltip_context(gobj(), &x, &y, keyboard_tooltip,
+                                              &pModel, &pPath, &treeIter)) {
+        return false;
+    }
+
+    gchar* pNodeName = nullptr;
+    gtk_tree_model_get(pModel, &treeIter, 1 /* colNodeName */, &pNodeName, -1);
+    if (nullptr == pNodeName) {
+        gtk_tree_path_free(pPath);
+        return false;
+    }
+
+    tooltip->set_text(pNodeName);
+    g_free(pNodeName);
+    // Anchor the tooltip to the specific row so GTK re-triggers it when the row changes.
+    gtk_tree_view_set_tooltip_row(gobj(), tooltip->gobj(), pPath);
+    gtk_tree_path_free(pPath);
+    return true;
 }
 
 void CtTreeView::set_cursor_safe(const Gtk::TreeModel::iterator& treeIter)

@@ -1,7 +1,7 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -155,6 +155,8 @@ public:
     void set_tooltips_enable(const bool on);
 
 private:
+    bool _on_query_tooltip(int x, int y, bool keyboard_tooltip, const Glib::RefPtr<Gtk::Tooltip>& tooltip);
+
     CtConfig* const _pCtConfig;
 };
 
