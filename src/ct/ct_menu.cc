@@ -24,6 +24,7 @@
 #include "ct_actions.h"
 #include "ct_menu.h"
 #include "ct_storage_xml.h"
+#include "ct_logging.h"
 
 static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 {
@@ -221,6 +222,18 @@ Gtk::Menu* CtMenu::get_popup_menu(POPUP_MENU_TYPE popupMenuType)
         Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu{});
         build_popup_menu(pMenu, popupMenuType);
         pMenu->attach_to_widget(*_pCtMainWin);
+        if (popupMenuType == POPUP_MENU_TYPE::Image or
+            popupMenuType == POPUP_MENU_TYPE::Anchor or
+            popupMenuType == POPUP_MENU_TYPE::Latex or
+            popupMenuType == POPUP_MENU_TYPE::EmbFile) {
+            const char* typeName =
+                popupMenuType == POPUP_MENU_TYPE::Image  ? "Image"  :
+                popupMenuType == POPUP_MENU_TYPE::Anchor ? "Anchor" :
+                popupMenuType == POPUP_MENU_TYPE::Latex  ? "Latex"  : "EmbFile";
+            pMenu->signal_deactivate().connect([typeName]{
+                spdlog::debug("popup_deactivate {}", typeName);
+            });
+        }
         _popupMenus[popupMenuType] = pMenu;
     }
     return _popupMenus[popupMenuType];

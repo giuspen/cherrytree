@@ -26,6 +26,7 @@
 #include "ct_dialogs.h"
 #include "ct_clipboard.h"
 #include "ct_treestore.h"
+#include "ct_logging.h"
 #include <ctime>
 #include <gtkmm/dialog.h>
 
@@ -122,13 +123,18 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 // Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
+    spdlog::debug("object_set_selection enter");
     Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
     if (dynamic_cast<CtImage*>(widget)) {
-        Glib::signal_idle().connect_once([this](){ _pCtMainWin->get_text_view().mm().grab_focus(); });
+        Glib::signal_idle().connect_once([this](){
+            spdlog::debug("grab_focus_idle fire");
+            _pCtMainWin->get_text_view().mm().grab_focus();
+        });
     }
     _curr_buffer()->select_range(iter_object, iter_bound);
+    spdlog::debug("object_set_selection return");
 }
 
 // Returns True if there's not a node selected or is not rich text
