@@ -12,27 +12,8 @@ jobs:
         uses: actions/checkout@v5
       - name: Set up MacPorts
         uses: melusina-org/setup-macports@v1.1.6
-      - name: Install Dependencies
-        run: |
-          port -v selfupdate
-          sudo port install cmake \
-                            clang-17 \
-                            gettext \
-                            makeicns  \
-                            pkgconfig  \
-                            python313 \
-                            adwaita-icon-theme \
-                            gspell \
-                            gtkmm3 \
-                            gtksourceview4 \
-                            vte \
-                            libxmlxx2 \
-                            libfmt9 \
-                            spdlog \
-                            uchardet \
-                            fribidi \
-                            sqlite3 \
-                            curl
+        with:
+          parameters: .github/parameters/setup-macports.yaml
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs
@@ -42,5 +23,5 @@ jobs:
                 -DBUILD_TESTING='' \
                 -DCMAKE_EXE_LINKER_FLAGS="-L/opt/local/lib -L/opt/local/lib/libfmt9"
           cmake --build build
-          pip3 install pyobjc-framework-Cocoa
+          pip3 install --break-system-packages pyobjc-framework-Cocoa
           cmake --install build
