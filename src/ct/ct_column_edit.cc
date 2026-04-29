@@ -518,6 +518,7 @@ void CtColumnEdit::focus_in()
 
 void CtColumnEdit::selection_update()
 {
+    spdlog::debug("{}", __FUNCTION__);
     const Gdk::Point cursorPlace = _get_cursor_place();
     if (_textView.has_focus()) {
         if (_newCursorRowColCallback) {

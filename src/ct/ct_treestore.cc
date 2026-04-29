@@ -1184,6 +1184,10 @@ void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_st
 void CtTreeStore::_on_textbuffer_mark_set(const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark)
 {
     if (_pCtMainWin->user_active()) {
+        const Glib::ustring mark_name = rMark->get_name();
+        if (mark_name == "insert" or mark_name == "selection_bound") {
+            spdlog::debug("{} mark_name={}", __FUNCTION__, mark_name.c_str());
+        }
         if (rMark->get_name() == "insert") {
             const auto currTreeIter = _pCtMainWin->curr_tree_iter();
             if (currTreeIter and currTreeIter.get_node_is_rich_text()) {

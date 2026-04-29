@@ -132,7 +132,9 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
             _pCtMainWin->get_text_view().mm().grab_focus();
         }
     }
+    spdlog::debug("{} calling select_range", __FUNCTION__);
     _curr_buffer()->select_range(iter_object, iter_bound);
+    spdlog::debug("{} select_range completed", __FUNCTION__);
 }
 
 // Returns True if there's not a node selected or is not rich text
