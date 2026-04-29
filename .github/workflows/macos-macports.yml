@@ -1,4 +1,4 @@
-name: MacOS/MacPorts
+﻿name: MacOS/MacPorts
 on: [workflow_dispatch]
 
 env:
@@ -16,8 +16,10 @@ jobs:
           parameters: .github/parameters/setup-macports.yaml
       - name: Fix MacPorts permissions for cache
         run: |
+          sudo chflags -R 0 /opt/local 2>/dev/null || true
           sudo find /opt/local -perm /6000 -exec chmod -s {} \; 2>/dev/null || true
-          sudo chown -R $USER /opt/local
+          sudo chmod -R a+r /opt/local 2>/dev/null || true
+          sudo chown -R runner /opt/local
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs
