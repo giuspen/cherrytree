@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Cache Homebrew downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/Library/Caches/Homebrew/downloads
           key: homebrew-${{ runner.os }}-${{ hashFiles('.github/parameters/setup-brew.txt') }}
