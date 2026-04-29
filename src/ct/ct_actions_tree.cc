@@ -146,7 +146,7 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     spdlog::debug("CtActions::object_set_selection: offset={} need_focus={} current_ev_type={} deferred={}",
                   object_offset, need_focus, (int)current_event_type, defer_selection);
 
-    auto select_widget = [this, target_buffer, object_offset, bound_offset, need_focus]() {
+    auto select_widget = [this, target_buffer, object_offset, bound_offset, need_focus, defer_selection]() {
         spdlog::debug("CtActions::object_set_selection: idle select_widget fired offset={}", object_offset);
         if (_curr_buffer() != target_buffer) {
             spdlog::debug("CtActions::object_set_selection: idle select_widget aborted (buffer changed)");
@@ -159,9 +159,30 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
             return;
         }
         if (need_focus) {
-            spdlog::debug("CtActions::object_set_selection: grab_focus");
-            _pCtMainWin->get_text_view().mm().grab_focus();
-            spdlog::debug("CtActions::object_set_selection: grab_focus done");
+            // Calling grab_focus() → XSetInputFocus while an X11 implicit pointer grab is
+            // still active (from the button-press on the image EventBox) can cause KDE's
+            // compositor to stall and stop delivering events under certain NVIDIA setups.
+            //
+            // Strategy:
+            //  1. If the textview already owns keyboard focus, XSetInputFocus is a no-op
+            //     at the WM level — skip the call entirely to avoid the protocol exchange.
+            //  2. If the textview does NOT have focus (uncommon: the EventBox is not
+            //     focusable by default) and we are in the deferred/button-press path, set a
+            //     pending flag so the focus grab is done after the button_release (i.e. after
+            //     the implicit pointer grab is released), not before.
+            if (_pCtMainWin->get_text_view().mm().is_focus()) {
+                spdlog::debug("CtActions::object_set_selection: skip grab_focus (textview already focused)");
+            }
+            else if (defer_selection) {
+                // Implicit pointer grab still active — defer focus grab to button_release.
+                spdlog::debug("CtActions::object_set_selection: defer grab_focus to button_release");
+                _pCtMainWin->set_pending_image_focus_grab();
+            }
+            else {
+                spdlog::debug("CtActions::object_set_selection: grab_focus");
+                _pCtMainWin->get_text_view().mm().grab_focus();
+                spdlog::debug("CtActions::object_set_selection: grab_focus done");
+            }
         }
         target_buffer->select_range(sel_object, sel_bound);
         spdlog::debug("CtActions::object_set_selection: select_range done");

@@ -605,6 +605,15 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     }
     else if (event->type == GDK_BUTTON_RELEASE) {
         spdlog::debug("CtMainWin::_on_textview_event_after: button_release button={}", event->button.button);
+        // The implicit X11 pointer grab from the image click is now released.
+        // If grab_focus() was deferred (to avoid XSetInputFocus during the grab),
+        // it is now safe to call it.
+        if (_pendingImageFocusGrab) {
+            _pendingImageFocusGrab = false;
+            spdlog::debug("CtMainWin::_on_textview_event_after: pending image focus grab: grab_focus");
+            _ctTextview.mm().grab_focus();
+            spdlog::debug("CtMainWin::_on_textview_event_after: pending image focus grab: done");
+        }
     }
     spdlog::debug("CtMainWin::_on_textview_event_after: exit with event type={}", (int)event->type);
 }
