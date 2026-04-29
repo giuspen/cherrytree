@@ -138,9 +138,14 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
                 textView.grab_focus();
                 spdlog::debug("grab_focus_idle after");
             }
+            Glib::signal_idle().connect_once([](){
+                spdlog::debug("post_grab_idle");
+            }, Glib::PRIORITY_LOW);
         });
     }
+    spdlog::debug("select_range before");
     _curr_buffer()->select_range(iter_object, iter_bound);
+    spdlog::debug("select_range after");
     spdlog::debug("object_set_selection return");
 }
 

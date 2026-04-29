@@ -168,9 +168,14 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     _ctTextview.mm().signal_button_press_event().connect([this](GdkEventButton* event){
         if (not _pCtMainWin->user_active()) return false;
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
-        if ( event->button != 3 /* right button */ and
-             event->type != GDK_3BUTTON_PRESS )
-        {
+        if (event->button == 3 /* right button */) {
+            _pCtMainWin->get_ct_actions()->object_set_selection(this);
+            gtk_menu_popup_at_pointer(
+                _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Codebox)->gobj(),
+                reinterpret_cast<const GdkEvent*>(event));
+            return true; // prevent deprecated gtk_menu_popup via signal_populate_popup
+        }
+        if (event->type != GDK_3BUTTON_PRESS) {
             _pCtMainWin->get_ct_actions()->object_set_selection(this);
         }
         return false;
@@ -205,7 +210,12 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         CtActions* pCtActions = _pCtMainWin->get_ct_actions();
         pCtActions->curr_codebox_anchor = this;
         pCtActions->object_set_selection(this);
-        pCtActions->codebox_change_properties();
+        spdlog::debug("codebox_props deferred");
+        Glib::signal_idle().connect_once([pCtActions](){
+            spdlog::debug("codebox_props_idle enter");
+            pCtActions->codebox_change_properties();
+            spdlog::debug("codebox_props_idle exit");
+        });
     });
 }
 
