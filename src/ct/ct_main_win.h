@@ -136,7 +136,13 @@ public:
     CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
     CtTextView&                       get_text_view()   { return _ctTextview; }
-    void                              set_pending_image_focus_grab() { _pendingImageFocusGrab = true; }
+    struct PendingWidgetSelection {
+        Glib::RefPtr<Gtk::TextBuffer> target_buffer;
+        int object_offset{-1};
+        int bound_offset{-1};
+        bool need_focus{false};
+    };
+    void schedule_pending_widget_selection(const PendingWidgetSelection& s) { _pendingWidgetSelection = s; }
     CtStatusBar&                      get_status_bar()  { return _ctStatusBar; }
     CtMenu&                           get_ct_menu()     { return *_uCtMenu; }
     CtPrint&                          get_ct_print()    { return *_uCtPrint; }
@@ -341,7 +347,7 @@ private:
     bool                _systrayCanHide{true};
     bool                _alwaysOnTop{false};
     bool                _startDialogShown{false};
-    bool                _pendingImageFocusGrab{false};
+    std::optional<PendingWidgetSelection> _pendingWidgetSelection;
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

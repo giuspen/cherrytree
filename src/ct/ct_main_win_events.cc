@@ -605,14 +605,39 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     }
     else if (event->type == GDK_BUTTON_RELEASE) {
         spdlog::debug("CtMainWin::_on_textview_event_after: button_release button={}", event->button.button);
-        // The implicit X11 pointer grab from the image click is now released.
-        // If grab_focus() was deferred (to avoid XSetInputFocus during the grab),
-        // it is now safe to call it.
-        if (_pendingImageFocusGrab) {
-            _pendingImageFocusGrab = false;
-            spdlog::debug("CtMainWin::_on_textview_event_after: pending image focus grab: grab_focus");
-            _ctTextview.mm().grab_focus();
-            spdlog::debug("CtMainWin::_on_textview_event_after: pending image focus grab: done");
+        // The X11 implicit pointer grab from a widget click is now released.
+        // Execute any selection/focus operation that was deferred to avoid
+        // calling XSetInputFocus or XSetSelectionOwner during the grab, which
+        // can trigger a KDE/NVIDIA compositor deadlock on some configurations.
+        if (_pendingWidgetSelection) {
+            auto pending = std::move(*_pendingWidgetSelection);
+            _pendingWidgetSelection.reset();
+            spdlog::debug("CtMainWin::_on_textview_event_after: executing deferred selection offset={}",
+                          pending.object_offset);
+            if (pending.target_buffer == curr_buffer()) {
+                Gtk::TextIter sel_object = pending.target_buffer->get_iter_at_offset(pending.object_offset);
+                Gtk::TextIter sel_bound  = pending.target_buffer->get_iter_at_offset(pending.bound_offset);
+                if (sel_object and sel_bound) {
+                    if (pending.need_focus) {
+                        if (not _ctTextview.mm().is_focus()) {
+                            spdlog::debug("CtMainWin::_on_textview_event_after: deferred grab_focus");
+                            _ctTextview.mm().grab_focus();
+                            spdlog::debug("CtMainWin::_on_textview_event_after: deferred grab_focus done");
+                        }
+                        else {
+                            spdlog::debug("CtMainWin::_on_textview_event_after: skip deferred grab_focus (already focused)");
+                        }
+                    }
+                    pending.target_buffer->select_range(sel_object, sel_bound);
+                    spdlog::debug("CtMainWin::_on_textview_event_after: deferred select_range done");
+                }
+                else {
+                    spdlog::debug("CtMainWin::_on_textview_event_after: deferred selection aborted (invalid iter)");
+                }
+            }
+            else {
+                spdlog::debug("CtMainWin::_on_textview_event_after: deferred selection aborted (buffer changed)");
+            }
         }
     }
     spdlog::debug("CtMainWin::_on_textview_event_after: exit with event type={}", (int)event->type);

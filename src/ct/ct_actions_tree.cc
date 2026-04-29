@@ -146,37 +146,20 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     spdlog::debug("CtActions::object_set_selection: offset={} need_focus={} current_ev_type={} deferred={}",
                   object_offset, need_focus, (int)current_event_type, defer_selection);
 
-    auto select_widget = [this, target_buffer, object_offset, bound_offset, need_focus, defer_selection]() {
-        spdlog::debug("CtActions::object_set_selection: idle select_widget fired offset={}", object_offset);
-        if (_curr_buffer() != target_buffer) {
-            spdlog::debug("CtActions::object_set_selection: idle select_widget aborted (buffer changed)");
+    auto exec_selection = [this](Glib::RefPtr<Gtk::TextBuffer> tbuf, int obj_off, int bnd_off, bool nfocus) {
+        if (_curr_buffer() != tbuf) {
+            spdlog::debug("CtActions::object_set_selection: exec aborted (buffer changed)");
             return;
         }
-        Gtk::TextIter sel_object = target_buffer->get_iter_at_offset(object_offset);
-        Gtk::TextIter sel_bound = target_buffer->get_iter_at_offset(bound_offset);
+        Gtk::TextIter sel_object = tbuf->get_iter_at_offset(obj_off);
+        Gtk::TextIter sel_bound  = tbuf->get_iter_at_offset(bnd_off);
         if (not sel_object or not sel_bound) {
-            spdlog::debug("CtActions::object_set_selection: idle select_widget aborted (invalid iter)");
+            spdlog::debug("CtActions::object_set_selection: exec aborted (invalid iter)");
             return;
         }
-        if (need_focus) {
-            // Calling grab_focus() → XSetInputFocus while an X11 implicit pointer grab is
-            // still active (from the button-press on the image EventBox) can cause KDE's
-            // compositor to stall and stop delivering events under certain NVIDIA setups.
-            //
-            // Strategy:
-            //  1. If the textview already owns keyboard focus, XSetInputFocus is a no-op
-            //     at the WM level — skip the call entirely to avoid the protocol exchange.
-            //  2. If the textview does NOT have focus (uncommon: the EventBox is not
-            //     focusable by default) and we are in the deferred/button-press path, set a
-            //     pending flag so the focus grab is done after the button_release (i.e. after
-            //     the implicit pointer grab is released), not before.
+        if (nfocus) {
             if (_pCtMainWin->get_text_view().mm().is_focus()) {
                 spdlog::debug("CtActions::object_set_selection: skip grab_focus (textview already focused)");
-            }
-            else if (defer_selection) {
-                // Implicit pointer grab still active — defer focus grab to button_release.
-                spdlog::debug("CtActions::object_set_selection: defer grab_focus to button_release");
-                _pCtMainWin->set_pending_image_focus_grab();
             }
             else {
                 spdlog::debug("CtActions::object_set_selection: grab_focus");
@@ -184,16 +167,23 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
                 spdlog::debug("CtActions::object_set_selection: grab_focus done");
             }
         }
-        target_buffer->select_range(sel_object, sel_bound);
-        spdlog::debug("CtActions::object_set_selection: select_range done");
+        tbuf->select_range(sel_object, sel_bound);
+        spdlog::debug("CtActions::object_set_selection: select_range done offset={}", obj_off);
     };
 
     if (defer_selection) {
-        // Avoid selecting child-anchors while the button-press event is still being processed.
-        Glib::signal_idle().connect_once(select_widget);
+        // While button_press is being processed the X11 server holds an implicit pointer
+        // grab on the textview window. Any X11 protocol call that changes input ownership
+        // (XSetInputFocus via grab_focus, or XSetSelectionOwner via select_range → PRIMARY
+        // selection) sent during that grab can trigger a KDE/NVIDIA compositor deadlock.
+        // Store the pending selection and execute it from the button_release handler,
+        // after the implicit grab has been fully released by the X server.
+        spdlog::debug("CtActions::object_set_selection: scheduling post-button-release selection offset={}",
+                      object_offset);
+        _pCtMainWin->schedule_pending_widget_selection({target_buffer, object_offset, bound_offset, need_focus});
     }
     else {
-        select_widget();
+        exec_selection(target_buffer, object_offset, bound_offset, need_focus);
     }
 }
 
