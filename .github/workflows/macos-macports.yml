@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Set up MacPorts
-        uses: melusina-org/setup-macports@v1.1.4
+        uses: melusina-org/setup-macports@v1.1.6
       - name: Install Dependencies
         run: |
           port -v selfupdate
@@ -39,6 +39,8 @@ jobs:
           ls -la /opt/local/lib | grep fmt
           export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/opt/local/lib/libfmt9/pkgconfig"
           cmake -S . -B build \
-                -DBUILD_TESTING=''
+                -DBUILD_TESTING='' \
+                -DCMAKE_EXE_LINKER_FLAGS="-L/opt/local/lib"
           cmake --build build
+          pip3 install pyobjc-framework-Cocoa
           cmake --install build

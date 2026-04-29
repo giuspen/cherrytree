@@ -42,4 +42,5 @@ jobs:
                 -DBUILD_TESTING='' -DCMAKE_VERBOSE_MAKEFILE=ON \
                 -DCMAKE_EXE_LINKER_FLAGS="-L/opt/homebrew/lib"
           VERBOSE=1 cmake --build build
+          pip3 install pyobjc-framework-Cocoa
           cmake --install build
