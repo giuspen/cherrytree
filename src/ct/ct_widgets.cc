@@ -78,8 +78,11 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
  , _justification{justification}
 {
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
-    signal_button_press_event().connect([this](GdkEventButton* /*pEvent*/){
-        _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor(_rTextChildAnchor));
+    signal_button_press_event().connect([this](GdkEventButton* event){
+        spdlog::debug("CtAnchoredWidget::on_button_press button={}", event->button);
+        if (1 == event->button) {
+            _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor(_rTextChildAnchor));
+        }
         return true; // we need to block this or the focus will go to the text buffer below
     });
     add(_frame);
@@ -109,6 +112,7 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> pTextBuf
 
 void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
 {
+    spdlog::debug("{} height={} (prev={})", __FUNCTION__, allocation.get_height(), _lastAllocation.get_height());
     if (allocation == _lastAllocation) {
         return;
     }
@@ -117,12 +121,14 @@ void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
     if (not needWorkaround) {
         return;
     }
-    spdlog::debug("{} triggering wrap-mode workaround for height change", __FUNCTION__);
+    spdlog::debug("{} DISABLED wrap-mode workaround for height change", __FUNCTION__);
+    /*
     Glib::signal_idle().connect_once([&](){
         CtTextView& textView = _pCtMainWin->get_text_view();
         textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
         textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
     });
+    */
 }
 
 CtTreeView::CtTreeView(CtConfig* pCtConfig)

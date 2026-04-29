@@ -437,6 +437,7 @@ bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/
 
 void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 {
+    spdlog::debug("{} width={} height={}", __FUNCTION__, allocation.get_width(), allocation.get_height());
     // When treeRightSide=true, pack1 is the text area (Gtk::EXPAND) and pack2 is the tree (Gtk::FILL).
     // property_position() is the pack1 (text) width, which grows as the window expands.
     // To avoid hpanedPos growing on each start, always store the tree width (stable FILL child).

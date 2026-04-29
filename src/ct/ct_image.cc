@@ -189,11 +189,10 @@ void CtImagePng::update_label_widget()
 
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
+    spdlog::debug("{} button={}", __FUNCTION__, event->button);
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
     if (3 != event->button) {
-        Glib::signal_idle().connect_once([this](){
-            _pCtMainWin->get_ct_actions()->object_set_selection(this);
-        });
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     if (1 == event->button || 2 == event->button) {
         if (event->type == GDK_2BUTTON_PRESS) {
@@ -357,11 +356,10 @@ void CtImageAnchor::toggle_exp_coll_state()
 
 bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
+    spdlog::debug("{} button={}", __FUNCTION__, event->button);
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
     if (3 != event->button) {
-        Glib::signal_idle().connect_once([this](){
-            _pCtMainWin->get_ct_actions()->object_set_selection(this);
-        });
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     if (3 == event->button) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
@@ -700,11 +698,10 @@ static const char* get_dvipng_bin_cmd()
 
 bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
 {
+    spdlog::debug("{} button={}", __FUNCTION__, event->button);
     _pCtMainWin->get_ct_actions()->curr_latex_anchor = this;
     if (3 != event->button) {
-        Glib::signal_idle().connect_once([this](){
-            _pCtMainWin->get_ct_actions()->object_set_selection(this);
-        });
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     if (event->button == 3)
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Latex)->popup(event->button, event->time);
@@ -913,11 +910,10 @@ void CtImageEmbFile::update_tooltip()
 // Catches mouse buttons clicks upon files images
 bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
+    spdlog::debug("{} button={}", __FUNCTION__, event->button);
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
     if (3 != event->button) {
-        Glib::signal_idle().connect_once([this](){
-            _pCtMainWin->get_ct_actions()->object_set_selection(this);
-        });
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     if (event->button == 3) {
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
