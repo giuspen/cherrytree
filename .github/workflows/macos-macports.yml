@@ -14,6 +14,8 @@ jobs:
         uses: melusina-org/setup-macports@v1.1.6
         with:
           parameters: .github/parameters/setup-macports.yaml
+      - name: Fix MacPorts permissions for cache
+        run: sudo chown -R $USER /opt/local
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs

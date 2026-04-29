@@ -10,12 +10,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+      - name: Cache Homebrew downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/Homebrew/downloads
+          key: homebrew-${{ runner.os }}-${{ hashFiles('.github/parameters/setup-brew.txt') }}
+          restore-keys: |
+            homebrew-${{ runner.os }}-
       - name: Install Dependencies
         run: |
-          brew install cmake \
-                       gettext \
-                       pkgconf \
-                       adwaita-icon-theme \
+          brew install adwaita-icon-theme \
                        gspell \
                        gtkmm3 \
                        gtksourceview4 \
