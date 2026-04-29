@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -129,8 +129,15 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     iter_bound.forward_char();
     if (dynamic_cast<CtImage*>(widget)) {
         Glib::signal_idle().connect_once([this](){
-            spdlog::debug("grab_focus_idle fire");
-            _pCtMainWin->get_text_view().mm().grab_focus();
+            auto& textView = _pCtMainWin->get_text_view().mm();
+            if (textView.has_focus()) {
+                spdlog::debug("grab_focus_idle skip (already focused)");
+            }
+            else {
+                spdlog::debug("grab_focus_idle before");
+                textView.grab_focus();
+                spdlog::debug("grab_focus_idle after");
+            }
         });
     }
     _curr_buffer()->select_range(iter_object, iter_bound);
