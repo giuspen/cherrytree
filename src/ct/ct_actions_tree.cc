@@ -124,28 +124,31 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
     spdlog::debug("object_set_selection enter");
-    Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
-    Gtk::TextIter iter_bound = iter_object;
-    iter_bound.forward_char();
-    if (dynamic_cast<CtImage*>(widget)) {
-        Glib::signal_idle().connect_once([this](){
+    // Defer select_range to an idle so the button-press handler completes before
+    // PRIMARY selection ownership is claimed via XSetSelectionOwner. This prevents
+    // a deadlock with KDE 6 Klipper, which immediately issues a synchronous
+    // SelectionRequest that GTK3 cannot answer while still inside the event handler.
+    const bool isImage = dynamic_cast<CtImage*>(widget) != nullptr;
+    Glib::RefPtr<Gtk::TextChildAnchor> anchor = widget->getTextChildAnchor();
+    Glib::signal_idle().connect_once([this, anchor, isImage](){
+        spdlog::debug("select_range_idle before");
+        Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
+        Gtk::TextIter iter_bound = iter_object;
+        iter_bound.forward_char();
+        _curr_buffer()->select_range(iter_object, iter_bound);
+        spdlog::debug("select_range_idle after");
+        if (isImage) {
             auto& textView = _pCtMainWin->get_text_view().mm();
-            if (textView.has_focus()) {
-                spdlog::debug("grab_focus_idle skip (already focused)");
-            }
-            else {
-                spdlog::debug("grab_focus_idle before");
+            if (not textView.has_focus()) {
+                spdlog::debug("grab_focus before");
                 textView.grab_focus();
-                spdlog::debug("grab_focus_idle after");
+                spdlog::debug("grab_focus after");
             }
-            Glib::signal_idle().connect_once([](){
-                spdlog::debug("post_grab_idle");
-            }, Glib::PRIORITY_LOW);
-        });
-    }
-    spdlog::debug("select_range before");
-    _curr_buffer()->select_range(iter_object, iter_bound);
-    spdlog::debug("select_range after");
+        }
+        Glib::signal_idle().connect_once([](){
+            spdlog::debug("post_select_range_idle");
+        }, Glib::PRIORITY_LOW);
+    });
     spdlog::debug("object_set_selection return");
 }
 
