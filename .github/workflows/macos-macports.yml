@@ -40,7 +40,7 @@ jobs:
           export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/opt/local/lib/libfmt9/pkgconfig"
           cmake -S . -B build \
                 -DBUILD_TESTING='' \
-                -DCMAKE_EXE_LINKER_FLAGS="-L/opt/local/lib"
+                -DCMAKE_EXE_LINKER_FLAGS="-L/opt/local/lib -L/opt/local/lib/libfmt9"
           cmake --build build
           pip3 install pyobjc-framework-Cocoa
           cmake --install build
