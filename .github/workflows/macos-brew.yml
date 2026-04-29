@@ -32,7 +32,7 @@ jobs:
                        uchardet \
                        fribidi
           brew link icu4c --force
-          brew link --overwrite gtkmm3
+          brew unlink gtkmm3 && brew link gtkmm3
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs
