@@ -12,13 +12,6 @@ jobs:
         uses: actions/checkout@v5
       - name: Set up MacPorts
         uses: melusina-org/setup-macports@v1.1.6
-      - name: Cache MacPorts distfiles
-        uses: actions/cache@v5
-        with:
-          path: /opt/local/var/macports/distfiles
-          key: macports-distfiles-${{ runner.os }}-${{ hashFiles('.github/parameters/setup-macports.yaml') }}
-          restore-keys: |
-            macports-distfiles-${{ runner.os }}-
       - name: Install Dependencies
         run: |
           sudo port install cmake \
@@ -50,6 +43,3 @@ jobs:
           cmake --build build
           pip3 install --break-system-packages pyobjc-framework-Cocoa
           cmake --install build
-      - name: Fix setuid permissions before cache save
-        if: always()
-        run: sudo find /opt/local -perm /u+s -exec chmod u-s {} + 2>/dev/null || true
