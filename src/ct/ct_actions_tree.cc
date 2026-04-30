@@ -124,30 +124,23 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
     spdlog::debug("object_set_selection enter");
-    // Defer select_range to an idle so the button-press handler completes before
-    // PRIMARY selection ownership is claimed via XSetSelectionOwner. This prevents
-    // a deadlock with KDE 6 Klipper, which immediately issues a synchronous
-    // SelectionRequest that GTK3 cannot answer while still inside the event handler.
+    // Use place_cursor (not select_range) to avoid claiming X11 PRIMARY selection
+    // ownership via XSetSelectionOwner. On KDE 6 with Klipper, claiming PRIMARY
+    // immediately triggers a synchronous SelectionRequest that deadlocks GTK3's
+    // event loop for ~7-19 seconds. place_cursor positions the cursor at the widget
+    // without creating a text selection, so Klipper is never involved.
     const bool isImage = dynamic_cast<CtImage*>(widget) != nullptr;
     Glib::RefPtr<Gtk::TextChildAnchor> anchor = widget->getTextChildAnchor();
     Glib::signal_idle().connect_once([this, anchor, isImage](){
-        spdlog::debug("select_range_idle before");
+        spdlog::debug("place_cursor_idle");
         Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
-        Gtk::TextIter iter_bound = iter_object;
-        iter_bound.forward_char();
-        _curr_buffer()->select_range(iter_object, iter_bound);
-        spdlog::debug("select_range_idle after");
+        _curr_buffer()->place_cursor(iter_object);
         if (isImage) {
             auto& textView = _pCtMainWin->get_text_view().mm();
             if (not textView.has_focus()) {
-                spdlog::debug("grab_focus before");
                 textView.grab_focus();
-                spdlog::debug("grab_focus after");
             }
         }
-        Glib::signal_idle().connect_once([](){
-            spdlog::debug("post_select_range_idle");
-        }, Glib::PRIORITY_LOW);
     });
     spdlog::debug("object_set_selection return");
 }
