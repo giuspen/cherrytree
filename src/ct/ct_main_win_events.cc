@@ -628,7 +628,19 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
                             spdlog::debug("CtMainWin::_on_textview_event_after: skip deferred grab_focus (already focused)");
                         }
                     }
-                    pending.target_buffer->select_range(sel_object, sel_bound);
+                    // Block GTK's textview mark-set handler to suppress X11 PRIMARY selection
+                    // ownership for embedded widget selections. PRIMARY ownership notifies Klipper,
+                    // which on KDE/X11/NVIDIA triggers a compositor GPU sync deadlock.
+                    // Visual rendering is unaffected (GtkTextView draws from buffer marks, not
+                    // from state updated in mark-set).
+                    spdlog::debug("CtMainWin::_on_textview_event_after: deferred select_range (PRIMARY suppressed)");
+                    {
+                        auto* pBufObj  = pending.target_buffer->gobj();
+                        auto* pViewObj = _ctTextview.mm().gobj();
+                        g_signal_handlers_block_matched(pBufObj, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, pViewObj);
+                        pending.target_buffer->select_range(sel_object, sel_bound);
+                        g_signal_handlers_unblock_matched(pBufObj, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, pViewObj);
+                    }
                     spdlog::debug("CtMainWin::_on_textview_event_after: deferred select_range done");
                 }
                 else {

@@ -167,7 +167,22 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
                 spdlog::debug("CtActions::object_set_selection: grab_focus done");
             }
         }
-        tbuf->select_range(sel_object, sel_bound);
+        // Block GTK's internal textview mark-set handler while calling select_range().
+        // Without this, select_range() → gtk_text_view_mark_set_handler() →
+        // gtk_clipboard_set_with_owner() → gdk_selection_owner_set() → XSetSelectionOwner(PRIMARY)
+        // notifies Klipper via XFixes. Klipper then requests the selection content, and
+        // something in its processing (clipboard history → KDE notification → KWin GPU
+        // composite) triggers an NVIDIA compositor sync deadlock under KDE/X11.
+        // The visual selection highlight is unaffected: GtkTextView draws it from buffer
+        // marks directly in its draw() handler, independently of the mark-set signal.
+        spdlog::debug("CtActions::object_set_selection: select_range (PRIMARY suppressed)");
+        {
+            auto* pBufObj  = tbuf->gobj();
+            auto* pViewObj = _pCtMainWin->get_text_view().mm().gobj();
+            g_signal_handlers_block_matched(pBufObj, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, pViewObj);
+            tbuf->select_range(sel_object, sel_bound);
+            g_signal_handlers_unblock_matched(pBufObj, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, pViewObj);
+        }
         spdlog::debug("CtActions::object_set_selection: select_range done offset={}", obj_off);
     };
 
