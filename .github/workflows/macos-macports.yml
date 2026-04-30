@@ -50,3 +50,6 @@ jobs:
           cmake --build build
           pip3 install --break-system-packages pyobjc-framework-Cocoa
           cmake --install build
+      - name: Fix setuid permissions before cache save
+        if: always()
+        run: sudo find /opt/local -perm /u+s -exec chmod u-s {} + 2>/dev/null || true
