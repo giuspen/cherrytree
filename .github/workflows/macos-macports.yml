@@ -12,6 +12,8 @@ jobs:
         uses: actions/checkout@v5
       - name: Set up MacPorts
         uses: melusina-org/setup-macports@v1.1.6
+        with:
+          cache: disable
       - name: Install Dependencies
         run: |
           sudo port install cmake \
