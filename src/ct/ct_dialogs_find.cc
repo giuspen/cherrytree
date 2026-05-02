@@ -119,6 +119,18 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         replace_frame->set_shadow_type(Gtk::SHADOW_NONE);
         replace_frame->add(*replace_combo);
     }
+    Gtk::Frame* replace_opt_frame{nullptr};
+    Gtk::CheckButton* replace_in_link_targets_checkbutton{nullptr};
+    if (s_state.replace_active) {
+        replace_in_link_targets_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Replace in Link Targets")});
+        replace_in_link_targets_checkbutton->set_active(s_options.replace_in_link_targets);
+        auto replace_opt_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/});
+        replace_opt_vbox->pack_start(*replace_in_link_targets_checkbutton);
+        replace_opt_frame = Gtk::manage(new Gtk::Frame{Glib::ustring("<b>")+_("Replace options")+"</b>"});
+        dynamic_cast<Gtk::Label*>(replace_opt_frame->get_label_widget())->set_use_markup(true);
+        replace_opt_frame->set_shadow_type(Gtk::SHADOW_NONE);
+        replace_opt_frame->add(*replace_opt_vbox);
+    }
     auto opt_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/});
     auto reg_exp_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 1/*spacing*/});
     auto four_1_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
@@ -308,6 +320,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     content_area->pack_start(*search_frame);
     if (s_state.replace_active) content_area->pack_start(*replace_frame);
     content_area->pack_start(*opt_frame);
+    if (s_state.replace_active) content_area->pack_start(*replace_opt_frame);
     content_area->show_all();
     search_entry->grab_focus();
 
@@ -360,6 +373,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                          node_name_n_tags_checkbutton,
                                          only_sel_n_subnodes_checkbutton,
                                          iter_dialog_checkbutton,
+                                         replace_in_link_targets_checkbutton,
                                          pCtMainWin](){
         // Protection against accidental empty-replace-all (#2850):
         // warn when replace is active, the replace field is empty, and "All, List Matches" is selected
@@ -407,6 +421,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         s_options.node_name_n_tags = node_name_n_tags_checkbutton->get_active();
         s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton->get_active();
         s_options.iterative_dialog = iter_dialog_checkbutton->get_active();
+        s_options.replace_in_link_targets = replace_in_link_targets_checkbutton ? replace_in_link_targets_checkbutton->get_active() : false;
         // special cases (#2190)
         if (s_options.reg_exp and s_options.str_find == ".*" ) {
             s_options.node_content = false;

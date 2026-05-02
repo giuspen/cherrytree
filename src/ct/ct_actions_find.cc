@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -1240,6 +1240,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
             }
         } break;
         case CtAnchWidgType::ImagePng: {
+            if (_s_state.replace_active and not _s_options.replace_in_link_targets) break;
             if (CtImagePng* pCtImagePng = dynamic_cast<CtImagePng*>(pAnchWidg)) {
                 CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(pCtImagePng->get_link());
                 if (CtLinkType::None != link_entry.type) {
@@ -1277,6 +1278,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
             }
         } break;
         case CtAnchWidgType::Link: {
+            if (_s_state.replace_active and not _s_options.replace_in_link_targets) break;
             if (CtAnchWidgLink* pAnchWidgLink = dynamic_cast<CtAnchWidgLink*>(pAnchWidg)) {
                 Glib::ustring text = pAnchWidgLink->get_target_searchable();
                 if (_s_options.accent_insensitive) {

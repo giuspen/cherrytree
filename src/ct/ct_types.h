@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -425,6 +425,7 @@ struct CtSearchOptions {
     bool        only_sel_n_subnodes{false};
     bool        node_content{true};
     bool        node_name_n_tags{true};
+    bool        replace_in_link_targets{false};
 };
 
 namespace Gtk { class Dialog; }
