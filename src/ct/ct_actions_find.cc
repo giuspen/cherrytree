@@ -871,8 +871,47 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         if (_s_options.reg_exp) {
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
         }
+        // Collect unique CherryTree formatting tags from the matched range before erasing
+        auto f_is_ct_tag = [](const Glib::ustring& name)->bool{
+            return str::startswith(name, CtConst::TAG_WEIGHT_PREFIX)
+                or str::startswith(name, CtConst::TAG_FOREGROUND_PREFIX)
+                or str::startswith(name, CtConst::TAG_BACKGROUND_PREFIX)
+                or str::startswith(name, CtConst::TAG_STYLE_PREFIX)
+                or str::startswith(name, CtConst::TAG_UNDERLINE_PREFIX)
+                or str::startswith(name, CtConst::TAG_STRIKETHROUGH_PREFIX)
+                or str::startswith(name, CtConst::TAG_INDENT_PREFIX)
+                or str::startswith(name, CtConst::TAG_SCALE_PREFIX)
+                or str::startswith(name, CtConst::TAG_INVISIBLE_PREFIX)
+                or str::startswith(name, CtConst::TAG_JUSTIFICATION_PREFIX)
+                or str::startswith(name, CtConst::TAG_LINK_PREFIX)
+                or str::startswith(name, CtConst::TAG_FAMILY_PREFIX);
+        };
+        std::vector<Glib::RefPtr<Gtk::TextTag>> range_tags;
+        {
+            Gtk::TextIter it = pTextBuffer->get_iter_at_offset(startOffset);
+            const Gtk::TextIter end_it = pTextBuffer->get_iter_at_offset(endOffset);
+            while (it.compare(end_it) < 0) {
+                for (const auto& tag : it.get_tags()) {
+                    if (not f_is_ct_tag(tag->property_name())) continue;
+                    bool already_present{false};
+                    for (const auto& existing : range_tags) {
+                        if (existing.get() == tag.get()) { already_present = true; break; }
+                    }
+                    if (not already_present) range_tags.push_back(tag);
+                }
+                if (not it.forward_char()) break;
+            }
+        }
         pTextBuffer->erase(sel_start, sel_end);
         pTextBuffer->insert(pTextBuffer->get_iter_at_offset(startOffset), replacer_text);
+        // Re-apply preserved tags to the replacement text
+        if (not range_tags.empty() and replacer_text.size() > 0u) {
+            Gtk::TextIter new_start = pTextBuffer->get_iter_at_offset(startOffset);
+            Gtk::TextIter new_end = pTextBuffer->get_iter_at_offset(startOffset + (int)replacer_text.size());
+            for (const auto& tag : range_tags) {
+                pTextBuffer->apply_tag(tag, new_start, new_end);
+            }
+        }
         endOffset = startOffset + replacer_text.size();
         _s_state.replace_subsequent = true;
         _pCtMainWin->get_state_machine().update_state(tree_iter);
