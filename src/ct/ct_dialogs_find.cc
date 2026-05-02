@@ -88,7 +88,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     if (s_state.replace_active) {
         replace_combo = Gtk::manage(new Gtk::ComboBoxText{true/*has_entry*/});
         replace_entry = dynamic_cast<Gtk::Entry*>(replace_combo->get_entry());
-        replace_entry->set_text(s_options.str_replace);
+        replace_entry->set_text(""); // always start empty so the user is not surprised by a leftover replace from a previous session
         replace_entry->set_icon_from_icon_name("ct_clear", Gtk::ENTRY_ICON_SECONDARY);
         replace_entry->set_icon_tooltip_text(_("Clear"), Gtk::ENTRY_ICON_SECONDARY);
         replace_entry->signal_icon_press().connect([replace_entry](Gtk::EntryIconPosition icon_pos, const GdkEventButton* /*event*/){
@@ -361,6 +361,15 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                          only_sel_n_subnodes_checkbutton,
                                          iter_dialog_checkbutton,
                                          pCtMainWin](){
+        // Protection against accidental empty-replace-all (#2850):
+        // warn when replace is active, the replace field is empty, and "All, List Matches" is selected
+        if (replace_entry and replace_entry->get_text().empty() and all_radiobutton->get_active()) {
+            if (not CtDialogs::question_dialog(
+                    _("The Replace field is empty: all found occurrences will be erased.\nDo you want to continue?"),
+                    *pDialog)) {
+                return;
+            }
+        }
         pDialog->get_position(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
         pDialog->hide();
 
