@@ -10,18 +10,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Set up Homebrew
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: Update Homebrew
-        run: |
-          brew update
+      - name: Cache Homebrew downloads
+        uses: actions/cache@v5
+        with:
+          path: ~/Library/Caches/Homebrew/downloads
+          key: homebrew-${{ runner.os }}-${{ hashFiles('.github/parameters/setup-brew.txt') }}
+          restore-keys: |
+            homebrew-${{ runner.os }}-
       - name: Install Dependencies
         run: |
-          brew install cmake \
-                       gettext \
-                       pkgconf \
-                       adwaita-icon-theme \
+          brew install adwaita-icon-theme \
                        gspell \
                        gtkmm3 \
                        gtksourceview4 \
@@ -32,12 +30,15 @@ jobs:
                        uchardet \
                        fribidi
           brew link icu4c --force
+          brew unlink gtkmm3 && brew link gtkmm3
       - name: CI-Build
         run: |
           pkg-config gtkmm-3.0 --cflags --libs
           ls -la /opt/homebrew/Cellar/gtkmm3/3.24.10/lib
           cmake -S . -B build \
                 -DCMAKE_FIND_FRAMEWORK=LAST \
-                -DBUILD_TESTING='' -DCMAKE_VERBOSE_MAKEFILE=ON
+                -DBUILD_TESTING='' -DCMAKE_VERBOSE_MAKEFILE=ON \
+                -DCMAKE_EXE_LINKER_FLAGS="-L/opt/homebrew/lib"
           VERBOSE=1 cmake --build build
+          pip3 install --break-system-packages pyobjc-framework-Cocoa
           cmake --install build

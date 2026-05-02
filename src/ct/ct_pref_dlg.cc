@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -273,6 +273,9 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     vbox_misc->pack_start(*hbox_scrollbar_overlay, false, false);
     vbox_misc->pack_start(*hbox_tooltips_enable, false, false);
     vbox_misc->pack_start(*hbox_find_all_max_in_page, false, false);
+    auto checkbutton_store_latest_searches = Gtk::manage(new Gtk::CheckButton{_("Save Search/Replace History Between Sessions")});
+    checkbutton_store_latest_searches->set_active(_pConfig->storeLatestSearches);
+    vbox_misc->pack_start(*checkbutton_store_latest_searches, false, false);
 
     Gtk::Frame* frame_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
 
@@ -420,6 +423,9 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
     spinbutton_find_all_max_in_page->signal_value_changed().connect([this, spinbutton_find_all_max_in_page](){
         _pConfig->maxMatchesInPage = spinbutton_find_all_max_in_page->get_value_as_int();
         _pCtMainWin->get_ct_actions()->find_matches_store_reset();
+    });
+    checkbutton_store_latest_searches->signal_toggled().connect([this, checkbutton_store_latest_searches](){
+        _pConfig->storeLatestSearches = checkbutton_store_latest_searches->get_active();
     });
 
     return pMainBox;

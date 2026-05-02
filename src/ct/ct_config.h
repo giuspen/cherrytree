@@ -67,6 +67,7 @@ public:
     CtRecentDocsFilepaths                       recentDocsFilepaths;
     CtLatestSearches                            latestSearches;
     CtLatestSearches                            latestReplaces;
+    bool                                        storeLatestSearches{true};
     std::string                                 pickDirImport;
     std::string                                 pickDirExport;
     std::string                                 pickDirFile;

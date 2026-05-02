@@ -1,4 +1,4 @@
-name: MacOS/MacPorts
+﻿name: MacOS/MacPorts
 on: [workflow_dispatch]
 
 env:
@@ -11,15 +11,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Set up MacPorts
-        uses: melusina-org/setup-macports@v1.1.4
+        uses: melusina-org/setup-macports@v1.1.6
+        with:
+          cache: disable
       - name: Install Dependencies
         run: |
-          port -v selfupdate
           sudo port install cmake \
                             clang-17 \
                             gettext \
-                            makeicns  \
-                            pkgconfig  \
+                            makeicns \
+                            pkgconfig \
                             python313 \
                             adwaita-icon-theme \
                             gspell \
@@ -39,6 +40,8 @@ jobs:
           ls -la /opt/local/lib | grep fmt
           export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/opt/local/lib/libfmt9/pkgconfig"
           cmake -S . -B build \
-                -DBUILD_TESTING=''
+                -DBUILD_TESTING='' \
+                -DCMAKE_EXE_LINKER_FLAGS="-L/opt/local/lib -L/opt/local/lib/libfmt9"
           cmake --build build
+          pip3 install --break-system-packages pyobjc-framework-Cocoa
           cmake --install build

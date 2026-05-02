@@ -1,0 +1,10 @@
+adwaita-icon-theme
+gspell
+gtkmm3
+gtksourceview4
+vte3
+libxml++
+fmt
+spdlog
+uchardet
+fribidi
