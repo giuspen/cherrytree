@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_rich_text.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -90,6 +90,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 
     auto checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton{_("Show File Name on Top of Embedded File Icon")});
     checkbutton_embfile_show_filename->set_active(_pConfig->embfileShowFileName);
+    auto checkbutton_object_no_sel_on_click = Gtk::manage(new Gtk::CheckButton{_("Do Not Auto-Select Objects on Single Click")});
+    checkbutton_object_no_sel_on_click->set_active(_pConfig->objectNoSelOnClick);
+    checkbutton_object_no_sel_on_click->set_tooltip_text(_("Workaround for clipboard-related freezes on KDE 6 with Klipper"));
     auto label_limit_undoable_steps = Gtk::manage(new Gtk::Label{_("Limit of Undoable Steps Per Node")});
     Glib::RefPtr<Gtk::Adjustment> adj_limit_undoable_steps = Gtk::Adjustment::create(_pConfig->limitUndoableSteps, 1, 10000, 1);
     auto spinbutton_limit_undoable_steps = Gtk::manage(new Gtk::SpinButton{adj_limit_undoable_steps});
@@ -116,6 +119,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
+    vbox_misc_text->pack_start(*checkbutton_object_no_sel_on_click, false, false);
     vbox_misc_text->pack_start(*hbox_misc_text, false, false);
     vbox_misc_text->pack_start(*checkbutton_url_autolink, false, false);
     vbox_misc_text->pack_start(*checkbutton_camelcase_autolink, false, false);
@@ -192,6 +196,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_embfile_show_filename->signal_toggled().connect([this, checkbutton_embfile_show_filename](){
         _pConfig->embfileShowFileName = checkbutton_embfile_show_filename->get_active();
         need_restart(RESTART_REASON::SHOW_EMBFILE_NAME);
+    });
+    checkbutton_object_no_sel_on_click->signal_toggled().connect([this, checkbutton_object_no_sel_on_click](){
+        _pConfig->objectNoSelOnClick = checkbutton_object_no_sel_on_click->get_active();
     });
     spinbutton_limit_undoable_steps->signal_value_changed().connect([this, spinbutton_limit_undoable_steps](){
         _pConfig->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();

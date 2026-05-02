@@ -124,24 +124,39 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
     spdlog::debug("object_set_selection enter");
-    // Use place_cursor (not select_range) to avoid claiming X11 PRIMARY selection
-    // ownership via XSetSelectionOwner. On KDE 6 with Klipper, claiming PRIMARY
-    // immediately triggers a synchronous SelectionRequest that deadlocks GTK3's
-    // event loop for ~7-19 seconds. place_cursor positions the cursor at the widget
-    // without creating a text selection, so Klipper is never involved.
     const bool isImage = dynamic_cast<CtImage*>(widget) != nullptr;
     Glib::RefPtr<Gtk::TextChildAnchor> anchor = widget->getTextChildAnchor();
-    Glib::signal_idle().connect_once([this, anchor, isImage](){
-        spdlog::debug("place_cursor_idle");
-        Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
-        _curr_buffer()->place_cursor(iter_object);
-        if (isImage) {
-            auto& textView = _pCtMainWin->get_text_view().mm();
-            if (not textView.has_focus()) {
-                textView.grab_focus();
+    if (_pCtConfig->objectNoSelOnClick) {
+        // place_cursor avoids claiming X11 PRIMARY selection via XSetSelectionOwner.
+        // On KDE 6 with Klipper, claiming PRIMARY immediately triggers a synchronous
+        // SelectionRequest that deadlocks GTK3's event loop for ~7-19 seconds.
+        Glib::signal_idle().connect_once([this, anchor, isImage](){
+            spdlog::debug("place_cursor_idle");
+            Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
+            _curr_buffer()->place_cursor(iter_object);
+            if (isImage) {
+                auto& textView = _pCtMainWin->get_text_view().mm();
+                if (not textView.has_focus()) {
+                    textView.grab_focus();
+                }
             }
-        }
-    });
+        });
+    }
+    else {
+        Glib::signal_idle().connect_once([this, anchor, isImage](){
+            spdlog::debug("select_range_idle");
+            Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
+            Gtk::TextIter iter_bound = iter_object;
+            iter_bound.forward_char();
+            _curr_buffer()->select_range(iter_object, iter_bound);
+            if (isImage) {
+                auto& textView = _pCtMainWin->get_text_view().mm();
+                if (not textView.has_focus()) {
+                    textView.grab_focus();
+                }
+            }
+        });
+    }
     spdlog::debug("object_set_selection return");
 }
 
