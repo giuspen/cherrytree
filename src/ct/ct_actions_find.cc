@@ -532,11 +532,8 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
     }
     else {
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
-        //spdlog::debug("fw={} nosel m={} M={} -> s={}", forward, text_buffer->begin().get_offset(), text_buffer->end().get_offset(), start_iter.get_offset());
         if (all_matches) _s_state.all_matches_first_in_node = false;
     }
-    //spdlog::debug("parsing {} content from {} ffs={} 1st={}", tree_iter.get_node_id(), start_iter.get_offset(), first_fromsel, first_node);
-
     bool pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
 
     if (_s_state.replace_active and pattern_found)
@@ -674,10 +671,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                 match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
                 _s_state.latest_node_offset_match_end = match_offsets.second;
-                //spdlog::debug("OK {}->{}", curr_pair.first, curr_pair.second);
                 break;
             }
-            //spdlog::debug("NOK {}->{}", curr_pair.first, curr_pair.second);
             match_info.next();
         }
     }
@@ -707,10 +702,9 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         match_offsets.first = str::byte_pos_to_symb_pos(text, match_offsets.first);
         match_offsets.second = str::byte_pos_to_symb_pos(text, match_offsets.second);
     }
-
     CtAnchMatchList anchMatchList;
     int obj_search_start_offs = start_iter.get_offset();
-    int obj_search_end_offs = match_offsets.first != -1 ? _s_state.latest_node_offset_match_start : (forward ? text_buffer->end().get_offset() : 0);
+    int obj_search_end_offs = match_offsets.first != -1 ? match_offsets.first : (forward ? text_buffer->end().get_offset() : 0);
     if (not forward) {
         std::swap(obj_search_start_offs, obj_search_end_offs);
     }
