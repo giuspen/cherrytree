@@ -1442,6 +1442,22 @@ bool CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
     bool retVal{false};
     std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset, true/*also_links*/);
     if (not forward) {
+        // get_anchored_widgets detects link spans by their START position (checked against end_offset),
+        // but assigns the LAST char of the span as the CtAnchWidgLink offset.
+        // For backward search this causes links whose span straddles end_offset to be included
+        // with an offset > end_offset, making the backward iterator re-find the same link endlessly.
+        // Remove and free those out-of-range link objects before reversing.
+        for (auto it = obj_vec.begin(); it != obj_vec.end(); ) {
+            if ((*it)->getOffset() > end_offset) {
+                if (CtAnchWidgType::Link == (*it)->get_type()) {
+                    delete *it;
+                }
+                it = obj_vec.erase(it);
+            }
+            else {
+                ++it;
+            }
+        }
         std::reverse(obj_vec.begin(), obj_vec.end());
     }
     for (CtAnchoredWidget* pAnchWidg : obj_vec) {
