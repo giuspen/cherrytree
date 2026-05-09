@@ -1,7 +1,7 @@
 /*
  * ct_actions_help.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -42,6 +42,11 @@ void CtActions::online_code()
 void CtActions::online_issues()
 {
     fs::open_weblink("https://github.com/giuspen/cherrytree/issues");
+}
+
+void CtActions::online_donate()
+{
+    fs::open_weblink("https://www.giuspen.net/supporters/");
 }
 
 void CtActions::dialog_about()

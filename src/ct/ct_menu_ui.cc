@@ -1,7 +1,7 @@
 /*
  * ct_menu_ui.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -394,6 +394,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='ct_homepage'/>
     <menuitem action='ct_github'/>
     <menuitem action='ct_issues'/>
+    <menuitem action='ct_donate'/>
     <menuitem action='ct_help'/>
     <separator/>
     <menuitem action='ct_about'/>

@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -563,6 +563,7 @@ public:
     void online_home();
     void online_code();
     void online_issues();
+    void online_donate();
     void folder_cfg_open();
     void dialog_about();
 
