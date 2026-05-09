@@ -1,7 +1,7 @@
 /*
  * ct_actions_import.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -39,8 +39,8 @@ static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* p
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(*pCtMainWin);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT)->set_always_show_image(true);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(350, -1);

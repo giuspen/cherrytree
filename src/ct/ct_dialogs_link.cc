@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_link.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -37,8 +37,8 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::Dialog dialog{title,
                        ctMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT)->set_always_show_image(true);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(700, 500);

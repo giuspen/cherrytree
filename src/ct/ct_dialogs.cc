@@ -171,8 +171,8 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     Gtk::Dialog dialog(_("Handle the Bookmarks List"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT)->set_always_show_image(true);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(500, 400);
 
@@ -349,7 +349,9 @@ bool CtDialogs::choose_data_storage_dialog(CtMainWin* pCtMainWin, CtStorageSelec
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    pButtonCancel->set_always_show_image(true);
     Gtk::Button* pButtonOk = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    pButtonOk->set_always_show_image(true);
     dialog.set_default_size(350, -1);
     dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 
@@ -534,8 +536,11 @@ CtYesNoCancel CtDialogs::exit_save_dialog(CtMainWin& ct_main_win)
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     Gtk::Button* pButtonDiscard = dialog.add_button(Gtk::Stock::DISCARD, Gtk::RESPONSE_NO);
     pButtonDiscard->set_image(*ct_main_win.new_managed_image_from_stock("ct_clear", Gtk::ICON_SIZE_BUTTON));
+    pButtonDiscard->set_always_show_image(true);
     Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    pButtonCancel->set_always_show_image(true);
     Gtk::Button* pButtonSave = dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_YES);
+    pButtonSave->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_YES);
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -582,7 +587,9 @@ bool CtDialogs::exec_code_confirm_dialog(CtMainWin& ct_main_win,
                                      ct_main_win,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     Gtk::Button* pButtonCancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    pButtonCancel->set_always_show_image(true);
     Gtk::Button* pButtonExecute = dialog.add_button(Gtk::Stock::EXECUTE, Gtk::RESPONSE_YES);
+    pButtonExecute->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_YES);
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -731,7 +738,7 @@ void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& 
     Gtk::Dialog dialog = Gtk::Dialog{_("Tree Summary Information"),
                                      *pCtMainWin,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_default_size(400, 300);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Grid grid;

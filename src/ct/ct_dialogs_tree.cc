@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_tree.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -34,8 +34,8 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     Gtk::Dialog dialog = Gtk::Dialog{title,
                                      *pCtMainWin,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT)->set_always_show_image(true);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_default_size(300, -1);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -331,8 +331,8 @@ Gtk::TreeModel::iterator CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT)->set_always_show_image(true);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(600, 500);
     Gtk::TreeView treeview_2{pCtTreeStore->get_store()};
@@ -421,8 +421,8 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                        parent,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(parent);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT)->set_always_show_image(true);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
 

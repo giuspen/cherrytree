@@ -451,7 +451,7 @@ void CtDialogs::no_matches_dialog(CtMainWin* pCtMainWin,
     Gtk::Dialog dialog{title,
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT)->set_always_show_image(true);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(300, -1);
@@ -638,6 +638,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
     Glib::ustring label = CtStrUtil::get_accelerator_label(pAction->get_shortcut(pCtMainWin->get_ct_config()));
     Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label.raw()), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
+    pButtonHide->set_always_show_image(true);
 
     rModel->load_current_page();
     auto pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
