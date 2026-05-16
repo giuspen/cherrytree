@@ -234,7 +234,8 @@ void CtConfig::_populate_keyfile_from_data()
             ++i;
         }
     }
-    {
+    _uKeyFile->set_boolean(_currentGroup, "store_latest_searches", storeLatestSearches);
+    if (storeLatestSearches) {
         guint i{0};
         for (const Glib::ustring& pattern : latestSearches) {
             snprintf(_tempKey, _maxTempKeySize, "search_%d", i);
@@ -242,7 +243,7 @@ void CtConfig::_populate_keyfile_from_data()
             ++i;
         }
     }
-    {
+    if (storeLatestSearches) {
         guint i{0};
         for (const Glib::ustring& pattern : latestReplaces) {
             snprintf(_tempKey, _maxTempKeySize, "replace_%d", i);
@@ -327,6 +328,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "latex_size_dpi", latexSizeDpi);
     _uKeyFile->set_integer(_currentGroup, "embfile_icon_size", embfileIconSize);
     _uKeyFile->set_boolean(_currentGroup, "embfile_show_filename", embfileShowFileName);
+    _uKeyFile->set_boolean(_currentGroup, "object_no_sel_on_click", objectNoSelOnClick);
     _uKeyFile->set_boolean(_currentGroup, "embfile_mfname_ondisk", embfileMFNameOnDisk);
     _uKeyFile->set_integer(_currentGroup, "embfile_max_size", embfileMaxSize);
     _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
@@ -539,6 +541,7 @@ void CtConfig::_populate_data_from_keyfile()
         }
         latestReplaces.push_back(pattern);
     }
+    _populate_bool_from_keyfile("store_latest_searches", &storeLatestSearches);
     _populate_bool_from_keyfile("toolbar_visible", &toolbarVisible);
     _populate_bool_from_keyfile("statusbar_visible", &statusbarVisible);
     _populate_bool_from_keyfile("tree_lines_visible", &treeLinesVisible);
@@ -661,6 +664,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("latex_size_dpi", &latexSizeDpi);
     _populate_int_from_keyfile("embfile_icon_size", &embfileIconSize);
     _populate_bool_from_keyfile("embfile_show_filename", &embfileShowFileName);
+    _populate_bool_from_keyfile("object_no_sel_on_click", &objectNoSelOnClick);
     _populate_bool_from_keyfile("embfile_mfname_ondisk", &embfileMFNameOnDisk);
     _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);

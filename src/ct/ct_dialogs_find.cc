@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_find.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -85,9 +85,9 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     auto& latest_searches = pCtMainWin->get_ct_config()->latestSearches;
     if (!latest_searches.empty()) {
         search_combo->append("__ct_reset_search__", "× " + Glib::ustring{_("Reset")});
-    }
-    for (auto it = latest_searches.rbegin(); it != latest_searches.rend(); ++it) {
-        search_combo->prepend(*it); // prepend in reverse to show most recent first
+        for (auto it = latest_searches.rbegin(); it != latest_searches.rend(); ++it) {
+            search_combo->prepend(*it); // prepend in reverse to show most recent first
+        }
     }
 
     search_combo->signal_changed().connect([search_combo, search_entry, &latest_searches](){
@@ -113,7 +113,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     if (s_state.replace_active) {
         replace_combo = Gtk::manage(new Gtk::ComboBoxText{true/*has_entry*/});
         replace_entry = dynamic_cast<Gtk::Entry*>(replace_combo->get_entry());
-        replace_entry->set_text(s_options.str_replace);
+        replace_entry->set_text(""); // always start empty so the user is not surprised by a leftover replace from a previous session
         replace_entry->set_icon_from_icon_name("ct_clear", Gtk::ENTRY_ICON_SECONDARY);
         replace_entry->set_icon_tooltip_text(_("Clear"), Gtk::ENTRY_ICON_SECONDARY);
         replace_entry->signal_icon_press().connect([replace_entry](Gtk::EntryIconPosition icon_pos, const GdkEventButton* /*event*/){
@@ -126,9 +126,9 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         auto& latest_replaces = pCtMainWin->get_ct_config()->latestReplaces;
         if (!latest_replaces.empty()) {
             replace_combo->append("__ct_reset_replace__", "× " + Glib::ustring{_("Reset")});
-        }
-        for (auto it = latest_replaces.rbegin(); it != latest_replaces.rend(); ++it) {
-            replace_combo->prepend(*it); // prepend in reverse to show most recent first
+            for (auto it = latest_replaces.rbegin(); it != latest_replaces.rend(); ++it) {
+                replace_combo->prepend(*it); // prepend in reverse to show most recent first
+            }
         }
 
         replace_combo->signal_changed().connect([replace_combo, replace_entry, &latest_replaces](){
@@ -143,6 +143,18 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         dynamic_cast<Gtk::Label*>(replace_frame->get_label_widget())->set_use_markup(true);
         replace_frame->set_shadow_type(Gtk::SHADOW_NONE);
         replace_frame->add(*replace_combo);
+    }
+    Gtk::Frame* replace_opt_frame{nullptr};
+    Gtk::CheckButton* replace_in_link_targets_checkbutton{nullptr};
+    if (s_state.replace_active) {
+        replace_in_link_targets_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Replace in Link Targets")});
+        replace_in_link_targets_checkbutton->set_active(s_options.replace_in_link_targets);
+        auto replace_opt_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/});
+        replace_opt_vbox->pack_start(*replace_in_link_targets_checkbutton);
+        replace_opt_frame = Gtk::manage(new Gtk::Frame{Glib::ustring("<b>")+_("Replace options")+"</b>"});
+        dynamic_cast<Gtk::Label*>(replace_opt_frame->get_label_widget())->set_use_markup(true);
+        replace_opt_frame->set_shadow_type(Gtk::SHADOW_NONE);
+        replace_opt_frame->add(*replace_opt_vbox);
     }
     auto opt_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/});
     auto reg_exp_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 1/*spacing*/});
@@ -333,6 +345,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     content_area->pack_start(*search_frame);
     if (s_state.replace_active) content_area->pack_start(*replace_frame);
     content_area->pack_start(*opt_frame);
+    if (s_state.replace_active) content_area->pack_start(*replace_opt_frame);
     content_area->show_all();
     search_entry->grab_focus();
 
@@ -374,7 +387,6 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                          start_word_checkbutton,
                                          multiple_words_exact_match_radiobutton,
                                          multiple_words_disregard_order_radiobutton,
-                                         multiple_words_match_any_radiobutton,
                                          fw_radiobutton,
                                          all_radiobutton,
                                          first_from_radiobutton,
@@ -386,19 +398,27 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
                                          node_name_n_tags_checkbutton,
                                          only_sel_n_subnodes_checkbutton,
                                          iter_dialog_checkbutton,
+                                         replace_in_link_targets_checkbutton,
                                          pCtMainWin](){
+        // Protection against accidental empty-replace-all (#2850):
+        // warn when replace is active, the replace field is empty, and "All, List Matches" is selected
+        if (replace_entry and replace_entry->get_text().empty() and all_radiobutton->get_active()) {
+            if (not CtDialogs::question_dialog(
+                    _("The Replace field is empty: all found occurrences will be erased.\nDo you want to continue?"),
+                    *pDialog)) {
+                return;
+            }
+        }
         pDialog->get_position(s_state.searchDialogPos[0], s_state.searchDialogPos[1]);
         pDialog->hide();
 
         s_options.str_find = search_entry->get_text();
-        // Add to search history
         if (!s_options.str_find.empty()) {
             pCtMainWin->get_ct_config()->latestSearches.move_or_push_front(s_options.str_find);
         }
 
         if (replace_entry) {
             s_options.str_replace = replace_entry->get_text();
-            // Add to replace history
             if (!s_options.str_replace.empty()) {
                 pCtMainWin->get_ct_config()->latestReplaces.move_or_push_front(s_options.str_replace);
             }
@@ -426,6 +446,7 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
         s_options.node_name_n_tags = node_name_n_tags_checkbutton->get_active();
         s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton->get_active();
         s_options.iterative_dialog = iter_dialog_checkbutton->get_active();
+        s_options.replace_in_link_targets = replace_in_link_targets_checkbutton ? replace_in_link_targets_checkbutton->get_active() : false;
         // special cases (#2190)
         if (s_options.reg_exp and s_options.str_find == ".*" ) {
             s_options.node_content = false;
@@ -969,6 +990,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
     Glib::ustring label = CtStrUtil::get_accelerator_label(pAction->get_shortcut(pCtMainWin->get_ct_config()));
     Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label.raw()), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
+    pButtonHide->set_always_show_image(true);
 
     rModel->load_current_page();
     auto pTreeview = Gtk::manage(new Gtk::TreeView{rModel});

@@ -1,7 +1,7 @@
 /*
  * ct_menu_actions.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -521,6 +521,8 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Browse CherryTree's Source Code Online"), sigc::mem_fun(*pActions, &CtActions::online_code)});
         _actions.push_back(CtMenuAction{help_cat, "ct_issues", "ct_bug", _("_Report a Bug"), None,
             _("Report a Bug in CherryTree"), sigc::mem_fun(*pActions, &CtActions::online_issues)});
+        _actions.push_back(CtMenuAction{help_cat, "ct_donate", "ct_heart", _("_Donate"), None,
+            _("Donate to Support CherryTree"), sigc::mem_fun(*pActions, &CtActions::online_donate)});
         _actions.push_back(CtMenuAction{help_cat, "ct_help", "ct_help", _("Online _Manual"), "F1",
             _("CherryTree's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
         _actions.push_back(CtMenuAction{help_cat, "ct_about", "ct_about", _("_About"), None,

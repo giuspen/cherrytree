@@ -4,13 +4,13 @@
 #
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
-# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 21:44+0000\n"
-"PO-Revision-Date: 2025-12-09 20:31+0100\n"
+"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"PO-Revision-Date: 2026-05-10 09:31+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -20,98 +20,155 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.04.3\n"
 
+msgid "Image Format Not Recognized"
+msgstr "Obrázkový formát nerozpoznán"
+
+msgid "Insert Table"
+msgstr "Vložit tabulku"
+
+msgid "CSV File"
+msgstr "Soubor CSV"
+
+msgid "Insert a CodeBox"
+msgstr "Vložit pole s kódem"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Největší velikost vložených souborů je %s MB."
+
+msgid "Do you want to Continue?"
+msgstr "Chcete pokračovat?"
+
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
 msgstr "Nepodařilo se načíst obsah uzlu '%s'"
 
-msgid "Tab Width"
-msgstr "Šířka zarážky"
+msgid "Special Characters"
+msgstr "Zvláštní znaky"
 
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Vložit mezery místo zarážek"
+msgid "Tabs Replaced"
+msgstr "Zarážky nahrazeny"
 
-msgid "Use Line Wrapping"
-msgstr "Použít zalamování řádků"
+msgid "Lines Stripped"
+msgstr "Řádky odebrány"
 
-msgid "Line Wrapping Indentation"
-msgstr "Odsazení zalamování řádků"
+msgid "No Text is Selected."
+msgstr "Není vybrán žádný text."
 
-msgid "Enable Automatic Indentation"
-msgstr "Povolit automatické odsazení"
+msgid "CherryTree File"
+msgstr "Soubor CherryTree"
 
-msgid "Show Line Numbers"
-msgstr "Ukázat čísla řádků"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Posunovat za poslední řádek"
-
-msgid "Cursor Blinking"
-msgstr "Blikání ukazovátka"
-
-msgid "System Default"
-msgstr "Výchozí systému"
-
-msgid "On"
-msgstr "Zapnuto"
-
-msgid "Off"
-msgstr "Vypnuto"
-
-msgid "Text Margin: Left"
-msgstr "Textový okraj: Vlevo"
-
-msgid "Right"
-msgstr "Vpravo"
-
-msgid "Vertical Space Around Lines"
-msgstr "Svislá mezera okolo řádků"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Svislá mezera v zalomených řádcích"
-
-msgid "Text Editor"
-msgstr "Textový editor"
-
-msgid "Timestamp Format"
-msgstr "Formát časového razítka"
-
-msgid "Online Manual"
-msgstr "Příručka na internetu"
-
-msgid "Reset to Default"
-msgstr "Obnovit výchozí"
-
-msgid "Horizontal Rule"
-msgstr "Oddělovací čára"
-
-msgid "Chars to Select at Double Click"
-msgstr "Znaky k vybrání při dvojitém klepnutí"
-
-msgid "Miscellaneous"
-msgstr "Různé"
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
 msgstr ""
-"Soubor s databází %s je poškozen. Na podrobnosti se podívejte v záznamu."
+"Používaný soubor/složku nelze přepsat!\n"
+"Použijte jiný název nebo umístění."
 
 #, c-format
 msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Zápis %s se nezdařil – soubor chybí. Připojte znovu disk USB nebo sdílený "
-"zdroj."
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr "Zápis %s se nezdařil - je soubor blokován seřizovacím programem?"
+"Složka '%s' již existuje v '%s'.\n"
+"<b>Chcete ji nahradit?</b>"
 
 #, c-format
 msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"Znovuotevření %s se nezdařilo – soubor chybí. Připojte znovu disk USB nebo "
-"sdílený zdroj."
+"Soubor '%s' již existuje v '%s'.\n"
+"<b>Chcete jej nahradit?</b>"
+
+msgid "PDF File"
+msgstr "Soubor PDF"
+
+msgid "Plain Text Document"
+msgstr "Dokument s prostým textem"
+
+msgid "Preferences File"
+msgstr "Soubor s nastavením"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Objevila se oznamovací oblast v panelu?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Váš systém nepodporuje oznamovací oblast"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Tato změna se projeví až po novém spuštění CherryTree."
+
+msgid "Replace in Current Node"
+msgstr "Nahradit ve vybraném uzlu"
+
+msgid "Search in Current Node"
+msgstr "Hledat ve vybraném uzlu"
+
+msgid "Matches"
+msgstr "Shody"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Hledaný pojem '%s' nebyl nalezen</b>"
+
+msgid "Replace in Multiple Nodes"
+msgstr "Nahradit ve všech uzlech"
+
+msgid "Search in Multiple Nodes"
+msgstr "Hledat ve více uzlech"
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Během tohoto sezení nebylo ještě provedeno žádné hledání."
+
+msgid "Tags"
+msgstr "Značky"
+
+msgid ": "
+msgstr ": "
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu."
+
+msgid "Link Name"
+msgstr "Název odkazu"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Ukazatel se nenachází v odstavci."
+
+msgid "Insert/Edit Link"
+msgstr "Vložit/Upravit odkaz"
+
+msgid "Pick a Foreground Color"
+msgstr "Vybrat barvu popředí"
+
+msgid "Pick a Background Color"
+msgstr "Vybrat barvu pozadí"
+
+msgid "Checking for Newer Version..."
+msgstr "Vyhledat novou verzi..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu."
+
+msgid "A Newer Version Is Available!"
+msgstr "Je dostupná novější verze"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Používáte nejnovější dostupnou verzi."
+
+msgid "You Are Using a Development Version."
+msgstr "Používáte vývojářskou verzi."
+
+msgid "Who is the Parent?"
+msgstr "Který je nadřízený uzel?"
+
+msgid "The Tree Root"
+msgstr "Kořen stromu"
+
+msgid "The Selected Node"
+msgstr "Vybraný uzel"
 
 msgid "Rename"
 msgstr "Přejmenovat"
@@ -122,9 +179,6 @@ msgstr "Obrázek PNG"
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Nepodařilo se zapsat %s"
-
-msgid "Insert/Edit Link"
-msgstr "Vložit/Upravit odkaz"
 
 #, c-format
 msgid "The Folder Link '%s' is Not Valid."
@@ -167,9 +221,6 @@ msgstr ""
 msgid "Edit Table Properties"
 msgstr "Upravit vlastnosti tabulky..."
 
-msgid "CSV File"
-msgstr "Soubor CSV"
-
 msgid "Insert Anchor"
 msgstr "Vložit kotvu..."
 
@@ -182,281 +233,85 @@ msgstr "Nelze upravit vložený soubor v uzlu pouze pro čtení."
 msgid "Embedded File Automatically Updated:"
 msgstr "Vložený soubor automaticky aktualizován:"
 
-msgid "To WebSite"
-msgstr "Pro internetovou stránku"
-
-msgid "To File"
-msgstr "Pro soubor"
-
-msgid "To Folder"
-msgstr "Pro složku"
-
-msgid "To Node"
-msgstr "Pro uzel"
-
-msgid "Anchor Name (optional)"
-msgstr "Název kotvy (volitelný)"
-
 msgid "No Node is Selected"
 msgstr "Není vybrán žádný uzel"
 
-msgid "There are No Anchors in the Selected Node."
-msgstr "Ve vybraném uzlu nejsou žádné kotvy."
+msgid "The Tree is Empty!"
+msgstr "Strom je prázdný!"
 
-msgid "Choose Existing Anchor"
-msgstr "Vybrat stávající kotvu"
+msgid "The Selected Node is Read Only."
+msgstr "Vybraný uzel je pouze pro čtení."
 
-msgid "Anchor Name"
-msgstr "Název kotvy"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Tato funkce je dostupná jen u uzlů s formátovaným textem."
 
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Hledaný pojem '%s' nenalezen"
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr "Tato funkce není dostupná u uzlů s automatickým zvýrazňováním skladby."
 
-msgid "Show White Spaces"
-msgstr "Ukázat prázdná místa"
+msgid "No Table is Selected."
+msgstr "Není vybrána žádná tabulka."
 
-msgid "Highlight Current Line"
-msgstr "Zvýraznit nynější řádek"
+msgid "No CodeBox is Selected."
+msgstr "Není vybráno žádné pole s kódem."
 
-msgid "Highlight Matching Brackets"
-msgstr "Zvýraznit odpovídající si závorky"
+msgid "New Child Node Properties"
+msgstr "Vlastnosti nového podřízeného uzlu"
 
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Před provedením kódu požádat o potvrzení"
+msgid "New Node Properties"
+msgstr "Vlastnosti nového uzlu"
 
-msgid "Use Internal Terminal"
-msgstr "Použít vnitřní terminál"
-
-msgid "Internal Terminal Shell"
-msgstr "Vnitřní terminál"
-
-msgid "Add"
-msgstr "Přidat"
-
-msgid "Remove Selected"
-msgstr "Odstranit vybrané"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Příkaz na typ uzlu/pole s kódem"
-
-msgid "Terminal Command"
-msgstr "Příkaz pro terminál"
-
-msgid "Code Execution"
-msgstr "Vykonání kódu  "
-
-msgid "Select Element to Add"
-msgstr "Vybrat prvek k přidání"
-
-msgid "Remove"
-msgstr "Odstranit"
-
-msgid "Remove User Colour from Palette"
-msgstr "Odstranit uživatelskou barvu z palety"
-
-msgid "Colour"
-msgstr "Barva"
-
-msgid "Question"
-msgstr "Otázka"
-
-msgid "Info"
-msgstr "Informace"
-
-msgid "Warning"
-msgstr "Varování"
-
-msgid "Error"
-msgstr "Chyba"
-
-msgid "Select File"
-msgstr "Vybrat soubor"
-
-msgid "Select Folder"
-msgstr "Vybrat složku"
-
-msgid "Save File as"
-msgstr "Uložit soubor jako"
-
-msgid "Save To Folder"
-msgstr "Uložit do složky"
-
-msgid "Downloading"
-msgstr "Stažení"
-
-msgid "Show Menubar:"
-msgstr "Ukázat nabídkový řádek:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Cesta %s neexistuje"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" není souborem CherryTree"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Chyba při zpracování cesty CherryTree:\n"
-"\"%s\""
-
-msgid "Do you want to Open the Last Backup?"
-msgstr "Chcete otevřít poslední zálohu?"
-
-msgid "Failed to Load from Backup Data"
-msgstr "Nepodařilo se nahrát data ze zálohy"
-
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Nebyl nalezen žádný uzel s názvem '%s'."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Dočasné soubory byly vytvořeny a otevřeny ve vnějších programech."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Ukončit vnější programy před ukončením CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Ukončil jste vnější programy?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*."
-
-msgid "Execute Code"
-msgstr "Provést kód"
-
-msgid "Copy Code"
-msgstr "Kopírovat kód"
-
-msgid "Change CodeBox Properties"
-msgstr "Změnit vlastnosti pole s kódem"
-
-msgid "Search for"
-msgstr "Hledat"
-
-msgid "Replace with"
-msgstr "Nahradit"
-
-msgid "Match Case"
-msgstr "Rozlišovat velká a malá písmena"
-
-msgid "Regular Expression"
-msgstr "Regulární výraz"
-
-msgid "Accent Insensitive"
-msgstr "Neohlížet se na diakritická znaménka"
-
-msgid "Override Exclusions"
-msgstr "Přepsat vyloučení"
-
-msgid "Whole Word"
-msgstr "Celé slovo"
-
-msgid "Start Word"
-msgstr "Začátek slova"
-
-msgid "More Words, Exact Match"
-msgstr "Více slov, přesná shoda"
-
-msgid "More Words, Disregard Order"
-msgstr "Více slov, bez ohledu na pořadí"
-
-msgid "More Words, Match Any"
-msgstr "Více slov, libovolná shoda"
-
-msgid "Forward"
-msgstr "Vpřed"
-
-msgid "Backward"
-msgstr "Zpět"
-
-msgid "All, List Matches"
-msgstr "Sestavit seznam všech shod"
-
-msgid "First From Selection"
-msgstr "První ve výběru"
-
-msgid "First in All Range"
-msgstr "První v celém dokumentu"
-
-msgid "Node Created After"
-msgstr "Uzel vytvořen po"
-
-msgid "Node Created Before"
-msgstr "Uzel vytvořen před"
-
-msgid "Node Modified After"
-msgstr "Uzel změněn po"
-
-msgid "Node Modified Before"
-msgstr "Uzel změněn před"
-
-msgid "Time filter"
-msgstr "Časový filtr"
-
-msgid "Node Content"
-msgstr "Obsah uzlu"
-
-msgid "Node Name and Tags"
-msgstr "Název uzlu a značky"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Pouze vybraný uzel a podřízené uzly"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
-
-msgid "Search options"
-msgstr "Volby pro hledání"
+msgid "Node Properties"
+msgstr "Vlastnosti uzlu"
 
 msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Alespoň jeden uzel byl přeskočen kvůli vyloučením nastaveným ve vlastnostech "
-"uzlu.\n"
-"Chcete-li zrušit všechna vyloučení, použijte nabídku:\n"
-"Hledat → Vymazat všechna vyloučení z hledání"
+"Změna typu uzlu na Automatické zvýraznění skladby odstraní veškeré "
+"formátování textu v tomto uzlu. Chcete pokračovat?"
 
 #, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Skrýt (Obnovit pomocí '%s')"
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
 
-msgid "Node Name"
-msgstr "Název uzlu"
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
-msgid "Line"
-msgstr "Řádek"
+msgid "Select the New Parent"
+msgstr "Vybrat nový nadřízený uzel"
 
-msgid "Line Content"
-msgstr "Obsah řádku"
+msgid "The new parent can't be the very node to move!"
+msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
 
-msgid "Matches"
-msgstr "Shody"
+msgid "The new chosen parent is still the old parent!"
+msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
 
-msgid "Iterate Latest Find/Replace"
-msgstr "Zopakovat poslední hledání/nahrazení"
+msgid "The new parent can't be one of his children!"
+msgstr "Nový nadřízený uzel nemůže být jedním z podřízených uzlů!"
 
-msgid "Close"
-msgstr "Zavřít"
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s Vlastností uzlu změněno"
 
-msgid "Find Previous"
-msgstr "Najít předchozí"
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Počet naposledy navštívených uzlů v záhlaví názvu uzlu již dosáhl nejvyšší "
+"hodnoty."
 
-msgid "Find Next"
-msgstr "Najít další"
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Počet naposledy navštívených uzlů v záhlaví názvu uzlu již dosáhl nejnižší "
+"hodnoty."
 
-msgid "Replace"
-msgstr "Nahradit"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "Velikost ikon v pruhu s nástroji je již nastavena na největší hodnotu."
 
-msgid "Undo"
-msgstr "Zpět"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "Velikost ikon v pruhu s nástroji je již nastavena na nejmenší hodnotu."
 
 msgid "Print CherryTree version"
 msgstr "Verze CherryTree"
@@ -491,394 +346,44 @@ msgstr "Vytvořit nové okno"
 msgid "Run in secondary session, independent from main session"
 msgstr "Spustit v druhotném sezení, nezávisle na hlavním sezení"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr ""
-"Nepodařilo se získat přístup ke spustitelným souborům 'latex' a 'dvipng'"
+msgid "Execute Code"
+msgstr "Provést kód"
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "Například v systému Ubuntu je třeba nainstalovat tyto balíčky:"
+msgid "Copy Code"
+msgstr "Kopírovat kód"
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "Například v systému macOS je třeba nainstalovat tyto balíčky:"
+msgid "Change CodeBox Properties"
+msgstr "Změnit vlastnosti pole s kódem"
 
-msgid "Could not access the executable 'latex'"
-msgstr "Nepodařilo se získat přístup ke spustitelnému souboru 'latex'"
+msgid "Start in CherryTree"
+msgstr "Spustit v CherryTree"
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "Nepodařilo se získat přístup ke spustitelnému souboru 'dvipng'"
+msgid "New Document"
+msgstr "Nový dokument"
 
-msgid "CherryTree File"
-msgstr "Soubor CherryTree"
+msgid "Open File"
+msgstr "Otevřít soubor"
 
-msgid ""
-"The file/folder in use cannot be overwritten!\n"
-"Please use a different name or location."
-msgstr ""
-"Používaný soubor/složku nelze přepsat!\n"
-"Použijte jiný název nebo umístění."
+msgid "Open Folder"
+msgstr "Otevřít složku"
 
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
-msgstr ""
-"Složka '%s' již existuje v '%s'.\n"
-"<b>Chcete ji nahradit?</b>"
+msgid "Create a new document or open an existing one."
+msgstr "Vytvořit nový dokument nebo otevřít stávající."
 
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
-msgstr ""
-"Soubor '%s' již existuje v '%s'.\n"
-"<b>Chcete jej nahradit?</b>"
+msgid "Don't show again"
+msgstr "Znovu nezobrazovat"
 
-msgid "PDF File"
-msgstr "Soubor PDF"
+msgid "Recent Documents"
+msgstr "Nedávné dokumenty"
 
-msgid "Plain Text Document"
-msgstr "Dokument s prostým textem"
+msgid "Name"
+msgstr "Název"
 
-msgid "Light Background, Dark Text"
-msgstr "Světlé pozadí, tmavý text"
+msgid "Path"
+msgstr "Cesta"
 
-msgid "Dark Background, Light Text"
-msgstr "Tmavé pozadí, světlý text"
-
-msgid "Custom Background"
-msgstr "Vlastní pozadí"
-
-msgid "Text"
-msgstr "Text"
-
-msgid "Selection Background"
-msgstr "Pozadí výběru"
-
-msgid "Tree Explorer"
-msgstr "Stromový průzkumník"
-
-msgid "Rich Text"
-msgstr "Formátovaný text"
-
-msgid "Plain Text"
-msgstr "Prostý text"
-
-msgid "Table"
-msgstr "Tabulka"
-
-msgid "Code"
-msgstr "Kód"
-
-msgid "Style Schemes"
-msgstr "Podoba stylu"
-
-msgid "Text Foreground"
-msgstr "Popředí textu"
-
-msgid "Text Background"
-msgstr "Pozadí textu"
-
-msgid "Selection Foreground"
-msgstr "Popředí výběru"
-
-msgid "Cursor"
-msgstr "Ukazatel"
-
-msgid "Current Line Background"
-msgstr "Pozadí nynějšího řádku"
-
-msgid "Line Numbers Foreground"
-msgstr "Popředí čísel řádků"
-
-msgid "Line Numbers Background"
-msgstr "Pozadí čísel řádků"
-
-msgid "Style Scheme Editor"
-msgstr "Editor podoby stylu"
-
-msgid "Set Dark Theme Icons"
-msgstr "Nastavit ikony tmavého vzhledu"
-
-msgid "Set Light Theme Icons"
-msgstr "Nastavit ikony světlého vzhledu"
-
-msgid "Set Default Icons"
-msgstr "Nastavit výchozí ikony"
-
-msgid "Icon Theme"
-msgstr "Vzhled ikon"
-
-msgid "Autosave Every"
-msgstr "Automaticky uložit každých"
-
-msgid "Minutes"
-msgstr "minut"
-
-msgid "Autosave on Quit"
-msgstr "Automaticky uložit při ukončení"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "Před uložením vytvořit záložní kopii"
-
-msgid "Number of Backups to Keep"
-msgstr "Počet záloh k zachování"
-
-msgid "Custom Backup Directory"
-msgstr "Adresář s vlastní zálohou"
-
-msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Ukládání více souborů, použití názvu vloženého souboru na disku"
-
-msgid "Saving"
-msgstr "Ukládání"
-
-msgid "Automatically Check for Newer Version"
-msgstr "Automaticky vyhledat novou verzi"
-
-msgid "Reload Document From Last Session"
-msgstr "Nahrát dokument z posledního sezení znovu"
-
-msgid "Reload After External Update to CT* File"
-msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
-
-msgid "Enable Debug Log"
-msgstr "Povolit zápis o ladění"
-
-msgid "Debug Log Directory"
-msgstr "Povolit adresář se zápisem"
-
-msgid "Enable System Tray Docking"
-msgstr "Povolit ikonu v oznamovací oblasti panelu"
-
-msgid "Start Minimized in the System Tray"
-msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
-
-msgid "System Tray"
-msgstr "Oznamovací oblast panelu"
-
-msgid "Language"
-msgstr "Jazyk"
-
-msgid "URL"
-msgstr "Adresa (URL)"
-
-msgid "Port"
-msgstr "Přípojka (port)"
-
-msgid "Username"
-msgstr "Uživatelské jméno"
-
-msgid "Password"
-msgstr "Heslo"
-
-msgid "Proxy"
-msgstr "Proxy"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Objevila se oznamovací oblast v panelu?"
-
-msgid "Your system does not support the System Tray"
-msgstr "Váš systém nepodporuje oznamovací oblast"
-
-msgid "Latex Text"
-msgstr "Text v LaTeXu"
-
-msgid "Image Size dpi"
-msgstr "Rozlišení velikosti obrázku"
-
-msgid "Tutorial"
-msgstr "Výukový materiál"
-
-msgid "Reference"
-msgstr "Odkaz"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "Výukový materiál k matematice a rovnicím v LaTeXu"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "Náhled na matematické symboly v LaTeXu"
-
-msgid "Image Properties"
-msgstr "Vlastnosti obrázku"
-
-msgid "Rotate Left"
-msgstr "Otočit doleva"
-
-msgid "Rotate Right"
-msgstr "Otočit doprava"
-
-msgid ""
-"In order to crop the image, select the area with the mouse before clicking OK"
-msgstr "Pro oříznutí obrázku vyberte oblast pomocí myši a klepněte na OK."
-
-msgid "Flip Horizontally"
-msgstr "Převrátit vodorovně"
-
-msgid "Flip Vertically"
-msgstr "Převrátit svisle"
-
-msgid "Width"
-msgstr "Šířka"
-
-msgid "Height"
-msgstr "Výška"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Automatické zvýrazňování skladby"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "pixels"
-msgstr "px (obrazové body)"
-
-msgid "Size"
-msgstr "Velikost"
-
-msgid "Options"
-msgstr "Volby"
-
-msgid "Rows"
-msgstr "Řádky "
-
-msgid "Columns"
-msgstr "Sloupce"
-
-msgid "Default Width"
-msgstr "Výchozí šířka"
-
-msgid "Table Size"
-msgstr "Velikost tabulky"
-
-msgid "Column Properties"
-msgstr "Vlastnosti sloupců"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Odlehčené rozhraní (mnohem rychlejší pro velké tabulky)"
-
-msgid "Import from CSV File"
-msgstr "Zavést ze souboru CSV"
-
-msgid "Change Selected"
-msgstr "Změnit vybrané"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "Klávesová zkratka '%s' se již používá."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Nyní přiřazená činnost je '%s'"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Chcete klávesovou zkratku sebrat?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Upravit klávesovou zkratku"
-
-msgid "No Keyboard Shortcut"
-msgstr "Žádná klávesová zkratka"
-
-msgid "Who is the Parent?"
-msgstr "Který je nadřízený uzel?"
-
-msgid "The Tree Root"
-msgstr "Kořen stromu"
-
-msgid "The Selected Node"
-msgstr "Vybraný uzel"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "Otevřít nedávný dokument CherryTree"
-
-msgid "_Hide"
-msgstr "_Skrýt"
-
-msgid "_Quit"
-msgstr "U_končit"
-
-msgid "Hide the Window"
-msgstr "Skrýt okno"
-
-msgid "Quit the Application"
-msgstr "Ukončit program"
-
-msgid "Node Type"
-msgstr "Typ uzlu"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "Značky"
-
-msgid "Spell Check"
-msgstr "Ověření správného psaní"
-
-msgid "Word Count"
-msgstr "Počet slov"
-
-msgid "Date Created"
-msgstr "Datum vytvoření"
-
-msgid "Date Modified"
-msgstr "Datum změny"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Během tohoto sezení nebylo ještě provedeno žádné kopírování předchozího uzlu "
-"nebo již není zdrojový strom dostupný."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Uzel zdrojového stromu již není dostupný."
-
-msgid "Copy Selection or All"
-msgstr "Kopírovat výběr nebo vše"
-
-msgid "Paste"
-msgstr "Vložit"
-
-msgid "Reset"
-msgstr "Obnovit výchozí"
-
-msgid "Split Toolbar"
-msgstr "Rozdělit nástrojový pruh"
-
-msgid "Open a CherryTree File"
-msgstr "Otevřít soubor CherryTree"
-
-msgid "Image Format Not Recognized"
-msgstr "Obrázkový formát nerozpoznán"
-
-msgid "Insert Table"
-msgstr "Vložit tabulku"
-
-msgid "Insert a CodeBox"
-msgstr "Vložit pole s kódem"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Největší velikost vložených souborů je %s MB."
-
-msgid "Do you want to Continue?"
-msgstr "Chcete pokračovat?"
-
-msgid "Special Characters"
-msgstr "Zvláštní znaky"
-
-msgid "Tabs Replaced"
-msgstr "Zarážky nahrazeny"
-
-msgid "Lines Stripped"
-msgstr "Řádky odebrány"
-
-msgid "No Text is Selected."
-msgstr "Není vybrán žádný text."
-
-msgid "A Restore From Backup Was Necessary For:"
-msgstr "Obnovení ze zálohy bylo nutné pro:"
+msgid "Open Selected"
+msgstr "Otevřít vybrané"
 
 msgid "Handle the Bookmarks List"
 msgstr "Pracovat se seznamem záložek"
@@ -935,11 +440,20 @@ msgstr ""
 msgid "Enter the New Password Twice"
 msgstr "Zadejte nové heslo dvakrát"
 
+msgid "Autosave Every"
+msgstr "Automaticky uložit každých"
+
+msgid "Minutes"
+msgstr "minut"
+
 msgid "The Password Fields Must be Filled."
 msgstr "Pole pro hesla musí být vyplněna."
 
 msgid "The Two Inserted Passwords Do Not Match."
 msgstr "Ta dvě vložená hesla se neshodují."
+
+msgid "Warning"
+msgstr "Varování"
 
 msgid "The Current Document was Updated."
 msgstr "Nynější dokument byl aktualizován."
@@ -949,6 +463,12 @@ msgstr "Chcete uložit změny?"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Chcete provést kód?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Před provedením kódu požádat o potvrzení"
+
+msgid "Use Internal Terminal"
+msgstr "Použít vnitřní terminál"
 
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
@@ -1120,204 +640,293 @@ msgstr "Počet kotev"
 msgid "Number of Shared Nodes / Groups"
 msgstr "Počet sdílených uzlů/skupin"
 
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Varování: Pro vstup na stránku byl zmenšen jeden nebo více obrázků!"
+msgid "Latex Text"
+msgstr "Text v LaTeXu"
+
+msgid "Image Size dpi"
+msgstr "Rozlišení velikosti obrázku"
+
+msgid "Tutorial"
+msgstr "Výukový materiál"
+
+msgid "Reference"
+msgstr "Odkaz"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Výukový materiál k matematice a rovnicím v LaTeXu"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "Náhled na matematické symboly v LaTeXu"
+
+msgid "Image Properties"
+msgstr "Vlastnosti obrázku"
+
+msgid "Rotate Left"
+msgstr "Otočit doleva"
+
+msgid "Rotate Right"
+msgstr "Otočit doprava"
 
 msgid ""
-"The Number of Last Visited Nodes on Node Name Header is already at the "
-"Maximum Value."
-msgstr ""
-"Počet naposledy navštívených uzlů v záhlaví názvu uzlu již dosáhl nejvyšší "
-"hodnoty."
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr "Pro oříznutí obrázku vyberte oblast pomocí myši a klepněte na OK."
+
+msgid "Flip Horizontally"
+msgstr "Převrátit vodorovně"
+
+msgid "Flip Vertically"
+msgstr "Převrátit svisle"
+
+msgid "Width"
+msgstr "Šířka"
+
+msgid "Height"
+msgstr "Výška"
+
+msgid "Plain Text"
+msgstr "Prostý text"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatické zvýrazňování skladby"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "pixels"
+msgstr "px (obrazové body)"
+
+msgid "Size"
+msgstr "Velikost"
+
+msgid "Show Line Numbers"
+msgstr "Ukázat čísla řádků"
+
+msgid "Highlight Matching Brackets"
+msgstr "Zvýraznit odpovídající si závorky"
+
+msgid "Options"
+msgstr "Volby"
+
+msgid "Rows"
+msgstr "Řádky "
+
+msgid "Columns"
+msgstr "Sloupce"
+
+msgid "Default Width"
+msgstr "Výchozí šířka"
+
+msgid "Table Size"
+msgstr "Velikost tabulky"
+
+msgid "Column Properties"
+msgstr "Vlastnosti sloupců"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Odlehčené rozhraní (mnohem rychlejší pro velké tabulky)"
+
+msgid "Import from CSV File"
+msgstr "Zavést ze souboru CSV"
+
+msgid "Clear"
+msgstr "Vyprázdnit"
+
+msgid "Reset"
+msgstr "Obnovit výchozí"
+
+msgid "Search for"
+msgstr "Hledat"
+
+msgid "Replace with"
+msgstr "Nahradit"
+
+msgid "Replace in Link Targets"
+msgstr "Nahradit v cílech odkazů"
+
+msgid "Replace options"
+msgstr "Volby pro nahrazování"
+
+msgid "Match Case"
+msgstr "Rozlišovat velká a malá písmena"
+
+msgid "Regular Expression"
+msgstr "Regulární výraz"
+
+msgid "Online Manual"
+msgstr "Příručka na internetu"
+
+msgid "Accent Insensitive"
+msgstr "Neohlížet se na diakritická znaménka"
+
+msgid "Override Exclusions"
+msgstr "Přepsat vyloučení"
+
+msgid "Whole Word"
+msgstr "Celé slovo"
+
+msgid "Start Word"
+msgstr "Začátek slova"
+
+msgid "More Words, Exact Match"
+msgstr "Více slov, přesná shoda"
+
+msgid "More Words, Disregard Order"
+msgstr "Více slov, bez ohledu na pořadí"
+
+msgid "More Words, Match Any"
+msgstr "Více slov, libovolná shoda"
+
+msgid "Forward"
+msgstr "Vpřed"
+
+msgid "Backward"
+msgstr "Zpět"
+
+msgid "All, List Matches"
+msgstr "Sestavit seznam všech shod"
+
+msgid "First From Selection"
+msgstr "První ve výběru"
+
+msgid "First in All Range"
+msgstr "První v celém dokumentu"
+
+msgid "Node Created After"
+msgstr "Uzel vytvořen po"
+
+msgid "Node Created Before"
+msgstr "Uzel vytvořen před"
+
+msgid "Node Modified After"
+msgstr "Uzel změněn po"
+
+msgid "Node Modified Before"
+msgstr "Uzel změněn před"
+
+msgid "Time filter"
+msgstr "Časový filtr"
+
+msgid "Node Content"
+msgstr "Obsah uzlu"
+
+msgid "Node Name and Tags"
+msgstr "Název uzlu a značky"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Pouze vybraný uzel a podřízené uzly"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
+
+msgid "Search options"
+msgstr "Volby pro hledání"
 
 msgid ""
-"The Number of Last Visited Nodes on Node Name Header is already at the "
-"Minimum Value."
+"The Replace field is empty: all found occurrences will be erased.\n"
+"Do you want to continue?"
 msgstr ""
-"Počet naposledy navštívených uzlů v záhlaví názvu uzlu již dosáhl nejnižší "
-"hodnoty."
+"Pole Nahradit je prázdné: všechny nalezené výskyty budou smazány.\n"
+"Chcete pokračovat?"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "Velikost ikon v pruhu s nástroji je již nastavena na největší hodnotu."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "Velikost ikon v pruhu s nástroji je již nastavena na nejmenší hodnotu."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Tato změna se projeví až po novém spuštění CherryTree."
-
-msgid "Remove from list"
-msgstr "Odstranit ze seznamu"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Nový nadřízený uzel nemůže být jedním z podřízených uzlů!"
-
-msgid "Checking for Newer Version..."
-msgstr "Vyhledat novou verzi..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
 msgstr ""
-"Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu."
-
-msgid "A Newer Version Is Available!"
-msgstr "Je dostupná novější verze"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Používáte nejnovější dostupnou verzi."
-
-msgid "You Are Using a Development Version."
-msgstr "Používáte vývojářskou verzi."
-
-msgid "Replace in Current Node"
-msgstr "Nahradit ve vybraném uzlu"
-
-msgid "Search in Current Node"
-msgstr "Hledat ve vybraném uzlu"
+"Alespoň jeden uzel byl přeskočen kvůli vyloučením nastaveným ve vlastnostech "
+"uzlu.\n"
+"Chcete-li zrušit všechna vyloučení, použijte nabídku:\n"
+"Hledat → Vymazat všechna vyloučení z hledání"
 
 #, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Hledaný pojem '%s' nebyl nalezen</b>"
+msgid "Hide (Restore with '%s')"
+msgstr "Skrýt (Obnovit pomocí '%s')"
 
-msgid "Replace in Multiple Nodes"
-msgstr "Nahradit ve všech uzlech"
+msgid "Node Name"
+msgstr "Název uzlu"
 
-msgid "Search in Multiple Nodes"
-msgstr "Hledat ve více uzlech"
+msgid "Line"
+msgstr "Řádek"
 
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Během tohoto sezení nebylo ještě provedeno žádné hledání."
+msgid "Line Content"
+msgstr "Obsah řádku"
 
-msgid "Preferences"
-msgstr "Nastavení"
+msgid "Iterate Latest Find/Replace"
+msgstr "Zopakovat poslední hledání/nahrazení"
 
-msgid "English"
-msgstr "Překlad do angličtiny"
+msgid "Close"
+msgstr "Zavřít"
 
-msgid "Text and Code"
-msgstr "Text a kód"
+msgid "Find Previous"
+msgstr "Najít předchozí"
 
-msgid "Format"
-msgstr "Formátovat"
+msgid "Find Next"
+msgstr "Najít další"
 
-msgid "Plain Text and Code"
-msgstr "Prostý text a kód"
+msgid "Replace"
+msgstr "Nahradit"
 
-msgid "Theme"
-msgstr "Vzhled"
+msgid "Undo"
+msgstr "Zpět"
 
-msgid "Interface"
-msgstr "Rozhraní"
+msgid "Remove"
+msgstr "Odstranit"
 
-msgid "Links"
-msgstr "Odkazy"
+msgid "Remove User Colour from Palette"
+msgstr "Odstranit uživatelskou barvu z palety"
 
-msgid "Toolbar"
-msgstr "Nástrojový pruh"
+msgid "Colour"
+msgstr "Barva"
 
-msgid "Keyboard Shortcuts"
-msgstr "Klávesové zkratky"
+msgid "Question"
+msgstr "Otázka"
 
-msgid "Monospace"
-msgstr "Písmo se stejnou roztečí"
+msgid "Info"
+msgstr "Informace"
 
-msgid "Code Font"
-msgstr "Písmo kódu  "
+msgid "Error"
+msgstr "Chyba"
 
-msgid "Terminal Font"
-msgstr "Písmo pro terminál"
+msgid "Select File"
+msgstr "Vybrat soubor"
 
-msgid "Tree Font"
-msgstr "Písmo ve stromu"
+msgid "Select Folder"
+msgstr "Vybrat složku"
 
-msgid "Fonts"
-msgstr "Písma"
+msgid "Save File as"
+msgstr "Uložit soubor jako"
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Povolit počet slov ve stavovém řádku"
+msgid "Save To Folder"
+msgstr "Uložit do složky"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Ukázat adresář s dokumentem v názvu okna"
+msgid "To WebSite"
+msgstr "Pro internetovou stránku"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Ukázat celou cestu v záhlaví názvu uzlu"
+msgid "To File"
+msgstr "Pro soubor"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Vyhrazená nabídka záložek v panelu nabídek"
+msgid "To Folder"
+msgstr "Pro složku"
 
-msgid "Menubar in Titlebar"
-msgstr "Hlavní nabídka v titulkovém pruhu"
+msgid "To Node"
+msgstr "Pro uzel"
 
-msgid "Toolbar Icons Size"
-msgstr "Velikost ikon v nástrojovém pruhu"
+msgid "Anchor Name (optional)"
+msgstr "Název kotvy (volitelný)"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Naposledy navštívené uzly na záhlaví názvu uzlu"
+msgid "There are No Anchors in the Selected Node."
+msgstr "Ve vybraném uzlu nejsou žádné kotvy."
 
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Nejmenší velikost posuvníku (0 = výchozí velikost systému)"
+msgid "Choose Existing Anchor"
+msgstr "Vybrat stávající kotvu"
 
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Posuvník překrývá editor textu"
+msgid "Anchor Name"
+msgstr "Název kotvy"
 
-msgid "Yes"
-msgstr "Ano"
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Povolit nástrojové rady při přejetí ukazovátkem myši"
-
-msgid "Tree"
-msgstr "Strom"
-
-msgid "Menus"
-msgstr "Nabídky"
-
-msgid "Max Search Results per Page"
-msgstr "Největší počet výsledků hledání na stránku"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
-
-msgid "Custom Actions"
-msgstr "Vlastní činnosti"
-
-msgid "Colors"
-msgstr "Barvy"
-
-msgid "Double Click for Link Action"
-msgstr "Klepnout dvakrát pro spuštění odkazu"
-
-msgid "Underline Links"
-msgstr "Podtrhnout odkazy"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Použít relativní cesty pro soubory a složky"
-
-msgid "Anchor Size"
-msgstr "Velikost kotvy"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Stupňovitě rozvrstvená tvorba poznámek v CherryTree"
-
-msgid "Show/Hide _CherryTree"
-msgstr "Ukázat/Skrýt _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Ukázat/Skrýt CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "_Ukončit CherryTree"
-
-msgid "Exit from CherryTree"
-msgstr "Ukončit CherryTree"
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Hledaný pojem '%s' nenalezen"
 
 msgid "Bold"
 msgstr "Tučné"
@@ -1327,6 +936,12 @@ msgstr "Použít vybranou barvu"
 
 msgid "Use Selected Icon"
 msgstr "Použít vybranou ikonu"
+
+msgid "Rich Text"
+msgstr "Formátovaný text"
+
+msgid "Node Type"
+msgstr "Typ uzlu"
 
 msgid "Tags for Searching"
 msgstr "Značky pro hledání"
@@ -1391,226 +1006,136 @@ msgstr "Jeden soubor"
 msgid "Index"
 msgstr "Rejstřík"
 
-msgid "The Tree is Empty!"
-msgstr "Strom je prázdný!"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Varování: Pro vstup na stránku byl zmenšen jeden nebo více obrázků!"
 
-msgid "The Selected Node is Read Only."
-msgstr "Vybraný uzel je pouze pro čtení."
+msgid "LaTeX rendering was blocked for security reasons"
+msgstr "Zobrazení v LaTeXu bylo z bezpečnostních důvodů znemožněno"
 
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Tato funkce je dostupná jen u uzlů s formátovaným textem."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "Tato funkce není dostupná u uzlů s automatickým zvýrazňováním skladby."
-
-msgid "No Table is Selected."
-msgstr "Není vybrána žádná tabulka."
-
-msgid "No CodeBox is Selected."
-msgstr "Není vybráno žádné pole s kódem."
-
-msgid "New Child Node Properties"
-msgstr "Vlastnosti nového podřízeného uzlu"
-
-msgid "New Node Properties"
-msgstr "Vlastnosti nového uzlu"
-
-msgid "Node Properties"
-msgstr "Vlastnosti uzlu"
+msgid "The source contains file I/O commands that can access local files"
+msgstr ""
+"Zdroj obsahuje příkazy pro práci se soubory (vstup/výstup), které umožňují"
+" přístup k místním souborům"
 
 msgid ""
-"Changing the node type to Automatic Syntax Highlighting removes all rich "
-"text formatting in this node. Do you want to Continue?"
+"Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
+"\\input/\\include paths"
 msgstr ""
-"Změna typu uzlu na Automatické zvýraznění skladby odstraní veškeré "
-"formátování textu v tomto uzlu. Chcete pokračovat?"
+"Odstranit příkazy jako \\verbatiminput, \\openin, \\openout and unsafe "
+"\\input/\\include paths"
 
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
-
-msgid "Select the New Parent"
-msgstr "Vybrat nový nadřízený uzel"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s Vlastností uzlu změněno"
-
-#, c-format
-msgid "'%s' is Not a Valid Archive"
-msgstr "'%s' není platný archiv"
-
-msgid "Writing to Disk..."
-msgstr "Zapisuje se na disk..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Nemáte oprávnění pro zápis do %s"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Zadejte heslo pro %s"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr ""
-"Nepodařilo se ověřit neporušenost uloženého dokumentu. Zkuste Soubor--"
-">Uložit jako"
+"Nepodařilo se získat přístup ke spustitelným souborům 'latex' a 'dvipng'"
 
-msgid "Failed to encrypt the file"
-msgstr "Nepodařilo se zašifrovat soubor"
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "Například v systému Ubuntu je třeba nainstalovat tyto balíčky:"
 
-msgid "Chars for Bulleted List"
-msgstr "Znaky pro odrážkový seznam"
+msgid "For example, on macOS the packages to install are:"
+msgstr "Například v systému macOS je třeba nainstalovat tyto balíčky:"
 
-msgid "Chars for Todo List"
-msgstr "Znaky pro seznam věcí k udělání"
+msgid "Could not access the executable 'latex'"
+msgstr "Nepodařilo se získat přístup ke spustitelnému souboru 'latex'"
 
-msgid "Chars for Table Of Content"
-msgstr "Znaky pro obsah"
+msgid "Could not access the executable 'dvipng'"
+msgstr "Nepodařilo se získat přístup ke spustitelnému souboru 'dvipng'"
 
-msgid "Chars for Smart Double Quotes"
-msgstr "Znaky pro chytré dvojité uvozovky"
+msgid "Downloading"
+msgstr "Stažení"
 
-msgid "Chars for Smart Single Quotes"
-msgstr "Znaky pro chytré jednoduché uvozovky"
+#, c-format
+msgid "The Path %s does Not Exist"
+msgstr "Cesta %s neexistuje"
 
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Povolit automatické nahrazování chytrých uvozovek"
+msgid "Open a Recent CherryTree Document"
+msgstr "Otevřít nedávný dokument CherryTree"
 
-msgid "Enable Symbol Auto Replacement"
-msgstr "Povolit automatické nahrazování symbolů"
+msgid "_Hide"
+msgstr "_Skrýt"
 
-msgid "Supported Symbols Auto Replacements"
-msgstr "Podporované automatické nahrazování symbolů"
+msgid "_Quit"
+msgstr "U_končit"
 
-msgid "Only at the Start of the Line"
-msgstr "Pouze na začátku řádku"
+msgid "Hide the Window"
+msgstr "Skrýt okno"
 
-msgid "Use Different Cherries per Level"
-msgstr "Použít pro úroveň různé třešně"
+msgid "Quit the Application"
+msgstr "Ukončit program"
 
-msgid "No Icon"
-msgstr "Žádná ikona"
+msgid "Spell Check"
+msgstr "Ověření správného psaní"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Skrýt pomocnou ikonu na pravé straně"
+msgid "Word Count"
+msgstr "Počet slov"
 
-msgid "Default Text Nodes Icons"
-msgstr "Výchozí ikony uzlů textu"
+msgid "Date Created"
+msgstr "Datum vytvoření"
 
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Obnovit stav rozbaleno/sbaleno"
+msgid "Date Modified"
+msgstr "Datum změny"
 
-msgid "Expand all Nodes"
-msgstr "Rozbalit všechny uzly"
+msgid "Subnodes"
+msgstr "Podřízené uzly"
 
-msgid "Collapse all Nodes"
-msgstr "Sbalit všechny uzly"
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Během tohoto sezení nebylo ještě provedeno žádné kopírování předchozího uzlu "
+"nebo již není zdrojový strom dostupný."
 
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Uzly v záložkách vždy viditelné"
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Uzel zdrojového stromu již není dostupný."
 
-msgid "Nodes Status at Startup"
-msgstr "Stav uzlů při spuštění"
+msgid "Show Menubar:"
+msgstr "Ukázat nabídkový řádek:"
 
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Největší šířka názvu uzlu před zalomením"
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" není souborem CherryTree"
 
-msgid "Display Tree on the Right Side"
-msgstr "Zobrazit strom na pravé straně"
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Chyba při zpracování cesty CherryTree:\n"
+"\"%s\""
 
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Přesunout zaměření na text při klepnutí myší"
+msgid "Do you want to Open the Last Backup?"
+msgstr "Chcete otevřít poslední zálohu?"
 
-msgid "Expand Node at Mouse Click"
-msgstr "Rozbalit uzel při klepnutí myší"
+msgid "Failed to Load from Backup Data"
+msgstr "Nepodařilo se nahrát data ze zálohy"
 
-msgid "Enable Spell Check"
-msgstr "Povolit ověřování pravopisu"
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Nebyl nalezen žádný uzel s názvem '%s'."
 
-msgid "Spell Check Language"
-msgstr "Jazyk ověřování pravopisu"
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Dočasné soubory byly vytvořeny a otevřeny ve vnějších programech."
 
-msgid "Expand CodeBoxes Automatically"
-msgstr "Rozšířit pole s kódem automaticky"
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Ukončit vnější programy před ukončením CherryTree."
 
-msgid "CodeBoxes Have Toolbar"
-msgstr "Pole s kódem mají nástrojový pruh"
+msgid "Did you Quit the External Applications?"
+msgstr "Ukončil jste vnější programy?"
 
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Prahový počet buněk tabulky pro odlehčené rozhraní"
+#, c-format
+msgid "Cannot Save: \"%s\" is Read-Only"
+msgstr "Nelze uložit: \"%s\" je pouze pro čtení"
 
-msgid "Embedded File Icon Size"
-msgstr "Velikost ikony vloženého souboru"
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*."
 
-msgid "Embedded File Size Limit (MB)"
-msgstr "Omezení velikosti vloženého souboru (MB)"
+msgid "Copy Selection or All"
+msgstr "Kopírovat výběr nebo vše"
 
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Ukázat název souboru nahoře ikony vloženého souboru"
+msgid "Paste"
+msgstr "Vložit"
 
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Počet kroků zpět na uzel"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Automatické propojení textu CamelCase s uzlem se stejným názvem"
-
-msgid "Auto Link URLs"
-msgstr "Automatické propojení adres (URL)"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Při trojitém klepnutí vybrat celý odstavec"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Povolit automatické nahrazování Markdown (pokusné)"
-
-msgid "Scale"
-msgstr "Měřítko"
-
-msgid "Italic"
-msgstr "Kurzíva"
-
-msgid "Underline"
-msgstr "Podtržení"
-
-msgid "Text Color Foreground"
-msgstr "Barva písma"
-
-msgid "Text Color Background"
-msgstr "Barva pozadí"
-
-msgid "Small"
-msgstr "Malý"
-
-msgid "Scalable Tags"
-msgstr "Měnitelná velikost značek"
-
-msgid "Preferences File"
-msgstr "Soubor s nastavením"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu."
-
-msgid "Link Name"
-msgstr "Název odkazu"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Ukazatel se nenachází v odstavci."
-
-msgid "Pick a Foreground Color"
-msgstr "Vybrat barvu popředí"
-
-msgid "Pick a Background Color"
-msgstr "Vybrat barvu pozadí"
+msgid "Remove from list"
+msgstr "Odstranit ze seznamu"
 
 msgid "_File"
 msgstr "_Soubor"
@@ -1708,6 +1233,9 @@ msgstr "Založit nový případ"
 msgid "_Open File..."
 msgstr "_Otevřít soubor..."
 
+msgid "Open a CherryTree File"
+msgstr "Otevřít soubor CherryTree"
+
 msgid "Open Fo_lder..."
 msgstr "Otevřít _složku..."
 
@@ -1744,6 +1272,9 @@ msgstr "_Tisk..."
 msgid "Print"
 msgstr "Tisk"
 
+msgid "Preferences"
+msgstr "Nastavení"
+
 msgid "_Import Preferences..."
 msgstr "_Zavést nastavení..."
 
@@ -1767,6 +1298,9 @@ msgstr "Kopírovat cestu k dokumentu do schránky"
 
 msgid "E_xit CherryTree"
 msgstr "_Ukončit CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Ukončit CherryTree"
 
 msgid "Edit/Insert"
 msgstr "Upravit/Vložit"
@@ -2127,6 +1661,9 @@ msgstr "Zkrátit pole s kódem"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Zmenšit výšku pole s kódem"
 
+msgid "Format"
+msgstr "Formátovat"
+
 msgid "Format Clo_ne"
 msgstr "_Kopírovat formátování"
 
@@ -2354,6 +1891,9 @@ msgstr "P_rovést řádek kódu nebo výběr"
 
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Provést kód z nynějšího řádku nebo vybraného textu"
+
+msgid "Tree"
+msgstr "Strom"
 
 msgid "Go _Back"
 msgstr "Jít _zpět"
@@ -2872,6 +2412,12 @@ msgstr "_Nahlásit chybu"
 msgid "Report a Bug in CherryTree"
 msgstr "Nahlásit chybu v CherryTree"
 
+msgid "_Donate"
+msgstr "_Darovat"
+
+msgid "Donate to Support CherryTree"
+msgstr "Přispějte na podporu CherryTree"
+
 msgid "Online _Manual"
 msgstr "_Příručka na internetu"
 
@@ -3016,6 +2562,12 @@ msgstr "_Odmítnout odkaz"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Odmítnout odkaz spojený s obrázkem"
 
+msgid "Show/Hide _CherryTree"
+msgstr "Ukázat/Skrýt _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Ukázat/Skrýt CherryTree"
+
 msgid "Edit the Underlying Link"
 msgstr "Upravit označený odkaz"
 
@@ -3039,6 +2591,542 @@ msgstr "_Smazat odkaz"
 
 msgid "Delete the Selected Link"
 msgstr "Smazat vybraný odkaz"
+
+msgid "English"
+msgstr "Překlad do angličtiny"
+
+msgid "Text and Code"
+msgstr "Text a kód"
+
+msgid "Plain Text and Code"
+msgstr "Prostý text a kód"
+
+msgid "Tree Explorer"
+msgstr "Stromový průzkumník"
+
+msgid "Theme"
+msgstr "Vzhled"
+
+msgid "Interface"
+msgstr "Rozhraní"
+
+msgid "Links"
+msgstr "Odkazy"
+
+msgid "Toolbar"
+msgstr "Nástrojový pruh"
+
+msgid "Keyboard Shortcuts"
+msgstr "Klávesové zkratky"
+
+msgid "Miscellaneous"
+msgstr "Různé"
+
+msgid "Monospace"
+msgstr "Písmo se stejnou roztečí"
+
+msgid "Code Font"
+msgstr "Písmo kódu  "
+
+msgid "Terminal Font"
+msgstr "Písmo pro terminál"
+
+msgid "Tree Font"
+msgstr "Písmo ve stromu"
+
+msgid "Reset to Default"
+msgstr "Obnovit výchozí"
+
+msgid "Fonts"
+msgstr "Písma"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Povolit počet slov ve stavovém řádku"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Ukázat adresář s dokumentem v názvu okna"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Ukázat celou cestu v záhlaví názvu uzlu"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Vyhrazená nabídka záložek v panelu nabídek"
+
+msgid "Menubar in Titlebar"
+msgstr "Hlavní nabídka v titulkovém pruhu"
+
+msgid "Toolbar Icons Size"
+msgstr "Velikost ikon v nástrojovém pruhu"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Naposledy navštívené uzly na záhlaví názvu uzlu"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Nejmenší velikost posuvníku (0 = výchozí velikost systému)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Posuvník překrývá editor textu"
+
+msgid "System Default"
+msgstr "Výchozí systému"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Povolit nástrojové rady při přejetí ukazovátkem myši"
+
+msgid "Menus"
+msgstr "Nabídky"
+
+msgid "Max Search Results per Page"
+msgstr "Největší počet výsledků hledání na stránku"
+
+msgid "Save Search/Replace History Between Sessions"
+msgstr "Uložit historii vyhledávání a nahrazování mezi sezeními"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
+
+msgid "Custom Actions"
+msgstr "Vlastní činnosti"
+
+msgid "Colors"
+msgstr "Barvy"
+
+msgid "Double Click for Link Action"
+msgstr "Klepnout dvakrát pro spuštění odkazu"
+
+msgid "Underline Links"
+msgstr "Podtrhnout odkazy"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Použít relativní cesty pro soubory a složky"
+
+msgid "Anchor Size"
+msgstr "Velikost kotvy"
+
+msgid "Change Selected"
+msgstr "Změnit vybrané"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "Klávesová zkratka '%s' se již používá."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Nyní přiřazená činnost je '%s'"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Chcete klávesovou zkratku sebrat?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Upravit klávesovou zkratku"
+
+msgid "No Keyboard Shortcut"
+msgstr "Žádná klávesová zkratka"
+
+msgid "Autosave on Quit"
+msgstr "Automaticky uložit při ukončení"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Před uložením vytvořit záložní kopii"
+
+msgid "Number of Backups to Keep"
+msgstr "Počet záloh k zachování"
+
+msgid "Custom Backup Directory"
+msgstr "Adresář s vlastní zálohou"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Ukládání více souborů, použití názvu vloženého souboru na disku"
+
+msgid "Saving"
+msgstr "Ukládání"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Automaticky vyhledat novou verzi"
+
+msgid "Reload Document From Last Session"
+msgstr "Nahrát dokument z posledního sezení znovu"
+
+msgid "Show Start Dialog When No Document Is Loaded"
+msgstr "Zobrazit úvodní dialogové okno, pokud není nahrán žádný dokument"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
+
+msgid "Enable Debug Log"
+msgstr "Povolit zápis o ladění"
+
+msgid "Debug Log Directory"
+msgstr "Povolit adresář se zápisem"
+
+msgid "Enable System Tray Docking"
+msgstr "Povolit ikonu v oznamovací oblasti panelu"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
+
+msgid "System Tray"
+msgstr "Oznamovací oblast panelu"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "URL"
+msgstr "Adresa (URL)"
+
+msgid "Port"
+msgstr "Přípojka (port)"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Proxy"
+msgstr "Proxy"
+
+msgid "Show White Spaces"
+msgstr "Ukázat prázdná místa"
+
+msgid "Highlight Current Line"
+msgstr "Zvýraznit nynější řádek"
+
+msgid "Text Editor"
+msgstr "Textový editor"
+
+msgid "Internal Terminal Shell"
+msgstr "Vnitřní terminál"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Remove Selected"
+msgstr "Odstranit vybrané"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Příkaz na typ uzlu/pole s kódem"
+
+msgid "Terminal Command"
+msgstr "Příkaz pro terminál"
+
+msgid "Code Execution"
+msgstr "Vykonání kódu  "
+
+msgid "Select Element to Add"
+msgstr "Vybrat prvek k přidání"
+
+msgid "Enable Spell Check"
+msgstr "Povolit ověřování pravopisu"
+
+msgid "Spell Check Language"
+msgstr "Jazyk ověřování pravopisu"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Rozšířit pole s kódem automaticky"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Pole s kódem mají nástrojový pruh"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Prahový počet buněk tabulky pro odlehčené rozhraní"
+
+msgid "Embedded File Icon Size"
+msgstr "Velikost ikony vloženého souboru"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Omezení velikosti vloženého souboru (MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Ukázat název souboru nahoře ikony vloženého souboru"
+
+msgid "Do Not Auto-Select Objects on Single Click"
+msgstr "Nevybírat objekty automaticky po jediném klepnutí"
+
+msgid "Workaround for clipboard-related freezes on KDE 6 with Klipper"
+msgstr ""
+"Řešení problému se zamrzáním systému v souvislosti se schránkou v KDE 6 při"
+" použití aplikace Klipper"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Počet kroků zpět na uzel"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Automatické propojení textu CamelCase s uzlem se stejným názvem"
+
+msgid "Auto Link URLs"
+msgstr "Automatické propojení adres (URL)"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Při trojitém klepnutí vybrat celý odstavec"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Povolit automatické nahrazování Markdown (pokusné)"
+
+msgid "Scale"
+msgstr "Měřítko"
+
+msgid "Italic"
+msgstr "Kurzíva"
+
+msgid "Underline"
+msgstr "Podtržení"
+
+msgid "Text Color Foreground"
+msgstr "Barva písma"
+
+msgid "Text Color Background"
+msgstr "Barva pozadí"
+
+msgid "Small"
+msgstr "Malý"
+
+msgid "Scalable Tags"
+msgstr "Měnitelná velikost značek"
+
+msgid "Chars for Bulleted List"
+msgstr "Znaky pro odrážkový seznam"
+
+msgid "Chars for Todo List"
+msgstr "Znaky pro seznam věcí k udělání"
+
+msgid "Chars for Table Of Content"
+msgstr "Znaky pro obsah"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Znaky pro chytré dvojité uvozovky"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Znaky pro chytré jednoduché uvozovky"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Povolit automatické nahrazování chytrých uvozovek"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Povolit automatické nahrazování symbolů"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Podporované automatické nahrazování symbolů"
+
+msgid "Only at the Start of the Line"
+msgstr "Pouze na začátku řádku"
+
+msgid "Tab Width"
+msgstr "Šířka zarážky"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Vložit mezery místo zarážek"
+
+msgid "Use Line Wrapping"
+msgstr "Použít zalamování řádků"
+
+msgid "Line Wrapping Indentation"
+msgstr "Odsazení zalamování řádků"
+
+msgid "Enable Automatic Indentation"
+msgstr "Povolit automatické odsazení"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Posunovat za poslední řádek"
+
+msgid "Cursor Blinking"
+msgstr "Blikání ukazovátka"
+
+msgid "On"
+msgstr "Zapnuto"
+
+msgid "Off"
+msgstr "Vypnuto"
+
+msgid "Text Margin: Left"
+msgstr "Textový okraj: Vlevo"
+
+msgid "Right"
+msgstr "Vpravo"
+
+msgid "Vertical Space Around Lines"
+msgstr "Svislá mezera okolo řádků"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Svislá mezera v zalomených řádcích"
+
+msgid "Timestamp Format"
+msgstr "Formát časového razítka"
+
+msgid "Horizontal Rule"
+msgstr "Oddělovací čára"
+
+msgid "Chars to Select at Double Click"
+msgstr "Znaky k vybrání při dvojitém klepnutí"
+
+msgid "Light Background, Dark Text"
+msgstr "Světlé pozadí, tmavý text"
+
+msgid "Dark Background, Light Text"
+msgstr "Tmavé pozadí, světlý text"
+
+msgid "Custom Background"
+msgstr "Vlastní pozadí"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Selection Background"
+msgstr "Pozadí výběru"
+
+msgid "Table"
+msgstr "Tabulka"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Style Schemes"
+msgstr "Podoba stylu"
+
+msgid "Text Foreground"
+msgstr "Popředí textu"
+
+msgid "Text Background"
+msgstr "Pozadí textu"
+
+msgid "Selection Foreground"
+msgstr "Popředí výběru"
+
+msgid "Cursor"
+msgstr "Ukazatel"
+
+msgid "Current Line Background"
+msgstr "Pozadí nynějšího řádku"
+
+msgid "Line Numbers Foreground"
+msgstr "Popředí čísel řádků"
+
+msgid "Line Numbers Background"
+msgstr "Pozadí čísel řádků"
+
+msgid "Style Scheme Editor"
+msgstr "Editor podoby stylu"
+
+msgid "Set Dark Theme Icons"
+msgstr "Nastavit ikony tmavého vzhledu"
+
+msgid "Set Light Theme Icons"
+msgstr "Nastavit ikony světlého vzhledu"
+
+msgid "Set Default Icons"
+msgstr "Nastavit výchozí ikony"
+
+msgid "Icon Theme"
+msgstr "Vzhled ikon"
+
+msgid "Split Toolbar"
+msgstr "Rozdělit nástrojový pruh"
+
+msgid "Use Different Cherries per Level"
+msgstr "Použít pro úroveň různé třešně"
+
+msgid "No Icon"
+msgstr "Žádná ikona"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Skrýt pomocnou ikonu na pravé straně"
+
+msgid "Default Text Nodes Icons"
+msgstr "Výchozí ikony uzlů textu"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Obnovit stav rozbaleno/sbaleno"
+
+msgid "Expand all Nodes"
+msgstr "Rozbalit všechny uzly"
+
+msgid "Collapse all Nodes"
+msgstr "Sbalit všechny uzly"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Uzly v záložkách vždy viditelné"
+
+msgid "Nodes Status at Startup"
+msgstr "Stav uzlů při spuštění"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Největší šířka názvu uzlu před zalomením"
+
+msgid "Display Tree on the Right Side"
+msgstr "Zobrazit strom na pravé straně"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Přesunout zaměření na text při klepnutí myší"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Rozbalit uzel při klepnutí myší"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s' není platný archiv"
+
+msgid "Writing to Disk..."
+msgstr "Zapisuje se na disk..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Nemáte oprávnění pro zápis do %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Zadejte heslo pro %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Nepodařilo se ověřit neporušenost uloženého dokumentu. Zkuste Soubor--"
+">Uložit jako"
+
+msgid "Failed to encrypt the file"
+msgstr "Nepodařilo se zašifrovat soubor"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "Obnovení ze zálohy bylo nutné pro:"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"Soubor s databází %s je poškozen. Na podrobnosti se podívejte v záznamu."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"Zápis %s se nezdařil – soubor chybí. Připojte znovu disk USB nebo sdílený "
+"zdroj."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "Zápis %s se nezdařil - je soubor blokován seřizovacím programem?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"Znovuotevření %s se nezdařilo – soubor chybí. Připojte znovu disk USB nebo "
+"sdílený zdroj."
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Stupňovitě rozvrstvená tvorba poznámek v CherryTree"
+
+msgid "_Exit CherryTree"
+msgstr "_Ukončit CherryTree"
 
 msgid "HTML Document"
 msgstr "Dokument HTML"
@@ -3188,9 +3276,6 @@ msgstr "Opravdu chcete vrátit na výchozí?"
 
 #~ msgid "Replace in Nodes _Names"
 #~ msgstr "Nahradit v _názvech uzlů"
-
-#~ msgid "Replace in Nodes Names"
-#~ msgstr "Nahradit v názvech uzlů"
 
 #~ msgid "_Execute CodeBox Code"
 #~ msgstr "_Provést kód pole s kódem"

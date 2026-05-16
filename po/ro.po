@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 21:44+0000\n"
-"PO-Revision-Date: 2025-12-12 12:45+0200\n"
+"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"PO-Revision-Date: 2026-05-10 03:39+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
 "Language: ro\n"
@@ -16,102 +16,160 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
+
+msgid "Image Format Not Recognized"
+msgstr "Tipul de imagine nu este recunoscut"
+
+msgid "Insert Table"
+msgstr "Inserează tabel"
+
+msgid "CSV File"
+msgstr "Fișier CSV"
+
+msgid "Insert a CodeBox"
+msgstr "Inserează un CodeBox"
+
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB."
+msgstr "Dimensiunea maximă pentru fișierele încorporate este de %s MB."
+
+msgid "Do you want to Continue?"
+msgstr "Dorești să continui?"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
 msgstr "Nu s-a putut prelua conținutul nodului '%s'"
 
-msgid "Tab Width"
-msgstr "Lățime filă"
+msgid "Special Characters"
+msgstr "Caractere speciale"
 
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Inserează spații în loc de file"
+msgid "Tabs Replaced"
+msgstr "File înlocuite"
 
-msgid "Use Line Wrapping"
-msgstr "Utilizează înfășurarea rândurilor"
+msgid "Lines Stripped"
+msgstr "Rânduri goale"
 
-msgid "Line Wrapping Indentation"
-msgstr "Alineat la rânduri înfășurate"
+msgid "No Text is Selected."
+msgstr "Niciun text nu a fost selectat."
 
-msgid "Enable Automatic Indentation"
-msgstr "Activează alineat automat"
+msgid "CherryTree File"
+msgstr "Fișier CherryTree"
 
-msgid "Show Line Numbers"
-msgstr "Afișează număr rând"
-
-msgid "Scroll Beyond Last Line"
-msgstr "Deplasare dincolo de ultimul rând"
-
-msgid "Cursor Blinking"
-msgstr "Cursorul clipește"
-
-msgid "System Default"
-msgstr "Setări implicite sistem"
-
-msgid "On"
-msgstr "Pornit"
-
-msgid "Off"
-msgstr "Oprit"
-
-msgid "Text Margin: Left"
-msgstr "Margine text: Stânga"
-
-msgid "Right"
-msgstr "Dreapta"
-
-msgid "Vertical Space Around Lines"
-msgstr "Spațiu vertical în jurul rândurilor"
-
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Spațiu vertical în rânduri înfășurate"
-
-msgid "Text Editor"
-msgstr "Editor text"
-
-msgid "Timestamp Format"
-msgstr "Format indice timp"
-
-msgid "Online Manual"
-msgstr "Manual online"
-
-msgid "Reset to Default"
-msgstr "Setări inițiale"
-
-msgid "Horizontal Rule"
-msgstr "Riglă orizontală"
-
-msgid "Chars to Select at Double Click"
-msgstr "Caractere de selectat la dublu click"
-
-msgid "Miscellaneous"
-msgstr "Diverse"
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
 msgstr ""
-"Fișierul bază de date %s este corupt, verifică jurnal pentru mai multe "
-"detalii."
+"Fișierul/directorul utilizat nu se poate suprascrie!\n"
+"Te rog să utilizezi un nume sau locație diferită."
 
 #, c-format
 msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"%s scrierea a eșuat - fișierul lipsește. Reatașați memoria USB sau sursa "
-"partajată."
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"%s scrierea a eșuat - este fișierul blocat de un program pentru sincronizare?"
+"Un director '%s' există deja în '%s'.\n"
+"<b>Doriți să îl înlocuiți?</b>"
 
 #, c-format
 msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
 msgstr ""
-"%s redeschiderea a eșuat - fișierul lipsește. Reatașați memoria USB sau "
-"sursa partajată."
+"Un director '%s' există deja în '%s'.\n"
+"<b>Doriți să îl înlocuiți?</b>"
+
+msgid "PDF File"
+msgstr "Fișier PDF"
+
+msgid "Plain Text Document"
+msgstr "Document Plain Text"
+
+msgid "Preferences File"
+msgstr "Fișier Preferințe"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "A apărut tava de sistem pe panou?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Sistemul tău nu este compatibil cu System Tray"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr "Această modificare va avea efect doar după reinițializarea CherryTree."
+
+msgid "Replace in Current Node"
+msgstr "Înlocuiți în Nodul Curent"
+
+msgid "Search in Current Node"
+msgstr "Căutați în Nodul Curent"
+
+msgid "Matches"
+msgstr "Potriviri"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Modelul '%s' nu a fost găsit</b>"
+
+msgid "Replace in Multiple Nodes"
+msgstr "Înlocuiește în mai multe noduri"
+
+msgid "Search in Multiple Nodes"
+msgstr "Caută în mai multe noduri"
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr ""
+"Nicio căutare anterioară nu a fost executată în timpul acestei sesiuni."
+
+msgid "Tags"
+msgstr "Etichete"
+
+msgid ": "
+msgstr ": "
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr ""
+"Nicio formatare de text anterioară nu a fost executată în timpul acestei "
+"sesiuni."
+
+msgid "Link Name"
+msgstr "Nume link"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "Cursorul nu este în paragraf."
+
+msgid "Insert/Edit Link"
+msgstr "Inserează/Editează link"
+
+msgid "Pick a Foreground Color"
+msgstr "Alege o culoare de prim plan"
+
+msgid "Pick a Background Color"
+msgstr "Alege o culoare de fundal"
+
+msgid "Checking for Newer Version..."
+msgstr "Se caută versiuni mai noi..."
+
+msgid "Failed to Retrieve Latest Version Information - Try Again Later."
+msgstr ""
+"Căutaera de informații pentru versiuni recente a eșuat - Încearcă mai târziu."
+
+msgid "A Newer Version Is Available!"
+msgstr "O versiune mai nouă este disponibilă!"
+
+msgid "You Are Using the Latest Version Available."
+msgstr "Utilizezi cea mai recentă versiune disponibilă."
+
+msgid "You Are Using a Development Version."
+msgstr "Utilizezi o versiune de dezvoltare."
+
+msgid "Who is the Parent?"
+msgstr "Cine este părintele?"
+
+msgid "The Tree Root"
+msgstr "Rădăcina copacului"
+
+msgid "The Selected Node"
+msgstr "Nodul selectat"
 
 msgid "Rename"
 msgstr "Redenumește"
@@ -122,9 +180,6 @@ msgstr "Imagine PNG"
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Scrierea pe %s a eșuat"
-
-msgid "Insert/Edit Link"
-msgstr "Inserează/Editează link"
 
 #, c-format
 msgid "The Folder Link '%s' is Not Valid."
@@ -167,9 +222,6 @@ msgstr ""
 msgid "Edit Table Properties"
 msgstr "Editează proprietăți tabel"
 
-msgid "CSV File"
-msgstr "Fișier CSV"
-
 msgid "Insert Anchor"
 msgstr "Inserează ancoră"
 
@@ -182,282 +234,89 @@ msgstr "Fișierul integrat nu se poate edita în nodul ce permite doar citirea."
 msgid "Embedded File Automatically Updated:"
 msgstr "Fișier încorporat actualizat automat:"
 
-msgid "To WebSite"
-msgstr "Către site"
-
-msgid "To File"
-msgstr "Către fișier"
-
-msgid "To Folder"
-msgstr "Către director"
-
-msgid "To Node"
-msgstr "Către nod"
-
-msgid "Anchor Name (optional)"
-msgstr "Nume ancoră (opțional)"
-
 msgid "No Node is Selected"
 msgstr "Niciun nod nu este selectat"
 
-msgid "There are No Anchors in the Selected Node."
-msgstr "Nu se află nicio ancoră în nodul selectat."
+msgid "The Tree is Empty!"
+msgstr "Copacul este gol!"
 
-msgid "Choose Existing Anchor"
-msgstr "Alege ancoră existentă"
+msgid "The Selected Node is Read Only."
+msgstr "Nodul selectat este în modul doar citire."
 
-msgid "Anchor Name"
-msgstr "Nume ancoră"
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Această caracteristică este disponibilă doar în noduri cu text bogat."
 
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Modelul '%s' nu a fost găsit"
-
-msgid "Show White Spaces"
-msgstr "Indică spații albe"
-
-msgid "Highlight Current Line"
-msgstr "Subliniază linia curentă"
-
-msgid "Highlight Matching Brackets"
-msgstr "Subliniază paranteze identice"
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr "Solicită confirmare înainte de a lansa codul"
-
-msgid "Use Internal Terminal"
-msgstr "Utilizați terminalul intern"
-
-msgid "Internal Terminal Shell"
-msgstr "Suprafață Terminal Intern"
-
-msgid "Add"
-msgstr "Adaugă"
-
-msgid "Remove Selected"
-msgstr "Elimină selecția"
-
-msgid "Command per Node/CodeBox Type"
-msgstr "Comandă pe nod/tip CodeBox"
-
-msgid "Terminal Command"
-msgstr "Comandă terminal"
-
-msgid "Code Execution"
-msgstr "Implementare cod"
-
-msgid "Select Element to Add"
-msgstr "Selectează elementul pentru adăugare"
-
-msgid "Remove"
-msgstr "Șterge"
-
-msgid "Remove User Colour from Palette"
-msgstr "Elimină culoarea utilizatorului din paletă"
-
-msgid "Colour"
-msgstr "Culoare"
-
-msgid "Question"
-msgstr "Întrebare"
-
-msgid "Info"
-msgstr "Informații"
-
-msgid "Warning"
-msgstr "Atenție"
-
-msgid "Error"
-msgstr "Eroare"
-
-msgid "Select File"
-msgstr "Selectează fișier"
-
-msgid "Select Folder"
-msgstr "Selectează director"
-
-msgid "Save File as"
-msgstr "Save file as"
-
-msgid "Save To Folder"
-msgstr "Salvează în director"
-
-msgid "Downloading"
-msgstr "Se descarcă"
-
-msgid "Show Menubar:"
-msgstr "Arată bara de status:"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Calea %s nu există"
-
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" nu este un fișier CherryTree"
-
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
 msgstr ""
-"Eroare la analizarea căii CherryTree: \n"
-" \"%s\""
+"Această caracteristică nu este disponibilă în noduri cu subliniere a "
+"sintaxei automata."
 
-msgid "Do you want to Open the Last Backup?"
-msgstr "Dorești să deschizi ultima salvare de siguranță?"
+msgid "No Table is Selected."
+msgstr "Niciun text nu a fost selectat."
 
-msgid "Failed to Load from Backup Data"
-msgstr "Eroare la încărcarea datelor din salvarea de siguranță"
+msgid "No CodeBox is Selected."
+msgstr "Niciun CodeBox nu a fost selectat."
 
-#, c-format
-msgid "No node named '%s' found."
-msgstr "Niciun nod numit '%s' nu a fost găsit."
+msgid "New Child Node Properties"
+msgstr "Proprietăți nod copil nou"
 
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Fișiere temporare au fost create și deschise cu aplicații externe."
+msgid "New Node Properties"
+msgstr "Proprietăți nod nou"
 
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Părăsește aplicațiile externe înainte de a părăsi CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Ai părăsit aplicațiile externe?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr ""
-"Documentul a fost reîncărcat după actualizarea externă către fișierul CT*."
-
-msgid "Execute Code"
-msgstr "Execută cod"
-
-msgid "Copy Code"
-msgstr "Copiază cod"
-
-msgid "Change CodeBox Properties"
-msgstr "Schimbă proprietăți CodeBox"
-
-msgid "Search for"
-msgstr "Caută"
-
-msgid "Replace with"
-msgstr "Înlocuiește cu"
-
-msgid "Match Case"
-msgstr "Potrivește caz"
-
-msgid "Regular Expression"
-msgstr "Expresie obișnuită"
-
-msgid "Accent Insensitive"
-msgstr "Accent insensibil"
-
-msgid "Override Exclusions"
-msgstr "Treci peste omiteri"
-
-msgid "Whole Word"
-msgstr "Cuvânt complet"
-
-msgid "Start Word"
-msgstr "Cuvânt de început"
-
-msgid "More Words, Exact Match"
-msgstr "Mai multe cuvinte, potrivire exactă"
-
-msgid "More Words, Disregard Order"
-msgstr "Mai multe cuvinte, fără respectarea ordinii"
-
-msgid "More Words, Match Any"
-msgstr "Mai multe cuvinte, potriviți oricare"
-
-msgid "Forward"
-msgstr "Înainte"
-
-msgid "Backward"
-msgstr "Înapoi"
-
-msgid "All, List Matches"
-msgstr "Toate, Potriviri listă"
-
-msgid "First From Selection"
-msgstr "Prima din selecție"
-
-msgid "First in All Range"
-msgstr "Prima din toată raza"
-
-msgid "Node Created After"
-msgstr "Nod creat după"
-
-msgid "Node Created Before"
-msgstr "Nod creat înainte"
-
-msgid "Node Modified After"
-msgstr "Nod modificat după"
-
-msgid "Node Modified Before"
-msgstr "Nod modificat înainte"
-
-msgid "Time filter"
-msgstr "Filtru timp"
-
-msgid "Node Content"
-msgstr "Conținut nod"
-
-msgid "Node Name and Tags"
-msgstr "Nume și etichete nod"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Doar nodul si subnoduri selectate"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Afișează descoperire iterată/Înlocuiește meniu"
-
-msgid "Search options"
-msgstr "Opțiuni căutare"
+msgid "Node Properties"
+msgstr "Proprietăți nod"
 
 msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
 msgstr ""
-"Cel puțin un nod a fost evitat din cauza unor reguli de excludere activate "
-"în proprietățile nodului.\n"
-"Pentru a elimina toate regulile de excludere, utilizează meniul: \n"
-"Caută -> Elimină toate regulile de excludere din căutare"
+"Schimbarea tipului de not la Subliniere Sintaxă Automată elimină formatarea "
+"RTF din acest nod în întregime. Dorești să continui?"
 
 #, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Ascunde (Restaurează cu '%s')"
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Ești sigur la <b>Șterge nodul '%s'?<b>"
 
-msgid "Node Name"
-msgstr "Nume nod"
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Acest nod <b>are copii, se vor șterge de asemenea!</b>"
 
-msgid "Line"
-msgstr "Rând"
+msgid "Select the New Parent"
+msgstr "Selectați nou părinte"
 
-msgid "Line Content"
-msgstr "Conținut rând"
+msgid "The new parent can't be the very node to move!"
+msgstr "Noul părinte nu poate să fie nodul în curs de mutare!"
 
-msgid "Matches"
-msgstr "Potriviri"
+msgid "The new chosen parent is still the old parent!"
+msgstr "Noul părinte selectat este în continuare vechiul părinte!"
 
-msgid "Iterate Latest Find/Replace"
-msgstr "Iterează ultima descoperire/Înlocuiește"
+msgid "The new parent can't be one of his children!"
+msgstr "Noul părinte nu poate să fie unul din copii săi!"
 
-msgid "Close"
-msgstr "Închide"
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s Proprietăți nod schimbate"
 
-msgid "Find Previous"
-msgstr "Găsește precedentul"
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr ""
+"Numărul nodurilor vizitate ultima dată de pe antetul cu numele nodului se "
+"află deja la valoarea maximă."
 
-msgid "Find Next"
-msgstr "Găsește următorul"
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr ""
+"Numărul nodurilor vizitate ultima dată de pe antetul cu numele nodului se "
+"află deja la valoarea minimă."
 
-msgid "Replace"
-msgstr "Înlocuiește"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr ""
+"Dimensiunea pictogramelor barei de instrumente este deja la valoarea maximă."
 
-msgid "Undo"
-msgstr "Revino"
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr ""
+"Dimensiunea pictogramelor barei de instrumente este deja la valoarea minima."
 
 msgid "Print CherryTree version"
 msgstr "Printează versiune CherryTree"
@@ -494,395 +353,44 @@ msgstr ""
 "Inițializează în sesiune secundară, în mod independent față de sesiunea "
 "principală"
 
-msgid "Could not access the executables 'latex' and 'dvipng'"
-msgstr "Nu s-au putut accesa executabilele 'latex' și 'dvipng'"
+msgid "Execute Code"
+msgstr "Execută cod"
 
-msgid "For example, on Ubuntu the packages to install are:"
-msgstr "De exemplu, pe Ubuntu pachetele de instalat sunt:"
+msgid "Copy Code"
+msgstr "Copiază cod"
 
-msgid "For example, on macOS the packages to install are:"
-msgstr "De exemplu, pe Mac OS pachetele de instalat sunt:"
+msgid "Change CodeBox Properties"
+msgstr "Schimbă proprietăți CodeBox"
 
-msgid "Could not access the executable 'latex'"
-msgstr "Nu s-a putut accesa executabilul 'latex'"
+msgid "Start in CherryTree"
+msgstr "Pornește în CherryTree"
 
-msgid "Could not access the executable 'dvipng'"
-msgstr "Nu s-a putut accesa executabilul 'dvipng'"
+msgid "New Document"
+msgstr "Document nou"
 
-msgid "CherryTree File"
-msgstr "Fișier CherryTree"
+msgid "Open File"
+msgstr "Deschide fișier"
 
-msgid ""
-"The file/folder in use cannot be overwritten!\n"
-"Please use a different name or location."
-msgstr ""
-"Fișierul/directorul utilizat nu se poate suprascrie!\n"
-"Te rog să utilizezi un nume sau locație diferită."
+msgid "Open Folder"
+msgstr "Deschide director"
 
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
-msgstr ""
-"Un director '%s' există deja în '%s'.\n"
-"<b>Doriți să îl înlocuiți?</b>"
+msgid "Create a new document or open an existing one."
+msgstr "Creează un document nou sau deschide unul existent."
 
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
-msgstr ""
-"Un director '%s' există deja în '%s'.\n"
-"<b>Doriți să îl înlocuiți?</b>"
+msgid "Don't show again"
+msgstr "Nu mai afișa din nou"
 
-msgid "PDF File"
-msgstr "Fișier PDF"
+msgid "Recent Documents"
+msgstr "Documente recente"
 
-msgid "Plain Text Document"
-msgstr "Document Plain Text"
+msgid "Name"
+msgstr "Nume"
 
-msgid "Light Background, Dark Text"
-msgstr "Fundal deschis, text întunecat la culoare"
+msgid "Path"
+msgstr "Cale"
 
-msgid "Dark Background, Light Text"
-msgstr "Fundal închis, text deschis la culoare"
-
-msgid "Custom Background"
-msgstr "Fundal ajustabil"
-
-msgid "Text"
-msgstr "Text"
-
-msgid "Selection Background"
-msgstr "Fundal selecție"
-
-msgid "Tree Explorer"
-msgstr "Explorator de arbore"
-
-msgid "Rich Text"
-msgstr "Text bogat"
-
-msgid "Plain Text"
-msgstr "Text simplu"
-
-msgid "Table"
-msgstr "Tabel"
-
-msgid "Code"
-msgstr "Cod"
-
-msgid "Style Schemes"
-msgstr "Scheme stil"
-
-msgid "Text Foreground"
-msgstr "Suprafață text"
-
-msgid "Text Background"
-msgstr "Fundal text"
-
-msgid "Selection Foreground"
-msgstr "Suprafață selecție"
-
-msgid "Cursor"
-msgstr "Cursor"
-
-msgid "Current Line Background"
-msgstr "Fundal linie curentă"
-
-msgid "Line Numbers Foreground"
-msgstr "Număr rânduri prim-plan"
-
-msgid "Line Numbers Background"
-msgstr "Număr rânduri fundal"
-
-msgid "Style Scheme Editor"
-msgstr "Editor al stilului de schemă"
-
-msgid "Set Dark Theme Icons"
-msgstr "Aplică pictograme pentru tema întunecată"
-
-msgid "Set Light Theme Icons"
-msgstr "Aplică pictograme temă luminată"
-
-msgid "Set Default Icons"
-msgstr "Aplică pictograme implicite"
-
-msgid "Icon Theme"
-msgstr "Temă pictograme"
-
-msgid "Autosave Every"
-msgstr "Autosalvează fiecare"
-
-msgid "Minutes"
-msgstr "Minute"
-
-msgid "Autosave on Quit"
-msgstr "Autosalvează la ieșire"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "Creează o copie backup înainte de a salva"
-
-msgid "Number of Backups to Keep"
-msgstr "Număr de copii backup pentru păstrat"
-
-msgid "Custom Backup Directory"
-msgstr "Director pentru backup ajustabil"
-
-msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Locație stocare multiplă, Utilizează numele integrat de pe disk"
-
-msgid "Saving"
-msgstr "Salvează"
-
-msgid "Automatically Check for Newer Version"
-msgstr "Verifică pentru versiuni mai noi în mod automat"
-
-msgid "Reload Document From Last Session"
-msgstr "Reîncarcă document din ultima sesiune"
-
-msgid "Reload After External Update to CT* File"
-msgstr "Reîncarcă după actualizare externă a fișierului CT*"
-
-msgid "Enable Debug Log"
-msgstr "Activare jurnal depanare"
-
-msgid "Debug Log Directory"
-msgstr "Director jurnal depanare"
-
-msgid "Enable System Tray Docking"
-msgstr "Activare andocare tavă sistem"
-
-msgid "Start Minimized in the System Tray"
-msgstr "Pornește minimizat în System Tray"
-
-msgid "System Tray"
-msgstr "System Tray"
-
-msgid "Language"
-msgstr "Limbă"
-
-msgid "URL"
-msgstr "URL"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Username"
-msgstr "Utilizator"
-
-msgid "Password"
-msgstr "Parolă"
-
-msgid "Proxy"
-msgstr "Proxy"
-
-msgid "Has the System Tray appeared on the panel?"
-msgstr "A apărut tava de sistem pe panou?"
-
-msgid "Your system does not support the System Tray"
-msgstr "Sistemul tău nu este compatibil cu System Tray"
-
-msgid "Latex Text"
-msgstr "Text latex"
-
-msgid "Image Size dpi"
-msgstr "Mărimea imaginii dpi"
-
-msgid "Tutorial"
-msgstr "Tutorial"
-
-msgid "Reference"
-msgstr "Referințe"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "Tutorial ecuații și matematică LaTeX"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "Referințe simboluri matematice LaTeX"
-
-msgid "Image Properties"
-msgstr "Proprietăți imagine"
-
-msgid "Rotate Left"
-msgstr "Rotește stânga"
-
-msgid "Rotate Right"
-msgstr "Rotește dreapta"
-
-msgid ""
-"In order to crop the image, select the area with the mouse before clicking OK"
-msgstr ""
-"Pentru a tăia imaginea, selectează zona folosind cursorul înainte de a apăsa "
-"OK"
-
-msgid "Flip Horizontally"
-msgstr "Mută pe orizontală"
-
-msgid "Flip Vertically"
-msgstr "Rotește pe verticală"
-
-msgid "Width"
-msgstr "Lățime"
-
-msgid "Height"
-msgstr "Înălțime"
-
-msgid "Automatic Syntax Highlighting"
-msgstr "Subliniere sintaxă automată"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "pixels"
-msgstr "pixeli"
-
-msgid "Size"
-msgstr "Mărime"
-
-msgid "Options"
-msgstr "Opțiuni"
-
-msgid "Rows"
-msgstr "Rânduri"
-
-msgid "Columns"
-msgstr "Coloane"
-
-msgid "Default Width"
-msgstr "Lățime de bază"
-
-msgid "Table Size"
-msgstr "Mărime tabel"
-
-msgid "Column Properties"
-msgstr "Proprietăți coloană"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Interfață Simplificată (mult mai rapidă pentru tabele mari)"
-
-msgid "Import from CSV File"
-msgstr "Importă din fișier CSV"
-
-msgid "Change Selected"
-msgstr "Schimbă cele selectate"
-
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "Scurtătura de tastatură '%s' se află deja în funcțiune."
-
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Acțiunea curentă asociată este '%s'"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Dorești să furi scurtătura?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Editează scurtătura de tastatură"
-
-msgid "No Keyboard Shortcut"
-msgstr "Nicio scurtătură de tastatură"
-
-msgid "Who is the Parent?"
-msgstr "Cine este părintele?"
-
-msgid "The Tree Root"
-msgstr "Rădăcina copacului"
-
-msgid "The Selected Node"
-msgstr "Nodul selectat"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "Deschide un document CherryTree recent"
-
-msgid "_Hide"
-msgstr "_Ascunde"
-
-msgid "_Quit"
-msgstr "_Abandonează"
-
-msgid "Hide the Window"
-msgstr "Ascunde fereastra"
-
-msgid "Quit the Application"
-msgstr "Părăsește aplicația"
-
-msgid "Node Type"
-msgstr "Tip nod"
-
-msgid ": "
-msgstr ": "
-
-msgid "Tags"
-msgstr "Etichete"
-
-msgid "Spell Check"
-msgstr "Corectură"
-
-msgid "Word Count"
-msgstr "Numărare cuvinte"
-
-msgid "Date Created"
-msgstr "Creat în data"
-
-msgid "Date Modified"
-msgstr "Dată modificare"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Nicio copiere de nod anterioară nu a fost executată în timpul acestei "
-"sesiuni sau sursa nu mai este disponibilă."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "Sursa nodului nu mai este disponibilă."
-
-msgid "Copy Selection or All"
-msgstr "Copiază selecția sau totul"
-
-msgid "Paste"
-msgstr "Lipește"
-
-msgid "Reset"
-msgstr "Resetează"
-
-msgid "Split Toolbar"
-msgstr "Împarte bara de unelte"
-
-msgid "Open a CherryTree File"
-msgstr "Deschide un fișier CherryTree"
-
-msgid "Image Format Not Recognized"
-msgstr "Tipul de imagine nu este recunoscut"
-
-msgid "Insert Table"
-msgstr "Inserează tabel"
-
-msgid "Insert a CodeBox"
-msgstr "Inserează un CodeBox"
-
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB."
-msgstr "Dimensiunea maximă pentru fișierele încorporate este de %s MB."
-
-msgid "Do you want to Continue?"
-msgstr "Dorești să continui?"
-
-msgid "Special Characters"
-msgstr "Caractere speciale"
-
-msgid "Tabs Replaced"
-msgstr "File înlocuite"
-
-msgid "Lines Stripped"
-msgstr "Rânduri goale"
-
-msgid "No Text is Selected."
-msgstr "Niciun text nu a fost selectat."
-
-msgid "A Restore From Backup Was Necessary For:"
-msgstr "O restaurare din salvarea de siguranță a fost necesară pentru:"
+msgid "Open Selected"
+msgstr "Deschide selecția"
 
 msgid "Handle the Bookmarks List"
 msgstr "Manevrează lista cu marcaje"
@@ -940,11 +448,20 @@ msgstr ""
 msgid "Enter the New Password Twice"
 msgstr "Introduceți noua parolă de două ori"
 
+msgid "Autosave Every"
+msgstr "Autosalvează fiecare"
+
+msgid "Minutes"
+msgstr "Minute"
+
 msgid "The Password Fields Must be Filled."
 msgstr "Câmpurile parolă trebuie să fie completate."
 
 msgid "The Two Inserted Passwords Do Not Match."
 msgstr "Cele două parole inserate nu se potrivesc."
+
+msgid "Warning"
+msgstr "Atenție"
 
 msgid "The Current Document was Updated."
 msgstr "Documentul curent a fost actualizat."
@@ -954,6 +471,12 @@ msgstr "Dorești să salvezi schimbările?"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Dorești sa lansezi codul?"
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr "Solicită confirmare înainte de a lansa codul"
+
+msgid "Use Internal Terminal"
+msgstr "Utilizați terminalul intern"
 
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
@@ -1118,209 +641,295 @@ msgstr "Număr de ancore"
 msgid "Number of Shared Nodes / Groups"
 msgstr "Număr de noduri comune / Grupuri"
 
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr ""
-"Atenție: Una sau mai multe imagini au fost ajustate pentru a se potrivi pe "
-"pagină!"
+msgid "Latex Text"
+msgstr "Text latex"
+
+msgid "Image Size dpi"
+msgstr "Mărimea imaginii dpi"
+
+msgid "Tutorial"
+msgstr "Tutorial"
+
+msgid "Reference"
+msgstr "Referințe"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "Tutorial ecuații și matematică LaTeX"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "Referințe simboluri matematice LaTeX"
+
+msgid "Image Properties"
+msgstr "Proprietăți imagine"
+
+msgid "Rotate Left"
+msgstr "Rotește stânga"
+
+msgid "Rotate Right"
+msgstr "Rotește dreapta"
 
 msgid ""
-"The Number of Last Visited Nodes on Node Name Header is already at the "
-"Maximum Value."
+"In order to crop the image, select the area with the mouse before clicking OK"
 msgstr ""
-"Numărul nodurilor vizitate ultima dată de pe antetul cu numele nodului se "
-"află deja la valoarea maximă."
+"Pentru a tăia imaginea, selectează zona folosind cursorul înainte de a apăsa "
+"OK"
+
+msgid "Flip Horizontally"
+msgstr "Mută pe orizontală"
+
+msgid "Flip Vertically"
+msgstr "Rotește pe verticală"
+
+msgid "Width"
+msgstr "Lățime"
+
+msgid "Height"
+msgstr "Înălțime"
+
+msgid "Plain Text"
+msgstr "Text simplu"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Subliniere sintaxă automată"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "pixels"
+msgstr "pixeli"
+
+msgid "Size"
+msgstr "Mărime"
+
+msgid "Show Line Numbers"
+msgstr "Afișează număr rând"
+
+msgid "Highlight Matching Brackets"
+msgstr "Subliniază paranteze identice"
+
+msgid "Options"
+msgstr "Opțiuni"
+
+msgid "Rows"
+msgstr "Rânduri"
+
+msgid "Columns"
+msgstr "Coloane"
+
+msgid "Default Width"
+msgstr "Lățime de bază"
+
+msgid "Table Size"
+msgstr "Mărime tabel"
+
+msgid "Column Properties"
+msgstr "Proprietăți coloană"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Interfață Simplificată (mult mai rapidă pentru tabele mari)"
+
+msgid "Import from CSV File"
+msgstr "Importă din fișier CSV"
+
+msgid "Clear"
+msgstr "Șterge"
+
+msgid "Reset"
+msgstr "Resetează"
+
+msgid "Search for"
+msgstr "Caută"
+
+msgid "Replace with"
+msgstr "Înlocuiește cu"
+
+msgid "Replace in Link Targets"
+msgstr "Înlocuiește în destinațiile linkurilor"
+
+msgid "Replace options"
+msgstr "Opțiuni înlocuire"
+
+msgid "Match Case"
+msgstr "Potrivește caz"
+
+msgid "Regular Expression"
+msgstr "Expresie obișnuită"
+
+msgid "Online Manual"
+msgstr "Manual online"
+
+msgid "Accent Insensitive"
+msgstr "Accent insensibil"
+
+msgid "Override Exclusions"
+msgstr "Treci peste omiteri"
+
+msgid "Whole Word"
+msgstr "Cuvânt complet"
+
+msgid "Start Word"
+msgstr "Cuvânt de început"
+
+msgid "More Words, Exact Match"
+msgstr "Mai multe cuvinte, potrivire exactă"
+
+msgid "More Words, Disregard Order"
+msgstr "Mai multe cuvinte, fără respectarea ordinii"
+
+msgid "More Words, Match Any"
+msgstr "Mai multe cuvinte, potriviți oricare"
+
+msgid "Forward"
+msgstr "Înainte"
+
+msgid "Backward"
+msgstr "Înapoi"
+
+msgid "All, List Matches"
+msgstr "Toate, Potriviri listă"
+
+msgid "First From Selection"
+msgstr "Prima din selecție"
+
+msgid "First in All Range"
+msgstr "Prima din toată raza"
+
+msgid "Node Created After"
+msgstr "Nod creat după"
+
+msgid "Node Created Before"
+msgstr "Nod creat înainte"
+
+msgid "Node Modified After"
+msgstr "Nod modificat după"
+
+msgid "Node Modified Before"
+msgstr "Nod modificat înainte"
+
+msgid "Time filter"
+msgstr "Filtru timp"
+
+msgid "Node Content"
+msgstr "Conținut nod"
+
+msgid "Node Name and Tags"
+msgstr "Nume și etichete nod"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Doar nodul si subnoduri selectate"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Afișează descoperire iterată/Înlocuiește meniu"
+
+msgid "Search options"
+msgstr "Opțiuni căutare"
 
 msgid ""
-"The Number of Last Visited Nodes on Node Name Header is already at the "
-"Minimum Value."
+"The Replace field is empty: all found occurrences will be erased.\n"
+"Do you want to continue?"
 msgstr ""
-"Numărul nodurilor vizitate ultima dată de pe antetul cu numele nodului se "
-"află deja la valoarea minimă."
+"Câmpul „Înlocuiește” este gol: toate aparițiile găsite vor fi șterse.\n"
+"Doriți să continuați?"
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
 msgstr ""
-"Dimensiunea pictogramelor barei de instrumente este deja la valoarea maximă."
-
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr ""
-"Dimensiunea pictogramelor barei de instrumente este deja la valoarea minima."
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr "Această modificare va avea efect doar după reinițializarea CherryTree."
-
-msgid "Remove from list"
-msgstr "Elimină din listă"
-
-msgid "The new parent can't be one of his children!"
-msgstr "Noul părinte nu poate să fie unul din copii săi!"
-
-msgid "Checking for Newer Version..."
-msgstr "Se caută versiuni mai noi..."
-
-msgid "Failed to Retrieve Latest Version Information - Try Again Later."
-msgstr ""
-"Căutaera de informații pentru versiuni recente a eșuat - Încearcă mai târziu."
-
-msgid "A Newer Version Is Available!"
-msgstr "O versiune mai nouă este disponibilă!"
-
-msgid "You Are Using the Latest Version Available."
-msgstr "Utilizezi cea mai recentă versiune disponibilă."
-
-msgid "You Are Using a Development Version."
-msgstr "Utilizezi o versiune de dezvoltare."
-
-msgid "Replace in Current Node"
-msgstr "Înlocuiți în Nodul Curent"
-
-msgid "Search in Current Node"
-msgstr "Căutați în Nodul Curent"
+"Cel puțin un nod a fost evitat din cauza unor reguli de excludere activate "
+"în proprietățile nodului.\n"
+"Pentru a elimina toate regulile de excludere, utilizează meniul: \n"
+"Caută -> Elimină toate regulile de excludere din căutare"
 
 #, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Modelul '%s' nu a fost găsit</b>"
+msgid "Hide (Restore with '%s')"
+msgstr "Ascunde (Restaurează cu '%s')"
 
-msgid "Replace in Multiple Nodes"
-msgstr "Înlocuiește în mai multe noduri"
+msgid "Node Name"
+msgstr "Nume nod"
 
-msgid "Search in Multiple Nodes"
-msgstr "Caută în mai multe noduri"
+msgid "Line"
+msgstr "Rând"
 
-msgid "No Previous Search Was Performed During This Session."
-msgstr ""
-"Nicio căutare anterioară nu a fost executată în timpul acestei sesiuni."
+msgid "Line Content"
+msgstr "Conținut rând"
 
-msgid "Preferences"
-msgstr "Preferințe"
+msgid "Iterate Latest Find/Replace"
+msgstr "Iterează ultima descoperire/Înlocuiește"
 
-msgid "English"
-msgstr "Engleză"
+msgid "Close"
+msgstr "Închide"
 
-msgid "Text and Code"
-msgstr "Text și cod"
+msgid "Find Previous"
+msgstr "Găsește precedentul"
 
-msgid "Format"
-msgstr "Formatează"
+msgid "Find Next"
+msgstr "Găsește următorul"
 
-msgid "Plain Text and Code"
-msgstr "Text simplu și cod"
+msgid "Replace"
+msgstr "Înlocuiește"
 
-msgid "Theme"
-msgstr "Temă"
+msgid "Undo"
+msgstr "Revino"
 
-msgid "Interface"
-msgstr "Interfață"
+msgid "Remove"
+msgstr "Șterge"
 
-msgid "Links"
-msgstr "Linkuri"
+msgid "Remove User Colour from Palette"
+msgstr "Elimină culoarea utilizatorului din paletă"
 
-msgid "Toolbar"
-msgstr "Bar unelte"
+msgid "Colour"
+msgstr "Culoare"
 
-msgid "Keyboard Shortcuts"
-msgstr "Scurtături tastatură"
+msgid "Question"
+msgstr "Întrebare"
 
-msgid "Monospace"
-msgstr "Monospațiu"
+msgid "Info"
+msgstr "Informații"
 
-msgid "Code Font"
-msgstr "Font cod"
+msgid "Error"
+msgstr "Eroare"
 
-msgid "Terminal Font"
-msgstr "Font terminal"
+msgid "Select File"
+msgstr "Selectează fișier"
 
-msgid "Tree Font"
-msgstr "Font arbore"
+msgid "Select Folder"
+msgstr "Selectează director"
 
-msgid "Fonts"
-msgstr "Fonturi"
+msgid "Save File as"
+msgstr "Save file as"
 
-msgid "Enable Word Count in Statusbar"
-msgstr "Activează numărătoarea de cuvinte în bara status"
+msgid "Save To Folder"
+msgstr "Salvează în director"
 
-msgid "Show the Document Directory in the Window Title"
-msgstr "Afișează directorul de documente în titlul ferestrei"
+msgid "To WebSite"
+msgstr "Către site"
 
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Arată cale întreagă în antetul de nume pentru nod"
+msgid "To File"
+msgstr "Către fișier"
 
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Meniu marcaje dedicate în bara de meniu"
+msgid "To Folder"
+msgstr "Către director"
 
-msgid "Menubar in Titlebar"
-msgstr "Bara de meniu in bara de titlu"
+msgid "To Node"
+msgstr "Către nod"
 
-msgid "Toolbar Icons Size"
-msgstr "Mărimea pictogramelor din bara de unelte"
+msgid "Anchor Name (optional)"
+msgstr "Nume ancoră (opțional)"
 
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Ultimele noduri vizitate pe antetul cu nume de noduri"
+msgid "There are No Anchors in the Selected Node."
+msgstr "Nu se află nicio ancoră în nodul selectat."
 
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Mărime minimă slider scrollbar (0 = Valoare implicită)"
+msgid "Choose Existing Anchor"
+msgstr "Alege ancoră existentă"
 
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Editor text supra-meniu scrollbar"
+msgid "Anchor Name"
+msgstr "Nume ancoră"
 
-msgid "Yes"
-msgstr "Da"
-
-msgid "No"
-msgstr "Nu"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Activează ajutor unelte la survolare"
-
-msgid "Tree"
-msgstr "Arbore"
-
-msgid "Menus"
-msgstr "Meniuri"
-
-msgid "Max Search Results per Page"
-msgstr "Număr maxim rezultate per pagină"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Activează acțiune ajustabilă pentru click de tip link web"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Activează acțiune ajustabilă pentru click de tip link fișier"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Activează acțiune ajustabilă pentru click de tip link director"
-
-msgid "Custom Actions"
-msgstr "Acțiuni ajustabile"
-
-msgid "Colors"
-msgstr "Culori"
-
-msgid "Double Click for Link Action"
-msgstr "Dublu click pentru acțiune link"
-
-msgid "Underline Links"
-msgstr "Subliniază linkuri"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Utilizează căi relative pentru fișiere și directoare"
-
-msgid "Anchor Size"
-msgstr "Mărime ancoră"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Luarea notelor ierarhice CherryTree"
-
-msgid "Show/Hide _CherryTree"
-msgstr "Afișează/Ascunde _CherryTree"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Activează Afișare/Ascundere CherryTree"
-
-msgid "_Exit CherryTree"
-msgstr "_Ieșire CherryTree"
-
-msgid "Exit from CherryTree"
-msgstr "Ieșire din CherryTree"
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Modelul '%s' nu a fost găsit"
 
 msgid "Bold"
 msgstr "Îngroașă"
@@ -1330,6 +939,12 @@ msgstr "Utilizează culoarea selectată"
 
 msgid "Use Selected Icon"
 msgstr "Utilizează pictograma selectată"
+
+msgid "Rich Text"
+msgstr "Text bogat"
+
+msgid "Node Type"
+msgstr "Tip nod"
 
 msgid "Tags for Searching"
 msgstr "Etichete pentru căutare"
@@ -1394,232 +1009,138 @@ msgstr "Fișier singular"
 msgid "Index"
 msgstr "Cuprins"
 
-msgid "The Tree is Empty!"
-msgstr "Copacul este gol!"
-
-msgid "The Selected Node is Read Only."
-msgstr "Nodul selectat este în modul doar citire."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Această caracteristică este disponibilă doar în noduri cu text bogat."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
 msgstr ""
-"Această caracteristică nu este disponibilă în noduri cu subliniere a "
-"sintaxei automata."
+"Atenție: Una sau mai multe imagini au fost ajustate pentru a se potrivi pe "
+"pagină!"
 
-msgid "No Table is Selected."
-msgstr "Niciun text nu a fost selectat."
+msgid "LaTeX rendering was blocked for security reasons"
+msgstr "Randarea LaTeX a fost blocată din motive de securitate"
 
-msgid "No CodeBox is Selected."
-msgstr "Niciun CodeBox nu a fost selectat."
-
-msgid "New Child Node Properties"
-msgstr "Proprietăți nod copil nou"
-
-msgid "New Node Properties"
-msgstr "Proprietăți nod nou"
-
-msgid "Node Properties"
-msgstr "Proprietăți nod"
+msgid "The source contains file I/O commands that can access local files"
+msgstr ""
+"Sursa conține comenzi de intrare/ieșire fișiere (file I/O) care pot accesa "
+"fișiere locale"
 
 msgid ""
-"Changing the node type to Automatic Syntax Highlighting removes all rich "
-"text formatting in this node. Do you want to Continue?"
+"Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
+"\\input/\\include paths"
 msgstr ""
-"Schimbarea tipului de not la Subliniere Sintaxă Automată elimină formatarea "
-"RTF din acest nod în întregime. Dorești să continui?"
+"Elimină comenzile precum \\verbatiminput, \\openin, \\openout și căile "
+"nesigure din \\input / \\include căi"
+
+msgid "Could not access the executables 'latex' and 'dvipng'"
+msgstr "Nu s-au putut accesa executabilele 'latex' și 'dvipng'"
+
+msgid "For example, on Ubuntu the packages to install are:"
+msgstr "De exemplu, pe Ubuntu pachetele de instalat sunt:"
+
+msgid "For example, on macOS the packages to install are:"
+msgstr "De exemplu, pe Mac OS pachetele de instalat sunt:"
+
+msgid "Could not access the executable 'latex'"
+msgstr "Nu s-a putut accesa executabilul 'latex'"
+
+msgid "Could not access the executable 'dvipng'"
+msgstr "Nu s-a putut accesa executabilul 'dvipng'"
+
+msgid "Downloading"
+msgstr "Se descarcă"
 
 #, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Ești sigur la <b>Șterge nodul '%s'?<b>"
+msgid "The Path %s does Not Exist"
+msgstr "Calea %s nu există"
 
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Acest nod <b>are copii, se vor șterge de asemenea!</b>"
+msgid "Open a Recent CherryTree Document"
+msgstr "Deschide un document CherryTree recent"
 
-msgid "Select the New Parent"
-msgstr "Selectați nou părinte"
+msgid "_Hide"
+msgstr "_Ascunde"
 
-msgid "The new parent can't be the very node to move!"
-msgstr "Noul părinte nu poate să fie nodul în curs de mutare!"
+msgid "_Quit"
+msgstr "_Abandonează"
 
-msgid "The new chosen parent is still the old parent!"
-msgstr "Noul părinte selectat este în continuare vechiul părinte!"
+msgid "Hide the Window"
+msgstr "Ascunde fereastra"
 
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s Proprietăți nod schimbate"
+msgid "Quit the Application"
+msgstr "Părăsește aplicația"
 
-#, c-format
-msgid "'%s' is Not a Valid Archive"
-msgstr "'%s' nu este o arhivă validă"
+msgid "Spell Check"
+msgstr "Corectură"
 
-msgid "Writing to Disk..."
-msgstr "Se scrie pe disk..."
+msgid "Word Count"
+msgstr "Numărare cuvinte"
 
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Nu ai acces pentru scriere la %s"
+msgid "Date Created"
+msgstr "Creat în data"
 
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Introdu parola pentru %s"
+msgid "Date Modified"
+msgstr "Dată modificare"
 
-msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgid "Subnodes"
+msgstr "Subnoduri"
+
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
 msgstr ""
-"Verificarea integrității documentului salvat nu a eșuat. Încercați Fișier--"
-">Salvează ca"
+"Nicio copiere de nod anterioară nu a fost executată în timpul acestei "
+"sesiuni sau sursa nu mai este disponibilă."
 
-msgid "Failed to encrypt the file"
-msgstr "Nu s-a putut cripta fișierul"
+msgid "The Source Tree Node is No Longer Available."
+msgstr "Sursa nodului nu mai este disponibilă."
 
-msgid "Chars for Bulleted List"
-msgstr "Caractere pentru lista cu marcatori"
+msgid "Show Menubar:"
+msgstr "Arată bara de status:"
 
-msgid "Chars for Todo List"
-msgstr "Caractere pentru lista cu priorități"
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" nu este un fișier CherryTree"
 
-msgid "Chars for Table Of Content"
-msgstr "Caractere pentru cuprins"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Caractere pentru citate duble inteligente"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Caractere pentru citate singulare inteligente"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Activează înlocuire automată citate inteligente"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Activează înlocuire simboluri automată"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Înlocuiri automate simboluri compatibile"
-
-msgid "Only at the Start of the Line"
-msgstr "Numai la începutul unui rând"
-
-msgid "Use Different Cherries per Level"
-msgstr "Utilizează cireșe diferite pe nivel"
-
-msgid "No Icon"
-msgstr "Nicio pictogramă"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Ascunde partea dreaptă a pictogramei auxiliare"
-
-msgid "Default Text Nodes Icons"
-msgstr "Pictograme noduri text implicite"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Restaurează status extins/restrâns"
-
-msgid "Expand all Nodes"
-msgstr "Dezvoltă toate nodurile"
-
-msgid "Collapse all Nodes"
-msgstr "Contractă toate nodurile"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Noduri în marcaje întotdeauna vizibile"
-
-msgid "Nodes Status at Startup"
-msgstr "Status noduri la pornire"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Lățime înfășurare nume noduri arbore"
-
-msgid "Display Tree on the Right Side"
-msgstr "Afișează arbore pe partea dreaptă"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Mută atenția la text printr-un click"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Dezvoltă nod printr-un click"
-
-msgid "Enable Spell Check"
-msgstr "Activează verificarea ortografică"
-
-msgid "Spell Check Language"
-msgstr "Limbă verificare ortografică"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "Dezvoltă CodeBox în mod automat"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "Codebox-urile au bară de unelte"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Număr limită pentru celulele tabelului pentru interfața simplificată"
-
-msgid "Embedded File Icon Size"
-msgstr "Mărime pictogramă fișier integrat"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "Limită mărime fișier integrat (MB)"
-
-msgid "Show File Name on Top of Embedded File Icon"
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
 msgstr ""
-"Afișează numele fișierului în partea de sus a pictogramei fișierului "
-"încorporat"
+"Eroare la analizarea căii CherryTree: \n"
+" \"%s\""
 
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Limitează numărul pașilor reparabili per nod"
+msgid "Do you want to Open the Last Backup?"
+msgstr "Dorești să deschizi ultima salvare de siguranță?"
 
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Conectați automat textul CamelCase la nodul cu același nume"
+msgid "Failed to Load from Backup Data"
+msgstr "Eroare la încărcarea datelor din salvarea de siguranță"
 
-msgid "Auto Link URLs"
-msgstr "URL-uri Auto Link"
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Niciun nod numit '%s' nu a fost găsit."
 
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "La triplu click selectează întreg apragraful"
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Fișiere temporare au fost create și deschise cu aplicații externe."
 
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Activează înlocuire automată Markdown (experimental)"
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Părăsește aplicațiile externe înainte de a părăsi CherryTree."
 
-msgid "Scale"
-msgstr "Scalează"
+msgid "Did you Quit the External Applications?"
+msgstr "Ai părăsit aplicațiile externe?"
 
-msgid "Italic"
-msgstr "Italic"
+#, c-format
+msgid "Cannot Save: \"%s\" is Read-Only"
+msgstr "Nu se poate salva: „%s” este doar în citire"
 
-msgid "Underline"
-msgstr "Subliniază"
-
-msgid "Text Color Foreground"
-msgstr "Text _culoare prim-plan"
-
-msgid "Text Color Background"
-msgstr "Text _culoare fundal"
-
-msgid "Small"
-msgstr "Mic"
-
-msgid "Scalable Tags"
-msgstr "Etichete scalabile"
-
-msgid "Preferences File"
-msgstr "Fișier Preferințe"
-
-msgid "No Previous Text Format Was Performed During This Session."
+msgid "The Document was Reloaded After External Update to CT* File."
 msgstr ""
-"Nicio formatare de text anterioară nu a fost executată în timpul acestei "
-"sesiuni."
+"Documentul a fost reîncărcat după actualizarea externă către fișierul CT*."
 
-msgid "Link Name"
-msgstr "Nume link"
+msgid "Copy Selection or All"
+msgstr "Copiază selecția sau totul"
 
-msgid "The Cursor is Not into a Paragraph."
-msgstr "Cursorul nu este în paragraf."
+msgid "Paste"
+msgstr "Lipește"
 
-msgid "Pick a Foreground Color"
-msgstr "Alege o culoare de prim plan"
-
-msgid "Pick a Background Color"
-msgstr "Alege o culoare de fundal"
+msgid "Remove from list"
+msgstr "Elimină din listă"
 
 msgid "_File"
 msgstr "_Fișier"
@@ -1717,6 +1238,9 @@ msgstr "Pornește o nouă instanță CherryTree"
 msgid "_Open File..."
 msgstr "_Deschide fișier..."
 
+msgid "Open a CherryTree File"
+msgstr "Deschide un fișier CherryTree"
+
 msgid "Open Fo_lder..."
 msgstr "_Deschide director..."
 
@@ -1753,6 +1277,9 @@ msgstr "Ti_părește..."
 msgid "Print"
 msgstr "Tipărește"
 
+msgid "Preferences"
+msgstr "Preferințe"
+
 msgid "_Import Preferences..."
 msgstr "_Importă preferințe..."
 
@@ -1776,6 +1303,9 @@ msgstr "Copiază locație document către Clipboard"
 
 msgid "E_xit CherryTree"
 msgstr "Ie_șire CherryTree"
+
+msgid "Exit from CherryTree"
+msgstr "Ieșire din CherryTree"
 
 msgid "Edit/Insert"
 msgstr "Editează/Inserează"
@@ -2134,6 +1664,9 @@ msgstr "Micșorează înălțime CodeBox"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Micșorează înălțimea CodeBox-ului"
 
+msgid "Format"
+msgstr "Formatează"
+
 msgid "Format Clo_ne"
 msgstr "Formatează clo_nează"
 
@@ -2362,6 +1895,9 @@ msgstr "L_ansează linia de cod sau selecția"
 
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Lansează cod din linia curentă sau textul selectat"
+
+msgid "Tree"
+msgstr "Arbore"
 
 msgid "Go _Back"
 msgstr "Du-te _înapoi"
@@ -2883,6 +2419,12 @@ msgstr "_Raportează o eroare"
 msgid "Report a Bug in CherryTree"
 msgstr "Raportează o eroare în CherryTree"
 
+msgid "_Donate"
+msgstr "_Donează"
+
+msgid "Donate to Support CherryTree"
+msgstr "Donează pentru a susține CherryTree"
+
 msgid "Online _Manual"
 msgstr "Manual _Online"
 
@@ -3027,6 +2569,12 @@ msgstr "_Omite link"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Omite linkul asociat cu imaginea"
 
+msgid "Show/Hide _CherryTree"
+msgstr "Afișează/Ascunde _CherryTree"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Activează Afișare/Ascundere CherryTree"
+
 msgid "Edit the Underlying Link"
 msgstr "Editează linkul sub"
 
@@ -3050,6 +2598,545 @@ msgstr "_Șterge link"
 
 msgid "Delete the Selected Link"
 msgstr "Șterge linkul selectat"
+
+msgid "English"
+msgstr "Engleză"
+
+msgid "Text and Code"
+msgstr "Text și cod"
+
+msgid "Plain Text and Code"
+msgstr "Text simplu și cod"
+
+msgid "Tree Explorer"
+msgstr "Explorator de arbore"
+
+msgid "Theme"
+msgstr "Temă"
+
+msgid "Interface"
+msgstr "Interfață"
+
+msgid "Links"
+msgstr "Linkuri"
+
+msgid "Toolbar"
+msgstr "Bar unelte"
+
+msgid "Keyboard Shortcuts"
+msgstr "Scurtături tastatură"
+
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+msgid "Monospace"
+msgstr "Monospațiu"
+
+msgid "Code Font"
+msgstr "Font cod"
+
+msgid "Terminal Font"
+msgstr "Font terminal"
+
+msgid "Tree Font"
+msgstr "Font arbore"
+
+msgid "Reset to Default"
+msgstr "Setări inițiale"
+
+msgid "Fonts"
+msgstr "Fonturi"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Activează numărătoarea de cuvinte în bara status"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Afișează directorul de documente în titlul ferestrei"
+
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Arată cale întreagă în antetul de nume pentru nod"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Meniu marcaje dedicate în bara de meniu"
+
+msgid "Menubar in Titlebar"
+msgstr "Bara de meniu in bara de titlu"
+
+msgid "Toolbar Icons Size"
+msgstr "Mărimea pictogramelor din bara de unelte"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Ultimele noduri vizitate pe antetul cu nume de noduri"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Mărime minimă slider scrollbar (0 = Valoare implicită)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Editor text supra-meniu scrollbar"
+
+msgid "System Default"
+msgstr "Setări implicite sistem"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "No"
+msgstr "Nu"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Activează ajutor unelte la survolare"
+
+msgid "Menus"
+msgstr "Meniuri"
+
+msgid "Max Search Results per Page"
+msgstr "Număr maxim rezultate per pagină"
+
+msgid "Save Search/Replace History Between Sessions"
+msgstr "Salvează istoricul de căutare/înlocuire între sesiuni"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Activează acțiune ajustabilă pentru click de tip link web"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Activează acțiune ajustabilă pentru click de tip link fișier"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Activează acțiune ajustabilă pentru click de tip link director"
+
+msgid "Custom Actions"
+msgstr "Acțiuni ajustabile"
+
+msgid "Colors"
+msgstr "Culori"
+
+msgid "Double Click for Link Action"
+msgstr "Dublu click pentru acțiune link"
+
+msgid "Underline Links"
+msgstr "Subliniază linkuri"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Utilizează căi relative pentru fișiere și directoare"
+
+msgid "Anchor Size"
+msgstr "Mărime ancoră"
+
+msgid "Change Selected"
+msgstr "Schimbă cele selectate"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "Scurtătura de tastatură '%s' se află deja în funcțiune."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Acțiunea curentă asociată este '%s'"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Dorești să furi scurtătura?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Editează scurtătura de tastatură"
+
+msgid "No Keyboard Shortcut"
+msgstr "Nicio scurtătură de tastatură"
+
+msgid "Autosave on Quit"
+msgstr "Autosalvează la ieșire"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Creează o copie backup înainte de a salva"
+
+msgid "Number of Backups to Keep"
+msgstr "Număr de copii backup pentru păstrat"
+
+msgid "Custom Backup Directory"
+msgstr "Director pentru backup ajustabil"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Locație stocare multiplă, Utilizează numele integrat de pe disk"
+
+msgid "Saving"
+msgstr "Salvează"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Verifică pentru versiuni mai noi în mod automat"
+
+msgid "Reload Document From Last Session"
+msgstr "Reîncarcă document din ultima sesiune"
+
+msgid "Show Start Dialog When No Document Is Loaded"
+msgstr "Afișează dialogul de pornire când nu este încărcat niciun document"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Reîncarcă după actualizare externă a fișierului CT*"
+
+msgid "Enable Debug Log"
+msgstr "Activare jurnal depanare"
+
+msgid "Debug Log Directory"
+msgstr "Director jurnal depanare"
+
+msgid "Enable System Tray Docking"
+msgstr "Activare andocare tavă sistem"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Pornește minimizat în System Tray"
+
+msgid "System Tray"
+msgstr "System Tray"
+
+msgid "Language"
+msgstr "Limbă"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Username"
+msgstr "Utilizator"
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "Proxy"
+msgstr "Proxy"
+
+msgid "Show White Spaces"
+msgstr "Indică spații albe"
+
+msgid "Highlight Current Line"
+msgstr "Subliniază linia curentă"
+
+msgid "Text Editor"
+msgstr "Editor text"
+
+msgid "Internal Terminal Shell"
+msgstr "Suprafață Terminal Intern"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Remove Selected"
+msgstr "Elimină selecția"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Comandă pe nod/tip CodeBox"
+
+msgid "Terminal Command"
+msgstr "Comandă terminal"
+
+msgid "Code Execution"
+msgstr "Implementare cod"
+
+msgid "Select Element to Add"
+msgstr "Selectează elementul pentru adăugare"
+
+msgid "Enable Spell Check"
+msgstr "Activează verificarea ortografică"
+
+msgid "Spell Check Language"
+msgstr "Limbă verificare ortografică"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Dezvoltă CodeBox în mod automat"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "Codebox-urile au bară de unelte"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Număr limită pentru celulele tabelului pentru interfața simplificată"
+
+msgid "Embedded File Icon Size"
+msgstr "Mărime pictogramă fișier integrat"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Limită mărime fișier integrat (MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr ""
+"Afișează numele fișierului în partea de sus a pictogramei fișierului "
+"încorporat"
+
+msgid "Do Not Auto-Select Objects on Single Click"
+msgstr "Nu selecta automat obiectele la un singur clic"
+
+msgid "Workaround for clipboard-related freezes on KDE 6 with Klipper"
+msgstr ""
+"Soluție de evitare pentru blocări legate de clipboard pe KDE 6 cu Klipper"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Limitează numărul pașilor reparabili per nod"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Conectați automat textul CamelCase la nodul cu același nume"
+
+msgid "Auto Link URLs"
+msgstr "URL-uri Auto Link"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "La triplu click selectează întreg apragraful"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Activează înlocuire automată Markdown (experimental)"
+
+msgid "Scale"
+msgstr "Scalează"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "Underline"
+msgstr "Subliniază"
+
+msgid "Text Color Foreground"
+msgstr "Text _culoare prim-plan"
+
+msgid "Text Color Background"
+msgstr "Text _culoare fundal"
+
+msgid "Small"
+msgstr "Mic"
+
+msgid "Scalable Tags"
+msgstr "Etichete scalabile"
+
+msgid "Chars for Bulleted List"
+msgstr "Caractere pentru lista cu marcatori"
+
+msgid "Chars for Todo List"
+msgstr "Caractere pentru lista cu priorități"
+
+msgid "Chars for Table Of Content"
+msgstr "Caractere pentru cuprins"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Caractere pentru citate duble inteligente"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Caractere pentru citate singulare inteligente"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Activează înlocuire automată citate inteligente"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Activează înlocuire simboluri automată"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Înlocuiri automate simboluri compatibile"
+
+msgid "Only at the Start of the Line"
+msgstr "Numai la începutul unui rând"
+
+msgid "Tab Width"
+msgstr "Lățime filă"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Inserează spații în loc de file"
+
+msgid "Use Line Wrapping"
+msgstr "Utilizează înfășurarea rândurilor"
+
+msgid "Line Wrapping Indentation"
+msgstr "Alineat la rânduri înfășurate"
+
+msgid "Enable Automatic Indentation"
+msgstr "Activează alineat automat"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Deplasare dincolo de ultimul rând"
+
+msgid "Cursor Blinking"
+msgstr "Cursorul clipește"
+
+msgid "On"
+msgstr "Pornit"
+
+msgid "Off"
+msgstr "Oprit"
+
+msgid "Text Margin: Left"
+msgstr "Margine text: Stânga"
+
+msgid "Right"
+msgstr "Dreapta"
+
+msgid "Vertical Space Around Lines"
+msgstr "Spațiu vertical în jurul rândurilor"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Spațiu vertical în rânduri înfășurate"
+
+msgid "Timestamp Format"
+msgstr "Format indice timp"
+
+msgid "Horizontal Rule"
+msgstr "Riglă orizontală"
+
+msgid "Chars to Select at Double Click"
+msgstr "Caractere de selectat la dublu click"
+
+msgid "Light Background, Dark Text"
+msgstr "Fundal deschis, text întunecat la culoare"
+
+msgid "Dark Background, Light Text"
+msgstr "Fundal închis, text deschis la culoare"
+
+msgid "Custom Background"
+msgstr "Fundal ajustabil"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Selection Background"
+msgstr "Fundal selecție"
+
+msgid "Table"
+msgstr "Tabel"
+
+msgid "Code"
+msgstr "Cod"
+
+msgid "Style Schemes"
+msgstr "Scheme stil"
+
+msgid "Text Foreground"
+msgstr "Suprafață text"
+
+msgid "Text Background"
+msgstr "Fundal text"
+
+msgid "Selection Foreground"
+msgstr "Suprafață selecție"
+
+msgid "Cursor"
+msgstr "Cursor"
+
+msgid "Current Line Background"
+msgstr "Fundal linie curentă"
+
+msgid "Line Numbers Foreground"
+msgstr "Număr rânduri prim-plan"
+
+msgid "Line Numbers Background"
+msgstr "Număr rânduri fundal"
+
+msgid "Style Scheme Editor"
+msgstr "Editor al stilului de schemă"
+
+msgid "Set Dark Theme Icons"
+msgstr "Aplică pictograme pentru tema întunecată"
+
+msgid "Set Light Theme Icons"
+msgstr "Aplică pictograme temă luminată"
+
+msgid "Set Default Icons"
+msgstr "Aplică pictograme implicite"
+
+msgid "Icon Theme"
+msgstr "Temă pictograme"
+
+msgid "Split Toolbar"
+msgstr "Împarte bara de unelte"
+
+msgid "Use Different Cherries per Level"
+msgstr "Utilizează cireșe diferite pe nivel"
+
+msgid "No Icon"
+msgstr "Nicio pictogramă"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Ascunde partea dreaptă a pictogramei auxiliare"
+
+msgid "Default Text Nodes Icons"
+msgstr "Pictograme noduri text implicite"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Restaurează status extins/restrâns"
+
+msgid "Expand all Nodes"
+msgstr "Dezvoltă toate nodurile"
+
+msgid "Collapse all Nodes"
+msgstr "Contractă toate nodurile"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Noduri în marcaje întotdeauna vizibile"
+
+msgid "Nodes Status at Startup"
+msgstr "Status noduri la pornire"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Lățime înfășurare nume noduri arbore"
+
+msgid "Display Tree on the Right Side"
+msgstr "Afișează arbore pe partea dreaptă"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Mută atenția la text printr-un click"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Dezvoltă nod printr-un click"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s' nu este o arhivă validă"
+
+msgid "Writing to Disk..."
+msgstr "Se scrie pe disk..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Nu ai acces pentru scriere la %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Introdu parola pentru %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Verificarea integrității documentului salvat nu a eșuat. Încercați Fișier--"
+">Salvează ca"
+
+msgid "Failed to encrypt the file"
+msgstr "Nu s-a putut cripta fișierul"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "O restaurare din salvarea de siguranță a fost necesară pentru:"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"Fișierul bază de date %s este corupt, verifică jurnal pentru mai multe "
+"detalii."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s scrierea a eșuat - fișierul lipsește. Reatașați memoria USB sau sursa "
+"partajată."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"%s scrierea a eșuat - este fișierul blocat de un program pentru sincronizare?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s redeschiderea a eșuat - fișierul lipsește. Reatașați memoria USB sau "
+"sursa partajată."
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Luarea notelor ierarhice CherryTree"
+
+msgid "_Exit CherryTree"
+msgstr "_Ieșire CherryTree"
 
 msgid "HTML Document"
 msgstr "Document HTML"
@@ -3193,9 +3280,6 @@ msgstr "Ești sigur de revenirea la setările originale?"
 
 #~ msgid "Replace in Nodes _Names"
 #~ msgstr "Înlocuiește în _Numele nodurilor"
-
-#~ msgid "Replace in Nodes Names"
-#~ msgstr "Înlocuiește în numele nodurilor"
 
 #~ msgid "_Execute CodeBox Code"
 #~ msgstr "_Lansează codul CodeBox"

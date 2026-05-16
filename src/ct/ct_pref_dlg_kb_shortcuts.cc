@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_kb_shortcuts.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *

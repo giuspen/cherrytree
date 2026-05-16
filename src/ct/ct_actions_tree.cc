@@ -27,6 +27,7 @@
 #include "ct_dialogs.h"
 #include "ct_clipboard.h"
 #include "ct_treestore.h"
+#include "ct_logging.h"
 #include <ctime>
 #include <gtkmm/dialog.h>
 
@@ -123,13 +124,41 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 // Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
-    Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
-    Gtk::TextIter iter_bound = iter_object;
-    iter_bound.forward_char();
-    if (dynamic_cast<CtImage*>(widget)) {
-        _pCtMainWin->get_text_view().mm().grab_focus();
+    spdlog::debug("object_set_selection enter");
+    const bool isImage = dynamic_cast<CtImage*>(widget) != nullptr;
+    Glib::RefPtr<Gtk::TextChildAnchor> anchor = widget->getTextChildAnchor();
+    if (_pCtConfig->objectNoSelOnClick) {
+        // place_cursor avoids claiming X11 PRIMARY selection via XSetSelectionOwner.
+        // On KDE 6 with Klipper, claiming PRIMARY immediately triggers a synchronous
+        // SelectionRequest that deadlocks GTK3's event loop for ~7-19 seconds.
+        Glib::signal_idle().connect_once([this, anchor, isImage](){
+            spdlog::debug("place_cursor_idle");
+            Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
+            _curr_buffer()->place_cursor(iter_object);
+            if (isImage) {
+                auto& textView = _pCtMainWin->get_text_view().mm();
+                if (not textView.has_focus()) {
+                    textView.grab_focus();
+                }
+            }
+        });
     }
-    _curr_buffer()->select_range(iter_object, iter_bound);
+    else {
+        Glib::signal_idle().connect_once([this, anchor, isImage](){
+            spdlog::debug("select_range_idle");
+            Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
+            Gtk::TextIter iter_bound = iter_object;
+            iter_bound.forward_char();
+            _curr_buffer()->select_range(iter_object, iter_bound);
+            if (isImage) {
+                auto& textView = _pCtMainWin->get_text_view().mm();
+                if (not textView.has_focus()) {
+                    textView.grab_focus();
+                }
+            }
+        });
+    }
+    spdlog::debug("object_set_selection return");
 }
 
 // Returns True if there's not a node selected or is not rich text

@@ -87,19 +87,28 @@ void CtActions::link_delete()
 
 void CtActions::anchor_cut()
 {
-    object_set_selection(curr_anchor_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_anchor_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::anchor_copy()
 {
-    object_set_selection(curr_anchor_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_anchor_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
 void CtActions::anchor_delete()
 {
-    object_set_selection(curr_anchor_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_anchor_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_anchor_anchor = nullptr;
     _pCtMainWin->get_text_view().mm().grab_focus();
@@ -121,19 +130,28 @@ void CtActions::anchor_link_to_clipboard()
 
 void CtActions::embfile_cut()
 {
-    object_set_selection(curr_file_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_file_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::embfile_copy()
 {
-    object_set_selection(curr_file_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_file_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
 void CtActions::embfile_delete()
 {
-    object_set_selection(curr_file_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_file_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_file_anchor = nullptr;
     _pCtMainWin->get_text_view().mm().grab_focus();
@@ -243,19 +261,28 @@ void CtActions::latex_edit()
 
 void CtActions::latex_cut()
 {
-    object_set_selection(curr_latex_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_latex_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::latex_copy()
 {
-    object_set_selection(curr_latex_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_latex_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
 void CtActions::latex_delete()
 {
-    object_set_selection(curr_latex_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_latex_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_latex_anchor = nullptr;
     _pCtMainWin->get_text_view().mm().grab_focus();
@@ -293,19 +320,28 @@ void CtActions::image_edit()
 
 void CtActions::image_cut()
 {
-    object_set_selection(curr_image_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::image_copy()
 {
-    object_set_selection(curr_image_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
 void CtActions::image_delete()
 {
-    object_set_selection(curr_image_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_image_anchor = nullptr;
     _pCtMainWin->get_text_view().mm().grab_focus();
@@ -448,14 +484,20 @@ void CtActions::current_node_scroll_to_anchor(Glib::ustring anchor_name)
 void CtActions::codebox_cut()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
-    object_set_selection(curr_codebox_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_codebox_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::codebox_copy()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
-    object_set_selection(curr_codebox_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_codebox_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
@@ -470,10 +512,13 @@ void CtActions::codebox_copy_content()
 void CtActions::codebox_delete()
 {
     if (not _is_there_anch_widg_selection_or_error('c')) return;
-    object_set_selection(curr_codebox_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_codebox_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_codebox_anchor = nullptr;
-   _pCtMainWin->get_text_view().mm().grab_focus();
+    _pCtMainWin->get_text_view().mm().grab_focus();
 }
 
 void CtActions::codebox_delete_keeping_text()
@@ -481,7 +526,10 @@ void CtActions::codebox_delete_keeping_text()
     if (not _is_there_anch_widg_selection_or_error('c')) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
     Glib::ustring content = curr_codebox_anchor->get_text_content();
-    object_set_selection(curr_codebox_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_codebox_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().mm().get_editable());
     curr_codebox_anchor = nullptr;
     _pCtMainWin->get_text_view().mm().grab_focus();
@@ -696,21 +744,30 @@ void CtActions::codebox_decrease_height()
 void CtActions::table_cut()
 {
     if (not _is_there_anch_widg_selection_or_error('t')) return;
-    object_set_selection(curr_table_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_table_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::table_copy()
 {
     if (not _is_there_anch_widg_selection_or_error('t')) return;
-    object_set_selection(curr_table_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_table_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
 void CtActions::table_delete()
 {
     if (not _is_there_anch_widg_selection_or_error('t')) return;
-    object_set_selection(curr_table_anchor);
+    Gtk::TextIter iter = _curr_buffer()->get_iter_at_child_anchor(curr_table_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_b = iter;
+    iter_b.forward_char();
+    _curr_buffer()->select_range(iter, iter_b);
     _curr_buffer()->erase_selection(true/*interactive*/, _pCtMainWin->get_text_view().mm().get_editable());
     curr_table_anchor = nullptr;
     _pCtMainWin->get_text_view().mm().grab_focus();

@@ -24,6 +24,7 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_storage_control.h"
+#include <glib/gstdio.h>
 
 void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
 {
@@ -368,6 +369,11 @@ bool CtMainWin::file_save(const bool need_vacuum)
         return false;
     }
     if (not get_tree_store().get_iter_first()) {
+        return false;
+    }
+    const fs::path& filePath = _uCtStorage->get_file_path();
+    if (fs::exists(filePath) and g_access(filePath.c_str(), W_OK) != 0) {
+        CtDialogs::error_dialog(str::format(_("Cannot Save: \"%s\" is Read-Only"), str::xml_escape(filePath.string())), *this);
         return false;
     }
     Glib::ustring error;

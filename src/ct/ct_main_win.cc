@@ -1499,8 +1499,10 @@ void CtMainWin::update_selected_node_statusbar_info()
             ++direct_children_count;
         }
         const size_t total_children_count = treeIter.get_children_node_ids().size();
-        statusbar_text += separator_text + "↳ " + std::to_string(direct_children_count) +
-                          " (" + std::to_string(total_children_count) + ")";
+        statusbar_text += separator_text + _("Subnodes") + _(": ") + std::to_string(direct_children_count);
+        if (direct_children_count != total_children_count) {
+            statusbar_text += CtConst::CHAR_SLASH + std::to_string(total_children_count);
+        }
     }
     _ctStatusBar.update_status(statusbar_text);
 }

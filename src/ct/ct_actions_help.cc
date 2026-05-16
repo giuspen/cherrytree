@@ -44,6 +44,11 @@ void CtActions::online_issues()
     fs::open_weblink("https://github.com/giuspen/cherrytree/issues");
 }
 
+void CtActions::online_donate()
+{
+    fs::open_weblink("https://www.giuspen.net/supporters/");
+}
+
 void CtActions::dialog_about()
 {
 #if GTKMM_MAJOR_VERSION >= 4

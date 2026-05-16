@@ -26,6 +26,7 @@
 #include "ct_const.h"
 #include "ct_misc_utils.h"
 #include "ct_storage_xml.h"
+#include "ct_logging.h"
 
 #if GTKMM_MAJOR_VERSION >= 4
 std::vector<Gtk::Box*> CtMenu::build_toolbars4(Gtk::MenuButton*& pRecentDocsMenuButton, Gtk::Button*& pButtonSave)
@@ -774,6 +775,18 @@ Gtk::Menu* CtMenu::get_popup_menu(POPUP_MENU_TYPE popupMenuType)
         Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu{});
         build_popup_menu(pMenu, popupMenuType);
         pMenu->attach_to_widget(*_pCtMainWin);
+        if (popupMenuType == POPUP_MENU_TYPE::Image or
+            popupMenuType == POPUP_MENU_TYPE::Anchor or
+            popupMenuType == POPUP_MENU_TYPE::Latex or
+            popupMenuType == POPUP_MENU_TYPE::EmbFile) {
+            const char* typeName =
+                popupMenuType == POPUP_MENU_TYPE::Image  ? "Image"  :
+                popupMenuType == POPUP_MENU_TYPE::Anchor ? "Anchor" :
+                popupMenuType == POPUP_MENU_TYPE::Latex  ? "Latex"  : "EmbFile";
+            pMenu->signal_deactivate().connect([typeName]{
+                spdlog::debug("popup_deactivate {}", typeName);
+            });
+        }
         _popupMenus[popupMenuType] = pMenu;
     }
     return _popupMenus[popupMenuType];

@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -560,11 +560,8 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
     }
     else {
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
-        //spdlog::debug("fw={} nosel m={} M={} -> s={}", forward, text_buffer->begin().get_offset(), text_buffer->end().get_offset(), start_iter.get_offset());
         if (all_matches) _s_state.all_matches_first_in_node = false;
     }
-    //spdlog::debug("parsing {} content from {} ffs={} 1st={}", tree_iter.get_node_id(), start_iter.get_offset(), first_fromsel, first_node);
-
     bool pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
 
     if (_s_state.replace_active and pattern_found)
@@ -709,10 +706,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
                 match_offsets = curr_pair;
                 _s_state.latest_node_offset_match_start = match_offsets.first;
                 _s_state.latest_node_offset_match_end = match_offsets.second;
-                //spdlog::debug("OK {}->{}", curr_pair.first, curr_pair.second);
                 break;
             }
-            //spdlog::debug("NOK {}->{}", curr_pair.first, curr_pair.second);
             match_info.next();
         }
     }
@@ -742,10 +737,9 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         match_offsets.first = str::byte_pos_to_symb_pos(text, match_offsets.first);
         match_offsets.second = str::byte_pos_to_symb_pos(text, match_offsets.second);
     }
-
     CtAnchMatchList anchMatchList;
     int obj_search_start_offs = start_iter.get_offset();
-    int obj_search_end_offs = match_offsets.first != -1 ? _s_state.latest_node_offset_match_start : (forward ? text_buffer->end().get_offset() : 0);
+    int obj_search_end_offs = match_offsets.first != -1 ? match_offsets.first : (forward ? text_buffer->end().get_offset() : 0);
     if (not forward) {
         std::swap(obj_search_start_offs, obj_search_end_offs);
     }
@@ -906,8 +900,47 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         if (_s_options.reg_exp) {
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
         }
+        // Collect unique CherryTree formatting tags from the matched range before erasing
+        auto f_is_ct_tag = [](const Glib::ustring& name)->bool{
+            return str::startswith(name, CtConst::TAG_WEIGHT_PREFIX)
+                or str::startswith(name, CtConst::TAG_FOREGROUND_PREFIX)
+                or str::startswith(name, CtConst::TAG_BACKGROUND_PREFIX)
+                or str::startswith(name, CtConst::TAG_STYLE_PREFIX)
+                or str::startswith(name, CtConst::TAG_UNDERLINE_PREFIX)
+                or str::startswith(name, CtConst::TAG_STRIKETHROUGH_PREFIX)
+                or str::startswith(name, CtConst::TAG_INDENT_PREFIX)
+                or str::startswith(name, CtConst::TAG_SCALE_PREFIX)
+                or str::startswith(name, CtConst::TAG_INVISIBLE_PREFIX)
+                or str::startswith(name, CtConst::TAG_JUSTIFICATION_PREFIX)
+                or str::startswith(name, CtConst::TAG_LINK_PREFIX)
+                or str::startswith(name, CtConst::TAG_FAMILY_PREFIX);
+        };
+        std::vector<Glib::RefPtr<Gtk::TextTag>> range_tags;
+        {
+            Gtk::TextIter it = pTextBuffer->get_iter_at_offset(startOffset);
+            const Gtk::TextIter end_it = pTextBuffer->get_iter_at_offset(endOffset);
+            while (it.compare(end_it) < 0) {
+                for (const auto& tag : it.get_tags()) {
+                    if (not f_is_ct_tag(tag->property_name())) continue;
+                    bool already_present{false};
+                    for (const auto& existing : range_tags) {
+                        if (existing.get() == tag.get()) { already_present = true; break; }
+                    }
+                    if (not already_present) range_tags.push_back(tag);
+                }
+                if (not it.forward_char()) break;
+            }
+        }
         pTextBuffer->erase(sel_start, sel_end);
         pTextBuffer->insert(pTextBuffer->get_iter_at_offset(startOffset), replacer_text);
+        // Re-apply preserved tags to the replacement text
+        if (not range_tags.empty() and replacer_text.size() > 0u) {
+            Gtk::TextIter new_start = pTextBuffer->get_iter_at_offset(startOffset);
+            Gtk::TextIter new_end = pTextBuffer->get_iter_at_offset(startOffset + (int)replacer_text.size());
+            for (const auto& tag : range_tags) {
+                pTextBuffer->apply_tag(tag, new_start, new_end);
+            }
+        }
         endOffset = startOffset + replacer_text.size();
         _s_state.replace_subsequent = true;
         _pCtMainWin->get_state_machine().update_state(tree_iter);
@@ -1275,6 +1308,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
             }
         } break;
         case CtAnchWidgType::ImagePng: {
+            if (_s_state.replace_active and not _s_options.replace_in_link_targets) break;
             if (CtImagePng* pCtImagePng = dynamic_cast<CtImagePng*>(pAnchWidg)) {
                 CtLinkEntry link_entry = CtMiscUtil::get_link_entry_from_property(pCtImagePng->get_link());
                 if (CtLinkType::None != link_entry.type) {
@@ -1312,6 +1346,7 @@ bool CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> re_pattern,
             }
         } break;
         case CtAnchWidgType::Link: {
+            if (_s_state.replace_active and not _s_options.replace_in_link_targets) break;
             if (CtAnchWidgLink* pAnchWidgLink = dynamic_cast<CtAnchWidgLink*>(pAnchWidg)) {
                 Glib::ustring text = pAnchWidgLink->get_target_searchable();
                 if (_s_options.accent_insensitive) {
@@ -1442,6 +1477,22 @@ bool CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
     bool retVal{false};
     std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset, true/*also_links*/);
     if (not forward) {
+        // get_anchored_widgets detects link spans by their START position (checked against end_offset),
+        // but assigns the LAST char of the span as the CtAnchWidgLink offset.
+        // For backward search this causes links whose span straddles end_offset to be included
+        // with an offset > end_offset, making the backward iterator re-find the same link endlessly.
+        // Remove and free those out-of-range link objects before reversing.
+        for (auto it = obj_vec.begin(); it != obj_vec.end(); ) {
+            if ((*it)->getOffset() > end_offset) {
+                if (CtAnchWidgType::Link == (*it)->get_type()) {
+                    delete *it;
+                }
+                it = obj_vec.erase(it);
+            }
+            else {
+                ++it;
+            }
+        }
         std::reverse(obj_vec.begin(), obj_vec.end());
     }
     for (CtAnchoredWidget* pAnchWidg : obj_vec) {

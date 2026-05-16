@@ -83,13 +83,21 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
     constexpr int RESPONSE_OPEN_FOLDER = 3;
     constexpr int RESPONSE_OPEN_RECENT = 4;
 
-    dialog.add_button(_("New Document"), RESPONSE_NEW_DOC);
-    dialog.add_button(_("Open File"), RESPONSE_OPEN_FILE);
-    dialog.add_button(_("Open Folder"), RESPONSE_OPEN_FOLDER);
+    Gtk::Button* btn_new_doc = dialog.add_button(_("New Document"), RESPONSE_NEW_DOC);
+    Gtk::Button* btn_open_file = dialog.add_button(_("Open File"), RESPONSE_OPEN_FILE);
+    Gtk::Button* btn_open_folder = dialog.add_button(_("Open Folder"), RESPONSE_OPEN_FOLDER);
 #if GTKMM_MAJOR_VERSION >= 4
     dialog.add_button(_("Cancel"), Gtk::ResponseType::CANCEL);
 #else
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    Gtk::Button* btn_cancel = dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+
+    btn_new_doc->set_image(*pCtMainWin->new_managed_image_from_stock("ct_new-instance", Gtk::ICON_SIZE_BUTTON));
+    btn_new_doc->set_always_show_image(true);
+    btn_open_file->set_image(*pCtMainWin->new_managed_image_from_stock("ct_open", Gtk::ICON_SIZE_BUTTON));
+    btn_open_file->set_always_show_image(true);
+    btn_open_folder->set_image(*pCtMainWin->new_managed_image_from_stock("ct_open", Gtk::ICON_SIZE_BUTTON));
+    btn_open_folder->set_always_show_image(true);
+    btn_cancel->set_always_show_image(true);
 #endif
 
     Gtk::Box* content = dialog.get_content_area();
@@ -153,8 +161,9 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
         vbox.pack_start(scrolled_window, true, true);
     #endif
 
-        dialog.add_button(_("Open Selected"), RESPONSE_OPEN_RECENT);
-        open_recent_button = dynamic_cast<Gtk::Button*>(dialog.get_widget_for_response(RESPONSE_OPEN_RECENT));
+        open_recent_button = dialog.add_button(_("Open Selected"), RESPONSE_OPEN_RECENT);
+        open_recent_button->set_image(*pCtMainWin->new_managed_image_from_stock("ct_open", Gtk::ICON_SIZE_BUTTON));
+        open_recent_button->set_always_show_image(true);
         if (open_recent_button) {
             open_recent_button->set_sensitive(false);
         }

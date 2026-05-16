@@ -15,3 +15,4 @@ build
 .flatpak-builder
 build_output*.txt
 Screenshot_*.png
+.claude

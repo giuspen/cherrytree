@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_gen_purp.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -384,8 +384,20 @@ CtDialogs::CtPickDlgState CtDialogs::colour_pick_dialog(CtMainWin* pCtMainWin,
     dialog.set_modal(true);
     dialog.property_destroy_with_parent() = true;
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    // The ColorChooserDialog adds Cancel and Select Color buttons internally using plain text
+    // (no stock image), so we must explicitly set images and force them to show
+    if (auto* pBtnCancel = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL))) {
+        pBtnCancel->set_image(*pCtMainWin->new_managed_image_from_stock("ct_close", Gtk::ICON_SIZE_BUTTON));
+        pBtnCancel->set_always_show_image(true);
+    }
+    if (auto* pBtnOk = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK))) {
+        pBtnOk->set_image(*pCtMainWin->new_managed_image_from_stock("ct_painting", Gtk::ICON_SIZE_BUTTON));
+        pBtnOk->set_always_show_image(true);
+    }
     if (allow_remove_colour) {
-        dialog.add_button(_("Remove"), Gtk::RESPONSE_NONE);
+        Gtk::Button* pBtnRemove = dialog.add_button(_("Remove"), Gtk::RESPONSE_NONE);
+        pBtnRemove->set_image(*pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+        pBtnRemove->set_always_show_image(true);
     }
     // from gtk3 branch gtk-3-24 file gtk/gtk/gtkcolorchooserwidget.c function add_default_palette
     const gchar* default_colors[45]{
