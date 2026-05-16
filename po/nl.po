@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38-rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 17:13+0000\n"
+"POT-Creation-Date: 2026-05-09 21:26+0100\n"
 "PO-Revision-Date: 2025-01-26 15:13+0100\n"
 "Last-Translator: Luuk Geurts\n"
 "Language-Team: Nederlands <>\n"
@@ -18,115 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.2\n"
-
-msgid "CherryTree File"
-msgstr "CherryTree bestand"
-
-msgid ""
-"The file/folder in use cannot be overwritten!\n"
-"Please use a different name or location."
-msgstr ""
-"Het bestand of de map is in gebruik, kan niet worden overschreven\n"
-"Gebruik een andere naam of map."
-
-#, c-format
-msgid ""
-"A folder '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
-msgstr ""
-"Map '%s' bestaat al in '%s'.\n"
-"<b>Verwijderen?</b>"
-
-#, c-format
-msgid ""
-"A file '%s' already exists in '%s'.\n"
-"<b>Do you want to replace it?</b>"
-msgstr ""
-"Een bestand '%s' bestaat al in '%s'.\n"
-"<b>Verwijderen?</b>"
-
-msgid "PDF File"
-msgstr "PDF bestand"
-
-msgid "Plain Text Document"
-msgstr "Platte tekst document"
-
-msgid "Add"
-msgstr "Toevoegen"
-
-msgid "Remove Selected"
-msgstr "Verwijder de geselecteerde"
-
-msgid "Reset to Default"
-msgstr "Terugzetten naar standaardwaarden"
-
-msgid "Split Toolbar"
-msgstr "Splits knoppenbalk"
-
-msgid "Open a CherryTree File"
-msgstr "Open CherryTree document"
-
-msgid "Select Element to Add"
-msgstr "Selecteer toe te voegen element"
-
-#, c-format
-msgid "The Path %s does Not Exist"
-msgstr "Pad %s bestaat niet"
-
-msgid "Open a Recent CherryTree Document"
-msgstr "Een recent CherryTree document openen"
-
-msgid "_Hide"
-msgstr "Verbergen"
-
-msgid "_Quit"
-msgstr "_Sluiten"
-
-msgid "Hide the Window"
-msgstr "Verberg het venster"
-
-msgid "Quit the Application"
-msgstr "Applicatie afsluiten"
-
-msgid "No Node is Selected"
-msgstr "Geen knoop geselecteerd"
-
-msgid "Node Type"
-msgstr "Knoop type"
-
-msgid ": "
-msgstr ": "
-
-msgid "Rich Text"
-msgstr "Rich Text"
-
-msgid "Plain Text"
-msgstr "Platte tekst"
-
-msgid "Tags"
-msgstr "Labels"
-
-msgid "Spell Check"
-msgstr "Spellingscontrole"
-
-msgid "Word Count"
-msgstr "Woorden tellen"
-
-msgid "Date Created"
-msgstr "Aanmaakdatum"
-
-msgid "Date Modified"
-msgstr "Wijzigingsdatum"
-
-msgid ""
-"No Previous Node Copy Was Performed During This Session or the Source Tree "
-"is No Longer Available."
-msgstr ""
-"Geen vorige knoop kopieer actie is uitgevoerd tijdens deze sessie, of de "
-"bron boom is niet langer beschikbaar."
-
-msgid "The Source Tree Node is No Longer Available."
-msgstr "The bron boom knoop is niet langer beschikbaar."
 
 msgid "Image Format Not Recognized"
 msgstr "Afbeeldingstype niet herkend"
@@ -163,6 +54,97 @@ msgstr "Gestripte regels"
 msgid "No Text is Selected."
 msgstr "Geen tekst geselecteerd."
 
+msgid "CherryTree File"
+msgstr "CherryTree bestand"
+
+msgid ""
+"The file/folder in use cannot be overwritten!\n"
+"Please use a different name or location."
+msgstr ""
+"Het bestand of de map is in gebruik, kan niet worden overschreven\n"
+"Gebruik een andere naam of map."
+
+#, c-format
+msgid ""
+"A folder '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"Map '%s' bestaat al in '%s'.\n"
+"<b>Verwijderen?</b>"
+
+#, c-format
+msgid ""
+"A file '%s' already exists in '%s'.\n"
+"<b>Do you want to replace it?</b>"
+msgstr ""
+"Een bestand '%s' bestaat al in '%s'.\n"
+"<b>Verwijderen?</b>"
+
+msgid "PDF File"
+msgstr "PDF bestand"
+
+msgid "Plain Text Document"
+msgstr "Platte tekst document"
+
+msgid "Preferences File"
+msgstr "Instellingenbestand"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Is het systeemvak verschenen op de balk?"
+
+msgid "Your system does not support the System Tray"
+msgstr "Er is geen systeemvak beschikbaar"
+
+msgid "This Change will have Effect Only After Restarting CherryTree."
+msgstr ""
+"Om de verandering toe te passen moet CherryTree opnieuw worden gestart."
+
+msgid "Replace in Current Node"
+msgstr "Vervang in huidige knoop"
+
+msgid "Search in Current Node"
+msgstr "Zoek in huidige knoop"
+
+msgid "Matches"
+msgstr "Overeenkomsten"
+
+#, c-format
+msgid "<b>The pattern '%s' was not found</b>"
+msgstr "<b>Het patroon '%s' is niet gevonden</b>"
+
+msgid "Replace in Multiple Nodes"
+msgstr "Vervang in meerdere knopen"
+
+msgid "Search in Multiple Nodes"
+msgstr "Zoek in meerdere knopen"
+
+msgid "No Previous Search Was Performed During This Session."
+msgstr "Geen vorige zoekopdracht is uitgevoerd tijdens deze sessie."
+
+msgid "Tags"
+msgstr "Labels"
+
+msgid ": "
+msgstr ": "
+
+msgid "No Previous Text Format Was Performed During This Session."
+msgstr "Geen vorige tekstopmaak uitgevoerd tijdens deze sessie."
+
+msgid "Link Name"
+msgstr "Koppelingsnaam"
+
+msgid "The Cursor is Not into a Paragraph."
+msgstr "De cursor bevindt zich niet in een alinea."
+
+msgid "Insert/Edit Link"
+msgstr "Koppeling invoegen/wijzigen"
+
+msgid "Pick a Foreground Color"
+msgstr "Kies een voorgrond kleur"
+
+msgid "Pick a Background Color"
+msgstr "Kies een achtergrond kleur"
+
 msgid "Checking for Newer Version..."
 msgstr "Controleren op nieuwe versie..."
 
@@ -178,533 +160,227 @@ msgstr "U gebruikt de laatst beschikbare versie."
 msgid "You Are Using a Development Version."
 msgstr "U gebruikt een ontwikkel versie."
 
-msgid "Execute Code"
-msgstr "Code uitvoeren"
+msgid "Who is the Parent?"
+msgstr "Wie is de ouder?"
 
-msgid "Change CodeBox Properties"
-msgstr "Wijzig Codevak eigenschappen"
+msgid "The Tree Root"
+msgstr "De boomwortel"
 
-msgid "Show Menubar:"
-msgstr "Toon menubalk:"
+msgid "The Selected Node"
+msgstr "De geselecteerde knoop"
 
-#, c-format
-msgid "\"%s\" is Not a CherryTree File"
-msgstr "\"%s\" is geen CherryTree bestand"
+msgid "Rename"
+msgstr "Hernoemen"
 
-#, c-format
-msgid ""
-"Error Parsing the CherryTree Path:\n"
-"\"%s\""
-msgstr ""
-"Fout bij het parsen van het CherryTree pad:\n"
-"\"%s\""
-
-msgid "Do you want to Open the Last Backup?"
-msgstr "Wilt u de laatste backup openen?"
-
-msgid "Failed to Load from Backup Data"
-msgstr "Backup data kon niet worden geladen"
+msgid "PNG Image"
+msgstr "PNG afbeelding"
 
 #, c-format
-msgid "No node named '%s' found."
-msgstr "Geen anker met naam '%s' gevonden."
-
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Tijdelijke bestanden zijn gemaakt en geopend met externe applicaties."
-
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Sluit de externe applicatie af vóór afsluiten CherryTree."
-
-msgid "Did you Quit the External Applications?"
-msgstr "Heeft u de externe applicatie afgesloten?"
-
-msgid "The Document was Reloaded After External Update to CT* File."
-msgstr "Dit document is herladen na een externe update van CT* bestand."
-
-msgid "Change Selected"
-msgstr "Pas de geselecteerde aan"
+msgid "Write to %s Failed"
+msgstr "Schrijven naar %s mislukt"
 
 #, c-format
-msgid "The Keyboard Shortcut '%s' is already in use."
-msgstr "De sneltoets '%s' is al in gebruik."
+msgid "The Folder Link '%s' is Not Valid."
+msgstr "De mapkoppeling '%s' is ongeldig."
 
 #, c-format
-msgid "The current associated action is '%s'"
-msgstr "De huidige geassocieerde actie is '%s'"
-
-msgid "Do you want to steal the shortcut?"
-msgstr "Wilt u de sneltoets stelen?"
-
-msgid "Edit Keyboard Shortcut"
-msgstr "Pas sneltoets aan"
-
-msgid "No Keyboard Shortcut"
-msgstr "Geen sneltoets"
-
-msgid "Chars for Bulleted List"
-msgstr "Tekens voor opsomming"
-
-msgid "Chars for Todo List"
-msgstr "Tekens voor todo lijst"
-
-msgid "Chars for Table Of Content"
-msgstr "Tekens voor inhoudsopgave"
-
-msgid "Chars for Smart Double Quotes"
-msgstr "Tekens voor slimme dubbele aanhalingstekens"
-
-msgid "Chars for Smart Single Quotes"
-msgstr "Tekens voor slimme enkele aanhalingstekens"
-
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Schakel automatisch vervangen slimme aanhalingstekens in"
-
-msgid "Enable Symbol Auto Replacement"
-msgstr "Schakel automatisch vervangen symbolen in"
-
-msgid "Supported Symbols Auto Replacements"
-msgstr "Ondersteunde symbolen voor automatische vervanging"
-
-msgid "Text Editor"
-msgstr "Tekstverwerker"
-
-msgid "Only at the Start of the Line"
-msgstr "Alleen aan het begin van de regel"
-
-# Change English source to: "To Website"
-msgid "To WebSite"
-msgstr "Naar website"
-
-msgid "To File"
-msgstr "Naar bestand"
-
-msgid "To Folder"
-msgstr "Naar map"
-
-msgid "To Node"
-msgstr "Naar knoop"
-
-msgid "Anchor Name (optional)"
-msgstr "Ankernaam (optioneel)"
-
-msgid "There are No Anchors in the Selected Node."
-msgstr "Er zijn geen ankers in de geselecteerde knoop."
-
-msgid "Choose Existing Anchor"
-msgstr "Kies bestaand anker"
-
-msgid "Anchor Name"
-msgstr "Ankernaam"
+msgid "The File Link '%s' is Not Valid."
+msgstr "Het bestandskoppeling '%s' is ongeldig."
 
 #, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Het patroon '%s' is niet gevonden"
-
-msgid "Preferences"
-msgstr "Instellingen"
-
-msgid "Arabic"
-msgstr "Arabisch"
-
-msgid "Armenian"
-msgstr "Armeens"
-
-msgid "Bulgarian"
-msgstr "Bulgaars"
-
-msgid "Chinese Simplified"
-msgstr "Chinees vereenvoudigd"
-
-msgid "Chinese Traditional"
-msgstr "Chinees traditioneel"
-
-msgid "Croatian"
-msgstr "Kroatisch"
-
-msgid "Czech"
-msgstr "Tsjechisch"
-
-msgid "Dutch"
-msgstr "Nederlands"
-
-msgid "English"
-msgstr "Engels"
-
-msgid "Persian"
-msgstr "Perzisch"
-
-msgid "Finnish"
-msgstr "Fins"
-
-msgid "French"
-msgstr "Frans"
-
-msgid "German"
-msgstr "Duits"
-
-msgid "Greek"
-msgstr "Grieks"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Hongaars"
-
-msgid "Italian"
-msgstr "Italiaans"
-
-msgid "Japanese"
-msgstr "Japans"
-
-msgid "Kazakh"
-msgstr "Kazachs"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazachs"
-
-msgid "Korean"
-msgstr "Koreaans"
-
-msgid "Lithuanian"
-msgstr "Litouws"
-
-msgid "Polish"
-msgstr "Pools"
-
-msgid "Portuguese"
-msgstr "Portugees"
-
-msgid "Portuguese Brazil"
-msgstr "Braziliaans Portugees"
-
-msgid "Romanian"
-msgstr "Roemeens"
-
-msgid "Russian"
-msgstr "Russisch"
-
-msgid "Slovak"
-msgstr "Slowaaks"
-
-msgid "Slovenian"
-msgstr "Sloveens"
-
-msgid "Spanish"
-msgstr "Spaans"
-
-msgid "Swedish"
-msgstr "Zweeds"
-
-msgid "Turkish"
-msgstr "Turks"
-
-msgid "Ukrainian"
-msgstr "Oekraïns"
-
-msgid "Text and Code"
-msgstr "Tekst en code"
-
-msgid "Format"
-msgstr "Opmaak"
-
-msgid "Plain Text and Code"
-msgstr "Platte tekst en code"
-
-msgid "Tree Explorer"
-msgstr "Boom verkenner"
-
-msgid "Theme"
-msgstr "Thema"
-
-msgid "Interface"
-msgstr "Interface"
-
-msgid "Links"
-msgstr "Koppelingen"
-
-msgid "Toolbar"
-msgstr "Knoppenbalk"
-
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
-
-msgid "Miscellaneous"
-msgstr "Diversen"
-
-msgid "Monospace"
-msgstr "Vaste breedte"
-
-msgid "Code Font"
-msgstr "Code lettertype"
-
-msgid "Terminal Font"
-msgstr "Terminal Lettertype"
-
-msgid "Tree Font"
-msgstr "Boom lettertype"
-
-msgid "Fonts"
-msgstr "Lettertypen"
-
-msgid "Enable Word Count in Statusbar"
-msgstr "Toon aantal woorden in statusbalk"
-
-msgid "Show the Document Directory in the Window Title"
-msgstr "Toon de bestandsmap in de venstertitel"
-
-msgid "Show the Full Path in the Node Name Header"
-msgstr "Toon het volledige pad in de knoopnaam kop"
-
-msgid "Dedicated Bookmarks Menu in Menubar"
-msgstr "Aangepast bladwijzers menu in menubalk"
-
-msgid "Menubar in Titlebar"
-msgstr "Menubalk in in de titelbalk"
-
-msgid "Toolbar Icons Size"
-msgstr "Grootte van knoppenbalk pictogrammen"
-
-msgid "Scrollbar Slider Minimum Size (0 = System Default)"
-msgstr "Schuifbalk minimum grootte (0 = Default)"
-
-msgid "Scrollbar Overlays Text Editor"
-msgstr "Schuifbalk Overlays Text Editor"
-
-msgid "System Default"
-msgstr "Systeem standaard"
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "No"
-msgstr "Nee"
-
-msgid "Enable Tooltips When Hovering"
-msgstr "Inschakelen Tooltips"
-
-msgid "Tree"
-msgstr "Boom"
-
-msgid "Menus"
-msgstr "Menus"
-
-msgid "Max Search Results per Page"
-msgstr "Max Zoek resultaten per Bladzij"
-
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Aangepaste webkoppeling klik-actie inschakelen"
-
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Aangepaste bestandskoppeling klik-actie inschakelen"
-
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Aangepaste map koppeling klik-actie inschakelen"
-
-msgid "Custom Actions"
-msgstr "Aangepaste acties"
-
-msgid "Colors"
-msgstr "Kleuren"
-
-msgid "Underline Links"
-msgstr "Onderstreep koppelingen"
-
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Gebruik relatieve paden voor bestanden en mappen"
-
-msgid "Anchor Size"
-msgstr "Anker grootte"
-
-msgid "This Change will have Effect Only After Restarting CherryTree."
-msgstr ""
-"Om de verandering toe te passen moet CherryTree opnieuw worden gestart."
-
-msgid "The new parent can't be one of his children!"
-msgstr "De nieuwe ouder kan niet een van zijn kinderen zijn!"
-
-msgid "Light Background, Dark Text"
-msgstr "Lichte achtergrond, donkere tekst"
-
-msgid "Dark Background, Light Text"
-msgstr "Donkere achtergrond, lichte tekst"
-
-msgid "Custom Background"
-msgstr "Aangepaste achtergrond"
-
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Selection Background"
-msgstr "Selectie achtergrondkleur"
-
-msgid "Table"
-msgstr "Tabel"
-
-msgid "Code"
-msgstr "Code lettertype"
-
-msgid "Style Schemes"
-msgstr "Stijlschema's"
-
-# Change English source to: "Text_color"?
-msgid "Text Foreground"
-msgstr "Tekstkleur voorgrond"
-
-msgid "Text Background"
-msgstr "Tekst achtergrondkleur"
-
-# Change English source to: "Text_color"?
-msgid "Selection Foreground"
-msgstr "Tekstkleur voorgrond"
-
-msgid "Cursor"
-msgstr "Cursor"
-
-msgid "Current Line Background"
-msgstr "Huidige regel achtergrond"
-
-# Change English source to: "Text_color"?
-msgid "Line Numbers Foreground"
-msgstr "Regelnummers voorgrond"
-
-msgid "Line Numbers Background"
-msgstr "Regelnummers achtergrond"
-
-msgid "Style Scheme Editor"
-msgstr "Stijlschema aanpassen"
-
-msgid "Set Dark Theme Icons"
-msgstr "Stel donkere thema iconen in"
-
-msgid "Set Light Theme Icons"
-msgstr "Stel lichte thema iconen in"
-
-msgid "Set Default Icons"
-msgstr "Stel standaard iconen in"
-
-msgid "Icon Theme"
-msgstr "Iconen thema"
-
-msgid "Search for"
-msgstr "Zoeken naar"
-
-msgid "Replace with"
-msgstr "Vervangen met"
-
-msgid "Match Case"
-msgstr "Hoofdlettergebruik gelijkmaken"
-
-msgid "Regular Expression"
-msgstr "Reguliere expressie"
-
-msgid "Online Manual"
-msgstr "Online _handleiding"
-
-msgid "Accent Insensitive"
-msgstr "Ongevoelig voor accenten"
-
-msgid "Override Exclusions"
-msgstr "Uitsluitingen Negeren"
-
-msgid "Whole Word"
-msgstr "Hele woord"
-
-msgid "Start Word"
-msgstr "Begin woord"
-
-msgid "Forward"
-msgstr "Volgende"
-
-msgid "Backward"
-msgstr "Vorige"
-
-msgid "All, List Matches"
-msgstr "Alle, toon treffers"
-
-msgid "First From Selection"
-msgstr "Eerste van selectie"
-
-msgid "First in All Range"
-msgstr "Eerste in hele bereik"
-
-msgid "Node Created After"
-msgstr "Knoop aangemaakt na"
-
-msgid "Node Created Before"
-msgstr "Knoop aangemaakt voor"
-
-msgid "Node Modified After"
-msgstr "Knoop aangepast na"
-
-msgid "Node Modified Before"
-msgstr "Knoop gewijzigd voor"
-
-msgid "Time filter"
-msgstr "Tijd filter"
-
-msgid "Node Content"
-msgstr "Node inhoud"
-
-msgid "Node Name and Tags"
-msgstr "Knoopnamen en labels"
-
-msgid "Only Selected Node and Subnodes"
-msgstr "Enkel geselecteerde knoop en subknopen"
-
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Zoek/Vervang dialoogvenster met alle treffers weergeven"
-
-msgid "Search options"
-msgstr "Zoek opties"
-
-msgid ""
-"At least one node was skipped because of exclusions set in the node "
-"properties.\n"
-"In order to clear all the exclusions, use the menu:\n"
-"Search -> Clear All Exclusions From Search"
-msgstr ""
-"Minstens 1 knoop is overgeslagen vanwege uitsluitingen in knoop eigensch.\n"
-"Om uitsluitingen te verwijderen, gebruik het menu:\n"
-"Zoeken -> Verwijder alle uitzonderingen bij Zoeken"
-
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Verbergen (herstellen met '%s')"
-
-msgid "Node Name"
-msgstr "Knoopnaam"
-
-msgid "Line"
-msgstr "Regel"
-
-msgid "Line Content"
-msgstr "Regelinhoud"
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "De mapkoppeling '%s' is ongeldig"
 
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "De koppeling verwijst naar een knoop die niet meer bestaat (Id = %s)"
 
-msgid "Matches"
-msgstr "Overeenkomsten"
+#, c-format
+msgid "No anchor named '%s' found"
+msgstr "Geen anker met naam '%s' gevonden"
 
-msgid "Iterate Latest Find/Replace"
-msgstr "Laatste Zoek/Vervang herhalen"
+msgid "Edit CodeBox"
+msgstr "Codevak wijzigen"
 
-msgid "Close"
-msgstr "Sluiten"
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog."
+msgstr ""
+"Associeer een commando met '%s'.\n"
+"Dit kan bij voorkeuren."
 
-msgid "Find Previous"
-msgstr "Zoek vorige"
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog."
+msgstr ""
+"Installeer 'xterm' of configureer een andere terminal in het voorkeuren "
+"venster."
 
-msgid "Find Next"
-msgstr "Zoek volgende"
+msgid "Edit Table Properties"
+msgstr "Wijzig tabeleigenschappen"
 
-msgid "Replace"
-msgstr "Vervang"
+msgid "Insert Anchor"
+msgstr "Anker invoegen"
 
-msgid "Undo"
-msgstr "Ongedaan maken"
+msgid "Edit Anchor"
+msgstr "Anker wijzigen"
+
+msgid "Cannot Edit Embedded File in Read Only Node."
+msgstr "Kan geen ingevoegde bestanden in Alleen Lezen modus bewerken."
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Ingevoegde bestand is automatisch geüpdate:"
+
+msgid "No Node is Selected"
+msgstr "Geen knoop geselecteerd"
+
+msgid "The Tree is Empty!"
+msgstr "De boom is leeg!"
+
+msgid "The Selected Node is Read Only."
+msgstr "De geselecteerde knoop is Alleen Lezen."
+
+msgid "This Feature is Available Only in Rich Text Nodes."
+msgstr "Deze eigenschap is alleen beschikbaar voor Rich Text knopen."
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
+msgstr ""
+"Deze eigenschap is niet beschikbaar voor knopen met automatische syntax "
+"markering."
+
+msgid "No Table is Selected."
+msgstr "Geen tabel geselecteerd."
+
+msgid "No CodeBox is Selected."
+msgstr "Geen codevak geselecteerd."
+
+msgid "New Child Node Properties"
+msgstr "Nieuwe subknoop eigenschappen"
+
+msgid "New Node Properties"
+msgstr "Nieuwe knoop eigenschappen"
+
+msgid "Node Properties"
+msgstr "Knoop eigenschappen"
+
+msgid ""
+"Changing the node type to Automatic Syntax Highlighting removes all rich "
+"text formatting in this node. Do you want to Continue?"
+msgstr ""
+"Het wijzigen van het knooptype naar Automatische Syntaxismarkering "
+"verwijdert alle rijke tekstopmaak in dit knooppunt. Wilt u doorgaan?"
+
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Weet u zeker dat u <b>de knoop '%s' wilt verwijderen?</b>"
+
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Deze knoop <b>heeft kinderen die ook zullen worden verwijderd!</b>"
+
+msgid "Select the New Parent"
+msgstr "Selecteer de nieuwe ouder"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Verplaatsen mislukt: een knoop kan niet zichzelf als ouder hebben!"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Geen wijziging: de nieuw gekozen ouder is dezelfde als de oude ouder!"
+
+msgid "The new parent can't be one of his children!"
+msgstr "De nieuwe ouder kan niet een van zijn kinderen zijn!"
+
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s Knoop eigenschappen aangepast"
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Maximum Value."
+msgstr "Het aantal laatst bezochte knopen in de knoopnaamkop is al op de maximale waarde."
+
+msgid ""
+"The Number of Last Visited Nodes on Node Name Header is already at the "
+"Minimum Value."
+msgstr "Het aantal laatst bezochte knopen in de knoopnaamkop is al op de minimale waarde."
+
+msgid "The Size of the Toolbar Icons is already at the Maximum Value."
+msgstr "De grootte van de knoppenbalk is al op de maximale waarde."
+
+msgid "The Size of the Toolbar Icons is already at the Minimum Value."
+msgstr "De grootte van de knoppenbalk is al op de minimale waarde."
+
+msgid "Print CherryTree version"
+msgstr "Toon CherryTree versie"
+
+msgid "Node name to focus"
+msgstr "Knoop naam om op te focussen"
+
+msgid "Anchor name to scroll to in node"
+msgstr "Anker naam om naar toe te scrollen in knooppunt"
+
+msgid "Export to HTML at specified directory path"
+msgstr "Exporteer naar HTML op opgegeven map pad"
+
+msgid "Export to Text at specified directory path"
+msgstr "Exporteer naar TXT op opgegeven map pad"
+
+msgid "Export to PDF at specified directory path"
+msgstr "Exporteer naar PDF op opgegeven map pad"
+
+msgid "Overwrite if export path already exists"
+msgstr "Overschrijven als export pad reeds bestaat"
+
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Exporteer naar een enkel bestand (voor HTML of TXT)"
+
+msgid "Password to open document"
+msgstr "Wachtwoord om document te openen"
+
+msgid "Create a new window"
+msgstr "Maak een nieuw venster"
+
+msgid "Run in secondary session, independent from main session"
+msgstr "Uitvoeren in secundaire sessie, onafhankelijk van hoofdsessie"
+
+msgid "Execute Code"
+msgstr "Code uitvoeren"
+
+msgid "Copy Code"
+msgstr "Code kopiëren"
+
+msgid "Change CodeBox Properties"
+msgstr "Wijzig Codevak eigenschappen"
+
+msgid "Start in CherryTree"
+msgstr "Starten in CherryTree"
+
+msgid "New Document"
+msgstr "Nieuw document"
+
+msgid "Open File"
+msgstr "Bestand openen"
+
+msgid "Open Folder"
+msgstr "Map openen"
+
+msgid "Create a new document or open an existing one."
+msgstr "Maak een nieuw document aan of open een bestaand document."
+
+msgid "Don't show again"
+msgstr "Niet meer weergeven"
+
+msgid "Recent Documents"
+msgstr "Recente documenten"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Path"
+msgstr "Pad"
+
+msgid "Open Selected"
+msgstr "Open geselecteerde"
 
 msgid "Handle the Bookmarks List"
 msgstr "Bewerk de bladwijzerlijst"
@@ -726,6 +402,21 @@ msgstr "Sorteer de bladwijzers oplopend"
 
 msgid "Choose Storage Type"
 msgstr "Kies opslagtype"
+
+msgid "Single SQLite File"
+msgstr "Enkel SQLite-bestand"
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr "Enkel SQLite-bestand, 7-zip versleuteld en wachtwoordbeveiligd"
+
+msgid "Single XML File"
+msgstr "Enkel XML-bestand"
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr "Enkel XML-bestand, 7-zip versleuteld en wachtwoordbeveiligd"
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr "Meerdere bestanden in hiërarchische mappenstructuur"
 
 msgid "Storage Type"
 msgstr "Opslagtype"
@@ -819,6 +510,102 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
+msgid "Arabic"
+msgstr "Arabisch"
+
+msgid "Armenian"
+msgstr "Armeens"
+
+msgid "Bulgarian"
+msgstr "Bulgaars"
+
+msgid "Chinese Simplified"
+msgstr "Chinees vereenvoudigd"
+
+msgid "Chinese Traditional"
+msgstr "Chinees traditioneel"
+
+msgid "Croatian"
+msgstr "Kroatisch"
+
+msgid "Czech"
+msgstr "Tsjechisch"
+
+msgid "Dutch"
+msgstr "Nederlands"
+
+msgid "Finnish"
+msgstr "Fins"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "Greek"
+msgstr "Grieks"
+
+msgid "Hindi India"
+msgstr "Hindi India"
+
+msgid "Hungarian"
+msgstr "Hongaars"
+
+msgid "Italian"
+msgstr "Italiaans"
+
+msgid "Japanese"
+msgstr "Japans"
+
+msgid "Kazakh"
+msgstr "Kazachs"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazachs"
+
+msgid "Korean"
+msgstr "Koreaans"
+
+msgid "Lithuanian"
+msgstr "Litouws"
+
+msgid "Persian"
+msgstr "Perzisch"
+
+msgid "Polish"
+msgstr "Pools"
+
+msgid "Portuguese"
+msgstr "Portugees"
+
+msgid "Portuguese Brazil"
+msgstr "Braziliaans Portugees"
+
+msgid "Romanian"
+msgstr "Roemeens"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Slovak"
+msgstr "Slowaaks"
+
+msgid "Slovenian"
+msgstr "Sloveens"
+
+msgid "Spanish"
+msgstr "Spaans"
+
+msgid "Swedish"
+msgstr "Zweeds"
+
+msgid "Turkish"
+msgstr "Turks"
+
+msgid "Ukrainian"
+msgstr "Oekraïns"
+
 msgid "About CherryTree"
 msgstr "Over CherryTree"
 
@@ -856,14 +643,295 @@ msgstr "Aantal ankers"
 msgid "Number of Shared Nodes / Groups"
 msgstr "Aantal gedeelde knopen / groepen"
 
-msgid "Preferences File"
-msgstr "Instellingenbestand"
+msgid "Latex Text"
+msgstr "LaTeX tekst"
 
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Is het systeemvak verschenen op de balk?"
+msgid "Image Size dpi"
+msgstr "Afbeelding afmetingen dpi"
 
-msgid "Your system does not support the System Tray"
-msgstr "Er is geen systeemvak beschikbaar"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+msgid "Reference"
+msgstr "Verwijzingen"
+
+msgid "LaTeX Math and Equations Tutorial"
+msgstr "LaTex wiskunde en vergelijkingen hulp"
+
+msgid "LaTeX Math Symbols Reference"
+msgstr "LaTeX wiskunde symbolen referentie"
+
+msgid "Image Properties"
+msgstr "Afbeelding eigenschappen"
+
+msgid "Rotate Left"
+msgstr "Knoop links"
+
+msgid "Rotate Right"
+msgstr "Knoop _rechts"
+
+msgid ""
+"In order to crop the image, select the area with the mouse before clicking OK"
+msgstr ""
+"Om de afbeelding bij te snijden, selecteert het gebied met de muis en klik "
+"dan OK"
+
+msgid "Flip Horizontally"
+msgstr "Horizontale lijn"
+
+msgid "Flip Vertically"
+msgstr "Keer om Vertikaal"
+
+msgid "Width"
+msgstr "Breedte"
+
+msgid "Height"
+msgstr "Hoogte"
+
+msgid "Plain Text"
+msgstr "Platte tekst"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatische syntax markering"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "pixels"
+msgstr "pixels"
+
+msgid "Size"
+msgstr "Grootte"
+
+msgid "Show Line Numbers"
+msgstr "Regelnummers weergeven"
+
+msgid "Highlight Matching Brackets"
+msgstr "Bij elkaar behorende haken markeren"
+
+msgid "Options"
+msgstr "Opties"
+
+msgid "Rows"
+msgstr "Rijen"
+
+msgid "Columns"
+msgstr "Kolommen"
+
+msgid "Default Width"
+msgstr "Standaard breedte"
+
+msgid "Table Size"
+msgstr "Tabel grootte"
+
+msgid "Column Properties"
+msgstr "Kolom eigenschappen"
+
+msgid "Lightweight Interface (much faster for large tables)"
+msgstr "Eenvoudige Interface (sneller voor grote tabellen)"
+
+msgid "Import from CSV File"
+msgstr "Importeren van CSV bestand"
+
+msgid "Clear"
+msgstr "Wissen"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Search for"
+msgstr "Zoeken naar"
+
+msgid "Replace with"
+msgstr "Vervangen met"
+
+msgid "Replace in Link Targets"
+msgstr "Vervangen in koppelingsbestemmingen"
+
+msgid "Replace options"
+msgstr "Vervangopties"
+
+msgid "Match Case"
+msgstr "Hoofdlettergebruik gelijkmaken"
+
+msgid "Regular Expression"
+msgstr "Reguliere expressie"
+
+msgid "Online Manual"
+msgstr "Online _handleiding"
+
+msgid "Accent Insensitive"
+msgstr "Ongevoelig voor accenten"
+
+msgid "Override Exclusions"
+msgstr "Uitsluitingen Negeren"
+
+msgid "Whole Word"
+msgstr "Hele woord"
+
+msgid "Start Word"
+msgstr "Begin woord"
+
+msgid "More Words, Exact Match"
+msgstr "Meer woorden, exacte overeenkomst"
+
+msgid "More Words, Disregard Order"
+msgstr "Meer woorden, volgorde negeren"
+
+msgid "More Words, Match Any"
+msgstr "Meer woorden, willekeurige overeenkomst"
+
+msgid "Forward"
+msgstr "Volgende"
+
+msgid "Backward"
+msgstr "Vorige"
+
+msgid "All, List Matches"
+msgstr "Alle, toon treffers"
+
+msgid "First From Selection"
+msgstr "Eerste van selectie"
+
+msgid "First in All Range"
+msgstr "Eerste in hele bereik"
+
+msgid "Node Created After"
+msgstr "Knoop aangemaakt na"
+
+msgid "Node Created Before"
+msgstr "Knoop aangemaakt voor"
+
+msgid "Node Modified After"
+msgstr "Knoop aangepast na"
+
+msgid "Node Modified Before"
+msgstr "Knoop gewijzigd voor"
+
+msgid "Time filter"
+msgstr "Tijd filter"
+
+msgid "Node Content"
+msgstr "Node inhoud"
+
+msgid "Node Name and Tags"
+msgstr "Knoopnamen en labels"
+
+msgid "Only Selected Node and Subnodes"
+msgstr "Enkel geselecteerde knoop en subknopen"
+
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Zoek/Vervang dialoogvenster met alle treffers weergeven"
+
+msgid "Search options"
+msgstr "Zoek opties"
+
+msgid ""
+"The Replace field is empty: all found occurrences will be erased.\n"
+"Do you want to continue?"
+msgstr ""
+"Het vervangveld is leeg: alle gevonden voorkomens worden verwijderd.\n"
+"Wilt u doorgaan?"
+
+msgid ""
+"At least one node was skipped because of exclusions set in the node "
+"properties.\n"
+"In order to clear all the exclusions, use the menu:\n"
+"Search -> Clear All Exclusions From Search"
+msgstr ""
+"Minstens 1 knoop is overgeslagen vanwege uitsluitingen in knoop eigensch.\n"
+"Om uitsluitingen te verwijderen, gebruik het menu:\n"
+"Zoeken -> Verwijder alle uitzonderingen bij Zoeken"
+
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Verbergen (herstellen met '%s')"
+
+msgid "Node Name"
+msgstr "Knoopnaam"
+
+msgid "Line"
+msgstr "Regel"
+
+msgid "Line Content"
+msgstr "Regelinhoud"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Laatste Zoek/Vervang herhalen"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Find Previous"
+msgstr "Zoek vorige"
+
+msgid "Find Next"
+msgstr "Zoek volgende"
+
+msgid "Replace"
+msgstr "Vervang"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "Remove User Colour from Palette"
+msgstr "Gebruikerskleur uit het palet verwijderen"
+
+msgid "Colour"
+msgstr "Kleur"
+
+msgid "Question"
+msgstr "Vraag"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Select File"
+msgstr "Selecteer bestand"
+
+msgid "Select Folder"
+msgstr "Selecteer map"
+
+msgid "Save File as"
+msgstr "Bestand opslaan als"
+
+msgid "Save To Folder"
+msgstr "In map bewaren"
+
+# Change English source to: "To Website"
+msgid "To WebSite"
+msgstr "Naar website"
+
+msgid "To File"
+msgstr "Naar bestand"
+
+msgid "To Folder"
+msgstr "Naar map"
+
+msgid "To Node"
+msgstr "Naar knoop"
+
+msgid "Anchor Name (optional)"
+msgstr "Ankernaam (optioneel)"
+
+msgid "There are No Anchors in the Selected Node."
+msgstr "Er zijn geen ankers in de geselecteerde knoop."
+
+msgid "Choose Existing Anchor"
+msgstr "Kies bestaand anker"
+
+msgid "Anchor Name"
+msgstr "Ankernaam"
+
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "Het patroon '%s' is niet gevonden"
 
 msgid "Bold"
 msgstr "Vet"
@@ -874,8 +942,11 @@ msgstr "Gebruik de geselecteerde kleur"
 msgid "Use Selected Icon"
 msgstr "Gebruik het geselecteerde pictogram"
 
-msgid "Automatic Syntax Highlighting"
-msgstr "Automatische syntax markering"
+msgid "Rich Text"
+msgstr "Rich Text"
+
+msgid "Node Type"
+msgstr "Knoop type"
 
 msgid "Tags for Searching"
 msgstr "Labels om te zoeken"
@@ -937,417 +1008,24 @@ msgstr "Nieuw knoop in nieuwe pagina"
 msgid "Single File"
 msgstr "Enkel bestand"
 
-msgid "Latex Text"
-msgstr "LaTeX tekst"
-
-msgid "Image Size dpi"
-msgstr "Afbeelding afmetingen dpi"
-
-msgid "Tutorial"
-msgstr "Tutorial"
-
-msgid "Reference"
-msgstr "Verwijzingen"
-
-msgid "LaTeX Math and Equations Tutorial"
-msgstr "LaTex wiskunde en vergelijkingen hulp"
-
-msgid "LaTeX Math Symbols Reference"
-msgstr "LaTeX wiskunde symbolen referentie"
-
-msgid "Image Properties"
-msgstr "Afbeelding eigenschappen"
-
-msgid "Rotate Left"
-msgstr "Knoop links"
-
-msgid "Rotate Right"
-msgstr "Knoop _rechts"
-
-msgid ""
-"In order to crop the image, select the area with the mouse before clicking OK"
-msgstr ""
-"Om de afbeelding bij te snijden, selecteert het gebied met de muis en klik "
-"dan OK"
-
-msgid "Flip Horizontally"
-msgstr "Horizontale lijn"
-
-msgid "Flip Vertically"
-msgstr "Keer om Vertikaal"
-
-msgid "Width"
-msgstr "Breedte"
-
-msgid "Height"
-msgstr "Hoogte"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "pixels"
-msgstr "pixels"
-
-msgid "Size"
-msgstr "Grootte"
-
-msgid "Show Line Numbers"
-msgstr "Regelnummers weergeven"
-
-msgid "Highlight Matching Brackets"
-msgstr "Bij elkaar behorende haken markeren"
-
-msgid "Options"
-msgstr "Opties"
-
-msgid "Rows"
-msgstr "Rijen"
-
-msgid "Columns"
-msgstr "Kolommen"
-
-msgid "Default Width"
-msgstr "Standaard breedte"
-
-msgid "Table Size"
-msgstr "Tabel grootte"
-
-msgid "Column Properties"
-msgstr "Kolom eigenschappen"
-
-msgid "Lightweight Interface (much faster for large tables)"
-msgstr "Eenvoudige Interface (sneller voor grote tabellen)"
-
-msgid "Import from CSV File"
-msgstr "Importeren van CSV bestand"
-
-msgid "The Tree is Empty!"
-msgstr "De boom is leeg!"
-
-msgid "The Selected Node is Read Only."
-msgstr "De geselecteerde knoop is Alleen Lezen."
-
-msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "Deze eigenschap is alleen beschikbaar voor Rich Text knopen."
-
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr ""
-"Deze eigenschap is niet beschikbaar voor knopen met automatische syntax "
-"markering."
-
-msgid "No Table is Selected."
-msgstr "Geen tabel geselecteerd."
-
-msgid "No CodeBox is Selected."
-msgstr "Geen codevak geselecteerd."
-
-msgid "New Child Node Properties"
-msgstr "Nieuwe subknoop eigenschappen"
-
-msgid "New Node Properties"
-msgstr "Nieuwe knoop eigenschappen"
-
-msgid "Node Properties"
-msgstr "Knoop eigenschappen"
-
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Uitschakelen van Rich Text knoop type zal alle opmaak voor deze knoop "
-"verwijderen. Wilt u doorgaan?"
-
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Weet u zeker dat u <b>de knoop '%s' wilt verwijderen?</b>"
-
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Deze knoop <b>heeft kinderen die ook zullen worden verwijderd!</b>"
-
-msgid "Select the New Parent"
-msgstr "Selecteer de nieuwe ouder"
-
-msgid "The new parent can't be the very node to move!"
-msgstr "Verplaatsen mislukt: een knoop kan niet zichzelf als ouder hebben!"
-
-msgid "The new chosen parent is still the old parent!"
-msgstr "Geen wijziging: de nieuw gekozen ouder is dezelfde als de oude ouder!"
-
-#, c-format
-msgid "%s Nodes Properties Changed"
-msgstr "%s Knoop eigenschappen aangepast"
-
-msgid "Copy Selection or All"
-msgstr "Kopieer selectie of alles"
-
-msgid "Paste"
-msgstr "Plakken"
-
-msgid "Reset"
-msgstr "Reset"
-
-msgid "Downloading"
-msgstr "Ophalen"
-
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree hiërarchisch notitie programma"
-
-msgid "Show/Hide _CherryTree"
-msgstr "_CherryTree weergeven/verbergen"
-
-msgid "Toggle Show/Hide CherryTree"
-msgstr "CherryTree weergeven/verbergen wisselen"
-
-msgid "_Exit CherryTree"
-msgstr "_CherryTree afsluiten"
-
-msgid "Exit from CherryTree"
-msgstr "CherryTree afsluiten"
-
 msgid "Index"
 msgstr "Index"
 
-msgid "Rename"
-msgstr "Hernoemen"
+msgid "Warning: One or More Images Were Reduced to Enter the Page!"
+msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina!"
 
-msgid "PNG Image"
-msgstr "PNG afbeelding"
+msgid "LaTeX rendering was blocked for security reasons"
+msgstr "LaTeX-weergave is geblokkeerd om beveiligingsredenen"
 
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Schrijven naar %s mislukt"
-
-msgid "Insert/Edit Link"
-msgstr "Koppeling invoegen/wijzigen"
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid."
-msgstr "De mapkoppeling '%s' is ongeldig."
-
-#, c-format
-msgid "The File Link '%s' is Not Valid."
-msgstr "Het bestandskoppeling '%s' is ongeldig."
-
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "De mapkoppeling '%s' is ongeldig"
-
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Geen anker met naam '%s' gevonden"
-
-msgid "Edit CodeBox"
-msgstr "Codevak wijzigen"
-
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog."
-msgstr ""
-"Associeer een commando met '%s'.\n"
-"Dit kan bij voorkeuren."
+msgid "The source contains file I/O commands that can access local files"
+msgstr "De bron bevat bestandsinvoer/-uitvoeropdrachten die toegang hebben tot lokale bestanden"
 
 msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog."
+"Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
+"\\input/\\include paths"
 msgstr ""
-"Installeer 'xterm' of configureer een andere terminal in het voorkeuren "
-"venster."
-
-msgid "Edit Table Properties"
-msgstr "Wijzig tabeleigenschappen"
-
-msgid "Insert Anchor"
-msgstr "Anker invoegen"
-
-msgid "Edit Anchor"
-msgstr "Anker wijzigen"
-
-msgid "Cannot Edit Embedded File in Read Only Node."
-msgstr "Kan geen ingevoegde bestanden in Alleen Lezen modus bewerken."
-
-msgid "Embedded File Automatically Updated:"
-msgstr "Ingevoegde bestand is automatisch geüpdate:"
-
-msgid "Autosave on Quit"
-msgstr "Automatisch opslaan bij afsluiten"
-
-msgid "Create a Backup Copy Before Saving"
-msgstr "Reservekopie maken voor opslaan"
-
-msgid "Number of Backups to Keep"
-msgstr "Aantal bewaarde backups"
-
-msgid "Custom Backup Directory"
-msgstr "Aangepaste backup map"
-
-msgid "Multiple Files Storage, Use Embedded File Name On Disk"
-msgstr "Meervoudig Bestand Opslag, Gebruik Ingesloten Bestand Naam op Schijf"
-
-msgid "Saving"
-msgstr "Opslaan"
-
-msgid "Automatically Check for Newer Version"
-msgstr "Automatisch op nieuwe versies controleren"
-
-msgid "Reload Document From Last Session"
-msgstr "Document laden uit laatste sessie"
-
-msgid "Reload After External Update to CT* File"
-msgstr "Opnieuw inladen na externe bijwerking van CT* bestand"
-
-msgid "Enable Debug Log"
-msgstr "Schakel debug log in"
-
-msgid "Debug Log Directory"
-msgstr "Debug log map"
-
-msgid "Enable System Tray Docking"
-msgstr "In systeemvak verbergen inschakelen"
-
-msgid "Start Minimized in the System Tray"
-msgstr "Geminimaliseerd in systeemvak opstarten"
-
-msgid "System Tray"
-msgstr "Systeemvak"
-
-msgid "Language"
-msgstr "Taal"
-
-msgid "No Previous Text Format Was Performed During This Session."
-msgstr "Geen vorige tekstopmaak uitgevoerd tijdens deze sessie."
-
-msgid "Link Name"
-msgstr "Koppelingsnaam"
-
-msgid "The Cursor is Not into a Paragraph."
-msgstr "De cursor bevindt zich niet in een alinea."
-
-msgid "Pick a Foreground Color"
-msgstr "Kies een voorgrond kleur"
-
-msgid "Pick a Background Color"
-msgstr "Kies een achtergrond kleur"
-
-msgid "Enable Spell Check"
-msgstr "Spellingcontrole inschakelen"
-
-msgid "Spell Check Language"
-msgstr "Spellingcontrole taal"
-
-msgid "Show White Spaces"
-msgstr "Witruimte weergeven"
-
-msgid "Highlight Current Line"
-msgstr "Huidige regel markeren"
-
-msgid "Expand CodeBoxes Automatically"
-msgstr "Vergroot codevak automatisch"
-
-msgid "CodeBoxes Have Toolbar"
-msgstr "CodeBoxes Have Toolbar"
-
-msgid "Threshold Number of Table Cells for Lightweight Interface"
-msgstr "Grenswaarde aantal tabel cellen van Eenvoudige Interface"
-
-msgid "Embedded File Icon Size"
-msgstr "Ingevoegde bestand pictogram grootte"
-
-msgid "Embedded File Size Limit (MB)"
-msgstr "Max. grootte ingevoegde bestanden (MB)"
-
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Toon de bestandsnaam boven het pictogram voor ingebed bestand"
-
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Max. ongedaan maak stappen per knoop"
-
-msgid "Auto Link CamelCase Text to Node With Same Name"
-msgstr "Automatisch linken CamelCase tekst aan de knoop met dezelfde naam"
-
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Selecteer bij driedubbelklik de gehele alinea"
-
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Schakel automatische vervanging Markdown in (experimenteel)"
-
-msgid "Scale"
-msgstr "Schaal"
-
-msgid "Italic"
-msgstr "Schuin"
-
-msgid "Underline"
-msgstr "Onderstreept"
-
-# Change English source to: "Text_color"?
-msgid "Text Color Foreground"
-msgstr "Tekstkleur voorgrond"
-
-msgid "Text Color Background"
-msgstr "Tekst achtergrondkleur"
-
-msgid "Small"
-msgstr "Klein"
-
-msgid "Scalable Tags"
-msgstr "Schaalbare tags"
-
-#, c-format
-msgid "'%s' is Not a Valid Archive"
-msgstr "'%s ' is geen geldig archief"
-
-msgid "Writing to Disk..."
-msgstr "Naar schijf wegschrijven..."
-
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "U heeft geen schrijfrechten op %s"
-
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Geef wachtwoord voor %s"
-
-msgid "Failed integrity check of the saved document. Try File-->Save As"
-msgstr ""
-"Fout bij integriteits check opgeslagen document. Kies Bestand Opslaan als"
-
-msgid "Failed to encrypt the file"
-msgstr "Encryptie bestand mislukt"
-
-#, c-format
-msgid "The database file %s is corrupt, see log for more details."
-msgstr ""
-"Het database bestand %s bevat fouten, zie het log-bestand voor meer info."
-
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s wegschrijven mislukt - bestand ontbreekt. Koppel usb of gedeelde bron "
-"opnieuw."
-
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"%s wegschrijven mislukt - wordt het bestand geblokkeerd door een sync "
-"programma?"
-
-#, c-format
-msgid ""
-"%s reopen failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s opnieuw openen mislukt - bestand ontbreekt. Koppel USB disk of gedeelde "
-"bron opnieuw."
-
-msgid "Who is the Parent?"
-msgstr "Wie is de ouder?"
-
-msgid "The Tree Root"
-msgstr "De boomwortel"
-
-msgid "The Selected Node"
-msgstr "De geselecteerde knoop"
+"Verwijder opdrachten zoals \\verbatiminput, \\openin, \\openout en "
+"onveilige \\input/\\include-paden"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr "Kan geen toegang verkrijgen tot de programma's 'latex' en 'dvips'"
@@ -1364,138 +1042,99 @@ msgstr "Kan geen toegang verkrijgen tot het programma 'latex'"
 msgid "Could not access the executable 'dvipng'"
 msgstr "Kan geen toegang verkrijgen tot het programma 'dvipng'"
 
-msgid "Use Different Cherries per Level"
-msgstr "Gebruik verschillende Cherries per niveau"
-
-msgid "No Icon"
-msgstr "Geen pictogram"
-
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Verberg het rechter hulppictogram"
-
-msgid "Default Text Nodes Icons"
-msgstr "Standaard tekstknopen pictogrammen"
-
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Inklappen/uitklappen status herstellen"
-
-msgid "Expand all Nodes"
-msgstr "Alle knopen uitklappen"
-
-msgid "Collapse all Nodes"
-msgstr "Alle knopen inklappen"
-
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Knopen in bladwijzers altijd zichtbaar"
-
-msgid "Nodes Status at Startup"
-msgstr "Knopen status bij opstarten"
-
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Boom knoopnamen regelterugloop breedte"
-
-msgid "Display Tree on the Right Side"
-msgstr "Boom aan de rechterzijde weergeven"
-
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Verplaats de focus naar de tekst bij muisklik"
-
-msgid "Expand Node at Mouse Click"
-msgstr "Klap knoop uit bij muisklik"
-
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Laatst bezochte knopen weergeven in knoopnaam kop"
-
-msgid "A Restore From Backup Was Necessary For:"
-msgstr "Herstel uit backup was nodig voor:"
-
-msgid "Replace in Current Node"
-msgstr "Vervang in huidige knoop"
-
-msgid "Search in Current Node"
-msgstr "Zoek in huidige knoop"
+msgid "Downloading"
+msgstr "Ophalen"
 
 #, c-format
-msgid "<b>The pattern '%s' was not found</b>"
-msgstr "<b>Het patroon '%s' is niet gevonden</b>"
+msgid "The Path %s does Not Exist"
+msgstr "Pad %s bestaat niet"
 
-msgid "Replace in Multiple Nodes..."
-msgstr "Vervang in meerdere knopen..."
+msgid "Open a Recent CherryTree Document"
+msgstr "Een recent CherryTree document openen"
 
-msgid "Find in Multiple Nodes..."
-msgstr "Zoeken in meerdere knopen..."
+msgid "_Hide"
+msgstr "Verbergen"
 
-msgid "No Previous Search Was Performed During This Session."
-msgstr "Geen vorige zoekopdracht is uitgevoerd tijdens deze sessie."
+msgid "_Quit"
+msgstr "_Sluiten"
 
-msgid "Tab Width"
-msgstr "Tab breedte"
+msgid "Hide the Window"
+msgstr "Verberg het venster"
 
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Spaties in plaats van tabs invoegen"
+msgid "Quit the Application"
+msgstr "Applicatie afsluiten"
 
-msgid "Use Line Wrapping"
-msgstr "Regelterugloop gebruiken"
+msgid "Spell Check"
+msgstr "Spellingscontrole"
 
-msgid "Line Wrapping Indentation"
-msgstr "Inspringing bij regelterugloop"
+msgid "Word Count"
+msgstr "Woorden tellen"
 
-msgid "Enable Automatic Indentation"
-msgstr "Automatische inspringing inschakelen"
+msgid "Date Created"
+msgstr "Aanmaakdatum"
 
-msgid "Scroll Beyond Last Line"
-msgstr "Scroll verder dan laatste regel"
+msgid "Date Modified"
+msgstr "Wijzigingsdatum"
 
-msgid "Cursor Blinking"
-msgstr "Knipperende Cursor"
+msgid "Subnodes"
+msgstr "Subknopen"
 
-msgid "On"
-msgstr "Aan"
+msgid ""
+"No Previous Node Copy Was Performed During This Session or the Source Tree "
+"is No Longer Available."
+msgstr ""
+"Geen vorige knoop kopieer actie is uitgevoerd tijdens deze sessie, of de "
+"bron boom is niet langer beschikbaar."
 
-msgid "Off"
-msgstr "Uit"
+msgid "The Source Tree Node is No Longer Available."
+msgstr "The bron boom knoop is niet langer beschikbaar."
 
-msgid "Text Margin: Left"
-msgstr "Tekst Marge: Links"
+msgid "Show Menubar:"
+msgstr "Toon menubalk:"
 
-msgid "Right"
-msgstr "Rechts"
+#, c-format
+msgid "\"%s\" is Not a CherryTree File"
+msgstr "\"%s\" is geen CherryTree bestand"
 
-msgid "Vertical Space Around Lines"
-msgstr "Regelafstand"
+#, c-format
+msgid ""
+"Error Parsing the CherryTree Path:\n"
+"\"%s\""
+msgstr ""
+"Fout bij het parsen van het CherryTree pad:\n"
+"\"%s\""
 
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Regelafstand van regels met tekstterugloop"
+msgid "Do you want to Open the Last Backup?"
+msgstr "Wilt u de laatste backup openen?"
 
-msgid "Timestamp Format"
-msgstr "Tijdstempel opmaak"
+msgid "Failed to Load from Backup Data"
+msgstr "Backup data kon niet worden geladen"
 
-msgid "Horizontal Rule"
-msgstr "Horizontale lijn"
+#, c-format
+msgid "No node named '%s' found."
+msgstr "Geen anker met naam '%s' gevonden."
 
-msgid "Chars to Select at Double Click"
-msgstr "Geselecteerde karakters bij dubbelklikken"
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Tijdelijke bestanden zijn gemaakt en geopend met externe applicaties."
 
-msgid "The Size of the Toolbar Icons is already at the Maximum Value."
-msgstr "De grootte van de knoppenbalk is al op de maximale waarde."
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Sluit de externe applicatie af vóór afsluiten CherryTree."
 
-msgid "The Size of the Toolbar Icons is already at the Minimum Value."
-msgstr "De grootte van de knoppenbalk is al op de minimale waarde."
+msgid "Did you Quit the External Applications?"
+msgstr "Heeft u de externe applicatie afgesloten?"
 
-msgid "Warning: One or More Images Were Reduced to Enter the Page!"
-msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina!"
+#, c-format
+msgid "Cannot Save: \"%s\" is Read-Only"
+msgstr "Kan niet opslaan: \"%s\" is alleen-lezen"
 
-msgid "Internal Terminal Shell"
-msgstr "Interne Terminal Shell"
+msgid "The Document was Reloaded After External Update to CT* File."
+msgstr "Dit document is herladen na een externe update van CT* bestand."
 
-msgid "Command per Node/CodeBox Type"
-msgstr "Commando per knoop/Codevak type"
+msgid "Copy Selection or All"
+msgstr "Kopieer selectie of alles"
 
-msgid "Terminal Command"
-msgstr "Terminal commando"
-
-msgid "Code Execution"
-msgstr "Code uitvoeren"
+msgid "Paste"
+msgstr "Plakken"
 
 msgid "Remove from list"
 msgstr "Verwijderen uit _Bladwijzers"
@@ -1596,6 +1235,9 @@ msgstr "Start een nieuwe CherryTree omgeving"
 msgid "_Open File..."
 msgstr "_Bestand openen..."
 
+msgid "Open a CherryTree File"
+msgstr "Open CherryTree document"
+
 msgid "Open Fo_lder..."
 msgstr "_Map openen..."
 
@@ -1632,6 +1274,9 @@ msgstr "Afd_rukken..."
 msgid "Print"
 msgstr "Afdrukken"
 
+msgid "Preferences"
+msgstr "Instellingen"
+
 msgid "_Import Preferences..."
 msgstr "_Importeer instellingen..."
 
@@ -1647,8 +1292,17 @@ msgstr "Exporteert de instellingen"
 msgid "Tree In_fo"
 msgstr "Boom _informatie"
 
+msgid "_Document Path to Clipboard"
+msgstr "_Documentpad naar klembord"
+
+msgid "Copy Document Path to Clipboard"
+msgstr "Documentpad naar klembord kopiëren"
+
 msgid "E_xit CherryTree"
 msgstr "_CherryTree afsluiten"
+
+msgid "Exit from CherryTree"
+msgstr "CherryTree afsluiten"
 
 msgid "Edit/Insert"
 msgstr "Bewerken/Invoegen"
@@ -2007,6 +1661,9 @@ msgstr "Codevak hoogte verkleinen"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Verkleint de codevak hoogte"
 
+msgid "Format"
+msgstr "Opmaak"
+
 msgid "Format Clo_ne"
 msgstr "Maak kopie op"
 
@@ -2105,17 +1762,17 @@ msgstr "Klein"
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Klein eigenschap van de geselecteerde tekst aan-/uitzetten"
 
-msgid "Toggle Su_perscript Property"
-msgstr "Su_perscript"
-
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Superscript eigenschap van de geselecteerde tekst aan-/uitzetten"
-
 msgid "Toggle Su_bscript Property"
 msgstr "Su_bscript"
 
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Subscript eigenschap van de geselecteerde tekst aan-/uitzetten"
+
+msgid "Toggle Su_perscript Property"
+msgstr "Su_perscript"
+
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Superscript eigenschap van de geselecteerde tekst aan-/uitzetten"
 
 msgid "Toggle _Monospace Property"
 msgstr "Vaste breedte"
@@ -2177,6 +1834,18 @@ msgstr "Alinea niet inspringen"
 msgid "Unindent the Current Paragraph"
 msgstr "De huidige alinea niet inspringen"
 
+msgid "_Expand TOC Headers"
+msgstr "_Inhoudsopgave-koppen uitklappen"
+
+msgid "Expand TOC Headers"
+msgstr "Inhoudsopgave-koppen uitklappen"
+
+msgid "_Collapse TOC Headers"
+msgstr "_Inhoudsopgave-koppen inklappen"
+
+msgid "Collapse TOC Headers"
+msgstr "Inhoudsopgave-koppen inklappen"
+
 msgid "Tools"
 msgstr "Hulpmiddelen"
 
@@ -2185,6 +1854,12 @@ msgstr "_Spellingcontrole inschakelen/uitschakelen"
 
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Spellingcontrole inschakelen/uitschakelen wisselen"
+
+msgid "Enable/Disable _VIM Mode"
+msgstr "_VIM-modus in-/uitschakelen"
+
+msgid "Toggle Enable/Disable VIM Mode"
+msgstr "VIM-modus in-/uitschakelen wisselen"
 
 msgid "Stri_p Trailing Spaces"
 msgstr "Naloopspaties trimmen"
@@ -2215,6 +1890,9 @@ msgstr "Voer code regel of selectie uit"
 
 msgid "Execute Code from Current Line or Selected Text"
 msgstr "Voer code uit regel of selectie uit"
+
+msgid "Tree"
+msgstr "Boom"
 
 msgid "Go _Back"
 msgstr "Naar vorige"
@@ -2445,9 +2123,6 @@ msgstr "In geselecteerde knoop-inhoud vervangen"
 msgid "Replace in _Multiple Nodes..."
 msgstr "Vervang in _meerdere knopen..."
 
-msgid "Replace in Multiple Nodes"
-msgstr "Vervang in meerdere knopen"
-
 msgid "Replace A_gain"
 msgstr "Opnieuw verv_angen"
 
@@ -2534,6 +2209,18 @@ msgstr "Verklein afmetingen knoppenbalk pictogrammen"
 
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "De afmetingen van de knoppenbalk pictogrammen verkleinen"
+
+msgid "More Last _Visited Nodes on Node Name Header"
+msgstr "Meer _bezochte knopen in knoopnaamkop"
+
+msgid "Increase the Number of Last Visited Nodes on Node Name Header"
+msgstr "Vergroot het aantal bezochte knopen in knoopnaamkop"
+
+msgid "L_ess Last Visited Nodes on Node Name Header"
+msgstr "M_inder bezochte knopen in knoopnaamkop"
+
+msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
+msgstr "Verklein het aantal bezochte knopen in knoopnaamkop"
 
 msgid "Full Screen _On/Off"
 msgstr "_Volledig scherm aan/uit"
@@ -2727,6 +2414,12 @@ msgstr "_Bug Melden"
 msgid "Report a Bug in CherryTree"
 msgstr "Bug melden"
 
+msgid "_Donate"
+msgstr "_Doneren"
+
+msgid "Donate to Support CherryTree"
+msgstr "Doneer om CherryTree te ondersteunen"
+
 msgid "Online _Manual"
 msgstr "Online _handleiding"
 
@@ -2871,6 +2564,12 @@ msgstr "Koppeling afwijzen"
 msgid "Dismiss the Link Associated to the Image"
 msgstr "De koppeling geassocieerd met afbeelding verwijderen"
 
+msgid "Show/Hide _CherryTree"
+msgstr "_CherryTree weergeven/verbergen"
+
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTree weergeven/verbergen wisselen"
+
 msgid "Edit the Underlying Link"
 msgstr "Onderliggende koppeling wijzigen"
 
@@ -2895,62 +2594,544 @@ msgstr "Koppeling verwijderen"
 msgid "Delete the Selected Link"
 msgstr "Geselecteerde koppeling verwijderen"
 
-msgid "Remove Color"
-msgstr "Verwijder kleur"
+msgid "English"
+msgstr "Engels"
 
-msgid "Question"
-msgstr "Vraag"
+msgid "Text and Code"
+msgstr "Tekst en code"
 
-msgid "Info"
-msgstr "Info"
+msgid "Plain Text and Code"
+msgstr "Platte tekst en code"
 
-msgid "Error"
-msgstr "Fout"
+msgid "Tree Explorer"
+msgstr "Boom verkenner"
 
-msgid "Select File"
-msgstr "Selecteer bestand"
+msgid "Theme"
+msgstr "Thema"
 
-msgid "Select Folder"
-msgstr "Selecteer map"
+msgid "Interface"
+msgstr "Interface"
 
-msgid "Save File as"
-msgstr "Bestand opslaan als"
+msgid "Links"
+msgstr "Koppelingen"
 
-msgid "Save To Folder"
-msgstr "In map bewaren"
+msgid "Toolbar"
+msgstr "Knoppenbalk"
 
-msgid "Print CherryTree version"
-msgstr "Toon CherryTree versie"
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
 
-msgid "Node name to focus"
-msgstr "Knoop naam om op te focussen"
+msgid "Miscellaneous"
+msgstr "Diversen"
 
-msgid "Anchor name to scroll to in node"
-msgstr "Anker naam om naar toe te scrollen in knooppunt"
+msgid "Monospace"
+msgstr "Vaste breedte"
 
-msgid "Export to HTML at specified directory path"
-msgstr "Exporteer naar HTML op opgegeven map pad"
+msgid "Code Font"
+msgstr "Code lettertype"
 
-msgid "Export to Text at specified directory path"
-msgstr "Exporteer naar TXT op opgegeven map pad"
+msgid "Terminal Font"
+msgstr "Terminal Lettertype"
 
-msgid "Export to PDF at specified directory path"
-msgstr "Exporteer naar PDF op opgegeven map pad"
+msgid "Tree Font"
+msgstr "Boom lettertype"
 
-msgid "Overwrite if export path already exists"
-msgstr "Overschrijven als export pad reeds bestaat"
+msgid "Reset to Default"
+msgstr "Terugzetten naar standaardwaarden"
 
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Exporteer naar een enkel bestand (voor HTML of TXT)"
+msgid "Fonts"
+msgstr "Lettertypen"
 
-msgid "Password to open document"
-msgstr "Wachtwoord om document te openen"
+msgid "Enable Word Count in Statusbar"
+msgstr "Toon aantal woorden in statusbalk"
 
-msgid "Create a new window"
-msgstr "Maak een nieuw venster"
+msgid "Show the Document Directory in the Window Title"
+msgstr "Toon de bestandsmap in de venstertitel"
 
-msgid "Run in secondary session, independent from main session"
-msgstr "Uitvoeren in secundaire sessie, onafhankelijk van hoofdsessie"
+msgid "Show the Full Path in the Node Name Header"
+msgstr "Toon het volledige pad in de knoopnaam kop"
+
+msgid "Dedicated Bookmarks Menu in Menubar"
+msgstr "Aangepast bladwijzers menu in menubalk"
+
+msgid "Menubar in Titlebar"
+msgstr "Menubalk in in de titelbalk"
+
+msgid "Toolbar Icons Size"
+msgstr "Grootte van knoppenbalk pictogrammen"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Laatst bezochte knopen weergeven in knoopnaam kop"
+
+msgid "Scrollbar Slider Minimum Size (0 = System Default)"
+msgstr "Schuifbalk minimum grootte (0 = Default)"
+
+msgid "Scrollbar Overlays Text Editor"
+msgstr "Schuifbalk Overlays Text Editor"
+
+msgid "System Default"
+msgstr "Systeem standaard"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Enable Tooltips When Hovering"
+msgstr "Inschakelen Tooltips"
+
+msgid "Menus"
+msgstr "Menus"
+
+msgid "Max Search Results per Page"
+msgstr "Max Zoek resultaten per Bladzij"
+
+msgid "Save Search/Replace History Between Sessions"
+msgstr "Zoek-/vervanggeschiedenis opslaan tussen sessies"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Aangepaste webkoppeling klik-actie inschakelen"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Aangepaste bestandskoppeling klik-actie inschakelen"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Aangepaste map koppeling klik-actie inschakelen"
+
+msgid "Custom Actions"
+msgstr "Aangepaste acties"
+
+msgid "Colors"
+msgstr "Kleuren"
+
+msgid "Double Click for Link Action"
+msgstr "Dubbelklik voor koppelingsactie"
+
+msgid "Underline Links"
+msgstr "Onderstreep koppelingen"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Gebruik relatieve paden voor bestanden en mappen"
+
+msgid "Anchor Size"
+msgstr "Anker grootte"
+
+msgid "Change Selected"
+msgstr "Pas de geselecteerde aan"
+
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use."
+msgstr "De sneltoets '%s' is al in gebruik."
+
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "De huidige geassocieerde actie is '%s'"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Wilt u de sneltoets stelen?"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Pas sneltoets aan"
+
+msgid "No Keyboard Shortcut"
+msgstr "Geen sneltoets"
+
+msgid "Autosave on Quit"
+msgstr "Automatisch opslaan bij afsluiten"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Reservekopie maken voor opslaan"
+
+msgid "Number of Backups to Keep"
+msgstr "Aantal bewaarde backups"
+
+msgid "Custom Backup Directory"
+msgstr "Aangepaste backup map"
+
+msgid "Multiple Files Storage, Use Embedded File Name On Disk"
+msgstr "Meervoudig Bestand Opslag, Gebruik Ingesloten Bestand Naam op Schijf"
+
+msgid "Saving"
+msgstr "Opslaan"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Automatisch op nieuwe versies controleren"
+
+msgid "Reload Document From Last Session"
+msgstr "Document laden uit laatste sessie"
+
+msgid "Show Start Dialog When No Document Is Loaded"
+msgstr "Startdialoog weergeven als er geen document is geladen"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Opnieuw inladen na externe bijwerking van CT* bestand"
+
+msgid "Enable Debug Log"
+msgstr "Schakel debug log in"
+
+msgid "Debug Log Directory"
+msgstr "Debug log map"
+
+msgid "Enable System Tray Docking"
+msgstr "In systeemvak verbergen inschakelen"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Geminimaliseerd in systeemvak opstarten"
+
+msgid "System Tray"
+msgstr "Systeemvak"
+
+msgid "Language"
+msgstr "Taal"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Port"
+msgstr "Poort"
+
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "Proxy"
+msgstr "Proxy"
+
+msgid "Show White Spaces"
+msgstr "Witruimte weergeven"
+
+msgid "Highlight Current Line"
+msgstr "Huidige regel markeren"
+
+msgid "Text Editor"
+msgstr "Tekstverwerker"
+
+msgid "Internal Terminal Shell"
+msgstr "Interne Terminal Shell"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Remove Selected"
+msgstr "Verwijder de geselecteerde"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Commando per knoop/Codevak type"
+
+msgid "Terminal Command"
+msgstr "Terminal commando"
+
+msgid "Code Execution"
+msgstr "Code uitvoeren"
+
+msgid "Select Element to Add"
+msgstr "Selecteer toe te voegen element"
+
+msgid "Enable Spell Check"
+msgstr "Spellingcontrole inschakelen"
+
+msgid "Spell Check Language"
+msgstr "Spellingcontrole taal"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Vergroot codevak automatisch"
+
+msgid "CodeBoxes Have Toolbar"
+msgstr "CodeBoxes Have Toolbar"
+
+msgid "Threshold Number of Table Cells for Lightweight Interface"
+msgstr "Grenswaarde aantal tabel cellen van Eenvoudige Interface"
+
+msgid "Embedded File Icon Size"
+msgstr "Ingevoegde bestand pictogram grootte"
+
+msgid "Embedded File Size Limit (MB)"
+msgstr "Max. grootte ingevoegde bestanden (MB)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Toon de bestandsnaam boven het pictogram voor ingebed bestand"
+
+msgid "Do Not Auto-Select Objects on Single Click"
+msgstr "Objecten niet automatisch selecteren bij één klik"
+
+msgid "Workaround for clipboard-related freezes on KDE 6 with Klipper"
+msgstr "Tijdelijke oplossing voor klembordblokkades in KDE 6 met Klipper"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Max. ongedaan maak stappen per knoop"
+
+msgid "Auto Link CamelCase Text to Node With Same Name"
+msgstr "Automatisch linken CamelCase tekst aan de knoop met dezelfde naam"
+
+msgid "Auto Link URLs"
+msgstr "URL's automatisch koppelen"
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Selecteer bij driedubbelklik de gehele alinea"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Schakel automatische vervanging Markdown in (experimenteel)"
+
+msgid "Scale"
+msgstr "Schaal"
+
+msgid "Italic"
+msgstr "Schuin"
+
+msgid "Underline"
+msgstr "Onderstreept"
+
+# Change English source to: "Text_color"?
+msgid "Text Color Foreground"
+msgstr "Tekstkleur voorgrond"
+
+msgid "Text Color Background"
+msgstr "Tekst achtergrondkleur"
+
+msgid "Small"
+msgstr "Klein"
+
+msgid "Scalable Tags"
+msgstr "Schaalbare tags"
+
+msgid "Chars for Bulleted List"
+msgstr "Tekens voor opsomming"
+
+msgid "Chars for Todo List"
+msgstr "Tekens voor todo lijst"
+
+msgid "Chars for Table Of Content"
+msgstr "Tekens voor inhoudsopgave"
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Tekens voor slimme dubbele aanhalingstekens"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Tekens voor slimme enkele aanhalingstekens"
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Schakel automatisch vervangen slimme aanhalingstekens in"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Schakel automatisch vervangen symbolen in"
+
+msgid "Supported Symbols Auto Replacements"
+msgstr "Ondersteunde symbolen voor automatische vervanging"
+
+msgid "Only at the Start of the Line"
+msgstr "Alleen aan het begin van de regel"
+
+msgid "Tab Width"
+msgstr "Tab breedte"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Spaties in plaats van tabs invoegen"
+
+msgid "Use Line Wrapping"
+msgstr "Regelterugloop gebruiken"
+
+msgid "Line Wrapping Indentation"
+msgstr "Inspringing bij regelterugloop"
+
+msgid "Enable Automatic Indentation"
+msgstr "Automatische inspringing inschakelen"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Scroll verder dan laatste regel"
+
+msgid "Cursor Blinking"
+msgstr "Knipperende Cursor"
+
+msgid "On"
+msgstr "Aan"
+
+msgid "Off"
+msgstr "Uit"
+
+msgid "Text Margin: Left"
+msgstr "Tekst Marge: Links"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Vertical Space Around Lines"
+msgstr "Regelafstand"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Regelafstand van regels met tekstterugloop"
+
+msgid "Timestamp Format"
+msgstr "Tijdstempel opmaak"
+
+msgid "Horizontal Rule"
+msgstr "Horizontale lijn"
+
+msgid "Chars to Select at Double Click"
+msgstr "Geselecteerde karakters bij dubbelklikken"
+
+msgid "Light Background, Dark Text"
+msgstr "Lichte achtergrond, donkere tekst"
+
+msgid "Dark Background, Light Text"
+msgstr "Donkere achtergrond, lichte tekst"
+
+msgid "Custom Background"
+msgstr "Aangepaste achtergrond"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Selection Background"
+msgstr "Selectie achtergrondkleur"
+
+msgid "Table"
+msgstr "Tabel"
+
+msgid "Code"
+msgstr "Code lettertype"
+
+msgid "Style Schemes"
+msgstr "Stijlschema's"
+
+# Change English source to: "Text_color"?
+msgid "Text Foreground"
+msgstr "Tekstkleur voorgrond"
+
+msgid "Text Background"
+msgstr "Tekst achtergrondkleur"
+
+# Change English source to: "Text_color"?
+msgid "Selection Foreground"
+msgstr "Tekstkleur voorgrond"
+
+msgid "Cursor"
+msgstr "Cursor"
+
+msgid "Current Line Background"
+msgstr "Huidige regel achtergrond"
+
+# Change English source to: "Text_color"?
+msgid "Line Numbers Foreground"
+msgstr "Regelnummers voorgrond"
+
+msgid "Line Numbers Background"
+msgstr "Regelnummers achtergrond"
+
+msgid "Style Scheme Editor"
+msgstr "Stijlschema aanpassen"
+
+msgid "Set Dark Theme Icons"
+msgstr "Stel donkere thema iconen in"
+
+msgid "Set Light Theme Icons"
+msgstr "Stel lichte thema iconen in"
+
+msgid "Set Default Icons"
+msgstr "Stel standaard iconen in"
+
+msgid "Icon Theme"
+msgstr "Iconen thema"
+
+msgid "Split Toolbar"
+msgstr "Splits knoppenbalk"
+
+msgid "Use Different Cherries per Level"
+msgstr "Gebruik verschillende Cherries per niveau"
+
+msgid "No Icon"
+msgstr "Geen pictogram"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Verberg het rechter hulppictogram"
+
+msgid "Default Text Nodes Icons"
+msgstr "Standaard tekstknopen pictogrammen"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Inklappen/uitklappen status herstellen"
+
+msgid "Expand all Nodes"
+msgstr "Alle knopen uitklappen"
+
+msgid "Collapse all Nodes"
+msgstr "Alle knopen inklappen"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Knopen in bladwijzers altijd zichtbaar"
+
+msgid "Nodes Status at Startup"
+msgstr "Knopen status bij opstarten"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Boom knoopnamen regelterugloop breedte"
+
+msgid "Display Tree on the Right Side"
+msgstr "Boom aan de rechterzijde weergeven"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Verplaats de focus naar de tekst bij muisklik"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Klap knoop uit bij muisklik"
+
+#, c-format
+msgid "'%s' is Not a Valid Archive"
+msgstr "'%s ' is geen geldig archief"
+
+msgid "Writing to Disk..."
+msgstr "Naar schijf wegschrijven..."
+
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "U heeft geen schrijfrechten op %s"
+
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Geef wachtwoord voor %s"
+
+msgid "Failed integrity check of the saved document. Try File-->Save As"
+msgstr ""
+"Fout bij integriteits check opgeslagen document. Kies Bestand Opslaan als"
+
+msgid "Failed to encrypt the file"
+msgstr "Encryptie bestand mislukt"
+
+msgid "A Restore From Backup Was Necessary For:"
+msgstr "Herstel uit backup was nodig voor:"
+
+#, c-format
+msgid "The database file %s is corrupt, see log for more details."
+msgstr ""
+"Het database bestand %s bevat fouten, zie het log-bestand voor meer info."
+
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s wegschrijven mislukt - bestand ontbreekt. Koppel usb of gedeelde bron "
+"opnieuw."
+
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"%s wegschrijven mislukt - wordt het bestand geblokkeerd door een sync "
+"programma?"
+
+#, c-format
+msgid ""
+"%s reopen failed - file is missing. Reattach USB drive or shared resource."
+msgstr ""
+"%s opnieuw openen mislukt - bestand ontbreekt. Koppel USB disk of gedeelde "
+"bron opnieuw."
+
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree hiërarchisch notitie programma"
+
+msgid "_Exit CherryTree"
+msgstr "_CherryTree afsluiten"
 
 msgid "HTML Document"
 msgstr "HTML document"
@@ -2969,6 +3150,12 @@ msgstr "Leo document"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
+
+#~ msgid "Replace in Multiple Nodes..."
+#~ msgstr "Vervang in meerdere knopen..."
+
+#~ msgid "Find in Multiple Nodes..."
+#~ msgstr "Zoeken in meerdere knopen..."
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "T_OC invoegen..."
@@ -3095,9 +3282,6 @@ msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
 #~ msgid "Replace in Nodes _Names"
 #~ msgstr "Vervang in knoop _namen"
 
-#~ msgid "Replace in Nodes Names"
-#~ msgstr "Vervang in knoopnamen"
-
 #~ msgid "_Execute CodeBox Code"
 #~ msgstr "Voer code in het cod_evak uit"
 
@@ -3167,9 +3351,6 @@ msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
 #~ msgstr ""
 #~ "Uitvoerprogramma '7za' niet gevonden. Controleer of het pakket 'p7zip-"
 #~ "full' geinstalleerd is."
-
-#~ msgid "Wrong Password"
-#~ msgstr "Verkeerd wachtwoord"
 
 #~ msgid "Type To Search..."
 #~ msgstr "Type om te zoeken ..."
