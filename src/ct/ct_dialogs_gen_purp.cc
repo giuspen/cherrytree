@@ -396,7 +396,13 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
     dialog.set_title(_("Question"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.property_destroy_with_parent() = true;
-    static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES))->grab_focus();
+    auto* pBtnYes = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
+    pBtnYes->set_image_from_icon_name("ct_done", Gtk::ICON_SIZE_BUTTON);
+    pBtnYes->set_always_show_image(true);
+    pBtnYes->grab_focus();
+    auto* pBtnNo = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_NO));
+    pBtnNo->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
+    pBtnNo->set_always_show_image(true);
     return (Gtk::RESPONSE_YES == dialog.run());
 }
 
@@ -412,6 +418,9 @@ void CtDialogs::info_dialog(const Glib::ustring& message,
     dialog.set_title(_("Info"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.property_destroy_with_parent() = true;
+    auto* pBtnOkInfo = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
+    pBtnOkInfo->set_image_from_icon_name("ct_done", Gtk::ICON_SIZE_BUTTON);
+    pBtnOkInfo->set_always_show_image(true);
     dialog.run();
 }
 
@@ -427,6 +436,9 @@ void CtDialogs::warning_dialog(const Glib::ustring& message,
     dialog.set_title(_("Warning"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.property_destroy_with_parent() = true;
+    auto* pBtnOkWarn = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
+    pBtnOkWarn->set_image_from_icon_name("ct_done", Gtk::ICON_SIZE_BUTTON);
+    pBtnOkWarn->set_always_show_image(true);
     dialog.run();
 }
 
@@ -442,6 +454,9 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
     dialog.set_title(_("Error"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.property_destroy_with_parent() = true;
+    auto* pBtnOkErr = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
+    pBtnOkErr->set_image_from_icon_name("ct_done", Gtk::ICON_SIZE_BUTTON);
+    pBtnOkErr->set_always_show_image(true);
     dialog.run();
 }
 
