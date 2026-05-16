@@ -365,6 +365,13 @@ void CtDialogs::dialog_search(CtMainWin* pCtMainWin,
     pDialog->signal_key_press_event().connect(press_enter);
     search_entry->signal_key_press_event().connect(press_enter, false);
     if (replace_entry) {
+        search_entry->signal_key_press_event().connect([replace_entry](GdkEventKey* pEventKey){
+            if (GDK_KEY_Tab == pEventKey->keyval or GDK_KEY_ISO_Left_Tab == pEventKey->keyval) {
+                replace_entry->grab_focus();
+                return true;
+            }
+            return false;
+        }, false);
         replace_entry->signal_key_press_event().connect(press_enter, false);
     }
 
