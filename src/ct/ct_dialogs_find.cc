@@ -1005,6 +1005,7 @@ void CtDialogs::match_dialog(const std::string& str_find,
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
     pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
     pTreeview->set_tooltip_column(2/*rModel->columns.node_hier_name*/);
+    pTreeview->set_margin_bottom(20); // so overlay horiz scroll doesn't hide the last result in the page
     auto pScrolledBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pScrolledBox->pack_start(*pTreeview);
     if (CtTreeIter::get_hit_exclusion_from_search()) {

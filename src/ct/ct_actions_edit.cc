@@ -232,17 +232,12 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     fs::path embfilePath;
     if (embfileMFNameOnDisk) {
         embfilePath = _pCtMainWin->get_ct_storage()->get_embedded_filepath(_pCtMainWin->curr_tree_iter(), name);
-        if (not fs::exists(embfilePath)) {
-            const fs::path embfileDir = embfilePath.parent_path();
-            if (not fs::is_directory(embfileDir)) {
-                g_mkdir_with_parents(embfileDir.c_str(), 0777);
-            }
-            const bool copyRes = fs::copy_file(filepath, embfilePath);
-            spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
+        const fs::path embfileDir = embfilePath.parent_path();
+        if (not fs::is_directory(embfileDir)) {
+            g_mkdir_with_parents(embfileDir.c_str(), 0777);
         }
-        else {
-            spdlog::debug("{} ?? {} exists", __FUNCTION__, embfilePath.c_str());
-        }
+        const bool copyRes = fs::copy_file(filepath, embfilePath);
+        spdlog::debug("{} {} {} -> {}", __FUNCTION__, copyRes ? "OK":"!!", filepath.c_str(), embfilePath.c_str());
     }
     else {
         if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {

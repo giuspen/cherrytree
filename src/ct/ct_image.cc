@@ -848,9 +848,10 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
     else {
         // target is multifile
         if (_pCtMainWin->get_ct_config()->embfileMFNameOnDisk) {
-            // save as multifile constant name on disk - we are not touching the file if it already exists!
+            // save as multifile constant name on disk.
+            // If _rawBlob is non-empty, the in-memory content is newer and must overwrite the on-disk file.
             const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
-            if (not fs::exists(embfilePath)) {
+            if (not fs::exists(embfilePath) or not _rawBlob.empty()) {
                 _checkNonEmptyRawBlob(multifile_dir.c_str());
                 Glib::file_set_contents(embfilePath.string(), _rawBlob);
                 if (fs::exists(embfilePath)) {
