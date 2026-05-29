@@ -146,7 +146,7 @@ private:
                          bool ascendings);
     bool _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children,
                                         bool ascending);
-    void _node_date(const bool from_sel_not_root);
+    void _node_date(const bool from_sel_not_root, const int days_offset = 0);
 
 public:
     // tree actions
@@ -178,6 +178,8 @@ public:
     void node_toggle_read_only();
     void node_date_from_root() { _node_date(false/*from_sel_not_root*/); }
     void node_date_from_sel() { _node_date(true/*from_sel_not_root*/); }
+    void node_date_tomorrow_from_root() { _node_date(false/*from_sel_not_root*/, 1/*days_offset*/); }
+    void node_date_tomorrow_from_sel() { _node_date(true/*from_sel_not_root*/, 1/*days_offset*/); }
     void node_up();
     void node_down();
     void node_right();

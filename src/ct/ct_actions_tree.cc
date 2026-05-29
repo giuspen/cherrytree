@@ -712,13 +712,13 @@ void CtActions::node_toggle_read_only()
     }
 }
 
-void CtActions::_node_date(const bool from_sel_not_root)
+void CtActions::_node_date(const bool from_sel_not_root, const int days_offset)
 {
     if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
 
-    const time_t time = std::time(nullptr);
+    const time_t time = std::time(nullptr) + days_offset * 86400;
     const Glib::ustring year = str::time_format("%Y", time);
     const Glib::ustring month = str::time_format("%B", time);
     const Glib::ustring day = str::time_format("%d %a", time);
