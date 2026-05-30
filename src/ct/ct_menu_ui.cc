@@ -311,8 +311,12 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='tree_shared_node'/>
     <menuitem action='tree_copy_node_subnodes'/>
     <menuitem action='tree_paste_node_subnodes'/>
-    <menuitem action='tree_node_date_root'/>
-    <menuitem action='tree_node_date_sel'/>
+    <menu action='TreeDateSubMenu'>
+      <menuitem action='tree_node_date_root'/>
+      <menuitem action='tree_node_date_sel'/>
+      <menuitem action='tree_node_date_tomorrow_root'/>
+      <menuitem action='tree_node_date_tomorrow_sel'/>
+    </menu>
     <separator/>
     <menuitem action='tree_node_prop'/>
     <menuitem action='tree_node_toggle_ro'/>
