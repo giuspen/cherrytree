@@ -25,6 +25,7 @@
 #include "ct_const.h"
 #include "ct_filesystem.h"
 #include "tests_common.h"
+#include <cstdint>
 #include <thread>
 
 TEST(MiscUtilsGroup, get_encoding)
@@ -131,6 +132,14 @@ TEST(MiscUtilsGroup, str__trim)
         std::string testTrimStr = "\t one two three ";
         ASSERT_STREQ("one two three", str::trim(testTrimStr).c_str());
     }
+}
+
+TEST(MiscUtilsGroup, str__time_format)
+{
+    // an out of range timestamp makes localtime return nullptr, must not crash
+    ASSERT_STREQ("", str::time_format("%Y/%m/%d - %H:%M", (time_t)INT64_MAX).c_str());
+    // a valid timestamp still formats (2009-02-13 23:31:30 UTC)
+    ASSERT_FALSE(str::time_format("%Y", (time_t)1234567890).empty());
 }
 
 TEST(MiscUtilsGroup, gint64_from_gstring)
