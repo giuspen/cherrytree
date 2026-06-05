@@ -1560,6 +1560,7 @@ Glib::ustring str::re_escape(const Glib::ustring& text)
 Glib::ustring str::time_format(const std::string& format, const time_t& time)
 {
     std::tm* localtime = std::localtime(&time);
+    if (not localtime) return "";
     char buffer[100];
     size_t len = strftime(buffer, sizeof(buffer), format.c_str(), localtime);
     if (len == 0)
