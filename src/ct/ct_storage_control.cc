@@ -35,6 +35,56 @@
 
 static const std::string BAD_ARCHIVE{"_BAD_ARC_"};
 
+static bool _copy_dir_recursive(const fs::path& dir_from, const fs::path& dir_to)
+{
+    if (not fs::is_directory(dir_from)) {
+        spdlog::warn("{} source is not a directory: {}", __FUNCTION__, dir_from.string());
+        return false;
+    }
+    if (g_mkdir_with_parents(dir_to.c_str(), 0755) < 0) {
+        spdlog::warn("{} mkdir failed for {}", __FUNCTION__, dir_to.string());
+        return false;
+    }
+    for (const fs::path& src_entry : fs::get_dir_entries(dir_from)) {
+        const fs::path dst_entry = dir_to / src_entry.filename();
+        if (fs::is_directory(src_entry)) {
+            if (not _copy_dir_recursive(src_entry, dst_entry)) {
+                return false;
+            }
+        }
+        else {
+            if (not fs::copy_file(src_entry, dst_entry)) {
+                spdlog::warn("{} copy failed {} -> {}", __FUNCTION__, src_entry.string(), dst_entry.string());
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+static bool _move_dir_with_fallback(const fs::path& dir_from, const fs::path& dir_to)
+{
+    if (fs::move_file(dir_from, dir_to)) {
+        return true;
+    }
+    spdlog::warn("{} move failed, trying copy+remove fallback, from: {}, to: {}", __FUNCTION__, dir_from.string(), dir_to.string());
+    if (fs::is_directory(dir_to)) {
+        (void)fs::remove_all(dir_to);
+    }
+    if (not _copy_dir_recursive(dir_from, dir_to)) {
+        spdlog::warn("{} fallback copy failed, from: {}, to: {}", __FUNCTION__, dir_from.string(), dir_to.string());
+        return false;
+    }
+    (void)fs::remove_all(dir_from);
+    const bool removed_src = not fs::exists(dir_from);
+    if (not removed_src) {
+        spdlog::warn("{} fallback remove source failed, from: {}", __FUNCTION__, dir_from.string());
+        return false;
+    }
+    spdlog::debug("{} fallback succeeded, from: {}, to: {}", __FUNCTION__, dir_from.string(), dir_to.string());
+    return true;
+}
+
 /*static*/std::unique_ptr<CtStorageEntity> CtStorageControl::_get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (CtDocType::SQLite == file_type) {
@@ -652,8 +702,13 @@ void CtStorageControl::_backupEncryptThread()
                             }
                             if ( (not fs::is_directory(tilda_dirpath_to) and
                                   g_mkdir_with_parents(tilda_dirpath_to.c_str(), 0755) < 0) or
-                                  not fs::move_file(tilda_node_dir_from, tilda_node_dir_to) )
+                                  not _move_dir_with_fallback(tilda_node_dir_from, tilda_node_dir_to) )
                             {
+                                spdlog::warn("multifile backup rotation failed, src: {}, dst: {}, src_exists: {}, dst_parent_exists: {}",
+                                    tilda_node_dir_from.string(),
+                                    tilda_node_dir_to.string(),
+                                    fs::exists(tilda_node_dir_from),
+                                    fs::is_directory(tilda_dirpath_to));
                                 _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), first_backup_dir.parent_path().string()));
                                 _pCtMainWin->dispatcherErrorMsg.emit();
                                 break;
@@ -671,8 +726,13 @@ void CtStorageControl::_backupEncryptThread()
                 }
                 if ( (not fs::is_directory(first_backup_dir) and
                       g_mkdir_with_parents(first_backup_dir.c_str(), 0755) < 0) or
-                      not fs::move_file(pBackupEncryptData->main_backup, tilda_node_dir_to) )
+                      not _move_dir_with_fallback(pBackupEncryptData->main_backup, tilda_node_dir_to) )
                 {
+                    spdlog::warn("multifile backup move failed, src: {}, dst: {}, src_exists: {}, dst_parent_exists: {}",
+                        pBackupEncryptData->main_backup,
+                        tilda_node_dir_to.string(),
+                        fs::exists(pBackupEncryptData->main_backup),
+                        fs::is_directory(first_backup_dir));
                     _pCtMainWin->errorsDEQueue.push_back(str::format(_("You Have No Write Access to %s"), fs::path{first_backup_file_or_dir}.parent_path().string()));
                     _pCtMainWin->dispatcherErrorMsg.emit();
                 }
