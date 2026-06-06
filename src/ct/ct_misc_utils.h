@@ -25,9 +25,11 @@
 
 #include "ct_types.h"
 #include "ct_logging.h"
+#include <algorithm>
 #include <gtkmm/treeiter.h>
 #include <gtkmm/treestore.h>
 #include <gtksourceview/gtksource.h>
+#include <numeric>
 
 class CtConfig;
 class CtTreeIter;
@@ -58,37 +60,65 @@ bool node_siblings_sort(Glib::RefPtr<TreeOrListStore> model,
                         std::function<bool(Gtk::TreeModel::iterator&, Gtk::TreeModel::iterator&)> f_need_swap,
                         const size_t start_offset = 0u)
 {
-    if (children.size() <= start_offset) {
+    const size_t children_count = children.size();
+    if (children_count <= start_offset + 1u) {
         return false;
     }
-    auto next_iter = [](Gtk::TreeModel::iterator iter) { return ++iter; };
-    auto sort_iteration = [&f_need_swap, &model, &next_iter](Gtk::TreeModel::iterator curr_sibling, size_t offset)->bool{
-        bool swap_executed{false};
-        while (offset-- > 0) {
-            ++curr_sibling;
-            if (not curr_sibling) {
-                return false;
-            }
-        }
-        Gtk::TreeModel::iterator next_sibling{next_iter(curr_sibling)};
-        while (next_sibling) {
-            if (f_need_swap(curr_sibling, next_sibling)) {
-                model->iter_swap(curr_sibling, next_sibling);
-                swap_executed = true;
-            }
-            else {
-                curr_sibling = next_sibling;
-            }
-            next_sibling = next_iter(curr_sibling);
-        }
-        return swap_executed;
+
+    std::vector<Gtk::TreeModel::iterator> initial_iters;
+    initial_iters.reserve(children_count);
+    for (auto iter = children.begin(); iter != children.end(); ++iter) {
+        initial_iters.push_back(iter);
+    }
+
+    std::vector<size_t> current_order(children_count);
+    std::iota(current_order.begin(), current_order.end(), 0u);
+    std::vector<size_t> target_order = current_order;
+
+    auto less_than = [&f_need_swap, &initial_iters](const size_t left_idx, const size_t right_idx)->bool {
+        Gtk::TreeModel::iterator left_iter = initial_iters.at(left_idx);
+        Gtk::TreeModel::iterator right_iter = initial_iters.at(right_idx);
+        // f_need_swap(left, right) means left should go after right.
+        // Therefore right should go after left is equivalent to left < right.
+        return f_need_swap(right_iter, left_iter);
     };
+
+    std::stable_sort(target_order.begin() + start_offset,
+                     target_order.end(),
+                     less_than);
+
+    auto get_iter_by_pos = [&children](size_t pos)->Gtk::TreeModel::iterator {
+        auto iter = children.begin();
+        while (pos-- > 0u && iter) {
+            ++iter;
+        }
+        return iter;
+    };
+
     bool swap_executed{false};
-    while (sort_iteration(children.begin(), start_offset)) {
-        if (not swap_executed) {
+    for (size_t pos = start_offset; pos < children_count; ++pos) {
+        if (current_order[pos] == target_order[pos]) {
+            continue;
+        }
+
+        size_t swap_pos = pos + 1u;
+        while (swap_pos < children_count && current_order[swap_pos] != target_order[pos]) {
+            ++swap_pos;
+        }
+        if (swap_pos >= children_count) {
+            spdlog::error("node_siblings_sort: cannot resolve reorder permutation");
+            return swap_executed;
+        }
+
+        Gtk::TreeModel::iterator left_iter = get_iter_by_pos(pos);
+        Gtk::TreeModel::iterator right_iter = get_iter_by_pos(swap_pos);
+        if (left_iter && right_iter) {
+            model->iter_swap(left_iter, right_iter);
+            std::swap(current_order[pos], current_order[swap_pos]);
             swap_executed = true;
         }
     }
+
     return swap_executed;
 }
 
