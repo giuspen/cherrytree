@@ -494,6 +494,7 @@ Gtk::EventBox& CtMainWin::_init_window_header()
 {
     _ctWinHeader.nameLabel.set_padding(10, 0);
     _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
+    _ctWinHeader.nodeIcon.hide();
     _ctWinHeader.lockIcon.set_from_icon_name("ct_locked", Gtk::ICON_SIZE_MENU);
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.set_from_icon_name("ct_pin", Gtk::ICON_SIZE_MENU);
@@ -502,9 +503,11 @@ Gtk::EventBox& CtMainWin::_init_window_header()
     _ctWinHeader.ghostIcon.hide();
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.buttonBox, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.nameLabel, true, true);
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.nodeIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.lockIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.bookmarkIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.ghostIcon, false, false);
+    _ctWinHeader.headerBox.set_margin_end(8);
     _ctWinHeader.eventBox.add(_ctWinHeader.headerBox);
     _ctWinHeader.eventBox.get_style_context()->add_class("ct-header-panel");
     return _ctWinHeader.eventBox;
@@ -514,13 +517,21 @@ void CtMainWin::window_header_update()
 {
     if (_no_gui) return;
 
-    // based on update_node_name_header
+    CtTreeIter currTreeIter = curr_tree_iter();
+
     std::string name = _pCtConfig->nodeNameHeaderShowFullPath ?
-        CtMiscUtil::get_node_hierarchical_name(curr_tree_iter(), " / ", false).c_str() : curr_tree_iter().get_node_name().c_str();
-    std::string foreground = curr_tree_iter().get_node_foreground();
+        CtMiscUtil::get_node_hierarchical_name(currTreeIter, " / ", false).c_str() : currTreeIter.get_node_name().c_str();
+    std::string foreground = currTreeIter.get_node_foreground();
     foreground = foreground.empty() ? _pCtConfig->ttDefFg : foreground;
     _ctWinHeader.nameLabel.set_markup(
         "<span foreground=\"" + foreground + "\" font_desc=\"" + _pCtConfig->treeFont + "\" font_weight=\"bold\">" + str::xml_escape(name) + "</span>");
+    CtTreeStore& ctTreestore = get_tree_store();
+    const char* node_icon = ctTreestore.get_node_icon(
+        ctTreestore.get_store()->iter_depth(currTreeIter),
+        currTreeIter.get_node_syntax_highlighting(),
+        currTreeIter.get_node_custom_icon_id());
+    _ctWinHeader.nodeIcon.set_from_icon_name(node_icon, Gtk::ICON_SIZE_MENU);
+    _ctWinHeader.nodeIcon.set_visible(true);
 
     // update last visited buttons
     if (0 == _pCtConfig->nodesOnNodeNameHeader) {
@@ -552,8 +563,7 @@ void CtMainWin::window_header_update()
         }
 
         // update button labels and node_ids
-        CtTreeStore& ctTreestore = get_tree_store();
-        const gint64 curr_node_id = curr_tree_iter().get_node_id();
+        const gint64 curr_node_id = currTreeIter.get_node_id();
         int button_idx{0};
         std::vector<Gtk::Widget*> buttons = _ctWinHeader.buttonBox.get_children();
         const std::vector<gint64>& nodes = _ctStateMachine.get_visited_nodes_list();
@@ -870,6 +880,7 @@ void CtMainWin::reset()
         pButton->hide();
     }
     _ctWinHeader.nameLabel.set_markup("");
+    _ctWinHeader.nodeIcon.set_visible(false);
     window_header_update_lock_icon(false);
     window_header_update_ghost_icon(false);
     window_header_update_bookmark_icon(false);
