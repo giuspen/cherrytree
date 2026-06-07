@@ -1,7 +1,7 @@
 /*
  * ct_actions_view.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -123,6 +123,7 @@ void CtActions::nodes_expand_all()
 void CtActions::nodes_collapse_all()
 {
     _pCtMainWin->get_tree_view().collapse_all();
+    _pCtMainWin->tree_clear_expanded_nodes();
 }
 
 void CtActions::more_nodes_on_node_name_header()

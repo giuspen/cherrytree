@@ -73,6 +73,7 @@ struct CtWinHeader
     Gtk::Box         headerBox{Gtk::ORIENTATION_HORIZONTAL};
     Gtk::ButtonBox   buttonBox{Gtk::ORIENTATION_HORIZONTAL};
     Gtk::Label       nameLabel;
+    Gtk::Image       nodeIcon;
     Gtk::Image       lockIcon;
     Gtk::Image       bookmarkIcon;
     Gtk::Image       ghostIcon;
@@ -167,6 +168,7 @@ public:
     bool          no_gui()           { return _no_gui; }
     int&          cursor_key_press() { return _cursorKeyPress; }
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
+    void          tree_clear_expanded_nodes() { _treeExpandedNodeIds.clear(); }
 
 public:
     const char*               get_code_icon_name(std::string code_type);

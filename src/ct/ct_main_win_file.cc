@@ -264,8 +264,11 @@ bool CtMainWin::file_open(const fs::path& filepath,
             _uCtTreeview->expand_all();
         } break;
         case CtRestoreExpColl::ALL_COLL: {
+            _treeRestoreInProgress = true;
             _uCtTreeview->expand_all();
             _uCtTreestore->treeview_set_tree_expanded_collapsed_string("", *_uCtTreeview, _pCtConfig->nodesBookmExp and not is_reload);
+            _treeExpandedNodeIds.clear();
+            _treeRestoreInProgress = false;
         } break;
         default: {
             if (iterDocsRestore != _pCtConfig->recentDocsRestore.end()) {

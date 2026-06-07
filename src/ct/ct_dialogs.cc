@@ -162,8 +162,10 @@ CtDialogs::CtStartDialogAction CtDialogs::start_dialog(CtMainWin* pCtMainWin,
     #endif
 
         open_recent_button = dialog.add_button(_("Open Selected"), RESPONSE_OPEN_RECENT);
+#if GTKMM_MAJOR_VERSION < 4
         open_recent_button->set_image(*pCtMainWin->new_managed_image_from_stock("ct_open", Gtk::ICON_SIZE_BUTTON));
         open_recent_button->set_always_show_image(true);
+#endif
         if (open_recent_button) {
             open_recent_button->set_sensitive(false);
         }
