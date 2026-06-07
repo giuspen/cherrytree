@@ -84,8 +84,9 @@ The following languages are supported (if you want to help translate to your lan
 ## Programming with GTKmm3
 https://docs.huihoo.com/gtkmm/programming-with-gtkmm-3/3.17.50/en/
 
-## Third party Android project SourCherry
-Outstanding third party Android project: https://github.com/FFDA/SourCherry
+## Third party
+- Outstanding third party Android project: https://github.com/FFDA/SourCherry
+- Enhanced web interface post export to HTML: https://github.com/coregtree/cherrytree-notes-web-interface
 
 ## Code Signing Policy
 - Free code signing for the Windows binaries provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
