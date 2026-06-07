@@ -343,9 +343,9 @@ void CtMenu::init_actions(CtActions* pActions)
             _("Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"), sigc::mem_fun(*pActions, &CtActions::node_date_from_root)});
         _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_sel", "ct_calendar", _("Insert Toda_y's Node Under Selected Node"), KB_CONTROL+"F8",
             _("Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_date_from_sel)});
-        _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_tomorrow_root", "ct_calendar", _("Insert T_omorrow's Node Under Tree Root"), KB_CONTROL+"F10",
+        _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_tomorrow_root", "ct_calendar", _("Insert T_omorrow's Node Under Tree Root"), None,
             _("Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"), sigc::mem_fun(*pActions, &CtActions::node_date_tomorrow_from_root)});
-        _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_tomorrow_sel", "ct_calendar", _("Insert Tomorro_w's Node Under Selected Node"), KB_CONTROL+KB_SHIFT+"F10",
+        _actions.push_back(CtMenuAction{tree_cat, "tree_node_date_tomorrow_sel", "ct_calendar", _("Insert Tomorro_w's Node Under Selected Node"), None,
             _("Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_date_tomorrow_from_sel)});
         _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("C_hange Node Properties..."), "F2",
             _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
