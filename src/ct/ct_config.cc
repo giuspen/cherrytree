@@ -141,21 +141,6 @@ bool CtConfig::_populate_bool_from_keyfile(const gchar* key, bool* pTarget)
     return gotIt;
 }
 
-bool CtConfig::_populate_int_from_keyfile(const gchar* key, int* pTarget)
-{
-    bool gotIt{false};
-    if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key)) {
-        try {
-            *pTarget = _uKeyFile->get_integer(_currentGroup, key);
-            gotIt = true;
-        }
-        catch (Glib::KeyFileError& kferror) {
-            _unexpected_keyfile_error(key, kferror);
-        }
-    }
-    return gotIt;
-}
-
 bool CtConfig::_populate_double_from_keyfile(const gchar* key, double* pTarget)
 {
     bool gotIt{false};
@@ -652,11 +637,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("latex_size_dpi", &latexSizeDpi);
     _populate_int_from_keyfile("embfile_icon_size", &embfileIconSize);
     _populate_bool_from_keyfile("embfile_show_filename", &embfileShowFileName);
-    {
-        int tmpObjectNoSelOnClick;
-        _populate_int_from_keyfile("object_click_no_sel", &tmpObjectNoSelOnClick);
-        objectNoSelOnClick = tmpObjectNoSelOnClick;
-    }
+    _populate_int_from_keyfile("object_click_no_sel", &objectNoSelOnClick);
     _populate_bool_from_keyfile("embfile_mfname_ondisk", &embfileMFNameOnDisk);
     _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);
