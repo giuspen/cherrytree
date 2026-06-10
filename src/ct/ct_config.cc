@@ -61,6 +61,11 @@ CtConfig::CtConfig(const std::string filepath)
     std::lock_guard<std::mutex> lock(_getInstanceMutex);
     if (not _pCtConfig) {
         _pCtConfig = new CtConfig{};
+        if (_pCtConfig->objectNoSelOnClick < 0) {
+            const std::string currDesktop = Glib::getenv("XDG_CURRENT_DESKTOP");
+            spdlog::debug("currDesktop -> {}", currDesktop);
+            _pCtConfig->objectNoSelOnClick = currDesktop == "KDE";
+        }
     }
     return _pCtConfig;
 }
@@ -311,7 +316,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "latex_size_dpi", latexSizeDpi);
     _uKeyFile->set_integer(_currentGroup, "embfile_icon_size", embfileIconSize);
     _uKeyFile->set_boolean(_currentGroup, "embfile_show_filename", embfileShowFileName);
-    _uKeyFile->set_boolean(_currentGroup, "object_no_sel_on_click", objectNoSelOnClick);
+    _uKeyFile->set_integer(_currentGroup, "object_click_no_sel", objectNoSelOnClick);
     _uKeyFile->set_boolean(_currentGroup, "embfile_mfname_ondisk", embfileMFNameOnDisk);
     _uKeyFile->set_integer(_currentGroup, "embfile_max_size", embfileMaxSize);
     _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
@@ -647,7 +652,11 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("latex_size_dpi", &latexSizeDpi);
     _populate_int_from_keyfile("embfile_icon_size", &embfileIconSize);
     _populate_bool_from_keyfile("embfile_show_filename", &embfileShowFileName);
-    _populate_bool_from_keyfile("object_no_sel_on_click", &objectNoSelOnClick);
+    {
+        int tmpObjectNoSelOnClick;
+        _populate_int_from_keyfile("object_click_no_sel", &tmpObjectNoSelOnClick);
+        objectNoSelOnClick = tmpObjectNoSelOnClick;
+    }
     _populate_bool_from_keyfile("embfile_mfname_ondisk", &embfileMFNameOnDisk);
     _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);

@@ -127,7 +127,11 @@ public:
     int                                         latexSizeDpi{140};
     int                                         embfileIconSize{48};
     bool                                        embfileShowFileName{true};
-    bool                                        objectNoSelOnClick{false};
+#if defined(_WIN32) || defined(__APPLE__)
+    int8_t                                      objectNoSelOnClick{0};
+#else
+    int8_t                                      objectNoSelOnClick{-1};
+#endif
     bool                                        embfileMFNameOnDisk{false};
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
