@@ -96,7 +96,7 @@ void CtMainWin::_set_active_editor(CtTreeIter tree_iter, CtTextView* pTextView, 
     }
 }
 
-void CtMainWin::_on_treeview_cursor_changed()
+void CtMainWin::_on_treeview_selection_changed()
 {
     if (_multiNodeEditorRebuilding) return;
     auto selected = selected_tree_iters();

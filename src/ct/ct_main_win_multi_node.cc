@@ -13,6 +13,14 @@
 
 #include "ct_main_win.h"
 
+namespace {
+
+constexpr size_t MULTI_NODE_PAGE_SIZE{25};
+constexpr int MULTI_NODE_SAFE_TOTAL_HEIGHT{30000};
+constexpr int MULTI_NODE_SECTION_MAX_HEIGHT{600};
+
+}
+
 void CtMainWin::_setup_multi_node_editor()
 {
     _multiNodePrevButton.set_label(_("Previous"));

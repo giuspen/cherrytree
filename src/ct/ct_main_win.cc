@@ -644,7 +644,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     show_hide_tree_lines(_pCtConfig->treeLinesVisible);
 
     _tree_just_auto_expanded = false;
-    _uCtTreeview->get_selection()->signal_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
+    _uCtTreeview->get_selection()->signal_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_selection_changed));
     #if GTKMM_MAJOR_VERSION < 4
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
     _uCtTreeview->signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_event_after));

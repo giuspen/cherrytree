@@ -142,8 +142,11 @@ public:
     void tree_node_paste_from_other_window(CtMainWin* pWinToCopyFrom, gint64 nodeIdToCopyFrom);
 
     Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return get_text_view().get_buffer(); }
+    // The node displayed by the focused editor section.
     CtTreeIter                        curr_tree_iter() { return _activeTreeIter ? _activeTreeIter : tree_cursor_iter(); }
+    // The tree cursor node targeted by structural tree actions.
     CtTreeIter                        tree_cursor_iter();
+    // Selected data holders in tree order, with shared nodes returned once.
     std::vector<CtTreeIter>           selected_tree_iters();
     CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
@@ -276,7 +279,7 @@ private:
     bool _on_window_configure_event(GdkEventConfigure* configure_event);
 #endif
 
-    void _on_treeview_cursor_changed(); // pygtk: on_node_changed
+    void _on_treeview_selection_changed(); // pygtk: on_node_changed
     void _setup_multi_node_editor();
     void _show_multi_node_editor(const std::vector<CtTreeIter>& tree_iters, size_t requested_page_start = static_cast<size_t>(-1));
     void _clear_multi_node_editor();
@@ -423,9 +426,6 @@ private:
     guint64                      _multiNodeEditorGeneration{0};
     size_t                       _multiNodePageStart{0};
     bool                         _multiNodePageBarVisible{false};
-    static constexpr size_t      MULTI_NODE_PAGE_SIZE{25};
-    static constexpr int         MULTI_NODE_SAFE_TOTAL_HEIGHT{30000};
-    static constexpr int         MULTI_NODE_SECTION_MAX_HEIGHT{600};
     CtStateMachine               _ctStateMachine;
     std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 
