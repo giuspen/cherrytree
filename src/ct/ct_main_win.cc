@@ -293,31 +293,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     textView.get_style_context()->add_class("ct-view-panel");
     textView.set_sensitive(false);
 
-    _multiNodePrevButton.set_label(_("Previous"));
-    _multiNodeNextButton.set_label(_("Next"));
-#if GTKMM_MAJOR_VERSION >= 4
-    _multiNodePageBar.append(_multiNodePrevButton);
-    _multiNodePageBar.append(_multiNodePageLabel);
-    _multiNodePageBar.append(_multiNodeNextButton);
-    _multiNodePageLabel.set_hexpand(true);
-#else
-    _multiNodePageBar.pack_start(_multiNodePrevButton, false, false);
-    _multiNodePageBar.pack_start(_multiNodePageLabel, true, true);
-    _multiNodePageBar.pack_start(_multiNodeNextButton, false, false);
-#endif
-    _multiNodePageLabel.set_xalign(0.5f);
-    _multiNodePrevButton.signal_clicked().connect([this](){
-        const auto selected = selected_tree_iters();
-        if (selected.size() > 1 and _multiNodePageStart >= MULTI_NODE_PAGE_SIZE) {
-            _show_multi_node_editor(selected, _multiNodePageStart - MULTI_NODE_PAGE_SIZE);
-        }
-    });
-    _multiNodeNextButton.signal_clicked().connect([this](){
-        const auto selected = selected_tree_iters();
-        if (selected.size() > _multiNodePageStart + MULTI_NODE_PAGE_SIZE) {
-            _show_multi_node_editor(selected, _multiNodePageStart + MULTI_NODE_PAGE_SIZE);
-        }
-    });
+    _setup_multi_node_editor();
 
     // GTK3 signal connections (popup/event/motion) not available in GTK4
 #if GTKMM_MAJOR_VERSION < 4

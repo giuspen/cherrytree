@@ -277,6 +277,7 @@ private:
 #endif
 
     void _on_treeview_cursor_changed(); // pygtk: on_node_changed
+    void _setup_multi_node_editor();
     void _show_multi_node_editor(const std::vector<CtTreeIter>& tree_iters, size_t requested_page_start = static_cast<size_t>(-1));
     void _clear_multi_node_editor();
     void _set_active_editor(CtTreeIter tree_iter, CtTextView* pTextView, bool update_history = true);

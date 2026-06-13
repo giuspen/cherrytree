@@ -49,6 +49,7 @@ set(CT_SHARED_FILES
   ct_main_win_buffer.cc
   ct_main_win_events.cc
   ct_main_win_file.cc
+  ct_main_win_multi_node.cc
   ct_main_win_vte.cc
   ct_menu.cc
   ct_menu_actions.cc
