@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-11 04:20+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -1163,6 +1163,9 @@ msgstr "ブックマーク(_B)"
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
+msgid "Insert _Date Node"
+msgstr "日付ノードを挿入(_D)"
+
 msgid "Node _Move"
 msgstr "ノードの移動(_M)"
 
@@ -1943,14 +1946,31 @@ msgstr "コピーしたノードとサブノードを貼り付け"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "今日のノードをツリーのルートに挿入(_T)"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "年/月/日の階層を持つノードをツリーのルートに挿入"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "今日用の年/月/日の階層を持つノードをツリーのルートに挿入"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "今日のノードを選択ノード直下に挿入(_Y)"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "年/月/日の階層を持つノードを選択ノード直下に挿入"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "今日用の年/月/日の階層を持つノードを選択ノード直下に挿入"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "明日のノードをツリーのルートに挿入(_O)"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "明日用の年/月/日の階層を持つノードをツリーのルートに挿入"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "明日のノードを選択ノード直下に挿入(_W)"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "明日用の年/月/日の階層を持つノードを選択ノード直下に挿入"
 
 msgid "C_hange Node Properties..."
 msgstr "ノードのプロパティを変更(_H)..."

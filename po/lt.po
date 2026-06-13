@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2024-09-22 09:09+0300\n"
 "Last-Translator: zygis <zygimantus@gmail.com>\n"
 "Language-Team: Lithuanian\n"
@@ -1159,6 +1159,9 @@ msgstr "Žymes"
 msgid "_Help"
 msgstr "Pagalba"
 
+msgid "Insert _Date Node"
+msgstr "Įterpti _datos užrašą"
+
 msgid "Node _Move"
 msgstr "Perkelti užrašą"
 
@@ -1945,16 +1948,31 @@ msgstr "Įklijuoti nukopijuoti užrašą ir jo vidinius užrašus"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Įterpti šios dienos užrašą į pagrindinį medį"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr ""
-"Įterpti užrašą su hierarchiniais metais/mėnesiu/diena pagrindiniame medyje"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena šiai dienai pagrindiniame medyje"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Įterpti šios dienos užrašą pažymėtam užrašui"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr ""
-"Įterpti užrašą su hierarchiniais metais/mėnesiu/diena pažymėtam užrašui"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena šiai dienai pažymėtam užrašui"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Įterpti _rytojaus užrašą į pagrindinį medį"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena rytojui pagrindiniame medyje"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Įterpti _rytojaus užrašą pažymėtam užrašui"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena rytojui pažymėtam užrašui"
 
 msgid "C_hange Node Properties..."
 msgstr "Keisti užrašo savybes..."

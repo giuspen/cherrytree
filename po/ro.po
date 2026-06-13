@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-10 03:39+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
@@ -1172,6 +1172,9 @@ msgstr "-Marcaje"
 msgid "_Help"
 msgstr "_Ajutor"
 
+msgid "Insert _Date Node"
+msgstr "Inserează un nod _dată"
+
 msgid "Node _Move"
 msgstr "Nod _Mută"
 
@@ -1956,14 +1959,31 @@ msgstr "Lipește nodul copiat si subnodurile"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Inserează nodul de _astăzi sub rădăcina arborelui"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Inserează un nod cu ierarhie an/lună/zi sub rădăcina arborelui"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Inserează un nod cu ierarhie an/lună/zi pentru astăzi sub rădăcina arborelui"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Inserează nodul de _astăzi sub nodul selectat"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Inserează un nod cu ierarhie an/lună/zi sub nodul selectat"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Inserează un nod cu ierarhie an/lună/zi pentru astăzi sub nodul selectat"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Inserează nodul de _mâine sub rădăcina arborelui"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Inserează un nod cu ierarhie an/lună/zi pentru mâine sub rădăcina arborelui"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Inserează nodul de _mâine sub nodul selectat"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Inserează un nod cu ierarhie an/lună/zi pentru mâine sub nodul selectat"
 
 msgid "C_hange Node Properties..."
 msgstr "S_chimbă proprietățile nodului..."

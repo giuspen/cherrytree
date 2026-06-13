@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-10 09:31+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1014,8 +1014,8 @@ msgstr "Zobrazení v LaTeXu bylo z bezpečnostních důvodů znemožněno"
 
 msgid "The source contains file I/O commands that can access local files"
 msgstr ""
-"Zdroj obsahuje příkazy pro práci se soubory (vstup/výstup), které umožňují"
-" přístup k místním souborům"
+"Zdroj obsahuje příkazy pro práci se soubory (vstup/výstup), které umožňují "
+"přístup k místním souborům"
 
 msgid ""
 "Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
@@ -1166,6 +1166,9 @@ msgstr "Zá_ložky"
 
 msgid "_Help"
 msgstr "Nápověd_a"
+
+msgid "Insert _Date Node"
+msgstr "Vložit uzel s _datem"
 
 msgid "Node _Move"
 msgstr "Po_sunutí uzlu"
@@ -1952,14 +1955,31 @@ msgstr "Vložit zkopírovaný uzel a podřízené uzly"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Vložit uzel s _dnešním datem pod kořenem stromu"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Vložit uzel s uspořádáním rok/měsíc/den pod kořenem stromu"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Vložit uzel s uspořádáním rok/měsíc/den pro dnešek pod kořenem stromu"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Vložit uzel s _dnešním datem pod vybraným uzlem"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Vložit uzel s uspořádáním rok/měsíc/den pod vybraným uzlem"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Vložit uzel s uspořádáním rok/měsíc/den pro dnešek pod vybraným uzlem"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Vložit uzel se _zítřejším datem pod kořenem stromu"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Vložit uzel s uspořádáním rok/měsíc/den pro zítřek pod kořenem stromu"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Vložit uzel se _zítřejším datem pod vybraným uzlem"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Vložit uzel s uspořádáním rok/měsíc/den pro zítřek pod vybraným uzlem"
 
 msgid "C_hange Node Properties..."
 msgstr "_Změnit vlastnosti uzlu..."
@@ -2857,8 +2877,8 @@ msgstr "Nevybírat objekty automaticky po jediném klepnutí"
 
 msgid "Workaround for clipboard-related freezes on KDE 6 with Klipper"
 msgstr ""
-"Řešení problému se zamrzáním systému v souvislosti se schránkou v KDE 6 při"
-" použití aplikace Klipper"
+"Řešení problému se zamrzáním systému v souvislosti se schránkou v KDE 6 při "
+"použití aplikace Klipper"
 
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Počet kroků zpět na uzel"

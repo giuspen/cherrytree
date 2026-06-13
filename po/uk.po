@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2025-12-20 19:43+0000\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
@@ -1016,12 +1016,16 @@ msgid "LaTeX rendering was blocked for security reasons"
 msgstr "Відтворення LaTeX заблоковано з міркувань безпеки"
 
 msgid "The source contains file I/O commands that can access local files"
-msgstr "Джерело містить команди введення/виведення файлів, які можуть отримати доступ до локальних файлів"
+msgstr ""
+"Джерело містить команди введення/виведення файлів, які можуть отримати "
+"доступ до локальних файлів"
 
 msgid ""
 "Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
 "\\input/\\include paths"
-msgstr "Видаліть команди \\verbatiminput, \\openin, \\openout та небезпечні шляхи \\input/\\include"
+msgstr ""
+"Видаліть команди \\verbatiminput, \\openin, \\openout та небезпечні шляхи "
+"\\input/\\include"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr "Не вдалося отримати доступ до виконувані файли 'latex' і 'dvipng'"
@@ -1162,6 +1166,9 @@ msgstr "Закладки"
 
 msgid "_Help"
 msgstr "Допомога"
+
+msgid "Insert _Date Node"
+msgstr "Вставити гілку з датою"
 
 msgid "Node _Move"
 msgstr "Пересунути гілку"
@@ -1943,14 +1950,31 @@ msgstr "Вставити гілка з дочірніми гілками"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Вставити сьогоднішню гілку під дерево"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Вставити гілку з ієрархією Рік/Місяць/День під дерево"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Вставити гілку з ієрархією Рік/Місяць/День для сьогоднішнього дня під дерево"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Вставити сьогоднішню гілку під виділену гілку"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Вставити гілку з ієрархією Рік/Місяць/День під виділену гілку"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Вставити гілку з ієрархією Рік/Місяць/День для сьогоднішнього дня під виділену гілку"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Вставити завтрашню гілку під дерево"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Вставити гілку з ієрархією Рік/Місяць/День для завтрашнього дня під дерево"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Вставити завтрашню гілку під виділену гілку"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Вставити гілку з ієрархією Рік/Місяць/День для завтрашнього дня під виділену гілку"
 
 msgid "C_hange Node Properties..."
 msgstr "Змінити параметри гілки..."

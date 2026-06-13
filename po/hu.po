@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-02-05 20:45+0100\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -1017,7 +1017,9 @@ msgstr "A forrás helyi fájlokhoz hozzáférhető fájl I/O parancsokat tartalm
 msgid ""
 "Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
 "\\input/\\include paths"
-msgstr "Távolítsa el a következő parancsokat: \\verbatiminput, \\openin, \\openout és nem biztonságos \\input/\\include útvonalakat"
+msgstr ""
+"Távolítsa el a következő parancsokat: \\verbatiminput, \\openin, \\openout "
+"és nem biztonságos \\input/\\include útvonalakat"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr "Nem sikerült elérni a 'latex' és 'dvipng' futtatható állományokat"
@@ -1162,6 +1164,9 @@ msgstr "_Könyvjelzők"
 
 msgid "_Help"
 msgstr "_Súgó"
+
+msgid "Insert _Date Node"
+msgstr "_Dátum csomópont beszúrása"
 
 msgid "Node _Move"
 msgstr "Csomópont _mozgatása"
@@ -1943,17 +1948,31 @@ msgstr "A kijelölt csomópont beillesztése alcsomópontjaival együtt"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "\"_Mai nap\" csomópont beszúrása a gyökér alá"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr ""
-"Csomópont beszúrása a fa gyökere alá következő hierarchiában: Év/Hónap/Nap"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Csomópont beszúrása a fa gyökere alá a mai napra a következő hierarchiában: Év/Hónap/Nap"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "\"_Mai nap\" csomópont beszúrása a kijelölt csomópont alá"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr ""
-"Csomópont beszúrása a kijelölt csomópont alá a következő hierarchiában: Év/"
-"Hónap/Nap"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Csomópont beszúrása a kijelölt csomópont alá a mai napra a következő hierarchiában: Év/Hónap/Nap"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "\"_Holnapi nap\" csomópont beszúrása a gyökér alá"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Csomópont beszúrása a fa gyökere alá a holnapi napra a következő hierarchiában: Év/Hónap/Nap"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "\"_Holnapi nap\" csomópont beszúrása a kijelölt csomópont alá"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Csomópont beszúrása a kijelölt csomópont alá a holnapi napra a következő hierarchiában: Év/Hónap/Nap"
 
 msgid "C_hange Node Properties..."
 msgstr "Csomópont _tulajdonságok módosítása..."

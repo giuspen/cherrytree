@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-11 11:25-0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -1178,6 +1178,9 @@ msgstr "Favoritos"
 msgid "_Help"
 msgstr "Ajuda"
 
+msgid "Insert _Date Node"
+msgstr "Inserir nó de _data"
+
 msgid "Node _Move"
 msgstr "_Mover nó"
 
@@ -1959,14 +1962,31 @@ msgstr "Cola o Nó selecionado e filhos"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Inserir nó do dia de hoje"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Insere um novo nó com hierarquia Ano/Mês/Dia"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Insere um novo nó com hierarquia Ano/Mês/Dia para hoje"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Inserir nó do dia de hoje"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Insere um novo nó com hierarquia Ano/Mês/Dia"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Insere um novo nó com hierarquia Ano/Mês/Dia para hoje"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Inserir nó do dia de _amanhã"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Insere um novo nó com hierarquia Ano/Mês/Dia para amanhã"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Inserir nó do dia de _amanhã"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Insere um novo nó com hierarquia Ano/Mês/Dia para amanhã"
 
 msgid "C_hange Node Properties..."
 msgstr "Alterar as propriedades do nó..."

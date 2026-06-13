@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2025-12-25 19:08+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
@@ -1011,7 +1011,9 @@ msgstr "소스에 로컬 파일에 액세스할 수 있는 파일 I/O 명령이 
 msgid ""
 "Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
 "\\input/\\include paths"
-msgstr "\\verbatiminput, \\openin, \\openout 등의 명령과 안전하지 않은 \\input/\\include 경로를 제거하세요"
+msgstr ""
+"\\verbatiminput, \\openin, \\openout 등의 명령과 안전하지 않은 \\input/"
+"\\include 경로를 제거하세요"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr "실행파일 latex 와 dvipng 에 액세스 할 수 없습니다"
@@ -1154,6 +1156,9 @@ msgstr "북마크(_B)"
 
 msgid "_Help"
 msgstr "도움말(_H)"
+
+msgid "Insert _Date Node"
+msgstr "날짜 노트 삽입(_D)"
 
 msgid "Node _Move"
 msgstr "노트 이동(_M)"
@@ -1935,14 +1940,31 @@ msgstr "복사된 노트와 하위 노트를 붙어넣기"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "오늘의 노트를 삽입(_T)"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "년/월/일의 계층 구조를 가진 노트를 Tree최상단에 삽입"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "오늘 날짜의 년/월/일 계층 구조를 가진 노트를 Tree최상단에 삽입"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "선택한 노트 아래에 오늘의 노트 삽입(_Y)"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "년/월/일의 계층 구조를 가진 노트를 선택한 노트 아래로 삽입"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "오늘 날짜의 년/월/일 계층 구조를 가진 노트를 선택한 노트 아래로 삽입"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "내일의 노트를 삽입(_O)"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "내일 날짜의 년/월/일 계층 구조를 가진 노트를 Tree최상단에 삽입"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "선택한 노트 아래에 내일의 노트 삽입(_W)"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "내일 날짜의 년/월/일 계층 구조를 가진 노트를 선택한 노트 아래로 삽입"
 
 msgid "C_hange Node Properties..."
 msgstr "노트 속성 변경...(_H)"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2024-03-05 12:52+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Croatian\n"
@@ -59,7 +59,9 @@ msgstr "CherryTree datoteka"
 msgid ""
 "The file/folder in use cannot be overwritten!\n"
 "Please use a different name or location."
-msgstr "Datoteka/mapa u upotrebi ne može se prepisati!\nKoristite drugi naziv ili lokaciju."
+msgstr ""
+"Datoteka/mapa u upotrebi ne može se prepisati!\n"
+"Koristite drugi naziv ili lokaciju."
 
 #, c-format
 msgid ""
@@ -112,7 +114,6 @@ msgstr "Uzorak '%s' nije pronađen"
 
 msgid "Replace in Multiple Nodes"
 msgstr "Zamijeni u svim čvorovima"
-
 
 msgid "Search in Multiple Nodes"
 msgstr "Pretraži u višestrukim čvorovima"
@@ -264,7 +265,6 @@ msgstr "Svojstva novog čvora"
 msgid "Node Properties"
 msgstr "Svojstva čvora"
 
-
 msgid ""
 "Changing the node type to Automatic Syntax Highlighting removes all rich "
 "text formatting in this node. Do you want to Continue?"
@@ -295,17 +295,19 @@ msgstr "Novi parent ne može biti jedan od njegovih childova!"
 msgid "%s Nodes Properties Changed"
 msgstr "%s Svojstva čvora su promijenjena"
 
-
 msgid ""
 "The Number of Last Visited Nodes on Node Name Header is already at the "
 "Maximum Value."
-msgstr "Broj zadnje posjećenih čvorova u zaglavlju naziva čvora već je na maksimalnoj vrijednosti."
-
+msgstr ""
+"Broj zadnje posjećenih čvorova u zaglavlju naziva čvora već je na "
+"maksimalnoj vrijednosti."
 
 msgid ""
 "The Number of Last Visited Nodes on Node Name Header is already at the "
 "Minimum Value."
-msgstr "Broj zadnje posjećenih čvorova u zaglavlju naziva čvora već je na minimalnoj vrijednosti."
+msgstr ""
+"Broj zadnje posjećenih čvorova u zaglavlju naziva čvora već je na minimalnoj "
+"vrijednosti."
 
 msgid "The Size of the Toolbar Icons is already at the Maximum Value."
 msgstr "Veličina ikona alatne trake već je na maksimalnoj vrijednosti."
@@ -349,25 +351,20 @@ msgstr "Pokretanje u sekundarnoj sesiji, neovisno o glavnoj sesiji"
 msgid "Execute Code"
 msgstr "Izvrši kod"
 
-
 msgid "Copy Code"
 msgstr "Kopiraj kod"
 
 msgid "Change CodeBox Properties"
 msgstr "Promijeni postavke CodeBoxa"
 
-
 msgid "Start in CherryTree"
 msgstr "Pokreni u CherryTreeu"
-
 
 msgid "New Document"
 msgstr "Novi dokument"
 
-
 msgid "Open File"
 msgstr "_Otvori datoteku..."
-
 
 msgid "Open Folder"
 msgstr "Otvori _mapu..."
@@ -378,17 +375,14 @@ msgstr "Stvorite novi dokument ili otvorite postojeći."
 msgid "Don't show again"
 msgstr "Ne prikazuj više"
 
-
 msgid "Recent Documents"
 msgstr "_Nedavni dokumenti"
-
 
 msgid "Name"
 msgstr "Naziv"
 
 msgid "Path"
 msgstr "Putanja"
-
 
 msgid "Open Selected"
 msgstr "Otvori odabrano"
@@ -414,13 +408,11 @@ msgstr "Poredaj oznake uzlazno"
 msgid "Choose Storage Type"
 msgstr "Odaberite vrstu pohrane"
 
-
 msgid "Single SQLite File"
 msgstr "Jedna SQLite datoteka"
 
 msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
 msgstr "Jedna SQLite datoteka, šifrirana 7-zip-om i zaštićena lozinkom"
-
 
 msgid "Single XML File"
 msgstr "Jedna XML datoteka"
@@ -600,7 +592,6 @@ msgstr "Rumunjski"
 msgid "Russian"
 msgstr "Ruski"
 
-
 msgid "Slovak"
 msgstr "Slovački"
 
@@ -676,18 +667,16 @@ msgstr "Referenca LaTeX matematičkih simbola"
 msgid "Image Properties"
 msgstr "Svojstva slike"
 
-
 msgid "Rotate Left"
 msgstr "Rotiraj ulijevo"
-
 
 msgid "Rotate Right"
 msgstr "Rotiraj udesno"
 
 msgid ""
 "In order to crop the image, select the area with the mouse before clicking OK"
-msgstr "Da biste izrezali sliku, odaberite područje mišem prije klika na U redu"
-
+msgstr ""
+"Da biste izrezali sliku, odaberite područje mišem prije klika na U redu"
 
 msgid "Flip Horizontally"
 msgstr "Prevrni vodoravno"
@@ -758,10 +747,8 @@ msgstr "Traži"
 msgid "Replace with"
 msgstr "Zamijeni sa"
 
-
 msgid "Replace in Link Targets"
 msgstr "Zamijeni u ciljevima veza"
-
 
 msgid "Replace options"
 msgstr "Opcije zamjene"
@@ -844,7 +831,9 @@ msgstr "Opcije pretraživanja"
 msgid ""
 "The Replace field is empty: all found occurrences will be erased.\n"
 "Do you want to continue?"
-msgstr "Polje zamjene je prazno: svi pronađeni slučajevi bit će izbrisani.\nŽelite li nastaviti?"
+msgstr ""
+"Polje zamjene je prazno: svi pronađeni slučajevi bit će izbrisani.\n"
+"Želite li nastaviti?"
 
 msgid ""
 "At least one node was skipped because of exclusions set in the node "
@@ -888,13 +877,11 @@ msgstr "Zamjeni"
 msgid "Undo"
 msgstr "Poništi"
 
-
 msgid "Remove"
 msgstr "Ukloni"
 
 msgid "Remove User Colour from Palette"
 msgstr "Ukloni korisničku boju s palete"
-
 
 msgid "Colour"
 msgstr "Boja"
@@ -1033,12 +1020,15 @@ msgid "LaTeX rendering was blocked for security reasons"
 msgstr "Prikazivanje LaTeXa je blokirano zbog sigurnosnih razloga"
 
 msgid "The source contains file I/O commands that can access local files"
-msgstr "Izvor sadrži I/O naredbe za datoteke koje mogu pristupiti lokalnim datotekama"
+msgstr ""
+"Izvor sadrži I/O naredbe za datoteke koje mogu pristupiti lokalnim datotekama"
 
 msgid ""
 "Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
 "\\input/\\include paths"
-msgstr "Uklonite naredbe poput \\verbatiminput, \\openin, \\openout i nesigurne \\input/\\include putanje"
+msgstr ""
+"Uklonite naredbe poput \\verbatiminput, \\openin, \\openout i nesigurne "
+"\\input/\\include putanje"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr "Nije moguće pristupiti izvršnim datotekama 'latex' i 'dvipng'"
@@ -1089,7 +1079,6 @@ msgstr "Datum kreiranja"
 msgid "Date Modified"
 msgstr "Datum izmjene"
 
-
 msgid "Subnodes"
 msgstr "Podčvorovi"
 
@@ -1117,7 +1106,6 @@ msgid ""
 msgstr ""
 "Pogreška prilikom parsiranja datoteke CherryTree:\n"
 "\"%s\""
-
 
 msgid "Do you want to Open the Last Backup?"
 msgstr "Želite li otvoriti zadnju sigurnosnu kopiju?"
@@ -1183,6 +1171,9 @@ msgstr "_Oznake"
 
 msgid "_Help"
 msgstr "_Pomoć"
+
+msgid "Insert _Date Node"
+msgstr "Umetnite čvor s _datumom"
 
 msgid "Node _Move"
 msgstr "Pomakni _čvor"
@@ -1309,7 +1300,6 @@ msgstr "In_formacije o stablu"
 
 msgid "_Document Path to Clipboard"
 msgstr "_Putanja dokumenta u međuspremnik"
-
 
 msgid "Copy Document Path to Clipboard"
 msgstr "Kopiraj putanju dokumenta u međuspremnik"
@@ -1494,26 +1484,20 @@ msgstr "_Dodaj stupac"
 msgid "Add a Table Column"
 msgstr "Dodaj stupac tablice"
 
-
 msgid "Cu_t Column"
 msgstr "Iz_reži stupac"
-
 
 msgid "Cut a Table Column"
 msgstr "Izreži stupac tablice"
 
-
 msgid "_Copy Column"
 msgstr "_Kopiraj stupac"
-
 
 msgid "Copy a Table Column"
 msgstr "Kopiraj stupac tablice"
 
-
 msgid "_Paste Column"
 msgstr "_Zalijepi stupac"
-
 
 msgid "Paste a Table Column"
 msgstr "Zalijepi stupac tablice"
@@ -1854,18 +1838,14 @@ msgstr "_Neuvučeni odlomak"
 msgid "Unindent the Current Paragraph"
 msgstr "Uklonite uvlačenje trenutnog odlomka"
 
-
 msgid "_Expand TOC Headers"
 msgstr "_Proširi zaglavlja sadržaja"
-
 
 msgid "Expand TOC Headers"
 msgstr "Proširi zaglavlja sadržaja"
 
-
 msgid "_Collapse TOC Headers"
 msgstr "_Sažmi zaglavlja sadržaja"
-
 
 msgid "Collapse TOC Headers"
 msgstr "Sažmi zaglavlja sadržaja"
@@ -1879,10 +1859,8 @@ msgstr "Omogući/onemogući _provjeru pravopisa"
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Prikaži/Sakrij gumb omogući/onemogući provjeru pravopisa"
 
-
 msgid "Enable/Disable _VIM Mode"
 msgstr "Omogući/onemogući _VIM način"
-
 
 msgid "Toggle Enable/Disable VIM Mode"
 msgstr "Uključi/isključi VIM način"
@@ -1977,14 +1955,31 @@ msgstr "Zalijepi kopirani čvor i podčvorove"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Umetnite _današnji čvor u korijen stabla"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan u korijen stabla"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za danas u korijen stabla"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Umetnite današnj_i čvor u odabrani čvor"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan u odabrani čvor"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za danas u odabrani čvor"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Umetnite _sutrašnji čvor u korijen stabla"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za sutra u korijen stabla"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Umetnite sutrašnj_i čvor u odabrani čvor"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za sutra u odabrani čvor"
 
 msgid "C_hange Node Properties..."
 msgstr "P_romijeni svojstva čvora..."
@@ -2022,7 +2017,6 @@ msgstr "Dodaj u Ozn_ake"
 
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Dodaj trenutni čvor na popis oznaka"
-
 
 msgid "Remove from Boo_kmarks"
 msgstr "_Ukloni iz oznaka"
@@ -2107,7 +2101,6 @@ msgstr "Pronađi/zamijeni"
 
 msgid "_Quick Node Selection..."
 msgstr "_Brzi odabir čvora..."
-
 
 msgid "Quick Node Selection"
 msgstr "Brzi odabir čvora"
@@ -2238,18 +2231,14 @@ msgstr "_Smanji veličinu ikona na alatnoj traci"
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Smanji veličinu ikona na alatnoj traci"
 
-
 msgid "More Last _Visited Nodes on Node Name Header"
 msgstr "Više zadnjih _posjećenih čvorova u zaglavlju naziva čvora"
-
 
 msgid "Increase the Number of Last Visited Nodes on Node Name Header"
 msgstr "Povećaj broj zadnjih posjećenih čvorova u zaglavlju naziva čvora"
 
-
 msgid "L_ess Last Visited Nodes on Node Name Header"
 msgstr "_Manje zadnjih posjećenih čvorova u zaglavlju naziva čvora"
-
 
 msgid "Decrease the Number of Last Visited Nodes on Node Name Header"
 msgstr "Smanji broj zadnjih posjećenih čvorova u zaglavlju naziva čvora"
@@ -2446,7 +2435,6 @@ msgstr "Prijavi grešku u CherryTree-ju"
 
 msgid "_Donate"
 msgstr "_Doniraj"
-
 
 msgid "Donate to Support CherryTree"
 msgstr "Doniraj za podršku CherryTreeu"
@@ -2823,10 +2811,8 @@ msgstr "URL"
 msgid "Port"
 msgstr "Priključak"
 
-
 msgid "Username"
 msgstr "Korisničko ime"
-
 
 msgid "Password"
 msgstr "Lozinka"
@@ -2892,14 +2878,15 @@ msgid "Do Not Auto-Select Objects on Single Click"
 msgstr "Ne odabiri objekte automatski jednim klikom"
 
 msgid "Workaround for clipboard-related freezes on KDE 6 with Klipper"
-msgstr "Zaobilazno rješenje za zamrzavanja vezana uz međuspremnik na KDE 6 s Klipperom"
+msgstr ""
+"Zaobilazno rješenje za zamrzavanja vezana uz međuspremnik na KDE 6 s "
+"Klipperom"
 
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Ograniči korake koji se ne mogu izvršiti po čvoru"
 
 msgid "Auto Link CamelCase Text to Node With Same Name"
 msgstr "Automatski linkaj CamelCase text na čvor s istim imenom"
-
 
 msgid "Auto Link URLs"
 msgstr "Automatski poveži URL-ove"

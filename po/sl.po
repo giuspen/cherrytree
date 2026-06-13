@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-11 18:00+0200\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
@@ -1167,6 +1167,9 @@ msgstr "Z_aznamki"
 msgid "_Help"
 msgstr "Po_moč"
 
+msgid "Insert _Date Node"
+msgstr "Vstavi vozlišče z _datumom"
+
 msgid "Node _Move"
 msgstr "_Premikaj vozlišče"
 
@@ -1947,14 +1950,31 @@ msgstr "Prilepi kopirano vozlišče in podrejena vozlišča"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Vstavi vozlišče _dneva pod temeljem drevesa"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan pod temeljem drevesa"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za danes pod temeljem drevesa"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Vstavi vozlišče _dneva pod izbranim vozliščem"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan pod izbranim vozliščem"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za danes pod izbranim vozliščem"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Vstavi vozlišče _jutrišnjega dneva pod temeljem drevesa"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za jutri pod temeljem drevesa"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Vstavi vozlišče _jutrišnjega dneva pod izbranim vozliščem"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za jutri pod izbranim vozliščem"
 
 msgid "C_hange Node Properties..."
 msgstr "Spremeni _lastnosti vozlišča..."
