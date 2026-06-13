@@ -29,6 +29,13 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
 #if GTKMM_MAJOR_VERSION >= 4
     auto box = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 6/*spacing*/});
     box->append(*Gtk::manage(new Gtk::Label{_("Tree preferences are temporarily limited in GTK4 build.")}));
+    auto checkbutton_multi_node_titles = Gtk::manage(new Gtk::CheckButton{_("Show Node Titles in Multi-Node Selection")});
+    checkbutton_multi_node_titles->set_active(_pConfig->multiNodeShowTitles);
+    checkbutton_multi_node_titles->signal_toggled().connect([this, checkbutton_multi_node_titles](){
+        _pConfig->multiNodeShowTitles = checkbutton_multi_node_titles->get_active();
+        apply_for_each_window([](CtMainWin* win) { win->refresh_multi_node_editor(); });
+    });
+    box->append(*checkbutton_multi_node_titles);
     return box;
 #else
     auto vbox_nodes_icons = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
@@ -94,11 +101,14 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     checkbutton_tree_click_focus_text->set_active(_pConfig->treeClickFocusText);
     auto checkbutton_tree_click_expand = Gtk::manage(new Gtk::CheckButton{_("Expand Node at Mouse Click")});
     checkbutton_tree_click_expand->set_active(_pConfig->treeClickExpand);
+    auto checkbutton_multi_node_titles = Gtk::manage(new Gtk::CheckButton{_("Show Node Titles in Multi-Node Selection")});
+    checkbutton_multi_node_titles->set_active(_pConfig->multiNodeShowTitles);
 
     vbox_misc_tree->pack_start(*hbox_tree_nodes_names_width, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_right_side, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_click_focus_text, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_click_expand, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_multi_node_titles, false, false);
     Gtk::Frame* frame_misc_tree = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_tree);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
@@ -128,6 +138,10 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     });
     checkbutton_tree_click_expand->signal_toggled().connect([this, checkbutton_tree_click_expand](){
         _pConfig->treeClickExpand = checkbutton_tree_click_expand->get_active();
+    });
+    checkbutton_multi_node_titles->signal_toggled().connect([this, checkbutton_multi_node_titles](){
+        _pConfig->multiNodeShowTitles = checkbutton_multi_node_titles->get_active();
+        apply_for_each_window([](CtMainWin* win) { win->refresh_multi_node_editor(); });
     });
 
     radiobutton_node_icon_cherry->signal_toggled().connect([this, radiobutton_node_icon_cherry](){

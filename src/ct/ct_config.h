@@ -104,6 +104,7 @@ public:
     int                                         cherryWrapWidth{130};
     bool                                        treeClickFocusText{true};
     bool                                        treeClickExpand{false};
+    bool                                        multiNodeShowTitles{false};
 
     // [editor]
     std::string                                 syntaxHighlighting{CtConst::RICH_TEXT_ID};

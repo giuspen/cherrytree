@@ -122,6 +122,7 @@ public:
 
 private:
     // helpers for tree actions
+    CtTreeIter _tree_cursor_iter() { return _pCtMainWin->tree_cursor_iter(); }
     void _node_add(const CtDuplicateShared duplicate_shared,
                    const bool add_as_child,
                    const CtTreeIter* pCtTreeIterFrom = nullptr,
@@ -155,12 +156,12 @@ public:
     }
     void node_duplicate() {
         if (not _is_there_selected_node_or_error()) return;
-        CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+        CtTreeIter treeIter = _tree_cursor_iter();
         _node_add(CtDuplicateShared::Duplicate, false/*add_as_child*/, &treeIter, _pCtMainWin);
     }
     void node_make_shared() {
         if (not _is_there_selected_node_or_error()) return;
-        CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+        CtTreeIter treeIter = _tree_cursor_iter();
         _node_add(CtDuplicateShared::Shared, false/*add_as_child*/, &treeIter, _pCtMainWin);
     }
     void node_child_add() {

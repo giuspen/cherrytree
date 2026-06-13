@@ -312,12 +312,15 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     checkbutton_line_nums->signal_toggled().connect([this, checkbutton_line_nums](){
         _pConfig->showLineNumbers = checkbutton_line_nums->get_active();
         apply_for_each_window([](CtMainWin* win) {
-            gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(win->get_text_view().gobj()), win->get_ct_config()->showLineNumbers);
+            win->set_show_line_numbers(win->get_ct_config()->showLineNumbers);
         });
     });
     checkbutton_scroll_last_line->signal_toggled().connect([this, checkbutton_scroll_last_line](){
         _pConfig->scrollBeyondLastLine = checkbutton_scroll_last_line->get_active();
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+        apply_for_each_window([](CtMainWin* win) {
+            win->update_theme();
+            win->set_scroll_beyond_last_line(win->get_ct_config()->scrollBeyondLastLine);
+        });
     });
     entry_timestamp_format->signal_changed().connect([this, entry_timestamp_format](){
         _pConfig->timestampFormat = entry_timestamp_format->get_text();

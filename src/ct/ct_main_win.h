@@ -134,16 +134,20 @@ public:
     bool get_file_save_needed();
 
     void update_selected_node_statusbar_info();
+    void refresh_multi_node_editor();
+    void activate_editor_for_widget(CtAnchoredWidget* pWidget);
+    void set_show_line_numbers(bool show);
+    void set_scroll_beyond_last_line(bool enabled);
 
     void tree_node_paste_from_other_window(CtMainWin* pWinToCopyFrom, gint64 nodeIdToCopyFrom);
 
-    Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return _ctTextview.get_buffer(); }
-    CtTreeIter                        curr_tree_iter()  {
-        return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected());
-    }
+    Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return get_text_view().get_buffer(); }
+    CtTreeIter                        curr_tree_iter() { return _activeTreeIter ? _activeTreeIter : tree_cursor_iter(); }
+    CtTreeIter                        tree_cursor_iter();
+    std::vector<CtTreeIter>           selected_tree_iters();
     CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
-    CtTextView&                       get_text_view()   { return _ctTextview; }
+    CtTextView&                       get_text_view()   { return *_pActiveTextview; }
     CtStatusBar&                      get_status_bar()  { return _ctStatusBar; }
     CtMenu&                           get_ct_menu()     { return *_uCtMenu; }
     CtPrint&                          get_ct_print()    { return *_uCtPrint; }
@@ -265,12 +269,21 @@ public:
     void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
 private:
+    struct CtMultiNodeSection;
+
 #if GTKMM_MAJOR_VERSION < 4
     bool _on_window_key_press_event(GdkEventKey* event);
     bool _on_window_configure_event(GdkEventConfigure* configure_event);
 #endif
 
     void _on_treeview_cursor_changed(); // pygtk: on_node_changed
+    void _show_multi_node_editor(const std::vector<CtTreeIter>& tree_iters, size_t requested_page_start = static_cast<size_t>(-1));
+    void _clear_multi_node_editor();
+    void _set_active_editor(CtTreeIter tree_iter, CtTextView* pTextView, bool update_history = true);
+    CtMultiNodeSection* _find_multi_node_section(gint64 node_id, CtTextView* pTextView);
+    void _store_previous_editor_state(CtTreeIter next_tree_iter);
+    void _connect_text_view_events(CtTextView& text_view);
+    void _update_multi_node_section_height(CtTextView& text_view);
 #if GTKMM_MAJOR_VERSION < 4
     bool _on_treeview_button_release_event(GdkEventButton* event);
     void _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
@@ -378,9 +391,40 @@ private:
     CtMenuAction*                _pSaveMenuAction{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
+    Gtk::Box                     _multiNodeBox{Gtk::ORIENTATION_VERTICAL};
+    Gtk::Box                     _multiNodePageBar{Gtk::ORIENTATION_HORIZONTAL, 6};
+    Gtk::Button                  _multiNodePrevButton;
+    Gtk::Label                   _multiNodePageLabel;
+    Gtk::Button                  _multiNodeNextButton;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
     std::unique_ptr<CtTreeView>  _uCtTreeview;
     CtTextView                   _ctTextview;
+    CtTextView*                  _pActiveTextview{&_ctTextview};
+    CtTreeIter                   _activeTreeIter;
+
+    struct CtMultiNodeSection
+    {
+        CtTreeIter treeIter;
+        std::unique_ptr<CtTextView> ownedTextView;
+        CtTextView* textView{nullptr};
+        Gtk::Separator separator;
+        Gtk::Label title;
+        Gtk::ScrolledWindow scrolledWindow;
+        bool usesScrolledWindow{false};
+        bool separatorAdded{false};
+        bool titleAdded{false};
+        sigc::connection focusConnection;
+        sigc::connection heightConnection;
+    };
+    std::vector<std::unique_ptr<CtMultiNodeSection>> _multiNodeSections;
+    bool                         _multiNodeMode{false};
+    bool                         _multiNodeEditorRebuilding{false};
+    guint64                      _multiNodeEditorGeneration{0};
+    size_t                       _multiNodePageStart{0};
+    bool                         _multiNodePageBarVisible{false};
+    static constexpr size_t      MULTI_NODE_PAGE_SIZE{25};
+    static constexpr int         MULTI_NODE_SAFE_TOTAL_HEIGHT{30000};
+    static constexpr int         MULTI_NODE_SECTION_MAX_HEIGHT{600};
     CtStateMachine               _ctStateMachine;
     std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 

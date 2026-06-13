@@ -45,6 +45,8 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     g_object_ref(G_OBJECT(_pGtkSourceView));
 
     gtk_source_view_set_smart_home_end(_pGtkSourceView, GTK_SOURCE_SMART_HOME_END_AFTER);
+    set_show_line_numbers(_pCtConfig->showLineNumbers);
+    set_scroll_beyond_last_line(_pCtConfig->scrollBeyondLastLine);
     _pTextView->set_left_margin(_pCtConfig->textMarginLeft);
     _pTextView->set_right_margin(_pCtConfig->textMarginRight);
     gtk_source_view_set_insert_spaces_instead_of_tabs(_pGtkSourceView, _pCtConfig->spacesInsteadTabs);
@@ -133,6 +135,22 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     _columnEdit.register_new_cursor_row_col_callback([this](const int r, const int c){
         _pCtStatusBar->new_cursor_pos(r, c);
     });
+}
+
+void CtTextView::set_show_line_numbers(const bool show)
+{
+    gtk_source_view_set_show_line_numbers(_pGtkSourceView, show);
+}
+
+void CtTextView::set_scroll_beyond_last_line(const bool enabled)
+{
+#if GTKMM_MAJOR_VERSION >= 4
+    gtk_text_view_set_bottom_margin(GTK_TEXT_VIEW(_pTextView->gobj()), enabled ? 400 : 0);
+#else
+    auto style_context = _pTextView->get_style_context();
+    if (enabled) style_context->remove_class("ct-view-no-scroll-beyond");
+    else style_context->add_class("ct-view-no-scroll-beyond");
+#endif
 }
 
 CtTextView::~CtTextView()
@@ -853,7 +871,9 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     }
     if (_pCtMainWin->hovering_link_iter_offset() >= 0) {
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
-        _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::HAND2));
+        if (auto text_window = _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)) {
+            text_window->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::HAND2));
+        }
 #endif
         if (tooltip.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
             tooltip = tooltip.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
@@ -869,7 +889,9 @@ void CtTextView::cursor_and_tooltips_reset()
 {
     _pCtMainWin->hovering_link_iter_offset() = -1;
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
-    _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::XTERM));
+    if (auto text_window = _pTextView->get_window(Gtk::TEXT_WINDOW_TEXT)) {
+        text_window->set_cursor(Gdk::Cursor::create(_pTextView->get_display(), Gdk::XTERM));
+    }
 #endif
     _pTextView->set_tooltip_text("");
 }

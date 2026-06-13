@@ -84,6 +84,7 @@ void CtTableCommon::set_current_row_column(const size_t rowIdx, const size_t col
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtTableCommon::on_table_button_press_event(GdkEventButton* event)
 {
+    _pCtMainWin->activate_editor_for_widget(this);
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     if (event->button != 3/*right button*/ and event->type != GDK_2BUTTON_PRESS and event->type != GDK_3BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->object_set_selection(this);
@@ -94,6 +95,7 @@ bool CtTableCommon::on_table_button_press_event(GdkEventButton* event)
 void CtTableCommon::on_cell_populate_popup(Gtk::Menu* menu)
 {
     if (not _pCtMainWin->user_active()) return;
+    _pCtMainWin->activate_editor_for_widget(this);
     const size_t rowIdx = current_row();
     const size_t colIdx = current_column();
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;

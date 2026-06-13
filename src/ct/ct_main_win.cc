@@ -158,6 +158,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
 #if GTKMM_MAJOR_VERSION >= 4
     _scrolledwindowText.set_child(_ctTextview.mm());
     _vboxText.append(_init_window_header());
+    _multiNodePageBar.set_visible(false);
+    _vboxText.append(_multiNodePageBar);
     _vboxText.append(_scrolledwindowText);
     _scrolledwindowText.set_expand(true);
     _vboxText.set_expand(true);
@@ -175,6 +177,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
 #else
     _scrolledwindowText.add(_ctTextview.mm());
     _vboxText.pack_start(_init_window_header(), false, false);
+    _multiNodePageBar.set_no_show_all(true);
+    _vboxText.pack_start(_multiNodePageBar, false, false);
     _vboxText.pack_start(_scrolledwindowText);
     if (_pCtConfig->treeRightSide) {
         _hPaned.pack1(_vboxText, Gtk::EXPAND);
@@ -288,6 +292,32 @@ CtMainWin::CtMainWin(bool                            no_gui,
     auto& textView = _ctTextview.mm();
     textView.get_style_context()->add_class("ct-view-panel");
     textView.set_sensitive(false);
+
+    _multiNodePrevButton.set_label(_("Previous"));
+    _multiNodeNextButton.set_label(_("Next"));
+#if GTKMM_MAJOR_VERSION >= 4
+    _multiNodePageBar.append(_multiNodePrevButton);
+    _multiNodePageBar.append(_multiNodePageLabel);
+    _multiNodePageBar.append(_multiNodeNextButton);
+    _multiNodePageLabel.set_hexpand(true);
+#else
+    _multiNodePageBar.pack_start(_multiNodePrevButton, false, false);
+    _multiNodePageBar.pack_start(_multiNodePageLabel, true, true);
+    _multiNodePageBar.pack_start(_multiNodeNextButton, false, false);
+#endif
+    _multiNodePageLabel.set_xalign(0.5f);
+    _multiNodePrevButton.signal_clicked().connect([this](){
+        const auto selected = selected_tree_iters();
+        if (selected.size() > 1 and _multiNodePageStart >= MULTI_NODE_PAGE_SIZE) {
+            _show_multi_node_editor(selected, _multiNodePageStart - MULTI_NODE_PAGE_SIZE);
+        }
+    });
+    _multiNodeNextButton.signal_clicked().connect([this](){
+        const auto selected = selected_tree_iters();
+        if (selected.size() > _multiNodePageStart + MULTI_NODE_PAGE_SIZE) {
+            _show_multi_node_editor(selected, _multiNodePageStart + MULTI_NODE_PAGE_SIZE);
+        }
+    });
 
     // GTK3 signal connections (popup/event/motion) not available in GTK4
 #if GTKMM_MAJOR_VERSION < 4
@@ -518,7 +548,30 @@ CtMainWin::~CtMainWin()
 {
     _autosave_timout_connection.disconnect();
     _mod_time_sentinel_timout_connection.disconnect();
+    _clear_multi_node_editor();
     //std::cout << "~CtMainWin" << std::endl;
+}
+
+void CtMainWin::_connect_text_view_events(CtTextView& ctTextView)
+{
+    auto& textView = ctTextView.mm();
+    textView.get_style_context()->add_class("ct-view-panel");
+#if GTKMM_MAJOR_VERSION < 4
+    textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
+    textView.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
+#endif
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+    textView.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_visibility_notify_event));
+#endif
+#if GTKMM_MAJOR_VERSION < 4
+    textView.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
+    textView.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
+    textView.signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_scroll_event));
+    textView.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
+#endif
+    g_signal_connect(G_OBJECT(ctTextView.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
+    g_signal_connect(G_OBJECT(ctTextView.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
+    g_signal_connect(G_OBJECT(ctTextView.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), _uCtPairCodeboxMainWin.get());
 }
 
 void CtMainWin::_on_dispatcher_error_msg()
@@ -605,12 +658,17 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 
     _uCtTreestore.reset(new CtTreeStore{this});
     _uCtTreestore->tree_view_connect(_uCtTreeview.get());
+#if GTKMM_MAJOR_VERSION >= 4
+    _uCtTreeview->get_selection()->set_mode(Gtk::SelectionMode::MULTIPLE);
+#else
+    _uCtTreeview->get_selection()->set_mode(Gtk::SELECTION_MULTIPLE);
+#endif
     _uCtTreeview->set_tree_node_name_wrap_width(_pCtConfig->cherryWrapEnabled, _pCtConfig->cherryWrapWidth);
     _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!_pCtConfig->auxIconHide);
     show_hide_tree_lines(_pCtConfig->treeLinesVisible);
 
     _tree_just_auto_expanded = false;
-    _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
+    _uCtTreeview->get_selection()->signal_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     #if GTKMM_MAJOR_VERSION < 4
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
     _uCtTreeview->signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_event_after));
@@ -669,15 +727,15 @@ void CtMainWin::config_apply()
 
     auto pGtkSourceView = GTK_SOURCE_VIEW(_ctTextview.gobj());
     auto& textView = _ctTextview.mm();
-    gtk_source_view_set_show_line_numbers(pGtkSourceView, _pCtConfig->showLineNumbers);
+    _ctTextview.set_show_line_numbers(_pCtConfig->showLineNumbers);
     gtk_source_view_set_insert_spaces_instead_of_tabs(pGtkSourceView, _pCtConfig->spacesInsteadTabs);
     gtk_source_view_set_tab_width(pGtkSourceView, _pCtConfig->tabsWidth);
     textView.set_indent(_pCtConfig->wrappingIndent);
     textView.set_pixels_above_lines(_pCtConfig->spaceAroundLines);
     textView.set_pixels_below_lines(_pCtConfig->spaceAroundLines);
     _ctTextview.set_pixels_inside_wrap(_pCtConfig->spaceAroundLines, _pCtConfig->relativeWrappedSpace);
+    _ctTextview.set_scroll_beyond_last_line(_pCtConfig->scrollBeyondLastLine);
     #if GTKMM_MAJOR_VERSION >= 4
-    gtk_text_view_set_bottom_margin(GTK_TEXT_VIEW(textView.gobj()), _pCtConfig->scrollBeyondLastLine ? 400 : 0);
     textView.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE);
     #else
     textView.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
@@ -785,6 +843,9 @@ void CtMainWin::update_theme()
         css_str += ".ct-view-panel { padding-bottom: 400px; } ";
 #endif
     }
+#if GTKMM_MAJOR_VERSION < 4
+    css_str += ".ct-view-panel.ct-view-no-scroll-beyond { padding-bottom: 0; } ";
+#endif
     css_str += ".ct-cboxtoolbar { background-color: transparent; } ";
     css_str += ".ct-codebox.ct-view-plain-text" + plFont;
     css_str += ".ct-codebox.ct-view-code" + codeFont;
@@ -989,7 +1050,7 @@ void CtMainWin::window_header_update()
                     if (CtTreeIter tree_iter = get_tree_store().get_node_from_node_id(node_id->second)) {
                         _uCtTreeview->set_cursor_safe(tree_iter);
                     }
-                    _ctTextview.mm().grab_focus();
+                    get_text_view().mm().grab_focus();
                 }
             };
             pButton->signal_clicked().connect(sigc::bind(f_on_click, pButton));
@@ -1428,6 +1489,10 @@ void CtMainWin::reset()
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
+    _clear_multi_node_editor();
+    _activeTreeIter = CtTreeIter{};
+    _prevTreeIter = CtTreeIter{};
+
     _ctStateMachine.reset();
 
     _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
@@ -1492,7 +1557,7 @@ void CtMainWin::update_selected_node_statusbar_info()
             statusbar_text += separator_text + _("Spell Check") + _(": ") + _pCtConfig->spellCheckLang;
         }
         if (_pCtConfig->wordCountOn) {
-            statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(_ctTextview.get_buffer()));
+            statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(get_text_view().get_buffer()));
         }
         if (treeIter.get_node_creating_time() > 0) {
             const Glib::ustring timestamp_creation = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_creating_time());

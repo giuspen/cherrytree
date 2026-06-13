@@ -89,13 +89,13 @@ void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTex
     if ('r' == target) {
         // we have to reapply only if the selected node is rich text
         if (treeIter and treeIter.get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID) {
-            _ctTextview.setup_for_syntax(treeIter.get_node_syntax_highlighting());
+            get_text_view().setup_for_syntax(treeIter.get_node_syntax_highlighting());
         }
     }
     else if ('p' == target) {
         // we have to reapply only if the selected node is rich text
         if (treeIter and treeIter.get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) {
-            _ctTextview.setup_for_syntax(treeIter.get_node_syntax_highlighting());
+            get_text_view().setup_for_syntax(treeIter.get_node_syntax_highlighting());
         }
         // we need also to reapply to all codeboxes that were already loaded
         get_tree_store().get_store()->foreach([&](const Gtk::TreePath&/*treePath*/, const Gtk::TreeModel::iterator& treeIter)->bool
@@ -534,15 +534,16 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     for (auto widget : widgets) {
         widget->insertInTextBuffer(pTextBuffer);
     }
-    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &_ctTextview.mm());
+    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &get_text_view().mm());
 
     CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
     pTextBuffer->set_modified(false);
 
-    _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
-    _ctTextview.mm().grab_focus();
+    if (_multiNodeMode) refresh_multi_node_editor();
+    else _uCtTreestore->text_view_apply_textbuffer(tree_iter, &get_text_view());
+    get_text_view().mm().grab_focus();
 
-    _ctTextview.set_spell_check(curr_tree_iter().get_node_is_text());
+    get_text_view().set_spell_check(curr_tree_iter().get_node_is_text());
 
     pTextBuffer->place_cursor(pTextBuffer->get_iter_at_offset(state->cursor_pos));
     (void)_try_move_focus_to_anchored_widget_if_on_it();
@@ -581,7 +582,8 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gtk::TextBuffer> pTextBuf
 
     auto new_buffer = get_new_text_buffer(node_text);
     tree_iter.set_node_text_buffer(new_buffer, new_syntax);
-    _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+    if (_multiNodeMode) refresh_multi_node_editor();
+    else _uCtTreestore->text_view_apply_textbuffer(tree_iter, &get_text_view());
 
     user_active() = user_active_restore;
 }
@@ -604,7 +606,7 @@ void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int 
 
 bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
 {
-    auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
+    auto iter_insert = get_text_view().get_buffer()->get_insert()->get_iter();
     auto widgets = curr_tree_iter().get_anchored_widgets(iter_insert.get_offset(), iter_insert.get_offset());
     if (not widgets.empty()) {
         if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(widgets.front())) {

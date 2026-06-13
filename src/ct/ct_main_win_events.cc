@@ -24,35 +24,396 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_list.h"
+#include <unordered_set>
+
+CtTreeIter CtMainWin::tree_cursor_iter()
+{
+    if (not _uCtTreeview or not _uCtTreestore) return CtTreeIter{};
+    Gtk::TreeModel::Path path;
+    Gtk::TreeViewColumn* pColumn{nullptr};
+    _uCtTreeview->get_cursor(path, pColumn);
+    if (path.empty()) return CtTreeIter{};
+    if (auto iter = _uCtTreeview->get_model()->get_iter(path)) {
+        return _uCtTreestore->to_ct_tree_iter(iter);
+    }
+    return CtTreeIter{};
+}
+
+std::vector<CtTreeIter> CtMainWin::selected_tree_iters()
+{
+    std::vector<CtTreeIter> ret;
+    if (not _uCtTreeview or not _uCtTreestore) return ret;
+
+    std::unordered_set<gint64> seen_data_holders;
+    for (const auto& path : _uCtTreeview->get_selection()->get_selected_rows()) {
+        auto iter = _uCtTreeview->get_model()->get_iter(path);
+        if (not iter) continue;
+        CtTreeIter tree_iter = _uCtTreestore->to_ct_tree_iter(iter);
+        const gint64 data_holder_id = tree_iter.get_node_id_data_holder();
+        if (seen_data_holders.insert(data_holder_id).second) {
+            ret.push_back(tree_iter);
+        }
+    }
+    return ret;
+}
+
+void CtMainWin::_store_previous_editor_state(CtTreeIter next_tree_iter)
+{
+    if (not _prevTreeIter or (_prevTreeIter.get_node_id() == next_tree_iter.get_node_id())) return;
+
+    const gint64 prev_node_id_data_holder = _prevTreeIter.get_node_id_data_holder();
+    auto pTextBuffer = _prevTreeIter.get_node_text_buffer();
+    if (pTextBuffer->get_modified()) {
+        _fileSaveNeeded = true;
+        pTextBuffer->set_modified(false);
+        _ctStateMachine.update_state(_prevTreeIter);
+    }
+    _nodesCursorPos[prev_node_id_data_holder] = pTextBuffer->property_cursor_position();
+    if (not _multiNodeMode) {
+        _nodesVScrollPos[prev_node_id_data_holder] = round(_scrolledwindowText.get_vadjustment()->get_value());
+    }
+}
+
+void CtMainWin::_set_active_editor(CtTreeIter tree_iter, CtTextView* pTextView, const bool update_history)
+{
+    if (_multiNodeEditorRebuilding or not tree_iter or not pTextView) return;
+    _store_previous_editor_state(tree_iter);
+    _activeTreeIter = tree_iter;
+    _pActiveTextview = pTextView;
+    _prevTreeIter = tree_iter;
+
+    if (user_active()) {
+        const bool is_bookmarked = _uCtTreestore->is_node_bookmarked(tree_iter.get_node_id());
+        menu_update_bookmark_menu_item(is_bookmarked);
+        window_header_update();
+        window_header_update_lock_icon(tree_iter.get_node_read_only());
+        window_header_update_ghost_icon(tree_iter.get_node_is_excluded_from_search() or tree_iter.get_node_children_are_excluded_from_search());
+        window_header_update_bookmark_icon(is_bookmarked);
+        update_selected_node_statusbar_info();
+    }
+    if (update_history) {
+        _ctStateMachine.node_selected_changed(tree_iter.get_node_id_data_holder());
+    }
+}
+
+CtMainWin::CtMultiNodeSection* CtMainWin::_find_multi_node_section(const gint64 node_id, CtTextView* pTextView)
+{
+    for (const auto& section : _multiNodeSections) {
+        if (section->textView == pTextView and section->treeIter.get_node_id() == node_id) {
+            return section.get();
+        }
+    }
+    return nullptr;
+}
+
+void CtMainWin::_update_multi_node_section_height(CtTextView& text_view)
+{
+    auto buffer = text_view.get_buffer();
+    if (not buffer) return;
+    const int line_count = std::max(1, buffer->get_line_count());
+    text_view.mm().set_size_request(-1, std::max(80, line_count * 24 + 24));
+}
+
+void CtMainWin::_clear_multi_node_editor()
+{
+    if (not _multiNodeMode and _multiNodeSections.empty()) return;
+    _multiNodeEditorRebuilding = true;
+    ++_multiNodeEditorGeneration;
+
+    // Event handlers can run synchronously while focused widgets are removed.
+    // Stop exposing a temporary text view before disconnecting or destroying it.
+    _pActiveTextview = &_ctTextview;
+    _uCtTreestore->disconnect_text_view_connections();
+
+    for (auto& section : _multiNodeSections) {
+        section->focusConnection.disconnect();
+        section->heightConnection.disconnect();
+    }
+    for (auto& section : _multiNodeSections) {
+        if (section->usesScrolledWindow) {
+#if GTKMM_MAJOR_VERSION >= 4
+            section->scrolledWindow.set_child(nullptr);
+#else
+            section->scrolledWindow.remove();
+#endif
+            _multiNodeBox.remove(section->scrolledWindow);
+        }
+        else {
+            _multiNodeBox.remove(section->textView->mm());
+        }
+        if (section->titleAdded) _multiNodeBox.remove(section->title);
+        if (section->separatorAdded) _multiNodeBox.remove(section->separator);
+    }
+    if (_multiNodePageBarVisible) {
+        _multiNodePageBar.hide();
+        _multiNodePageBarVisible = false;
+    }
+    _multiNodeSections.clear();
+
+#if GTKMM_MAJOR_VERSION >= 4
+    _scrolledwindowText.set_child(_ctTextview.mm());
+    _scrolledwindowText.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::AUTOMATIC);
+#else
+    _scrolledwindowText.remove();
+    _scrolledwindowText.add(_ctTextview.mm());
+    _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    _ctTextview.mm().show();
+#endif
+    _scrolledwindowText.set_overlay_scrolling(static_cast<bool>(_pCtConfig->overlayScroll));
+    _multiNodeMode = false;
+    _ctTextview.set_scroll_beyond_last_line(_pCtConfig->scrollBeyondLastLine);
+    _multiNodeEditorRebuilding = false;
+}
+
+void CtMainWin::_show_multi_node_editor(const std::vector<CtTreeIter>& tree_iters, size_t requested_page_start)
+{
+    if (tree_iters.size() < 2) return;
+    const gint64 active_node_id = _activeTreeIter ? _activeTreeIter.get_node_id() : -1;
+    const gint64 cursor_node_id = tree_cursor_iter() ? tree_cursor_iter().get_node_id() : -1;
+    _clear_multi_node_editor();
+    _multiNodeEditorRebuilding = true;
+    const guint64 generation = ++_multiNodeEditorGeneration;
+    _uCtTreestore->disconnect_text_view_connections();
+
+#if GTKMM_MAJOR_VERSION >= 4
+    _scrolledwindowText.set_child(_multiNodeBox);
+#else
+    _scrolledwindowText.remove();
+    _scrolledwindowText.add(_multiNodeBox);
+#endif
+    _multiNodeMode = true;
+
+    size_t page_start = requested_page_start;
+    if (page_start == static_cast<size_t>(-1)) {
+        auto cursor_iter = std::find_if(tree_iters.begin(), tree_iters.end(), [cursor_node_id](const CtTreeIter& iter){
+            return iter.get_node_id() == cursor_node_id;
+        });
+        const size_t cursor_index = cursor_iter == tree_iters.end() ? 0 : std::distance(tree_iters.begin(), cursor_iter);
+        page_start = (cursor_index / MULTI_NODE_PAGE_SIZE) * MULTI_NODE_PAGE_SIZE;
+    }
+    if (page_start >= tree_iters.size()) {
+        page_start = ((tree_iters.size() - 1) / MULTI_NODE_PAGE_SIZE) * MULTI_NODE_PAGE_SIZE;
+    }
+    _multiNodePageStart = page_start;
+    const size_t page_end = std::min(tree_iters.size(), page_start + MULTI_NODE_PAGE_SIZE);
+
+    gint64 estimated_page_height{0};
+    for (size_t i = page_start; i < page_end; ++i) {
+        const auto buffer = tree_iters[i].get_node_text_buffer();
+        const int line_count = buffer ? std::max(1, buffer->get_line_count()) : 1;
+        estimated_page_height += std::min<gint64>(MULTI_NODE_SAFE_TOTAL_HEIGHT,
+                                                 static_cast<gint64>(line_count) * 24 + 24);
+    }
+    const bool compact_sections = tree_iters.size() > MULTI_NODE_PAGE_SIZE or
+                                  estimated_page_height > MULTI_NODE_SAFE_TOTAL_HEIGHT;
+
+    if (compact_sections) {
+        // The outer scroller navigates between sections. Reserve its scrollbar
+        // space so it cannot cover the section-local scrollbars.
+#if GTKMM_MAJOR_VERSION >= 4
+        _scrolledwindowText.set_policy(Gtk::PolicyType::NEVER, Gtk::PolicyType::AUTOMATIC);
+#else
+        _scrolledwindowText.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
+#endif
+        _scrolledwindowText.set_overlay_scrolling(false);
+    }
+
+    if (tree_iters.size() > MULTI_NODE_PAGE_SIZE) {
+        _multiNodePageLabel.set_text(str::format(_("Showing selected nodes %s-%s of %s"),
+                                                std::to_string(page_start + 1),
+                                                std::to_string(page_end),
+                                                std::to_string(tree_iters.size())));
+        _multiNodePrevButton.set_sensitive(page_start > 0);
+        _multiNodeNextButton.set_sensitive(page_end < tree_iters.size());
+#if GTKMM_MAJOR_VERSION >= 4
+        _multiNodePageBar.show();
+#else
+        _multiNodePrevButton.show();
+        _multiNodePageLabel.show();
+        _multiNodeNextButton.show();
+        _multiNodePageBar.show();
+#endif
+        _multiNodePageBarVisible = true;
+    }
+
+    gint64 main_view_node_id = active_node_id;
+    if (std::none_of(tree_iters.begin() + page_start, tree_iters.begin() + page_end, [main_view_node_id](const CtTreeIter& iter){
+        return iter.get_node_id() == main_view_node_id;
+    })) {
+        main_view_node_id = cursor_node_id;
+    }
+    if (std::none_of(tree_iters.begin() + page_start, tree_iters.begin() + page_end, [main_view_node_id](const CtTreeIter& iter){
+        return iter.get_node_id() == main_view_node_id;
+    })) {
+        main_view_node_id = tree_iters[page_start].get_node_id();
+    }
+
+    CtMultiNodeSection* pActiveSection{nullptr};
+    bool main_view_used{false};
+    for (size_t i = page_start; i < page_end; ++i) {
+        auto section = std::make_unique<CtMultiNodeSection>();
+        section->treeIter = tree_iters[i];
+        if (not main_view_used and tree_iters[i].get_node_id() == main_view_node_id) {
+            section->textView = &_ctTextview;
+            main_view_used = true;
+        }
+        else {
+            section->ownedTextView = std::make_unique<CtTextView>(this);
+            section->textView = section->ownedTextView.get();
+            _connect_text_view_events(*section->textView);
+        }
+
+        if (i > page_start) {
+#if GTKMM_MAJOR_VERSION >= 4
+            _multiNodeBox.append(section->separator);
+#else
+            _multiNodeBox.pack_start(section->separator, false, false);
+#endif
+            section->separatorAdded = true;
+        }
+        if (_pCtConfig->multiNodeShowTitles) {
+            const Glib::ustring title = _pCtConfig->nodeNameHeaderShowFullPath ?
+                Glib::ustring{CtMiscUtil::get_node_hierarchical_name(tree_iters[i], " / ", false)} : tree_iters[i].get_node_name();
+            section->title.set_markup("<b>" + str::xml_escape(title) + "</b>");
+            section->title.set_xalign(0.0f);
+            section->title.set_margin_start(8);
+            section->title.set_margin_top(6);
+            section->title.set_margin_bottom(4);
+#if GTKMM_MAJOR_VERSION >= 4
+            _multiNodeBox.append(section->title);
+#else
+            _multiNodeBox.pack_start(section->title, false, false);
+#endif
+            section->titleAdded = true;
+        }
+
+        CtTreeIter iter_for_binding = section->treeIter;
+        _uCtTreestore->text_view_apply_textbuffer(iter_for_binding, section->textView, false, false);
+        section->textView->set_scroll_beyond_last_line(_pCtConfig->scrollBeyondLastLine and i + 1 == page_end);
+        if (compact_sections) {
+            section->usesScrolledWindow = true;
+#if GTKMM_MAJOR_VERSION >= 4
+            section->scrolledWindow.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::AUTOMATIC);
+#else
+            section->scrolledWindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+#endif
+            section->scrolledWindow.set_overlay_scrolling(false);
+            section->scrolledWindow.set_size_request(-1, MULTI_NODE_SECTION_MAX_HEIGHT);
+#if GTKMM_MAJOR_VERSION >= 4
+            section->scrolledWindow.set_child(section->textView->mm());
+            section->textView->mm().set_hexpand(true);
+            _multiNodeBox.append(section->scrolledWindow);
+#else
+            section->scrolledWindow.add(section->textView->mm());
+            _multiNodeBox.pack_start(section->scrolledWindow, false, false);
+#endif
+        }
+        else {
+#if GTKMM_MAJOR_VERSION >= 4
+            _multiNodeBox.append(section->textView->mm());
+            section->textView->mm().set_hexpand(true);
+#else
+            _multiNodeBox.pack_start(section->textView->mm(), false, false);
+#endif
+            _update_multi_node_section_height(*section->textView);
+        }
+
+        CtMultiNodeSection* pSection = section.get();
+        const gint64 node_id = section->treeIter.get_node_id();
+        CtTextView* pTextView = section->textView;
+        section->focusConnection = section->textView->mm().property_has_focus().signal_changed().connect([this, generation, node_id, pTextView](){
+            if (_multiNodeEditorRebuilding or generation != _multiNodeEditorGeneration) return;
+            CtMultiNodeSection* section = _find_multi_node_section(node_id, pTextView);
+            if (section and section->textView->mm().has_focus()) {
+                _set_active_editor(section->treeIter, section->textView);
+            }
+        });
+        section->heightConnection = section->textView->get_buffer()->signal_changed().connect([this, generation, node_id, pTextView, compact_sections](){
+            if (_multiNodeEditorRebuilding or generation != _multiNodeEditorGeneration) return;
+            if (not compact_sections) {
+                CtMultiNodeSection* section = _find_multi_node_section(node_id, pTextView);
+                if (not section) return;
+                _update_multi_node_section_height(*section->textView);
+            }
+        });
+        if (tree_iters[i].get_node_id() == main_view_node_id) pActiveSection = pSection;
+        _multiNodeSections.push_back(std::move(section));
+    }
+
+#if GTKMM_MAJOR_VERSION >= 4
+    _multiNodeBox.show();
+#else
+    _multiNodeBox.show_all();
+#endif
+    _multiNodeEditorRebuilding = false;
+    if (pActiveSection) {
+        _set_active_editor(pActiveSection->treeIter, pActiveSection->textView);
+    }
+}
+
+void CtMainWin::refresh_multi_node_editor()
+{
+    if (_multiNodeEditorRebuilding) return;
+    const auto selected = selected_tree_iters();
+    if (selected.size() > 1) _show_multi_node_editor(selected);
+}
+
+void CtMainWin::set_show_line_numbers(const bool show)
+{
+    _ctTextview.set_show_line_numbers(show);
+    for (const auto& section : _multiNodeSections) {
+        if (section->textView != &_ctTextview) {
+            section->textView->set_show_line_numbers(show);
+        }
+    }
+}
+
+void CtMainWin::set_scroll_beyond_last_line(const bool enabled)
+{
+    if (_multiNodeMode) {
+        for (size_t i = 0; i < _multiNodeSections.size(); ++i) {
+            _multiNodeSections[i]->textView->set_scroll_beyond_last_line(enabled and i + 1 == _multiNodeSections.size());
+        }
+    }
+    else {
+        _ctTextview.set_scroll_beyond_last_line(enabled);
+    }
+}
+
+void CtMainWin::activate_editor_for_widget(CtAnchoredWidget* pWidget)
+{
+    if (_multiNodeEditorRebuilding or not _multiNodeMode or not pWidget) return;
+    for (const auto& section : _multiNodeSections) {
+        const auto widgets = section->treeIter.get_anchored_widgets_fast();
+        if (std::find(widgets.begin(), widgets.end(), pWidget) != widgets.end()) {
+            _set_active_editor(section->treeIter, section->textView);
+            return;
+        }
+    }
+}
 
 void CtMainWin::_on_treeview_cursor_changed()
 {
-    CtTreeIter treeIter = curr_tree_iter();
+    if (_multiNodeEditorRebuilding) return;
+    auto selected = selected_tree_iters();
+    if (selected.size() > 1) {
+        _show_multi_node_editor(selected);
+        return;
+    }
+
+    _clear_multi_node_editor();
+    CtTreeIter treeIter = selected.empty() ? tree_cursor_iter() : selected.front();
     if (not treeIter) {
-        // just removed the last node on the tree?
-        _prevTreeIter = treeIter;
+        _activeTreeIter = CtTreeIter{};
+        _prevTreeIter = CtTreeIter{};
+        _pActiveTextview = &_ctTextview;
+        _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
         return;
     }
     const gint64 nodeId = treeIter.get_node_id();
     const gint64 nodeIdDataHolder = treeIter.get_node_id_data_holder();
-    if (_prevTreeIter) {
-        const gint64 prevNodeId = _prevTreeIter.get_node_id();
-        if (prevNodeId == nodeId) {
-            return;
-        }
-        const gint64 prevNodeIdDataHolder = _prevTreeIter.get_node_id_data_holder();
-        Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = _prevTreeIter.get_node_text_buffer();
-        if (pTextBuffer->get_modified()) {
-            _fileSaveNeeded = true;
-            pTextBuffer->set_modified(false);
-            _ctStateMachine.update_state(_prevTreeIter);
-        }
-        const int scr = round(_scrolledwindowText.get_vadjustment()->get_value());
-        const int cur = pTextBuffer->property_cursor_position();
-        _nodesVScrollPos[prevNodeIdDataHolder] = scr;
-        _nodesCursorPos[prevNodeIdDataHolder] = cur;
-        //spdlog::debug("W[{}] scr={}, cur={}", prevNodeIdDataHolder, scr, cur);
-    }
+    if (_prevTreeIter and _prevTreeIter.get_node_id() == nodeId and _activeTreeIter.get_node_id() == nodeId) return;
+    _store_previous_editor_state(treeIter);
 
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = treeIter.get_node_text_buffer();
     if (not pTextBuffer) {
@@ -63,6 +424,8 @@ void CtMainWin::_on_treeview_cursor_changed()
         return;
     }
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
+    _activeTreeIter = treeIter;
+    _pActiveTextview = &_ctTextview;
 
     if (user_active()) {
         auto mapScrIter = _nodesVScrollPos.find(nodeIdDataHolder);
@@ -79,13 +442,7 @@ void CtMainWin::_on_treeview_cursor_changed()
             text_view_apply_cursor_position(treeIter, 0, 0);
         }
 
-        const bool is_bookmarked = _uCtTreestore->is_node_bookmarked(nodeId);
-        menu_update_bookmark_menu_item(is_bookmarked);
-        window_header_update();
-        window_header_update_lock_icon(treeIter.get_node_read_only());
-        window_header_update_ghost_icon(treeIter.get_node_is_excluded_from_search() or treeIter.get_node_children_are_excluded_from_search());
-        window_header_update_bookmark_icon(is_bookmarked);
-        update_selected_node_statusbar_info();
+        _set_active_editor(treeIter, &_ctTextview, false);
     }
 
     _ctStateMachine.node_selected_changed(nodeIdDataHolder);
@@ -123,7 +480,7 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_BUTTON_PRESS and event->button.button == 1) {
         if (_pCtConfig->treeClickFocusText) {
-            _ctTextview.mm().grab_focus();
+            get_text_view().mm().grab_focus();
         }
         if (_pCtConfig->treeClickExpand) {
             _tree_just_auto_expanded = false;
@@ -398,7 +755,7 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
 bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 {
-    Gtk::TextView& textView = _ctTextview.mm();
+    Gtk::TextView& textView = get_text_view().mm();
     if (not textView.get_cursor_visible()) {
         textView.set_cursor_visible(true);
     }
@@ -410,7 +767,7 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
     }
     int x, y;
     textView.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
-    _ctTextview.cursor_and_tooltips_handler(x, y);
+    get_text_view().cursor_and_tooltips_handler(x, y);
     return false;
 }
 #endif
@@ -425,14 +782,14 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
     }
     const auto syntax_highl = ct_tree_iter.get_node_syntax_highlighting();
     if (CtConst::RICH_TEXT_ID != syntax_highl and CtConst::PLAIN_TEXT_ID != syntax_highl) {
-        _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(_ctTextview.mm().get_display(), Gdk::XTERM));
+        get_text_view().mm().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(get_text_view().mm().get_display(), Gdk::XTERM));
         return false;
     }
     int x, y, bx, by;
     Gdk::ModifierType mask;
-    _ctTextview.mm().get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
-    _ctTextview.mm().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
-    _ctTextview.cursor_and_tooltips_handler(bx, by);
+    get_text_view().mm().get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
+    get_text_view().mm().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
+    get_text_view().cursor_and_tooltips_handler(bx, by);
     return false;
 }
 #endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
@@ -493,7 +850,7 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 #endif
         }
 #if GTKMM_MAJOR_VERSION >= 4
-        _ctTextview.mm().queue_draw();
+        get_text_view().mm().queue_draw();
 #endif
     }
 }
@@ -504,13 +861,13 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     if (event->type != GDK_KEY_PRESS)
         return false;
 
-    auto curr_buffer = _ctTextview.get_buffer();
+    auto curr_buffer = get_text_view().get_buffer();
     if (event->key.state & Gdk::SHIFT_MASK) {
         if (event->key.keyval == GDK_KEY_ISO_Left_Tab and !curr_buffer->get_has_selection()) {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
             if (list_info and list_info.level) {
-                _ctTextview.list_change_level(iter_insert, list_info, false);
+                get_text_view().list_change_level(iter_insert, list_info, false);
                 return true;
             }
         }
@@ -536,14 +893,14 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                 _uCtActions->curr_anchor_anchor = anchor;
                 _uCtActions->object_set_selection(anchor);
                 auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor);
-                pMenu->popup_at_widget(&_ctTextview.mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
+                pMenu->popup_at_widget(&get_text_view().mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
                 _uCtActions->curr_image_anchor = image;
                 _uCtActions->object_set_selection(image);
                 _uCtMenu->find_action("img_link_dismiss")->signal_set_visible->emit(not image->get_link().empty());
                 auto* pMenu = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image);
-                pMenu->popup_at_widget(&_ctTextview.mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
+                pMenu->popup_at_widget(&get_text_view().mm(), Gdk::GRAVITY_SOUTH_WEST, Gdk::GRAVITY_NORTH_WEST, (GdkEvent*)event);
             }
             return true;
         }
@@ -553,7 +910,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             auto iter_insert = curr_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
             if (list_info) {
-                _ctTextview.list_change_level(iter_insert, list_info, true);
+                get_text_view().list_change_level(iter_insert, list_info, true);
                 return true;
             }
         }
@@ -570,7 +927,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
             if (dynamic_cast<CtTableCommon*>(widgets.front())) {
                 curr_buffer->place_cursor(iter_sel_end);
-                _ctTextview.mm().grab_focus();
+                get_text_view().mm().grab_focus();
                 return true;
             }
             return false;
@@ -582,7 +939,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                 if (_try_move_focus_to_anchored_widget_if_on_it()) {
                     return true;
                 }
-                auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
+                auto iter_insert = get_text_view().get_buffer()->get_insert()->get_iter();
                 CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
                 if (list_info and list_info.type == CtListType::Todo) {
                     if (_uCtActions->_is_curr_node_not_read_only_or_error()) {
@@ -593,15 +950,15 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                 }
             }
             if (GDK_KEY_plus == event->key.keyval or GDK_KEY_KP_Add == event->key.keyval or GDK_KEY_equal == event->key.keyval) {
-                _ctTextview.zoom_text(true, curr_tree_iter().get_node_syntax_highlighting());
+                get_text_view().zoom_text(true, curr_tree_iter().get_node_syntax_highlighting());
                 return true;
             }
             if (GDK_KEY_minus == event->key.keyval or GDK_KEY_KP_Subtract == event->key.keyval) {
-                _ctTextview.zoom_text(false, curr_tree_iter().get_node_syntax_highlighting());
+                get_text_view().zoom_text(false, curr_tree_iter().get_node_syntax_highlighting());
                 return true;
             }
             if (GDK_KEY_0 == event->key.keyval or GDK_KEY_KP_0 == event->key.keyval) {
-                _ctTextview.zoom_text(std::nullopt, curr_tree_iter().get_node_syntax_highlighting());
+                get_text_view().zoom_text(std::nullopt, curr_tree_iter().get_node_syntax_highlighting());
                 return true;
             }
         }
@@ -615,17 +972,17 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
 void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_2BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
-        _ctTextview.for_event_after_double_click_button12(event);
+        get_text_view().for_event_after_double_click_button12(event);
     }
     if (event->type == GDK_3BUTTON_PRESS and (1 == event->button.button or 2 == event->button.button)) {
-        _ctTextview.for_event_after_triple_click_button12(event);
+        get_text_view().for_event_after_triple_click_button12(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS) {
         if (event->type == GDK_BUTTON_PRESS) {
-            _ctTextview.for_event_after_button_press(event);
+            get_text_view().for_event_after_button_press(event);
         }
         if (event->type == GDK_KEY_PRESS) {
-            _ctTextview.for_event_after_key_press(event, curr_tree_iter().get_node_syntax_highlighting());
+            get_text_view().for_event_after_key_press(event, curr_tree_iter().get_node_syntax_highlighting());
         }
     }
     else if (event->type == GDK_KEY_RELEASE) {
@@ -644,9 +1001,9 @@ bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
     if (!(event->state & GDK_CONTROL_MASK))
         return false;
     if (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
-        _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN, curr_tree_iter().get_node_syntax_highlighting());
+        get_text_view().zoom_text(event->direction == GDK_SCROLL_DOWN, curr_tree_iter().get_node_syntax_highlighting());
     if (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
-        _ctTextview.zoom_text(event->delta_y < 0, curr_tree_iter().get_node_syntax_highlighting());
+        get_text_view().zoom_text(event->delta_y < 0, curr_tree_iter().get_node_syntax_highlighting());
     return true;
 }
 #endif
@@ -731,9 +1088,9 @@ void CtMainWin::_on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>&
                                            guint /*info*/,
                                            guint /*time*/)
 {
-    Gtk::TreeModel::iterator sel_iter = _uCtTreeview->get_selection()->get_selected();
-    if (sel_iter) {
-        const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(sel_iter).to_string();
+    CtTreeIter tree_iter = tree_cursor_iter();
+    if (tree_iter) {
+        const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(tree_iter).to_string();
         selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());
     }
 }

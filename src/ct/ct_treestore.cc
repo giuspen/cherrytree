@@ -925,7 +925,18 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
     }
 }
 
-void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pCtTextView)
+void CtTreeStore::disconnect_text_view_connections()
+{
+    for (sigc::connection& sigc_conn : _curr_node_sigc_conn) {
+        sigc_conn.disconnect();
+    }
+    _curr_node_sigc_conn.clear();
+}
+
+void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter,
+                                             CtTextView* pCtTextView,
+                                             const bool disconnect_previous,
+                                             const bool connect_scroll)
 {
     auto& textView = pCtTextView->mm();
     if (not static_cast<bool>(treeIter)) {
@@ -935,11 +946,9 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
         return;
     }
 
-    // disconnect signals connected to prev node
-    for (sigc::connection& sigc_conn : _curr_node_sigc_conn) {
-        sigc_conn.disconnect();
+    if (disconnect_previous) {
+        disconnect_text_view_connections();
     }
-    _curr_node_sigc_conn.clear();
 
     const gint64 nodeMasterId = treeIter.get_node_shared_master_id();
     const gint64 nodeId = treeIter.get_node_id();
@@ -963,6 +972,14 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
         Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (pChildAnchor) {
+            auto pParent = pCtAnchoredWidget->get_parent();
+            if (pParent and pParent != &textView) {
+#if GTKMM_MAJOR_VERSION >= 4
+                gtk_widget_unparent(pCtAnchoredWidget->gobj());
+#else
+                pParent->remove(*pCtAnchoredWidget);
+#endif
+            }
             const auto anchorWidgets = pChildAnchor->get_widgets();
             const bool hasThisWidget = std::find(anchorWidgets.begin(), anchorWidgets.end(), pCtAnchoredWidget) != anchorWidgets.end();
             if (not hasThisWidget) {
@@ -1013,15 +1030,28 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
         ))
     );
     _curr_node_sigc_conn.push_back(
-        pTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert), false)
+        pTextBuffer->signal_insert().connect(
+            [this, treeIter, pCtTextView](const Gtk::TextBuffer::iterator& pos,
+                                         const Glib::ustring& text,
+                                         int bytes) {
+                _on_textbuffer_insert(pos, text, bytes, treeIter, pCtTextView);
+            }, false)
     );
     _curr_node_sigc_conn.push_back(
-        pTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase), false)
+        pTextBuffer->signal_erase().connect(
+            [this, treeIter, pCtTextView](const Gtk::TextBuffer::iterator& range_start,
+                                         const Gtk::TextBuffer::iterator& range_end) {
+                _on_textbuffer_erase(range_start, range_end, treeIter, pCtTextView);
+            }, false)
     );
     _curr_node_sigc_conn.push_back(
-        pTextBuffer->signal_mark_set().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_mark_set), false)
+        pTextBuffer->signal_mark_set().connect(
+            [this, treeIter, pCtTextView](const Gtk::TextIter& iter,
+                                         const Glib::RefPtr<Gtk::TextMark>& rMark) {
+                _on_textbuffer_mark_set(iter, rMark, treeIter, pCtTextView);
+            }, false)
     );
-    if (treeIter.get_node_is_rich_text()) {
+    if (connect_scroll and treeIter.get_node_is_rich_text()) {
         const auto nodeIdDataHolder = treeIter.get_node_id_data_holder();
         _curr_node_sigc_conn.push_back(
             _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, nodeIdDataHolder](){
@@ -1029,7 +1059,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
 #if GTKMM_MAJOR_VERSION >= 4
                 CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
                 if (currTreeIter && currTreeIter.get_node_id_data_holder() == nodeIdDataHolder) {
-                    _pCtMainWin->get_text_view().mm().queue_draw();
+                    pCtTextView->mm().queue_draw();
                 }
 #endif
             })
@@ -1255,37 +1285,44 @@ void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> 
     }
 }
 
-void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int /*bytes*/)
+void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos,
+                                        const Glib::ustring& text,
+                                        int /*bytes*/,
+                                        CtTreeIter tree_iter,
+                                        CtTextView* pCtTextView)
 {
-    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().column_edit_get_own_insert_delete_active()) {
-        _pCtMainWin->get_text_view().column_edit_text_inserted(pos, text);
-        CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
-        if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
-            _pCtMainWin->get_state_machine().text_variation(currTreeIter.get_node_id_data_holder(), text);
+    if (_pCtMainWin->user_active() and not pCtTextView->column_edit_get_own_insert_delete_active()) {
+        pCtTextView->column_edit_text_inserted(pos, text);
+        if (tree_iter and tree_iter.get_node_is_rich_text()) {
+            _pCtMainWin->get_state_machine().text_variation(tree_iter.get_node_id_data_holder(), text);
         }
     }
 }
 
-void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end)
+void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start,
+                                       const Gtk::TextBuffer::iterator& range_end,
+                                       CtTreeIter tree_iter,
+                                       CtTextView* pCtTextView)
 {
-    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().column_edit_get_own_insert_delete_active()) {
-       _pCtMainWin->get_text_view().column_edit_text_removed(range_start, range_end);
-        CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
-        if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
-            _pCtMainWin->get_state_machine().text_variation(currTreeIter.get_node_id_data_holder(), range_start.get_text(range_end));
+    if (_pCtMainWin->user_active() and not pCtTextView->column_edit_get_own_insert_delete_active()) {
+        pCtTextView->column_edit_text_removed(range_start, range_end);
+        if (tree_iter and tree_iter.get_node_is_rich_text()) {
+            _pCtMainWin->get_state_machine().text_variation(tree_iter.get_node_id_data_holder(), range_start.get_text(range_end));
         }
     }
 }
 
-void CtTreeStore::_on_textbuffer_mark_set(const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark)
+void CtTreeStore::_on_textbuffer_mark_set(const Gtk::TextIter& /*iter*/,
+                                          const Glib::RefPtr<Gtk::TextMark>& rMark,
+                                          CtTreeIter tree_iter,
+                                          CtTextView* pCtTextView)
 {
     if (_pCtMainWin->user_active()) {
         if (rMark->get_name() == "insert") {
-            const auto currTreeIter = _pCtMainWin->curr_tree_iter();
-            if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
-                _pCtMainWin->get_state_machine().update_curr_state_cursor_pos(currTreeIter.get_node_id_data_holder());
+            if (tree_iter and tree_iter.get_node_is_rich_text()) {
+                _pCtMainWin->get_state_machine().update_curr_state_cursor_pos(tree_iter.get_node_id_data_holder());
             }
-            _pCtMainWin->get_text_view().column_edit_selection_update();
+            pCtTextView->column_edit_selection_update();
         }
     }
 }

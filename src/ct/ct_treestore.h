@@ -163,7 +163,11 @@ public:
     virtual ~CtTreeStore();
 
     void          tree_view_connect(Gtk::TreeView* pTreeView);
-    void          text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView);
+    void          text_view_apply_textbuffer(CtTreeIter& treeIter,
+                                             CtTextView* pTextView,
+                                             bool disconnect_previous = true,
+                                             bool connect_scroll = true);
+    void          disconnect_text_view_connections();
 
     void          get_node_data(const Gtk::TreeModel::iterator& treeIter, CtNodeData& nodeData, const bool loadTextBuffer);
     bool          populate_summary_info(CtSummaryInfo& summaryInfo);
@@ -222,9 +226,19 @@ protected:
     void                      _iter_delete_anchored_widgets(const Gtk::TreeModel::Children& children);
 
     void _on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer);
-    void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes);
-    void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end);
-    void _on_textbuffer_mark_set(const Gtk::TextIter& iter, const Glib::RefPtr<Gtk::TextMark>& rMark);
+    void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos,
+                               const Glib::ustring& text,
+                               int bytes,
+                               CtTreeIter tree_iter,
+                               CtTextView* pTextView);
+    void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start,
+                              const Gtk::TextBuffer::iterator& range_end,
+                              CtTreeIter tree_iter,
+                              CtTextView* pTextView);
+    void _on_textbuffer_mark_set(const Gtk::TextIter& iter,
+                                 const Glib::RefPtr<Gtk::TextMark>& rMark,
+                                 CtTreeIter tree_iter,
+                                 CtTextView* pTextView);
 
 private:
     CtTreeModelColumns              _columns;
