@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2024-09-22 08:35+0200\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
@@ -1161,6 +1161,9 @@ msgstr "_Bokmärken"
 msgid "_Help"
 msgstr "_Hjälp"
 
+msgid "Insert _Date Node"
+msgstr "Infoga en _datumpost"
+
 msgid "Node _Move"
 msgstr "_Flytta post"
 
@@ -1941,14 +1944,31 @@ msgstr "Klistra in kopierad post med underposter"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Infoga _dagens post under trädroten"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Infoga en post med hierarkin År/Månad/Dag under trädroten"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Infoga en post med hierarkin År/Månad/Dag för idag under trädroten"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Infoga _dagens post under markerad post"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Infoga en post med hierarkin År/Månad/Dag under markerad post"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Infoga en post med hierarkin År/Månad/Dag för idag under markerad post"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Infoga _morgondagens post under trädroten"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Infoga en post med hierarkin År/Månad/Dag för imorgon under trädroten"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Infoga _morgondagens post under markerad post"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Infoga en post med hierarkin År/Månad/Dag för imorgon under markerad post"
 
 msgid "C_hange Node Properties..."
 msgstr "Ändra _postegenskaper..."

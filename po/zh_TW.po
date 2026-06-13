@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-12 10:32+0800\n"
 "Last-Translator: Emer Chen <ldsemerchen@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
@@ -1143,6 +1143,9 @@ msgstr "書籤(_B)"
 msgid "_Help"
 msgstr "幫助(_H)"
 
+msgid "Insert _Date Node"
+msgstr "插入日期節點(_D)"
+
 msgid "Node _Move"
 msgstr "節點移動(_M)"
 
@@ -1923,14 +1926,31 @@ msgstr "貼上已複製的節點和子節點"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "插入今日節點(_T)在樹根之下"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "插入一個 年/月/日 層級節點在樹根之下"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "插入一個今日的 年/月/日 層級節點在樹根之下"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "插入今日節點(_y)在選擇節點之下"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "插入一個 年/月/日 層級節點在選擇節點之下"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "插入一個今日的 年/月/日 層級節點在選擇節點之下"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "插入明日節點(_O)在樹根之下"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "插入一個明日的 年/月/日 層級節點在樹根之下"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "插入明日節點(_W)在選擇節點之下"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "插入一個明日的 年/月/日 層級節點在選擇節點之下"
 
 msgid "C_hange Node Properties..."
 msgstr "修改節點屬性(_H)..."

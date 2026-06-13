@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -258,7 +258,19 @@ CtLinkEntry CtMiscUtil::get_link_entry_from_property(const Glib::ustring& link)
     if (link_vec.empty()) return link_entry;
     if (CtConst::LINK_TYPE_WEBS == link_vec[0]) {
         link_entry.type = CtLinkType::Webs;
-        link_entry.webs = link_vec[1];
+        Glib::ustring webs_url = link_vec[1];
+        // Strip control characters (e.g. newlines from &#10; in XML) that cause
+        // Cairo PDF generation failures on stricter library versions (e.g. since Debian 13, was tolerated in Debian 12)
+        Glib::ustring webs_url_clean;
+        for (auto ch : webs_url) {
+            if (ch >= 0x20) { // keep only printable chars; strip control chars (\n, \r, \t, etc.)
+                webs_url_clean += ch;
+            }
+        }
+        if (webs_url_clean != webs_url) {
+            spdlog::warn("stripped control characters from webs URL: '{}'", webs_url.raw());
+        }
+        link_entry.webs = webs_url_clean;
     }
     else if (CtConst::LINK_TYPE_FILE == link_vec[0]) {
         link_entry.type = CtLinkType::File;

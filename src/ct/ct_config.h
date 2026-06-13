@@ -127,7 +127,11 @@ public:
     int                                         latexSizeDpi{140};
     int                                         embfileIconSize{48};
     bool                                        embfileShowFileName{true};
-    bool                                        objectNoSelOnClick{false};
+#if defined(_WIN32) || defined(__APPLE__)
+    int8_t                                      objectNoSelOnClick{0};
+#else
+    int8_t                                      objectNoSelOnClick{-1};
+#endif
     bool                                        embfileMFNameOnDisk{false};
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
@@ -306,7 +310,22 @@ protected:
         return gotIt;
     }
     bool _populate_bool_from_keyfile(const gchar* key, bool* pTarget);
-    bool _populate_int_from_keyfile(const gchar* key, int* pTarget);
+
+    template<typename IntType>
+    bool _populate_int_from_keyfile(const gchar* key, IntType* pTarget) {
+        bool gotIt{false};
+        if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key)) {
+            try {
+                *pTarget = static_cast<IntType>(_uKeyFile->get_integer(_currentGroup, key));
+                gotIt = true;
+            }
+            catch (Glib::KeyFileError& kferror) {
+                _unexpected_keyfile_error(key, kferror);
+            }
+        }
+        return gotIt;
+    }
+
     bool _populate_double_from_keyfile(const gchar* key, double* pTarget);
     void _populate_map_from_current_group(std::map<std::string, std::string>* pTarget);
     void _populate_current_group_from_map(const std::map<std::string, std::string>& map);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-17 19:20+0200\n"
 "Last-Translator: Michal Fusaty <fusaty@proton.me>\n"
 "Language-Team: Slovak\n"
@@ -1171,6 +1171,9 @@ msgstr "Záložky"
 msgid "_Help"
 msgstr "Pomoc"
 
+msgid "Insert _Date Node"
+msgstr "Vložiť _dátumový uzol"
+
 msgid "Node _Move"
 msgstr "Posun uzla"
 
@@ -1951,14 +1954,31 @@ msgstr "Prilepiť skopírovaný uzol a poduzly"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Vložiť dnešný uzol pod koreň stromu"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Vložiť uzol s hierarchiou Rok/Mesiac/Deň pod koreň stromu"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Vložiť uzol s hierarchiou Rok/Mesiac/Deň na dnes pod koreň stromu"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Vložiť dnešný uzol pod vybraný uzol"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Vložiť uzol s hierarchiou Rok/Mesiac/Deň pod vybraný uzol"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Vložiť uzol s hierarchiou Rok/Mesiac/Deň na dnes pod vybraný uzol"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Vložiť _zajtrajší uzol pod koreň stromu"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Vložiť uzol s hierarchiou Rok/Mesiac/Deň na zajtra pod koreň stromu"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Vložiť _zajtrajší uzol pod vybraný uzol"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Vložiť uzol s hierarchiou Rok/Mesiac/Deň na zajtra pod vybraný uzol"
 
 msgid "C_hange Node Properties..."
 msgstr "Zmeniť vlastnosti uzla..."

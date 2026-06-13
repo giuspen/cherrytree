@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2024-03-02 22:35+0300\n"
 "Last-Translator: mil0d1med <milodi500@gmail.com>\n"
 "Language-Team: Arabic\n"
@@ -263,8 +263,8 @@ msgid ""
 "Changing the node type to Automatic Syntax Highlighting removes all rich "
 "text formatting in this node. Do you want to Continue?"
 msgstr ""
-"تغيير نوع الفرع إلى التنسيق التلقائي سيحذف كل تنسيقات النص المنسق في هذا الفرع. "
-"هل تريد المتابعة؟"
+"تغيير نوع الفرع إلى التنسيق التلقائي سيحذف كل تنسيقات النص المنسق في هذا "
+"الفرع. هل تريد المتابعة؟"
 
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
@@ -1004,7 +1004,8 @@ msgid ""
 "Remove commands such as \\verbatiminput, \\openin, \\openout and unsafe "
 "\\input/\\include paths"
 msgstr ""
-"قم بإزالة الأوامر مثل \\verbatiminput و\\openin و\\openout والمسارات غير الآمنة لـ \\input/\\include"
+"قم بإزالة الأوامر مثل \\verbatiminput و\\openin و\\openout والمسارات غير "
+"الآمنة لـ \\input/\\include"
 
 msgid "Could not access the executables 'latex' and 'dvipng'"
 msgstr "تعذر الوصول إلى البرامج القابلة للتنفيذ 'latex' و 'dvipng'"
@@ -1145,6 +1146,9 @@ msgstr "_إشارات مرجعية"
 
 msgid "_Help"
 msgstr "_مساعدة"
+
+msgid "Insert _Date Node"
+msgstr "إدراج فرع ال_تاريخ"
 
 msgid "Node _Move"
 msgstr "_نقل الفرع"
@@ -1926,14 +1930,31 @@ msgstr "لصق العقدة المنسوخة والعقد الفرعية"
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "إدراج فرع _اليوم تحت جذر الشجرة"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "إدراج فرع بالتسلسل الهرمي سنة/شهر/يوم تحت جذر الشجرة"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "إدراج فرع بالتسلسل الهرمي سنة/شهر/يوم لليوم تحت جذر الشجرة"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "إدراج عقدة اليوم تحت الفرع المختار"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "إدراج فرع بالتسلسل الهرمي سنة/شهر/يوم تحت الفرع المختار"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "إدراج فرع بالتسلسل الهرمي سنة/شهر/يوم لليوم تحت الفرع المختار"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "إدراج فرع ال_غد تحت جذر الشجرة"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "إدراج فرع بالتسلسل الهرمي سنة/شهر/يوم للغد تحت جذر الشجرة"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "إدراج عقدة الغد تحت الفرع المختار"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "إدراج فرع بالتسلسل الهرمي سنة/شهر/يوم للغد تحت الفرع المختار"
 
 msgid "C_hange Node Properties..."
 msgstr "تغيير _خصائص الفرع..."
@@ -3074,8 +3095,7 @@ msgstr "قاعدة البيانات %s غير صالحة, راجع سجل الب
 #, c-format
 msgid ""
 "%s write failed - file is missing. Reattach USB drive or shared resource."
-msgstr ""
-"%s فشلت الكتابة - الملف مفقود. أعد توصيل محرك USB أو المورد المشترك."
+msgstr "%s فشلت الكتابة - الملف مفقود. أعد توصيل محرك USB أو المورد المشترك."
 
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"

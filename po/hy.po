@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:26+0100\n"
+"POT-Creation-Date: 2026-06-10 22:26+0100\n"
 "PO-Revision-Date: 2026-05-11 00:15+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
@@ -1166,6 +1166,9 @@ msgstr "_Էջանիշներ"
 msgid "_Help"
 msgstr "_Օգնություն"
 
+msgid "Insert _Date Node"
+msgstr "Դնել _ամսաթվի ճյուղ"
+
 msgid "Node _Move"
 msgstr "Ճյուղի տեղափոխում"
 
@@ -1946,14 +1949,31 @@ msgstr "Փակցնել պատճենված ճյուղն ու ենթաճյուղե
 msgid "Insert _Today's Node Under Tree Root"
 msgstr "Ծառարմատի տակ դնել _այսօրվա ճյուղ"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Tree Root"
-msgstr "Ծառարմատի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ"
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
+msgstr "Ծառարմատի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ այսօրվա համար"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Ընտրված ճյուղի տակ դնել _այսօրվա ճյուղ"
 
-msgid "Insert a Node with Hierarchy Year/Month/Day Under the Selected Node"
-msgstr "Ընտրված ճյուղի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ "
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
+msgstr "Ընտրված ճյուղի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ այսօրվա համար"
+
+msgid "Insert T_omorrow's Node Under Tree Root"
+msgstr "Ծառարմատի տակ դնել _վաղվա ճյուղ"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
+msgstr "Ծառարմատի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ վաղվա համար"
+
+msgid "Insert Tomorro_w's Node Under Selected Node"
+msgstr "Ընտրված ճյուղի տակ դնել _վաղվա ճյուղ"
+
+msgid ""
+"Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
+"Node"
+msgstr "Ընտրված ճյուղի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ վաղվա համար"
 
 msgid "C_hange Node Properties..."
 msgstr "_Փոխել ճյուղի հատկությունները..."
