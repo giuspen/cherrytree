@@ -333,6 +333,7 @@ private:
     sigc::connection    _startDialogShowConn;
     bool                _tree_just_auto_expanded{false};
     bool                _treeRestoreInProgress{false};
+    bool                _drag_shift_held{false};
     std::unordered_set<gint64> _treeExpandedNodeIds;
     std::unordered_map<gint64, int> _nodesCursorPos;
     std::unordered_map<gint64, int> _nodesVScrollPos;

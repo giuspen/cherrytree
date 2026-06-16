@@ -616,6 +616,17 @@ bool CtMainWin::_on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& /
                                          int y,
                                          guint /*time*/)
 {
+    // DND events don't have a 'state' field, so gtk_get_current_event_state fails.
+    // Actively poll the pointer/keyboard state from the window instead.
+    Gdk::ModifierType rawState = static_cast<Gdk::ModifierType>(0);
+    if (auto window = _uCtTreeview->get_window()) {
+        int px, py;
+        window->get_pointer(px, py, rawState);
+    }
+
+    _drag_shift_held = (rawState & Gdk::SHIFT_MASK) != 0;
+    //spdlog::debug("drag_motion: rawState=0x{:x} shift={}", (unsigned)rawState, _drag_shift_held);
+
     if (y < CtConst::TREE_DRAG_EDGE_PROX or y > (_uCtTreeview->get_allocation().get_height() - CtConst::TREE_DRAG_EDGE_PROX)) {
         const int delta = y < CtConst::TREE_DRAG_EDGE_PROX ? -CtConst::TREE_DRAG_EDGE_SCROLL : CtConst::TREE_DRAG_EDGE_SCROLL;
         Gtk::Scrollbar* vscroll_obj = _scrolledwindowTree.get_vscrollbar();
@@ -671,17 +682,20 @@ void CtMainWin::_on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragCont
         }
         move_towards_top_iter = move_towards_top_iter.parent();
     }
+    // Use the Shift state captured during the last drag_motion event
+    const bool keep_focus = _drag_shift_held;
+    spdlog::debug("drag_data_received: keep_focus={} _drag_shift_held={}", keep_focus, _drag_shift_held);
     if (treeDropPos == Gtk::TREE_VIEW_DROP_BEFORE) {
         auto prev_iter = drop_iter;
         --prev_iter;
         // note: prev_iter could be None, use drop_iter to retrieve the parent
-        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), prev_iter, true/*set_first*/);
+        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), prev_iter, true/*set_first*/, keep_focus);
     }
     else if (treeDropPos == Gtk::TREE_VIEW_DROP_AFTER) {
-        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), drop_iter);
+        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), drop_iter, false/*set_first*/, keep_focus);
     }
     else {
-        _uCtActions->node_move_after(drag_iter, drop_iter);
+        _uCtActions->node_move_after(drag_iter, drop_iter, Gtk::TreeModel::iterator{}, false/*set_first*/, keep_focus);
     }
 }
 

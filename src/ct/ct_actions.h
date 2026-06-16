@@ -138,7 +138,8 @@ public:
     void node_move_after(Gtk::TreeModel::iterator iter_to_move,
                          Gtk::TreeModel::iterator father_iter,
                          Gtk::TreeModel::iterator brother_iter = Gtk::TreeModel::iterator{},
-                         bool set_first = false);
+                         bool set_first = false,
+                         bool keep_focus = false);
 
 private:
     bool _need_node_swap(Gtk::TreeModel::iterator& leftIter,

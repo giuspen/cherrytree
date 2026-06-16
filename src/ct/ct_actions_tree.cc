@@ -352,7 +352,8 @@ Gtk::TreeModel::iterator CtActions::node_child_exist_or_create(Gtk::TreeModel::i
 void CtActions::node_move_after(Gtk::TreeModel::iterator iter_to_move,
                                 Gtk::TreeModel::iterator father_iter,
                                 Gtk::TreeModel::iterator brother_iter/*= Gtk::TreeModel::iterator{}*/,
-                                bool set_first/*= false*/)
+                                bool set_first/*= false*/,
+                                bool keep_focus/*= false*/)
 {
     CtTreeStore& ctTreeStore = _pCtMainWin->get_tree_store();
     Glib::RefPtr<Gtk::TreeStore> pTreeStore = ctTreeStore.get_store();
@@ -381,15 +382,22 @@ void CtActions::node_move_after(Gtk::TreeModel::iterator iter_to_move,
 
     ctTreeStore.nodes_sequences_fix(Gtk::TreeModel::iterator(), true);
     CtTreeView& ctTreeView = _pCtMainWin->get_tree_view();
-    if (father_iter) {
-        ctTreeView.expand_row(ctTreeStore.get_path(father_iter), false);
+    Gtk::TreePath new_node_path = _pCtMainWin->get_tree_store().get_path(new_node_iter);
+    if (keep_focus) {
+        // Shift was held during drop: do not expand the destination parent
+        // and do not move focus to the dragged node
+        ctTreeView.collapse_row(new_node_path);
     }
     else {
-        ctTreeView.expand_row(ctTreeStore.get_path(new_node_iter), false);
+        if (father_iter) {
+            ctTreeView.expand_row(ctTreeStore.get_path(father_iter), false);
+        }
+        else {
+            ctTreeView.expand_row(ctTreeStore.get_path(new_node_iter), false);
+        }
+        ctTreeView.collapse_row(new_node_path);
+        ctTreeView.set_cursor(new_node_path);
     }
-    Gtk::TreePath new_node_path = _pCtMainWin->get_tree_store().get_path(new_node_iter);
-    ctTreeView.collapse_row(new_node_path);
-    ctTreeView.set_cursor(new_node_path);
     _pCtMainWin->update_window_save_needed();
 }
 
