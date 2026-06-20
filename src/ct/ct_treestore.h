@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -216,6 +216,7 @@ public:
     void pending_edit_db_bookmarks();
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
     const char* get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
+    int get_tree_icon_size() const;
 
 protected:
     Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
@@ -234,4 +235,6 @@ private:
     std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips
     std::list<sigc::connection>     _curr_node_sigc_conn;
     CtMainWin*                      _pCtMainWin;
+    mutable int                     _cached_icon_size{-1};
+    mutable Glib::ustring           _cached_tree_font;
 };
