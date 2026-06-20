@@ -477,7 +477,11 @@ Gtk::Widget* CtPrefDlg::build_tab_interface()
         _pConfig->treeFont = fontbutton_tree->get_font_name();
 #endif
         _pConfig->treeResetFontSize = 0;
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+        apply_for_each_window([](CtMainWin* win) {
+            win->update_theme();
+            win->window_header_update();
+            win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator{}, false);
+        });
     };
     fontbutton_tree->signal_font_set().connect(f_on_font_tree_set);
     button_reset_rt->signal_clicked().connect([fontbutton_rt, f_on_font_rt_set](){

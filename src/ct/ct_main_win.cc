@@ -944,8 +944,12 @@ void CtMainWin::window_header_update()
         ctTreestore.get_store()->iter_depth(currTreeIter),
         currTreeIter.get_node_syntax_highlighting(),
         currTreeIter.get_node_custom_icon_id());
-    _ctWinHeader.nodeIcon.set_from_icon_name(node_icon, Gtk::ICON_SIZE_MENU);
+    const int icon_size = ctTreestore.get_tree_icon_size();
+    _ctWinHeader.nodeIcon.set(get_icon_theme()->load_icon(node_icon, icon_size));
     _ctWinHeader.nodeIcon.set_visible(true);
+    _ctWinHeader.lockIcon.set(get_icon_theme()->load_icon("ct_locked", icon_size));
+    _ctWinHeader.bookmarkIcon.set(get_icon_theme()->load_icon("ct_pin", icon_size));
+    _ctWinHeader.ghostIcon.set(get_icon_theme()->load_icon("ct_ghost", icon_size));
 
     // update last visited buttons
     if (0 == _pCtConfig->nodesOnNodeNameHeader) {
@@ -1047,7 +1051,7 @@ void CtMainWin::window_header_update()
 #if GTKMM_MAJOR_VERSION >= 4
                                 pImage->set_from_icon_name(node_icon);
 #else
-                                pImage->set_from_icon_name(node_icon, Gtk::ICON_SIZE_MENU);
+                                pImage->set(get_icon_theme()->load_icon(node_icon, icon_size));
 #endif
                             }
                             else {
@@ -1416,9 +1420,17 @@ void CtMainWin::_zoom_tree(const std::optional<bool> is_increase)
         if (size_new < 6) size_new = 6;
         _pCtConfig->treeFont = CtFontUtil::get_font_str(CtFontUtil::get_font_family(_pCtConfig->treeFont), size_new);
 #if GTKMM_MAJOR_VERSION >= 4
-        emit_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+    emit_app_apply_for_each_window([](CtMainWin* win) {
+        win->update_theme();
+        win->window_header_update();
+        win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator{}, false);
+    });
 #else
-        signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+    signal_app_apply_for_each_window([](CtMainWin* win) {
+        win->update_theme();
+        win->window_header_update();
+        win->get_tree_store().update_nodes_icon(Gtk::TreeModel::iterator{}, false);
+    });
 #endif
     }
 }

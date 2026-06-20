@@ -1,7 +1,7 @@
 /*
  * ct_treestore.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -1037,15 +1037,30 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     }
 }
 
+int CtTreeStore::get_tree_icon_size() const
+{
+    const Glib::ustring& currentFont = _pCtMainWin->get_ct_config()->treeFont;
+    if (_cached_icon_size > 0 && currentFont == _cached_tree_font) {
+        return _cached_icon_size;
+    }
+
+    Pango::FontDescription fontDesc(currentFont);
+    const int fontSize = fontDesc.get_size() / Pango::SCALE;
+    _cached_icon_size = fontSize <= 0 ? 16 : std::max(8, (fontSize * 16) / 10);
+    _cached_tree_font = currentFont;
+    return _cached_icon_size;
+}
+
 Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)
 {
     const char* stock_id = get_node_icon(nodeDepth, syntax, customIconId);
+    const int icon_size = get_tree_icon_size();
     #if GTKMM_MAJOR_VERSION < 4
-    return _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE);
+    return _pCtMainWin->get_icon_theme()->load_icon(stock_id, icon_size);
     #else
     try {
         return Gdk::Pixbuf::create_from_resource(std::string{"/icons/"} + stock_id + ".svg",
-                                                CtConst::NODE_ICON_SIZE, CtConst::NODE_ICON_SIZE, false);
+                                                icon_size, icon_size, false);
     } catch (...) {}
     return Glib::RefPtr<Gdk::Pixbuf>{};
     #endif
@@ -1162,6 +1177,7 @@ void CtTreeStore::update_nodes_icon(Gtk::TreeModel::iterator father_iter, bool c
     }
     if (father_iter) {
         update_node_icon(father_iter);
+        update_node_aux_icon(father_iter);
     }
     auto children = father_iter ? father_iter->children() : _rTreeStore->children();
     for (auto child_const_iter = children.begin(); child_const_iter != children.end(); ++child_const_iter)
@@ -1213,12 +1229,13 @@ void CtTreeStore::update_node_aux_icon(const Gtk::TreeModel::iterator& treeIter)
         treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>{});
     }
     else {
+        const int icon_size = get_tree_icon_size();
         #if GTKMM_MAJOR_VERSION < 4
-        treeIter->set_value(_columns.rColPixbufAux, _pCtMainWin->get_icon_theme()->load_icon(stock_id, CtConst::NODE_ICON_SIZE));
+        treeIter->set_value(_columns.rColPixbufAux, _pCtMainWin->get_icon_theme()->load_icon(stock_id, icon_size));
         #else
         try {
             treeIter->set_value(_columns.rColPixbufAux, Gdk::Pixbuf::create_from_resource(
-                std::string{"/icons/"} + stock_id + ".svg", CtConst::NODE_ICON_SIZE, CtConst::NODE_ICON_SIZE, false));
+                std::string{"/icons/"} + stock_id + ".svg", icon_size, icon_size, false));
         } catch (...) {
             treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>{});
         }
