@@ -204,17 +204,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _pScrolledWindowMenuBar = Gtk::manage(new Gtk::ScrolledWindow{});
     _pScrolledWindowMenuBar->add(*_pMenuBar);
     _pMenuBar->set_name("MenuBar");
-    _pBookmarksSubmenus[0] = CtMenu::find_menu_item(_pMenuBar, "BookmarksSubMenu");
-    auto pPopumMenuTree = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node);
-    for (Gtk::Widget* child : pPopumMenuTree->get_children()) {
-        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child)) {
-            if (menuItem->has_submenu()) {
-                _pBookmarksSubmenus[1] = menuItem; // TODO FIND BETTER WAY TO IDENTIFY THAN FIRST WITH SUBMENU
-                break;
-            }
-        }
-    }
-    _pBookmarksSubmenus[2] = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
+    _resolve_bookmarks_submenus();
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsSubMenu");
     _pMenuBar->show_all();
     add_accel_group(_uCtMenu->get_accel_group());
@@ -1098,6 +1088,23 @@ void CtMainWin::window_header_update_bookmark_icon(const bool show)
     _ctWinHeader.bookmarkIcon.set_visible(show);
 }
 
+void CtMainWin::_resolve_bookmarks_submenus()
+{
+    if (_pMenuBar) {
+        if (Gtk::MenuItem* pTreeMenuItem = CtMenu::find_menu_item(_pMenuBar, "TreeMenu")) {
+            if (Gtk::Menu* pTreeMenu = pTreeMenuItem->get_submenu()) {
+                _pBookmarksSubmenus[0] = CtMenu::find_menu_item(pTreeMenu, "BookmarksSubMenu");
+            }
+        }
+        _pBookmarksSubmenus[2] = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
+    }
+    if (_uCtMenu) {
+        if (Gtk::Menu* pPopupMenuTree = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)) {
+            _pBookmarksSubmenus[1] = CtMenu::find_menu_item(pPopupMenuTree, "BookmarksSubMenu");
+        }
+    }
+}
+
 void CtMainWin::menu_top_optional_bookmarks_enforce()
 {
 #if GTKMM_MAJOR_VERSION < 4
@@ -1206,6 +1213,9 @@ void CtMainWin::maybe_show_start_dialog()
 void CtMainWin::menu_set_bookmark_menu_items()
 {
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+
+    _resolve_bookmarks_submenus();
+
     std::list<std::tuple<gint64, Glib::ustring, const char*>> bookmarks;
     for (const gint64& node_id : _uCtTreestore->bookmarks_get()) {
         CtTreeIter ct_tree_iter = _uCtTreestore->get_node_from_node_id(node_id);

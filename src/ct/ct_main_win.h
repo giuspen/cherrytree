@@ -187,6 +187,7 @@ public:
 private:
     Gtk::Box&      _init_status_bar();
     Gtk::EventBox& _init_window_header();
+    void           _resolve_bookmarks_submenus();
 
 public:
     void window_title_update(std::optional<bool> saveNeeded = std::nullopt);
