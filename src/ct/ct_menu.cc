@@ -1,7 +1,7 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -82,10 +82,16 @@ CtMenu::CtMenu(CtMainWin* pCtMainWin)
 
 /*static*/ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuShell* menuShell, std::string name)
 {
-    for (Gtk::Widget* child : menuShell->get_children())
-        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
+    for (Gtk::Widget* child : menuShell->get_children()) {
+        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child)) {
             if (menuItem->get_name() == name)
                 return menuItem;
+            if (Gtk::Widget* menuItemChild = menuItem->get_child()) {
+                if (menuItemChild->get_name() == name)
+                    return menuItem;
+            }
+        }
+    }
 
     // check first level menu items, these menu items have complicated structure
     for (Gtk::Widget* child : menuShell->get_children())
