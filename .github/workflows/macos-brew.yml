@@ -19,6 +19,9 @@ jobs:
             homebrew-${{ runner.os }}-
       - name: Install Dependencies
         run: |
+          if brew tap | grep -qx "aws/tap"; then
+            brew untap aws/tap
+          fi
           brew install adwaita-icon-theme \
                        gspell \
                        gtkmm3 \
@@ -35,12 +38,12 @@ jobs:
         run: |
           BREW_PREFIX="$(brew --prefix)"
           pkg-config gtkmm-3.0 --cflags --libs
-          ls -la /opt/homebrew/Cellar/gtkmm3/3.24.10/lib
+          ls -la "$(brew --prefix gtkmm3)/lib"
           cmake -S . -B build \
                 -DCMAKE_INSTALL_PREFIX="${BREW_PREFIX}" \
                 -DCMAKE_FIND_FRAMEWORK=LAST \
                 -DBUILD_TESTING='' -DCMAKE_VERBOSE_MAKEFILE=ON \
-                -DCMAKE_EXE_LINKER_FLAGS="-L/opt/homebrew/lib"
+                -DCMAKE_EXE_LINKER_FLAGS="-L${BREW_PREFIX}/lib"
           VERBOSE=1 cmake --build build
           mkdir -p artifact
           cp build/cherrytree artifact/
