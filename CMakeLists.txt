@@ -155,6 +155,7 @@ else()
 endif()
 pkg_check_modules(GSPELL gspell-1 REQUIRED)
 pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
+pkg_check_modules(XML2 libxml-2.0 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
@@ -187,6 +188,7 @@ include_directories(
   SYSTEM ${PANGOMM_INCLUDE_DIRS}
   SYSTEM ${GSPELL_INCLUDE_DIRS}
   SYSTEM ${LIBXML_INCLUDE_DIRS}
+  SYSTEM ${XML2_INCLUDE_DIRS}
   SYSTEM ${SQLITE_INCLUDE_DIRS}
   SYSTEM ${CURL_INCLUDE_DIRS}
   SYSTEM ${UCHARDET_INCLUDE_DIRS}
