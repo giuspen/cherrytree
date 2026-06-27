@@ -1,7 +1,7 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -176,7 +176,7 @@ void CtHtml2Xml::feed(const std::string& html)
     }
     else {
         // if not fixed, we can skip some items
-        std::string fixed_html = "<!doctype html><html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"</head><body>"
+        std::string fixed_html = "<!doctype html><html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"></head><body>"
                 + html + "</body></html>";
         CtHtmlParser::feed(fixed_html);
     }
