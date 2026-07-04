@@ -171,7 +171,10 @@ void CtHtml2Xml::feed(const std::string& html)
     spdlog::debug("{}", html.c_str());
 
     const Glib::ustring doctype = "<!DOCTYPE HTML";
-    if (str::startswith(html, doctype) or str::startswith(html, doctype.lowercase())) {
+    const Glib::ustring html_lower = Glib::ustring{html}.lowercase();
+    const bool has_html_or_body = html_lower.find("<html") != Glib::ustring::npos ||
+                                  html_lower.find("<body") != Glib::ustring::npos;
+    if (str::startswith(html, doctype) or str::startswith(html, doctype.lowercase()) or has_html_or_body) {
         CtHtmlParser::feed(html);
     }
     else {
