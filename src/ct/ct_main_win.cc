@@ -941,19 +941,7 @@ void CtMainWin::update_selected_node_statusbar_info()
             statusbar_text += separator_text + _("Spell Check") + _(": ") + _pCtConfig->spellCheckLang;
         }
         if (_pCtConfig->wordCountOn) {
-            const auto text_buffer = _ctTextview.get_buffer();
-            Gtk::TextIter iter_sel_start;
-            Gtk::TextIter iter_sel_end;
-            Glib::ustring text_for_count;
-            if (text_buffer) {
-                if (text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end)) {
-                    text_for_count = text_buffer->get_text(iter_sel_start, iter_sel_end, true);
-                }
-                else {
-                    text_for_count = text_buffer->get_text(true);
-                }
-            }
-            const int words_count = CtTextIterUtil::get_words_count(text_for_count);
+            const int words_count = _uCtActions->get_word_count_for_statusbar();
             statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(words_count);
         }
         if (treeIter.get_node_creating_time() > 0) {

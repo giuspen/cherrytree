@@ -1,7 +1,7 @@
 /*
  * ct_table_light.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -140,6 +140,11 @@ void CtTableLight::_on_cell_renderer_editing_started(Gtk::CellEditable* editable
         _pEditingCellEntry->signal_populate_popup().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_populate_popup));
         _pEditingCellEntry->signal_key_press_event().connect(sigc::mem_fun(*this, &CtTableCommon::on_cell_key_press_event), false);
         _pEditingCellEntry->signal_focus_out_event().connect(sigc::bind(sigc::mem_fun(*this, &CtTableLight::_on_entry_focus_out_event), _pEditingCellEntry, path, column));
+        if (_pCtMainWin->get_ct_config()->wordCountOn) {
+            Glib::signal_idle().connect_once([this]() {
+                _pCtMainWin->update_selected_node_statusbar_info();
+            });
+        }
     }
 }
 
@@ -519,6 +524,20 @@ int CtTableLight::get_curr_cell_max_offset() const
     return cell_text.size();
 }
 
+Glib::ustring CtTableLight::get_curr_cell_text() const
+{
+    if (_pEditingCellEntry) {
+        return _pEditingCellEntry->get_text();
+    }
+    return get_cell_text(current_row(), current_column());
+}
+
+bool CtTableLight::has_focus_or_active_edit() const
+{
+    return (_pEditingCellEntry != nullptr) or
+           (_pManagedTreeView and _pManagedTreeView->has_focus());
+}
+
 Glib::ustring CtTableLight::get_cell_text(const size_t rowIdx, const size_t colIdx) const
 {
     Gtk::TreePath treePath{std::to_string(rowIdx)};
@@ -585,6 +604,11 @@ void CtTableLight::_on_treeview_event_after(GdkEvent* event)
             _currentRow = std::stoi(path_at_click.to_string().raw());
             _currentColumn = selCol;
             grab_focus();
+            if (_pCtMainWin->get_ct_config()->wordCountOn) {
+                Glib::signal_idle().connect_once([this]() {
+                    _pCtMainWin->update_selected_node_statusbar_info();
+                });
+            }
         }
     }
 }

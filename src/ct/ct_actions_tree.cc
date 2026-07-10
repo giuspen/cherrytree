@@ -134,6 +134,7 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
             spdlog::debug("place_cursor_idle");
             Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
             _curr_buffer()->place_cursor(iter_object);
+            _pCtMainWin->update_selected_node_statusbar_info();
             if (isImage) {
                 auto& textView = _pCtMainWin->get_text_view().mm();
                 if (not textView.has_focus()) {
@@ -149,6 +150,7 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
             Gtk::TextIter iter_bound = iter_object;
             iter_bound.forward_char();
             _curr_buffer()->select_range(iter_object, iter_bound);
+            _pCtMainWin->update_selected_node_statusbar_info();
             if (isImage) {
                 auto& textView = _pCtMainWin->get_text_view().mm();
                 if (not textView.has_focus()) {

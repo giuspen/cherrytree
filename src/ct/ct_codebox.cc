@@ -1,7 +1,7 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -62,6 +62,9 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
                 _ctTextview.mm().set_editable(not currTreeIter.get_node_read_only());
                 if (rMark->get_name() == "insert") {
                     _ctTextview.column_edit_selection_update();
+                }
+                if (pCtMainWin->get_ct_config()->wordCountOn) {
+                    pCtMainWin->update_selected_node_statusbar_info();
                 }
             }
         }
