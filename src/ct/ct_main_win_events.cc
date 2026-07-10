@@ -591,9 +591,21 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
             _ctTextview.for_event_after_key_press(event, curr_tree_iter().get_node_syntax_highlighting());
         }
     }
+    else if (event->type == GDK_BUTTON_RELEASE) {
+        if (_pCtConfig->wordCountOn) {
+            update_selected_node_statusbar_info();
+        }
+    }
     else if (event->type == GDK_KEY_RELEASE) {
-        if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval or event->key.keyval == GDK_KEY_space) {
-            if (_pCtConfig->wordCountOn) {
+        if (_pCtConfig->wordCountOn) {
+            Gtk::TextIter iter_sel_start;
+            Gtk::TextIter iter_sel_end;
+            const bool has_selection = _ctTextview.get_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
+            if (has_selection or
+                GDK_KEY_Return == event->key.keyval or
+                GDK_KEY_KP_Enter == event->key.keyval or
+                event->key.keyval == GDK_KEY_space)
+            {
                 update_selected_node_statusbar_info();
             }
         }

@@ -790,20 +790,31 @@ PangoDirection CtTextIterUtil::get_pango_direction(const Gtk::TextIter& textIter
 
 int CtTextIterUtil::get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer)
 {
+    if (not text_buffer) {
+        return 0;
+    }
+    return get_words_count(text_buffer->get_text(true));
+}
+
+int CtTextIterUtil::get_words_count(const Glib::ustring& text)
+{
+    if (text.empty()) {
+        return 0;
+    }
+
     int words = 0;
-    Glib::ustring text = text_buffer->get_text(true);
-    if (!text.empty())
-    {
-        int text_size = text.size();
-        PangoLogAttr* attrs = g_new0(PangoLogAttr, text_size + 1);
-        pango_get_log_attrs(text.c_str(), -1, 0,
-                            pango_language_from_string ("C"),
-                            attrs,
-                            text_size + 1);
-        for (int i = 0; i < text_size; ++i)
-            if (attrs[i].is_word_start)
-                ++words;
-        g_free (attrs);
+    const int text_size = static_cast<int>(text.size());
+    std::vector<PangoLogAttr> attrs(text_size + 1);
+    pango_get_log_attrs(text.c_str(),
+                        -1,
+                        0,
+                        pango_language_get_default(),
+                        attrs.data(),
+                        text_size + 1);
+    for (int i = 0; i < text_size; ++i) {
+        if (attrs[i].is_word_start) {
+            ++words;
+        }
     }
     return words;
 }

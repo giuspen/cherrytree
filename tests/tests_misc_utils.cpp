@@ -1,7 +1,7 @@
 /*
  * tests_misc_utils.cpp
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -277,6 +277,20 @@ TEST(MiscUtilsGroup, iter_util__startswith_url)
         ASSERT_FALSE(CtTextIterUtil::startswith_url(pTextBuffer->begin()));
         ASSERT_FALSE(str::startswith_url(curr_text.c_str()));
     }
+}
+
+TEST(MiscUtilsGroup, iter_util__get_words_count_ustring)
+{
+    ASSERT_EQ(0, CtTextIterUtil::get_words_count(Glib::ustring{}));
+    ASSERT_EQ(0, CtTextIterUtil::get_words_count(Glib::ustring{"   \n\t  "}));
+    ASSERT_EQ(3, CtTextIterUtil::get_words_count(Glib::ustring{"one two three"}));
+    ASSERT_EQ(3, CtTextIterUtil::get_words_count(Glib::ustring{"one, two.\nthree"}));
+
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring text{"Saitama さいたま市"};
+    pTextBuffer->set_text(text);
+    ASSERT_EQ(CtTextIterUtil::get_words_count(text), CtTextIterUtil::get_words_count(pTextBuffer));
 }
 
 TEST(MiscUtilsGroup, contains)

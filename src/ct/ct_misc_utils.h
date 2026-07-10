@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -202,6 +202,7 @@ const gchar* get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* p
 PangoDirection get_pango_direction(const Gtk::TextIter& textIter);
 
 int get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer);
+int get_words_count(const Glib::ustring& text);
 
 const inline static size_t LINE_CONTENT_LIMIT{100u};
 Glib::ustring get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const int match_end_offset);
