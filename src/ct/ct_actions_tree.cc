@@ -123,7 +123,6 @@ bool CtActions::_is_there_anch_widg_selection_or_error(const char anch_widg_id)
 // Put Selection Upon the anchored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
-    spdlog::debug("object_set_selection enter");
     const bool isImage = dynamic_cast<CtImage*>(widget) != nullptr;
     Glib::RefPtr<Gtk::TextChildAnchor> anchor = widget->getTextChildAnchor();
     if (_pCtConfig->objectNoSelOnClick) {
@@ -131,7 +130,6 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
         // On KDE 6 with Klipper, claiming PRIMARY immediately triggers a synchronous
         // SelectionRequest that deadlocks GTK3's event loop for ~7-19 seconds.
         Glib::signal_idle().connect_once([this, anchor, isImage](){
-            spdlog::debug("place_cursor_idle");
             Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
             _curr_buffer()->place_cursor(iter_object);
             _pCtMainWin->update_selected_node_statusbar_info();
@@ -145,7 +143,6 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
     }
     else {
         Glib::signal_idle().connect_once([this, anchor, isImage](){
-            spdlog::debug("select_range_idle");
             Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
             Gtk::TextIter iter_bound = iter_object;
             iter_bound.forward_char();
@@ -159,7 +156,6 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
             }
         });
     }
-    spdlog::debug("object_set_selection return");
 }
 
 // Returns True if there's not a node selected or is not rich text
