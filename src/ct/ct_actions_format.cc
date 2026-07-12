@@ -424,6 +424,47 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
     }
     const int sel_start_offset = iter_sel_start->get_offset();
     const int sel_end_offset = iter_sel_end->get_offset();
+
+    bool toggle_off = false;
+    const bool is_toggleable_tag = (tag_property == CtConst::TAG_WEIGHT or
+                                    tag_property == CtConst::TAG_STYLE or
+                                    tag_property == CtConst::TAG_UNDERLINE or
+                                    tag_property == CtConst::TAG_STRIKETHROUGH or
+                                    tag_property == CtConst::TAG_FAMILY or
+                                    tag_property == CtConst::TAG_SCALE);
+    if (is_toggleable_tag and sel_start_offset < sel_end_offset) {
+        bool all_have_tag = true;
+        int check_count = 0;
+        const Glib::ustring tag_name_to_match = tag_property + "_" + property_value;
+        for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
+            Gtk::TextIter it = text_buffer->get_iter_at_offset(offset);
+            gunichar c = it.get_char();
+            if (c == '\n' or c == '\r') {
+                continue;
+            }
+            check_count++;
+            std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = it.get_tags();
+            bool has_this_tag = false;
+            for (auto& curr_tag : curr_tags) {
+                if (curr_tag->property_name() == tag_name_to_match) {
+                    has_this_tag = true;
+                    break;
+                }
+            }
+            if (not has_this_tag) {
+                all_have_tag = false;
+                break;
+            }
+        }
+        if (check_count > 0 and all_have_tag) {
+            toggle_off = true;
+        }
+    }
+
+    if (toggle_off) {
+        property_value.clear();
+    }
+
     // if there's already a tag about this property, we remove it before apply the new one
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
         Gtk::TextIter it_sel_start = text_buffer->get_iter_at_offset(offset);
@@ -440,7 +481,6 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, CtConst::TAG_FAMILY_PREFIX)))
             {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
-                property_value.clear(); // just tag removal
             }
             else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, CtConst::TAG_INDENT_PREFIX)){
                 //Remove old tag but don't reset the value (since we're increasing previous indent to a new value, not toggling it off)
@@ -448,9 +488,6 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             }
             else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, CtConst::TAG_SCALE_PREFIX)) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
-                if (property_value == curr_tag_name.substr(6)) {
-                    property_value.clear(); // just tag removal
-                }
             }
             else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, CtConst::TAG_JUSTIFICATION_PREFIX)) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
