@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -424,6 +424,47 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
     }
     const int sel_start_offset = iter_sel_start->get_offset();
     const int sel_end_offset = iter_sel_end->get_offset();
+
+    bool toggle_off = false;
+    const bool is_toggleable_tag = (tag_property == CtConst::TAG_WEIGHT or
+                                    tag_property == CtConst::TAG_STYLE or
+                                    tag_property == CtConst::TAG_UNDERLINE or
+                                    tag_property == CtConst::TAG_STRIKETHROUGH or
+                                    tag_property == CtConst::TAG_FAMILY or
+                                    tag_property == CtConst::TAG_SCALE);
+    if (is_toggleable_tag and sel_start_offset < sel_end_offset) {
+        bool all_have_tag = true;
+        int check_count = 0;
+        const Glib::ustring tag_name_to_match = tag_property + "_" + property_value;
+        for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
+            Gtk::TextIter it = text_buffer->get_iter_at_offset(offset);
+            gunichar c = it.get_char();
+            if (c == '\n' or c == '\r') {
+                continue;
+            }
+            check_count++;
+            std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = it.get_tags();
+            bool has_this_tag = false;
+            for (auto& curr_tag : curr_tags) {
+                if (curr_tag->property_name() == tag_name_to_match) {
+                    has_this_tag = true;
+                    break;
+                }
+            }
+            if (not has_this_tag) {
+                all_have_tag = false;
+                break;
+            }
+        }
+        if (check_count > 0 and all_have_tag) {
+            toggle_off = true;
+        }
+    }
+
+    if (toggle_off) {
+        property_value.clear();
+    }
+
     // if there's already a tag about this property, we remove it before apply the new one
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
         Gtk::TextIter it_sel_start = text_buffer->get_iter_at_offset(offset);
@@ -440,7 +481,6 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, CtConst::TAG_FAMILY_PREFIX)))
             {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
-                property_value.clear(); // just tag removal
             }
             else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, CtConst::TAG_INDENT_PREFIX)){
                 //Remove old tag but don't reset the value (since we're increasing previous indent to a new value, not toggling it off)
@@ -448,9 +488,6 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
             }
             else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, CtConst::TAG_SCALE_PREFIX)) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
-                if (property_value == curr_tag_name.substr(6)) {
-                    property_value.clear(); // just tag removal
-                }
             }
             else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, CtConst::TAG_JUSTIFICATION_PREFIX)) {
                 text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
@@ -508,6 +545,74 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
         nullptr};
 }
 
+int CtActions::get_word_count_for_statusbar()
+{
+    auto get_words_count_for_buffer = [](const Glib::RefPtr<Gtk::TextBuffer>& text_buffer)->int {
+        if (not text_buffer) {
+            return 0;
+        }
+        Gtk::TextIter iter_sel_start;
+        Gtk::TextIter iter_sel_end;
+        if (text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end)) {
+            return CtTextIterUtil::get_words_count(text_buffer->get_text(iter_sel_start, iter_sel_end, true));
+        }
+        return CtTextIterUtil::get_words_count(text_buffer->get_text(true));
+    };
+
+    auto get_words_count_for_table = [get_words_count_for_buffer](CtTableCommon* pTable)->int {
+        if (not pTable) {
+            return 0;
+        }
+        if (auto pTableHeavy = dynamic_cast<CtTableHeavy*>(pTable)) {
+            const auto curr_cell_buffer = pTableHeavy->curr_cell_text_view().get_buffer();
+            return get_words_count_for_buffer(curr_cell_buffer);
+        }
+        if (auto pTableLight = dynamic_cast<CtTableLight*>(pTable)) {
+            return CtTextIterUtil::get_words_count(pTableLight->get_curr_cell_text());
+        }
+        return 0;
+    };
+
+    if (auto pCodebox = _codebox_in_use()) {
+        return get_words_count_for_buffer(pCodebox->get_buffer());
+    }
+    if (auto pTable = _table_in_use()) {
+        return get_words_count_for_table(pTable);
+    }
+
+    const auto text_buffer = _pCtMainWin->get_text_view().get_buffer();
+    if (not text_buffer) {
+        return 0;
+    }
+
+    int words_count = get_words_count_for_buffer(text_buffer);
+    Gtk::TextIter iter_sel_start;
+    Gtk::TextIter iter_sel_end;
+    if (text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end) and
+        iter_sel_start.get_offset() + 1 == iter_sel_end.get_offset())
+    {
+        Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = iter_sel_start.get_child_anchor();
+        if (pChildAnchor) {
+            CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+            if (treeIter) {
+                CtAnchoredWidget* pAnchoredWidget = treeIter.get_anchored_widget(pChildAnchor);
+                if (auto pCodebox = dynamic_cast<CtCodebox*>(pAnchoredWidget)) {
+                    words_count = get_words_count_for_buffer(pCodebox->get_buffer());
+                }
+                else if (auto pTable = dynamic_cast<CtTableCommon*>(pAnchoredWidget)) {
+                    words_count = get_words_count_for_table(pTable);
+                }
+                else {
+                    // Single-char anchor selection of non-text widgets must not report 0.
+                    words_count = CtTextIterUtil::get_words_count(text_buffer->get_text(true));
+                }
+            }
+        }
+    }
+
+    return words_count;
+}
+
 CtCodebox* CtActions::_codebox_in_use()
 {
     if (not curr_codebox_anchor) return nullptr;
@@ -523,10 +628,40 @@ CtCodebox* CtActions::_codebox_in_use()
 
 CtTableCommon* CtActions::_table_in_use()
 {
-    if (not curr_table_anchor) return nullptr;
+    CtTreeIter tree_iter = _pCtMainWin->curr_tree_iter();
+    if (not tree_iter) return nullptr;
+
+    const auto anchored_widgets = tree_iter.get_anchored_widgets_fast();
+    for (CtAnchoredWidget* pAnchoredWidget : anchored_widgets) {
+        if (auto pTableHeavy = dynamic_cast<CtTableHeavy*>(pAnchoredWidget)) {
+            if (pTableHeavy->curr_cell_text_view().mm().has_focus()) {
+                return pTableHeavy;
+            }
+        }
+        else if (auto pTableLight = dynamic_cast<CtTableLight*>(pAnchoredWidget)) {
+            if (pTableLight->has_focus_or_active_edit()) {
+                return pTableLight;
+            }
+        }
+    }
+
     if (not _curr_buffer()) return nullptr;
-    Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
-    auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
+    Gtk::TextIter iter_sel_start;
+    Gtk::TextIter iter_sel_end;
+    if (_curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end) and
+        iter_sel_start.get_offset() + 1 == iter_sel_end.get_offset())
+    {
+        if (Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = iter_sel_start.get_child_anchor()) {
+            if (CtAnchoredWidget* pWidget = tree_iter.get_anchored_widget(pChildAnchor)) {
+                if (auto pCtTable = dynamic_cast<CtTableCommon*>(pWidget)) {
+                    return pCtTable;
+                }
+            }
+        }
+    }
+
+    Gtk::TextIter insert_iter = _curr_buffer()->get_insert()->get_iter();
+    auto widgets = tree_iter.get_anchored_widgets(insert_iter.get_offset(), insert_iter.get_offset());
     if (widgets.empty()) return nullptr;
     if (auto pCtTable = dynamic_cast<CtTableCommon*>(widgets.front())) {
         return pCtTable;

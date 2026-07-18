@@ -1,7 +1,7 @@
 /*
  * ct_table.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -148,6 +148,8 @@ public:
     const CtTableLightColumns& get_columns() const { return *_pColumns; }
 
     Glib::ustring get_cell_text(const size_t rowIdx, const size_t colIdx) const;
+    Glib::ustring get_curr_cell_text() const;
+    bool has_focus_or_active_edit() const;
     void set_cell_text(const size_t rowIdx, const size_t colIdx, const Glib::ustring& cell_text);
 
     void apply_syntax_highlighting(const bool /*forceReApply*/) override {}

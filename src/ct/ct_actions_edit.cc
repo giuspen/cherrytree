@@ -32,6 +32,18 @@
 #include <libspelling.h>
 #endif
 
+namespace {
+
+CtTextRange include_trailing_newline_if_any(CtTextRange range)
+{
+    if (range.iter_end and range.iter_end.get_char() == '\n') {
+        range.iter_end.forward_char();
+    }
+    return range;
+}
+
+} // namespace (anonymous)
+
 // Step Back for the Current Node, if Possible
 void CtActions::requested_step_back()
 {
@@ -653,7 +665,8 @@ void CtActions::text_row_cut()
     if (not proof.text_view->get_buffer()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
+    CtTextRange range = include_trailing_newline_if_any(
+        CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters());
     if (range.iter_start.get_offset() == range.iter_end.get_offset()) return;
     proof.text_view->get_buffer()->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
@@ -665,7 +678,8 @@ void CtActions::text_row_copy()
     auto proof = _get_text_view_n_buffer_codebox_proof();
     if (not proof.text_view->get_buffer()) return;
 
-    CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
+    CtTextRange range = include_trailing_newline_if_any(
+        CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters());
     if (range.iter_start.get_offset() == range.iter_end.get_offset()) return;
     proof.text_view->get_buffer()->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
@@ -678,7 +692,8 @@ void CtActions::text_row_delete()
     if (not proof.text_view->get_buffer()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtTextRange range = CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters();
+    CtTextRange range = include_trailing_newline_if_any(
+        CtList{_pCtConfig, proof.text_view->get_buffer()}.get_paragraph_iters());
     if (range.iter_start.get_offset() == range.iter_end.get_offset()) return;
     proof.text_view->get_buffer()->erase(range.iter_start, range.iter_end);
     _pCtMainWin->get_state_machine().update_state();

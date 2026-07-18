@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -577,6 +577,26 @@ void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_
     }
     plain_text = str::sanitize_bad_symbols(plain_text);
     if (plain_text.empty()) {
+        // Some clipboard providers advertise text targets for image content but return empty text.
+        // In rich text mode, retry via image targets before failing.
+        const bool can_try_image = not force_plain_text and
+                                   CtConst::RICH_TEXT_ID == _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+        if (can_try_image) {
+            std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
+            spdlog::debug("empty plain-text clipboard payload, available targets: {}", str::join(targets, ", "));
+            for (auto& target : CtConst::TARGETS_IMAGES) {
+                if (vec::exists(targets, target)) {
+                    spdlog::debug("retrying clipboard paste as image via target '{}'", target.raw());
+                    auto win = _pCtMainWin;
+                    Gtk::Clipboard::get()->request_contents(target,
+                        [win, pTextView](const Gtk::SelectionData& s) {
+                            CtClipboard{win}.on_received_to_image(s, pTextView, false);
+                        });
+                    return;
+                }
+            }
+            spdlog::debug("no known image target found during plain-text fallback");
+        }
         spdlog::error("? no clipboard plain text");
         return;
     }
@@ -830,12 +850,22 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
 #endif
     }
     html_content = str::sanitize_bad_symbols(html_content);
-
-    CtHtml2Xml parser{_pCtMainWin->get_ct_config()};
-    parser.feed(html_content);
-    bool pasteHadWidgets{false};
-    from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string(), &pasteHadWidgets);
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    try {
+        CtHtml2Xml parser(_pCtMainWin->get_ct_config());
+        parser.feed(html_content);
+        bool pasteHadWidgets{false};
+        from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string(), &pasteHadWidgets);
+        pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    }
+    catch (const std::exception& ex) {
+        spdlog::warn("html clipboard parse failed for target '{}': {}", selection_data.get_target(), ex.what());
+        // Fallback to plain text if rich HTML conversion fails.
+        auto win = _pCtMainWin;
+        Gtk::Clipboard::get()->request_contents(CtConst::TARGET_CTD_PLAIN_TEXT,
+            [win, pTextView](const Gtk::SelectionData& s) {
+                CtClipboard{win}.on_received_to_plain_text(s, pTextView, true/*force_plain_text*/);
+            });
+    }
 }
 #endif
 
@@ -844,13 +874,34 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
 void CtClipboard::on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     Glib::RefPtr<const Gdk::Pixbuf> rPixbuf = selection_data.get_pixbuf();
+    if (not rPixbuf and selection_data.get_length() > 0) {
+        try {
+            auto pixbuf_loader = Gdk::PixbufLoader::create();
+            pixbuf_loader->write(selection_data.get_data(), selection_data.get_length());
+            pixbuf_loader->close();
+            rPixbuf = pixbuf_loader->get_pixbuf();
+        }
+        catch (const Glib::Error& ex) {
+            spdlog::debug("image decode fallback failed for target '{}': {}", selection_data.get_target(), ex.what().raw());
+        }
+    }
+    if (not rPixbuf) {
+        // On macOS, some image selections expose empty payload for a specific target
+        // but still allow image retrieval from the clipboard object.
+        spdlog::debug("image target '{}' yielded no pixbuf, trying wait_for_image()", selection_data.get_target());
+        rPixbuf = Gtk::Clipboard::get()->wait_for_image();
+    }
     if (rPixbuf) {
         Glib::ustring link = "";
         _pCtMainWin->get_ct_actions()->image_insert_png(pTextView->get_buffer()->get_insert()->get_iter(), rPixbuf->copy(), link, "");
         pTextView->scroll_to(pTextView->get_buffer()->get_insert());
     }
     else {
-        spdlog::debug("invalid image in clipboard");
+        std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
+        spdlog::debug("invalid image in clipboard target='{}' length={} available targets: {}",
+                      selection_data.get_target(),
+                      selection_data.get_length(),
+                      str::join(targets, ", "));
     }
 }
 #endif

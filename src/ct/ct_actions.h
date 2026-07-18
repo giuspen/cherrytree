@@ -311,6 +311,7 @@ public:
 
 public:
     // helper for format actions
+    int get_word_count_for_statusbar();
     void apply_tag(const Glib::ustring& tag_property,
                    Glib::ustring property_value = "",
                    std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
