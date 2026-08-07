@@ -63,7 +63,7 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
                 if (rMark->get_name() == "insert") {
                     _ctTextview.column_edit_selection_update();
                 }
-                if (pCtMainWin->get_ct_config()->wordCountOn) {
+                if (pCtMainWin->get_ct_config()->wordCountOn and _ctTextview.mm().has_focus()) {
                     pCtMainWin->update_selected_node_statusbar_info();
                 }
             }

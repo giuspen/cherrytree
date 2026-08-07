@@ -1489,6 +1489,12 @@ void CtMainWin::reset()
 
 void CtMainWin::update_selected_node_statusbar_info()
 {
+    if (_isUpdatingStatusbarInfo or force_exit()) {
+        return;
+    }
+    _isUpdatingStatusbarInfo = true;
+    auto on_scope_exit = scope_guard([this](void*) { _isUpdatingStatusbarInfo = false; });
+
     CtTreeIter treeIter = curr_tree_iter();
     Glib::ustring statusbar_text;
     if (not treeIter) {
@@ -1510,10 +1516,10 @@ void CtMainWin::update_selected_node_statusbar_info()
         if (not treeIter.get_node_tags().empty()) {
             statusbar_text += separator_text + _("Tags") + _(": ") + treeIter.get_node_tags();
         }
-        if (_pCtConfig->enableSpellCheck && curr_tree_iter().get_node_is_text()) {
+        if (_pCtConfig->enableSpellCheck && treeIter.get_node_is_text()) {
             statusbar_text += separator_text + _("Spell Check") + _(": ") + _pCtConfig->spellCheckLang;
         }
-        if (_pCtConfig->wordCountOn) {
+        if (_pCtConfig->wordCountOn and _uCtActions) {
             const int words_count = _uCtActions->get_word_count_for_statusbar();
             statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(words_count);
         }

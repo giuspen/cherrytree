@@ -1,7 +1,7 @@
 /*
  * ct_main_win_buffer.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -313,7 +313,7 @@ std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& prop
         else if (CtConst::TAG_JUSTIFICATION == propertyName) {
 #if GTKMM_MAJOR_VERSION < 4
             if (CtConst::TAG_PROP_VAL_LEFT == propertyValue) {
-                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT; 
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT;
             }
             else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue) {
                 rTextTag->property_justification() = Gtk::Justification::JUSTIFY_RIGHT;
@@ -588,18 +588,39 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gtk::TextBuffer> pTextBuf
 
 void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos, const int v_adj_val)
 {
+    if (not treeIter) {
+        return;
+    }
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = treeIter.get_node_text_buffer();
-    Gtk::TextIter textIter = pTextBuffer->get_iter_at_offset(cursor_pos);
+    if (not pTextBuffer) {
+        return;
+    }
+    const int end_offset = pTextBuffer->end().get_offset();
+    const int safe_cursor_pos = cursor_pos < 0 ? 0 : (cursor_pos > end_offset ? end_offset : cursor_pos);
+    Gtk::TextIter textIter = pTextBuffer->get_iter_at_offset(safe_cursor_pos);
     // if (static_cast<bool>(textIter)) <- don't check because iter at the end returns false
 
     pTextBuffer->place_cursor(textIter);
 
+    if (not _scrolledwindowText.get_realized()) {
+        return;
+    }
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
     while (gtk_events_pending()) gtk_main_iteration();
     #else
     while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
     #endif
-    _scrolledwindowText.get_vadjustment()->set_value(v_adj_val);
+    const auto pVAdjustment = _scrolledwindowText.get_vadjustment();
+    if (not pVAdjustment) {
+        return;
+    }
+    const double lower = pVAdjustment->get_lower();
+    const double upper = pVAdjustment->get_upper();
+    const double page_size = pVAdjustment->get_page_size();
+    const double max_value = upper > (lower + page_size) ? (upper - page_size) : lower;
+    const double wanted_value = static_cast<double>(v_adj_val);
+    const double safe_value = wanted_value < lower ? lower : (wanted_value > max_value ? max_value : wanted_value);
+    pVAdjustment->set_value(safe_value);
 }
 
 bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
