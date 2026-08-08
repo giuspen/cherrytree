@@ -416,7 +416,7 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
                     _s_state.find_iterated_last_name_n_tags_id != argNodeId)
                 {
                     _s_state.find_iterated_last_name_n_tags_id = argNodeId;
-                    spdlog::debug("{} find_iterated_last_name_n_tags_id {}", __FUNCTION__, _s_state.find_iterated_last_name_n_tags_id);
+                    //spdlog::debug("{} find_iterated_last_name_n_tags_id {}", __FUNCTION__, _s_state.find_iterated_last_name_n_tags_id);
                     return CtMatchType::NameNTags;
                 }
                 spdlog::debug("skipped name_n_tags {}", argNodeId);
@@ -424,7 +424,7 @@ CtMatchType CtActions::_parse_given_node_content(CtTreeIter node_iter,
         }
         if (_s_state.find_iterated_last_name_n_tags_id > 0) {
             _s_state.find_iterated_last_name_n_tags_id = 0;
-            spdlog::debug("{} find_iterated_last_name_n_tags_id 0", __FUNCTION__);
+            //spdlog::debug("{} find_iterated_last_name_n_tags_id 0", __FUNCTION__);
         }
     }
 
@@ -478,13 +478,16 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
     if (_s_options.accent_insensitive) {
         node_name = str::diacritical_to_ascii(node_name);
     }
+    Glib::ustring text_tags = node_iter.get_node_tags();
     Glib::MatchInfo match_info;
-    if (not re_pattern->match(node_name, match_info)) {
-        Glib::ustring text_tags = node_iter.get_node_tags();
+    if (text_tags.empty()) {
+        (void)re_pattern->match(node_name, match_info);
+    }
+    else {
         if (_s_options.accent_insensitive) {
             text_tags = str::diacritical_to_ascii(text_tags);
         }
-        re_pattern->match(text_tags, match_info);
+        (void)re_pattern->match(node_name + CtConst::CHAR_SPACE + text_tags, match_info);
     }
 
     if (match_info.matches()) {
@@ -492,7 +495,6 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
             gint64 node_id = node_iter.get_node_id();
             Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, "  /  ", false/*for_filename*/, true/*root_to_leaf*/);
             const Glib::ustring line_content = CtTextIterUtil::get_first_line_content(node_iter.get_node_text_buffer());
-            const Glib::ustring text_tags = node_iter.get_node_tags();
             _s_state.match_store->add_row(node_id,
                                           text_tags.empty() ? node_name : node_name + "\n [" +  _("Tags") + _(": ") + text_tags + "]",
                                           str::xml_escape(node_hier_name),
