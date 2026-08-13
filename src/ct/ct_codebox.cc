@@ -188,7 +188,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
                 reinterpret_cast<const GdkEvent*>(event));
             return true; // prevent deprecated gtk_menu_popup via signal_populate_popup
         }
-        if (event->type != GDK_3BUTTON_PRESS) {
+        if (event->type != GDK_2BUTTON_PRESS and event->type != GDK_3BUTTON_PRESS) {
             _pCtMainWin->get_ct_actions()->object_set_selection(this);
         }
         return false;
