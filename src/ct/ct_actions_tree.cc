@@ -125,10 +125,12 @@ void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
     const bool isImage = dynamic_cast<CtImage*>(widget) != nullptr;
     Glib::RefPtr<Gtk::TextChildAnchor> anchor = widget->getTextChildAnchor();
-    if (_pCtConfig->objectNoSelOnClick) {
+    if (_pCtConfig->objectNoSelOnClick or not isImage) {
         // place_cursor avoids claiming X11 PRIMARY selection via XSetSelectionOwner.
         // On KDE 6 with Klipper, claiming PRIMARY immediately triggers a synchronous
         // SelectionRequest that deadlocks GTK3's event loop for ~7-19 seconds.
+        // For non-image widgets with internal text editing (Codebox, Table), place_cursor
+        // avoids stealing the PRIMARY selection from the embedded text view.
         Glib::signal_idle().connect_once([this, anchor, isImage](){
             Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(anchor);
             _curr_buffer()->place_cursor(iter_object);
