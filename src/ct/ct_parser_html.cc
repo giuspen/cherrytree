@@ -198,7 +198,7 @@ void CtHtml2Xml::_parse_style_attribute(const Glib::ustring& style_data)
             if (attr_value == CtConst::TAG_PROP_VAL_LEFT || attr_value == CtConst::TAG_PROP_VAL_CENTER || attr_value == CtConst::TAG_PROP_VAL_RIGHT)
                 _add_tag_style(CtConst::TAG_JUSTIFICATION, attr_value);
         } else if (attr_name == "color") {
-            auto color = _convert_html_color(attr_value);
+            auto color = _convert_html_color(attr_value, _get_current_bg_color());
             if (!color.empty())
                 _add_tag_style(CtConst::TAG_FOREGROUND, color);
         } else if (attr_name == CtConst::TAG_BACKGROUND || attr_name == "background-color") {
@@ -271,7 +271,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "font") {
             for (const auto& tag_attr : char2list_attrs(atts)) {
                 if (tag_attr.name == "color") {
-                    const std::string color = _convert_html_color(str::trim(Glib::ustring(tag_attr.value.begin())));
+                    const std::string color = _convert_html_color(str::trim(Glib::ustring(tag_attr.value.begin())), _get_current_bg_color());
                     if (not color.empty())
                         _add_tag_style(CtConst::TAG_FOREGROUND, color);
                 }
@@ -529,22 +529,37 @@ void CtHtml2Xml::_put_tag_styles_on_top_cache()
         _slot_styles_cache.pop_back();
 }
 
-std::string CtHtml2Xml::_convert_html_color(const std::string& html_color)
+Gdk::RGBA CtHtml2Xml::_get_current_bg_color() const
+{
+    for (auto it = _tag_styles.rbegin(); it != _tag_styles.rend(); ++it) {
+        if (it->style == CtConst::TAG_BACKGROUND) {
+            Gdk::RGBA bg_rgba;
+            if (bg_rgba.set(it->value)) {
+                return bg_rgba;
+            }
+        }
+    }
+    if (_pCtConfig) {
+        return _pCtConfig->get_rt_bg_color();
+    }
+    Gdk::RGBA default_bg;
+    default_bg.set("#ffffff");
+    return default_bg;
+}
+
+std::string CtHtml2Xml::_convert_html_color(const std::string& html_color, const std::optional<Gdk::RGBA>& bg_color)
 {
     Gdk::RGBA rgba;
     if (!rgba.set(html_color))
         return "";
 
-    // new method to remove too white and too black colors
-    // from https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
-    auto sRGBtoLin = [](double colorChannel) {
-        if (colorChannel <= 0.04045) return colorChannel / 12.92;
-        else return pow((( colorChannel + 0.055)/1.055),2.4);
-    };
-    double Y = (0.2126 * sRGBtoLin(rgba.get_red()) + 0.7152 * sRGBtoLin(rgba.get_green()) + 0.0722 * sRGBtoLin(rgba.get_blue()));
+    double Y = CtRgbUtil::get_relative_luminance(rgba);
     if (Y < 0.05 /* <5% */ || Y > 0.95 /* >95% */)
-        return ""; // though I think it should explicitly return black/white
+        return ""; // monochrome base black/white should use default theme color
 
+    if (bg_color.has_value()) {
+        rgba = CtRgbUtil::ensure_contrast(rgba, *bg_color, 3.5);
+    }
 
     return CtRgbUtil::rgb_to_string_24(rgba);
 }

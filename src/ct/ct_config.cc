@@ -864,3 +864,50 @@ void CtConfig::update_user_style(const unsigned num)
     const fs::path userStyleFilepath = fs::get_cherrytree_config_user_style_filepath(num);
     Glib::file_set_contents(userStyleFilepath.string(), userStyleText);
 }
+
+Gdk::RGBA CtConfig::get_rt_bg_color() const
+{
+    return get_style_scheme_bg_color(rtStyleScheme);
+}
+
+Gdk::RGBA CtConfig::get_style_scheme_bg_color(const std::string& scheme_name) const
+{
+    if (g_str_has_prefix(scheme_name.c_str(), "user-")) {
+        try {
+            int num = std::stoi(scheme_name.substr(5));
+            if (num >= 1 && num <= static_cast<int>(CtConst::NUM_USER_STYLES)) {
+                Gdk::RGBA rgba;
+                if (rgba.set(userStyleTextBg[num - 1])) {
+                    return rgba;
+                }
+            }
+        }
+        catch (...) {}
+    }
+
+    GtkSourceStyleSchemeManager* pGtkSourceStyleSchemeManager = gtk_source_style_scheme_manager_get_default();
+    if (pGtkSourceStyleSchemeManager) {
+        GtkSourceStyleScheme* pScheme = gtk_source_style_scheme_manager_get_scheme(pGtkSourceStyleSchemeManager, scheme_name.c_str());
+        if (pScheme) {
+            GtkSourceStyle* pStyle = gtk_source_style_scheme_get_style(pScheme, "text");
+            if (pStyle) {
+                gchar* bg_str = nullptr;
+                gboolean bg_set = FALSE;
+                g_object_get(pStyle, "background", &bg_str, "background-set", &bg_set, NULL);
+                if (bg_set && bg_str) {
+                    Gdk::RGBA rgba;
+                    bool ok = rgba.set(bg_str);
+                    g_free(bg_str);
+                    if (ok) {
+                        return rgba;
+                    }
+                }
+            }
+        }
+    }
+
+    Gdk::RGBA default_bg;
+    default_bg.set("#ffffff");
+    return default_bg;
+}
+

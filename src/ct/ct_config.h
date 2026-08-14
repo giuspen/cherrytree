@@ -26,6 +26,7 @@
 #include <unordered_map>
 #include <vector>
 #include <glibmm.h>
+#include <gdkmm/rgba.h>
 #include "ct_const.h"
 #include "ct_types.h"
 #include "ct_filesystem.h"
@@ -51,6 +52,9 @@ public:
 
     void update_user_style(const unsigned num);
     static std::string get_user_style_id(const unsigned num);
+
+    Gdk::RGBA get_rt_bg_color() const;
+    Gdk::RGBA get_style_scheme_bg_color(const std::string& scheme_name) const;
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;

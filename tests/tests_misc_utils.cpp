@@ -678,3 +678,41 @@ TEST(MiscUtilsGroup, highlight_words)
     ASSERT_STREQ("uno <u>due</u> <u>tre</u>", CtStrUtil::highlight_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"due"}, Glib::ustring{"tre"}}, "u").c_str());
     ASSERT_STREQ("uno <b>due</b> <b>tre</b>", CtStrUtil::highlight_words(Glib::ustring{"uno due tre"}, {Glib::ustring{"tre"}, Glib::ustring{"due"}}).c_str());
 }
+
+TEST(MiscUtilsGroup, rgb_contrast_and_luminance)
+{
+    Gdk::RGBA white{"#ffffff"};
+    Gdk::RGBA black{"#000000"};
+    Gdk::RGBA dark_bg{"#2b2b2b"};
+
+    // Luminance checks
+    ASSERT_NEAR(1.0, CtRgbUtil::get_relative_luminance(white), 0.001);
+    ASSERT_NEAR(0.0, CtRgbUtil::get_relative_luminance(black), 0.001);
+
+    // Contrast ratio checks
+    ASSERT_NEAR(21.0, CtRgbUtil::get_contrast_ratio(white, black), 0.1);
+    ASSERT_NEAR(1.0, CtRgbUtil::get_contrast_ratio(white, white), 0.001);
+
+    // High contrast already: dark red on white
+    Gdk::RGBA dark_red{"#800000"};
+    Gdk::RGBA dark_red_res = CtRgbUtil::ensure_contrast(dark_red, white, 3.5);
+    ASSERT_GE(CtRgbUtil::get_contrast_ratio(dark_red_res, white), 3.5);
+
+    // Low contrast light colors on white (Dracula yellow and cyan from dark themes)
+    Gdk::RGBA dracula_yellow{"#f1fa8c"};
+    ASSERT_LT(CtRgbUtil::get_contrast_ratio(dracula_yellow, white), 2.0);
+    Gdk::RGBA adjusted_yellow = CtRgbUtil::ensure_contrast(dracula_yellow, white, 3.5);
+    ASSERT_GE(CtRgbUtil::get_contrast_ratio(adjusted_yellow, white), 3.5);
+
+    Gdk::RGBA dracula_cyan{"#8be9fd"};
+    ASSERT_LT(CtRgbUtil::get_contrast_ratio(dracula_cyan, white), 2.0);
+    Gdk::RGBA adjusted_cyan = CtRgbUtil::ensure_contrast(dracula_cyan, white, 3.5);
+    ASSERT_GE(CtRgbUtil::get_contrast_ratio(adjusted_cyan, white), 3.5);
+
+    // Low contrast dark colors on dark background (Dark blue on #2b2b2b)
+    Gdk::RGBA dark_blue{"#000080"};
+    ASSERT_LT(CtRgbUtil::get_contrast_ratio(dark_blue, dark_bg), 2.0);
+    Gdk::RGBA adjusted_blue = CtRgbUtil::ensure_contrast(dark_blue, dark_bg, 3.5);
+    ASSERT_GE(CtRgbUtil::get_contrast_ratio(adjusted_blue, dark_bg), 3.5);
+}
+
