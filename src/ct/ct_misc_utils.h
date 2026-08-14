@@ -474,6 +474,12 @@ std::string rgb_to_string_48(const Gdk::RGBA& color);
 
 std::string rgb_to_string_24(const Gdk::RGBA& color);
 
+double get_relative_luminance(const Gdk::RGBA& rgba);
+
+double get_contrast_ratio(const Gdk::RGBA& c1, const Gdk::RGBA& c2);
+
+Gdk::RGBA ensure_contrast(const Gdk::RGBA& fg, const Gdk::RGBA& bg, double min_contrast = 3.5);
+
 } // namespace CtRgbUtil
 
 namespace str {

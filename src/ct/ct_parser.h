@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -371,7 +371,8 @@ private:
     int  _get_tag_style_id();
     void _put_tag_styles_on_top_cache();
 
-    std::string _convert_html_color(const std::string& html_color);
+    Gdk::RGBA   _get_current_bg_color() const;
+    std::string _convert_html_color(const std::string& html_color, const std::optional<Gdk::RGBA>& bg_color = std::nullopt);
     void        _insert_image(std::string img_path, std::string trailing_chars);
     void        _insert_table();
     void        _insert_codebox();

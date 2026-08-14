@@ -1511,6 +1511,98 @@ std::string CtRgbUtil::rgb_to_string_24(const Gdk::RGBA& color)
     return rgb24StrOut;
 }
 
+double CtRgbUtil::get_relative_luminance(const Gdk::RGBA& rgba)
+{
+    auto sRGBtoLin = [](double colorChannel) {
+        if (colorChannel <= 0.04045) return colorChannel / 12.92;
+        return std::pow((colorChannel + 0.055) / 1.055, 2.4);
+    };
+    return 0.2126 * sRGBtoLin(rgba.get_red()) +
+           0.7152 * sRGBtoLin(rgba.get_green()) +
+           0.0722 * sRGBtoLin(rgba.get_blue());
+}
+
+double CtRgbUtil::get_contrast_ratio(const Gdk::RGBA& c1, const Gdk::RGBA& c2)
+{
+    double l1 = get_relative_luminance(c1);
+    double l2 = get_relative_luminance(c2);
+    if (l1 < l2) std::swap(l1, l2);
+    return (l1 + 0.05) / (l2 + 0.05);
+}
+
+Gdk::RGBA CtRgbUtil::ensure_contrast(const Gdk::RGBA& fg, const Gdk::RGBA& bg, double min_contrast)
+{
+    if (get_contrast_ratio(fg, bg) >= min_contrast) {
+        return fg;
+    }
+
+    double r = fg.get_red();
+    double g = fg.get_green();
+    double b = fg.get_blue();
+    double max_c = std::max({r, g, b});
+    double min_c = std::min({r, g, b});
+    double h = 0.0, s = 0.0, l = (max_c + min_c) / 2.0;
+
+    if (max_c != min_c) {
+        double d = max_c - min_c;
+        s = l > 0.5 ? d / (2.0 - max_c - min_c) : d / (max_c + min_c);
+        if (max_c == r) {
+            h = (g - b) / d + (g < b ? 6.0 : 0.0);
+        } else if (max_c == g) {
+            h = (b - r) / d + 2.0;
+        } else {
+            h = (r - g) / d + 4.0;
+        }
+        h /= 6.0;
+    }
+
+    double bg_lum = get_relative_luminance(bg);
+    bool bg_is_light = (bg_lum > 0.5);
+
+    auto hsl2rgb = [](double h, double s, double l, double a) -> Gdk::RGBA {
+        auto hue2rgb = [](double p, double q, double t) {
+            if (t < 0.0) t += 1.0;
+            if (t > 1.0) t -= 1.0;
+            if (t < 1.0 / 6.0) return p + (q - p) * 6.0 * t;
+            if (t < 1.0 / 2.0) return q;
+            if (t < 2.0 / 3.0) return p + (q - p) * (2.0 / 3.0 - t) * 6.0;
+            return p;
+        };
+
+        Gdk::RGBA out;
+        if (s == 0.0) {
+            out.set_rgba(l, l, l, a);
+        } else {
+            double q = l < 0.5 ? l * (1.0 + s) : l + s - l * s;
+            double p = 2.0 * l - q;
+            out.set_rgba(hue2rgb(p, q, h + 1.0 / 3.0),
+                         hue2rgb(p, q, h),
+                         hue2rgb(p, q, h - 1.0 / 3.0),
+                         a);
+        }
+        return out;
+    };
+
+    Gdk::RGBA adjusted = fg;
+    if (bg_is_light) {
+        for (double target_l = std::min(l, 0.45); target_l >= 0.05; target_l -= 0.05) {
+            adjusted = hsl2rgb(h, s, target_l, fg.get_alpha());
+            if (get_contrast_ratio(adjusted, bg) >= min_contrast) {
+                return adjusted;
+            }
+        }
+    } else {
+        for (double target_l = std::max(l, 0.55); target_l <= 0.95; target_l += 0.05) {
+            adjusted = hsl2rgb(h, s, target_l, fg.get_alpha());
+            if (get_contrast_ratio(adjusted, bg) >= min_contrast) {
+                return adjusted;
+            }
+        }
+    }
+
+    return adjusted;
+}
+
 bool str::startswith(const std::string& str, const std::string& starting)
 {
     if (str.length() >= starting.length())
