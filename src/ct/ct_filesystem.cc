@@ -335,23 +335,30 @@ void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists
     spdlog::debug("fs::open_filepath {}", filepath.string());
     if (config->filelinkCustomOn) {
         std::string cmd = config->filelinkCustomAct;
+#ifdef _WIN32
+        // cmd.exe does not support Unix-style single-quoted paths from g_shell_quote
+        const std::string pathStr = filepath.string_native();
+        size_t pos = 0;
+        while ((pos = cmd.find("%s", pos)) != std::string::npos) {
+            cmd.replace(pos, 2, pathStr);
+            pos += pathStr.length();
+        }
+#else
         g_autofree gchar* quoted = g_shell_quote(filepath.string().c_str());
         std::string quotedPath(quoted);
-        
         // Replace "file://%s" with just %s (without the double quotes from template)
         size_t filePos = cmd.find("\"file://%s\"");
         if (filePos != std::string::npos) {
-            cmd.replace(filePos, 11, quotedPath);  // Replace the entire "file://%s" with quoted path
+            cmd.replace(filePos, 11, quotedPath);
         }
         else {
-            // Fallback: just replace %s if "file://%s" pattern not found
             size_t pos = 0;
             while ((pos = cmd.find("%s", pos)) != std::string::npos) {
                 cmd.replace(pos, 2, quotedPath);
                 pos += quotedPath.length();
             }
         }
-        
+#endif
         _locale_env_vars_set_for_external_cmd(true/*isPre*/);
         const int retVal = std::system(cmd.c_str());
         _locale_env_vars_set_for_external_cmd(false/*isPre*/);
@@ -379,23 +386,30 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
     spdlog::debug("fs::open_folderpath {}", folderpath.string());
     if (config->folderlinkCustomOn) {
         std::string cmd = config->folderlinkCustomAct;
+#ifdef _WIN32
+        // cmd.exe does not support Unix-style single-quoted paths from g_shell_quote
+        const std::string pathStr = folderpath.string_native();
+        size_t pos = 0;
+        while ((pos = cmd.find("%s", pos)) != std::string::npos) {
+            cmd.replace(pos, 2, pathStr);
+            pos += pathStr.length();
+        }
+#else
         g_autofree gchar* quoted = g_shell_quote(folderpath.string().c_str());
         std::string quotedPath(quoted);
-        
         // Replace "file://%s" with just %s (without the double quotes from template)
         size_t filePos = cmd.find("\"file://%s\"");
         if (filePos != std::string::npos) {
-            cmd.replace(filePos, 11, quotedPath);  // Replace the entire "file://%s" with quoted path
+            cmd.replace(filePos, 11, quotedPath);
         }
         else {
-            // Fallback: just replace %s if "file://%s" pattern not found
             size_t pos = 0;
             while ((pos = cmd.find("%s", pos)) != std::string::npos) {
                 cmd.replace(pos, 2, quotedPath);
                 pos += quotedPath.length();
             }
         }
-        
+#endif
         _locale_env_vars_set_for_external_cmd(true/*isPre*/);
         const int retVal = std::system(cmd.c_str());
         _locale_env_vars_set_for_external_cmd(false/*isPre*/);
