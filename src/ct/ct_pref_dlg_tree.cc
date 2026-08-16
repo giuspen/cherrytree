@@ -33,7 +33,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     radiobutton_node_icon_custom->join_group(*radiobutton_node_icon_cherry);
     auto radiobutton_node_icon_none = Gtk::manage(new Gtk::RadioButton{_("No Icon")});
     radiobutton_node_icon_none->join_group(*radiobutton_node_icon_cherry);
-    auto checkbutton_aux_icon_hide = Gtk::manage(new Gtk::CheckButton{_("Hide Right Side Auxiliary Icon")});
+    auto checkbutton_aux_icon_hide = Gtk::manage(new Gtk::CheckButton{_("Hide Auxiliary Icon")});
     checkbutton_aux_icon_hide->set_active(_pConfig->auxIconHide);
 
     auto c_icon_button = Gtk::manage(new Gtk::Button{});
@@ -183,7 +183,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     });
     checkbutton_aux_icon_hide->signal_toggled().connect([this, checkbutton_aux_icon_hide](){
         _pConfig->auxIconHide = checkbutton_aux_icon_hide->get_active();
-        apply_for_each_window([this](CtMainWin* win) { win->get_tree_view().get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!_pConfig->auxIconHide); });
+        apply_for_each_window([](CtMainWin* win) { win->get_tree_view().queue_draw(); });
     });
 
     return pMainBox;

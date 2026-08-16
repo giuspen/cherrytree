@@ -145,7 +145,6 @@ class CtTreeView : public Gtk::TreeView
 {
 public:
     const inline static int TITLE_COL_NUM = 0;
-    const inline static int AUX_ICON_COL_NUM = 1;
 
     CtTreeView(CtConfig* pCtConfig);
     virtual ~CtTreeView() {}

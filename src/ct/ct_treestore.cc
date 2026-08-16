@@ -849,29 +849,42 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
     // if change column num, then change CtTreeView::TITLE_COL_NUM
     Gtk::TreeView::Column* pColumns = Gtk::manage(new Gtk::TreeView::Column(""));
     pColumns->pack_start(_columns.rColPixbuf, /*expand=*/false);
+    pColumns->pack_start(_columns.rColPixbufAux, /*expand=*/false);
     pColumns->pack_start(_columns.colNodeName);
+    pColumns->set_spacing(2);
     pColumns->set_expand(true);
     pTreeView->append_column(*pColumns);
-    pTreeView->append_column("", _columns.rColPixbufAux);
 
     Gtk::TreeViewColumn* pTVCol0 = pTreeView->get_column(CtTreeView::TITLE_COL_NUM);
     std::vector<Gtk::CellRenderer*> cellRenderers0 = pTVCol0->get_cells();
     if (cellRenderers0.size() > 1) {
-        Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]);
-        if (nullptr != pCellRendererText) {
-            pTVCol0->add_attribute(pCellRendererText->property_weight(), _columns.colWeight);
+        Gtk::CellRendererPixbuf* pCellRendererAux = dynamic_cast<Gtk::CellRendererPixbuf*>(cellRenderers0[1]);
+        if (nullptr != pCellRendererAux) {
             pTVCol0->set_cell_data_func(
-                *pCellRendererText,
+                *pCellRendererAux,
                 [this](Gtk::CellRenderer* pCell, const Gtk::TreeModel::iterator& treeIter){
-                    Gtk::TreeRow row = *treeIter;
-                    if (row.get_value(_columns.colForeground).empty()) {
-                        dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = _pCtMainWin->get_ct_config()->ttDefFg;
-                    }
-                    else {
-                        dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = row.get_value(_columns.colForeground);
-                    }
+                    pCell->property_visible() = not _pCtMainWin->get_ct_config()->auxIconHide
+                                                and bool(treeIter->get_value(_columns.rColPixbufAux));
                 }
             );
+        }
+        if (cellRenderers0.size() > 2) {
+            Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[2]);
+            if (nullptr != pCellRendererText) {
+                pTVCol0->add_attribute(pCellRendererText->property_weight(), _columns.colWeight);
+                pTVCol0->set_cell_data_func(
+                    *pCellRendererText,
+                    [this](Gtk::CellRenderer* pCell, const Gtk::TreeModel::iterator& treeIter){
+                        Gtk::TreeRow row = *treeIter;
+                        if (row.get_value(_columns.colForeground).empty()) {
+                            dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = _pCtMainWin->get_ct_config()->ttDefFg;
+                        }
+                        else {
+                            dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = row.get_value(_columns.colForeground);
+                        }
+                    }
+                );
+            }
         }
     }
 }
