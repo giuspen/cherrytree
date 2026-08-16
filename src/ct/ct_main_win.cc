@@ -596,7 +596,6 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreestore.reset(new CtTreeStore{this});
     _uCtTreestore->tree_view_connect(_uCtTreeview.get());
     _uCtTreeview->set_tree_node_name_wrap_width(_pCtConfig->cherryWrapEnabled, _pCtConfig->cherryWrapWidth);
-    _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!_pCtConfig->auxIconHide);
     show_hide_tree_lines(_pCtConfig->treeLinesVisible);
 
     _tree_just_auto_expanded = false;
@@ -874,26 +873,29 @@ Gtk::EventBox& CtMainWin::_init_window_header()
 {
     _ctWinHeader.nameLabel.set_margin_start(10);
     _ctWinHeader.nameLabel.set_margin_end(10);
-    #if GTKMM_MAJOR_VERSION >= 4
+#if GTKMM_MAJOR_VERSION >= 4
     _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::MIDDLE);
     _ctWinHeader.lockIcon.set_from_icon_name("ct_locked");
-    #else
+#else
     _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
     _ctWinHeader.nodeIcon.hide();
     _ctWinHeader.lockIcon.set_from_icon_name("ct_locked", Gtk::ICON_SIZE_MENU);
-    #endif
+#endif
+    _ctWinHeader.lockIcon.set_margin_start(2);
     _ctWinHeader.lockIcon.hide();
 #if GTKMM_MAJOR_VERSION >= 4
     _ctWinHeader.bookmarkIcon.set_from_icon_name("ct_pin");
 #else
     _ctWinHeader.bookmarkIcon.set_from_icon_name("ct_pin", Gtk::ICON_SIZE_MENU);
 #endif
+    _ctWinHeader.bookmarkIcon.set_margin_start(2);
     _ctWinHeader.bookmarkIcon.hide();
 #if GTKMM_MAJOR_VERSION >= 4
     _ctWinHeader.ghostIcon.set_from_icon_name("ct_ghost");
 #else
     _ctWinHeader.ghostIcon.set_from_icon_name("ct_ghost", Gtk::ICON_SIZE_MENU);
 #endif
+    _ctWinHeader.ghostIcon.set_margin_start(2);
     _ctWinHeader.ghostIcon.hide();
 #if GTKMM_MAJOR_VERSION >= 4
     _ctWinHeader.headerBox.append(_ctWinHeader.buttonBox);
