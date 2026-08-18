@@ -461,7 +461,7 @@ bool CtImageLatex::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offse
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
-        sqlite3_bind_blob(p_stmt, 5, _latexText.c_str(), _latexText.size(), SQLITE_STATIC);
+        sqlite3_bind_blob(p_stmt, 5, _latexText.c_str(), static_cast<int>(_latexText.bytes()), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, CtImageLatex::LatexSpecialFilename.c_str(), CtImageLatex::LatexSpecialFilename.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
         sqlite3_bind_int64(p_stmt, 8, 0); // time
