@@ -142,7 +142,8 @@ pacman -S --noconfirm --root ${OUT_MSYS2_FOLDER} \
   mingw-w64-ucrt-x86_64-uchardet \
   mingw-w64-ucrt-x86_64-fribidi \
   mingw-w64-ucrt-x86_64-fmt \
-  mingw-w64-ucrt-x86_64-spdlog
+  mingw-w64-ucrt-x86_64-spdlog \
+  mingw-w64-ucrt-x86_64-webp-pixbuf-loader
 _result=$?
 if [ "$_result" -ne "0" ]; then
   echo "failed to create base data via command 'pacman -S <packages names list> --noconfirm --root ${OUT_MSYS2_FOLDER}'"

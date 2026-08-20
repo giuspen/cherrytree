@@ -204,8 +204,8 @@ Install required packages to build cherrytree:
 pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja
 # gtkmm3, gtksourceview4, libxml++2.6, sqlite3
 pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gtkmm3 mingw-w64-ucrt-x86_64-gtksourceview4 mingw-w64-ucrt-x86_64-libxml++2.6 mingw-w64-ucrt-x86_64-sqlite3
-# gspell, curl, uchardet, fribidi, fmt, spdlog
-pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gspell mingw-w64-ucrt-x86_64-curl mingw-w64-ucrt-x86_64-uchardet mingw-w64-ucrt-x86_64-fribidi mingw-w64-ucrt-x86_64-fmt mingw-w64-ucrt-x86_64-spdlog
+# gspell, curl, uchardet, fribidi, fmt, spdlog, webp-pixbuf-loader
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gspell mingw-w64-ucrt-x86_64-curl mingw-w64-ucrt-x86_64-uchardet mingw-w64-ucrt-x86_64-fribidi mingw-w64-ucrt-x86_64-fmt mingw-w64-ucrt-x86_64-spdlog mingw-w64-ucrt-x86_64-webp-pixbuf-loader
 # latex, dvipng, gettext, git, nano
 pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-texlive-core mingw-w64-ucrt-x86_64-gettext git nano
 ```
