@@ -505,6 +505,8 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
         const auto currSyntaxHighl = button_prog_lang.get_label();
         const gchar * const * pLanguageIDs = gtk_source_language_manager_get_language_ids(pCtMainWin->get_language_manager());
         for (auto pLang = pLanguageIDs; *pLang; ++pLang) {
+            GtkSourceLanguage* pLanguage = gtk_source_language_manager_get_language(pCtMainWin->get_language_manager(), *pLang);
+            if (pLanguage and gtk_source_language_get_hidden(pLanguage)) continue;
             rItemStore->add_row(pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
             if (*pLang == currSyntaxHighl) {
                 pathSelectIdx = pathCurrIdx;

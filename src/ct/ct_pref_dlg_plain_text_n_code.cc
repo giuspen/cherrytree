@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_plain_text_n_code.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -388,6 +388,8 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
     auto itemStore = CtChooseDialogListStore::create();
     const gchar * const * pLanguageIDs = gtk_source_language_manager_get_language_ids(_pCtMainWin->get_language_manager());
     for (auto pLang = pLanguageIDs; *pLang; ++pLang) {
+        GtkSourceLanguage* pLanguage = gtk_source_language_manager_get_language(_pCtMainWin->get_language_manager(), *pLang);
+        if (pLanguage and gtk_source_language_get_hidden(pLanguage)) continue;
         if (0 == all_codexec_keys.count(*pLang)) {
             itemStore->add_row(_pCtMainWin->get_code_icon_name(*pLang), "", *pLang);
         }
