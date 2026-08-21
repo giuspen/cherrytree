@@ -1,7 +1,7 @@
 /*
  * ct_list.h
  *
- * Copyright 2009-2023
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -53,6 +53,7 @@ public:
     bool        char_iter_forward_to_newline(Gtk::TextIter& char_iter);
     bool        char_iter_backward_to_newline(Gtk::TextIter& char_iter);
     void        todo_lists_old_to_new_conversion();
+    void        renumber_following_numbered_items(Gtk::TextIter iter_from, int start_num, int level);
 
 private:
     const CtConfig* const _pCtConfig;

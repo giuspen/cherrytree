@@ -1,7 +1,7 @@
 /*
  * ct_text_view.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -650,7 +650,12 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     else {
                         iter_list_quit = text_buffer->get_iter_at_offset(list_info.startoffs);
                     }
+                    int quit_offset = iter_list_quit.get_offset();
                     text_buffer->erase(iter_list_quit, iter_insert);
+                    if (list_info.type == CtListType::Number and list_info.level == 0) {
+                        auto iter_from = text_buffer->get_iter_at_offset(quit_offset);
+                        CtList{_pCtConfig, text_buffer}.renumber_following_numbered_items(iter_from, list_info.num_seq, list_info.level);
+                    }
                     return;
                 }
                 // the list element was not empty, this list element should get a new list prefix
@@ -671,23 +676,9 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 int new_num = list_info.num_seq + 1;
                 int index = list_info.aux;
                 text_buffer->insert(iter_insert, pre_spaces + std::to_string(new_num) + CtConst::CHARS_LISTNUM[(size_t)index] + CtConst::CHAR_SPACE);
-                new_num += 1;
                 iter_start = text_buffer->get_iter_at_offset(insert_offset);
                 CtList{_pCtConfig, text_buffer}.char_iter_forward_to_newline(iter_start);
-                list_info = CtList{_pCtConfig, text_buffer}.get_next_list_info_on_level(iter_start, curr_level);
-                // print list_info
-                while (list_info and list_info.type == CtListType::Number) {
-                    iter_start = text_buffer->get_iter_at_offset(list_info.startoffs);
-                    int end_offset = CtList{_pCtConfig, text_buffer}.get_multiline_list_element_end_offset(iter_start, list_info);
-                    Gtk::TextIter iter_end = text_buffer->get_iter_at_offset(end_offset);
-                    CtTextRange range = CtList{_pCtConfig, text_buffer}.list_check_n_remove_old_list_type_leading(iter_start, iter_end);
-                    end_offset -= range.leading_chars_num;
-                    text_buffer->insert(range.iter_start, std::to_string(new_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE);
-                    end_offset += CtList{_pCtConfig, text_buffer}.get_leading_chars_num(list_info.type, new_num);
-                    iter_start = text_buffer->get_iter_at_offset(end_offset);
-                    new_num += 1;
-                    list_info = CtList{_pCtConfig, text_buffer}.get_next_list_info_on_level(iter_start, curr_level);
-                }
+                CtList{_pCtConfig, text_buffer}.renumber_following_numbered_items(iter_start, new_num + 1, curr_level);
             }
         }
         else { // keyname == CtConst::STR_KEY_SPACE

@@ -1,7 +1,7 @@
 /*
  * tests_lists.cpp
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -258,3 +258,69 @@ TEST(ListsGroup, CtListInfo_1)
                                                               false/*single_file*/);
     ASSERT_STREQ("<ul><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ul><li>terzo elemento indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2 pi\xC3\xB9 3<ul><li>ancora un livello su pi\xC3\xB9 righe</li><li>stesso livello<ul><li>ancora uno avanti</li></ul></li></ul></li></ul></li></ul>\n<ol><li>primo elemento</li><li>secondo elemento su pi\xC3\xB9 righe<ol><li>terzo indentato</li><li>quarto su pi\xC3\xB9 1 pi\xC3\xB9 2<ol><li>ancora un livello<ol><li>ancora uno avant</li></ol></li></ol></li></ol></li></ol>", out_html.c_str());
 }
+
+TEST(ListsGroup, RenumberFollowingNumberedItems)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring initial_text{
+        "1) first" _NL
+        "2) second" _NL
+        _NL
+        "4) third" _NL
+        "5) fourth"};
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // iter_from is on line 2 (the empty line)
+    Gtk::TextIter iter_from = pTextBuffer->get_iter_at_line(2);
+    ct_list.renumber_following_numbered_items(iter_from, 3/*start_num*/, 0/*level*/);
+
+    const Glib::ustring expected_text{
+        "1) first" _NL
+        "2) second" _NL
+        _NL
+        "3) third" _NL
+        "4) fourth"};
+    ASSERT_STREQ(expected_text.c_str(), pTextBuffer->get_text().c_str());
+}
+
+TEST(ListsGroup, InsertMiddleNumberedItem)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring initial_text{
+        "1) first" _NL
+        "2) second" _NL
+        "3) third" _NL
+        "   third bis" _NL
+        "4) fourth"};
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Simulate pressing Enter at end of "2) second":
+    // 1) GTK inserts newline
+    Gtk::TextIter iter_insert = pTextBuffer->get_iter_at_line(2);
+    pTextBuffer->insert(iter_insert, "\n");
+    // 2) Our handler inserts "3) " and renumbers following
+    iter_insert = pTextBuffer->get_iter_at_line(2);
+    pTextBuffer->insert(iter_insert, "3) ");
+    Gtk::TextIter iter_start = pTextBuffer->get_iter_at_line(2);
+    ct_list.char_iter_forward_to_newline(iter_start);
+    ct_list.renumber_following_numbered_items(iter_start, 4/*start_num*/, 0/*level*/);
+
+    const Glib::ustring expected_text{
+        "1) first" _NL
+        "2) second" _NL
+        "3) " _NL
+        "4) third" _NL
+        "   third bis" _NL
+        "5) fourth"};
+    ASSERT_STREQ(expected_text.c_str(), pTextBuffer->get_text().c_str());
+}
+
+
