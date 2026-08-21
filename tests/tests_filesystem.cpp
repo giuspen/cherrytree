@@ -247,5 +247,6 @@ TEST(FileSystemGroup, is_file_image)
     ASSERT_TRUE(fs::is_file_image(UT::testImageJpg));
     ASSERT_TRUE(fs::is_file_image(UT::testImageBmp));
     ASSERT_TRUE(fs::is_file_image(UT::testImageGif));
+    ASSERT_TRUE(fs::is_file_image(UT::testImageWebp));
     ASSERT_TRUE(fs::is_file_image(UT::testImageSvg));
 }

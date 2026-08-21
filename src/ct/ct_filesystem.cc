@@ -206,7 +206,7 @@ bool is_file_image(const path& file_path)
 {
 #if defined(_WIN32)
     const Glib::ustring ext = Glib::ustring{file_path.extension()}.lowercase();
-    return vec::exists(std::vector<Glib::ustring>{".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg"}, ext);
+    return vec::exists(std::vector<Glib::ustring>{".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg", ".webp"}, ext);
 #else
     g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
     return mimetype and str::startswith(mimetype, "image/");

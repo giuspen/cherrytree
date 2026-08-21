@@ -694,7 +694,7 @@ const inline static Glib::ustring TARGET_URI_LIST = "text/uri-list";
 const inline static Glib::ustring TARGET_GTK_TEXT_BUFFER_CONTENTS = "GTK_TEXT_BUFFER_CONTENTS";
 const inline static std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT", "text/plain;charset=utf-8", "text/plain"};
 const inline static std::vector<Glib::ustring> TARGETS_IMAGES = {
-    "image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp",
+    "image/png", "image/jpeg", "image/bmp", "image/tiff", "image/webp", "image/x-MS-bmp", "image/x-bmp",
     "public.png", "public.jpeg", "public.tiff"
 };
 const inline static Glib::ustring TARGET_WINDOWS_URI_LIST_CF_HDROP = "CF_HDROP";
