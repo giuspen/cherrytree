@@ -46,9 +46,7 @@ msgid "Special Characters"
 msgstr "Caractères spéciaux"
 
 msgid "Tabs Replaced"
-msgstr ""
-"Onglets r\n"
-"emplacés"
+msgstr "Tabulations remplacées"
 
 msgid "Lines Stripped"
 msgstr "Espaces au début et à la fin de la ligne retirés"
