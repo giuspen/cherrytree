@@ -1,7 +1,7 @@
 /*
  * ct_list.cc
  *
- * Copyright 2009-2023
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -451,5 +451,24 @@ void CtList::todo_lists_old_to_new_conversion()
         if (fw_needed and !char_iter_forward_to_newline(curr_iter)) {
             break;
         }
+    }
+}
+
+void CtList::renumber_following_numbered_items(Gtk::TextIter iter_from, int start_num, int level)
+{
+    CtListInfo list_info = get_next_list_info_on_level(iter_from, level);
+    int curr_num = start_num;
+    while (list_info and list_info.type == CtListType::Number) {
+        Gtk::TextIter iter_start = _curr_buffer->get_iter_at_offset(list_info.startoffs);
+        int end_offset = get_multiline_list_element_end_offset(iter_start, list_info);
+        Gtk::TextIter iter_end = _curr_buffer->get_iter_at_offset(end_offset);
+        CtTextRange range = list_check_n_remove_old_list_type_leading(iter_start, iter_end);
+        end_offset -= range.leading_chars_num;
+        int index = list_info.aux;
+        _curr_buffer->insert(range.iter_start, std::to_string(curr_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE);
+        end_offset += get_leading_chars_num(list_info.type, curr_num);
+        iter_start = _curr_buffer->get_iter_at_offset(end_offset);
+        curr_num += 1;
+        list_info = get_next_list_info_on_level(iter_start, level);
     }
 }
