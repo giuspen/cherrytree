@@ -323,4 +323,153 @@ TEST(ListsGroup, InsertMiddleNumberedItem)
     ASSERT_STREQ(expected_text.c_str(), pTextBuffer->get_text().c_str());
 }
 
+TEST(ListsGroup, SelectionIndentOnlyLists)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring initial_text{
+        "- one" _NL
+        "- two" _NL
+        "- three" _NL
+        "   \xE2\x86\x92 three lv2.1" _NL
+        "   \xE2\x86\x92 three lv2.2" _NL
+        "- four"};
+    pTextBuffer->set_text(initial_text);
 
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Select all lines
+    Gtk::TextIter sel_start = pTextBuffer->begin();
+    Gtk::TextIter sel_end = pTextBuffer->end();
+
+    // Tab: increase level of all list items
+    bool res = ct_list.selection_indent(sel_start, sel_end, true/*level_increase*/);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_tab_text{
+        "   \xE2\x86\x92 one" _NL
+        "   \xE2\x86\x92 two" _NL
+        "   \xE2\x86\x92 three" _NL
+        "      \xE2\x87\x92 three lv2.1" _NL
+        "      \xE2\x87\x92 three lv2.2" _NL
+        "   \xE2\x86\x92 four"};
+    ASSERT_STREQ(expected_tab_text.c_str(), pTextBuffer->get_text().c_str());
+
+    // Shift+Tab: decrease level of all list items back to original
+    sel_start = pTextBuffer->begin();
+    sel_end = pTextBuffer->end();
+    res = ct_list.selection_indent(sel_start, sel_end, false/*level_increase*/);
+    ASSERT_TRUE(res);
+    ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
+}
+
+TEST(ListsGroup, SelectionIndentMixedListAndText)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring initial_text{
+        "some text which is not part of a list" _NL
+        "- one" _NL
+        "- two first line" _NL
+        "   two second line" _NL
+        "- three" _NL
+        "   \xE2\x86\x92 three dot one indented one more level" _NL
+        "   \xE2\x86\x92 three dot two indented one more level, first" _NL
+        "      and second of three dot two" _NL
+        "other text that is not part of the list"};
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    pCtConfig->spacesInsteadTabs = false;
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Select all lines
+    Gtk::TextIter sel_start = pTextBuffer->begin();
+    Gtk::TextIter sel_end = pTextBuffer->end();
+
+    // Tab: increase list levels and insert \t on non-list lines
+    bool res = ct_list.selection_indent(sel_start, sel_end, true/*level_increase*/);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_tab_text{
+        "\tsome text which is not part of a list" _NL
+        "   \xE2\x86\x92 one" _NL
+        "   \xE2\x86\x92 two first line" _NL
+        "      two second line" _NL
+        "   \xE2\x86\x92 three" _NL
+        "      \xE2\x87\x92 three dot one indented one more level" _NL
+        "      \xE2\x87\x92 three dot two indented one more level, first" _NL
+        "         and second of three dot two" _NL
+        "\tother text that is not part of the list"};
+    ASSERT_STREQ(expected_tab_text.c_str(), pTextBuffer->get_text().c_str());
+
+    // Shift+Tab: decrease list levels and remove \t on non-list lines
+    sel_start = pTextBuffer->begin();
+    sel_end = pTextBuffer->end();
+    res = ct_list.selection_indent(sel_start, sel_end, false/*level_increase*/);
+    ASSERT_TRUE(res);
+    ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
+}
+
+TEST(ListsGroup, SelectionIndentMixedSpaces)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring initial_text{
+        "intro text" _NL
+        "- item one" _NL
+        "outro text"};
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    pCtConfig->spacesInsteadTabs = true;
+    pCtConfig->tabsWidth = 4;
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    Gtk::TextIter sel_start = pTextBuffer->begin();
+    Gtk::TextIter sel_end = pTextBuffer->end();
+
+    // Tab: list item gets 3 spaces + new bullet, non-list lines get 4 spaces
+    bool res = ct_list.selection_indent(sel_start, sel_end, true/*level_increase*/);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_tab_text{
+        "    intro text" _NL
+        "   \xE2\x86\x92 item one" _NL
+        "    outro text"};
+    ASSERT_STREQ(expected_tab_text.c_str(), pTextBuffer->get_text().c_str());
+
+    // Shift+Tab: returns back
+    sel_start = pTextBuffer->begin();
+    sel_end = pTextBuffer->end();
+    res = ct_list.selection_indent(sel_start, sel_end, false/*level_increase*/);
+    ASSERT_TRUE(res);
+    ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
+    pCtConfig->spacesInsteadTabs = false;
+}
+
+TEST(ListsGroup, SelectionIndentPartialFirstLine)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    const Glib::ustring initial_text{
+        "   \xE2\x86\x92 item one" _NL
+        "   \xE2\x86\x92 item two"};
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Selection starts AFTER the leading spaces + bullet on line 0 (offset 7)
+    Gtk::TextIter sel_start = pTextBuffer->get_iter_at_offset(7);
+    Gtk::TextIter sel_end = pTextBuffer->end();
+
+    bool res = ct_list.selection_indent(sel_start, sel_end, true/*level_increase*/);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_tab_text{
+        "      \xE2\x87\x92 item one" _NL
+        "      \xE2\x87\x92 item two"};
+    ASSERT_STREQ(expected_tab_text.c_str(), pTextBuffer->get_text().c_str());
+}

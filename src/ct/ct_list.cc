@@ -25,6 +25,7 @@
 #include "ct_list.h"
 #include "ct_const.h"
 #include <gtkmm/textbuffer.h>
+#include <set>
 
 void CtList::list_handler(CtListType target_list_num_id)
 {
@@ -472,3 +473,119 @@ void CtList::renumber_following_numbered_items(Gtk::TextIter iter_from, int star
         list_info = get_next_list_info_on_level(iter_start, level);
     }
 }
+
+void CtList::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase)
+{
+    int curr_offset = list_info.startoffs;
+    int end_offset = get_multiline_list_element_end_offset(iter_insert, list_info);
+    int curr_level = list_info.level;
+    int next_level = level_increase ? curr_level + 1 : curr_level - 1;
+    Gtk::TextIter iter_start = _curr_buffer->get_iter_at_offset(curr_offset);
+    CtListInfo prev_list_info = get_prev_list_info_on_level(iter_start, next_level);
+    if (list_info.type != CtListType::Todo) {
+        int bull_offset = curr_offset + 3 * list_info.level;
+        if (list_info.type == CtListType::Bullet) {
+            int bull_idx;
+            if (prev_list_info and prev_list_info.type == CtListType::Bullet) {
+                bull_idx = prev_list_info.aux;
+            }
+            else {
+                int idx_old = list_info.aux;
+                int idx_offset = idx_old - curr_level % (int)_pCtConfig->charsListbul.size();
+                bull_idx = (next_level + idx_offset) % (int)_pCtConfig->charsListbul.size();
+                if (bull_idx < 0) bull_idx += _pCtConfig->charsListbul.size();
+            }
+            _curr_buffer->erase(_curr_buffer->get_iter_at_offset(bull_offset), _curr_buffer->get_iter_at_offset(bull_offset + 1));
+            _curr_buffer->insert(_curr_buffer->get_iter_at_offset(bull_offset), _pCtConfig->charsListbul[(size_t)bull_idx]);
+        }
+        else if (list_info.type == CtListType::Number) {
+            int this_num, index;
+            if (prev_list_info and prev_list_info.type == CtListType::Number) {
+                this_num = prev_list_info.num_seq + 1;
+                index = prev_list_info.aux;
+            }
+            else {
+                this_num = 1;
+                int idx_old = list_info.aux;
+                int idx_offset = idx_old - curr_level % CtConst::CHARS_LISTNUM.size();
+                index = (next_level + idx_offset) % CtConst::CHARS_LISTNUM.size();
+            }
+            Glib::ustring text_to = std::to_string(this_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE;
+            int lead_num = get_leading_chars_num(list_info.type, list_info.num_seq);
+            _curr_buffer->erase(_curr_buffer->get_iter_at_offset(bull_offset), _curr_buffer->get_iter_at_offset(bull_offset + lead_num));
+            _curr_buffer->insert(_curr_buffer->get_iter_at_offset(bull_offset), text_to);
+        }
+    }
+    iter_start = _curr_buffer->get_iter_at_offset(curr_offset);
+    while (curr_offset < end_offset) {
+        if (level_increase) {
+            _curr_buffer->insert(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]));
+            end_offset += 3;
+            iter_start = _curr_buffer->get_iter_at_offset(curr_offset + 3);
+        }
+        else {
+            _curr_buffer->erase(iter_start, _curr_buffer->get_iter_at_offset(curr_offset + 3));
+            end_offset -= 3;
+            iter_start = _curr_buffer->get_iter_at_offset(curr_offset + 1);
+        }
+        if (not char_iter_forward_to_newline(iter_start) or not iter_start.forward_char()) {
+            break;
+        }
+        curr_offset = iter_start.get_offset();
+    }
+}
+
+bool CtList::selection_indent(Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, bool level_increase)
+{
+    std::vector<std::pair<Gtk::TextIter, CtListInfo>> list_items;
+    std::set<int> seen_startoffs;
+    std::vector<int> non_list_lines;
+    Gtk::TextIter iter_scan = iter_sel_end;
+    const int sel_start_line = iter_sel_start.get_line();
+    while (true) {
+        Gtk::TextIter line_iter = iter_scan;
+        line_iter.set_line_offset(0);
+        const bool is_first_line = (line_iter.get_line() <= sel_start_line);
+        Gtk::TextIter anchor = is_first_line ? iter_sel_start : line_iter;
+        CtListInfo list_info = get_paragraph_list_info(anchor);
+        if (list_info) {
+            if ((level_increase or list_info.level > 0) and seen_startoffs.insert(list_info.startoffs).second) {
+                list_items.emplace_back(anchor, list_info);
+            }
+        }
+        else {
+            non_list_lines.push_back(line_iter.get_line());
+        }
+        if (is_first_line or line_iter.get_line() == 0) break;
+        iter_scan = _curr_buffer->get_iter_at_line(line_iter.get_line() - 1);
+    }
+    if (list_items.empty() and non_list_lines.empty()) {
+        return false;
+    }
+    for (auto& item : list_items) {
+        auto iter_insert = _curr_buffer->get_iter_at_offset(item.second.startoffs);
+        CtListInfo refreshed_info = get_paragraph_list_info(iter_insert);
+        if (refreshed_info and (level_increase or refreshed_info.level > 0)) {
+            list_change_level(iter_insert, refreshed_info, level_increase);
+        }
+    }
+    const Glib::ustring indent_str = _pCtConfig->spacesInsteadTabs
+        ? Glib::ustring(_pCtConfig->tabsWidth, ' ')
+        : Glib::ustring("\t");
+    for (int line_num : non_list_lines) {
+        auto iter_line_start = _curr_buffer->get_iter_at_line(line_num);
+        if (not iter_line_start) continue;
+        if (level_increase) {
+            _curr_buffer->insert(iter_line_start, indent_str);
+        }
+        else {
+            const int start_off = iter_line_start.get_offset();
+            Gtk::TextIter iter_end = _curr_buffer->get_iter_at_offset(start_off + (int)indent_str.size());
+            if (_curr_buffer->get_text(iter_line_start, iter_end) == indent_str) {
+                _curr_buffer->erase(iter_line_start, iter_end);
+            }
+        }
+    }
+    return true;
+}
+
