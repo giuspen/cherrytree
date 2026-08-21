@@ -24,7 +24,6 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_list.h"
-#include <set>
 
 void CtMainWin::_on_treeview_cursor_changed()
 {
@@ -484,62 +483,9 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                 }
             }
             else {
-                // Apply Shift+Tab (decrease level) to all selected list items,
-                // and remove leading tab from non-list lines.
                 Gtk::TextIter iter_sel_start, iter_sel_end;
                 curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
-                // Collect list items (bottom to top, deduplicated by startoffs) and
-                // non-list line numbers (stable across tab-character insertions).
-                std::vector<std::pair<Gtk::TextIter, CtListInfo>> list_items;
-                std::set<int> seen_startoffs;
-                std::vector<int> non_list_lines;
-                Gtk::TextIter iter_scan = iter_sel_end;
-                const int sel_start_line = iter_sel_start.get_line();
-                // Walk lines from bottom to top within the selection
-                while (true) {
-                    Gtk::TextIter line_iter = iter_scan;
-                    line_iter.set_line_offset(0);
-                    const bool is_first_line = (line_iter.get_line() <= sel_start_line);
-                    // For the first selected line use iter_sel_start as anchor so that
-                    // get_paragraph_list_info can walk back to the real line start even
-                    // when the selection begins after the leading indentation spaces.
-                    Gtk::TextIter anchor = is_first_line ? iter_sel_start : line_iter;
-                    CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(anchor);
-                    if (list_info) {
-                        if (list_info.level and seen_startoffs.insert(list_info.startoffs).second) {
-                            list_items.emplace_back(anchor, list_info);
-                        }
-                    }
-                    else {
-                        non_list_lines.push_back(line_iter.get_line());
-                    }
-                    if (is_first_line or line_iter.get_line() == 0) break;
-                    // move to previous line
-                    iter_scan = curr_buffer->get_iter_at_line(line_iter.get_line() - 1);
-                }
-                if (not list_items.empty() or not non_list_lines.empty()) {
-                    for (auto& item : list_items) {
-                        auto iter_insert = curr_buffer->get_iter_at_offset(item.second.startoffs);
-                        CtListInfo refreshed_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
-                        if (refreshed_info and refreshed_info.level) {
-                            _ctTextview.list_change_level(iter_insert, refreshed_info, false);
-                        }
-                    }
-                    // Remove leading tab (or equivalent spaces) from non-list lines.
-                    const Glib::ustring indent_str = _pCtConfig->spacesInsteadTabs
-                        ? Glib::ustring(_pCtConfig->tabsWidth, ' ')
-                        : Glib::ustring("\t");
-                    for (int line_num : non_list_lines) {
-                        auto iter_line_start = curr_buffer->get_iter_at_line(line_num);
-                        if (not iter_line_start) continue;
-                        const int start_off = iter_line_start.get_offset();
-                        Gtk::TextIter iter_end = curr_buffer->get_iter_at_offset(start_off + (int)indent_str.size());
-                        if (curr_buffer->get_text(iter_line_start, iter_end) == indent_str) {
-                            curr_buffer->erase(iter_line_start, iter_end);
-                        }
-                    }
-                    return true;
-                }
+                return CtList{_pCtConfig, curr_buffer}.selection_indent(iter_sel_start, iter_sel_end, false/*level_increase*/);
             }
         }
     }
@@ -584,54 +530,10 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
         }
         else {
-            // With a selection: apply Tab (increase level) to all selected list items,
-            // and insert a leading tab on non-list lines.
             Gtk::TextIter iter_sel_start, iter_sel_end;
             curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
             const int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
-            // Collect list items (bottom to top, deduplicated by startoffs) and
-            // non-list line numbers (stable across tab-character insertions).
-            std::vector<std::pair<Gtk::TextIter, CtListInfo>> list_items;
-            std::set<int> seen_startoffs;
-            std::vector<int> non_list_lines;
-            Gtk::TextIter iter_scan = iter_sel_end;
-            const int sel_start_line = iter_sel_start.get_line();
-            while (true) {
-                Gtk::TextIter line_iter = iter_scan;
-                line_iter.set_line_offset(0);
-                const bool is_first_line = (line_iter.get_line() <= sel_start_line);
-                // For the first selected line use iter_sel_start as anchor so that
-                // get_paragraph_list_info can walk back to the real line start even
-                // when the selection begins after the leading indentation spaces.
-                Gtk::TextIter anchor = is_first_line ? iter_sel_start : line_iter;
-                CtListInfo list_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(anchor);
-                if (list_info) {
-                    if (seen_startoffs.insert(list_info.startoffs).second) {
-                        list_items.emplace_back(anchor, list_info);
-                    }
-                }
-                else {
-                    non_list_lines.push_back(line_iter.get_line());
-                }
-                if (is_first_line or line_iter.get_line() == 0) break;
-                iter_scan = curr_buffer->get_iter_at_line(line_iter.get_line() - 1);
-            }
-            if (not list_items.empty() or not non_list_lines.empty()) {
-                for (auto& item : list_items) {
-                    auto iter_insert = curr_buffer->get_iter_at_offset(item.second.startoffs);
-                    CtListInfo refreshed_info = CtList{_pCtConfig, curr_buffer}.get_paragraph_list_info(iter_insert);
-                    if (refreshed_info) {
-                        _ctTextview.list_change_level(iter_insert, refreshed_info, true);
-                    }
-                }
-                // Insert tab (or equivalent spaces) at start of non-list lines.
-                const Glib::ustring indent_str = _pCtConfig->spacesInsteadTabs
-                    ? Glib::ustring(_pCtConfig->tabsWidth, ' ')
-                    : Glib::ustring("\t");
-                for (int line_num : non_list_lines) {
-                    auto iter_line_start = curr_buffer->get_iter_at_line(line_num);
-                    curr_buffer->insert(iter_line_start, indent_str);
-                }
+            if (CtList{_pCtConfig, curr_buffer}.selection_indent(iter_sel_start, iter_sel_end, true/*level_increase*/)) {
                 return true;
             }
             // No list items or non-list lines: fall back to widget/table navigation.
