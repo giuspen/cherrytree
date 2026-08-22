@@ -752,12 +752,34 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
     if (html_content.empty()) {
         html_content = selection_data.get_data_as_string();
 #ifdef _WIN32
-        html_content = Win32HtmlFormat().convert_from_ms_clipboard(html_content);
+        if (not html_content.empty())
+            html_content = Win32HtmlFormat().convert_from_ms_clipboard(html_content);
 #else
-        CtStrUtil::convert_if_not_utf8(html_content, false/*sanitise*/);
+        if (not html_content.empty())
+            CtStrUtil::convert_if_not_utf8(html_content, false/*sanitise*/);
 #endif
     }
     html_content = str::sanitize_bad_symbols(html_content);
+
+    if (html_content.empty()) {
+        std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
+        spdlog::debug("empty HTML clipboard payload for target '{}', available targets: {}",
+                      selection_data.get_target(),
+                      str::join(targets, ", "));
+        for (auto& target : CtConst::TARGETS_PLAIN_TEXT) {
+            if (vec::exists(targets, target)) {
+                spdlog::debug("falling back from empty HTML clipboard payload to target '{}'", target.raw());
+                auto win = _pCtMainWin;
+                Gtk::Clipboard::get()->request_contents(target,
+                    [win, pTextView](const Gtk::SelectionData& s) {
+                        CtClipboard{win}.on_received_to_plain_text(s, pTextView, true/*force_plain_text*/);
+                    });
+                return;
+            }
+        }
+        spdlog::warn("HTML clipboard payload is empty and no plain-text target is available");
+        return;
+    }
 
     try {
         CtHtml2Xml parser(_pCtMainWin->get_ct_config());
