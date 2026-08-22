@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the svn_cherrytree package.
 #
 # maul <giuspen@gmail.com>, 2010.
-# Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
+# SPDX-FileCopyrightText: 2010, 2011, 2026 Pavel Fric <pavelfric@seznam.cz>
 # Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-10 22:26+0100\n"
-"PO-Revision-Date: 2026-05-10 09:31+0200\n"
+"PO-Revision-Date: 2026-08-22 08:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 msgid "Image Format Not Recognized"
 msgstr "Obrázkový formát nerozpoznán"
@@ -1147,7 +1147,7 @@ msgid "_Insert"
 msgstr "_Vložení"
 
 msgid "F_ormat"
-msgstr "_Formátovat"
+msgstr "_Formát"
 
 msgid "_Tree"
 msgstr "S_trom"
@@ -1228,10 +1228,10 @@ msgid "File"
 msgstr "Soubor"
 
 msgid "_New Instance..."
-msgstr "_Nový případ..."
+msgstr "_Nový..."
 
 msgid "Start a New Instance of CherryTree"
-msgstr "Založit nový případ"
+msgstr "Spustit novou instanci CherryTree"
 
 msgid "_Open File..."
 msgstr "_Otevřít soubor..."
@@ -1488,7 +1488,7 @@ msgid "Cut a Table Column"
 msgstr "Vyjmout sloupec tabulky"
 
 msgid "_Copy Column"
-msgstr "__Kopírovat sloupec"
+msgstr "_Kopírovat sloupec"
 
 msgid "Copy a Table Column"
 msgstr "Kopírovat sloupec tabulky"
@@ -2031,7 +2031,7 @@ msgid "Expand All the Tree Nodes"
 msgstr "Rozbalit všechny uzly stromové stavby"
 
 msgid "_Collapse All Nodes"
-msgstr "__Sbalit všechny uzly"
+msgstr "_Sbalit všechny uzly"
 
 msgid "Collapse All the Tree Nodes"
 msgstr "Sbalit všechny uzly stromové stavby"
