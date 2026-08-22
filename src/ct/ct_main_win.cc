@@ -305,7 +305,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_drag_data_get().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drag_data_get));
 
     _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
-    _uCtTreeview->set_margin_bottom(10);  // so horiz scroll doens't prevent to select the bottom element
+    _uCtTreeview->set_margin_bottom(20);  // so horiz scroll doens't prevent to select the bottom element
 }
 
 void CtMainWin::config_apply()
