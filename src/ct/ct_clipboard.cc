@@ -759,7 +759,6 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
             CtStrUtil::convert_if_not_utf8(html_content, false/*sanitise*/);
 #endif
     }
-    html_content = str::sanitize_bad_symbols(html_content);
 
     if (html_content.empty()) {
         std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
@@ -780,6 +779,8 @@ void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, 
         spdlog::warn("HTML clipboard payload is empty and no plain-text target is available");
         return;
     }
+
+    html_content = str::sanitize_bad_symbols(html_content);
 
     try {
         CtHtml2Xml parser(_pCtMainWin->get_ct_config());
