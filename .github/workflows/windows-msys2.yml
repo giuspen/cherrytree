@@ -118,7 +118,8 @@ jobs:
         if: ${{ github.event.inputs.sign_build == 'true' }}
         run: |
           rm -f build/*_win64_portable.7z build/*_win64_portable_nolatex.7z
-          for portable_folder in build/*_win64_portable build/*_win64_portable_nolatex; do
+          cd build
+          for portable_folder in *_win64_portable *_win64_portable_nolatex; do
             [ -d "$portable_folder" ] || continue
             7za a "${portable_folder}.7z" "$portable_folder"
           done
@@ -159,14 +160,18 @@ jobs:
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
           wait-for-completion: true
           output-artifact-directory: cherrytree-signed
+      - name: Stage Signed Release Files
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        run: |
+          rm -rf cherrytree-final
+          mkdir -p cherrytree-final
+          cp cherrytree-signed/*.exe build/*_win64_portable.7z build/*_win64_portable_nolatex.7z cherrytree-final/
       - name: Upload Signed Artifact
         if: ${{ github.event.inputs.sign_build == 'true' }}
         uses: actions/upload-artifact@v7
         with:
           name: cherrytree-signed
-          path: |
-            cherrytree-signed
-            build/cherrytree*.7z
+          path: cherrytree-final/*
           retention-days: 3
           overwrite: true
           if-no-files-found: error
