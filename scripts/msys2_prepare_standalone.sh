@@ -328,7 +328,11 @@ do
 done
 cp -v ${OLD_UCRT64_FOLDER}/var/lib/texmf/fonts/map/dvips/updmap/ps2pk.map ${OUT_UCRT64_FOLDER}/bin/
 
-7za a ${OUT_ROOT_FOLDER}.7z ${OUT_ROOT_FOLDER}
-7za a ${OUT_ROOT_FOLDER_NOLATEX}.7z ${OUT_ROOT_FOLDER_NOLATEX}
+if [ "${SIGN_BUILD:-false}" = "true" ]; then
+  echo "signing build: skipping portable archives until after signing"
+else
+  7za a ${OUT_ROOT_FOLDER}.7z ${OUT_ROOT_FOLDER}
+  7za a ${OUT_ROOT_FOLDER_NOLATEX}.7z ${OUT_ROOT_FOLDER_NOLATEX}
+fi
 #zip -r -9 ${OUT_ROOT_FOLDER}.zip ${OUT_ROOT_FOLDER}
 #zip -r -9 ${OUT_ROOT_FOLDER_NOLATEX}.zip ${OUT_ROOT_FOLDER_NOLATEX}
