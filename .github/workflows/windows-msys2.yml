@@ -51,6 +51,8 @@ jobs:
           cd /ucrt64/var/lib/texmf/web2c/pdftex
           pdftex -ini -jobname=latex -progname=latex *latex.ini
       - name: CI-Build
+        env:
+          SIGN_BUILD: ${{ github.event.inputs.sign_build }}
         run: |
           scripts/msys2_prepare_standalone.sh
           scripts/generate_nolatex_iss.sh
@@ -76,6 +78,51 @@ jobs:
           if (!(Test-Path $isccExe)) {
             throw "ISCC not found after installation attempt"
           }
+      - name: Upload Portable Files for Signing
+        id: upload-portable-files
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: cherrytree-portable-unsigned
+          path: build/*_win64_portable*/
+          retention-days: 3
+          overwrite: true
+          if-no-files-found: error
+      - name: Sign Portable Files with SignPath
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: 'cherrytree'
+          signing-policy-slug: 'release-signing'
+          github-artifact-id: '${{ steps.upload-portable-files.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: cherrytree-portable-signed
+      - name: Replace Portable Files with Signed Copies
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        shell: powershell
+        run: |
+          $buildDir = Join-Path $env:GITHUB_WORKSPACE 'build'
+          $signedDir = Join-Path $env:GITHUB_WORKSPACE 'cherrytree-portable-signed'
+          $portableDirs = Get-ChildItem $buildDir -Directory -Filter '*_win64_portable*'
+          foreach ($portableDir in $portableDirs) {
+            $signedPortableDir = Join-Path $signedDir $portableDir.Name
+            if (!(Test-Path $signedPortableDir)) {
+              throw "Signed portable directory not found: $signedPortableDir"
+            }
+            Remove-Item $portableDir.FullName -Recurse -Force
+            Copy-Item $signedPortableDir $buildDir -Recurse -Force
+          }
+      - name: Repack Signed Portable Files
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        run: |
+          rm -f build/*_win64_portable.7z build/*_win64_portable_nolatex.7z
+          cd build
+          for portable_folder in *_win64_portable *_win64_portable_nolatex; do
+            [ -d "$portable_folder" ] || continue
+            7za a "${portable_folder}.7z" "$portable_folder"
+          done
       - name: Compile .ISS to .EXE Installer (NOLATEX)
         shell: powershell
         run: |
@@ -98,14 +145,13 @@ jobs:
         with:
           name: cherrytree-unsigned
           path: |
-            build/cherrytree*.7z
-            build/cherrytree*.exe
+            build/cherrytree*_win64_setup*.exe
           retention-days: 3
           overwrite: true
           if-no-files-found: error
       - name: SignPath Signing
         if: ${{ github.event.inputs.sign_build == 'true' }}
-        uses: signpath/github-action-submit-signing-request@v1
+        uses: signpath/github-action-submit-signing-request@v2
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
@@ -114,12 +160,18 @@ jobs:
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
           wait-for-completion: true
           output-artifact-directory: cherrytree-signed
+      - name: Stage Signed Release Files
+        if: ${{ github.event.inputs.sign_build == 'true' }}
+        run: |
+          rm -rf cherrytree-final
+          mkdir -p cherrytree-final
+          cp cherrytree-signed/*.exe build/*_win64_portable.7z build/*_win64_portable_nolatex.7z cherrytree-final/
       - name: Upload Signed Artifact
         if: ${{ github.event.inputs.sign_build == 'true' }}
         uses: actions/upload-artifact@v7
         with:
           name: cherrytree-signed
-          path: cherrytree-signed
+          path: cherrytree-final/*
           retention-days: 3
           overwrite: true
           if-no-files-found: error
