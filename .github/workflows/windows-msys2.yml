@@ -111,8 +111,17 @@ jobs:
             if (!(Test-Path $signedPortableDir)) {
               throw "Signed portable directory not found: $signedPortableDir"
             }
-            Remove-Item $portableDir.FullName -Recurse -Force
-            Move-Item $signedPortableDir $buildDir -Force
+            $signedFiles = Get-ChildItem $signedPortableDir -File -Recurse
+            foreach ($signedFile in $signedFiles) {
+              $relativePath = $signedFile.FullName.Substring($signedPortableDir.Length).TrimStart('\', '/')
+              $destinationFile = Join-Path $portableDir.FullName $relativePath
+              $destinationDir = Split-Path $destinationFile -Parent
+              New-Item $destinationDir -ItemType Directory -Force | Out-Null
+              if (Test-Path $destinationFile) {
+                Remove-Item $destinationFile -Force
+              }
+              Move-Item $signedFile.FullName $destinationFile -Force
+            }
           }
           if (Test-Path $signedDir) {
             Remove-Item $signedDir -Recurse -Force
