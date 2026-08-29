@@ -99,7 +99,7 @@ jobs:
           github-artifact-id: '${{ steps.upload-portable-files.outputs.artifact-id }}'
           wait-for-completion: true
           output-artifact-directory: cherrytree-portable-signed
-      - name: Replace Portable Files with Signed Copies
+      - name: Update Portable Files with Signed Copies
         if: ${{ github.event.inputs.sign_build == 'true' }}
         shell: powershell
         run: |
@@ -111,8 +111,7 @@ jobs:
             if (!(Test-Path $signedPortableDir)) {
               throw "Signed portable directory not found: $signedPortableDir"
             }
-            Remove-Item $portableDir.FullName -Recurse -Force
-            Copy-Item $signedPortableDir $buildDir -Recurse -Force
+            Copy-Item (Join-Path $signedPortableDir '*') $portableDir.FullName -Recurse -Force
           }
           if (Test-Path $signedDir) {
             Remove-Item $signedDir -Recurse -Force
@@ -120,12 +119,13 @@ jobs:
       - name: Repack Signed Portable Files
         if: ${{ github.event.inputs.sign_build == 'true' }}
         run: |
-          rm -f build/*_win64_portable.7z build/*_win64_portable_nolatex.7z
           cd build
+          rm -f *_win64_portable.7z *_win64_portable_nolatex.7z
           for portable_folder in *_win64_portable *_win64_portable_nolatex; do
             [ -d "$portable_folder" ] || continue
             7za a "${portable_folder}.7z" "$portable_folder"
           done
+          cd - > /dev/null
       - name: Compile .ISS to .EXE Installer (NOLATEX)
         shell: powershell
         run: |
