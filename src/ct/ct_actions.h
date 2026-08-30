@@ -31,6 +31,7 @@
 #include "ct_types.h"
 #include "ct_filesystem.h"
 #include <optional>
+#include <vector>
 
 class CtMainWin;
 class CtImporterInterface;
@@ -140,6 +141,11 @@ public:
                          Gtk::TreeModel::iterator father_iter,
                          Gtk::TreeModel::iterator brother_iter = Gtk::TreeModel::iterator{},
                          bool set_first = false);
+
+    void nodes_move_after(const std::vector<gint64>& node_ids,
+                        Gtk::TreeModel::iterator father_iter,
+                        Gtk::TreeModel::iterator brother_iter = Gtk::TreeModel::iterator{},
+                        bool set_first = false);
 
 private:
     bool _need_node_swap(Gtk::TreeModel::iterator& leftIter,
