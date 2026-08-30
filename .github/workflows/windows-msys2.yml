@@ -56,22 +56,6 @@ jobs:
         run: |
           scripts/msys2_prepare_standalone.sh
           scripts/generate_nolatex_iss.sh
-          sed -i 's/C:\\msys64\\home\\PenoneG\\git/D:\\a\\cherrytree/g' scripts/cherrytree.iss
-          sed -i 's/C:\\msys64\\home\\PenoneG\\git/D:\\a\\cherrytree/g' scripts/cherrytree_nolatex.iss
-      - name: Verify Portable Installer Inputs
-        shell: powershell
-        run: |
-          $buildDir = Join-Path $env:GITHUB_WORKSPACE 'build'
-          $portableDirs = Get-ChildItem $buildDir -Directory -Filter '*_win64_portable*'
-          foreach ($portableDir in $portableDirs) {
-            $licensePath = Join-Path $portableDir.FullName 'license.txt'
-            Write-Host "Portable directory: $($portableDir.FullName)"
-            Write-Host "License path: $licensePath"
-            if (!(Test-Path $licensePath)) {
-              Get-ChildItem $portableDir.FullName -Force -Recurse | Select-Object FullName | Format-Table -AutoSize | Out-String | Write-Host
-              throw "Required portable license is missing: $licensePath"
-            }
-          }
       - name: Ensure Inno Setup
         shell: powershell
         run: |
@@ -138,6 +122,35 @@ jobs:
             7za a "${portable_folder}.7z" "$portable_folder"
           done
           cd -
+      - name: Verify Portable Installer Inputs
+        shell: powershell
+        run: |
+          $buildDir = Join-Path $env:GITHUB_WORKSPACE 'build'
+          $portableDirs = @(Get-ChildItem $buildDir -Directory -Filter '*_win64_portable*')
+          $version = (Get-Item (Join-Path $buildDir 'cherrytree.exe')).VersionInfo.FileVersion
+          $expectedPortableDirs = @(
+            Join-Path $buildDir "cherrytree_${version}_win64_portable"
+            Join-Path $buildDir "cherrytree_${version}_win64_portable_nolatex"
+          )
+          Write-Host "Build directory: $buildDir"
+          Write-Host "Executable version: $version"
+          Get-ChildItem $buildDir -Force | Select-Object Mode, Name | Format-Table | Out-String | Write-Host
+          foreach ($expectedPortableDir in $expectedPortableDirs) {
+            Write-Host "Expected portable directory: $expectedPortableDir"
+            if (!(Test-Path $expectedPortableDir -PathType Container)) {
+              throw "Expected portable directory is missing: $expectedPortableDir"
+            }
+            $licensePath = Join-Path $expectedPortableDir 'license.txt'
+            Write-Host "Expected license path: $licensePath"
+            if (!(Test-Path $licensePath -PathType Leaf)) {
+              Get-ChildItem $expectedPortableDir -Force -Recurse | Select-Object FullName | Format-Table -AutoSize | Out-String | Write-Host
+              throw "Required portable license is missing: $licensePath"
+            }
+          }
+          if ($portableDirs.Count -ne 2) {
+            $portableDirs | Select-Object FullName | Format-Table | Out-String | Write-Host
+            throw "Expected exactly two portable directories, found $($portableDirs.Count)"
+          }
       - name: Compile .ISS to .EXE Installer (NOLATEX)
         shell: powershell
         run: |
