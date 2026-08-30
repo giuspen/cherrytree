@@ -110,7 +110,10 @@ jobs:
               throw "Signed portable directory not found: $signedPortableDir"
             }
             Remove-Item $portableDir.FullName -Recurse -Force
-            Copy-Item $signedPortableDir $buildDir -Recurse -Force
+            Move-Item $signedPortableDir $buildDir -Force
+          }
+          if (Test-Path $signedDir) {
+            Remove-Item $signedDir -Recurse -Force
           }
       - name: Repack Signed Portable Files
         if: ${{ github.event.inputs.sign_build == 'true' }}
