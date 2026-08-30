@@ -58,6 +58,20 @@ jobs:
           scripts/generate_nolatex_iss.sh
           sed -i 's/C:\\msys64\\home\\PenoneG\\git/D:\\a\\cherrytree/g' scripts/cherrytree.iss
           sed -i 's/C:\\msys64\\home\\PenoneG\\git/D:\\a\\cherrytree/g' scripts/cherrytree_nolatex.iss
+      - name: Verify Portable Installer Inputs
+        shell: powershell
+        run: |
+          $buildDir = Join-Path $env:GITHUB_WORKSPACE 'build'
+          $portableDirs = Get-ChildItem $buildDir -Directory -Filter '*_win64_portable*'
+          foreach ($portableDir in $portableDirs) {
+            $licensePath = Join-Path $portableDir.FullName 'license.txt'
+            Write-Host "Portable directory: $($portableDir.FullName)"
+            Write-Host "License path: $licensePath"
+            if (!(Test-Path $licensePath)) {
+              Get-ChildItem $portableDir.FullName -Force -Recurse | Select-Object FullName | Format-Table -AutoSize | Out-String | Write-Host
+              throw "Required portable license is missing: $licensePath"
+            }
+          }
       - name: Ensure Inno Setup
         shell: powershell
         run: |
