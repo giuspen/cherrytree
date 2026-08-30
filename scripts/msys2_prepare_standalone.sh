@@ -307,7 +307,10 @@ cp -v ${IN_CT_HUNSPELL}/*.dic ${OUT_HUNSPELL_FOLDER}/
 rm -rf ${OUT_UCRT64_FOLDER}/etc/ssl
 cp -rv ${OLD_UCRT64_FOLDER}/etc/ssl ${OUT_UCRT64_FOLDER}/etc/
 # nolatex folder
-cp -rv ${OUT_ROOT_FOLDER} ${OUT_ROOT_FOLDER_NOLATEX}
+mkdir -p ${OUT_ROOT_FOLDER_NOLATEX}
+cp -rv ${OUT_ROOT_FOLDER}/. ${OUT_ROOT_FOLDER_NOLATEX}/
+test -f ${OUT_ROOT_FOLDER}/license.txt
+test -f ${OUT_ROOT_FOLDER_NOLATEX}/license.txt
 # latex.exe
 for element_rel in "${LATEX_BIN_ITEMS[@]}"
 do
