@@ -54,6 +54,7 @@ jobs:
         env:
           SIGN_BUILD: ${{ github.event.inputs.sign_build }}
         run: |
+          rm -rf build
           scripts/msys2_prepare_standalone.sh
           scripts/generate_nolatex_iss.sh
       - name: Ensure Inno Setup
