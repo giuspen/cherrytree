@@ -23,7 +23,7 @@ DisableProgramGroupPage=yes
 OutputDir=..\build
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
-LicenseFile=..\build\cherrytree_{#MyAppVersion}_win64_portable\license.txt
+LicenseFile=..\license.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=cherrytree_{#MyAppVersion}_win64_setup
