@@ -23,7 +23,7 @@ jobs:
             ninja-build \
             libgtkmm-3.0-dev \
             libgtksourceview-4-dev \
-            libxml++2.6-dev \
+            libxml++-5.0-dev \
             libsqlite3-dev \
             libgspell-1-dev \
             libcurl4-openssl-dev \
