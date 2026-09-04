@@ -167,7 +167,7 @@ void CtHtml2Xml::feed(const Glib::ustring& html)
     _list_level = -1;
     _table.clear();
 
-    _slot_root = _xml_doc->create_root_node("root")->add_child("slot");
+    _slot_root = _xml_doc->create_root_node("root")->add_child_element("slot");
     _char_offset = 0;
     _slot_text = "";
     _slot_style_id = -1;
@@ -582,7 +582,7 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
         const std::string rawBlob = std::string(pBuffer, buffer_size);
         const std::string encodedBlob = Glib::Base64::encode(rawBlob);
 
-        xmlpp::Element* p_image_node = _slot_root->add_child("encoded_png");
+        xmlpp::Element* p_image_node = _slot_root->add_child_element("encoded_png");
         p_image_node->set_attribute("char_offset", std::to_string(_char_offset));
         p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
         p_image_node->set_attribute("link", CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + img_path);
@@ -702,7 +702,7 @@ void CtHtml2Xml::_insert_codebox()
     _rich_text_save_pending();
 
     // todo: fix this copy-paste from codebox.cc
-    xmlpp::Element* p_codebox_node = _slot_root->add_child("codebox");
+    xmlpp::Element* p_codebox_node = _slot_root->add_child_element("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(_char_offset));
     p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
     p_codebox_node->set_attribute("frame_width", std::to_string(300));
@@ -750,11 +750,11 @@ void CtHtml2Xml::_rich_text_save_pending()
     if (not _slot_text.empty()) {
         auto& s_style = _slot_styles_cache.front();
 
-        xmlpp::Element* s = _slot_root->add_child("rich_text");
+        xmlpp::Element* s = _slot_root->add_child_element("rich_text");
         for (auto& attr : s_style.styles) {
             s->set_attribute(attr.first, attr.second);
         }
-        s->set_child_text(str::replace(_slot_text, "\xC2\xA0"/*utf8 nbsp*/, " "));
+        s->set_first_child_text(str::replace(_slot_text, "\xC2\xA0"/*utf8 nbsp*/, " "));
 #if defined(DEBUG_HTML_PARSING)
         spdlog::debug("set_child_text('{}')", _slot_text.c_str());
 #endif /*DEBUG_HTML_PARSING*/
