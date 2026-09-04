@@ -140,14 +140,15 @@
         },
         {
             "name": "libxml++",
+            "buildsystem": "meson",
             "config-opts" : [
-                "--disable-documentation"
+                "-Dbuild-documentation=false"
             ],
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.3.tar.xz",
-                    "sha256" : "74b95302e24dbebc56e97048e86ad0a4121fc82a43e58d381fbe1d380e8eba04"
+                    "url" : "https://download.gnome.org/sources/libxml++/5.4/libxml++-5.4.0.tar.xz",
+                    "sha256" : "e9a23c436686a94698d2138e6bcbaf849121d63bfa0f50dc34fefbfd79566848"
                 }
             ]
         },
