@@ -9,7 +9,7 @@ Build-Depends:
  cmake,
  libgtkmm-3.0-dev,
  libgtksourceview-3.0-dev,
- libxml++2.6-dev,
+ libxml++-5.0-dev,
  libsqlite3-dev,
  libgspell-1-dev,
  libcurl4-openssl-dev,
@@ -28,7 +28,7 @@ Architecture: any
 Depends:
  libgtkmm-3.0-1v5,
  libgtksourceview-3.0-1,
- libxml++2.6-2v5,
+ libxml++-5.0-1,
  libsqlite3-0,
  libgspell-1-1,
  libcurl4,
