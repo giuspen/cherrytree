@@ -131,7 +131,7 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
              CtExporting::ALL_TREE == export_type )
         {
             // save bookmarks
-            xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child("bookmarks");
+            xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child_element("bookmarks");
             p_bookmarks_node->set_attribute("list", str::join_numbers(_pCtMainWin->get_tree_store().bookmarks_get(), ","));
         }
 
@@ -351,7 +351,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(const CtTreeIter* ct_tree_iter,
                                                 const int start_offset/*= 0*/,
                                                 const int end_offset/*= -1*/)
 {
-    xmlpp::Element* p_node_node = p_node_parent->add_child("node");
+    xmlpp::Element* p_node_node = p_node_parent->add_child_element("node");
     const gint64 my_node_id = ct_tree_iter->get_node_id();
     p_node_node->set_attribute("unique_id", std::to_string(my_node_id));
     gint64 master_id = ct_tree_iter->get_node_shared_master_id();
@@ -397,7 +397,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(const CtTreeIter* ct_tree_iter,
     return p_node_node;
 }
 
-Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_element,
+Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(xmlpp::Element* xml_element,
                                                 const gint64 sequence,
                                                 const Gtk::TreeModel::iterator parent_iter,
                                                 const gint64 new_id,
@@ -467,7 +467,7 @@ Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(const xmlpp::Element*
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
 
-Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
+Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element,
                                                                                      const Glib::ustring&/*syntax*/,
                                                                                      std::list<CtAnchoredWidget*>& widgets,
                                                                                      Gtk::TextIter* text_insert_pos,
@@ -575,7 +575,7 @@ void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
     for (xmlpp::Node* pNodeRow : xml_element->get_children("row")) {
         tableMatrix.push_back(CtTableRow{});
         for (xmlpp::Node* pNodeCell : pNodeRow->get_children("cell")) {
-            xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
+            xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_first_child_text();
             const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
             if (is_light) {
                 tableMatrix.back().push_back(new Glib::ustring{textContent});
@@ -604,7 +604,7 @@ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_pa
                                                            CtCurrAttributesMap& curr_attributes,
                                                            CtListInfo*/*pCurrListInfo*/)
     {
-        xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
+        xmlpp::Element* p_rich_text_node = p_node_parent->add_child_element("rich_text");
         for (const auto& map_iter : curr_attributes) {
             if (not map_iter.second.empty()) {
                 p_rich_text_node->set_attribute(map_iter.first.data(), map_iter.second);
@@ -624,7 +624,7 @@ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_pa
 
 void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gtk::TextBuffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos)
 {
-    xmlpp::TextNode* text_node = xml_element->get_child_text();
+    xmlpp::TextNode* text_node = xml_element->get_first_child_text();
     if (not text_node) return;
     const Glib::ustring text_content = text_node->get_content();
     if (text_content.empty()) return;
@@ -657,7 +657,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
         return new CtImageAnchor{_pCtMainWin, anchorName, expCollState, charOffset, justification};
     }
     fs::path file_name = static_cast<std::string>(xml_element->get_attribute_value("filename"));
-    xmlpp::TextNode* pTextNode = xml_element->get_child_text();
+    xmlpp::TextNode* pTextNode = xml_element->get_first_child_text();
     const std::string encodedBlob = pTextNode ? pTextNode->get_content() : "";
     if (file_name == CtImageLatex::LatexSpecialFilename) {
         return new CtImageLatex{_pCtMainWin, encodedBlob, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
@@ -710,7 +710,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* x
                                                                int charOffset,
                                                                const Glib::ustring& justification)
 {
-    xmlpp::TextNode* pTextNode = xml_element->get_child_text();
+    xmlpp::TextNode* pTextNode = xml_element->get_first_child_text();
     const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
     const Glib::ustring syntaxHighlighting = xml_element->get_attribute_value("syntax_highlighting");
     const int frameWidth = std::stoi(xml_element->get_attribute_value("frame_width"));
@@ -755,7 +755,7 @@ void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
                                const Glib::ustring colWidths,
                                const bool is_light)
 {
-    xmlpp::Element* p_table_node = p_parent->add_child("table");
+    xmlpp::Element* p_table_node = p_parent->add_child_element("table");
     p_table_node->set_attribute("char_offset", std::to_string(char_offset));
     p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
     p_table_node->set_attribute("col_min", std::to_string(defaultWidth)); // todo get rid of column min
@@ -766,10 +766,10 @@ void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
     }
 
     auto row_to_xml = [&](const std::vector<Glib::ustring>& tableRow) {
-        xmlpp::Element* row_element = p_table_node->add_child("row");
+        xmlpp::Element* row_element = p_table_node->add_child_element("row");
         for (const auto& cell : tableRow) {
-            xmlpp::Element* cell_element = row_element->add_child("cell");
-            cell_element->set_child_text(cell);
+            xmlpp::Element* cell_element = row_element->add_child_element("cell");
+            cell_element->set_first_child_text(cell);
         }
     };
 

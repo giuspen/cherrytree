@@ -1,7 +1,7 @@
 
 // https://cpputest.github.io/
 // sudo apt install cpputest
-// g++ test_lib_p7za_exec.cpp -Wl,--whole-archive ../libp7za.a -Wl,--no-whole-archive `pkg-config cpputest glibmm-2.4 libxml++-2.6 --cflags --libs` -lpthread -lboost_system -lboost_filesystem -o bin_test_lib_p7za_exec -Wno-deprecated
+// g++ test_lib_p7za_exec.cpp -Wl,--whole-archive ../libp7za.a -Wl,--no-whole-archive `pkg-config cpputest glibmm-2.4 libxml++-5.0 --cflags --libs` -lpthread -lboost_system -lboost_filesystem -o bin_test_lib_p7za_exec -Wno-deprecated
 
 #include <glib/gstdio.h>
 #include <glibmm.h>
@@ -80,7 +80,7 @@ TEST(P7zaExecGroup, current)
     xmlpp::Element* p_element = p_document->get_root_node();
     CHECK(0 == p_element->get_name().compare("cherrytree"));
     CHECK(0 == static_cast<xmlpp::Element*>(p_element->find("node")[0])->get_attribute_value("name").compare("NodeName"));
-    CHECK(0 == static_cast<xmlpp::Element*>(p_element->find("node/rich_text")[0])->get_child_text()->get_content().compare("NodeContent"));
+    CHECK(0 == static_cast<xmlpp::Element*>(p_element->find("node/rich_text")[0])->get_first_child_text()->get_content().compare("NodeContent"));
     _archive(CTD_TMP_PATH.c_str(), CTZ_TMP_PATH.c_str());
     CHECK(Glib::file_test(CTZ_TMP_PATH, Glib::FILE_TEST_EXISTS));
     g_remove(CTD_TMP_PATH.c_str());

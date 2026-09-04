@@ -337,12 +337,12 @@ void CtClipboard::_rich_text_process_slot(xmlpp::Element* root,
                                           CtAnchoredWidget* obj_element,
                                           gchar change_case/*='n'*/)
 {
-    xmlpp::Element* dom_iter = root->add_child("slot");
+    xmlpp::Element* dom_iter = root->add_child_element("slot");
     CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(dom_iter, text_buffer, start_offset, end_offset, change_case);
 
     if (obj_element != nullptr)
     {
-        xmlpp::Element* elm_dom_iter = root->add_child("slot");
+        xmlpp::Element* elm_dom_iter = root->add_child_element("slot");
         obj_element->to_xml(elm_dom_iter, 0, nullptr, std::string{});
     }
 }
@@ -1170,7 +1170,7 @@ void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView
     {
         xmlpp::Document xml_doc;
         xmlpp::Element* p_node_parent = xml_doc.create_root_node("root");
-        xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
+        xmlpp::Element* p_codebox_node = p_node_parent->add_child_element("codebox");
         p_codebox_node->set_attribute("char_offset", "0");
         p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
         p_codebox_node->set_attribute("show_line_numbers", std::to_string(false));

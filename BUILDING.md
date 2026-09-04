@@ -53,7 +53,7 @@ gdb ./build/cherrytree
 ## Building Cherrytree on Debian (+Ubuntu/Linux Mint)
 Install dependencies:
 ```sh
-sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceview-4-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev file libxml2-utils
+sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceview-4-dev libxml++-5.0-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev file libxml2-utils
 sudo apt install texlive-latex-base dvipng # optional for LatexBoxes support
 ```
 Note: On Debian10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead. Furthermore libgtksourceview-3.0-dev is to be used instead of libgtksourceview-4-dev (not available)
@@ -73,7 +73,7 @@ To create a debian package
 
 Install documentation:
 ```sh
-sudo apt install devhelp libgtkmm-3.0-doc libgtksourceview-4-doc libglibmm-2.4-doc libpangomm-1.4-doc libxml++2.6-doc libgspell-1-doc libvte-2.91-doc
+sudo apt install devhelp libgtkmm-3.0-doc libgtksourceview-4-doc libglibmm-2.4-doc libpangomm-1.4-doc libxml++-5.0-doc libgspell-1-doc libvte-2.91-doc
 ```
 devhelp
 ```sh
@@ -81,14 +81,14 @@ xdg-open /usr/share/doc/libgtkmm-3.0-doc/reference/html/index.html
 xdg-open /usr/share/gtk-doc/html/gtksourceview-4.0/index.html
 xdg-open /usr/share/doc/libglibmm-2.4-doc/reference/html/index.html
 xdg-open /usr/share/doc/libpangomm-1.4-doc/reference/html/index.html
-xdg-open /usr/share/doc/libxml++2.6-doc/reference/html/index.html
+xdg-open /usr/share/doc/libxml++-5.0-doc/reference/html/index.html
 xdg-open /usr/share/doc/libgspell-1-dev/html/index.html
 ```
 
 ## Building Cherrytree on Arch Linux (+Manjaro Linux)
 Install dependencies:
 ```sh
-sudo pacman -S gtkmm3 gtksourceview4 libxml++2.6 vte3 gspell uchardet fmt spdlog
+sudo pacman -S gtkmm3 gtksourceview4 libxml++-5.0 vte3 gspell uchardet fmt spdlog
 ```
 
 Get cherrytree source, compile and run:
@@ -139,13 +139,13 @@ xdg-open /usr/share/doc/gtkmm-3.0/reference/html/index.html
 xdg-open /usr/share/gtk-doc/html/gtksourceview-4.0/index.html
 xdg-open /usr/share/doc/glibmm-2.4/reference/html/index.html
 xdg-open /usr/share/doc/pangomm-1.4/reference/html/index.html
-xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
+xdg-open /usr/share/doc/libxml++-3.0/reference/html/index.html
 ```
 
 ## Building Cherrytree on OpenSuse
 Install dependencies:
 ```sh
-sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceview4-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt-devel spdlog-devel vte-devel
+sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceview4-devel gspell-devel libxml++-5_0-devel sqlite3-devel libcurl-devel libuchardet-devel fmt-devel spdlog-devel vte-devel
 ```
 
 Get cherrytree source, compile and run:
@@ -171,7 +171,7 @@ In order build it yourself in [Homebrew](https://brew.sh/):
 
 Install dependencies:
 ```sh
-brew install cmake ninja pkg-config python adwaita-icon-theme fmt gspell gtkmm3 gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3
+brew install cmake ninja pkg-config python adwaita-icon-theme fmt gspell gtkmm3 gtksourceview4 libxml++@5 spdlog uchardet fribidi curl vte3
 brew link icu4c --force
 brew install --cask basictex
 sudo tlmgr update --self
@@ -202,8 +202,8 @@ Install required packages to build cherrytree:
 ```sh
 # toolchain, cmake, ninja
 pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja
-# gtkmm3, gtksourceview4, libxml++2.6, sqlite3
-pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gtkmm3 mingw-w64-ucrt-x86_64-gtksourceview4 mingw-w64-ucrt-x86_64-libxml++2.6 mingw-w64-ucrt-x86_64-sqlite3
+# gtkmm3, gtksourceview4, libxml++-5.0, sqlite3
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gtkmm3 mingw-w64-ucrt-x86_64-gtksourceview4 mingw-w64-ucrt-x86_64-libxml++-5.0 mingw-w64-ucrt-x86_64-sqlite3
 # gspell, curl, uchardet, fribidi, fmt, spdlog, webp-pixbuf-loader
 pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-gspell mingw-w64-ucrt-x86_64-curl mingw-w64-ucrt-x86_64-uchardet mingw-w64-ucrt-x86_64-fribidi mingw-w64-ucrt-x86_64-fmt mingw-w64-ucrt-x86_64-spdlog mingw-w64-ucrt-x86_64-webp-pixbuf-loader
 # latex, dvipng, gettext, git, nano
