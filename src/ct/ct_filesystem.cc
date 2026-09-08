@@ -169,7 +169,13 @@ void register_exe_path_detect_if_portable(const char* exe_path)
 
 bool remove(const fs::path& path2rm)
 {
-    if (fs::is_directory(path2rm)) {
+    if (Glib::file_test(path2rm.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+        if (::g_remove(path2rm.c_str()) != 0) {
+            spdlog::error("fs::remove: g_remove failed to remove {}", path2rm.string());
+            return false;
+        }
+    }
+    else if (fs::is_directory(path2rm)) {
         if (g_rmdir(path2rm.c_str()) != 0) {
             spdlog::error("fs::remove: g_rmdir failed to remove {}", path2rm.string());
             return false;
@@ -466,9 +472,12 @@ path prepare_export_folder(const path& dir_place, path new_folder, bool overwrit
 std::uintmax_t remove_all(const path& dir)
 {
     std::uintmax_t count{0u};
-    if (fs::is_directory(dir)) {
+    const bool is_symlink = Glib::file_test(dir.string(), Glib::FILE_TEST_IS_SYMLINK);
+    if (not is_symlink and fs::is_directory(dir)) {
         for (const auto& file : get_dir_entries(dir)) {
-            if (is_directory(file)) {
+            if (not Glib::file_test(file.string(), Glib::FILE_TEST_IS_SYMLINK) and
+                is_directory(file))
+            {
                 count += remove_all(file);
             }
             else {
@@ -477,7 +486,7 @@ std::uintmax_t remove_all(const path& dir)
             }
         }
     }
-    if (fs::exists(dir)) {
+    if (is_symlink or fs::exists(dir)) {
         remove(dir);
         ++count;
     }
