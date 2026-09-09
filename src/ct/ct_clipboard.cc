@@ -771,11 +771,15 @@ void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data,
         CtTableMatrix tableFromClipboardMatrix;
         CtTableColWidths tableColWidths;
         bool is_light{parentTable->get_is_light()};
-        CtStorageXmlHelper{_pCtMainWin}.populate_table_matrix(
-            tableFromClipboardMatrix,
-            static_cast<xmlpp::Element*>(parser.get_document()->get_root_node()->get_first_child("table")),
-            tableColWidths,
-            is_light);
+        if (not CtStorageXmlHelper{_pCtMainWin}.populate_table_matrix(
+                tableFromClipboardMatrix,
+                static_cast<xmlpp::Element*>(parser.get_document()->get_root_node()->get_first_child("table")),
+                tableColWidths,
+                is_light))
+        {
+            spdlog::error("table from clipboard error");
+            return;
+        }
 
         auto f_cellToString = [is_light](void* cell){
             if (is_light) {
