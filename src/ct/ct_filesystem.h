@@ -92,6 +92,7 @@ CtDocEncrypt get_doc_encrypt_from_file_ext(const path& fileName);
 
 /**
 * @brief Remove a directory and all its children
+* Symbolic links are treated as leaf entries and are not followed.
 * @param dir
 * @return
 */
