@@ -237,6 +237,9 @@ bool CtStorageMultiFile::_found_node_dirpath(const fs::path& node_id, const fs::
 {
     const std::list<fs::path> dir_entries = fs::get_dir_entries(parent_path);
     for (const fs::path& curr_path : dir_entries) {
+        if (Glib::file_test(curr_path.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+            continue;
+        }
         if (fs::is_directory(curr_path)) {
             if (curr_path.filename() == node_id) {
                 hierarchical_path = curr_path;
@@ -316,6 +319,9 @@ void CtStorageMultiFile::_hier_try_move_existing_node_to_path(const fs::path& di
             if (not dir_path_from.empty()) {
                 return;
             }
+            if (Glib::file_test(p.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+                continue;
+            }
             if (fs::is_directory(p)) {
                 if (p.filename() == dir_name) {
                     dir_path_from = p;
@@ -343,6 +349,10 @@ bool CtStorageMultiFile::_nodes_to_multifile(const CtTreeIter* ct_tree_iter,
                                              const int start_offset/*= 0*/,
                                              const int end_offset/*=-1*/)
 {
+    if (Glib::file_test(dir_path.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+        error = Glib::ustring{"!! refusing to use symbolic link as node directory "} + dir_path.string();
+        return false;
+    }
     if (CtExporting::NONESAVE == export_type and
         node_state.hier and
         node_state.is_update_of_existing and
@@ -551,6 +561,9 @@ bool CtStorageMultiFile::populate_treestore(const fs::path& dir_path, Glib::ustr
         std::list<CtTreeIter> nodes_shared_non_master;
         std::function<void(const fs::path&, const gint64, Gtk::TreeModel::iterator)> f_nodes_from_multifile;
         f_nodes_from_multifile = [&](const fs::path& nodedir, const gint64 sequence, Gtk::TreeModel::iterator parent_iter) {
+            if (Glib::file_test(nodedir.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+                throw std::runtime_error("symbolic link node directory is not supported: " + nodedir.string());
+            }
             bool has_duplicated_id{false};
             bool is_shared_non_master{false};
             std::unique_ptr<xmlpp::DomParser> pParser;
