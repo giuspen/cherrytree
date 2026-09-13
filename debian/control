@@ -10,7 +10,7 @@ Build-Depends:
  ninja-build,
  libgtkmm-3.0-dev,
  libgtksourceview-4-dev,
- libxml++2.6-dev,
+ libxml++-5.0-dev,
  libsqlite3-dev,
  libgspell-1-dev,
  libcurl4-openssl-dev,
@@ -31,7 +31,7 @@ Architecture: any
 Depends:
  libgtkmm-3.0-1t64,
  libgtksourceview-4-0,
- libxml++2.6-2v5,
+ libxml++-5.0-1,
  libsqlite3-0,
  libgspell-1-3,
  libcurl4t64,

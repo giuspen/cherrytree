@@ -315,7 +315,7 @@ void CtCodebox::apply_syntax_highlighting(const bool forceReApply)
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
     // todo: fix code duplicates in void CtHtml2Xml::_insert_codebox()
-    xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
+    xmlpp::Element* p_codebox_node = p_node_parent->add_child_element("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_codebox_node->set_attribute("frame_width", std::to_string(get_frame_width()));

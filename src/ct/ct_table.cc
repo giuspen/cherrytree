@@ -428,9 +428,9 @@ void CtTableHeavy::apply_syntax_highlighting(const bool forceReApply)
 void CtTableHeavy::_populate_xml_rows_cells(xmlpp::Element* p_table_node) const
 {
     auto row_to_xml = [&](const CtTableRow& tableRow) {
-        xmlpp::Element* p_row_node = p_table_node->add_child("row");
+        xmlpp::Element* p_row_node = p_table_node->add_child_element("row");
         for (void* pTextCell : tableRow) {
-            xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
+            xmlpp::Element* p_cell_node = p_row_node->add_child_element("cell");
             p_cell_node->add_child_text(static_cast<CtTextCell*>(pTextCell)->get_text_content());
         }
     };

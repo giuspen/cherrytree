@@ -104,7 +104,7 @@ public:
                                 const std::map<gint64, gint64>* pExpoMasterReassign = nullptr,
                                 const int start_offset = 0,
                                 const int end_offset = -1);
-    Gtk::TreeModel::iterator node_from_xml(const xmlpp::Element* xml_element,
+    Gtk::TreeModel::iterator node_from_xml(xmlpp::Element* xml_element,
                                 const gint64 sequence,
                                 const Gtk::TreeModel::iterator parent_iter,
                                 const gint64 new_id,
@@ -115,7 +115,7 @@ public:
                                 const bool isDryRun,
                                 const std::string& multifile_dir);
 
-    Glib::RefPtr<Gtk::TextBuffer> create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
+    Glib::RefPtr<Gtk::TextBuffer> create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element,
                                                                      const Glib::ustring& syntax,
                                                                      std::list<CtAnchoredWidget*>& widgets,
                                                                      Gtk::TextIter* text_insert_pos,

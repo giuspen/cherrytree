@@ -32,8 +32,8 @@
 namespace {
 
 xmlpp::Element* create_root_plaintext_text_el(xmlpp::Document& doc, const Glib::ustring& text) {
-    xmlpp::Element* el = doc.create_root_node("root")->add_child("slot")->add_child("rich_text");
-    el->set_child_text(text);
+    xmlpp::Element* el = doc.create_root_node("root")->add_child_element("slot")->add_child_element("rich_text");
+    el->set_first_child_text(text.raw());
     return el;
 }
 
@@ -43,13 +43,13 @@ namespace CtXML {
 
 xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers)
 {
-    xmlpp::Element* p_codebox_node = parent->add_child("codebox");
+    xmlpp::Element* p_codebox_node = parent->add_child_element("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(char_offset));
-    p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification.raw());
     p_codebox_node->set_attribute("frame_width", std::to_string(frame_width));
     p_codebox_node->set_attribute("frame_height", std::to_string(frame_height));
     p_codebox_node->set_attribute("width_in_pixels", std::to_string(width_in_pixels));
-    p_codebox_node->set_attribute("syntax_highlighting", syntax_highlighting);
+    p_codebox_node->set_attribute("syntax_highlighting", syntax_highlighting.raw());
     p_codebox_node->set_attribute("highlight_brackets", std::to_string(highlight_brackets));
     p_codebox_node->set_attribute("show_line_numbers", std::to_string(show_line_numbers));
     return p_codebox_node;
@@ -57,10 +57,10 @@ xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& just
 
 void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* parent)
 {
-    xmlpp::Element* row_element = parent->add_child("row");
+    xmlpp::Element* row_element = parent->add_child_element("row");
     for (const auto& cell : row) {
-        xmlpp::Element* cell_element = row_element->add_child("cell");
-        cell_element->set_child_text(cell);
+        xmlpp::Element* cell_element = row_element->add_child_element("cell");
+        cell_element->set_first_child_text(cell);
     }
 }
 
@@ -124,9 +124,9 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
     const std::string rawBlob = std::string(pBuffer, buffer_size);
     const std::string encodedBlob = Glib::Base64::encode(rawBlob);
 
-    xmlpp::Element* image_element = parent->add_child("encoded_png");
+    xmlpp::Element* image_element = parent->add_child_element("encoded_png");
     image_element->set_attribute("char_offset", std::to_string(char_offset));
-    image_element->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    image_element->set_attribute(CtConst::TAG_JUSTIFICATION, justification.raw());
     image_element->set_attribute("link", CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + path);
     image_element->add_child_text(encodedBlob);
 
@@ -287,8 +287,8 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
     // find note name
     Glib::ustring node_name = "???";
     if (xmlpp::Node* el = note_el->get_first_child("title")) {
-        if (auto title_el = dynamic_cast<xmlpp::Element*>(el)->get_child_text()) {
-            node_name = title_el->get_content();
+        if (auto title_el = dynamic_cast<xmlpp::Element*>(el)->get_first_child_text()) {
+            node_name = Glib::ustring(title_el->get_content());
             if (node_name.size() > 18 && str::endswith(node_name, " Notebook Template"))
                 return nullptr;
         }
@@ -299,8 +299,8 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
     if (xmlpp::Node* tags_el = note_el->get_first_child("tags")) {
         if (xmlpp::Node* tag_el = tags_el->get_first_child("tag")) {
             if (auto* tag_element = dynamic_cast<xmlpp::Element*>(tag_el)) {
-                if (auto* tag_text = tag_element->get_child_text()) {
-                    Glib::ustring tag_name = tag_text->get_content();
+                if (auto* tag_text = tag_element->get_first_child_text()) {
+                    Glib::ustring tag_name = Glib::ustring(tag_text->get_content());
                     if (tag_name.size() > 16 && str::startswith(tag_name, "system:notebook:"))
                         parent_name = tag_name.substr(16);
                 }
@@ -314,7 +314,7 @@ std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file
             
             auto thisNode = std::make_unique<CtImportedNode>(file, node_name);
 
-            _current_node = thisNode->xml_content->create_root_node("root")->add_child("slot");
+            _current_node = thisNode->xml_content->create_root_node("root")->add_child_element("slot");
             _curr_attributes.clear();
             _chars_counter = 0;
             _is_list_item = false;
@@ -392,12 +392,12 @@ void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<
                 _is_link_to_node = false;
             }
             else {
-                spdlog::debug(dom_iter->get_name().raw());
+                spdlog::debug(dom_iter->get_name());
                 _iterate_tomboy_note(dom_iter_el, node);
             }
         }
         else {
-            Glib::ustring text_data = dynamic_cast<xmlpp::TextNode*>(dom_iter)->get_content();
+            Glib::ustring text_data = Glib::ustring(dynamic_cast<xmlpp::TextNode*>(dom_iter)->get_content());
             if (_curr_attributes[CtConst::TAG_LINK] == "webs ") {
                 _curr_attributes[CtConst::TAG_LINK] += text_data;
             }
@@ -415,7 +415,7 @@ void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<
 
 xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_data)
 {
-    auto dom_iter = _current_node->add_child("rich_text");
+    auto dom_iter = _current_node->add_child_element("rich_text");
     for (auto atr: _curr_attributes)
         if (!atr.second.empty())
             dom_iter->set_attribute(atr.first, atr.second);
@@ -455,7 +455,7 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
         Glib::ustring utf8_text;
         if (CtStrUtil::file_any_encoding_to_utf8(file.string(), utf8_text)) {
             auto pNode = std::make_unique<CtImportedNode>(file, file.stem());
-            pNode->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(utf8_text);
+            pNode->xml_content->create_root_node("root")->add_child_element("slot")->add_child_element("rich_text")->add_child_text(utf8_text.raw());
             pNode->node_syntax = CtConst::PLAIN_TEXT_ID;
             return pNode;
         }

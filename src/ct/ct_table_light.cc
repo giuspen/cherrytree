@@ -209,12 +209,12 @@ void CtTableLight::_populate_xml_rows_cells(xmlpp::Element* p_table_node) const
         }
         else {
             Gtk::TreeRow treeRow = *treeIter;
-            xmlpp::Element* p_row_node = p_table_node->add_child("row");
+            xmlpp::Element* p_row_node = p_table_node->add_child_element("row");
             const size_t numCols = get_num_columns();
             const CtTableLightColumns& cols = get_columns();
             for (size_t c = 0u; c < numCols; ++c) {
-                xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
-                p_cell_node->add_child_text(treeRow[cols.columnsText.at(c)]);
+                xmlpp::Element* p_cell_node = p_row_node->add_child_element("cell");
+                p_cell_node->add_child_text(Glib::ustring(treeRow[cols.columnsText.at(c)]).raw());
             }
         }
         return false; /* to continue */

@@ -18,7 +18,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
       libuchardet-dev \
       libfmt-dev \
       libspdlog-dev \
-      libxml++2.6-dev \
+      libxml++-5.0-dev \
       libxml2-utils \
       libuchardet-dev \
       libfribidi-dev \

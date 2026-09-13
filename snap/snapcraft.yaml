@@ -39,7 +39,7 @@ parts:
       - libsqlite3-dev
       - libspdlog-dev
       - libuchardet-dev
-      - libxml++2.6-dev
+      - libxml++-5.0-dev
       - libvte-2.91-dev
       - libxml2-utils
     stage-packages:
@@ -49,7 +49,7 @@ parts:
       - libgtkmm-3.0-1v5
       - libspdlog1.12
       - libuchardet0
-      - libxml++2.6-2v5
+      - libxml++-5.0-1
     prime:
       - -lib/cherrytree/*.a
       - -*canberra*so* # We don't have sound permissions anyway

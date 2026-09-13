@@ -74,7 +74,7 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
     xmlpp::Element* p_element = p_document->get_root_node();
     ASSERT_STREQ("cherrytree", p_element->get_name().c_str());
     ASSERT_STREQ("NodeName", static_cast<xmlpp::Element*>(p_element->find("node")[0])->get_attribute_value("name").c_str());
-    ASSERT_STREQ("NodeContent", static_cast<xmlpp::Element*>(p_element->find("node/rich_text")[0])->get_child_text()->get_content().c_str());
+    ASSERT_STREQ("NodeContent", static_cast<xmlpp::Element*>(p_element->find("node/rich_text")[0])->get_first_child_text()->get_content().c_str());
 
     // try and archive again the extracted xml
     const std::string ctzTmpPathBis{Glib::build_filename(ctTmp.getHiddenDirPath(UT::ctzInputPath).string(), "7zr2.ctz")};

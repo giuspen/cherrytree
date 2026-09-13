@@ -104,7 +104,7 @@ public:
     [[nodiscard]] constexpr bool tag_empty() const
     {
         if (!_current_element) return true;
-        else                   return !_current_element->get_child_text();
+        else                   return !_current_element->get_first_child_text();
     }
 
     std::string to_string() { return _document->write_to_string(); }

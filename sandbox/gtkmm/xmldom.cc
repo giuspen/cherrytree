@@ -19,8 +19,8 @@
  * MA 02110-1301, USA.
  */
 
-// https://developer.gnome.org/libxml++/2.40/
-// g++ xmldom.cc -o xmldom `pkg-config libxml++-2.6 gtkmm-3.0 --cflags --libs` -Wno-deprecated
+// https://developer.gnome.org/libxml++/5.0/
+// g++ xmldom.cc -o xmldom `pkg-config libxml++-5.0 gtkmm-3.0 --cflags --libs` -Wno-deprecated
 
 #include <assert.h>
 #include <iostream>

@@ -141,7 +141,7 @@ void CtImagePng::to_xml(xmlpp::Element* p_node_parent,
                         CtStorageCache* storage_cache,
                         const std::string& multifile_dir)
 {
-    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    xmlpp::Element* p_image_node = p_node_parent->add_child_element("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("link", _link);
@@ -283,7 +283,7 @@ void CtImageAnchor::_set_exp_coll_state(const CtAnchorExpCollState expCollState)
 
 void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
-    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    xmlpp::Element* p_image_node = p_node_parent->add_child_element("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("anchor", _anchorName);
@@ -441,7 +441,7 @@ CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
 
 void CtImageLatex::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*, const std::string&/*multifile_dir*/)
 {
-    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    xmlpp::Element* p_image_node = p_node_parent->add_child_element("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("filename", CtImageLatex::LatexSpecialFilename);
@@ -834,7 +834,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent,
                             CtStorageCache*,
                             const std::string& multifile_dir)
 {
-    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    xmlpp::Element* p_image_node = p_node_parent->add_child_element("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("filename", _fileName.string());
