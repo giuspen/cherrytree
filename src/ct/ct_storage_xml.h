@@ -135,7 +135,7 @@ public:
                                const char* xml_content,
                                CtTableColWidths& tableColWidths,
                                bool& is_light);
-    void populate_table_matrix(CtTableMatrix& tableMatrix,
+    bool populate_table_matrix(CtTableMatrix& tableMatrix,
                                xmlpp::Element* xml_element,
                                CtTableColWidths& tableColWidths,
                                bool& is_light);

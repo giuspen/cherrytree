@@ -554,16 +554,15 @@ bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
 {
     xmlpp::DomParser parser;
     if (CtXmlHelper::safe_parse_memory(parser, xml_content)) {
-        populate_table_matrix(tableMatrix,
-                              parser.get_document()->get_root_node(),
-                              tableColWidths,
-                              is_light);
-        return true;
+        return populate_table_matrix(tableMatrix,
+                                     parser.get_document()->get_root_node(),
+                                     tableColWidths,
+                                     is_light);
     }
     return false;
 }
 
-void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
+bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
                                                xmlpp::Element* xml_element,
                                                CtTableColWidths& tableColWidths,
                                                bool& is_light)
@@ -585,12 +584,26 @@ void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
             }
         }
     }
+    if (tableMatrix.empty()) {
+        return false;
+    }
+    bool has_cells{false};
+    for (const CtTableRow& tableRow : tableMatrix) {
+        if (not tableRow.empty()) {
+            has_cells = true;
+            break;
+        }
+    }
+    if (not has_cells) {
+        return false;
+    }
     tableMatrix.insert(tableMatrix.begin(), tableMatrix.back());
     tableMatrix.pop_back();
     const Glib::ustring colWidthsStr = xml_element->get_attribute_value("col_widths");
     if (not colWidthsStr.empty()) {
         tableColWidths = CtStrUtil::gstring_split_to_int(colWidthsStr.c_str(), ",");
     }
+    return true;
 }
 
 void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent,
@@ -740,7 +753,10 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
     CtTableMatrix tableMatrix;
     CtTableColWidths tableColWidths;
     bool is_light{false};
-    populate_table_matrix(tableMatrix, xml_element, tableColWidths, is_light);
+    if (not populate_table_matrix(tableMatrix, xml_element, tableColWidths, is_light)) {
+        spdlog::error("!! empty table xml");
+        return nullptr;
+    }
     if (is_light) {
         return new CtTableLight{_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths};
     }
