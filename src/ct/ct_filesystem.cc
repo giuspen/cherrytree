@@ -631,14 +631,20 @@ std::string download_file(const std::string& filepath)
     }
     curl_easy_setopt(pCurlHandle, CURLOPT_WRITEFUNCTION, local::write_memory_callback);
     curl_easy_setopt(pCurlHandle, CURLOPT_WRITEDATA, (void*)&buffer);
-    curl_easy_setopt(pCurlHandle, CURLOPT_TIMEOUT, 3);
-    curl_easy_setopt(pCurlHandle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    curl_easy_setopt(pCurlHandle, CURLOPT_CONNECTTIMEOUT, 5L);
+    curl_easy_setopt(pCurlHandle, CURLOPT_TIMEOUT, 10L);
+    curl_easy_setopt(pCurlHandle, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+    curl_easy_setopt(pCurlHandle, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(pCurlHandle, CURLOPT_MAXREDIRS, 5L);
+    curl_easy_setopt(pCurlHandle, CURLOPT_FAILONERROR, 1L);
     const CURLcode res = curl_easy_perform(pCurlHandle);
+    long http_code = 0;
+    curl_easy_getinfo(pCurlHandle, CURLINFO_RESPONSE_CODE, &http_code);
     curl_easy_cleanup(pCurlHandle);
     curl_global_cleanup();
 
     if (res != CURLE_OK) {
-        spdlog::error("fs::download_file: curl_easy_perform() failed, {}", curl_easy_strerror(res));
+        spdlog::error("fs::download_file: curl_easy_perform() failed, {} (HTTP {})", curl_easy_strerror(res), http_code);
         return "";
     }
 
