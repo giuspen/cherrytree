@@ -1,7 +1,7 @@
 {
     "app-id": "net.giuspen.cherrytree",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "47",
+    "runtime-version": "50",
     "sdk": "org.gnome.Sdk",
     "command": "cherrytree",
     "rename-desktop-file": "cherrytree.desktop",
@@ -32,36 +32,24 @@
     ],
     "modules": [
         {
-            "name": "mm-common",
-            "buildsystem": "meson",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.6.tar.xz",
-                    "sha256": "b55c46037dbcdabc5cee3b389ea11cc3910adb68ebe883e9477847aa660862e7"
-                }
-            ],
-            "cleanup": [
-                "*"
-            ]
-        },
-        {
             "name": "sigc++-2",
+            "buildsystem": "meson",
             "config-opts": [
-                "--disable-documentation"
+                "-Dbuild-documentation=false"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.12/libsigc++-2.12.1.tar.xz",
-                    "sha256": "a9dbee323351d109b7aee074a9cb89ca3e7bcf8ad8edef1851f4cf359bd50843"
+                    "url": "https://github.com/libsigcplusplus/libsigcplusplus/releases/download/2.12.2/libsigc++-2.12.2.tar.xz",
+                    "sha256": "7d4cdf1e4332ebfee8085ad960075045e7763cb291b3ccf4744d7cbf08a22b75"
                 }
             ]
         },
         {
             "name": "cairomm",
+            "buildsystem": "meson",
             "config-opts": [
-                "--disable-documentation"
+                "-Dbuild-documentation=false"
             ],
             "cleanup": [
                 "/lib/cairomm-1.0"
@@ -69,8 +57,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.cairographics.org/releases/cairomm-1.14.5.tar.xz",
-                    "sha256": "70136203540c884e89ce1c9edfb6369b9953937f6cd596d97c78c9758a5d48db"
+                    "url": "https://www.cairographics.org/releases/cairomm-1.14.6.tar.xz",
+                    "sha256": "7e0d5c7f29175d573a03ab5c45aef63f48dd91a5caf335a404cd763e4b7cea4a"
                 }
             ]
         },
@@ -83,8 +71,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.7.tar.xz",
-                    "sha256": "fe02c1e5f5825940d82b56b6ec31a12c06c05c1583cfe62f934d0763e1e542b3"
+                    "url": "https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.10.tar.xz",
+                    "sha256": "2b61780203aed98e701d3ea57c8f353e7c8ada9706a79be782f6c5153dd035c0"
                 }
             ]
         },
@@ -94,8 +82,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.4.tar.xz",
-                    "sha256": "b92016661526424de4b9377f1512f59781f41fb16c9c0267d6133ba1cd68db22"
+                    "url": "https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.5.tar.xz",
+                    "sha256": "38ca0b050b065de4e3da0c182df657437757063bbf0c4b6c9567ddba019b1d68"
                 }
             ]
         },
@@ -108,8 +96,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.4.tar.xz",
-                    "sha256": "0a142a8128f83c001efb8014ee463e9a766054ef84686af953135e04d28fdab3"
+                    "url": "https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.5.tar.xz",
+                    "sha256": "ae449192a582a2582a95e0602b15d792bbd639e836339b81ef916aa87540ac5c"
                 }
             ]
         },
@@ -122,8 +110,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.9.tar.xz",
-                    "sha256" : "30d5bfe404571ce566a8e938c8bac17576420eb508f1e257837da63f14ad44ce"
+                    "url" : "https://download.gnome.org/sources/gtkmm/3.24/gtkmm-3.24.11.tar.xz",
+                    "sha256" : "19e383c82d5dd89db275e00b82864e90414d4c3fb3d100b2f996bcc2338a4cc7"
                 }
             ]
         },
@@ -133,20 +121,21 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtksourceview/4.8/gtksourceview-4.8.4.tar.xz",
+                    "url" : "https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.4.tar.xz",
                     "sha256" : "7ec9d18fb283d1f84a3a3eff3b7a72b09a10c9c006597b3fbabbb5958420a87d"
                 }
             ]
         },
         {
             "name": "libxml++",
-            "config-opts" : [
-                "--disable-documentation"
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dbuild-documentation=false"
             ],
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.3.tar.xz",
+                    "url" : "https://download.gnome.org/sources/libxml++/2.42/libxml++-2.42.3.tar.xz",
                     "sha256" : "74b95302e24dbebc56e97048e86ad0a4121fc82a43e58d381fbe1d380e8eba04"
                 }
             ]
@@ -160,14 +149,17 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://mirror.accum.se/pub/GNOME/sources/gspell/1.14/gspell-1.14.0.tar.xz",
-                    "sha256" : "64ea1d8e9edc1c25b45a920e80daf67559d1866ffcd7f8432fecfea6d0fe8897"
+                    "url" : "https://download.gnome.org/sources/gspell/1.14/gspell-1.14.4.tar.xz",
+                    "sha256" : "e73a89d68c70f8748aefb6b0f5cfdfec3ff173cf4449837fd6cb17d1e9fcf486"
                 }
             ]
         },
         {
             "name": "uchardet",
             "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+            ],
             "sources": [
                 {
                     "type" : "archive",
@@ -177,24 +169,38 @@
             ]
         },
         {
-            "name": "fmt",
-            "buildsystem": "cmake-ninja",
-            "sources": [
-                {
-                    "type" : "archive",
-                    "url" : "https://github.com/fmtlib/fmt/releases/download/9.1.0/fmt-9.1.0.zip",
-                    "sha256" : "cceb4cb9366e18a5742128cb3524ce5f50e88b476f1e54737a47ffdf4df4c996"
-                }
-            ]
-        },
-        {
             "name": "spdlog",
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/gabime/spdlog/archive/refs/tags/v1.12.0.tar.gz",
-                    "sha256" : "4dccf2d10f410c1e2feaff89966bfc49a1abb29ef6f08246335b110e001e09a9"
+                    "url" : "https://github.com/gabime/spdlog/archive/refs/tags/v1.15.1.tar.gz",
+                    "sha256" : "25c843860f039a1600f232c6eb9e01e6627f7d030a2ae5e232bdd3c9205d26cc"
+                }
+            ]
+        },
+        {
+            "name": "simdutf",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_SHARED_LIBS=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/simdutf/simdutf/archive/v9.0.0/simdutf-9.0.0.tar.gz",
+                    "sha256": "fd2ce975f29809a975a8da8843cfb3a7265af3f71be548f199d23cf65e101764"
+                }
+            ]
+        },
+        {
+            "name": "fast_float",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/fastfloat/fast_float/archive/refs/tags/v8.2.10.tar.gz",
+                    "sha256": "76f958dd97b1cf4d8862d1f0986a47d4bdfa8845252bae15ef0f40de3b95961f"
                 }
             ]
         },
@@ -204,8 +210,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.76.4/vte-0.76.4.tar.bz2",
-                    "sha256" : "09dfba043112066f8002bc37757dd6f70b346ff30ed30f0701bebb186e465565"
+                    "url" : "https://gitlab.gnome.org/GNOME/vte/-/archive/0.84.0/vte-0.84.0.tar.bz2",
+                    "sha256" : "b215d2c8e56fa03e04dfd1b6c5576479484be15227fa49c236271b46d08581d0"
                 }
             ]
         },
@@ -218,8 +224,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.net/software/cherrytree_1.2.0.tar.xz",
-                    "sha256" : "b9d9c9a0d7853e846657ceccdf74730f79190e19af296eeb955e5f4b54425ec2"
+                    "url" : "https://github.com/giuspen/cherrytree/releases/download/v1.7.2/cherrytree_1.7.2.tar.xz",
+                    "sha256" : "848c0478f8aa4ec2e932ed00ee6c6618f21b197bbd7fea1bafdd8456468d7d45"
                 }
             ]
         },
@@ -232,7 +238,7 @@
             "sources": [
                 {
                     "type" : "file",
-                    "url" : "https://www.giuspen.net/software/TinyTeX-1-v2022.04.04.tar.xz",
+                    "url" : "https://github.com/giuspen/cherrytree/releases/download/v1.7.1/TinyTeX-1-v2022.04.04.tar.xz",
                     "sha256" : "3025930f9c9e989c0cac59826f8ee126d677aec728d20537b9e53e13ace29020"
                 }
             ]
