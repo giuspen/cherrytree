@@ -29,7 +29,7 @@
 #include <set>
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/HTMLparser.h>
-#include <libxml++/libxml++.h>
+#include "ct_xml_compat.h"
 #include <gtkmm.h>
 #include <unordered_set>
 #include <unordered_map>
@@ -104,7 +104,7 @@ public:
     [[nodiscard]] constexpr bool tag_empty() const
     {
         if (!_current_element) return true;
-        else                   return !_current_element->get_child_text();
+        else                   return !CT_XML_GET_CHILD_TEXT(_current_element);
     }
 
     std::string to_string() { return _document->write_to_string(); }

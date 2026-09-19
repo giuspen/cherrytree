@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -397,7 +397,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(const CtTreeIter* ct_tree_iter,
     return p_node_node;
 }
 
-Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(const xmlpp::Element* xml_element,
+Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(CT_XML_CONST xmlpp::Element* xml_element,
                                                 const gint64 sequence,
                                                 const Gtk::TreeModel::iterator parent_iter,
                                                 const gint64 new_id,
@@ -467,7 +467,7 @@ Gtk::TreeModel::iterator CtStorageXmlHelper::node_from_xml(const xmlpp::Element*
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
 
-Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(const xmlpp::Element* parent_xml_element,
+Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(CT_XML_CONST xmlpp::Element* parent_xml_element,
                                                                                      const Glib::ustring&/*syntax*/,
                                                                                      std::list<CtAnchoredWidget*>& widgets,
                                                                                      Gtk::TextIter* text_insert_pos,

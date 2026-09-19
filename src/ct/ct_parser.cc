@@ -1,7 +1,7 @@
 /*
  * ct_parser.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -40,12 +40,12 @@ void CtDocumentBuilder::wipe()
 
 xmlpp::Element* CtDocumentBuilder::_build_root_el()
 {
-    return _document->create_root_node("root")->add_child("slot")->add_child("rich_text");
+    return CT_XML_ADD_CHILD(CT_XML_ADD_CHILD(_document->create_root_node("root"), "slot"), "rich_text");
 }
 
 CtDocumentBuilder::CtDocumentBuilder(const CtConfig* pCtConfig)
  : _pCtConfig{pCtConfig}
- , _current_element{_document->create_root_node("root")->add_child("slot")->add_child("rich_text")}
+ , _current_element{CT_XML_ADD_CHILD(CT_XML_ADD_CHILD(_document->create_root_node("root"), "slot"), "rich_text")}
 {}
 
 void CtDocumentBuilder::add_image(const std::string& path)
@@ -148,8 +148,8 @@ void CtDocumentBuilder::add_text(std::string text, bool close_tag /* = true */)
         //spdlog::debug("_currOffset {} '{}'", _currOffset, text);
         if (close_tag) close_current_tag();
 
-        auto curr_text = _current_element->get_child_text();
-        if (!curr_text) _current_element->set_child_text(std::move(text));
+        auto curr_text = CT_XML_GET_CHILD_TEXT(_current_element);
+        if (!curr_text) CT_XML_SET_CHILD_TEXT(_current_element, std::move(text));
         else curr_text->set_content(curr_text->get_content() + std::move(text));
         if (close_tag) {
             _last_element = _current_element;
@@ -181,7 +181,7 @@ void CtDocumentBuilder::add_hrule()
 void CtDocumentBuilder::close_current_tag()
 {
     if (!tag_empty()) {
-        _current_element = _current_element->get_parent()->add_child("rich_text");
+        _current_element = CT_XML_ADD_CHILD(_current_element->get_parent(), "rich_text");
         // Reset the tags
         _open_tags.clear();
     }
@@ -735,33 +735,33 @@ using name_lookup_table_t = std::unordered_map<std::string, Glib::ustring>;
 using children_lookup_t = std::unordered_map<std::string, std::vector<std::string>>;
 using node_loopup_table_t = std::unordered_map<std::string, CtLeoParser::leo_node>;
 
-CtLeoParser::leo_node parse_leo_t_el(const xmlpp::Element& node)
+CtLeoParser::leo_node parse_leo_t_el(CT_XML_CONST xmlpp::Element& node)
 {
     assert(node.get_name() == "t");
 
     CtLeoParser::leo_node lnode;
 
     if (node.has_child_text()) {
-        lnode.content = node.get_child_text()->get_content();
+        lnode.content = CT_XML_GET_CHILD_TEXT(&node)->get_content();
     }
 
     return lnode;
 }
 
-std::pair<std::string, Glib::ustring> read_leo_vnode(const xmlpp::Element& v_el)
+std::pair<std::string, Glib::ustring> read_leo_vnode(CT_XML_CONST xmlpp::Element& v_el)
 {
     assert(v_el.get_name() == "v");
 
     std::string tx_id = v_el.get_attribute("t")->get_value();
-    if (auto* vh_el = dynamic_cast<const xmlpp::Element*>(v_el.get_first_child())) {
-        Glib::ustring contents = vh_el->get_child_text()->get_content();
+    if (auto* vh_el = dynamic_cast<CT_XML_CONST xmlpp::Element*>(v_el.get_first_child())) {
+        Glib::ustring contents = CT_XML_GET_CHILD_TEXT(vh_el)->get_content();
         return {tx_id, contents};
     } else {
         return {tx_id, ""};
     }
 }
 
-void find_node_children(const xmlpp::Element& v_el, children_lookup_t& children)
+void find_node_children(CT_XML_CONST xmlpp::Element& v_el, children_lookup_t& children)
 {
     assert(v_el.get_name() == "v");
 
@@ -779,7 +779,7 @@ void find_node_children(const xmlpp::Element& v_el, children_lookup_t& children)
     }
 }
 
-void build_tx_lookup_table(const xmlpp::Node& vnode, name_lookup_table_t& table)
+void build_tx_lookup_table(CT_XML_CONST xmlpp::Node& vnode, name_lookup_table_t& table)
 {
     for (auto* node : vnode.get_children("v")) {
         if (auto* el = dynamic_cast<xmlpp::Element*>(node)) {
@@ -789,7 +789,7 @@ void build_tx_lookup_table(const xmlpp::Node& vnode, name_lookup_table_t& table)
     }
 }
 
-name_lookup_table_t generate_tx_lookup_table(const xmlpp::Node& vnode_root)
+name_lookup_table_t generate_tx_lookup_table(CT_XML_CONST xmlpp::Node& vnode_root)
 {
     assert(vnode_root.get_name() == "vnodes");
 
@@ -799,7 +799,7 @@ name_lookup_table_t generate_tx_lookup_table(const xmlpp::Node& vnode_root)
     return tx_id_to_names;
 }
 
-children_lookup_t generate_children_lookup_table(const xmlpp::Node& vnode_root)
+children_lookup_t generate_children_lookup_table(CT_XML_CONST xmlpp::Node& vnode_root)
 {
     assert(vnode_root.get_name() == "vnodes");
     children_lookup_t lookup_tbl;
@@ -815,7 +815,7 @@ children_lookup_t generate_children_lookup_table(const xmlpp::Node& vnode_root)
     return lookup_tbl;
 }
 
-void populate_leo_nodes(const xmlpp::Node& vnode_root, node_loopup_table_t& lnodes)
+void populate_leo_nodes(CT_XML_CONST xmlpp::Node& vnode_root, node_loopup_table_t& lnodes)
 {
     auto tx_lookup = generate_tx_lookup_table(vnode_root);
     auto child_lookup = generate_children_lookup_table(vnode_root);
@@ -833,7 +833,7 @@ void populate_leo_nodes(const xmlpp::Node& vnode_root, node_loopup_table_t& lnod
     }
 }
 
-node_loopup_table_t parse_leo_tnodes(const xmlpp::Node& tnodes_root)
+node_loopup_table_t parse_leo_tnodes(CT_XML_CONST xmlpp::Node& tnodes_root)
 {
     assert(tnodes_root.get_name() == "tnodes");
 
@@ -850,17 +850,17 @@ node_loopup_table_t parse_leo_tnodes(const xmlpp::Node& tnodes_root)
     return leo_nodes;
 }
 
-xmlpp::Node* find_leo_vnodes_el(const xmlpp::Node& root)
+xmlpp::Node* find_leo_vnodes_el(CT_XML_CONST xmlpp::Node& root)
 {
     return root.get_children("vnodes").front();
 }
 
-xmlpp::Node* find_leo_tnodes_el(const xmlpp::Node& root)
+xmlpp::Node* find_leo_tnodes_el(CT_XML_CONST xmlpp::Node& root)
 {
     return root.get_children("tnodes").front();
 }
 
-std::vector<CtLeoParser::leo_node> parse_leo_tree(const xmlpp::Node& vnode_root, xmlpp::Node& tnode_root)
+std::vector<CtLeoParser::leo_node> parse_leo_tree(CT_XML_CONST xmlpp::Node& vnode_root, xmlpp::Node& tnode_root)
 {
     auto l_nodes = parse_leo_tnodes(tnode_root);
     populate_leo_nodes(vnode_root, l_nodes);
@@ -873,7 +873,7 @@ std::vector<CtLeoParser::leo_node> parse_leo_tree(const xmlpp::Node& vnode_root,
     return populated_nodes;
 }
 
-std::vector<CtLeoParser::leo_node> walk_leo_xml(const xmlpp::Node& root)
+std::vector<CtLeoParser::leo_node> walk_leo_xml(CT_XML_CONST xmlpp::Node& root)
 {
     auto* vnode = find_leo_vnodes_el(root);
     auto* tnode = find_leo_tnodes_el(root);

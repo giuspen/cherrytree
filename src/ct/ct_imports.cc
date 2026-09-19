@@ -1,7 +1,7 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -392,7 +392,7 @@ void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<
                 _is_link_to_node = false;
             }
             else {
-                spdlog::debug(dom_iter->get_name().raw());
+                spdlog::debug(CT_XML_STRING(dom_iter->get_name()));
                 _iterate_tomboy_note(dom_iter_el, node);
             }
         }
@@ -419,7 +419,7 @@ xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_d
     for (auto atr: _curr_attributes)
         if (!atr.second.empty())
             dom_iter->set_attribute(atr.first, atr.second);
-    dom_iter->add_child_text(text_data);
+    dom_iter->add_child_text(CT_XML_TEXT(text_data));
     return dom_iter;
 }
 
@@ -455,7 +455,7 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
         Glib::ustring utf8_text;
         if (CtStrUtil::file_any_encoding_to_utf8(file.string(), utf8_text)) {
             auto pNode = std::make_unique<CtImportedNode>(file, file.stem());
-            pNode->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(utf8_text);
+            pNode->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(CT_XML_TEXT(utf8_text));
             pNode->node_syntax = CtConst::PLAIN_TEXT_ID;
             return pNode;
         }

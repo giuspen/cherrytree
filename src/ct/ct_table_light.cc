@@ -214,7 +214,8 @@ void CtTableLight::_populate_xml_rows_cells(xmlpp::Element* p_table_node) const
             const CtTableLightColumns& cols = get_columns();
             for (size_t c = 0u; c < numCols; ++c) {
                 xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
-                p_cell_node->add_child_text(treeRow[cols.columnsText.at(c)]);
+                const Glib::ustring cell_text{treeRow[cols.columnsText.at(c)]};
+                p_cell_node->add_child_text(CT_XML_TEXT(cell_text));
             }
         }
         return false; /* to continue */

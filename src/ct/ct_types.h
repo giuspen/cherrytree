@@ -37,6 +37,7 @@
 #include <glibmm/ustring.h>
 #include <gtkmm/liststore.h>
 #include <gtkmm/textbuffer.h>
+#include "ct_xml_compat.h"
 #include "ct_const.h"
 
 namespace fs {
@@ -72,9 +73,6 @@ enum class CtMatchType { None, Content, NameNTags };
 class CtCodebox;
 class CtMainWin;
 using CtPairCodeboxMainWin = std::pair<CtCodebox*, CtMainWin*>;
-namespace xmlpp {
-class Document;
-}
 using CtDelayedTextBufferMap = std::unordered_map<gint64, std::shared_ptr<xmlpp::Document>>;
 using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
 using CtSharedNodesMap = std::map<gint64, std::set<gint64>>;
