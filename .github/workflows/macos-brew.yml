@@ -31,7 +31,8 @@ jobs:
                        fmt \
                        spdlog \
                        uchardet \
-                       fribidi
+                       fribidi \
+                       webp-pixbuf-loader
           brew link icu4c --force
           brew unlink gtkmm3 && brew link gtkmm3
       - name: CI-Build

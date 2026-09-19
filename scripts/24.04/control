@@ -43,7 +43,8 @@ Depends:
  ${shlibs:Depends}
 Recommends:
  texlive-latex-base,
- dvipng
+ dvipng,
+ webp-pixbuf-loader
 Description: hierarchical note taking application
  CherryTree is a hierarchical note taking application, featuring rich text,
  syntax highlighting, images handling, hyperlinks, import/export with support

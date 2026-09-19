@@ -33,7 +33,8 @@ jobs:
             libfmt-dev \
             libspdlog-dev \
             file \
-            libxml2-utils
+            libxml2-utils \
+            webp-pixbuf-loader
       - name: CI-Build
         run: |
           ./build.sh appimg notest

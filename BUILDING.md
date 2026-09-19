@@ -53,7 +53,7 @@ gdb ./build/cherrytree
 ## Building Cherrytree on Debian (+Ubuntu/Linux Mint)
 Install dependencies:
 ```sh
-sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceview-4-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev file libxml2-utils
+sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceview-4-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfribidi-dev libvte-2.91-dev libfmt-dev libspdlog-dev file libxml2-utils webp-pixbuf-loader
 sudo apt install texlive-latex-base dvipng # optional for LatexBoxes support
 ```
 Note: On Ubuntu 26.04+ it builds looking for libxml++-5.0-dev instead of libxml++2.6-dev
@@ -89,7 +89,7 @@ xdg-open /usr/share/doc/libgspell-1-dev/html/index.html
 ## Building Cherrytree on Arch Linux (+Manjaro Linux)
 Install dependencies:
 ```sh
-sudo pacman -S gtkmm3 gtksourceview4 libxml++2.6 vte3 gspell uchardet fmt spdlog
+sudo pacman -S gtkmm3 gtksourceview4 libxml++2.6 vte3 gspell uchardet fmt spdlog webp-pixbuf-loader
 ```
 
 Get cherrytree source, compile and run:
@@ -110,7 +110,7 @@ sudo emerge cherrytree
 ## Building Cherrytree on Fedora
 Install dependencies:
 ```sh
-sudo dnf install cmake ninja-build gcc-c++ gtkmm30-devel gtksourceview4-devel gspell-devel libxml++-devel libcurl-devel uchardet-devel fmt-devel spdlog-devel vte291-devel sqlite-devel
+sudo dnf install cmake ninja-build gcc-c++ gtkmm30-devel gtksourceview4-devel gspell-devel libxml++-devel libcurl-devel uchardet-devel fmt-devel spdlog-devel vte291-devel sqlite-devel webp-pixbuf-loader
 sudo dnf install texlive-scheme-basic texlive-dvipng # optional for LatexBoxes support
 ```
 
@@ -146,7 +146,7 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 ## Building Cherrytree on OpenSuse
 Install dependencies:
 ```sh
-sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceview4-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt-devel spdlog-devel vte-devel
+sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceview4-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt-devel spdlog-devel vte-devel webp-pixbuf-loader
 ```
 
 Get cherrytree source, compile and run:
@@ -172,7 +172,7 @@ In order build it yourself in [Homebrew](https://brew.sh/):
 
 Install dependencies:
 ```sh
-brew install cmake ninja pkg-config python adwaita-icon-theme fmt gspell gtkmm3 gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3
+brew install cmake ninja pkg-config python adwaita-icon-theme fmt gspell gtkmm3 gtksourceview4 libxml++ spdlog uchardet fribidi curl vte3 webp-pixbuf-loader
 brew link icu4c --force
 brew install --cask basictex
 sudo tlmgr update --self
