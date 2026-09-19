@@ -615,7 +615,13 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
             insert_image(pixbuf);
             image_good = true;
         }
-    } catch (...) { }
+    }
+    catch (const Glib::Error& ex) {
+        spdlog::warn("failed to decode base64 image: {}", ex.what().raw());
+    }
+    catch (const std::exception& ex) {
+        spdlog::warn("failed to decode base64 image: {}", ex.what());
+    }
 
     // 2. trying to download
     try {
@@ -628,7 +634,16 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
             insert_image(pixbuf);
             image_good = true;
         }
-    }  catch (...) { }
+        else {
+            spdlog::warn("downloaded image payload is empty for '{}'", img_path);
+        }
+    }
+    catch (const Glib::Error& ex) {
+        spdlog::warn("failed to decode downloaded image '{}': {}", img_path, ex.what().raw());
+    }
+    catch (const std::exception& ex) {
+        spdlog::warn("failed to decode downloaded image '{}': {}", img_path, ex.what());
+    }
 
     // 3. trying to load from disk
     try {
@@ -643,14 +658,19 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
             }
         }
     }
-    catch (...) {}
+    catch (const Glib::Error& ex) {
+        spdlog::warn("failed to load image from disk '{}': {}", img_path, ex.what().raw());
+    }
+    catch (const std::exception& ex) {
+        spdlog::warn("failed to load image from disk '{}': {}", img_path, ex.what());
+    }
 
     if (image_good) {
         _char_offset += 1;
         if (!trailing_chars.empty())
             _rich_text_serialize(trailing_chars);
     } else {
-        spdlog::error("Failed to download {}", img_path);
+        spdlog::error("Failed to load image {}", img_path);
     }
 
     if (_status_bar)
