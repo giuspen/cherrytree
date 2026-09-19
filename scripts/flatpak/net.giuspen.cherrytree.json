@@ -135,8 +135,8 @@
             "sources": [
                 {
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/libxml++/2.42/libxml++-2.42.3.tar.xz",
-                    "sha256" : "74b95302e24dbebc56e97048e86ad0a4121fc82a43e58d381fbe1d380e8eba04"
+                    "url" : "https://github.com/libxmlplusplus/libxmlplusplus/releases/download/5.6.1/libxml++-5.6.1.tar.xz",
+                    "sha256" : "4996e8a73995e8a4cd656c8591dce38181146edfc30cb47c97d1db3c56990ad7"
                 }
             ]
         },
@@ -218,6 +218,9 @@
         {
             "name": "cherrytree",
             "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DWITH_LIBXMLPP5=ON"
+            ],
             "build-options": {
                 "cxxflags": "-D_FLATPAK_BUILD=1"
             },

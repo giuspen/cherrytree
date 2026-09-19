@@ -15,12 +15,12 @@ DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
 DEBIAN_COMPAT_PATH = os.path.join(DEBIAN_DIR, "compat")
 DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
-#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview, compat
-CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3,             10), # 18.04
-                2: ("focal",    "20.04", True,              True,  4,             10), # 20.04
-                3: ("jammy",    "20.04", True,              True,  4,             10), # 22.04
-                4: ("noble",    "24.04", True,              True,  4,             10), # 24.04
-                5: ("resolute", "26.04", True,              True,  4,             0)}  # 26.04
+#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview, compat, libxmlpp5
+CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3,             10,     False), # 18.04
+                2: ("focal",    "20.04", True,              True,  4,             10,     False), # 20.04
+                3: ("jammy",    "20.04", True,              True,  4,             10,     False), # 22.04
+                4: ("noble",    "24.04", True,              True,  4,             10,     False), # 24.04
+                5: ("resolute", "26.04", True,              True,  4,             0,      True)}  # 26.04
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
@@ -64,6 +64,15 @@ def f_cmakelists_setup_for(package_num):
             break
     else:
         print("!! cmakelists 'pkg_check_modules(GTKSV gtksourceview-' not found")
+        return False
+
+    for i in range(len(cmakelists_lines)):
+        # option(WITH_LIBXMLPP5 "Build with libxml++ 5.0" OFF)
+        if cmakelists_lines[i].find("option(WITH_LIBXMLPP5 ") >= 0:
+            cmakelists_lines[i] = "option(WITH_LIBXMLPP5 \"Build with libxml++ 5.0\" {})\n".format("ON" if CONTROL_DICT[package_num][6] else "OFF")
+            break
+    else:
+        print("!! cmakelists option WITH_LIBXMLPP5 not found")
         return False
 
     with open(ROOT_CMAKELISTS_PATH, "w") as fd:

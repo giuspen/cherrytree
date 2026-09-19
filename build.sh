@@ -16,6 +16,8 @@ WITH_LIBXMLPP5=""
 RET_VAL=""
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
+[ -n "${MINGW_PACKAGE_PREFIX}" ] && WITH_LIBXMLPP5="Y"
+
 f_any_argument_matches () {
   if [ "${ARG1_VAL_LOWER}" == "$1" ] || [ "${ARG2_VAL_LOWER}" == "$1" ] || [ "${ARG3_VAL_LOWER}" == "$1" ]
   then
@@ -109,6 +111,10 @@ then
   if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ] || [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Debian10" ]
   then
     BUNDLED_SPDLOG_FMT="Y"
+  fi
+  if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu26.04" ]
+  then
+    WITH_LIBXMLPP5="Y"
   fi
 fi
 
