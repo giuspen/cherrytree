@@ -25,6 +25,7 @@
 #include "ct_actions.h"
 #include "ct_list.h"
 #include <unordered_set>
+#include <algorithm>
 
 CtTreeIter CtMainWin::tree_cursor_iter()
 {
@@ -39,38 +40,49 @@ CtTreeIter CtMainWin::tree_cursor_iter()
     return CtTreeIter{};
 }
 
-std::vector<CtTreeIter> CtMainWin::selected_tree_iters()
+std::vector<CtTreeIter> CtMainWin::selected_tree_iters(bool unique_data_holders)
 {
-    std::vector<CtTreeIter> ret;
-    if (not _uCtTreeview or not _uCtTreestore) return ret;
-
-    std::unordered_set<gint64> seen_data_holders;
-
-    for (const auto& path :
-         _uCtTreeview->get_selection()->get_selected_rows())
-    {
-        auto iter =
-            _uCtTreeview->get_model()->get_iter(path);
-
-        if (not iter) continue;
-
-        CtTreeIter tree_iter =
-            _uCtTreestore->to_ct_tree_iter(iter);
-
-        const gint64 data_holder_id =
-            tree_iter.get_node_id_data_holder();
-
-        if (seen_data_holders.insert(data_holder_id).second) {
-            ret.push_back(tree_iter);
+    std::vector<CtTreeIter> selected;
+    if (not _uCtTreeview or not _uCtTreestore) return selected;
+    std::unordered_set<gint64> seen;
+    for (auto path : _uCtTreeview->get_selection()->get_selected_rows()) {
+        CtTreeIter iter = _uCtTreestore->get_iter(path);
+        if (iter and (not unique_data_holders or seen.insert(iter.get_node_id_data_holder()).second)) {
+            selected.push_back(iter);
         }
     }
+    return selected;
+}
 
-    return ret;
+std::vector<gint64> CtMainWin::selected_tree_node_ids()
+{
+    std::vector<gint64> ids;
+    for (const CtTreeIter& iter : selected_tree_iters(false)) ids.push_back(iter.get_node_id());
+    return ids;
+}
+
+void CtMainWin::restore_tree_selection(const std::vector<gint64>& node_ids, gint64 cursor_id)
+{
+    if (node_ids.empty()) return;
+    if (std::find(node_ids.begin(), node_ids.end(), cursor_id) == node_ids.end()) cursor_id = node_ids.front();
+    if (CtTreeIter cursor = _uCtTreestore->get_node_from_node_id(cursor_id)) {
+        _uCtTreeview->expand_to_path(_uCtTreestore->get_path(cursor));
+        _uCtTreeview->set_cursor(_uCtTreestore->get_path(cursor));
+    }
+    auto selection = _uCtTreeview->get_selection();
+    selection->unselect_all();
+    for (const gint64 id : node_ids) {
+        if (CtTreeIter iter = _uCtTreestore->get_node_from_node_id(id)) {
+            const auto path = _uCtTreestore->get_path(iter);
+            _uCtTreeview->expand_to_path(path);
+            selection->select(path);
+        }
+    }
 }
 
 std::vector<CtTreeIter> CtMainWin::selected_tree_root_iters()
 {
-    auto selected = selected_tree_iters();
+    auto selected = selected_tree_iters(false);
 
     std::unordered_set<gint64> selected_ids;
 
@@ -204,66 +216,26 @@ void CtMainWin::_on_treeview_selection_changed()
 bool CtMainWin::_on_treeview_button_press_event(GdkEventButton* event)
 {
     _treeRightClickSelectionIds.clear();
-
     if (event->button == 1) {
         _treeDragSelectionIds.clear();
         _treeDragSourceNodeId = -1;
-
-        Gtk::TreeModel::Path path;
-
-        if (not _uCtTreeview->get_path_at_pos(
-                static_cast<int>(event->x),
-                static_cast<int>(event->y),
-                path))
-        {
-            return false;
-        }
-
-        auto iter = _uCtTreeview->get_model()->get_iter(path);
-        if (not iter) return false;
-
-        CtTreeIter clicked_iter =
-            _uCtTreestore->to_ct_tree_iter(iter);
-
-        _treeDragSourceNodeId = clicked_iter.get_node_id();
-
-        auto selection = _uCtTreeview->get_selection();
-
-        if (selection->count_selected_rows() > 1 and
-            selection->is_selected(path))
-        {
-            for (const CtTreeIter& selected_iter : selected_tree_iters()) {
-                _treeDragSelectionIds.push_back(
-                    selected_iter.get_node_id());
-            }
-        }
-
-        return false;
     }
-
-    if (event->button != 3) return false;
-
+    if (event->button != 1 and event->button != 3) return false;
     Gtk::TreeModel::Path path;
-    if (not _uCtTreeview->get_path_at_pos(
-            static_cast<int>(event->x),
-            static_cast<int>(event->y),
-            path))
-    {
-        return false;
+    if (not _uCtTreeview->get_path_at_pos(static_cast<int>(event->x), static_cast<int>(event->y), path)) return false;
+    CtTreeIter clicked = _uCtTreestore->get_iter(path);
+    if (not clicked) return false;
+    const auto selection = _uCtTreeview->get_selection();
+    if (event->button == 1) {
+        _treeDragSourceNodeId = clicked.get_node_id();
+        // Modified clicks change the selection; snapshot those at drag-data-get.
+        if (selection->is_selected(path) and not (event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK))) {
+            _treeDragSelectionIds = selected_tree_node_ids();
+        }
     }
-
-    auto selection = _uCtTreeview->get_selection();
-
-    if (selection->count_selected_rows() <= 1 or
-        not selection->is_selected(path))
-    {
-        return false;
+    else if (selection->is_selected(path)) {
+        _treeRightClickSelectionIds = selected_tree_node_ids();
     }
-
-    for (const CtTreeIter& iter : selected_tree_iters()) {
-        _treeRightClickSelectionIds.push_back(iter.get_node_id());
-    }
-
     return false;
 }
 
@@ -872,268 +844,71 @@ void CtMainWin::_on_treeview_drag_data_received(
     guint time)
 {
     bool move_performed = false;
-
     auto on_scope_exit = scope_guard([&](void*) {
-        if (not move_performed) {
-            auto selection = _uCtTreeview->get_selection();
-
-            for (const gint64 id : _treeDragSelectionIds) {
-                CtTreeIter iter =
-                    _uCtTreestore->get_node_from_node_id(id);
-
-                if (iter) {
-                    selection->select(
-                        _uCtTreestore->get_path(iter));
-                }
-            }
-        }
-
+        restore_tree_selection(_treeDragSelectionIds, _treeDragSourceNodeId);
         _treeDragSelectionIds.clear();
         _treeDragSourceNodeId = -1;
-
         context->drag_finish(move_performed, false, time);
     });
 
-    Gtk::TreePath treePathDest;
-    Gtk::TreeViewDropPosition treeDropPos{
-        Gtk::TREE_VIEW_DROP_BEFORE
-    };
+    Gtk::TreePath destination;
+    Gtk::TreeViewDropPosition position{Gtk::TREE_VIEW_DROP_BEFORE};
+    if (not _uCtTreeview->get_dest_row_at_pos(x, y, destination, position)) return;
+    const auto source = selection_data.get_data_as_string();
+    if (source.empty()) return;
+    Gtk::TreePath source_path{source};
+    CtTreeIter drag = _uCtTreestore->get_iter(source_path);
+    CtTreeIter drop = _uCtTreestore->get_iter(destination);
+    if (not drag or not drop) return;
 
-    if (not _uCtTreeview->get_dest_row_at_pos(
-            x, y, treePathDest, treeDropPos))
-    {
-        return;
+    const gint64 drag_id = drag.get_node_id();
+    if (std::find(_treeDragSelectionIds.begin(), _treeDragSelectionIds.end(), drag_id) == _treeDragSelectionIds.end()) {
+        _treeDragSelectionIds = {drag_id};
     }
-
-    const std::string treePathSrcStr =
-        selection_data.get_data_as_string();
-
-    if (treePathSrcStr.empty()) return;
-
-    Gtk::TreePath treePathSrc{treePathSrcStr};
-
-    CtTreeIter drag_iter =
-        _uCtTreestore->get_iter(treePathSrc);
-
-    if (not drag_iter) return;
-
-    CtTreeIter drop_iter =
-        _uCtTreestore->get_iter(treePathDest);
-
-    if (not drop_iter) return;
-
-    /*
-     * Keep the complete visual selection here. It is needed both
-     * to determine whether the drag source belongs to the selection
-     * and to restore the selection after an invalid drop.
-     */
-    std::vector<gint64> selected_ids =
-        _treeDragSelectionIds;
-
-    if (selected_ids.empty()) {
-        selected_ids.push_back(drag_iter.get_node_id());
-    }
-
-    bool drag_id_found = false;
-
-    for (const gint64 id : selected_ids) {
-        if (id == drag_iter.get_node_id()) {
-            drag_id_found = true;
-            break;
-        }
-    }
-
+    std::unordered_set<gint64> selected(_treeDragSelectionIds.begin(), _treeDragSelectionIds.end());
     std::vector<gint64> node_ids;
-
-    if (not drag_id_found) {
-        /*
-         * Drag started from a node outside the multi-selection:
-         * move only that node.
-         */
-        node_ids.push_back(drag_iter.get_node_id());
+    for (const gint64 id : _treeDragSelectionIds) {
+        CtTreeIter iter = _uCtTreestore->get_node_from_node_id(id);
+        if (not iter) return;
+        CtTreeIter ancestor = iter.parent();
+        while (ancestor and not selected.count(ancestor.get_node_id())) ancestor = ancestor.parent();
+        if (not ancestor) node_ids.push_back(id);
     }
-    else {
-        /*
-         * Convert the visual selection into structural roots.
-         *
-         * If both a node and one of its descendants are selected,
-         * only the ancestor is moved explicitly; the descendant
-         * already follows as part of its subtree.
-         */
-        std::unordered_set<gint64> selected_set(
-            selected_ids.begin(),
-            selected_ids.end());
-
-        for (const gint64 id : selected_ids) {
-            CtTreeIter iter =
-                _uCtTreestore->get_node_from_node_id(id);
-
-            if (not iter) return;
-
-            bool has_selected_ancestor = false;
-
-            for (CtTreeIter parent = iter.parent();
-                 parent;
-                 parent = parent.parent())
-            {
-                if (selected_set.count(
-                        parent.get_node_id()) > 0)
-                {
-                    has_selected_ancestor = true;
-                    break;
-                }
-            }
-
-            if (not has_selected_ancestor) {
-                node_ids.push_back(id);
-            }
-        }
-    }
-
     if (node_ids.empty()) return;
 
-    /*
-     * Structural roots of a multi-node move must be siblings.
-     */
-    if (node_ids.size() > 1) {
-        CtTreeIter first_iter =
-            _uCtTreestore->get_node_from_node_id(
-                node_ids.front());
-
-        if (not first_iter) return;
-
-        CtTreeIter parent = first_iter.parent();
-
-        const gint64 parent_id =
-            parent ? parent.get_node_id() : -1;
-
-        for (const gint64 id : node_ids) {
-            CtTreeIter iter =
-                _uCtTreestore->get_node_from_node_id(id);
-
-            if (not iter) return;
-
-            CtTreeIter iter_parent = iter.parent();
-
-            if ((parent and
-                 (not iter_parent or
-                  iter_parent.get_node_id() != parent_id))
-                or
-                (not parent and iter_parent))
-            {
-                CtDialogs::error_dialog(
-                    _("Multiple selected nodes must have the same parent."),
-                    *this);
-                return;
-            }
-        }
-    }
-
-    std::unordered_set<gint64> moving_ids(
-        node_ids.begin(),
-        node_ids.end());
-
-    /*
-     * Dropping onto one of the structural roots being moved
-     * is a no-op.
-     */
-    if (moving_ids.count(drop_iter.get_node_id()) > 0) {
-        return;
-    }
-
-    /*
-     * Determine the future parent before checking for cycles.
-     */
-    CtTreeIter new_parent;
-
-    if (treeDropPos == Gtk::TREE_VIEW_DROP_BEFORE or
-        treeDropPos == Gtk::TREE_VIEW_DROP_AFTER)
-    {
-        new_parent = drop_iter.parent();
-    }
-    else {
-        new_parent = drop_iter;
-    }
-
-    /*
-     * The new parent cannot be inside the subtree of any
-     * structural root being moved.
-     */
+    CtTreeIter parent = _uCtTreestore->get_node_from_node_id(node_ids.front()).parent();
+    const gint64 parent_id = parent ? parent.get_node_id() : -1;
     for (const gint64 id : node_ids) {
-        for (CtTreeIter iter = new_parent;
-             iter;
-             iter = iter.parent())
-        {
-            if (iter.get_node_id() == id) {
-                CtDialogs::error_dialog(
-                    _("The new parent can't be one of his children!"),
-                    *this);
-                return;
-            }
+        CtTreeIter iter_parent = _uCtTreestore->get_node_from_node_id(id).parent();
+        if ((iter_parent ? iter_parent.get_node_id() : -1) != parent_id) {
+            CtDialogs::error_dialog(_("Multiple selected nodes must have the same parent."), *this);
+            return;
         }
     }
 
-    if (treeDropPos == Gtk::TREE_VIEW_DROP_BEFORE) {
-        Gtk::TreeModel::iterator prev_iter = drop_iter;
-        --prev_iter;
-
-        while (prev_iter) {
-            CtTreeIter prev_ct_iter =
-                _uCtTreestore->to_ct_tree_iter(prev_iter);
-
-            if (moving_ids.count(
-                    prev_ct_iter.get_node_id()) == 0)
-            {
-                break;
-            }
-
-            --prev_iter;
+    const std::unordered_set<gint64> moving(node_ids.begin(), node_ids.end());
+    if (moving.count(drop.get_node_id())) return;
+    CtTreeIter new_parent = (position == Gtk::TREE_VIEW_DROP_BEFORE or position == Gtk::TREE_VIEW_DROP_AFTER)
+                         ? drop.parent() : drop;
+    for (CtTreeIter ancestor = new_parent; ancestor; ancestor = ancestor.parent()) {
+        if (moving.count(ancestor.get_node_id())) {
+            CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *this);
+            return;
         }
-
-        _uCtActions->nodes_move_after(
-            node_ids,
-            drop_iter.parent(),
-            prev_iter,
-            not prev_iter);
-    }
-    else if (treeDropPos == Gtk::TREE_VIEW_DROP_AFTER) {
-        _uCtActions->nodes_move_after(
-            node_ids,
-            drop_iter.parent(),
-            drop_iter);
-    }
-    else {
-        _uCtActions->nodes_move_after(
-            node_ids,
-            drop_iter);
     }
 
+    Gtk::TreeModel::iterator sibling;
+    bool set_first = false;
+    if (position == Gtk::TREE_VIEW_DROP_BEFORE) {
+        sibling = drop;
+        while (--sibling) {
+            if (not moving.count(_uCtTreestore->to_ct_tree_iter(sibling).get_node_id())) break;
+        }
+        set_first = not sibling;
+    }
+    else if (position == Gtk::TREE_VIEW_DROP_AFTER) sibling = drop;
+    _uCtActions->nodes_move_after(node_ids, new_parent, sibling, set_first);
     move_performed = true;
-
-    for (const gint64 id : node_ids) {
-        CtTreeIter iter =
-            _uCtTreestore->get_node_from_node_id(id);
-
-        if (iter) {
-            _uCtTreestore->update_nodes_icon(iter, true);
-        }
-    }
-
-    /*
-     * nodes_move_after() reselects the structural roots.
-     * Also restore descendants that were explicitly selected.
-     */
-    auto selection = _uCtTreeview->get_selection();
-
-    for (const gint64 id : _treeDragSelectionIds) {
-        CtTreeIter iter =
-            _uCtTreestore->get_node_from_node_id(id);
-
-        if (iter) {
-            selection->select(
-                _uCtTreestore->get_path(iter));
-        }
-    }
 }
 
 void CtMainWin::_on_treeview_drag_data_get(
@@ -1142,59 +917,17 @@ void CtMainWin::_on_treeview_drag_data_get(
     guint /*info*/,
     guint /*time*/)
 {
-    CtTreeIter tree_iter;
-
-    if (_treeDragSourceNodeId >= 0) {
-        tree_iter =
-            _uCtTreestore->get_node_from_node_id(
-                _treeDragSourceNodeId);
-    }
-
-    if (not tree_iter) {
-        tree_iter = tree_cursor_iter();
-    }
-
-    if (not tree_iter) return;
-
-    const gint64 drag_id = tree_iter.get_node_id();
-
-    /*
-     * If button-press did not capture a multi-selection,
-     * fall back to the selection state available here.
-     */
+    CtTreeIter iter = _treeDragSourceNodeId >= 0
+                   ? _uCtTreestore->get_node_from_node_id(_treeDragSourceNodeId) : tree_cursor_iter();
+    if (not iter) return;
     if (_treeDragSelectionIds.empty()) {
-        auto selected = selected_tree_iters();
-
-        bool drag_is_selected = false;
-
-        for (const CtTreeIter& iter : selected) {
-            if (iter.get_node_id() == drag_id) {
-                drag_is_selected = true;
-                break;
-            }
-        }
-
-        if (drag_is_selected and selected.size() > 1) {
-            for (const CtTreeIter& iter : selected) {
-                _treeDragSelectionIds.push_back(
-                    iter.get_node_id());
-            }
-        }
-        else {
-            _treeDragSelectionIds.push_back(drag_id);
+        _treeDragSelectionIds = selected_tree_node_ids();
+        if (std::find(_treeDragSelectionIds.begin(), _treeDragSelectionIds.end(), iter.get_node_id()) == _treeDragSelectionIds.end()) {
+            _treeDragSelectionIds = {iter.get_node_id()};
         }
     }
-
-    const Glib::ustring treePathStr =
-        _uCtTreeview->get_model()
-            ->get_path(tree_iter)
-            .to_string();
-
-    selection_data.set(
-        "UTF8_STRING",
-        8,
-        (const guint8*)treePathStr.c_str(),
-        (int)treePathStr.size());
+    const auto path = _uCtTreestore->get_path(iter).to_string();
+    selection_data.set("UTF8_STRING", 8, reinterpret_cast<const guint8*>(path.c_str()), static_cast<int>(path.size()));
 }
 
 #else

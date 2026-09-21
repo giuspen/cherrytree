@@ -29,6 +29,7 @@
 #include "ct_treestore.h"
 #include "ct_logging.h"
 #include <ctime>
+#include <algorithm>
 #include <gtkmm/dialog.h>
 
 bool CtActions::_is_there_selected_node_or_error()
@@ -372,8 +373,10 @@ void CtActions::node_move_after(Gtk::TreeModel::iterator iter_to_move,
     Glib::RefPtr<Gtk::TreeStore> pTreeStore = ctTreeStore.get_store();
     Gtk::TreeModel::iterator new_node_iter;
     if (brother_iter)   new_node_iter = pTreeStore->insert_after(brother_iter);
-    else if (set_first) new_node_iter = pTreeStore->prepend(father_iter->children());
-    else                new_node_iter = pTreeStore->append(father_iter->children());
+    else {
+        const auto children = father_iter ? father_iter->children() : pTreeStore->children();
+        new_node_iter = set_first ? pTreeStore->prepend(children) : pTreeStore->append(children);
+    }
 
     // we move also all the children
     std::function<void(Gtk::TreeModel::iterator&,Gtk::TreeModel::iterator&)> node_move_data_and_children;
@@ -429,17 +432,10 @@ void CtActions::nodes_move_after(const std::vector<gint64>& node_ids,
     const gint64 brother_id =
         brother_iter ? tree_store.to_ct_tree_iter(brother_iter).get_node_id() : -1;
 
-    gint64 cursor_id = -1;
-    CtTreeIter cursor_iter = _tree_cursor_iter();
-
-    if (cursor_iter) {
-        for (const gint64 id : node_ids) {
-            if (id == cursor_iter.get_node_id()) {
-                cursor_id = id;
-                break;
-            }
-        }
-    }
+    auto selection_ids = _pCtMainWin->selected_tree_node_ids();
+    if (selection_ids.empty()) selection_ids = node_ids;
+    const CtTreeIter cursor = _tree_cursor_iter();
+    const gint64 cursor_id = cursor ? cursor.get_node_id() : node_ids.front();
 
     auto move_node = [&](gint64 node_id) {
         CtTreeIter iter = tree_store.get_node_from_node_id(node_id);
@@ -469,22 +465,9 @@ void CtActions::nodes_move_after(const std::vector<gint64>& node_ids,
         }
     }
 
-    CtTreeView& tree_view = _pCtMainWin->get_tree_view();
-
-    if (cursor_id >= 0) {
-        CtTreeIter iter = tree_store.get_node_from_node_id(cursor_id);
-        if (iter) {
-            tree_view.set_cursor(tree_store.get_path(iter));
-        }
-    }
-
-    auto selection = tree_view.get_selection();
-
+    _pCtMainWin->restore_tree_selection(selection_ids, cursor_id);
     for (const gint64 id : node_ids) {
-        CtTreeIter iter = tree_store.get_node_from_node_id(id);
-        if (iter) {
-            selection->select(tree_store.get_path(iter));
-        }
+        if (CtTreeIter iter = tree_store.get_node_from_node_id(id)) tree_store.update_nodes_icon(iter, true);
     }
 }
 
@@ -865,191 +848,59 @@ void CtActions::_node_date(const bool from_sel_not_root, const int days_offset)
     (void)node_child_exist_or_create(treeIterMonth, day, true/*focusIfExisting*/);
 }
 
-void CtActions::node_up()
+std::vector<gint64> CtActions::_selected_sibling_node_ids()
 {
-    if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
-    _in_action = true;
-    auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
-
-    if (not _is_there_selected_node_or_error()) return;
-
-    CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
-    auto selected = _pCtMainWin->selected_tree_root_iters();
-    if (selected.empty()) return;
-
-    CtTreeIter parent = selected.front().parent();
+    if (not _is_there_selected_node_or_error()) return {};
+    const auto selected = _pCtMainWin->selected_tree_root_iters();
+    if (selected.empty()) return {};
+    const CtTreeIter parent = selected.front().parent();
     const gint64 parent_id = parent ? parent.get_node_id() : -1;
-
-    std::vector<gint64> node_ids;
-
+    std::vector<gint64> ids;
     for (const CtTreeIter& iter : selected) {
-        CtTreeIter iter_parent = iter.parent();
-
-        if ((parent and
-             (not iter_parent or iter_parent.get_node_id() != parent_id))
-            or
-            (not parent and iter_parent))
-        {
-            CtDialogs::error_dialog(
-                _("Multiple selected nodes must have the same parent."),
-                *_pCtMainWin);
-            return;
+        const CtTreeIter iter_parent = iter.parent();
+        if ((iter_parent ? iter_parent.get_node_id() : -1) != parent_id) {
+            CtDialogs::error_dialog(_("Multiple selected nodes must have the same parent."), *_pCtMainWin);
+            return {};
         }
-
-        node_ids.push_back(iter.get_node_id());
+        ids.push_back(iter.get_node_id());
     }
-
-    // The whole selection cannot move if its first node is already first.
-    Gtk::TreeModel::iterator prev_tree_iter = selected.front();
-    --prev_tree_iter;
-    if (not prev_tree_iter) return;
-
-    gint64 cursor_id = node_ids.front();
-    CtTreeIter cursor_iter = _tree_cursor_iter();
-
-    if (cursor_iter) {
-        for (const gint64 id : node_ids) {
-            if (id == cursor_iter.get_node_id()) {
-                cursor_id = id;
-                break;
-            }
-        }
-    }
-
-    // Forward order moves the preceding sibling through the whole block.
-    for (const gint64 id : node_ids) {
-        CtTreeIter curr_iter = tree_store.get_node_from_node_id(id);
-        if (not curr_iter) continue;
-
-        Gtk::TreeModel::iterator prev_tree_iter = curr_iter;
-        CtTreeIter prev_iter =
-            tree_store.to_ct_tree_iter(--prev_tree_iter);
-
-        if (not prev_iter) continue;
-
-        tree_store.get_store()->iter_swap(curr_iter, prev_iter);
-
-        auto cur_seq_num = curr_iter.get_node_sequence();
-        auto prev_seq_num = prev_iter.get_node_sequence();
-
-        curr_iter.set_node_sequence(prev_seq_num);
-        prev_iter.set_node_sequence(cur_seq_num);
-
-        curr_iter.pending_edit_db_node_hier();
-        prev_iter.pending_edit_db_node_hier();
-    }
-
-    CtTreeView& tree_view = _pCtMainWin->get_tree_view();
-
-    CtTreeIter moved_cursor =
-        tree_store.get_node_from_node_id(cursor_id);
-
-    if (moved_cursor) {
-        tree_view.set_cursor(tree_store.get_path(moved_cursor));
-    }
-
-    auto selection = tree_view.get_selection();
-
-    for (const gint64 id : node_ids) {
-        CtTreeIter iter = tree_store.get_node_from_node_id(id);
-        if (iter) {
-            selection->select(tree_store.get_path(iter));
-        }
-    }
-
-    _pCtMainWin->update_window_save_needed();
+    return ids;
 }
 
-void CtActions::node_down()
+void CtActions::node_up() { _nodes_move_vertical(true); }
+void CtActions::node_down() { _nodes_move_vertical(false); }
+
+void CtActions::_nodes_move_vertical(bool up)
 {
     if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
+    auto ids = _selected_sibling_node_ids();
+    if (ids.empty()) return;
+    CtTreeStore& store = _pCtMainWin->get_tree_store();
+    Gtk::TreeModel::iterator neighbor = store.get_node_from_node_id(up ? ids.front() : ids.back());
+    if (up) --neighbor;
+    else ++neighbor;
+    if (not neighbor) return;
 
-    if (not _is_there_selected_node_or_error()) return;
-
-    CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
-    auto selected = _pCtMainWin->selected_tree_root_iters();
-    if (selected.empty()) return;
-
-    CtTreeIter parent = selected.front().parent();
-    const gint64 parent_id = parent ? parent.get_node_id() : -1;
-
-    std::vector<gint64> node_ids;
-
-    for (const CtTreeIter& iter : selected) {
-        CtTreeIter iter_parent = iter.parent();
-
-        if ((parent and
-             (not iter_parent or iter_parent.get_node_id() != parent_id))
-            or
-            (not parent and iter_parent))
-        {
-            CtDialogs::error_dialog(
-                _("Multiple selected nodes must have the same parent."),
-                *_pCtMainWin);
-            return;
-        }
-
-        node_ids.push_back(iter.get_node_id());
+    const auto selection_ids = _pCtMainWin->selected_tree_node_ids();
+    const CtTreeIter cursor = _tree_cursor_iter();
+    const gint64 cursor_id = cursor ? cursor.get_node_id() : ids.front();
+    if (not up) std::reverse(ids.begin(), ids.end());
+    for (const gint64 id : ids) {
+        CtTreeIter current = store.get_node_from_node_id(id);
+        neighbor = current;
+        if (up) --neighbor;
+        else ++neighbor;
+        CtTreeIter adjacent = store.to_ct_tree_iter(neighbor);
+        store.get_store()->iter_swap(current, adjacent);
+        const auto sequence = current.get_node_sequence();
+        current.set_node_sequence(adjacent.get_node_sequence());
+        adjacent.set_node_sequence(sequence);
+        current.pending_edit_db_node_hier();
+        adjacent.pending_edit_db_node_hier();
     }
-
-    Gtk::TreeModel::iterator next_tree_iter = selected.back();
-    ++next_tree_iter;
-    if (not next_tree_iter) return;
-
-    gint64 cursor_id = node_ids.front();
-    CtTreeIter cursor_iter = _tree_cursor_iter();
-
-    if (cursor_iter) {
-        for (const gint64 id : node_ids) {
-            if (id == cursor_iter.get_node_id()) {
-                cursor_id = id;
-                break;
-            }
-        }
-    }
-
-    for (auto id = node_ids.rbegin(); id != node_ids.rend(); ++id) {
-        CtTreeIter curr_iter = tree_store.get_node_from_node_id(*id);
-        if (not curr_iter) continue;
-
-        Gtk::TreeModel::iterator next_tree_iter = curr_iter;
-        CtTreeIter next_iter =
-            tree_store.to_ct_tree_iter(++next_tree_iter);
-
-        if (not next_iter) continue;
-
-        tree_store.get_store()->iter_swap(curr_iter, next_iter);
-
-        auto cur_seq_num = curr_iter.get_node_sequence();
-        auto next_seq_num = next_iter.get_node_sequence();
-
-        curr_iter.set_node_sequence(next_seq_num);
-        next_iter.set_node_sequence(cur_seq_num);
-
-        curr_iter.pending_edit_db_node_hier();
-        next_iter.pending_edit_db_node_hier();
-    }
-
-    CtTreeView& tree_view = _pCtMainWin->get_tree_view();
-
-    CtTreeIter moved_cursor =
-        tree_store.get_node_from_node_id(cursor_id);
-
-    if (moved_cursor) {
-        tree_view.set_cursor(tree_store.get_path(moved_cursor));
-    }
-
-    auto selection = tree_view.get_selection();
-
-    for (const gint64 id : node_ids) {
-        CtTreeIter iter = tree_store.get_node_from_node_id(id);
-        if (iter) {
-            selection->select(tree_store.get_path(iter));
-        }
-    }
-
+    _pCtMainWin->restore_tree_selection(selection_ids, cursor_id);
     _pCtMainWin->update_window_save_needed();
 }
 
@@ -1058,46 +909,10 @@ void CtActions::node_right()
     if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
-
-    if (not _is_there_selected_node_or_error()) return;
-
-    CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
-    auto selected = _pCtMainWin->selected_tree_root_iters();
-    if (selected.empty()) return;
-
-    CtTreeIter parent = selected.front().parent();
-    const gint64 parent_id = parent ? parent.get_node_id() : -1;
-
-    std::vector<gint64> node_ids;
-
-    for (const CtTreeIter& iter : selected) {
-        CtTreeIter iter_parent = iter.parent();
-
-        if ((parent and
-             (not iter_parent or iter_parent.get_node_id() != parent_id))
-            or
-            (not parent and iter_parent))
-        {
-            CtDialogs::error_dialog(
-                _("Multiple selected nodes must have the same parent."),
-                *_pCtMainWin);
-            return;
-        }
-
-        node_ids.push_back(iter.get_node_id());
-    }
-
-    Gtk::TreeModel::iterator prev_iter = selected.front();
-    --prev_iter;
-
-    if (not prev_iter) return;
-
-    nodes_move_after(node_ids, prev_iter);
-
-    for (const gint64 id : node_ids) {
-        CtTreeIter iter = tree_store.get_node_from_node_id(id);
-        if (iter) tree_store.update_nodes_icon(iter, true);
-    }
+    const auto ids = _selected_sibling_node_ids();
+    if (ids.empty()) return;
+    Gtk::TreeModel::iterator previous = _pCtMainWin->get_tree_store().get_node_from_node_id(ids.front());
+    if (--previous) nodes_move_after(ids, previous);
 }
 
 void CtActions::node_left()
@@ -1105,38 +920,10 @@ void CtActions::node_left()
     if (_in_action) { spdlog::debug("?? 2*{}", __FUNCTION__); return; }
     _in_action = true;
     auto on_scope_exit = scope_guard([this](void*) { _in_action = false; });
-
-    if (not _is_there_selected_node_or_error()) return;
-
-    CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
-    auto selected = _pCtMainWin->selected_tree_root_iters();
-    if (selected.empty()) return;
-
-    CtTreeIter parent = selected.front().parent();
-    if (not parent) return;
-
-    const gint64 parent_id = parent.get_node_id();
-    std::vector<gint64> node_ids;
-
-    for (const CtTreeIter& iter : selected) {
-        CtTreeIter iter_parent = iter.parent();
-
-        if (not iter_parent or iter_parent.get_node_id() != parent_id) {
-            CtDialogs::error_dialog(
-                _("Multiple selected nodes must have the same parent."),
-                *_pCtMainWin);
-            return;
-        }
-
-        node_ids.push_back(iter.get_node_id());
-    }
-
-    nodes_move_after(node_ids, parent.parent(), parent);
-
-    for (const gint64 id : node_ids) {
-        CtTreeIter iter = tree_store.get_node_from_node_id(id);
-        if (iter) tree_store.update_nodes_icon(iter, true);
-    }
+    const auto ids = _selected_sibling_node_ids();
+    if (ids.empty()) return;
+    CtTreeIter parent = _pCtMainWin->get_tree_store().get_node_from_node_id(ids.front()).parent();
+    if (parent) nodes_move_after(ids, parent.parent(), parent);
 }
 
 void CtActions::node_change_father()

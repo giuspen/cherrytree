@@ -148,6 +148,8 @@ public:
                         bool set_first = false);
 
 private:
+    std::vector<gint64> _selected_sibling_node_ids();
+    void _nodes_move_vertical(bool up);
     bool _need_node_swap(Gtk::TreeModel::iterator& leftIter,
                          Gtk::TreeModel::iterator& rightIter,
                          bool ascendings);
