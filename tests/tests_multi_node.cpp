@@ -12,6 +12,7 @@
  */
 #include "tests_multi_node.h"
 #include "ct_main_win.h"
+#include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "tests_common.h"
 namespace {
@@ -284,7 +285,142 @@ void assert_large_selection_is_paged(CtMainWin* pWin)
         pWin->get_tree_store().get_store()->erase(*iter);
     }
 }
+
+
+void assert_multi_node_movement(CtMainWin* pWin, Gtk::TreeModel::iterator original_cursor)
+{
+    auto& store = pWin->get_tree_store();
+    auto& view = pWin->get_tree_view();
+    auto& actions = *pWin->get_ct_actions();
+    std::vector<gint64> temporary_ids;
+    auto cleanup = scope_guard([&](void*) {
+        pWin->resetPrevTreeIter();
+        view.set_cursor_safe(original_cursor);
+        process_gtk_events();
+        for (auto id = temporary_ids.rbegin(); id != temporary_ids.rend(); ++id) {
+            if (auto iter = store.get_node_from_node_id(*id)) store.get_store()->erase(iter);
+        }
+        store.pending_rm_db_nodes(temporary_ids);
+        store.nodes_sequences_fix({}, true);
+    });
+    auto add_node = [&](gint64 parent_id = -1, gint64 master_id = 0) {
+        CtNodeData data{};
+        data.nodeId = store.node_id_get();
+        data.name = "movement-test-" + std::to_string(data.nodeId);
+        data.syntax = CtConst::PLAIN_TEXT_ID;
+        data.pTextBuffer = pWin->get_new_text_buffer("movement\n");
+        data.sharedNodesMasterId = master_id;
+        Gtk::TreeModel::iterator parent = store.get_node_from_node_id(parent_id);
+        data.sequence = (parent ? parent->children().size() : store.get_store()->children().size()) + 1;
+        store.append_node(&data, parent ? &parent : nullptr);
+        temporary_ids.push_back(data.nodeId);
+        return data.nodeId;
+    };
+    auto children = [&](gint64 parent_id) {
+        auto parent = store.get_node_from_node_id(parent_id);
+        std::vector<gint64> ids;
+        auto rows = parent ? parent->children() : store.get_store()->children();
+        for (auto iter = rows.begin(); iter != rows.end(); ++iter) {
+            ids.push_back(store.to_ct_tree_iter(iter).get_node_id());
+        }
+        return ids;
+    };
+    auto select_nodes = [&](const std::vector<gint64>& ids) {
+        pWin->restore_tree_selection(ids, ids.front());
+        process_gtk_events();
+    };
+    const gint64 root = add_node();
+    const gint64 a = add_node(root), b = add_node(root), c = add_node(root);
+    const gint64 d = add_node(root), e = add_node(root), child = add_node(b);
+    const gint64 existing_child = add_node(e);
+    const std::vector<gint64> initial{a, b, c, d, e};
+    const auto b_buffer = store.get_node_from_node_id(b).get_node_text_buffer();
+    store.nodes_sequences_fix({}, true);
+    pWin->show();
+    // Disjoint roots move one position without changing their relative order.
+    select_nodes({b, d});
+    const auto& pending = pWin->get_ct_storage()->get_storage_sync_pending()->nodes_to_write_dict;
+    for (const auto id : {b, d}) {
+        const auto entry = pending.find(id);
+        EXPECT_TRUE(entry == pending.end() or not entry->second.hier);
+    }
+    actions.node_up();
+    ASSERT_NE(pending.end(), pending.find(b));
+    ASSERT_NE(pending.end(), pending.find(d));
+    EXPECT_TRUE(pending.at(b).hier);
+    EXPECT_TRUE(pending.at(d).hier);
+    EXPECT_EQ((std::vector<gint64>{b, a, d, c, e}), children(root));
+    EXPECT_EQ((std::vector<gint64>{b, d}), pWin->selected_tree_node_ids());
+    actions.node_down();
+    EXPECT_EQ(initial, children(root));
+    select_nodes({b, child, c});
+    const auto roots = pWin->selected_tree_root_iters();
+    ASSERT_EQ(2u, roots.size());
+    EXPECT_EQ(b, roots[0].get_node_id());
+    EXPECT_EQ(c, roots[1].get_node_id());
+    actions.node_up();
+    EXPECT_EQ((std::vector<gint64>{b, c, a, d, e}), children(root));
+    actions.node_up(); // Already at the upper boundary: the group stays put.
+    EXPECT_EQ((std::vector<gint64>{b, c, a, d, e}), children(root));
+    actions.node_down();
+    EXPECT_EQ(initial, children(root));
+    EXPECT_EQ((std::vector<gint64>{b, child, c}), pWin->selected_tree_node_ids());
+    actions.node_right();
+    EXPECT_EQ((std::vector<gint64>{a, d, e}), children(root));
+    EXPECT_EQ((std::vector<gint64>{b, c}), children(a));
+    EXPECT_EQ((std::vector<gint64>{child}), children(b));
+    EXPECT_EQ(b_buffer, store.get_node_from_node_id(b).get_node_text_buffer());
+    EXPECT_EQ((std::vector<gint64>{b, child, c}), pWin->selected_tree_node_ids());
+    ASSERT_NE(pending.end(), pending.find(b));
+    ASSERT_NE(pending.end(), pending.find(c));
+    EXPECT_TRUE(pending.at(b).hier);
+    EXPECT_TRUE(pending.at(c).hier);
+    actions.node_left();
+    EXPECT_EQ(initial, children(root));
+    // The same batch operation is used by drag and drop.
+    actions.nodes_move_after({b, c}, store.get_node_from_node_id(e), {}, true);
+    EXPECT_EQ((std::vector<gint64>{b, c, existing_child}), children(e));
+    actions.nodes_move_after({b, c}, store.get_node_from_node_id(root), store.get_node_from_node_id(a));
+    EXPECT_EQ(initial, children(root));
+    EXPECT_EQ((std::vector<gint64>{existing_child}), children(e));
+    // Inserting at root level must not dereference a missing parent iterator.
+    actions.nodes_move_after({b, c}, {}, {}, true);
+    const auto top_level = children(-1);
+    ASSERT_GE(top_level.size(), 2u);
+    EXPECT_EQ(b, top_level[0]);
+    EXPECT_EQ(c, top_level[1]);
+    actions.nodes_move_after({b, c}, store.get_node_from_node_id(root), store.get_node_from_node_id(a));
+    EXPECT_EQ(initial, children(root));
+    // Shift leaves a collapsed destination closed and does not relocate the cursor.
+    view.set_cursor_safe(store.get_node_from_node_id(d));
+    auto selection = view.get_selection();
+    selection->select(store.get_path(store.get_node_from_node_id(b)));
+    selection->select(store.get_path(store.get_node_from_node_id(c)));
+    selection->unselect(store.get_path(store.get_node_from_node_id(d)));
+    view.collapse_row(store.get_path(store.get_node_from_node_id(e)));
+    ASSERT_EQ(d, pWin->tree_cursor_iter().get_node_id());
+    actions.nodes_move_after({b, c}, store.get_node_from_node_id(e), {}, false, true);
+    process_gtk_events();
+    EXPECT_FALSE(view.row_expanded(store.get_path(store.get_node_from_node_id(e))));
+    EXPECT_EQ(d, pWin->tree_cursor_iter().get_node_id());
+    EXPECT_EQ((std::vector<gint64>{existing_child, b, c}), children(e));
+    select_nodes({b, c});
+    actions.nodes_move_after({b, c}, store.get_node_from_node_id(root), store.get_node_from_node_id(a));
+    EXPECT_EQ(initial, children(root));
+    select_nodes({d, e});
+    actions.node_down(); // Lower boundary.
+    EXPECT_EQ(initial, children(root));
+    const gint64 alias = add_node(root, b);
+    select_nodes({b, alias});
+    EXPECT_EQ(1u, pWin->selected_tree_iters().size());
+    EXPECT_EQ(2u, pWin->selected_tree_root_iters().size());
+    actions.node_right();
+    EXPECT_EQ((std::vector<gint64>{b, alias}), children(a));
+    EXPECT_EQ((std::vector<gint64>{child}), children(b));
 }
+
+} // namespace
+
 void assert_multi_node_selection(CtMainWin* pWin)
 {
     auto first = pWin->get_tree_store().get_iter_first();
@@ -299,6 +435,11 @@ void assert_multi_node_selection(CtMainWin* pWin)
     pWin->get_ct_config()->scrollBeyondLastLine = true;
     pWin->update_theme();
     pWin->set_scroll_beyond_last_line(true);
+    static bool movement_scenarios_done{false};
+    if (not movement_scenarios_done) {
+        movement_scenarios_done = true;
+        assert_multi_node_movement(pWin, first);
+    }
     assert_single_editor_transition(pWin, first, second);
     select_primary_nodes(pWin, first, second);
     assert_selection_order_and_shared_deduplication(pWin, first, second);

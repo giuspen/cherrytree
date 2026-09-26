@@ -25,6 +25,7 @@ set(CT_SHARED_FILES
   ct_actions_others.cc
   ct_actions_import.cc
   ct_actions_tree.cc
+  ct_actions_tree_multi_node.cc
   ct_actions_view.cc
   ct_actions_help.cc
   ct_app.cc

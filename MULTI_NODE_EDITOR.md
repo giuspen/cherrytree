@@ -18,7 +18,8 @@ The implementation preserves the existing single-node editor and reuses its
 
 - `src/ct/ct_main_win_events.cc` handles tree-selection changes.
 - `src/ct/ct_main_win_multi_node_events.cc` resolves selected nodes and tracks
-  the editor section that currently has focus.
+  the editor section that currently has focus. It also preserves tree selection
+  during GTK3 drags and validates group drop destinations.
 - `src/ct/ct_main_win_multi_node.cc` builds and tears down the multi-node UI,
   manages section signals, applies presentation preferences, and implements
   paging and bounded layouts.
@@ -30,6 +31,8 @@ The implementation preserves the existing single-node editor and reuses its
   permanent editor and temporary section editors.
 - `src/ct/ct_actions_tree.cc` distinguishes structural tree operations from
   operations that act on the focused editor.
+- `src/ct/ct_actions_tree_multi_node.cc` implements group movement using the
+  existing single-node move and hierarchy persistence APIs.
 - `tests/tests_multi_node.cpp` contains the integration and stress scenarios.
 
 ## Implementation Changes
@@ -55,10 +58,24 @@ code:
 
 ## Scope
 
-Multiple selection controls the displayed editor sections. Structural commands,
-including moving up/down, changing indentation, drag and drop, deleting,
-duplicating, and changing properties, still act on the tree cursor node only.
-Moving the selected group is a separate follow-up change.
+Moving up/down, indenting/outdenting, and GTK3 drag and drop act on the selected
+group. Selected descendants move with their selected ancestor, once. The
+remaining selected roots must have the same parent; otherwise the action is
+rejected before changing the tree. Shared aliases remain distinct tree nodes.
+
+Up/down move each selected root by one sibling position and preserve order,
+including noncontiguous selections. Reaching the first/last sibling stops the
+whole group. Indenting uses the sibling preceding the first selected root;
+outdenting inserts the group after its current parent. Drops on a moving root
+or inside its descendants are rejected.
+
+Ordinary moves restore the selection and cursor by node ID. Holding Shift
+during a drop retains the existing single-node behavior: the destination is
+not expanded and the cursor is not explicitly moved to the relocated nodes.
+Both immediate and deferred selection restoration respect this modifier.
+
+Deleting, duplicating, changing properties, and the "Change Parent" dialog
+continue to act on the tree cursor node only.
 
 ## Targeting Model
 
@@ -67,14 +84,17 @@ Multi-selection introduces three related but different concepts:
 - `curr_tree_iter()` is the node represented by the focused editor section.
 - `get_text_view()` is the focused section's `CtTextView`.
 - `tree_cursor_iter()` is the row carrying the GTK tree cursor and is the target
-  for structural operations such as adding, moving, duplicating, or deleting a
-  node.
+  for individual structural operations such as adding, duplicating, deleting,
+  or changing properties.
 - `selected_tree_iters()` is the complete logical selection, returned in tree
   order and deduplicated by data-holder ID.
+- `selected_tree_root_iters()` identifies movement targets without collapsing
+  shared aliases and omits descendants of another selected node.
 
 Text editing, formatting, clipboard operations, status information, and
 embedded-widget actions use the focused editor pair. Structural tree actions
-use the tree cursor even when focus is inside a different selected section.
+use the tree cursor for individual commands and selected roots for group
+movement, even when focus is inside a different selected section.
 
 `CtMainWin::_set_active_editor()` updates `_activeTreeIter` and
 `_pActiveTextview` together. It also stores the previous editor's modified and
@@ -236,6 +256,8 @@ from the existing read/write application lifecycle. It covers:
 - tree-order selection and shared-data-holder deduplication;
 - focused editor buffer routing versus structural tree cursor targeting;
 - line-number and Scroll Beyond Last Line propagation;
+- group movement order, boundaries, selected ancestors, shared aliases,
+  hierarchy notifications, and Shift destination/cursor behavior;
 - repeated focus changes, rebuilds, and single-selection teardown;
 - restoring the correct permanent editor buffer and persistence notifications
   when leaving a temporary section or reusing the permanent view;

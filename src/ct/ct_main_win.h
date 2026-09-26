@@ -146,6 +146,9 @@ public:
     CtTreeIter                        tree_cursor_iter(); /*The tree cursor is the target of structural node actions.*/
     // Selected data holders in tree order, with shared nodes returned once.
     std::vector<CtTreeIter>           selected_tree_iters(bool unique_data_holders = true);
+    std::vector<CtTreeIter>           selected_tree_root_iters();
+    std::vector<gint64>               selected_tree_node_ids();
+    void restore_tree_selection(const std::vector<gint64>& node_ids, gint64 cursor_id);
     CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
     CtTextView&                       get_text_view()   { return *_pActiveTextview; }
@@ -291,6 +294,10 @@ private:
 
 
 #if GTKMM_MAJOR_VERSION < 4
+    void _reselect_tree_nodes(const std::vector<gint64>& node_ids);
+    bool _multi_node_tree_button_press(GdkEventButton* event);
+    void _multi_node_tree_button_release(GdkEventButton* event);
+    void _multi_node_tree_event_after(GdkEvent* event);
     bool _on_treeview_button_press_event(GdkEventButton* event);
     bool _on_treeview_button_release_event(GdkEventButton* event);
     void _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
@@ -306,6 +313,10 @@ private:
     bool _on_treeview_scroll_event(GdkEventScroll* event);
 #endif
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+    void _multi_node_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                       int x, int y,
+                                       const Gtk::SelectionData& selection_data, guint time);
+    void _multi_node_drag_data_get(Gtk::SelectionData& selection_data);
     bool _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
                                   int x,
                                   int y,
@@ -450,6 +461,9 @@ private:
     bool                _tree_just_auto_expanded{false};
     bool                _treeRestoreInProgress{false};
     std::vector<gint64> _treeRightClickSelectionIds;
+    std::vector<gint64> _treeDragSelectionIds;
+    gint64 _treeDragSourceNodeId{-1};
+    bool _treeDragStarted{false};
     bool                _drag_shift_held{false};
     std::unordered_set<gint64> _treeExpandedNodeIds;
     std::unordered_map<gint64, int> _nodesCursorPos;

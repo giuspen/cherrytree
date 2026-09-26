@@ -87,16 +87,7 @@ void CtMainWin::_on_treeview_selection_changed()
 #if GTKMM_MAJOR_VERSION < 4
 bool CtMainWin::_on_treeview_button_press_event(GdkEventButton* event)
 {
-    _treeRightClickSelectionIds.clear();
-    if (event->button != 3) return false;
-    Gtk::TreeModel::Path path;
-    if (not _uCtTreeview->get_path_at_pos(static_cast<int>(event->x), static_cast<int>(event->y), path)) return false;
-    if (_uCtTreeview->get_selection()->is_selected(path)) {
-        for (const CtTreeIter& iter : selected_tree_iters(false)) {
-            _treeRightClickSelectionIds.push_back(iter.get_node_id());
-        }
-    }
-    return false;
+    return _multi_node_tree_button_press(event);
 }
 
 bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
@@ -105,6 +96,7 @@ bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
         _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup_at_pointer((GdkEvent*)event);
         return true;
     }
+    _multi_node_tree_button_release(event);
     return false;
 }
 
@@ -125,15 +117,7 @@ bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 
 void CtMainWin::_on_treeview_event_after(GdkEvent* event)
 {
-    if (event->type == GDK_BUTTON_PRESS and event->button.button == 3) {
-        auto selection = _uCtTreeview->get_selection();
-        for (const gint64 node_id : _treeRightClickSelectionIds) {
-            if (CtTreeIter iter = _uCtTreestore->get_node_from_node_id(node_id)) {
-                selection->select(_uCtTreestore->get_path(iter));
-            }
-        }
-        _treeRightClickSelectionIds.clear();
-    }
+    _multi_node_tree_event_after(event);
     if (event->type == GDK_BUTTON_PRESS and event->button.button == 1) {
         if (_pCtConfig->treeClickFocusText) {
             get_text_view().mm().grab_focus();
@@ -725,71 +709,25 @@ bool CtMainWin::_on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& /
     return true;
 }
 
-void CtMainWin::_on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
-                                                int x,
-                                                int y,
-                                                const Gtk::SelectionData& selection_data,
-                                                guint /*info*/,
-                                                guint time)
+void CtMainWin::_on_treeview_drag_data_received(
+    const Glib::RefPtr<Gdk::DragContext>& context,
+    int x,
+    int y,
+    const Gtk::SelectionData& selection_data,
+    guint /*info*/,
+    guint time)
 {
-    auto on_scope_exit = scope_guard([&](void*) { context->drag_finish(false, false, time); });
-    Gtk::TreePath treePathDest;
-    Gtk::TreeViewDropPosition treeDropPos{Gtk::TREE_VIEW_DROP_BEFORE};
-    if (not _uCtTreeview->get_dest_row_at_pos(x, y, treePathDest, treeDropPos)) {
-        return;
-    }
-    const std::string treePathSrcStr = selection_data.get_data_as_string();
-    if (treePathSrcStr.empty()) {
-        return;
-    }
-    Gtk::TreePath treePathSrc{treePathSrcStr};
-    if (treePathDest == treePathSrc) {
-        return;
-    }
-    CtTreeIter drag_iter = _uCtTreestore->get_iter(treePathSrc);
-    if (not drag_iter) {
-        return;
-    }
-    CtTreeIter drop_iter = _uCtTreestore->get_iter(treePathDest);
-    if (not drop_iter) {
-        return;
-    }
-    CtTreeIter move_towards_top_iter = drop_iter.parent();
-    while (move_towards_top_iter) {
-        if (move_towards_top_iter == drag_iter) {
-            CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *this);
-            return;
-        }
-        move_towards_top_iter = move_towards_top_iter.parent();
-    }
-    // Use the Shift state captured during the last drag_motion event
-    const bool keep_focus = _drag_shift_held;
-    spdlog::debug("drag_data_received: keep_focus={} _drag_shift_held={}", keep_focus, _drag_shift_held);
-    if (treeDropPos == Gtk::TREE_VIEW_DROP_BEFORE) {
-        auto prev_iter = drop_iter;
-        --prev_iter;
-        // note: prev_iter could be None, use drop_iter to retrieve the parent
-        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), prev_iter, true/*set_first*/, keep_focus);
-    }
-    else if (treeDropPos == Gtk::TREE_VIEW_DROP_AFTER) {
-        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), drop_iter, false/*set_first*/, keep_focus);
-    }
-    else {
-        _uCtActions->node_move_after(drag_iter, drop_iter, Gtk::TreeModel::iterator{}, false/*set_first*/, keep_focus);
-    }
+    _multi_node_drag_data_received(context, x, y, selection_data, time);
+}
+void CtMainWin::_on_treeview_drag_data_get(
+    const Glib::RefPtr<Gdk::DragContext>& /*context*/,
+    Gtk::SelectionData& selection_data,
+    guint /*info*/,
+    guint /*time*/)
+{
+    _multi_node_drag_data_get(selection_data);
 }
 
-void CtMainWin::_on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>& /*context*/,
-                                           Gtk::SelectionData& selection_data,
-                                           guint /*info*/,
-                                           guint /*time*/)
-{
-    Gtk::TreeModel::iterator sel_iter = tree_cursor_iter();
-    if (sel_iter) {
-        const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(sel_iter).to_string();
-        selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());
-    }
-}
 #else
 // GTK4 stubs for future TreeView Drag & Drop migration
 void CtMainWin::_setup_treeview_drag_and_drop_gtk4()
