@@ -272,7 +272,7 @@ const inline static gchar* LANG_DEFAULT{"default"};
 
 const inline static std::vector<const gchar*> AVAILABLE_LANGS {
     LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fa", "fi", "fr", "hi_IN", "hr", "hu", "hy", "it",
-    "ja", "kk_KZ", "kk_LA", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sk", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
+    "ja", "kk_KZ", "kk_LA", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sk", "sl", "sv", "ta", "tr", "uk", "zh_CN", "zh_TW"
 };
 
 const inline static int NODE_ICON_CODE_ID          {38};
@@ -547,6 +547,7 @@ const inline static std::vector<const gchar*> _NODE_CUSTOM_ICONS {
     "ct_chatgpt",           // 260
     "ct_copilot",           // 261
     "ct_claude",            // 262
+    "ct_ta",                // 263
 };
 
 const inline static std::vector<int> NODE_CUSTOM_ICONS_ORDERED {

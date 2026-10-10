@@ -558,6 +558,9 @@ msgstr ""
 msgid "Swedish"
 msgstr ""
 
+msgid "Tamil"
+msgstr ""
+
 msgid "Turkish"
 msgstr ""
 

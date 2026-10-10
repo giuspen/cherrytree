@@ -26,6 +26,44 @@
 #include "ct_main_win.h"
 
 namespace {
+Glib::ustring _get_translator_credits()
+{
+    return Glib::ustring{} +
+ _("Arabic")+" (ar) Abdulrahman Karajeh <abdulrahmankarajeh08@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
+ _("Bulgarian")+" (bg) Iliya Nikolaev <iliya.nikolaev@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Chinese Simplified")+" (zh_CN) Wang Yu <krwy0330@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Chinese Traditional")+" (zh_TW) Emer Chen <ldsemerchen@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Croatian")+" (hr) Filip Bakula <filip.test46@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
+ _("Dutch")+" (nl) "+CtConst::CHAR_NEWLINE+
+ _("Finnish")+" (fi) "+CtConst::CHAR_NEWLINE+
+ _("French")+" (fr) Francis Gernet <fgernet@concretx.com>"+CtConst::CHAR_NEWLINE+
+ _("German")+" (de) Mr.Update"+CtConst::CHAR_NEWLINE+
+ _("Greek")+" (el) Asterios Siomos <terry.sio@hotmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Hindi India")+" (hi_IN) "+CtConst::CHAR_NEWLINE+
+ _("Hungarian")+" (hu) Stiener Norbert <stienernorbert@protonmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
+ _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
+ _("Kazakh (Latin)")+" (kk_LA) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
+ _("Korean")+" (ko) Sean Lee <icarusean@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Persian")+" (fa) Majid Abri <majid.brisk@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Polish")+" (pl) Mariusz Gasperaniec <margsp@vivaldi.net>"+CtConst::CHAR_NEWLINE+
+ _("Portuguese")+" (pt) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
+ _("Portuguese Brazil")+" (pt_BR) Raysa Dutra <raysadutra.dev@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
+ _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
+ _("Slovak")+" (sk) Michal Fusatý <fusaty@proton.me>"+CtConst::CHAR_NEWLINE+
+ _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Spanish")+" (es) MP"+CtConst::CHAR_NEWLINE+
+ _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
+ _("Tamil")+" (ta) TamilNeram <TamilNeram247@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Ukrainian")+" (uk) Giuseppe Penone <giuspen@gmail.com>";
+}
+
 #if GTKMM_MAJOR_VERSION >= 4
 int _run_dialog_blocking(Gtk::Dialog& dialog)
 {
@@ -929,39 +967,7 @@ MA 02110-1301, USA.
         dialog->set_logo(icon);
 #endif
     dialog->set_artists({"Ugo Yak <https://www.instagram.com/ugoyak.art/>", "SVG Repo <https://www.svgrepo.com/>", "OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
-    dialog->set_translator_credits(Glib::ustring{} +
- _("Arabic")+" (ar) Abdulrahman Karajeh <abdulrahmankarajeh08@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
- _("Bulgarian")+" (bg) Iliya Nikolaev <iliya.nikolaev@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Chinese Simplified")+" (zh_CN) Wang Yu <krwy0330@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Chinese Traditional")+" (zh_TW) Emer Chen <ldsemerchen@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Croatian")+" (hr) Filip Bakula <filip.test46@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
- _("Dutch")+" (nl) "+CtConst::CHAR_NEWLINE+
- _("Finnish")+" (fi) "+CtConst::CHAR_NEWLINE+
- _("French")+" (fr) Francis Gernet <fgernet@concretx.com>"+CtConst::CHAR_NEWLINE+
- _("German")+" (de) Mr.Update"+CtConst::CHAR_NEWLINE+
- _("Greek")+" (el) Asterios Siomos <terry.sio@hotmail.com>"+CtConst::CHAR_NEWLINE+
- _("Hindi India")+" (hi_IN) "+CtConst::CHAR_NEWLINE+
- _("Hungarian")+" (hu) Stiener Norbert <stienernorbert@protonmail.com>"+CtConst::CHAR_NEWLINE+
- _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
- _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
- _("Kazakh (Latin)")+" (kk_LA) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
- _("Korean")+" (ko) Sean Lee <icarusean@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Persian")+" (fa) Majid Abri <majid.brisk@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Polish")+" (pl) Mariusz Gasperaniec <margsp@vivaldi.net>"+CtConst::CHAR_NEWLINE+
- _("Portuguese")+" (pt) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
- _("Portuguese Brazil")+" (pt_BR) Raysa Dutra <raysadutra.dev@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
- _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
- _("Slovak")+" (sk) Michal Fusatý <fusaty@proton.me>"+CtConst::CHAR_NEWLINE+
- _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Spanish")+" (es) MP"+CtConst::CHAR_NEWLINE+
- _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
- _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Ukrainian")+" (uk) Giuseppe Penone <giuspen@gmail.com>");
+    dialog->set_translator_credits(_get_translator_credits());
     dialog->set_logo(icon);
     dialog->set_title(_("About CherryTree"));
 
@@ -1014,39 +1020,7 @@ MA 02110-1301, USA.
     if (icon)
         dialog.set_logo(icon);
     dialog.set_artists({"Ugo Yak <https://www.instagram.com/ugoyak.art/>", "SVG Repo <https://www.svgrepo.com/>", "OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
-    dialog.set_translator_credits(Glib::ustring{} +
- _("Arabic")+" (ar) Abdulrahman Karajeh <abdulrahmankarajeh08@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
- _("Bulgarian")+" (bg) Iliya Nikolaev <iliya.nikolaev@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Chinese Simplified")+" (zh_CN) Wang Yu <krwy0330@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Chinese Traditional")+" (zh_TW) Emer Chen <ldsemerchen@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Croatian")+" (hr) Filip Bakula <filip.test46@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
- _("Dutch")+" (nl) "+CtConst::CHAR_NEWLINE+
- _("Finnish")+" (fi) "+CtConst::CHAR_NEWLINE+
- _("French")+" (fr) Francis Gernet <fgernet@concretx.com>"+CtConst::CHAR_NEWLINE+
- _("German")+" (de) Mr.Update"+CtConst::CHAR_NEWLINE+
- _("Greek")+" (el) Asterios Siomos <terry.sio@hotmail.com>"+CtConst::CHAR_NEWLINE+
- _("Hindi India")+" (hi_IN) "+CtConst::CHAR_NEWLINE+
- _("Hungarian")+" (hu) Stiener Norbert <stienernorbert@protonmail.com>"+CtConst::CHAR_NEWLINE+
- _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
- _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
- _("Kazakh (Latin)")+" (kk_LA) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
- _("Korean")+" (ko) Sean Lee <icarusean@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Persian")+" (fa) Majid Abri <majid.brisk@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Polish")+" (pl) Mariusz Gasperaniec <margsp@vivaldi.net>"+CtConst::CHAR_NEWLINE+
- _("Portuguese")+" (pt) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
- _("Portuguese Brazil")+" (pt_BR) Raysa Dutra <raysadutra.dev@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
- _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
- _("Slovak")+" (sk) Michal Fusatý <fusaty@proton.me>"+CtConst::CHAR_NEWLINE+
- _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Spanish")+" (es) MP"+CtConst::CHAR_NEWLINE+
- _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
- _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Ukrainian")+" (uk) Giuseppe Penone <giuspen@gmail.com>");
+    dialog.set_translator_credits(_get_translator_credits());
     dialog.set_logo(icon);
     dialog.set_title(_("About CherryTree"));
 

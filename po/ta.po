@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: தமிழ்நேரம் <TamilNeram247@gmail.com>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Image Format Not Recognized"
@@ -23,21 +23,21 @@ msgid "Insert Table"
 msgstr "அட்டவணையைச் செருகவும்"
 
 msgid "CSV File"
-msgstr "காபிம கோப்பு"
+msgstr "CSV கோப்பு"
 
 msgid "Insert a CodeBox"
-msgstr "ஒரு குறியீட்டுபெட்டியைச் செருகவும்"
+msgstr "ஒரு குறியீட்டுப்பெட்டியைச் செருகவும்"
 
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB."
 msgstr "உட்பொதிக்கப்பட்ட கோப்புகளுக்கான அதிக அளவு %s MB."
 
 msgid "Do you want to Continue?"
-msgstr "நீங்கள் தொடர விரும்புகிறீர்களா?"
+msgstr "தொடர விரும்புகிறீர்களா?"
 
 #, c-format
 msgid "Failed to retrieve the content of the node '%s'"
-msgstr "'%s' முனையின் உள்ளடக்கத்தை மீட்டெடுப்பதில் தோல்வி"
+msgstr "'%s' முனையின் உள்ளடக்கத்தைப் பெறுவதில் தோல்வி"
 
 msgid "Special Characters"
 msgstr "சிறப்பு எழுத்துக்கள்"
@@ -52,13 +52,13 @@ msgid "No Text is Selected."
 msgstr "எந்த உரையும் தேர்ந்தெடுக்கப்படவில்லை."
 
 msgid "CherryTree File"
-msgstr "செர்ரிமர கோப்பு"
+msgstr "செர்ரிமர கோப்பு"
 
 msgid ""
 "The file/folder in use cannot be overwritten!\n"
 "Please use a different name or location."
 msgstr ""
-"பயன்பாட்டில் உள்ள கோப்பு/கோப்புறையை மேலெழுத முடியாது! \n"
+"பயன்பாட்டில் உள்ள கோப்பு/கோப்புறை மேலெழுதப்பட முடியாது!\n"
 "வேறு பெயர் அல்லது இருப்பிடத்தைப் பயன்படுத்தவும்."
 
 #, c-format
@@ -78,13 +78,13 @@ msgstr ""
 "<b>அதை மாற்ற விரும்புகிறீர்களா?</b>"
 
 msgid "PDF File"
-msgstr "PDF கோப்பு"
+msgstr "PDF கோப்பு"
 
 msgid "Plain Text Document"
 msgstr "எளிய உரை ஆவணம்"
 
 msgid "Preferences File"
-msgstr "விருப்பத்தேர்வுகள் கோப்பு"
+msgstr "விருப்பத்தேர்வுகள் கோப்பு"
 
 msgid "Has the System Tray appeared on the panel?"
 msgstr "பேனலில் கணினி தட்டு தோன்றியதா?"
@@ -94,7 +94,7 @@ msgstr "உங்கள் கணினி அமைப்பு தட்டை
 
 msgid "This Change will have Effect Only After Restarting CherryTree."
 msgstr ""
-"செர்ரிமரத்தை மறுதொடக்கம் செய்த பின்னரே இந்த மாற்றம் விளைவை ஏற்படுத்தும்."
+"இந்த மாற்றம் செர்ரிமரை மீண்டும் தொடங்கிய பின்னரே செயல்படும்."
 
 msgid "Replace in Current Node"
 msgstr "தற்போதைய முனையில் மாற்றவும்"
@@ -116,22 +116,22 @@ msgid "Search in Multiple Nodes"
 msgstr "பல முனைகளில் தேடவும்"
 
 msgid "No Previous Search Was Performed During This Session."
-msgstr "இந்த அமர்வின் போது முந்தைய தேடல் எதுவும் செய்யப்படவில்லை."
+msgstr "இந்த அமர்வில் இதற்கு முன் எந்தத் தேடும் செய்யப்படவில்லை."
 
 msgid "Tags"
-msgstr "குறிச்சொற்கள்"
+msgstr "குறிச்சொற்கள்"
 
 msgid ": "
 msgstr ": "
 
 msgid "No Previous Text Format Was Performed During This Session."
-msgstr "இந்த அமர்வின் போது முந்தைய உரை வடிவம் எதுவும் செய்யப்படவில்லை."
+msgstr "இந்த அமர்வில் இதற்கு முன் எந்த உரை வடிவமைப்பும் செய்யப்படவில்லை."
 
 msgid "Link Name"
 msgstr "இணைப்பு பெயர்"
 
 msgid "The Cursor is Not into a Paragraph."
-msgstr "கர்சர் ஒரு பத்தியில் இல்லை."
+msgstr "குறியீடு ஒரு பத்திக்குள் இல்லை."
 
 msgid "Insert/Edit Link"
 msgstr "இணைப்பைச் செருகு/திருத்து"
@@ -199,7 +199,7 @@ msgid "No anchor named '%s' found"
 msgstr "'%s' என்ற பெயரில் எந்த அறிவிப்பையும் காணவில்லை"
 
 msgid "Edit CodeBox"
-msgstr "குறியீட்டுபெட்டியை திருத்து"
+msgstr "குறியீட்டுப்பெட்டியை திருத்து"
 
 #, c-format
 msgid ""
@@ -235,22 +235,22 @@ msgid "No Node is Selected"
 msgstr "எந்த முனையும் தேர்ந்தெடுக்கப்படவில்லை"
 
 msgid "The Tree is Empty!"
-msgstr "மரம் காலி!"
+msgstr "மரம் காலியாக உள்ளது!"
 
 msgid "The Selected Node is Read Only."
-msgstr "தேர்ந்தெடுக்கப்பட்ட முனை படிக்க மட்டுமே."
+msgstr "தேர்ந்தெடுக்கப்பட்ட முனை மட்டும் படிக்கக்கூடியது."
 
 msgid "This Feature is Available Only in Rich Text Nodes."
-msgstr "இந்த நற்பொருத்தம் மிகை உரை முனைகளில் மட்டுமே கிடைக்கும்."
+msgstr "இந்த அம்சம் செழுமையான உரை முனைகளில் மட்டுமே கிடைக்கும்."
 
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes."
-msgstr "இந்த நற்பொருத்தம் தானியங்கி தொடரியல் தனிப்படுத்தல் முனைகளில் இல்லை."
+msgstr "இந்த அம்சம் தானியங்கி தொடரியல் சிறப்பம்ச முனைகளில் கிடைக்காது."
 
 msgid "No Table is Selected."
 msgstr "எந்த அட்டவணையும் தேர்ந்தெடுக்கப்படவில்லை."
 
 msgid "No CodeBox is Selected."
-msgstr "குறியீட்டுபெட்டி எதுவும் தேர்ந்தெடுக்கப்படவில்லை."
+msgstr "குறியீட்டுப்பெட்டி எதுவும் தேர்ந்தெடுக்கப்படவில்லை."
 
 msgid "New Child Node Properties"
 msgstr "புதிய குழந்தை முனை பண்புகள்"
@@ -349,13 +349,13 @@ msgid "Execute Code"
 msgstr "குறியீட்டை இயக்கவும்"
 
 msgid "Copy Code"
-msgstr "நகல் குறியீடு"
+msgstr "குறியீட்டை நகலெடு"
 
 msgid "Change CodeBox Properties"
-msgstr "CodeBox பண்புகளை மாற்றவும்"
+msgstr "குறியீட்டுப்பெட்டி பண்புகளை மாற்று"
 
 msgid "Start in CherryTree"
-msgstr "செர்ரி மரத்தில் தொடங்குங்கள்"
+msgstr "செர்ரிமரத்தில் தொடங்கவும்"
 
 msgid "New Document"
 msgstr "புதிய ஆவணம்"
@@ -364,7 +364,7 @@ msgid "Open File"
 msgstr "கோப்பை திற"
 
 msgid "Open Folder"
-msgstr "கோப்புறையைத் திறக்கவும்"
+msgstr "கோப்புறையைத் திற"
 
 msgid "Create a new document or open an existing one."
 msgstr "புதிய ஆவணத்தை உருவாக்கவும் அல்லது ஏற்கனவே உள்ள ஒன்றைத் திறக்கவும்."
@@ -406,18 +406,18 @@ msgid "Choose Storage Type"
 msgstr "சேமிப்பக வகையைத் தேர்ந்தெடுக்கவும்"
 
 msgid "Single SQLite File"
-msgstr "ஒற்றை கவிமென் கோப்பு"
+msgstr "ஒற்றை SQLite கோப்பு"
 
 msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
 msgstr ""
-"ஒற்றை கவிமென் கோப்பு, 7-சிப் குறியாக்கம் மற்றும் கடவுச்சொல் பாதுகாக்கப்பட்டது"
+"7-zip குறியாக்கம் செய்யப்பட்டு, கடவுச்சொல் பாதுகாக்கப்பட்ட ஒற்றை SQLite கோப்பு"
 
 msgid "Single XML File"
-msgstr "ஒற்றை நிகுமொ கோப்பு"
+msgstr "ஒற்றை XML கோப்பு"
 
 msgid "Single XML File, 7-zip Encrypted and Password Protected"
 msgstr ""
-"ஒற்றை நிகுமொ கோப்பு, 7-சிப் குறியாக்கம் மற்றும் கடவுச்சொல் பாதுகாக்கப்பட்டது"
+"7-zip குறியாக்கம் செய்யப்பட்டு, கடவுச்சொல் பாதுகாக்கப்பட்ட ஒற்றை XML கோப்பு"
 
 msgid "Multiple Files in Hierarchical Folder Structure"
 msgstr "படிநிலை கோப்புறை அமைப்பில் பல கோப்புகள்"
@@ -602,6 +602,9 @@ msgstr "ச்பானிச்"
 msgid "Swedish"
 msgstr "ச்வீடிச்"
 
+msgid "Tamil"
+msgstr "தமிழ்"
+
 msgid "Turkish"
 msgstr "துருக்கிய"
 
@@ -636,7 +639,7 @@ msgid "Number of Tables"
 msgstr "அட்டவணைகளின் எண்ணிக்கை"
 
 msgid "Number of CodeBoxes"
-msgstr "குறியீட்டு பெட்டிகளின் எண்ணிக்கை"
+msgstr "குறியீடு பெட்டிகளின் எண்ணிக்கை"
 
 msgid "Number of Anchors"
 msgstr "அறிவிப்பாளர்களின் எண்ணிக்கை"
@@ -736,79 +739,79 @@ msgid "Import from CSV File"
 msgstr "CSV கோப்பிலிருந்து இறக்குமதி செய்"
 
 msgid "Clear"
-msgstr "தெளிவு"
+msgstr "அழி"
 
 msgid "Reset"
 msgstr "மீட்டமை"
 
 msgid "Search for"
-msgstr "தேடுங்கள்"
+msgstr "தேட வேண்டிய சொல்"
 
 msgid "Replace with"
-msgstr "உடன் மாற்றவும்"
+msgstr "இதனுடன் மாற்று"
 
 msgid "Replace in Link Targets"
-msgstr "இணைப்பு இலக்குகளில் மாற்றவும்"
+msgstr "இணைப்பு இலக்குகளில் மாற்று"
 
 msgid "Replace options"
-msgstr "விருப்பங்களை மாற்றவும்"
+msgstr "மாற்று விருப்பங்கள்"
 
 msgid "Match Case"
-msgstr "போட்டி வழக்கு"
+msgstr "எழுத்து வகையைப் பொருத்து"
 
 msgid "Regular Expression"
 msgstr "வழக்கமான வெளிப்பாடு"
 
 msgid "Online Manual"
-msgstr "நிகழ்நிலை கையேடு"
+msgstr "ஆன்லைன் கையேடு"
 
 msgid "Accent Insensitive"
-msgstr "உச்சரிப்பு உணர்வற்றது"
+msgstr "உச்சரிப்பு புறக்கணிப்பு"
 
 msgid "Override Exclusions"
-msgstr "விதிவிலக்குகளை மேலெழுதவும்"
+msgstr "விலக்குகளை மீறுக"
 
 msgid "Whole Word"
 msgstr "முழு சொல்"
 
 msgid "Start Word"
-msgstr "வார்த்தையைத் தொடங்கவும்"
+msgstr "சொல்லைத் தொடங்கு"
 
 msgid "More Words, Exact Match"
-msgstr "மேலும் வார்த்தைகள், சரியான பொருத்தம்"
+msgstr "பல சொற்கள், முழு பொருத்தம்"
 
 msgid "More Words, Disregard Order"
-msgstr "மேலும் வார்த்தைகள், உத்தரவை புறக்கணிக்கவும்"
+msgstr "பல சொற்கள், வரிசையை புறக்கணி"
 
 msgid "More Words, Match Any"
-msgstr "மேலும் வார்த்தைகள், எதையும் பொருத்தவும்"
+msgstr "பல சொற்கள், ஏதேனும் ஒன்றை பொருத்து"
 
 msgid "Forward"
-msgstr "முன்னோக்கி"
+msgstr "முன்னோக்கு"
 
 msgid "Backward"
 msgstr "பின்னோக்கு"
 
 msgid "All, List Matches"
-msgstr "அனைத்தும், பட்டியல் பொருத்தங்கள்"
+msgstr "அனைத்தும், பொருத்தங்களை பட்டியலிடு"
 
 msgid "First From Selection"
-msgstr "தேர்வில் இருந்து முதலில்"
+msgstr "தேர்விலிருந்து முதலாவது"
 
 msgid "First in All Range"
-msgstr "ஆல் ரேஞ்சில் முதல்"
+msgstr "முழு எல்லையிலும் முதலாவது"
 
 msgid "Node Created After"
-msgstr "முனை உருவாக்கப்பட்டது"
+msgstr "பிறகு உருவாக்கப்பட்ட முனை"
 
 msgid "Node Created Before"
-msgstr "முனை முன்பு உருவாக்கப்பட்டது"
+msgstr "முன்பாக உருவாக்கப்பட்ட முனை"
 
 msgid "Node Modified After"
-msgstr "முனை மாற்றப்பட்ட பிறகு"
+msgstr "பிறகு மாற்றப்பட்ட முனை"
 
 msgid "Node Modified Before"
-msgstr "முனை முன்பு மாற்றப்பட்டது"
+msgstr "முன்பாக மாற்றப்பட்ட முனை"
 
 msgid "Time filter"
 msgstr "நேர வடிகட்டி"
@@ -820,10 +823,10 @@ msgid "Node Name and Tags"
 msgstr "முனை பெயர் மற்றும் குறிச்சொற்கள்"
 
 msgid "Only Selected Node and Subnodes"
-msgstr "தேர்ந்தெடுக்கப்பட்ட முனை மற்றும் துணை முனைகள் மட்டுமே"
+msgstr "தேர்ந்தெடுக்கப்பட்ட முனை மற்றும் துணை முனைகள் மட்டும்"
 
 msgid "Show Iterated Find/Replace Dialog"
-msgstr "மறுநிகழ்வு கண்டறிதல்/மாற்று உரையாடலைக் காட்டு"
+msgstr "மறுநிகழ்வு தேடல்/மாற்று உரையாடலைக் காட்டு"
 
 msgid "Search options"
 msgstr "தேடல் விருப்பங்கள்"
@@ -832,7 +835,7 @@ msgid ""
 "The Replace field is empty: all found occurrences will be erased.\n"
 "Do you want to continue?"
 msgstr ""
-"மாற்று புலம் காலியாக உள்ளது: கண்டறியப்பட்ட அனைத்து நிகழ்வுகளும் அழிக்கப்படும். \n"
+"மாற்று புலம் காலியாக உள்ளது: காணப்பட்ட அனைத்து நிகழ்வுகளும் நீக்கப்படும்.\n"
 "தொடர வேண்டுமா?"
 
 msgid ""
@@ -840,13 +843,13 @@ msgid ""
 "In order to clear all the exclusions, use the menu:\n"
 "Search -> Clear All Exclusions From Search"
 msgstr ""
-"முனை பண்புகளில் அமைக்கப்பட்ட விலக்குகள் காரணமாக குறைந்தது ஒரு முனை தவிர்க்கப்பட்டது. \n"
-"அனைத்து விலக்குகளையும் அழிக்க, மெனுவைப் பயன்படுத்தவும்: \n"
-"தேடல் -> தேடலில் இருந்து அனைத்து விலக்குகளையும் அழிக்கவும்"
+"முனை பண்புகளில் அமைக்கப்பட்ட விலக்குகள் காரணமாக குறைந்தது ஒரு முனை தவிர்க்கப்பட்டது.\n"
+"அனைத்து விலக்குகளையும் நீக்க, இந்த மெனுவைப் பயன்படுத்தவும்:\n"
+"தேடல் -> தேடலில் இருந்து அனைத்து விலக்குகளையும் நீக்கு"
 
 #, c-format
 msgid "Hide (Restore with '%s')"
-msgstr "மறை ('%s' உடன் மீட்டமை)"
+msgstr "மறை ('%s' மூலம் மீட்டெடு)"
 
 msgid "Node Name"
 msgstr "முனை பெயர்"
@@ -858,19 +861,19 @@ msgid "Line Content"
 msgstr "வரி உள்ளடக்கம்"
 
 msgid "Iterate Latest Find/Replace"
-msgstr "அண்மைக் கால கண்டுபிடிப்பு/மாற்றியமைக்கவும்"
+msgstr "சமீபத்திய தேடல்/மாற்றை மீண்டும் செய்"
 
 msgid "Close"
 msgstr "மூடு"
 
 msgid "Find Previous"
-msgstr "முந்தையதைக் கண்டறியவும்"
+msgstr "முந்தையதைத் தேடு"
 
 msgid "Find Next"
-msgstr "அடுத்ததை தேடு"
+msgstr "அடுத்ததைத் தேடு"
 
 msgid "Replace"
-msgstr "மாற்றவும்"
+msgstr "மாற்று"
 
 msgid "Undo"
 msgstr "செயல்தவிர்"
@@ -879,7 +882,7 @@ msgid "Remove"
 msgstr "அகற்று"
 
 msgid "Remove User Colour from Palette"
-msgstr "தட்டுகளிலிருந்து பயனர் நிறத்தை அகற்று"
+msgstr "வண்ணப் பலகையில் இருந்து பயனர் நிறத்தை நீக்கு"
 
 msgid "Colour"
 msgstr "நிறம்"
@@ -1148,7 +1151,7 @@ msgid "Remove from list"
 msgstr "பட்டியலில் இருந்து நீக்கு"
 
 msgid "_File"
-msgstr "கோப்பு (_F)"
+msgstr "கோப்பு (_F)"
 
 msgid "_Edit"
 msgstr "தொகு (_E)"
@@ -1220,10 +1223,10 @@ msgid "I_nsert"
 msgstr "செருகவும் (_n)"
 
 msgid "_Find"
-msgstr "கண்டுபிடி"
+msgstr "தேடு"
 
 msgid "_Replace"
-msgstr "மறுசீரமைப்பு (_R)"
+msgstr "மாற்று (_R)"
 
 msgid "Ro_w"
 msgstr "வரிசை"
@@ -1232,10 +1235,10 @@ msgid "_Table"
 msgstr "அட்டவணை"
 
 msgid "_CodeBox"
-msgstr "குறியீட்டுபெட்டி"
+msgstr "குறியீட்டுப்பெட்டி"
 
 msgid "File"
-msgstr "கோப்பு"
+msgstr "கோப்பு"
 
 msgid "_New Instance..."
 msgstr "புதிய நிகழ்வு..."
@@ -1259,61 +1262,61 @@ msgid "_Save"
 msgstr "_சேமி"
 
 msgid "Save File"
-msgstr "கோப்பை சேமி"
+msgstr "கோப்பைச் சேமி"
 
 msgid "Save and _Vacuum"
-msgstr "சேமி மற்றும் _Vacuum"
+msgstr "சேமித்து _வாக்யூம் செய்"
 
 msgid "Save File and Vacuum"
-msgstr "கோப்பு மற்றும் வெற்றிடத்தை சேமிக்கவும்"
+msgstr "கோப்பை சேமித்து வெற்றிடத்தைச் சுத்தம் செய்"
 
 msgid "Save _As..."
-msgstr "என சேமி ... (_A)"
+msgstr "வேறு பெயரில்சேமி... (_A)"
 
 msgid "Save File As"
-msgstr "கோப்பை சேமி"
+msgstr "கோப்பை வேறு பெயருடன் சேமி"
 
 msgid "Pa_ge Setup..."
 msgstr "பக்க அமைவு..."
 
 msgid "Set up the Page for Printing"
-msgstr "அச்சிடுவதற்கு பக்கத்தை அமைக்கவும்"
+msgstr "அச்சிடுவதற்கான பக்கத்தை அமைக்கவும்"
 
 msgid "P_rint..."
-msgstr "P_rint..."
+msgstr "அச்சிடு..."
 
 msgid "Print"
-msgstr "அச்சிடுக"
+msgstr "அச்சிடு"
 
 msgid "Preferences"
 msgstr "விருப்பத்தேர்வுகள்"
 
 msgid "_Import Preferences..."
-msgstr "_இறக்குமதி விருப்பத்தேர்வுகள்..."
+msgstr "விருப்பத்தேர்வுகளை _இறக்குமதி செய்..."
 
 msgid "Import Preferences"
-msgstr "இறக்குமதி விருப்பத்தேர்வுகள்"
+msgstr "விருப்பத்தேர்வுகளை இறக்குமதி செய்"
 
 msgid "_Export Preferences..."
-msgstr "_ஏற்றுமதி விருப்பத்தேர்வுகள்..."
+msgstr "விருப்பத்தேர்வுகளை _ஏற்றுமதி செய்..."
 
 msgid "Export Preferences"
-msgstr "ஏற்றுமதி விருப்பத்தேர்வுகள்"
+msgstr "விருப்பத்தேர்வுகளை ஏற்றுமதி செய்"
 
 msgid "Tree In_fo"
-msgstr "மரம் இன்_ஃபோ"
+msgstr "மரம் தகவல்"
 
 msgid "_Document Path to Clipboard"
-msgstr "_கிளிப்போர்டுக்கான ஆவணப் பாதை"
+msgstr "ஆவணப் பாதையை _இடைநிலைப்பலகைக்கு நகலெடு"
 
 msgid "Copy Document Path to Clipboard"
 msgstr "ஆவணப் பாதையை இடைநிலைப்பலகைக்கு நகலெடு"
 
 msgid "E_xit CherryTree"
-msgstr "செர்ரிமரத்திலிருந்து வெளியேறு"
+msgstr "செர்ரிமரத்தை _வெளியேறு"
 
 msgid "Exit from CherryTree"
-msgstr "செர்ரிமரத்திலிருந்து வெளியேறவும்"
+msgstr "செர்ரிமரத்திலிருந்து வெளியேறு"
 
 msgid "Edit/Insert"
 msgstr "திருத்து/செருகு"
@@ -1322,7 +1325,7 @@ msgid "_Undo"
 msgstr "_செயல்தவிர்"
 
 msgid "Undo Last Operation"
-msgstr "கடைசிச் செயலைச் செயல்தவிர்க்கவும்"
+msgstr "கடைசி செயல்பாட்டை செயல்தவிர்"
 
 msgid "_Redo"
 msgstr "_மீண்டும் செய்"
@@ -1331,25 +1334,25 @@ msgid "Redo Previously Discarded Operation"
 msgstr "முன்பு நிராகரிக்கப்பட்ட செயல்பாட்டை மீண்டும் செய்"
 
 msgid "Insert I_mage..."
-msgstr "I_mage ஐச் செருகவும்..."
+msgstr "படத்தைச் செருகு..."
 
 msgid "Insert an Image"
 msgstr "ஒரு படத்தைச் செருகவும்"
 
 msgid "Insert Late_x..."
-msgstr "லேடெக்ச் செருகு..."
+msgstr "LaTeX-ஐச் செருகு..."
 
 msgid "Insert LatexBox"
-msgstr "லேடெக்ச்பெட்டியைச் செருகவும்"
+msgstr "LaTeX பெட்டி செருகு"
 
 msgid "Insert _Table..."
-msgstr "அட்டவணையை செருகவும்..."
+msgstr "அட்டவணையைச் செருகு..."
 
 msgid "Insert a Table"
 msgstr "ஒரு அட்டவணையைச் செருகவும்"
 
 msgid "Insert _CodeBox..."
-msgstr "குறியீட்டுபெட்டி செருகு..."
+msgstr "குறியீட்டுப்பெட்டியைச் செருகு..."
 
 msgid "Insert _File..."
 msgstr "கோப்பைச் செருகு..."
@@ -1361,25 +1364,25 @@ msgid "Insert/Edit _Link..."
 msgstr "இணைப்பைச் செருகு/திருத்து..."
 
 msgid "Insert a Link/Edit the Underlying Link"
-msgstr "இணைப்பைச் செருகவும்/அடிப்படை இணைப்பைத் திருத்தவும்"
+msgstr "இணைப்பைச் செருகவும் அல்லது அடிப்படை இணைப்பைத் திருத்தவும்"
 
 msgid "Insert _Anchor..."
-msgstr "செருகு _நங்கூரம்..."
+msgstr "நங்கூரத்தைச் செருகு..."
 
 msgid "Insert an Anchor"
 msgstr "ஒரு நங்கூரத்தைச் செருகவும்"
 
 msgid "Insert T_OC and Headers Collapsors..."
-msgstr "உள்ளடக்கம் மற்றும் தலைப்புகள் சுருக்கிகளைச் செருகவும்..."
+msgstr "பொருளடக்கம் மற்றும் தலைப்பு சுருக்கிகளைச் செருகு..."
 
 msgid "Insert Table of Contents and Headers Collapsors/Expanders"
-msgstr "பொருளடக்கம் மற்றும் தலைப்புச் சுருக்கிகள்/விரிவாக்கிகளைச் செருகவும்"
+msgstr "பொருளடக்கம் மற்றும் தலைப்பு சுருக்கிகள்/விரிவாக்கிகளைச் செருகு"
 
 msgid "Insert Timestam_p"
-msgstr "நேர முத்திரையைச் செருகவும்"
+msgstr "தேதி/நேர முத்திரையைச் செருகு"
 
 msgid "Insert Timestamp"
-msgstr "நேர முத்திரையைச் செருகவும்"
+msgstr "தேதி/நேர முத்திரையைச் செருகவும்"
 
 msgid "Insert _Special Character..."
 msgstr "சிறப்பு எழுத்தைச் செருகு..."
@@ -1388,46 +1391,46 @@ msgid "Insert a Special Character"
 msgstr "ஒரு சிறப்பு எழுத்தைச் செருகவும்"
 
 msgid "Insert _Horizontal Rule"
-msgstr "கிடைமட்ட விதியைச் செருகவும்"
+msgstr "கிடைமட்ட கோட்டைக் காட்டு"
 
 msgid "Insert Horizontal Rule"
-msgstr "கிடைமட்ட விதியைச் செருகவும்"
+msgstr "கிடைமட்ட கோட்டைச் செருகவும்"
 
 msgid "_Lower Case of Selection/Word"
-msgstr "_தேர்வு/சொல்லின் சிறிய எழுத்து"
+msgstr "தேர்ந்தெடுத்த/சொல்லின் சிறிய எழுத்து"
 
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "தேர்வு/அடிப்படை வார்த்தையின் வழக்கைக் குறைக்கவும்"
+msgstr "தேர்ந்தெடுத்த உரையின்/அடிப்படைச் சொல்லின் எழுத்துருவை சிறிய எழுத்தாக மாற்று"
 
 msgid "_Upper Case of Selection/Word"
-msgstr "_தேர்வு/சொல்லின் பெரிய எழுத்து"
+msgstr "தேர்ந்தெடுத்த/சொல்லின் பெரிய எழுத்து"
 
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "தேர்வின் மேல் வழக்கு/அடிப்படை சொல்"
+msgstr "தேர்ந்தெடுத்த உரையின்/அடிப்படைச் சொல்லின் எழுத்துருவை பெரிய எழுத்தாக மாற்று"
 
 msgid "_Toggle Case of Selection/Word"
-msgstr "தேர்வு/வார்த்தையின் வழக்கை மாற்றவும்"
+msgstr "தேர்ந்தெடுத்த/சொல்லின் எழுத்துருவை நிலைமாற்று"
 
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "தேர்வு/அடிப்படை வார்த்தையின் வழக்கை நிலைமாற்று"
+msgstr "தேர்ந்தெடுத்த உரையின்/அடிப்படைச் சொல்லின் எழுத்துருவை நிலைமாற்று"
 
 msgid "Cu_t as Plain Text"
 msgstr "எளிய உரையாக வெட்டு"
 
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "எளிய உரையாக வெட்டி, பணக்கார உரை வடிவமைப்பை நிராகரிக்கவும்"
+msgstr "எளிய உரையாக வெட்டு; செழுமையான உரை வடிவமைப்பை நிராகரி"
 
 msgid "_Copy as Plain Text"
-msgstr "எளிமையான உரையாக நகலெடு"
+msgstr "எளிய உரையாக நகலெடு"
 
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "எளிய உரையாக நகலெடுக்கவும், பணக்கார உரை வடிவமைப்பை நிராகரிக்கவும்"
+msgstr "எளிய உரையாக நகலெடு; செழுமையான உரை வடிவமைப்பை நிராகரி"
 
 msgid "_Paste as Plain Text"
-msgstr "எளிமையான உரையாக ஒட்டவும்"
+msgstr "எளிய உரையாக ஒட்டு"
 
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "எளிய உரையாக ஒட்டவும், பணக்கார உரை வடிவமைப்பை நிராகரிக்கவும்"
+msgstr "எளிய உரையாக ஒட்டு; செழுமையான உரை வடிவமைப்பை நிராகரி"
 
 msgid "C_ut Row"
 msgstr "வரிசையை வெட்டு"
@@ -1445,13 +1448,13 @@ msgid "De_lete Row"
 msgstr "வரிசையை நீக்கு"
 
 msgid "Delete the Current Row/Selected Rows"
-msgstr "தற்போதைய வரிசை/தேர்ந்தெடுக்கப்பட்ட வரிசைகளை நீக்கவும்"
+msgstr "தற்போதைய வரிசை/தேர்ந்தெடுக்கப்பட்ட வரிசைகளை நீக்கு"
 
 msgid "_Duplicate Row"
-msgstr "_நகல் வரிசை"
+msgstr "வரிசையை நகலெடு"
 
 msgid "Duplicate the Current Row/Selection"
-msgstr "தற்போதைய வரிசை/தேர்வை நகலெடுக்கவும்"
+msgstr "தற்போதைய வரிசை/தேர்வை நகலெடு"
 
 msgid "_Move Up Row"
 msgstr "வரிசையை மேலே நகர்த்தவும்"
@@ -1460,28 +1463,28 @@ msgid "Move Up the Current Row/Selected Rows"
 msgstr "தற்போதைய வரிசை/தேர்ந்தெடுக்கப்பட்ட வரிசைகளை மேலே நகர்த்தவும்"
 
 msgid "Mo_ve Down Row"
-msgstr "Mo_ve Down Row"
+msgstr "வரிசையை கீழே நகர்த்தவும்"
 
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "தற்போதைய வரிசை/தேர்ந்தெடுக்கப்பட்ட வரிசைகளை கீழே நகர்த்தவும்"
 
 msgid "C_ut Table"
-msgstr "C_ut அட்டவணை"
+msgstr "அட்டவணையை வெட்டு"
 
 msgid "Cut the Selected Table"
-msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணையை வெட்டுங்கள்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணையை வெட்டு"
 
 msgid "_Copy Table"
-msgstr "_அட்டவணையை நகலெடு"
+msgstr "அட்டவணையை நகலெடு"
 
 msgid "Copy the Selected Table"
-msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணையை நகலெடுக்கவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணையை நகலெடு"
 
 msgid "_Delete Table"
-msgstr "_அட்டவணையை நீக்கு"
+msgstr "அட்டவணையை நீக்கு"
 
 msgid "Delete the Selected Table"
-msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணையை நீக்கவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணையை நீக்கு"
 
 msgid "_Add Column"
 msgstr "நெடுவரிசையைச் சேர்க்கவும்"
@@ -1490,52 +1493,52 @@ msgid "Add a Table Column"
 msgstr "அட்டவணை நெடுவரிசையைச் சேர்க்கவும்"
 
 msgid "Cu_t Column"
-msgstr "Cu_t நெடுவரிசை"
+msgstr "நெடுவரிசையை வெட்டு"
 
 msgid "Cut a Table Column"
-msgstr "ஒரு அட்டவணை நெடுவரிசையை வெட்டுங்கள்"
+msgstr "அட்டவணை நெடுவரிசையை வெட்டு"
 
 msgid "_Copy Column"
-msgstr "_நெடுவரிசையை நகலெடு"
+msgstr "நெடுவரிசையை நகலெடு"
 
 msgid "Copy a Table Column"
-msgstr "அட்டவணை நெடுவரிசையை நகலெடுக்கவும்"
+msgstr "அட்டவணை நெடுவரிசையை நகலெடு"
 
 msgid "_Paste Column"
-msgstr "_நெடுவரிசையை ஒட்டவும்"
+msgstr "நெடுவரிசையை ஒட்டு"
 
 msgid "Paste a Table Column"
-msgstr "ஒரு அட்டவணை நெடுவரிசையை ஒட்டவும்"
+msgstr "அட்டவணை நெடுவரிசையை ஒட்டு"
 
 msgid "De_lete Column"
 msgstr "நெடுவரிசையை நீக்கு"
 
 msgid "Delete the Selected Table Column"
-msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணை நெடுவரிசையை நீக்கவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணை நெடுவரிசையை நீக்கு"
 
 msgid "Move Column _Left"
-msgstr "நெடுவரிசையை _இடது பக்கம் நகர்த்தவும்"
+msgstr "நெடுவரிசையை இடதுபுறமாக நகர்த்து"
 
 msgid "Move the Selected Column Left"
-msgstr "தேர்ந்தெடுக்கப்பட்ட நெடுவரிசையை இடதுபுறமாக நகர்த்தவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட நெடுவரிசையை இடதுபுறமாக நகர்த்து"
 
 msgid "Move Column _Right"
-msgstr "நெடுவரிசையை வலது பக்கம் நகர்த்தவும்"
+msgstr "நெடுவரிசையை வலதுபுறமாக நகர்த்து"
 
 msgid "Move the Selected Column Right"
-msgstr "தேர்ந்தெடுக்கப்பட்ட நெடுவரிசையை வலதுபுறமாக நகர்த்தவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட நெடுவரிசையை வலதுபுறமாக நகர்த்து"
 
 msgid "Increase Column Width"
-msgstr "நெடுவரிசையின் அகலத்தை அதிகரிக்கவும்"
+msgstr "நெடுவரிசையின் அகலத்தை அதிகரி"
 
 msgid "Increase the Width of the Column"
-msgstr "நெடுவரிசையின் அகலத்தை அதிகரிக்கவும்"
+msgstr "நெடுவரிசையின் அகலத்தை அதிகரி"
 
 msgid "Decrease Column Width"
-msgstr "நெடுவரிசையின் அகலத்தைக் குறைக்கவும்"
+msgstr "நெடுவரிசையின் அகலத்தைக் குறை"
 
 msgid "Decrease the Width of the Column"
-msgstr "நெடுவரிசையின் அகலத்தைக் குறைக்கவும்"
+msgstr "நெடுவரிசையின் அகலத்தைக் குறை"
 
 msgid "_Add Row"
 msgstr "வரிசையைச் சேர்க்கவும்"
@@ -1544,22 +1547,22 @@ msgid "Add a Table Row"
 msgstr "அட்டவணை வரிசையைச் சேர்க்கவும்"
 
 msgid "Cu_t Row"
-msgstr "Cu_t வரிசை"
+msgstr "வரிசையை வெட்டு"
 
 msgid "Cut a Table Row"
-msgstr "ஒரு அட்டவணை வரிசையை வெட்டுங்கள்"
+msgstr "அட்டவணை வரிசையை வெட்டு"
 
 msgid "_Copy Row"
-msgstr "_வரிசையை நகலெடுக்கவும்"
+msgstr "வரிசையை நகலெடு"
 
 msgid "Copy a Table Row"
-msgstr "அட்டவணை வரிசையை நகலெடுக்கவும்"
+msgstr "அட்டவணை வரிசையை நகலெடு"
 
 msgid "_Paste Row"
-msgstr "_ஒட்டு வரிசை"
+msgstr "வரிசையை ஒட்டு"
 
 msgid "Paste a Table Row"
-msgstr "ஒரு அட்டவணை வரிசையை ஒட்டவும்"
+msgstr "அட்டவணை வரிசையை ஒட்டு"
 
 msgid "Delete the Selected Table Row"
 msgstr "தேர்ந்தெடுக்கப்பட்ட அட்டவணை வரிசையை நீக்கவும்"
@@ -1577,16 +1580,16 @@ msgid "Move the Selected Row Down"
 msgstr "தேர்ந்தெடுக்கப்பட்ட வரிசையை கீழே நகர்த்தவும்"
 
 msgid "Sort Rows De_scending"
-msgstr "வரிசைகள் கீழிறங்கும்"
+msgstr "வரிசைகளை _இறங்குமுகமாக வரிசைப்படுத்து"
 
 msgid "Sort all the Rows Descending"
-msgstr "இறங்கும் அனைத்து வரிசைகளையும் வரிசைப்படுத்தவும்"
+msgstr "அனைத்து வரிசைகளையும் இறங்குமுகமாக வரிசைப்படுத்து"
 
 msgid "Sort Rows As_cending"
-msgstr "ஏறுவரிசைகளை வரிசைப்படுத்தவும்"
+msgstr "வரிசைகளை _ஏறுமுகமாக வரிசைப்படுத்து"
 
 msgid "Sort all the Rows Ascending"
-msgstr "அனைத்து வரிசைகளையும் ஏறுவரிசைப்படுத்தவும்"
+msgstr "அனைத்து வரிசைகளையும் ஏறுமுகமாக வரிசைப்படுத்து"
 
 msgid "_Edit Table Properties..."
 msgstr "_அட்டவணை பண்புகளைத் திருத்து..."
@@ -1598,81 +1601,81 @@ msgid "_Table Export..."
 msgstr "_டேபிள் ஏற்றுமதி..."
 
 msgid "Export Table as CSV File"
-msgstr "அட்டவணையை CSV கோப்பாக ஏற்றுமதி செய்யவும்"
+msgstr "அட்டவணையை CSV கோப்பாக ஏற்றுமதி செய்"
 
 msgid "Change CodeBox _Properties..."
-msgstr "குறியீட்டுபெட்டி பண்புகளை மாற்றவும்..."
+msgstr "குறியீட்டுப்பெட்டி பண்புகளை மாற்று..."
 
 msgid "Edit the Properties of the CodeBox"
-msgstr "குறியீட்டுபெட்டியின் பண்புகளைத் திருத்தவும்"
+msgstr "குறியீட்டுப்பெட்டியின் பண்புகளைத் திருத்து"
 
 msgid "CodeBox _Load From Text File..."
-msgstr "CodeBox _Load from Text File..."
+msgstr "குறியீட்டுப்பெட்டி உரை கோப்பிலிருந்து _ஏற்று..."
 
 msgid "Load the CodeBox Content From a Text File"
-msgstr "குறியீட்டுபெட்டி உள்ளடக்கத்தை உரை கோப்பிலிருந்து ஏற்றவும்"
+msgstr "குறியீட்டுப்பெட்டி உள்ளடக்கத்தை உரை கோப்பிலிருந்து ஏற்று"
 
 msgid "CodeBox _Save To Text File..."
-msgstr "CodeBox _Save to Text File..."
+msgstr "குறியீட்டுப்பெட்டி உரை கோப்பிற்கு _சேமி..."
 
 msgid "Save the CodeBox Content To a Text File"
-msgstr "குறியீட்டுபெட்டி உள்ளடக்கத்தை ஒரு உரை கோப்பில் சேமி"
+msgstr "குறியீட்டுப்பெட்டி உள்ளடக்கத்தை உரை கோப்பிற்கு சேமி"
 
 msgid "C_ut CodeBox"
-msgstr "குறியீட்டுபெட்டியை வெட்டு"
+msgstr "குறியீட்டுப்பெட்டியை வெட்டு"
 
 msgid "Cut the Selected CodeBox"
-msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுபெட்டியை வெட்டு"
+msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுப்பெட்டியை வெட்டு"
 
 msgid "_Copy CodeBox"
-msgstr "குறியீட்டுபெட்டியை நகலெடு"
+msgstr "குறியீட்டுப்பெட்டியை நகலெடு"
 
 msgid "Copy the Selected CodeBox"
-msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுபெட்டியை நகலெடு"
+msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுப்பெட்டியை நகலெடு"
 
 msgid "_Copy CodeBox Content"
-msgstr "குறியீட்டுபெட்டி உள்ளடக்கத்தை நகலெடு"
+msgstr "குறியீட்டுப்பெட்டி உள்ளடக்கத்தை நகலெடு"
 
 msgid "Copy the Content of the Selected CodeBox"
-msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுபெட்டியின் உள்ளடக்கத்தை நகலெடு"
+msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுப்பெட்டியின் உள்ளடக்கத்தை நகலெடு"
 
 msgid "_Delete CodeBox"
-msgstr "குறியீட்டுபெட்டியை நீக்கு"
+msgstr "குறியீட்டுப்பெட்டியை நீக்கு"
 
 msgid "Delete the Selected CodeBox"
-msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுபெட்டியை நீக்கவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட குறியீட்டுப்பெட்டியை நீக்கவும்"
 
 msgid "Delete CodeBox _Keep Content"
-msgstr "குறியீட்டுபெட்டி வைத்த உள்ளடக்கத்தை நீக்கவும்"
+msgstr "குறியீட்டுப்பெட்டி வைத்த உள்ளடக்கத்தை நீக்கவும்"
 
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr ""
-"தேர்ந்தெடுக்கப்பட்ட குறியீட்டுபெட்டியை நீக்கவும் ஆனால் அதன் உள்ளடக்கத்தை "
+"தேர்ந்தெடுக்கப்பட்ட குறியீட்டுப்பெட்டியை நீக்கவும் ஆனால் அதன் உள்ளடக்கத்தை "
 "வைத்திருங்கள்"
 
 msgid "Increase CodeBox Width"
-msgstr "குறியீட்டுபெட்டி அகலத்தை அதிகரி"
+msgstr "குறியீட்டுப்பெட்டி அகலத்தை அதிகரி"
 
 msgid "Increase the Width of the CodeBox"
-msgstr "குறியீட்டுபெட்டியின் அகலத்தை அதிகரிக்கவும்"
+msgstr "குறியீட்டுப்பெட்டியின் அகலத்தை அதிகரிக்கவும்"
 
 msgid "Decrease CodeBox Width"
-msgstr "குறியீட்டுபெட்டி அகலத்தைக் குறைக்கவும்"
+msgstr "குறியீட்டுப்பெட்டி அகலத்தைக் குறைக்கவும்"
 
 msgid "Decrease the Width of the CodeBox"
-msgstr "குறியீட்டுபெட்டியின் அகலத்தைக் குறைக்கவும்"
+msgstr "குறியீட்டுப்பெட்டியின் அகலத்தைக் குறைக்கவும்"
 
 msgid "Increase CodeBox Height"
-msgstr "குறியீட்டுபெட்டி உயரத்தை அதிகரிக்கவும்"
+msgstr "குறியீட்டுப்பெட்டி உயரத்தை அதிகரிக்கவும்"
 
 msgid "Increase the Height of the CodeBox"
-msgstr "குறியீட்டுபெட்டியின் உயரத்தை அதிகரிக்கவும்"
+msgstr "குறியீட்டுப்பெட்டியின் உயரத்தை அதிகரிக்கவும்"
 
 msgid "Decrease CodeBox Height"
-msgstr "குறியீட்டுபெட்டி உயரத்தைக் குறைக்கவும்"
+msgstr "குறியீட்டுப்பெட்டி உயரத்தைக் குறைக்கவும்"
 
 msgid "Decrease the Height of the CodeBox"
-msgstr "குறியீட்டுபெட்டியின் உயரத்தைக் குறைக்கவும்"
+msgstr "குறியீட்டுப்பெட்டியின் உயரத்தைக் குறைக்கவும்"
 
 msgid "Format"
 msgstr "வடிவம்"
@@ -1759,104 +1762,104 @@ msgid "Toggle h_5 Property"
 msgstr "h_5 பண்பை நிலைமாற்று"
 
 msgid "Toggle h5 Property of the Selected Text"
-msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் h5 பண்புகளை மாற்றவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் h5 பண்பை நிலைமாற்று"
 
 msgid "Toggle h_6 Property"
 msgstr "h_6 பண்பை நிலைமாற்று"
 
 msgid "Toggle h6 Property of the Selected Text"
-msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் h6 பண்புகளை மாற்றவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் h6 பண்பை நிலைமாற்று"
 
 msgid "Toggle _Small Property"
-msgstr "மாற்று _சிறிய சொத்து"
+msgstr "சிறிய பண்பை நிலைமாற்று"
 
 msgid "Toggle Small Property of the Selected Text"
 msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் சிறிய பண்பை நிலைமாற்று"
 
 msgid "Toggle Su_bscript Property"
-msgstr "துணைஉரை பண்பை நிலைமாற்று"
+msgstr "கீழ்க்குறி பண்பை நிலைமாற்று"
 
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் துணைஉரை பண்புகளை நிலைமாற்றவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் கீழ்க்குறி பண்பை நிலைமாற்று"
 
 msgid "Toggle Su_perscript Property"
-msgstr "மேல்உரை பண்புகளை நிலைமாற்று"
+msgstr "மேல்க்குறி பண்பை நிலைமாற்று"
 
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் மேல்உரை பண்புகளை நிலைமாற்றவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் மேல்க்குறி பண்பை நிலைமாற்று"
 
 msgid "Toggle _Monospace Property"
-msgstr "ஒற்றைவெளி பண்பை நிலைமாற்று"
+msgstr "ஒரேஅகலம் பண்பை நிலைமாற்று"
 
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் ஒற்றைவெளி பண்பை நிலைமாற்று"
+msgstr "தேர்ந்தெடுக்கப்பட்ட உரையின் ஒரேஅகலம் பண்பை நிலைமாற்று"
 
 msgid "Set/Unset _Bulleted List"
-msgstr "அமை/நீக்கு புள்ளி பட்டியல்"
+msgstr "புள்ளி பட்டியலை அமை/நீக்கு"
 
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
-"தற்போதைய பத்தி/தேர்வை புல்லட் செய்யப்பட்ட பட்டியலாக அமைக்கவும்/நீக்கவும்"
+"தற்போதைய பத்தி/தேர்வை புள்ளி பட்டியலாக அமை/நீக்கு"
 
 msgid "Set/Unset _Numbered List"
-msgstr "அமை/நீக்கு எண் கொண்ட பட்டியல்"
+msgstr "எண்ணிடப்பட்ட பட்டியலை அமை/நீக்கு"
 
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "தற்போதைய பத்தி/தேர்வை எண்ணிடப்பட்ட பட்டியலாக அமைக்கவும்/நீக்கவும்"
+msgstr "தற்போதைய பத்தி/தேர்வை எண்ணிடப்பட்ட பட்டியலாக அமை/நீக்கு"
 
 msgid "Set/Unset _To-Do List"
-msgstr "செய்ய வேண்டிய பட்டியலை அமைத்தல்/அமைத்தல்"
+msgstr "செய்யவேண்டிய பட்டியலை அமை/நீக்கு"
 
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "தற்போதைய பத்தி/தேர்வை செய்ய வேண்டிய பட்டியலாக அமைக்கவும்/நிறுத்தவும்"
+msgstr "தற்போதைய பத்தி/தேர்வை செய்யவேண்டிய பட்டியலாக அமை/நீக்கு"
 
 msgid "Justify _Left"
-msgstr "நிலைப்பட்டுத்து இடது"
+msgstr "இடது சீரமை"
 
 msgid "Justify Left the Current Paragraph"
-msgstr "தற்போதைய பத்தியை இடதுபுறமாக நிலைப்பட்டுத்து"
+msgstr "தற்போதைய பத்தியை இடது சீரமை"
 
 msgid "Justify _Center"
-msgstr "நிலைப்பட்டுத்து நடுவில்"
+msgstr "மைய சீரமை"
 
 msgid "Justify Center the Current Paragraph"
-msgstr "தற்போதைய பத்தியை மையப்படுத்தவும்"
+msgstr "தற்போதைய பத்தியை மையமாக சீரமை"
 
 msgid "Justify _Right"
-msgstr "நிலைப்பட்டுத்து வலது"
+msgstr "வலது சீரமை"
 
 msgid "Justify Right the Current Paragraph"
-msgstr "தற்போதைய பத்தியை சரியாக நிலைப்பட்டுத்து"
+msgstr "தற்போதைய பத்தியை வலது சீரமை"
 
 msgid "Justify _Fill"
-msgstr "நிலைப்பட்டுத்து நிரப்பு"
+msgstr "நிரப்பி சீரமை"
 
 msgid "Justify Fill the Current Paragraph"
-msgstr "தற்போதைய பத்தியை நிரப்பவும்"
+msgstr "தற்போதைய பத்தியை நிரப்பி சீரமை"
 
 msgid "_Indent Paragraph"
-msgstr "உள்தள்ளல் பத்தி"
+msgstr "பத்தியை உள்தள்ளு"
 
 msgid "Indent the Current Paragraph"
-msgstr "தற்போதைய பத்தியை உள்தள்ளவும்"
+msgstr "தற்போதைய பத்தியை உள்தள்ளு"
 
 msgid "_Unindent Paragraph"
-msgstr "வெளிதள்ளல் பத்தி"
+msgstr "பத்தியை வெளிதள்ளு"
 
 msgid "Unindent the Current Paragraph"
-msgstr "தற்போதைய பத்தியை வெளிதள்ளல்"
+msgstr "தற்போதைய பத்தியை வெளிதள்ளு"
 
 msgid "_Expand TOC Headers"
-msgstr "உள்ளடக்க தலைப்புகளை விரிவாக்குங்கள்"
+msgstr "பொருளடக்கத் தலைப்புகளை விரிவாக்கு"
 
 msgid "Expand TOC Headers"
-msgstr "உள்ளடக்க தலைப்புகளை விரிவாக்கு"
+msgstr "பொருளடக்கத் தலைப்புகளை விரிவாக்கு"
 
 msgid "_Collapse TOC Headers"
-msgstr "உள்ளடக்க தலைப்புகளை சுருக்கவும்"
+msgstr "பொருளடக்கத் தலைப்புகளை சுருக்கு"
 
 msgid "Collapse TOC Headers"
-msgstr "உள்ளடக்க தலைப்புகளைச் சுருக்கவும்"
+msgstr "பொருளடக்கத் தலைப்புகளை சுருக்கு"
 
 msgid "Tools"
 msgstr "கருவிகள்"
@@ -1898,7 +1901,7 @@ msgid "Execute All Code in CodeBox or Node"
 msgstr "அனைத்து குறியீட்டையும் குறியீடுபெட்டி அல்லது நோடில் இயக்கவும்"
 
 msgid "E_xecute Code Line or Selection"
-msgstr "குறியீட்டு வரி அல்லது தேர்வை இயக்கவும்"
+msgstr "குறியீடு வரி அல்லது தேர்வை இயக்கவும்"
 
 msgid "Execute Code from Current Line or Selected Text"
 msgstr ""
@@ -2146,44 +2149,44 @@ msgid "Find in Multiple Nodes"
 msgstr "பல முனைகளில் கண்டறியவும்"
 
 msgid "Find _Again"
-msgstr "மீண்டும் கண்டுபிடி"
+msgstr "மீண்டும் தேடு"
 
 msgid "Iterate the Last Find Operation"
-msgstr "கடைசி கண்டுபிடிப்பு செயல்பாட்டை மீண்டும் செய்யவும்"
+msgstr "கடைசி தேடல் செயல்பாட்டை மீண்டும் செய்"
 
 msgid "Find _Back"
-msgstr "கண்டுபிடி _Back"
+msgstr "முந்தையதைத் தேடு"
 
 msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "எதிர் திசையில் கடைசி கண்டுபிடிப்பு செயல்பாட்டை மீண்டும் செய்யவும்"
+msgstr "கடைசி தேடல் செயல்பாட்டை எதிர் திசையில் மீண்டும் செய்"
 
 msgid "_Replace in Node Content..."
-msgstr "_நோட் உள்ளடக்கத்தில் மாற்றவும்..."
+msgstr "முனை உள்ளடக்கத்தில் _மாற்று..."
 
 msgid "Replace into the Selected Node Content"
-msgstr "தேர்ந்தெடுக்கப்பட்ட முனை உள்ளடக்கத்தில் மாற்றவும்"
+msgstr "தேர்ந்தெடுக்கப்பட்ட முனை உள்ளடக்கத்தில் மாற்று"
 
 msgid "Replace in _Multiple Nodes..."
-msgstr "பல முனைகளில் மாற்றவும்..."
+msgstr "பல முனைகளில் _மாற்று..."
 
 msgid "Replace A_gain"
-msgstr "A_gain ஐ மாற்றவும்"
+msgstr "மீண்டும் _மாற்று"
 
 msgid "Iterate the Last Replace Operation"
-msgstr "கடைசி மாற்று செயல்பாட்டை மீண்டும் செய்யவும்"
+msgstr "கடைசி மாற்று செயல்பாட்டை மீண்டும் செய்"
 
 msgid "Show All Matches _Dialog..."
-msgstr "அனைத்துப் பொருத்தங்கள் உரையாடலைக் காட்டு..."
+msgstr "அனைத்து பொருத்தங்களின் உரையாடலைக் காட்டு..."
 
 msgid "Show Search All Matches Dialog"
-msgstr "அனைத்து பொருத்தங்களையும் தேடு உரையாடலைக் காட்டு"
+msgstr "அனைத்து பொருத்தங்களின் தேடல் உரையாடலைக் காட்டு"
 
 msgid "_Clear All Exclusions From Search"
-msgstr "_தேடலில் இருந்து அனைத்து விலக்குகளையும் அழிக்கவும்"
+msgstr "தேடலில் இருந்து அனைத்து விலக்குகளையும் _அழி"
 
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
 msgstr ""
-"தேடலில் இருந்து விலக்குகளின் அனைத்து மர முனைகளின் பண்புகளையும் அழிக்கவும்"
+"தேடலில் இருந்து அனைத்து மர முனை விலக்குகளையும் அழி"
 
 msgid "View"
 msgstr "பார்வை"
@@ -2874,7 +2877,7 @@ msgid "Remove Selected"
 msgstr "தேர்ந்தெடுக்கப்பட்டதை நீக்கு"
 
 msgid "Command per Node/CodeBox Type"
-msgstr "முனை/குறியீட்டுப் பெட்டி வகைக்குரிய கட்டளை"
+msgstr "முனை/குறியீடுப் பெட்டி வகைக்குரிய கட்டளை"
 
 msgid "Terminal Command"
 msgstr "முனையக் கட்டளை"
@@ -2892,10 +2895,10 @@ msgid "Spell Check Language"
 msgstr "எழுத்துப்பிழை சரிபார்ப்பு மொழி"
 
 msgid "Expand CodeBoxes Automatically"
-msgstr "குறியீட்டுப் பெட்டிகளைத் தானாக விரிவுபடுத்து"
+msgstr "குறியீடுப் பெட்டிகளைத் தானாக விரிவுபடுத்து"
 
 msgid "CodeBoxes Have Toolbar"
-msgstr "குறியீட்டுப் பெட்டிகளில் கருவிப்பட்டை உள்ளது"
+msgstr "குறியீடுப் பெட்டிகளில் கருவிப்பட்டை உள்ளது"
 
 msgid "Threshold Number of Table Cells for Lightweight Interface"
 msgstr "எளிமையான இடைமுகத்திற்கான அட்டவணை உயிரணுக்களின் வரம்பு எண்ணிக்கை"

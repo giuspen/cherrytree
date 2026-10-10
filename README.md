@@ -78,6 +78,7 @@ The following languages are supported (if you want to help translate to your lan
 – Slovenian (sl, Erik Lovrič)
 – Spanish (es, MP)
 – Swedish (sv, Åke Engelbrektson)
+– Tamil (ta, TamilNeram)
 – Turkish (tr, Ferhat Aydin)
 – Ukrainian (uk, Giuseppe Penone)
 
