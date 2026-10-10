@@ -25,6 +25,7 @@ set(CT_SHARED_FILES
   ct_actions_others.cc
   ct_actions_import.cc
   ct_actions_tree.cc
+  ct_actions_tree_multi_node.cc
   ct_actions_view.cc
   ct_actions_help.cc
   ct_app.cc
@@ -49,6 +50,8 @@ set(CT_SHARED_FILES
   ct_main_win_buffer.cc
   ct_main_win_events.cc
   ct_main_win_file.cc
+  ct_main_win_multi_node.cc
+  ct_main_win_multi_node_events.cc
   ct_main_win_vte.cc
   ct_menu.cc
   ct_menu_actions.cc
