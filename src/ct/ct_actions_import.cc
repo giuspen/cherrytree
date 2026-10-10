@@ -1,7 +1,7 @@
 /*
  * ct_actions_import.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -55,7 +55,7 @@ static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* p
     if (!pCtMainWin->curr_tree_iter()) {
         return Gtk::TreeModel::iterator{};
     }
-    Gtk::Dialog dialog{"Who is the Parent?",
+    Gtk::Dialog dialog{_("Who is the Parent?"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(*pCtMainWin);
@@ -66,8 +66,8 @@ static std::optional<Gtk::TreeModel::iterator> select_parent_dialog(CtMainWin* p
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(350, -1);
 
-    Gtk::RadioButton radiobutton_root{"The Tree Root"};
-    Gtk::RadioButton radiobutton_curr_node{"The Selected Node"};
+    Gtk::RadioButton radiobutton_root{_("The Tree Root")};
+    Gtk::RadioButton radiobutton_curr_node{_("The Selected Node")};
     radiobutton_curr_node.join_group(radiobutton_root);
     auto pContentArea = dialog.get_content_area();
     pContentArea->pack_start(radiobutton_root);
