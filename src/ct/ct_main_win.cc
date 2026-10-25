@@ -1,4 +1,38 @@
-﻿#include "ct_main_win.h"
+﻿/*
+ * ct_main_win.cc
+ *
+ * Copyright 2009-2026
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
+
+#include <sigc++/sigc++.h>
+#include <sigc++/signal.h>
+#include <sigc++/functors/slot.h>
+#if GTKMM_MAJOR_VERSION >= 4
+#include <sigc++/signal.h>
+#include <sigc++/functors/slot.h>
+#endif
+#include "ct_main_win.h"
+#include "ct_actions.h"
+#include "ct_storage_control.h"
+#include "ct_clipboard.h"
+#include "ct_dialogs.h"
 
 #if GTKMM_MAJOR_VERSION >= 4
 void CtMainWin::init_app_actions_gtk4()
@@ -57,41 +91,6 @@ void CtMainWin::init_app_actions_gtk4()
     }
 }
 #endif /* GTKMM_MAJOR_VERSION >= 4 */
-/*
- * ct_main_win.cc
- *
- * Copyright 2009-2026
- * Giuseppe Penone <giuspen@gmail.com>
- * Evgenii Gurianov <https://github.com/txe>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- */
-
-#include <sigc++/sigc++.h>
-#include <sigc++/signal.h>
-#include <sigc++/functors/slot.h>
-#if GTKMM_MAJOR_VERSION >= 4
-#include <sigc++/signal.h>
-#include <sigc++/functors/slot.h>
-#endif
-#include "ct_main_win.h"
-#include "ct_actions.h"
-#include "ct_storage_control.h"
-#include "ct_clipboard.h"
-#include "ct_dialogs.h"
 
 void CtStatusBar::new_cursor_pos(const int r, const int c)
 {
@@ -644,6 +643,7 @@ void CtMainWin::config_apply()
     (void)show_hide_vte_cmd_passed_as_first_in_session(_pCtConfig->vteVisible, nullptr/*first_cmd_passed*/);
     show_hide_menubar(_pCtConfig->menubarVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
+    _ctWinHeader.nodeIcon.hide();
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.hide();
     _ctWinHeader.ghostIcon.hide();
@@ -878,9 +878,10 @@ Gtk::EventBox& CtMainWin::_init_window_header()
     _ctWinHeader.lockIcon.set_from_icon_name("ct_locked");
 #else
     _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
-    _ctWinHeader.nodeIcon.hide();
     _ctWinHeader.lockIcon.set_from_icon_name("ct_locked", Gtk::ICON_SIZE_MENU);
 #endif
+    _ctWinHeader.nodeIcon.set_margin_start(2);
+    _ctWinHeader.nodeIcon.hide();
     _ctWinHeader.lockIcon.set_margin_start(2);
     _ctWinHeader.lockIcon.hide();
 #if GTKMM_MAJOR_VERSION >= 4
@@ -899,19 +900,20 @@ Gtk::EventBox& CtMainWin::_init_window_header()
     _ctWinHeader.ghostIcon.hide();
 #if GTKMM_MAJOR_VERSION >= 4
     _ctWinHeader.headerBox.append(_ctWinHeader.buttonBox);
-    _ctWinHeader.headerBox.append(_ctWinHeader.nameLabel);
-    _ctWinHeader.nameLabel.set_hexpand(true);
+    _ctWinHeader.headerBox.append(_ctWinHeader.nodeIcon);
     _ctWinHeader.headerBox.append(_ctWinHeader.lockIcon);
     _ctWinHeader.headerBox.append(_ctWinHeader.bookmarkIcon);
     _ctWinHeader.headerBox.append(_ctWinHeader.ghostIcon);
+    _ctWinHeader.headerBox.append(_ctWinHeader.nameLabel);
+    _ctWinHeader.nameLabel.set_hexpand(true);
     _ctWinHeader.eventBox.append(_ctWinHeader.headerBox);
 #else
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.buttonBox, false, false);
-    _ctWinHeader.headerBox.pack_start(_ctWinHeader.nameLabel, true, true);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.nodeIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.lockIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.bookmarkIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.ghostIcon, false, false);
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.nameLabel, true, true);
     _ctWinHeader.headerBox.set_margin_end(8);
     _ctWinHeader.eventBox.add(_ctWinHeader.headerBox);
 #endif
