@@ -25,6 +25,7 @@
 #include "ct_misc_utils.h"
 #include "ct_storage_control.h"
 #include "tests_common.h"
+#include "tests_multi_node.h"
 
 class TestCtApp : public CtApp
 {
@@ -83,6 +84,7 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     ASSERT_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
     ASSERT_TRUE(pWin->file_open(doc_filepath_from, ""/*node_to_focus*/, ""/*anchor_to_focus*/, docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
+    assert_multi_node_selection(pWin);
     // do not check/walk the tree before calling the save_as to test that
     // even without visiting each node we save it all
 
