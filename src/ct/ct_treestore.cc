@@ -1341,6 +1341,8 @@ void CtTreeStore::addAnchoredWidgets(CtTreeIter ctTreeIter,
         ctTreeIter->set_value(_columns.colAnchoredWidgets, widgets);
     }
 
+    // The node data can be duplicated without attaching widgets to a visible text view.
+    if (not pTextView) return;
     for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgetList) {
         Glib::RefPtr<Gtk::TextChildAnchor> pChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (pChildAnchor) {

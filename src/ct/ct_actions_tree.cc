@@ -253,10 +253,12 @@ void CtActions::node_subnodes_duplicate()
     node_subnodes_paste2(top_iter, _pCtMainWin);
 }
 
-void CtActions::_node_add(const CtDuplicateShared duplicate_shared,
+Gtk::TreeModel::iterator CtActions::_node_add(const CtDuplicateShared duplicate_shared,
                           const bool add_as_child,
                           const CtTreeIter* pCtTreeIterFrom/*=nullptr*/,
-                          CtMainWin* pWinToCopyFrom/*=nullptr*/)
+                          CtMainWin* pWinToCopyFrom/*=nullptr*/,
+                          const Glib::ustring* pNewName/*=nullptr*/,
+                          bool select_new/*=true*/)
 {
     CtNodeData nodeData{};
     std::shared_ptr<CtNodeState> node_state;
@@ -265,7 +267,7 @@ void CtActions::_node_add(const CtDuplicateShared duplicate_shared,
         CtTreeIter currTreeIter = _pCtMainWin->curr_tree_iter();
         nodeData.syntax = currTreeIter ? currTreeIter.get_node_syntax_highlighting() : CtConst::RICH_TEXT_ID;
         if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->get_tree_store().get_used_tags())) {
-            return;
+            return Gtk::TreeModel::iterator{};
         }
     }
     else {
@@ -295,13 +297,32 @@ void CtActions::_node_add(const CtDuplicateShared duplicate_shared,
             }
         }
     }
-    (void)_node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_as_child, node_state);
+    if (pNewName) nodeData.name = *pNewName;
+    Gtk::TreeModel::iterator destination = _pCtMainWin->curr_tree_iter();
+    if (not select_new and pCtTreeIterFrom and pWinToCopyFrom == _pCtMainWin) {
+        destination = *pCtTreeIterFrom;
+    }
+    return _node_add_with_data(destination, nodeData, add_as_child, node_state, select_new);
+}
+
+gint64 CtActions::node_duplicate_cli(const gint64 source_node_id, const Glib::ustring* pNewName)
+{
+    CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
+    CtTreeIter source = tree_store.get_node_from_node_id(source_node_id);
+    if (not source) return 0;
+
+    Gtk::TreeModel::iterator duplicate = _node_add(CtDuplicateShared::Duplicate,
+                                                    false/*add_as_child*/,
+                                                    &source, _pCtMainWin,
+                                                    pNewName, false/*select_new*/);
+    return duplicate ? tree_store.to_ct_tree_iter(duplicate).get_node_id() : 0;
 }
 
 Gtk::TreeModel::iterator CtActions::_node_add_with_data(Gtk::TreeModel::iterator curr_iter,
                                              CtNodeData& nodeData,
                                              const bool add_as_child,
-                                             std::shared_ptr<CtNodeState> node_state)
+                                             std::shared_ptr<CtNodeState> node_state,
+                                             bool select_new)
 {
     if (nodeData.sharedNodesMasterId <= 0) {
         // not a shared node
@@ -314,7 +335,7 @@ Gtk::TreeModel::iterator CtActions::_node_add_with_data(Gtk::TreeModel::iterator
     CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
     nodeData.nodeId = ct_treestore.node_id_get();
 
-    _pCtMainWin->update_window_save_needed();
+    if (select_new) _pCtMainWin->update_window_save_needed();
     _pCtConfig->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeModel::iterator nodeIter;
@@ -329,13 +350,16 @@ Gtk::TreeModel::iterator CtActions::_node_add_with_data(Gtk::TreeModel::iterator
     }
     CtTreeIter nodeCtIter = ct_treestore.to_ct_tree_iter(nodeIter);
     if (node_state) {
-        _pCtMainWin->load_buffer_from_state(node_state, nodeCtIter);
+        _pCtMainWin->load_buffer_from_state(node_state, nodeCtIter, select_new);
     }
     nodeCtIter.pending_new_db_node();
+    if (not select_new) _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::None, false, &nodeCtIter);
     ct_treestore.nodes_sequences_fix(nodeIter->parent(), false);
     ct_treestore.update_node_aux_icon(nodeCtIter);
-    _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
-    _pCtMainWin->get_text_view().mm().grab_focus();
+    if (select_new) {
+        _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
+        _pCtMainWin->get_text_view().mm().grab_focus();
+    }
     return nodeIter;
 }
 

@@ -105,3 +105,18 @@ endif()
 set_target_properties(run_tests_no_x PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 set_target_properties(run_tests_with_x_1 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 set_target_properties(run_tests_with_x_2 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+
+# CLI write integration test: only register it where the necessary tools exist.
+if(UNIX AND NOT APPLE)
+  find_program(CHERRYTREE_PYTHON3_EXECUTABLE python3)
+  find_program(DBUS_RUN_SESSION_EXECUTABLE dbus-run-session)
+  if(CHERRYTREE_PYTHON3_EXECUTABLE AND DBUS_RUN_SESSION_EXECUTABLE)
+    add_test(NAME cli_node_duplicate
+      COMMAND "${CHERRYTREE_PYTHON3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_cli_node_duplicate.py"
+        "${DBUS_RUN_SESSION_EXECUTABLE}"
+        "$<TARGET_FILE:cherrytree>"
+        "${CMAKE_CURRENT_SOURCE_DIR}/data_данные/test_документ.ctb"
+    )
+    set_tests_properties(cli_node_duplicate PROPERTIES TIMEOUT 90)
+  endif()
+endif()

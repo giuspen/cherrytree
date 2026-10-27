@@ -505,7 +505,7 @@ void CtMainWin::re_load_current_buffer(const bool new_machine_state)
 }
 
 // Load Text Buffer from State Machine
-void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter)
+void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter, bool update_view)
 {
     bool user_active_restore = user_active();
     user_active() = false;
@@ -534,29 +534,31 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     for (auto widget : widgets) {
         widget->insertInTextBuffer(pTextBuffer);
     }
-    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &_ctTextview.mm());
+    get_tree_store().addAnchoredWidgets(tree_iter, widgets, update_view ? &_ctTextview.mm() : nullptr);
 
     CT_SOURCE_BUFFER_END_NOT_UNDOABLE(pGtkSourceBuffer);
     pTextBuffer->set_modified(false);
 
-    _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
-    _ctTextview.mm().grab_focus();
+    if (update_view) {
+        _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+        _ctTextview.mm().grab_focus();
 
-    _ctTextview.set_spell_check(curr_tree_iter().get_node_is_text());
+        _ctTextview.set_spell_check(curr_tree_iter().get_node_is_text());
 
-    pTextBuffer->place_cursor(pTextBuffer->get_iter_at_offset(state->cursor_pos));
-    (void)_try_move_focus_to_anchored_widget_if_on_it();
+        pTextBuffer->place_cursor(pTextBuffer->get_iter_at_offset(state->cursor_pos));
+        (void)_try_move_focus_to_anchored_widget_if_on_it();
 
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
-    while (gtk_events_pending()) gtk_main_iteration();
+        while (gtk_events_pending()) gtk_main_iteration();
     #else
-    while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
+        while (g_main_context_pending(nullptr)) g_main_context_iteration(nullptr, false);
     #endif
-    _scrolledwindowText.get_vadjustment()->set_value(state->v_adj_val);
+        _scrolledwindowText.get_vadjustment()->set_value(state->v_adj_val);
+    }
 
     user_active() = user_active_restore;
 
-    update_window_save_needed(CtSaveNeededUpdType::nbuf, false, &tree_iter);
+    update_window_save_needed(update_view ? CtSaveNeededUpdType::nbuf : CtSaveNeededUpdType::None, false, &tree_iter);
 }
 
 // Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer
