@@ -22,6 +22,8 @@
  */
 
 #include <glibmm/miscutils.h>
+#include <glibmm/shell.h>
+#include <glibmm/spawn.h>
 #include <giomm/file.h>
 #include <glib/gstdio.h>
 #include <system_error>
@@ -357,42 +359,76 @@ void _open_path_with_default_app(const fs::path& file_or_folder_path)
     _locale_env_vars_set_for_external_cmd(false/*isPre*/);
 }
 
+std::vector<std::string> custom_action_build_argv(const std::string& template_cmd, const std::string& target_arg)
+{
+    if (template_cmd.empty()) {
+        return {};
+    }
+    std::vector<std::string> argv;
+    try {
+        argv = Glib::shell_parse_argv(template_cmd);
+    }
+    catch (const Glib::Error& error) {
+        spdlog::error("custom_action_build_argv: failed to parse template '{}': {}", template_cmd, error.what().raw());
+        return {};
+    }
+    if (argv.empty()) {
+        return {};
+    }
+
+    // Strip trailing "&" historically used for shell backgrounding
+    if (argv.back() == "&") {
+        argv.pop_back();
+    }
+    if (argv.empty()) {
+        return {};
+    }
+
+    bool substituted = false;
+    for (auto& arg : argv) {
+        size_t pos = 0;
+        while ((pos = arg.find("%s", pos)) != std::string::npos) {
+            arg.replace(pos, 2, target_arg);
+            pos += target_arg.length();
+            substituted = true;
+        }
+    }
+    if (!substituted) {
+        argv.push_back(target_arg);
+    }
+    return argv;
+}
+
+bool open_custom_action(const std::string& template_cmd, const std::string& target_arg)
+{
+    const std::vector<std::string> argv = custom_action_build_argv(template_cmd, target_arg);
+    if (argv.empty()) {
+        return false;
+    }
+
+    _locale_env_vars_set_for_external_cmd(true/*isPre*/);
+    bool spawned = false;
+    try {
+#if GTKMM_MAJOR_VERSION >= 4
+        Glib::spawn_async("", argv, Glib::SpawnFlags::SEARCH_PATH);
+#else
+        Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+#endif
+        spawned = true;
+    }
+    catch (const Glib::Error& error) {
+        spdlog::error("open_custom_action: failed to spawn '{}': {}", argv.front(), error.what().raw());
+    }
+    _locale_env_vars_set_for_external_cmd(false/*isPre*/);
+    return spawned;
+}
+
 // Open Filepath with External App
 void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
     spdlog::debug("fs::open_filepath {}", filepath.string());
     if (config->filelinkCustomOn) {
-        std::string cmd = config->filelinkCustomAct;
-#ifdef _WIN32
-        // cmd.exe does not support Unix-style single-quoted paths from g_shell_quote
-        const std::string pathStr = filepath.string_native();
-        size_t pos = 0;
-        while ((pos = cmd.find("%s", pos)) != std::string::npos) {
-            cmd.replace(pos, 2, pathStr);
-            pos += pathStr.length();
-        }
-#else
-        g_autofree gchar* quoted = g_shell_quote(filepath.string().c_str());
-        std::string quotedPath(quoted);
-        // Replace "file://%s" with just %s (without the double quotes from template)
-        size_t filePos = cmd.find("\"file://%s\"");
-        if (filePos != std::string::npos) {
-            cmd.replace(filePos, 11, quotedPath);
-        }
-        else {
-            size_t pos = 0;
-            while ((pos = cmd.find("%s", pos)) != std::string::npos) {
-                cmd.replace(pos, 2, quotedPath);
-                pos += quotedPath.length();
-            }
-        }
-#endif
-        _locale_env_vars_set_for_external_cmd(true/*isPre*/);
-        const int retVal = std::system(cmd.c_str());
-        _locale_env_vars_set_for_external_cmd(false/*isPre*/);
-        if (retVal != 0) {
-            spdlog::error("system({}) returned {}", cmd, retVal);
-        }
+        open_custom_action(config->filelinkCustomAct, filepath.string());
     }
     else {
         if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
@@ -413,37 +449,7 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
 {
     spdlog::debug("fs::open_folderpath {}", folderpath.string());
     if (config->folderlinkCustomOn) {
-        std::string cmd = config->folderlinkCustomAct;
-#ifdef _WIN32
-        // cmd.exe does not support Unix-style single-quoted paths from g_shell_quote
-        const std::string pathStr = folderpath.string_native();
-        size_t pos = 0;
-        while ((pos = cmd.find("%s", pos)) != std::string::npos) {
-            cmd.replace(pos, 2, pathStr);
-            pos += pathStr.length();
-        }
-#else
-        g_autofree gchar* quoted = g_shell_quote(folderpath.string().c_str());
-        std::string quotedPath(quoted);
-        // Replace "file://%s" with just %s (without the double quotes from template)
-        size_t filePos = cmd.find("\"file://%s\"");
-        if (filePos != std::string::npos) {
-            cmd.replace(filePos, 11, quotedPath);
-        }
-        else {
-            size_t pos = 0;
-            while ((pos = cmd.find("%s", pos)) != std::string::npos) {
-                cmd.replace(pos, 2, quotedPath);
-                pos += quotedPath.length();
-            }
-        }
-#endif
-        _locale_env_vars_set_for_external_cmd(true/*isPre*/);
-        const int retVal = std::system(cmd.c_str());
-        _locale_env_vars_set_for_external_cmd(false/*isPre*/);
-        if (retVal != 0) {
-            spdlog::error("system({}) returned {}", cmd, retVal);
-        }
+        open_custom_action(config->folderlinkCustomAct, folderpath.string());
     }
     else {
         _open_path_with_default_app(folderpath);

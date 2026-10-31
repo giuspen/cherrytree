@@ -1,7 +1,7 @@
 /*
  * tests_filesystem.cpp
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -249,4 +249,50 @@ TEST(FileSystemGroup, is_file_image)
     ASSERT_TRUE(fs::is_file_image(UT::testImageGif));
     ASSERT_TRUE(fs::is_file_image(UT::testImageWebp));
     ASSERT_TRUE(fs::is_file_image(UT::testImageSvg));
+}
+
+TEST(FileSystemGroup, custom_action_build_argv)
+{
+    // Normal substitution with trailing '&'
+    std::vector<std::string> argv1 = fs::custom_action_build_argv("firefox %s &", "https://example.com");
+    ASSERT_EQ(2u, argv1.size());
+    ASSERT_EQ("firefox", argv1[0]);
+    ASSERT_EQ("https://example.com", argv1[1]);
+
+    // Shell metacharacters are preserved verbatim as single argv element
+    std::vector<std::string> argv2 = fs::custom_action_build_argv("firefox %s &", "http://x&id>/tmp/CT_RCE_PROOF;echo");
+    ASSERT_EQ(2u, argv2.size());
+    ASSERT_EQ("firefox", argv2[0]);
+    ASSERT_EQ("http://x&id>/tmp/CT_RCE_PROOF;echo", argv2[1]);
+
+    // Template with quotes around URI prefix
+    std::vector<std::string> argv3 = fs::custom_action_build_argv("xdg-open \"file://%s\" &", "/path/to/my file.txt");
+    ASSERT_EQ(2u, argv3.size());
+    ASSERT_EQ("xdg-open", argv3[0]);
+    ASSERT_EQ("file:///path/to/my file.txt", argv3[1]);
+
+    // Template with flags
+    std::vector<std::string> argv4 = fs::custom_action_build_argv("google-chrome --incognito %s", "https://example.com");
+    ASSERT_EQ(3u, argv4.size());
+    ASSERT_EQ("google-chrome", argv4[0]);
+    ASSERT_EQ("--incognito", argv4[1]);
+    ASSERT_EQ("https://example.com", argv4[2]);
+
+    // Template without %s appends target
+    std::vector<std::string> argv5 = fs::custom_action_build_argv("firefox", "https://example.com");
+    ASSERT_EQ(2u, argv5.size());
+    ASSERT_EQ("firefox", argv5[0]);
+    ASSERT_EQ("https://example.com", argv5[1]);
+
+    // Windows rundll32 FileProtocolHandler template
+    std::vector<std::string> argv6 = fs::custom_action_build_argv("rundll32.exe url.dll,FileProtocolHandler %s", "https://example.com");
+    ASSERT_EQ(3u, argv6.size());
+    ASSERT_EQ("rundll32.exe", argv6[0]);
+    ASSERT_EQ("url.dll,FileProtocolHandler", argv6[1]);
+    ASSERT_EQ("https://example.com", argv6[2]);
+
+    // Empty template returns empty argv
+    ASSERT_TRUE(fs::custom_action_build_argv("", "https://example.com").empty());
+    // Only '&' returns empty argv
+    ASSERT_TRUE(fs::custom_action_build_argv("&", "https://example.com").empty());
 }

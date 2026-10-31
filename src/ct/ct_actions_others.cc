@@ -1,7 +1,7 @@
 /*
  * ct_actions_others.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -392,13 +392,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
     if (CtLinkType::Webs == link_entry.type) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
         if (_pCtConfig->weblinkCustomOn) {
-            std::string cmd = fmt::sprintf(_pCtConfig->weblinkCustomAct, clean_weblink.raw());
-            int retr = std::system(cmd.c_str());
-            if (retr == -1) {
-                // Internal std::system error
-                spdlog::error("Error while executing: '{}'; Message: {}", cmd, std::strerror(errno));
-                return;
-            }
+            fs::open_custom_action(_pCtConfig->weblinkCustomAct, clean_weblink.raw());
         }
         else {
             fs::open_weblink(clean_weblink);

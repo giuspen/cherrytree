@@ -84,6 +84,8 @@ std::list<path> get_dir_entries(const path& dir);
 void open_weblink(const std::string& link);
 void open_filepath(const path& filepath, bool open_folder_if_file_not_exists, CtConfig* config);
 void open_folderpath(const path& folderpath, CtConfig* config);
+std::vector<std::string> custom_action_build_argv(const std::string& template_cmd, const std::string& target_arg);
+bool open_custom_action(const std::string& template_cmd, const std::string& target_arg);
 
 path prepare_export_folder(const path& dir_place, path new_folder, bool overwrite_existing);
 

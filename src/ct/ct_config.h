@@ -179,17 +179,17 @@ public:
     bool                                        filelinkCustomOn{false};
     bool                                        folderlinkCustomOn{false};
 #if defined(_WIN32)
-    std::string                                 weblinkCustomAct{"explorer %s &"};
-    std::string                                 filelinkCustomAct{"explorer %s &"};
-    std::string                                 folderlinkCustomAct{"explorer %s &"};
+    std::string                                 weblinkCustomAct{"rundll32.exe url.dll,FileProtocolHandler %s"};
+    std::string                                 filelinkCustomAct{"explorer %s"};
+    std::string                                 folderlinkCustomAct{"explorer %s"};
 #elif defined(__APPLE__)
-    std::string                                 weblinkCustomAct{"open %s &"};
-    std::string                                 filelinkCustomAct{"open %s &"};
-    std::string                                 folderlinkCustomAct{"open %s &"};
+    std::string                                 weblinkCustomAct{"open %s"};
+    std::string                                 filelinkCustomAct{"open %s"};
+    std::string                                 folderlinkCustomAct{"open %s"};
 #else
-    std::string                                 weblinkCustomAct{"firefox %s &"};
-    std::string                                 filelinkCustomAct{"xdg-open \"file://%s\" &"};
-    std::string                                 folderlinkCustomAct{"xdg-open \"file://%s\" &"};
+    std::string                                 weblinkCustomAct{"firefox %s"};
+    std::string                                 filelinkCustomAct{"xdg-open %s"};
+    std::string                                 folderlinkCustomAct{"xdg-open %s"};
 #endif
     // [codebox]
     double                                      codeboxWidth{500};
