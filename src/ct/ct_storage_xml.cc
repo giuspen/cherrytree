@@ -675,6 +675,9 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
     if (file_name == CtImageLatex::LatexSpecialFilename) {
         return new CtImageLatex{_pCtMainWin, encodedBlob, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
     }
+    if (not file_name.empty()) {
+        file_name = CtImageEmbFile::sanitize_filename(file_name);
+    }
     std::string rawBlob;
     if (multifile_dir.empty()) {
         // type is single file
@@ -706,6 +709,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
             timeStr = "0";
         }
         const time_t timeInt = std::stoll(timeStr);
+        const fs::path pathLast = multifile_dir.empty() ? fs::path{} : (fs::path{multifile_dir} / file_name);
         return new CtImageEmbFile{_pCtMainWin,
                                   file_name,
                                   rawBlob,
@@ -713,7 +717,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
                                   charOffset,
                                   justification,
                                   CtImageEmbFile::get_next_unique_id(),
-                                  fs::path{multifile_dir} / file_name};
+                                  pathLast};
     }
     const Glib::ustring link = xml_element->get_attribute_value("link");
     return new CtImagePng{_pCtMainWin, rawBlob, link, charOffset, justification};

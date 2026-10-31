@@ -190,7 +190,7 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const fs::path&      get_file_name() const { return _fileName; }
-    void                 set_file_name(const fs::path& path) { _fileName = path; }
+    void                 set_file_name(const fs::path& path) { _fileName = sanitize_filename(path); }
     const std::string&   get_raw_blob() { return _rawBlob; }
     void                 set_raw_blob(const std::string& buffer) { _rawBlob = buffer; }
     time_t               get_time() { return _timeSeconds; }
@@ -199,6 +199,7 @@ public:
     const fs::path&      get_pathLastMultiFile() { return _pathLastMultiFile; }
 
     static size_t        get_next_unique_id();
+    static fs::path      sanitize_filename(const fs::path& fileName);
 
     void                 update_tooltip();
     void                 update_label_widget();

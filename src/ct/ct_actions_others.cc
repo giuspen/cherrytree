@@ -170,7 +170,7 @@ void CtActions::embfile_save()
 
     if (curr_file_anchor->get_raw_blob().empty()) {
         const fs::path& embfilePathLast = curr_file_anchor->get_pathLastMultiFile();
-        if (fs::exists(embfilePathLast) and fs::copy_file(embfilePathLast, filepath.c_str())) {
+        if (not embfilePathLast.empty() and fs::is_regular_file(embfilePathLast) and fs::copy_file(embfilePathLast, filepath.c_str())) {
             return;
         }
     }
@@ -182,7 +182,7 @@ void CtActions::embfile_open()
 {
     if (curr_file_anchor->get_raw_blob().empty()) {
         const fs::path& embfilePathLast = curr_file_anchor->get_pathLastMultiFile();
-        if (fs::exists(embfilePathLast)) {
+        if (not embfilePathLast.empty() and fs::is_regular_file(embfilePathLast)) {
             fs::open_filepath(embfilePathLast, false/*open_folder_if_file_not_exists*/, _pCtConfig);
             return;
         }
@@ -196,7 +196,7 @@ void CtActions::embfile_open()
         const fs::path filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id_data_holder()) +
                                                  CtConst::CHAR_MINUS + std::to_string(open_id) +
                                                  CtConst::CHAR_MINUS + std::to_string(getpid())+
-                                                 CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().string();
+                                                 CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().filename().string();
         tmp_filepath = _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
         _embfiles_opened[open_id] = CtEmbFileOpened{
             .tmp_filepath = tmp_filepath,

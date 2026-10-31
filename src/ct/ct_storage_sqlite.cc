@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -570,6 +570,7 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
                                                                CtImageEmbFile::get_next_unique_id()});
                 }
                 else {
+                    fileName = CtImageEmbFile::sanitize_filename(fileName);
                     const time_t timeSeconds = sqlite3_column_int64(stmt, 7);
                     anchoredWidgets.push_back(new CtImageEmbFile{_pCtMainWin,
                                                                  fileName,

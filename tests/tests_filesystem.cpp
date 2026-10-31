@@ -22,6 +22,7 @@
  */
 
 #include "ct_filesystem.h"
+#include "ct_image.h"
 #include "tests_common.h"
 #include <glibmm.h>
 
@@ -295,4 +296,44 @@ TEST(FileSystemGroup, custom_action_build_argv)
     ASSERT_TRUE(fs::custom_action_build_argv("", "https://example.com").empty());
     // Only '&' returns empty argv
     ASSERT_TRUE(fs::custom_action_build_argv("&", "https://example.com").empty());
+}
+
+TEST(FileSystemGroup, sanitize_embedded_filename)
+{
+    // Normal filenames
+    ASSERT_STREQ("test.txt", CtImageEmbFile::sanitize_filename("test.txt").c_str());
+    ASSERT_STREQ("document.pdf", CtImageEmbFile::sanitize_filename("document.pdf").c_str());
+    ASSERT_STREQ("my file name.docx", CtImageEmbFile::sanitize_filename("my file name.docx").c_str());
+
+    // Unix absolute paths
+    ASSERT_STREQ("passwd", CtImageEmbFile::sanitize_filename("/etc/passwd").c_str());
+    ASSERT_STREQ("id_rsa", CtImageEmbFile::sanitize_filename("/home/user/.ssh/id_rsa").c_str());
+
+    // Home directory shortcut
+    ASSERT_STREQ("id_rsa", CtImageEmbFile::sanitize_filename("~/.ssh/id_rsa").c_str());
+    ASSERT_STREQ("secret.txt", CtImageEmbFile::sanitize_filename("~/secret.txt").c_str());
+
+    // Relative directory traversal
+    ASSERT_STREQ("shadow", CtImageEmbFile::sanitize_filename("../../../../etc/shadow").c_str());
+    ASSERT_STREQ("passwords.txt", CtImageEmbFile::sanitize_filename("..\\..\\passwords.txt").c_str());
+    ASSERT_STREQ("config.ini", CtImageEmbFile::sanitize_filename("foo/../../bar/config.ini").c_str());
+
+    // Windows paths
+    ASSERT_STREQ("secret.txt", CtImageEmbFile::sanitize_filename("C:\\Users\\victim\\secret.txt").c_str());
+    ASSERT_STREQ("data.db", CtImageEmbFile::sanitize_filename("\\\\server\\share\\data.db").c_str());
+    ASSERT_STREQ("boot.ini", CtImageEmbFile::sanitize_filename("C:boot.ini").c_str());
+
+    // Bare traversal tokens and edge cases
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename(".").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("..").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("~").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("/").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("\\").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("///").c_str());
+    ASSERT_STREQ("embedded_file", CtImageEmbFile::sanitize_filename("C:\\").c_str());
+
+    // Trailing slashes
+    ASSERT_STREQ("file.pdf", CtImageEmbFile::sanitize_filename("/path/to/file.pdf/").c_str());
+    ASSERT_STREQ("file.pdf", CtImageEmbFile::sanitize_filename("file.pdf\\").c_str());
 }

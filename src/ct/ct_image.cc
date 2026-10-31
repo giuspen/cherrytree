@@ -768,6 +768,42 @@ bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
     return next_unique_id++;
 }
 
+/*static*/fs::path CtImageEmbFile::sanitize_filename(const fs::path& fileName)
+{
+    std::string raw = fileName.string();
+    if (raw.empty()) {
+        return fs::path{"embedded_file"};
+    }
+    // Truncate at null byte if any
+    auto null_pos = raw.find('\0');
+    if (null_pos != std::string::npos) {
+        raw = raw.substr(0, null_pos);
+    }
+    // Normalize backslashes to slashes so traversal prevention works across all OSes
+    for (char& c : raw) {
+        if (c == '\\') {
+            c = '/';
+        }
+    }
+    // Strip trailing slashes
+    while (raw.size() > 1 && raw.back() == '/') {
+        raw.pop_back();
+    }
+    // Extract basename
+    std::string base = Glib::path_get_basename(raw);
+    // If separator or colon remained in basename, strip up to last separator or colon
+    auto sep_pos = base.find_last_of("/\\:");
+    if (sep_pos != std::string::npos) {
+        base = base.substr(sep_pos + 1);
+    }
+    // Disallow special tokens like ., .., ~, empty, or bare separators
+    if (base.empty() || base == "." || base == ".." || base == "~"
+        || base == "/" || base == "\\") {
+        return fs::path{"embedded_file"};
+    }
+    return fs::path{base};
+}
+
 CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const fs::path& fileName,
                                const std::string& rawBlob,
@@ -776,8 +812,8 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const std::string& justification,
                                const size_t uniqueId,
                                const fs::path& pathLastMultiFile)
- : CtImage{pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification}
- , _fileName{fileName}
+ : CtImage{pCtMainWin, _get_file_icon(pCtMainWin, sanitize_filename(fileName)), charOffset, justification}
+ , _fileName{sanitize_filename(fileName)}
  , _rawBlob{rawBlob}
  , _timeSeconds{timeSeconds}
  , _uniqueId{uniqueId}
@@ -799,7 +835,7 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
     if (multifile_dir and multifile_dir[0]) {
         // the current data format is multifile, let's check in the current multifile directory
         const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
-        if (fs::exists(embfilePath)) {
+        if (fs::is_regular_file(embfilePath)) {
             _rawBlob = Glib::file_get_contents(embfilePath.string());
             spdlog::debug("{} FROM multifile constant {}", __FUNCTION__, embfilePath.c_str());
         }
@@ -807,7 +843,7 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
             spdlog::warn("?? {} missing {}", __FUNCTION__, embfilePath.c_str());
             // let's check in the cleanup folder .before
             const fs::path embfileBeforePath = fs::path{multifile_dir} / ".before" / _fileName;
-            if (fs::exists(embfileBeforePath)) {
+            if (fs::is_regular_file(embfileBeforePath)) {
                 _rawBlob = Glib::file_get_contents(embfileBeforePath.string());
                 spdlog::debug("{} FROM multifile before constant {}", __FUNCTION__, embfileBeforePath.c_str());
             }
@@ -820,11 +856,11 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
         return;
     }
     // let's check also if the embedded file was copied/moved and the original file is still in the old directory
-    if (fs::exists(_pathLastMultiFile)) {
+    if (not _pathLastMultiFile.empty() and fs::is_regular_file(_pathLastMultiFile)) {
         _rawBlob = Glib::file_get_contents(_pathLastMultiFile.string());
         spdlog::debug("{} FROM multifile constant last {}", __FUNCTION__, _pathLastMultiFile.string());
     }
-    else {
+    else if (not _pathLastMultiFile.empty()) {
         spdlog::warn("?? {} missing multifile constant last {}", __FUNCTION__, _pathLastMultiFile.c_str());
     }
 }
