@@ -337,3 +337,53 @@ TEST(FileSystemGroup, sanitize_embedded_filename)
     ASSERT_STREQ("file.pdf", CtImageEmbFile::sanitize_filename("/path/to/file.pdf/").c_str());
     ASSERT_STREQ("file.pdf", CtImageEmbFile::sanitize_filename("file.pdf\\").c_str());
 }
+
+TEST(FileSystemGroup, embedded_file_multifile_symlinks_are_rejected)
+{
+    GError* error{nullptr};
+    gchar* tempDirRaw = g_dir_make_tmp("cherrytree-embedded-file-XXXXXX", &error);
+    ASSERT_NE(nullptr, tempDirRaw) << (error ? error->message : "unable to create temporary directory");
+    g_clear_error(&error);
+    const fs::path tempDir{tempDirRaw};
+    g_free(tempDirRaw);
+
+    const fs::path rootDir = tempDir / "document";
+    const fs::path outsideDir = tempDir / "outside";
+    ASSERT_EQ(0, g_mkdir_with_parents(rootDir.c_str(), 0755));
+    ASSERT_EQ(0, g_mkdir_with_parents(outsideDir.c_str(), 0755));
+    const fs::path outsideFile = outsideDir / "secret.txt";
+    Glib::file_set_contents(outsideFile.string(), "canary");
+    const fs::path nestedNodeDir = rootDir / "node-1" / "node-2";
+    ASSERT_EQ(0, g_mkdir_with_parents(nestedNodeDir.c_str(), 0755));
+    const fs::path regularFile = nestedNodeDir / "regular.txt";
+    Glib::file_set_contents(regularFile.string(), "inside");
+
+    ASSERT_TRUE(CtImageEmbFile::is_safe_multifile_file(regularFile, rootDir));
+    ASSERT_FALSE(CtImageEmbFile::is_safe_multifile_file(outsideFile, rootDir));
+
+    const fs::path fileSymlink = rootDir / "embedded.txt";
+    GFile* fileSymlinkGFile = g_file_new_for_path(fileSymlink.c_str());
+    const gboolean fileSymlinkCreated = g_file_make_symbolic_link(fileSymlinkGFile, outsideFile.c_str(), nullptr, &error);
+    g_object_unref(fileSymlinkGFile);
+    if (not fileSymlinkCreated) {
+        const std::string errorMessage = error ? error->message : "symbolic links are not supported";
+        g_clear_error(&error);
+        fs::remove_all(tempDir);
+        GTEST_SKIP() << errorMessage;
+    }
+    ASSERT_FALSE(CtImageEmbFile::is_safe_multifile_file(fileSymlink, rootDir));
+
+    const fs::path beforeSymlink = rootDir / ".before";
+    GFile* beforeSymlinkGFile = g_file_new_for_path(beforeSymlink.c_str());
+    const gboolean beforeSymlinkCreated = g_file_make_symbolic_link(beforeSymlinkGFile, outsideDir.c_str(), nullptr, &error);
+    g_object_unref(beforeSymlinkGFile);
+    if (not beforeSymlinkCreated) {
+        const std::string errorMessage = error ? error->message : "symbolic links are not supported";
+        g_clear_error(&error);
+        fs::remove_all(tempDir);
+        GTEST_SKIP() << errorMessage;
+    }
+    ASSERT_FALSE(CtImageEmbFile::is_safe_multifile_file(beforeSymlink / "secret.txt", rootDir));
+
+    fs::remove_all(tempDir);
+}

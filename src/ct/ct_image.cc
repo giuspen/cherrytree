@@ -804,6 +804,33 @@ bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
     return fs::path{base};
 }
 
+/*static*/bool CtImageEmbFile::is_safe_multifile_file(const fs::path& filePath, const fs::path& rootDir)
+{
+    if (filePath.empty() or rootDir.empty()) {
+        return false;
+    }
+
+    const fs::path normalizedRoot = fs::canonical(rootDir, false);
+    const fs::path normalizedFile = fs::canonical(filePath, false);
+    const std::string relativePath = fs::relative(normalizedFile, normalizedRoot).string();
+    if (relativePath.empty() or relativePath == ".." or str::startswith(relativePath, "../") or str::startswith(relativePath, "..\\")) {
+        return false;
+    }
+
+    fs::path currentPath{normalizedFile};
+    while (currentPath != normalizedRoot) {
+        if (Glib::file_test(currentPath.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+            return false;
+        }
+        const fs::path parentPath = currentPath.parent_path();
+        if (parentPath == currentPath) {
+            return false;
+        }
+        currentPath = parentPath;
+    }
+    return fs::is_regular_file(normalizedFile);
+}
+
 CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const fs::path& fileName,
                                const std::string& rawBlob,
@@ -834,21 +861,22 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
     // an embedded file can potentially be empty, but if that is the case, we will check if a constant file name exists
     if (multifile_dir and multifile_dir[0]) {
         // the current data format is multifile, let's check in the current multifile directory
-        const fs::path embfilePath = fs::path{multifile_dir} / _fileName;
-        if (fs::is_regular_file(embfilePath)) {
+        const fs::path multifileRoot{multifile_dir};
+        const fs::path embfilePath = multifileRoot / _fileName;
+        if (is_safe_multifile_file(embfilePath, multifileRoot)) {
             _rawBlob = Glib::file_get_contents(embfilePath.string());
             spdlog::debug("{} FROM multifile constant {}", __FUNCTION__, embfilePath.c_str());
         }
         else {
-            spdlog::warn("?? {} missing {}", __FUNCTION__, embfilePath.c_str());
+            spdlog::warn("!! {} refusing to read missing or unsafe {}", __FUNCTION__, embfilePath.c_str());
             // let's check in the cleanup folder .before
-            const fs::path embfileBeforePath = fs::path{multifile_dir} / ".before" / _fileName;
-            if (fs::is_regular_file(embfileBeforePath)) {
+            const fs::path embfileBeforePath = multifileRoot / ".before" / _fileName;
+            if (is_safe_multifile_file(embfileBeforePath, multifileRoot)) {
                 _rawBlob = Glib::file_get_contents(embfileBeforePath.string());
                 spdlog::debug("{} FROM multifile before constant {}", __FUNCTION__, embfileBeforePath.c_str());
             }
             else {
-                spdlog::warn("?? {} missing {}", __FUNCTION__, embfileBeforePath.c_str());
+                spdlog::warn("!! {} refusing to read missing or unsafe {}", __FUNCTION__, embfileBeforePath.c_str());
             }
         }
     }
@@ -856,7 +884,10 @@ void CtImageEmbFile::_checkNonEmptyRawBlob(const char* multifile_dir)
         return;
     }
     // let's check also if the embedded file was copied/moved and the original file is still in the old directory
-    if (not _pathLastMultiFile.empty() and fs::is_regular_file(_pathLastMultiFile)) {
+    const fs::path& multifileDocumentRoot = _pCtMainWin->get_ct_storage()->get_file_path();
+    if (not _pathLastMultiFile.empty()
+        and fs::is_directory(multifileDocumentRoot)
+        and is_safe_multifile_file(_pathLastMultiFile, multifileDocumentRoot)) {
         _rawBlob = Glib::file_get_contents(_pathLastMultiFile.string());
         spdlog::debug("{} FROM multifile constant last {}", __FUNCTION__, _pathLastMultiFile.string());
     }

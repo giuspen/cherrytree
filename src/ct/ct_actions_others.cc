@@ -170,8 +170,18 @@ void CtActions::embfile_save()
 
     if (curr_file_anchor->get_raw_blob().empty()) {
         const fs::path& embfilePathLast = curr_file_anchor->get_pathLastMultiFile();
-        if (not embfilePathLast.empty() and fs::is_regular_file(embfilePathLast) and fs::copy_file(embfilePathLast, filepath.c_str())) {
-            return;
+        if (not embfilePathLast.empty()) {
+            const fs::path& multifileDocumentRoot = _pCtMainWin->get_ct_storage()->get_file_path();
+            if (fs::is_directory(multifileDocumentRoot) and
+                CtImageEmbFile::is_safe_multifile_file(embfilePathLast, multifileDocumentRoot))
+            {
+                if (fs::copy_file(embfilePathLast, filepath.c_str())) {
+                    return;
+                }
+            }
+            else {
+                spdlog::warn("{} refusing to copy missing or unsafe {}", __FUNCTION__, embfilePathLast.c_str());
+            }
         }
     }
 
@@ -182,9 +192,15 @@ void CtActions::embfile_open()
 {
     if (curr_file_anchor->get_raw_blob().empty()) {
         const fs::path& embfilePathLast = curr_file_anchor->get_pathLastMultiFile();
-        if (not embfilePathLast.empty() and fs::is_regular_file(embfilePathLast)) {
-            fs::open_filepath(embfilePathLast, false/*open_folder_if_file_not_exists*/, _pCtConfig);
-            return;
+        if (not embfilePathLast.empty()) {
+            const fs::path& multifileDocumentRoot = _pCtMainWin->get_ct_storage()->get_file_path();
+            if (fs::is_directory(multifileDocumentRoot) and
+                CtImageEmbFile::is_safe_multifile_file(embfilePathLast, multifileDocumentRoot))
+            {
+                fs::open_filepath(embfilePathLast, false/*open_folder_if_file_not_exists*/, _pCtConfig);
+                return;
+            }
+            spdlog::warn("{} refusing to open missing or unsafe {}", __FUNCTION__, embfilePathLast.c_str());
         }
     }
 

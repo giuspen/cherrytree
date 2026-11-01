@@ -200,6 +200,7 @@ public:
 
     static size_t        get_next_unique_id();
     static fs::path      sanitize_filename(const fs::path& fileName);
+    static bool          is_safe_multifile_file(const fs::path& filePath, const fs::path& rootDir);
 
     void                 update_tooltip();
     void                 update_label_widget();
