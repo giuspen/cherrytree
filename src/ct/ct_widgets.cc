@@ -94,6 +94,11 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
 #endif
 }
 
+CtAnchoredWidget::~CtAnchoredWidget()
+{
+    _idleWrapModeConnection.disconnect();
+}
+
 void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
 {
     updateJustification(CtTextIterUtil::get_text_iter_alignment(textIter, _pCtMainWin));
@@ -132,15 +137,19 @@ void CtAnchoredWidget::_on_frame_size_allocate(Gtk::Allocation& allocation)
     if (not needWorkaround) {
         return;
     }
-    Glib::signal_idle().connect_once([&](){
-        CtTextView& textView = _pCtMainWin->get_text_view();
+    _idleWrapModeConnection.disconnect();
+    CtMainWin* pCtMainWin = _pCtMainWin;
+    _idleWrapModeConnection = Glib::signal_idle().connect([pCtMainWin](){
+        CtTextView& textView = pCtMainWin->get_text_view();
+        CtConfig* pCtConfig = pCtMainWin->get_ct_config();
 #if GTKMM_MAJOR_VERSION >= 4
-        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::NONE : Gtk::WrapMode::WORD_CHAR);
-        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE);
+        textView.mm().set_wrap_mode(pCtConfig->lineWrapping ? Gtk::WrapMode::NONE : Gtk::WrapMode::WORD_CHAR);
+        textView.mm().set_wrap_mode(pCtConfig->lineWrapping ? Gtk::WrapMode::WORD_CHAR : Gtk::WrapMode::NONE);
 #else
-        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
-        textView.mm().set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+        textView.mm().set_wrap_mode(pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
+        textView.mm().set_wrap_mode(pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
 #endif
+        return false;
     });
 }
 

@@ -59,7 +59,7 @@ class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
     CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification);
-    ~CtAnchoredWidget() override {}
+    ~CtAnchoredWidget() override;
 
     void insertInTextBuffer(Glib::RefPtr<Gtk::TextBuffer> pTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
@@ -98,6 +98,7 @@ protected:
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
     Gtk::Allocation _lastAllocation;
     bool _hidden{false};
+    sigc::connection _idleWrapModeConnection;
 };
 
 class CtAnchWidgLink : public CtAnchoredWidget
