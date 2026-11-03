@@ -31,6 +31,7 @@
 #include "ct_types.h"
 #include "ct_filesystem.h"
 #include <optional>
+#include <vector>
 
 class CtMainWin;
 class CtImporterInterface;
@@ -122,6 +123,7 @@ public:
 
 private:
     // helpers for tree actions
+    CtTreeIter _tree_cursor_iter() { return _pCtMainWin->tree_cursor_iter(); }
     void _node_add(const CtDuplicateShared duplicate_shared,
                    const bool add_as_child,
                    const CtTreeIter* pCtTreeIterFrom = nullptr,
@@ -140,8 +142,15 @@ public:
                          Gtk::TreeModel::iterator brother_iter = Gtk::TreeModel::iterator{},
                          bool set_first = false,
                          bool keep_focus = false);
+    void nodes_move_after(const std::vector<gint64>& node_ids,
+                          Gtk::TreeModel::iterator father_iter,
+                          Gtk::TreeModel::iterator brother_iter = Gtk::TreeModel::iterator{},
+                          bool set_first = false,
+                          bool keep_focus = false);
 
 private:
+    std::vector<gint64> _selected_sibling_node_ids();
+    void _nodes_move_vertical(bool up);
     bool _need_node_swap(Gtk::TreeModel::iterator& leftIter,
                          Gtk::TreeModel::iterator& rightIter,
                          bool ascendings);
@@ -156,12 +165,12 @@ public:
     }
     void node_duplicate() {
         if (not _is_there_selected_node_or_error()) return;
-        CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+        CtTreeIter treeIter = _tree_cursor_iter();
         _node_add(CtDuplicateShared::Duplicate, false/*add_as_child*/, &treeIter, _pCtMainWin);
     }
     void node_make_shared() {
         if (not _is_there_selected_node_or_error()) return;
-        CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+        CtTreeIter treeIter = _tree_cursor_iter();
         _node_add(CtDuplicateShared::Shared, false/*add_as_child*/, &treeIter, _pCtMainWin);
     }
     void node_child_add() {

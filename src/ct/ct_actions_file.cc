@@ -229,6 +229,7 @@ void CtActions::preferences_import()
     _pCtConfig->cherryWrapWidth = ctConfigImported.cherryWrapWidth;
     _pCtConfig->treeClickFocusText = ctConfigImported.treeClickFocusText;
     _pCtConfig->treeClickExpand = ctConfigImported.treeClickExpand;
+    _pCtConfig->multiNodeShowTitles = ctConfigImported.multiNodeShowTitles;
     _pCtConfig->treeTooltips = ctConfigImported.treeTooltips;
     _pCtConfig->syntaxHighlighting = ctConfigImported.syntaxHighlighting;
     _pCtConfig->autoSynHighl = ctConfigImported.autoSynHighl;

@@ -284,7 +284,7 @@ bool CtMainWin::file_open(const fs::path& filepath,
         CtTreeIter node = get_tree_store().get_node_from_node_name(node_to_focus);
         if (node) {
             _uCtTreeview->set_cursor_safe(node);
-            _ctTextview.mm().grab_focus();
+            get_text_view().mm().grab_focus();
             node_is_set = true;
             if (not anchor_to_focus.empty()) {
                 _uCtActions->current_node_scroll_to_anchor(anchor_to_focus);
@@ -307,7 +307,7 @@ bool CtMainWin::file_open(const fs::path& filepath,
         else {
             _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(), "0", 0, 0);
         }
-        _ctTextview.mm().grab_focus();
+        get_text_view().mm().grab_focus();
     }
 
     if (iterDocsRestore != _pCtConfig->recentDocsRestore.end()) {
@@ -494,7 +494,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
         if (CtStrUtil::file_any_encoding_to_utf8(filepath.string(), utf8_text)) {
             const std::string name = filepath.filename().string();
             _uCtActions->node_child_exist_or_create(Gtk::TreeModel::iterator{}, name);
-            _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), utf8_text);
+            get_text_view().get_buffer()->insert(get_text_view().get_buffer()->end(), utf8_text);
             return true;
         }
     }

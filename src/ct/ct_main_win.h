@@ -31,9 +31,6 @@
 #include <glibmm/i18n.h>
 #include <memory>
 #include <gtkmm.h>
-#include <sigc++/sigc++.h>
-#include <sigc++/signal.h>
-#include <sigc++/functors/slot.h>
 #include <gtksourceview/gtksource.h>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
@@ -44,6 +41,7 @@
 #include "ct_image.h"
 #include "ct_export2pdf.h"
 #include "ct_state_machine.h"
+#include <vector>
 
 struct CtStatusBar
 {
@@ -134,16 +132,26 @@ public:
     bool get_file_save_needed();
 
     void update_selected_node_statusbar_info();
+    void refresh_multi_node_editor();
+    void activate_editor_for_widget(CtAnchoredWidget* pWidget);
+    void set_show_line_numbers(bool show);
+    void set_scroll_beyond_last_line(bool enabled);
 
     void tree_node_paste_from_other_window(CtMainWin* pWinToCopyFrom, gint64 nodeIdToCopyFrom);
 
-    Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return _ctTextview.get_buffer(); }
-    CtTreeIter                        curr_tree_iter()  {
-        return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected());
-    }
+    Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return get_text_view().get_buffer(); }
+    // The node displayed by the focused editor section.
+    CtTreeIter                        curr_tree_iter() { return _activeTreeIter ? _activeTreeIter : tree_cursor_iter(); }
+    // The tree cursor node targeted by structural tree actions.
+    CtTreeIter                        tree_cursor_iter(); /*The tree cursor is the target of structural node actions.*/
+    // Selected data holders in tree order, with shared nodes returned once.
+    std::vector<CtTreeIter>           selected_tree_iters(bool unique_data_holders = true);
+    std::vector<CtTreeIter>           selected_tree_root_iters();
+    std::vector<gint64>               selected_tree_node_ids();
+    void restore_tree_selection(const std::vector<gint64>& node_ids, gint64 cursor_id);
     CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
-    CtTextView&                       get_text_view()   { return _ctTextview; }
+    CtTextView&                       get_text_view()   { return *_pActiveTextview; }
     CtStatusBar&                      get_status_bar()  { return _ctStatusBar; }
     CtMenu&                           get_ct_menu()     { return *_uCtMenu; }
     CtPrint&                          get_ct_print()    { return *_uCtPrint; }
@@ -170,7 +178,6 @@ public:
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
     void          tree_clear_expanded_nodes() { _treeExpandedNodeIds.clear(); }
 
-public:
     const char*               get_code_icon_name(std::string code_type);
     Gtk::Image*               new_managed_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
     void                      apply_syntax_highlighting(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& syntax, const bool forceReApply);
@@ -241,8 +248,10 @@ public:
 
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
 
-    void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
-
+    void resetPrevTreeIter() {
+        _prevTreeIter = CtTreeIter();
+        _activeTreeIter = CtTreeIter(); // Structural edits may erase the active row too.
+    }
 #if GTKMM_MAJOR_VERSION < 4
     void save_position()                    { get_position(_savedXpos, _savedYpos); }
     void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
@@ -266,13 +275,30 @@ public:
     void resetAutoSaveCounter() { if (_autoSaveCounter) { _autoSaveCounter = 0; spdlog::debug("autoSaveCounter->0"); } }
 
 private:
+    struct CtMultiNodeSection;
+
 #if GTKMM_MAJOR_VERSION < 4
     bool _on_window_key_press_event(GdkEventKey* event);
     bool _on_window_configure_event(GdkEventConfigure* configure_event);
 #endif
 
-    void _on_treeview_cursor_changed(); // pygtk: on_node_changed
+    void _on_treeview_selection_changed(); // pygtk: on_node_changed
+    void _setup_multi_node_editor();
+    void _show_multi_node_editor(const std::vector<CtTreeIter>& tree_iters, size_t requested_page_start = static_cast<size_t>(-1));
+    void _clear_multi_node_editor();
+    void _set_active_editor(CtTreeIter tree_iter, CtTextView* pTextView, bool update_history = true);
+    CtMultiNodeSection* _find_multi_node_section(gint64 node_id, CtTextView* pTextView);
+    void _store_previous_editor_state(CtTreeIter next_tree_iter);
+    void _connect_text_view_events(CtTextView& text_view);
+    void _update_multi_node_section_height(CtTextView& text_view);
+
+
 #if GTKMM_MAJOR_VERSION < 4
+    void _reselect_tree_nodes(const std::vector<gint64>& node_ids);
+    bool _multi_node_tree_button_press(GdkEventButton* event);
+    void _multi_node_tree_button_release(GdkEventButton* event);
+    void _multi_node_tree_event_after(GdkEvent* event);
+    bool _on_treeview_button_press_event(GdkEventButton* event);
     bool _on_treeview_button_release_event(GdkEventButton* event);
     void _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
 #endif
@@ -287,6 +313,10 @@ private:
     bool _on_treeview_scroll_event(GdkEventScroll* event);
 #endif
     #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+    void _multi_node_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                       int x, int y,
+                                       const Gtk::SelectionData& selection_data, guint time);
+    void _multi_node_drag_data_get(Gtk::SelectionData& selection_data);
     bool _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
                                   int x,
                                   int y,
@@ -331,7 +361,6 @@ private:
     bool _try_move_focus_to_anchored_widget_if_on_it();
     void _treeview_restore_expanded_descendants(const Gtk::TreeModel::iterator& iter);
 
-private:
     const bool                   _no_gui;
     CtConfig*                    _pCtConfig;
     CtTmp*                       _pCtTmp;
@@ -379,15 +408,41 @@ private:
     CtMenuAction*                _pSaveMenuAction{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
     Gtk::ScrolledWindow          _scrolledwindowText;
+    Gtk::Box                     _multiNodeBox{Gtk::ORIENTATION_VERTICAL};
+    Gtk::Box                     _multiNodePageBar{Gtk::ORIENTATION_HORIZONTAL, 6};
+    Gtk::Button                  _multiNodePrevButton;
+    Gtk::Label                   _multiNodePageLabel;
+    Gtk::Button                  _multiNodeNextButton;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
     std::unique_ptr<CtTreeView>  _uCtTreeview;
     CtTextView                   _ctTextview;
+    CtTextView*                  _pActiveTextview{&_ctTextview};
+    CtTreeIter                   _activeTreeIter;
+    struct CtMultiNodeSection
+    {
+        CtTreeIter treeIter;
+        std::unique_ptr<CtTextView> ownedTextView;
+        CtTextView* textView{nullptr};
+        Gtk::Separator separator;
+        Gtk::Label title;
+        Gtk::ScrolledWindow scrolledWindow;
+        bool usesScrolledWindow{false};
+        bool separatorAdded{false};
+        bool titleAdded{false};
+        sigc::connection focusConnection;
+        sigc::connection heightConnection;
+    };
+    std::vector<std::unique_ptr<CtMultiNodeSection>> _multiNodeSections;
+    bool                         _multiNodeMode{false};
+    bool                         _multiNodeEditorRebuilding{false};
+    guint64                      _multiNodeEditorGeneration{0};
+    size_t                       _multiNodePageStart{0};
+    bool                         _multiNodePageBarVisible{false};
     CtStateMachine               _ctStateMachine;
     std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme;
 
-private:
     bool                _userActive{true}; // pygtk: user_active
     bool                _isUpdatingStatusbarInfo{false};
     bool                _forceExit{false};
@@ -405,6 +460,10 @@ private:
     sigc::connection    _startDialogShowConn;
     bool                _tree_just_auto_expanded{false};
     bool                _treeRestoreInProgress{false};
+    std::vector<gint64> _treeRightClickSelectionIds;
+    std::vector<gint64> _treeDragSelectionIds;
+    gint64 _treeDragSourceNodeId{-1};
+    bool _treeDragStarted{false};
     bool                _drag_shift_held{false};
     std::unordered_set<gint64> _treeExpandedNodeIds;
     std::unordered_map<gint64, int> _nodesCursorPos;
@@ -440,7 +499,6 @@ public:
     std::vector<std::function<void()>>             signal_app_quit_window;
 #endif
 
-public:
     // Helper wrappers to emit/connect signals from translation units that
     // don't include the full sigc++ definitions (avoids incomplete-type issues).
     void emit_app_new_instance();
@@ -458,7 +516,6 @@ public:
     void connect_app_quit_or_hide_window(const std::function<void(CtMainWin*)>& cb);
     void connect_app_quit_window(const std::function<void(CtMainWin*)>& cb);
 
-public:
     Glib::Dispatcher dispatcherErrorMsg;
     ThreadSafeDEQueue<std::string, 2> errorsDEQueue;
 

@@ -52,6 +52,8 @@ public:
     Glib::RefPtr<const Gtk::TextBuffer> get_buffer() const { return _pTextView->get_buffer(); }
 
     void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
+    void set_show_line_numbers(bool show);
+    void set_scroll_beyond_last_line(bool enabled);
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
     void set_selection_at_offset_n_delta(const int offset,
                                          const int delta,
