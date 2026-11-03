@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_toolbar.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,11 +26,16 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_toolbar()
 {
+    auto add_to_box = [](Gtk::Box* box, Gtk::Widget& child, bool expand = false, bool fill = false) {
 #if GTKMM_MAJOR_VERSION >= 4
-    auto box = Gtk::manage(new Gtk::Box{Gtk::Orientation::VERTICAL, 6/*spacing*/});
-    box->append(*Gtk::manage(new Gtk::Label{_("Toolbar preferences are temporarily limited in GTK4 build.")}));
-    return box;
+        box->append(child);
+        child.set_hexpand(expand);
+        child.set_vexpand(expand);
 #else
+        box->pack_start(child, expand, fill);
+#endif
+    };
+
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_toolbarModelColumns);
     fill_toolbar_model(liststore);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
@@ -48,65 +53,152 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     #endif
 
     Gtk::CellRendererPixbuf pixbuf_renderer;
+#if GTKMM_MAJOR_VERSION >= 4
+    pixbuf_renderer.property_icon_size() = Gtk::IconSize::LARGE;
+#else
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+#endif
     const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
-    treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+    treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _toolbarModelColumns.icon);
 
     treeview->append_column("", _toolbarModelColumns.desc);
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+#if GTKMM_MAJOR_VERSION >= 4
+    scrolledwindow->set_child(*treeview);
+#else
     scrolledwindow->add(*treeview);
+#endif
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
+#if GTKMM_MAJOR_VERSION >= 4
+    button_add->set_icon_name("ct_add");
+#else
     button_add->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_add",  Gtk::ICON_SIZE_BUTTON));
+#endif
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
+#if GTKMM_MAJOR_VERSION >= 4
+    button_remove->set_icon_name("ct_remove");
+#else
     button_remove->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+#endif
     button_remove->set_tooltip_text(_("Remove Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
+#if GTKMM_MAJOR_VERSION >= 4
+    button_reset->set_icon_name("ct_undo");
+#else
     button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+#endif
     button_reset->set_tooltip_text(_("Reset to Default"));
 
-    auto hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
-    auto vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-    vbox->pack_start(*button_add, false, false);
-    vbox->pack_start(*button_remove, false, false);
-    vbox->pack_start(*Gtk::manage(new Gtk::Label()), true, true);
-    vbox->pack_start(*button_reset, false, false);
-    hbox->pack_start(*scrolledwindow, true, true);
-    hbox->pack_start(*vbox, false, false);
+    auto hbox = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::HORIZONTAL
+#else
+        Gtk::ORIENTATION_HORIZONTAL
+#endif
+    });
+    auto vbox = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+#else
+        Gtk::ORIENTATION_VERTICAL
+#endif
+    });
+    add_to_box(vbox, *button_add);
+    add_to_box(vbox, *button_remove);
+    add_to_box(vbox, *Gtk::manage(new Gtk::Label()), true, true);
+    add_to_box(vbox, *button_reset);
+    add_to_box(hbox, *scrolledwindow, true, true);
+    add_to_box(hbox, *vbox);
 
-    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
-    pMainBox->pack_start(*hbox);
+    auto pMainBox = Gtk::manage(new Gtk::Box{
+#if GTKMM_MAJOR_VERSION >= 4
+        Gtk::Orientation::VERTICAL
+#else
+        Gtk::ORIENTATION_VERTICAL
+#endif
+        , 3/*spacing*/});
+    add_to_box(pMainBox, *hbox, true, true);
 
-    button_add->signal_clicked().connect([this, treeview, liststore](){
-        if (add_new_item_in_toolbar_model(treeview, liststore)) {
+    auto model_update_suppressed = std::make_shared<bool>(false);
+    button_add->signal_clicked().connect([this, treeview, liststore, model_update_suppressed](){
+#if GTKMM_MAJOR_VERSION >= 4
+        *model_update_suppressed = true;
+#endif
+        const bool added = add_new_item_in_toolbar_model(treeview, liststore);
+#if GTKMM_MAJOR_VERSION >= 4
+        *model_update_suppressed = false;
+#endif
+        if (added) {
             update_config_toolbar_from_model(liststore);
             apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
         }
     });
-    button_remove->signal_clicked().connect([this, treeview, liststore](){
-        liststore->erase(treeview->get_selection()->get_selected());
+    auto remove_selected_item = [this, treeview, liststore, model_update_suppressed](){
+        auto selected = treeview->get_selection()->get_selected();
+        if (!selected) return;
+#if GTKMM_MAJOR_VERSION >= 4
+        *model_update_suppressed = true;
+#endif
+        liststore->erase(selected);
+#if GTKMM_MAJOR_VERSION >= 4
+        *model_update_suppressed = false;
+#endif
         update_config_toolbar_from_model(liststore);
         apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
-    });
-    button_reset->signal_clicked().connect([this, liststore](){
+    };
+    button_remove->signal_clicked().connect(remove_selected_item);
+    button_reset->signal_clicked().connect([this, liststore, model_update_suppressed](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             _pConfig->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
+            *model_update_suppressed = true;
             fill_toolbar_model(liststore);
+            *model_update_suppressed = false;
+            update_config_toolbar_from_model(liststore);
             apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
         }
     });
-    treeview->signal_key_press_event().connect([button_remove](GdkEventKey* key) -> bool {
+#if GTKMM_MAJOR_VERSION >= 4
+    auto controller_key = Gtk::EventControllerKey::create();
+    controller_key->signal_key_pressed().connect([remove_selected_item](guint keyval, guint, Gdk::ModifierType) {
+        if (keyval == GDK_KEY_Delete) {
+            remove_selected_item();
+            return true;
+        }
+        return false;
+    }, false);
+    treeview->add_controller(controller_key);
+#else
+    treeview->signal_key_press_event().connect([remove_selected_item](GdkEventKey* key) -> bool {
         if (key->keyval == GDK_KEY_Delete) {
-            button_remove->clicked();
+            remove_selected_item();
             return true;
         }
         return false;
     });
+#endif
+#if GTKMM_MAJOR_VERSION >= 4
+    auto update_after_model_change = [this, liststore, model_update_suppressed](){
+        if (*model_update_suppressed) return;
+        update_config_toolbar_from_model(liststore);
+        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
+    };
+    liststore->signal_row_inserted().connect([update_after_model_change](const Gtk::TreeModel::Path&, const Gtk::TreeModel::iterator&){
+        update_after_model_change();
+    });
+    liststore->signal_row_deleted().connect([update_after_model_change](const Gtk::TreeModel::Path&){
+        update_after_model_change();
+    });
+    liststore->signal_rows_reordered().connect([update_after_model_change](const Gtk::TreeModel::Path&, const Gtk::TreeModel::iterator&, int*){
+        update_after_model_change();
+    });
+#else
     treeview->signal_drag_end().connect([this, liststore](const Glib::RefPtr<Gdk::DragContext>&){
         update_config_toolbar_from_model(liststore);
         apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
     });
+#endif
     auto button_remove_test_sensitive = [button_remove, treeview](){
         button_remove->set_sensitive(treeview->get_selection()->count_selected_rows() > 0);
     };
@@ -114,7 +206,6 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     button_remove_test_sensitive();
 
     return pMainBox;
-#endif
 }
 
 void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
@@ -150,11 +241,6 @@ void CtPrefDlg::populate_row_in_toolbar_model(Gtk::TreeModel::iterator row, cons
 
 bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model)
 {
-#if GTKMM_MAJOR_VERSION >= 4
-    (void)treeview;
-    (void)model;
-    return false;
-#else
     auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
     itemStore->add_row("", CtConst::TOOLBAR_SPLIT, _("Split Toolbar"));
@@ -188,7 +274,6 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
         return true;
     }
     return false;
-#endif
 }
 
 void CtPrefDlg::update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model)
