@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-05-14 11:02+0330\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Persian <translation-team-fa@lists.sourceforge.net>\n"
@@ -161,6 +161,12 @@ msgstr "شما از  از نسخه توسعه دهنده استفاده می ک�
 
 msgid "Who is the Parent?"
 msgstr "والد کدام است؟"
+
+msgid "Cancel"
+msgstr "لغو"
+
+msgid "OK"
+msgstr "تأیید"
 
 msgid "The Tree Root"
 msgstr "ریشه درخت"
@@ -351,6 +357,105 @@ msgstr "کپی کد"
 msgid "Change CodeBox Properties"
 msgstr "تغییر مشخصات جعبه کد"
 
+msgid "Arabic"
+msgstr "عربی"
+
+msgid "Armenian"
+msgstr "ارمنی"
+
+msgid "Bulgarian"
+msgstr "بلغاری"
+
+msgid "Chinese Simplified"
+msgstr "چینی مدرن"
+
+msgid "Chinese Traditional"
+msgstr "چینی سنتی"
+
+msgid "Croatian"
+msgstr "کرواتی"
+
+msgid "Czech"
+msgstr "چکی"
+
+msgid "Dutch"
+msgstr "هلندی"
+
+msgid "Finnish"
+msgstr "فنلاندی"
+
+msgid "French"
+msgstr "فرانسوی"
+
+msgid "German"
+msgstr "آلمانی"
+
+msgid "Greek"
+msgstr "یونانی"
+
+msgid "Hindi India"
+msgstr "هندی"
+
+msgid "Hungarian"
+msgstr "مجارستانی"
+
+msgid "Italian"
+msgstr "ایتالیایی"
+
+msgid "Japanese"
+msgstr "ژاپنی"
+
+msgid "Kazakh"
+msgstr "قزاقی"
+
+msgid "Kazakh (Latin)"
+msgstr "قزاقی(لاتین)"
+
+msgid "Korean"
+msgstr "کره ای"
+
+msgid "Lithuanian"
+msgstr "لیتوانیایی"
+
+msgid "Persian"
+msgstr "فارسی"
+
+msgid "Polish"
+msgstr "لهستانی"
+
+msgid "Portuguese"
+msgstr "پرتغالی"
+
+msgid "Portuguese Brazil"
+msgstr "پرتغالی برزیل"
+
+msgid "Romanian"
+msgstr "رومانیایی"
+
+msgid "Russian"
+msgstr "روسی"
+
+msgid "Slovak"
+msgstr "اسلواکیایی"
+
+msgid "Slovenian"
+msgstr "اسلوونیایی"
+
+msgid "Spanish"
+msgstr "اسپانیایی"
+
+msgid "Swedish"
+msgstr "سوئدی"
+
+msgid "Tamil"
+msgstr "تامیلی"
+
+msgid "Turkish"
+msgstr "ترکی"
+
+msgid "Ukrainian"
+msgstr "اوکراینی"
+
 msgid "Start in CherryTree"
 msgstr "شروع در 'درخت گیلاس'"
 
@@ -451,11 +556,20 @@ msgstr "رمز های عبور وارد شده یکسان نیستند."
 msgid "Warning"
 msgstr "هشدار"
 
+msgid "Discard"
+msgstr "نادیده گرفتن"
+
+msgid "Save"
+msgstr "ذخیره"
+
 msgid "The Current Document was Updated."
 msgstr "سندی فعلی به روز رسانی شد."
 
 msgid "Do you want to Save the Changes?"
 msgstr "آیا مایل به ذخیره تغییرات هستید؟"
+
+msgid "Execute"
+msgstr "اجرا"
 
 msgid "Do you want to Execute the Code?"
 msgstr "آیا مایل به اجرای کد هستید؟"
@@ -502,102 +616,6 @@ msgstr ""
 "اگر نه، می‌توانید به آدرس زیر برای  بنیاد نرم‌افزار آزاد  نامه بنویسید: \n"
 "Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "عربی"
-
-msgid "Armenian"
-msgstr "ارمنی"
-
-msgid "Bulgarian"
-msgstr "بلغاری"
-
-msgid "Chinese Simplified"
-msgstr "چینی مدرن"
-
-msgid "Chinese Traditional"
-msgstr "چینی سنتی"
-
-msgid "Croatian"
-msgstr "کرواتی"
-
-msgid "Czech"
-msgstr "چکی"
-
-msgid "Dutch"
-msgstr "هلندی"
-
-msgid "Finnish"
-msgstr "فنلاندی"
-
-msgid "French"
-msgstr "فرانسوی"
-
-msgid "German"
-msgstr "آلمانی"
-
-msgid "Greek"
-msgstr "یونانی"
-
-msgid "Hindi India"
-msgstr "هندی"
-
-msgid "Hungarian"
-msgstr "مجارستانی"
-
-msgid "Italian"
-msgstr "ایتالیایی"
-
-msgid "Japanese"
-msgstr "ژاپنی"
-
-msgid "Kazakh"
-msgstr "قزاقی"
-
-msgid "Kazakh (Latin)"
-msgstr "قزاقی(لاتین)"
-
-msgid "Korean"
-msgstr "کره ای"
-
-msgid "Lithuanian"
-msgstr "لیتوانیایی"
-
-msgid "Persian"
-msgstr "فارسی"
-
-msgid "Polish"
-msgstr "لهستانی"
-
-msgid "Portuguese"
-msgstr "پرتغالی"
-
-msgid "Portuguese Brazil"
-msgstr "پرتغالی برزیل"
-
-msgid "Romanian"
-msgstr "رومانیایی"
-
-msgid "Russian"
-msgstr "روسی"
-
-msgid "Slovak"
-msgstr "اسلواکیایی"
-
-msgid "Slovenian"
-msgstr "اسلوونیایی"
-
-msgid "Spanish"
-msgstr "اسپانیایی"
-
-msgid "Swedish"
-msgstr "سوئدی"
-
-msgid "Turkish"
-msgstr "ترکی"
-
-msgid "Ukrainian"
-msgstr "اوکراینی"
 
 msgid "About CherryTree"
 msgstr "درباره 'درخت گیلاس'"
@@ -846,6 +864,9 @@ msgstr "خط"
 msgid "Line Content"
 msgstr "محتوای خط"
 
+msgid "Hide"
+msgstr "مخفی"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "جستجو / یافتن های تکراری اخیر"
 
@@ -873,6 +894,12 @@ msgstr "حذف رنگ کاربر از پالت"
 msgid "Colour"
 msgstr "رنگ"
 
+msgid "More"
+msgstr "بیشتر"
+
+msgid "Less"
+msgstr "کمتر"
+
 msgid "Question"
 msgstr "سوال"
 
@@ -884,6 +911,9 @@ msgstr "خطا"
 
 msgid "Select File"
 msgstr "انتخاب فایل"
+
+msgid "Open"
+msgstr "باز کردن"
 
 msgid "Select Folder"
 msgstr "انتخاب پوشه"
@@ -964,11 +994,11 @@ msgstr "انتخاب تگ های موجود"
 msgid "Tag Name"
 msgstr "نام تگ"
 
-msgid "Pick a Color"
-msgstr "رنگی را انتخاب فرمایید"
-
 msgid "Select Node Icon"
 msgstr "انتخاب نماد گره"
+
+msgid "Pick a Color"
+msgstr "رنگی را انتخاب فرمایید"
 
 msgid "Involved Nodes"
 msgstr "گره های درگیر"
@@ -1124,8 +1154,20 @@ msgstr "کپی همه یا بخش انتخاب شده"
 msgid "Paste"
 msgstr "جای گذاری"
 
+msgid "Menu"
+msgstr "منو"
+
 msgid "Remove from list"
 msgstr "حذف از لیست"
+
+msgid "No recent documents"
+msgstr "هیچ سند اخیری وجود ندارد"
+
+msgid "Bookmarks"
+msgstr "نشانک‌ها"
+
+msgid "No bookmarks"
+msgstr "هیچ نشانکی وجود ندارد"
 
 msgid "_File"
 msgstr "فایل"
@@ -1661,11 +1703,11 @@ msgstr "قالب بندی مشابه"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "مشابه سازی قالب بندی متن در محل نشانگر"
 
-msgid "Format _Latest"
-msgstr "قالب بندی اخیر"
+msgid "Repeat _Last Format"
+msgstr "تکرار _آخرین قالب‌بندی"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "حافظه قالب بندی متن اخیر"
+msgid "Repeat Latest Text Format Type"
+msgstr "تکرار آخرین نوع قالب‌بندی متن"
 
 msgid "_Remove Formatting"
 msgstr "حذف قالب بندی"
@@ -2751,6 +2793,9 @@ msgstr "تعداد نسخ  پشتیبان برای نگهداری"
 msgid "Custom Backup Directory"
 msgstr "پوشه دلخواه نسخه پشتیبان"
 
+msgid "Select Folder..."
+msgstr "انتخاب پوشه..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "فضای ذخیره سازی چندین فایل، از نام فایل جاسازی شده استفاده کنید"
 
@@ -3042,8 +3087,8 @@ msgstr "استفاده از گیلاس های مختلف به ازای هر سط
 msgid "No Icon"
 msgstr "بدون نماد"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "مخفی کردن نماد کمکی کناری"
+msgid "Hide Auxiliary Icon"
+msgstr "مخفی کردن نماد کمکی"
 
 msgid "Default Text Nodes Icons"
 msgstr "متن پیشفرض نمادهای گره ها"
@@ -3148,6 +3193,9 @@ msgstr "سند Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "آیا از بازگرداندن به حالت پیش فرض اطمینان دارید؟"
+
+#~ msgid "Format _Latest"
+#~ msgstr "قالب بندی اخیر"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "جایگزینی در چندین گره..."

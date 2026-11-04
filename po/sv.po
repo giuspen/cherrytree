@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2024-09-22 08:35+0200\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
@@ -160,6 +160,12 @@ msgstr "Du använder en utvecklingsversion."
 
 msgid "Who is the Parent?"
 msgstr "Vilken är den överordnade?"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "Trädroten"
@@ -350,6 +356,105 @@ msgstr "Kopiera kod"
 msgid "Change CodeBox Properties"
 msgstr "Ändra kodboxegenskaper"
 
+msgid "Arabic"
+msgstr "Arabiska"
+
+msgid "Armenian"
+msgstr "Armeniska"
+
+msgid "Bulgarian"
+msgstr "Bulgariska"
+
+msgid "Chinese Simplified"
+msgstr "Förenklad kinesiska"
+
+msgid "Chinese Traditional"
+msgstr "Kinesiska (Traditionell)"
+
+msgid "Croatian"
+msgstr "Kroatiska"
+
+msgid "Czech"
+msgstr "Tjeckiska"
+
+msgid "Dutch"
+msgstr "Nederländska"
+
+msgid "Finnish"
+msgstr "Slutför"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "German"
+msgstr "Tyska"
+
+msgid "Greek"
+msgstr "Grekiska"
+
+msgid "Hindi India"
+msgstr "Hindi (Indien)"
+
+msgid "Hungarian"
+msgstr "Ungerska"
+
+msgid "Italian"
+msgstr "Italienska"
+
+msgid "Japanese"
+msgstr "Japanska"
+
+msgid "Kazakh"
+msgstr "Kazakiska"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazakiska (Latin)"
+
+msgid "Korean"
+msgstr "Koreanska"
+
+msgid "Lithuanian"
+msgstr "Litauiska"
+
+msgid "Persian"
+msgstr "Persiska"
+
+msgid "Polish"
+msgstr "Polska"
+
+msgid "Portuguese"
+msgstr "Portugisiska"
+
+msgid "Portuguese Brazil"
+msgstr "Portugisisk-brasilienska"
+
+msgid "Romanian"
+msgstr "Rumänska"
+
+msgid "Russian"
+msgstr "Ryska"
+
+msgid "Slovak"
+msgstr "Slovakiska"
+
+msgid "Slovenian"
+msgstr "Slovenska"
+
+msgid "Spanish"
+msgstr "Spanska"
+
+msgid "Swedish"
+msgstr "Svenska"
+
+msgid "Tamil"
+msgstr "Tamil"
+
+msgid "Turkish"
+msgstr "Turkiska"
+
+msgid "Ukrainian"
+msgstr "Ukrainska"
+
 msgid "Start in CherryTree"
 msgstr "Starta i CherryTree"
 
@@ -451,11 +556,20 @@ msgstr "De två angivna lösenorden stämmer inte överens."
 msgid "Warning"
 msgstr "Varning"
 
+msgid "Discard"
+msgstr "Förkasta"
+
+msgid "Save"
+msgstr "Spara"
+
 msgid "The Current Document was Updated."
 msgstr "Aktuellt dokument uppdaterades."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Vill du spara ändringarna?"
+
+msgid "Execute"
+msgstr "Kör"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Vill du köra koden?"
@@ -504,102 +618,6 @@ msgstr ""
 "Du bör ha fått en kopia av GNU General Public License tillsammans med \n"
 "det här programmet. Om inte, skriv till Free Software Foundation, Inc., \n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabiska"
-
-msgid "Armenian"
-msgstr "Armeniska"
-
-msgid "Bulgarian"
-msgstr "Bulgariska"
-
-msgid "Chinese Simplified"
-msgstr "Förenklad kinesiska"
-
-msgid "Chinese Traditional"
-msgstr "Kinesiska (Traditionell)"
-
-msgid "Croatian"
-msgstr "Kroatiska"
-
-msgid "Czech"
-msgstr "Tjeckiska"
-
-msgid "Dutch"
-msgstr "Nederländska"
-
-msgid "Finnish"
-msgstr "Slutför"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "German"
-msgstr "Tyska"
-
-msgid "Greek"
-msgstr "Grekiska"
-
-msgid "Hindi India"
-msgstr "Hindi (Indien)"
-
-msgid "Hungarian"
-msgstr "Ungerska"
-
-msgid "Italian"
-msgstr "Italienska"
-
-msgid "Japanese"
-msgstr "Japanska"
-
-msgid "Kazakh"
-msgstr "Kazakiska"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakiska (Latin)"
-
-msgid "Korean"
-msgstr "Koreanska"
-
-msgid "Lithuanian"
-msgstr "Litauiska"
-
-msgid "Persian"
-msgstr "Persiska"
-
-msgid "Polish"
-msgstr "Polska"
-
-msgid "Portuguese"
-msgstr "Portugisiska"
-
-msgid "Portuguese Brazil"
-msgstr "Portugisisk-brasilienska"
-
-msgid "Romanian"
-msgstr "Rumänska"
-
-msgid "Russian"
-msgstr "Ryska"
-
-msgid "Slovak"
-msgstr "Slovakiska"
-
-msgid "Slovenian"
-msgstr "Slovenska"
-
-msgid "Spanish"
-msgstr "Spanska"
-
-msgid "Swedish"
-msgstr "Svenska"
-
-msgid "Turkish"
-msgstr "Turkiska"
-
-msgid "Ukrainian"
-msgstr "Ukrainska"
 
 msgid "About CherryTree"
 msgstr "Om CherryTree"
@@ -849,6 +867,9 @@ msgstr "Rad"
 msgid "Line Content"
 msgstr "Radinnehåll"
 
+msgid "Hide"
+msgstr "Dölj"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Upprepa senaste Sök/Ersätt"
 
@@ -876,6 +897,12 @@ msgstr "Ta bort användarfärg från paletten"
 msgid "Colour"
 msgstr "Färg"
 
+msgid "More"
+msgstr "Mer"
+
+msgid "Less"
+msgstr "Mindre"
+
 msgid "Question"
 msgstr "Fråga"
 
@@ -887,6 +914,9 @@ msgstr "Fel"
 
 msgid "Select File"
 msgstr "Välj fil"
+
+msgid "Open"
+msgstr "Öppna"
 
 msgid "Select Folder"
 msgstr "Välj mappa"
@@ -967,11 +997,11 @@ msgstr "Välj befintlig tagg"
 msgid "Tag Name"
 msgstr "Taggnamn"
 
-msgid "Pick a Color"
-msgstr "Välj en färg"
-
 msgid "Select Node Icon"
 msgstr "Välj postikon"
+
+msgid "Pick a Color"
+msgstr "Välj en färg"
 
 msgid "Involved Nodes"
 msgstr "Involverade poster"
@@ -1128,8 +1158,20 @@ msgstr "Kopiera markerat eller alla"
 msgid "Paste"
 msgstr "Klistra in"
 
+msgid "Menu"
+msgstr "Meny"
+
 msgid "Remove from list"
 msgstr "Ta bort från listan"
+
+msgid "No recent documents"
+msgstr "Inga nyligen använda dokument"
+
+msgid "Bookmarks"
+msgstr "Bokmärken"
+
+msgid "No bookmarks"
+msgstr "Inga bokmärken"
 
 msgid "_File"
 msgstr "_Arkiv"
@@ -1665,11 +1707,11 @@ msgstr "Formatera k_lon"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Klona textformattyp vid markören"
 
-msgid "Format _Latest"
-msgstr "Formatera _senaste"
+msgid "Repeat _Last Format"
+msgstr "Upprepa _senaste formateringen"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Minne för senaste textformattyp"
+msgid "Repeat Latest Text Format Type"
+msgstr "Upprepa den senaste textformattypen"
 
 msgid "_Remove Formatting"
 msgstr "_Ta bort formatering"
@@ -1968,7 +2010,8 @@ msgstr "Infoga _morgondagens post under markerad post"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Infoga en post med hierarkin År/Månad/Dag för imorgon under markerad post"
+msgstr ""
+"Infoga en post med hierarkin År/Månad/Dag för imorgon under markerad post"
 
 msgid "C_hange Node Properties..."
 msgstr "Ändra _postegenskaper..."
@@ -2757,6 +2800,9 @@ msgstr "Antal säkerhetskopior att spara"
 msgid "Custom Backup Directory"
 msgstr "Anpassad säkerhetskopieringsmapp"
 
+msgid "Select Folder..."
+msgstr "Välj mapp..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Lagring av flera filer, använd inbäddat filnamn på disk"
 
@@ -3048,8 +3094,8 @@ msgstr "Använd olika körsbär per nivå"
 msgid "No Icon"
 msgstr "Ingen ikon"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Dölj extraikon på höger sida"
+msgid "Hide Auxiliary Icon"
+msgstr "Dölj den extra ikonen"
 
 msgid "Default Text Nodes Icons"
 msgstr "Standardikoner för textposter"
@@ -3153,6 +3199,9 @@ msgstr "Leo-dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Vill du verkligen återställa till standardvärden?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Formatera _senaste"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Ersätt i flera poster..."
@@ -3409,9 +3458,6 @@ msgstr "Vill du verkligen återställa till standardvärden?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Använd programindikator för dockning"
-
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Tecknen  %s  är inte tillåtna"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-02-09 21:45+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Kazakh<camilot55@yandex.ru>\n"
@@ -185,6 +185,12 @@ msgstr "Сiз өңдеушi үшiн нобайды пайдаланыңыз"
 
 msgid "Who is the Parent?"
 msgstr "Қосылу..."
+
+msgid "Cancel"
+msgstr "Болдырмау"
+
+msgid "OK"
+msgstr "Жарайды"
 
 msgid "The Tree Root"
 msgstr "Ағаш"
@@ -394,6 +400,105 @@ msgstr "Кодты көшіру"
 msgid "Change CodeBox Properties"
 msgstr "CodeBox қасиет..."
 
+msgid "Arabic"
+msgstr "Араб тілі"
+
+msgid "Armenian"
+msgstr "Армян"
+
+msgid "Bulgarian"
+msgstr "Болгарлық"
+
+msgid "Chinese Simplified"
+msgstr "Қытай жеңiлдетiлгенi"
+
+msgid "Chinese Traditional"
+msgstr "Қытай (дәстүрлі)"
+
+msgid "Croatian"
+msgstr "Хорват"
+
+msgid "Czech"
+msgstr "Чех"
+
+msgid "Dutch"
+msgstr "Голландиялық"
+
+msgid "Finnish"
+msgstr "Фин"
+
+msgid "French"
+msgstr "Француз"
+
+msgid "German"
+msgstr "Немiс"
+
+msgid "Greek"
+msgstr "Грек"
+
+msgid "Hindi India"
+msgstr "Хинди (Үндістан)"
+
+msgid "Hungarian"
+msgstr "Венгр"
+
+msgid "Italian"
+msgstr "Италиялық"
+
+msgid "Japanese"
+msgstr "Жапон"
+
+msgid "Kazakh"
+msgstr "Қазақ"
+
+msgid "Kazakh (Latin)"
+msgstr "Қазақ (латын)"
+
+msgid "Korean"
+msgstr "Кәрiс"
+
+msgid "Lithuanian"
+msgstr "Литвалық"
+
+msgid "Persian"
+msgstr "Парсы"
+
+msgid "Polish"
+msgstr "Поляк"
+
+msgid "Portuguese"
+msgstr "Португал"
+
+msgid "Portuguese Brazil"
+msgstr "Португал (Бразилия)"
+
+msgid "Romanian"
+msgstr "Румын"
+
+msgid "Russian"
+msgstr "Орыс"
+
+msgid "Slovak"
+msgstr "Словак тілі"
+
+msgid "Slovenian"
+msgstr "Словения"
+
+msgid "Spanish"
+msgstr "Испан"
+
+msgid "Swedish"
+msgstr "Швед"
+
+msgid "Tamil"
+msgstr "Тамил тілі"
+
+msgid "Turkish"
+msgstr "Түрiк"
+
+msgid "Ukrainian"
+msgstr "Украина"
+
 msgid "Start in CherryTree"
 msgstr "CherryTree-де іске қосу"
 
@@ -495,11 +600,20 @@ msgstr "Парольдарды үйлеспейдi "
 msgid "Warning"
 msgstr "Ескерту"
 
+msgid "Discard"
+msgstr "Тастау"
+
+msgid "Save"
+msgstr "Сақтау"
+
 msgid "The Current Document was Updated."
 msgstr "CherryTree құжатты өзгертiлген болды."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Құжатта өзгерiстi сақталады ма?"
+
+msgid "Execute"
+msgstr "Орындау"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Кодты орындайды ма?"
@@ -550,102 +664,6 @@ msgstr ""
 "Болған iс сiз бағдарлама бұнымен бiрге Стандартты Қоғамдық лицензия\n"
 "GNU көшiрме болып шығуыңыз керек. Егер дәл осылай емес бұл болса, \n"
 "бойымен қорға Еркiн жазыңыз, 675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Араб тілі"
-
-msgid "Armenian"
-msgstr "Армян"
-
-msgid "Bulgarian"
-msgstr "Болгарлық"
-
-msgid "Chinese Simplified"
-msgstr "Қытай жеңiлдетiлгенi"
-
-msgid "Chinese Traditional"
-msgstr "Қытай (дәстүрлі)"
-
-msgid "Croatian"
-msgstr "Хорват"
-
-msgid "Czech"
-msgstr "Чех"
-
-msgid "Dutch"
-msgstr "Голландиялық"
-
-msgid "Finnish"
-msgstr "Фин"
-
-msgid "French"
-msgstr "Француз"
-
-msgid "German"
-msgstr "Немiс"
-
-msgid "Greek"
-msgstr "Грек"
-
-msgid "Hindi India"
-msgstr "Хинди (Үндістан)"
-
-msgid "Hungarian"
-msgstr "Венгр"
-
-msgid "Italian"
-msgstr "Италиялық"
-
-msgid "Japanese"
-msgstr "Жапон"
-
-msgid "Kazakh"
-msgstr "Қазақ"
-
-msgid "Kazakh (Latin)"
-msgstr "Қазақ (латын)"
-
-msgid "Korean"
-msgstr "Кәрiс"
-
-msgid "Lithuanian"
-msgstr "Литвалық"
-
-msgid "Persian"
-msgstr "Парсы"
-
-msgid "Polish"
-msgstr "Поляк"
-
-msgid "Portuguese"
-msgstr "Португал"
-
-msgid "Portuguese Brazil"
-msgstr "Португал (Бразилия)"
-
-msgid "Romanian"
-msgstr "Румын"
-
-msgid "Russian"
-msgstr "Орыс"
-
-msgid "Slovak"
-msgstr "Словак"
-
-msgid "Slovenian"
-msgstr "Словения"
-
-msgid "Spanish"
-msgstr "Испан"
-
-msgid "Swedish"
-msgstr "Швед"
-
-msgid "Turkish"
-msgstr "Түрiк"
-
-msgid "Ukrainian"
-msgstr "Украина"
 
 msgid "About CherryTree"
 msgstr "Мәліметтер"
@@ -896,6 +914,9 @@ msgstr "Жол"
 msgid "Line Content"
 msgstr "Iшiндегi"
 
+msgid "Hide"
+msgstr "Жасыру"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Қайталану Табылу/Алмастырылу"
 
@@ -923,6 +944,12 @@ msgstr "Палитрадан реттелетін түсті алып таста
 msgid "Colour"
 msgstr "Түсі"
 
+msgid "More"
+msgstr "Көбірек"
+
+msgid "Less"
+msgstr "Азырақ"
+
 msgid "Question"
 msgstr "Сұрақ"
 
@@ -934,6 +961,9 @@ msgstr "Қате"
 
 msgid "Select File"
 msgstr "Ашылу..."
+
+msgid "Open"
+msgstr "Ашу"
 
 msgid "Select Folder"
 msgstr "Таңдау..."
@@ -1017,11 +1047,11 @@ msgstr "Тегтер"
 msgid "Tag Name"
 msgstr "Тег"
 
-msgid "Pick a Color"
-msgstr "Түстi таңдаңыз"
-
 msgid "Select Node Icon"
 msgstr "Белгiшенiң ауысымы"
+
+msgid "Pick a Color"
+msgstr "Түстi таңдаңыз"
 
 msgid "Involved Nodes"
 msgstr "Таңдау..."
@@ -1192,8 +1222,20 @@ msgstr "Бөлектелген немесе барлығын көшіру"
 msgid "Paste"
 msgstr "Кірістіру"
 
+msgid "Menu"
+msgstr "Мәзір"
+
 msgid "Remove from list"
 msgstr "Әңгiмеден алыстап кету"
+
+msgid "No recent documents"
+msgstr "Соңғы құжаттар жоқ"
+
+msgid "Bookmarks"
+msgstr "Бетбелгілер"
+
+msgid "No bookmarks"
+msgstr "Бетбелгілер жоқ"
 
 msgid "_File"
 msgstr "Файл"
@@ -1975,15 +2017,11 @@ msgstr ""
 "\n"
 "Жүгiргiнi жанында мәтiннiң қалыптауын клондау"
 
-msgid "Format _Latest"
-msgstr "Үлгi бойымен пiшiм"
+msgid "Repeat _Last Format"
+msgstr "Соңғы пішімдеуді қайталау (_L)"
 
-msgid "Memory of Latest Text Format Type"
-msgstr ""
-"Үлгi бойымен пiшiм\n"
-"\n"
-"Соңғы мәтiннiң қалыптауы жадта қалу және \n"
-"онының басқа мәтiн үзiндiлерiне қолдану"
+msgid "Repeat Latest Text Format Type"
+msgstr "Соңғы мәтін пішімінің түрін қайталау"
 
 msgid "_Remove Formatting"
 msgstr "Пiшiмдi тазалану"
@@ -2413,21 +2451,42 @@ msgstr "Бұтақты тамырға салыңыз..."
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Бұтақты тамырға салыңыз...\n\nАғаштың тамырына Жыл/Ай/Күн иерархиясы бар бүгінгі күнге арналған бұтақты салыңыз.\n\nЕгер бүгiнгi күнiмен бұтақта болса, онда бұтақ, \nқосылмағанында емес, белсендi болғанында"
+msgstr ""
+"Бұтақты тамырға салыңыз...\n"
+"\n"
+"Ағаштың тамырына Жыл/Ай/Күн иерархиясы бар бүгінгі күнге арналған бұтақты "
+"салыңыз.\n"
+"\n"
+"Егер бүгiнгi күнiмен бұтақта болса, онда бұтақ, \n"
+"қосылмағанында емес, белсендi болғанында"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Кейін бұтақты салыңыз..."
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Кейін бұтақты салыңыз...\n\nБөлектелгеннен кейін жыл/Ай/Күн иерархиясы бар бүгінгі күнге арналған тармақты салыңыз.\n\nЕгер бүгiнгi күнiмен бұтақта болса, онда бұтақ, \nқосылмағанында емес, белсендi болғанында"
+msgstr ""
+"Кейін бұтақты салыңыз...\n"
+"\n"
+"Бөлектелгеннен кейін жыл/Ай/Күн иерархиясы бар бүгінгі күнге арналған "
+"тармақты салыңыз.\n"
+"\n"
+"Егер бүгiнгi күнiмен бұтақта болса, онда бұтақ, \n"
+"қосылмағанында емес, белсендi болғанында"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Ертеңгі бұтақты тамырға салыңыз..."
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Бұтақты тамырға салыңыз...\n\nАғаштың тамырына Жыл/Ай/Күн иерархиясы бар ертеңгі күнге арналған бұтақты салыңыз.\n\nЕгер ертеңгі күнiмен бұтақта болса, онда бұтақ, \nқосылмағанында емес, белсендi болғанында"
+msgstr ""
+"Бұтақты тамырға салыңыз...\n"
+"\n"
+"Ағаштың тамырына Жыл/Ай/Күн иерархиясы бар ертеңгі күнге арналған бұтақты "
+"салыңыз.\n"
+"\n"
+"Егер ертеңгі күнiмен бұтақта болса, онда бұтақ, \n"
+"қосылмағанында емес, белсендi болғанында"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Кейін ертеңгі бұтақты салыңыз..."
@@ -2435,7 +2494,14 @@ msgstr "Кейін ертеңгі бұтақты салыңыз..."
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Кейін бұтақты салыңыз...\n\nБөлектелгеннен кейін жыл/Ай/Күн иерархиясы бар ертеңгі күнге арналған тармақты салыңыз.\n\nЕгер ертеңгі күнiмен бұтақта болса, онда бұтақ, \nқосылмағанында емес, белсендi болғанында"
+msgstr ""
+"Кейін бұтақты салыңыз...\n"
+"\n"
+"Бөлектелгеннен кейін жыл/Ай/Күн иерархиясы бар ертеңгі күнге арналған "
+"тармақты салыңыз.\n"
+"\n"
+"Егер ертеңгі күнiмен бұтақта болса, онда бұтақ, \n"
+"қосылмағанында емес, белсендi болғанында"
 
 msgid "C_hange Node Properties..."
 msgstr "Қасиет тарал..."
@@ -3554,6 +3620,9 @@ msgstr "Резеретiк көшiрмелердiң саны"
 msgid "Custom Backup Directory"
 msgstr "Резеретiк көшiрмелер үшiн мұқаба"
 
+msgid "Select Folder..."
+msgstr "Қалтаны таңдау..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Бірнеше файлды сақтау, дискідегі кірістірілген файл атауын пайдалану"
 
@@ -3846,8 +3915,8 @@ msgstr "Әр деңгей үшiн әр түрлiсi шиелер"
 msgid "No Icon"
 msgstr "Белгiшесiз"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Белгiше оң жақтан жасырын тарал"
+msgid "Hide Auxiliary Icon"
+msgstr "Қосымша белгішені жасыру"
 
 msgid "Default Text Nodes Icons"
 msgstr "Белгiшелер"
@@ -3959,6 +4028,9 @@ msgstr "Leo құжат"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Үндемеу бойыншаға мағына қалпына келедi ме?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Үлгi бойымен пiшiм"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Филиалдарға ауыстырыңыз..."

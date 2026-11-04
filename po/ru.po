@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-02-09 21:45+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Russian <camilot55@yandex.ru>\n"
@@ -186,6 +186,12 @@ msgstr "Вы используете версию для разработчика
 
 msgid "Who is the Parent?"
 msgstr "Добавить в..."
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "OK"
+msgstr "ОК"
 
 msgid "The Tree Root"
 msgstr "Дерево"
@@ -397,6 +403,105 @@ msgstr "Копировать код"
 msgid "Change CodeBox Properties"
 msgstr "Свойства CodeBox..."
 
+msgid "Arabic"
+msgstr "Арабский"
+
+msgid "Armenian"
+msgstr "Армянский"
+
+msgid "Bulgarian"
+msgstr "Болгарский"
+
+msgid "Chinese Simplified"
+msgstr "Китайский (упрощённый)"
+
+msgid "Chinese Traditional"
+msgstr "Китайский (традиционный)"
+
+msgid "Croatian"
+msgstr "Хорватский"
+
+msgid "Czech"
+msgstr "Чешский"
+
+msgid "Dutch"
+msgstr "Голландский"
+
+msgid "Finnish"
+msgstr "Финский"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "German"
+msgstr "Немецкий"
+
+msgid "Greek"
+msgstr "Греческий"
+
+msgid "Hindi India"
+msgstr "Хинди (Индия)"
+
+msgid "Hungarian"
+msgstr "Венгерский"
+
+msgid "Italian"
+msgstr "Итальянский"
+
+msgid "Japanese"
+msgstr "Японский"
+
+msgid "Kazakh"
+msgstr "Казахский"
+
+msgid "Kazakh (Latin)"
+msgstr "Казахский (латиница)"
+
+msgid "Korean"
+msgstr "Корейский"
+
+msgid "Lithuanian"
+msgstr "Литовский"
+
+msgid "Persian"
+msgstr "Персидский"
+
+msgid "Polish"
+msgstr "Польский"
+
+msgid "Portuguese"
+msgstr "Португальский"
+
+msgid "Portuguese Brazil"
+msgstr "Португальский (Бразилия)"
+
+msgid "Romanian"
+msgstr "Румынский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Slovak"
+msgstr "Словацкий"
+
+msgid "Slovenian"
+msgstr "Словенский"
+
+msgid "Spanish"
+msgstr "Испанский"
+
+msgid "Swedish"
+msgstr "Шведский"
+
+msgid "Tamil"
+msgstr "Тамильский"
+
+msgid "Turkish"
+msgstr "Турецкий"
+
+msgid "Ukrainian"
+msgstr "Украинский"
+
 msgid "Start in CherryTree"
 msgstr "Запустить CherryTree"
 
@@ -498,11 +603,20 @@ msgstr "Пароли не совпадают"
 msgid "Warning"
 msgstr "Предупреждение"
 
+msgid "Discard"
+msgstr "Не сохранять"
+
+msgid "Save"
+msgstr "Сохранить"
+
 msgid "The Current Document was Updated."
 msgstr "Документ CherryTree был изменён."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Сохранить изменения в документе?"
+
+msgid "Execute"
+msgstr "Выполнить"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Выполнить код?"
@@ -556,102 +670,6 @@ msgstr ""
 "Лицензии GNU вместе с этой программой. Если это не так,\n"
 "напишите в Фонд Свободного ПО, \n"
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Арабский"
-
-msgid "Armenian"
-msgstr "Армянский"
-
-msgid "Bulgarian"
-msgstr "Болгарский"
-
-msgid "Chinese Simplified"
-msgstr "Китайский (упрощённый)"
-
-msgid "Chinese Traditional"
-msgstr "Китайский (традиционный)"
-
-msgid "Croatian"
-msgstr "Хорватский"
-
-msgid "Czech"
-msgstr "Чешский"
-
-msgid "Dutch"
-msgstr "Голландский"
-
-msgid "Finnish"
-msgstr "Финский"
-
-msgid "French"
-msgstr "Французский"
-
-msgid "German"
-msgstr "Немецкий"
-
-msgid "Greek"
-msgstr "Греческий"
-
-msgid "Hindi India"
-msgstr "Хинди (Индия)"
-
-msgid "Hungarian"
-msgstr "Венгерский"
-
-msgid "Italian"
-msgstr "Итальянский"
-
-msgid "Japanese"
-msgstr "Японский"
-
-msgid "Kazakh"
-msgstr "Казахский"
-
-msgid "Kazakh (Latin)"
-msgstr "Казахский (латиница)"
-
-msgid "Korean"
-msgstr "Корейский"
-
-msgid "Lithuanian"
-msgstr "Литовский"
-
-msgid "Persian"
-msgstr "Персидский"
-
-msgid "Polish"
-msgstr "Польский"
-
-msgid "Portuguese"
-msgstr "Португальский"
-
-msgid "Portuguese Brazil"
-msgstr "Португальский (Бразилия)"
-
-msgid "Romanian"
-msgstr "Румынский"
-
-msgid "Russian"
-msgstr "Русский"
-
-msgid "Slovak"
-msgstr "Словацкий"
-
-msgid "Slovenian"
-msgstr "Словенский"
-
-msgid "Spanish"
-msgstr "Испанский"
-
-msgid "Swedish"
-msgstr "Шведский"
-
-msgid "Turkish"
-msgstr "Турецкий"
-
-msgid "Ukrainian"
-msgstr "Украинский"
 
 msgid "About CherryTree"
 msgstr "Сведения"
@@ -902,6 +920,9 @@ msgstr "Строка"
 msgid "Line Content"
 msgstr "Содержимое"
 
+msgid "Hide"
+msgstr "Скрыть"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Повторить Найти/Заменить"
 
@@ -929,6 +950,12 @@ msgstr "Удалить пользовательский цвет из палит
 msgid "Colour"
 msgstr "Цвет"
 
+msgid "More"
+msgstr "Больше"
+
+msgid "Less"
+msgstr "Меньше"
+
 msgid "Question"
 msgstr "Вопрос"
 
@@ -940,6 +967,9 @@ msgstr "Ошибка"
 
 msgid "Select File"
 msgstr "Открыть..."
+
+msgid "Open"
+msgstr "Открыть"
 
 msgid "Select Folder"
 msgstr "Выбрать..."
@@ -1023,11 +1053,11 @@ msgstr "Теги"
 msgid "Tag Name"
 msgstr "Тег"
 
-msgid "Pick a Color"
-msgstr "Выберите цвет"
-
 msgid "Select Node Icon"
 msgstr "Смена значка"
+
+msgid "Pick a Color"
+msgstr "Выберите цвет"
 
 msgid "Involved Nodes"
 msgstr "Выбрать..."
@@ -1201,8 +1231,20 @@ msgstr "Копировать выделенное или всё"
 msgid "Paste"
 msgstr "Вставить"
 
+msgid "Menu"
+msgstr "Меню"
+
 msgid "Remove from list"
 msgstr "Удалить из истории"
+
+msgid "No recent documents"
+msgstr "Нет недавних документов"
+
+msgid "Bookmarks"
+msgstr "Закладки"
+
+msgid "No bookmarks"
+msgstr "Нет закладок"
 
 msgid "_File"
 msgstr "Файл"
@@ -1989,15 +2031,11 @@ msgstr ""
 "\n"
 "Клонировать форматирование текста около курсора"
 
-msgid "Format _Latest"
-msgstr "Формат по образцу"
+msgid "Repeat _Last Format"
+msgstr "Повторить _последнее форматирование"
 
-msgid "Memory of Latest Text Format Type"
-msgstr ""
-"Формат по образцу\n"
-"\n"
-"Запомнить последнее форматирование текста\n"
-"и применить его к другим фрагментам текста"
+msgid "Repeat Latest Text Format Type"
+msgstr "Повторить последний тип форматирования текста"
 
 msgid "_Remove Formatting"
 msgstr "Очистить формат"
@@ -2434,7 +2472,8 @@ msgid ""
 msgstr ""
 "Вставить ветвь в корень...\n"
 "\n"
-"Вставить ветвь с иерархией Год/Месяц/День для сегодняшнего дня в корень дерева.\n"
+"Вставить ветвь с иерархией Год/Месяц/День для сегодняшнего дня в корень "
+"дерева.\n"
 "\n"
 "Если ветвь с сегодняшней датой существует, то \n"
 "ветвь не добавляется, а становится активной"
@@ -2447,7 +2486,8 @@ msgid ""
 msgstr ""
 "Вставить ветвь после...\n"
 "\n"
-"Вставить ветвь с иерархией Год/Месяц/День для сегодняшнего дня после выделенной.\n"
+"Вставить ветвь с иерархией Год/Месяц/День для сегодняшнего дня после "
+"выделенной.\n"
 "\n"
 "Если ветвь с сегодняшней датой существует, то \n"
 "ветвь не добавляется, а становится активной"
@@ -2460,7 +2500,8 @@ msgid ""
 msgstr ""
 "Вставить ветвь в корень...\n"
 "\n"
-"Вставить ветвь с иерархией Год/Месяц/День для завтрашнего дня в корень дерева.\n"
+"Вставить ветвь с иерархией Год/Месяц/День для завтрашнего дня в корень "
+"дерева.\n"
 "\n"
 "Если ветвь с завтрашней датой существует, то \n"
 "ветвь не добавляется, а становится активной"
@@ -2474,7 +2515,8 @@ msgid ""
 msgstr ""
 "Вставить ветвь после...\n"
 "\n"
-"Вставить ветвь с иерархией Год/Месяц/День для завтрашнего дня после выделенной.\n"
+"Вставить ветвь с иерархией Год/Месяц/День для завтрашнего дня после "
+"выделенной.\n"
 "\n"
 "Если ветвь с завтрашней датой существует, то \n"
 "ветвь не добавляется, а становится активной"
@@ -3607,6 +3649,9 @@ msgstr "Количество резервных копий"
 msgid "Custom Backup Directory"
 msgstr "Папка для резервных копий"
 
+msgid "Select Folder..."
+msgstr "Выбрать папку..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr ""
 "Хранение нескольких файлов, использование встроенного имени файла на диске"
@@ -3899,8 +3944,8 @@ msgstr "Разные вишенки для каждого уровня"
 msgid "No Icon"
 msgstr "Без значка"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Скрыть значок справа от ветви"
+msgid "Hide Auxiliary Icon"
+msgstr "Скрыть вспомогательный значок"
 
 msgid "Default Text Nodes Icons"
 msgstr "Значки"
@@ -4012,6 +4057,9 @@ msgstr "Документ Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Восстановить значения по умолчанию?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Формат по образцу"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Заменить в ветвях..."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-02-09 21:45+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@ya.ru>\n"
 "Language-Team: Qazaq (latyn)<camilot55@yandex.ru>\n"
@@ -185,6 +185,12 @@ msgstr "Siz óńdeýshi úshin nobaıdy paıdalanyńyz"
 
 msgid "Who is the Parent?"
 msgstr "Qosylý..."
+
+msgid "Cancel"
+msgstr "Boldyrmaý"
+
+msgid "OK"
+msgstr "Jaraıdy"
 
 msgid "The Tree Root"
 msgstr "Aǵash"
@@ -394,6 +400,105 @@ msgstr "Kodty kóshirý"
 msgid "Change CodeBox Properties"
 msgstr "CodeBox qasıet..."
 
+msgid "Arabic"
+msgstr "Arab tili"
+
+msgid "Armenian"
+msgstr "Armán"
+
+msgid "Bulgarian"
+msgstr "Bolgarlyq"
+
+msgid "Chinese Simplified"
+msgstr "Qytaı jeńildetilgeni"
+
+msgid "Chinese Traditional"
+msgstr "Qytaı (dástúrli)"
+
+msgid "Croatian"
+msgstr "Horvat"
+
+msgid "Czech"
+msgstr "Cheh"
+
+msgid "Dutch"
+msgstr "Golandıalyq"
+
+msgid "Finnish"
+msgstr "Fın"
+
+msgid "French"
+msgstr "Fransýz"
+
+msgid "German"
+msgstr "Nemis"
+
+msgid "Greek"
+msgstr "Grek"
+
+msgid "Hindi India"
+msgstr "Hındı (Úndistan)"
+
+msgid "Hungarian"
+msgstr "Vengr"
+
+msgid "Italian"
+msgstr "Italıalyq"
+
+msgid "Japanese"
+msgstr "Japon"
+
+msgid "Kazakh"
+msgstr "Qazaq"
+
+msgid "Kazakh (Latin)"
+msgstr "Qazaq (latyn)"
+
+msgid "Korean"
+msgstr "Káris"
+
+msgid "Lithuanian"
+msgstr "Lıtvalyq"
+
+msgid "Persian"
+msgstr "Parsy"
+
+msgid "Polish"
+msgstr "Polák"
+
+msgid "Portuguese"
+msgstr "Portýgal"
+
+msgid "Portuguese Brazil"
+msgstr "Portýgal (Brazılıa)"
+
+msgid "Romanian"
+msgstr "Rýmyn"
+
+msgid "Russian"
+msgstr "Orys"
+
+msgid "Slovak"
+msgstr "Slovak tili"
+
+msgid "Slovenian"
+msgstr "Slovenıa"
+
+msgid "Spanish"
+msgstr "Ispan"
+
+msgid "Swedish"
+msgstr "Shved"
+
+msgid "Tamil"
+msgstr "Tamil tili"
+
+msgid "Turkish"
+msgstr "Túrik"
+
+msgid "Ukrainian"
+msgstr "Ýkraına"
+
 msgid "Start in CherryTree"
 msgstr "CherryTree-de iske qosý"
 
@@ -495,11 +600,20 @@ msgstr "Paróldardy úılespeıdi "
 msgid "Warning"
 msgstr "Eskertý"
 
+msgid "Discard"
+msgstr "Tastau"
+
+msgid "Save"
+msgstr "Saqtaý"
+
 msgid "The Current Document was Updated."
 msgstr "CherryTree qujatty ózgertilgen boldy."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Qujatta ózgeristi saqtalady ma?"
+
+msgid "Execute"
+msgstr "Oryndaý"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Kodty oryndaıdy ma?"
@@ -550,102 +664,6 @@ msgstr ""
 "Bolǵan is siz baǵdarlama bunymen birge Standartty Qoǵamdyq lısenzıa\n"
 "GNU kóshirme bolyp shyǵýyńyz kerek. Eger dál osylaı emes bul bolsa, \n"
 "boıymen qorǵa Erkin jazyńyz, 675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Arab tili"
-
-msgid "Armenian"
-msgstr "Armán"
-
-msgid "Bulgarian"
-msgstr "Bolgarlyq"
-
-msgid "Chinese Simplified"
-msgstr "Qytaı jeńildetilgeni"
-
-msgid "Chinese Traditional"
-msgstr "Qytaı (dástúrli)"
-
-msgid "Croatian"
-msgstr "Horvat"
-
-msgid "Czech"
-msgstr "Cheh"
-
-msgid "Dutch"
-msgstr "Golandıalyq"
-
-msgid "Finnish"
-msgstr "Fın"
-
-msgid "French"
-msgstr "Fransýz"
-
-msgid "German"
-msgstr "Nemis"
-
-msgid "Greek"
-msgstr "Grek"
-
-msgid "Hindi India"
-msgstr "Hındı (Úndistan)"
-
-msgid "Hungarian"
-msgstr "Vengr"
-
-msgid "Italian"
-msgstr "Italıalyq"
-
-msgid "Japanese"
-msgstr "Japon"
-
-msgid "Kazakh"
-msgstr "Qazaq"
-
-msgid "Kazakh (Latin)"
-msgstr "Qazaq (latyn)"
-
-msgid "Korean"
-msgstr "Káris"
-
-msgid "Lithuanian"
-msgstr "Lıtvalyq"
-
-msgid "Persian"
-msgstr "Parsy"
-
-msgid "Polish"
-msgstr "Polák"
-
-msgid "Portuguese"
-msgstr "Portýgal"
-
-msgid "Portuguese Brazil"
-msgstr "Portýgal (Brazılıa)"
-
-msgid "Romanian"
-msgstr "Rýmyn"
-
-msgid "Russian"
-msgstr "Orys"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Slovenian"
-msgstr "Slovenıa"
-
-msgid "Spanish"
-msgstr "Ispan"
-
-msgid "Swedish"
-msgstr "Shved"
-
-msgid "Turkish"
-msgstr "Túrik"
-
-msgid "Ukrainian"
-msgstr "Ýkraına"
 
 msgid "About CherryTree"
 msgstr "Málimetter"
@@ -897,6 +915,9 @@ msgstr "Jol"
 msgid "Line Content"
 msgstr "Ishindegi"
 
+msgid "Hide"
+msgstr "Jasyrý"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Qaıtalaný Tabylý/Almastyrylý"
 
@@ -924,6 +945,12 @@ msgstr "Palıtradan retteletin tústi alyp tastańyz"
 msgid "Colour"
 msgstr "Túsi"
 
+msgid "More"
+msgstr "Kóbirek"
+
+msgid "Less"
+msgstr "Azyraq"
+
 msgid "Question"
 msgstr "Suraq"
 
@@ -935,6 +962,9 @@ msgstr "Qate"
 
 msgid "Select File"
 msgstr "Ashylý..."
+
+msgid "Open"
+msgstr "Ashý"
 
 msgid "Select Folder"
 msgstr "Tańdaý..."
@@ -1018,11 +1048,11 @@ msgstr "Tegter"
 msgid "Tag Name"
 msgstr "Teg"
 
-msgid "Pick a Color"
-msgstr "Tústi tańdańyz"
-
 msgid "Select Node Icon"
 msgstr "Belgisheniń aýysymy"
+
+msgid "Pick a Color"
+msgstr "Tústi tańdańyz"
 
 msgid "Involved Nodes"
 msgstr "Tańdaý..."
@@ -1194,8 +1224,20 @@ msgstr "Bólektelgen nemese barlyǵyn kóshirý"
 msgid "Paste"
 msgstr "Kiristirý"
 
+msgid "Menu"
+msgstr "Mázir"
+
 msgid "Remove from list"
 msgstr "Áńgimeden alystap ketý"
+
+msgid "No recent documents"
+msgstr "Sońǵy qujattar joq"
+
+msgid "Bookmarks"
+msgstr "Betbelgiler"
+
+msgid "No bookmarks"
+msgstr "Betbelgiler joq"
 
 msgid "_File"
 msgstr "Faıl"
@@ -1977,15 +2019,11 @@ msgstr ""
 "\n"
 "Júgirgini janynda mátinniń qalyptaýyn klondaý"
 
-msgid "Format _Latest"
-msgstr "Úlgi boıymen pishim"
+msgid "Repeat _Last Format"
+msgstr "Sońǵy pishimdi qaıtalaý (_L)"
 
-msgid "Memory of Latest Text Format Type"
-msgstr ""
-"Úlgi boıymen pishim\n"
-"\n"
-"Sońǵy mátinniń qalyptaýy jadta qalý jáne \n"
-"onynyń basqa mátin úzindilerine qoldaný"
+msgid "Repeat Latest Text Format Type"
+msgstr "Sońǵy mátin pishiminiń túrin qaıtalaý"
 
 msgid "_Remove Formatting"
 msgstr "Pishimdi tazalaný"
@@ -2415,21 +2453,42 @@ msgstr "Butaqty tamyrǵa salyńyz..."
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Butaqty tamyrǵa salyńyz...\n\nAǵashtyń tamyryna Jyl/Aı/Kún ıerarhıasy bar búgingi kúnge arnalǵan butaqty salyńyz.\n\nEger búgingi kúnimen butaqta bolsa, onda butaq, \nqosylmaǵanynda emes, belsendi bolǵanynda"
+msgstr ""
+"Butaqty tamyrǵa salyńyz...\n"
+"\n"
+"Aǵashtyń tamyryna Jyl/Aı/Kún ıerarhıasy bar búgingi kúnge arnalǵan butaqty "
+"salyńyz.\n"
+"\n"
+"Eger búgingi kúnimen butaqta bolsa, onda butaq, \n"
+"qosylmaǵanynda emes, belsendi bolǵanynda"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Keıin butaqty salyńyz..."
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Keıin butaqty salyńyz...\n\nBólektelgennen keıin jyl/Aı/Kún ıerarhıasy bar búgingi kúnge arnalǵan tarmaqty salyńyz.\n\nEger búgingi kúnimen butaqta bolsa, onda butaq, \nqosylmaǵanynda emes, belsendi bolǵanynda"
+msgstr ""
+"Keıin butaqty salyńyz...\n"
+"\n"
+"Bólektelgennen keıin jyl/Aı/Kún ıerarhıasy bar búgingi kúnge arnalǵan "
+"tarmaqty salyńyz.\n"
+"\n"
+"Eger búgingi kúnimen butaqta bolsa, onda butaq, \n"
+"qosylmaǵanynda emes, belsendi bolǵanynda"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Erteńgi butaqty tamyrǵa salyńyz..."
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Butaqty tamyrǵa salyńyz...\n\nAǵashtyń tamyryna Jyl/Aı/Kún ıerarhıasy bar erteńgi kúnge arnalǵan butaqty salyńyz.\n\nEger erteńgi kúnimen butaqta bolsa, onda butaq, \nqosylmaǵanynda emes, belsendi bolǵanynda"
+msgstr ""
+"Butaqty tamyrǵa salyńyz...\n"
+"\n"
+"Aǵashtyń tamyryna Jyl/Aı/Kún ıerarhıasy bar erteńgi kúnge arnalǵan butaqty "
+"salyńyz.\n"
+"\n"
+"Eger erteńgi kúnimen butaqta bolsa, onda butaq, \n"
+"qosylmaǵanynda emes, belsendi bolǵanynda"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Keıin erteńgi butaqty salyńyz..."
@@ -2437,7 +2496,14 @@ msgstr "Keıin erteńgi butaqty salyńyz..."
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Keıin butaqty salyńyz...\n\nBólektelgennen keıin jyl/Aı/Kún ıerarhıasy bar erteńgi kúnge arnalǵan tarmaqty salyńyz.\n\nEger erteńgi kúnimen butaqta bolsa, onda butaq, \nqosylmaǵanynda emes, belsendi bolǵanynda"
+msgstr ""
+"Keıin butaqty salyńyz...\n"
+"\n"
+"Bólektelgennen keıin jyl/Aı/Kún ıerarhıasy bar erteńgi kúnge arnalǵan "
+"tarmaqty salyńyz.\n"
+"\n"
+"Eger erteńgi kúnimen butaqta bolsa, onda butaq, \n"
+"qosylmaǵanynda emes, belsendi bolǵanynda"
 
 msgid "C_hange Node Properties..."
 msgstr "Qasıet taral..."
@@ -3559,6 +3625,9 @@ msgstr "Rezeretik kóshirmelerdiń sany"
 msgid "Custom Backup Directory"
 msgstr "Rezeretik kóshirmeler úshin muqaba"
 
+msgid "Select Folder..."
+msgstr "Qaltany tańdaý..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Birneshe faıldy saqtaý, dıskidegi kiristirilgen faıl ataýyn paıdalaný"
 
@@ -3851,8 +3920,8 @@ msgstr "Ár deńgeı úshin ár túrlisi shıeler"
 msgid "No Icon"
 msgstr "Belgishesiz"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Belgishe oń jaqtan jasyryn taral"
+msgid "Hide Auxiliary Icon"
+msgstr "Qosymsha belgisheni jasyrý"
 
 msgid "Default Text Nodes Icons"
 msgstr "Belgisheler"
@@ -3964,6 +4033,9 @@ msgstr "Leo qujat"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Úndemeý boıynshaǵa maǵyna qalpyna keledi me?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Úlgi boıymen pishim"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Fılıaldarǵa aýystyryńyz..."

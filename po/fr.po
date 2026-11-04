@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-09-24 12:56+0200\n"
 "Last-Translator: Francis Gernet <fgernet@concretx.com>\n"
 "Language-Team: French\n"
@@ -164,6 +164,12 @@ msgstr "Vous utilisez une version de développement."
 
 msgid "Who is the Parent?"
 msgstr "Qui est le parent ?"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "La racine de l'arborescence"
@@ -363,6 +369,107 @@ msgstr "Copier le code"
 msgid "Change CodeBox Properties"
 msgstr "Changer les Propriétés de la CodeBox"
 
+msgid "Arabic"
+msgstr "Arabe"
+
+msgid "Armenian"
+msgstr "Arménien"
+
+msgid "Bulgarian"
+msgstr "Bulgare"
+
+msgid "Chinese Simplified"
+msgstr "Chinois simplifié"
+
+msgid "Chinese Traditional"
+msgstr "Chinois traditionnel"
+
+# Croatian (en) -> Croate (fr). Réf. : deepl.com
+msgid "Croatian"
+msgstr "Croate"
+
+msgid "Czech"
+msgstr "Tchèque"
+
+msgid "Dutch"
+msgstr "Néerlandais"
+
+msgid "Finnish"
+msgstr "Finlandais"
+
+msgid "French"
+msgstr "Français"
+
+msgid "German"
+msgstr "Allemand"
+
+msgid "Greek"
+msgstr "Grec"
+
+msgid "Hindi India"
+msgstr "Hindi (Inde)"
+
+msgid "Hungarian"
+msgstr "Hongrois"
+
+msgid "Italian"
+msgstr "Italien"
+
+msgid "Japanese"
+msgstr "Japonais"
+
+msgid "Kazakh"
+msgstr "Kazakh"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazakh (alphabet latin)"
+
+msgid "Korean"
+msgstr "Coréen"
+
+msgid "Lithuanian"
+msgstr "Lituanien"
+
+msgid "Persian"
+msgstr "Perse"
+
+msgid "Polish"
+msgstr "Polonais"
+
+msgid "Portuguese"
+msgstr "Portugais"
+
+msgid "Portuguese Brazil"
+msgstr "Portugais du Brésil"
+
+msgid "Romanian"
+msgstr "Roumain"
+
+msgid "Russian"
+msgstr "Russe"
+
+# Slovak (en) -> Slovaque (fr). Réf. : deepl.com
+msgid "Slovak"
+msgstr "Slovaque"
+
+msgid "Slovenian"
+msgstr "Slovène"
+
+msgid "Spanish"
+msgstr "Espagnol"
+
+msgid "Swedish"
+msgstr "Suédois"
+
+msgid "Tamil"
+msgstr "Tamoul"
+
+msgid "Turkish"
+msgstr "Turque"
+
+msgid "Ukrainian"
+msgstr "Ukrainien"
+
 msgid "Start in CherryTree"
 msgstr "Démarrer dans CherryTree"
 
@@ -464,11 +571,21 @@ msgstr "Les deux mots de passe renseignés sont différents."
 msgid "Warning"
 msgstr "Attention"
 
+msgid "Discard"
+msgstr "Abandonner"
+
+msgid "Save"
+msgstr "Enregistrer"
+
 msgid "The Current Document was Updated."
 msgstr "Le document actuel a été mis à jour."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Voulez-vous sauvegarder les modifications ?"
+
+# lower c
+msgid "Execute"
+msgstr "Exécuter"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Voulez-vous exécuter le code ?"
@@ -522,104 +639,6 @@ msgstr ""
 "Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA.\n"
-
-msgid "Arabic"
-msgstr "Arabe"
-
-msgid "Armenian"
-msgstr "Arménien"
-
-msgid "Bulgarian"
-msgstr "Bulgare"
-
-msgid "Chinese Simplified"
-msgstr "Chinois simplifié"
-
-msgid "Chinese Traditional"
-msgstr "Chinois traditionnel"
-
-# Croatian (en) -> Croate (fr). Réf. : deepl.com
-msgid "Croatian"
-msgstr "Croate"
-
-msgid "Czech"
-msgstr "Tchèque"
-
-msgid "Dutch"
-msgstr "Néerlandais"
-
-msgid "Finnish"
-msgstr "Finlandais"
-
-msgid "French"
-msgstr "Français"
-
-msgid "German"
-msgstr "Allemand"
-
-msgid "Greek"
-msgstr "Grec"
-
-msgid "Hindi India"
-msgstr "Hindi (Inde)"
-
-msgid "Hungarian"
-msgstr "Hongrois"
-
-msgid "Italian"
-msgstr "Italien"
-
-msgid "Japanese"
-msgstr "Japonais"
-
-msgid "Kazakh"
-msgstr "Kazakh"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakh (alphabet latin)"
-
-msgid "Korean"
-msgstr "Coréen"
-
-msgid "Lithuanian"
-msgstr "Lituanien"
-
-msgid "Persian"
-msgstr "Perse"
-
-msgid "Polish"
-msgstr "Polonais"
-
-msgid "Portuguese"
-msgstr "Portugais"
-
-msgid "Portuguese Brazil"
-msgstr "Portugais du Brésil"
-
-msgid "Romanian"
-msgstr "Roumain"
-
-msgid "Russian"
-msgstr "Russe"
-
-# Slovak (en) -> Slovaque (fr). Réf. : deepl.com
-msgid "Slovak"
-msgstr "Slovaque"
-
-msgid "Slovenian"
-msgstr "Slovène"
-
-msgid "Spanish"
-msgstr "Espagnol"
-
-msgid "Swedish"
-msgstr "Suédois"
-
-msgid "Turkish"
-msgstr "Turque"
-
-msgid "Ukrainian"
-msgstr "Ukrainien"
 
 msgid "About CherryTree"
 msgstr "À propos de CherryTree"
@@ -874,6 +893,10 @@ msgstr "Ligne"
 msgid "Line Content"
 msgstr "Contenu de la ligne"
 
+# where to place the underscore?
+msgid "Hide"
+msgstr "Masquer"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Réitérer la dernière action de Recherche/Remplacement"
 
@@ -901,6 +924,12 @@ msgstr "Retirer le couleur utilisateur de la palette"
 msgid "Colour"
 msgstr "Couleur"
 
+msgid "More"
+msgstr "Plus"
+
+msgid "Less"
+msgstr "Moins"
+
 msgid "Question"
 msgstr "Question"
 
@@ -912,6 +941,9 @@ msgstr "Erreur"
 
 msgid "Select File"
 msgstr "Choisir un fichier"
+
+msgid "Open"
+msgstr "Ouvrir"
 
 msgid "Select Folder"
 msgstr "Choisir un dossier"
@@ -992,11 +1024,11 @@ msgstr "Choisir une étiquette existante"
 msgid "Tag Name"
 msgstr "Nom de l'étiquette"
 
-msgid "Pick a Color"
-msgstr "Choisir une couleur"
-
 msgid "Select Node Icon"
 msgstr "Choisir l'icône du nœud"
+
+msgid "Pick a Color"
+msgstr "Choisir une couleur"
 
 msgid "Involved Nodes"
 msgstr "Nœuds concernés"
@@ -1161,8 +1193,22 @@ msgstr "Copie de la sélection ou du tout"
 msgid "Paste"
 msgstr "Coller"
 
+msgid "Menu"
+msgstr "Menu"
+
 msgid "Remove from list"
 msgstr "Retirer de la liste"
+
+msgid "No recent documents"
+msgstr "Aucun document récent"
+
+# where to place the underscore?
+msgid "Bookmarks"
+msgstr "Signets"
+
+# where to place the underscore?
+msgid "No bookmarks"
+msgstr "Aucun signet"
 
 msgid "_File"
 msgstr "_Fichier"
@@ -1723,12 +1769,11 @@ msgstr "Clo_ner le format"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Cloner le format du texte sous le curseur"
 
-# where to place the underscore?
-msgid "Format _Latest"
-msgstr "Dernier format"
+msgid "Repeat _Last Format"
+msgstr "Répéter le _dernier format"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Mémoire du dernier modèle de format de texte"
+msgid "Repeat Latest Text Format Type"
+msgstr "Répéter le dernier type de formatage du texte"
 
 msgid "_Remove Formatting"
 msgstr "Enleve_r le formatage"
@@ -2027,8 +2072,8 @@ msgstr "Insérer le nœud du jour sous le nœud sélectionné"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
 msgstr ""
-"Insérer un nœud avec une hiérarchie Année/Mois/Jour pour aujourd'hui sous "
-"le nœud sélectionné"
+"Insérer un nœud avec une hiérarchie Année/Mois/Jour pour aujourd'hui sous le "
+"nœud sélectionné"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Insérer le nœud de _demain dans l'arborescence principale"
@@ -2046,8 +2091,8 @@ msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
 msgstr ""
-"Insérer un nœud avec une hiérarchie Année/Mois/Jour pour demain sous le "
-"nœud sélectionné"
+"Insérer un nœud avec une hiérarchie Année/Mois/Jour pour demain sous le nœud "
+"sélectionné"
 
 msgid "C_hange Node Properties..."
 msgstr "C_hanger les Propriétés du nœud..."
@@ -2877,6 +2922,9 @@ msgstr "Nombre de sauvegardes à conserver"
 msgid "Custom Backup Directory"
 msgstr "Dossier des sauvegardes"
 
+msgid "Select Folder..."
+msgstr "Choisir un dossier..."
+
 # À vérifier à l'usage
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Stockage dans plusieurs fichiers, utilisez un nom de fichier global"
@@ -3172,8 +3220,8 @@ msgstr "Utiliser des cerises différentes par niveau"
 msgid "No Icon"
 msgstr "Pas d'icône"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Masquer l'icône auxiliaire à droite de la barre de nom de nœud"
+msgid "Hide Auxiliary Icon"
+msgstr "Masquer l'icône auxiliaire"
 
 msgid "Default Text Nodes Icons"
 msgstr "Icônes par défaut pour les nœuds texte"
@@ -3280,6 +3328,10 @@ msgstr "Document Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Êtes-vous sûr de vouloir restaurer les valeurs par défaut ?"
+
+# where to place the underscore?
+#~ msgid "Format _Latest"
+#~ msgstr "Dernier format"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Remplacer dans plusieurs nœuds..."
@@ -3544,9 +3596,6 @@ msgstr "Êtes-vous sûr de vouloir restaurer les valeurs par défaut ?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Utiliser l'indicateur d'application"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Les caractères %s ne sont pas autorisés"

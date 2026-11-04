@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2024-03-02 22:35+0300\n"
 "Last-Translator: mil0d1med <milodi500@gmail.com>\n"
 "Language-Team: Arabic\n"
@@ -160,6 +160,12 @@ msgstr "أنت تستخدم إصدار قيد التطوير من الرنامج
 
 msgid "Who is the Parent?"
 msgstr "من هي الشجرة الأم؟"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "OK"
+msgstr "حسنًا"
 
 msgid "The Tree Root"
 msgstr "الشجرة الجذر"
@@ -347,6 +353,105 @@ msgstr "نسخ الكود"
 msgid "Change CodeBox Properties"
 msgstr "تغيير خصائص صندوق الكود"
 
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "Armenian"
+msgstr "الأرمينية"
+
+msgid "Bulgarian"
+msgstr "البلغارية"
+
+msgid "Chinese Simplified"
+msgstr "الصينية المبسطة"
+
+msgid "Chinese Traditional"
+msgstr "الصينية التقليدية"
+
+msgid "Croatian"
+msgstr "الكرواتية"
+
+msgid "Czech"
+msgstr "التشيكية"
+
+msgid "Dutch"
+msgstr "الهولاندية"
+
+msgid "Finnish"
+msgstr "الفنلندية"
+
+msgid "French"
+msgstr "الفرنسية"
+
+msgid "German"
+msgstr "الألمانية"
+
+msgid "Greek"
+msgstr "اليونانية"
+
+msgid "Hindi India"
+msgstr "الهندية"
+
+msgid "Hungarian"
+msgstr "الهنغاريه"
+
+msgid "Italian"
+msgstr "الإيطالية"
+
+msgid "Japanese"
+msgstr "اليبانية"
+
+msgid "Kazakh"
+msgstr "الكازاخستانية"
+
+msgid "Kazakh (Latin)"
+msgstr "الكازاخستانية (لاتينيه)"
+
+msgid "Korean"
+msgstr "الكورية"
+
+msgid "Lithuanian"
+msgstr "الليتوانية"
+
+msgid "Persian"
+msgstr "الفارسية"
+
+msgid "Polish"
+msgstr "البولندية"
+
+msgid "Portuguese"
+msgstr "البرتغالية"
+
+msgid "Portuguese Brazil"
+msgstr "الإسبانية(البرازيل)"
+
+msgid "Romanian"
+msgstr "الرومانية"
+
+msgid "Russian"
+msgstr "الروسية"
+
+msgid "Slovak"
+msgstr "السلوفاكية"
+
+msgid "Slovenian"
+msgstr "السلوفينية"
+
+msgid "Spanish"
+msgstr "الإسبانية"
+
+msgid "Swedish"
+msgstr "السويدية"
+
+msgid "Tamil"
+msgstr "التاميلية"
+
+msgid "Turkish"
+msgstr "التركية"
+
+msgid "Ukrainian"
+msgstr "الأكرانية"
+
 msgid "Start in CherryTree"
 msgstr "بدء في تشيري تري"
 
@@ -447,11 +552,20 @@ msgstr "كلمتا المرور المُدرجتان غير متطابقتين."
 msgid "Warning"
 msgstr "تحذير"
 
+msgid "Discard"
+msgstr "تجاهل"
+
+msgid "Save"
+msgstr "حفظ"
+
 msgid "The Current Document was Updated."
 msgstr "تم تحديث الملف."
 
 msgid "Do you want to Save the Changes?"
 msgstr "هل تريد حفظ التغييرات؟"
+
+msgid "Execute"
+msgstr "نفّذ"
 
 msgid "Do you want to Execute the Code?"
 msgstr "هل تريد تنفيذ النص البرمجي؟"
@@ -493,102 +607,6 @@ msgstr ""
 "GNU العمومية المتاحة للعامة. \n"
 "إذا لم تتلقى رخصتك أرسل رسالة إلى مكتب البرمجيات الحرة... شارع فرانكلين 51, "
 "الطابق الخامس, بوسطن, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "العربية"
-
-msgid "Armenian"
-msgstr "الأرمينية"
-
-msgid "Bulgarian"
-msgstr "البلغارية"
-
-msgid "Chinese Simplified"
-msgstr "الصينية المبسطة"
-
-msgid "Chinese Traditional"
-msgstr "الصينية التقليدية"
-
-msgid "Croatian"
-msgstr "الكرواتية"
-
-msgid "Czech"
-msgstr "التشيكية"
-
-msgid "Dutch"
-msgstr "الهولاندية"
-
-msgid "Finnish"
-msgstr "الفنلندية"
-
-msgid "French"
-msgstr "الفرنسية"
-
-msgid "German"
-msgstr "الألمانية"
-
-msgid "Greek"
-msgstr "اليونانية"
-
-msgid "Hindi India"
-msgstr "الهندية"
-
-msgid "Hungarian"
-msgstr "الهنغاريه"
-
-msgid "Italian"
-msgstr "الإيطالية"
-
-msgid "Japanese"
-msgstr "اليبانية"
-
-msgid "Kazakh"
-msgstr "الكازاخستانية"
-
-msgid "Kazakh (Latin)"
-msgstr "الكازاخستانية (لاتينيه)"
-
-msgid "Korean"
-msgstr "الكورية"
-
-msgid "Lithuanian"
-msgstr "الليتوانية"
-
-msgid "Persian"
-msgstr "الفارسية"
-
-msgid "Polish"
-msgstr "البولندية"
-
-msgid "Portuguese"
-msgstr "البرتغالية"
-
-msgid "Portuguese Brazil"
-msgstr "الإسبانية(البرازيل)"
-
-msgid "Romanian"
-msgstr "الرومانية"
-
-msgid "Russian"
-msgstr "الروسية"
-
-msgid "Slovak"
-msgstr "السلوفاكية"
-
-msgid "Slovenian"
-msgstr "السلوفينية"
-
-msgid "Spanish"
-msgstr "الإسبانية"
-
-msgid "Swedish"
-msgstr "السويدية"
-
-msgid "Turkish"
-msgstr "التركية"
-
-msgid "Ukrainian"
-msgstr "الأكرانية"
 
 msgid "About CherryTree"
 msgstr "عن البرنامج"
@@ -837,6 +855,9 @@ msgstr "سطر"
 msgid "Line Content"
 msgstr "محتوى السطر"
 
+msgid "Hide"
+msgstr "إخفاء"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "كرر أخر بحث/استبدال"
 
@@ -864,6 +885,12 @@ msgstr "إزالة لون المستخدم من اللوحة"
 msgid "Colour"
 msgstr "اللون"
 
+msgid "More"
+msgstr "المزيد"
+
+msgid "Less"
+msgstr "أقل"
+
 msgid "Question"
 msgstr "سؤال"
 
@@ -875,6 +902,9 @@ msgstr "خطأ"
 
 msgid "Select File"
 msgstr "اختر ملف"
+
+msgid "Open"
+msgstr "فتح"
 
 msgid "Select Folder"
 msgstr "حدد مجلد"
@@ -955,11 +985,11 @@ msgstr "كلمة دلالية موجودة من قبل"
 msgid "Tag Name"
 msgstr "إسم الكلمة الدلالية"
 
-msgid "Pick a Color"
-msgstr "إختر لون"
-
 msgid "Select Node Icon"
 msgstr "إختر أيقونة الفرع"
+
+msgid "Pick a Color"
+msgstr "إختر لون"
 
 msgid "Involved Nodes"
 msgstr "الأفرع ذات صلة"
@@ -1114,8 +1144,20 @@ msgstr "نسخ الاختيار أو الكل"
 msgid "Paste"
 msgstr "لصق"
 
+msgid "Menu"
+msgstr "القائمة"
+
 msgid "Remove from list"
 msgstr "حذف من القائمة"
+
+msgid "No recent documents"
+msgstr "لا توجد مستندات حديثة"
+
+msgid "Bookmarks"
+msgstr "إشارات مرجعية"
+
+msgid "No bookmarks"
+msgstr "لا توجد إشارات مرجعية"
 
 msgid "_File"
 msgstr "_ملف"
@@ -1651,11 +1693,11 @@ msgstr "نسخ ال_تنسيق"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "نسخ نوع تنسيق النص المحدد في المؤشر"
 
-msgid "Format _Latest"
-msgstr "أخر _تنسيق"
+msgid "Repeat _Last Format"
+msgstr "تكرار _آخر تنسيق"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "ذاكرة أحدث تنسيق"
+msgid "Repeat Latest Text Format Type"
+msgstr "تكرار أحدث نوع لتنسيق النص"
 
 msgid "_Remove Formatting"
 msgstr "_إزالة التنسيق"
@@ -2740,6 +2782,9 @@ msgstr "عدد النسخ الإحتياطية المراج حفظها"
 msgid "Custom Backup Directory"
 msgstr "مجلد نسخ عشوائي"
 
+msgid "Select Folder..."
+msgstr "تحديد مجلد..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "تخزين ملفات متعددة، استخدام اسم الملف المضمن على القرص"
 
@@ -3031,8 +3076,8 @@ msgstr "استخدم أنواع مختلفة من الكرز لكل مستوى"
 msgid "No Icon"
 msgstr "بدون أيقونة"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "إخفاء أيقونة الجانب الأيمن المساعدة"
+msgid "Hide Auxiliary Icon"
+msgstr "إخفاء الأيقونة المساعدة"
 
 msgid "Default Text Nodes Icons"
 msgstr "أيقونات أفرع النص الإفتراضية"
@@ -3130,6 +3175,9 @@ msgstr "مستند Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "هل أنت متأكد من رغبتك في العودة إلى الوضع الإفتراضي؟"
+
+#~ msgid "Format _Latest"
+#~ msgstr "أخر _تنسيق"
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "إدراج جدول محتوى..."

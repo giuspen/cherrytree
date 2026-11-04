@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2022-01-02 09:41+0530\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -159,6 +159,12 @@ msgstr "आप एक विकास संस्करण का उपयो�
 
 msgid "Who is the Parent?"
 msgstr "पॆरॆंट कौन है ?"
+
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgid "OK"
+msgstr "ठीक है"
 
 msgid "The Tree Root"
 msgstr "ट्री की जड़"
@@ -345,6 +351,105 @@ msgstr "कोड कॉपी करें"
 msgid "Change CodeBox Properties"
 msgstr "कोडबॉक्स गुण बदलें"
 
+msgid "Arabic"
+msgstr "अरबी"
+
+msgid "Armenian"
+msgstr "अर्मेनियाई"
+
+msgid "Bulgarian"
+msgstr "बल्गेरियाई"
+
+msgid "Chinese Simplified"
+msgstr "सरलीकृत चीनी"
+
+msgid "Chinese Traditional"
+msgstr "पारंपरिक चीनी"
+
+msgid "Croatian"
+msgstr "क्रोएशियाई"
+
+msgid "Czech"
+msgstr "Czech"
+
+msgid "Dutch"
+msgstr "डच"
+
+msgid "Finnish"
+msgstr "फिनिश"
+
+msgid "French"
+msgstr "फ्रेंच"
+
+msgid "German"
+msgstr "जर्मन"
+
+msgid "Greek"
+msgstr "यूनानी"
+
+msgid "Hindi India"
+msgstr "हिंदी भारत"
+
+msgid "Hungarian"
+msgstr "हंगेरियन"
+
+msgid "Italian"
+msgstr "इटालियन"
+
+msgid "Japanese"
+msgstr "जापानी"
+
+msgid "Kazakh"
+msgstr "कजाख"
+
+msgid "Kazakh (Latin)"
+msgstr "कज़ाख (लैटिन)"
+
+msgid "Korean"
+msgstr "कोरिअन"
+
+msgid "Lithuanian"
+msgstr "लिथुअनिअन"
+
+msgid "Persian"
+msgstr "फ़ारसी"
+
+msgid "Polish"
+msgstr "पोलिश"
+
+msgid "Portuguese"
+msgstr "पुर्तगाली"
+
+msgid "Portuguese Brazil"
+msgstr "पुर्तगाली ब्राजील"
+
+msgid "Romanian"
+msgstr "रोमानियाई"
+
+msgid "Russian"
+msgstr "रूसी"
+
+msgid "Slovak"
+msgstr "स्लोवाक"
+
+msgid "Slovenian"
+msgstr "स्लोवेनियाई"
+
+msgid "Spanish"
+msgstr "स्पेनिश"
+
+msgid "Swedish"
+msgstr "स्वीडिश"
+
+msgid "Tamil"
+msgstr "तमिल"
+
+msgid "Turkish"
+msgstr "तुर्की"
+
+msgid "Ukrainian"
+msgstr "यूक्रेनी"
+
 msgid "Start in CherryTree"
 msgstr "चेरीट्री में शुरू करें"
 
@@ -445,11 +550,20 @@ msgstr "दो सम्मिलित पासवर्ड मेल नह�
 msgid "Warning"
 msgstr "चेतावनी"
 
+msgid "Discard"
+msgstr "त्यागें"
+
+msgid "Save"
+msgstr "सहेजें"
+
 msgid "The Current Document was Updated."
 msgstr "वर्तमान दस्तावेज़ अपडेट किया गया था।"
 
 msgid "Do you want to Save the Changes?"
 msgstr "क्या आप किये गए बदलाव को सुरक्षित करना चाहते है?"
+
+msgid "Execute"
+msgstr "चलाएँ"
 
 msgid "Do you want to Execute the Code?"
 msgstr "क्या आप कोड निष्पादित करना चाहते हैं?"
@@ -502,102 +616,6 @@ msgstr ""
 "\n"
 "\n"
 "\n"
-
-msgid "Arabic"
-msgstr "अरबी"
-
-msgid "Armenian"
-msgstr "अर्मेनियाई"
-
-msgid "Bulgarian"
-msgstr "बल्गेरियाई"
-
-msgid "Chinese Simplified"
-msgstr "सरलीकृत चीनी"
-
-msgid "Chinese Traditional"
-msgstr "पारंपरिक चीनी"
-
-msgid "Croatian"
-msgstr "क्रोएशियाई"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "Dutch"
-msgstr "डच"
-
-msgid "Finnish"
-msgstr "फिनिश"
-
-msgid "French"
-msgstr "फ्रेंच"
-
-msgid "German"
-msgstr "जर्मन"
-
-msgid "Greek"
-msgstr "यूनानी"
-
-msgid "Hindi India"
-msgstr "हिंदी भारत"
-
-msgid "Hungarian"
-msgstr "हंगेरियन"
-
-msgid "Italian"
-msgstr "इटालियन"
-
-msgid "Japanese"
-msgstr "जापानी"
-
-msgid "Kazakh"
-msgstr "कजाख"
-
-msgid "Kazakh (Latin)"
-msgstr "कज़ाख (लैटिन)"
-
-msgid "Korean"
-msgstr "कोरिअन"
-
-msgid "Lithuanian"
-msgstr "लिथुअनिअन"
-
-msgid "Persian"
-msgstr "फ़ारसी"
-
-msgid "Polish"
-msgstr "पोलिश"
-
-msgid "Portuguese"
-msgstr "पुर्तगाली"
-
-msgid "Portuguese Brazil"
-msgstr "पुर्तगाली ब्राजील"
-
-msgid "Romanian"
-msgstr "रोमानियाई"
-
-msgid "Russian"
-msgstr "रूसी"
-
-msgid "Slovak"
-msgstr "स्लोवाक"
-
-msgid "Slovenian"
-msgstr "स्लोवेनियाई"
-
-msgid "Spanish"
-msgstr "स्पेनिश"
-
-msgid "Swedish"
-msgstr "स्वीडिश"
-
-msgid "Turkish"
-msgstr "तुर्की"
-
-msgid "Ukrainian"
-msgstr "यूक्रेनी"
 
 msgid "About CherryTree"
 msgstr "चेरी ट्री के बारे में"
@@ -846,6 +864,9 @@ msgstr "लाइन"
 msgid "Line Content"
 msgstr "लाइन कंटैट"
 
+msgid "Hide"
+msgstr "छुपाएं"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "नवीनतम खोज/बदलें पुनरावृति"
 
@@ -873,6 +894,12 @@ msgstr "पैलेट से उपयोगकर्ता रंग हट�
 msgid "Colour"
 msgstr "रंग"
 
+msgid "More"
+msgstr "अधिक"
+
+msgid "Less"
+msgstr "कम"
+
 msgid "Question"
 msgstr "प्रश्न"
 
@@ -884,6 +911,9 @@ msgstr "त्रुटि"
 
 msgid "Select File"
 msgstr "फ़ाइल का चयन करें"
+
+msgid "Open"
+msgstr "खोलें"
 
 msgid "Select Folder"
 msgstr "फोल्डर का चयन करें"
@@ -964,11 +994,11 @@ msgstr "मौजूदा टैग चुनें"
 msgid "Tag Name"
 msgstr "टैग नाम"
 
-msgid "Pick a Color"
-msgstr "एक रंग चुनें"
-
 msgid "Select Node Icon"
 msgstr "नोड चिह्न का चयन करें"
+
+msgid "Pick a Color"
+msgstr "एक रंग चुनें"
 
 msgid "Involved Nodes"
 msgstr "शामिल नोड्स"
@@ -1123,8 +1153,20 @@ msgstr "चयन या सभी कॉपी करें"
 msgid "Paste"
 msgstr "पेस्ट करें"
 
+msgid "Menu"
+msgstr "मेनू"
+
 msgid "Remove from list"
 msgstr "सूची से निकालें"
+
+msgid "No recent documents"
+msgstr "कोई हालिया दस्तावेज़ नहीं"
+
+msgid "Bookmarks"
+msgstr "बुकमार्क"
+
+msgid "No bookmarks"
+msgstr "कोई बुकमार्क नहीं"
 
 msgid "_File"
 msgstr "फ़ाइल"
@@ -1660,11 +1702,11 @@ msgstr "प्रारूप _क्लोन"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "कर्सर पर टेक्स्ट फॉर्मेट टाइप को क्लोन करें"
 
-msgid "Format _Latest"
-msgstr "प्रारूप _नवीनतम"
+msgid "Repeat _Last Format"
+msgstr "_अंतिम फ़ॉर्मेटिंग दोहराएँ"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "नवीनतम टेक्स्ट प्रारूप प्रकार की मेमोरी"
+msgid "Repeat Latest Text Format Type"
+msgstr "नवीनतम टेक्स्ट फ़ॉर्मेट प्रकार दोहराएँ"
 
 msgid "_Remove Formatting"
 msgstr "_स्वरूपण हटाएं"
@@ -2751,6 +2793,9 @@ msgstr "रखने के लिए बैकअप की संख्या"
 msgid "Custom Backup Directory"
 msgstr "कस्टम बैकअप निर्देशिका"
 
+msgid "Select Folder..."
+msgstr "फ़ोल्डर चुनें..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "एकाधिक फ़ाइल भंडारण, डिस्क पर एंबेडेड फ़ाइल नाम का उपयोग करें"
 
@@ -3042,8 +3087,8 @@ msgstr "प्रति स्तर विभिन्न चेरी का �
 msgid "No Icon"
 msgstr "कोई चिह्न नहीं"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "राइट साइड ऑक्जिलरी आइकॉन छुपाएं"
+msgid "Hide Auxiliary Icon"
+msgstr "सहायक आइकन छिपाएँ"
 
 msgid "Default Text Nodes Icons"
 msgstr "डिफ़ॉल्ट टेक्स्ट नोड्स प्रतीक"
@@ -3140,6 +3185,9 @@ msgstr "Leo डाक्यूमेंट"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "क्या आप निश्चित रूप से डिफ़ॉल्ट पर रीसेट करना चाहते हैं?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "प्रारूप _नवीनतम"
 
 #~ msgid "CherryTree Document"
 #~ msgstr "चेरी ट्री डाक्यूमेंट"

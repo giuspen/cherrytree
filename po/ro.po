@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-05-10 03:39+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Romanian\n"
@@ -164,6 +164,12 @@ msgstr "Utilizezi o versiune de dezvoltare."
 
 msgid "Who is the Parent?"
 msgstr "Cine este părintele?"
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "Rădăcina copacului"
@@ -362,6 +368,105 @@ msgstr "Copiază cod"
 msgid "Change CodeBox Properties"
 msgstr "Schimbă proprietăți CodeBox"
 
+msgid "Arabic"
+msgstr "Arabă"
+
+msgid "Armenian"
+msgstr "Armeană"
+
+msgid "Bulgarian"
+msgstr "Bulgară"
+
+msgid "Chinese Simplified"
+msgstr "Chineză simplificată"
+
+msgid "Chinese Traditional"
+msgstr "Chineză tradițională"
+
+msgid "Croatian"
+msgstr "Croată"
+
+msgid "Czech"
+msgstr "Cehă"
+
+msgid "Dutch"
+msgstr "Olandeză"
+
+msgid "Finnish"
+msgstr "Finlandeză"
+
+msgid "French"
+msgstr "Franceză"
+
+msgid "German"
+msgstr "Germană"
+
+msgid "Greek"
+msgstr "Greacă"
+
+msgid "Hindi India"
+msgstr "Hindi (India)"
+
+msgid "Hungarian"
+msgstr "Maghiară"
+
+msgid "Italian"
+msgstr "Italiană"
+
+msgid "Japanese"
+msgstr "Japoneză"
+
+msgid "Kazakh"
+msgstr "Cazacă"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazahă (alfabet latin)"
+
+msgid "Korean"
+msgstr "Coreană"
+
+msgid "Lithuanian"
+msgstr "Lituaniană"
+
+msgid "Persian"
+msgstr "Persană"
+
+msgid "Polish"
+msgstr "Poloneză"
+
+msgid "Portuguese"
+msgstr "Portugheză"
+
+msgid "Portuguese Brazil"
+msgstr "Portugheză braziliană"
+
+msgid "Romanian"
+msgstr "Română"
+
+msgid "Russian"
+msgstr "Rusă"
+
+msgid "Slovak"
+msgstr "Slovacă"
+
+msgid "Slovenian"
+msgstr "Slovenă"
+
+msgid "Spanish"
+msgstr "Spaniolă"
+
+msgid "Swedish"
+msgstr "Suedeză"
+
+msgid "Tamil"
+msgstr "Tamilă"
+
+msgid "Turkish"
+msgstr "Turcă"
+
+msgid "Ukrainian"
+msgstr "Ucraineană"
+
 msgid "Start in CherryTree"
 msgstr "Pornește în CherryTree"
 
@@ -463,11 +568,20 @@ msgstr "Cele două parole inserate nu se potrivesc."
 msgid "Warning"
 msgstr "Atenție"
 
+msgid "Discard"
+msgstr "Renunță"
+
+msgid "Save"
+msgstr "Salvează"
+
 msgid "The Current Document was Updated."
 msgstr "Documentul curent a fost actualizat."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Dorești să salvezi schimbările?"
+
+msgid "Execute"
+msgstr "Execută"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Dorești sa lansezi codul?"
@@ -508,102 +622,6 @@ msgstr ""
 "de Free Software Foundation; fie versiunea 3 a licenței, sau\n"
 "(după alegerea ta) orice versiune mai actuală\n"
 "\n"
-
-msgid "Arabic"
-msgstr "Arabă"
-
-msgid "Armenian"
-msgstr "Armeană"
-
-msgid "Bulgarian"
-msgstr "Bulgară"
-
-msgid "Chinese Simplified"
-msgstr "Chineză Simplificată"
-
-msgid "Chinese Traditional"
-msgstr "Chineză Tradițional"
-
-msgid "Croatian"
-msgstr "Croată"
-
-msgid "Czech"
-msgstr "Cehă"
-
-msgid "Dutch"
-msgstr "Olandeză"
-
-msgid "Finnish"
-msgstr "Finlandeză"
-
-msgid "French"
-msgstr "Franceză"
-
-msgid "German"
-msgstr "Germană"
-
-msgid "Greek"
-msgstr "Greacă"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Maghiară"
-
-msgid "Italian"
-msgstr "Italiană"
-
-msgid "Japanese"
-msgstr "Japoneză"
-
-msgid "Kazakh"
-msgstr "Cazacă"
-
-msgid "Kazakh (Latin)"
-msgstr "Cazacă (Latină)"
-
-msgid "Korean"
-msgstr "Coreană"
-
-msgid "Lithuanian"
-msgstr "Lituaniană"
-
-msgid "Persian"
-msgstr "Persană"
-
-msgid "Polish"
-msgstr "Poloneză"
-
-msgid "Portuguese"
-msgstr "Portugheză"
-
-msgid "Portuguese Brazil"
-msgstr "Portugheză braziliană"
-
-msgid "Romanian"
-msgstr "Română"
-
-msgid "Russian"
-msgstr "Rusă"
-
-msgid "Slovak"
-msgstr "Slovacă"
-
-msgid "Slovenian"
-msgstr "Slovenă"
-
-msgid "Spanish"
-msgstr "Spaniolă"
-
-msgid "Swedish"
-msgstr "Suedeză"
-
-msgid "Turkish"
-msgstr "Turcă"
-
-msgid "Ukrainian"
-msgstr "Ucraineană"
 
 msgid "About CherryTree"
 msgstr "Despre CherryTree"
@@ -855,6 +873,9 @@ msgstr "Rând"
 msgid "Line Content"
 msgstr "Conținut rând"
 
+msgid "Hide"
+msgstr "Ascunde"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Iterează ultima descoperire/Înlocuiește"
 
@@ -882,6 +903,12 @@ msgstr "Elimină culoarea utilizatorului din paletă"
 msgid "Colour"
 msgstr "Culoare"
 
+msgid "More"
+msgstr "Mai mult"
+
+msgid "Less"
+msgstr "Mai puțin"
+
 msgid "Question"
 msgstr "Întrebare"
 
@@ -893,6 +920,9 @@ msgstr "Eroare"
 
 msgid "Select File"
 msgstr "Selectează fișier"
+
+msgid "Open"
+msgstr "Deschide"
 
 msgid "Select Folder"
 msgstr "Selectează director"
@@ -973,11 +1003,11 @@ msgstr "Selectează eticheta existentă"
 msgid "Tag Name"
 msgstr "Nume etichetă"
 
-msgid "Pick a Color"
-msgstr "Alege o culoare"
-
 msgid "Select Node Icon"
 msgstr "Selectează pictogramă nod"
+
+msgid "Pick a Color"
+msgstr "Alege o culoare"
 
 msgid "Involved Nodes"
 msgstr "Nod implicat"
@@ -1139,8 +1169,20 @@ msgstr "Copiază selecția sau totul"
 msgid "Paste"
 msgstr "Lipește"
 
+msgid "Menu"
+msgstr "Meniu"
+
 msgid "Remove from list"
 msgstr "Elimină din listă"
+
+msgid "No recent documents"
+msgstr "Nu există documente recente"
+
+msgid "Bookmarks"
+msgstr "Semne de carte"
+
+msgid "No bookmarks"
+msgstr "Nu există semne de carte"
 
 msgid "_File"
 msgstr "_Fișier"
@@ -1676,11 +1718,11 @@ msgstr "Formatează clo_nează"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Clonează tipul de formatarea al textului la cursor"
 
-msgid "Format _Latest"
-msgstr "Formatează _Cel mai recent"
+msgid "Repeat _Last Format"
+msgstr "Repetă _ultima formatare"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Memoria celui mai recent tip de formatare text"
+msgid "Repeat Latest Text Format Type"
+msgstr "Repetă ultimul tip de formatare a textului"
 
 msgid "_Remove Formatting"
 msgstr "_Elimină formatarea"
@@ -1961,21 +2003,24 @@ msgstr "Inserează nodul de _astăzi sub rădăcina arborelui"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Inserează un nod cu ierarhie an/lună/zi pentru astăzi sub rădăcina arborelui"
+msgstr ""
+"Inserează un nod cu ierarhie an/lună/zi pentru astăzi sub rădăcina arborelui"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Inserează nodul de _astăzi sub nodul selectat"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Inserează un nod cu ierarhie an/lună/zi pentru astăzi sub nodul selectat"
+msgstr ""
+"Inserează un nod cu ierarhie an/lună/zi pentru astăzi sub nodul selectat"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Inserează nodul de _mâine sub rădăcina arborelui"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Inserează un nod cu ierarhie an/lună/zi pentru mâine sub rădăcina arborelui"
+msgstr ""
+"Inserează un nod cu ierarhie an/lună/zi pentru mâine sub rădăcina arborelui"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Inserează nodul de _mâine sub nodul selectat"
@@ -1983,7 +2028,8 @@ msgstr "Inserează nodul de _mâine sub nodul selectat"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Inserează un nod cu ierarhie an/lună/zi pentru mâine sub nodul selectat"
+msgstr ""
+"Inserează un nod cu ierarhie an/lună/zi pentru mâine sub nodul selectat"
 
 msgid "C_hange Node Properties..."
 msgstr "S_chimbă proprietățile nodului..."
@@ -2774,6 +2820,9 @@ msgstr "Număr de copii backup pentru păstrat"
 msgid "Custom Backup Directory"
 msgstr "Director pentru backup ajustabil"
 
+msgid "Select Folder..."
+msgstr "Selectează dosarul..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Locație stocare multiplă, Utilizează numele integrat de pe disk"
 
@@ -3068,8 +3117,8 @@ msgstr "Utilizează cireșe diferite pe nivel"
 msgid "No Icon"
 msgstr "Nicio pictogramă"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Ascunde partea dreaptă a pictogramei auxiliare"
+msgid "Hide Auxiliary Icon"
+msgstr "Ascunde pictograma auxiliară"
 
 msgid "Default Text Nodes Icons"
 msgstr "Pictograme noduri text implicite"
@@ -3175,6 +3224,9 @@ msgstr "Document Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ești sigur de revenirea la setările originale?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Formatează _Cel mai recent"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Înlocuiește în mai multe noduri..."

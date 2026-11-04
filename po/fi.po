@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2022-04-06 16:25+0300\n"
 "Last-Translator: henri k <henrikau@posteo.net>\n"
 "Language-Team: Finnish\n"
@@ -162,6 +162,12 @@ msgstr "Käytät kehitysversiota."
 
 msgid "Who is the Parent?"
 msgstr "Mikä on vanhempi?"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "Puun juuri"
@@ -354,6 +360,105 @@ msgstr "Kopioi koodi"
 msgid "Change CodeBox Properties"
 msgstr "Muuta koodilaatikon ominaisuuksia"
 
+msgid "Arabic"
+msgstr "Arabia"
+
+msgid "Armenian"
+msgstr "Armenia"
+
+msgid "Bulgarian"
+msgstr "Bulgaria"
+
+msgid "Chinese Simplified"
+msgstr "Yksinkertaistettu kiina"
+
+msgid "Chinese Traditional"
+msgstr "Traditionaalinen Kiina"
+
+msgid "Croatian"
+msgstr "Kroatia"
+
+msgid "Czech"
+msgstr "Tsekki"
+
+msgid "Dutch"
+msgstr "Hollanti"
+
+msgid "Finnish"
+msgstr "Suomi"
+
+msgid "French"
+msgstr "Ranska"
+
+msgid "German"
+msgstr "Saksa"
+
+msgid "Greek"
+msgstr "Kreikka"
+
+msgid "Hindi India"
+msgstr "Hinti Intia"
+
+msgid "Hungarian"
+msgstr "Unkari"
+
+msgid "Italian"
+msgstr "Italia"
+
+msgid "Japanese"
+msgstr "Japani"
+
+msgid "Kazakh"
+msgstr "Kazakstan"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazakki (latinalainen)"
+
+msgid "Korean"
+msgstr "Korea"
+
+msgid "Lithuanian"
+msgstr "Liettua"
+
+msgid "Persian"
+msgstr "Persia"
+
+msgid "Polish"
+msgstr "Puola"
+
+msgid "Portuguese"
+msgstr "Portugali"
+
+msgid "Portuguese Brazil"
+msgstr "Brasilian portugali"
+
+msgid "Romanian"
+msgstr "Romania"
+
+msgid "Russian"
+msgstr "Venäjä"
+
+msgid "Slovak"
+msgstr "Slovakki"
+
+msgid "Slovenian"
+msgstr "Slovenia"
+
+msgid "Spanish"
+msgstr "Espanja"
+
+msgid "Swedish"
+msgstr "Ruotsi"
+
+msgid "Tamil"
+msgstr "Tamili"
+
+msgid "Turkish"
+msgstr "Turkki"
+
+msgid "Ukrainian"
+msgstr "Ukraina"
+
 msgid "Start in CherryTree"
 msgstr "Aloita CherryTree:ssä"
 
@@ -454,11 +559,20 @@ msgstr "Kaksi syötettyä salasanaa eivät täsmää."
 msgid "Warning"
 msgstr "Varoitus"
 
+msgid "Discard"
+msgstr "Hylkää"
+
+msgid "Save"
+msgstr "Tallenna"
+
 msgid "The Current Document was Updated."
 msgstr "Nykyinen asiakirja on päivitetty."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Haluatko tallentaa muutokset?"
+
+msgid "Execute"
+msgstr "Suorita"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Haluatko suorittaa koodin?"
@@ -508,102 +622,6 @@ msgstr ""
 "lisenssistä. Ellei näin ole, kirjoita osoitteeseen:  Free Software "
 "Foundation,\n"
 "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabia"
-
-msgid "Armenian"
-msgstr "Armenia"
-
-msgid "Bulgarian"
-msgstr "Bulgaria"
-
-msgid "Chinese Simplified"
-msgstr "Yksinkertaistettu kiina"
-
-msgid "Chinese Traditional"
-msgstr "Traditionaalinen Kiina"
-
-msgid "Croatian"
-msgstr "Kroatia"
-
-msgid "Czech"
-msgstr "Tsekki"
-
-msgid "Dutch"
-msgstr "Hollanti"
-
-msgid "Finnish"
-msgstr "Suomi"
-
-msgid "French"
-msgstr "Ranska"
-
-msgid "German"
-msgstr "Saksa"
-
-msgid "Greek"
-msgstr "Kreikka"
-
-msgid "Hindi India"
-msgstr "Hinti Intia"
-
-msgid "Hungarian"
-msgstr "Unkari"
-
-msgid "Italian"
-msgstr "Italia"
-
-msgid "Japanese"
-msgstr "Japani"
-
-msgid "Kazakh"
-msgstr "Kazakstan"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakki (latinalainen)"
-
-msgid "Korean"
-msgstr "Korea"
-
-msgid "Lithuanian"
-msgstr "Liettua"
-
-msgid "Persian"
-msgstr "Persia"
-
-msgid "Polish"
-msgstr "Puola"
-
-msgid "Portuguese"
-msgstr "Portugali"
-
-msgid "Portuguese Brazil"
-msgstr "Brasilian portugali"
-
-msgid "Romanian"
-msgstr "Romania"
-
-msgid "Russian"
-msgstr "Venäjä"
-
-msgid "Slovak"
-msgstr "Slovakki"
-
-msgid "Slovenian"
-msgstr "Slovenia"
-
-msgid "Spanish"
-msgstr "Espanja"
-
-msgid "Swedish"
-msgstr "Ruotsi"
-
-msgid "Turkish"
-msgstr "Turkki"
-
-msgid "Ukrainian"
-msgstr "Ukraina"
 
 msgid "About CherryTree"
 msgstr "Tietoja CherryTree:stä"
@@ -853,6 +871,9 @@ msgstr "Rivi"
 msgid "Line Content"
 msgstr "Rivin sisältö"
 
+msgid "Hide"
+msgstr "Piilota"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Toista viimeisin Etsi/Korvaa"
 
@@ -880,6 +901,12 @@ msgstr "Poista käyttäjän väri paletilta"
 msgid "Colour"
 msgstr "Väri"
 
+msgid "More"
+msgstr "Lisää"
+
+msgid "Less"
+msgstr "Vähemmän"
+
 msgid "Question"
 msgstr "Kysymys"
 
@@ -891,6 +918,9 @@ msgstr "Virhe"
 
 msgid "Select File"
 msgstr "Valitse tiedosto"
+
+msgid "Open"
+msgstr "Avaa"
 
 msgid "Select Folder"
 msgstr "Valitse kansio"
@@ -971,11 +1001,11 @@ msgstr "Valitse olemassa oleva avainsana"
 msgid "Tag Name"
 msgstr "Avainsanan nimi"
 
-msgid "Pick a Color"
-msgstr "Valitse väri"
-
 msgid "Select Node Icon"
 msgstr "Valitse solmun ikoni"
+
+msgid "Pick a Color"
+msgstr "Valitse väri"
 
 msgid "Involved Nodes"
 msgstr "Liittyvät solmut"
@@ -1136,8 +1166,20 @@ msgstr "Kopioi valinta tai kaikki"
 msgid "Paste"
 msgstr "Liitä"
 
+msgid "Menu"
+msgstr "Valikko"
+
 msgid "Remove from list"
 msgstr "_Poista listasta"
+
+msgid "No recent documents"
+msgstr "Ei viimeisimpiä asiakirjoja"
+
+msgid "Bookmarks"
+msgstr "Kirjamerkit"
+
+msgid "No bookmarks"
+msgstr "Ei kirjamerkkejä"
 
 msgid "_File"
 msgstr "_Tiedosto"
@@ -1673,11 +1715,11 @@ msgstr "Muotoile k_looni"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Kloonaa tekstin muotoilu kursorin kohdalla"
 
-msgid "Format _Latest"
-msgstr "_Muotoile viimeisin"
+msgid "Repeat _Last Format"
+msgstr "Toista _viimeisin muotoilu"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Viimeisimmän tekstimuotoilutyypin muisti"
+msgid "Repeat Latest Text Format Type"
+msgstr "Toista viimeisin tekstin muotoilutyyppi"
 
 msgid "_Remove Formatting"
 msgstr "_Poista muotoilu"
@@ -1954,14 +1996,17 @@ msgstr "Lisää _tämän päivän solmu puun juureen"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Lisää solmu hierarkialla vuosi/kuukausi/päivä tälle päivälle puun juureen"
+msgstr ""
+"Lisää solmu hierarkialla vuosi/kuukausi/päivä tälle päivälle puun juureen"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Lisää tä_nään solmu valitun solmun alle"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Lisää solmu hierarkialla vuosi/kuukausi/päivä tälle päivälle valitun solmun alle"
+msgstr ""
+"Lisää solmu hierarkialla vuosi/kuukausi/päivä tälle päivälle valitun solmun "
+"alle"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Lisää _huomisen solmu puun juureen"
@@ -1976,7 +2021,8 @@ msgstr "Lisää _huomenna solmu valitun solmun alle"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Lisää solmu hierarkialla vuosi/kuukausi/päivä huomiselle valitun solmun alle"
+msgstr ""
+"Lisää solmu hierarkialla vuosi/kuukausi/päivä huomiselle valitun solmun alle"
 
 msgid "C_hange Node Properties..."
 msgstr "_Muuta solmun ominaisuuksia"
@@ -2764,6 +2810,9 @@ msgstr "Varmuuskopioiden lukumäärä"
 msgid "Custom Backup Directory"
 msgstr "Muokattu varmuuskopiohakemisto"
 
+msgid "Select Folder..."
+msgstr "Valitse kansio..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Useita tiedostoja -tallennus, käytä upotettua tiedostonimeä levyllä"
 
@@ -3056,8 +3105,8 @@ msgstr "Käytä erilaisia kirsikoita joka tasolla"
 msgid "No Icon"
 msgstr "Ei ikonia"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Piilota oikeanpuoleinen apuikoni"
+msgid "Hide Auxiliary Icon"
+msgstr "Piilota apukuvake"
 
 msgid "Default Text Nodes Icons"
 msgstr "Oletus tekstisolmuikonit"
@@ -3160,6 +3209,9 @@ msgstr "Leo -asiakirja"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Haluatko varmasti palauttaa oletuksen?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "_Muotoile viimeisin"
 
 #~ msgid "CherryTree Document"
 #~ msgstr "CherryTree -asiakirja"
@@ -3406,9 +3458,6 @@ msgstr "Haluatko varmasti palauttaa oletuksen?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Käytä AppIndicator:a telakointiin"
-
-#~ msgid "Cancel"
-#~ msgstr "Peruuta"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Merkit  %s  eivät ole sallittuja"

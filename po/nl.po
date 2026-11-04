@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38-rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-01-26 15:13+0100\n"
 "Last-Translator: Luuk Geurts\n"
 "Language-Team: Nederlands <>\n"
@@ -162,6 +162,12 @@ msgstr "U gebruikt een ontwikkel versie."
 
 msgid "Who is the Parent?"
 msgstr "Wie is de ouder?"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "De boomwortel"
@@ -356,6 +362,105 @@ msgstr "Code kopiëren"
 msgid "Change CodeBox Properties"
 msgstr "Wijzig Codevak eigenschappen"
 
+msgid "Arabic"
+msgstr "Arabisch"
+
+msgid "Armenian"
+msgstr "Armeens"
+
+msgid "Bulgarian"
+msgstr "Bulgaars"
+
+msgid "Chinese Simplified"
+msgstr "Chinees vereenvoudigd"
+
+msgid "Chinese Traditional"
+msgstr "Chinees traditioneel"
+
+msgid "Croatian"
+msgstr "Kroatisch"
+
+msgid "Czech"
+msgstr "Tsjechisch"
+
+msgid "Dutch"
+msgstr "Nederlands"
+
+msgid "Finnish"
+msgstr "Fins"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "Greek"
+msgstr "Grieks"
+
+msgid "Hindi India"
+msgstr "Hindi (India)"
+
+msgid "Hungarian"
+msgstr "Hongaars"
+
+msgid "Italian"
+msgstr "Italiaans"
+
+msgid "Japanese"
+msgstr "Japans"
+
+msgid "Kazakh"
+msgstr "Kazachs"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazachs (Latijns schrift)"
+
+msgid "Korean"
+msgstr "Koreaans"
+
+msgid "Lithuanian"
+msgstr "Litouws"
+
+msgid "Persian"
+msgstr "Perzisch"
+
+msgid "Polish"
+msgstr "Pools"
+
+msgid "Portuguese"
+msgstr "Portugees"
+
+msgid "Portuguese Brazil"
+msgstr "Braziliaans Portugees"
+
+msgid "Romanian"
+msgstr "Roemeens"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Slovak"
+msgstr "Slowaaks"
+
+msgid "Slovenian"
+msgstr "Sloveens"
+
+msgid "Spanish"
+msgstr "Spaans"
+
+msgid "Swedish"
+msgstr "Zweeds"
+
+msgid "Tamil"
+msgstr "Tamil"
+
+msgid "Turkish"
+msgstr "Turks"
+
+msgid "Ukrainian"
+msgstr "Oekraïns"
+
 msgid "Start in CherryTree"
 msgstr "Starten in CherryTree"
 
@@ -458,11 +563,20 @@ msgstr "De ingegeven wachtwoorden komen niet overeen."
 msgid "Warning"
 msgstr "Waarschuwing"
 
+msgid "Discard"
+msgstr "Verwerpen"
+
+msgid "Save"
+msgstr "Opslaan"
+
 msgid "The Current Document was Updated."
 msgstr "Het huidige document is ververst."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Wilt u de wijzigingen opslaan?"
+
+msgid "Execute"
+msgstr "Uitvoeren"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Wilt u de code uitvoeren?"
@@ -513,102 +627,6 @@ msgstr ""
 "samen met dit programma, zo niet, schrijf naar de Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabisch"
-
-msgid "Armenian"
-msgstr "Armeens"
-
-msgid "Bulgarian"
-msgstr "Bulgaars"
-
-msgid "Chinese Simplified"
-msgstr "Chinees vereenvoudigd"
-
-msgid "Chinese Traditional"
-msgstr "Chinees traditioneel"
-
-msgid "Croatian"
-msgstr "Kroatisch"
-
-msgid "Czech"
-msgstr "Tsjechisch"
-
-msgid "Dutch"
-msgstr "Nederlands"
-
-msgid "Finnish"
-msgstr "Fins"
-
-msgid "French"
-msgstr "Frans"
-
-msgid "German"
-msgstr "Duits"
-
-msgid "Greek"
-msgstr "Grieks"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Hongaars"
-
-msgid "Italian"
-msgstr "Italiaans"
-
-msgid "Japanese"
-msgstr "Japans"
-
-msgid "Kazakh"
-msgstr "Kazachs"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazachs"
-
-msgid "Korean"
-msgstr "Koreaans"
-
-msgid "Lithuanian"
-msgstr "Litouws"
-
-msgid "Persian"
-msgstr "Perzisch"
-
-msgid "Polish"
-msgstr "Pools"
-
-msgid "Portuguese"
-msgstr "Portugees"
-
-msgid "Portuguese Brazil"
-msgstr "Braziliaans Portugees"
-
-msgid "Romanian"
-msgstr "Roemeens"
-
-msgid "Russian"
-msgstr "Russisch"
-
-msgid "Slovak"
-msgstr "Slowaaks"
-
-msgid "Slovenian"
-msgstr "Sloveens"
-
-msgid "Spanish"
-msgstr "Spaans"
-
-msgid "Swedish"
-msgstr "Zweeds"
-
-msgid "Turkish"
-msgstr "Turks"
-
-msgid "Ukrainian"
-msgstr "Oekraïns"
 
 msgid "About CherryTree"
 msgstr "Over CherryTree"
@@ -860,6 +878,9 @@ msgstr "Regel"
 msgid "Line Content"
 msgstr "Regelinhoud"
 
+msgid "Hide"
+msgstr "Verbergen"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Laatste Zoek/Vervang herhalen"
 
@@ -887,6 +908,12 @@ msgstr "Gebruikerskleur uit het palet verwijderen"
 msgid "Colour"
 msgstr "Kleur"
 
+msgid "More"
+msgstr "Meer"
+
+msgid "Less"
+msgstr "Minder"
+
 msgid "Question"
 msgstr "Vraag"
 
@@ -898,6 +925,9 @@ msgstr "Fout"
 
 msgid "Select File"
 msgstr "Selecteer bestand"
+
+msgid "Open"
+msgstr "Openen"
 
 msgid "Select Folder"
 msgstr "Selecteer map"
@@ -979,11 +1009,11 @@ msgstr "Kies bestaand label"
 msgid "Tag Name"
 msgstr "Labelnaam"
 
-msgid "Pick a Color"
-msgstr "Kies een kleur"
-
 msgid "Select Node Icon"
 msgstr "Selecteer het knoop pictogram"
+
+msgid "Pick a Color"
+msgstr "Kies een kleur"
 
 msgid "Involved Nodes"
 msgstr "Betrokken knopen"
@@ -1142,8 +1172,20 @@ msgstr "Kopieer selectie of alles"
 msgid "Paste"
 msgstr "Plakken"
 
+msgid "Menu"
+msgstr "Menu"
+
 msgid "Remove from list"
 msgstr "Verwijderen uit _Bladwijzers"
+
+msgid "No recent documents"
+msgstr "Geen recente documenten"
+
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+msgid "No bookmarks"
+msgstr "Geen bladwijzers"
 
 msgid "_File"
 msgstr "_Bestand"
@@ -1679,11 +1721,11 @@ msgstr "Maak kopie op"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Kopieer de opmaakstijl van de cursorpositie"
 
-msgid "Format _Latest"
-msgstr "_Laatst gebruikte opmaak toepassen"
+msgid "Repeat _Last Format"
+msgstr "Herhaal _laatste opmaak"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Vasthouden van laatste tekstopmaaktype"
+msgid "Repeat Latest Text Format Type"
+msgstr "Laatste tekstopmaak herhalen"
 
 msgid "_Remove Formatting"
 msgstr "_Opmaak verwijderen"
@@ -2775,6 +2817,9 @@ msgstr "Aantal bewaarde backups"
 msgid "Custom Backup Directory"
 msgstr "Aangepaste backup map"
 
+msgid "Select Folder..."
+msgstr "Selecteer map..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Meervoudig Bestand Opslag, Gebruik Ingesloten Bestand Naam op Schijf"
 
@@ -3070,8 +3115,8 @@ msgstr "Gebruik verschillende Cherries per niveau"
 msgid "No Icon"
 msgstr "Geen pictogram"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Verberg het rechter hulppictogram"
+msgid "Hide Auxiliary Icon"
+msgstr "Verberg het hulppictogram"
 
 msgid "Default Text Nodes Icons"
 msgstr "Standaard tekstknopen pictogrammen"
@@ -3176,6 +3221,9 @@ msgstr "Leo document"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "_Laatst gebruikte opmaak toepassen"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Vervang in meerdere knopen..."
@@ -3439,9 +3487,6 @@ msgstr "Zeker dat u wilt teruggaan naar de standaardwaarde?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Gebruik AppIndicator voor verbergen"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuleren"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "De tekens %s zijn niet toegestaan"

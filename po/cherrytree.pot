@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,6 +152,12 @@ msgid "You Are Using a Development Version."
 msgstr ""
 
 msgid "Who is the Parent?"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "OK"
 msgstr ""
 
 msgid "The Tree Root"
@@ -335,139 +341,6 @@ msgstr ""
 msgid "Change CodeBox Properties"
 msgstr ""
 
-msgid "Start in CherryTree"
-msgstr ""
-
-msgid "New Document"
-msgstr ""
-
-msgid "Open File"
-msgstr ""
-
-msgid "Open Folder"
-msgstr ""
-
-msgid "Create a new document or open an existing one."
-msgstr ""
-
-msgid "Don't show again"
-msgstr ""
-
-msgid "Recent Documents"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
-msgid "Path"
-msgstr ""
-
-msgid "Open Selected"
-msgstr ""
-
-msgid "Handle the Bookmarks List"
-msgstr ""
-
-msgid "Move the Selected Bookmark Up"
-msgstr ""
-
-msgid "Move the Selected Bookmark Down"
-msgstr ""
-
-msgid "Remove the Selected Bookmark"
-msgstr ""
-
-msgid "Sort the Bookmarks Descending"
-msgstr ""
-
-msgid "Sort the Bookmarks Ascending"
-msgstr ""
-
-msgid "Choose Storage Type"
-msgstr ""
-
-msgid "Single SQLite File"
-msgstr ""
-
-msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
-msgstr ""
-
-msgid "Single XML File"
-msgstr ""
-
-msgid "Single XML File, 7-zip Encrypted and Password Protected"
-msgstr ""
-
-msgid "Multiple Files in Hierarchical Folder Structure"
-msgstr ""
-
-msgid "Storage Type"
-msgstr ""
-
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-
-msgid "Enter the New Password Twice"
-msgstr ""
-
-msgid "Autosave Every"
-msgstr ""
-
-msgid "Minutes"
-msgstr ""
-
-msgid "The Password Fields Must be Filled."
-msgstr ""
-
-msgid "The Two Inserted Passwords Do Not Match."
-msgstr ""
-
-msgid "Warning"
-msgstr ""
-
-msgid "The Current Document was Updated."
-msgstr ""
-
-msgid "Do you want to Save the Changes?"
-msgstr ""
-
-msgid "Do you want to Execute the Code?"
-msgstr ""
-
-msgid "Ask Confirmation Before Executing the Code"
-msgstr ""
-
-msgid "Use Internal Terminal"
-msgstr ""
-
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-
 msgid "Arabic"
 msgstr ""
 
@@ -565,6 +438,148 @@ msgid "Turkish"
 msgstr ""
 
 msgid "Ukrainian"
+msgstr ""
+
+msgid "Start in CherryTree"
+msgstr ""
+
+msgid "New Document"
+msgstr ""
+
+msgid "Open File"
+msgstr ""
+
+msgid "Open Folder"
+msgstr ""
+
+msgid "Create a new document or open an existing one."
+msgstr ""
+
+msgid "Don't show again"
+msgstr ""
+
+msgid "Recent Documents"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Path"
+msgstr ""
+
+msgid "Open Selected"
+msgstr ""
+
+msgid "Handle the Bookmarks List"
+msgstr ""
+
+msgid "Move the Selected Bookmark Up"
+msgstr ""
+
+msgid "Move the Selected Bookmark Down"
+msgstr ""
+
+msgid "Remove the Selected Bookmark"
+msgstr ""
+
+msgid "Sort the Bookmarks Descending"
+msgstr ""
+
+msgid "Sort the Bookmarks Ascending"
+msgstr ""
+
+msgid "Choose Storage Type"
+msgstr ""
+
+msgid "Single SQLite File"
+msgstr ""
+
+msgid "Single SQLite File, 7-zip Encrypted and Password Protected"
+msgstr ""
+
+msgid "Single XML File"
+msgstr ""
+
+msgid "Single XML File, 7-zip Encrypted and Password Protected"
+msgstr ""
+
+msgid "Multiple Files in Hierarchical Folder Structure"
+msgstr ""
+
+msgid "Storage Type"
+msgstr ""
+
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+
+msgid "Enter the New Password Twice"
+msgstr ""
+
+msgid "Autosave Every"
+msgstr ""
+
+msgid "Minutes"
+msgstr ""
+
+msgid "The Password Fields Must be Filled."
+msgstr ""
+
+msgid "The Two Inserted Passwords Do Not Match."
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "Discard"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "The Current Document was Updated."
+msgstr ""
+
+msgid "Do you want to Save the Changes?"
+msgstr ""
+
+msgid "Execute"
+msgstr ""
+
+msgid "Do you want to Execute the Code?"
+msgstr ""
+
+msgid "Ask Confirmation Before Executing the Code"
+msgstr ""
+
+msgid "Use Internal Terminal"
+msgstr ""
+
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
 msgstr ""
 
 msgid "About CherryTree"
@@ -809,6 +824,9 @@ msgstr ""
 msgid "Line Content"
 msgstr ""
 
+msgid "Hide"
+msgstr ""
+
 msgid "Iterate Latest Find/Replace"
 msgstr ""
 
@@ -836,6 +854,12 @@ msgstr ""
 msgid "Colour"
 msgstr ""
 
+msgid "More"
+msgstr ""
+
+msgid "Less"
+msgstr ""
+
 msgid "Question"
 msgstr ""
 
@@ -846,6 +870,9 @@ msgid "Error"
 msgstr ""
 
 msgid "Select File"
+msgstr ""
+
+msgid "Open"
 msgstr ""
 
 msgid "Select Folder"
@@ -927,10 +954,10 @@ msgstr ""
 msgid "Tag Name"
 msgstr ""
 
-msgid "Pick a Color"
+msgid "Select Node Icon"
 msgstr ""
 
-msgid "Select Node Icon"
+msgid "Pick a Color"
 msgstr ""
 
 msgid "Involved Nodes"
@@ -1082,7 +1109,19 @@ msgstr ""
 msgid "Paste"
 msgstr ""
 
+msgid "Menu"
+msgstr ""
+
 msgid "Remove from list"
+msgstr ""
+
+msgid "No recent documents"
+msgstr ""
+
+msgid "Bookmarks"
+msgstr ""
+
+msgid "No bookmarks"
 msgstr ""
 
 msgid "_File"
@@ -1619,10 +1658,10 @@ msgstr ""
 msgid "Clone the Text Format Type at Cursor"
 msgstr ""
 
-msgid "Format _Latest"
+msgid "Repeat _Last Format"
 msgstr ""
 
-msgid "Memory of Latest Text Format Type"
+msgid "Repeat Latest Text Format Type"
 msgstr ""
 
 msgid "_Remove Formatting"
@@ -2708,6 +2747,9 @@ msgstr ""
 msgid "Custom Backup Directory"
 msgstr ""
 
+msgid "Select Folder..."
+msgstr ""
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr ""
 
@@ -2999,7 +3041,7 @@ msgstr ""
 msgid "No Icon"
 msgstr ""
 
-msgid "Hide Right Side Auxiliary Icon"
+msgid "Hide Auxiliary Icon"
 msgstr ""
 
 msgid "Default Text Nodes Icons"

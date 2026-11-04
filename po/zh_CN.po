@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2023-07-16 20:44+0100\n"
 "Last-Translator: Wang Yu <krwy0330@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -159,6 +159,12 @@ msgstr "您正在使用开发版本"
 
 msgid "Who is the Parent?"
 msgstr "哪个是父节点？"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "OK"
+msgstr "确定"
 
 msgid "The Tree Root"
 msgstr "树根"
@@ -343,6 +349,105 @@ msgstr "复制代码"
 msgid "Change CodeBox Properties"
 msgstr "修改代码框属性"
 
+msgid "Arabic"
+msgstr "阿拉伯语"
+
+msgid "Armenian"
+msgstr "亚美尼亚语"
+
+msgid "Bulgarian"
+msgstr "保加利亚语"
+
+msgid "Chinese Simplified"
+msgstr "简体中文"
+
+msgid "Chinese Traditional"
+msgstr "繁体中文"
+
+msgid "Croatian"
+msgstr "克罗地亚语"
+
+msgid "Czech"
+msgstr "捷克语"
+
+msgid "Dutch"
+msgstr "荷兰语"
+
+msgid "Finnish"
+msgstr "芬兰语"
+
+msgid "French"
+msgstr "法语"
+
+msgid "German"
+msgstr "德语"
+
+msgid "Greek"
+msgstr "希腊语"
+
+msgid "Hindi India"
+msgstr "印度印地语 "
+
+msgid "Hungarian"
+msgstr "匈牙利语"
+
+msgid "Italian"
+msgstr "意大利语"
+
+msgid "Japanese"
+msgstr "日语"
+
+msgid "Kazakh"
+msgstr "哈萨克语"
+
+msgid "Kazakh (Latin)"
+msgstr "哈萨克语(拉丁文)"
+
+msgid "Korean"
+msgstr "韩语"
+
+msgid "Lithuanian"
+msgstr "立陶宛语"
+
+msgid "Persian"
+msgstr "波斯语"
+
+msgid "Polish"
+msgstr "波兰语"
+
+msgid "Portuguese"
+msgstr "葡萄牙语"
+
+msgid "Portuguese Brazil"
+msgstr "巴西葡萄牙语"
+
+msgid "Romanian"
+msgstr "罗马尼亚语"
+
+msgid "Russian"
+msgstr "俄语"
+
+msgid "Slovak"
+msgstr "斯洛伐克语"
+
+msgid "Slovenian"
+msgstr "斯洛文尼亚语"
+
+msgid "Spanish"
+msgstr "西班牙语"
+
+msgid "Swedish"
+msgstr "瑞典语"
+
+msgid "Tamil"
+msgstr "泰米尔语"
+
+msgid "Turkish"
+msgstr "土耳其语"
+
+msgid "Ukrainian"
+msgstr "乌克兰语"
+
 msgid "Start in CherryTree"
 msgstr "在CherryTree中开始"
 
@@ -441,11 +546,20 @@ msgstr "两次输入密码不匹配"
 msgid "Warning"
 msgstr "警告"
 
+msgid "Discard"
+msgstr "丢弃"
+
+msgid "Save"
+msgstr "保存"
+
 msgid "The Current Document was Updated."
 msgstr "当前文档已自动更新。"
 
 msgid "Do you want to Save the Changes?"
 msgstr "要保存文件的修改吗？"
+
+msgid "Execute"
+msgstr "执行"
 
 msgid "Do you want to Execute the Code?"
 msgstr "你想执行代码吗？"
@@ -492,102 +606,6 @@ msgstr ""
 "与此程序一起使用；如果不是，请写信给自由软件\n"
 "基金会公司，地址：波士顿富兰克林大街51号，5楼，波士顿,\n"
 "麻省理工学院02110-1301年，美国。\n"
-
-msgid "Arabic"
-msgstr "阿拉伯语"
-
-msgid "Armenian"
-msgstr "亚美尼亚语"
-
-msgid "Bulgarian"
-msgstr "保加利亚语"
-
-msgid "Chinese Simplified"
-msgstr "简体中文"
-
-msgid "Chinese Traditional"
-msgstr "繁体中文"
-
-msgid "Croatian"
-msgstr "克罗地亚语"
-
-msgid "Czech"
-msgstr "捷克语"
-
-msgid "Dutch"
-msgstr "荷兰语"
-
-msgid "Finnish"
-msgstr "芬兰语"
-
-msgid "French"
-msgstr "法语"
-
-msgid "German"
-msgstr "德语"
-
-msgid "Greek"
-msgstr "希腊语"
-
-msgid "Hindi India"
-msgstr "印度印地语 "
-
-msgid "Hungarian"
-msgstr "匈牙利语"
-
-msgid "Italian"
-msgstr "意大利语"
-
-msgid "Japanese"
-msgstr "日语"
-
-msgid "Kazakh"
-msgstr "哈萨克语"
-
-msgid "Kazakh (Latin)"
-msgstr "哈萨克语(拉丁文)"
-
-msgid "Korean"
-msgstr "韩语"
-
-msgid "Lithuanian"
-msgstr "立陶宛语"
-
-msgid "Persian"
-msgstr "波斯语"
-
-msgid "Polish"
-msgstr "波兰语"
-
-msgid "Portuguese"
-msgstr "葡萄牙语"
-
-msgid "Portuguese Brazil"
-msgstr "巴西葡萄牙语"
-
-msgid "Romanian"
-msgstr "罗马尼亚语"
-
-msgid "Russian"
-msgstr "俄语"
-
-msgid "Slovak"
-msgstr "斯洛伐克语"
-
-msgid "Slovenian"
-msgstr "斯洛文尼亚语"
-
-msgid "Spanish"
-msgstr "西班牙语"
-
-msgid "Swedish"
-msgstr "瑞典语"
-
-msgid "Turkish"
-msgstr "土耳其语"
-
-msgid "Ukrainian"
-msgstr "乌克兰语"
 
 msgid "About CherryTree"
 msgstr "关于CherryTree"
@@ -836,6 +854,9 @@ msgstr "行"
 msgid "Line Content"
 msgstr "首行内容"
 
+msgid "Hide"
+msgstr "隐藏"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "重复上次搜索/替换"
 
@@ -863,6 +884,12 @@ msgstr "从调色板中移除用户颜色"
 msgid "Colour"
 msgstr "颜色"
 
+msgid "More"
+msgstr "更多"
+
+msgid "Less"
+msgstr "更少"
+
 msgid "Question"
 msgstr "询问"
 
@@ -874,6 +901,9 @@ msgstr "错误"
 
 msgid "Select File"
 msgstr "选择文件"
+
+msgid "Open"
+msgstr "打开"
 
 msgid "Select Folder"
 msgstr "选择文件夹"
@@ -954,11 +984,11 @@ msgstr "选择现有的标签"
 msgid "Tag Name"
 msgstr "变量名称"
 
-msgid "Pick a Color"
-msgstr "选择颜色"
-
 msgid "Select Node Icon"
 msgstr "选择节点图标"
+
+msgid "Pick a Color"
+msgstr "选择颜色"
 
 msgid "Involved Nodes"
 msgstr "涉及到的节点"
@@ -1113,8 +1143,20 @@ msgstr "复制已选中内容或所有内容"
 msgid "Paste"
 msgstr "粘贴"
 
+msgid "Menu"
+msgstr "菜单"
+
 msgid "Remove from list"
 msgstr "从列表中删除"
+
+msgid "No recent documents"
+msgstr "没有最近使用的文档"
+
+msgid "Bookmarks"
+msgstr "书签"
+
+msgid "No bookmarks"
+msgstr "没有书签"
 
 msgid "_File"
 msgstr "文件(_F)"
@@ -1650,11 +1692,11 @@ msgstr "单独格式化(_n)"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "在光标处克隆文本格式类型"
 
-msgid "Format _Latest"
-msgstr "上次格式(_L)"
+msgid "Repeat _Last Format"
+msgstr "重复_上次格式"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "上次所操作的文字格式类型"
+msgid "Repeat Latest Text Format Type"
+msgstr "重复最近使用的文本格式类型"
 
 msgid "_Remove Formatting"
 msgstr "移除格式化(_R)"
@@ -2739,6 +2781,9 @@ msgstr "欲保留的备份数"
 msgid "Custom Backup Directory"
 msgstr "自定义备份目录"
 
+msgid "Select Folder..."
+msgstr "选择文件夹..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "多文件存储，使用磁盘上的嵌入式文件名"
 
@@ -3030,8 +3075,8 @@ msgstr "每层及使用不同的樱桃图标"
 msgid "No Icon"
 msgstr "无图标"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "隐藏右侧辅助图标"
+msgid "Hide Auxiliary Icon"
+msgstr "隐藏辅助图标"
 
 msgid "Default Text Nodes Icons"
 msgstr "文本节点的默认图标"
@@ -3128,6 +3173,9 @@ msgstr "Leo文件"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "您确定要重置为默认值吗？"
+
+#~ msgid "Format _Latest"
+#~ msgstr "上次格式(_L)"
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "插入文档目录(_O)"

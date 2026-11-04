@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-12-25 19:08+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
@@ -160,6 +160,12 @@ msgstr "개발 버전을 사용하고 있습니다."
 
 msgid "Who is the Parent?"
 msgstr "부모 노트 어떤것입니까?"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "OK"
+msgstr "확인"
 
 msgid "The Tree Root"
 msgstr "Tree의 루트"
@@ -347,6 +353,105 @@ msgstr "코드 복사"
 msgid "Change CodeBox Properties"
 msgstr "코드 상자의 속성을 변경"
 
+msgid "Arabic"
+msgstr "아랍어"
+
+msgid "Armenian"
+msgstr "아르메니아어"
+
+msgid "Bulgarian"
+msgstr "불가리아어"
+
+msgid "Chinese Simplified"
+msgstr "중국어 간체"
+
+msgid "Chinese Traditional"
+msgstr "중국어 번체"
+
+msgid "Croatian"
+msgstr "크로아티아어"
+
+msgid "Czech"
+msgstr "체코어"
+
+msgid "Dutch"
+msgstr "네덜란드어"
+
+msgid "Finnish"
+msgstr "핀란드어"
+
+msgid "French"
+msgstr "프랑스어"
+
+msgid "German"
+msgstr "독일어"
+
+msgid "Greek"
+msgstr "그리스어"
+
+msgid "Hindi India"
+msgstr "인도 힌디어"
+
+msgid "Hungarian"
+msgstr "헝가리어"
+
+msgid "Italian"
+msgstr "이탈리아어"
+
+msgid "Japanese"
+msgstr "일본어"
+
+msgid "Kazakh"
+msgstr "카자흐어"
+
+msgid "Kazakh (Latin)"
+msgstr "카자흐어(라틴 문자)"
+
+msgid "Korean"
+msgstr "한국어"
+
+msgid "Lithuanian"
+msgstr "리투아니아어"
+
+msgid "Persian"
+msgstr "페르시아어"
+
+msgid "Polish"
+msgstr "폴란드어"
+
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+msgid "Portuguese Brazil"
+msgstr "브라질 포르투갈어"
+
+msgid "Romanian"
+msgstr "루마니아어"
+
+msgid "Russian"
+msgstr "러시아어"
+
+msgid "Slovak"
+msgstr "슬로바키아어"
+
+msgid "Slovenian"
+msgstr "슬로베니아어"
+
+msgid "Spanish"
+msgstr "스페인어"
+
+msgid "Swedish"
+msgstr "스웨덴어"
+
+msgid "Tamil"
+msgstr "타밀어"
+
+msgid "Turkish"
+msgstr "튀르키예어"
+
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
 msgid "Start in CherryTree"
 msgstr "CherryTree에서 시작"
 
@@ -447,11 +552,20 @@ msgstr "입력 한 두 암호가 일치하지 않습니다."
 msgid "Warning"
 msgstr "경고"
 
+msgid "Discard"
+msgstr "버리기"
+
+msgid "Save"
+msgstr "저장"
+
 msgid "The Current Document was Updated."
 msgstr "현재 문서는 변경되어 있습니다."
 
 msgid "Do you want to Save the Changes?"
 msgstr "변경 사항을 저장 하시겠습니까?"
+
+msgid "Execute"
+msgstr "실행"
 
 msgid "Do you want to Execute the Code?"
 msgstr "코드를 실행 하시겠습니까?"
@@ -501,102 +615,6 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Armenian"
-msgstr "Armenian"
-
-msgid "Bulgarian"
-msgstr "Bulgarian"
-
-msgid "Chinese Simplified"
-msgstr "Chinese Simplified"
-
-msgid "Chinese Traditional"
-msgstr "Chinese Traditional"
-
-msgid "Croatian"
-msgstr "Croatian"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "Dutch"
-msgstr "Dutch"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "French"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Hungarian"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japanese"
-
-msgid "Kazakh"
-msgstr "Kazakh"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakh"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Portuguese Brazil"
-msgstr "Portuguese Brazil"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Slovenian"
-msgstr "Slovenian"
-
-msgid "Spanish"
-msgstr "Spanish"
-
-msgid "Swedish"
-msgstr "Swedish"
-
-msgid "Turkish"
-msgstr "Turkish"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
 
 msgid "About CherryTree"
 msgstr "CherryTree 소개"
@@ -845,6 +863,9 @@ msgstr "행"
 msgid "Line Content"
 msgstr "줄 내용"
 
+msgid "Hide"
+msgstr "숨기기"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "마지막 찾기/바꾸기를 반복"
 
@@ -872,6 +893,12 @@ msgstr "사용자 정의 색상 제거"
 msgid "Colour"
 msgstr "색상"
 
+msgid "More"
+msgstr "더 보기"
+
+msgid "Less"
+msgstr "간략히"
+
 msgid "Question"
 msgstr "질문"
 
@@ -883,6 +910,9 @@ msgstr "오류"
 
 msgid "Select File"
 msgstr "파일 선택"
+
+msgid "Open"
+msgstr "열기"
 
 msgid "Select Folder"
 msgstr "폴더 선택"
@@ -963,11 +993,11 @@ msgstr "기존의 태그를 선택"
 msgid "Tag Name"
 msgstr "태그 이름"
 
-msgid "Pick a Color"
-msgstr "색상을 선택"
-
 msgid "Select Node Icon"
 msgstr "노트 아이콘 선택"
+
+msgid "Pick a Color"
+msgstr "색상을 선택"
 
 msgid "Involved Nodes"
 msgstr "관련 노트"
@@ -1124,8 +1154,20 @@ msgstr "선택 또는 전체 복사"
 msgid "Paste"
 msgstr "붙여넣기"
 
+msgid "Menu"
+msgstr "메뉴"
+
 msgid "Remove from list"
 msgstr "목록에서 제거"
+
+msgid "No recent documents"
+msgstr "최근 문서가 없습니다"
+
+msgid "Bookmarks"
+msgstr "북마크"
+
+msgid "No bookmarks"
+msgstr "북마크가 없습니다"
 
 msgid "_File"
 msgstr "파일(_F)"
@@ -1661,11 +1703,11 @@ msgstr "서식 복제(_N)"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "커서 위치의 서식 복제"
 
-msgid "Format _Latest"
-msgstr "마지막에 사용한 서식(_L)"
+msgid "Repeat _Last Format"
+msgstr "마지막 서식 반복(_L)"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "마지막에 사용한 서식 유형을 적용"
+msgid "Repeat Latest Text Format Type"
+msgstr "마지막으로 사용한 텍스트 서식 유형 반복"
 
 msgid "_Remove Formatting"
 msgstr "서식 삭제(_R)"
@@ -2752,6 +2794,9 @@ msgstr "저장 백업의 최대 수"
 msgid "Custom Backup Directory"
 msgstr "백업 디렉토리를 지정한다"
 
+msgid "Select Folder..."
+msgstr "폴더 선택..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "다중 파일 저장, 디스크에 임베디드 파일 이름 사용"
 
@@ -3043,8 +3088,8 @@ msgstr "레벨마다 다른 체리 이미지를 사용하기"
 msgid "No Icon"
 msgstr "아이콘 없음"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "오른쪽의 부속 아이콘 숨기기"
+msgid "Hide Auxiliary Icon"
+msgstr "보조 아이콘 숨기기"
 
 msgid "Default Text Nodes Icons"
 msgstr "기본 텍스트 노트의 아이콘"
@@ -3147,6 +3192,9 @@ msgstr "Leo 문서"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "기본값으로 초기화 하겠습니까?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "마지막에 사용한 서식(_L)"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "모든 노트를 치환..."
@@ -3405,9 +3453,6 @@ msgstr "기본값으로 초기화 하겠습니까?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "AppIndicator 사용"
-
-#~ msgid "Cancel"
-#~ msgstr "취소"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "%s의 문자는 사용할 수 없습니다"

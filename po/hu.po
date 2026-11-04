@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-02-05 20:45+0100\n"
 "Last-Translator: giuspen <giuspen@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -161,6 +161,12 @@ msgstr "Ez egy fejlesztői verzió."
 
 msgid "Who is the Parent?"
 msgstr "Importálás helye"
+
+msgid "Cancel"
+msgstr "Mégse"
+
+msgid "OK"
+msgstr "Rendben"
 
 msgid "The Tree Root"
 msgstr "A fa gyökere"
@@ -350,6 +356,105 @@ msgstr "Kód másolása"
 msgid "Change CodeBox Properties"
 msgstr "CodeBox tulajdonságok módosítása"
 
+msgid "Arabic"
+msgstr "Arab"
+
+msgid "Armenian"
+msgstr "Örmény"
+
+msgid "Bulgarian"
+msgstr "Bolgár"
+
+msgid "Chinese Simplified"
+msgstr "Kínai (egyszerűsített)"
+
+msgid "Chinese Traditional"
+msgstr "Kínai (hagyományos)"
+
+msgid "Croatian"
+msgstr "Horvát"
+
+msgid "Czech"
+msgstr "Cseh"
+
+msgid "Dutch"
+msgstr "Holland"
+
+msgid "Finnish"
+msgstr "Finn"
+
+msgid "French"
+msgstr "Francia"
+
+msgid "German"
+msgstr "Német"
+
+msgid "Greek"
+msgstr "Görög"
+
+msgid "Hindi India"
+msgstr "Hindi"
+
+msgid "Hungarian"
+msgstr "Magyar"
+
+msgid "Italian"
+msgstr "Olasz"
+
+msgid "Japanese"
+msgstr "Japán"
+
+msgid "Kazakh"
+msgstr "Kazak"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazak (latin betűs)"
+
+msgid "Korean"
+msgstr "Kóreai"
+
+msgid "Lithuanian"
+msgstr "Litván"
+
+msgid "Persian"
+msgstr "Perzsa"
+
+msgid "Polish"
+msgstr "Lengyel"
+
+msgid "Portuguese"
+msgstr "Portugál"
+
+msgid "Portuguese Brazil"
+msgstr "Barzil portugál"
+
+msgid "Romanian"
+msgstr "Román"
+
+msgid "Russian"
+msgstr "Orosz"
+
+msgid "Slovak"
+msgstr "Szlovák"
+
+msgid "Slovenian"
+msgstr "Szlovén"
+
+msgid "Spanish"
+msgstr "Spanyol"
+
+msgid "Swedish"
+msgstr "Svéd"
+
+msgid "Tamil"
+msgstr "Tamil"
+
+msgid "Turkish"
+msgstr "Török"
+
+msgid "Ukrainian"
+msgstr "Ukrán"
+
 msgid "Start in CherryTree"
 msgstr "Indítás a CherryTree-ben"
 
@@ -450,11 +555,20 @@ msgstr "A megadott jelszavak nem egyeznek!"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
+msgid "Discard"
+msgstr "Elvetés"
+
+msgid "Save"
+msgstr "Mentés"
+
 msgid "The Current Document was Updated."
 msgstr "A dokumentumban módosítás történt."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Szeretnéd menteni a változtatásokat?"
+
+msgid "Execute"
+msgstr "Futtatás"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Szeretnéd futtatni a kódot?"
@@ -504,102 +618,6 @@ msgstr ""
 "A felhasználónak a programmal együtt meg kell kapnia a GNU General Public\n"
 "License egy példányát; ha mégsem kapta meg, akkor tekintse meg a\n"
 "<https://www.gnu.org/licenses/> oldalon.\n"
-
-msgid "Arabic"
-msgstr "Arab"
-
-msgid "Armenian"
-msgstr "Örmény"
-
-msgid "Bulgarian"
-msgstr "Bolgár"
-
-msgid "Chinese Simplified"
-msgstr "Kínai (egyszerűsített)"
-
-msgid "Chinese Traditional"
-msgstr "Kínai (hagyományos)"
-
-msgid "Croatian"
-msgstr "Horvát"
-
-msgid "Czech"
-msgstr "Cseh"
-
-msgid "Dutch"
-msgstr "Holland"
-
-msgid "Finnish"
-msgstr "Finn"
-
-msgid "French"
-msgstr "Francia"
-
-msgid "German"
-msgstr "Német"
-
-msgid "Greek"
-msgstr "Görög"
-
-msgid "Hindi India"
-msgstr "Hindi"
-
-msgid "Hungarian"
-msgstr "Magyar"
-
-msgid "Italian"
-msgstr "Olasz"
-
-msgid "Japanese"
-msgstr "Japán"
-
-msgid "Kazakh"
-msgstr "Kazak"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazak (latin betűs)"
-
-msgid "Korean"
-msgstr "Kóreai"
-
-msgid "Lithuanian"
-msgstr "Litván"
-
-msgid "Persian"
-msgstr "Perzsa"
-
-msgid "Polish"
-msgstr "Lengyel"
-
-msgid "Portuguese"
-msgstr "Portugál"
-
-msgid "Portuguese Brazil"
-msgstr "Barzil portugál"
-
-msgid "Romanian"
-msgstr "Román"
-
-msgid "Russian"
-msgstr "Orosz"
-
-msgid "Slovak"
-msgstr "Szlovák"
-
-msgid "Slovenian"
-msgstr "Szlovén"
-
-msgid "Spanish"
-msgstr "Spanyol"
-
-msgid "Swedish"
-msgstr "Svéd"
-
-msgid "Turkish"
-msgstr "Török"
-
-msgid "Ukrainian"
-msgstr "Ukrán"
 
 msgid "About CherryTree"
 msgstr "CherryTree névjegye"
@@ -850,6 +868,9 @@ msgstr "Sor"
 msgid "Line Content"
 msgstr "Sor tartalma"
 
+msgid "Hide"
+msgstr "Elrejtés"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Legutóbbi Keresés/Csere iterálása"
 
@@ -877,6 +898,12 @@ msgstr "Egyéni szín eltávolítása a palettáról"
 msgid "Colour"
 msgstr "Szín"
 
+msgid "More"
+msgstr "Továbbiak"
+
+msgid "Less"
+msgstr "Kevesebb"
+
 msgid "Question"
 msgstr "Kérdés"
 
@@ -888,6 +915,9 @@ msgstr "Hiba"
 
 msgid "Select File"
 msgstr "Fájl megnyitása"
+
+msgid "Open"
+msgstr "Megnyitás"
 
 msgid "Select Folder"
 msgstr "Mappa megnyitása"
@@ -968,11 +998,11 @@ msgstr "Létező kulcsszó választása"
 msgid "Tag Name"
 msgstr "Kulcsszó neve"
 
-msgid "Pick a Color"
-msgstr "Válassz színt"
-
 msgid "Select Node Icon"
 msgstr "Ikon választása"
+
+msgid "Pick a Color"
+msgstr "Válassz színt"
 
 msgid "Involved Nodes"
 msgstr "Tartalom kiválasztása"
@@ -1132,8 +1162,20 @@ msgstr "Kijelölés vagy minden másolása"
 msgid "Paste"
 msgstr "Beillesztés"
 
+msgid "Menu"
+msgstr "Menü"
+
 msgid "Remove from list"
 msgstr "Törlés a listából"
+
+msgid "No recent documents"
+msgstr "Nincsenek legutóbbi dokumentumok"
+
+msgid "Bookmarks"
+msgstr "Könyvjelzők"
+
+msgid "No bookmarks"
+msgstr "Nincsenek könyvjelzők"
 
 msgid "_File"
 msgstr "_Fájl"
@@ -1669,11 +1711,11 @@ msgstr "Formázás _klónozása"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "A kurzornál lévő szövegformázás klónozása"
 
-msgid "Format _Latest"
-msgstr "_Legutóbbi formázás"
+msgid "Repeat _Last Format"
+msgstr "_Utolsó formázás ismétlése"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "A legutóbbi szövegformázás alkalmazása"
+msgid "Repeat Latest Text Format Type"
+msgstr "A legutóbbi szövegformázási típus ismétlése"
 
 msgid "_Remove Formatting"
 msgstr "Formázás _törlése"
@@ -1950,21 +1992,27 @@ msgstr "\"_Mai nap\" csomópont beszúrása a gyökér alá"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Csomópont beszúrása a fa gyökere alá a mai napra a következő hierarchiában: Év/Hónap/Nap"
+msgstr ""
+"Csomópont beszúrása a fa gyökere alá a mai napra a következő hierarchiában: "
+"Év/Hónap/Nap"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "\"_Mai nap\" csomópont beszúrása a kijelölt csomópont alá"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Csomópont beszúrása a kijelölt csomópont alá a mai napra a következő hierarchiában: Év/Hónap/Nap"
+msgstr ""
+"Csomópont beszúrása a kijelölt csomópont alá a mai napra a következő "
+"hierarchiában: Év/Hónap/Nap"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "\"_Holnapi nap\" csomópont beszúrása a gyökér alá"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Csomópont beszúrása a fa gyökere alá a holnapi napra a következő hierarchiában: Év/Hónap/Nap"
+msgstr ""
+"Csomópont beszúrása a fa gyökere alá a holnapi napra a következő "
+"hierarchiában: Év/Hónap/Nap"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "\"_Holnapi nap\" csomópont beszúrása a kijelölt csomópont alá"
@@ -1972,7 +2020,9 @@ msgstr "\"_Holnapi nap\" csomópont beszúrása a kijelölt csomópont alá"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Csomópont beszúrása a kijelölt csomópont alá a holnapi napra a következő hierarchiában: Év/Hónap/Nap"
+msgstr ""
+"Csomópont beszúrása a kijelölt csomópont alá a holnapi napra a következő "
+"hierarchiában: Év/Hónap/Nap"
 
 msgid "C_hange Node Properties..."
 msgstr "Csomópont _tulajdonságok módosítása..."
@@ -2762,6 +2812,9 @@ msgstr "Megtartandó másolatok száma"
 msgid "Custom Backup Directory"
 msgstr "Másolatok mentése ide"
 
+msgid "Select Folder..."
+msgstr "Mappa kiválasztása..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Többfájlos mentés esetén beágyazott fájlnév használata a lemezen"
 
@@ -3054,8 +3107,8 @@ msgstr "Eltérő színű cseresznyék szintenként"
 msgid "No Icon"
 msgstr "Nincs ikon"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Kiegészítő ikonok elrejtése"
+msgid "Hide Auxiliary Icon"
+msgstr "Kiegészítő ikon elrejtése"
 
 msgid "Default Text Nodes Icons"
 msgstr "Csomópontok alapértelmezett ikonja"
@@ -3160,6 +3213,9 @@ msgstr "Leo dokumentum"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Biztosan visszaállítod az alapértelmezett beállításokat?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "_Legutóbbi formázás"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Csere az összes (keresésből nem kizárt) csomópontban..."

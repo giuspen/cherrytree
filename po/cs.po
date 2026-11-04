@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-08-22 08:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -163,6 +163,12 @@ msgstr "Používáte vývojářskou verzi."
 
 msgid "Who is the Parent?"
 msgstr "Který je nadřízený uzel?"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "Kořen stromu"
@@ -355,6 +361,105 @@ msgstr "Kopírovat kód"
 msgid "Change CodeBox Properties"
 msgstr "Změnit vlastnosti pole s kódem"
 
+msgid "Arabic"
+msgstr "Překlad do arabštiny"
+
+msgid "Armenian"
+msgstr "Překlad do arménštiny"
+
+msgid "Bulgarian"
+msgstr "Překlad do bulharštiny"
+
+msgid "Chinese Simplified"
+msgstr "Překlad do zjednodušené čínštiny"
+
+msgid "Chinese Traditional"
+msgstr "Překlad do tradiční čínštiny"
+
+msgid "Croatian"
+msgstr "Překlad do chorvatštiny"
+
+msgid "Czech"
+msgstr "Překlad do češtiny"
+
+msgid "Dutch"
+msgstr "Překlad do holandštiny"
+
+msgid "Finnish"
+msgstr "Překlad do finštiny"
+
+msgid "French"
+msgstr "Překlad do francouzštiny"
+
+msgid "German"
+msgstr "Překlad do němčiny"
+
+msgid "Greek"
+msgstr "Překlad do řečtiny"
+
+msgid "Hindi India"
+msgstr "Překlad do hindštiny"
+
+msgid "Hungarian"
+msgstr "Překlad do maďarštiny"
+
+msgid "Italian"
+msgstr "Překlad do italštiny"
+
+msgid "Japanese"
+msgstr "Překlad do japonštiny"
+
+msgid "Kazakh"
+msgstr "Překlad do kazaštiny"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazaština (latinka)"
+
+msgid "Korean"
+msgstr "Překlad do korejštiny"
+
+msgid "Lithuanian"
+msgstr "Překlad do litevštiny"
+
+msgid "Persian"
+msgstr "Překlad do perštiny"
+
+msgid "Polish"
+msgstr "Překlad do polštiny"
+
+msgid "Portuguese"
+msgstr "Překlad do portugalštiny"
+
+msgid "Portuguese Brazil"
+msgstr "Překlad do brazilské portugalštiny"
+
+msgid "Romanian"
+msgstr "Překlad do rumunštiny"
+
+msgid "Russian"
+msgstr "Překlad do ruštiny"
+
+msgid "Slovak"
+msgstr "Překlad do slovenštiny"
+
+msgid "Slovenian"
+msgstr "Překlad do slovinštiny"
+
+msgid "Spanish"
+msgstr "Překlad do španělštiny"
+
+msgid "Swedish"
+msgstr "Překlad do švédštiny"
+
+msgid "Tamil"
+msgstr "Tamilština"
+
+msgid "Turkish"
+msgstr "Překlad do turečtiny"
+
+msgid "Ukrainian"
+msgstr "Překlad do ukrajinštiny"
+
 msgid "Start in CherryTree"
 msgstr "Spustit v CherryTree"
 
@@ -455,11 +560,20 @@ msgstr "Ta dvě vložená hesla se neshodují."
 msgid "Warning"
 msgstr "Varování"
 
+msgid "Discard"
+msgstr "Zahodit"
+
+msgid "Save"
+msgstr "Uložit"
+
 msgid "The Current Document was Updated."
 msgstr "Nynější dokument byl aktualizován."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Chcete uložit změny?"
+
+msgid "Execute"
+msgstr "Provést"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Chcete provést kód?"
@@ -507,102 +621,6 @@ msgstr ""
 "Kopii GNU General Public License byste měl obdržet společně s tímto balíkem; "
 "a pokud ne, napište Free Software Foundation, Inc., 51 Franklin St, Fifth "
 "Floor, Boston, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Překlad do arabštiny"
-
-msgid "Armenian"
-msgstr "Překlad do arménštiny"
-
-msgid "Bulgarian"
-msgstr "Překlad do bulharštiny"
-
-msgid "Chinese Simplified"
-msgstr "Překlad do zjednodušené čínštiny"
-
-msgid "Chinese Traditional"
-msgstr "Překlad do tradiční čínštiny"
-
-msgid "Croatian"
-msgstr "Překlad do chorvatštiny"
-
-msgid "Czech"
-msgstr "Překlad do češtiny"
-
-msgid "Dutch"
-msgstr "Překlad do holandštiny"
-
-msgid "Finnish"
-msgstr "Překlad do finštiny"
-
-msgid "French"
-msgstr "Překlad do francouzštiny"
-
-msgid "German"
-msgstr "Překlad do němčiny"
-
-msgid "Greek"
-msgstr "Překlad do řečtiny"
-
-msgid "Hindi India"
-msgstr "Překlad do hindštiny"
-
-msgid "Hungarian"
-msgstr "Překlad do maďarštiny"
-
-msgid "Italian"
-msgstr "Překlad do italštiny"
-
-msgid "Japanese"
-msgstr "Překlad do japonštiny"
-
-msgid "Kazakh"
-msgstr "Překlad do kazaštiny"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazaština (latinka)"
-
-msgid "Korean"
-msgstr "Překlad do korejštiny"
-
-msgid "Lithuanian"
-msgstr "Překlad do litevštiny"
-
-msgid "Persian"
-msgstr "Překlad do perštiny"
-
-msgid "Polish"
-msgstr "Překlad do polštiny"
-
-msgid "Portuguese"
-msgstr "Překlad do portugalštiny"
-
-msgid "Portuguese Brazil"
-msgstr "Překlad do brazilské portugalštiny"
-
-msgid "Romanian"
-msgstr "Překlad do rumunštiny"
-
-msgid "Russian"
-msgstr "Překlad do ruštiny"
-
-msgid "Slovak"
-msgstr "Překlad do slovenštiny"
-
-msgid "Slovenian"
-msgstr "Překlad do slovinštiny"
-
-msgid "Spanish"
-msgstr "Překlad do španělštiny"
-
-msgid "Swedish"
-msgstr "Překlad do švédštiny"
-
-msgid "Turkish"
-msgstr "Překlad do turečtiny"
-
-msgid "Ukrainian"
-msgstr "Překlad do ukrajinštiny"
 
 msgid "About CherryTree"
 msgstr "O CherryTree"
@@ -852,6 +870,9 @@ msgstr "Řádek"
 msgid "Line Content"
 msgstr "Obsah řádku"
 
+msgid "Hide"
+msgstr "Skrýt"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Zopakovat poslední hledání/nahrazení"
 
@@ -879,6 +900,12 @@ msgstr "Odstranit uživatelskou barvu z palety"
 msgid "Colour"
 msgstr "Barva"
 
+msgid "More"
+msgstr "Více"
+
+msgid "Less"
+msgstr "Méně"
+
 msgid "Question"
 msgstr "Otázka"
 
@@ -890,6 +917,9 @@ msgstr "Chyba"
 
 msgid "Select File"
 msgstr "Vybrat soubor"
+
+msgid "Open"
+msgstr "Otevřít"
 
 msgid "Select Folder"
 msgstr "Vybrat složku"
@@ -970,11 +1000,11 @@ msgstr "Vybrat stávající značku"
 msgid "Tag Name"
 msgstr "Název značky"
 
-msgid "Pick a Color"
-msgstr "Vybrat barvu"
-
 msgid "Select Node Icon"
 msgstr "Vybrat ikonu uzlu"
+
+msgid "Pick a Color"
+msgstr "Vybrat barvu"
 
 msgid "Involved Nodes"
 msgstr "Související uzly"
@@ -1134,8 +1164,20 @@ msgstr "Kopírovat výběr nebo vše"
 msgid "Paste"
 msgstr "Vložit"
 
+msgid "Menu"
+msgstr "Nabídka"
+
 msgid "Remove from list"
 msgstr "Odstranit ze seznamu"
+
+msgid "No recent documents"
+msgstr "Žádné nedávné dokumenty"
+
+msgid "Bookmarks"
+msgstr "Záložky"
+
+msgid "No bookmarks"
+msgstr "Žádné záložky"
 
 msgid "_File"
 msgstr "_Soubor"
@@ -1673,10 +1715,10 @@ msgstr "_Kopírovat formátování"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Kopírovat způsob formátování textu v poloze ukazatele"
 
-msgid "Format _Latest"
-msgstr "_Zopakovat formátování"
+msgid "Repeat _Last Format"
+msgstr "Zopakovat _poslední formátování"
 
-msgid "Memory of Latest Text Format Type"
+msgid "Repeat Latest Text Format Type"
 msgstr "Zopakovat poslední způsob formátování textu"
 
 msgid "_Remove Formatting"
@@ -2767,6 +2809,9 @@ msgstr "Počet záloh k zachování"
 msgid "Custom Backup Directory"
 msgstr "Adresář s vlastní zálohou"
 
+msgid "Select Folder..."
+msgstr "Vybrat složku..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Ukládání více souborů, použití názvu vloženého souboru na disku"
 
@@ -3060,8 +3105,8 @@ msgstr "Použít pro úroveň různé třešně"
 msgid "No Icon"
 msgstr "Žádná ikona"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Skrýt pomocnou ikonu na pravé straně"
+msgid "Hide Auxiliary Icon"
+msgstr "Skrýt pomocnou ikonu"
 
 msgid "Default Text Nodes Icons"
 msgstr "Výchozí ikony uzlů textu"
@@ -3165,6 +3210,9 @@ msgstr "Dokument Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Opravdu chcete vrátit na výchozí?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "_Zopakovat formátování"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Nahradit ve všech uzlech..."
@@ -3427,9 +3475,6 @@ msgstr "Opravdu chcete vrátit na výchozí?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Použít ukazatele programů pro ukotvení v panelu"
-
-#~ msgid "Cancel"
-#~ msgstr "Zrušit"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Znaky %s nejsou dovoleny"

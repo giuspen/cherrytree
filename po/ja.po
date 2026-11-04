@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-05-11 04:20+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -161,6 +161,12 @@ msgstr "開発バージョンを使用しています。"
 
 msgid "Who is the Parent?"
 msgstr "親ノードを選択"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "ツリーのルート"
@@ -349,6 +355,105 @@ msgstr "コード をコピー"
 msgid "Change CodeBox Properties"
 msgstr "コード ボックスのプロパティを変更"
 
+msgid "Arabic"
+msgstr "アラビア語"
+
+msgid "Armenian"
+msgstr "アルメニア語"
+
+msgid "Bulgarian"
+msgstr "ブルガリア語"
+
+msgid "Chinese Simplified"
+msgstr "簡体字中国語"
+
+msgid "Chinese Traditional"
+msgstr "繁体字中国語"
+
+msgid "Croatian"
+msgstr "クロアチア語"
+
+msgid "Czech"
+msgstr "チェコ語"
+
+msgid "Dutch"
+msgstr "オランダ語"
+
+msgid "Finnish"
+msgstr "フィンランド語"
+
+msgid "French"
+msgstr "フランス語"
+
+msgid "German"
+msgstr "ドイツ語"
+
+msgid "Greek"
+msgstr "ギリシャ語"
+
+msgid "Hindi India"
+msgstr "ヒンディー語（インド）"
+
+msgid "Hungarian"
+msgstr "ハンガリー語"
+
+msgid "Italian"
+msgstr "イタリア語"
+
+msgid "Japanese"
+msgstr "日本語"
+
+msgid "Kazakh"
+msgstr "カザフ語"
+
+msgid "Kazakh (Latin)"
+msgstr "カザフ語（ラテン文字）"
+
+msgid "Korean"
+msgstr "韓国語"
+
+msgid "Lithuanian"
+msgstr "リトアニア語"
+
+msgid "Persian"
+msgstr "ペルシア語"
+
+msgid "Polish"
+msgstr "ポーランド語"
+
+msgid "Portuguese"
+msgstr "ポルトガル語"
+
+msgid "Portuguese Brazil"
+msgstr "ブラジルポルトガル語"
+
+msgid "Romanian"
+msgstr "ルーマニア語"
+
+msgid "Russian"
+msgstr "ロシア語"
+
+msgid "Slovak"
+msgstr "スロバキア語"
+
+msgid "Slovenian"
+msgstr "スロベニア語"
+
+msgid "Spanish"
+msgstr "スペイン語"
+
+msgid "Swedish"
+msgstr "スウェーデン語"
+
+msgid "Tamil"
+msgstr "タミル語"
+
+msgid "Turkish"
+msgstr "トルコ語"
+
+msgid "Ukrainian"
+msgstr "ウクライナ語"
+
 msgid "Start in CherryTree"
 msgstr "CherryTree をはじめる"
 
@@ -450,11 +555,20 @@ msgstr "入力した２回のパスワードが一致しません。"
 msgid "Warning"
 msgstr "警告"
 
+msgid "Discard"
+msgstr "破棄"
+
+msgid "Save"
+msgstr "保存"
+
 msgid "The Current Document was Updated."
 msgstr "現在のドキュメントは変更されています。"
 
 msgid "Do you want to Save the Changes?"
 msgstr "変更を保存しますか？"
+
+msgid "Execute"
+msgstr "実行"
 
 msgid "Do you want to Execute the Code?"
 msgstr "コードを実行しますか？"
@@ -504,102 +618,6 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Armenian"
-msgstr "Armenian"
-
-msgid "Bulgarian"
-msgstr "Bulgarian"
-
-msgid "Chinese Simplified"
-msgstr "Chinese Simplified"
-
-msgid "Chinese Traditional"
-msgstr "Chinese Traditional"
-
-msgid "Croatian"
-msgstr "Croatian"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "Dutch"
-msgstr "Dutch"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "French"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "Hindi India"
-msgstr "Hindi India"
-
-msgid "Hungarian"
-msgstr "Hungarian"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japanese"
-
-msgid "Kazakh"
-msgstr "Kazakh"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakh (Latin)"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Portuguese Brazil"
-msgstr "Portuguese Brazil"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Slovenian"
-msgstr "Slovenian"
-
-msgid "Spanish"
-msgstr "Spanish"
-
-msgid "Swedish"
-msgstr "Swedish"
-
-msgid "Turkish"
-msgstr "Turkish"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
 
 msgid "About CherryTree"
 msgstr "CherryTree について"
@@ -849,6 +867,9 @@ msgstr "行"
 msgid "Line Content"
 msgstr "行の内容"
 
+msgid "Hide"
+msgstr "隠す"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "最後の検索/置換を繰り返す"
 
@@ -876,6 +897,12 @@ msgstr "カスタム色の削除"
 msgid "Colour"
 msgstr "色"
 
+msgid "More"
+msgstr "もっと"
+
+msgid "Less"
+msgstr "少なく"
+
 msgid "Question"
 msgstr "質問"
 
@@ -887,6 +914,9 @@ msgstr "エラー"
 
 msgid "Select File"
 msgstr "ファイルの選択"
+
+msgid "Open"
+msgstr "開く"
 
 msgid "Select Folder"
 msgstr "フォルダーの選択"
@@ -967,11 +997,11 @@ msgstr "既存のタグを選択"
 msgid "Tag Name"
 msgstr "タグ名"
 
-msgid "Pick a Color"
-msgstr "色を選択"
-
 msgid "Select Node Icon"
 msgstr "ノード アイコンの選択"
+
+msgid "Pick a Color"
+msgstr "色を選択"
 
 msgid "Involved Nodes"
 msgstr "関連ノード"
@@ -1130,8 +1160,20 @@ msgstr "選択範囲またはすべてをコピー"
 msgid "Paste"
 msgstr "貼り付け"
 
+msgid "Menu"
+msgstr "メニュー"
+
 msgid "Remove from list"
 msgstr "一覧から削除"
+
+msgid "No recent documents"
+msgstr "最近使ったドキュメントはありません"
+
+msgid "Bookmarks"
+msgstr "ブックマーク"
+
+msgid "No bookmarks"
+msgstr "ブックマークはありません"
 
 msgid "_File"
 msgstr "ファイル(_F)"
@@ -1667,11 +1709,11 @@ msgstr "書式を複製(_N)"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "カーソル位置の書式を複製"
 
-msgid "Format _Latest"
-msgstr "最後に使用した書式(_L)"
+msgid "Repeat _Last Format"
+msgstr "最後の書式を繰り返す(_L)"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "最後に使用した書式の種類を適用"
+msgid "Repeat Latest Text Format Type"
+msgstr "最後に使用したテキスト書式を繰り返す"
 
 msgid "_Remove Formatting"
 msgstr "書式を削除(_R)"
@@ -2760,6 +2802,9 @@ msgstr "保存するバックアップの最大数"
 msgid "Custom Backup Directory"
 msgstr "バックアップディレクトリを指定する"
 
+msgid "Select Folder..."
+msgstr "フォルダーの選択..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "複数ファイルの保存時、ドライブ上で添付ファイル名を使用"
 
@@ -3052,8 +3097,8 @@ msgstr "レベルごとに異なるチェリー画像を使用する"
 msgid "No Icon"
 msgstr "アイコンなし"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "右端の付属アイコンを隠す"
+msgid "Hide Auxiliary Icon"
+msgstr "付属アイコンを隠す"
 
 msgid "Default Text Nodes Icons"
 msgstr "既定のテキスト ノードのアイコン"
@@ -3157,6 +3202,9 @@ msgstr "Leo ドキュメント"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "既定値に初期化しますか？"
+
+#~ msgid "Format _Latest"
+#~ msgstr "最後に使用した書式(_L)"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "複数のノードを置換..."
@@ -3413,9 +3461,6 @@ msgstr "既定値に初期化しますか？"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "AppIndicatorを使用する"
-
-#~ msgid "Cancel"
-#~ msgstr "キャンセル"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "%s という文字は使用できません"

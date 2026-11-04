@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-05-11 00:15+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
@@ -161,6 +161,12 @@ msgstr "Դուք գործածում եք դեռ մշակվող տարբերակ�
 
 msgid "Who is the Parent?"
 msgstr "Ո՞րն է ծնողը"
+
+msgid "Cancel"
+msgstr "Չեղարկել"
+
+msgid "OK"
+msgstr "Լավ"
 
 msgid "The Tree Root"
 msgstr "Ծառարմատը"
@@ -349,6 +355,105 @@ msgstr "Պատճենել այլագիրը"
 msgid "Change CodeBox Properties"
 msgstr "Փոխել այլագրատուփի հատկությունները"
 
+msgid "Arabic"
+msgstr "Արաբերեն"
+
+msgid "Armenian"
+msgstr "Հայերեն"
+
+msgid "Bulgarian"
+msgstr "Բուլղարերեն"
+
+msgid "Chinese Simplified"
+msgstr "Պարզեցված չինարեն"
+
+msgid "Chinese Traditional"
+msgstr "Չինարեն, ավանդական"
+
+msgid "Croatian"
+msgstr "Խորվաթերեն"
+
+msgid "Czech"
+msgstr "Չեխերեն"
+
+msgid "Dutch"
+msgstr "Հոլանդերեն"
+
+msgid "Finnish"
+msgstr "Ֆիններեն"
+
+msgid "French"
+msgstr "Ֆրանսերեն"
+
+msgid "German"
+msgstr "Գերմաներեն"
+
+msgid "Greek"
+msgstr "Հունարեն"
+
+msgid "Hindi India"
+msgstr "Հինդի, Հնդկաստան"
+
+msgid "Hungarian"
+msgstr "Հունգարերեն"
+
+msgid "Italian"
+msgstr "Իտալերեն"
+
+msgid "Japanese"
+msgstr "Ճապոներեն"
+
+msgid "Kazakh"
+msgstr "Ղազախերեն"
+
+msgid "Kazakh (Latin)"
+msgstr "Ղազախերեն (լատինատառ)"
+
+msgid "Korean"
+msgstr "Կորեերեն"
+
+msgid "Lithuanian"
+msgstr "Լիտվերեն"
+
+msgid "Persian"
+msgstr "Պարսկերեն"
+
+msgid "Polish"
+msgstr "Լեհերեն"
+
+msgid "Portuguese"
+msgstr "Պորտուգալերեն"
+
+msgid "Portuguese Brazil"
+msgstr "Բրազիլական պորտուգալերեն"
+
+msgid "Romanian"
+msgstr "Ռումիներեն"
+
+msgid "Russian"
+msgstr "Ռուսերեն"
+
+msgid "Slovak"
+msgstr "Սլովակերեն"
+
+msgid "Slovenian"
+msgstr "Սլովեներեն"
+
+msgid "Spanish"
+msgstr "Իսպաներեն"
+
+msgid "Swedish"
+msgstr "Շվեդերեն"
+
+msgid "Tamil"
+msgstr "Թամիլերեն"
+
+msgid "Turkish"
+msgstr "Թուրքերեն"
+
+msgid "Ukrainian"
+msgstr "Ուկրաիներեն"
+
 msgid "Start in CherryTree"
 msgstr "Սկսել CherryTree-ում"
 
@@ -450,11 +555,20 @@ msgstr "Մուտքագրված երկու գաղտնաբառերը չեն համ
 msgid "Warning"
 msgstr "Զգուշացում"
 
+msgid "Discard"
+msgstr "Մերժել"
+
+msgid "Save"
+msgstr "Պահպանել"
+
 msgid "The Current Document was Updated."
 msgstr "Փաստաթուղթը թարմացվել է։"
 
 msgid "Do you want to Save the Changes?"
 msgstr "Կամենո՞ւմ եք պահպանել փոփոխությունները"
+
+msgid "Execute"
+msgstr "Գործարկել"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Կամենո՞ւմ եք այլագիրը գործարկել։"
@@ -508,102 +622,6 @@ msgstr ""
 "Եթե ոչ, գրավոր դիմեք Ազատ ծրագրային ապահովման հիմնադրամին հետևյալ հասցեով՝\n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Արաբերեն"
-
-msgid "Armenian"
-msgstr "Հայերեն"
-
-msgid "Bulgarian"
-msgstr "Բուլղարերեն"
-
-msgid "Chinese Simplified"
-msgstr "Պարզեցված չինարեն"
-
-msgid "Chinese Traditional"
-msgstr "Չինարեն, ավանդական"
-
-msgid "Croatian"
-msgstr "Խորվաթերեն"
-
-msgid "Czech"
-msgstr "Չեխերեն"
-
-msgid "Dutch"
-msgstr "Հոլանդերեն"
-
-msgid "Finnish"
-msgstr "Ֆիններեն"
-
-msgid "French"
-msgstr "Ֆրանսերեն"
-
-msgid "German"
-msgstr "Գերմաներեն"
-
-msgid "Greek"
-msgstr "Հունարեն"
-
-msgid "Hindi India"
-msgstr "Հինդի, Հնդկաստան"
-
-msgid "Hungarian"
-msgstr "Հունգարերեն"
-
-msgid "Italian"
-msgstr "Իտալերեն"
-
-msgid "Japanese"
-msgstr "Ճապոներեն"
-
-msgid "Kazakh"
-msgstr "Ղազախերեն"
-
-msgid "Kazakh (Latin)"
-msgstr "Ղազախերեն (լատինատառ)"
-
-msgid "Korean"
-msgstr "Կորեերեն"
-
-msgid "Lithuanian"
-msgstr "Լիտվերեն"
-
-msgid "Persian"
-msgstr "Պարսկերեն"
-
-msgid "Polish"
-msgstr "Լեհերեն"
-
-msgid "Portuguese"
-msgstr "Պորտուգալերեն"
-
-msgid "Portuguese Brazil"
-msgstr "Բրազիլական պորտուգալերեն"
-
-msgid "Romanian"
-msgstr "Ռումիներեն"
-
-msgid "Russian"
-msgstr "Ռուսերեն"
-
-msgid "Slovak"
-msgstr "Սլովակերեն"
-
-msgid "Slovenian"
-msgstr "Սլովեներեն"
-
-msgid "Spanish"
-msgstr "Իսպաներեն"
-
-msgid "Swedish"
-msgstr "Շվեդերեն"
-
-msgid "Turkish"
-msgstr "Թուրքերեն"
-
-msgid "Ukrainian"
-msgstr "Ուկրաիներեն"
 
 msgid "About CherryTree"
 msgstr "CherryTree-ի մասին"
@@ -853,6 +871,9 @@ msgstr "Տող"
 msgid "Line Content"
 msgstr "Տողի պարունակություն"
 
+msgid "Hide"
+msgstr "Թաքցնել"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Կրկնել վերջին փնտրում-փոխարինումը"
 
@@ -880,6 +901,12 @@ msgstr "Հեռացնել գույնը գունապնակից"
 msgid "Colour"
 msgstr "Գույն"
 
+msgid "More"
+msgstr "Ավելին"
+
+msgid "Less"
+msgstr "Ավելի քիչ"
+
 msgid "Question"
 msgstr "Հարց"
 
@@ -891,6 +918,9 @@ msgstr "Սխալ"
 
 msgid "Select File"
 msgstr "Ընտրել նիշք"
+
+msgid "Open"
+msgstr "Բացել"
 
 msgid "Select Folder"
 msgstr "Ընտրել պանակ"
@@ -971,11 +1001,11 @@ msgstr "Ընտրել գոյություն ունեցող պիտակ"
 msgid "Tag Name"
 msgstr "Պիտակի անուն"
 
-msgid "Pick a Color"
-msgstr "Ընտրել գույն"
-
 msgid "Select Node Icon"
 msgstr "Ընտրել ճյուղի պատկերակ"
+
+msgid "Pick a Color"
+msgstr "Ընտրել գույն"
 
 msgid "Involved Nodes"
 msgstr "Առնչվող ճյուղեր"
@@ -1133,8 +1163,20 @@ msgstr "Պատճենել ընտրվածքը կամ ամբողջը"
 msgid "Paste"
 msgstr "Փակցնել"
 
+msgid "Menu"
+msgstr "Ընտրացանկ"
+
 msgid "Remove from list"
 msgstr "Հեռացնել ցանկից"
+
+msgid "No recent documents"
+msgstr "Վերջին փաստաթղթեր չկան"
+
+msgid "Bookmarks"
+msgstr "Էջանիշներ"
+
+msgid "No bookmarks"
+msgstr "Էջանիշներ չկան"
 
 msgid "_File"
 msgstr "_Նիշք"
@@ -1670,11 +1712,11 @@ msgstr "Կրկնօրինակել _ձևաչափումը"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Կրկնօրինակել տեքստի ձևաչափը նշորդի տեղում "
 
-msgid "Format _Latest"
-msgstr "Գործածել վերջին _ձևաչափումը"
+msgid "Repeat _Last Format"
+msgstr "Կրկնել _վերջին ձևաչափը"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Հիշել վերջին ձևաչափումը"
+msgid "Repeat Latest Text Format Type"
+msgstr "Կրկնել տեքստի վերջին ձևաչափի տեսակը"
 
 msgid "_Remove Formatting"
 msgstr "Վերացնել ձևաչափումը"
@@ -1958,7 +2000,8 @@ msgstr "Ընտրված ճյուղի տակ դնել _այսօրվա ճյուղ"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Ընտրված ճյուղի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ այսօրվա համար"
+msgstr ""
+"Ընտրված ճյուղի տակ դնել տարի/ամիս/օր դասավորությամբ ճյուղ այսօրվա համար"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Ծառարմատի տակ դնել _վաղվա ճյուղ"
@@ -2761,6 +2804,9 @@ msgstr "Պահուստային նիշքերի քանակը"
 msgid "Custom Backup Directory"
 msgstr "Պահուստի այլ պանակ"
 
+msgid "Select Folder..."
+msgstr "Ընտրել պանակ..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Շատ նիշքերով պահեստարան, գործածել ներկառուցված նիշքի անունը"
 
@@ -3052,8 +3098,8 @@ msgstr "Տարբեր բալեր՝ ըստ մակարդակի"
 msgid "No Icon"
 msgstr "Պատկերակ պետք չէ"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Թաքցնել աջ կողմի լրացուցիչ պատկերակը"
+msgid "Hide Auxiliary Icon"
+msgstr "Թաքցնել օժանդակ պատկերակը"
 
 msgid "Default Text Nodes Icons"
 msgstr "Ճյուղերի սկզբնադիր պատկերակները"
@@ -3156,6 +3202,9 @@ msgstr "Leo փաստաթուղթ"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Վերականգնե՞լ սկզբնադիր տարբերակը։"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Գործածել վերջին _ձևաչափումը"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Փոխարինել շատ ճյուղերում․․․"
@@ -3413,9 +3462,6 @@ msgstr "Վերականգնե՞լ սկզբնադիր տարբերակը։"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Փակցնելու համար գործածել AppIndicator-ը"
-
-#~ msgid "Cancel"
-#~ msgstr "Չեղարկել"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "%s  գրանշանները չեն թույլատրվում"

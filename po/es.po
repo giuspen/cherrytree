@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-05-12 09:33+1000\n"
 "Last-Translator: User Fav <userfav.post@gmail.com>\n"
 "Language-Team: Spanish <>\n"
@@ -161,6 +161,12 @@ msgstr "Estás usando una versión de desarrollo."
 
 msgid "Who is the Parent?"
 msgstr "¿Quién es el padre?"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "OK"
+msgstr "Aceptar"
 
 msgid "The Tree Root"
 msgstr "La raíz del árbol"
@@ -357,6 +363,105 @@ msgstr "_Copiar Código"
 msgid "Change CodeBox Properties"
 msgstr "Cambiar pr_opiedades de la Caja de Código"
 
+msgid "Arabic"
+msgstr "Árabe"
+
+msgid "Armenian"
+msgstr "Armenio"
+
+msgid "Bulgarian"
+msgstr "Búlgaro"
+
+msgid "Chinese Simplified"
+msgstr "Chino Simplificado"
+
+msgid "Chinese Traditional"
+msgstr "Chino Tradicional"
+
+msgid "Croatian"
+msgstr "Croata"
+
+msgid "Czech"
+msgstr "Checo"
+
+msgid "Dutch"
+msgstr "Holandés"
+
+msgid "Finnish"
+msgstr "Finés"
+
+msgid "French"
+msgstr "Francés"
+
+msgid "German"
+msgstr "Alemán"
+
+msgid "Greek"
+msgstr "Griego"
+
+msgid "Hindi India"
+msgstr "Hindi tradicional"
+
+msgid "Hungarian"
+msgstr "Húngaro"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "Japanese"
+msgstr "Japonés"
+
+msgid "Kazakh"
+msgstr "Kazajo"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazajo"
+
+msgid "Korean"
+msgstr "Coreano"
+
+msgid "Lithuanian"
+msgstr "Lituano"
+
+msgid "Persian"
+msgstr "Persa"
+
+msgid "Polish"
+msgstr "Polaco"
+
+msgid "Portuguese"
+msgstr "Portugués"
+
+msgid "Portuguese Brazil"
+msgstr "Portugués Brasil"
+
+msgid "Romanian"
+msgstr "Rumano"
+
+msgid "Russian"
+msgstr "Ruso"
+
+msgid "Slovak"
+msgstr "Eslovaco"
+
+msgid "Slovenian"
+msgstr "Esloveno"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Swedish"
+msgstr "Sueco"
+
+msgid "Tamil"
+msgstr "Tamil"
+
+msgid "Turkish"
+msgstr "Turco"
+
+msgid "Ukrainian"
+msgstr "Ucraniano"
+
 msgid "Start in CherryTree"
 msgstr "Iniciar en CherryTree"
 
@@ -457,11 +562,20 @@ msgstr "Las contraseñas introducidas no son iguales."
 msgid "Warning"
 msgstr "Aviso"
 
+msgid "Discard"
+msgstr "Descartar"
+
+msgid "Save"
+msgstr "Guardar"
+
 msgid "The Current Document was Updated."
 msgstr "El documento actual ha sido actualizado."
 
 msgid "Do you want to Save the Changes?"
 msgstr "¿Quieres guardar los cambios?"
+
+msgid "Execute"
+msgstr "Ejecutar"
 
 msgid "Do you want to Execute the Code?"
 msgstr "¿Quieres ejecutar el código?"
@@ -510,102 +624,6 @@ msgstr ""
 "junto con éste programa; de lo contrario, escribe a la Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Árabe"
-
-msgid "Armenian"
-msgstr "Armenio"
-
-msgid "Bulgarian"
-msgstr "Búlgaro"
-
-msgid "Chinese Simplified"
-msgstr "Chino Simplificado"
-
-msgid "Chinese Traditional"
-msgstr "Chino Tradicional"
-
-msgid "Croatian"
-msgstr "Croata"
-
-msgid "Czech"
-msgstr "Checo"
-
-msgid "Dutch"
-msgstr "Holandés"
-
-msgid "Finnish"
-msgstr "Finés"
-
-msgid "French"
-msgstr "Francés"
-
-msgid "German"
-msgstr "Alemán"
-
-msgid "Greek"
-msgstr "Griego"
-
-msgid "Hindi India"
-msgstr "Hindi tradicional"
-
-msgid "Hungarian"
-msgstr "Húngaro"
-
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "Japanese"
-msgstr "Japonés"
-
-msgid "Kazakh"
-msgstr "Kazajo"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazajo"
-
-msgid "Korean"
-msgstr "Coreano"
-
-msgid "Lithuanian"
-msgstr "Lituano"
-
-msgid "Persian"
-msgstr "Persa"
-
-msgid "Polish"
-msgstr "Polaco"
-
-msgid "Portuguese"
-msgstr "Portugués"
-
-msgid "Portuguese Brazil"
-msgstr "Portugués Brasil"
-
-msgid "Romanian"
-msgstr "Rumano"
-
-msgid "Russian"
-msgstr "Ruso"
-
-msgid "Slovak"
-msgstr "Eslovaco"
-
-msgid "Slovenian"
-msgstr "Esloveno"
-
-msgid "Spanish"
-msgstr "Español"
-
-msgid "Swedish"
-msgstr "Sueco"
-
-msgid "Turkish"
-msgstr "Turco"
-
-msgid "Ukrainian"
-msgstr "Ucraniano"
 
 msgid "About CherryTree"
 msgstr "Acerca de CherryTree"
@@ -856,6 +874,9 @@ msgstr "Línea"
 msgid "Line Content"
 msgstr "Contenido de linea"
 
+msgid "Hide"
+msgstr "Ocultar"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Repetir la última operación de Encontrar/Reemplazar"
 
@@ -883,6 +904,12 @@ msgstr "Remover Color de Usuario de la Paleta"
 msgid "Colour"
 msgstr "Color"
 
+msgid "More"
+msgstr "Más"
+
+msgid "Less"
+msgstr "Menos"
+
 msgid "Question"
 msgstr "Pregunta"
 
@@ -894,6 +921,9 @@ msgstr "Error"
 
 msgid "Select File"
 msgstr "Seleccionar archivo"
+
+msgid "Open"
+msgstr "Abrir"
 
 msgid "Select Folder"
 msgstr "Seleccionar _carpeta"
@@ -974,11 +1004,11 @@ msgstr "Escoge una etiqueta existente"
 msgid "Tag Name"
 msgstr "Nombre de etiqueta"
 
-msgid "Pick a Color"
-msgstr "Escoge un color"
-
 msgid "Select Node Icon"
 msgstr "Selecciona el ícono para el nodo"
+
+msgid "Pick a Color"
+msgstr "Escoge un color"
 
 msgid "Involved Nodes"
 msgstr "Nodos involucrados"
@@ -1141,8 +1171,20 @@ msgstr "Copiar Selección o Todo"
 msgid "Paste"
 msgstr "Pegar"
 
+msgid "Menu"
+msgstr "Menú"
+
 msgid "Remove from list"
 msgstr "Eliminar de la lista"
+
+msgid "No recent documents"
+msgstr "No hay documentos recientes"
+
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+msgid "No bookmarks"
+msgstr "No hay marcadores"
 
 msgid "_File"
 msgstr "_Archivo"
@@ -1678,11 +1720,11 @@ msgstr "Clonar formato"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Guardar en memoria formato del texto bajo el cursor"
 
-msgid "Format _Latest"
-msgstr "_Formatear como la última vez"
+msgid "Repeat _Last Format"
+msgstr "Repetir el _último formato"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Aplicar formato de texto guardado en memoria"
+msgid "Repeat Latest Text Format Type"
+msgstr "Repetir el último tipo de formato de texto"
 
 msgid "_Remove Formatting"
 msgstr "_Eliminar formato"
@@ -1993,7 +2035,8 @@ msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
 msgstr ""
-"Insertar un nodo con jerarquía Año/Mes/Día para mañana bajo el Nodo Seleccionado"
+"Insertar un nodo con jerarquía Año/Mes/Día para mañana bajo el Nodo "
+"Seleccionado"
 
 msgid "C_hange Node Properties..."
 msgstr "Cambiar Propiedades del Nodo."
@@ -2788,6 +2831,9 @@ msgstr "Cantidad de copias de seguridad a mantener"
 msgid "Custom Backup Directory"
 msgstr "Directorio de Copia de Seguridad Personalizado"
 
+msgid "Select Folder..."
+msgstr "Seleccionar carpeta..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr ""
 "Almacenamiento de Múltiples Archivos, Usar Nombre de Archivo Inserto en el "
@@ -3082,8 +3128,8 @@ msgstr "Usar Cherries diferentes en cada nivel"
 msgid "No Icon"
 msgstr "Sin icono"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Esconder iconos auxiliares de la derecha"
+msgid "Hide Auxiliary Icon"
+msgstr "Ocultar el icono auxiliar"
 
 msgid "Default Text Nodes Icons"
 msgstr "Iconos predeterminados para nodos de texto"
@@ -3186,6 +3232,9 @@ msgstr "Documento de Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "¿Seguro que quieres restaurar los valores predeterminados?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "_Formatear como la última vez"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Reemplazar en Múltiples nodos..."
@@ -3445,9 +3494,6 @@ msgstr "¿Seguro que quieres restaurar los valores predeterminados?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Usar AppIndicator para docking"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Los caracteres %s no están permitidos"

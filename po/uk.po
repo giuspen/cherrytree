@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-12-20 19:43+0000\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Ukrainian <kovtunos@yandex.ru>\n"
@@ -164,6 +164,12 @@ msgstr "Ви використовуєте версію для розробник
 
 msgid "Who is the Parent?"
 msgstr "Вкажіть батьківську гілку?"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "OK"
+msgstr "Гаразд"
 
 msgid "The Tree Root"
 msgstr "Дерево"
@@ -351,6 +357,105 @@ msgstr "Копіювати код"
 msgid "Change CodeBox Properties"
 msgstr "Змінити параметри блока коду"
 
+msgid "Arabic"
+msgstr "Арабська"
+
+msgid "Armenian"
+msgstr "Вірменська"
+
+msgid "Bulgarian"
+msgstr "Болгарська"
+
+msgid "Chinese Simplified"
+msgstr "Китайська спрощена"
+
+msgid "Chinese Traditional"
+msgstr "Китайська традиційна"
+
+msgid "Croatian"
+msgstr "Хорватська"
+
+msgid "Czech"
+msgstr "Чеська"
+
+msgid "Dutch"
+msgstr "Голландська"
+
+msgid "Finnish"
+msgstr "Фінська"
+
+msgid "French"
+msgstr "Французька"
+
+msgid "German"
+msgstr "Німецька"
+
+msgid "Greek"
+msgstr "Грецька"
+
+msgid "Hindi India"
+msgstr "Хінді (Індія)"
+
+msgid "Hungarian"
+msgstr "Угорська"
+
+msgid "Italian"
+msgstr "Італійська"
+
+msgid "Japanese"
+msgstr "Японська"
+
+msgid "Kazakh"
+msgstr "Казахська"
+
+msgid "Kazakh (Latin)"
+msgstr "Казахська (Латинь)"
+
+msgid "Korean"
+msgstr "Корейська"
+
+msgid "Lithuanian"
+msgstr "Литовська"
+
+msgid "Persian"
+msgstr "Перська"
+
+msgid "Polish"
+msgstr "Польська"
+
+msgid "Portuguese"
+msgstr "Португальська"
+
+msgid "Portuguese Brazil"
+msgstr "Португальська бразильська"
+
+msgid "Romanian"
+msgstr "Румунська"
+
+msgid "Russian"
+msgstr "Російська"
+
+msgid "Slovak"
+msgstr "Словацька"
+
+msgid "Slovenian"
+msgstr "Словенська"
+
+msgid "Spanish"
+msgstr "Іспанська"
+
+msgid "Swedish"
+msgstr "Шведська"
+
+msgid "Tamil"
+msgstr "Тамільська"
+
+msgid "Turkish"
+msgstr "Турецька"
+
+msgid "Ukrainian"
+msgstr "Українська"
+
 msgid "Start in CherryTree"
 msgstr "Запустити в CherryTree"
 
@@ -451,11 +556,20 @@ msgstr "Уведені паролі не співпадають."
 msgid "Warning"
 msgstr "Попередження"
 
+msgid "Discard"
+msgstr "Не зберігати"
+
+msgid "Save"
+msgstr "Зберегти"
+
 msgid "The Current Document was Updated."
 msgstr "Поточний документ було оновлено."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Ви хочете зберегти зміни?"
+
+msgid "Execute"
+msgstr "Виконати"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Ви хочете виконати код?"
@@ -509,102 +623,6 @@ msgstr ""
 "Ліцензії GNU разом з цією програмою. Якщо це не так,\n"
 "напишіть у Фундацію Вільного ПЗ (Free Software Foundation, Inc., \n"
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Арабська"
-
-msgid "Armenian"
-msgstr "Вірменська"
-
-msgid "Bulgarian"
-msgstr "Болгарська"
-
-msgid "Chinese Simplified"
-msgstr "Китайська спрощена"
-
-msgid "Chinese Traditional"
-msgstr "Китайська традиційна"
-
-msgid "Croatian"
-msgstr "Хорватська"
-
-msgid "Czech"
-msgstr "Чеська"
-
-msgid "Dutch"
-msgstr "Голландська"
-
-msgid "Finnish"
-msgstr "Фінський"
-
-msgid "French"
-msgstr "Французька"
-
-msgid "German"
-msgstr "Німецька"
-
-msgid "Greek"
-msgstr "Грецька"
-
-msgid "Hindi India"
-msgstr "Хінді Індія"
-
-msgid "Hungarian"
-msgstr "Угорська"
-
-msgid "Italian"
-msgstr "Італійська"
-
-msgid "Japanese"
-msgstr "Японська"
-
-msgid "Kazakh"
-msgstr "Казахська"
-
-msgid "Kazakh (Latin)"
-msgstr "Казахська (Латинь)"
-
-msgid "Korean"
-msgstr "Корейська"
-
-msgid "Lithuanian"
-msgstr "Литовська"
-
-msgid "Persian"
-msgstr "Перська"
-
-msgid "Polish"
-msgstr "Польська"
-
-msgid "Portuguese"
-msgstr "Португальська"
-
-msgid "Portuguese Brazil"
-msgstr "Португальська бразильська"
-
-msgid "Romanian"
-msgstr "Румуньска"
-
-msgid "Russian"
-msgstr "Російська"
-
-msgid "Slovak"
-msgstr "Словацька"
-
-msgid "Slovenian"
-msgstr "Словенська"
-
-msgid "Spanish"
-msgstr "Іспанська"
-
-msgid "Swedish"
-msgstr "Шведський"
-
-msgid "Turkish"
-msgstr "Турецька"
-
-msgid "Ukrainian"
-msgstr "Українська"
 
 msgid "About CherryTree"
 msgstr "Про програму CherryTree"
@@ -855,6 +873,9 @@ msgstr "Рядок"
 msgid "Line Content"
 msgstr "Зміст рядка"
 
+msgid "Hide"
+msgstr "Сховати"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Повторити останню заміну"
 
@@ -882,6 +903,12 @@ msgstr "Видалити колір користувача з палітри"
 msgid "Colour"
 msgstr "Колір"
 
+msgid "More"
+msgstr "Більше"
+
+msgid "Less"
+msgstr "Менше"
+
 msgid "Question"
 msgstr "Питання"
 
@@ -893,6 +920,9 @@ msgstr "Помилка"
 
 msgid "Select File"
 msgstr "Зберегти файл"
+
+msgid "Open"
+msgstr "Відкрити"
 
 msgid "Select Folder"
 msgstr "Виберіть каталог"
@@ -973,11 +1003,11 @@ msgstr "Виберіть існуючий тег"
 msgid "Tag Name"
 msgstr "Назва тегу"
 
-msgid "Pick a Color"
-msgstr "Вибор кольору"
-
 msgid "Select Node Icon"
 msgstr "Іконка для гілки"
+
+msgid "Pick a Color"
+msgstr "Вибор кольору"
 
 msgid "Involved Nodes"
 msgstr "Зв'язані гілки"
@@ -1134,8 +1164,20 @@ msgstr "Копіювати виділене або все"
 msgid "Paste"
 msgstr "Вставити"
 
+msgid "Menu"
+msgstr "Меню"
+
 msgid "Remove from list"
 msgstr "Видалити з списку"
+
+msgid "No recent documents"
+msgstr "Немає нещодавніх документів"
+
+msgid "Bookmarks"
+msgstr "Закладки"
+
+msgid "No bookmarks"
+msgstr "Немає закладок"
 
 msgid "_File"
 msgstr "Файл"
@@ -1671,11 +1713,11 @@ msgstr "Скопіювати форматування"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Скопіювати форматування тексту в позиції курсору"
 
-msgid "Format _Latest"
-msgstr "Останнє форматування"
+msgid "Repeat _Last Format"
+msgstr "Повторити _останнє форматування"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Запам'ятовування останнього форматування тексту"
+msgid "Repeat Latest Text Format Type"
+msgstr "Повторити останній тип форматування тексту"
 
 msgid "_Remove Formatting"
 msgstr "Прибрати форматування"
@@ -1952,21 +1994,25 @@ msgstr "Вставити сьогоднішню гілку під дерево"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Вставити гілку з ієрархією Рік/Місяць/День для сьогоднішнього дня під дерево"
+msgstr ""
+"Вставити гілку з ієрархією Рік/Місяць/День для сьогоднішнього дня під дерево"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Вставити сьогоднішню гілку під виділену гілку"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Вставити гілку з ієрархією Рік/Місяць/День для сьогоднішнього дня під виділену гілку"
+msgstr ""
+"Вставити гілку з ієрархією Рік/Місяць/День для сьогоднішнього дня під "
+"виділену гілку"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Вставити завтрашню гілку під дерево"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Вставити гілку з ієрархією Рік/Місяць/День для завтрашнього дня під дерево"
+msgstr ""
+"Вставити гілку з ієрархією Рік/Місяць/День для завтрашнього дня під дерево"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Вставити завтрашню гілку під виділену гілку"
@@ -1974,7 +2020,9 @@ msgstr "Вставити завтрашню гілку під виділену �
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Вставити гілку з ієрархією Рік/Місяць/День для завтрашнього дня під виділену гілку"
+msgstr ""
+"Вставити гілку з ієрархією Рік/Місяць/День для завтрашнього дня під виділену "
+"гілку"
 
 msgid "C_hange Node Properties..."
 msgstr "Змінити параметри гілки..."
@@ -2760,6 +2808,9 @@ msgstr "Кількість резервних копій"
 msgid "Custom Backup Directory"
 msgstr "Каталог для резервних копій"
 
+msgid "Select Folder..."
+msgstr "Вибрати теку..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr ""
 "Сховище для множинних файлів, використовуйте вбудоване ім'я файлу на диску"
@@ -3052,8 +3103,8 @@ msgstr "Різні вишні на кожному рівні"
 msgid "No Icon"
 msgstr "Без іконки"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Сховати допоміжну іконку з правої сторони"
+msgid "Hide Auxiliary Icon"
+msgstr "Сховати допоміжну піктограму"
 
 msgid "Default Text Nodes Icons"
 msgstr "Іконки для текстових гілок"
@@ -3155,6 +3206,9 @@ msgstr "Документ Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ви впевнені, що хочете скинути налаштування?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Останнє форматування"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Заміна в декількох гілках..."
@@ -3413,9 +3467,6 @@ msgstr "Ви впевнені, що хочете скинути налаштув
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Використовувати AppIndicator"
-
-#~ msgid "Cancel"
-#~ msgstr "Скасувати"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Символи  %s  не дозволяються"

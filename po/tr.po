@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-12-09 21:36+0300\n"
 "Last-Translator: Ferhat AYDIN <ferhataydin44@gmail.com>\n"
 "Language-Team: Turkish\n"
@@ -162,6 +162,12 @@ msgstr "Geliştirme Sürümünü Kullanıyorsunuz."
 
 msgid "Who is the Parent?"
 msgstr "Üst Not Hangisi?"
+
+msgid "Cancel"
+msgstr "Vazgeç"
+
+msgid "OK"
+msgstr "Tamam"
 
 msgid "The Tree Root"
 msgstr "Ağacın Kökü"
@@ -354,6 +360,105 @@ msgstr "Kodu Kopyala"
 msgid "Change CodeBox Properties"
 msgstr "Kod Kutusu Özelliklerini Değiştir"
 
+msgid "Arabic"
+msgstr "Arapça"
+
+msgid "Armenian"
+msgstr "Ermenice"
+
+msgid "Bulgarian"
+msgstr "Bulgarca"
+
+msgid "Chinese Simplified"
+msgstr "Geleneksel Çince"
+
+msgid "Chinese Traditional"
+msgstr "Geleneksel Çince"
+
+msgid "Croatian"
+msgstr "Hırvat"
+
+msgid "Czech"
+msgstr "Çekçe"
+
+msgid "Dutch"
+msgstr "Hollanda"
+
+msgid "Finnish"
+msgstr "Fince"
+
+msgid "French"
+msgstr "Fransızca"
+
+msgid "German"
+msgstr "Almanca"
+
+msgid "Greek"
+msgstr "Yunanca"
+
+msgid "Hindi India"
+msgstr "Geleneksel Hintçe"
+
+msgid "Hungarian"
+msgstr "Macarca"
+
+msgid "Italian"
+msgstr "İtalyanca"
+
+msgid "Japanese"
+msgstr "Japonca"
+
+msgid "Kazakh"
+msgstr "Kazakça"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazakça (Latin)"
+
+msgid "Korean"
+msgstr "Korece"
+
+msgid "Lithuanian"
+msgstr "Litvanca"
+
+msgid "Persian"
+msgstr "Farsça"
+
+msgid "Polish"
+msgstr "Polonyaca"
+
+msgid "Portuguese"
+msgstr "Portekizce"
+
+msgid "Portuguese Brazil"
+msgstr "Brezilya Portekizcesi"
+
+msgid "Romanian"
+msgstr "Romanca"
+
+msgid "Russian"
+msgstr "Rusça"
+
+msgid "Slovak"
+msgstr "Slovakça"
+
+msgid "Slovenian"
+msgstr "Slovakça"
+
+msgid "Spanish"
+msgstr "İspanyolca"
+
+msgid "Swedish"
+msgstr "İsveççe"
+
+msgid "Tamil"
+msgstr "Tamilce"
+
+msgid "Turkish"
+msgstr "Türkçe"
+
+msgid "Ukrainian"
+msgstr "Ukraynaca"
+
 msgid "Start in CherryTree"
 msgstr "CherryTree'de Başla"
 
@@ -454,11 +559,20 @@ msgstr "Girilen Parolalar Uyuşmuyor."
 msgid "Warning"
 msgstr "Uyarı"
 
+msgid "Discard"
+msgstr "At"
+
+msgid "Save"
+msgstr "Kaydet"
+
 msgid "The Current Document was Updated."
 msgstr "Aktif Doküman Güncellendi."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Değişiklikleri Kaydetmek İstediğinizden Emin misiniz?"
+
+msgid "Execute"
+msgstr "Çalıştır"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Kodu Çalıştırmak İstediğinizden Emin misiniz?"
@@ -507,102 +621,6 @@ msgstr ""
 "varsa aşağıda verilen adresle irtibata geçebilirsiniz. \n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arapça"
-
-msgid "Armenian"
-msgstr "Ermenice"
-
-msgid "Bulgarian"
-msgstr "Bulgarca"
-
-msgid "Chinese Simplified"
-msgstr "Geleneksel Çince"
-
-msgid "Chinese Traditional"
-msgstr "Geleneksel Çince"
-
-msgid "Croatian"
-msgstr "Hırvat"
-
-msgid "Czech"
-msgstr "Çekçe"
-
-msgid "Dutch"
-msgstr "Hollanda"
-
-msgid "Finnish"
-msgstr "Fince"
-
-msgid "French"
-msgstr "Fransızca"
-
-msgid "German"
-msgstr "Almanca"
-
-msgid "Greek"
-msgstr "Yunanca"
-
-msgid "Hindi India"
-msgstr "Geleneksel Hintçe"
-
-msgid "Hungarian"
-msgstr "Macarca"
-
-msgid "Italian"
-msgstr "İtalyanca"
-
-msgid "Japanese"
-msgstr "Japonca"
-
-msgid "Kazakh"
-msgstr "Kazakça"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazakça (Latin)"
-
-msgid "Korean"
-msgstr "Korece"
-
-msgid "Lithuanian"
-msgstr "Litvanca"
-
-msgid "Persian"
-msgstr "Farsça"
-
-msgid "Polish"
-msgstr "Polonyaca"
-
-msgid "Portuguese"
-msgstr "Portekizce"
-
-msgid "Portuguese Brazil"
-msgstr "Brezilya Portekizcesi"
-
-msgid "Romanian"
-msgstr "Romanca"
-
-msgid "Russian"
-msgstr "Rusça"
-
-msgid "Slovak"
-msgstr "Slovakça"
-
-msgid "Slovenian"
-msgstr "Slovakça"
-
-msgid "Spanish"
-msgstr "İspanyolca"
-
-msgid "Swedish"
-msgstr "İsveççe"
-
-msgid "Turkish"
-msgstr "Türkçe"
-
-msgid "Ukrainian"
-msgstr "Ukraynaca"
 
 msgid "About CherryTree"
 msgstr "CherryTree Hakkında"
@@ -852,6 +870,9 @@ msgstr "Çizgi"
 msgid "Line Content"
 msgstr "Çizgi İçeriği"
 
+msgid "Hide"
+msgstr "Gizle"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Son Aramayı/Değiştirmeyi Yinele"
 
@@ -879,6 +900,12 @@ msgstr "Kullanıcı Rengini Paletten Kaldır"
 msgid "Colour"
 msgstr "Renk"
 
+msgid "More"
+msgstr "Daha Fazla"
+
+msgid "Less"
+msgstr "Daha Az"
+
 msgid "Question"
 msgstr "Soru"
 
@@ -890,6 +917,9 @@ msgstr "Hata"
 
 msgid "Select File"
 msgstr "Dosya Seç"
+
+msgid "Open"
+msgstr "Aç"
 
 msgid "Select Folder"
 msgstr "Klasör Seç"
@@ -970,11 +1000,11 @@ msgstr "Var Olan Etiketi Seç"
 msgid "Tag Name"
 msgstr "Etiket İsmi"
 
-msgid "Pick a Color"
-msgstr "Renk Seçin"
-
 msgid "Select Node Icon"
 msgstr "Not Simgesini Seç"
+
+msgid "Pick a Color"
+msgstr "Renk Seçin"
 
 msgid "Involved Nodes"
 msgstr "İçeren Notlar"
@@ -1131,8 +1161,20 @@ msgstr "Seçimi veya Tümünü Kopyala"
 msgid "Paste"
 msgstr "Yapıştır"
 
+msgid "Menu"
+msgstr "Menü"
+
 msgid "Remove from list"
 msgstr "Listeden Sil"
+
+msgid "No recent documents"
+msgstr "Son kullanılan belge yok"
+
+msgid "Bookmarks"
+msgstr "Yer İmleri"
+
+msgid "No bookmarks"
+msgstr "Yer imi yok"
 
 msgid "_File"
 msgstr "_Dosya"
@@ -1668,11 +1710,11 @@ msgstr "Kopyayı Biçimlendir"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "İmleçteki Yazıtipi Biçimini Klonla"
 
-msgid "Format _Latest"
-msgstr "Son Biçimlendirme"
+msgid "Repeat _Last Format"
+msgstr "_Son Biçimlendirmeyi Tekrarla"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Son Yazı Biçimlendirme Tipi Kaydı"
+msgid "Repeat Latest Text Format Type"
+msgstr "Son metin biçimlendirme türünü tekrarla"
 
 msgid "_Remove Formatting"
 msgstr "Biçimlendirmeyi Kaldır"
@@ -2757,6 +2799,9 @@ msgstr "Saklamak İçin Yedekleri Numaralandır"
 msgid "Custom Backup Directory"
 msgstr "Özel Yedek Klasörü"
 
+msgid "Select Folder..."
+msgstr "Klasör Seç..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Çoklu Dosya Depolama, Diskte Gömülü Dosya Adı Kullan"
 
@@ -3048,8 +3093,8 @@ msgstr "Herbir Bölümde Farklı Çilek Simgeleri Kullan"
 msgid "No Icon"
 msgstr "Simge Yok"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Sağ Taraftaki Yardımcı Simgeleri Gizle"
+msgid "Hide Auxiliary Icon"
+msgstr "Yardımcı simgeyi gizle"
 
 msgid "Default Text Nodes Icons"
 msgstr "Yazı Notlarında Varsayılan Simgeler"
@@ -3153,6 +3198,9 @@ msgstr "Leo Belgesi"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Son Biçimlendirme"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Çoklu Notlarda Değiştir..."
@@ -3414,9 +3462,6 @@ msgstr "Varsayılana sıfırlamak istediğinizden emin misiniz?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Uygulama Göstericiyi Kullan"
-
-#~ msgid "Cancel"
-#~ msgstr "Vazgeç"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "%s Karakterine İzin Verilmiyor"

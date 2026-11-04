@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-05-17 19:20+0200\n"
 "Last-Translator: Michal Fusaty <fusaty@proton.me>\n"
 "Language-Team: Slovak\n"
@@ -163,6 +163,12 @@ msgstr "Používate vývojársku verziu."
 
 msgid "Who is the Parent?"
 msgstr "Ktorý uzol je nadradený?"
+
+msgid "Cancel"
+msgstr "Zrušiť"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "Koreň stromu"
@@ -356,6 +362,105 @@ msgstr "Kopírovať kód"
 msgid "Change CodeBox Properties"
 msgstr "Zmeniť vlastnosti poľa s kódom"
 
+msgid "Arabic"
+msgstr "Arabčina"
+
+msgid "Armenian"
+msgstr "Arménčina"
+
+msgid "Bulgarian"
+msgstr "Bulharčina"
+
+msgid "Chinese Simplified"
+msgstr "Zjednodušená čínština"
+
+msgid "Chinese Traditional"
+msgstr "Tradičná čínština"
+
+msgid "Croatian"
+msgstr "Chorvátčina"
+
+msgid "Czech"
+msgstr "Čeština"
+
+msgid "Dutch"
+msgstr "Holandčina"
+
+msgid "Finnish"
+msgstr "Fínčina"
+
+msgid "French"
+msgstr "Francúzština"
+
+msgid "German"
+msgstr "Nemčina"
+
+msgid "Greek"
+msgstr "Gréčtina"
+
+msgid "Hindi India"
+msgstr "Indická Hindčina"
+
+msgid "Hungarian"
+msgstr "Maďarčina"
+
+msgid "Italian"
+msgstr "Taliančina"
+
+msgid "Japanese"
+msgstr "Japončina"
+
+msgid "Kazakh"
+msgstr "Kazaština"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazaština (Latinská abeceda)"
+
+msgid "Korean"
+msgstr "Kórejčina"
+
+msgid "Lithuanian"
+msgstr "Litovčina"
+
+msgid "Persian"
+msgstr "Perzština"
+
+msgid "Polish"
+msgstr "Poľština"
+
+msgid "Portuguese"
+msgstr "Portugalčina"
+
+msgid "Portuguese Brazil"
+msgstr "Brazílska Portugalčina"
+
+msgid "Romanian"
+msgstr "Rumunčina"
+
+msgid "Russian"
+msgstr "Ruština"
+
+msgid "Slovak"
+msgstr "Slovenčina"
+
+msgid "Slovenian"
+msgstr "Slovinčina"
+
+msgid "Spanish"
+msgstr "Španielčina"
+
+msgid "Swedish"
+msgstr "Švédčina"
+
+msgid "Tamil"
+msgstr "Tamilčina"
+
+msgid "Turkish"
+msgstr "Turečtina"
+
+msgid "Ukrainian"
+msgstr "Ukrajinčina"
+
 msgid "Start in CherryTree"
 msgstr "Spustiť v CherryTree"
 
@@ -456,11 +561,20 @@ msgstr "Dve zadané heslá sa nezhodujú."
 msgid "Warning"
 msgstr "Varovanie"
 
+msgid "Discard"
+msgstr "Zahodiť"
+
+msgid "Save"
+msgstr "Uložiť"
+
 msgid "The Current Document was Updated."
 msgstr "Aktuálny dokument bol aktualizovaný."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Chcete uložiť zmeny?"
+
+msgid "Execute"
+msgstr "Vykonať"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Želáte si spustiť kód?"
@@ -508,102 +622,6 @@ msgstr ""
 "Spolu s týmto programom ste mali dostať kópiu Všeobecnej verejnej licencie "
 "GNU; ak nie, napíšte na adresu Free Software Foundation, Inc. 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabčina"
-
-msgid "Armenian"
-msgstr "Arménčina"
-
-msgid "Bulgarian"
-msgstr "Bulharčina"
-
-msgid "Chinese Simplified"
-msgstr "Zjednodušená čínština"
-
-msgid "Chinese Traditional"
-msgstr "Tradičná čínština"
-
-msgid "Croatian"
-msgstr "Chorvátčina"
-
-msgid "Czech"
-msgstr "Čeština"
-
-msgid "Dutch"
-msgstr "Holandčina"
-
-msgid "Finnish"
-msgstr "Fínčina"
-
-msgid "French"
-msgstr "Francúzština"
-
-msgid "German"
-msgstr "Nemčina"
-
-msgid "Greek"
-msgstr "Gréčtina"
-
-msgid "Hindi India"
-msgstr "Indická Hindčina"
-
-msgid "Hungarian"
-msgstr "Maďarčina"
-
-msgid "Italian"
-msgstr "Taliančina"
-
-msgid "Japanese"
-msgstr "Japončina"
-
-msgid "Kazakh"
-msgstr "Kazaština"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazaština (Latinská abeceda)"
-
-msgid "Korean"
-msgstr "Kórejčina"
-
-msgid "Lithuanian"
-msgstr "Litovčina"
-
-msgid "Persian"
-msgstr "Perzština"
-
-msgid "Polish"
-msgstr "Poľština"
-
-msgid "Portuguese"
-msgstr "Portugalčina"
-
-msgid "Portuguese Brazil"
-msgstr "Brazílska Portugalčina"
-
-msgid "Romanian"
-msgstr "Rumunčina"
-
-msgid "Russian"
-msgstr "Ruština"
-
-msgid "Slovak"
-msgstr "Slovenčina"
-
-msgid "Slovenian"
-msgstr "Slovinčina"
-
-msgid "Spanish"
-msgstr "Španielčina"
-
-msgid "Swedish"
-msgstr "Švédčina"
-
-msgid "Turkish"
-msgstr "Turečtina"
-
-msgid "Ukrainian"
-msgstr "Ukrajinčina"
 
 msgid "About CherryTree"
 msgstr "O aplikácií CherryTree"
@@ -855,6 +873,9 @@ msgstr "Riadok"
 msgid "Line Content"
 msgstr "Obsah riadku"
 
+msgid "Hide"
+msgstr "Skryť"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Iterovať najnovšie nájdenie/náhradenie"
 
@@ -882,6 +903,12 @@ msgstr "Odstrániť užívateľskú farbu z palety"
 msgid "Colour"
 msgstr "Farba"
 
+msgid "More"
+msgstr "Viac"
+
+msgid "Less"
+msgstr "Menej"
+
 msgid "Question"
 msgstr "Otázka"
 
@@ -893,6 +920,9 @@ msgstr "Chyba"
 
 msgid "Select File"
 msgstr "Vybrať súbor"
+
+msgid "Open"
+msgstr "Otvoriť"
 
 msgid "Select Folder"
 msgstr "Vybrať priečinok"
@@ -973,11 +1003,11 @@ msgstr "Vybrať existujúcu značku"
 msgid "Tag Name"
 msgstr "Názov značky"
 
-msgid "Pick a Color"
-msgstr "Vybrať farbu"
-
 msgid "Select Node Icon"
 msgstr "Vybrať ikonku uzla"
+
+msgid "Pick a Color"
+msgstr "Vybrať farbu"
 
 msgid "Involved Nodes"
 msgstr "Zapojené uzly"
@@ -1138,8 +1168,20 @@ msgstr "Kopírovať výber, alebo všetko"
 msgid "Paste"
 msgstr "Prilepiť"
 
+msgid "Menu"
+msgstr "Ponuka"
+
 msgid "Remove from list"
 msgstr "Odstrániť zo zoznamu"
+
+msgid "No recent documents"
+msgstr "Žiadne nedávne dokumenty"
+
+msgid "Bookmarks"
+msgstr "Záložky"
+
+msgid "No bookmarks"
+msgstr "Žiadne záložky"
 
 msgid "_File"
 msgstr "Súbor"
@@ -1675,11 +1717,11 @@ msgstr "Kopírovať formátovanie"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Kopírovať typ textového formátu pri kurzore"
 
-msgid "Format _Latest"
-msgstr "Zopakovať formátovanie"
+msgid "Repeat _Last Format"
+msgstr "Zopakovať _posledné formátovanie"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Zopakovať posledný typ formátovanie textu"
+msgid "Repeat Latest Text Format Type"
+msgstr "Zopakovať naposledy použitý typ formátovania textu"
 
 msgid "_Remove Formatting"
 msgstr "Odstrániť formátovanie"
@@ -2766,6 +2808,9 @@ msgstr "Počet záloh, ktoré sa majú zachovať"
 msgid "Custom Backup Directory"
 msgstr "Vlastný adresár zálohovania"
 
+msgid "Select Folder..."
+msgstr "Vybrať priečinok..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Ukladanie viacerých súborov, použite vložený názov súboru na disku"
 
@@ -3059,8 +3104,8 @@ msgstr "Používanie rôznych čerešní na úrovniach"
 msgid "No Icon"
 msgstr "Žiadna ikonka"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Skryť pomocnú ikonku na pravej strane"
+msgid "Hide Auxiliary Icon"
+msgstr "Skryť pomocnú ikonu"
 
 msgid "Default Text Nodes Icons"
 msgstr "Predvolené ikonky textových uzlov"
@@ -3163,6 +3208,9 @@ msgstr "Leo dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Určite chcete obnoviť predvolené nastavenia?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Zopakovať formátovanie"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Nahradiť vo viacerých uzloch..."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2024-03-05 12:52+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Croatian\n"
@@ -164,6 +164,12 @@ msgstr "Koristite razvojnu verziju."
 
 msgid "Who is the Parent?"
 msgstr "Tko je parent?"
+
+msgid "Cancel"
+msgstr "Odustani"
+
+msgid "OK"
+msgstr "U redu"
 
 msgid "The Tree Root"
 msgstr "Korijen stabla"
@@ -357,6 +363,105 @@ msgstr "Kopiraj kod"
 msgid "Change CodeBox Properties"
 msgstr "Promijeni postavke CodeBoxa"
 
+msgid "Arabic"
+msgstr "Arapski"
+
+msgid "Armenian"
+msgstr "Armenijski"
+
+msgid "Bulgarian"
+msgstr "Bugarski"
+
+msgid "Chinese Simplified"
+msgstr "Kineski pojednostavljeni"
+
+msgid "Chinese Traditional"
+msgstr "Kineski (Tradicionlni)"
+
+msgid "Croatian"
+msgstr "Hrvatski"
+
+msgid "Czech"
+msgstr "Češki"
+
+msgid "Dutch"
+msgstr "Nizozemski"
+
+msgid "Finnish"
+msgstr "Finski"
+
+msgid "French"
+msgstr "Francuski"
+
+msgid "German"
+msgstr "Njemački"
+
+msgid "Greek"
+msgstr "Grčki"
+
+msgid "Hindi India"
+msgstr "Hindi (India)"
+
+msgid "Hungarian"
+msgstr "Mađarski"
+
+msgid "Italian"
+msgstr "Talijanski"
+
+msgid "Japanese"
+msgstr "Japanski"
+
+msgid "Kazakh"
+msgstr "Kazastanski"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazastanski (Latinica)"
+
+msgid "Korean"
+msgstr "Korejski"
+
+msgid "Lithuanian"
+msgstr "Litvanski"
+
+msgid "Persian"
+msgstr "perzijski"
+
+msgid "Polish"
+msgstr "Poljski"
+
+msgid "Portuguese"
+msgstr "Portugalski"
+
+msgid "Portuguese Brazil"
+msgstr "Portugalski Brazilski"
+
+msgid "Romanian"
+msgstr "Rumunjski"
+
+msgid "Russian"
+msgstr "Ruski"
+
+msgid "Slovak"
+msgstr "Slovački"
+
+msgid "Slovenian"
+msgstr "Slovenski"
+
+msgid "Spanish"
+msgstr "Španjolski"
+
+msgid "Swedish"
+msgstr "Švedski"
+
+msgid "Tamil"
+msgstr "Tamilski"
+
+msgid "Turkish"
+msgstr "Turski"
+
+msgid "Ukrainian"
+msgstr "Ukrainski"
+
 msgid "Start in CherryTree"
 msgstr "Pokreni u CherryTreeu"
 
@@ -457,11 +562,20 @@ msgstr "Unesene lozinke se ne podudaraju."
 msgid "Warning"
 msgstr "Upozorenje"
 
+msgid "Discard"
+msgstr "Odbaci"
+
+msgid "Save"
+msgstr "Spremi"
+
 msgid "The Current Document was Updated."
 msgstr "Trenutni dokument je ažuriran."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Želite li spremiti promjene?"
+
+msgid "Execute"
+msgstr "Izvrši"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Želite li izvršiti kod?"
@@ -513,102 +627,6 @@ msgstr ""
 "Zaklada - Free Software Foundation, Inc., Franklin Street 51, Fifth Floor, "
 "Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arapski"
-
-msgid "Armenian"
-msgstr "Armenijski"
-
-msgid "Bulgarian"
-msgstr "Bugarski"
-
-msgid "Chinese Simplified"
-msgstr "Kineski pojednostavljeni"
-
-msgid "Chinese Traditional"
-msgstr "Kineski (Tradicionlni)"
-
-msgid "Croatian"
-msgstr "Hrvatski"
-
-msgid "Czech"
-msgstr "Češki"
-
-msgid "Dutch"
-msgstr "Nizozemski"
-
-msgid "Finnish"
-msgstr "Finski"
-
-msgid "French"
-msgstr "Francuski"
-
-msgid "German"
-msgstr "Njemački"
-
-msgid "Greek"
-msgstr "Grčki"
-
-msgid "Hindi India"
-msgstr "Hindi (India)"
-
-msgid "Hungarian"
-msgstr "Mađarski"
-
-msgid "Italian"
-msgstr "Talijanski"
-
-msgid "Japanese"
-msgstr "Japanski"
-
-msgid "Kazakh"
-msgstr "Kazastanski"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazastanski (Latinica)"
-
-msgid "Korean"
-msgstr "Korejski"
-
-msgid "Lithuanian"
-msgstr "Litvanski"
-
-msgid "Persian"
-msgstr "perzijski"
-
-msgid "Polish"
-msgstr "Poljski"
-
-msgid "Portuguese"
-msgstr "Portugalski"
-
-msgid "Portuguese Brazil"
-msgstr "Portugalski Brazilski"
-
-msgid "Romanian"
-msgstr "Rumunjski"
-
-msgid "Russian"
-msgstr "Ruski"
-
-msgid "Slovak"
-msgstr "Slovački"
-
-msgid "Slovenian"
-msgstr "Slovenski"
-
-msgid "Spanish"
-msgstr "Španjolski"
-
-msgid "Swedish"
-msgstr "Švedski"
-
-msgid "Turkish"
-msgstr "Turski"
-
-msgid "Ukrainian"
-msgstr "Ukrainski"
 
 msgid "About CherryTree"
 msgstr "O CherryTreeu"
@@ -859,6 +877,9 @@ msgstr "Redak"
 msgid "Line Content"
 msgstr "Sadržaj redka"
 
+msgid "Hide"
+msgstr "Sakrij"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Ponavljaj zadnje Traži/Zamjeni"
 
@@ -886,6 +907,12 @@ msgstr "Ukloni korisničku boju s palete"
 msgid "Colour"
 msgstr "Boja"
 
+msgid "More"
+msgstr "Više"
+
+msgid "Less"
+msgstr "Manje"
+
 msgid "Question"
 msgstr "Pitanje"
 
@@ -897,6 +924,9 @@ msgstr "Greška"
 
 msgid "Select File"
 msgstr "Odaberi datoteku"
+
+msgid "Open"
+msgstr "Otvori"
 
 msgid "Select Folder"
 msgstr "Odaberi direktorij"
@@ -977,11 +1007,11 @@ msgstr "Odaberite postojeću oznaku"
 msgid "Tag Name"
 msgstr "Naziv oznake"
 
-msgid "Pick a Color"
-msgstr "Odaberite boju"
-
 msgid "Select Node Icon"
 msgstr "Odaberite ikonu čvora"
+
+msgid "Pick a Color"
+msgstr "Odaberite boju"
 
 msgid "Involved Nodes"
 msgstr "Uključeni čvorovi"
@@ -1139,8 +1169,20 @@ msgstr "Kopiraj odabir ili sve"
 msgid "Paste"
 msgstr "Zaljepi"
 
+msgid "Menu"
+msgstr "Izbornik"
+
 msgid "Remove from list"
 msgstr "Ukloni s liste"
+
+msgid "No recent documents"
+msgstr "Nema nedavnih dokumenata"
+
+msgid "Bookmarks"
+msgstr "Oznake"
+
+msgid "No bookmarks"
+msgstr "Nema oznaka"
 
 msgid "_File"
 msgstr "_Datoteka"
@@ -1676,11 +1718,11 @@ msgstr "Formatiraj k_lon"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Klonirajte tip oblikovanja teksta na pokazivaču"
 
-msgid "Format _Latest"
-msgstr "Oblikuj _zadnje"
+msgid "Repeat _Last Format"
+msgstr "Ponovi _posljednje oblikovanje"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Zapamti najnoviji tip oblikovanja teksta"
+msgid "Repeat Latest Text Format Type"
+msgstr "Ponovi posljednji tip oblikovanja teksta"
 
 msgid "_Remove Formatting"
 msgstr "_Ukloni oblikovanje"
@@ -1957,21 +1999,24 @@ msgstr "Umetnite _današnji čvor u korijen stabla"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za danas u korijen stabla"
+msgstr ""
+"Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za danas u korijen stabla"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Umetnite današnj_i čvor u odabrani čvor"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za danas u odabrani čvor"
+msgstr ""
+"Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za danas u odabrani čvor"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Umetnite _sutrašnji čvor u korijen stabla"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za sutra u korijen stabla"
+msgstr ""
+"Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za sutra u korijen stabla"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Umetnite sutrašnj_i čvor u odabrani čvor"
@@ -1979,7 +2024,8 @@ msgstr "Umetnite sutrašnj_i čvor u odabrani čvor"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za sutra u odabrani čvor"
+msgstr ""
+"Umetnite čvor s hijerarhijom Godina/Mjesec/Dan za sutra u odabrani čvor"
 
 msgid "C_hange Node Properties..."
 msgstr "P_romijeni svojstva čvora..."
@@ -2769,6 +2815,9 @@ msgstr "Broj backupa koje treba čuvati"
 msgid "Custom Backup Directory"
 msgstr "Ručno odaberi backup direktorij"
 
+msgid "Select Folder..."
+msgstr "Odaberi mapu..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Pohrana više datoteka, koristi ugrađeni naziv datoteke na disku"
 
@@ -3062,8 +3111,8 @@ msgstr "Koristite različite Cherrie po razini"
 msgid "No Icon"
 msgstr "Nema ikone"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Sakrij pomoćnu ikonu s desne strane"
+msgid "Hide Auxiliary Icon"
+msgstr "Sakrij pomoćnu ikonu"
 
 msgid "Default Text Nodes Icons"
 msgstr "Defaultne ikone tekstualnih čvorova"
@@ -3167,6 +3216,9 @@ msgstr "Leo dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Jeste li sigurni da želite resetirati na defaultne vrijednosti?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Oblikuj _zadnje"
 
 #~ msgid "Insert T_OC..."
 #~ msgstr "Umetni T_OC..."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cherrytree-0.37.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-01-11 21:18+0200\n"
 "Last-Translator: delphina <delphina.2009@yahoo.gr>\n"
 "Language-Team: Greek <delphina.2009@yahoo.gr>\n"
@@ -166,6 +166,12 @@ msgstr "Χρησιμοποιείτε μία υπό ανάπτυξη έκδοση
 
 msgid "Who is the Parent?"
 msgstr "Ποιος είναι ο γονέας ;"
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "OK"
+msgstr "Εντάξει"
 
 msgid "The Tree Root"
 msgstr "Η ρίζα του δένδρου"
@@ -361,6 +367,105 @@ msgstr "Αντιγραφή κώδικα"
 msgid "Change CodeBox Properties"
 msgstr "Ιδιότητες πλαισίου κώδικα"
 
+msgid "Arabic"
+msgstr "Αραβικά"
+
+msgid "Armenian"
+msgstr "Αρμενικά"
+
+msgid "Bulgarian"
+msgstr "Βουλγάρικα"
+
+msgid "Chinese Simplified"
+msgstr "Κινέζικα απλά"
+
+msgid "Chinese Traditional"
+msgstr "Κινέζικα παραδοσιακά"
+
+msgid "Croatian"
+msgstr "Κροάτικα"
+
+msgid "Czech"
+msgstr "Τσέχικα"
+
+msgid "Dutch"
+msgstr "Δανικά"
+
+msgid "Finnish"
+msgstr "Φινλανδικά"
+
+msgid "French"
+msgstr "Γαλλικά"
+
+msgid "German"
+msgstr "Γερμανικά"
+
+msgid "Greek"
+msgstr "Ελληνικά"
+
+msgid "Hindi India"
+msgstr "Ινδικά (Χίντι)"
+
+msgid "Hungarian"
+msgstr "Ουγγρικά"
+
+msgid "Italian"
+msgstr "Ιταλικά"
+
+msgid "Japanese"
+msgstr "Ιαπωνικά"
+
+msgid "Kazakh"
+msgstr "Καζακικά"
+
+msgid "Kazakh (Latin)"
+msgstr "Καζακικά (Λατινική γραφή)"
+
+msgid "Korean"
+msgstr "Κορεάτικα"
+
+msgid "Lithuanian"
+msgstr "Λιθουανικά"
+
+msgid "Persian"
+msgstr "Περσικά"
+
+msgid "Polish"
+msgstr "Πολωνικά"
+
+msgid "Portuguese"
+msgstr "Πορτογαλικά"
+
+msgid "Portuguese Brazil"
+msgstr "Πορτογαλικά Βραζιλίας"
+
+msgid "Romanian"
+msgstr "Ρουμανικά"
+
+msgid "Russian"
+msgstr "Ρώσικα"
+
+msgid "Slovak"
+msgstr "Σλοβακικά"
+
+msgid "Slovenian"
+msgstr "Σλοβενικά"
+
+msgid "Spanish"
+msgstr "Ισπανικά"
+
+msgid "Swedish"
+msgstr "Σουηδικά"
+
+msgid "Tamil"
+msgstr "Ταμιλικά"
+
+msgid "Turkish"
+msgstr "Τούρκικα"
+
+msgid "Ukrainian"
+msgstr "Ουκρανικά"
+
 msgid "Start in CherryTree"
 msgstr "Εκκίνηση στο CherryTree"
 
@@ -463,11 +568,20 @@ msgstr "Οι δύο καταχωρημένοι κωδικοί δεν ταιρι�
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
+msgid "Discard"
+msgstr "Απόρριψη"
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
 msgid "The Current Document was Updated."
 msgstr "Το παρόν έγγραφο ενημερώθηκε."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Θέλεις να αποθηκευτούν οι αλλαγές;"
+
+msgid "Execute"
+msgstr "Εκτέλεση"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Θέλεις να εκτελεστεί ο κώδικας;"
@@ -518,102 +632,6 @@ msgstr ""
 "μαζί με αυτό το πρόγραμμα. Αν όχι, γράψτε στο Free Software \n"
 "Ίδρυμα, Inc., 51 Franklin Street, Fifth Floor, Boston, \n"
 "MA 02110-1301, USA. \n"
-
-msgid "Arabic"
-msgstr "Αραβικά"
-
-msgid "Armenian"
-msgstr "Αρμενικά"
-
-msgid "Bulgarian"
-msgstr "Βουλγάρικα"
-
-msgid "Chinese Simplified"
-msgstr "Κινέζικα απλά"
-
-msgid "Chinese Traditional"
-msgstr "Κινέζικα παραδοσιακά"
-
-msgid "Croatian"
-msgstr "Κροάτικα"
-
-msgid "Czech"
-msgstr "Τσέχικα"
-
-msgid "Dutch"
-msgstr "Δανικά"
-
-msgid "Finnish"
-msgstr "Φινλανδικά"
-
-msgid "French"
-msgstr "Γαλλικά"
-
-msgid "German"
-msgstr "Γερμανικά"
-
-msgid "Greek"
-msgstr "Ελληνικά"
-
-msgid "Hindi India"
-msgstr "Ινδικά (Χίντι)"
-
-msgid "Hungarian"
-msgstr "Ουγγρικά"
-
-msgid "Italian"
-msgstr "Ιταλικά"
-
-msgid "Japanese"
-msgstr "Ιαπωνικά"
-
-msgid "Kazakh"
-msgstr "Καζακικά"
-
-msgid "Kazakh (Latin)"
-msgstr "Καζακικά (Λατινική γραφή)"
-
-msgid "Korean"
-msgstr "Κορεάτικα"
-
-msgid "Lithuanian"
-msgstr "Λιθουανικά"
-
-msgid "Persian"
-msgstr "Περσικά"
-
-msgid "Polish"
-msgstr "Πολωνικά"
-
-msgid "Portuguese"
-msgstr "Πορτογαλικά"
-
-msgid "Portuguese Brazil"
-msgstr "Πορτογαλικά Βραζιλίας"
-
-msgid "Romanian"
-msgstr "Ρουμανικά"
-
-msgid "Russian"
-msgstr "Ρώσικα"
-
-msgid "Slovak"
-msgstr "Σλοβακικά"
-
-msgid "Slovenian"
-msgstr "Σλοβενικά"
-
-msgid "Spanish"
-msgstr "Ισπανικά"
-
-msgid "Swedish"
-msgstr "Σουηδικά"
-
-msgid "Turkish"
-msgstr "Τούρκικα"
-
-msgid "Ukrainian"
-msgstr "Ουκρανικά"
 
 msgid "About CherryTree"
 msgstr "Περί CherryTree"
@@ -865,6 +883,9 @@ msgstr "Γραμμή"
 msgid "Line Content"
 msgstr "Περιεχόμενο γραμμής"
 
+msgid "Hide"
+msgstr "Απόκρυψη"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Επιλογή τελευταίας αναζήτησης/αντικατάστασης"
 
@@ -892,6 +913,12 @@ msgstr "Αφαίρεση χρώματος χρήστη από την παλέτ�
 msgid "Colour"
 msgstr "Χρώμα"
 
+msgid "More"
+msgstr "Περισσότερα"
+
+msgid "Less"
+msgstr "Λιγότερα"
+
 msgid "Question"
 msgstr "Ερώτημα"
 
@@ -903,6 +930,9 @@ msgstr "Σφάλμα"
 
 msgid "Select File"
 msgstr "Επιλογή αρχείου"
+
+msgid "Open"
+msgstr "Άνοιγμα"
 
 msgid "Select Folder"
 msgstr "Επιλογή φακέλου"
@@ -983,11 +1013,11 @@ msgstr "Επιλογή υπάρχουσας ετικέτας"
 msgid "Tag Name"
 msgstr "Ονομασία ετικέτας"
 
-msgid "Pick a Color"
-msgstr "Επιλογή χρώματος"
-
 msgid "Select Node Icon"
 msgstr "Επιλογή εικονιδίου του κόμβου"
+
+msgid "Pick a Color"
+msgstr "Επιλογή χρώματος"
 
 msgid "Involved Nodes"
 msgstr "Εμπλεκόμενοι κόμβοι"
@@ -1149,8 +1179,20 @@ msgstr "Αντιγραφή επιλογής ή όλων"
 msgid "Paste"
 msgstr "Επικόλληση"
 
+msgid "Menu"
+msgstr "Μενού"
+
 msgid "Remove from list"
 msgstr "Απομάκρυνση από την λίστα"
+
+msgid "No recent documents"
+msgstr "Δεν υπάρχουν πρόσφατα έγγραφα"
+
+msgid "Bookmarks"
+msgstr "Σελιδοδείκτες"
+
+msgid "No bookmarks"
+msgstr "Δεν υπάρχουν σελιδοδείκτες"
 
 msgid "_File"
 msgstr "Αρχείο"
@@ -1688,11 +1730,11 @@ msgstr "Μορφοποίηση τελευταίου"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Κλωνοποίηση του τύπου μορφοποίησης κειμένου στον κέρσορα"
 
-msgid "Format _Latest"
-msgstr "Μορφοποίηση τελευταίου"
+msgid "Repeat _Last Format"
+msgstr "Επανάληψη _τελευταίας μορφοποίησης"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Μνήμη του πρόσφατου τύπου μορφοποίησης κειμένου"
+msgid "Repeat Latest Text Format Type"
+msgstr "Επανάληψη του πιο πρόσφατου τύπου μορφοποίησης κειμένου"
 
 msgid "_Remove Formatting"
 msgstr "Καθαρισμός μορφοποίησης"
@@ -1975,21 +2017,27 @@ msgstr "Εισαγωγή σημερινού κόμβου κάτω από το α
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για σήμερα κάτω από το αρχικό δέντρο"
+msgstr ""
+"Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για σήμερα κάτω από "
+"το αρχικό δέντρο"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Εισαγωγή ημερησίου κόμβου κάτω από επιλεγμένο κόμβο"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για σήμερα κάτω από επιλεγμένο κόμβο"
+msgstr ""
+"Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για σήμερα κάτω από "
+"επιλεγμένο κόμβο"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Εισαγωγή _αυριανού κόμβου κάτω από το αρχικό δέντρο"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για αύριο κάτω από το αρχικό δέντρο"
+msgstr ""
+"Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για αύριο κάτω από "
+"το αρχικό δέντρο"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Εισαγωγή αυριανού κόμβου κάτω από επιλεγμένο κόμβο"
@@ -1997,7 +2045,9 @@ msgstr "Εισαγωγή αυριανού κόμβου κάτω από επιλ�
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για αύριο κάτω από επιλεγμένο κόμβο"
+msgstr ""
+"Εισαγωγή ενός ιεραρχημένου κόμβου κατά Έτος/Μήνας/Ημέρα για αύριο κάτω από "
+"επιλεγμένο κόμβο"
 
 msgid "C_hange Node Properties..."
 msgstr "Αλλαγή ιδιοτήτων κόμβου..."
@@ -2787,6 +2837,9 @@ msgstr "Αριθμός αντιγράφων ασφαλείας προς κράτ
 msgid "Custom Backup Directory"
 msgstr "Προσαρμοσμένη θέση αντιγράφου ασφαλείας"
 
+msgid "Select Folder..."
+msgstr "Επιλογή φακέλου..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr ""
 "Αποθήκευση Πολλαπλών Αρχείων, Χρήση Ενσωματωμένου Ονόματος Αρχείου Στο Δίσκο"
@@ -3080,8 +3133,8 @@ msgstr "Χρήση διαφορετικών κερασιών ανά επίπεδ
 msgid "No Icon"
 msgstr "Καμία εικόνα"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Απόκρυψη βοηθητικού εικονιδίου δεξιάς πλευράς"
+msgid "Hide Auxiliary Icon"
+msgstr "Απόκρυψη βοηθητικού εικονιδίου"
 
 msgid "Default Text Nodes Icons"
 msgstr "Προεπιλεγμένα εικονίδια κόμβων κειμένου"
@@ -3188,6 +3241,9 @@ msgstr "Έγγραφο Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Είσαι σίγουρος/η για την επαναφορά των προεπιλογών;"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Μορφοποίηση τελευταίου"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Αντικατάσταση σε Πολλαπλούς Κόμβους..."
@@ -3397,9 +3453,6 @@ msgstr "Είσαι σίγουρος/η για την επαναφορά των �
 #~ msgid "The New Language will be Available Only After Restarting CherryTree"
 #~ msgstr ""
 #~ "Η νέα γλώσσα θα είναι διαθέσιμη μόνο μετά την επανεκκίνηση του CherryTree"
-
-#~ msgid "Cancel"
-#~ msgstr "Ακύρωση"
 
 #~ msgid "Not Protected"
 #~ msgstr "Απροστάτευτο"

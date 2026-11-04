@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2025-05-14 18:58+0300\n"
 "Last-Translator: Iliya Nikolaev <iliya.nikolaev@gmail.com>\n"
 "Language-Team: Bulgarian <iliya.nikolaev@gmail.com>\n"
@@ -161,6 +161,12 @@ msgstr "Използвате версия за разработчици."
 
 msgid "Who is the Parent?"
 msgstr "Задайте папка източник?"
+
+msgid "Cancel"
+msgstr "Отказ"
+
+msgid "OK"
+msgstr "Добре"
 
 msgid "The Tree Root"
 msgstr "Коренът на дървото"
@@ -349,6 +355,105 @@ msgstr "Копиране на кода"
 msgid "Change CodeBox Properties"
 msgstr "Промяна на свойствата на блока с код"
 
+msgid "Arabic"
+msgstr "Арабски"
+
+msgid "Armenian"
+msgstr "Арменски"
+
+msgid "Bulgarian"
+msgstr "Български"
+
+msgid "Chinese Simplified"
+msgstr "Опростен китайски"
+
+msgid "Chinese Traditional"
+msgstr "Китайски традиционен"
+
+msgid "Croatian"
+msgstr "Хърватски"
+
+msgid "Czech"
+msgstr "Чешки"
+
+msgid "Dutch"
+msgstr "Холандски"
+
+msgid "Finnish"
+msgstr "Финландски"
+
+msgid "French"
+msgstr "Френски"
+
+msgid "German"
+msgstr "Немски"
+
+msgid "Greek"
+msgstr "Гръцки"
+
+msgid "Hindi India"
+msgstr "Хинди"
+
+msgid "Hungarian"
+msgstr "Унгарски"
+
+msgid "Italian"
+msgstr "Италиански"
+
+msgid "Japanese"
+msgstr "Японски"
+
+msgid "Kazakh"
+msgstr "Казашки"
+
+msgid "Kazakh (Latin)"
+msgstr "Казашки(Латиница)"
+
+msgid "Korean"
+msgstr "Корейски"
+
+msgid "Lithuanian"
+msgstr "Литовски"
+
+msgid "Persian"
+msgstr "Персийски"
+
+msgid "Polish"
+msgstr "Полски"
+
+msgid "Portuguese"
+msgstr "Португалски"
+
+msgid "Portuguese Brazil"
+msgstr "Бразилски португалски"
+
+msgid "Romanian"
+msgstr "Румънски"
+
+msgid "Russian"
+msgstr "Руски"
+
+msgid "Slovak"
+msgstr "Словашки"
+
+msgid "Slovenian"
+msgstr "Словенски"
+
+msgid "Spanish"
+msgstr "Испански"
+
+msgid "Swedish"
+msgstr "Шведски"
+
+msgid "Tamil"
+msgstr "Тамилски"
+
+msgid "Turkish"
+msgstr "Турски"
+
+msgid "Ukrainian"
+msgstr "Украински"
+
 msgid "Start in CherryTree"
 msgstr "Стартирай в CherryTree"
 
@@ -449,11 +554,20 @@ msgstr "Въведените пароли не съвпадат."
 msgid "Warning"
 msgstr "Предупреждение"
 
+msgid "Discard"
+msgstr "Отхвърли"
+
+msgid "Save"
+msgstr "Запис"
+
 msgid "The Current Document was Updated."
 msgstr "Текущият документ е бил обновен."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Искате ли да запазите промените си?"
+
+msgid "Execute"
+msgstr "Изпълни"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Искате ли да изпълните кода?"
@@ -514,102 +628,6 @@ msgstr ""
 "тази програма. Ако не, пишете на Фондация за свободен софтуер, (Free "
 "Software Foundation, Inc., \n"
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
-
-msgid "Arabic"
-msgstr "Арабски"
-
-msgid "Armenian"
-msgstr "Арменски"
-
-msgid "Bulgarian"
-msgstr "Български"
-
-msgid "Chinese Simplified"
-msgstr "Опростен китайски"
-
-msgid "Chinese Traditional"
-msgstr "Китайски традиционен"
-
-msgid "Croatian"
-msgstr "Хърватски"
-
-msgid "Czech"
-msgstr "Чешки"
-
-msgid "Dutch"
-msgstr "Холандски"
-
-msgid "Finnish"
-msgstr "Финландски"
-
-msgid "French"
-msgstr "Френски"
-
-msgid "German"
-msgstr "Немски"
-
-msgid "Greek"
-msgstr "Гръцки"
-
-msgid "Hindi India"
-msgstr "Хинди"
-
-msgid "Hungarian"
-msgstr "Унгарски"
-
-msgid "Italian"
-msgstr "Италиански"
-
-msgid "Japanese"
-msgstr "Японски"
-
-msgid "Kazakh"
-msgstr "Казашки"
-
-msgid "Kazakh (Latin)"
-msgstr "Казашки(Латиница)"
-
-msgid "Korean"
-msgstr "Корейски"
-
-msgid "Lithuanian"
-msgstr "Литовски"
-
-msgid "Persian"
-msgstr "Персийски"
-
-msgid "Polish"
-msgstr "Полски"
-
-msgid "Portuguese"
-msgstr "Португалски"
-
-msgid "Portuguese Brazil"
-msgstr "Бразилски португалски"
-
-msgid "Romanian"
-msgstr "Румънски"
-
-msgid "Russian"
-msgstr "Руски"
-
-msgid "Slovak"
-msgstr "Словашки"
-
-msgid "Slovenian"
-msgstr "Словенски"
-
-msgid "Spanish"
-msgstr "Испански"
-
-msgid "Swedish"
-msgstr "Шведски"
-
-msgid "Turkish"
-msgstr "Турски"
-
-msgid "Ukrainian"
-msgstr "Украински"
 
 msgid "About CherryTree"
 msgstr "За програмата CherryTree"
@@ -860,6 +878,9 @@ msgstr "Ред"
 msgid "Line Content"
 msgstr "Съдържание на реда"
 
+msgid "Hide"
+msgstr "Скрий"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Възстановяване на последната промяна"
 
@@ -887,6 +908,12 @@ msgstr "Изтрий потребителския цвят от палитрат
 msgid "Colour"
 msgstr "Цвят"
 
+msgid "More"
+msgstr "Още"
+
+msgid "Less"
+msgstr "По-малко"
+
 msgid "Question"
 msgstr "Въпрос"
 
@@ -898,6 +925,9 @@ msgstr "Грешка"
 
 msgid "Select File"
 msgstr "Изберете файл"
+
+msgid "Open"
+msgstr "Отвори"
 
 msgid "Select Folder"
 msgstr "Изберете папка"
@@ -978,11 +1008,11 @@ msgstr "Изберете съществуващ таг"
 msgid "Tag Name"
 msgstr "Име на тага"
 
-msgid "Pick a Color"
-msgstr "Избор на цвят"
-
 msgid "Select Node Icon"
 msgstr "Изберете иконка за клона"
+
+msgid "Pick a Color"
+msgstr "Избор на цвят"
 
 msgid "Involved Nodes"
 msgstr "Свързани клони"
@@ -1143,8 +1173,20 @@ msgstr "Копиране на селекцията или всичко"
 msgid "Paste"
 msgstr "_Постави"
 
+msgid "Menu"
+msgstr "Меню"
+
 msgid "Remove from list"
 msgstr "Премахни от списъка"
+
+msgid "No recent documents"
+msgstr "Няма скорошни документи"
+
+msgid "Bookmarks"
+msgstr "Отметки"
+
+msgid "No bookmarks"
+msgstr "Няма отметки"
 
 msgid "_File"
 msgstr "Файл"
@@ -1680,11 +1722,11 @@ msgstr "Клонирай форматирането"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Клонирайте типа текстов формат при курсора"
 
-msgid "Format _Latest"
-msgstr "Последно форматиране"
+msgid "Repeat _Last Format"
+msgstr "Повтори _последното форматиране"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Памет на най-новия тип текстов формат"
+msgid "Repeat Latest Text Format Type"
+msgstr "Повтори последния тип форматиране на текста"
 
 msgid "_Remove Formatting"
 msgstr "Премахни форматирането"
@@ -1968,7 +2010,8 @@ msgstr "Вмъкване на  днешния клон под избрания �
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Вмъкване на клон с йерархия година / месец / ден за днес под избрания клон"
+msgstr ""
+"Вмъкване на клон с йерархия година / месец / ден за днес под избрания клон"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Вмъкване на утрешния клон под корена"
@@ -1983,7 +2026,8 @@ msgstr "Вмъкване на утрешния клон под избрания 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Вмъкване на клон с йерархия година / месец / ден за утре под избрания клон"
+msgstr ""
+"Вмъкване на клон с йерархия година / месец / ден за утре под избрания клон"
 
 msgid "C_hange Node Properties..."
 msgstr "Промяна на свойствата на клон..."
@@ -2771,6 +2815,9 @@ msgstr "Брой архиви"
 msgid "Custom Backup Directory"
 msgstr "Друг цвят на фона"
 
+msgid "Select Folder..."
+msgstr "Изберете папка..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Склад за множествофайлове, Използвайте вложеното файлово име на диска"
 
@@ -3062,8 +3109,8 @@ msgstr "Използвайте различни череши за всяко н�
 msgid "No Icon"
 msgstr "Без икона"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Скриване на доп. икона отдясно"
+msgid "Hide Auxiliary Icon"
+msgstr "Скрий помощната икона"
 
 msgid "Default Text Nodes Icons"
 msgstr "Икони за текстови клони"
@@ -3170,6 +3217,9 @@ msgstr "Лео документ"
 msgid "Are you sure to Reset to Default?"
 msgstr ""
 "Сигурен ли сте че искате да върнете в начално състояние по подразбиране?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Последно форматиране"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Замяна във множество клони.."
@@ -3354,9 +3404,6 @@ msgstr ""
 #~ "Installed Properly"
 #~ msgstr ""
 #~ "Файлът '7za' не е намерен. Съществували инсталиран пакет 'p7zip-full'"
-
-#~ msgid "Cancel"
-#~ msgstr "Отказ"
 
 #~ msgid "Click to Edit the Column Settings"
 #~ msgstr "Кликните за редактиране на свойствата на колоната"

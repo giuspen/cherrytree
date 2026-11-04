@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-06-11 16:09+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -158,6 +158,12 @@ msgstr "Stai usando una versione di sviluppo."
 
 msgid "Who is the Parent?"
 msgstr "Chi è il padre?"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "OK"
+msgstr "OK"
 
 msgid "The Tree Root"
 msgstr "La radice dell'albero"
@@ -351,6 +357,105 @@ msgstr "Copia codice"
 msgid "Change CodeBox Properties"
 msgstr "Cambia proprietà del blocco di codice"
 
+msgid "Arabic"
+msgstr "Arabo"
+
+msgid "Armenian"
+msgstr "Armeno"
+
+msgid "Bulgarian"
+msgstr "Bulgaro"
+
+msgid "Chinese Simplified"
+msgstr "Cinese semplificato"
+
+msgid "Chinese Traditional"
+msgstr "Cinese tradizionale"
+
+msgid "Croatian"
+msgstr "Croato"
+
+msgid "Czech"
+msgstr "Ceco"
+
+msgid "Dutch"
+msgstr "Olandese"
+
+msgid "Finnish"
+msgstr "Finlandese"
+
+msgid "French"
+msgstr "Francese"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "Greek"
+msgstr "Greco"
+
+msgid "Hindi India"
+msgstr "Hindi (India)"
+
+msgid "Hungarian"
+msgstr "Ungherese"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "Japanese"
+msgstr "Giapponese"
+
+msgid "Kazakh"
+msgstr "Kazako"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazako (Latin)"
+
+msgid "Korean"
+msgstr "Coreano"
+
+msgid "Lithuanian"
+msgstr "Lituano"
+
+msgid "Persian"
+msgstr "Persiano"
+
+msgid "Polish"
+msgstr "Polacco"
+
+msgid "Portuguese"
+msgstr "Portoghese"
+
+msgid "Portuguese Brazil"
+msgstr "Portoghese brasiliano"
+
+msgid "Romanian"
+msgstr "Rumeno"
+
+msgid "Russian"
+msgstr "Russo"
+
+msgid "Slovak"
+msgstr "Slovacco"
+
+msgid "Slovenian"
+msgstr "Sloveno"
+
+msgid "Spanish"
+msgstr "Spagnolo"
+
+msgid "Swedish"
+msgstr "Svedese"
+
+msgid "Tamil"
+msgstr "Tamil"
+
+msgid "Turkish"
+msgstr "Turco"
+
+msgid "Ukrainian"
+msgstr "Ucraino"
+
 msgid "Start in CherryTree"
 msgstr "Avvia in CherryTree"
 
@@ -452,11 +557,20 @@ msgstr "Le due password inserite non corrispondono."
 msgid "Warning"
 msgstr "Avviso"
 
+msgid "Discard"
+msgstr "Scarta"
+
+msgid "Save"
+msgstr "Salva"
+
 msgid "The Current Document was Updated."
 msgstr "Il documento corrente è stato aggiornato."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Vuoi salvare le modifiche?"
+
+msgid "Execute"
+msgstr "Esegui"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Vuoi eseguire il codice?"
@@ -507,102 +621,6 @@ msgstr ""
 "insieme a questo programma; in caso contrario, scrivi a Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabo"
-
-msgid "Armenian"
-msgstr "Armeno"
-
-msgid "Bulgarian"
-msgstr "Bulgaro"
-
-msgid "Chinese Simplified"
-msgstr "Cinese semplificato"
-
-msgid "Chinese Traditional"
-msgstr "Cinese tradizionale"
-
-msgid "Croatian"
-msgstr "Croato"
-
-msgid "Czech"
-msgstr "Ceco"
-
-msgid "Dutch"
-msgstr "Olandese"
-
-msgid "Finnish"
-msgstr "Finlandese"
-
-msgid "French"
-msgstr "Francese"
-
-msgid "German"
-msgstr "Tedesco"
-
-msgid "Greek"
-msgstr "Greco"
-
-msgid "Hindi India"
-msgstr "Hindi (India)"
-
-msgid "Hungarian"
-msgstr "Ungherese"
-
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "Japanese"
-msgstr "Giapponese"
-
-msgid "Kazakh"
-msgstr "Kazako"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazako (Latin)"
-
-msgid "Korean"
-msgstr "Coreano"
-
-msgid "Lithuanian"
-msgstr "Lituano"
-
-msgid "Persian"
-msgstr "Persiano"
-
-msgid "Polish"
-msgstr "Polacco"
-
-msgid "Portuguese"
-msgstr "Portoghese"
-
-msgid "Portuguese Brazil"
-msgstr "Portoghese brasiliano"
-
-msgid "Romanian"
-msgstr "Rumeno"
-
-msgid "Russian"
-msgstr "Russo"
-
-msgid "Slovak"
-msgstr "Slovacco"
-
-msgid "Slovenian"
-msgstr "Sloveno"
-
-msgid "Spanish"
-msgstr "Spagnolo"
-
-msgid "Swedish"
-msgstr "Svedese"
-
-msgid "Turkish"
-msgstr "Turco"
-
-msgid "Ukrainian"
-msgstr "Ucraino"
 
 msgid "About CherryTree"
 msgstr "Informazioni su CherryTree"
@@ -829,7 +847,8 @@ msgid ""
 "Do you want to continue?"
 msgstr ""
 "Il campo Sostituisci è vuoto: tutte le occorrenze trovate saranno "
-"eliminate.\nVuoi continuare?"
+"eliminate.\n"
+"Vuoi continuare?"
 
 msgid ""
 "At least one node was skipped because of exclusions set in the node "
@@ -854,6 +873,9 @@ msgstr "Riga"
 
 msgid "Line Content"
 msgstr "Contenuto riga"
+
+msgid "Hide"
+msgstr "Nascondi"
 
 msgid "Iterate Latest Find/Replace"
 msgstr "Ripeti l'ultimo Trova/Sostituisci"
@@ -882,6 +904,12 @@ msgstr "Rimuovi il colore dell'utente dalla tavolozza"
 msgid "Colour"
 msgstr "Colore"
 
+msgid "More"
+msgstr "Altro"
+
+msgid "Less"
+msgstr "Meno"
+
 msgid "Question"
 msgstr "Domanda"
 
@@ -893,6 +921,9 @@ msgstr "Errore"
 
 msgid "Select File"
 msgstr "Seleziona file"
+
+msgid "Open"
+msgstr "Apri"
 
 msgid "Select Folder"
 msgstr "Seleziona cartella"
@@ -973,11 +1004,11 @@ msgstr "Scegli etichetta esistente"
 msgid "Tag Name"
 msgstr "Nome etichetta"
 
-msgid "Pick a Color"
-msgstr "Scegli un colore"
-
 msgid "Select Node Icon"
 msgstr "Seleziona icona del nodo"
+
+msgid "Pick a Color"
+msgstr "Scegli un colore"
 
 msgid "Involved Nodes"
 msgstr "Nodi coinvolti"
@@ -1138,8 +1169,20 @@ msgstr "Copia selezione o tutto"
 msgid "Paste"
 msgstr "Incolla"
 
+msgid "Menu"
+msgstr "Menu"
+
 msgid "Remove from list"
 msgstr "Rimuovi dall'elenco"
+
+msgid "No recent documents"
+msgstr "Nessun documento recente"
+
+msgid "Bookmarks"
+msgstr "Segnalibri"
+
+msgid "No bookmarks"
+msgstr "Nessun segnalibro"
 
 msgid "_File"
 msgstr "_File"
@@ -1677,11 +1720,11 @@ msgstr "Clo_na formattazione"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Clona il tipo di formato del testo al cursore"
 
-msgid "Format _Latest"
-msgstr "_Formatta ultima"
+msgid "Repeat _Last Format"
+msgstr "Ripeti l'_ultima formattazione"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Memoria dell'ultima operazione di formattazione del testo"
+msgid "Repeat Latest Text Format Type"
+msgstr "Ripeti l'ultimo tipo di formattazione del testo"
 
 msgid "_Remove Formatting"
 msgstr "_Rimuovi formattazione"
@@ -2784,6 +2827,9 @@ msgstr "Numero di copie di sicurezza da conservare"
 msgid "Custom Backup Directory"
 msgstr "Cartella di backup personalizzata"
 
+msgid "Select Folder..."
+msgstr "Seleziona cartella..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Archiviazione di più file, utilizza il nome file incorporato sul disco"
 
@@ -3079,8 +3125,8 @@ msgstr "Usa diverse ciliegie per livello"
 msgid "No Icon"
 msgstr "Nessuna icona"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Nascondi l'icona ausiliaria sul lato destro"
+msgid "Hide Auxiliary Icon"
+msgstr "Nascondi l'icona ausiliaria"
 
 msgid "Default Text Nodes Icons"
 msgstr "Icone predefinite dei nodi di testo"
@@ -3186,6 +3232,9 @@ msgstr "Documento di Leo"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Sei sicuro di voler ripristinare i valori predefiniti?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "_Formatta ultima"
 
 #~ msgid "Find in Multiple Nodes..."
 #~ msgstr "Trova in più nodi..."

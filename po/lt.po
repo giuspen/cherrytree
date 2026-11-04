@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2024-09-22 09:09+0300\n"
 "Last-Translator: zygis <zygimantus@gmail.com>\n"
 "Language-Team: Lithuanian\n"
@@ -161,6 +161,12 @@ msgstr "Jūs naudojatės kuriamąją versija."
 
 msgid "Who is the Parent?"
 msgstr "Kas yra tėvas?"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "OK"
+msgstr "Gerai"
 
 msgid "The Tree Root"
 msgstr "Medžio šaknis"
@@ -353,6 +359,105 @@ msgstr "Kopijuoti kodą"
 msgid "Change CodeBox Properties"
 msgstr "Keisti kodo laukelio savybes"
 
+msgid "Arabic"
+msgstr "Arabų"
+
+msgid "Armenian"
+msgstr "Armėnų"
+
+msgid "Bulgarian"
+msgstr "Bulgarų"
+
+msgid "Chinese Simplified"
+msgstr "Kinų supaprastinta"
+
+msgid "Chinese Traditional"
+msgstr "Kinų tradicinė"
+
+msgid "Croatian"
+msgstr "Kroatų"
+
+msgid "Czech"
+msgstr "Čekų"
+
+msgid "Dutch"
+msgstr "Olandų"
+
+msgid "Finnish"
+msgstr "Suomių"
+
+msgid "French"
+msgstr "Prancūzų"
+
+msgid "German"
+msgstr "Vokiečių"
+
+msgid "Greek"
+msgstr "Graikų"
+
+msgid "Hindi India"
+msgstr "Hindi Indija"
+
+msgid "Hungarian"
+msgstr "Vengrų"
+
+msgid "Italian"
+msgstr "Italų"
+
+msgid "Japanese"
+msgstr "Japonų"
+
+msgid "Kazakh"
+msgstr "Kazachų"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazachų (Lotyniškai)"
+
+msgid "Korean"
+msgstr "Korėjiečių"
+
+msgid "Lithuanian"
+msgstr "Lietuvių"
+
+msgid "Persian"
+msgstr "Persų"
+
+msgid "Polish"
+msgstr "Lenkų"
+
+msgid "Portuguese"
+msgstr "Portugalų"
+
+msgid "Portuguese Brazil"
+msgstr "Brazilų Portugalų"
+
+msgid "Romanian"
+msgstr "Romunų"
+
+msgid "Russian"
+msgstr "Rusų"
+
+msgid "Slovak"
+msgstr "Slovakų"
+
+msgid "Slovenian"
+msgstr "Slovėnų"
+
+msgid "Spanish"
+msgstr "Ispanų"
+
+msgid "Swedish"
+msgstr "Švedų"
+
+msgid "Tamil"
+msgstr "Tamilų"
+
+msgid "Turkish"
+msgstr "Turkų"
+
+msgid "Ukrainian"
+msgstr "Ukrainiečių"
+
 msgid "Start in CherryTree"
 msgstr "Pradėti CherryTree"
 
@@ -453,11 +558,20 @@ msgstr "Slaptažodžiai nesutampa."
 msgid "Warning"
 msgstr "Įspėjimas"
 
+msgid "Discard"
+msgstr "Atmesti"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
 msgid "The Current Document was Updated."
 msgstr "Dabartinis dokumentas buvo atnaujintas."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Ar nori išsaugoti pakeitimus?"
+
+msgid "Execute"
+msgstr "Vykdyti"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Ar norite paleisti kodą?"
@@ -498,102 +612,6 @@ msgstr ""
 "Foundation;\n"
 "licencijos versija 3 arba (pagal jūsų pasirinkimą) bet kuri vėlesnė.\n"
 "\n"
-
-msgid "Arabic"
-msgstr "Arabų"
-
-msgid "Armenian"
-msgstr "Armėnų"
-
-msgid "Bulgarian"
-msgstr "Bulgarų"
-
-msgid "Chinese Simplified"
-msgstr "Kinų supaprastinta"
-
-msgid "Chinese Traditional"
-msgstr "Kinų tradicinė"
-
-msgid "Croatian"
-msgstr "Kroatų"
-
-msgid "Czech"
-msgstr "Čekų"
-
-msgid "Dutch"
-msgstr "Olandų"
-
-msgid "Finnish"
-msgstr "Suomių"
-
-msgid "French"
-msgstr "Prancūzų"
-
-msgid "German"
-msgstr "Vokiečių"
-
-msgid "Greek"
-msgstr "Graikų"
-
-msgid "Hindi India"
-msgstr "Hindi Indija"
-
-msgid "Hungarian"
-msgstr "Vengrų"
-
-msgid "Italian"
-msgstr "Italų"
-
-msgid "Japanese"
-msgstr "Japonų"
-
-msgid "Kazakh"
-msgstr "Kazachų"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazachų (Lotyniškai)"
-
-msgid "Korean"
-msgstr "Korėjiečių"
-
-msgid "Lithuanian"
-msgstr "Lietuvių"
-
-msgid "Persian"
-msgstr "Persų"
-
-msgid "Polish"
-msgstr "Lenkų"
-
-msgid "Portuguese"
-msgstr "Portugalų"
-
-msgid "Portuguese Brazil"
-msgstr "Brazilų Portugalų"
-
-msgid "Romanian"
-msgstr "Romunų"
-
-msgid "Russian"
-msgstr "Rusų"
-
-msgid "Slovak"
-msgstr "Slovakų"
-
-msgid "Slovenian"
-msgstr "Slovėnų"
-
-msgid "Spanish"
-msgstr "Ispanų"
-
-msgid "Swedish"
-msgstr "Švedų"
-
-msgid "Turkish"
-msgstr "Turkų"
-
-msgid "Ukrainian"
-msgstr "Ukrainiečių"
 
 msgid "About CherryTree"
 msgstr "Apie CherryTree"
@@ -845,6 +863,9 @@ msgstr "Linija"
 msgid "Line Content"
 msgstr "Linijos turinys"
 
+msgid "Hide"
+msgstr "Paslėpti"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Iteruoti paskutinį rasti/pakeisti"
 
@@ -872,6 +893,12 @@ msgstr "Pašalinti vartotojo spalvą iš paletės"
 msgid "Colour"
 msgstr "Spalva"
 
+msgid "More"
+msgstr "Daugiau"
+
+msgid "Less"
+msgstr "Mažiau"
+
 msgid "Question"
 msgstr "Klausimas"
 
@@ -883,6 +910,9 @@ msgstr "Klaida"
 
 msgid "Select File"
 msgstr "Pasirinkti failą"
+
+msgid "Open"
+msgstr "Atidaryti"
 
 msgid "Select Folder"
 msgstr "Pasirinkti aplanką"
@@ -963,11 +993,11 @@ msgstr "Pasirinkite esamą etiketę"
 msgid "Tag Name"
 msgstr "Etiketės pavadinimas"
 
-msgid "Pick a Color"
-msgstr "Pasirink spalvą"
-
 msgid "Select Node Icon"
 msgstr "Pasirinkti užrašo ikoną"
+
+msgid "Pick a Color"
+msgstr "Pasirink spalvą"
 
 msgid "Involved Nodes"
 msgstr "Įtraukti užrašai"
@@ -1126,8 +1156,20 @@ msgstr "Kopijuoti pasirinktą arba viską"
 msgid "Paste"
 msgstr "Įklijuoti"
 
+msgid "Menu"
+msgstr "Meniu"
+
 msgid "Remove from list"
 msgstr "_Pašalinti iš sąrašo"
+
+msgid "No recent documents"
+msgstr "Nėra naujausių dokumentų"
+
+msgid "Bookmarks"
+msgstr "Žymelės"
+
+msgid "No bookmarks"
+msgstr "Nėra žymelių"
 
 msgid "_File"
 msgstr "Failas"
@@ -1663,11 +1705,11 @@ msgstr "Klonuoti formatavimą"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Klonuoti teksto formatą ties kursoriumi"
 
-msgid "Format _Latest"
-msgstr "Formatuoto paskutinį"
+msgid "Repeat _Last Format"
+msgstr "Kartoti _paskutinį formatavimą"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Pakartoti paskutinį teksto formatavimą"
+msgid "Repeat Latest Text Format Type"
+msgstr "Kartoti paskutinį teksto formatavimo tipą"
 
 msgid "_Remove Formatting"
 msgstr "_Pašalinti formatavimą"
@@ -1950,21 +1992,27 @@ msgstr "Įterpti šios dienos užrašą į pagrindinį medį"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena šiai dienai pagrindiniame medyje"
+msgstr ""
+"Įterpti užrašą su hierarchiniais metais/mėnesiu/diena šiai dienai "
+"pagrindiniame medyje"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Įterpti šios dienos užrašą pažymėtam užrašui"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena šiai dienai pažymėtam užrašui"
+msgstr ""
+"Įterpti užrašą su hierarchiniais metais/mėnesiu/diena šiai dienai pažymėtam "
+"užrašui"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Įterpti _rytojaus užrašą į pagrindinį medį"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena rytojui pagrindiniame medyje"
+msgstr ""
+"Įterpti užrašą su hierarchiniais metais/mėnesiu/diena rytojui pagrindiniame "
+"medyje"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Įterpti _rytojaus užrašą pažymėtam užrašui"
@@ -1972,7 +2020,9 @@ msgstr "Įterpti _rytojaus užrašą pažymėtam užrašui"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Įterpti užrašą su hierarchiniais metais/mėnesiu/diena rytojui pažymėtam užrašui"
+msgstr ""
+"Įterpti užrašą su hierarchiniais metais/mėnesiu/diena rytojui pažymėtam "
+"užrašui"
 
 msgid "C_hange Node Properties..."
 msgstr "Keisti užrašo savybes..."
@@ -2759,6 +2809,9 @@ msgstr "Laikomų atsarginių kopijų skaičius"
 msgid "Custom Backup Directory"
 msgstr "Nestandartinis atsarginių kopijų aplankas"
 
+msgid "Select Folder..."
+msgstr "Pasirinkti aplanką..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Kelių failų saugojimas, naudoti įterptą failo pavadinimą diske"
 
@@ -3051,8 +3104,8 @@ msgstr "Naudoti skirtingas vyšnias kiekvienam lygiui"
 msgid "No Icon"
 msgstr "Nėra ikonos"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Paslėpti papildomą dešinės pusės ikoną"
+msgid "Hide Auxiliary Icon"
+msgstr "Paslėpti pagalbinę piktogramą"
 
 msgid "Default Text Nodes Icons"
 msgstr "Numatytos tekstinių užrašų ikonos"
@@ -3155,6 +3208,9 @@ msgstr "Leo dokumentas"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ar tikrai norite atkurti numatytuosius nustatymus?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Formatuoto paskutinį"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Pakeisti visuose užrašuose..."
@@ -3296,9 +3352,6 @@ msgstr "Ar tikrai norite atkurti numatytuosius nustatymus?"
 
 #~ msgid "Insert NewLine Char"
 #~ msgstr "Įterpti NewLine simbolį"
-
-#~ msgid "Cancel"
-#~ msgstr "Atšaukti"
 
 #~ msgid "The Document %s was Not Found"
 #~ msgstr "Dokumentas %s nebuvo rastas"

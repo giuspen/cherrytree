@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:26+0100\n"
+"POT-Creation-Date: 2026-11-03 19:59+0000\n"
 "PO-Revision-Date: 2026-05-11 18:00+0200\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
@@ -161,6 +161,12 @@ msgstr "Uporabljate razvojno različico."
 
 msgid "Who is the Parent?"
 msgstr "Kdo je nadrejeni?"
+
+msgid "Cancel"
+msgstr "Prekliči"
+
+msgid "OK"
+msgstr "V redu"
 
 msgid "The Tree Root"
 msgstr "Temelj drevesa"
@@ -353,6 +359,105 @@ msgstr "Kopiraj kodo"
 msgid "Change CodeBox Properties"
 msgstr "Spremeni lastnosti kodnega polja"
 
+msgid "Arabic"
+msgstr "Arabščina"
+
+msgid "Armenian"
+msgstr "Armenščina"
+
+msgid "Bulgarian"
+msgstr "Bolgarščina"
+
+msgid "Chinese Simplified"
+msgstr "Poenostavljena Kitajščina"
+
+msgid "Chinese Traditional"
+msgstr "Tradicionalna Kitajščina"
+
+msgid "Croatian"
+msgstr "Hrvaščina"
+
+msgid "Czech"
+msgstr "Češčina"
+
+msgid "Dutch"
+msgstr "Nizozemščina"
+
+msgid "Finnish"
+msgstr "Finščina"
+
+msgid "French"
+msgstr "Francoščina"
+
+msgid "German"
+msgstr "Nemščina"
+
+msgid "Greek"
+msgstr "Grščina"
+
+msgid "Hindi India"
+msgstr "Hindijščina"
+
+msgid "Hungarian"
+msgstr "Madžarščina"
+
+msgid "Italian"
+msgstr "Italijanščina"
+
+msgid "Japanese"
+msgstr "Japonščina"
+
+msgid "Kazakh"
+msgstr "Kazaščina"
+
+msgid "Kazakh (Latin)"
+msgstr "Kazaščina (Latinica)"
+
+msgid "Korean"
+msgstr "Korejščina"
+
+msgid "Lithuanian"
+msgstr "Litovščina"
+
+msgid "Persian"
+msgstr "Perzijščina"
+
+msgid "Polish"
+msgstr "Poljščina"
+
+msgid "Portuguese"
+msgstr "Portugalščina"
+
+msgid "Portuguese Brazil"
+msgstr "Brazilska Portugalščina"
+
+msgid "Romanian"
+msgstr "Romunščina"
+
+msgid "Russian"
+msgstr "Ruščina"
+
+msgid "Slovak"
+msgstr "Slovaščina"
+
+msgid "Slovenian"
+msgstr "Slovenščina"
+
+msgid "Spanish"
+msgstr "Španščina"
+
+msgid "Swedish"
+msgstr "Švedščina"
+
+msgid "Tamil"
+msgstr "Tamilščina"
+
+msgid "Turkish"
+msgstr "Turščina"
+
+msgid "Ukrainian"
+msgstr "Ukrajinščina"
+
 msgid "Start in CherryTree"
 msgstr "Zaženi v CherryTree"
 
@@ -455,11 +560,20 @@ msgstr "Vpisana gesla se ne ujemata."
 msgid "Warning"
 msgstr "Pozor"
 
+msgid "Discard"
+msgstr "Zavrzi"
+
+msgid "Save"
+msgstr "Shrani"
+
 msgid "The Current Document was Updated."
 msgstr "Trenutni dokument je bil posodobljen."
 
 msgid "Do you want to Save the Changes?"
 msgstr "Ali želite shraniti spremembe?"
+
+msgid "Execute"
+msgstr "Izvedi"
 
 msgid "Do you want to Execute the Code?"
 msgstr "Ali želite izvsti kodo?"
@@ -508,102 +622,6 @@ msgstr ""
 "S tem programom bi bili morali prejeti kopijo GNU General Public License\n"
 ";Če licence niste prejeli, pišite Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
-
-msgid "Arabic"
-msgstr "Arabščina"
-
-msgid "Armenian"
-msgstr "Armenščina"
-
-msgid "Bulgarian"
-msgstr "Bolgarščina"
-
-msgid "Chinese Simplified"
-msgstr "Poenostavljena Kitajščina"
-
-msgid "Chinese Traditional"
-msgstr "Tradicionalna Kitajščina"
-
-msgid "Croatian"
-msgstr "Hrvaščina"
-
-msgid "Czech"
-msgstr "Češčina"
-
-msgid "Dutch"
-msgstr "Nizozemščina"
-
-msgid "Finnish"
-msgstr "Finščina"
-
-msgid "French"
-msgstr "Francoščina"
-
-msgid "German"
-msgstr "Nemščina"
-
-msgid "Greek"
-msgstr "Grščina"
-
-msgid "Hindi India"
-msgstr "Hindijščina"
-
-msgid "Hungarian"
-msgstr "Madžarščina"
-
-msgid "Italian"
-msgstr "Italijanščina"
-
-msgid "Japanese"
-msgstr "Japonščina"
-
-msgid "Kazakh"
-msgstr "Kazaščina"
-
-msgid "Kazakh (Latin)"
-msgstr "Kazaščina (Latinica)"
-
-msgid "Korean"
-msgstr "Korejščina"
-
-msgid "Lithuanian"
-msgstr "Litovščina"
-
-msgid "Persian"
-msgstr "Perzijščina"
-
-msgid "Polish"
-msgstr "Poljščina"
-
-msgid "Portuguese"
-msgstr "Portugalščina"
-
-msgid "Portuguese Brazil"
-msgstr "Brazilska Portugalščina"
-
-msgid "Romanian"
-msgstr "Romunščina"
-
-msgid "Russian"
-msgstr "Ruščina"
-
-msgid "Slovak"
-msgstr "Slovaščina"
-
-msgid "Slovenian"
-msgstr "Slovenščina"
-
-msgid "Spanish"
-msgstr "Španščina"
-
-msgid "Swedish"
-msgstr "Švedščina"
-
-msgid "Turkish"
-msgstr "Turščina"
-
-msgid "Ukrainian"
-msgstr "Ukrajinščina"
 
 msgid "About CherryTree"
 msgstr "O CherryTree aplikaciji"
@@ -853,6 +871,9 @@ msgstr "Vrstica"
 msgid "Line Content"
 msgstr "Vsebina vrstice"
 
+msgid "Hide"
+msgstr "Skrij"
+
 msgid "Iterate Latest Find/Replace"
 msgstr "Ponovi zadnji najdi/zamenjaj"
 
@@ -880,6 +901,12 @@ msgstr "Odstrani uporabnikovo barvo iz palete"
 msgid "Colour"
 msgstr "Barva"
 
+msgid "More"
+msgstr "Več"
+
+msgid "Less"
+msgstr "Manj"
+
 msgid "Question"
 msgstr "Vprašanje"
 
@@ -891,6 +918,9 @@ msgstr "Napaka"
 
 msgid "Select File"
 msgstr "Izberi datoteko"
+
+msgid "Open"
+msgstr "Odpri"
 
 msgid "Select Folder"
 msgstr "Izberi mapo"
@@ -971,11 +1001,11 @@ msgstr "Izberi obstoječo oznako"
 msgid "Tag Name"
 msgstr "Ime oznake"
 
-msgid "Pick a Color"
-msgstr "Izberi barvo"
-
 msgid "Select Node Icon"
 msgstr "Izberi ikono vozlišča"
+
+msgid "Pick a Color"
+msgstr "Izberi barvo"
 
 msgid "Involved Nodes"
 msgstr "Vključena vozlišča"
@@ -1134,8 +1164,20 @@ msgstr "Kopiraj izbrano ali vse"
 msgid "Paste"
 msgstr "Prilepi"
 
+msgid "Menu"
+msgstr "Meni"
+
 msgid "Remove from list"
 msgstr "Odstrani iz seznama"
+
+msgid "No recent documents"
+msgstr "Ni nedavnih dokumentov"
+
+msgid "Bookmarks"
+msgstr "Zaznamki"
+
+msgid "No bookmarks"
+msgstr "Ni zaznamkov"
 
 msgid "_File"
 msgstr "_Datoteka"
@@ -1671,11 +1713,11 @@ msgstr "Oblikuj _klon"
 msgid "Clone the Text Format Type at Cursor"
 msgstr "Kloniraj obliko besedila pri kazalcu"
 
-msgid "Format _Latest"
-msgstr "Oblikuj _zadnje"
+msgid "Repeat _Last Format"
+msgstr "Ponovi _zadnje oblikovanje"
 
-msgid "Memory of Latest Text Format Type"
-msgstr "Spomin zadnje oblike besedila"
+msgid "Repeat Latest Text Format Type"
+msgstr "Ponovi nazadnje uporabljeno obliko besedila"
 
 msgid "_Remove Formatting"
 msgstr "_Zavrzi obliko"
@@ -1952,21 +1994,24 @@ msgstr "Vstavi vozlišče _dneva pod temeljem drevesa"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Tree Root"
-msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za danes pod temeljem drevesa"
+msgstr ""
+"Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za danes pod temeljem drevesa"
 
 msgid "Insert Toda_y's Node Under Selected Node"
 msgstr "Vstavi vozlišče _dneva pod izbranim vozliščem"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Today Under the Selected Node"
-msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za danes pod izbranim vozliščem"
+msgstr ""
+"Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za danes pod izbranim vozliščem"
 
 msgid "Insert T_omorrow's Node Under Tree Root"
 msgstr "Vstavi vozlišče _jutrišnjega dneva pod temeljem drevesa"
 
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Tree Root"
-msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za jutri pod temeljem drevesa"
+msgstr ""
+"Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za jutri pod temeljem drevesa"
 
 msgid "Insert Tomorro_w's Node Under Selected Node"
 msgstr "Vstavi vozlišče _jutrišnjega dneva pod izbranim vozliščem"
@@ -1974,7 +2019,8 @@ msgstr "Vstavi vozlišče _jutrišnjega dneva pod izbranim vozliščem"
 msgid ""
 "Insert a Node with Hierarchy Year/Month/Day for Tomorrow Under the Selected "
 "Node"
-msgstr "Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za jutri pod izbranim vozliščem"
+msgstr ""
+"Dodaj vozlišče s hierarhijo Leto/Mesec/Dan za jutri pod izbranim vozliščem"
 
 msgid "C_hange Node Properties..."
 msgstr "Spremeni _lastnosti vozlišča..."
@@ -2763,6 +2809,9 @@ msgstr "Število varnostnih kopij"
 msgid "Custom Backup Directory"
 msgstr "Mapa varnostne kopije po meri"
 
+msgid "Select Folder..."
+msgstr "Izberi mapo..."
+
 msgid "Multiple Files Storage, Use Embedded File Name On Disk"
 msgstr "Shramba več datotek, uporabi vgrajeno ime datoteke na disku"
 
@@ -3056,8 +3105,8 @@ msgstr "Uporabi različne češnjice na različnih nivojih"
 msgid "No Icon"
 msgstr "Brez ikone"
 
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Skrij pomožno ikono na desni"
+msgid "Hide Auxiliary Icon"
+msgstr "Skrij pomožno ikono"
 
 msgid "Default Text Nodes Icons"
 msgstr "Privzete ikone vozlišč z besedilom"
@@ -3165,6 +3214,9 @@ msgstr "Leo dokument"
 
 msgid "Are you sure to Reset to Default?"
 msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
+
+#~ msgid "Format _Latest"
+#~ msgstr "Oblikuj _zadnje"
 
 #~ msgid "Replace in Multiple Nodes..."
 #~ msgstr "Zamenjaj v več vozliščih..."
@@ -3426,9 +3478,6 @@ msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Uporabi AppIndicator za priklop"
-
-#~ msgid "Cancel"
-#~ msgstr "Prekliči"
 
 #~ msgid "The Characters  %s  are Not Allowed"
 #~ msgstr "Znaki %s niso dovoljeni"
