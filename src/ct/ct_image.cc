@@ -502,7 +502,10 @@ static const char* get_latex_bin_cmd()
 {
     auto _get_latex_bin_cmd = []()->const char*{
 #if defined(_WIN32)
-        return CONSOLE_BIN_PREFIX[0] ? g_strdup(".\\latex.exe") : g_strdup("latex.exe");
+        const std::string latexBin = CONSOLE_BIN_PREFIX[0]
+                                   ? (fs::path{CONSOLE_BIN_PREFIX} / "latex.exe").string()
+                                   : "latex.exe";
+        return g_strdup_printf("\"%s\"", latexBin.c_str());
 #else /* !_WIN32 */
         return g_strdup_printf("%slatex", CONSOLE_BIN_PREFIX);
 #endif /* !_WIN32 */
@@ -587,9 +590,13 @@ static const char* get_dvipng_bin_cmd()
     std::string cmd;
     bool success = false;
 #ifdef _WIN32
-    cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p -output-directory=%s %s"
-                       , get_latex_bin_cmd(), tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
-    success = CtMiscUtil::system_cmd(cmd.c_str(), CONSOLE_BIN_PREFIX);
+    const fs::path latexBinDir{CONSOLE_BIN_PREFIX};
+    const std::string texFormatsArg = CONSOLE_BIN_PREFIX[0]
+                                    ? fmt::sprintf(" --cnf-line=TEXFORMATS=\"%s\"", latexBinDir.string())
+                                    : "";
+    cmd = fmt::sprintf("%s --interaction=batchmode -no-shell-escape --cnf-line=openin_any=p --cnf-line=openout_any=p%s -output-directory=. %s"
+                       , get_latex_bin_cmd(), texFormatsArg, tex_basename.c_str());
+    success = CtMiscUtil::system_cmd(cmd.c_str(), tmp_dirpath.c_str());
 #else /* !_WIN32 */
     const std::string latex_bin_cmd = get_latex_bin_cmd();
     if (latex_bin_cmd.find("&&") == std::string::npos) {
