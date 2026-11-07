@@ -7,9 +7,15 @@ on:
         required: false
         default: 'false'
         type: boolean
+      build_nolatex:
+        description: 'Set to true to also generate the no-LaTeX variant.'
+        required: false
+        default: 'false'
+        type: boolean
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  BUILD_NOLATEX: ${{ github.event.inputs.build_nolatex }}
 
 jobs:
   msys2-ucrt64:
@@ -56,7 +62,9 @@ jobs:
         run: |
           rm -rf build
           scripts/msys2_prepare_standalone.sh
-          scripts/generate_nolatex_iss.sh
+          if [ "${BUILD_NOLATEX}" = "true" ]; then
+            scripts/generate_nolatex_iss.sh
+          fi
       - name: Ensure Inno Setup
         shell: powershell
         run: |
@@ -134,8 +142,10 @@ jobs:
           $version = (Get-Item (Join-Path $buildDir 'cherrytree.exe')).VersionInfo.FileVersion
           $expectedPortableDirs = @(
             Join-Path $buildDir "cherrytree_${version}_win64_portable"
-            Join-Path $buildDir "cherrytree_${version}_win64_portable_nolatex"
           )
+          if ($env:BUILD_NOLATEX -eq 'true') {
+            $expectedPortableDirs += Join-Path $buildDir "cherrytree_${version}_win64_portable_nolatex"
+          }
           Write-Host "Build directory: $buildDir"
           Write-Host "Executable version: $version"
           Get-ChildItem $buildDir -Force | Select-Object Mode, Name | Format-Table | Out-String | Write-Host
@@ -151,11 +161,12 @@ jobs:
               throw "Required portable license is missing: $licensePath"
             }
           }
-          if ($portableDirs.Count -ne 2) {
+          if ($portableDirs.Count -ne $expectedPortableDirs.Count) {
             $portableDirs | Select-Object FullName | Format-Table | Out-String | Write-Host
-            throw "Expected exactly two portable directories, found $($portableDirs.Count)"
+            throw "Expected $($expectedPortableDirs.Count) portable directories, found $($portableDirs.Count)"
           }
       - name: Compile .ISS to .EXE Installer (NOLATEX)
+        if: ${{ github.event.inputs.build_nolatex == 'true' }}
         shell: powershell
         run: |
           $isccExe = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
@@ -197,7 +208,10 @@ jobs:
         run: |
           rm -rf cherrytree-final
           mkdir -p cherrytree-final
-          cp cherrytree-signed/*.exe build/*_win64_portable.7z build/*_win64_portable_nolatex.7z cherrytree-final/
+          cp cherrytree-signed/*.exe build/*_win64_portable.7z cherrytree-final/
+          if [ "${BUILD_NOLATEX}" = "true" ]; then
+            cp build/*_win64_portable_nolatex.7z cherrytree-final/
+          fi
       - name: Upload Signed Artifact
         if: ${{ github.event.inputs.sign_build == 'true' }}
         uses: actions/upload-artifact@v7

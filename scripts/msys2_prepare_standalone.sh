@@ -306,11 +306,13 @@ cp -v ${IN_CT_HUNSPELL}/*.dic ${OUT_HUNSPELL_FOLDER}/
 # fix issue with ucrt64/etc/ssl not installed properly in --root ${OUT_MSYS2_FOLDER}
 rm -rf ${OUT_UCRT64_FOLDER}/etc/ssl
 cp -rv ${OLD_UCRT64_FOLDER}/etc/ssl ${OUT_UCRT64_FOLDER}/etc/
-# nolatex folder
-mkdir -p ${OUT_ROOT_FOLDER_NOLATEX}
-cp -rv ${OUT_ROOT_FOLDER}/. ${OUT_ROOT_FOLDER_NOLATEX}/
 test -f ${OUT_ROOT_FOLDER}/license.txt
-test -f ${OUT_ROOT_FOLDER_NOLATEX}/license.txt
+if [ "${BUILD_NOLATEX:-false}" = "true" ]; then
+  # nolatex folder
+  mkdir -p ${OUT_ROOT_FOLDER_NOLATEX}
+  cp -rv ${OUT_ROOT_FOLDER}/. ${OUT_ROOT_FOLDER_NOLATEX}/
+  test -f ${OUT_ROOT_FOLDER_NOLATEX}/license.txt
+fi
 # latex.exe
 for element_rel in "${LATEX_BIN_ITEMS[@]}"
 do
@@ -335,7 +337,9 @@ if [ "${SIGN_BUILD:-false}" = "true" ]; then
   echo "signing build: skipping portable archives until after signing"
 else
   7za a ${OUT_ROOT_FOLDER}.7z ${OUT_ROOT_FOLDER}
-  7za a ${OUT_ROOT_FOLDER_NOLATEX}.7z ${OUT_ROOT_FOLDER_NOLATEX}
+  if [ "${BUILD_NOLATEX:-false}" = "true" ]; then
+    7za a ${OUT_ROOT_FOLDER_NOLATEX}.7z ${OUT_ROOT_FOLDER_NOLATEX}
+  fi
 fi
 #zip -r -9 ${OUT_ROOT_FOLDER}.zip ${OUT_ROOT_FOLDER}
 #zip -r -9 ${OUT_ROOT_FOLDER_NOLATEX}.zip ${OUT_ROOT_FOLDER_NOLATEX}
