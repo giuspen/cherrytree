@@ -59,6 +59,26 @@ std::string _get_chooser_selected_path(Gtk::FileChooserDialog& chooser)
     const auto file = chooser.get_file();
     return file ? file->get_path() : std::string{};
 }
+#elif GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+int _run_native_dialog_blocking(Gtk::NativeDialog& dialog)
+{
+    int response = GTK_RESPONSE_NONE;
+    bool response_received = false;
+    auto loop = Glib::MainLoop::create(false);
+    dialog.signal_response().connect([&](int resp) {
+        response = resp;
+        response_received = true;
+        dialog.hide();
+        if (loop->is_running()) {
+            loop->quit();
+        }
+    });
+    dialog.show();
+    if (not response_received) {
+        loop->run();
+    }
+    return response;
+}
 #endif
 
 }
@@ -722,18 +742,22 @@ std::string CtDialogs::file_select_dialog(Gtk::Window* pParentWin, const CtFileS
     }
     return Gtk::ResponseType::ACCEPT == _run_dialog_blocking(chooser) ? _get_chooser_selected_path(chooser) : std::string{};
 #else
-    auto chooser = Gtk::FileChooserNative::create(_("Select File"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
-#if GTKMM_MAJOR_VERSION < 3
-    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
-    chooser->property_destroy_with_parent() = true;
+#if GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+    auto native_chooser = Gtk::FileChooserNative::create(_("Select File"), *pParentWin,
+                                                         Gtk::FILE_CHOOSER_ACTION_OPEN, _("Open"), _("Cancel"));
+    Gtk::FileChooser& chooser = *native_chooser.operator->();
+#else
+    auto dialog_chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
+    dialog_chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    dialog_chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
+    dialog_chooser->property_destroy_with_parent() = true;
+    Gtk::FileChooser& chooser = *dialog_chooser;
 #endif
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
-        chooser->set_current_folder(Glib::get_home_dir());
+        chooser.set_current_folder(Glib::get_home_dir());
     }
     else {
-        chooser->set_current_folder(args.curr_folder.string());
+        chooser.set_current_folder(args.curr_folder.string());
     }
     if (not args.filter_pattern.empty() or not args.filter_mime.empty()) {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
@@ -744,9 +768,13 @@ std::string CtDialogs::file_select_dialog(Gtk::Window* pParentWin, const CtFileS
         for (const auto& element : args.filter_mime) {
             rFileFilter->add_mime_type(element);
         }
-        chooser->add_filter(rFileFilter);
+        chooser.add_filter(rFileFilter);
     }
-    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#if GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+    return _run_native_dialog_blocking(*native_chooser.operator->()) == GTK_RESPONSE_ACCEPT ? chooser.get_filename() : "";
+#else
+    return dialog_chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser.get_filename() : "";
+#endif
 #endif
 }
 
@@ -759,20 +787,28 @@ std::string CtDialogs::folder_select_dialog(Gtk::Window* pParentWin, const std::
     _set_file_chooser_current_folder(chooser, curr_folder);
     return Gtk::ResponseType::ACCEPT == _run_dialog_blocking(chooser) ? _get_chooser_selected_path(chooser) : std::string{};
 #else
-    auto chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
-#if GTKMM_MAJOR_VERSION < 3
-    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
-    chooser->property_destroy_with_parent() = true;
+#if GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+    auto native_chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin,
+                                                         Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER, _("Open"), _("Cancel"));
+    Gtk::FileChooser& chooser = *native_chooser.operator->();
+#else
+    auto dialog_chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    dialog_chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    dialog_chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
+    dialog_chooser->property_destroy_with_parent() = true;
+    Gtk::FileChooser& chooser = *dialog_chooser;
 #endif
     if (curr_folder.empty() or not Glib::file_test(curr_folder, Glib::FILE_TEST_IS_DIR)) {
-        chooser->set_current_folder(g_get_home_dir());
+        chooser.set_current_folder(g_get_home_dir());
     }
     else {
-        chooser->set_current_folder(curr_folder);
+        chooser.set_current_folder(curr_folder);
     }
-    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#if GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+    return _run_native_dialog_blocking(*native_chooser.operator->()) == GTK_RESPONSE_ACCEPT ? chooser.get_filename() : "";
+#else
+    return dialog_chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser.get_filename() : "";
+#endif
 #endif
 }
 
@@ -796,22 +832,26 @@ std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFile
     }
     return Gtk::ResponseType::ACCEPT == _run_dialog_blocking(chooser) ? _get_chooser_selected_path(chooser) : std::string{};
 #else
-    auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
-#if GTKMM_MAJOR_VERSION < 3
-    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
-    chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
-    chooser->property_destroy_with_parent() = true;
+#if GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+    auto native_chooser = Gtk::FileChooserNative::create(_("Save File as"), *pParentWin,
+                                                         Gtk::FILE_CHOOSER_ACTION_SAVE, _("Save"), _("Cancel"));
+    Gtk::FileChooser& chooser = *native_chooser.operator->();
+#else
+    auto dialog_chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
+    dialog_chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    dialog_chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
+    dialog_chooser->property_destroy_with_parent() = true;
+    Gtk::FileChooser& chooser = *dialog_chooser;
 #endif
-    chooser->set_do_overwrite_confirmation(args.overwrite_confirmation);
+    chooser.set_do_overwrite_confirmation(args.overwrite_confirmation);
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
-        chooser->set_current_folder(g_get_home_dir());
+        chooser.set_current_folder(g_get_home_dir());
     }
     else {
-        chooser->set_current_folder(args.curr_folder.string());
+        chooser.set_current_folder(args.curr_folder.string());
     }
     if (not args.curr_file_name.empty()) {
-        chooser->set_current_name(args.curr_file_name.string());
+        chooser.set_current_name(args.curr_file_name.string());
     }
     if (not args.filter_pattern.empty()) {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
@@ -819,9 +859,13 @@ std::string CtDialogs::file_save_as_dialog(Gtk::Window* pParentWin, const CtFile
         for (const Glib::ustring& element : args.filter_pattern) {
             rFileFilter->add_pattern(element);
         }
-        chooser->add_filter(rFileFilter);
+        chooser.add_filter(rFileFilter);
     }
-    return chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser->get_filename() : "";
+#if GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24
+    return _run_native_dialog_blocking(*native_chooser.operator->()) == GTK_RESPONSE_ACCEPT ? chooser.get_filename() : "";
+#else
+    return dialog_chooser->run() == Gtk::RESPONSE_ACCEPT ? chooser.get_filename() : "";
+#endif
 #endif
 }
 
