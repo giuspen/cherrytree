@@ -20,7 +20,8 @@ CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3,           
                 2: ("focal",    "20.04", True,              True,  4,             10,     False), # 20.04
                 3: ("jammy",    "20.04", True,              True,  4,             10,     False), # 22.04
                 4: ("noble",    "24.04", True,              True,  4,             10,     False), # 24.04
-                5: ("resolute", "26.04", True,              True,  4,             0,      True)}  # 26.04
+                5: ("resolute", "26.04", True,              True,  4,             0,      True),  # 26.04
+                6: ("stonking", "26.04", True,              True,  4,             0,      True)}  # 26.10
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []

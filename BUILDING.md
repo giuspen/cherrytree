@@ -196,7 +196,7 @@ Launch 'MSYS2 UCRT64' terminal
 
 Run the following command multiple times there until there are no more updates:
 ```sh
-pacman -Syuu
+pacman -Suy
 ```
 
 Install required packages to build cherrytree:

@@ -108,13 +108,21 @@ fi
 if [ -n "${DISTRIB_ID}" ] && [ -n "${DISTRIB_RELEASE}" ]
 then
   echo "Building on ${DISTRIB_ID} ${DISTRIB_RELEASE}"
-  if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ] || [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Debian10" ]
+  if [ "${DISTRIB_ID}" == "Ubuntu" ] && [[ "${DISTRIB_RELEASE}" =~ ^[0-9]+\.[0-9]+$ ]]
+  then
+    DISTRIB_RELEASE_MAJOR="${DISTRIB_RELEASE%%.*}"
+    DISTRIB_RELEASE_MINOR="${DISTRIB_RELEASE#*.}"
+    if (( 10#${DISTRIB_RELEASE_MAJOR} < 18 || (10#${DISTRIB_RELEASE_MAJOR} == 18 && 10#${DISTRIB_RELEASE_MINOR} <= 4) ))
+    then
+      BUNDLED_SPDLOG_FMT="Y"
+    fi
+    if (( 10#${DISTRIB_RELEASE_MAJOR} >= 26 ))
+    then
+      WITH_LIBXMLPP5="Y"
+    fi
+  elif [ "${DISTRIB_ID}" == "Debian" ] && [[ "${DISTRIB_RELEASE}" =~ ^[0-9]+$ ]] && (( 10#${DISTRIB_RELEASE} <= 10 ))
   then
     BUNDLED_SPDLOG_FMT="Y"
-  fi
-  if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu26.04" ]
-  then
-    WITH_LIBXMLPP5="Y"
   fi
 fi
 
