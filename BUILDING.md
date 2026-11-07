@@ -57,7 +57,7 @@ sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksource
 sudo apt install texlive-latex-base dvipng # optional for LatexBoxes support
 ```
 Note: On Ubuntu 26.04+ it builds looking for libxml++-5.0-dev instead of libxml++2.6-dev
-Note: On Debian 10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead. Furthermore libgtksourceview-3.0-dev is to be used instead of libgtksourceview-4-dev (not available)
+Note: On Debian 10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead. Replace libgtksourceview-4-dev in the command above with libgtksourceview-3.0-dev, which is available on these older distributions. CMake uses GtkSourceView 4 when available and falls back to GtkSourceView 3.
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git

@@ -30,7 +30,7 @@
 #include <optional>
 
 // GtkSourceView 5 removed begin/end_not_undoable_action
-#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#if GTK_SOURCE_MAJOR_VERSION >= 5
 #define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
 #define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
 #else
@@ -518,7 +518,7 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageSqlite::get_delayed_text_buffer(const gin
         if (sqlite3_column_int64(stmt, 3)) _image_from_db(node_id, widgets);
 
         widgets.sort([](const CtAnchoredWidget* w1, const CtAnchoredWidget* w2) { return w1->getOffset() < w2->getOffset(); });
-        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+        #if GTK_SOURCE_MAJOR_VERSION < 5
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(rRetTextBuffer->gobj());
         #endif
         CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);

@@ -1,7 +1,7 @@
 /*
  * ct_logging.h
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -41,6 +41,12 @@
 #include "spdlog/fmt/bundled/core.h"
 #include "spdlog/fmt/bundled/printf.h"
 #endif // not SHARED_FMT_SPDLOG
+
+#if FMT_VERSION >= 80000
+#define CT_FMT_RUNTIME(format) fmt::runtime(format)
+#else
+#define CT_FMT_RUNTIME(format) (format)
+#endif
 
 #ifdef _WIN32
 #ifdef ERROR

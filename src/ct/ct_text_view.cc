@@ -186,6 +186,7 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
             drawSpaces = true;
         }
     }
+#if GTK_SOURCE_MAJOR_VERSION >= 4
     GtkSourceSpaceDrawer* pGtkSourceSpaceDrawer = gtk_source_view_get_space_drawer(_pGtkSourceView);
     if (drawSpaces) {
         gtk_source_space_drawer_set_types_for_locations(pGtkSourceSpaceDrawer,
@@ -198,6 +199,12 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
                                                         GTK_SOURCE_SPACE_TYPE_NONE);
     }
     gtk_source_space_drawer_set_enable_matrix(pGtkSourceSpaceDrawer, TRUE);
+#else
+    const GtkSourceDrawSpacesFlags drawSpacesFlags{drawSpaces
+        ? static_cast<GtkSourceDrawSpacesFlags>(GTK_SOURCE_DRAW_SPACES_ALL & ~GTK_SOURCE_DRAW_SPACES_NEWLINE)
+        : static_cast<GtkSourceDrawSpacesFlags>(0)};
+    gtk_source_view_set_draw_spaces(_pGtkSourceView, drawSpacesFlags);
+#endif
 }
 
 void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space)

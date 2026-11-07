@@ -31,7 +31,7 @@
 #include <optional>
 
 // GtkSourceView 5 removed begin/end_not_undoable_action
-#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#if GTK_SOURCE_MAJOR_VERSION >= 5
 #define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
 #define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
 #else

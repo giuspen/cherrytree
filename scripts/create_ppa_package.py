@@ -15,13 +15,13 @@ DEBIAN_CHANGELOG_PATH = os.path.join(DEBIAN_DIR, "changelog")
 DEBIAN_CONTROL_PATH = os.path.join(DEBIAN_DIR, "control")
 DEBIAN_COMPAT_PATH = os.path.join(DEBIAN_DIR, "compat")
 DEBIAN_RULES_PATH = os.path.join(DEBIAN_DIR, "rules")
-#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, gtksourceview, compat, libxmlpp5
-CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 3,             10,     False), # 18.04
-                2: ("focal",    "20.04", True,              True,  4,             10,     False), # 20.04
-                3: ("jammy",    "20.04", True,              True,  4,             10,     False), # 22.04
-                4: ("noble",    "24.04", True,              True,  4,             10,     False), # 24.04
-                5: ("resolute", "26.04", True,              True,  4,             0,      True),  # 26.04
-                6: ("stonking", "26.04", True,              True,  4,             0,      True)}  # 26.10
+#     package_num:  serie,      control, SHARED_FMT_SPDLOG, ninja, compat, libxmlpp5
+CONTROL_DICT = {1: ("bionic",   "18.04", False,             False, 10,     False), # 18.04
+                2: ("focal",    "20.04", True,              True,  10,     False), # 20.04
+                3: ("jammy",    "20.04", True,              True,  10,     False), # 22.04
+                4: ("noble",    "24.04", True,              True,  10,     False), # 24.04
+                5: ("resolute", "26.04", True,              True,  0,      True),  # 26.04
+                6: ("stonking", "26.04", True,              True,  0,      True)}  # 26.10
 
 def f_changelog_setup_for(package_num):
     changelog_lines = []
@@ -59,18 +59,9 @@ def f_cmakelists_setup_for(package_num):
         return False
 
     for i in range(len(cmakelists_lines)):
-        # pkg_check_modules(GTKSV gtksourceview-4 REQUIRED)
-        if cmakelists_lines[i].find("pkg_check_modules(GTKSV gtksourceview-") >= 0 and not "gtksourceview-5" in cmakelists_lines[i]:
-            cmakelists_lines[i] = "  pkg_check_modules(GTKSV gtksourceview-{} REQUIRED)\n".format("3.0" if 3 == CONTROL_DICT[package_num][4] else "4")
-            break
-    else:
-        print("!! cmakelists 'pkg_check_modules(GTKSV gtksourceview-' not found")
-        return False
-
-    for i in range(len(cmakelists_lines)):
         # option(WITH_LIBXMLPP5 "Build with libxml++ 5.0" OFF)
         if cmakelists_lines[i].find("option(WITH_LIBXMLPP5 ") >= 0:
-            cmakelists_lines[i] = "option(WITH_LIBXMLPP5 \"Build with libxml++ 5.0\" {})\n".format("ON" if CONTROL_DICT[package_num][6] else "OFF")
+            cmakelists_lines[i] = "option(WITH_LIBXMLPP5 \"Build with libxml++ 5.0\" {})\n".format("ON" if CONTROL_DICT[package_num][5] else "OFF")
             break
     else:
         print("!! cmakelists option WITH_LIBXMLPP5 not found")
@@ -105,7 +96,7 @@ def f_setup_for(package_num):
     if not f_rules_setup_for(package_num): return -3
     try: shutil.copy(os.path.join(SCRIPTS_DIR, CONTROL_DICT[package_num][1], "control"), DEBIAN_CONTROL_PATH)
     except: return -4
-    compat_num = CONTROL_DICT[package_num][5]
+    compat_num = CONTROL_DICT[package_num][4]
     if compat_num > 0:
         try:
             with open(DEBIAN_COMPAT_PATH, "w") as fd:

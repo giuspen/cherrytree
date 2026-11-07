@@ -35,7 +35,7 @@
 #include "ct_logging.h"
 
 // GtkSourceView 5 removed begin/end_not_undoable_action
-#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#if GTK_SOURCE_MAJOR_VERSION >= 5
 #define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
 #define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
 #else
@@ -476,7 +476,7 @@ Glib::RefPtr<Gtk::TextBuffer> CtStorageXmlHelper::create_buffer_and_widgets_from
 {
     Glib::RefPtr<Gtk::TextBuffer> pBuffer = _pCtMainWin->get_new_text_buffer();
     bool error{false};
-    #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+    #if GTK_SOURCE_MAJOR_VERSION < 5
     auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pBuffer->gobj());
     #endif
     CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(pGtkSourceBuffer);

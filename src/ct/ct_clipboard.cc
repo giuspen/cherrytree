@@ -287,7 +287,7 @@ void CtClipboard::node_link_to_clipboard(CtTreeIter node)
 {
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {}">{}</rich_text></slot></root>)XML";
-    clip_data->rich_text = fmt::format(fmt::runtime(tml), node.get_node_id(), str::xml_escape(node.get_node_name()));
+    clip_data->rich_text = fmt::format(CT_FMT_RUNTIME(tml), node.get_node_id(), str::xml_escape(node.get_node_name()));
     clip_data->plain_text = fmt::format("{} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str());
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
@@ -297,7 +297,7 @@ void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring&
 {
     CtClipboardData* clip_data = new CtClipboardData{};
     std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {} {}">{}</rich_text></slot></root>)XML";
-    clip_data->rich_text = fmt::format(fmt::runtime(tml), node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
+    clip_data->rich_text = fmt::format(CT_FMT_RUNTIME(tml), node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
     clip_data->plain_text = fmt::format("{} - {} - {}", node.get_cherrytree_filepath(), CtMiscUtil::get_node_hierarchical_name(node, " / ", false/*for_filename*/).c_str(), anchor_name.raw());
 
     _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
@@ -1266,15 +1266,15 @@ std::string Win32HtmlFormat::encode(std::string html_in)
             "<HTML><HEAD>{}</HEAD><BODY><!--StartFragment-->{}<!--EndFragment--></BODY></HTML>";
 
     std::string head = "", source = CtConst::APP_NAME + std::string(CtConst::CT_VERSION);
-    std::string html = fmt::format(fmt::runtime(DEFAULT_HTML_BODY), head, html_in);
+    std::string html = fmt::format(CT_FMT_RUNTIME(DEFAULT_HTML_BODY), head, html_in);
     std::string::size_type fragmentStart = html.find(html_in);
     std::string::size_type fragmentEnd = fragmentStart + html_in.size();
 
     // How long is the prefix going to be?
-    std::string dummyPrefix = fmt::format(fmt::runtime(MARKER_BLOCK_OUTPUT), 0, 0, 0, 0, 0, 0, source);
+    std::string dummyPrefix = fmt::format(CT_FMT_RUNTIME(MARKER_BLOCK_OUTPUT), 0, 0, 0, 0, 0, 0, source);
     std::string::size_type lenPrefix = dummyPrefix.size();
 
-    std::string prefix = fmt::format(fmt::runtime(MARKER_BLOCK_OUTPUT),
+    std::string prefix = fmt::format(CT_FMT_RUNTIME(MARKER_BLOCK_OUTPUT),
                 lenPrefix, html.size() + lenPrefix,
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,

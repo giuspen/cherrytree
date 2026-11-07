@@ -26,7 +26,7 @@
 #include "ct_export2txt.h"
 
 // GtkSourceView 5 removed begin/end_not_undoable_action
-#if GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+#if GTK_SOURCE_MAJOR_VERSION >= 5
 #define CT_SOURCE_BUFFER_BEGIN_NOT_UNDOABLE(buf) /* no-op */
 #define CT_SOURCE_BUFFER_END_NOT_UNDOABLE(buf)   /* no-op */
 #else
@@ -511,7 +511,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     user_active() = false;
 
     Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = tree_iter.get_node_text_buffer();
-    #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+    #if GTK_SOURCE_MAJOR_VERSION < 5
     auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
     #endif
 

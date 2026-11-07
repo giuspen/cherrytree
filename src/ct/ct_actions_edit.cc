@@ -58,7 +58,7 @@ void CtActions::requested_step_back()
         }
     }
     else {
-        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+        #if GTK_SOURCE_MAJOR_VERSION < 5
         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
         if (gtk_source_buffer_can_undo(pGtkSourceBuffer)) {
@@ -86,7 +86,7 @@ void CtActions::requested_step_ahead()
         }
     }
     else {
-        #if !GTK_SOURCE_CHECK_VERSION(5, 0, 0)
+        #if GTK_SOURCE_MAJOR_VERSION < 5
         Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = currTreeIter.get_node_text_buffer();
         auto pGtkSourceBuffer = GTK_SOURCE_BUFFER(pTextBuffer->gobj());
         if (gtk_source_buffer_can_redo(pGtkSourceBuffer)) {
