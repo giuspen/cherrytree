@@ -123,6 +123,9 @@ then
   elif [ "${DISTRIB_ID}" == "Debian" ] && [[ "${DISTRIB_RELEASE}" =~ ^[0-9]+$ ]] && (( 10#${DISTRIB_RELEASE} <= 10 ))
   then
     BUNDLED_SPDLOG_FMT="Y"
+  elif [ "${DISTRIB_ID}" == "LinuxMint" ] && [[ "${DISTRIB_RELEASE}" =~ ^[0-9]+(\.[0-9]+)?$ ]] && (( 10#${DISTRIB_RELEASE%%.*} >= 23 ))
+  then
+    WITH_LIBXMLPP5="Y"
   fi
 fi
 
