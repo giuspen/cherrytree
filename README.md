@@ -44,6 +44,22 @@ Prebuilt binaries can be found on [github.com/giuspen/cherrytree/releases](https
 ## How to build from source code
 To build from the source code, please read [BUILDING.md](BUILDING.md).
 
+## Command-line node operations
+
+The existing `--node NAME` selects a node by name. Use `--node-id ID` to select a node by its numeric ID:
+
+```sh
+cherrytree notes.ctb --node-id 123
+```
+
+To duplicate a node and optionally rename the copy:
+
+```sh
+cherrytree notes.ctb --node-id 123 --duplicate --name "Copy"
+```
+
+Duplication currently requires an unencrypted `.ctb` document and rejects documents with unsaved changes. On success, stdout contains only the newly created node ID and the exit status is `0`; failures return a nonzero exit status and report the error on stderr. Duplication by node name is not supported.
+
 ## Localization
 The following languages are supported (if you want to help translate to your language, please write me):
 

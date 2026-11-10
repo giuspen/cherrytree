@@ -32,22 +32,27 @@
 #include "config.h"
 #include "ct_logging.h"
 #include <iostream>
+#include <stdexcept>
 
 namespace {
-void queue_focus_node(CtMainWin* pCtMainWin, const Glib::ustring& node_to_focus, const Glib::ustring& anchor_to_focus)
+void queue_focus_node(CtMainWin* pCtMainWin, const Glib::ustring& node_to_focus, const Glib::ustring& anchor_to_focus, gint64 node_id = 0)
 {
-    if (not pCtMainWin || node_to_focus.empty()) {
+    if (not pCtMainWin || (node_to_focus.empty() && node_id <= 0)) {
         return;
     }
     // Use idle_add to ensure the GUI has time to update before focusing.
-    Glib::signal_idle().connect_once([pCtMainWin, node_to_focus, anchor_to_focus]() {
-        CtTreeIter node = pCtMainWin->get_tree_store().get_node_from_node_name(node_to_focus);
+    Glib::signal_idle().connect_once([pCtMainWin, node_to_focus, anchor_to_focus, node_id]() {
+        CtTreeIter node = node_id > 0 ? pCtMainWin->get_tree_store().get_node_from_node_id(node_id)
+                                      : pCtMainWin->get_tree_store().get_node_from_node_name(node_to_focus);
         if (node) {
             pCtMainWin->get_tree_view().set_cursor_safe(node);
             pCtMainWin->get_text_view().mm().grab_focus();
             if (not anchor_to_focus.empty()) {
                 pCtMainWin->get_ct_actions()->current_node_scroll_to_anchor(anchor_to_focus);
             }
+        }
+        else if (node_id > 0) {
+            spdlog::warn("{} No node with ID {} found.", __FUNCTION__, node_id);
         }
         else {
             spdlog::warn("{} No node named '{}' found.", __FUNCTION__, node_to_focus.c_str());
@@ -109,10 +114,10 @@ void present_main_window(Gtk::Window* pWindow)
 
 #if GTKMM_MAJOR_VERSION >= 4
 CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::Application::Flags flags)
- : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::Application::Flags::HANDLES_OPEN | flags}
+ : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::Application::Flags::HANDLES_OPEN | Gio::Application::Flags::HANDLES_COMMAND_LINE | flags}
 #else
 CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::ApplicationFlags flags)
- : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN | flags}
+ : Gtk::Application{Glib::ustring{"net.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN | Gio::APPLICATION_HANDLES_COMMAND_LINE | flags}
 #endif
  , _pCtConfig{CtConfig::GetCtConfig()}
 {
@@ -332,6 +337,215 @@ void CtApp::on_activate()
     _anchor_to_focus.clear(); // reset for future calls
 }
 
+int CtApp::on_command_line(const Glib::RefPtr<Gio::ApplicationCommandLine>& command_line)
+{
+    const auto options = command_line->get_options_dict();
+    const bool duplicate = options->contains("duplicate");
+    const bool has_node_id = options->contains("node-id");
+    if (duplicate and not has_node_id) {
+        command_line->printerr("--duplicate requires --node-id\n");
+        return 2;
+    }
+    if (options->contains("name") and not duplicate) {
+        command_line->printerr("--name requires --duplicate\n");
+        return 2;
+    }
+    if (has_node_id and options->contains("node")) {
+        command_line->printerr("Use either --node or --node-id, not both\n");
+        return 2;
+    }
+    if (has_node_id and (options->contains("export_to_html_dir") or
+                         options->contains("export_to_txt_dir") or
+                         options->contains("export_to_pdf_dir"))) {
+        command_line->printerr("--node-id cannot be combined with export options\n");
+        return 2;
+    }
+
+    gint64 source_id{0};
+    if (has_node_id) {
+        Glib::ustring id_text;
+        options->lookup_value("node-id", id_text);
+        try {
+            const std::string input{id_text.c_str()};
+            std::size_t end{0};
+            const auto parsed = std::stoll(input, &end, 10);
+            if (end != input.size() or parsed <= 0) throw std::invalid_argument("node id");
+            source_id = parsed;
+        }
+        catch (const std::exception&) {
+            command_line->printerr("--node-id requires a positive numeric node ID\n");
+            return 2;
+        }
+    }
+
+    if (duplicate) {
+        Glib::ustring new_name;
+        const bool rename = options->lookup_value("name", new_name);
+        if (rename and new_name.empty()) {
+            command_line->printerr("The new node name must not be empty\n");
+            return 2;
+        }
+
+        int argc = 0;
+        char** argv = command_line->get_arguments(argc);
+        Glib::RefPtr<Gio::File> file;
+        if (argc == 2) file = command_line->create_file_for_arg(argv[1]);
+        g_strfreev(argv);
+        if (not file) {
+            command_line->printerr("Specify exactly one CherryTree .ctb document\n");
+            return 2;
+        }
+
+        // Initially limit the write operation to unencrypted SQLite documents:
+        // encrypted saves can finish asynchronously after save() returns.
+        std::string path;
+        try {
+            path = fs::canonical(file->get_path()).string();
+            if (not fs::is_regular_file(path) or
+                fs::get_doc_type_from_file_ext(path) != CtDocType::SQLite or
+                fs::path(path).extension() != ".ctb") {
+                command_line->printerr("This CLI operation currently supports only unencrypted .ctb files\n");
+                return 2;
+            }
+        }
+        catch (const std::exception&) {
+            command_line->printerr("Document not found or path is invalid\n");
+            return 2;
+        }
+
+        _on_startup();
+        CtMainWin* win = _get_window_by_path(path);
+        const bool temporary_window = not win;
+        if (temporary_window) {
+            win = _create_window(true/*no_gui*/);
+            if (not win->file_open(path, "", "", "")) {
+                win->force_exit() = true;
+                remove_window(*win);
+                command_line->printerr("Could not open the CherryTree document\n");
+                return 1;
+            }
+        }
+
+        int status = 1;
+        gint64 new_id = 0;
+        Glib::ustring error;
+        if (win->get_file_save_needed()) {
+            error = "Document contains unsaved changes; save it before using this command";
+        }
+        else {
+            new_id = win->get_ct_actions()->node_duplicate_cli(source_id, rename ? &new_name : nullptr);
+            if (new_id <= 0) {
+                error = "Source node ID not found";
+            }
+            else if (not win->get_ct_storage()->save(false/*need_vacuum*/, error)) {
+                // On save failure, an already-open GUI may still contain an unsaved copy.
+                error += " (the open GUI may contain an unsaved duplicate)";
+            }
+            else {
+                win->update_window_save_not_needed();
+                win->get_state_machine().update_state();
+                status = 0;
+            }
+        }
+
+        if (temporary_window) {
+            win->force_exit() = true;
+            remove_window(*win);
+        }
+        if (status == 0) {
+            command_line->print(Glib::ustring{std::to_string(new_id) + "\n"});
+        }
+        else {
+            command_line->printerr(Glib::ustring{"CherryTree: "} + error + "\n");
+        }
+        return status;
+    }
+
+    // Preserve the usual activate/open behavior for ordinary CLI invocations.
+    // Options are per-invocation, even when handled by an existing GUI process.
+    _export_to_html_dir.clear();
+    _export_to_txt_dir.clear();
+    _export_to_pdf_dir.clear();
+    _export_overwrite = false;
+    _export_single_file = false;
+    _password.clear();
+    _node_to_focus.clear();
+    _anchor_to_focus.clear();
+    options->lookup_value("node", _node_to_focus);
+    options->lookup_value("anchor", _anchor_to_focus);
+    options->lookup_value("export_to_html_dir", _export_to_html_dir);
+    options->lookup_value("export_to_txt_dir", _export_to_txt_dir);
+    options->lookup_value("export_to_pdf_dir", _export_to_pdf_dir);
+    options->lookup_value("export_overwrite", _export_overwrite);
+    options->lookup_value("export_single_file", _export_single_file);
+    options->lookup_value("password", _password);
+    bool new_window{false};
+    options->lookup_value("new_window", new_window);
+    if (new_window) {
+        _new_window = true;
+    }
+
+    int argc = 0;
+    char** argv = command_line->get_arguments(argc);
+    Gio::Application::type_vec_files files;
+    for (int i = 1; i < argc; ++i) {
+        // Resolve paths relative to the calling process, not the GUI process.
+        files.push_back(command_line->create_file_for_arg(argv[i]));
+    }
+    g_strfreev(argv);
+
+    if (has_node_id and files.size() > 1) {
+        command_line->printerr("--node-id accepts at most one CherryTree document\n");
+        return 2;
+    }
+    const Glib::ustring anchor_to_focus = _anchor_to_focus;
+
+    if (files.empty()) {
+        // Preserve node focusing also when no document path was supplied.
+        if (not _node_to_focus.empty() or not _anchor_to_focus.empty()) {
+            std::vector<Glib::ustring> args{_node_to_focus, _anchor_to_focus};
+            activate_action("focus_node", Glib::Variant<std::vector<Glib::ustring>>::create(args));
+        }
+        on_activate();
+    }
+    else {
+        on_open(files, "");
+    }
+
+    if (has_node_id) {
+        CtMainWin* target = nullptr;
+        if (not files.empty()) {
+            try {
+                target = _get_window_by_path(fs::canonical(files.front()->get_path()).string());
+            }
+            catch (const std::exception&) {
+                // The normal document-open path may already have reported this error.
+            }
+        }
+        else {
+            // Same default as --node without a path: the active visible window.
+            for (Gtk::Window* window : get_windows()) {
+                if (window->get_visible()) {
+                    if (auto win = dynamic_cast<CtMainWin*>(window)) {
+                        target = win;
+                        if (window->is_active()) break;
+                    }
+                }
+            }
+        }
+        if (not target) {
+            command_line->printerr("No CherryTree document is open for --node-id\n");
+            return 1;
+        }
+        if (not target->get_tree_store().get_node_from_node_id(source_id)) {
+            command_line->printerr("CherryTree: Source node ID not found\n");
+            return 1;
+        }
+        queue_focus_node(target, "", anchor_to_focus, source_id);
+    }
+    return 0;
+}
+
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
     _on_startup();
@@ -341,6 +555,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
          not _export_to_html_dir.empty() or
          not _export_to_pdf_dir.empty() )
     {
+        const bool old_no_gui = _no_gui;
         _no_gui = true;
         spdlog::debug("export arguments are detected");
         for (const Glib::RefPtr<Gio::File>& r_file : files) {
@@ -367,6 +582,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             remove_window(*pWin);
         }
         spdlog::debug("export is done, closing app");
+        _no_gui = old_no_gui;
         // exit app
         return;
     }
@@ -397,6 +613,10 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
                     pAppWindow->get_ct_actions()->check_for_newer_version();
                 }
             }
+        }
+        else if (not _node_to_focus.empty()) {
+            // Existing document: focus the requested node after presenting the window.
+            queue_focus_node(pAppWindow, _node_to_focus, _anchor_to_focus);
         }
         // window can be hidden, so show it first
         present_main_window(pAppWindow);
@@ -609,6 +829,9 @@ void CtApp::_add_main_option_entries()
 {
 #if GTKMM_MAJOR_VERSION >= 4
     add_main_option_entry(Gio::Application::OptionType::BOOL,     "version",            'V', _("Print CherryTree version"));
+    add_main_option_entry(Gio::Application::OptionType::STRING,   "node-id",            0,   _("Numeric node ID to focus or duplicate"));
+    add_main_option_entry(Gio::Application::OptionType::BOOL,     "duplicate",          0,   _("Duplicate the node selected by --node-id"));
+    add_main_option_entry(Gio::Application::OptionType::STRING,   "name",               0,   _("Name of duplicated node (optional)"));
     add_main_option_entry(Gio::Application::OptionType::STRING,   "node",               'n', _("Node name to focus"));
     add_main_option_entry(Gio::Application::OptionType::STRING,   "anchor",             'a', _("Anchor name to scroll to in node"));
     add_main_option_entry(Gio::Application::OptionType::FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
@@ -621,6 +844,9 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OptionType::BOOL,     "secondary_session",  'S', _("Run in secondary session, independent from main session"));
 #else
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "version",            'V', _("Print CherryTree version"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node-id",            0,   _("Numeric node ID to focus or duplicate"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "duplicate",          0,   _("Duplicate the node selected by --node-id"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "name",               0,   _("Name of duplicated node (optional)"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "anchor",             'a', _("Anchor name to scroll to in node"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
@@ -661,29 +887,6 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
         return 0; // to exit app
     }
 
-    bool new_window{false};
-
-    _node_to_focus.clear();
-    _anchor_to_focus.clear();
-    rOptions->lookup_value("node", _node_to_focus);
-    rOptions->lookup_value("anchor", _anchor_to_focus);
-    rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
-    rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
-    rOptions->lookup_value("export_to_pdf_dir", _export_to_pdf_dir);
-    rOptions->lookup_value("export_overwrite", _export_overwrite);
-    rOptions->lookup_value("export_single_file", _export_single_file);
-    rOptions->lookup_value("password", _password);
-    rOptions->lookup_value("new_window", new_window);
-
-    if (is_remote() && (not _node_to_focus.empty() || not _anchor_to_focus.empty())) {
-        // Forward node focus request from remote to primary instance via action
-        std::vector<Glib::ustring> args{_node_to_focus, _anchor_to_focus};
-        activate_action("focus_node", Glib::Variant<std::vector<Glib::ustring>>::create(args));
-    }
-
-    if (new_window) {
-        activate_action("new_window");
-    }
-
+    // Remaining options are handled in the primary instance by on_command_line().
     return -1; // Keep going
 }

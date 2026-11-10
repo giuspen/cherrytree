@@ -122,14 +122,17 @@ public:
 
 private:
     // helpers for tree actions
-    void _node_add(const CtDuplicateShared duplicate_shared,
+    Gtk::TreeModel::iterator _node_add(const CtDuplicateShared duplicate_shared,
                    const bool add_as_child,
                    const CtTreeIter* pCtTreeIterFrom = nullptr,
-                   CtMainWin* pWinToCopyFrom = nullptr);
+                   CtMainWin* pWinToCopyFrom = nullptr,
+                   const Glib::ustring* pNewName = nullptr,
+                   bool select_new = true);
     Gtk::TreeModel::iterator _node_add_with_data(Gtk::TreeModel::iterator curr_iter,
                                       CtNodeData& nodeData,
                                       const bool add_as_child,
-                                      std::shared_ptr<CtNodeState> node_state);
+                                      std::shared_ptr<CtNodeState> node_state,
+                                      bool select_new = true);
 
 public:
     Gtk::TreeModel::iterator node_child_exist_or_create(Gtk::TreeModel::iterator parentIter,
@@ -154,6 +157,7 @@ public:
     void node_add() {
         _node_add(CtDuplicateShared::None, false/*add_as_child*/);
     }
+    gint64 node_duplicate_cli(gint64 source_node_id, const Glib::ustring* pNewName);
     void node_duplicate() {
         if (not _is_there_selected_node_or_error()) return;
         CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
