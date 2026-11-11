@@ -473,3 +473,89 @@ TEST(ListsGroup, SelectionIndentPartialFirstLine)
         "      \xE2\x87\x92 item two"};
     ASSERT_STREQ(expected_tab_text.c_str(), pTextBuffer->get_text().c_str());
 }
+TEST(ListsGroup, NumberedListIndentRenumber)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+
+    const Glib::ustring initial_text{
+        "1) Apple" _NL
+        "2) Banana" _NL
+        "3) Cherry" _NL
+        "4) Date"};
+
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Indent Cherry.
+    Gtk::TextIter sel_start = pTextBuffer->get_iter_at_line(2);
+    Gtk::TextIter sel_end = sel_start;
+
+    bool res = ct_list.selection_indent(sel_start, sel_end, true);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_indent{
+        "1) Apple" _NL
+        "2) Banana" _NL
+        "   1- Cherry" _NL
+        "3) Date"};
+
+    ASSERT_STREQ(expected_indent.c_str(), pTextBuffer->get_text().c_str());
+
+    // Unindent Cherry.
+    sel_start = pTextBuffer->get_iter_at_line(2);
+    sel_end = sel_start;
+
+    res = ct_list.selection_indent(sel_start, sel_end, false);
+    ASSERT_TRUE(res);
+
+    ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
+}
+TEST(ListsGroup, NumberedListMultiIndentRenumber)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+
+    const Glib::ustring initial_text{
+        "1) Apple" _NL
+        "2) Banana" _NL
+        "3) Cherry" _NL
+        "4) Date" _NL
+        "5) Elderberry" _NL
+        "6) Fig"};
+
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Indent Cherry and Date together.
+    Gtk::TextIter sel_start = pTextBuffer->get_iter_at_line(2);
+    Gtk::TextIter sel_end = pTextBuffer->get_iter_at_line(3);
+    sel_end.forward_to_line_end();
+
+    bool res = ct_list.selection_indent(sel_start, sel_end, true);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_indent{
+        "1) Apple" _NL
+        "2) Banana" _NL
+        "   1- Cherry" _NL
+        "   2- Date" _NL
+        "3) Elderberry" _NL
+        "4) Fig"};
+
+    ASSERT_STREQ(expected_indent.c_str(), pTextBuffer->get_text().c_str());
+
+    // Unindent Cherry and Date together.
+    sel_start = pTextBuffer->get_iter_at_line(2);
+    sel_end = pTextBuffer->get_iter_at_line(3);
+    sel_end.forward_to_line_end();
+
+    res = ct_list.selection_indent(sel_start, sel_end, false);
+    ASSERT_TRUE(res);
+
+    ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
+}
