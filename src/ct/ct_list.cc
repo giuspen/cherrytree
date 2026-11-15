@@ -255,6 +255,8 @@ CtListInfo CtList::get_next_list_info_on_level(Gtk::TextIter iter_start, int lev
         CtListInfo list_info = get_paragraph_list_info(iter_start);
         if (!list_info)
             break;
+        if (list_info.level < level)
+            break;
         if (list_info.level == level) {
             ret_val = list_info;
             break;
@@ -535,24 +537,17 @@ void CtList::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list
         curr_offset = iter_start.get_offset();
     }
     if (list_info.type == CtListType::Number) {
-        // Renumber items remaining at the original indentation level.
-        Gtk::TextIter iter_after = _curr_buffer->get_iter_at_offset(curr_offset);
-        renumber_following_numbered_items(iter_after, original_num, curr_level);
-
-        // Renumber items at the new indentation level.
         Gtk::TextIter iter_changed = _curr_buffer->get_iter_at_offset(list_info.startoffs);
         CtListInfo changed_info = get_paragraph_list_info(iter_changed);
 
         if (changed_info and changed_info.type == CtListType::Number) {
-            Gtk::TextIter iter_next = _curr_buffer->get_iter_at_offset(
-                get_multiline_list_element_end_offset(iter_changed, changed_info)
-            );
+            const int after_offset = get_multiline_list_element_end_offset(iter_changed, changed_info);
 
-            renumber_following_numbered_items(
-                iter_next,
-                changed_info.num_seq + 1,
-                next_level
-            );
+            // Renumber items remaining at the original indentation level.
+            renumber_following_numbered_items(_curr_buffer->get_iter_at_offset(after_offset), original_num, curr_level);
+
+            // Renumber items at the new indentation level.
+            renumber_following_numbered_items(_curr_buffer->get_iter_at_offset(after_offset), changed_info.num_seq + 1, next_level);
         }
     }
 }

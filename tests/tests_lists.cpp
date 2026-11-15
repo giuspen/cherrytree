@@ -559,3 +559,48 @@ TEST(ListsGroup, NumberedListMultiIndentRenumber)
 
     ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
 }
+
+TEST(ListsGroup, NumberedListNestedSeparateSections)
+{
+    Glib::init();
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+
+    const Glib::ustring initial_text{
+        "1) Section One" _NL
+        "   1- Apple" _NL
+        "   2- Banana" _NL
+        "2) Section Two" _NL
+        "   1- Cat" _NL
+        "   2- Dog"};
+
+    pTextBuffer->set_text(initial_text);
+
+    CtConfig* pCtConfig = CtConfig::GetCtConfig();
+    CtList ct_list{pCtConfig, pTextBuffer};
+
+    // Indent Apple to level 2.
+    Gtk::TextIter sel_start = pTextBuffer->get_iter_at_line(1);
+    Gtk::TextIter sel_end = sel_start;
+
+    bool res = ct_list.selection_indent(sel_start, sel_end, true);
+    ASSERT_TRUE(res);
+
+    const Glib::ustring expected_indent{
+        "1) Section One" _NL
+        "      1> Apple" _NL
+        "   1- Banana" _NL
+        "2) Section Two" _NL
+        "   1- Cat" _NL
+        "   2- Dog"};
+
+    ASSERT_STREQ(expected_indent.c_str(), pTextBuffer->get_text().c_str());
+
+    // Unindent Apple back to level 1.
+    sel_start = pTextBuffer->get_iter_at_line(1);
+    sel_end = sel_start;
+
+    res = ct_list.selection_indent(sel_start, sel_end, false);
+    ASSERT_TRUE(res);
+
+    ASSERT_STREQ(initial_text.c_str(), pTextBuffer->get_text().c_str());
+}
