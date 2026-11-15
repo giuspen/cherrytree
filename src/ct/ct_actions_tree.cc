@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2025
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -335,7 +335,6 @@ Gtk::TreeModel::iterator CtActions::_node_add_with_data(Gtk::TreeModel::iterator
     CtTreeStore& ct_treestore = _pCtMainWin->get_tree_store();
     nodeData.nodeId = ct_treestore.node_id_get();
 
-    if (select_new) _pCtMainWin->update_window_save_needed();
     _pCtConfig->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeModel::iterator nodeIter;
@@ -353,7 +352,7 @@ Gtk::TreeModel::iterator CtActions::_node_add_with_data(Gtk::TreeModel::iterator
         _pCtMainWin->load_buffer_from_state(node_state, nodeCtIter, select_new);
     }
     nodeCtIter.pending_new_db_node();
-    if (not select_new) _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::None, false, &nodeCtIter);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::None, false, &nodeCtIter);
     ct_treestore.nodes_sequences_fix(nodeIter->parent(), false);
     ct_treestore.update_node_aux_icon(nodeCtIter);
     if (select_new) {

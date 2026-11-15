@@ -131,6 +131,7 @@ CtApp::CtApp(const Glib::ustring application_id_postfix, Gio::ApplicationFlags f
         _new_window = true;
     });
 
+    // action to call from second instance or command line to focus a node (#2813)
     auto focus_node_action = Gio::SimpleAction::create("focus_node", Glib::VariantType("as"));
     focus_node_action->signal_activate().connect([this](const Glib::VariantBase& parameter) {
         auto args = Glib::VariantBase::cast_dynamic<Glib::Variant<std::vector<Glib::ustring>>>(parameter).get();
@@ -385,6 +386,10 @@ int CtApp::on_command_line(const Glib::RefPtr<Gio::ApplicationCommandLine>& comm
             command_line->printerr("The new node name must not be empty\n");
             return 2;
         }
+        if (rename and (new_name.find('\n') != Glib::ustring::npos or new_name.find('\r') != Glib::ustring::npos)) {
+            command_line->printerr("The new node name must not contain newlines\n");
+            return 2;
+        }
 
         int argc = 0;
         char** argv = command_line->get_arguments(argc);
@@ -442,6 +447,15 @@ int CtApp::on_command_line(const Glib::RefPtr<Gio::ApplicationCommandLine>& comm
                 error += " (the open GUI may contain an unsaved duplicate)";
             }
             else {
+                CtTreeIter duplicate_iter = win->get_tree_store().get_node_from_node_id(new_id);
+                if (duplicate_iter) {
+                    if (auto buf = duplicate_iter.get_node_text_buffer()) {
+                        buf->set_modified(false);
+                    }
+                    for (CtAnchoredWidget* w : duplicate_iter.get_anchored_widgets_fast()) {
+                        w->set_modified_false();
+                    }
+                }
                 win->update_window_save_not_needed();
                 win->get_state_machine().update_state();
                 status = 0;
@@ -501,7 +515,9 @@ int CtApp::on_command_line(const Glib::RefPtr<Gio::ApplicationCommandLine>& comm
     const Glib::ustring anchor_to_focus = _anchor_to_focus;
 
     if (files.empty()) {
-        // Preserve node focusing also when no document path was supplied.
+        // Do not remove: Required for #2813 when no document path is supplied (e.g. cherrytree -n "Node").
+        // On cold start with reloadDocLast, on_activate() creates the window but does not focus the node;
+        // focus_node queues an idle callback that runs after the window is presented.
         if (not _node_to_focus.empty() or not _anchor_to_focus.empty()) {
             std::vector<Glib::ustring> args{_node_to_focus, _anchor_to_focus};
             activate_action("focus_node", Glib::Variant<std::vector<Glib::ustring>>::create(args));

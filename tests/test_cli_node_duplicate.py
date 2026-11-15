@@ -49,6 +49,12 @@ def main(executable, fixture):
         check(invalid.returncode == 2, "Missing --node-id must exit with status 2")
         check(not invalid.stdout, "Invalid command produced stdout")
 
+        newline_name = run(document, "--node-id", source_id, "--duplicate", "--name", "Invalid\nName")
+        check(newline_name.returncode == 2, "Newline in --name must exit with status 2")
+
+        empty_name = run(document, "--node-id", source_id, "--duplicate", "--name", "")
+        check(empty_name.returncode == 2, "Empty --name must exit with status 2")
+
         not_found = run(document, "--node-id", source_id + 1000000, "--duplicate")
         check(not_found.returncode == 1, "Unknown node ID must exit with status 1")
         check(not not_found.stdout, "Unknown node ID produced stdout")

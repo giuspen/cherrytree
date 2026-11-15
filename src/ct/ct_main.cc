@@ -1,7 +1,7 @@
 /*
  * ct_main.cc
  *
- * Copyright 2009-2024
+ * Copyright 2009-2026
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -104,20 +104,16 @@ int main(int argc, char *argv[])
 #endif /* HAVE_NLS */
 
     // Keep stdout machine-readable for CLI node duplication.
-    bool cli_node_command{false};
+    bool cli_node_duplicate{false};
     for (int i = 1; i < argc; ++i) {
-        if (0 == strcmp("--node-id", argv[i]) or
-            0 == strncmp("--node-id=", argv[i], strlen("--node-id=")) or
-            0 == strcmp("--duplicate", argv[i]) or
-            0 == strcmp("--name", argv[i]) or
-            0 == strncmp("--name=", argv[i], strlen("--name="))) {
-            cli_node_command = true;
+        if (0 == strcmp("--duplicate", argv[i])) {
+            cli_node_duplicate = true;
             break;
         }
     }
     // output logs into console and a log file
     std::vector<spdlog::sink_ptr> sinks;
-    if (cli_node_command) sinks.push_back(std::make_shared<spdlog::sinks::stderr_color_sink_mt>());
+    if (cli_node_duplicate) sinks.push_back(std::make_shared<spdlog::sinks::stderr_color_sink_mt>());
     else sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
 
     std::optional<fs::path> optLogdir = fs::get_cherrytree_logdir();
