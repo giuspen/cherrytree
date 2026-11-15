@@ -77,6 +77,7 @@ protected:
 
 protected:
     void        on_activate() override;
+    int         on_command_line(const Glib::RefPtr<Gio::ApplicationCommandLine>& command_line) override;
     void        on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void        on_window_removed(Gtk::Window* window) override;
 
