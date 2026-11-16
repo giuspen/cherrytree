@@ -298,7 +298,12 @@ void CtApp::on_activate()
             pAppWindow->get_ct_actions()->check_for_newer_version();
         }
         pAppWindow->maybe_show_start_dialog();
-        present_main_window(pAppWindow);
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+        if (not pAppWindow->start_on_systray_is_active())
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
+        {
+            present_main_window(pAppWindow);
+        }
     }
     else {
         // start of the second instance
@@ -606,9 +611,13 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     // ordinary app start with filepath argument
     for (const Glib::RefPtr<Gio::File>& r_file : files) {
         CtMainWin* pAppWindow = _get_window_by_path(r_file->get_path());
+        bool should_present_window = true;
         if (nullptr == pAppWindow) {
             // there is not a window already running with that document
             pAppWindow = _create_window();
+#if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
+            should_present_window = not pAppWindow->start_on_systray_is_active();
+#endif /* GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED) */
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
 #if GTKMM_MAJOR_VERSION < 4 && !defined(GTKMM_DISABLE_DEPRECATED)
             if (not pAppWindow->start_on_systray_is_active())
@@ -635,7 +644,9 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             queue_focus_node(pAppWindow, _node_to_focus, _anchor_to_focus);
         }
         // window can be hidden, so show it first
-        present_main_window(pAppWindow);
+        if (should_present_window) {
+            present_main_window(pAppWindow);
+        }
     }
     _new_window = false; // reset for future calls
     _node_to_focus.clear(); // reset for future calls

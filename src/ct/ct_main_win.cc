@@ -1181,6 +1181,9 @@ void CtMainWin::maybe_show_start_dialog()
 
     _startDialogShown = true;
     Glib::signal_idle().connect_once([this]() {
+        if (not _uCtStorage->get_file_path().empty() || get_tree_store().get_iter_first()) {
+            return;
+        }
         bool dont_show_again{false};
         std::string recent_filepath;
         CtDialogs::CtStartDialogAction action = CtDialogs::start_dialog(
